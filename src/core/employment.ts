@@ -1,6 +1,7 @@
 import { productionCompanyTalentIds } from './productionPeople.js'
 import { initializeHollywood, industryBusyTalentIds, rivalEmployment } from './hollywood.js'
-import { closedWeekOf } from './operatingState.js'
+import { buyerOperatedProductions } from './continuedWork.js'
+import { terminalWeekOf } from './operatingState.js'
 import { campaignHasFounded, campaignRecordsFounding, ENGAGED_FOUNDING_REFUSAL, recordFoundingFund, recordsFoundingFund, SECOND_FOUNDING_REFUSAL } from './foundingFunding.js'
 // ── D-11 Studio Employment, Contracts, Roster, Freelancer Market ──────────────
 // A PURE module (like talentSummary/filmPackage): no React/DOM/async/IO, no time,
@@ -127,7 +128,7 @@ export function isContracted(state: GameState, talentId: string, week?: number):
  * merely because they wrote the screenplay").
  */
 export function activeProductionCompanyTalentIds(state: GameState): Set<string> {
-  return productionCompanyTalentIds(state.studio.activeProductions)
+  return productionCompanyTalentIds(buyerOperatedProductions(state))
 }
 
 /**
@@ -136,7 +137,7 @@ export function activeProductionCompanyTalentIds(state: GameState): Set<string> 
  * are not production seats. Engine release and the Bridge ask this one question.
  */
 export function seatingProduction(state: GameState, talentId: string): Production | undefined {
-  return state.studio.activeProductions.find((p) => productionCompanyTalentIds([p]).has(talentId))
+  return buyerOperatedProductions(state).find((p) => productionCompanyTalentIds([p]).has(talentId))
 }
 
 /**
@@ -163,7 +164,7 @@ export function activeWritingAssignmentIds(state: GameState): Set<string> {
  */
 export function creditedWriterIds(state: GameState): Set<string> {
   const ids = new Set<string>()
-  for (const p of state.studio.activeProductions) ids.add(p.writerId)
+  for (const p of buyerOperatedProductions(state)) ids.add(p.writerId)
   return ids
 }
 
@@ -173,7 +174,7 @@ export function creditedWriterIds(state: GameState): Set<string> {
 export function busyTalentIds(state: GameState): Set<string> {
   const busy = activeProductionCompanyTalentIds(state)
   for (const id of activeWritingAssignmentIds(state)) busy.add(id)
-  for (const id of industryBusyTalentIds(state.hollywood, closedWeekOf(state))) busy.add(id)
+  for (const id of industryBusyTalentIds(state.hollywood, terminalWeekOf(state))) busy.add(id)
   for (const project of state.technology?.projects ?? []) {
     if (project.status !== 'active') continue
     for (const seat of project.seats) {

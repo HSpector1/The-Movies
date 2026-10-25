@@ -1,7 +1,7 @@
 /** P11 read model. Observations only; ledger/checkpoint are the sole cash history. */
 import type { GameState, LedgerEntry, LedgerKind } from './types.js'
 import { TUNING } from './tuning.js'
-import { financeView } from './economyView.js'
+import { estatePurchaseClassifier, financeView } from './economyView.js'
 
 export const FINANCE_CATEGORIES: Record<LedgerKind, string> = {
   researchPayroll: 'Scientist payroll', researchSpend: 'Research materials and experiments', technologyAdoption: 'Technology access and production equipment',
@@ -18,8 +18,15 @@ export const FINANCE_CATEGORIES: Record<LedgerKind, string> = {
   termination: 'Termination payments', publicity: 'Publicity',
   // P15B (1357-A §6.3): the two loan homes, and the closure claim payments beside termination.
   loanPrincipal: 'Studio loan received', loanInstallment: 'Studio loan installments', claimPayment: 'Closure claim payments',
+  rightsConsideration: 'Rights sale proceeds, purchases and licence fees',
+  dueDiligenceFee: 'Rights due diligence fees',
+  acquisitionOutlay: 'Acquisition consideration net of target cash',
+  absorbedRunRevenue: 'Scheduled film revenue acquired with a studio',
 }
-export type FinanceCategory = { kind: LedgerKind; label: string; amount: number; entryCount: number }
+// A reporting category, not a new ledger kind or cash authority.
+export type FinanceCategoryKind = LedgerKind | 'estatePurchase'
+const CATEGORY_LABELS: Record<FinanceCategoryKind, string> = { ...FINANCE_CATEGORIES, estatePurchase: 'Estate asset purchases (proceeds paid to the estate)' }
+export type FinanceCategory = { kind: FinanceCategoryKind; label: string; amount: number; entryCount: number }
 export const FINANCE_TIME_CLASSES = {
   recordedCash: 'Recorded cash movements in the named ledger weeks',
   currentRecurringCost: 'Recurring costs charged by the next advance from current state',
@@ -47,7 +54,7 @@ export type FinanceCostPoint = {
   week: number; amount: number | null; coverage: FinancePeriod['coverage']; notice: string | null;
 }
 export type FinanceCostSeries = {
-  kind: LedgerKind; label: string; periodAmount: number | null; points: FinanceCostPoint[];
+  kind: FinanceCategoryKind; label: string; periodAmount: number | null; points: FinanceCostPoint[];
 }
 export type FinanceHistoryWindow = {
   windowWeeks: 13 | 52; label: string; period: FinancePeriod | null; points: FinancePeriod[]; costSeries: FinanceCostSeries[];
@@ -86,7 +93,7 @@ export function financeRecordingBoundary(state: GameState): { firstCompleteWeek:
 }
 
 function finishPeriod(state: GameState, fromWeek: number, toWeekInclusive: number, id: string, label: string,
-  opening: number, closing: number, netCash: number, byKind: Map<LedgerKind, FinanceCategory>,
+  opening: number, closing: number, netCash: number, byKind: Map<FinanceCategoryKind, FinanceCategory>,
   capital: FinanceCapitalContributors): FinancePeriod {
   const boundary = financeRecordingBoundary(state)
   const validRange = Number.isInteger(fromWeek) && Number.isInteger(toWeekInclusive)
@@ -105,8 +112,8 @@ function finishPeriod(state: GameState, fromWeek: number, toWeekInclusive: numbe
       ...(!complete ? ['Retained facility capital payments only; this period does not have complete recording coverage.'] : []),
       ...(capital.remainingEntries > 0 ? [`Showing ${capital.rows.length} of ${capital.totalEntries} recorded payments. The remaining ${capital.remainingEntries} payments are included in the remainder amount.`] : []),
     ].join(' ') || null },
-    categories: Object.keys(FINANCE_CATEGORIES).flatMap(k => {
-      const value = byKind.get(k as LedgerKind)
+    categories: Object.keys(CATEGORY_LABELS).flatMap(k => {
+      const value = byKind.get(k as FinanceCategoryKind)
       return value === undefined ? [] : [{ ...value }]
     }),
   }
@@ -153,20 +160,22 @@ function addCapitalContributor(capital: FinanceCapitalContributors, entry: Ledge
   })
 }
 
-function addCategory(byKind: Map<LedgerKind, FinanceCategory>, entry: LedgerEntry): void {
-  const category = byKind.get(entry.kind) ?? { kind: entry.kind, label: FINANCE_CATEGORIES[entry.kind], amount: 0, entryCount: 0 }
+function addCategory(byKind: Map<FinanceCategoryKind, FinanceCategory>, entry: LedgerEntry, estatePurchase: (entry: LedgerEntry) => boolean): void {
+  const kind: FinanceCategoryKind = estatePurchase(entry) ? 'estatePurchase' : entry.kind
+  const category = byKind.get(kind) ?? { kind, label: CATEGORY_LABELS[kind], amount: 0, entryCount: 0 }
   category.amount += entry.amount
   category.entryCount++
-  byKind.set(entry.kind, category)
+  byKind.set(category.kind, category)
 }
 
 export function recordedFinancePeriod(state: GameState, fromWeek: number, toWeekInclusive: number, id: string, label: string,
   contributorLimit = FINANCE_CAPITAL_CONTRIBUTOR_LIMIT): FinancePeriod {
+  const estatePurchase = estatePurchaseClassifier(state)
   const checkpoint = state.cashLedgerCheckpoint
   let opening = checkpoint?.cash ?? TUNING.INITIAL_CASH
   let closing = opening
   let netCash = 0
-  const byKind = new Map<LedgerKind, FinanceCategory>()
+  const byKind = new Map<FinanceCategoryKind, FinanceCategory>()
   const capital = emptyCapitalContributors()
   const identities = capitalIdentities(state)
   const limit = Number.isInteger(contributorLimit) && contributorLimit >= 0
@@ -180,7 +189,7 @@ export function recordedFinancePeriod(state: GameState, fromWeek: number, toWeek
     if (entry.week <= toWeekInclusive) closing += entry.amount
     if (entry.week < fromWeek || entry.week > toWeekInclusive) continue
     netCash += entry.amount
-    addCategory(byKind, entry)
+    addCategory(byKind, entry, estatePurchase)
     addCapitalContributor(capital, entry, i, identities, limit)
   }
   return finishPeriod(state, fromWeek, toWeekInclusive, id, label, opening, closing, netCash, byKind, capital)
@@ -190,6 +199,7 @@ export function recordedFinancePeriod(state: GameState, fromWeek: number, toWeek
 export function financeHistory(state: GameState): FinanceHistory {
   const lastWeek = state.market.tick - 1
   const firstWeek = Math.max(0, state.market.tick - 52)
+  const estatePurchase = estatePurchaseClassifier(state)
   const checkpoint = state.cashLedgerCheckpoint
   const identities = capitalIdentities(state)
   let opening = checkpoint?.cash ?? TUNING.INITIAL_CASH
@@ -205,7 +215,7 @@ export function financeHistory(state: GameState): FinanceHistory {
   }
   const windows = ([13, 52] as const).map((windowWeeks): FinanceHistoryWindow => {
     const fromWeek = Math.max(0, state.market.tick - windowWeeks)
-    const categories = new Map<LedgerKind, FinanceCategory>()
+    const categories = new Map<FinanceCategoryKind, FinanceCategory>()
     const capital = emptyCapitalContributors()
     const points: FinancePeriod[] = []
     let cash = opening
@@ -213,7 +223,7 @@ export function financeHistory(state: GameState): FinanceHistory {
     let windowNet = 0
     for (let week = firstWeek; week <= lastWeek; week++) {
       const weekOpening = cash
-      const weekCategories = new Map<LedgerKind, FinanceCategory>()
+      const weekCategories = new Map<FinanceCategoryKind, FinanceCategory>()
       const weekCapital = emptyCapitalContributors()
       let weekNet = 0
       for (const { entry, ledgerIndex } of byWeek.get(week) ?? []) {
@@ -221,8 +231,8 @@ export function financeHistory(state: GameState): FinanceHistory {
         if (week < fromWeek) continue
         weekNet += entry.amount
         windowNet += entry.amount
-        addCategory(weekCategories, entry)
-        addCategory(categories, entry)
+        addCategory(weekCategories, entry, estatePurchase)
+        addCategory(categories, entry, estatePurchase)
         addCapitalContributor(weekCapital, entry, ledgerIndex, identities, FINANCE_CAPITAL_CONTRIBUTOR_LIMIT)
         addCapitalContributor(capital, entry, ledgerIndex, identities, FINANCE_CAPITAL_CONTRIBUTOR_LIMIT)
       }
@@ -235,9 +245,9 @@ export function financeHistory(state: GameState): FinanceHistory {
         : `Last ${windowWeeks} completed weeks`
     const period = points.length === 0 ? null : finishPeriod(state, fromWeek, lastWeek, `last${windowWeeks}Weeks`, label,
       windowOpening, cash, windowNet, categories, capital)
-    const costSeries = (Object.keys(FINANCE_CATEGORIES) as LedgerKind[])
-      .filter(kind => kind !== 'studioRevenue' && kind !== 'boxOffice')
-      .map((kind): FinanceCostSeries => ({ kind, label: FINANCE_CATEGORIES[kind],
+    const costSeries = (Object.keys(CATEGORY_LABELS) as FinanceCategoryKind[])
+      .filter(kind => kind !== 'studioRevenue' && kind !== 'boxOffice' && kind !== 'absorbedRunRevenue')
+      .map((kind): FinanceCostSeries => ({ kind, label: CATEGORY_LABELS[kind],
         periodAmount: period?.categories.find(c => c.kind === kind)?.amount ?? (period?.complete ? 0 : null),
         points: points.map(point => ({ week: point.fromWeek,
           amount: point.categories.find(c => c.kind === kind)?.amount ?? (point.complete ? 0 : null),
@@ -252,6 +262,7 @@ export function financeHistory(state: GameState): FinanceHistory {
 /** Exact row identities and source notes, paged without interpreting names or notes as IDs. */
 export function recordedFinanceEntries(state: GameState, fromWeek: number, toWeekInclusive: number,
   offset = 0, limit = 50, kind?: LedgerKind): FinanceRecordedEntries {
+  const estatePurchase = estatePurchaseClassifier(state)
   const safeOffset = Number.isInteger(offset) && offset >= 0 ? offset : 0
   const safeLimit = Number.isInteger(limit) && limit > 0 ? Math.min(limit, 100) : 50
   const rows: FinanceRecordedEntry[] = []
@@ -260,7 +271,7 @@ export function recordedFinanceEntries(state: GameState, fromWeek: number, toWee
     const entry = state.ledger[i]!
     if (entry.week < fromWeek || entry.week > toWeekInclusive || (kind !== undefined && entry.kind !== kind)) continue
     if (totalEntries >= safeOffset && rows.length < safeLimit) rows.push({
-      ledgerIndex: i, week: entry.week, kind: entry.kind, categoryLabel: FINANCE_CATEGORIES[entry.kind],
+      ledgerIndex: i, week: entry.week, kind: entry.kind, categoryLabel: CATEGORY_LABELS[estatePurchase(entry) ? 'estatePurchase' : entry.kind],
       amount: entry.amount, note: entry.note, talentId: entry.talentId ?? null,
       productionId: entry.productionId ?? null, constructionProjectId: entry.constructionProjectId ?? null,
       provenance: 'Recorded cash ledger',
@@ -298,5 +309,24 @@ export function financeOverview(state: GameState) {
     paceTimeClass: 'currentPaceEstimate' as const,
     firstCompleteWeek: boundary.firstCompleteWeek, coverageNotice: boundary.notice,
     lastPeriod, currentPeriod,
+  }
+}
+
+/** Own closed-studio accounting only. These are retained P15 amounts, not operating cash or rival disclosure. */
+export function ownedEstateFinance(state: GameState) {
+  const player = state.hollywood?.playerStudioId
+  const closure = state.studioClosure?.closures.find(c => c.studioId === player)
+  if (closure === undefined) return null
+  const events = state.studioClosure.estateEvents.filter(e => e.closureId === closure.closureId)
+  const claims = state.studioClosure.claims.filter(c => c.closureId === closure.closureId)
+  return {
+    closureId: closure.closureId, closureWeek: closure.closureWeek,
+    closingCash: closure.cash.closing,
+    runReceipts: events.filter(e => e.kind === 'runReceipt').reduce((sum, e) => sum + e.amount, 0),
+    saleProceeds: events.filter(e => e.kind === 'saleReceipt').reduce((sum, e) => sum + e.amount, 0),
+    claimPayments: claims.reduce((sum, c) => sum + c.paid, 0),
+    unpaidClaims: claims.reduce((sum, c) => sum + c.unpaid, 0),
+    stoppedLoanRemainder: closure.loan?.remainder ?? 0,
+    basis: 'Retained P15 closure cash, actual estate receipts and claim payments. Estate proceeds are not operating studio revenue; unpaid loan remainder is not assumed by a buyer.',
   }
 }

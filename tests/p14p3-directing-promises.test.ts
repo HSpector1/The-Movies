@@ -1,3 +1,4 @@
+import { cutoverRightsRoot } from '../src/core/rights.js'
 // Independent 1112-A/C/D/E, 1121-A/B and 1132-A/B requirements.
 // Fourteen existing leaves plus two fixed-rival leaves. Parent owns execution.
 import assert from 'node:assert/strict'
@@ -113,7 +114,7 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
   const h = (state as { hollywood?: { businesses?: Business[] } | null }).hollywood
   const withLoans = h === undefined || h === null || !Array.isArray(h.businesses) ? state : { ...state, hollywood: { ...h,
     businesses: h.businesses.map((b) => ({ ...b, account: { ...b.account, periods: b.account.periods.map((p) => ({
-      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) } })) } }
+      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0 } })) } })) } }
   return { ...withLoans,
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
@@ -121,7 +122,7 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
     campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
     // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
     foundingFunding: { version: 1, recordedFromWeek: week, fund: null },
-    ...initialP15BRoots(week) }
+    ...initialP15BRoots(week), rights: cutoverRightsRoot(withLoans as unknown as GameState) }
 }
 // P15B (1370-ar): the P15B step gives every rival finance period the three loan money kinds at zero; a genuine
 // V45-or-older old.state never carried them.
@@ -129,9 +130,12 @@ function withZeroLoanMovements<T extends WithRivalBusinesses>(state: T): T {
   if (state.hollywood === null) return state
   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
     ...business, account: { ...business.account, periods: business.account.periods.map((period) => ({
-      ...period, movements: { ...period.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) },
+      ...period, movements: { ...period.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0 } })) },
   })) } }
 }
+// Save49 (P16): convertV48ToV49 adds the empty rights root at the save's own week and a zero movement of each
+// of the three rights kinds to every rival period; the old state never carried them. Literals are this file's
+// own expectation, as for the P15 roots above.
 // 1358-F11 ruling 1: a genuine Save39 Director capture of record 1221 (manifest schema.saveVersion
 // 39), pinned and loaded as p14p4p5-opportunities Q04 loads it. Production's convertV39ToV40 alone gives
 // its lawful V40 state for the frozen builders. Nothing is stripped.
@@ -472,7 +476,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
       // 1363-N: expected-only null cutting and zero refund in every historical period.
       const oldState = saves.stableStringify(withZeroLoanMovements(withEmptyRecovery(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.save.state))))), old.save.state.market.tick))))
       const current = saves.migrateToLive(old.save)
-      expect(saves.validateSaveV48(current)).toBe(current)
+      expect(saves.validateSaveV49(current)).toBe(current)
       // Existing semantic boundary: fails as37/38 rather than a missing import.
       expect(current.saveVersion).toBe(saves.LIVE_SAVE_VERSION)
       expect(saves.stableStringify(current.state)).toBe(oldState)

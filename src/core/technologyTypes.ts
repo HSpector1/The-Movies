@@ -37,6 +37,8 @@ export type ResearchLegacyPrefix = {
   verifiedWork: number
   expenditure: number
 }
+/** Current49 producer-owned cancellation link. Absent on genuinely earlier/manual cancellations. */
+export type ResearchAbsorptionCancellation = { absorptionId: string; week: number; priorStatus: 'active' | 'paused' }
 export type ResearchProject = {
   id: string
   studioId: string
@@ -51,15 +53,19 @@ export type ResearchProject = {
   seats: ResearchSeat[]
   weeks: ResearchWeekReceipt[]
   legacy: ResearchLegacyPrefix | null
+  /** Only the current49 absorption producer may write this; frozen readers reject the extra field. */
+  absorptionCancellation?: ResearchAbsorptionCancellation
 }
 export type TechnologyAccess = {
   studioId: string
   technologyId: TechnologyId
-  route: 'research' | 'wait' | 'purchase'
+  route: 'research' | 'wait' | 'purchase' | 'acquired'
   chosenWeek: number
   acquiredWeek: number | null
   accessCost: number
   researchProjectId: string | null
+  /** Current49 grant cites the retained original completed project; never an inventor entitlement. */
+  acquiredKnowledge?: { absorptionId: string; sourceStudioId: string; sourceProjectId: string }
 }
 /**
  * P13B-S5: one priced line of an adoption. `physical` rows mirror the target P09
@@ -97,7 +103,7 @@ export type TechnologyAdoption = {
   stageFacilityId: string
   /** Null exactly when this technology has no Post component at all (P13B-S5 lighting). */
   postFacilityId: string | null
-  route: 'research' | 'purchase'
+  route: 'research' | 'purchase' | 'acquired'
   committedWeek: number
   operationalWeek: number | null
   /**
@@ -113,6 +119,8 @@ export type TechnologyAdoption = {
   prototypeProjectId: string | null
   components: TechnologyAdoptionComponent[]
   equipmentAssetId: string | null
+  /** Current49 absorbed source keeps its paid equipment; this is not ordinary cancellation. */
+  absorptionDisposition?: { absorptionId: string; week: number; kind: 'stoppedPending' }
 }
 export type ProductionTechnology = {
   studioId: string
@@ -141,16 +149,17 @@ export type StudioTechnology = {
 }
 
 /** Frozen P13B-S3 shape (technology root v3, Save V23): no component rows, no equipment assets, a Post on every adoption. */
-export type TechnologyAdoptionV3 = Omit<TechnologyAdoption, 'postFacilityId' | 'components' | 'equipmentAssetId' | 'cancelledWeek'> & { postFacilityId: string }
-export type StudioTechnologyV3 = Omit<StudioTechnology, 'version' | 'adoptions' | 'equipment' | 'nextEquipmentId'> & { version: 3; adoptions: TechnologyAdoptionV3[] }
+export type TechnologyAdoptionV3 = Omit<TechnologyAdoption, 'postFacilityId' | 'components' | 'equipmentAssetId' | 'cancelledWeek' | 'route' | 'absorptionDisposition'> & { postFacilityId: string; route: 'research' | 'purchase' }
+export type TechnologyAccessLegacy = Omit<TechnologyAccess, 'route' | 'acquiredKnowledge'> & { route: 'research' | 'wait' | 'purchase' }
+export type StudioTechnologyV3 = Omit<StudioTechnology, 'version' | 'adoptions' | 'equipment' | 'nextEquipmentId' | 'access'> & { version: 3; adoptions: TechnologyAdoptionV3[]; access: TechnologyAccessLegacy[] }
 
 /** Frozen P13B-S1 shape (technology root v2, Save V21): single-pool receipts over 1/20,000, no per-Laboratory rows. */
 export type ResearchWeekReceiptV2 = Omit<ResearchWeekReceipt, 'labs'>
-export type ResearchProjectV2 = Omit<ResearchProject, 'weeks'> & { weeks: ResearchWeekReceiptV2[] }
+export type ResearchProjectV2 = Omit<ResearchProject, 'weeks' | 'absorptionCancellation'> & { weeks: ResearchWeekReceiptV2[] }
 export type StudioTechnologyV2 = Omit<StudioTechnologyV3, 'version' | 'cooperationFromWeek' | 'projects'> & { version: 2; projects: ResearchProjectV2[] }
 
 /** Frozen P13A shape (technology root v1, Save V20). Validated exactly as delivered; never written by the live engine. */
-export type ResearchProjectV1 = Omit<ResearchProject, 'seats' | 'weeks' | 'legacy'> & { scientistId: string }
+export type ResearchProjectV1 = Omit<ResearchProject, 'seats' | 'weeks' | 'legacy' | 'absorptionCancellation'> & { scientistId: string }
 export type StudioTechnologyV1 = Omit<StudioTechnologyV2, 'version' | 'projects'> & { version: 1; projects: ResearchProjectV1[] }
 
 export type TechnologyAction =

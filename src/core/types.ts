@@ -404,6 +404,12 @@ export type LedgerKindV13 = LedgerKindV12 | 'facilityDemolitionRefund'
 // job (committed, part-worked, refunded) is one auditable trail correlated by
 // `constructionProjectId`, and an unworked component's money is never laundered
 // through generic revenue or a negative capex.
+// P16 (Save46): the three rights money kinds. `rightsConsideration` is SIGNED (sale proceeds
+// in, purchases and licence fees out), `dueDiligenceFee` is a charge, `acquisitionOutlay` is
+// signed (consideration net of the target's at-par cash). Admitted only under the Save46
+// ledger policy and reconciled against the rights transactions root (rights.ts), so none can
+// masquerade as revenue, production spend or a termination.
+export type P16LedgerKind = 'rightsConsideration' | 'dueDiligenceFee' | 'acquisitionOutlay'
 export type LedgerKind =
   | LedgerKindV13
   | 'constructionRefund'
@@ -418,6 +424,8 @@ export type LedgerKind =
   | 'loanInstallment'
   // P15B Wave 4 (closure/v1 §3): one employment claim payment (−), correlated by talentId.
   | 'claimPayment'
+  | P16LedgerKind
+  | 'absorbedRunRevenue'
 
 // Frozen V11 rows discriminate the one capital event and its exact correlation.
 // Construction capex cannot masquerade as film/talent spend, while historical
@@ -524,6 +532,17 @@ export type LedgerEntry =
   | {
       week: number
       kind: 'setCapex' | 'setMaintenance' | 'setDemolitionRefund'
+      amount: number
+      talentId?: never
+      productionId?: never
+      constructionProjectId?: never
+      note: string
+    }
+  // P16 (Save46): a rights money row carries no talent/production/construction correlation;
+  // its `note` names the rights transaction id, which the rights root reconciles.
+  | {
+      week: number
+      kind: P16LedgerKind | 'absorbedRunRevenue'
       amount: number
       talentId?: never
       productionId?: never
@@ -1985,6 +2004,8 @@ export type PhysicalPlan = {
   startedPlacementId: number | null
   /** Written EXACTLY ONCE, at the admission that committed the work. */
   commitReceipt: { week: number; fingerprint: string; cost: number } | null
+  /** Current49 actual absorbed-terminal disposition; frozen P09 readers reject this field. */
+  absorptionDisposition?: { absorptionId: string; week: number; kind: 'retainedCompleted' | 'stoppedPaid' | 'cancelledUnstarted'; priorStatus: PhysicalPlanStatus }
 }
 
 export type StudioPhysicalPlans = {
@@ -2351,7 +2372,8 @@ export type GameStateV31 = GameStateV30 & {
 // V44 adds the edge's `competitions` log and `romance` track.
 // V45 is the shared P15 step: slice 2a adds the Power Ranking archive and the one P15 allocator,
 // P15A.1 Wave 2 adds the shared-market root, and P15C Wave 2 adds the Campaign Legacy root.
-export type GameState = GameStateP15B
+// V46 is the P16 rights step: the `rights` root (rights.ts) and the three rights money kinds.
+export type GameState = GameStateV49
 
 // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
 
@@ -2607,7 +2629,7 @@ export type PowerRankingRecordRow = {
 }
 export type PowerRankingRecord = {
   id: string; p15DomainSequence: number; phaseId: string; phaseOrdinal: number; phaseOrderVersion: number
-  week: number; definitionVersion: 'power-ranking/v1' | 'power-ranking/v2'; available: boolean; windowStartWeek: number
+  week: number; definitionVersion: 'power-ranking/v1' | 'power-ranking/v2' | 'power-ranking/v3'; available: boolean; windowStartWeek: number
   rows: PowerRankingRecordRow[]
 }
 export type PowerRankingArchive = { version: 1; recordedFromWeek: number; snapshots: PowerRankingRecord[] }
@@ -2731,13 +2753,14 @@ export type ClosureReceipt = { week: number; kind: 'distribution'; amount: numbe
 /** r3 (Wave-4 contract §2, §5): one later estate transaction, a separate dated record linked to its closure,
  * carrying its own stable id, the one global P15 sequence and the phase triple. `runReceipt` names the run
  * installment the estate collected (`<filmId>:due:<T−1>`), `distribution` one claims batch (its payments
- * reference this event id), `archival` the one close boundary D of a rival estate. */
+ * reference this event id), `archival` the one close boundary D of a rival estate. Current49 alone admits
+ * `saleReceipt`, whose reference is the actual estateSale transaction; frozen48 reader rejects it. */
 export type EstateEvent = {
   eventId: string
   closureId: string
   studioId: string
   week: number
-  kind: 'runReceipt' | 'distribution' | 'archival'
+  kind: 'runReceipt' | 'distribution' | 'archival' | 'saleReceipt'
   amount: number
   reference: string
   p15DomainSequence: number; phaseId: string; phaseOrdinal: number; phaseOrderVersion: number
@@ -2779,6 +2802,12 @@ type P15BPredecessorState = GameStateV47
 export type GameStateP15B = Omit<P15BPredecessorState, 'campaignLegacy'> & P15BStepRoots & { campaignLegacy: import('./campaignLegacy.js').ModernCampaignLegacyRoot }
 /** The conventional name, renumbered with save.ts's header. */
 export type GameStateV48 = GameStateP15B
+/**
+ * P16 (Save49; P16A r3 charter; 1367-stage P16 contract §3): the one P16-owned versioned root
+ * `rights`, whose type, validator and migration live in rights.ts / save.ts. The era also admits the
+ * three P16 ledger kinds and rival money kinds, each reconciled against the root's transactions.
+ */
+export type GameStateV49 = GameStateP15B & { rights: import('./rights.js').RightsRoot }
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.
@@ -2944,6 +2973,15 @@ export type Action =
   // P15B Wave 2 (1357-A §6.1): the player's one loan verb. It names a principal and nothing else; the
   // stage, the maximum and the schedule come from the law at the action's own week.
   | { kind: 'takeLoan'; principal: number }
+  // ── P16 (Save46) rights verbs: the player's side of the symmetric law (assetSale.ts, dueDiligence.ts, estate.ts) ──
+  | { kind: 'makeRightsOffer'; offer: import('./assetSale.js').PlayerOfferInput }
+  | { kind: 'withdrawRightsOffer'; offerId: string }
+  | { kind: 'acceptRightsOffer'; offerId: string }
+  | { kind: 'rejectRightsOffer'; offerId: string }
+  | { kind: 'requestDueDiligence'; target: import('./rights.js').DiligenceTarget; scope: import('./rights.js').DiligenceScopeItem[] }
+  // Real held paid disclosure and original dated preview are revalidated by the transaction owner.
+  | { kind: 'absorbStudio'; absorption: Omit<import('./acquisition.js').AbsorptionInput, 'buyerId'> & { quotedAtWeek: number; quoteAgePolicyVersion: import('./quoteAge.js').QuoteAgePolicyVersion } }
+  | { kind: 'submitEstateBid'; estateId: string; lotId: string; amount: number }
 
 // §10 Authored talent — extended per D-9.14 (creation budget). `actual` persona
 // stays fully player-chosen; potential/workEthic/skillBias/secondary share a

@@ -1,3 +1,4 @@
+import { buyerOperatedProductions, continuedReleaseOwner } from '../src/core/continuedWork.js'
 // ── P06A W2 — the closed Release projection (charter W2; recon r2 §6.3/§6.6) ─
 //
 // Pure, deterministic, RNG-free view over EXISTING core truth. One decision row
@@ -51,12 +52,12 @@ export type BridgeReleaseProjection = {
 }
 
 export function releaseProjection(state: GameState): BridgeReleaseProjection {
-  const decisions: BridgeReleaseDecisionSnapshot[] = state.studio.activeProductions
+  const decisions: BridgeReleaseDecisionSnapshot[] = buyerOperatedProductions(state)
     .filter((production) => production.remainingTicks === 1)
     .sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))
     .map((production) => {
-      const concept = state.concepts.find((candidate) => candidate.id === production.conceptId)
-      const commitment = releaseCommitmentFor(state.releaseAuthority, production.id)
+      const concept = state.concepts.find((candidate) => candidate.id === production.conceptId) ?? state.hollywood?.concepts.find(candidate=>candidate.id===production.conceptId)
+      const commitment = releaseCommitmentFor(continuedReleaseOwner(state,production.id)?.owner.releaseAuthority??state.releaseAuthority, production.id)
       const refusal =
         commitment !== null ? null : commitPictureToReleaseRefusal(state, production.id)
       const busyIds = releaseHoldBusyTalentIds(state, production.id)

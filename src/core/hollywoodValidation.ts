@@ -1,15 +1,17 @@
+import type { AbsorptionRecord } from './rights.js'
 import type { ProfessionValidationContext } from './professionHistory.js'
 import type { FoundingFundingContext } from './foundingFunding.js'
 import { flattenParticipants } from './starPower.js'
 import type { RetirementWritingAuthority } from './retirementWriting.js'
 import { sameContractTerms } from './industryEmployment.js'
 import { HOLLYWOOD_STARTING_MANIFEST, RIVAL_CREDIT_ROLES, RIVAL_TEAM_ROLES } from './hollywoodStartingData.js'
-import { persistedConceptIds, persistedProductionIds } from './productionIdentity.js'
+import { persistedConceptIds, persistedProductionIds, playerProductionIdsForHollywood } from './productionIdentity.js'
 import { weeklySalary, PRE_V28_TERMINATION_LAW, terminationCost } from './employment.js'
 import type { TerminationLaw } from './employment.js'
 import type { GameState } from './types.js'
 import { CAMPAIGN_CALENDAR_POLICY, campaignDate, historicalDate, RIVAL_ARRIVAL_WEEKS } from './calendar.js'
 import { RIVAL_LOAN_MONEY_KINDS, RIVAL_MONEY_KINDS, RIVAL_RESEARCH_MONEY_KINDS, instrumentWeeklyOperatingCost, rivalCapacityOpex, rivalStartingFacilities, hollywoodWorldKey } from './hollywood.js'
+import { P16_RIVAL_MONEY_KINDS } from './hollywoodTypes.js'
 import {openTheatricalRun} from './economy.js'
 import { GENRE_ORDER, TUNING } from './tuning.js'
 import { TECHNOLOGY_CATALOGUE } from './technologyCatalogue.js'
@@ -80,14 +82,21 @@ export type HollywoodLeafValidators = {
 // the terminal history it is (Wave 4): no decision cadence, costs charged only through its closure week,
 // every interval ended at that week by a `closure` receipt, no active work. Every frozen reader keeps
 // the operating law.
-export type P15BEra = { studioLoans: boolean; closure: ReadonlyMap<string, number> | null }
-export const NO_P15B_ERA: P15BEra = { studioLoans: false, closure: null }
+export type P15BEra = { studioLoans: boolean; closure: ReadonlyMap<string, number> | null; rights: boolean; absorptions?: ReadonlyMap<string, AbsorptionRecord> }
+export const NO_P15B_ERA: P15BEra = { studioLoans: false, closure: null, rights: false }
 export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>, research = false, plans: readonly PhysicalPlan[] = [], terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext, era: P15BEra = NO_P15B_ERA): asserts value is HollywoodState | null {
   const researchKinds = new Set<string>(RIVAL_RESEARCH_MONEY_KINDS)
+  const p16Kinds = new Set<string>(P16_RIVAL_MONEY_KINDS)
   const loanKinds = new Set<string>(RIVAL_LOAN_MONEY_KINDS)
   const moneyKinds = RIVAL_MONEY_KINDS.filter(kind =>
-    (technology !== undefined || kind !== 'technologyAdoption') && (research || !researchKinds.has(kind)) && (rivalTermination || kind !== 'termination') && (rivalFacilityDisposal || kind !== 'facilityDemolitionRefund') && (era.studioLoans || !loanKinds.has(kind)))
+    (technology !== undefined || kind !== 'technologyAdoption') && (research || !researchKinds.has(kind)) && (rivalTermination || kind !== 'termination') && (rivalFacilityDisposal || kind !== 'facilityDemolitionRefund') && (era.studioLoans || !loanKinds.has(kind)) && (era.rights || !p16Kinds.has(kind)))
   const closedWeekOf = (studioId: string): number | null => era.closure?.get(studioId) ?? null
+  const absorptionOf = (studioId: string) => era.rights ? era.absorptions?.get(studioId) : undefined
+  const continuationOf = (contractId: string) => era.rights ? [...(era.absorptions?.values() ?? [])].flatMap(a => a.contracts.map(c => ({ a, c }))).find(x => x.c.buyerContractId === contractId) : undefined
+  const absorptionEnd = (studioId: string, contractId: string, week: number, reason: string) => {
+    const a = absorptionOf(studioId), c = a?.contracts.find(c => c.sourceContractId === contractId)
+    return a?.week === week && c !== undefined && reason === (c.buyerContractId === null ? 'absorptionExit' : 'absorptionContinuation')
+  }
   const researchProjects = research ? ((technology as StudioTechnology | undefined)?.projects ?? []) : []
   campaignDate(state.market.tick)
   if (value === null) {
@@ -143,7 +152,46 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
   const concepts = persistedConceptIds({...state,hollywood:null} as GameState)
   for (const c of h.concepts) { shared.concept(c); requireFact(!concepts.has(c.id),'concept identity collision'); concepts.add(c.id) }
   const hollywoodConcepts=new Map(h.concepts.map(c=>[c.id,c]))
-  const filmIds = persistedProductionIds({...state,hollywood:null} as GameState)
+  const operatedReleaseWeeks = new Map<string, number>()
+  const operatedWrapWeeks = new Map<string, number>()
+  const operatedSilentLockWeeks = new Map<string, number>()
+  if (era.rights) for (const a of era.absorptions?.values() ?? []) {
+    if (a.buyerId !== h.playerStudioId) continue
+    requireFact(Array.isArray(a.workReleases) && Array.isArray(a.continuedProductions), 'continued release owner arrays missing')
+    for (const step of a.workSteps) {
+      if (step.beforeRemaining !== 6 || step.afterRemaining !== 5) continue
+      const original = a.continuedProductions.find(p => p.productionId === step.productionId)
+      const creatorBody = h.businesses.find(b => b.studioId === a.targetId)?.productions.some(p => p.id === step.productionId)
+        || h.films.some(f => f.studioId === a.targetId && f.filmId === step.productionId)
+      requireFact(original?.originalProduction?.id === step.productionId && creatorBody === true
+        && Number.isSafeInteger(step.week) && step.week >= a.week && step.week < state.market.tick,
+        'operated silent lock lacks actual creator work boundary')
+      requireFact(!operatedSilentLockWeeks.has(step.productionId), 'operated silent identity has duplicate owners')
+      operatedSilentLockWeeks.set(step.productionId, step.week)
+    }
+    for (const step of a.workSteps) {
+      if (step.beforeRemaining !== 4 || step.afterRemaining !== 3) continue
+      const original = a.continuedProductions.find(p => p.productionId === step.productionId)
+      const creatorBody = h.businesses.find(b => b.studioId === a.targetId)?.productions.some(p => p.id === step.productionId)
+        || h.films.some(f => f.studioId === a.targetId && f.filmId === step.productionId)
+      requireFact(original?.originalProduction?.id === step.productionId && creatorBody === true
+        && Number.isSafeInteger(step.week) && step.week >= a.week && step.week < state.market.tick,
+        'operated wrap lacks actual creator work boundary')
+      requireFact(!operatedWrapWeeks.has(step.productionId), 'operated wrap identity has duplicate owners')
+      operatedWrapWeeks.set(step.productionId, step.week)
+    }
+    for (const release of a.workReleases) {
+      requireFact(Number.isSafeInteger(release.week) && release.week >= a.week && release.week < state.market.tick, 'operated release observation outside actual completed boundary')
+      const original = a.continuedProductions.find(p => p.productionId === release.productionId)
+      const film = h.films.find(f => f.provenance === 'simulation/v1' && f.studioId === a.targetId && f.filmId === release.productionId && f.result.releaseTick === release.week)
+      requireFact(original?.originalProduction?.id === release.productionId && film !== undefined, 'operated release lacks actual creator production/film')
+      requireFact(!operatedReleaseWeeks.has(release.productionId), 'operated release identity has duplicate owners')
+      operatedReleaseWeeks.set(release.productionId, release.week)
+    }
+  }
+  const filmIds = operatedReleaseWeeks.size === 0 && operatedWrapWeeks.size === 0 && operatedSilentLockWeeks.size === 0
+    ? persistedProductionIds({...state,hollywood:null} as GameState)
+    : playerProductionIdsForHollywood({...state,hollywood:null} as GameState, operatedReleaseWeeks, operatedWrapWeeks, operatedSilentLockWeeks)
   const liveIds = new Set<string>()
   const films = new Map<string,IndustryFilm>()
   for (const f of h.films) {
@@ -201,7 +249,7 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
     const player=e.studioId===h.playerStudioId
     requireFact(e.contractId===`${e.studioId}:contract:${e.terms.talentId}:${e.terms.startWeek}${player?`:player-${ordinal}`:''}`,'contract identity differs from actual interval start')
     requireFact(talent.has(e.terms.talentId) && (e.terms.startWeek >= studio.enteredWeek! || (player&&e.reason==='existing-player-contract'&&h.origin==='migration')) && e.terms.startWeek <= state.market.tick,'unknown person or invalid employment chronology')
-    requireFact((player?['renewal','player-contract','existing-player-contract']:['entry','renewal','replacement']).includes(e.reason),'unknown employment cause')
+    requireFact((player?['renewal','player-contract','existing-player-contract']:['entry','renewal','replacement']).includes(e.reason) || e.reason === 'absorptionContinuation' && continuationOf(e.contractId) !== undefined,'unknown employment cause')
     if(e.reason==='existing-player-contract')requireFact(h.origin==='migration'&&e.terms.startWeek<=h.originWeek&&e.terms.endWeekExclusive>h.originWeek,'invalid observed migration contract')
     if (e.endedWeek !== null) { integer(e.endedWeek); requireFact(e.endedWeek >= e.terms.startWeek && e.endedWeek <= e.terms.endWeekExclusive && e.endedWeek <= state.market.tick,'invalid contract end') }
     const end = e.endedWeek ?? e.terms.endWeekExclusive
@@ -227,6 +275,11 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
   // `claim` is false for an actually closed business: its retained productions and drafts are
   // terminal history, its people were released at the closure week (the busy set skips them,
   // closure/v1 §3), so they must not hold a live assignment here (stabilization 2026-10-22, L-05).
+  // P16 rebase (audit C-01, ledger merge rule): an absorbed business claims only the buyer-continued
+  // productions the buyer has not cancelled, the exact set `buyerContinuedProductions` seats in the
+  // busy set; its written-off (`stoppedProductions`) and buyer-cancelled work and every draft
+  // (including `absorption-scripts/v2` stopped drafts) claim nobody, because availability released
+  // those people at the absorption week (`absorbedWork.ts` header).
   const verifyParticipants=(p:Production,required:boolean,claim=true)=>{
     const expected=[{id:p.writerId,role:'writer',discipline:'writing'},{id:p.directorId,role:'director',discipline:'directing'},
       ...(['lead','antagonist','support'] as const).map(role=>({id:p.cast[role],role,discipline:'acting'})),
@@ -265,7 +318,11 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
     }
     // P15B Wave 4 (closure/v1): an actually closed business is terminal history. Its decision cadence
     // ended at its closure week, and its weekly charges ran through that week and no further.
-    const terminalWeek=closedWeekOf(b.studioId)
+    const terminalWeek=closedWeekOf(b.studioId) ?? absorptionOf(b.studioId)?.week ?? null
+    // The one live-work rule (C-01): see `verifyParticipants`. Writer claims below use `terminalWeek`.
+    const absorbed=absorptionOf(b.studioId)
+    const claimsLiveWork=(p:Production)=>closedWeekOf(b.studioId)===null&&(absorbed===undefined||
+      (absorbed.continuedProductions.some(c=>c.productionId===p.id)&&!absorbed.workCancellations.some(c=>c.productionId===p.id)))
     const chargedThrough=terminalWeek===null?state.market.tick:Math.min(state.market.tick,terminalWeek)
     if(terminalWeek===null)requireFact(b.nextDecisionWeek>=state.market.tick && b.nextDecisionWeek<=Math.max(state.market.tick,studios.get(b.studioId)!.enteredWeek!)+TUNING.HOLLYWOOD_DECISION_WEEKS,'decision boundary differs from actual cadence')
     exact(b.policy,['version','affinities','negativeScale','marketingRatio','reserveWeeks'])
@@ -291,7 +348,7 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
     const expectedTermination = b.account.periods.map(() => 0)
     if (rivalTermination) {
       for (const r of h.receipts) {
-        if (r.kind !== 'employment' || r.reason !== 'termination' || r.studioId !== b.studioId) continue
+        if (r.kind !== 'employment' || r.reason !== 'termination' && !(era.rights && r.reason === 'absorptionExit') || r.studioId !== b.studioId) continue
         const interval = contractById.get(r.contractId), index = periodOf(r.week)
         if (interval !== undefined && index >= 0) expectedTermination[index]! += terminationCost(interval.terms, r.week)
       }
@@ -332,8 +389,9 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
       }
       if (rivalTermination) requireFact(close(p.movements.termination, -expectedTermination[periodIndex]!), 'rival termination movements do not reconcile with termination receipts')
       for (const [kind,n] of Object.entries(p.movements)) {
-        const positive = kind === 'studioRevenue' || kind === 'loanPrincipal' || (rivalFacilityDisposal && kind === 'facilityDemolitionRefund')
-        number(n,positive ? 0 : -Infinity,positive ? Infinity : 0)
+        const positive = kind === 'studioRevenue' || kind === 'loanPrincipal' || (rivalFacilityDisposal && kind === 'facilityDemolitionRefund') || (era.rights && kind === 'estateSaleProceeds')
+        const signed = era.rights && (kind === 'rightsConsideration' || kind === 'acquisitionOutlay')
+        number(n,positive ? 0 : -Infinity,positive || signed ? Infinity : 0)
       }
       requireFact(close(balance,p.opening) && close(p.opening+Object.values(p.movements).reduce((a,n)=>a+n,0),p.closing),'unreconciled money')
       balance=p.closing
@@ -368,11 +426,11 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
     for(const kind of ['development','production','marketing'] as const) requireFact(close(movements[kind]!, -b.projects.reduce((sum,p)=>sum+p[kind],0)), `${kind} commitments do not reconcile`)
     const ownedFilms = h.films.filter(f=>f.studioId===b.studioId && f.provenance==='simulation/v1')
     const ownedFilmById=new Map(ownedFilms.map(f=>[f.filmId,f]))
-    requireFact(close(movements.studioRevenue!, ownedFilms.reduce((sum,f)=>sum+(f.provenance==='simulation/v1'?f.studioRevenueReceived:0),0)), 'studio revenue does not reconcile')
+    requireFact(close(movements.studioRevenue!, ownedFilms.reduce((sum,f)=>sum+(f.provenance==='simulation/v1'?f.studioRevenueReceived:0),0) - (absorptionOf(b.studioId)?.runReceipts.reduce((sum,r)=>sum+r.revenue,0) ?? 0)), 'studio revenue does not reconcile')
     list(b.productions); list(b.runs); list(b.projects)
     for (const p of b.productions) {
       shared.production(p,concepts); requireFact(!productionIds.has(p.id),'production identity collision'); productionIds.add(p.id)
-      verifyParticipants(p,true,terminalWeek===null)
+      verifyParticipants(p,true,claimsLiveWork(p))
       const script=b.development.projects.find(s=>s.productionId===p.id)
       requireFact(script?.writerId===p.writerId,'production writer differs from its costed screenplay')
       for(const id of [p.writerId,...productionCompanyTalentIds([p])]){
@@ -434,7 +492,9 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
       const plan=plans.find(row=>row.id===commitment.planId)
       requireFact(plan&&plan.studioId===b.studioId&&plan.status==='started'&&plan.commitReceipt?.week===commitment.week,'rival Laboratory without its admitted plan')
     }
-    assertStudioOperationsInvariants(b.operations,b.productions,{facilityPolicy:'configured'})
+    const continuedIds=new Set(absorptionOf(b.studioId)?.continuedProductions.map(p=>p.productionId)??[])
+    const sourceOperatedProductions=b.productions.filter(p=>!continuedIds.has(p.id))
+    assertStudioOperationsInvariants(b.operations,sourceOperatedProductions,{facilityPolicy:'configured'})
     const ownedConcepts = b.development.projects.map(p=>{const c=hollywoodConcepts.get(p.conceptId);requireFact(c,'screenplay concept owner missing');return c})
     // P15B Wave 4: a closed business's screenplays are judged as they stood at its closure week.
     assertScriptDevelopmentInvariants(b.development,{currentWeek:chargedThrough,concepts:ownedConcepts,talent:state.talent,
@@ -533,11 +593,12 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
       if(r.toStudioId===null)requireFact(r.fromStudioId===r.studioId&&interval.endedWeek===r.week&&
         (r.reason==='expiry'&&interval.terms.endWeekExclusive===r.week || r.reason==='termination'&&(rivalTermination||r.studioId===h.playerStudioId)&&r.week<interval.terms.endWeekExclusive
           // P15B Wave 4 (closure/v1 §3): the studio's actual closure ended the interval at its closure week.
-          || r.reason==='closure'&&closedWeekOf(r.studioId)===r.week&&r.week<interval.terms.endWeekExclusive),'employment end receipt differs from actual end')
+          || r.reason==='closure'&&closedWeekOf(r.studioId)===r.week&&r.week<interval.terms.endWeekExclusive
+          || absorptionEnd(r.studioId,r.contractId,r.week,r.reason)),'employment end receipt differs from actual end')
       else {
         const prior=employmentByPerson.get(r.talentId)!.find(e=>e!==interval&&e.studioId===r.studioId&&e.endedWeek===r.week&&e.terms.endWeekExclusive>r.week)
         requireFact(r.toStudioId===r.studioId&&r.week===(interval.reason==='existing-player-contract'?h.originWeek:interval.terms.startWeek)&&r.reason===interval.reason&&
-          r.fromStudioId===(r.reason==='renewal'&&prior?r.studioId:null),'employment start receipt differs from actual transition')
+          r.fromStudioId===(r.reason==='absorptionContinuation'?continuationOf(r.contractId)?.a.targetId:r.reason==='renewal'&&prior?r.studioId:null),'employment start receipt differs from actual transition')
         if(r.reason==='renewal')requireFact(employmentByPerson.get(r.talentId)!.some(e=>e!==interval&&e.studioId===r.studioId&&e.endedWeek!==null&&e.endedWeek<=r.week),'renewal lacks earlier employment')
       }
     }
@@ -615,14 +676,15 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
     requireFact(starts.length===1 && starts[0]!.kind==='employment' && starts[0]!.talentId===e.terms.talentId && starts[0]!.week===(e.reason==='existing-player-contract'?h.originWeek:e.terms.startWeek) && starts[0]!.reason===e.reason, 'employment interval lacks exact signing or observation receipt')
     const ends=grouped('employment',`${e.contractId}:end`)
     const terminated=ends.length===1&&ends[0]!.kind==='employment'&&ends[0]!.reason==='termination'&&(rivalTermination||e.studioId===h.playerStudioId)
+    const absorbedEnd=ends.length===1&&ends[0]!.kind==='employment'&&absorptionEnd(e.studioId,e.contractId,e.endedWeek!,ends[0]!.reason)
     const closedEnd=ends.length===1&&ends[0]!.kind==='employment'&&ends[0]!.reason==='closure'&&closedWeekOf(e.studioId)===e.endedWeek
     if(terminated&&e.studioId===h.playerStudioId){const lawful=terminationLaw(e.terms,e.endedWeek!,e.contractId);requireFact(state.ledger.some(row=>row.kind==='termination'&&row.talentId===e.terms.talentId&&row.week===e.endedWeek&&lawful.some(charge=>close(row.amount,-charge))),'employment termination lacks its actual player payment')}
     // 1364: a row the Save47 funding context names was paid from the recruitment fund (its allocation
     // is proven by foundingFunding.ts); every other row keeps the cash rule exactly as before.
-    if(e.studioId===h.playerStudioId&&e.reason!=='existing-player-contract'&&!(h.origin==='fresh'&&e.reason==='player-contract'&&e.terms.startWeek===0)&&!(foundingFunding?.fundedContractIds.has(e.contractId)??false))
+    if(e.studioId===h.playerStudioId&&e.reason!=='existing-player-contract'&&e.reason!=='absorptionContinuation'&&!(h.origin==='fresh'&&e.reason==='player-contract'&&e.terms.startWeek===0)&&!(foundingFunding?.fundedContractIds.has(e.contractId)??false))
       requireFact(state.ledger.some(row=>row.kind==='signingBonus'&&row.talentId===e.terms.talentId&&row.week===e.terms.startWeek&&close(row.amount,-e.terms.signingBonus)),'employment start lacks its actual player signing payment')
-    requireFact(ends.length===(e.endedWeek===e.terms.endWeekExclusive||terminated||closedEnd?1:0),'employment interval lacks exact end receipt or has an extra one')
-    if(e.endedWeek!==null&&e.endedWeek<e.terms.endWeekExclusive&&!terminated&&!closedEnd)requireFact(employmentByPerson.get(e.terms.talentId)!.some(next=>next!==e&&next.studioId===e.studioId&&next.reason==='renewal'&&next.terms.startWeek===e.endedWeek),'early interval end lacks actual replacement renewal')
+    requireFact(ends.length===(e.endedWeek===e.terms.endWeekExclusive||terminated||closedEnd||absorbedEnd?1:0),'employment interval lacks exact end receipt or has an extra one')
+    if(e.endedWeek!==null&&e.endedWeek<e.terms.endWeekExclusive&&!terminated&&!closedEnd&&!absorbedEnd)requireFact(employmentByPerson.get(e.terms.talentId)!.some(next=>next!==e&&next.studioId===e.studioId&&next.reason==='renewal'&&next.terms.startWeek===e.endedWeek),'early interval end lacks actual replacement renewal')
   }
   // 1364 (1364-A §3 "group reconciliation"): for every talent/week signing group that holds a funded
   // interval, each ordinary interval consumes one distinct matching cash row; a cash row left over
@@ -631,7 +693,7 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
   if(foundingFunding!==undefined&&foundingFunding.fundedContractIds.size>0) {
     const groups=new Map<string,{talentId:string;week:number;funded:number;ordinary:number[]}>()
     for(const e of h.employment) {
-      if(e.studioId!==h.playerStudioId||e.reason==='existing-player-contract')continue
+      if(e.studioId!==h.playerStudioId||e.reason==='existing-player-contract'||e.reason==='absorptionContinuation')continue
       if(h.origin==='fresh'&&e.reason==='player-contract'&&e.terms.startWeek===0)continue
       const key=`${e.terms.talentId}:${e.terms.startWeek}`
       const group=groups.get(key)??{talentId:e.terms.talentId,week:e.terms.startWeek,funded:0,ordinary:[]}
@@ -682,6 +744,7 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
     }
   }
   const playerFilms=new Map(state.studio.releasedFilms.map(f=>[f.productionId,f]))
+  if(era.rights)for(const a of era.absorptions?.values()??[])if(a.buyerId===h.playerStudioId)for(const release of a.workReleases){const film=h.films.find(f=>f.provenance==='simulation/v1' && f.filmId===release.productionId);requireFact(film&&film.provenance==='simulation/v1','operated release has no authentic creator film');playerFilms.set(film.filmId,film.result)}
   const playerCareers=new Map(state.careerEvents.map(e=>[e.eventId,e]))
   for(const row of state.studioHistory.rows) {
     for(const subject of row.subjects) {

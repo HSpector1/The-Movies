@@ -1,3 +1,4 @@
+import { convertV49ToV48 } from '../src/core/save.js'
 // 955: independent pre-C.3 regression for identical-input promise receipts.
 // Requirements: same logical inputs give the same receipt; canonical storage
 // does not alter continuation; historical receipts are retained as recorded.
@@ -276,7 +277,7 @@ describe('955 historical preservation and interim projection52 journal authority
     expect(current.state.careerLifecycle.transitionEvaluations).toEqual([])
     expect(current.state.careerLifecycle.professionChanges).toEqual([])
     expect(current.state.careerLifecycle.industryRetirements).toEqual([])
-    expect(exportSave(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(convertV47ToV46(convertV48ToV47(current))))))))))))).toBe(raw) // r3 (review D13): unticked, so the production P15B downgrade is lossless and stays in the chain
+    expect(exportSave(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(convertV47ToV46(convertV48ToV47(convertV49ToV48(current)))))))))))))).toBe(raw) // r3 (review D13): unticked, so the production P15B downgrade is lossless and stays in the chain
     expect(artifact(filename)).toBe(raw)
   })
 })

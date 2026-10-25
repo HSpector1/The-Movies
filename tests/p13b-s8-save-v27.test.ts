@@ -1,3 +1,5 @@
+import { rightsStripped } from './helpers/p16-era.js'
+import { convertV49ToV48 } from '../src/core/save.js'
 // ── P13B-S8 test 7: Save V27 — genuine V26 fixtures, honest lift, conditional
 // downgrade refusal, validator refusals for forged rival authority, sentinel
 // 28 ─────────────────────────────────────────────────────────────────────
@@ -199,7 +201,8 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
     // P15B (1370-ar, MASKED): the live chain now crosses the P15B step's converter FIRST, and every ticked industry
     // state carries evaluated condition records, so the P15B guard (naming the predecessor version) is the one that
     // actually refuses; the guard pinned before stays covered on its own-era input elsewhere.
-    expect(() => save.migrateToV26(envelope as never)).toThrow(new RegExp(`^migrateToV${save.LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))
+    expect(() => convertV49ToV48(envelope as never)).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
+    expect(() => save.migrateToV26(rightsStripped(envelope as never))).toThrow(new RegExp(`^migrateToV47: cannot downgrade or discard a corporateCondition record`))
   })
 
   it('downgrade REFUSED: the same natural campaign also carries a new receipt kind (laboratoryCommitted/laboratoryOperational), independently sufficient to refuse V27->V26', () => {
@@ -216,7 +219,8 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
     // P15B (1370-ar, MASKED): the live chain now crosses the P15B step's converter FIRST, and every ticked industry
     // state carries evaluated condition records, so the P15B guard (naming the predecessor version) is the one that
     // actually refuses; the guard pinned before stays covered on its own-era input elsewhere.
-    expect(() => save.migrateToV26(envelope as never)).toThrow(new RegExp(`^migrateToV${save.LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))
+    expect(() => convertV49ToV48(envelope as never)).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
+    expect(() => save.migrateToV26(rightsStripped(envelope as never))).toThrow(new RegExp(`^migrateToV47: cannot downgrade or discard a corporateCondition record`))
     // 1358-F10 ruling 4: no Save27 engine remains, so the V27 guard's own-era input is a genuine V26
     // fixture lifted to V27 (as the LOSSLESS leaf lifts it) after one admission by the S8 rival admission
     // boundary itself (admitRivalPlans, src/core/rivalResearch.ts:200-209): a started Laboratory plan, its

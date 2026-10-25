@@ -527,6 +527,18 @@ export function Dashboard({
           <Metric label="Studio construction" small testid="fin-construction">
             {money(Math.abs(fin.totals.construction))}
           </Metric>
+          <Metric label="Rights trades and licences" small testid="fin-rights">
+            {money(fin.totals.rights)}
+          </Metric>
+          <Metric label="Estate asset purchases" small testid="fin-estatePurchases">
+            {money(fin.totals.estatePurchases)}
+          </Metric>
+          <Metric label="Acquisition net cash" small testid="fin-acquisition">
+            {money(fin.totals.acquisition)}
+          </Metric>
+          <Metric label="Due diligence fees" small testid="fin-diligence">
+            {money(fin.totals.diligence)}
+          </Metric>
         </div>
         <p className="hint" style={{ marginTop: 8 }}>
           Runway answers “how long can the studio last under its current commitments” — it never

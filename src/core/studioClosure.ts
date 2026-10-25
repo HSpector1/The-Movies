@@ -1,3 +1,4 @@
+import { buyerOperatedProductions, buyerContinuedProductions } from './continuedWork.js'
 // ── P15B Wave 4 (record 1370-ar): the actual closure, `closure/v1` ──────────────────────────────
 // Authority (docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/p15b-prep/
 // P15B-WAVE4-CLOSURE-CONTRACT.md, adopted by 1367-G): §2 the boundary (closure week C is the first
@@ -38,7 +39,9 @@ import { terminationCost } from './employment.js'
 import { moveRivalMoney } from './hollywood.js'
 import { closedWeekOf } from './operatingState.js'
 import { buildLegacyManifest, legacyFactsFromState, ENDED_LEGACY_DEFINITION, MODERN_LEGACY_DEFINITION, LEGACY_BOUNDARY_WEEK, type EndedLegacy, type OfficialLegacy } from './campaignLegacy.js'
-import { validateSaveP15B, P15B_SAVE_VERSION } from './save.js'
+import { validateSaveP15B, validateSaveV49, P15B_SAVE_VERSION, P16_SAVE_VERSION } from './save.js'
+import { resolveTitles, subjectsHeldBy } from './rights.js'
+import { buildEstateHandoff, finishEstateArchival, openEstate } from './estate.js'
 import { P15_PHASE_TABLES, p15PhaseTriple } from './p15Phases.js'
 import { breakPromisesOnCancel, breakPromisesOnTermination } from './promises.js'
 import { CLOSURE_CASE_REASON, CLOSURE_PROPOSAL_REASON, invalidateCasesAtClosure, withdrawProposalAtClosure } from './talentMarket.js'
@@ -202,8 +205,19 @@ const byKindThenId = (a: ClosureDisposition, b: ClosureDisposition): number =>
 const byId = (a: string, b: string): number => (a < b ? -1 : a > b ? 1 : 0)
 const caseKey = (kase: { contractId: string; variant?: string }): string => `${kase.contractId}:${kase.variant ?? 'expiry'}`
 
-function ownedFilmIds(state: GameState, h: HollywoodState, studioId: string): string[] {
+/** Frozen48 creator-film ownership. Never consult a rights root at this boundary. */
+function creatorFilmIds(state: GameState, h: HollywoodState, studioId: string): string[] {
   return (studioId === h.playerStudioId ? state.studio.releasedFilms.map((f) => f.productionId) : h.films.filter((f) => f.studioId === studioId).map((f) => f.filmId)).sort(byId)
+}
+
+function ownedFilmIds(state: GameState, h: HollywoodState, studioId: string, asOfWeek = state.market.tick): string[] {
+  // Current ownership follows actual title history, including a bought creator's film
+  // or a sold original film. Frozen48 keeps its original creator-film derivation.
+  if (Object.hasOwn(state, 'rights')) {
+    return subjectsHeldBy(resolveTitles(state), state.rights.estates, studioId, asOfWeek)
+      .filter(subject => subject.right === 'R2').map(subject => subject.filmId).sort(byId)
+  }
+  return creatorFilmIds(state, h, studioId)
 }
 
 /** Whether a rival's started plan has produced its plant (completeRivalPlans' own receipts). */
@@ -219,7 +233,7 @@ function rivalPlanComplete(h: HollywoodState, planId: string, work: GameState['p
 
 /** §5 "final validation failure": a transaction validates its own result before it publishes. */
 function validated(result: GameState, label: string): GameState {
-  validateStudioClosureRoot(result as unknown as Record<string, unknown>, label)
+  validateStudioClosureRoot(result as unknown as Record<string, unknown>, label, { rightsEstate: Object.hasOwn(result, 'rights') })
   return result
 }
 
@@ -228,6 +242,17 @@ function validated(result: GameState, label: string): GameState {
  * state.market.tick. Refuses by name (nothing written) when the studio is not closure due, is already
  * closed, or its result fails the root's own validation. Every reachable live subject has a disposition.
  */
+/** Actual foreign paid scripts operated by this buyer; creator/project history remains original. */
+function continuedBuyerRuns(state:GameState) {
+  if(!state.rights || !state.hollywood)return []
+  return state.rights.absorptions.filter(a=>a.buyerId===state.hollywood!.playerStudioId).flatMap(a=>state.hollywood!.businesses.find(b=>b.studioId===a.targetId)?.runs.filter(r=>a.runs.some(row=>row.productionId===r.productionId))??[])
+}
+function continuedBuyerScripts(state:GameState) {
+  if(!state.rights || !state.hollywood)return []
+  const productions=new Set(buyerContinuedProductions(state).map(p=>p.id))
+  return state.hollywood.businesses.flatMap(b=>b.development.projects.filter(p=>p.productionId!==null && productions.has(p.productionId)))
+}
+
 function prepareStudioClosure(state: GameState, studioId: string, causeEventId: string): GameState {
   const h = state.hollywood
   if (h === null) throw new Error('closure/v1: no industry to close a studio in')
@@ -294,15 +319,15 @@ function prepareStudioClosure(state: GameState, studioId: string, causeEventId: 
   // operating state stops them. Promises on cancelled pictures settle under the promise producer's own law.
   const business: RivalBusiness | undefined = player ? undefined : hollywood.businesses.find((b) => b.studioId === studioId)
   if (!player && business === undefined) throw new Error(`closure/v1: ${studioId} has no business`)
-  const scripts = player ? state.scriptDevelopment.projects : business!.activeScriptOrdinals.map((i) => business!.development.projects[i]!)
+  const scripts = player ? [...state.scriptDevelopment.projects,...continuedBuyerScripts(state)] : business!.activeScriptOrdinals.map((i) => business!.development.projects[i]!)
   for (const project of scripts) if (project.status !== 'produced') row('screenplay', project.id, project.status, `work stopped at week ${week}; authored material, progress and spend retained; no completion`, 'applied')
-  const productions = player ? state.studio.activeProductions : business!.productions
+  const productions = player && state.rights ? buyerOperatedProductions(state) : player ? state.studio.activeProductions : business!.productions
   for (const production of productions) {
     row('production', production.id, `remainingTicks ${production.remainingTicks}`, `cancelled terminally at week ${week}; footage, participants and spend frozen in place; no release`, 'applied')
     next = breakPromisesOnCancel(next, studioId, production)
   }
   if (player) {
-    for (const run of state.theatricalRuns) if (run.status === 'active') row('theatricalRun', run.productionId, `weekIndex ${run.weekIndex} of ${run.totalWeeks}`, 'remaining scheduled receipts pending in this saved world', 'pending')
+    for (const run of [...state.theatricalRuns,...continuedBuyerRuns(state)]) if (run.status === 'active') row('theatricalRun', run.productionId, `weekIndex ${run.weekIndex} of ${run.totalWeeks}`, 'remaining scheduled receipts pending in this saved world', 'pending')
   } else {
     for (const run of business!.runs) row('theatricalRun', run.productionId, `weekIndex ${run.weekIndex} of ${run.totalWeeks}`, 'the estate collects the genuinely scheduled remaining receipts', 'applied')
   }
@@ -386,14 +411,18 @@ function prepareStudioClosure(state: GameState, studioId: string, causeEventId: 
   for (const d of dispositions) counts[d.subjectKind] = (counts[d.subjectKind] ?? 0) + 1
   const sequence = next.p15Sequence.next
   const receipts = distribution.payments.length > 0 ? [{ week, kind: 'distribution' as const, amount: paidTotal, reference: closureId }] : []
-  let record: ClosureRecord = { closureId, studioId, closureWeek: week, causeEventId, lawVersion: law, p15DomainSequence: sequence, ...p15PhaseTriple(CLOSURE_PHASE_ID),
+  let record: ClosureRecord = { closureId, studioId, closureWeek: week, causeEventId, lawVersion: law, p15DomainSequence: sequence, ...p15PhaseTriple(CLOSURE_PHASE_ID, Object.hasOwn(state, 'rights') ? 3 : 2),
     cash: { closing, distributable }, loan: loanRecord, dispositions, counts, digest: closureDigest(closureId, dispositions), estate, receipts, endOfRun: null }
   const closureRoot = requireStudioClosure(next)
-  return {
+  const prepared: GameState = {
     ...next,
     studioClosure: { ...closureRoot, nextClosure: closureRoot.nextClosure + 1, nextClaim, closures: [...closureRoot.closures, record], claims: [...closureRoot.claims, ...distribution.claims] },
     p15Sequence: { ...next.p15Sequence, next: sequence + 1 },
   }
+  // Frozen48 has no rights root. Current49 handoff joins the actual record/claims
+  // before any full-save/finale publication; no separate due-condition estate.
+  return Object.hasOwn(prepared, 'rights')
+    ? openEstate(prepared, buildEstateHandoff(prepared, record), week).state : prepared
 }
 
 /** Direct transactions share the boundary aggregate: no public path exposes an unlinked player closure. */
@@ -421,20 +450,25 @@ function publishClosureFinale(state: GameState, hook?: EndOfRunHook | null): Gam
     && h.originWeek < LEGACY_BOUNDARY_WEEK && next.campaignLegacy.recordedFromWeek < LEGACY_BOUNDARY_WEEK) {
     const sequence = next.p15Sequence.next
     const official: OfficialLegacy = { ...buildLegacyManifest(legacyFactsFromState(next, LEGACY_BOUNDARY_WEEK, MODERN_LEGACY_DEFINITION), 'official2040', MODERN_LEGACY_DEFINITION),
-      legacySnapshotId: `campaign-legacy-${sequence}`, p15DomainSequence: sequence, ...p15PhaseTriple('p15c.finale') }
+      legacySnapshotId: `campaign-legacy-${sequence}`, p15DomainSequence: sequence, ...p15PhaseTriple('p15c.finale', Object.hasOwn(next, 'rights') ? 3 : 2) }
     next = { ...next, campaignLegacy: { ...next.campaignLegacy, official }, p15Sequence: { ...next.p15Sequence, next: sequence + 1 } }
   }
   if (player !== undefined && player.endOfRun === null) {
     const sequence = next.p15Sequence.next
     // 12A (L-35): the cut stays C + 1; the v4 adapter settles a run only through the paid input week C − 1.
+    // P16 rebase: the ended manifest keeps 12A's v4 and takes P16's estate phase table 3 under the rights era.
     const manifest = buildLegacyManifest(legacyFactsFromState(next, player.closureWeek + 1, ENDED_LEGACY_DEFINITION), 'endOfRun', ENDED_LEGACY_DEFINITION)
     const ended: EndedLegacy = { ...manifest, kind: 'endOfRun', definition: ENDED_LEGACY_DEFINITION, postFinaleMode: null,
-      closureId: player.closureId, legacySnapshotId: `campaign-legacy-${sequence}`, p15DomainSequence: sequence, ...p15PhaseTriple('p15c.finale') }
+      closureId: player.closureId, legacySnapshotId: `campaign-legacy-${sequence}`, p15DomainSequence: sequence, ...p15PhaseTriple('p15c.finale', Object.hasOwn(next, 'rights') ? 3 : 2) }
     next = { ...next, campaignLegacy: { ...next.campaignLegacy, endOfRun: ended },
       studioClosure: { ...next.studioClosure, closures: next.studioClosure.closures.map(c => c.closureId === player.closureId ? { ...c, endOfRun: ended.legacySnapshotId } : c) },
       p15Sequence: { ...next.p15Sequence, next: sequence + 1 } }
   }
-  validateSaveP15B({ saveVersion: P15B_SAVE_VERSION, seed: next.seed, state: next, broadcastCache: next.broadcastItems })
+  if (Object.hasOwn(next, 'rights')) {
+    validateSaveV49({ saveVersion: P16_SAVE_VERSION, seed: next.seed, state: next, broadcastCache: next.broadcastItems })
+  } else {
+    validateSaveP15B({ saveVersion: P15B_SAVE_VERSION, seed: next.seed, state: next, broadcastCache: next.broadcastItems })
+  }
   return next
 }
 
@@ -450,6 +484,34 @@ function estateRunDue(h: HollywoodState, closure: ClosureRecord, due: number): b
   })
 }
 
+/** @internal P15 owns the sole actual estate-account credit and keyed intake journal.
+ * Sales preparation invokes this before ranking; final publication waits for claims and archival. */
+export function receiveEstateSaleProceeds(state: GameState, closureId: string, transactionId: string): GameState {
+  const root = requireStudioClosure(state), h = state.hollywood
+  const closure = root.closures.find(c => c.closureId === closureId)
+  const transaction = state.rights.transactions.find(t => t.id === transactionId)
+  const estate = state.rights.estates.find(e => e.closureId === closureId)
+  if (!h || !closure || !transaction || !estate || closure.studioId === h.playerStudioId
+    || transaction.kind !== 'estateSale' || transaction.estateId !== estate.estateId || transaction.payeeId !== null
+    || transaction.week !== state.market.tick || transaction.week !== closure.estate.closesWeek
+    || !Number.isSafeInteger(transaction.amount) || transaction.amount <= 0
+    || estate.proceeds.filter(p => p.transactionId === transactionId && p.amount === transaction.amount && p.lotId === transaction.lotId).length !== 1) {
+    throw new Error('closure/v1: estate sale intake has no actual matching D transaction/proceeds')
+  }
+  if (root.estateEvents.some(e => e.kind === 'saleReceipt' && e.reference === transactionId)) throw new Error('closure/v1: duplicate estate sale intake')
+  const index = h.businesses.findIndex(b => b.studioId === closure.studioId)
+  if (index < 0) throw new Error('closure/v1: estate sale intake has no retained terminal account')
+  const source = h.businesses[index]!
+  const business: RivalBusiness = { ...source, account: { ...source.account, periods: source.account.periods.map(p => ({ ...p, movements: { ...p.movements } })) } }
+  moveRivalMoney(business.account, 'estateSaleProceeds', transaction.amount, transaction.week)
+  const event: EstateEvent = { eventId: `estate-event-${root.nextEstateEvent}`, closureId, studioId: closure.studioId,
+    week: transaction.week, kind: 'saleReceipt', amount: transaction.amount, reference: transactionId,
+    p15DomainSequence: state.p15Sequence.next, ...p15PhaseTriple('p16.estateSale', 3) }
+  return { ...state, hollywood: { ...h, businesses: h.businesses.map((b, i) => i === index ? business : b) },
+    studioClosure: { ...root, nextEstateEvent: root.nextEstateEvent + 1, estateEvents: [...root.estateEvents, event] },
+    p15Sequence: { ...state.p15Sequence, next: state.p15Sequence.next + 1 } }
+}
+
 /**
  * The weekly estate service at produced boundary T for one open rival estate (§4, §5), each step its own
  * sequenced estate event: the run installments due at T − 1 the estate-run adapter collected in this advance,
@@ -458,7 +520,7 @@ function estateRunDue(h: HollywoodState, closure: ClosureRecord, due: number): b
 function serviceEstate(state: GameState, closure: ClosureRecord, week: number): GameState {
   const root = requireStudioClosure(state)
   const h = state.hollywood!
-  const triple = p15PhaseTriple(CLOSURE_PHASE_ID)
+  const triple = p15PhaseTriple(CLOSURE_PHASE_ID, Object.hasOwn(state, 'rights') ? 3 : 2)
   let sequence = state.p15Sequence.next
   let nextEvent = root.nextEstateEvent
   const events: EstateEvent[] = []
@@ -516,6 +578,7 @@ function advanceClosureBoundary(state: GameState, options: ClosurePhaseOptions, 
   let next = state
   for (const closure of [...root.closures].filter((c) => c.closureWeek < week && c.studioId !== h.playerStudioId).sort((a, b) => byId(a.studioId, b.studioId))) {
     if (week <= closure.estate.closesWeek || estateRunDue(next.hollywood!, closure, week - 1)) next = serviceEstate(next, closure, week)
+    if (Object.hasOwn(next, 'rights') && week === closure.estate.closesWeek) next = finishEstateArchival(next, closure.closureId, week)
   }
   // §5: the boundary's estate transactions validate together (every estate due at this boundary serviced) before
   // anything publishes; each new closure below validates its own transaction.
@@ -530,7 +593,10 @@ function advanceClosureBoundary(state: GameState, options: ClosurePhaseOptions, 
     next = prepareStudioClosure(next, record.studioId, cause.eventId)
   }
   // Whole-save validation is paid only for actual new closure/finale publication, not ordinary ticks.
-  return requireStudioClosure(next).closures.length > root.closures.length ? publishClosureFinale(next, hook) : next
+  if (requireStudioClosure(next).closures.length > root.closures.length) return publishClosureFinale(next, hook)
+  // The current estate aggregate publishes only after sale intake, claims and both archivings agree.
+  if (Object.hasOwn(next, 'rights') && next !== state) return publishClosureFinale(next, hook)
+  return next
 }
 
 // ── the validator (§5) ────────────────────────────────────────────────────────────────────────
@@ -551,7 +617,7 @@ const isWeek = (value: unknown): value is number => Number.isSafeInteger(value) 
 const close = (a: number, b: number): boolean => Math.abs(a - b) <= 1e-6
 
 /** Validates `studioClosure` against the whole state (the frozen chain and the condition root already proven). */
-export function validateStudioClosureRoot(raw: Record<string, unknown>, label: string): void {
+export function validateStudioClosureRoot(raw: Record<string, unknown>, label: string, policy: { rightsEstate: boolean; titleState?: GameState } = { rightsEstate: false }): void {
   const fail = (message: string): never => { throw new Error(`${label}: studioClosure ${message}`) }
   const root = raw.studioClosure
   if (!isRecord(root)) return fail('root must be an object')
@@ -572,6 +638,21 @@ export function validateStudioClosureRoot(raw: Record<string, unknown>, label: s
   if (h === null) {
     if (closures.length + claims.length + estateEvents.length > 0 || root.nextClosure !== 1 || root.nextClaim !== 1 || root.nextEstateEvent !== 1) fail('holds a closure, claim or estate event in a world with no industry')
     return
+  }
+  // Save49's predecessor proof removes only the rights root. Its actual owner passes
+  // the original full title state; direct current root reads can use their own raw state.
+  const titleState = policy.rightsEstate ? policy.titleState ?? (Object.hasOwn(raw, 'rights') ? state : undefined) : undefined
+  if (policy.rightsEstate) {
+    if (titleState === undefined || !Object.hasOwn(titleState, 'rights')) return fail('current held-title proof requires its original full title state')
+    const full = titleState as unknown as Record<string, unknown>
+    const fullKeys = Object.keys(full).filter(key => key !== 'rights').sort()
+    const rawKeys = Object.keys(raw).filter(key => key !== 'rights').sort()
+    // Stripping rights preserves every other value/reference. Bind ALL authentic-title
+    // sources (studio, ledger, concepts, history etc.), not just selected sibling roots.
+    if (fullKeys.length !== rawKeys.length || fullKeys.some((key, i) => key !== rawKeys[i] || !Object.is(full[key], raw[key]))
+      || Object.hasOwn(raw, 'rights') && full.rights !== raw.rights) {
+      return fail('current held-title context must match every non-rights key/value of the original state')
+    }
   }
   const condition = state.corporateCondition
   const studios = new Set<string>()
@@ -606,9 +687,15 @@ export function validateStudioClosureRoot(raw: Record<string, unknown>, label: s
     if (owner === undefined || owner.studioId !== e.studioId) return fail(`estate event ${e.eventId} names no closure of its studio`)
     if (!isWeek(e.week) || e.week <= owner.closureWeek || e.week > tick || (previousEvent !== null && e.week < previousEvent.week)) fail(`estate event ${e.eventId} week is outside (closureWeek, market.tick] or goes back`)
     if (!Number.isSafeInteger(e.p15DomainSequence) || e.p15DomainSequence <= owner.p15DomainSequence || (previousEvent !== null && e.p15DomainSequence <= previousEvent.p15DomainSequence)) fail(`estate event ${e.eventId} p15DomainSequence does not follow its closure and the previous event`)
-    const entry = Number.isSafeInteger(e.phaseOrderVersion) ? P15_PHASE_TABLES[e.phaseOrderVersion]?.find((p) => p.phaseId === CLOSURE_PHASE_ID) : undefined
-    if (e.phaseId !== CLOSURE_PHASE_ID || entry === undefined || entry.phaseOrdinal !== e.phaseOrdinal) fail(`estate event ${e.eventId} phase triple does not match its phase-order version's table`)
-    if (!['runReceipt', 'distribution', 'archival'].includes(e.kind) || typeof e.amount !== 'number' || !Number.isFinite(e.amount) || typeof e.reference !== 'string') fail(`estate event ${e.eventId} is malformed`)
+    const phaseId = e.kind === 'saleReceipt' ? 'p16.estateSale' : CLOSURE_PHASE_ID
+    const entry = Number.isSafeInteger(e.phaseOrderVersion) ? P15_PHASE_TABLES[e.phaseOrderVersion]?.find(p => p.phaseId === phaseId) : undefined
+    if (!policy.rightsEstate && (e.kind === 'saleReceipt' || e.phaseOrderVersion > 2)) fail(`estate event ${e.eventId} uses current rights estate authority below its era`)
+    if (e.phaseId !== phaseId || entry === undefined || entry.phaseOrdinal !== e.phaseOrdinal
+      || e.kind === 'saleReceipt' && e.phaseOrderVersion !== 3) fail(`estate event ${e.eventId} phase triple does not match its phase-order version's table`)
+    const kinds: readonly string[] = policy.rightsEstate ? ['runReceipt', 'distribution', 'archival', 'saleReceipt'] : ['runReceipt', 'distribution', 'archival']
+    if (!kinds.includes(e.kind) || typeof e.amount !== 'number' || !Number.isFinite(e.amount) || typeof e.reference !== 'string') fail(`estate event ${e.eventId} is malformed`)
+    if (previousEvent !== null && previousEvent.week === e.week && previousEvent.phaseOrdinal > e.phaseOrdinal
+      && previousEvent.phaseOrderVersion === e.phaseOrderVersion) fail(`estate event ${e.eventId} goes back in its boundary phase order`)
     previousEvent = e
     const list = eventsByClosure.get(e.closureId) ?? []
     list.push(e)
@@ -639,6 +726,7 @@ export function validateStudioClosureRoot(raw: Record<string, unknown>, label: s
     if (previousClosure !== null && (previousClosure.closureWeek > C || (previousClosure.closureWeek === C && previousClosure.studioId >= c.studioId))) fail(`closure ${c.closureId} is out of (week, studioId) append order`)
     if (!Object.hasOwn(CLOSURE_LAWS, c.lawVersion)) fail(`closure ${c.closureId} lawVersion ${String(c.lawVersion)} is unknown`)
     const law = CLOSURE_LAWS[c.lawVersion]
+    if (!policy.rightsEstate && c.phaseOrderVersion > 2) fail(`closure ${c.closureId} uses current estate phase table below its era`)
     const entry = Number.isSafeInteger(c.phaseOrderVersion) ? P15_PHASE_TABLES[c.phaseOrderVersion]?.find((p) => p.phaseId === CLOSURE_PHASE_ID) : undefined
     if (c.phaseId !== CLOSURE_PHASE_ID || entry === undefined || entry.phaseOrdinal !== c.phaseOrdinal) fail(`closure ${c.closureId} phase triple does not match its phase-order version's table`)
     const cause = condition.events.find((e) => e.eventId === c.causeEventId)
@@ -666,7 +754,7 @@ export function validateStudioClosureRoot(raw: Record<string, unknown>, label: s
       fail(`closure ${c.closureId} estate archival does not match its window at week ${tick}`)
     }
     const archived = archivals.length === 1
-    const titles = ownedFilmIds(state, h, c.studioId)
+    const titles = policy.rightsEstate ? ownedFilmIds(titleState!, h, c.studioId, C) : creatorFilmIds(state, h, c.studioId)
     if (!Array.isArray(c.estate.lots) || c.estate.lots.length !== titles.length) return fail(`closure ${c.closureId} estate lots do not cover the studio's titles`)
     c.estate.lots.forEach((lot, k) => {
       if (!isRecord(lot) || !sameKeys(lot, ['lotId', 'right', 'subjectId'])) return fail(`closure ${c.closureId} estate has a malformed lot`)
@@ -696,6 +784,21 @@ export function validateStudioClosureRoot(raw: Record<string, unknown>, label: s
       receiptsByWeek.set(e.week, (receiptsByWeek.get(e.week) ?? 0) + e.amount)
     }
     if (expectedReceipts.size > 0) fail(`closure ${c.closureId} estate is missing the run receipt ${[...expectedReceipts.keys()][0]}`)
+    const saleReferences = new Set<string>()
+    const saleReceipts = events.filter(e => e.kind === 'saleReceipt')
+    for (const e of saleReceipts) {
+      if (!policy.rightsEstate || player || e.week !== c.estate.closesWeek || !Number.isSafeInteger(e.amount) || e.amount <= 0
+        || e.reference.length === 0 || saleReferences.has(e.reference)) fail(`closure ${c.closureId} sale receipt is duplicated, foreign, mistimed or not positive whole proceeds`)
+      saleReferences.add(e.reference)
+      receiptsByWeek.set(e.week, (receiptsByWeek.get(e.week) ?? 0) + e.amount)
+    }
+    if (policy.rightsEstate && !player) {
+      for (const [p, period] of business!.account.periods.entries()) {
+        const expected = saleReceipts.filter(e => period.fromWeek <= e.week && e.week <= period.throughWeek).reduce((sum, e) => sum + e.amount, 0)
+        if ((period.movements.estateSaleProceeds ?? 0) !== expected) fail(`closure ${c.closureId} estateSaleProceeds period ${p} does not match its actual intake receipts`)
+      }
+    }
+
 
     // Claims of this closure: one per interval ended at C by closure, in (contract, claim) order.
     const own = (claimsByClosure.get(c.closureId) ?? [])
@@ -706,7 +809,9 @@ export function validateStudioClosureRoot(raw: Record<string, unknown>, label: s
     const matchedRows = new Set<number>()
     const rivalPayments = new Map<number, number>()
     const paymentsByWeek = new Map<number, Map<string, number>>()
-    const distributionIds = new Map(events.filter((e) => e.kind === 'distribution').map((e) => [e.week, e]))
+    const distributionEvents = events.filter(e => e.kind === 'distribution')
+    const distributionIds = new Map(distributionEvents.map(e => [e.week, e]))
+    if (distributionIds.size !== distributionEvents.length) fail(`closure ${c.closureId} has duplicate weekly distribution records`)
     let paidTotal = 0
     for (const [k, claim] of own.entries()) {
       const m = /^closure-claim-([1-9]\d*)$/.exec(claim.claimId)
@@ -806,10 +911,10 @@ export function validateStudioClosureRoot(raw: Record<string, unknown>, label: s
     const expected = new Map<string, { status: ClosureDisposition['status']; claimId?: string; lotId?: string }>()
     const expect = (kind: Kind, id: string, status: ClosureDisposition['status'], extra: { claimId?: string; lotId?: string } = {}): void => { expected.set(`${kind}:${id}`, { status, ...extra }) }
     for (const e of endedByClosure) expect('employment', e.contractId, 'applied', { claimId: own.find((cl) => cl.sourceContractId === e.contractId)?.claimId ?? '' })
-    const scripts = player ? state.scriptDevelopment.projects : business!.activeScriptOrdinals.map((k) => business!.development.projects[k]!)
+    const scripts = player ? [...state.scriptDevelopment.projects,...(policy.rightsEstate?continuedBuyerScripts(titleState!):[])] : business!.activeScriptOrdinals.map((k) => business!.development.projects[k]!)
     for (const p of scripts) if (p.status !== 'produced') expect('screenplay', p.id, 'applied')
-    for (const p of player ? state.studio.activeProductions : business!.productions) expect('production', p.id, 'applied')
-    if (player) for (const run of state.theatricalRuns) { if (run.status === 'active') expect('theatricalRun', run.productionId, 'pending') }
+    for (const p of player && policy.rightsEstate ? buyerOperatedProductions(titleState!) : player ? state.studio.activeProductions : business!.productions) expect('production', p.id, 'applied')
+    if (player) for (const run of [...state.theatricalRuns,...(policy.rightsEstate?continuedBuyerRuns(titleState!):[])]) { if (run.status === 'active') expect('theatricalRun', run.productionId, 'pending') }
     else {
       for (const run of business!.runs) expect('theatricalRun', run.productionId, 'applied')
       // A run the estate settled since C settles at its final due week, at or after C (hollywoodTick.payRuns).

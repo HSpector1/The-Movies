@@ -1,3 +1,5 @@
+import { rightsStripped } from './helpers/p16-era.js'
+import { convertV49ToV48 } from '../src/core/save.js'
 import {beginFoundingHistoricalControl} from '../src/core/employment.js'
 // ── P06A W1 — Release Authority (charter W1; frozen design = recon r2 §6) ────
 //
@@ -35,7 +37,7 @@ import {
   mintReleaseCommitmentId,
   stableStringify,
   tick,
-  validateSaveV48,
+  validateSaveV49,
 } from '../src/core/index.js'
 import type { CastSlot, GameState, SegmentId } from '../src/core/index.js'
 import { predecessorSave } from './helpers/p15-roots.js'
@@ -452,7 +454,8 @@ describe('P06A W1 — save law', () => {
     // P15B (1370-ar): migrateToV15 now crosses the P15B step's converter FIRST; this fixture's `save` is a
     // ticked live world whose studios carry evaluated condition records, so the NEW P15B guard is the one
     // that actually refuses (naming the predecessor version it would have written) -- the V39 guard is masked.
-    expect(() => migrateToV15(save)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))
+    expect(() => convertV49ToV48(save as never)).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
+    expect(() => migrateToV15(rightsStripped(save as never))).toThrow(new RegExp(`^migrateToV47: cannot downgrade or discard a corporateCondition record`))
   })
 
   it('validateSaveV37 rejects forged authority at the save boundary (stale title said V32 before this sweep too)', () => {
@@ -464,12 +467,12 @@ describe('P06A W1 — save law', () => {
       state: { releaseAuthority: { commitments: { productionId: string }[] } }
     }
     orphan.state.releaseAuthority.commitments[0]!.productionId = 'prod-9999'
-    expect(() => validateSaveV48(orphan)).toThrow(/foreign identity|orphan/)
+    expect(() => validateSaveV49(orphan)).toThrow(/foreign identity|orphan/)
 
     const extraKey = JSON.parse(exportSave(good)) as {
       state: { releaseAuthority: Record<string, unknown> }
     }
     extraKey.state.releaseAuthority.surprise = true
-    expect(() => validateSaveV48(extraKey)).toThrow(/unknown field .surprise./)
+    expect(() => validateSaveV49(extraKey)).toThrow(/unknown field .surprise./)
   })
 })

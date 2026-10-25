@@ -284,7 +284,10 @@ export const PROTOCOL_VERSION = 4 as const
 // `labels` (HIS-014 Mentor, Professional Rivals) and `romance` (D-1312-2). The outgoing56
 // identity is registered as a prior schema before this Save44 runtime boundary.
 // Projection58: chosen loan quote and archive-owned Power Ranking; protocol4/Save48 unchanged.
-export const PROJECTION_VERSION = 58 as const
+// Projection59: separate F40 finance categories and own retained estate accounting. Protocol4 is unchanged.
+// Projection60: actual absorbed Ranking definition and retained employment continuation reason.
+// Projection62: explicit stopped-drafting/rewriting outcomes in the coupled absorption preview.
+export const PROJECTION_VERSION = 62 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -1945,6 +1948,33 @@ const StudioQuoteWaivePromiseRequest = object('StudioQuoteWaivePromiseRequest', 
   draft: reference('StudioPromiseWaiverDraftPayload', StudioPromiseWaiverDraftPayload),
 })
 
+const StudioDiligenceStudioTarget = object('StudioDiligenceStudioTarget',{kind:literal('studio'),studioId:nonEmptyText()})
+const StudioDiligenceLotTarget = object('StudioDiligenceLotTarget',{kind:literal('estateLot'),estateId:nonEmptyText(),lotId:nonEmptyText()})
+const StudioDiligenceTarget = union('StudioDiligenceTarget',[
+ reference('StudioDiligenceStudioTarget',StudioDiligenceStudioTarget),
+ reference('StudioDiligenceLotTarget',StudioDiligenceLotTarget),
+] as const)
+const StudioDiligenceDraftPayload = object('StudioDiligenceDraftPayload',{
+ target:reference('StudioDiligenceTarget',StudioDiligenceTarget),scope:array(enumeration(['rights','employment','liabilities'] as const)),
+})
+const StudioAbsorptionDefaultRetention = object('StudioAbsorptionDefaultRetention',{kind:literal('default')})
+const StudioAbsorptionExplicitRetention = object('StudioAbsorptionExplicitRetention',{kind:literal('explicit'),contractIds:array(nonEmptyText())})
+const StudioAbsorptionRetention = union('StudioAbsorptionRetention',[
+ reference('StudioAbsorptionDefaultRetention',StudioAbsorptionDefaultRetention),
+ reference('StudioAbsorptionExplicitRetention',StudioAbsorptionExplicitRetention),
+] as const)
+const StudioAbsorptionDraftPayload = object('StudioAbsorptionDraftPayload',{
+ targetId:nonEmptyText(),consideration:number(),disclosureId:nonEmptyText(),retention:reference('StudioAbsorptionRetention',StudioAbsorptionRetention),
+})
+const StudioQuoteDiligenceRequest = object('StudioQuoteDiligenceRequest',{
+ protocolVersion:literal(PROTOCOL_VERSION),schemaId:nonEmptyText(),sessionId:nonEmptyText(),commandId:nonEmptyText(),
+ expectedStateRevision:nonNegativeInteger(),type:literal('quotePaidDueDiligence'),draft:reference('StudioDiligenceDraftPayload',StudioDiligenceDraftPayload),
+})
+const StudioQuoteAbsorptionRequest = object('StudioQuoteAbsorptionRequest',{
+ protocolVersion:literal(PROTOCOL_VERSION),schemaId:nonEmptyText(),sessionId:nonEmptyText(),commandId:nonEmptyText(),
+ expectedStateRevision:nonNegativeInteger(),type:literal('quoteHealthyAbsorption'),draft:reference('StudioAbsorptionDraftPayload',StudioAbsorptionDraftPayload),
+})
+
 const StudioLoanDraftPayload = object('StudioLoanDraftPayload', { principal: number() })
 const StudioQuoteLoanRequest = object('StudioQuoteLoanRequest', {
   protocolVersion: literal(PROTOCOL_VERSION), schemaId: nonEmptyText(), sessionId: nonEmptyText(),
@@ -1953,6 +1983,8 @@ const StudioQuoteLoanRequest = object('StudioQuoteLoanRequest', {
 })
 
 const StudioBridgeQuoteRequest = union('StudioBridgeQuoteRequest', [
+  reference('StudioQuoteDiligenceRequest',StudioQuoteDiligenceRequest),
+  reference('StudioQuoteAbsorptionRequest',StudioQuoteAbsorptionRequest),
   reference('StudioQuoteLoanRequest', StudioQuoteLoanRequest),
   reference('StudioQuoteCommissionRequest', StudioQuoteCommissionRequest),
   reference('StudioQuoteCastingRequest', StudioQuoteCastingRequest),
@@ -2254,6 +2286,30 @@ const StudioPromiseWaiverQuoteSnapshot = object('StudioPromiseWaiverQuoteSnapsho
   consequence: nonEmptyText(),
 })
 
+const StudioDiligenceQuoteSnapshot = object('StudioDiligenceQuoteSnapshot',{
+ intentId:nonEmptyText(),kind:literal('requestDueDiligence'),commitLabel:nonEmptyText(),startsNow:bool(),queues:bool(),queueNote:nullable(text()),
+ ok:bool(),refusalReason:nullable(text()),fee:nonNegativeInteger(),disclosureId:nullable(nonEmptyText()),
+ disclosureWeek:nullable(nonNegativeInteger()),staleFromWeek:nullable(nonNegativeInteger()),
+ target:reference('StudioDiligenceTarget',StudioDiligenceTarget),scope:array(enumeration(['rights','employment','liabilities'] as const)),
+})
+const StudioAbsorptionProductionVerdict = object('StudioAbsorptionProductionVerdict',{productionId:nonEmptyText(),disposition:enumeration(['continues','cancelRequired'] as const),reason:nullable(text())})
+const StudioAbsorptionScriptVerdict = object('StudioAbsorptionScriptVerdict',{
+ scriptProjectId:nonEmptyText(),status:enumeration(['drafting','rewriting'] as const),writerIds:array(nonEmptyText()),
+ disposition:enumeration(['writeOff','continuationRequired'] as const),reason:enumeration(['writersNotRetained','writerContinuationProducerRequired'] as const),
+})
+const StudioAbsorptionQuoteTerms = object('StudioAbsorptionQuoteTerms',{
+ consideration:number(),targetCashBeforeExits:number(),exitCharges:number(),postExitCash:number(),guarantees:number(),outlay:number(),ask:number(),
+ reserveAfter:number(),resultingWeeklyFixedCost:number(),affordable:bool(),rightsCount:nonNegativeInteger(),
+ retainedContracts:array(nonEmptyText()),exitedContracts:array(nonEmptyText()),
+ productions:array(reference('StudioAbsorptionProductionVerdict',StudioAbsorptionProductionVerdict)),
+ scripts:array(reference('StudioAbsorptionScriptVerdict',StudioAbsorptionScriptVerdict)),
+})
+const StudioAbsorptionQuoteSnapshot = object('StudioAbsorptionQuoteSnapshot',{
+ intentId:nonEmptyText(),kind:literal('absorbStudio'),commitLabel:nonEmptyText(),startsNow:bool(),queues:bool(),queueNote:nullable(text()),
+ ok:bool(),refusalReason:nullable(text()),quotedAtWeek:nonNegativeInteger(),quoteAgePolicyVersion:literal(1),targetId:nonEmptyText(),disclosureId:nonEmptyText(),
+ terms:nullable(reference('StudioAbsorptionQuoteTerms',StudioAbsorptionQuoteTerms)),
+})
+
 const StudioLoanQuoteSnapshot = object('StudioLoanQuoteSnapshot', {
   intentId: nonEmptyText(), kind: literal('takeLoan'), commitLabel: nonEmptyText(),
   startsNow: bool(), queues: bool(), queueNote: nullable(text()), ok: bool(), refusalReason: nullable(text()),
@@ -2263,6 +2319,8 @@ const StudioLoanQuoteSnapshot = object('StudioLoanQuoteSnapshot', {
 })
 
 const StudioQuoteSnapshot = union('StudioQuoteSnapshot', [
+  reference('StudioDiligenceQuoteSnapshot',StudioDiligenceQuoteSnapshot),
+  reference('StudioAbsorptionQuoteSnapshot',StudioAbsorptionQuoteSnapshot),
   reference('StudioLoanQuoteSnapshot', StudioLoanQuoteSnapshot),
   reference('StudioCommissionQuoteSnapshot', StudioCommissionQuoteSnapshot),
   reference('StudioCastingQuoteSnapshot', StudioCastingQuoteSnapshot),
@@ -2703,7 +2761,7 @@ const StudioMarketEmployerRow = object('StudioMarketEmployerRow', {
   toWeek: nonNegativeInteger(),
   toLabel: nonEmptyText(),
   termWeeks: integer({ minimum: 1 }),
-  transition: enumeration(['entry', 'renewal', 'replacement', 'player-contract', 'existing-player-contract']),
+  transition: enumeration(['entry', 'renewal', 'replacement', 'player-contract', 'existing-player-contract', 'absorptionContinuation']),
   own: bool(),
   ended: bool(),
   annualSalary: optional(nonNegativeInteger()),
@@ -3326,7 +3384,14 @@ const StudioFinanceHistoryWindow = object('StudioFinanceHistoryWindow', {
 const StudioFinanceHistory = object('StudioFinanceHistory', {
   defaultWindowWeeks: literal(13), calendarNotice: nonEmptyText(), windows: array(reference('StudioFinanceHistoryWindow', StudioFinanceHistoryWindow)),
 })
+const StudioFinanceEstateAccounting = object('StudioFinanceEstateAccounting', {
+  closureId: nonEmptyText(), closureWeek: nonNegativeInteger(), closingCash: number(),
+  runReceipts: number({ minimum: 0 }), saleProceeds: number({ minimum: 0 }),
+  claimPayments: number({ minimum: 0 }), unpaidClaims: number({ minimum: 0 }),
+  stoppedLoanRemainder: number({ minimum: 0 }), basis: nonEmptyText(),
+})
 const StudioFinanceSnapshot = object('StudioFinanceSnapshot', {
+  estateAccounting: nullable(reference('StudioFinanceEstateAccounting', StudioFinanceEstateAccounting)),
   upcoming: reference('StudioFinanceUpcoming', StudioFinanceUpcoming),
   portfolio: reference('StudioFinancePortfolio', StudioFinancePortfolio),
   history: reference('StudioFinanceHistory', StudioFinanceHistory),
@@ -3653,6 +3718,8 @@ const definitions = {
   StudioQuoteSetCommissionRequest,
   StudioContractDraftPayload,
   StudioQuoteContractRequest,
+  StudioDiligenceStudioTarget, StudioDiligenceLotTarget, StudioDiligenceTarget, StudioDiligenceDraftPayload, StudioQuoteDiligenceRequest, StudioDiligenceQuoteSnapshot,
+  StudioAbsorptionDefaultRetention, StudioAbsorptionExplicitRetention, StudioAbsorptionRetention, StudioAbsorptionDraftPayload, StudioQuoteAbsorptionRequest, StudioAbsorptionProductionVerdict, StudioAbsorptionScriptVerdict, StudioAbsorptionQuoteTerms, StudioAbsorptionQuoteSnapshot,
   StudioLoanDraftPayload,
   StudioQuoteLoanRequest,
   StudioLoanQuoteSnapshot,
@@ -3779,6 +3846,7 @@ const definitions = {
   StudioFinancePortfolioRow,
   StudioFinanceHistory,
   StudioFinanceHistoryWindow,
+  StudioFinanceEstateAccounting,
   StudioFinanceCostSeries,
   StudioFinanceCostPoint,
   StudioFinancePeriod,
@@ -3942,3 +4010,15 @@ export type CampaignAcceptedResponse=InferSchema<typeof StudioCampaignAcceptedRe
 export type BridgeLoanDraftPayload = InferSchema<typeof StudioLoanDraftPayload>
 export type BridgeQuoteLoanRequest = InferSchema<typeof StudioQuoteLoanRequest>
 export type BridgeLoanQuoteSnapshot = InferSchema<typeof StudioLoanQuoteSnapshot>
+
+export type BridgeDiligenceDraftPayload = InferSchema<typeof StudioDiligenceDraftPayload>
+
+export type BridgeQuoteDiligenceRequest = InferSchema<typeof StudioQuoteDiligenceRequest>
+
+export type BridgeDiligenceQuoteSnapshot = InferSchema<typeof StudioDiligenceQuoteSnapshot>
+
+export type BridgeAbsorptionDraftPayload = InferSchema<typeof StudioAbsorptionDraftPayload>
+
+export type BridgeQuoteAbsorptionRequest = InferSchema<typeof StudioQuoteAbsorptionRequest>
+
+export type BridgeAbsorptionQuoteSnapshot = InferSchema<typeof StudioAbsorptionQuoteSnapshot>

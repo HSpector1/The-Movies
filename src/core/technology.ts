@@ -1,3 +1,4 @@
+import type { AbsorptionRecord } from './rights.js'
 import { activeContract, busyTalentIds, canAfford, economyEngaged, weeklySalary } from './employment.js'
 import { hasOperationalFacilityInstallation } from './facilityEffects.js'
 import { commitFacilityInstallation, queryFacilityInstallation } from './placement.js'
@@ -5,7 +6,7 @@ import { campaignDate } from './calendar.js'
 import { productionHasBegunFilming, retargetProductionTechnologyChoice, assertProductionTechnologyBindings } from './technologyProduction.js'
 import { generateScientist } from './worldgen.js'
 import { isTechnologyId, technologyEntry } from './technologyCatalogue.js'
-import { closedWeekOf } from './operatingState.js'
+import { terminalWeekOf } from './operatingState.js'
 import {
   adoptionChainOperational, adoptionComponents, adoptionPhysicalComplete, adoptionQuote, adoptionRejections, aggregatedAdoptionComponents,
   componentTotal, equipmentPlan, installationCatalogueCost, mintEquipmentAsset, resolvedPostFacilityId,
@@ -498,7 +499,7 @@ export function applyTechnologyAction(state: GameState, action: Exclude<Technolo
     const equipmentAssetId = asset?.id ?? equipment.reusedEquipmentAssetId!
     const components = quoted.map(c => c.kind === 'equipment' ? {...c, equipmentAssetId} : c)
     const row: TechnologyAdoption = {id, studioId: own, technologyId,
-      stageFacilityId: action.stageFacilityId, postFacilityId, route: inventor ? 'research' : 'purchase',
+      stageFacilityId: action.stageFacilityId, postFacilityId, route: inventor ? 'research' : access.route === 'acquired' ? 'acquired' : 'purchase',
       committedWeek: state.market.tick, operationalWeek: null, cancelledWeek: null, equipmentCost: equipment.cost, installationCost,
       physicalProjectIds: committed.map(p => p.projectId),
       prototypeProjectId: equipment.source === 'first-prototype' ? access.researchProjectId : null,
@@ -598,15 +599,16 @@ export function advanceRivalResearchWeek(state: GameState, business: {studioId: 
  * component's facility is; abstract rival plant keeps its deployment clock.
  */
 export function finishTechnologyWeek(state: GameState): GameState {
-  const closed = closedWeekOf(state)
+  const closed = terminalWeekOf(state)
   const adoptions = state.technology.adoptions.map(a => {
     if (a.operationalWeek !== null) return a
     // P13B-S6: a cancelled adoption is skipped for good. The player's own is already
     // incomplete by its placements, but a rival's deployment is a CLOCK — without
     // this it would quietly go operational on work that was stopped.
     if ((a.cancelledWeek ?? null) !== null) return a
+    if (a.absorptionDisposition !== undefined) return a
     // P15B closure/v1 (r3; Wave-4 contract §4): an actually closed studio deploys nothing; its in-flight adoption
-    // stays pending in place (operatingState.closedWeekOf, the one operating-state derivation).
+    // stays pending in place (operatingState.terminalWeekOf, the one operating-state derivation).
     if (closed.has(a.studioId)) return a
     const player = a.studioId === state.hollywood?.playerStudioId
     const complete = player
@@ -650,22 +652,34 @@ function validator(state: TechnologyBearingState): Validator {
  * fact is gated on the stored version, so an older root is never taught a newer
  * one and never silently tolerates one.
  */
-function validateSharedTechnology(state: TechnologyBearingState, v: Validator, projectIds: Set<string>, completedProjects: Map<string, number>, cancellationAwarePolicy = false): void {
+function validateSharedTechnology(state: TechnologyBearingState, v: Validator, projectIds: Set<string>, completedProjects: Map<string, number>, cancellationAwarePolicy = false, absorptions?: ReadonlyMap<string, AbsorptionRecord>): void {
   const {fail, exact, integer, text, week, studio, own} = v
   const root = state.technology as StudioTechnology
   const full = state as GameState
   const accesses = new Set<string>()
   for (const a of root.access) {
-    exact(a,['studioId','technologyId','route','chosenWeek','acquiredWeek','accessCost','researchProjectId'])
+    const acquired = a.route === 'acquired' && absorptions !== undefined
+    exact(a,['studioId','technologyId','route','chosenWeek','acquiredWeek','accessCost','researchProjectId',...(acquired ? ['acquiredKnowledge'] : [])])
     studio(a.studioId);knownTechnology(a.technologyId);week(a.chosenWeek);integer(a.accessCost)
     const accessKey = `${a.studioId}/${a.technologyId}`
     if (accesses.has(accessKey)) fail('duplicate technology access');accesses.add(accessKey)
-    if (!['wait','research','purchase'].includes(a.route)) fail('unknown access route')
+    if (!['wait','research','purchase'].includes(a.route) && !acquired) fail('unknown access route')
     if (a.acquiredWeek !== null) {week(a.acquiredWeek); if (a.acquiredWeek < a.chosenWeek) fail('access before choice')}
     if (a.route === 'wait') {if (a.acquiredWeek !== null || a.accessCost !== 0 || a.researchProjectId !== null) fail('waiting granted unpurchased capability')}
     if (a.route === 'research') {
       const completedWeek = a.researchProjectId === null ? undefined : completedProjects.get(`${a.studioId}/${a.researchProjectId}`)
       if (completedWeek === undefined || completedWeek !== a.acquiredWeek || a.accessCost !== 0) fail('invented invention provenance')
+    }
+    if (acquired) {
+      const k = a.acquiredKnowledge
+      if (typeof k !== 'object' || k === null) fail('acquired knowledge has no original source')
+      exact(k!,['absorptionId','sourceStudioId','sourceProjectId']);text(k!.absorptionId);studio(k!.sourceStudioId);text(k!.sourceProjectId)
+      const absorption = absorptions!.get(k!.sourceStudioId)
+      const source = root.projects.find(p => p.studioId === k!.sourceStudioId && p.id === k!.sourceProjectId)
+      if (!absorption || absorption.id !== k!.absorptionId || absorption.buyerId !== a.studioId
+        || a.chosenWeek !== absorption.week || a.acquiredWeek !== absorption.week || a.accessCost !== 0 || a.researchProjectId !== null
+        || !source || source.status !== 'completed' || source.technologyId !== a.technologyId || source.completedWeek === null || source.completedWeek > absorption.week
+        || !Array.isArray(absorption.knowledge) || absorption.knowledge.filter(x => x.disposition === 'granted' && x.sourceProjectId === source.id && x.technologyId === a.technologyId && x.completedWeek === source.completedWeek).length !== 1) fail('acquired knowledge/source/producer bijection differs')
     }
     const entry = technologyEntry(a.technologyId)
     if (a.route === 'purchase' && (a.acquiredWeek === null || a.acquiredWeek < entry.commercialWeek || a.accessCost !== entry.accessCost || a.researchProjectId !== null)) fail('invalid commercial access')
@@ -688,8 +702,24 @@ function validateSharedTechnology(state: TechnologyBearingState, v: Validator, p
     // `validateSaveV26` strips it, so the live validator accepts both shapes and validates the leaf when present.
     const withCancellation = v4 && Object.hasOwn(a, 'cancelledWeek')
     exact(a, v4
-      ? ['id','studioId','technologyId','stageFacilityId','postFacilityId','route','committedWeek','operationalWeek','equipmentCost','installationCost','physicalProjectIds','prototypeProjectId','components','equipmentAssetId', ...(withCancellation ? ['cancelledWeek'] : [])]
+      ? ['id','studioId','technologyId','stageFacilityId','postFacilityId','route','committedWeek','operationalWeek','equipmentCost','installationCost','physicalProjectIds','prototypeProjectId','components','equipmentAssetId', ...(withCancellation ? ['cancelledWeek'] : []), ...(absorptions !== undefined && Object.hasOwn(a,'absorptionDisposition') ? ['absorptionDisposition'] : [])]
       : ['id','studioId','technologyId','stageFacilityId','postFacilityId','route','committedWeek','operationalWeek','equipmentCost','installationCost','physicalProjectIds','prototypeProjectId'])
+    if (Object.hasOwn(a,'absorptionDisposition')) {
+      const d=a.absorptionDisposition
+      if(!d)fail('adoption absorption disposition required')
+      exact(d!,['absorptionId','week','kind'])
+      const owner=absorptions?.get(a.studioId)
+      const rows=owner?.adoptions.filter(r=>r.adoptionId===a.id) ?? []
+      if(!owner || owner.id!==d!.absorptionId || owner.targetId!==a.studioId || owner.week!==d!.week || d!.kind!=='stoppedPending' || rows.length!==1
+        // The ordered V26 proof already validates its required leaf, then removes it for V25/V24.
+        // Only test cancellation here when that leaf is present; the full current absorption join
+        // independently requires the actual unprojected adoption.cancelledWeek === null.
+        || a.operationalWeek!==null || (withCancellation && a.cancelledWeek!==null) || d!.week<a.committedWeek
+        || d!.week>=a.committedWeek+technologyEntry(a.technologyId).deploymentWeeks
+        || rows[0]!.technologyId!==a.technologyId || rows[0]!.committedWeek!==a.committedWeek
+        || rows[0]!.equipmentAssetId!==a.equipmentAssetId || rows[0]!.equipmentCost!==a.equipmentCost
+        || rows[0]!.installationCost!==a.installationCost)fail('adoption absorption link differs from original paid source')
+    }
     if (withCancellation) {
       const cancelledWeek = (a as unknown as {cancelledWeek: unknown}).cancelledWeek
       if (cancelledWeek !== null) {
@@ -702,7 +732,7 @@ function validateSharedTechnology(state: TechnologyBearingState, v: Validator, p
     }
     studio(a.studioId);knownTechnology(a.technologyId);text(a.id);week(a.committedWeek);integer(a.equipmentCost);integer(a.installationCost)
     const entry = technologyEntry(a.technologyId)
-    if (!['research','purchase'].includes(a.route) || !technologyAccess(state,a.studioId,a.technologyId)) fail('adoption without lawful access')
+    if ((!['research','purchase'].includes(a.route) && !(a.route === 'acquired' && absorptions !== undefined)) || !technologyAccess(state,a.studioId,a.technologyId)) fail('adoption without lawful access')
     const access=root.access.find(access=>access.studioId===a.studioId && access.technologyId===a.technologyId)!
     if(access.acquiredWeek===null || access.acquiredWeek>a.committedWeek || access.route!==a.route) fail('adoption precedes or misrepresents acquired access')
     // P13B-S6: whether this player adoption's physical work was cancelled, read from its placement
@@ -750,10 +780,10 @@ function validateSharedTechnology(state: TechnologyBearingState, v: Validator, p
       if (a.operationalWeek !== null && !adoptionChainOperational(full, a as TechnologyAdoption)) fail('capability before physical completion')
     } else if (a.physicalProjectIds.length || a.installationCost !== installationCatalogueCost(entry)) {
       fail('rival has fabricated physical or research authority')
-    } else if (a.route === 'purchase') {
+    } else if (a.route === 'purchase' || a.route === 'acquired' && absorptions !== undefined) {
       // The commercial consequence, unchanged: the catalogue price, never before
       // the technology is on sale.
-      if (a.equipmentCost !== entry.commercialEquipmentCost || a.committedWeek < entry.commercialWeek) fail('rival has fabricated physical or research authority')
+      if (a.equipmentCost !== entry.commercialEquipmentCost || a.route === 'purchase' && a.committedWeek < entry.commercialWeek) fail('rival has fabricated physical or research authority')
     } else if (a.equipmentCost !== 0 && a.equipmentCost !== entry.laterInventorEquipmentCost) {
       // P13B-S8: a rival deploying its OWN invention pays nothing for the first
       // prototype it is entitled to, or the inventor's price for a later set. Its
@@ -810,6 +840,7 @@ function validateSharedTechnology(state: TechnologyBearingState, v: Validator, p
       }
     }
     if (a.operationalWeek !== null) {week(a.operationalWeek);if (a.operationalWeek < a.committedWeek + entry.deploymentWeeks) fail('installation finished early')}
+    if (a.route === 'acquired' && (a.prototypeProjectId !== null || equipmentSource === 'first-prototype' || equipmentSource === 'later-inventor')) fail('acquired knowledge cannot carry an inventor price or prototype entitlement')
     if (a.prototypeProjectId !== null) {
       const completedWeek = completedProjects.get(`${a.studioId}/${a.prototypeProjectId}`)
       if (prototypes.has(a.prototypeProjectId) || a.equipmentCost !== 0 || completedWeek === undefined || completedWeek > a.committedWeek) fail('prototype charged or credited twice')
@@ -817,7 +848,7 @@ function validateSharedTechnology(state: TechnologyBearingState, v: Validator, p
     } else if (a.equipmentCost !== (v4
       ? equipmentSource === 'existing' ? 0 : equipmentSource === 'later-inventor' ? entry.laterInventorEquipmentCost : entry.commercialEquipmentCost
       : a.route === 'research' ? entry.laterInventorEquipmentCost : entry.commercialEquipmentCost)) fail('equipment charge mismatch')
-    if (v4 && equipmentSource !== 'existing' && (equipmentSource === 'commercial') !== (a.route === 'purchase')) fail('equipment route differs from the adoption route')
+    if (v4 && equipmentSource !== 'existing' && (equipmentSource === 'commercial') !== (a.route === 'purchase' || a.route === 'acquired' && absorptions !== undefined)) fail('equipment route differs from the adoption route')
   }
   if (v4) {
     integer(root.nextEquipmentId)
@@ -861,8 +892,11 @@ function validateSharedTechnology(state: TechnologyBearingState, v: Validator, p
     exact(p,['studioId','productionId','method','adoptionId','lockedWeek']);studio(p.studioId);text(p.productionId)
     const key = `${p.studioId}/${p.productionId}`;if (films.has(key)) fail('duplicate filming loadout');films.add(key)
     const business = state.hollywood?.businesses.find(b => b.studioId === p.studioId)
+    const acquiredOwner=[...(absorptions?.values()??[])].find(a=>a.buyerId===p.studioId && a.continuedProductions.some(row=>row.productionId===p.productionId))
+    const acquiredSource=acquiredOwner===undefined?undefined:state.hollywood?.businesses.find(b=>b.studioId===acquiredOwner.targetId)
+    const acquiredExists=acquiredOwner!==undefined && (acquiredSource?.productions.some(f=>f.id===p.productionId) || historicalFilmsByStudio.get(acquiredOwner.targetId)?.has(p.productionId))
     const exists = p.studioId === own
-      ? state.studio.activeProductions.some(f => f.id === p.productionId) || state.studio.releasedFilms.some(f => f.productionId === p.productionId) || p.lockedWeek !== null && state.ledger.some(e => e.productionId === p.productionId)
+      ? acquiredExists || state.studio.activeProductions.some(f => f.id === p.productionId) || state.studio.releasedFilms.some(f => f.productionId === p.productionId) || p.lockedWeek !== null && state.ledger.some(e => e.productionId === p.productionId)
       : business?.productions.some(f => f.id === p.productionId) || historicalFilmsByStudio.get(p.studioId)?.has(p.productionId)
     if (!exists) fail('unknown production loadout')
     if (p.lockedWeek !== null) week(p.lockedWeek)
@@ -924,8 +958,8 @@ function validateRootShape(state: TechnologyBearingState, v: Validator, version:
 }
 
 /** Exact, campaign-local P13B boundary for the live v4 root. It never repairs or invents a receipt. */
-export function validateTechnology(state: GameState, cancellationAwarePolicy = false): void {
-  validateTechnologyRoot(state, 4, cancellationAwarePolicy)
+export function validateTechnology(state: GameState, cancellationAwarePolicy = false, absorptions?: ReadonlyMap<string, AbsorptionRecord>): void {
+  validateTechnologyRoot(state, 4, cancellationAwarePolicy, absorptions)
 }
 /**
  * Frozen P13B-S3 validator for a genuine V23 (and V22) root — technology root v3:
@@ -936,7 +970,7 @@ export function validateTechnology(state: GameState, cancellationAwarePolicy = f
 export function validateTechnologyV3(state: GameStateV23): void {
   validateTechnologyRoot(state as unknown as GameState, 3)
 }
-function validateTechnologyRoot(state: GameState, version: 3 | 4, cancellationAwarePolicy = false): void {
+function validateTechnologyRoot(state: GameState, version: 3 | 4, cancellationAwarePolicy = false, absorptions?: ReadonlyMap<string, AbsorptionRecord>): void {
   const v = validator(state)
   const {fail, exact, integer, text, week, studio, own} = v
   validateRootShape(state, v, version)
@@ -969,7 +1003,22 @@ function validateTechnologyRoot(state: GameState, version: 3 | 4, cancellationAw
     if (chargedWeeks.has(key)) fail('repeated research charge for one project week');chargedWeeks.add(key)
   }
   for (const p of root.projects) {
-    exact(p,['id','studioId','technologyId','laboratoryFacilityId','status','budgetPerWeek','verifiedWork','expenditure','startedWeek','completedWeek','seats','weeks','legacy'])
+    const hasAbsorptionCancellation = Object.hasOwn(p,'absorptionCancellation')
+    // Explicit current49 context only; ordinary S6 cancellation permission never admits this field.
+    exact(p,['id','studioId','technologyId','laboratoryFacilityId','status','budgetPerWeek','verifiedWork','expenditure','startedWeek','completedWeek','seats','weeks','legacy',
+      ...(version === 4 && absorptions !== undefined && hasAbsorptionCancellation ? ['absorptionCancellation'] : [])])
+    if (hasAbsorptionCancellation) {
+      const c = p.absorptionCancellation
+      if (typeof c !== 'object' || c === null) fail('absorption cancellation must be a producer-owned record')
+      exact(c!,['absorptionId','week','priorStatus']);text(c!.absorptionId);week(c!.week)
+      const a = absorptions?.get(p.studioId)
+      if (!a || c!.absorptionId !== a.id || c!.week !== a.week || p.status !== 'cancelled'
+        || !['active','paused'].includes(c!.priorStatus) || p.completedWeek !== null
+        || p.startedWeek !== null && p.startedWeek > c!.week || c!.priorStatus === 'active' && p.startedWeek === null) fail('absorption cancellation differs from its actual producer/boundary')
+      if (!Array.isArray(a!.research) || a!.research.filter(r => r.projectId === p.id).length !== 1) fail('absorption cancellation has no exact matching research disposition')
+      if (p.seats.some(s => s.releasedWeek === null || s.releasedWeek > c!.week)
+        || p.weeks.some(r => r.week >= c!.week)) fail('absorbed research worked or retained an occupied seat after cancellation')
+    }
     knownTechnology(p.technologyId);studio(p.studioId);text(p.id)
     const entry = technologyEntry(p.technologyId)
     const WORK = entry.work * PROJECT_UNIT
@@ -1118,9 +1167,9 @@ function validateTechnologyRoot(state: GameState, version: 3 | 4, cancellationAw
     const granted = root.access.find(a => a.studioId === p.studioId && a.technologyId === p.technologyId)
     if (!granted || (granted.route === 'research'
       ? granted.researchProjectId !== p.id || granted.acquiredWeek !== p.completedWeek
-      : granted.route !== 'purchase')) fail('completed research without its access grant')
+      : granted.route !== 'purchase' && !(granted.route === 'acquired' && absorptions !== undefined))) fail('completed research without its access grant')
   }
-  validateSharedTechnology(state, v, ids, completed, cancellationAwarePolicy)
+  validateSharedTechnology(state, v, ids, completed, cancellationAwarePolicy, absorptions)
 }
 
 /**

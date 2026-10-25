@@ -1,3 +1,4 @@
+import { convertV49ToV48 } from '../src/core/save.js'
 // Task 1315-C3, mode STAGE RED (test source only). Repo HEAD e65012e5, branch
 // wip/headless-program-20260916-ts.
 //
@@ -185,6 +186,7 @@ describe('1313-A §3 — the acknowledged input, migrated then greenlit, mints r
     // copy of `v42`, because no pre-Save44 engine remains to write it. convertV42ToV41 refuses at
     // its casting-competition guard (src/core/relationships.ts:847-849, via src/core/save.ts:10696).
     const staged = { ...v42, state: { ...v42.state, relationships: v42.state.relationships.map((row, i) => (i === 0 ? { ...row, sharedCompetitions: 1 } : row)) } }
+    expect(() => convertV49ToV48(newSave as never)).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
     expect(() => mods.convertV42ToV41(staged)).toThrow(/^migrateToV41: cannot downgrade or discard a casting competition$/)
     // Save43 (1344-N S6): the V42-migrated state has no rival `screenplayShelving`, which the live
     // writer below requires on every rival business; lift it through the genuine convertV42ToV43

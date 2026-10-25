@@ -65,7 +65,7 @@
 // Lenses follow 1353-A §5.4 with the count keys of 1353-F2 §2; a notRecorded lens
 // carries no count and no ref. A ranking ref cites the archive record's own recordId.
 
-import { validateSaveP15B, P15B_SAVE_VERSION } from './save.js'
+import { validateSaveP15B, validateSaveV49, P15B_SAVE_VERSION, P16_SAVE_VERSION } from './save.js'
 import { campaignDate } from './calendar.js'
 import { P15_PHASE_TABLES, p15PhaseTriple } from './p15Phases.js'
 import type { FinancialStrengthBand } from './powerRanking.js'
@@ -1228,10 +1228,11 @@ export function freezeCampaignLegacyWeek(state: GameState): GameState {
     ...manifest,
     legacySnapshotId: `campaign-legacy-${sequence}`,
     p15DomainSequence: sequence,
-    ...p15PhaseTriple(FINALE_PHASE),
+    ...p15PhaseTriple(FINALE_PHASE, Object.hasOwn(state, 'rights') ? 3 : 2),
   }
   const result = { ...state, campaignLegacy: { ...root, official }, p15Sequence: { ...state.p15Sequence, next: sequence + 1 } }
-  validateSaveP15B({ saveVersion: P15B_SAVE_VERSION, seed: result.seed, state: result, broadcastCache: result.broadcastItems })
+  if (Object.hasOwn(result, 'rights')) validateSaveV49({ saveVersion: P16_SAVE_VERSION, seed: result.seed, state: result, broadcastCache: result.broadcastItems })
+  else validateSaveP15B({ saveVersion: P15B_SAVE_VERSION, seed: result.seed, state: result, broadcastCache: result.broadcastItems })
   return result
 }
 
@@ -1243,12 +1244,12 @@ export function freezeCampaignLegacyWeek(state: GameState): GameState {
  * the frozen entry its definition names, then replays with the catalogue and archetype evaluators
  * frozen by 1361-F6 ruling 2. It never reads TUNING and refuses malformed state by name.
  */
-export function validateCampaignLegacy(raw: Record<string, unknown>, label: string, modern = false): void {
-  validateLegacyManifest(raw, label, modern, false)
-  if (modern) validateLegacyManifest(raw, label, true, true)
+export function validateCampaignLegacy(raw: Record<string, unknown>, label: string, modern = false, rightsEstate = false): void {
+  validateLegacyManifest(raw, label, modern, false, rightsEstate)
+  if (modern) validateLegacyManifest(raw, label, true, true, rightsEstate)
 }
 
-function validateLegacyManifest(raw: Record<string, unknown>, label: string, modern: boolean, ended: boolean): void {
+function validateLegacyManifest(raw: Record<string, unknown>, label: string, modern: boolean, ended: boolean, rightsEstate: boolean): void {
   // An explicit type on the binding makes every call a never-returning call for narrowing.
   const refuse: (path: string, rule: string) => never = (path, rule) => {
     throw new Error(`${label}: campaignLegacy${path === '' ? '' : `.${ended ? path.replace(/^official/, 'endOfRun') : path}`} ${rule}`)
@@ -1309,7 +1310,10 @@ function validateLegacyManifest(raw: Record<string, unknown>, label: string, mod
   if (typeof sequence !== 'number' || !Number.isSafeInteger(sequence) || sequence < 1) {
     refuse('official.p15DomainSequence', 'must be a whole number of at least 1')
   }
-  if (isModernDefinition(official.definition) && official.phaseOrderVersion !== 2) refuse('official.phaseOrderVersion', 'must use the actual-closure finale phase table 2')
+  // P16 rebase: 12A's v4 is a modern definition too (`isModernDefinition`), so the Save49 estate table 3
+  // is admitted for v3 and v4 alike, and only under the rights era.
+  if (!rightsEstate && official.phaseOrderVersion > 2) refuse('official.phaseOrderVersion', 'estate phase table is not admitted in this predecessor era')
+  if (isModernDefinition(official.definition) && !(official.phaseOrderVersion === 2 || rightsEstate && official.phaseOrderVersion === 3)) refuse('official.phaseOrderVersion', 'must use an admitted actual-closure finale phase table')
   if (!ended && official.definition === MODERN_LEGACY_DEFINITION
     && state.studioClosure.closures.some(c => c.closureWeek <= B && c.p15DomainSequence >= sequence)) {
     refuse('official.p15DomainSequence', 'must follow every actual closure dated at or before the official boundary')

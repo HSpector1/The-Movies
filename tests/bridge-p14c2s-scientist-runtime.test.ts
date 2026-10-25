@@ -1,3 +1,5 @@
+import type { GameState } from '../src/core/types.js'
+import { cutoverRightsRoot } from '../src/core/rights.js'
 import { withEmptyRecovery } from './helpers/recovery-migration-expectation.js'
 // 840 S11: actual outgoing projection50 artifacts, produced BEFORE the Scientist
 // amendment (824 and842). No restamped fixture, invented history or new producer.
@@ -10,7 +12,7 @@ import { canonicalJson } from '../bridge/schema/canonical.ts'
 import { decodeBridgeRuntimeCheckpoint, encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint,
   SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS } from '../bridge/runtime-checkpoint.ts'
 import { BridgeSession } from '../bridge/session.ts'
-import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV36, validateSaveV48, initialP15BRoots } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV36, validateSaveV49, initialP15BRoots } from '../src/core/save.js'
 import type { GameStateV36 } from '../src/core/types.js'
 import { EXPECTED_LIVE_SAVE_VERSION } from './helpers/live-era.js'
 
@@ -53,7 +55,7 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
   const h = (state as { hollywood?: { businesses?: Business[] } | null }).hollywood
   const withLoans = h === undefined || h === null || !Array.isArray(h.businesses) ? state : { ...state, hollywood: { ...h,
     businesses: h.businesses.map((b) => ({ ...b, account: { ...b.account, periods: b.account.periods.map((p) => ({
-      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) } })) } }
+      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0 } })) } })) } }
   return { ...withLoans,
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
@@ -61,7 +63,7 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
     campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
     // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
     foundingFunding: { version: 1, recordedFromWeek: week, fund: null },
-    ...initialP15BRoots(week) }
+    ...initialP15BRoots(week), rights: cutoverRightsRoot(withLoans as unknown as GameState) }
 }
 
 const OUTGOING_50 = 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698'
@@ -149,7 +151,7 @@ describe('C.2 Scientist S11: genuine outgoing50 runtime compatibility', () => {
       const old = validateSaveV36(JSON.parse(prior[slot]))
       const actualJson = loaded.hydrated.checkpoint[slot]
       expect(typeof actualJson).toBe('string')
-      const actual = validateSaveV48(importSave(actualJson!))
+      const actual = validateSaveV49(importSave(actualJson!))
       expect(actual.saveVersion).toBe(LIVE_SAVE_VERSION)
       expect(actual.state.market.tick).toBe(week)
       // C.3 adds only six dated profession-authority fields; every old root,

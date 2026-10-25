@@ -1,3 +1,5 @@
+import { prepareContinuedReleases } from './hollywoodTick.js'
+import { buyerOperationsForAllWork, buyerOperatedProductions, buyerContinuedProductions, publishOperatedAdvance, recordContinuedWorkSteps, continuedCommittedReleaseIds } from './continuedWork.js'
 import { prepareLiveWritingContext } from './liveRetirementWriting.js'
 import { advanceHollywoodWeek, finishHollywoodWeek } from './hollywoodTick.js'
 import { appendMarketBatch, frozenFactor, runMarketBatch } from './marketIntegration.js'
@@ -8,6 +10,8 @@ import { freezeCampaignLegacyWeek } from './campaignLegacy.js'
 import { recordPowerRankingQuarter } from './powerRankingArchive.js'
 import { advanceCorporateConditionWeek, loanInstallmentDueFor } from './corporateConditionLive.js'
 import { advanceStudioClosureWeek, assertOperatingPlayer } from './studioClosure.js'
+import { advanceRightsWeek } from './rightsTick.js'
+import { prepareEstateSalesForTick } from './estate.js'
 import { advancePromisesWeek, appendFirstTakes, breakPromisesOnGreenlight } from './promises.js'
 import { advanceRelationshipsWeek } from './relationships.js'
 import { advanceTalentMarketWeek } from './talentMarket.js'
@@ -364,11 +368,12 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // lookup is a closure over `state.concepts` rather than a copy, so there is one
   // authority for what a production is about.
   const technologyProduction = createProductionTechnologyPolicy(stateAfterLoadIn)
+  const workInput = stateAfterLoadIn
   const productionAdvance = advanceManagedProductions(
-    stateAfterLoadIn.operations,
-    state.studio.activeProductions,
+    buyerOperationsForAllWork(workInput),
+    buyerOperatedProductions(workInput),
     currentTick,
-    committedReleaseIds,
+    new Set([...committedReleaseIds,...continuedCommittedReleaseIds(workInput)]),
     new Set([
       ...resourceClaims(state).filter(c => c.owner === 'installation' && c.facilitySlotKey !== null).map(c => c.facilitySlotKey!),
       ...scriptOccupiedFacilitySlots(scriptDevelopment),
@@ -389,11 +394,11 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     {
       sets: state.sets,
       genreOf: (productionId) => {
-        const production = state.studio.activeProductions.find(
+        const production = buyerOperatedProductions(workInput).find(
           (candidate) => candidate.id === productionId,
         )
         if (production === undefined) return null
-        return state.concepts.find((concept) => concept.id === production.conceptId)?.genre ?? null
+        return state.concepts.find((concept) => concept.id === production.conceptId)?.genre ?? workInput.hollywood?.concepts.find(concept=>concept.id===production.conceptId)?.genre ?? null
       },
     },
     technologyProduction.policy,
@@ -416,17 +421,18 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   //
   // The verbs it commits are the player's own verbs, called with the tick's own
   // event sink, so a queued picture and a played picture are the same picture.
+  const operatedAdvance = recordContinuedWorkSteps(workInput,publishOperatedAdvance(workInput,productionAdvance.productions,productionAdvance.operations),currentTick)
   // The sink is viewed at the arrived week (L-18, 2026-10-23): an admission is an
   // act of week t + 1 in every row it writes, its ledger rows and `startTick`
   // included, so its studio-event rows carry t + 1 too.
   const admission = admitQueuedIntents(
     {
-      ...state,
-      operations: productionAdvance.operations,
+      ...operatedAdvance,
+      operations: operatedAdvance.operations,
       sets: productionAdvance.sets,
       scriptDevelopment,
       castingSessions,
-      studio: { ...state.studio, activeProductions: productionAdvance.productions },
+      studio: operatedAdvance.studio,
       // THE WEEK THAT HAS ARRIVED, and the reason the clock reads it here.
       //
       // Steps 0.5, 0.6, 1.5, 1.6 and 1.7 all resolve THIS advance's completions
@@ -536,9 +542,10 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // RNG/economy/result work. The zero-tick collection and the pre-advance
   // commitment-derived witness must be the SAME exact id set; any mismatch is
   // an uncommitted release or a lost admission, and the week fails closed.
+  const continuedReleasing = buyerContinuedProductions(admitted).filter(p=>p.remainingTicks===0).sort((a,b)=>a.id<b.id?-1:a.id>b.id?1:0)
   {
     const witness = new Set(productionAdvance.admittedReleaseIds)
-    const collected = new Set(releasing.map((p) => p.id))
+    const collected = new Set([...releasing,...continuedReleasing].map((p) => p.id))
     if (witness.size !== collected.size || [...collected].some((id) => !witness.has(id))) {
       throw new Error(
         `tick: release batch disagrees with the commitment admission witness — ` +
@@ -553,7 +560,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // player's releasing pictures and every rival picture at remainingTicks 1, assessed once
   // against the root's active exposures. It writes nothing; the root appends at finalize.
   // No industry, no batch: the M0A corpus keeps today's path.
-  const marketBatch = runMarketBatch(admitted, releasing, currentTick)
+  const marketBatch = runMarketBatch(admitted, releasing, currentTick, continuedReleasing)
 
   // ── 3. RECEPTION ───────────────────────────────────────────────────────────
   // For each releasing production IN ascending-id order: resolve reception (the
@@ -864,10 +871,15 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // ── 4. STANDING ────────────────────────────────────────────────────────────
   // Accumulate the three channels sequentially, IN ascending-id order (records is
   // already in release order). Start from start-of-tick standing.
+  const continuedReception=prepareContinuedReleases({...admitted,technology:researchAdvance.technology},continuedReleasing,startOfTickStanding,marketBatch?.factorById)
+  let continuedRights=continuedReception.rights
+  const continuedStandingRecords: Pick<ReleaseRecord,'filmResult'|'benchmarks'|'ctx'>[] = continuedReception.records
+  const standingRecords: Pick<ReleaseRecord,'filmResult'|'benchmarks'|'ctx'>[] = [...records,...continuedStandingRecords].sort((a,b)=>a.filmResult.productionId<b.filmResult.productionId?-1:a.filmResult.productionId>b.filmResult.productionId?1:0)
   let standing: Standing = startOfTickStanding
-  for (const rec of records) {
+  for (const rec of standingRecords) {
     const before = standing
     standing = updateStanding(standing, rec.filmResult, rec.benchmarks, rec.ctx)
+    if(continuedStandingRecords.includes(rec))continuedRights={...continuedRights,absorptions:continuedRights.absorptions.map(a=>({...a,workReleases:a.workReleases.map(r=>r.productionId===rec.filmResult.productionId && r.week===currentTick?{...r,standingBefore:cloneStanding(before),standingAfter:cloneStanding(standing)}:r)}))}
     // P08A receipt (mutation site 1 of 3): the exact before/after/deltas of THIS
     // film's update, the source id, the formula identity, and the public driver
     // facts — frozen here, never recomputed by a consumer. A no-op update (every
@@ -978,16 +990,17 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // validated M0A/D-6 baseline. A single talent working on two same-tick releases
   // develops once per release, in release order, over the evolving talent list.
   // P15A.1 Wave 2 (1355-A §3.1 item 5, §3.2): the rival release site, witnessed against the batch.
-  const industry = advanceHollywoodWeek({...admitted,technology:researchAdvance.technology}, marketBatch?.rivalFactorById)
+  const industry = advanceHollywoodWeek({...admitted,hollywood:continuedReception.hollywood,rights:continuedRights,technology:researchAdvance.technology}, marketBatch?.rivalFactorById)
+  for(const receipt of industry.absorbedRunRevenue) {cash+=receipt.amount;ledger.push(receipt)}
   // The develop switch belongs to the frozen player corpus. A living industry's
   // real releases always write their shared career consequences.
-  const allGrowthRecords = [...(develop?records:[]),...industry.growth].sort((a,b)=>
+  const allGrowthRecords = [...(develop?records:[]),...continuedReception.growth,...industry.growth].sort((a,b)=>
     a.filmResult.productionId<b.filmResult.productionId?-1:a.filmResult.productionId>b.filmResult.productionId?1:0)
   const growth = allGrowthRecords.length > 0
     ? applyReleaseCareers(state.seed,industry.talent,allGrowthRecords)
     : {talent:industry.talent,careerEvents:[]}
   const talent = growth.talent
-  const industryFilmIds = new Set(industry.growth.map(r=>r.filmResult.productionId))
+  const industryFilmIds = new Set([...continuedReception.growth,...industry.growth].map(r=>r.filmResult.productionId))
   const newCareerEvents = growth.careerEvents.filter(e=>!industryFilmIds.has(e.filmId))
   const industryCareerEvents = growth.careerEvents.filter(e=>industryFilmIds.has(e.filmId))
   const hollywood = industry.hollywood && industryCareerEvents.length>0
@@ -1137,6 +1150,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     // original commission minted, and the blueprint root that recorded them.
     ...admitted,
     technology: industry.technology,
+    rights: industry.rights,
     // P13B-S8: a rival's own admitted plans live on the shared plan root; the
     // player's admission at step 1.06 already wrote its rows into `admitted`.
     physicalPlans: industry.physicalPlans,
@@ -1234,12 +1248,16 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // between the two (1355-F2 item 2; 1361-F ruling 9). No RNG.
   // P15C Wave 2 (1359-A §4.2): the 2040 freeze reads the week's final state, the 6240 ranking record
   // included, and writes only `campaignLegacy` and `p15Sequence`, in the tick producing week 6240 alone.
+  // P16: preserve the rights phase before lifecycle/market/ranking while retaining
+  // P15B condition -> actual closure -> final Legacy publication. Estate handoff
+  // sales/intake prepare before ranking; closure service distributes and archives before final publication.
+  const withRights = prepareEstateSalesForTick(advanceRightsWeek(withBonds, currentTick))
   // P15B Waves 2 and 4 (1357-A §5; the Wave-4 closure contract §2; phase-order version 2): the condition
   // step follows the ranking record (the quarter's band and the condition read the same settled cash, and
   // a studio closing at W stays in that snapshot), the closure phase follows the condition step (closure
   // due declared at W is closed at W, before Legacy freeze), and the freeze stays last. No RNG.
   return freezeCampaignLegacyWeek(advanceStudioClosureWeek(advanceCorporateConditionWeek(recordPowerRankingQuarter(
-    advanceLifecycleSettlement(advanceTalentMarketWeek(advancePromisesWeek(advanceLifecycleIntent(withBonds, birthdays)))))),
+    advanceLifecycleSettlement(advanceTalentMarketWeek(advancePromisesWeek(advanceLifecycleIntent(withRights, birthdays)))))),
     { deferPlayerClosure: options?.deferPlayerClosure === true }))
 }
 

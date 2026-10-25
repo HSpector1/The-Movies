@@ -17,6 +17,8 @@ import { TECHNOLOGY_CATALOGUE } from './technologyCatalogue.js'
 import type { GameState, GameStateV18, Genre, Talent } from './types.js'
 import type { HollywoodState, IndustryReceipt, RivalAccount, RivalBusiness, RivalFinancePeriod,
   RivalLoanMoneyKind, RivalMoneyKind, RivalResearchMoneyKind, StudioIdentity } from './hollywoodTypes.js'
+import { P16_RIVAL_MONEY_KINDS } from './hollywoodTypes.js'
+import { cutoverRightsRoot, rightsRootIsEmpty } from './rights.js'
 
 /** P13B-S8: the four research kinds, as one roster the save boundary and the projection share. */
 export const RIVAL_RESEARCH_MONEY_KINDS: readonly RivalResearchMoneyKind[] =
@@ -25,7 +27,7 @@ export const RIVAL_RESEARCH_MONEY_KINDS: readonly RivalResearchMoneyKind[] =
 export const RIVAL_LOAN_MONEY_KINDS: readonly RivalLoanMoneyKind[] = ['loanPrincipal','loanInstallment','claimPayment']
 export const RIVAL_MONEY_KINDS: readonly RivalMoneyKind[] = ['capacity','signing','payroll','overhead',
   'facilityOpex','development','production','marketing','studioRevenue','technologyAdoption',
-  ...RIVAL_RESEARCH_MONEY_KINDS,'termination','facilityDemolitionRefund',...RIVAL_LOAN_MONEY_KINDS]
+  ...RIVAL_RESEARCH_MONEY_KINDS,'termination','facilityDemolitionRefund',...RIVAL_LOAN_MONEY_KINDS,...P16_RIVAL_MONEY_KINDS]
 
 export function uniqueIdentity(base: string, taken: Set<string>): string {
   let id = base
@@ -191,7 +193,12 @@ export function initializeHollywood(state: GameStateV18 & { hollywood?: Hollywoo
   // P13B-S3: the physical-plan root TRAVELS WITH THE STATE and is never minted
   // here — the one caller that passes a pre-V23 state is the frozen V18→V19
   // conversion, whose output must carry no root V19 never had.
-  let next = {...state, hollywood, technology:state.technology ?? initialTechnology(state.market.tick)} as GameState
+  // P16 (Save46): rights are recorded from the week the industry opens. A live state arrives with a
+  // (necessarily empty) root whose recordedFromWeek may be 0 from worldgen; work greenlit before this
+  // week has no identity to record a title against, so it is legacy from here on (derived, never
+  // persisted). A frozen pre-V46 projection carries no root and gets none.
+  const openedRights = 'rights' in state && rightsRootIsEmpty((state as GameState).rights) ? { rights: cutoverRightsRoot({ ...state, hollywood } as GameState) } : {}
+  let next = {...state, hollywood, technology:state.technology ?? initialTechnology(state.market.tick), ...openedRights} as GameState
   // A due migration entry is at this state's own week, never its scheduled past.
   for (const identity of identities.slice(1)) if (identity.eligibleWeek <= state.market.tick) {
     next = enterRival(next,identity.studioId,origin)

@@ -89,7 +89,7 @@ function forgeRow(save: LiveSave, index: number, change: (row: Record<string, un
   const rows = save.state.studioEvents.rows.map((row, i) => (i === index ? change({ ...row }) : row))
   return JSON.parse(JSON.stringify({ ...save, state: { ...save.state, studioEvents: { ...save.state.studioEvents, rows } } }))
 }
-const label = (index: number) => `^validateSaveP15B: state\\.studioEvents\\.rows\\[${String(index)}\\]`
+const label = (index: number) => `^validateSaveV49: state\\.studioEvents\\.rows\\[${String(index)}\\]`
 
 describe('L-19: the sequence laws cover every studio-event row, stripped kinds included', () => {
   describe('a Tier D row the V16 era strips (releaseCommitted)', () => {
@@ -172,6 +172,6 @@ describe('SAVE-07: the live validator refuses a non-finite number anywhere in th
     const key = parts[parts.length - 1]!
     expect(Number.isFinite(holder[key])).toBe(true)
     holder[key] = Number.NaN
-    expect(() => validateSave(forged)).toThrow(/^validateSaveP15B: state\.studioHistory\.rows\[1\]\.facts\.anchor contains a non-finite number \(NaN\)$/)
+    expect(() => validateSave(forged)).toThrow(/^validateSaveV49: state\.studioHistory\.rows\[1\]\.facts\.anchor contains a non-finite number \(NaN\)$/)
   }, 120_000)
 })

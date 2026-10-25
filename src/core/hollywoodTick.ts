@@ -1,3 +1,6 @@
+import { advanceAbsorbedRuns } from './absorbedRuns.js'
+import { validateAbsorbedProductionStops } from './absorbedWork.js'
+import { validateAbsorbedScripts } from './absorbedScripts.js'
 import {chooseIndustryPackage, searchIndustryPackages, rivalCostCuttingEntry, rivalCostCuttingReleaseAllowed,
   type RivalCostCuttingEntryFacts} from './hollywoodPolicy.js'
 import { considerRivalSoundPurchase, selectRivalSoundProduction, rivalInstallationSlots } from './technologyRival.js'
@@ -10,7 +13,7 @@ import { promisedCastMasks, WEEKS_TO_FIRST_TAKE } from './promises.js'
 import { isOpportunityPredicate } from './opportunityPromises.js'
 import { industryBusyTalentIds, moveRivalMoney, rivalCapacityOpex, rivalWeeklyOperatingCost, uniqueIdentity } from './hollywood.js'
 import { loanInstallmentDueFor, releaseRefusal } from './corporateConditionLive.js'
-import { closedWeekOf } from './operatingState.js'
+import { absorbedWeekOf, closedWeekOf, terminalWeekOf } from './operatingState.js'
 import { admitRivalPlansInWeek, advanceRivalResearch, completeRivalPlans, disposeEligibleRivalFacilities, rivalScientistDemand } from './rivalResearch.js'
 import { researchAfterEmploymentRelease } from './technology.js'
 import { RIVAL_TEAM_ROLES } from './hollywoodStartingData.js'
@@ -28,13 +31,14 @@ import { resolveShape } from './shape.js'
 import { stream } from './rng.js'
 import { buildFilmResult, resolveReception, type ReceptionInputs } from './reception.js'
 import { openTheatricalRun } from './economy.js'
-import { updateStanding } from './standing.js'
+import { updateStanding, type StandingContext } from './standing.js'
+import { cloneStanding } from './studioHistory.js'
 import { flattenParticipants } from './starPower.js'
 import { generateIndustryTalent, FORCE_ORDER } from './worldgen.js'
 import { GENRE_ORDER, TUNING } from './tuning.js'
 import { clamp } from './math.js'
 import type { ReleaseGrowthRecord } from './releaseCareers.js'
-import type { GameState, Talent, FilmShape, Production, ScriptDevelopment, ScriptProject } from './types.js'
+import type { GameState, Talent, FilmShape, Production, ScriptDevelopment, ScriptProject, LedgerEntry, Standing } from './types.js'
 import type { HollywoodState, IndustryReceipt, LiveIndustryFilm, RivalBusiness } from './hollywoodTypes.js'
 
 /** Shared arithmetic receives the world generator's fixed force order after
@@ -191,7 +195,7 @@ function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],
   // A release needs no
   // production, writing or unreleased research seat, more than the cap left, no open
   // promise from this studio, and this studio's reserve without the person after the charge.
-  const seated=industryBusyTalentIds(h,closedWeekOf(state))
+  const seated=industryBusyTalentIds(h,terminalWeekOf(state))
   for(const project of state.technology.projects) if(project.studioId===b.studioId)
     for(const seat of project.seats) if(seat.releasedWeek===null) seated.add(seat.talentId)
   const surplus=h.activeEmploymentOrdinals.filter(i=>{const e=h.employment[i]!
@@ -427,6 +431,58 @@ function frozenRivalMembers(source:HollywoodState|null,factorById:ReadonlyMap<st
  * P15A.1 Wave 2 (1355-A §3.1-3.2): `factorById` carries the frozen shared-market factor of each rival
  * release, witnessed against the due set and each studio's releases; absent, every rival release
  * takes today's path. */
+/** One actual creator-paid reception/release producer, shared by normal rivals and buyer-operated work. */
+function publishCreatorRelease(state:GameState,h:HollywoodState,b:RivalBusiness,p:Production,talent:Talent[],week:number,receptionStanding:Standing,factorById?:ReadonlyMap<string,number>) {
+  const people=new Map(talent.map(t=>[t.id,t]))
+  const project=hotDevelopment(b).projects.find(s=>s.productionId===p.id)!
+  const inp=inputsFor(state,h,{...b,standing:receptionStanding},p,project,people)
+  // P15A.1 Wave 2 (1355-A §3.2): the rival release site of the seam.
+  const factor=factorById?.get(p.id)
+  const result=resolveReception(factor===undefined?inp:{...inp,competitionFactor:factor},stream(state.seed,'hollywood-v1',`${p.id}:reception`),true,true,stream(state.seed,'discovery-v1',p.id).gaussian(0,1))
+  const base=buildFilmResult(result,{productionId:p.id,releaseTick:week,conceptId:p.conceptId,directorId:p.directorId})
+  const filmResult={...base,participants:p.participants!,forecast:{expectedCriticScore:p.forecastSnapshot.expectedCriticScore,expectedTotal:p.forecastSnapshot.expectedTotal,expectedOpening:p.forecastSnapshot.expectedOpening}}
+  const cost=b.projects[Number(project.id.slice(7))]!
+  const film:LiveIndustryFilm={filmId:p.id,studioId:b.studioId,conceptId:p.conceptId,title:inp.concept.title,genre:inp.concept.genre,
+    credits:flattenParticipants(p.participants!).map(c=>({talentId:c.talentId,name:c.name,role:c.role})),provenance:'simulation/v1',
+    scriptProjectId:project.id,result:filmResult,directCommitment:cost.development+cost.production+cost.marketing,
+    studioRevenueReceived:0,settledWeek:null,releaseCommitmentId:`release-commitment-${p.id}`}
+  b.activeRunFilmOrdinals=[...b.activeRunFilmOrdinals,h.films.length]
+  h.films=[...h.films,film]
+  b.runs=[...b.runs,openTheatricalRun(filmResult,base.boxOffice.opening,base.boxOffice.opening>0?base.boxOffice.total/base.boxOffice.opening:1,week)]
+
+  const ctx:StandingContext={castFames:{lead:inp.cast.lead.fame,antagonist:inp.cast.antagonist.fame,support:inp.cast.support.fame},
+    actualNegative:p.budget.negative,requiredNegative:result.requiredNegative,baseMarketValue:state.market.baseMarketValue,marketing:p.budget.marketing,
+    salaries:inp.writer.salary+inp.director.salary+inp.cast.lead.salary+inp.cast.antagonist.salary+inp.cast.support.salary,engaged:true}
+  const growth:ReleaseGrowthRecord={filmResult,develop:{productionId:p.id,performers:flattenParticipants(p.participants!).map(c=>({talentId:c.talentId,discipline:c.discipline})),ctx:{concept:inp.concept,shape:p.shape,shapeEffects:inp.shapeEffects,promise:p.promise,requiredNegative:result.requiredNegative,criticScore:result.criticScore}},broadcast:{weightedAudienceScore:result.weightedAudienceScore}}
+  storeHotDevelopment(b,markScriptProjectProduced(hotDevelopment(b),p.id))
+  return {filmResult,ctx,growth}
+}
+
+/** Actual continued receptions at the reception boundary. Standing is applied by the ONE
+ * buyer ordered Standing loop; no public state is published between reception and that update. */
+export function prepareContinuedReleases(state:GameState,productions:readonly Production[],receptionStanding:Standing,factors?:ReadonlyMap<string,number>) {
+  const source=state.hollywood
+  const growth:ReleaseGrowthRecord[]=[]
+  const records:{filmResult:ReturnType<typeof publishCreatorRelease>['filmResult'];benchmarks:import('./standing.js').ReleaseBenchmarks;ctx:StandingContext}[]=[]
+  if(!source || productions.length===0)return {hollywood:source,rights:state.rights,growth,records}
+  const h:HollywoodState={...source,businesses:source.businesses.map(b=>({...b}))}
+  let rights=state.rights
+  for(const p of productions) {
+    const owner=rights.absorptions.find(a=>a.buyerId===h.playerStudioId && a.continuedProductions.some(r=>r.productionId===p.id))
+    if(!owner || p.remainingTicks!==0 || owner.workReleases.some(r=>r.productionId===p.id))throw new Error('continued work: unknown/unready/replayed reception')
+    const b=h.businesses.find(b=>b.studioId===owner.targetId)!
+    const released=publishCreatorRelease(state,h,b,p,state.talent,state.market.tick,receptionStanding,factors)
+    const benchmarks={expectedOpening:p.forecastSnapshot.expectedOpening,expectedTotal:p.forecastSnapshot.expectedTotal,expectedCriticScore:p.forecastSnapshot.expectedCriticScore}
+    const observation={productionId:p.id,week:state.market.tick,titleEventId:null,standingBefore:cloneStanding(receptionStanding),standingAfter:cloneStanding(receptionStanding),standingContext:structuredClone(released.ctx),benchmarks}
+    rights={...rights,absorptions:rights.absorptions.map(a=>a.id===owner.id?{...a,workReleases:[...a.workReleases,observation],runs:[...a.runs,{productionId:p.id,beneficiaryFromWeek:state.market.tick,startingWeekIndex:0,grossPaidBeforeClose:0,revenuePaidBeforeClose:0}],buyerWorkflows:a.buyerWorkflows.filter(w=>w.productionId!==p.id)}:a)}
+    appendReceipt(h,{week:state.market.tick,studioId:b.studioId,kind:'filmReleased',productionId:p.id,conceptId:p.conceptId,before:cloneStanding(b.standing),after:cloneStanding(b.standing)})
+    b.productions=b.productions.filter(row=>row.id!==p.id)
+    b.releaseAuthority=pruneReleasedCommitments(b.releaseAuthority,new Set([p.id]))
+    growth.push(released.growth);records.push({filmResult:released.filmResult,benchmarks,ctx:released.ctx})
+  }
+  return {hollywood:h,rights,growth,records}
+}
+
 export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<string,number>):{hollywood:HollywoodState|null;talent:Talent[];growth:ReleaseGrowthRecord[];technology:GameState['technology'];physicalPlans:GameState['physicalPlans'];
   /** P14B.1 (1): this week's rival first takes (the 5 -> 4 advance), handed to
    * the outer tick so the ONE first-take root is appended in one place. */
@@ -435,18 +491,22 @@ export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<str
   /** P14C.1: the people `staff()` actually APPENDED this week (a mint the rival could
    * not afford is discarded and is not here), each carrying its EXACT entry age, handed
    * to the outer tick so provenance is written with the same commit that carries them. */
-  suppliedTalent:{id:string;age:number}[]} {
+  suppliedTalent:{id:string;age:number}[];
+  rights:GameState['rights'];absorbedRunRevenue:LedgerEntry[]} {
   const source=state.hollywood
   // P15B Wave 4 (closure/v1): an actually closed business is terminal history (operatingState.closedWeekOf).
   const closed=closedWeekOf(state)
-  const frozen=factorById===undefined?null:frozenRivalMembers(source,factorById,closed)
-  if(!source)return {hollywood:null,talent:state.talent,growth:[],technology:state.technology,physicalPlans:state.physicalPlans,firstTakes:[],greenlights:[],suppliedTalent:[]}
+  const absorbed=absorbedWeekOf(state)
+  const frozen=factorById===undefined?null:frozenRivalMembers(source,factorById,terminalWeekOf(state))
+  if(!source)return {hollywood:null,talent:state.talent,growth:[],technology:state.technology,physicalPlans:state.physicalPlans,firstTakes:[],greenlights:[],suppliedTalent:[],rights:state.rights,absorbedRunRevenue:[]}
   const week=state.market.tick
   const h:HollywoodState={...source,businesses:source.businesses.map(b=>({...b,account:{...b.account,
     periods:b.account.periods.map((p,i)=>i===b.account.periods.length-1?{...p,movements:{...p.movements}}:p)}}))}
   let talent=state.talent
   let technology=state.technology
   let physicalPlans=state.physicalPlans
+  let rights=state.rights
+  const absorbedRunRevenue:LedgerEntry[]=[]
   const growth:ReleaseGrowthRecord[]=[]
   const firstTakes:{studioId:string;production:Production}[]=[]
   const greenlights:{studioId:string;production:Production}[]=[]
@@ -456,6 +516,16 @@ export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<str
     // researches nothing. Its estate-run adapter is the ordinary run loop alone, at the ordinary week: each retained
     // run collects exactly its installment due at this input week (money, settledWeek and the filmSettled receipt
     // at T−1, the canonical schedule), and the closure phase records it as an estate event and distributes it.
+    if(absorbed.has(b.studioId)) {
+      const transaction=state.rights.absorptions.find(a=>a.targetId===b.studioId)!
+      // Actual terminal work owner: write-off stays with its original paid screenplay/production.
+      // Stopped work remains terminal; already-prepared continued releases have their real buyer owner.
+      validateAbsorbedProductionStops(state,b,transaction)
+      validateAbsorbedScripts(state,b,transaction)
+      const runAdvance=advanceAbsorbedRuns({...state,rights},h,b,transaction,week)
+      rights=runAdvance.rights;absorbedRunRevenue.push(...runAdvance.ledger)
+      continue
+    }
     if(closed.has(b.studioId)){payRuns(h,b,week);continue}
     const cashFacts:StaffingCashFacts={unfilledFilmSlotForCash:false,renewalRefusedForCash:false,unrelatedScientistSlotRefusedForCash:false}
     technology=considerRivalSoundPurchase({...state,technology,hollywood:h},h,b)
@@ -496,33 +566,13 @@ export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<str
       throw new Error(`shared market: ${b.studioId} releases [${releasing.map(p=>p.id).join(', ')}] but its frozen batch members are [${members.join(', ')}]`)
     }
     b.operations=advanced.operations;b.productions=advanced.productions.filter(p=>p.remainingTicks>0)
-    const people=new Map(talent.map(t=>[t.id,t]))
     const startStanding=b.standing
     for(const p of releasing) {
-      const project=hotDevelopment(b).projects.find(s=>s.productionId===p.id)!
-      const inp=inputsFor(state,h,{...b,standing:startStanding},p,project,people)
-      // P15A.1 Wave 2 (1355-A §3.2): the rival release site of the seam.
-      const factor=factorById?.get(p.id)
-      const result=resolveReception(factor===undefined?inp:{...inp,competitionFactor:factor},stream(state.seed,'hollywood-v1',`${p.id}:reception`),true,true,stream(state.seed,'discovery-v1',p.id).gaussian(0,1))
-      const base=buildFilmResult(result,{productionId:p.id,releaseTick:week,conceptId:p.conceptId,directorId:p.directorId})
-      const filmResult={...base,participants:p.participants!,forecast:{expectedCriticScore:p.forecastSnapshot.expectedCriticScore,expectedTotal:p.forecastSnapshot.expectedTotal,expectedOpening:p.forecastSnapshot.expectedOpening}}
-      const cost=b.projects[Number(project.id.slice(7))]!
-      const film:LiveIndustryFilm={filmId:p.id,studioId:b.studioId,conceptId:p.conceptId,title:inp.concept.title,genre:inp.concept.genre,
-        credits:flattenParticipants(p.participants!).map(c=>({talentId:c.talentId,name:c.name,role:c.role})),provenance:'simulation/v1',
-        scriptProjectId:project.id,result:filmResult,directCommitment:cost.development+cost.production+cost.marketing,
-        studioRevenueReceived:0,settledWeek:null,releaseCommitmentId:`release-commitment-${p.id}`}
-      b.activeRunFilmOrdinals=[...b.activeRunFilmOrdinals,h.films.length]
-      h.films=[...h.films,film]
-      b.runs=[...b.runs,openTheatricalRun(filmResult,base.boxOffice.opening,base.boxOffice.opening>0?base.boxOffice.total/base.boxOffice.opening:1,week)]
+      const released=publishCreatorRelease(state,h,b,p,talent,week,startStanding,factorById)
       const before=b.standing
-      b.standing=updateStanding(before,filmResult,p.forecastSnapshot,{castFames:{lead:inp.cast.lead.fame,antagonist:inp.cast.antagonist.fame,support:inp.cast.support.fame},
-        actualNegative:p.budget.negative,requiredNegative:result.requiredNegative,baseMarketValue:state.market.baseMarketValue,marketing:p.budget.marketing,
-        salaries:inp.writer.salary+inp.director.salary+inp.cast.lead.salary+inp.cast.antagonist.salary+inp.cast.support.salary,engaged:true})
+      b.standing=updateStanding(before,released.filmResult,p.forecastSnapshot,released.ctx)
       appendReceipt(h,{week,studioId:b.studioId,kind:'filmReleased',productionId:p.id,conceptId:p.conceptId,before,after:b.standing})
-      growth.push({filmResult,develop:{productionId:p.id,performers:flattenParticipants(p.participants!).map(c=>({talentId:c.talentId,discipline:c.discipline})),
-        ctx:{concept:inp.concept,shape:p.shape,shapeEffects:inp.shapeEffects,promise:p.promise,requiredNegative:result.requiredNegative,criticScore:result.criticScore}},
-        broadcast:{weightedAudienceScore:result.weightedAudienceScore}})
-      storeHotDevelopment(b,markScriptProjectProduced(hotDevelopment(b),p.id))
+      growth.push(released.growth)
     }
     b.releaseAuthority=pruneReleasedCommitments(b.releaseAuthority,ids)
     payRuns(h,b,week)
@@ -543,7 +593,7 @@ export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<str
     for(const project of complete.projects)if(project.status==='review')complete=acceptScriptProject(complete,project.id)
     storeHotDevelopment(b,complete)
   }
-  return {hollywood:h,talent,growth,technology,physicalPlans,firstTakes,greenlights,suppliedTalent}
+  return {hollywood:h,talent,growth,technology,physicalPlans,firstTakes,greenlights,suppliedTalent,rights,absorbedRunRevenue}
 }
 
 /** End-of-week expiry follows payroll; future entrants are attached by the outer tick. */

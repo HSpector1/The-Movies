@@ -1,3 +1,4 @@
+import type { AbsorptionRecord } from './rights.js'
 // ── P14B.1 — The First Kept Promise Core ─────────────────────────────────────
 //
 // A PURE module (like talentMarket/employment): no React/DOM/async/IO, no time,
@@ -1557,11 +1558,11 @@ export function validatePromiseRootsV39(state: unknown): void {
   validatePromiseRootsForVersion(state, 39)
 }
 
-export function validatePromiseRootsV40(state: unknown): void {
-  validatePromiseRootsForVersion(state, 40)
+export function validatePromiseRootsV40(state: unknown, absorptions?:ReadonlyMap<string,AbsorptionRecord>): void {
+  validatePromiseRootsForVersion(state, 40,absorptions)
 }
 
-function validatePromiseRootsForVersion(state: unknown, saveVersion: 29 | 30 | 39 | 40): void {
+function validatePromiseRootsForVersion(state: unknown, saveVersion: 29 | 30 | 39 | 40, absorptions?:ReadonlyMap<string,AbsorptionRecord>): void {
   const fail = (message: string): never => {
     throw new Error(`validateSaveV${String(saveVersion)}: ${message}`)
   }
@@ -1641,7 +1642,7 @@ function validatePromiseRootsForVersion(state: unknown, saveVersion: 29 | 30 | 3
     takesById.set(row.eventId as string, row as unknown as FirstTakeReceipt)
   }
 
-  if (saveVersion === 40) validateFirstTakeSubjects(state)
+  if (saveVersion === 40) validateFirstTakeSubjects(state,absorptions)
   const subjects = saveVersion === 40 ? (state as unknown as GameState).firstTakeSubjects.facts : []
   const promisesById = new Map<string, ReadablePromise>()
   const outcomeEvents = new Set<string>()

@@ -32,7 +32,7 @@ import type { StudioHistoryDraft } from './studioHistory.js'
 import type { GameState, PhysicalPlan, PhysicalPlanWork, PlanQuoteSnapshot, StudioPhysicalPlans, Talent } from './types.js'
 import type { HollywoodState, IndustryReceipt, RivalBusiness } from './hollywoodTypes.js'
 import type { TechnologyId } from './technologyTypes.js'
-import { closedWeekOf } from './operatingState.js'
+import { terminalWeekOf } from './operatingState.js'
 
 export { advanceRivalResearchWeek } from './technology.js'
 
@@ -290,7 +290,7 @@ export function completeRivalPlans(state: GameState): GameState {
   const week = state.market.tick
   const h: HollywoodState = { ...source, receipts: [...source.receipts], businesses: [...source.businesses] }
   let changed = false
-  const closed = closedWeekOf(state)
+  const closed = terminalWeekOf(state)
   for (const [index, business] of h.businesses.entries()) {
     // P15B closure/v1 (r3; Wave-4 contract §4): an actually closed studio builds nothing; a started build stops in place.
     if (closed.has(business.studioId)) continue

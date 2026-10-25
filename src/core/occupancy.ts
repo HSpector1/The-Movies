@@ -229,7 +229,12 @@ export type ResourceSlotClaim = Extract<ResourceClaim, { slot: number }>
  * satisfy a signature. Pair a narrow source with the matching `owners` filter so
  * the intent is written down, not inferred.
  */
+import type { RightsRoot } from './rights.js'
+import type { HollywoodState } from './hollywoodTypes.js'
+
 export type OccupancySources = {
+  readonly rights?:RightsRoot
+  readonly hollywood?:HollywoodState|null
   readonly placement?: StudioPlacement
   readonly technology?: StudioTechnology
   readonly operations?: StudioOperations
@@ -406,7 +411,7 @@ export function resourceClaims(sources: OccupancySources): ResourceClaim[] {
   }
 
   // 1 + 2. Production workflows, and the shooting task's denormalized copy.
-  for (const workflow of sources.operations?.workflows ?? []) {
+  for (const workflow of [...(sources.operations?.workflows ?? []),...(sources.rights?.absorptions??[]).filter(a=>a.buyerId===sources.hollywood?.playerStudioId).flatMap(a=>a.buyerWorkflows)]) {
     for (const reservation of workflow.reservations) {
       claims.push({
         key: resourceSlotKey('facility', reservation.facilityId, reservation.slot),
@@ -567,7 +572,7 @@ export function resourceClaims(sources: OccupancySources): ResourceClaim[] {
   //       Post. Keying on the phase name would have kept the scenery hostage to
   //       a picture that had already gone home. `bindings.setId` survives as the
   //       picture's RECORD of what it shot on, and a record holds nothing.
-  for (const workflow of sources.operations?.workflows ?? []) {
+  for (const workflow of [...(sources.operations?.workflows ?? []),...(sources.rights?.absorptions??[]).filter(a=>a.buyerId===sources.hollywood?.playerStudioId).flatMap(a=>a.buyerWorkflows)]) {
     const bound = workflow.bindings?.setId ?? null
     if (bound === null) continue
     if (!workflow.reservations.some((reservation) => reservation.capability === 'soundstage')) {

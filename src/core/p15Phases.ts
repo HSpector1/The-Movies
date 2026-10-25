@@ -7,8 +7,8 @@
 
 // P15B Wave 4 (record 1370-ar; the Wave-4 closure contract §2): version 2 inserts the actual closure phase
 // `p15b.closure` between the condition step and the finale. Table 1 and every row written under it are
-// unchanged; a new row is written under version 2.
-export const P15_PHASE_ORDER_VERSION = 2 as const
+// unchanged. Save49 adds estate-sale phase version3; predecessor writers explicitly retain table2.
+export const P15_PHASE_ORDER_VERSION = 3 as const
 
 /** Ordinals ascend in the table's order (1355-F2 item 3). */
 export const P15_PHASE_TABLES: Readonly<Record<number, readonly { readonly phaseId: string; readonly phaseOrdinal: number }[]>> = {
@@ -25,15 +25,23 @@ export const P15_PHASE_TABLES: Readonly<Record<number, readonly { readonly phase
     { phaseId: 'p15b.closure', phaseOrdinal: 4 },
     { phaseId: 'p15c.finale', phaseOrdinal: 5 },
   ],
+  3: [
+    { phaseId: 'p15a1.marketBatch', phaseOrdinal: 1 },
+    { phaseId: 'p16.estateSale', phaseOrdinal: 2 },
+    { phaseId: 'p15a2.rankingRecord', phaseOrdinal: 3 },
+    { phaseId: 'p15b.condition', phaseOrdinal: 4 },
+    { phaseId: 'p15b.closure', phaseOrdinal: 5 },
+    { phaseId: 'p15c.finale', phaseOrdinal: 6 },
+  ],
 }
 
 export type P15PhaseTriple = { phaseId: string; phaseOrdinal: number; phaseOrderVersion: number }
 
 /** The triple a new row of `phaseId` is written under (the current version). */
-export function p15PhaseTriple(phaseId: string): P15PhaseTriple {
-  const entry = P15_PHASE_TABLES[P15_PHASE_ORDER_VERSION]!.find(row => row.phaseId === phaseId)
+export function p15PhaseTriple(phaseId: string, version: number = P15_PHASE_ORDER_VERSION): P15PhaseTriple {
+  const entry = P15_PHASE_TABLES[version]?.find(row => row.phaseId === phaseId)
   if (entry === undefined) throw new Error(`p15Phases: unknown phase ${phaseId}`)
-  return { phaseId, phaseOrdinal: entry.phaseOrdinal, phaseOrderVersion: P15_PHASE_ORDER_VERSION }
+  return { phaseId, phaseOrdinal: entry.phaseOrdinal, phaseOrderVersion: version }
 }
 
 // 1355-F5 ruling 1: validators read a row's entry as `P15_PHASE_TABLES[row.phaseOrderVersion]`

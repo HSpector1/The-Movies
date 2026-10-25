@@ -1,5 +1,5 @@
 import {StudioBridgeIntentOption} from './intent-schema.ts'
-import {array,boolean as bool,enumeration,integer,literal,nullable,number,object,optional,reference,text,type InferSchema,type JsonSchema} from './dsl.ts'
+import {array,boolean as bool,enumeration,integer,literal,nullable,number,object,optional,reference,text,union,type InferSchema,type JsonSchema} from './dsl.ts'
 // P14A.2: `StudioMarketPage` is DEFINED in bridge-schema.ts, beside the other market DTOs.
 // That module imports THIS one, so the workspace page is referenced here by NAME alone —
 // the import below is type-only and erased at runtime, which keeps the two schema modules
@@ -67,7 +67,7 @@ const StudioEquipmentAsset=object('StudioEquipmentAsset',{id:id(),technologyId:e
 // One COMMITTED adoption of this studio's own. `postFacilityId` is null exactly when this
 // technology has no Post component at all (lighting); `operationalWeek` is null until this
 // adoption's own physical work has finished.
-const StudioAdoptionRow=object('StudioAdoptionRow',{technologyId:enumeration(TECHNOLOGY_IDS),route:enumeration(['research','purchase']),committedWeek:count(),operationalWeek:nullable(count()),components:array(reference('StudioAdoptionComponent',StudioAdoptionComponent)),equipmentAssetId:nullable(id()),postFacilityId:nullable(id()),cancelledWeek:nullable(count()),replacementLabel:id()})
+const StudioAdoptionRow=object('StudioAdoptionRow',{technologyId:enumeration(TECHNOLOGY_IDS),route:enumeration(['research','purchase','acquired']),committedWeek:count(),operationalWeek:nullable(count()),components:array(reference('StudioAdoptionComponent',StudioAdoptionComponent)),equipmentAssetId:nullable(id()),postFacilityId:nullable(id()),cancelledWeek:nullable(count()),replacementLabel:id()})
 // P13B-S7: what a commercial purchase of this technology REPLACES, authored catalogue
 // text verbatim (`replacementDescriptor`). Present on the `purchase-<technologyId>` and
 // `adopt-*` rows alone and absent — never defaulted, never empty — on every other row,
@@ -155,12 +155,45 @@ export const StudioIndustryProjection=object('StudioIndustryProjection',{industr
 // optional so every request minted before projection 43 stays valid exactly as it is.
 const StudioPowerRankingFilm=object('StudioPowerRankingFilm',{filmId:id(),title:id(),criticScore:score(),scoreTenths:count()})
 const StudioPowerRankingRow=object('StudioPowerRankingRow',{studioId:id(),name:id(),player:bool(),ranked:bool(),rank:nullable(integer({minimum:1})),rankLabel:id(),priorRank:nullable(integer({minimum:1})),movement:enumeration(['new','unavailable','up','down','unchanged']),movementLabel:id(),filmsTenths:count(),films:array(reference('StudioPowerRankingFilm',StudioPowerRankingFilm)),filmsLine:nullable(id()),releases:count(),releasesTenths:count(),pointsTenths:count(),pointsLabel:id(),honors:literal('notRecorded'),band:enumeration(['inTheRed','strained','stable','thriving']),bandLabel:id(),distressStage:enumeration(['notRecorded','stable','warning','distress','recovery','closed'])})
-const StudioPowerRankingPage=object('StudioPowerRankingPage',{snapshotId:id(),priorSnapshotId:nullable(id()),week:count(),dateLabel:id(),definitionVersion:enumeration(['power-ranking/v1','power-ranking/v2']),windowLabel:id(),available:bool(),availabilityLine:nullable(id()),firstRankedLabel:nullable(id()),recordingNotice:nullable(id()),rankedCount:count(),cohortCount:count(),rows:array(reference('StudioPowerRankingRow',StudioPowerRankingRow))})
-export const StudioIndustryRequest=object('StudioIndustryRequest',{protocolVersion:literal(4),schemaId:id(),sessionId:id(),requestId:id(),expectedStateRevision:count(),type:literal('industryQuery'),view:enumeration(['studios','studio','films','film','person','pulse','history','roster','project','employment','laboratory','plans','office','market','alumni','powerRanking']),targetId:nullable(id()),page:count(),pageSize:integer({minimum:1,maximum:50}),lane:enumeration([...INDUSTRY_LANES,...INDUSTRY_FILM_LANES]),period:enumeration(['recent','all','authored','live']),historyPage:optional(count())})
-export const StudioIndustryResponse=object('StudioIndustryResponse',{protocolVersion:literal(4),schemaId:id(),snapshotVersion:count(),type:literal('industryPage'),requestId:id(),sessionId:id(),stateRevision:count(),stateDigest:id(),calendar:reference('StudioCampaignDate',StudioCampaignDate),view:enumeration(['studios','studio','films','film','person','pulse','history','roster','project','employment','laboratory','plans','office','market','alumni','powerRanking']),targetId:nullable(id()),page:count(),pageSize:integer({minimum:1,maximum:50}),totalRows:count(),pageCount:count(),lane:id(),period:id(),title:id(),notice:id(),studios:array(reference('StudioIndustryStudio',StudioIndustryStudio)),films:array(reference('StudioIndustryFilm',StudioIndustryFilm)),people:array(reference('StudioIndustryPerson',StudioIndustryPerson)),credits:array(reference('StudioIndustryCredit',StudioIndustryCredit)),activities:array(reference('StudioIndustryActivity',StudioIndustryActivity)),projects:array(reference('StudioIndustryProject',StudioIndustryProject)),tendencies:array(reference('StudioIndustryTendency',StudioIndustryTendency)),laboratory:nullable(reference('StudioLaboratoryPage',StudioLaboratoryPage)),plans:nullable(reference('StudioPlansPage',StudioPlansPage)),office:nullable(reference('StudioOfficePage',StudioOfficePage)),market:nullable(marketPageRef()),powerRanking:nullable(reference('StudioPowerRankingPage',StudioPowerRankingPage))})
-export const industryDefinitions={StudioPowerRankingFilm,StudioPowerRankingRow,StudioPowerRankingPage,StudioAdoptionComponent,StudioCancellationRestoration,StudioActionQuoteComponent,StudioActionQuote,StudioEquipmentAsset,StudioAdoptionRow,StudioLaboratoryAction,StudioOfficeConversionRow,StudioOfficePage,StudioPlanQuoteComponent,StudioPlanQuote,StudioPlanNext,StudioPlanCommitReceipt,StudioPlanRow,StudioPlansPage,StudioLaboratorySeat,StudioResearchLabRow,StudioResearchReceipt,StudioResearchLabShare,StudioResearchWeek,StudioLaboratoryProject,StudioTechnologyForecast,StudioLaboratoryPage,StudioCampaignDate,StudioIndustryLane,StudioIndustryStudio,StudioIndustryFilm,StudioIndustryPerson,StudioIndustryCredit,StudioIndustryActivity,StudioIndustryProject,StudioIndustryTendency,StudioIndustrySummary,StudioIndustryProjection,StudioIndustryRequest,StudioIndustryResponse}
+const StudioPowerRankingPage=object('StudioPowerRankingPage',{snapshotId:id(),priorSnapshotId:nullable(id()),week:count(),dateLabel:id(),definitionVersion:enumeration(['power-ranking/v1','power-ranking/v2','power-ranking/v3']),windowLabel:id(),available:bool(),availabilityLine:nullable(id()),firstRankedLabel:nullable(id()),recordingNotice:nullable(id()),rankedCount:count(),cohortCount:count(),rows:array(reference('StudioPowerRankingRow',StudioPowerRankingRow))})
+const StudioPaidReportStudioTarget=object('StudioPaidReportStudioTarget',{kind:literal('studio'),studioId:id()})
+const StudioPaidReportLotTarget=object('StudioPaidReportLotTarget',{kind:literal('estateLot'),estateId:id(),lotId:id()})
+const StudioPaidReportTarget=union('StudioPaidReportTarget',[
+ reference('StudioPaidReportStudioTarget',StudioPaidReportStudioTarget),
+ reference('StudioPaidReportLotTarget',StudioPaidReportLotTarget),
+] as const)
+const StudioPaidReportProperty=object('StudioPaidReportProperty',{right:literal('R1'),propertyId:id()})
+const StudioPaidReportFilm=object('StudioPaidReportFilm',{right:literal('R2'),filmId:id()})
+const StudioPaidReportSubject=union('StudioPaidReportSubject',[
+ reference('StudioPaidReportProperty',StudioPaidReportProperty),
+ reference('StudioPaidReportFilm',StudioPaidReportFilm),
+] as const)
+const StudioPaidReportReceipt=object('StudioPaidReportReceipt',{
+ id:id(),week:count(),recipientId:id(),target:reference('StudioPaidReportTarget',StudioPaidReportTarget),targetLabel:id(),
+ scope:array(enumeration(['rights','employment','liabilities'] as const)),fee:count(),transactionId:id(),staleFromWeek:count(),
+ quoteAgePolicyVersion:nullable(integer({minimum:0,maximum:1})),fresh:bool(),freshnessLine:id(),
+})
+const StudioPaidReportRight=object('StudioPaidReportRight',{subject:reference('StudioPaidReportSubject',StudioPaidReportSubject),value:nullable(number()),encumbrances:array(id())})
+const StudioPaidReportEmployment=object('StudioPaidReportEmployment',{contractId:id(),talentId:id(),annualSalary:number(),startWeek:count(),endWeekExclusive:count(),exitCost:number()})
+const StudioPaidReportLiabilities=object('StudioPaidReportLiabilities',{stage:id(),hasOutstandingLoan:bool(),weeklyFixedCost:number(),cash:number()})
+const StudioPaidReportBody=object('StudioPaidReportBody',{
+ rights:array(reference('StudioPaidReportRight',StudioPaidReportRight)),
+ employment:nullable(array(reference('StudioPaidReportEmployment',StudioPaidReportEmployment))),
+ liabilities:nullable(reference('StudioPaidReportLiabilities',StudioPaidReportLiabilities)),
+})
+const StudioPaidReportDetail=object('StudioPaidReportDetail',{
+ receipt:reference('StudioPaidReportReceipt',StudioPaidReportReceipt),body:reference('StudioPaidReportBody',StudioPaidReportBody),
+})
+const StudioPaidReportsPage=object('StudioPaidReportsPage',{
+ title:id(),notice:id(),receipts:array(reference('StudioPaidReportReceipt',StudioPaidReportReceipt)),selectedReport:nullable(reference('StudioPaidReportDetail',StudioPaidReportDetail)),
+})
+export const StudioIndustryRequest=object('StudioIndustryRequest',{protocolVersion:literal(4),schemaId:id(),sessionId:id(),requestId:id(),expectedStateRevision:count(),type:literal('industryQuery'),view:enumeration(['studios','studio','films','film','person','pulse','history','roster','project','employment','laboratory','plans','office','market','alumni','powerRanking','diligence']),targetId:nullable(id()),page:count(),pageSize:integer({minimum:1,maximum:50}),lane:enumeration([...INDUSTRY_LANES,...INDUSTRY_FILM_LANES]),period:enumeration(['recent','all','authored','live']),historyPage:optional(count())})
+export const StudioIndustryResponse=object('StudioIndustryResponse',{protocolVersion:literal(4),schemaId:id(),snapshotVersion:count(),type:literal('industryPage'),requestId:id(),sessionId:id(),stateRevision:count(),stateDigest:id(),calendar:reference('StudioCampaignDate',StudioCampaignDate),view:enumeration(['studios','studio','films','film','person','pulse','history','roster','project','employment','laboratory','plans','office','market','alumni','powerRanking','diligence']),targetId:nullable(id()),page:count(),pageSize:integer({minimum:1,maximum:50}),totalRows:count(),pageCount:count(),lane:id(),period:id(),title:id(),notice:id(),studios:array(reference('StudioIndustryStudio',StudioIndustryStudio)),films:array(reference('StudioIndustryFilm',StudioIndustryFilm)),people:array(reference('StudioIndustryPerson',StudioIndustryPerson)),credits:array(reference('StudioIndustryCredit',StudioIndustryCredit)),activities:array(reference('StudioIndustryActivity',StudioIndustryActivity)),projects:array(reference('StudioIndustryProject',StudioIndustryProject)),tendencies:array(reference('StudioIndustryTendency',StudioIndustryTendency)),laboratory:nullable(reference('StudioLaboratoryPage',StudioLaboratoryPage)),plans:nullable(reference('StudioPlansPage',StudioPlansPage)),office:nullable(reference('StudioOfficePage',StudioOfficePage)),market:nullable(marketPageRef()),powerRanking:nullable(reference('StudioPowerRankingPage',StudioPowerRankingPage)),diligence:nullable(reference('StudioPaidReportsPage',StudioPaidReportsPage))})
+export const industryDefinitions={StudioPaidReportStudioTarget,StudioPaidReportLotTarget,StudioPaidReportTarget,StudioPaidReportProperty,StudioPaidReportFilm,StudioPaidReportSubject,StudioPaidReportReceipt,StudioPaidReportRight,StudioPaidReportEmployment,StudioPaidReportLiabilities,StudioPaidReportBody,StudioPaidReportDetail,StudioPaidReportsPage,StudioPowerRankingFilm,StudioPowerRankingRow,StudioPowerRankingPage,StudioAdoptionComponent,StudioCancellationRestoration,StudioActionQuoteComponent,StudioActionQuote,StudioEquipmentAsset,StudioAdoptionRow,StudioLaboratoryAction,StudioOfficeConversionRow,StudioOfficePage,StudioPlanQuoteComponent,StudioPlanQuote,StudioPlanNext,StudioPlanCommitReceipt,StudioPlanRow,StudioPlansPage,StudioLaboratorySeat,StudioResearchLabRow,StudioResearchReceipt,StudioResearchLabShare,StudioResearchWeek,StudioLaboratoryProject,StudioTechnologyForecast,StudioLaboratoryPage,StudioCampaignDate,StudioIndustryLane,StudioIndustryStudio,StudioIndustryFilm,StudioIndustryPerson,StudioIndustryCredit,StudioIndustryActivity,StudioIndustryProject,StudioIndustryTendency,StudioIndustrySummary,StudioIndustryProjection,StudioIndustryRequest,StudioIndustryResponse}
 export type IndustryQuery=InferSchema<typeof StudioIndustryRequest>
 export type IndustryPage=InferSchema<typeof StudioIndustryResponse>
 export type IndustrySummary=InferSchema<typeof StudioIndustrySummary>
 
 export type PowerRankingPage=InferSchema<typeof StudioPowerRankingPage>
+
+export type PaidReportsPage=InferSchema<typeof StudioPaidReportsPage>

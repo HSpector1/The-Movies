@@ -1,3 +1,6 @@
+import { buyerOperatedProductions, continuedCommittedReleaseIds } from '../src/core/continuedWork.js'
+import { diligenceDraftCopy, absorptionDraftCopy, diligenceDraftApply, absorptionDraftApply, diligenceQuoteSnapshot, absorptionQuoteSnapshot } from './rights.ts'
+import { QUOTE_AGE_POLICY_VERSION } from '../src/core/quoteAge.js'
 import { loanQuoteSnapshot, loanDraftApply } from './loan.ts'
 import { createHash, randomUUID } from 'node:crypto'
 import { performance } from 'node:perf_hooks'
@@ -100,6 +103,8 @@ import type {
   BridgeSetCommissionDraftPayload,
   BridgeQuoteSetCommissionRequest,
   BridgeSetCommissionQuoteSnapshot,
+  BridgeDiligenceDraftPayload, BridgeQuoteDiligenceRequest, BridgeDiligenceQuoteSnapshot,
+  BridgeAbsorptionDraftPayload, BridgeQuoteAbsorptionRequest, BridgeAbsorptionQuoteSnapshot,
   BridgeLoanDraftPayload,
   BridgeQuoteLoanRequest,
   BridgeLoanQuoteSnapshot,
@@ -188,6 +193,8 @@ export type AcceptedQuoteResponseFor<TQuote> = Omit<BridgeQuoteResponse, 'quote'
  * clear-on-load stay generic over intentId regardless of which family minted it.
  */
 type PendingQuote =
+  | { family:'diligence'; draft:BridgeDiligenceDraftPayload; stateDigest:string; kind:'requestDueDiligence'; commitLabel:string }
+  | { family:'absorption'; draft:BridgeAbsorptionDraftPayload; quotedAtWeek:number; quoteAgePolicyVersion:typeof QUOTE_AGE_POLICY_VERSION; stateDigest:string; kind:'absorbStudio'; commitLabel:string }
   | { family: 'loan'; draft: BridgeLoanDraftPayload; stateDigest: string; kind: 'takeLoan'; commitLabel: string }
   | {
       family: 'commission'
@@ -961,9 +968,9 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
   // the decision this intent resolves.
   {
     const committedIds = new Set(
-      state.releaseAuthority.commitments.map((row) => row.productionId),
+      [...state.releaseAuthority.commitments.map((row) => row.productionId),...continuedCommittedReleaseIds(state)],
     )
-    const readyUncommitted = state.studio.activeProductions
+    const readyUncommitted = buyerOperatedProductions(state)
       .filter(
         (production) => production.remainingTicks === 1 && !committedIds.has(production.id),
       )
@@ -972,7 +979,7 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
       const concept = state.concepts.find(
         (candidate) => candidate.id === production.conceptId,
       )
-      const title = concept?.title ?? production.id
+      const title = concept?.title ?? state.hollywood?.concepts.find(candidate=>candidate.id===production.conceptId)?.title ?? production.id
       const fields: Omit<AvailableIntent, 'intentId'> = {
         kind: 'commitPictureToRelease',
         label: `Commit ${title} to release`,
@@ -1680,6 +1687,13 @@ export class BridgeSession {
     const pending = this.pendingQuotes.get(intentId)
     if (pending === undefined) return undefined
     if (pending.stateDigest !== authoritativeDigest(this.state)) return undefined
+    if (pending.family === 'diligence' || pending.family === 'absorption') {
+      return {option:{intentId,kind:pending.kind,label:pending.commitLabel,detail:'',projectId:null,castingSessionId:null,productionId:null},
+        apply:current=>authoritativeDigest(current)!==pending.stateDigest
+          ? {ok:false,error:'Quoted rights intent no longer matches the authoritative state.'}
+          : pending.family==='diligence'?diligenceDraftApply(current,pending.draft)
+            : absorptionDraftApply(current,pending.draft,pending.quotedAtWeek,pending.quoteAgePolicyVersion)}
+    }
     if (pending.family === 'loan') {
       // Resolve to a live action, never to the preflight successor captured at quote time.
       return { option: { intentId, kind: pending.kind, label: pending.commitLabel, detail: '',
@@ -1855,6 +1869,8 @@ export class BridgeSession {
    * which family it asked for gets that family's quote type back narrowed,
    * with no cast.
    */
+  quote(request: BridgeQuoteDiligenceRequest): AcceptedQuoteResponseFor<BridgeDiligenceQuoteSnapshot> | RejectedResponse
+  quote(request: BridgeQuoteAbsorptionRequest): AcceptedQuoteResponseFor<BridgeAbsorptionQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuoteLoanRequest): AcceptedQuoteResponseFor<BridgeLoanQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuoteCommissionRequest): AcceptedQuoteResponseFor<BridgeCommissionQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuoteCastingRequest): AcceptedQuoteResponseFor<BridgeCastingQuoteSnapshot> | RejectedResponse
@@ -1869,6 +1885,19 @@ export class BridgeSession {
     const { commandId } = request
     const guarded = this.quoteGuard(request, started)
     if (guarded !== null) return guarded
+    if(request.type==='quotePaidDueDiligence') {
+      const draft=diligenceDraftCopy(request.draft),stateDigest=authoritativeDigest(this.state)
+      const intentId=opaqueIntentId(stateDigest,{diligenceDraft:draft}),quote=diligenceQuoteSnapshot(this.state,draft,intentId)
+      if(quote.ok){this.pendingQuotes.set(intentId,{family:'diligence',draft,stateDigest,kind:'requestDueDiligence',commitLabel:quote.commitLabel});this.capPendingQuotes()}
+      return this.mintQuoteResponse(request,started,stateDigest,quote)
+    }
+    if(request.type==='quoteHealthyAbsorption') {
+      const draft=absorptionDraftCopy(request.draft),stateDigest=authoritativeDigest(this.state)
+      const intentId=opaqueIntentId(stateDigest,{absorptionDraft:draft}),quote=absorptionQuoteSnapshot(this.state,draft,intentId)
+      if(quote.ok){this.pendingQuotes.set(intentId,{family:'absorption',draft,quotedAtWeek:quote.quotedAtWeek,quoteAgePolicyVersion:quote.quoteAgePolicyVersion,
+        stateDigest,kind:'absorbStudio',commitLabel:quote.commitLabel});this.capPendingQuotes()}
+      return this.mintQuoteResponse(request,started,stateDigest,quote)
+    }
     if (request.type === 'quoteLoan') {
       const stateDigest = authoritativeDigest(this.state)
       const intentId = opaqueIntentId(stateDigest, { loanDraft: request.draft })

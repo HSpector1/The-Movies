@@ -1,3 +1,4 @@
+import { continuedReleaseOwner, cancelContinuedProduction, buyerOperatedProductions, buyerOperationsForAllWork, withBuyerOperations, publishBuyerOperationsAction } from './continuedWork.js'
 import { buildFilmParticipants } from './filmParticipants.js'
 import { liveRetirementWritingAuthority, prepareLiveWritingContext, type LiveWritingContext } from './liveRetirementWriting.js'
 import { applyTechnologyAction, researchAfterEmploymentRelease, researchCandidates, RESEARCH_SCIENTISTS_PER_STUDIO, spelled } from './technology.js'
@@ -61,6 +62,11 @@ import { computeForecast, type ForecastContext } from './forecast.js'
 import { forecastHistoryForOwner } from './industryCareer.js'
 import { allocateFoundingSignature, closeFoundingFund } from './foundingFunding.js'
 import { recordPlayerEmployment } from './industryEmployment.js'
+import { greenlightRightsRefusal, mintStoryPropertyAtGreenlight } from './rights.js'
+import { acceptOffer, makeOffer, rejectOffer, withdrawOffer } from './assetSale.js'
+import { requestDiligence } from './dueDiligence.js'
+import { closeAbsorption } from './acquisition.js'
+import { submitEstateBid } from './estate.js'
 import { breakPromisesOnCancel, breakPromisesOnGreenlight, breakPromisesOnTermination, waivePromise } from './promises.js'
 import { applyTakeLoan, releaseRefusal } from './corporateConditionLive.js'
 import { assertOperatingPlayer } from './studioClosure.js'
@@ -369,6 +375,12 @@ function applyGreenlight(
   const id = predictProductionId(state)
   const startTick = currentTick
   const remainingTicks = TUNING.PRODUCTION_TICKS
+  // P16 r2 (review F23/F62): the rights law of this greenlight is read BEFORE anything is written — before the
+  // operations allocator appends a `phaseEntered` row to an injected tick sink — so a refusal leaves no trace.
+  if (state.hollywood) {
+    const rightsRefusal = greenlightRightsRefusal(state, state.hollywood.playerStudioId, p.conceptId, currentTick, id)
+    if (rightsRefusal !== null) throw new Error(`applyActions: greenlight rejected — ${rightsRefusal}`)
+  }
 
   // Assemble the §5 ReceptionInputs the forecast reads at greenlight (M1/B16).
   const inp: ReceptionInputs = {
@@ -601,9 +613,15 @@ function applyGreenlight(
   // production (direct and queue-admitted alike, 1312-F note 3). Only a script-project
   // greenlight can carry a casting session; the studio guard is `applyCancel`'s.
   const playerStudioId = settled.hollywood?.playerStudioId
-  return scriptProject === undefined || playerStudioId === undefined
+  const competed = scriptProject === undefined || playerStudioId === undefined
     ? settled
     : recordCastingCompetition(settled, playerStudioId, production, scriptProject.id)
+  // P16A (Save46): the accepted original greenlight is the story-property mint boundary, atomic
+  // with the action — one property and one R1 genesis, or a work link onto the concept's existing
+  // property when its remake authority greenlights it again (refused above, before any write, otherwise).
+  return playerStudioId === undefined
+    ? competed
+    : mintStoryPropertyAtGreenlight(competed, { studioId: playerStudioId, production, week: state.market.tick })
 }
 
 // ── cancel (M15) ─────────────────────────────────────────────────────────────
@@ -611,6 +629,7 @@ function applyGreenlight(
 // refund (cash unchanged), no standing effect.
 function applyCancel(state: GameState, action: Action & { kind: 'cancel' }): GameState {
   const idx = state.studio.activeProductions.findIndex((pr) => pr.id === action.productionId)
+  if (idx === -1 && continuedReleaseOwner(state,action.productionId)) return cancelContinuedProduction(state,action.productionId)
   if (idx === -1) {
     throw new Error(
       `applyActions: cancel references productionId "${action.productionId}" not in activeProductions`,
@@ -1635,7 +1654,7 @@ function requireActiveProductionForOperations(
   productionId: string,
   actionName: string,
 ): Production {
-  const production = state.studio.activeProductions.find((candidate) => candidate.id === productionId)
+  const production = buyerOperatedProductions(state).find((candidate) => candidate.id === productionId)
   if (production === undefined) {
     throw new Error(
       `applyActions: ${actionName} references productionId "${productionId}" not in activeProductions`,
@@ -1850,7 +1869,7 @@ function applyAssignShootingDirector(
     action.productionId,
     'assignShootingDirector',
   )
-  const operations = assignShootingDirector(state.operations, production, action.directorId)
+  const operations = assignShootingDirector(buyerOperationsForAllWork(state), production, action.directorId)
   // P05A W1 — DUE-AT-CALL SETTLEMENT. `calledWeek` is the stage-acquisition week,
   // and the Director call can happen after this week's arrival step has already
   // run, so the derived trip may be due the instant the blocker is created. That
@@ -1859,7 +1878,7 @@ function applyAssignShootingDirector(
   // `sceneryArrived` row — instead of exposing a one-week acknowledgment click.
   // Only this action's own production is examined; every other workflow belongs
   // to the tick's next-boundary step.
-  const intermediate: GameState = { ...state, operations }
+  const intermediate = withBuyerOperations(state, operations)
   const events = studioEventSinkFor(state)
   const settled = arriveDueScenery(
     operations,
@@ -1868,12 +1887,11 @@ function applyAssignShootingDirector(
       sceneryLoadInDecision(intermediate, workflow, state.market.tick).kind === 'arrived-pending',
     events,
   )
-  if (settled === operations) return intermediate
-  return {
-    ...state,
-    operations: settled,
+  if (settled === operations) return publishBuyerOperationsAction(state,intermediate)
+  return publishBuyerOperationsAction(state,{
+    ...withBuyerOperations(state,settled),
     studioEvents: commitStudioEvents(state.studioEvents, events, state.market.tick),
-  }
+  })
 }
 
 function applyClearSceneryLoadIn(
@@ -1892,7 +1910,7 @@ function applyClearSceneryLoadIn(
   // fail closed, never guessed. Only the explicitly grandfathered picture
   // (`requiresSetBinding === false`, minted by the V14 migration) keeps the
   // click it has always had.
-  const inFlight = state.operations.workflows.find(
+  const inFlight = buyerOperationsForAllWork(state).workflows.find(
     (workflow) => workflow.productionId === action.productionId,
   )
   if (inFlight !== undefined) {
@@ -1914,11 +1932,10 @@ function applyClearSceneryLoadIn(
     }
   }
   const events = studioEventSinkFor(state)
-  return {
-    ...state,
-    operations: clearSceneryLoadIn(state.operations, action.productionId, events),
+  return publishBuyerOperationsAction(state,{
+    ...withBuyerOperations(state,clearSceneryLoadIn(buyerOperationsForAllWork(state), action.productionId, events)),
     studioEvents: commitStudioEvents(state.studioEvents, events, state.market.tick),
-  }
+  })
 }
 
 function applyScheduleShootingTake(
@@ -1926,10 +1943,7 @@ function applyScheduleShootingTake(
   action: Action & { kind: 'scheduleShootingTake' },
 ): GameState {
   requireActiveProductionForOperations(state, action.productionId, 'scheduleShootingTake')
-  return {
-    ...state,
-    operations: scheduleShootingTake(state.operations, action.productionId),
-  }
+  return publishBuyerOperationsAction(state,withBuyerOperations(state,scheduleShootingTake(buyerOperationsForAllWork(state), action.productionId)))
 }
 
 // ── Script Projects V1 actions ───────────────────────────────────────────────
@@ -2945,11 +2959,20 @@ function applyCommitPictureToRelease(
   const week = state.market.tick
   const commitEvents = studioEventSinkFor(state)
   commitEvents.append({ kind: 'releaseCommitted', productionId: action.productionId }, week)
+  const continued=continuedReleaseOwner(state,action.productionId)
+  if(continued){const h=state.hollywood!;return {...state,hollywood:{...h,businesses:h.businesses.map(b=>b.studioId===continued.business.studioId?{...b,releaseAuthority:withReleaseCommitment(b.releaseAuthority,action.productionId,week)}:b)},studioEvents:commitStudioEvents(state.studioEvents,commitEvents,week)}}
   return {
     ...state,
     releaseAuthority: withReleaseCommitment(state.releaseAuthority, action.productionId, week),
     studioEvents: commitStudioEvents(state.studioEvents, commitEvents, week),
   }
+}
+
+/** P16: a rights verb needs the player's studio identity; a world without an industry has none. */
+function requirePlayerStudioId(state: GameState): string {
+  const id = state.hollywood?.playerStudioId
+  if (id === undefined) throw new Error('applyActions: rights verbs need an industry (hollywood is null)')
+  return id
 }
 
 export function applyActions(state: GameState, actions: Action[]): GameState {
@@ -3152,6 +3175,29 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
       case 'reviewPhysicalPlan':
       case 'setPhysicalPlanAdmission':
         next = applyPhysicalPlanAction(next, action)
+        break
+      // P16 (Save46): the player's rights verbs. Each is the engine's own symmetric function with the
+      // player as the acting studio; a refusal throws before anything is written.
+      case 'makeRightsOffer':
+        next = makeOffer(next, { offerorId: requirePlayerStudioId(next), ...action.offer }, next.market.tick).state
+        break
+      case 'withdrawRightsOffer':
+        next = withdrawOffer(next, action.offerId, requirePlayerStudioId(next), next.market.tick)
+        break
+      case 'acceptRightsOffer':
+        next = acceptOffer(next, action.offerId, requirePlayerStudioId(next), next.market.tick)
+        break
+      case 'rejectRightsOffer':
+        next = rejectOffer(next, action.offerId, requirePlayerStudioId(next), next.market.tick)
+        break
+      case 'requestDueDiligence':
+        next = requestDiligence(next, { recipientId: requirePlayerStudioId(next), target: action.target, scope: action.scope }, next.market.tick).state
+        break
+      case 'absorbStudio':
+        next = closeAbsorption(next, { ...action.absorption, buyerId: requirePlayerStudioId(next) }, next.market.tick)
+        break
+      case 'submitEstateBid':
+        next = submitEstateBid(next, { estateId: action.estateId, lotId: action.lotId, bidderId: requirePlayerStudioId(next), amount: action.amount }, next.market.tick).state
         break
       default: {
         // Exhaustiveness guard: an unknown action kind is a loud abort (M16).

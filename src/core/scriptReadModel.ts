@@ -1,3 +1,4 @@
+import { buyerOperatedProductions, buyerOperationsForAllWork, continuedCommittedReleaseIds } from './continuedWork.js'
 // ── Script Projects V1 player read boundary ─────────────────────────────────
 // Pure projection over GameState. This module deliberately returns fresh, narrow
 // values: no Talent, FilmConcept, ScriptProject, GameState, RNG, actual skill,
@@ -331,7 +332,7 @@ function clonePromise(promise: FilmPromise): FilmPromise {
 }
 
 function requireConcept(state: GameState, conceptId: string) {
-  const concept = state.concepts.find((candidate) => candidate.id === conceptId)
+  const concept = state.concepts.find((candidate) => candidate.id === conceptId) ?? state.hollywood?.concepts.find(candidate=>candidate.id===conceptId)
   if (concept === undefined) {
     throw new Error(`scriptReadModel: unknown concept "${conceptId}"`)
   }
@@ -396,7 +397,7 @@ export function estimatedScriptAssessment(
 // credited writer of a picture is not work and must never produce a "Working
 // on …" label, because that label is what the availability blockers quote.
 function activeProductionAssignment(state: GameState, talentId: string): string | null {
-  const productions = [...state.studio.activeProductions].sort((a, b) => compareId(a.id, b.id))
+  const productions = [...buyerOperatedProductions(state)].sort((a, b) => compareId(a.id, b.id))
   const production = productions.find((candidate) =>
     candidate.directorId === talentId ||
     candidate.cast.lead === talentId ||
@@ -531,7 +532,7 @@ export function scriptCapacityView(state: GameState): ScriptCapacityView {
             label: `${project.status === 'drafting' ? 'Drafting' : 'Rewriting'} ${title} — ${writer.name}`,
           }
         } else if (entry !== undefined && entry.owner === 'production') {
-          const production = state.studio.activeProductions.find(
+          const production = buyerOperatedProductions(state).find(
             (candidate) => candidate.id === entry.ownerId,
           )
           if (production === undefined) {
@@ -1211,11 +1212,11 @@ function nextProductionOperationsDecision(
   // Active-production identity is authoritative. Sorting that collection, rather
   // than trusting workflow insertion order, gives the cross-system selector one
   // stable production ordering even when a caller supplies freshly cloned arrays.
-  const productions = [...state.studio.activeProductions].sort((a, b) =>
+  const productions = [...buyerOperatedProductions(state)].sort((a, b) =>
     compareId(a.id, b.id),
   )
   for (const production of productions) {
-    const workflow = state.operations.workflows.find(
+    const workflow = buyerOperationsForAllWork(state).workflows.find(
       (candidate) => candidate.productionId === production.id,
     )
     if (
@@ -1309,8 +1310,8 @@ export function nextStudioDecision(state: GameState): StudioDecisionView | null 
  * this law (remainingTicks === 1 is the phase truth in both).
  */
 export function nextReleaseReviewDecision(state: GameState): ReleaseReviewDecisionView | null {
-  const committed = new Set(state.releaseAuthority.commitments.map((row) => row.productionId))
-  const ready = state.studio.activeProductions
+  const committed = new Set([...state.releaseAuthority.commitments.map((row) => row.productionId),...continuedCommittedReleaseIds(state)])
+  const ready = buyerOperatedProductions(state)
     .filter((production) => production.remainingTicks === 1 && !committed.has(production.id))
     .sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))
   const first = ready[0]

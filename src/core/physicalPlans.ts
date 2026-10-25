@@ -1,3 +1,4 @@
+import type { AbsorptionRecord } from './rights.js'
 // ── P13B-S3 — persistent physical plans, dependencies and admission ──────────
 //
 // WHAT THIS IS. The studio's ordered, persistent list of PHYSICAL INTENTIONS —
@@ -282,7 +283,7 @@ export function admitPhysicalPlans(state: GameState): { state: GameState; histor
 
 // ── Validation (the save boundary; a forged plan root is never repaired) ─────
 
-export function validatePhysicalPlans(state: GameState): void {
+export function validatePhysicalPlans(state: GameState, absorptions?: ReadonlyMap<string, AbsorptionRecord>): void {
   const fail = (message: string): never => { throw new Error(`Physical plans save: ${message}`) }
   const exact = (value: unknown, keys: readonly string[], what: string) => {
     if (!value || typeof value !== 'object' || Array.isArray(value) ||
@@ -328,7 +329,22 @@ export function validatePhysicalPlans(state: GameState): void {
   const startedPlacements = new Set<number>()
   const claimedRefunds = new Set<string>()
   for (const plan of root.plans) {
-    exact(plan, PLAN_KEYS, 'a physical plan')
+    const hasAbsorption=Object.hasOwn(plan,'absorptionDisposition')
+    exact(plan, [...PLAN_KEYS,...(absorptions!==undefined&&hasAbsorption?['absorptionDisposition']:[])], 'a physical plan')
+    if(hasAbsorption) {
+      const mark=plan.absorptionDisposition
+      if(typeof mark!=='object'||mark===null)fail(`plan ${plan.id} has no actual absorption disposition`)
+      exact(mark!,['absorptionId','week','kind','priorStatus'],`plan ${plan.id} absorption disposition`)
+      text(mark!.absorptionId,`plan ${plan.id} absorption id`);integer(mark!.week,`plan ${plan.id} absorption week`)
+      const a=absorptions?.get(plan.studioId)
+      if(!a||a.id!==mark!.absorptionId||a.week!==mark!.week||mark!.week>state.market.tick
+        ||!Array.isArray(a.physicalPlans)||a.physicalPlans.filter(d=>d.planId===plan.id&&d.disposition===mark!.kind&&d.committedCost===(plan.commitReceipt?.cost??0)).length!==1)fail(`plan ${plan.id} absorption owner/disposition bijection differs`)
+      if(mark!.kind==='cancelledUnstarted') {
+        if(!['queued','held','blocked'].includes(mark!.priorStatus)||plan.status!=='cancelled'||plan.statusWeek!==mark!.week
+          ||plan.reason!=='the studio was absorbed'||plan.pendingQuote!==null||plan.commitReceipt!==null||plan.startedPlacementId!==null)fail(`plan ${plan.id} unstarted absorption cancellation differs`)
+      } else if(!['retainedCompleted','stoppedPaid'].includes(mark!.kind)||mark!.priorStatus!=='started'||plan.status!=='started'
+        ||plan.commitReceipt===null||plan.commitReceipt.week>mark!.week)fail(`plan ${plan.id} paid absorption history differs`)
+    }
     text(plan.id, 'plan id')
     text(plan.studioId, 'plan studioId')
     if (!studios.has(plan.studioId)) fail(`plan ${plan.id} names a studio this campaign does not have`)

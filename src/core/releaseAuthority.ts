@@ -1,3 +1,4 @@
+import { continuedReleaseOwner, buyerOperatedProductions } from './continuedWork.js'
 // ── P06A Release Authority (charter W1; frozen design = P06A recon r2 §6) ────
 //
 // The ONE owner of release-commitment truth. Package 06 law:
@@ -104,6 +105,8 @@ export function releaseCommitmentRefusal(
 
 /** Player adapter to the same owner-independent release law. */
 export function commitPictureToReleaseRefusal(state: GameState, productionId: string): string | null {
+  const continued=continuedReleaseOwner(state,productionId)
+  if(continued)return releaseCommitmentRefusal(continued.owner,productionId)
   return releaseCommitmentRefusal({productions:state.studio.activeProductions, concepts:state.concepts,
     operations:state.operations, releaseAuthority:state.releaseAuthority}, productionId)
 }
@@ -224,7 +227,7 @@ export function releaseHoldBusyTalentIds(
   state: GameState,
   productionId: string,
 ): readonly string[] {
-  const production = state.studio.activeProductions.find((p) => p.id === productionId)
+  const production = buyerOperatedProductions(state).find((p) => p.id === productionId)
   if (production === undefined) return []
   const ids = [
     production.directorId,

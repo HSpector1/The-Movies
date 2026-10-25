@@ -770,3 +770,34 @@ describe('L-37 (Owner decision 15A) — exact receipts beyond the founding stage
     expectNextSimAllowed(built.result.next)
   })
 })
+
+// F40 real accepted cash-stop receipt; retained exact-shape compatibility.
+const f40Keys=['rights','estatePurchases','acquisition','diligence'] as const
+it('F40 accepts all four actual summary fields and retained old shape while refusing partial mixed and extra receipt fields',()=>{
+ const initial=newFoundedGame('next-event-receipt-cash',400),result=advanceToNextEvent(initial)
+ expect(result.stopReason).toBe('cashNegative')
+ for(const key of f40Keys)expect(Number.isFinite(result.summary[key])).toBe(true)
+ const modern=acceptedLotNextEventReceipt(initial,result)
+ expect(modern).not.toBeNull()
+ for(const key of f40Keys)expect(modern!.summary[key]).toBe(result.summary[key])
+ const oldSummary={...result.summary}
+ for(const key of f40Keys)delete oldSummary[key]
+ const old=acceptedLotNextEventReceipt(initial,{...result,summary:oldSummary})
+ expect(old).not.toBeNull()
+ for(const key of f40Keys)expect(Object.hasOwn(old!.summary,key)).toBe(false)
+ for(const missing of f40Keys) {
+  const partial={...result.summary};delete partial[missing]
+  expect(acceptedLotNextEventReceipt(initial,{...result,summary:partial})).toBeNull()
+ }
+ const mixed={...oldSummary,rights:0}
+ expect(acceptedLotNextEventReceipt(initial,{...result,summary:mixed})).toBeNull()
+ const extra={...result.summary,foreignFinanceKey:0}
+ expect(acceptedLotNextEventReceipt(initial,{...result,summary:extra})).toBeNull()
+ for(const key of f40Keys) {
+  const invalid={...result.summary,[key]:Number.NaN}
+  expect(acceptedLotNextEventReceipt(initial,{...result,summary:invalid})).toBeNull()
+ }
+ const original=result.summary.rights
+ modern!.summary.rights=123456
+ expect(result.summary.rights).toBe(original) // accepted output is detached, no result mutation.
+})

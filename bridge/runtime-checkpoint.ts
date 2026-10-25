@@ -58,6 +58,14 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
 // that window would carry the earlier hash, and this map is keyed on the
 // hash, not the label.
 export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+  // Exact earned outgoing61, before disclosed terminal script write-off quote terms.
+  ['sha256:7d23fdb9a710175afb88208170cfe5692510febe06fb898a3ccd95edc9c53306', 'projection-v61'],
+  // Exact earned outgoing60 before paid-report and absorption quote wire families.
+  ['sha256:8bf350135c7a8b69b4fc2258d1082f452047d37964d0d58b6cc8ceefc87153e4', 'projection-v60'],
+  // Exact earned outgoing59 canonical identity before absorption snapshot enum extension.
+  ['sha256:6347433150a8ed3988573840bfa22621d5f5aa35b3d053b25ff5e6700ad02dcd', 'projection-v59'],
+  // Actual shipped P15B projection58, before the F40 presentation boundary.
+  ['sha256:13b7933fdd1e3dc9851dd08630e46efd43e70227f5e0c6f6cf130d885752ab74', 'projection-v58'],
   // Actual shipped outgoing57; preserve independent prior slot migration and discard its opaque journal.
   ['sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253', 'projection-v57'],
   // Relationship slice B: the outgoing56 identity (the contract manifest's schemaId before the

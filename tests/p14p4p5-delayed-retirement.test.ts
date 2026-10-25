@@ -1,3 +1,4 @@
+import { cutoverRightsRoot } from '../src/core/rights.js'
 import { withEmptyRecovery } from './helpers/recovery-migration-expectation.js'
 // 1281-A/B: fixed45→104 continuation; no old helper/prefix evaluation or future arrival.
 import assert from 'node:assert/strict'
@@ -70,7 +71,7 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
   const h = (state as { hollywood?: { businesses?: Business[] } | null }).hollywood
   const withLoans = h === undefined || h === null || !Array.isArray(h.businesses) ? state : { ...state, hollywood: { ...h,
     businesses: h.businesses.map((b) => ({ ...b, account: { ...b.account, periods: b.account.periods.map((p) => ({
-      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) } })) } }
+      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0 } })) } })) } }
   return { ...withLoans,
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
@@ -78,7 +79,7 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
     campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
     // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
     foundingFunding: { version: 1, recordedFromWeek: week, fund: null },
-    ...initialP15BRoots(week) }
+    ...initialP15BRoots(week), rights: cutoverRightsRoot(withLoans as unknown as GameState) }
 }
 const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
 const issuer = (state: GameState): string => { assert.ok(state.hollywood); return state.hollywood.playerStudioId }
@@ -129,7 +130,7 @@ function admitted(state: GameState): void {
   // masked live validator call on the same line moves with it.
   // 1358-N S2+S1: Save44 moves the live stamp to 44, and both pins on the next line move with it.
   // 1361-N S2+S1: Save45 moves the live stamp to 45, and both pins on the next line move with it again.
-  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV48(save)).toBe(save)
+  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV49(save)).toBe(save)
   const raw = saves.exportSave(save)
   expect(saves.exportSave(saves.importSave(raw))).toBe(raw); expect(stable(state)).toBe(before)
 }

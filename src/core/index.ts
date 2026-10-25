@@ -1782,3 +1782,44 @@ export type { StudioConditionRecord, ConditionEvent, StudioLoanRecord, Corporate
 // Wave5 browser quotation: expose existing pure owners without duplicating loan arithmetic.
 export { loanMaxPrincipal, contractLoan } from './studioLoan.js'
 export { studioWeeklyFixedCost } from './powerRankingArchive.js'
+// ── P16 (Save46): story properties, four rights, title history, cashless valuation ──
+// P17 consumes `permissionFor`/`currentHolder`/`branchAuthority` for continuations and cameos, and calls
+// `linkContinuationAtGreenlight` for a continuation with its own concept; P18 consumes `permissionFor(…, 'R4', …)`.
+export {
+  RIGHTS_ROOT_VERSION, STORY_PROPERTY_ID_PREFIX, ESTATE_HOLDER_PREFIX, R4_CONSUMER_LIVE, SAME_CONCEPT_GREENLIGHT_USE, RIGHTS_TRANSACTION_KINDS, ESTATE_PENDING_REASONS,
+  storyPropertyId, parseStoryPropertyId, subjectKey, initialRightsRoot, cutoverRightsRoot, cutoverDowngradeRefusal, validateRightsRoot,
+  resolveTitles, authenticTitles, isLegacyDate, currentHolder, holderAt, subjectsHeldBy, rightsAuthority, branchAuthority, licenceInForce,
+  materializeLegacyTitles, appendTitleEvent, greenlightRightsRefusal, mintStoryPropertyAtGreenlight, linkContinuationAtGreenlight, mintFilmTitleAtRelease, compareRightsDate,
+} from './rights.js'
+export type {
+  RightsRoot, RightsDate, RightSubject, TitleEvent, TitleCause, TitleSource, StoryProperty, FilmTitle, Licence, LicenceScope,
+  RightsOffer, RightsInstrument, RightsTransaction, DiligenceRecord, DisclosureBody, EstateRecord, EstateLot as RightsEstateLot, EstateBid,
+  HolderResult, AuthorityResult, BranchAuthority, TitleResolution, ResolvedProperty, ResolvedFilmTitle, TitleEvidence, EstatePending, EstatePendingReason,
+} from './rights.js'
+export { libraryValuationV1, subjectValueV1, r2CatalogueValue, r1OptionValue } from './propertyValuation.js'
+export type { ValuationResult, ValuationItem } from './propertyValuation.js'
+export type { GameStateV49, P16LedgerKind } from './types.js'
+export type { P16RivalMoneyKind } from './hollywoodTypes.js'
+export { P16_RIVAL_MONEY_KINDS } from './hollywoodTypes.js'
+export { P16_SAVE_VERSION, P16_PREDECESSOR_SAVE_VERSION, P16_LEDGER_KINDS, validateSaveV49, convertV48ToV49, convertV49ToV48, migrateToV49 } from './save.js'
+export type { SaveFileV49 } from './save.js'
+// P16B: bilateral sales, licences, diligence, finance law (symmetric: the same functions serve player and rivals).
+// Permitted-bidder facts come from P15B's readers through ONE adapter point, `corporateConditionReaders`
+// (UNBOUND and fail-closed at base 6510c971 — rightsFinance.ts names the binding the integrator makes).
+export { corporateConditionReaders, UNBOUND_CORPORATE_CONDITION_READERS, conditionFactsFor, permittedBidderRefusal, weeklyFixedCost, studioCash, reservedCash, spendableCash, postPurchaseReserve, affordabilityRefusal, moveStudioCash } from './rightsFinance.js'
+export type { CorporateConditionReaders, ConditionStageRecord, ConditionFacts } from './rightsFinance.js'
+// licence.ts is the ONE licence producer; P17/P18 call `permissionFor` at every boundary they consume a right.
+export { licenceGrantRefusal, mintLicence, permissionFor, licenceStatus, licencesHeldBy, activeProductionOn, activeRunOn, blockingEncumbrance, R3_USES, R4_USES, P16_LICENCE_LAW } from './licence.js'
+export type { LicenceGrant, LicenceLaw, Permission } from './licence.js'
+export { advanceRightsWeek } from './rightsTick.js'
+export { offerRefusal, makeOffer, acceptOffer, rejectOffer, withdrawOffer, closingRefusal, instrumentRefusal, resaleHoldbackRefusal, offerCooldownRefusal,
+  rivalWillingness, answerRivalOffers, expireOffers, offerParties, instrumentSubject } from './assetSale.js'
+export type { OfferInput, PlayerOfferInput } from './assetSale.js'
+export { diligenceRefusal, requestDiligence, disclosureFor, disclosureBody, publicDiligenceReceipts } from './dueDiligence.js'
+export type { DiligenceInput } from './dueDiligence.js'
+export type { DiligenceTarget, DiligenceScopeItem } from './rights.js'
+// P16C: estates (typed P15 handoff adapter point) and healthy absorption law/preview.
+export { estateHandoffRefusal, openEstate, estateBidRefusal, submitEstateBid, resolveEstate, closeDueEstates, estateWindow, lotEncumbranceRefs } from './estate.js'
+export type { EstateHandoff, EstateBidInput } from './estate.js'
+export { absorptionRefusal, absorptionDisclosureRefusal, absorptionAsk, rivalAbsorptionWillingness, quoteAbsorption, closeAbsorption, ABSORPTION_CLOSING_PREREQUISITES, ABSORPTION_DISCLOSURE_SCOPE } from './acquisition.js'
+export type { AbsorptionInput, AbsorptionQuote, AbsorptionRefusal, AbsorptionContractQuote, AbsorptionProductionQuote, RetentionChoice, ContractRetentionReason, ProductionDisposition, ProductionDispositionReason } from './acquisition.js'

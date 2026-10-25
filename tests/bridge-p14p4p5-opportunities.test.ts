@@ -1,3 +1,4 @@
+import { cutoverRightsRoot } from '../src/core/rights.js'
 import { withEmptyRecovery } from './helpers/recovery-migration-expectation.js'
 // 1236-A/B: three closed Bridge surfaces; no simulation helper or captured-prefix replay.
 import assert from 'node:assert/strict'
@@ -18,7 +19,7 @@ import { decodeBridgeRuntimeCheckpoint, encodeBridgeRuntimeCheckpoint, loadBridg
 import { caseDisclosure } from '../src/core/talentMarket.js'
 import { activeContract } from '../src/core/employment.js'
 import { trustDescriptor } from '../src/core/promises.js'
-import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV39, validateSaveV48, initialP15BRoots } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV39, validateSaveV49, initialP15BRoots } from '../src/core/save.js'
 import type { GameState, ProfessionalPromise } from '../src/core/types.js'
 
 const TIMEOUT = 60_000
@@ -76,7 +77,7 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
   const h = (state as { hollywood?: { businesses?: Business[] } | null }).hollywood
   const withLoans = h === undefined || h === null || !Array.isArray(h.businesses) ? state : { ...state, hollywood: { ...h,
     businesses: h.businesses.map((b) => ({ ...b, account: { ...b.account, periods: b.account.periods.map((p) => ({
-      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) } })) } }
+      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0 } })) } })) } }
   return { ...withLoans,
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
@@ -84,14 +85,14 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
     campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
     // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
     foundingFunding: { version: 1, recordedFromWeek: week, fund: null },
-    ...initialP15BRoots(week) }
+    ...initialP15BRoots(week), rights: cutoverRightsRoot(withLoans as unknown as GameState) }
 }
 const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
 const bytes = (state: GameState): string => exportSave(makeSave(state))
 const viewer = (state: GameState): string => { assert.ok(state.hollywood); return state.hollywood.playerStudioId }
 function full(state: GameState): string {
   const before = stableStringify(state), save = makeSave(state)
-  expect(save.saveVersion).toBe(LIVE_SAVE_VERSION); expect(validateSaveV48(save)).toBe(save)
+  expect(save.saveVersion).toBe(LIVE_SAVE_VERSION); expect(validateSaveV49(save)).toBe(save)
   const raw = exportSave(save); expect(exportSave(importSave(raw))).toBe(raw)
   expect(stableStringify(state)).toBe(before); return raw
 }
@@ -538,13 +539,13 @@ describe('P4/P5 closed Bridge material and outgoing runtime authority', () => {
     expect(current.sessionId).not.toBe(old.value.sessionId)
     for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
       assert.ok(current[slot])
-      const previous = validateSaveV39(JSON.parse(old.value[slot])), now = validateSaveV48(JSON.parse(current[slot]!))
+      const previous = validateSaveV39(JSON.parse(old.value[slot])), now = validateSaveV49(JSON.parse(current[slot]!))
       expect(now.state).toEqual(withEmptyRecovery({ ...withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(previous.state)))), previous.state.market.tick), firstTakeSubjects: { version: 1, cutoverOrdinal: 25, facts: [] } }))
       expect(current[slot]).toBe(exportSave(migrateToLive(previous))); full(now.state)
     }
     expect(current.currentSaveJson).not.toBe(current.savedSaveJson)
-    const currentState = validateSaveV48(JSON.parse(current.currentSaveJson)).state
-    const savedState = validateSaveV48(JSON.parse(current.savedSaveJson!)).state
+    const currentState = validateSaveV49(JSON.parse(current.currentSaveJson)).state
+    const savedState = validateSaveV49(JSON.parse(current.savedSaveJson!)).state
     expect(root(currentState, 'promise-0')).toMatchObject({ outcome: 'WAIVED', progress: 1, supersededByPromiseId: 'promise-1' })
     expect(root(savedState, 'promise-0')).toMatchObject({ outcome: null, progress: 1, supersededByPromiseId: null })
     const currentRaw = encodeBridgeRuntimeCheckpoint(current), again = vi.fn(() => { throw new Error('current55 must not migrate again') })

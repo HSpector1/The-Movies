@@ -1061,6 +1061,22 @@ export const TUNING = {
   LEGACY_FOUNDRY_MIN_CREDITS: 10, // positive integer; film credits before B that make a career
   LEGACY_FOUNDRY_SETTLE_WEEKS: 260, // positive integer; five years to earn a second credit before a one-credit discovery is contrary
   LEGACY_GENRE_MIN_FILMS: 8, // positive integer; a majority of eight is five releases
+
+  // ── P16 (rights, sales, diligence, estates): PROVISIONAL tuning, never Owner prices ──
+  // Authority: P16A r3 (coefficients adopted by 1370-AD as cashless provisional tuning);
+  // P16 integration contract §6 (reserve, fee, window, offer age, cooldown, holdback are
+  // producer deliverables; ~26-week reserve and 52-week holdback are candidate tuning);
+  // 1367-G (13-week estate window); 1362-O §5.5 (fee delegated as provisional tuning).
+  RIGHTS_R2_CATALOGUE_VALUE_AT_100: 100_000, // positive whole dollars; one released film at critic score 100 (propertyValuation.ts)
+  RIGHTS_R1_OPTION_VALUE_AT_100: 25_000, // positive whole dollars, below the catalogue coefficient; one property at max linked quality 100
+  RIGHTS_RESERVE_WEEKS: 26, // whole weeks in [1,104]; cash after a purchase must cover this many weeks of the buyer's resulting fixed cost
+  RIGHTS_DUE_DILIGENCE_FEE: 50_000, // positive whole dollars; charged once per disclosure event
+  RIGHTS_DISCLOSURE_STALE_WEEKS: 13, // whole weeks in [1,104]; a disclosure older than this must be refreshed before a binding offer
+  RIGHTS_OFFER_DURATION_WEEKS: 4, // whole weeks in [1,104]; a binding offer is valid while week < week + this
+  RIGHTS_OFFER_COOLDOWN_WEEKS: 4, // whole weeks in [1,104]; after a rejection the same offeror cannot re-offer the same subject sooner
+  RIGHTS_WILLINGNESS_PREMIUM_PERCENT: 20, // whole percent in (0,100); a rival sells at >= value * (100 + p) / 100 and buys at <= value * (100 - p) / 100
+  RIGHTS_RESALE_HOLDBACK_WEEKS: 52, // whole weeks in [1,104], above the offer duration; a bought title cannot be resold sooner
+  ESTATE_WINDOW_WEEKS: 13, // whole weeks; the half-open estate disposal window [opensWeek, closesWeek) adopted by 1367-G
 } as const
 
 // ── Placement Core V12 — the facility blueprint catalog ──────────────────────

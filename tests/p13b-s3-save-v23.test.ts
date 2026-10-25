@@ -1,3 +1,4 @@
+import { convertV49ToV48 } from '../src/core/save.js'
 import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
@@ -19,6 +20,7 @@ import { initialPhysicalPlans } from '../src/core/physicalPlans.js'
 import { tick } from '../src/core/tick.js'
 import type { GameState } from '../src/core/types.js'
 import { p13aLaboratorySlice } from '../src/harness/p13a/fixtures.js'
+import { rightsStripped } from './helpers/p16-era.js'
 
 // P13B-S3 plan test 7 (task expansion, 2026-09-16), core-only half. Requirement-
 // derived from "Save V23 + Save As" in docs/engineering/playability-launch-review/
@@ -118,9 +120,12 @@ describe('P13B-S3 Save V23 (test 7)', () => {
     // predicate or recorded first-take subject$/. Measured: evidence/r3/sweep-b4.json.
     const live = makeSave(p13aLaboratorySlice())
     // P15B (1370-ar, MASKED): the live chain now crosses the P15B step's converter FIRST, and every ticked industry
-    expect(() => migrateToV22(live)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))
-    expect(() => migrateToV21(live)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))
-    expect(() => migrateToV20(live)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))
+    expect(() => convertV49ToV48(live as never)).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
+    expect(() => migrateToV22(rightsStripped(live as never))).toThrow(new RegExp(`^migrateToV47: cannot downgrade or discard a corporateCondition record`))
+    expect(() => convertV49ToV48(live as never)).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
+    expect(() => migrateToV21(rightsStripped(live as never))).toThrow(new RegExp(`^migrateToV47: cannot downgrade or discard a corporateCondition record`))
+    expect(() => convertV49ToV48(live as never)).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
+    expect(() => migrateToV20(rightsStripped(live as never))).toThrow(new RegExp(`^migrateToV47: cannot downgrade or discard a corporateCondition record`))
   })
 
   it('makeSave writes the live saveVersion 37 (stale title corrected post-C.2b)', () => {

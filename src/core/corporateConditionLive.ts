@@ -1,3 +1,4 @@
+import { absorbedWeekOf } from './operatingState.js'
 // ── P15B Wave 2 and Wave 3 (record 1370-ar): the condition in the live game ───────────────────────
 // Authority (docs/engineering/playability-launch-review/evidence/p14b4-20260919/): 1357-A §3 (the fact
 // adapter), §4 (the root and its validator), §5 (the weekly step), §6 (loans) as adopted by 1357-F
@@ -128,7 +129,7 @@ export function advanceCorporateConditionWeek(state: GameState): GameState {
   // action stamps `originWeek` at the current week, so the first boundary this step can evaluate is strictly
   // above both recordedFromWeek and originWeek.
   if (week <= Math.max(root.recordedFromWeek, h.originWeek)) return state
-  const triple = p15PhaseTriple(CONDITION_PHASE_ID)
+  const triple = p15PhaseTriple(CONDITION_PHASE_ID, Object.hasOwn(state, 'rights') ? 3 : 2)
   const studios = [...root.studios]
   const events = [...root.events]
   let nextEvent = root.nextEvent
@@ -137,7 +138,7 @@ export function advanceCorporateConditionWeek(state: GameState): GameState {
   for (const studioId of evaluatedStudios(state, h, week)) {
     const index = studios.findIndex((r) => r.studioId === studioId)
     const prev = index >= 0 ? studios[index]! : undefined
-    if (prev?.condition.stage === 'closed') continue // 1352-F3 item 1: never evaluated again
+    if (prev?.condition.stage === 'closed' || absorbedWeekOf(state).has(studioId)) continue // 1352-F3 item 1: never evaluated again
     const facts = conditionFacts(state, studioId)
     const { next, transition } = stepCondition(prev?.condition ?? null, facts)
     const record: StudioConditionRecord = { studioId, firstEvaluatedWeek: prev?.firstEvaluatedWeek ?? week, definitionVersion: CORPORATE_CONDITION_VERSION, condition: next }
@@ -210,7 +211,7 @@ export function applyTakeLoan(state: GameState, principal: number): GameState {
   const root = requireCorporateCondition(state)
   const sequence = state.p15Sequence.next
   const loan: StudioLoanRecord = { loanId: `corporate-loan-${root.nextLoan}`, studioId: h.playerStudioId, lawVersion: STUDIO_LOAN_VERSION, contractedWeek: week,
-    weeklyFixedCostAtContract: weeklyFixedCost, principal, total: contracted.total, installments: [...contracted.installments], p15DomainSequence: sequence, ...p15PhaseTriple(CONDITION_PHASE_ID) }
+    weeklyFixedCostAtContract: weeklyFixedCost, principal, total: contracted.total, installments: [...contracted.installments], p15DomainSequence: sequence, ...p15PhaseTriple(CONDITION_PHASE_ID, Object.hasOwn(state, 'rights') ? 3 : 2) }
   const entry: LedgerEntry = { week, kind: 'loanPrincipal', amount: principal, note: LOAN_PRINCIPAL_LEDGER_NOTE }
   return {
     ...state,
@@ -316,7 +317,7 @@ export type LoanStops = ReadonlyMap<string, number>
  * chain has proved the rest of the state. `stops` carries each actually closed studio's closure week
  * (Wave 4): an installment is charged iff its due week is below it.
  */
-export function validateCorporateConditionRoot(raw: Record<string, unknown>, label: string, stops: LoanStops = new Map()): void {
+export function validateCorporateConditionRoot(raw: Record<string, unknown>, label: string, stops: LoanStops = new Map(), rightsEstate = false, absorbed: ReadonlyMap<string, number> = new Map()): void {
   const fail = (message: string): never => { throw new Error(`${label}: corporateCondition ${message}`) }
   const root = raw.corporateCondition
   if (!isRecord(root)) return fail('root must be an object')
@@ -377,7 +378,7 @@ export function validateCorporateConditionRoot(raw: Record<string, unknown>, lab
     }
     if (condition.stage === 'closed') {
       if (condition.negativeRun === 0) fail(`record ${record.studioId} is closed without negative cash`)
-    } else if (condition.week !== tick) fail(`record ${record.studioId} is open but its week is not market.tick`)
+    } else if (condition.week !== (absorbed.get(record.studioId) ?? tick)) fail(`record ${record.studioId} is open but its week is not market.tick`)
     if (condition.stage === 'distress' && condition.distressWeeks >= law.CORPORATE_CLOSURE_DISTRESS_WEEKS && condition.negativeRun > 0) {
       fail(`record ${record.studioId} stands in distress past the closure duration with negative cash`)
     }
@@ -418,6 +419,7 @@ export function validateCorporateConditionRoot(raw: Record<string, unknown>, lab
     if (previous !== null && event.p15DomainSequence <= previous.p15DomainSequence) fail(`event ${event.eventId} p15DomainSequence does not ascend`)
     previous = event
     if (!Object.hasOwn(CONDITION_LAWS, event.definitionVersion)) fail(`event ${event.eventId} definitionVersion ${String(event.definitionVersion)} is unknown`)
+    if (!rightsEstate && event.phaseOrderVersion > 2) fail('estate phase table is not admitted in this predecessor era')
     const entry = Number.isSafeInteger(event.phaseOrderVersion) ? P15_PHASE_TABLES[event.phaseOrderVersion]?.find((row) => row.phaseId === CONDITION_PHASE_ID) : undefined
     if (event.phaseId !== CONDITION_PHASE_ID || entry === undefined || entry.phaseOrdinal !== event.phaseOrdinal) fail(`event ${event.eventId} phase triple does not match its phase-order version's table`)
     const record = records.get(event.studioId)
@@ -513,6 +515,7 @@ export function validateCorporateConditionRoot(raw: Record<string, unknown>, lab
     if (!Number.isSafeInteger(loan.p15DomainSequence) || loan.p15DomainSequence < 1) fail(`loan ${loan.loanId} has no whole p15DomainSequence`)
     if (previousLoan !== null && loan.p15DomainSequence <= previousLoan.p15DomainSequence) fail(`loan ${loan.loanId} p15DomainSequence does not ascend`)
     previousLoan = loan
+    if (!rightsEstate && loan.phaseOrderVersion > 2) fail('estate phase table is not admitted in this predecessor era')
     const entry = Number.isSafeInteger(loan.phaseOrderVersion) ? P15_PHASE_TABLES[loan.phaseOrderVersion]?.find((row) => row.phaseId === CONDITION_PHASE_ID) : undefined
     if (loan.phaseId !== CONDITION_PHASE_ID || entry === undefined || entry.phaseOrdinal !== loan.phaseOrdinal) fail(`loan ${loan.loanId} phase triple does not match its phase-order version's table`)
     const record = records.get(loan.studioId)

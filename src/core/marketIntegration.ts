@@ -9,7 +9,7 @@
 // once in save.ts (1361-F ruling 5), so no copy of it lives here.
 
 import { P15_PHASE_TABLES, p15PhaseTriple } from './p15Phases.js'
-import { closedWeekOf } from './operatingState.js'
+import { terminalWeekOf } from './operatingState.js'
 import {
   assessBatch, SHARED_MARKET_DEFINITION, SHARED_MARKET_LAW_V1, type MarketAssessment, type MarketBatchMember, type MarketExposure,
 } from './sharedMarket.js'
@@ -58,7 +58,7 @@ function activeExposures(root: SharedMarketRoot, week: number): MarketExposure[]
  * once against the root's active exposures. It writes nothing; the root appends at finalize. With
  * no industry there is no batch, so the M0A corpus keeps today's path.
  */
-export function runMarketBatch(state: GameState, playerReleasing: readonly Production[], week: number): MarketBatchResult | null {
+export function runMarketBatch(state: GameState, playerReleasing: readonly Production[], week: number, continuedReleasing: readonly Production[] = []): MarketBatchResult | null {
   const hollywood = state.hollywood
   if (hollywood === null) return null
   const root = requireSharedMarket(state)
@@ -70,11 +70,11 @@ export function runMarketBatch(state: GameState, playerReleasing: readonly Produ
   const player: MarketBatchMember[] = playerReleasing.map((production) =>
     ({ releaseId: production.id, studioId: hollywood.playerStudioId, genre: genreOf(state.concepts, production) }))
   // P15B closure/v1 (r3; Wave-4 contract §4): an actually closed business's retained production never releases.
-  const closed = closedWeekOf(state)
+  const closed = terminalWeekOf(state)
   const rivals: MarketBatchMember[] = hollywood.businesses.filter((business) => !closed.has(business.studioId)).flatMap((business) => business.productions
     .filter((production) => production.remainingTicks === 1)
     .map((production) => ({ releaseId: production.id, studioId: business.studioId, genre: genreOf(hollywood.concepts, production) })))
-  const assessments = assessBatch(activeExposures(root, week), { week, members: [...player, ...rivals] })
+  const assessments = assessBatch(activeExposures(root, week), { week, members: [...player,...continuedReleasing.map(production=>({releaseId:production.id,studioId:hollywood.playerStudioId,genre:genreOf(hollywood.concepts,production)})), ...rivals] })
   const rivalIds = new Set(rivals.map((member) => member.releaseId))
   return {
     assessments,
@@ -103,7 +103,7 @@ export function appendMarketBatch(state: GameState, batch: MarketBatchResult): P
   const root = requireSharedMarket(state)
   if (batch.assessments.length === 0) return { sharedMarket: root, p15Sequence: state.p15Sequence }
   let next = state.p15Sequence.next
-  const triple = p15PhaseTriple(MARKET_PHASE_ID)
+  const triple = p15PhaseTriple(MARKET_PHASE_ID, Object.hasOwn(state, 'rights') ? 3 : 2)
   const rows = batch.assessments.map((row): PersistedMarketAssessment => ({ ...row, p15DomainSequence: next++, ...triple }))
   return { sharedMarket: { ...root, assessments: [...root.assessments, ...rows] }, p15Sequence: { ...state.p15Sequence, next } }
 }
@@ -138,7 +138,7 @@ const isWeek = (value: unknown): value is number => Number.isSafeInteger(value) 
  * own `phaseOrderVersion`; `recordedFromWeek <= week < market.tick`; strict (week, releaseId) and
  * p15DomainSequence ascent; no row without an industry; the film bijection; the law reconciled.
  */
-export function validateSharedMarketRoot(raw: Record<string, unknown>, label: string): void {
+export function validateSharedMarketRoot(raw: Record<string, unknown>, label: string, rightsEstate = false, absorptions?:ReadonlyMap<string,import('./rights.js').AbsorptionRecord>): void {
   const fail = (message: string): never => { throw new Error(`${label}: sharedMarket ${message}`) }
   const root = raw.sharedMarket
   if (!isRecord(root)) return fail('root must be an object')
@@ -178,6 +178,7 @@ export function validateSharedMarketRoot(raw: Record<string, unknown>, label: st
     }
     if (!Object.hasOwn(LAWS, row.definitionVersion)) fail(`assessment ${row.releaseId} definitionVersion ${row.definitionVersion} is unknown`)
     // 1355-F5 ruling 1: the entry of the row's own version, read through the module's exported binding.
+    if (!rightsEstate && row.phaseOrderVersion > 2) fail('estate phase table is not admitted in this predecessor era')
     const entry = P15_PHASE_TABLES[row.phaseOrderVersion]?.find((candidate) => candidate.phaseId === MARKET_PHASE_ID)
     if (row.phaseId !== MARKET_PHASE_ID || entry === undefined || entry.phaseOrdinal !== row.phaseOrdinal) {
       fail(`assessment ${row.releaseId} phase triple (${row.phaseId}, ${row.phaseOrdinal}, ${row.phaseOrderVersion}) does not match its phaseOrderVersion's table entry`)
@@ -196,14 +197,14 @@ export function validateSharedMarketRoot(raw: Record<string, unknown>, label: st
     }
     rows.push(row)
   }
-  if (state.hollywood !== null) validateFilmBijection(state, state.hollywood, rows, recordedFromWeek, fail)
+  if (state.hollywood !== null) validateFilmBijection(state, state.hollywood, rows, recordedFromWeek, fail, rightsEstate?absorptions:undefined)
   reconcileLaw(rows, fail)
 }
 
 /** 1355-A §3.4 item 3: from max(recordedFromWeek, originWeek), every simulated release has exactly
  * one assessment with its id, week, studio and genre, and every assessment has its film. */
 function validateFilmBijection(state: GameState, hollywood: HollywoodState, rows: readonly PersistedMarketAssessment[],
-  recordedFromWeek: number, fail: (message: string) => never): void {
+  recordedFromWeek: number, fail: (message: string) => never, absorptions?:ReadonlyMap<string,import('./rights.js').AbsorptionRecord>): void {
   const from = Math.max(recordedFromWeek, hollywood.originWeek)
   const genres = new Map(state.concepts.map((concept) => [concept.id, concept.genre]))
   const films = new Map<string, { week: number; studioId: string; genre: Genre | undefined }>()
@@ -212,7 +213,7 @@ function validateFilmBijection(state: GameState, hollywood: HollywoodState, rows
   }
   for (const film of hollywood.films) {
     if (film.provenance === 'simulation/v1' && film.result.releaseTick >= from) {
-      films.set(film.filmId, { week: film.result.releaseTick, studioId: film.studioId, genre: film.genre })
+      films.set(film.filmId, { week: film.result.releaseTick, studioId: [...(absorptions?.values()??[])].find(a=>a.workReleases.some(r=>r.productionId===film.filmId && r.week===film.result.releaseTick))?.buyerId??film.studioId, genre: film.genre })
     }
   }
   for (const row of rows) {

@@ -1,3 +1,4 @@
+import { rightsStripped } from './helpers/p16-era.js'
 // Proposed tests/p15b-legacy-terminal-regression.test.ts; scratch only, NOT run/admitted.
 // All debit/film-cost inputs below are labelled constructed transactions, not natural gameplay.
 // Measured route-L terminal6239/6240/6241, late6273 and two-closure163 controls; failed original3 expectation preserved elsewhere.
@@ -194,7 +195,7 @@ it('two-closure-real-final-reader-allocator-failure-preserves-caller', budgeted(
 
 it('ended-links-cutoffs-refs-phase-and-allocator-mutants-refuse-with-input-purity', budgeted(ROUTE_MS, () => {
   const final = terminalCase(6240).final; const baseline = save.makeSave(final)
-  expect(() => save.validateSaveP15B(baseline)).not.toThrow()
+  expect(() => save.validateSaveV49(baseline)).not.toThrow()
   const mutants: [string, (s: GameState) => void, RegExp][] = [
     ['orphan ended link', s => { s.campaignLegacy.endOfRun!.closureId = 'absent-closure' }, /endOfRun.closureId/],
     ['reverse closure link', s => { closureOf(s, s.hollywood!.playerStudioId)!.endOfRun = 'absent-manifest' }, /endOfRun.closureId/],
@@ -212,12 +213,17 @@ it('ended-links-cutoffs-refs-phase-and-allocator-mutants-refuse-with-input-purit
   ]
   for (const [name, edit, refusal] of mutants) {
     const bad = structuredClone(baseline); edit(bad.state)
-    const bytes = canon(bad); expect(() => save.validateSaveP15B(bad), name).toThrow(refusal); expect(canon(bad), name).toBe(bytes)
+    const bytes = canon(bad); expect(() => save.validateSaveV49(bad), name).toThrow(refusal); expect(canon(bad), name).toBe(bytes)
   }
 }), ROUTE_MS)
 
 it('terminal6240-composed-downward-refusal-preserves-all-authority', budgeted(ROUTE_MS, () => {
-  const final = terminalCase(6240).final; const baseline = save.makeSave(final); const bytes = canon(baseline)
+  const final = terminalCase(6240).final; const current = save.makeSave(final); const currentBytes = canon(current)
+  expect(save.validateSaveV49(current)).toBe(current)
+  // P16's public first refusal is retained; the guarded test observation admits the full actual Save48 operand.
+  // Instruments/nonzero rights money cannot be erased to make this historical P15B control pass.
+  const baseline = rightsStripped(current); const bytes = canon(baseline)
+  expect(canon(current)).toBe(currentBytes)
   for (const convert of [save.convertFromP15BSave, save.migrateToV47, save.migrateToV46, save.migrateToV45]) {
     let message = ''
     try { convert(baseline) } catch (e) { message = e instanceof Error ? e.message : String(e) }
@@ -228,13 +234,14 @@ it('terminal6240-composed-downward-refusal-preserves-all-authority', budgeted(RO
     // Precise gap: no admitted nonempty fund/recovery PLUS modern terminal composition witness supplied here.
     // Prior founding/recovery owner suites retain their own witnesses; schedule them separately before fullqualification.
     expect(canon(baseline)).toBe(bytes)
+    expect(canon(current)).toBe(currentBytes)
   }
 }), ROUTE_MS)
 
 // Isolated real allocator-owner proof; full-reader earlier closure-order refusals cannot substitute.
 it('real-global-allocator-rejects-duplicate-stamps-on-admitted-two-closure-input', budgeted(FIXTURE_MS, () => {
   const baseline = save.makeSave(multiCase().final)
-  expect(() => save.validateSaveP15B(baseline)).not.toThrow()
+  expect(() => save.validateSaveV49(baseline)).not.toThrow()
   const roots = ['sharedMarket', 'powerRanking', 'campaignLegacy', 'corporateCondition', 'studioClosure']
   expect(() => save.validateP15Allocator(baseline.state as unknown as Record<string, unknown>, 'allocator-owner-control', roots)).not.toThrow()
   const bad = structuredClone(baseline); const rows = bad.state.studioClosure.closures.filter(c => c.closureWeek === 163)

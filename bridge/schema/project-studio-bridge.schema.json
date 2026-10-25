@@ -1,5 +1,280 @@
 {
   "$defs": {
+    "StudioAbsorptionDefaultRetention": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "default",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioAbsorptionDefaultRetention"
+    },
+    "StudioAbsorptionDraftPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "consideration": {
+          "type": "number"
+        },
+        "disclosureId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "retention": {
+          "$ref": "#/$defs/StudioAbsorptionRetention"
+        },
+        "targetId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "consideration",
+        "disclosureId",
+        "retention",
+        "targetId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioAbsorptionDraftPayload"
+    },
+    "StudioAbsorptionExplicitRetention": {
+      "additionalProperties": false,
+      "properties": {
+        "contractIds": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "kind": {
+          "const": "explicit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "contractIds",
+        "kind"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioAbsorptionExplicitRetention"
+    },
+    "StudioAbsorptionProductionVerdict": {
+      "additionalProperties": false,
+      "properties": {
+        "disposition": {
+          "enum": [
+            "continues",
+            "cancelRequired"
+          ],
+          "type": "string"
+        },
+        "productionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "disposition",
+        "productionId",
+        "reason"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioAbsorptionProductionVerdict"
+    },
+    "StudioAbsorptionQuoteSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "commitLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "disclosureId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "intentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "const": "absorbStudio",
+          "type": "string"
+        },
+        "ok": {
+          "type": "boolean"
+        },
+        "queueNote": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "queues": {
+          "type": "boolean"
+        },
+        "quoteAgePolicyVersion": {
+          "const": 1,
+          "type": "integer"
+        },
+        "quotedAtWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "refusalReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "startsNow": {
+          "type": "boolean"
+        },
+        "targetId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "terms": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioAbsorptionQuoteTerms"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "commitLabel",
+        "disclosureId",
+        "intentId",
+        "kind",
+        "ok",
+        "queueNote",
+        "queues",
+        "quoteAgePolicyVersion",
+        "quotedAtWeek",
+        "refusalReason",
+        "startsNow",
+        "targetId",
+        "terms"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioAbsorptionQuoteSnapshot"
+    },
+    "StudioAbsorptionQuoteTerms": {
+      "additionalProperties": false,
+      "properties": {
+        "affordable": {
+          "type": "boolean"
+        },
+        "ask": {
+          "type": "number"
+        },
+        "consideration": {
+          "type": "number"
+        },
+        "exitCharges": {
+          "type": "number"
+        },
+        "exitedContracts": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "guarantees": {
+          "type": "number"
+        },
+        "outlay": {
+          "type": "number"
+        },
+        "postExitCash": {
+          "type": "number"
+        },
+        "productions": {
+          "items": {
+            "$ref": "#/$defs/StudioAbsorptionProductionVerdict"
+          },
+          "type": "array"
+        },
+        "reserveAfter": {
+          "type": "number"
+        },
+        "resultingWeeklyFixedCost": {
+          "type": "number"
+        },
+        "retainedContracts": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "rightsCount": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "targetCashBeforeExits": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "affordable",
+        "ask",
+        "consideration",
+        "exitCharges",
+        "exitedContracts",
+        "guarantees",
+        "outlay",
+        "postExitCash",
+        "productions",
+        "reserveAfter",
+        "resultingWeeklyFixedCost",
+        "retainedContracts",
+        "rightsCount",
+        "targetCashBeforeExits"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioAbsorptionQuoteTerms"
+    },
+    "StudioAbsorptionRetention": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/StudioAbsorptionDefaultRetention"
+        },
+        {
+          "$ref": "#/$defs/StudioAbsorptionExplicitRetention"
+        }
+      ],
+      "x-csharp-name": "StudioAbsorptionRetention"
+    },
     "StudioActionQuote": {
       "additionalProperties": false,
       "properties": {
@@ -329,7 +604,8 @@
         "route": {
           "enum": [
             "research",
-            "purchase"
+            "purchase",
+            "acquired"
           ],
           "type": "string"
         },
@@ -561,7 +837,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 58,
+          "const": 61,
           "type": "integer"
         },
         "stateDigest": {
@@ -678,7 +954,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 58,
+          "const": 61,
           "type": "integer"
         },
         "stateDigest": {
@@ -757,7 +1033,9 @@
             "cancellationAction",
             "marketProposalAction",
             "waivePromise",
-            "takeLoan"
+            "takeLoan",
+            "requestDueDiligence",
+            "absorbStudio"
           ],
           "type": "string"
         },
@@ -878,6 +1156,12 @@
     },
     "StudioBridgeQuoteRequest": {
       "anyOf": [
+        {
+          "$ref": "#/$defs/StudioQuoteDiligenceRequest"
+        },
+        {
+          "$ref": "#/$defs/StudioQuoteAbsorptionRequest"
+        },
         {
           "$ref": "#/$defs/StudioQuoteLoanRequest"
         },
@@ -1205,7 +1489,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 58,
+          "const": 61,
           "type": "integer"
         },
         "stateDigest": {
@@ -1284,7 +1568,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 58,
+          "const": 61,
           "type": "integer"
         },
         "stateDigest": {
@@ -1576,7 +1860,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 58,
+          "const": 61,
           "type": "integer"
         },
         "stateDigest": {
@@ -4593,6 +4877,203 @@
       "type": "object",
       "x-csharp-name": "StudioDevelopmentSnapshot"
     },
+    "StudioDiligenceDraftPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "scope": {
+          "items": {
+            "enum": [
+              "rights",
+              "employment",
+              "liabilities"
+            ],
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "target": {
+          "$ref": "#/$defs/StudioDiligenceTarget"
+        }
+      },
+      "required": [
+        "scope",
+        "target"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioDiligenceDraftPayload"
+    },
+    "StudioDiligenceLotTarget": {
+      "additionalProperties": false,
+      "properties": {
+        "estateId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "const": "estateLot",
+          "type": "string"
+        },
+        "lotId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "estateId",
+        "kind",
+        "lotId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioDiligenceLotTarget"
+    },
+    "StudioDiligenceQuoteSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "commitLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "disclosureId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "disclosureWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fee": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "intentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "const": "requestDueDiligence",
+          "type": "string"
+        },
+        "ok": {
+          "type": "boolean"
+        },
+        "queueNote": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "queues": {
+          "type": "boolean"
+        },
+        "refusalReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "scope": {
+          "items": {
+            "enum": [
+              "rights",
+              "employment",
+              "liabilities"
+            ],
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "staleFromWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "startsNow": {
+          "type": "boolean"
+        },
+        "target": {
+          "$ref": "#/$defs/StudioDiligenceTarget"
+        }
+      },
+      "required": [
+        "commitLabel",
+        "disclosureId",
+        "disclosureWeek",
+        "fee",
+        "intentId",
+        "kind",
+        "ok",
+        "queueNote",
+        "queues",
+        "refusalReason",
+        "scope",
+        "staleFromWeek",
+        "startsNow",
+        "target"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioDiligenceQuoteSnapshot"
+    },
+    "StudioDiligenceStudioTarget": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "studio",
+          "type": "string"
+        },
+        "studioId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "studioId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioDiligenceStudioTarget"
+    },
+    "StudioDiligenceTarget": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/StudioDiligenceStudioTarget"
+        },
+        {
+          "$ref": "#/$defs/StudioDiligenceLotTarget"
+        }
+      ],
+      "x-csharp-name": "StudioDiligenceTarget"
+    },
     "StudioEquipmentAsset": {
       "additionalProperties": false,
       "properties": {
@@ -5164,6 +5645,60 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioFinanceEmployee"
+    },
+    "StudioFinanceEstateAccounting": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "claimPayments": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "closingCash": {
+          "type": "number"
+        },
+        "closureId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "closureWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "runReceipts": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "saleProceeds": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "stoppedLoanRemainder": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "unpaidClaims": {
+          "minimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "basis",
+        "claimPayments",
+        "closingCash",
+        "closureId",
+        "closureWeek",
+        "runReceipts",
+        "saleProceeds",
+        "stoppedLoanRemainder",
+        "unpaidClaims"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFinanceEstateAccounting"
     },
     "StudioFinanceFacility": {
       "additionalProperties": false,
@@ -5851,6 +6386,16 @@
           },
           "type": "array"
         },
+        "estateAccounting": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioFinanceEstateAccounting"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "facilities": {
           "items": {
             "$ref": "#/$defs/StudioFinanceFacility"
@@ -5978,6 +6523,7 @@
         "coverageNotice",
         "currentPeriod",
         "employees",
+        "estateAccounting",
         "facilities",
         "films",
         "firstCompleteWeek",
@@ -7948,7 +8494,8 @@
             "office",
             "market",
             "alumni",
-            "powerRanking"
+            "powerRanking",
+            "diligence"
           ],
           "type": "string"
         }
@@ -7987,6 +8534,16 @@
             "$ref": "#/$defs/StudioIndustryCredit"
           },
           "type": "array"
+        },
+        "diligence": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioPaidReportsPage"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "films": {
           "items": {
@@ -8166,7 +8723,8 @@
             "office",
             "market",
             "alumni",
-            "powerRanking"
+            "powerRanking",
+            "diligence"
           ],
           "type": "string"
         }
@@ -8175,6 +8733,7 @@
         "activities",
         "calendar",
         "credits",
+        "diligence",
         "films",
         "laboratory",
         "lane",
@@ -9489,7 +10048,8 @@
             "renewal",
             "replacement",
             "player-contract",
-            "existing-player-contract"
+            "existing-player-contract",
+            "absorptionContinuation"
           ],
           "type": "string"
         }
@@ -11086,6 +11646,386 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioOperationsEventsTotals"
+    },
+    "StudioPaidReportBody": {
+      "additionalProperties": false,
+      "properties": {
+        "employment": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/StudioPaidReportEmployment"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "liabilities": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioPaidReportLiabilities"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rights": {
+          "items": {
+            "$ref": "#/$defs/StudioPaidReportRight"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "employment",
+        "liabilities",
+        "rights"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPaidReportBody"
+    },
+    "StudioPaidReportDetail": {
+      "additionalProperties": false,
+      "properties": {
+        "body": {
+          "$ref": "#/$defs/StudioPaidReportBody"
+        },
+        "receipt": {
+          "$ref": "#/$defs/StudioPaidReportReceipt"
+        }
+      },
+      "required": [
+        "body",
+        "receipt"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPaidReportDetail"
+    },
+    "StudioPaidReportEmployment": {
+      "additionalProperties": false,
+      "properties": {
+        "annualSalary": {
+          "type": "number"
+        },
+        "contractId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "endWeekExclusive": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "exitCost": {
+          "type": "number"
+        },
+        "startWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "annualSalary",
+        "contractId",
+        "endWeekExclusive",
+        "exitCost",
+        "startWeek",
+        "talentId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPaidReportEmployment"
+    },
+    "StudioPaidReportFilm": {
+      "additionalProperties": false,
+      "properties": {
+        "filmId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "right": {
+          "const": "R2",
+          "type": "string"
+        }
+      },
+      "required": [
+        "filmId",
+        "right"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPaidReportFilm"
+    },
+    "StudioPaidReportLiabilities": {
+      "additionalProperties": false,
+      "properties": {
+        "cash": {
+          "type": "number"
+        },
+        "hasOutstandingLoan": {
+          "type": "boolean"
+        },
+        "stage": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "weeklyFixedCost": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "cash",
+        "hasOutstandingLoan",
+        "stage",
+        "weeklyFixedCost"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPaidReportLiabilities"
+    },
+    "StudioPaidReportLotTarget": {
+      "additionalProperties": false,
+      "properties": {
+        "estateId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "const": "estateLot",
+          "type": "string"
+        },
+        "lotId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "estateId",
+        "kind",
+        "lotId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPaidReportLotTarget"
+    },
+    "StudioPaidReportProperty": {
+      "additionalProperties": false,
+      "properties": {
+        "propertyId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "right": {
+          "const": "R1",
+          "type": "string"
+        }
+      },
+      "required": [
+        "propertyId",
+        "right"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPaidReportProperty"
+    },
+    "StudioPaidReportReceipt": {
+      "additionalProperties": false,
+      "properties": {
+        "fee": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "fresh": {
+          "type": "boolean"
+        },
+        "freshnessLine": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "quoteAgePolicyVersion": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "recipientId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "scope": {
+          "items": {
+            "enum": [
+              "rights",
+              "employment",
+              "liabilities"
+            ],
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "staleFromWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "target": {
+          "$ref": "#/$defs/StudioPaidReportTarget"
+        },
+        "targetLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "transactionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "week": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "fee",
+        "fresh",
+        "freshnessLine",
+        "id",
+        "quoteAgePolicyVersion",
+        "recipientId",
+        "scope",
+        "staleFromWeek",
+        "target",
+        "targetLabel",
+        "transactionId",
+        "week"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPaidReportReceipt"
+    },
+    "StudioPaidReportRight": {
+      "additionalProperties": false,
+      "properties": {
+        "encumbrances": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "subject": {
+          "$ref": "#/$defs/StudioPaidReportSubject"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "encumbrances",
+        "subject",
+        "value"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPaidReportRight"
+    },
+    "StudioPaidReportStudioTarget": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "studio",
+          "type": "string"
+        },
+        "studioId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "studioId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPaidReportStudioTarget"
+    },
+    "StudioPaidReportSubject": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/StudioPaidReportProperty"
+        },
+        {
+          "$ref": "#/$defs/StudioPaidReportFilm"
+        }
+      ],
+      "x-csharp-name": "StudioPaidReportSubject"
+    },
+    "StudioPaidReportTarget": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/StudioPaidReportStudioTarget"
+        },
+        {
+          "$ref": "#/$defs/StudioPaidReportLotTarget"
+        }
+      ],
+      "x-csharp-name": "StudioPaidReportTarget"
+    },
+    "StudioPaidReportsPage": {
+      "additionalProperties": false,
+      "properties": {
+        "notice": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "receipts": {
+          "items": {
+            "$ref": "#/$defs/StudioPaidReportReceipt"
+          },
+          "type": "array"
+        },
+        "selectedReport": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioPaidReportDetail"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "notice",
+        "receipts",
+        "selectedReport",
+        "title"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPaidReportsPage"
     },
     "StudioParcelSnapshot": {
       "additionalProperties": false,
@@ -13589,7 +14529,8 @@
         "definitionVersion": {
           "enum": [
             "power-ranking/v1",
-            "power-ranking/v2"
+            "power-ranking/v2",
+            "power-ranking/v3"
           ],
           "type": "string"
         },
@@ -15463,6 +16404,50 @@
       "type": "object",
       "x-csharp-name": "StudioPropertySnapshot"
     },
+    "StudioQuoteAbsorptionRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "commandId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "draft": {
+          "$ref": "#/$defs/StudioAbsorptionDraftPayload"
+        },
+        "expectedStateRevision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "protocolVersion": {
+          "const": 4,
+          "type": "integer"
+        },
+        "schemaId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sessionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "type": {
+          "const": "quoteHealthyAbsorption",
+          "type": "string"
+        }
+      },
+      "required": [
+        "commandId",
+        "draft",
+        "expectedStateRevision",
+        "protocolVersion",
+        "schemaId",
+        "sessionId",
+        "type"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioQuoteAbsorptionRequest"
+    },
     "StudioQuoteCastingRequest": {
       "additionalProperties": false,
       "properties": {
@@ -15594,6 +16579,50 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioQuoteContractRequest"
+    },
+    "StudioQuoteDiligenceRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "commandId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "draft": {
+          "$ref": "#/$defs/StudioDiligenceDraftPayload"
+        },
+        "expectedStateRevision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "protocolVersion": {
+          "const": 4,
+          "type": "integer"
+        },
+        "schemaId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sessionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "type": {
+          "const": "quotePaidDueDiligence",
+          "type": "string"
+        }
+      },
+      "required": [
+        "commandId",
+        "draft",
+        "expectedStateRevision",
+        "protocolVersion",
+        "schemaId",
+        "sessionId",
+        "type"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioQuoteDiligenceRequest"
     },
     "StudioQuoteLoanRequest": {
       "additionalProperties": false,
@@ -15773,6 +16802,12 @@
     },
     "StudioQuoteSnapshot": {
       "anyOf": [
+        {
+          "$ref": "#/$defs/StudioDiligenceQuoteSnapshot"
+        },
+        {
+          "$ref": "#/$defs/StudioAbsorptionQuoteSnapshot"
+        },
         {
           "$ref": "#/$defs/StudioLoanQuoteSnapshot"
         },
@@ -18525,7 +19560,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-58",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-61",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -18581,7 +19616,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 58,
+    "projectionVersion": 61,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

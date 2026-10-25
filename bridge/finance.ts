@@ -1,6 +1,6 @@
 /** P11 composes existing owners into a player-safe Finance read model. */
 import type { GameState } from '../src/core/types.ts'
-import { financeHistory, financeOverview } from '../src/core/financeReport.ts'
+import { financeHistory, financeOverview, ownedEstateFinance } from '../src/core/financeReport.ts'
 import { blueprintById } from '../src/core/placement.ts'
 import { filmCommittedCost } from '../src/core/receptionVerdict.ts'
 import { filmResultView } from '../ui/src/engine/adapter.ts'
@@ -87,7 +87,7 @@ export function financeProjection(state: GameState, people: BridgePeopleProjecti
     if (film.freelancerFees === 0) film.freelancerFees = 0
     if (film.productionAndMarketing === 0) film.productionAndMarketing = 0
   }
-  return { ...overview, employees, facilities, films, upcoming: financeUpcoming(state),
+  return { ...overview, estateAccounting: ownedEstateFinance(state), employees, facilities, films, upcoming: financeUpcoming(state),
     portfolio: financePortfolio(state, films), history: financeHistory(state),
     guaranteedPayrollRemaining: employees.reduce((sum,e)=>sum+e.guaranteedRemaining,0),
     obligationsBasis:'Contract guarantees describe future payroll under existing terms. They are not an additional charge and are not subtracted from Cash. Signing bonuses already paid are excluded.',

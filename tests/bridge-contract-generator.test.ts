@@ -565,14 +565,14 @@ describe('CF-08 sound union-to-C# generation', () => {
       // below is the schemaId of the checked-in
       // generated/unity/project-studio-bridge.contract-manifest.json,
       // read independently of this test (never schemaIdentity(schema) itself).
-      // Relationship slice B (1358-N P1/P2, projection 57): `labels` and `romance` on
-      // the relationship row moved the whole-schema identity again.
-      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 58 })
+      // F40 projection59: actual canonical own-estate finance definition;
+      // identity independently recorded by the normal generated manifest.
+      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 59 })
       expect(generated).toContain(
-        '// Schema identity: sha256:13b7933fdd1e3dc9851dd08630e46efd43e70227f5e0c6f6cf130d885752ab74',
+        '// Schema identity: sha256:6347433150a8ed3988573840bfa22621d5f5aa35b3d053b25ff5e6700ad02dcd',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:13b7933fdd1e3dc9851dd08630e46efd43e70227f5e0c6f6cf130d885752ab74',
+        'sha256:6347433150a8ed3988573840bfa22621d5f5aa35b3d053b25ff5e6700ad02dcd',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -730,8 +730,8 @@ describe('CF-08 sound union-to-C# generation', () => {
         // are 420340 bytes / 1dadf88f…; all six fixed bodies, including F12, remain
         // unchanged.
         // This measurement precedes these pins and is not failure-derived.
-        F10_CURRENT_QUOTE_UNIONS: '47c2bade023735a54472cace898aaa65a3f516d1ea6ea0db598274f58dc725d0', // P15B (1370-ar): the `takeLoan` intent kind joins the quote unions
-        F11_CURRENT_COMMAND_UNION: '47c2bade023735a54472cace898aaa65a3f516d1ea6ea0db598274f58dc725d0', // P15B (1370-ar): the `takeLoan` intent kind joins the command union
+        F10_CURRENT_QUOTE_UNIONS: '5590300628e24edf76819aa10cf418f31764153f1acb387652d8b89fa97494e6', // F40: independently measured all8 twice; sixfrozen bodies unchanged
+        F11_CURRENT_COMMAND_UNION: '5590300628e24edf76819aa10cf418f31764153f1acb387652d8b89fa97494e6', // F40: independently measured432433byte body, same as F10
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {

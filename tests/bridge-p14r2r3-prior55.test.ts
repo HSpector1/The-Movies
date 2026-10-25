@@ -1,3 +1,5 @@
+import type { GameState } from '../src/core/types.js'
+import { cutoverRightsRoot } from '../src/core/rights.js'
 import { withEmptyRecovery } from './helpers/recovery-migration-expectation.js'
 // ── P14 task 1308-C (new file): the outgoing projection55 runtime-checkpoint consumer for the
 // combined R2+R3 increment (projection 55->56, Save 40->41) ──
@@ -65,7 +67,7 @@ import {
   encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint,
   SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS,
 } from '../bridge/runtime-checkpoint.ts'
-import { LIVE_SAVE_VERSION, exportSave, migrateToLive, validateSaveV40, validateSaveV48, initialP15BRoots } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, exportSave, migrateToLive, validateSaveV40, validateSaveV49, initialP15BRoots } from '../src/core/save.js'
 
 const FIXTURES = new URL('./fixtures/p14/genuine-runtime55-pre-r3/', import.meta.url)
 const OLD_SCHEMA = 'sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158'
@@ -162,7 +164,7 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
   const h = (state as { hollywood?: { businesses?: Business[] } | null }).hollywood
   const withLoans = h === undefined || h === null || !Array.isArray(h.businesses) ? state : { ...state, hollywood: { ...h,
     businesses: h.businesses.map((b) => ({ ...b, account: { ...b.account, periods: b.account.periods.map((p) => ({
-      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) } })) } }
+      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0 } })) } })) } }
   return { ...withLoans,
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
@@ -170,7 +172,7 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
     campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
     // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
     foundingFunding: { version: 1, recordedFromWeek: week, fund: null },
-    ...initialP15BRoots(week) }
+    ...initialP15BRoots(week), rights: cutoverRightsRoot(withLoans as unknown as GameState) }
 }
 
 describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to current56, and each Save40 slot migrates to Save41 independently', () => {
@@ -216,7 +218,7 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
       const nextRaw = current[slot]
       expect(nextRaw, `${slot} must be present on the migrated checkpoint`).toBeTruthy()
       const previous = validateSaveV40(JSON.parse(old.value[slot]))
-      const now = validateSaveV48(JSON.parse(nextRaw!))
+      const now = validateSaveV49(JSON.parse(nextRaw!))
       expect(now.saveVersion).toBe(LIVE_SAVE_VERSION)
       // new.state equals old.state with termination:0 added to every rival finance period's
       // movements, and nothing else — the same fact p14r3-save-v41.test.ts asserts directly
