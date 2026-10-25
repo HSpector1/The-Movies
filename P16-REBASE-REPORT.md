@@ -576,3 +576,51 @@ Round 4 (the round-2 reviewer's blockers and optional items; lane wave3e on c0a6
     drafting171: the key-order diagnosis above matches the reviewer's reading (absorbedWork.ts vs
       participantsOf; stableStringify identical at both bases).
     p16b-condition-readers: fixed in 73a7feca; attribution not proven.
+
+Round 5 (the third reviewer's blockers and optional items; lane wave3g on 07e6c669; edited in the second
+sparse worktree, branch p16-rebase-20261024-r5), unrun:
+  Lane wave3g: static gates 0; 29 files, 380 of 408 passing; the 28 failing are 5 recorded baseline and 23 new:
+  21 candidate-own and 2 load timeouts. Every round-4 target is green; L-24 is 8 of 8 alone
+  (wave3g-l24-alone.json). The round-4 week-133 and genuineFrozen48 predictions held.
+  4a3d27f5  Blocker 1: tests/p16-rebase-c01-absorbed-claims.test.ts :148 and :155 run the directing and the
+            genre-opportunity drafts as separate cases (the shared loop stopped at the first draft, so at
+            b2d3d97e the opportunity draft never ran). promises.ts:346-347 WITNESSED (red at b2d3d97e, green at
+            HEAD). opportunityPromises.ts:66-67 PREDICTED until the coordinator's red rerun; isolation limit:
+            the opportunity draft also reads promiseProductionOccupancy (promises.ts:554-559). Sections 3 and 10
+            relabelled.
+  0349df40  Blocker 2: p15a2 rank-root-downgrade :961-967 forges the envelope convertV49ToV48 used to build
+            (rights and P16_RIVAL_MONEY_KINDS dropped, saveVersion 48) and pins validateSaveV48's exact
+            "validateSaveP15B: corporateCondition estate phase table is not admitted in this predecessor era":
+            corporateConditionLive.ts:422 WITNESSED again (PREDICTED until the lane runs it; lane wave3b and
+            wave3e measured the same text through the old path; the coordinator's mutant red will confirm).
+            Unwitnessed since 097f0f7d (the week-135 world holds no such row): corporateConditionLive.ts:518
+            (loans), marketIntegration.ts:181, powerRankingArchive.ts:263, campaignLegacy.ts:1315,
+            studioClosure.ts:692 and :729.
+  825d0f0b  Blocker 3: p15a1 K1 :446-468 and K2 :483: titles and comments say ACCEPTANCE OPEN for K1's diff
+            confinement and K2's byte identity (coverage gaps above); K1's seven named-fact equalities
+            (:457-463) compare keepKeys(detached(post), pins.k1.keys) with the pin, PREDICTED; the pin's byte
+            and SHA-256 check stays.
+  f1d158ae  Optional:
+            O2 done: the phase-history check sits in convertV49ToV48 only (save.ts:11936); the frozen builders
+              reach the P15B step's composed reasons again on a title-free ticked world.
+            O1 done: p15b2 :118-119 pin the exact composed refusal (recordedRefusal, :69).
+            O3/O5 done: the ACCEPTANCE OPEN notes (p15b2 :120-127, p15b4-studio-closure-save :56-61,
+              p15b-legacy-v3 :117-122, round-4 record above) state the real obstacle and that no control
+              combines two of the step's own reasons. p15b2 :316 pins the per-root reason strings and join
+              order (strings, not the step).
+            O4 done: genuineFrozen48 is "constructed, admitted by validateSaveP15B" in the round-4 record.
+            O6 done, with the answer: the rights validator does not reject first. validateSaveP15BEra
+              (save.ts:11908) runs before validateRightsRoot (:11909), whose own loop reads record.id unguarded
+              (rights.ts:1068-1069). The era map (save.ts:11645) admits records only; the row guards are
+              hollywoodValidation.ts:326-327 (covering :497 in the same iteration), technology.ts:892-893 and
+              professionHistory.ts:302. Unit cases: p16-rebase-c01-absorbed-claims :176 (a null row through
+              validateTechnology) and :185 (a null record through validateSaveV49 on a world with no industry,
+              named "validateSaveV49: rights cannot hold records without an industry"). Still unguarded
+              against a null record on an industry world: rights.ts:1068-1069 and the direct readers of
+              rights.absorptions (operatingState.ts:17, continuedWork.ts:15, :22, firstTakeSubjects.ts:22 and
+              others); owed by the P16 lane.
+            O7 done: L-24 :108 pins $.quote.cost.
+            O8 done: the round-3 load line now says the prepared-reuse run was a two-file run beside s7.
+  The reviewer's verdicts that stand: the 73a7feca identity law holds; O1's coverage is total; the week-133
+  world is a real Save48 envelope; the composition rule is exercised at two depths; the projection 62 pins
+  equal the measurement; no budget, persisted fixture or history was touched.
