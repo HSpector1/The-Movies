@@ -4,10 +4,13 @@
 // set skips the terminal target (`terminalWeekOf`) and seats only the buyer-continued work, and the
 // exited people join the hiring market. The candidate's validator still claimed every production
 // of the absorbed target except buyer cancellations, so a released participant seated anywhere
-// else made every later save fail with "simultaneous active assignments". The rebased validator
-// claims only the buyer-continued, uncancelled productions of an absorbed business; its written-off
-// work and every draft claim nobody, and the profession-history straddle check, the promise and
-// opportunity occupancy readers follow the same rule.
+// else made every later save fail with "simultaneous active assignments" (PREDICTED by reading: no
+// red run at the candidate's rule exists yet; the lane's red run turns this into an observation).
+// The rebased validator claims only the buyer-continued, uncancelled productions of an absorbed
+// business; its written-off work and every draft claim nobody, and the profession-history straddle
+// check, the promise and opportunity occupancy readers follow the same rule. The validator rule
+// landed with the apply (b2d3d97e); the reader rule landed in 0863f80b, and the differential case
+// below is the witness predicted red at b2d3d97e (its readers still kept r01's written-off picture).
 //
 // Route: the candidate's own write-off transaction (tests/p16-absorption-paid-production.test.ts):
 // the genuine Original48 r04-pre162 capture, migrated to Save49, a paid full disclosure, the public
@@ -15,7 +18,8 @@
 // the L-05 route: the player signs the written-off picture's lead from the hiring market, staffs one
 // picture around them, greenlights it, and plays a 52-week natural soak with a save every week.
 // The capture lives outside the repository (audit C-06): P16_ORIGINAL48_CAPTURE_ROOT, fail loud.
-// STATIC-UNRUN when written (the rebase lane runs it).
+// STATIC-UNRUN when written (the rebase lane runs it). No natural witness covers the profession-history
+// straddle rule yet (it needs an exited actor's recorded profession change after the write-off).
 import { beforeAll, describe, expect, it } from 'vitest'
 import { readFileSync } from 'node:fs'
 import { createHash } from 'node:crypto'
@@ -29,10 +33,12 @@ import { MARKETING_BUDGET_LEVELS } from '../src/core/grid.js'
 import { studioEmployerId } from '../src/core/hollywood.js'
 import { terminalWeekOf } from '../src/core/operatingState.js'
 import { productionCompanyTalentIds } from '../src/core/productionPeople.js'
+import { promiseFeasibility, type PromiseDraft } from '../src/core/promises.js'
 import { libraryValuationV1 } from '../src/core/propertyValuation.js'
 import { resolveShape } from '../src/core/shape.js'
 import { tick } from '../src/core/tick.js'
-import type { Action, FilmShape, GameState } from '../src/core/types.js'
+import { GENRE_ORDER } from '../src/core/tuning.js'
+import type { Action, FilmShape, GameState, Production } from '../src/core/types.js'
 import { signRole } from './helpers/stabilization-staffing.js'
 
 const TARGET = 'studio-aca408ec-r01', FILM = TARGET + ':film:13', WEEK = 162, SOAK_WEEKS = 52
@@ -67,14 +73,14 @@ function absorbedWorld(): GameState {
 
 describe('C-01: an absorbed business\'s written-off work claims nobody at validation', () => {
   // The route runs once; each test below is assertions only.
-  let absorbed: GameState, released: string, seated: GameState
+  let absorbed: GameState, frozen: Production, released: string, seated: GameState
   const soak: { week: number; refusal: string | null }[] = []
   beforeAll(() => {
     absorbed = absorbedWorld()
     const record = absorbed.rights.absorptions.find((a) => a.targetId === TARGET)!
     expect(record.stoppedProductions.map((row) => row.productionId)).toEqual([FILM])
     expect(record.continuedProductions).toEqual([])
-    const frozen = absorbed.hollywood!.businesses.find((b) => b.studioId === TARGET)!.productions[0]!
+    frozen = absorbed.hollywood!.businesses.find((b) => b.studioId === TARGET)!.productions[0]!
     expect(frozen.id).toBe(FILM)
     const found = [frozen.cast.lead, frozen.cast.antagonist, frozen.cast.support].find((id) =>
       hiringMarketIds(absorbed).includes(id) && assignmentRefusal(absorbed, id, absorbed.market.tick, 'actor') === null)
@@ -119,8 +125,27 @@ describe('C-01: an absorbed business\'s written-off work claims nobody at valida
     expect(busyTalentIds(seated).has(released)).toBe(true)
     // History is untouched: the frozen picture keeps its company.
     expect(productionCompanyTalentIds([seated.hollywood!.businesses.find((b) => b.studioId === TARGET)!.productions[0]!]).has(released)).toBe(true)
-    // On the candidate this threw `person … has simultaneous active assignments`.
+    // PREDICTED, not yet observed: under the candidate's claim rule this throws `person … has
+    // simultaneous active assignments` (the red run is the lane's).
     expect(() => saves.makeSave(seated)).not.toThrow()
+  })
+
+  it('the promise and opportunity occupancy readers ignore the written-off picture: the same answers as the world without it', () => {
+    // Differential witness for the 0863f80b readers (predicted red at b2d3d97e, where `closedWeekOf`
+    // kept r01 in `promiseProductionOccupancy` and in the opportunity owners). Removing r01's frozen
+    // picture is not a lawful state; it only shows that no reader's answer depends on it.
+    const h = absorbed.hollywood!
+    const withoutFrozen: GameState = { ...absorbed, hollywood: { ...h,
+      businesses: h.businesses.map((b) => (b.studioId === TARGET ? { ...b, productions: [] } : b)) } }
+    const term = { windowStartWeek: WEEK, dueWeekExclusive: WEEK + 52, startWeek: WEEK, termWeeks: 52 }
+    const directing: PromiseDraft = { family: 'DIRECTING_COUNT', issuerStudioId: h.playerStudioId,
+      beneficiaryPersonId: frozen.directorId, predicate: { kind: 'directorCount', count: 1 }, ...term }
+    const opportunity: PromiseDraft = { family: 'PREFERRED_GENRE_OPPORTUNITY', issuerStudioId: h.playerStudioId,
+      beneficiaryPersonId: frozen.cast.antagonist,
+      predicate: { kind: 'genreOpportunity', count: 1, seatClass: 'allCast', genre: GENRE_ORDER[0]! }, ...term }
+    for (const draft of [directing, opportunity]) {
+      expect(promiseFeasibility(absorbed, draft, WEEK), draft.family).toEqual(promiseFeasibility(withoutFrozen, draft, WEEK))
+    }
   })
 
   it('every weekly save of the 52-week natural soak admits', () => {

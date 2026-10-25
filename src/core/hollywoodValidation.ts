@@ -321,6 +321,8 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
     const terminalWeek=closedWeekOf(b.studioId) ?? absorptionOf(b.studioId)?.week ?? null
     // The one live-work rule (C-01): see `verifyParticipants`. Writer claims below use `terminalWeek`.
     const absorbed=absorptionOf(b.studioId)
+    // Read only as arrays, so a malformed record is refused here by name, never as a TypeError.
+    requireFact(absorbed===undefined||Array.isArray(absorbed.continuedProductions)&&Array.isArray(absorbed.workCancellations),'absorption work dispositions must be arrays')
     const claimsLiveWork=(p:Production)=>closedWeekOf(b.studioId)===null&&(absorbed===undefined||
       (absorbed.continuedProductions.some(c=>c.productionId===p.id)&&!absorbed.workCancellations.some(c=>c.productionId===p.id)))
     const chargedThrough=terminalWeek===null?state.market.tick:Math.min(state.market.tick,terminalWeek)
