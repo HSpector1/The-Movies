@@ -1,4 +1,4 @@
-import { rightsStripped } from './helpers/p16-era.js'
+import { NONDEFAULT_MARKET_PROJECTION, rightsStripped } from './helpers/p16-era.js'
 import { convertV49ToV48 } from '../src/core/save.js'
 // ── P13B-S8 test 7: Save V27 — genuine V26 fixtures, honest lift, conditional
 // downgrade refusal, validator refusals for forged rival authority, sentinel
@@ -202,7 +202,10 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
     // state carries evaluated condition records, so the P15B guard (naming the predecessor version) is the one that
     // actually refuses; the guard pinned before stays covered on its own-era input elsewhere.
     expect(() => convertV49ToV48(envelope as never)).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
-    expect(() => save.migrateToV26(rightsStripped(envelope as never))).toThrow(new RegExp(`^migrateToV47: cannot downgrade or discard a corporateCondition record`))
+    // MOVED (P16 rebase): the P15B guard needs this world's Save48 projection, which does not exist: its shared-market
+    // history is table 3 and nondefault, and `rightsStripped` refuses to relabel it. The live step's refusal above is
+    // the first guard; the V27 guards keep the own-era coverage named above.
+    expect(() => rightsStripped(envelope as never)).toThrow(NONDEFAULT_MARKET_PROJECTION)
   })
 
   it('downgrade REFUSED: the same natural campaign also carries a new receipt kind (laboratoryCommitted/laboratoryOperational), independently sufficient to refuse V27->V26', () => {
@@ -220,7 +223,10 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
     // state carries evaluated condition records, so the P15B guard (naming the predecessor version) is the one that
     // actually refuses; the guard pinned before stays covered on its own-era input elsewhere.
     expect(() => convertV49ToV48(envelope as never)).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
-    expect(() => save.migrateToV26(rightsStripped(envelope as never))).toThrow(new RegExp(`^migrateToV47: cannot downgrade or discard a corporateCondition record`))
+    // MOVED (P16 rebase): the P15B guard needs this world's Save48 projection, which does not exist: its shared-market
+    // history is table 3 and nondefault, and `rightsStripped` refuses to relabel it. The live step's refusal above is
+    // the first guard; the V27 guards keep the own-era coverage named above.
+    expect(() => rightsStripped(envelope as never)).toThrow(NONDEFAULT_MARKET_PROJECTION)
     // 1358-F10 ruling 4: no Save27 engine remains, so the V27 guard's own-era input is a genuine V26
     // fixture lifted to V27 (as the LOSSLESS leaf lifts it) after one admission by the S8 rival admission
     // boundary itself (admitRivalPlans, src/core/rivalResearch.ts:200-209): a started Laboratory plan, its

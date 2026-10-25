@@ -81,3 +81,15 @@ export function rightsStripped(save: { saveVersion: number; seed: string; state:
   refuseCurrentPhaseHistory(predecessor)
   return validateSaveV48({ saveVersion: P16_PREDECESSOR_SAVE_VERSION, seed: save.seed, state: predecessor, broadcastCache: save.broadcastCache })
 }
+
+// The live step's named first refusals (convertV49ToV48, `p16DowngradeRefusal` in save.ts), for suites whose
+// older guard moved because a ticked P16 world has no Save48 projection: a world that recorded a title, and a
+// world whose closure opened an estate (every Save49 closure does, in its closure week).
+export const RIGHTS_ROOT_REFUSAL = new RegExp(`^migrateToV${P16_PREDECESSOR_SAVE_VERSION}: cannot downgrade or discard a recorded rights root$`)
+// A ticked world that recorded no title passes the live step's own checks, and the Save48 reader inside it refuses
+// the first table-3 row the live writers stamped; the root holding it names itself first.
+export const LIVE_DOWNGRADE_REFUSAL = new RegExp(`${RIGHTS_ROOT_REFUSAL.source}|^.+ estate phase table is not admitted in this predecessor era$`)
+export const ESTATE_OBSERVATION_REFUSAL = new RegExp(`^migrateToV${P16_PREDECESSOR_SAVE_VERSION}: cannot discard unique estate observation or current closure provenance$`)
+// Why the older guard moved: `rightsStripped` refuses, by name, to relabel table-3 history it cannot prove neutral.
+export const NONDEFAULT_MARKET_PROJECTION = /^rightsStripped: a nondefault current market assessment cannot be projected$/
+export const PHASE_HISTORY_PROJECTION = /^rightsStripped: current phase history cannot be projected$/

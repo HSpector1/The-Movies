@@ -13,6 +13,7 @@ import type { GameState } from '../src/core/types.js'
 import { advanceTo, exhaustedScientistPool, labId, owner, project, saveRoundTrip, SCI, SCI_END,
   scientistAt, scientistFilm, scientistSupply, scientistWorld } from './helpers/p14c2s-fixtures.js'
 import { scientistRaw } from './helpers/p14c3-fixtures.js'
+import { ESTATE_OBSERVATION_REFUSAL } from './helpers/p16-era.js'
 
 const record = (state: GameState) => retirementRecordFor(state, SCI)
 const bytes = (state: GameState) => JSON.stringify(makeSave(state))
@@ -285,12 +286,13 @@ describe('Scientist retirement persistence has an explicit semantic version boun
     expect(live.state.hollywood!.businesses.some(business => business.account.periods.some(
       period => period.movements.facilityDemolitionRefund !== 0))).toBe(true)
     expect(live.state.hollywood!.receipts.some(receipt => receipt.kind === 'facilityDisposed')).toBe(true)
-    // P15B (1370-ar): the P15B step refuses first (its condition records) and appends the predecessor steps' own
-    // refusals rather than masking them, so R8's recovery reasons are still asserted by name on the same throw.
-    expect(() => migrateToV36(live)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record.*; cannot downgrade or discard recovery authority: costCutting\\.since, facilityDemolitionRefund, facilityDisposed(; |$)`))
+    // MOVED (P16 rebase): the live Save49 step refuses first, naming the estate a closure in this route opened. The
+    // P15B step's composed refusal (condition records, then R8's recovery reasons) needs this world's Save48 envelope,
+    // which does not exist: an estate is a rights instrument `rightsStripped` refuses to drop.
+    expect(() => migrateToV36(live)).toThrow(ESTATE_OBSERVATION_REFUSAL)
     expect(JSON.stringify(live)).toBe(before)
     expect(bytes(state)).toBe(before)
-    expect(() => migrateToV35(live)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record.*; cannot downgrade or discard recovery authority: costCutting\\.since, facilityDemolitionRefund, facilityDisposed(; |$)`))
+    expect(() => migrateToV35(live)).toThrow(ESTATE_OBSERVATION_REFUSAL)
     expect(JSON.stringify(live)).toBe(before)
     expect(bytes(state)).toBe(before)
     // Reach the Scientist boundary on the genuine V37 capture, preserving it too.

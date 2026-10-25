@@ -186,7 +186,6 @@ describe('1313-A §3 — the acknowledged input, migrated then greenlit, mints r
     // copy of `v42`, because no pre-Save44 engine remains to write it. convertV42ToV41 refuses at
     // its casting-competition guard (src/core/relationships.ts:847-849, via src/core/save.ts:10696).
     const staged = { ...v42, state: { ...v42.state, relationships: v42.state.relationships.map((row, i) => (i === 0 ? { ...row, sharedCompetitions: 1 } : row)) } }
-    expect(() => convertV49ToV48(newSave as never)).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
     expect(() => mods.convertV42ToV41(staged)).toThrow(/^migrateToV41: cannot downgrade or discard a casting competition$/)
     // Save43 (1344-N S6): the V42-migrated state has no rival `screenplayShelving`, which the live
     // writer below requires on every rival business; lift it through the genuine convertV42ToV43
@@ -221,6 +220,10 @@ describe('1313-A §3 — the acknowledged input, migrated then greenlit, mints r
     const newSave = makeSave(greenlit)
     expect(newSave.saveVersion).toBe(saveModule.LIVE_SAVE_VERSION) // LIVE_SAVE_VERSION 45 (was 44 under Save44, 42 at 1313-A §3)
     expect(() => validateLiveSave(newSave)).not.toThrow()
+    // P16 rebase (TDZ fix): the candidate placed this before `newSave` existed. The greenlight minted a story property,
+    // so the live step refuses first, by name; the chain below still reaches the original Save44 guard because this
+    // state never ticked, and its Save48 projection (`downgradeLiveTo45` -> `rightsStripped`) exists.
+    expect(() => convertV49ToV48(newSave)).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
     // 1358-N S9 (MASKED): the live chain now crosses convertV44ToV43 first, and the greenlight
     // appended a competitions-log row on each slate pair (src/core/relationships.ts:537), so
     // the Save44 log guard (src/core/save.ts:10789) refuses before convertV42ToV41's casting-

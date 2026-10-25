@@ -1,6 +1,7 @@
 // 1040/1044: public append paths and invocation-local historical authority.
 import assert from 'node:assert/strict'
 import { predecessorSave } from './helpers/p15-roots.js'
+import { LIVE_DOWNGRADE_REFUSAL, PHASE_HISTORY_PROJECTION } from './helpers/p16-era.js'
 import { afterAll, describe, expect, it, vi } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { ageAt } from '../src/core/aging.js'
@@ -116,7 +117,13 @@ describe('C.3 current append and strict historical authority boundaries', () => 
     // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
     // The shelving-count guard stays covered on V43 in p14d1-rival-shelving-save-v43.test.ts.
     // The entrant guard stays covered on the genuine V37 corpus in p14c3-save-v38.test.ts.
-    expect(() => save.convertV38ToV37(save.convertV39ToV38(save.convertV40ToV39(save.convertV41ToV40(save.convertV42ToV41(save.convertV43ToV42(save.convertV44ToV43(save.convertV45ToV44(save.convertV46ToV45(save.convertV47ToV46(predecessorSave(f.state)))))))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
+    // MOVED (P16 rebase): the live step refuses first, by name. The chain below starts from the world's Save48
+    // projection, which does not exist here: its records since migration carry the Save49 phase table 3, and `rightsStripped`
+    // refuses to relabel them, so the V45 ranking guard pinned here before is unreachable from this world;
+    // p15a2-power-ranking-archive keeps it on its Save45 input. Two weeks after migration this world may hold no
+    // title, so either named live refusal is admitted (helpers/p16-era.ts LIVE_DOWNGRADE_REFUSAL).
+    expect(() => save.convertV49ToV48(save.makeSave(f.state))).toThrow(LIVE_DOWNGRADE_REFUSAL)
+    expect(() => save.convertV38ToV37(save.convertV39ToV38(save.convertV40ToV39(save.convertV41ToV40(save.convertV42ToV41(save.convertV43ToV42(save.convertV44ToV43(save.convertV45ToV44(save.convertV46ToV45(save.convertV47ToV46(predecessorSave(f.state)))))))))))).toThrow(PHASE_HISTORY_PROJECTION)
     expect(save.stableStringify(f.before)).toBe(beforeBytes)
   })
 

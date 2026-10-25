@@ -10,7 +10,7 @@ import { studioConstructionView } from '../src/core/placement.js'
 import { availableDevelopmentCastingSlots } from '../src/core/scriptDevelopment.js'
 import { studioCalendar } from '../src/core/studioCalendar.js'
 import { tick } from '../src/core/tick.js'
-import { convertV36ToV35, convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, convertV47ToV46, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify,
+import { convertV36ToV35, convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, convertV47ToV46, convertV49ToV48, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify,
   validateSaveV36, validateSaveV49 } from '../src/core/save.js'
 import type { GameState, GameStateV33, RetirementRecordV36, ScriptProject } from '../src/core/types.js'
 import { c2Fixture } from './helpers/p14c2a-fixtures.js'
@@ -45,6 +45,7 @@ function withZeroLoanMovements<T extends { hollywood: GameStateV33['hollywood'] 
 import { addPerson, admitted, advanceTo, bytes, finishingWriter, historicalWriterPair, owner } from './helpers/p14c2rm-fixtures.js'
 import { announcedGapWriter, originalCommission, pooledFinishingWriter } from './helpers/p14c2rm-writer-fixtures.js'
 import { predecessorSave } from './helpers/p15-roots.js'
+import { NONDEFAULT_MARKET_PROJECTION, RIGHTS_ROOT_REFUSAL } from './helpers/p16-era.js'
 
 function envelope(state: GameState, saveVersion: number = LIVE_SAVE_VERSION) {
   return { saveVersion, seed: state.seed, state, broadcastCache: state.broadcastItems }
@@ -297,7 +298,11 @@ describe('880-B live allowance stays narrowly scoped', () => {
     // The commissioned V37 control above covers the V36 extension guard.
     // The finishing V37 control covers the not-contracted refusal this live chain masks.
     // V39 stays covered by p13b-s3-save-v23.test.ts (the V40 input refusal).
-    expect(() => convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(convertV47ToV46(predecessorSave(current.state))))))))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded shared-market assessment \(\d+ recorded\); cannot downgrade or discard a recorded Power Ranking quarter$/) // 1370-AR r2: the market law is active (1361-F7 ruling 2)
+    // MOVED (P16 rebase): the live step refuses first, by name (the world recorded titles). The chain below starts from
+    // the world's Save48 projection, which does not exist here: its shared-market history is table 3 and nondefault,
+    // and `rightsStripped` refuses to relabel it, so the V45 guard pinned here before is unreachable from this world.
+    expect(() => convertV49ToV48(current)).toThrow(RIGHTS_ROOT_REFUSAL)
+    expect(() => convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(convertV47ToV46(predecessorSave(current.state))))))))))))).toThrow(NONDEFAULT_MARKET_PROJECTION)
     expect(stableStringify(current)).toBe(before)
   })
 

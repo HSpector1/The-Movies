@@ -7,13 +7,14 @@ import { assignmentRefusal, contractEndRefusal, retirementRecordFor } from '../s
 import { activeContract, busyTalentIds } from '../src/core/employment.js'
 import { professionAtWeek, transitionInputsFor } from '../src/core/index.js'
 import { validateProfessionHistory } from '../src/core/professionHistory.js'
-import { exportSave, LIVE_SAVE_VERSION, makeSave, migrateToV44, stableStringify, validateSaveV35, validateSaveV37, validateSaveV49 } from '../src/core/save.js'
+import { exportSave, makeSave, migrateToV44, stableStringify, validateSaveV35, validateSaveV37, validateSaveV49 } from '../src/core/save.js'
 import { caseForTalent, playerOffer, proposalDraft } from '../src/core/talentMarket.js'
 import { careerIdentity, expectedPotentialTier, roleTier } from '../src/core/talentSummary.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { FilmCreativeRole, GameState, TransitionInputs, TransitionTargetInput } from '../src/core/types.js'
 import { clone, compareText, person } from './helpers/p14c3-fixtures.js'
 import { acceptedEvidence } from './helpers/p14c3-genuine-evidence-fixtures.js'
+import { ESTATE_OBSERVATION_REFUSAL } from './helpers/p16-era.js'
 import { COHORT_SUBJECT, cohortCase, cohortChosen, cohortEmployment, cohortFinalBoundary, cohortLaterWork,
   cohortNoticeGap, cohortRenewalOne, cohortRenewalThree, cohortRenewalTwo, cohortRouteAccounting, cohortSetup,
   cohortThreeFilms, recordCohortRoute } from './helpers/p14c3-cohort-transition-fixtures.js'
@@ -291,10 +292,11 @@ describe('C.3 genuine cohort-born Actor enters a new profession with origin auth
     expect(control.state.hollywood!.businesses.some(b => b.account.periods.some(p => p.movements.facilityDemolitionRefund !== 0))).toBe(true)
     expect(control.state.hollywood!.receipts.some(r => r.kind === 'facilityDisposed')).toBe(true)
     // P15B (1370-ar, MASKED): this route's rivals borrow under 1357-A §6.2, so no predecessor envelope can carry the
-    // state (the test helper refuses by name); the live save's own P15B refusal is the pin, and it appends R8's
-    // recovery reasons rather than masking them. The recorded Power Ranking guard stays covered on its Save45 input in
-    // tests/p15a2-power-ranking-archive.test.ts.
-    expect(() => migrateToV44(control as never)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record.*; cannot downgrade or discard recovery authority: costCutting\\.since, facilityDemolitionRefund, facilityDisposed(; |$)`))
+    // state (the test helper refuses by name). The recorded Power Ranking guard stays covered on its Save45 input in
+    // tests/p15a2-power-ranking-archive.test.ts. MOVED (P16 rebase): the live Save49 step now refuses first, naming
+    // the estate a closure in this route opened; the P15B step's composed refusal (condition records, then R8's
+    // recovery reasons) needs a Save48 envelope, and an estate is a rights instrument `rightsStripped` refuses to drop.
+    expect(() => migrateToV44(control as never)).toThrow(ESTATE_OBSERVATION_REFUSAL)
     expect(stableStringify(control)).toBe(controlBytes)
     expect(validateSaveV49(control)).toBe(control)
     expect(stableStringify(control)).toBe(controlBytes)

@@ -26,12 +26,13 @@
 //  - S4's `makeSave` case now migrates first (F1) — `makeSave` takes the live V36
 //    `GameState`, and a raw V35 fixture is a type error against it.
 import { describe, expect, it } from 'vitest'
-import { LIVE_SAVE_VERSION, convertV35ToV36, convertV36ToV35, makeSave, validateSaveV49 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, convertV35ToV36, convertV36ToV35, convertV49ToV48, makeSave, validateSaveV49 } from '../src/core/save.js'
 import type { GameState, GameStateV35, RetirementRecordV36, TalentMarketCaseV36 } from '../src/core/types.js'
 import { C2B_CORPUS, advanceTo, c2bFixture, c2bLiveFixture, liveEnvelope, liveEnvelopeV36 } from './helpers/p14c2b-fixtures.js'
 import { submitProposal } from '../src/core/talentMarket.js'
 import { retirementRecordFor } from '../src/core/careerLifecycle.js'
 import { EXPECTED_LIVE_SAVE_VERSION } from './helpers/live-era.js'
+import { NONDEFAULT_MARKET_PROJECTION, RIGHTS_ROOT_REFUSAL } from './helpers/p16-era.js'
 
 const CORPUS_NAMES = Object.keys(C2B_CORPUS) as (keyof typeof C2B_CORPUS)[]
 
@@ -81,7 +82,11 @@ describe('P14C.2b S2: V36 -> V35 downgrade', () => {
     // V39 stays covered by p13b-s3-save-v23.test.ts (the V40 input refusal).
     // 1365 (1361-F7 ruling 2, the predicted move): with P15A.1(c) active the shared-market reason comes first;
     // re-pinned at the 1370-AR landing to the measured first guard.
-    expect(() => convertV36ToV35(liveEnvelopeV36(settled))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded shared-market assessment \(\d+ recorded\); cannot downgrade or discard a recorded Power Ranking quarter$/)
+    // MOVED (P16 rebase): the live step refuses first, by name (the world recorded titles). The V36 chain starts from
+    // the world's Save48 projection, which does not exist here: its shared-market history is table 3 and nondefault,
+    // and `rightsStripped` refuses to relabel it, so the V45 guard that already masked the V36 guard is unreachable too.
+    expect(() => convertV49ToV48(makeSave(settled))).toThrow(RIGHTS_ROOT_REFUSAL)
+    expect(() => liveEnvelopeV36(settled)).toThrow(NONDEFAULT_MARKET_PROJECTION)
   })
 
   it('refused as a downgrade when a case carries variant: retirementExtension (open, not yet used — the case alone is enough)', () => {
@@ -98,7 +103,11 @@ describe('P14C.2b S2: V36 -> V35 downgrade', () => {
     // V39 stays covered by p13b-s3-save-v23.test.ts (the V40 input refusal).
     // 1365 (1361-F7 ruling 2, the predicted move): with P15A.1(c) active the shared-market reason comes first;
     // re-pinned at the 1370-AR landing to the measured first guard.
-    expect(() => convertV36ToV35(liveEnvelopeV36(atWindow))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded shared-market assessment \(\d+ recorded\); cannot downgrade or discard a recorded Power Ranking quarter$/)
+    // MOVED (P16 rebase): the live step refuses first, by name (the world recorded titles). The V36 chain starts from
+    // the world's Save48 projection, which does not exist here: its shared-market history is table 3 and nondefault,
+    // and `rightsStripped` refuses to relabel it, so the V45 guard that already masked the V36 guard is unreachable too.
+    expect(() => convertV49ToV48(makeSave(atWindow))).toThrow(RIGHTS_ROOT_REFUSAL)
+    expect(() => liveEnvelopeV36(atWindow)).toThrow(NONDEFAULT_MARKET_PROJECTION)
   })
 })
 

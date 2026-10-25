@@ -27,6 +27,7 @@ import { act, actualPromise, admitted, at45, attach, attached, bound, bytes, CAS
   outgoing, outgoingNames, person, proposal, quote, reopen, secondFilm, sha, SHAPE, terminal208, WRITER,
   type DirectorDraft, type DirectorPromise } from './helpers/p14p3-fixtures.js'
 import { predecessorSave } from './helpers/p15-roots.js'
+import { NONDEFAULT_MARKET_PROJECTION, RIGHTS_ROOT_REFUSAL } from './helpers/p16-era.js'
 import { initialP15BRoots } from '../src/core/save.js'
 
 // Set before any execution. A single <=208-tick cached trajectory plus whole-save
@@ -421,7 +422,12 @@ describe('P3 first slice: public Director promises and historical meaning', () =
       // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
       // The V39 opportunity/subject guard stays covered by Q11 in
       // p14p4p5-screenplay-status.test.ts (the genuine Save40 factOnly capture).
-      expect(() => api.convertV39ToV38(save)).toThrow(/^migrateToV44: cannot downgrade or discard a recorded (?:shared-market assessment \(\d+ recorded\)(?:; cannot downgrade or discard a recorded Power Ranking quarter)?|Power Ranking quarter)$/) // 1370-AR r2: with the market law active the shared-market rows are named first (1361-F7 ruling 2)
+      // MOVED (P16 rebase): the live step refuses first, by name (the world recorded titles). The chain below starts
+      // from the world's Save48 projection, which does not exist here: its shared-market history is table 3 and
+      // nondefault, and `rightsStripped` refuses to relabel it, so the V45 guard pinned here before is unreachable from
+      // this world. p15a1-market-integration and p15a2-power-ranking-archive keep the V45 guards on own-era input.
+      expect(() => saves.convertV49ToV48(save)).toThrow(RIGHTS_ROOT_REFUSAL)
+      expect(() => api.convertV39ToV38(save)).toThrow(NONDEFAULT_MARKET_PROJECTION)
     }
     const id = a.promiseId
     malformed(a.state, id, row => { (row.predicate as Record<string, unknown>).extra = true }, /predicate.*extra/i)
@@ -447,8 +453,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
     // p14p4p5-screenplay-status.test.ts (the genuine Save40 factOnly capture).
     // P15B (1370-ar): the chain takes the predecessor envelope the test helper builds from the live state
     // (tests/helpers/p15-roots.ts); the P15B step's own refusal would mask the guard under test.
-    expect(() => saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(saves.convertV46ToV45(saves.convertV47ToV46(predecessorSave(a.state)))))))))
-      .toThrow(/^migrateToV44: cannot downgrade or discard a recorded (?:shared-market assessment \(\d+ recorded\)(?:; cannot downgrade or discard a recorded Power Ranking quarter)?|Power Ranking quarter)$/) // 1370-AR r2: with the market law active the shared-market rows are named first (1361-F7 ruling 2)
+    expect(() => predecessorSave(a.state)).toThrow(NONDEFAULT_MARKET_PROJECTION) // MOVED (P16 rebase): no Save48 projection, as in the loop above
     // So the frozen builders take the genuine director-bound-week52 capture (Save39, a bound P3 Director
     // promise), lifted to V40 by convertV39ToV40 alone.
     const bound40 = directorCapture40('director-bound-week52',
@@ -517,7 +522,12 @@ describe('P3 first slice: public Director promises and historical meaning', () =
     // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
     // The V39 opportunity/subject guard stays covered by Q11 in
     // p14p4p5-screenplay-status.test.ts (the genuine Save40 factOnly capture).
-    expect(() => futureSave().convertV39ToV38(saves.makeSave(abandoned))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded (?:shared-market assessment \(\d+ recorded\)(?:; cannot downgrade or discard a recorded Power Ranking quarter)?|Power Ranking quarter)$/) // 1370-AR r2: with the market law active the shared-market rows are named first (1361-F7 ruling 2)
+    // MOVED (P16 rebase): the live step refuses first, by name (the world recorded titles). The chain below starts
+    // from the world's Save48 projection, which does not exist here: its shared-market history is table 3 and
+    // nondefault, and `rightsStripped` refuses to relabel it, so the V45 guard pinned here before is unreachable from
+    // this world. p15a1-market-integration and p15a2-power-ranking-archive keep the V45 guards on own-era input.
+    expect(() => saves.convertV49ToV48(saves.makeSave(abandoned))).toThrow(RIGHTS_ROOT_REFUSAL)
+    expect(() => futureSave().convertV39ToV38(saves.makeSave(abandoned))).toThrow(NONDEFAULT_MARKET_PROJECTION)
   }, LEAF_TIMEOUT_MS)
 })
 
@@ -774,7 +784,12 @@ describe('P3 second slice: cancellation and same-domain waiver', () => {
       // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
       // The V39 opportunity/subject guard stays covered by Q11 in
       // p14p4p5-screenplay-status.test.ts (the genuine Save40 factOnly capture).
-      expect(() => futureSave().convertV39ToV38(save)).toThrow(/^migrateToV44: cannot downgrade or discard a recorded (?:shared-market assessment \(\d+ recorded\)(?:; cannot downgrade or discard a recorded Power Ranking quarter)?|Power Ranking quarter)$/) // 1370-AR r2: with the market law active the shared-market rows are named first (1361-F7 ruling 2)
+      // MOVED (P16 rebase): the live step refuses first, by name (the world recorded titles). The chain below starts
+      // from the world's Save48 projection, which does not exist here: its shared-market history is table 3 and
+      // nondefault, and `rightsStripped` refuses to relabel it, so the V45 guard pinned here before is unreachable from
+      // this world. p15a1-market-integration and p15a2-power-ranking-archive keep the V45 guards on own-era input.
+      expect(() => saves.convertV49ToV48(save)).toThrow(RIGHTS_ROOT_REFUSAL)
+      expect(() => futureSave().convertV39ToV38(save)).toThrow(NONDEFAULT_MARKET_PROJECTION)
       // 1361-N S9 (MASKED), F7 ruling 2: the recorded Power Ranking quarter makes
       // convertV45ToV44 refuse first (src/core/save.ts:10989-10995; reason :10895).
       // x2 measured this first guard in the family; the follow-up must confirm every call.
@@ -783,8 +798,7 @@ describe('P3 second slice: cancellation and same-domain waiver', () => {
       // p14p4p5-screenplay-status.test.ts (the genuine Save40 factOnly capture).
       // P15B (1370-ar): the chain takes the predecessor envelope the test helper builds from the live state
       // (tests/helpers/p15-roots.ts); the P15B step's own refusal would mask the guard under test.
-      expect(() => saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(saves.convertV46ToV45(saves.convertV47ToV46(predecessorSave(save.state)))))))))
-        .toThrow(/^migrateToV44: cannot downgrade or discard a recorded (?:shared-market assessment \(\d+ recorded\)(?:; cannot downgrade or discard a recorded Power Ranking quarter)?|Power Ranking quarter)$/) // 1370-AR r2: with the market law active the shared-market rows are named first (1361-F7 ruling 2)
+      expect(() => predecessorSave(save.state)).toThrow(NONDEFAULT_MARKET_PROJECTION) // MOVED (P16 rebase): no Save48 projection, as above
     }
     // 1358-F11 ruling 1: the genuine director-waived-week61 capture (Save39: promise-0 WAIVED and its open
     // successor promise-1, the 1221 runtime's committed waiver) holds WAIVED authority; convertV39ToV40
