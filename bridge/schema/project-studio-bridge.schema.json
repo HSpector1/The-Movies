@@ -241,6 +241,12 @@
           "minimum": 0,
           "type": "integer"
         },
+        "scripts": {
+          "items": {
+            "$ref": "#/$defs/StudioAbsorptionScriptVerdict"
+          },
+          "type": "array"
+        },
         "targetCashBeforeExits": {
           "type": "number"
         }
@@ -259,6 +265,7 @@
         "resultingWeeklyFixedCost",
         "retainedContracts",
         "rightsCount",
+        "scripts",
         "targetCashBeforeExits"
       ],
       "type": "object",
@@ -274,6 +281,52 @@
         }
       ],
       "x-csharp-name": "StudioAbsorptionRetention"
+    },
+    "StudioAbsorptionScriptVerdict": {
+      "additionalProperties": false,
+      "properties": {
+        "disposition": {
+          "enum": [
+            "writeOff",
+            "continuationRequired"
+          ],
+          "type": "string"
+        },
+        "reason": {
+          "enum": [
+            "writersNotRetained",
+            "writerContinuationProducerRequired"
+          ],
+          "type": "string"
+        },
+        "scriptProjectId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "drafting",
+            "rewriting"
+          ],
+          "type": "string"
+        },
+        "writerIds": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "disposition",
+        "reason",
+        "scriptProjectId",
+        "status",
+        "writerIds"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioAbsorptionScriptVerdict"
     },
     "StudioActionQuote": {
       "additionalProperties": false,
@@ -837,7 +890,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 61,
+          "const": 62,
           "type": "integer"
         },
         "stateDigest": {
@@ -954,7 +1007,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 61,
+          "const": 62,
           "type": "integer"
         },
         "stateDigest": {
@@ -1489,7 +1542,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 61,
+          "const": 62,
           "type": "integer"
         },
         "stateDigest": {
@@ -1568,7 +1621,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 61,
+          "const": 62,
           "type": "integer"
         },
         "stateDigest": {
@@ -1860,7 +1913,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 61,
+          "const": 62,
           "type": "integer"
         },
         "stateDigest": {
@@ -19560,7 +19613,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-61",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-62",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -19616,7 +19669,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 61,
+    "projectionVersion": 62,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",
