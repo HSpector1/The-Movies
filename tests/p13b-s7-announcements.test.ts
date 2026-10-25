@@ -150,6 +150,9 @@ describe('P13B-S7 announcements persist nowhere: genuine V26 fixture, live load,
     }
     walk(JSON.parse(exported), '')
     expect(keys).toEqual([])
+    // Round 7 premise: the round-6 failure was this text match on an `announcement:` ref at week 884, so the rule below
+    // reads at least one ref here and the allowed-path law is exercised, not passed vacuously.
+    expect(refs.length, 'premise: the week-884 export carries an announcement provenance ref').toBeGreaterThan(0)
     for (const ref of refs) expect(ref).toMatch(/^\.state\.rights\.titleEvents\[\d+\]\.source\.ref$/)
 
     const reimported = save.importSave(exported)
