@@ -34,7 +34,9 @@ import { promiseFeasibility } from '../src/core/promises.js'
 import { marketingCapacityForInputs, marketingMenuFromCapacity } from '../src/core/marketingMenu.js'
 import type { GameState } from '../src/core/types.js'
 import type { RivalBusiness, IndustryReceipt } from '../src/core/hollywoodTypes.js'
-import { RIVAL_MONEY_KINDS, rivalWeeklyOperatingCost } from '../src/core/hollywood.js'
+import { RIVAL_LOAN_MONEY_KINDS, RIVAL_MONEY_KINDS, rivalWeeklyOperatingCost } from '../src/core/hollywood.js'
+import { P16_RIVAL_MONEY_KINDS } from '../src/core/hollywoodTypes.js'
+import { P15_ROOTS } from './helpers/p15-roots.js'
 import { liveWeek100, liveWeek130, RIVAL_R01 } from './p14d1-rival-shelving-fixtures.js'
 import { genuineV42Week77 } from './p14d1-week77-fixture.js'
 import type { PromiseDraft } from '../src/core/promises.js'
@@ -575,11 +577,10 @@ describe('shelving-viable-control (1344-F Amendment 2)', () => {
     }
     expect(ordinary.state.hollywood!.receipts.some(r => (r.kind as string) === 'facilityDisposed'),
       'UNMET PREMISE: real disposal cannot be projected away').toBe(false)
-    // ACCEPTANCE OPEN (P16 rebase round 6): K4's historical equality, the zero-penalty route's week-77 state equal to the
-    // genuine Save44 week-77 input outside the P15 roots, shelving and slice B. It compares the Save45 operand, and the
-    // projection refuses by name: zero penalty keeps every factor at 1, but the assessments' pressure or window and
-    // stock terms are nonzero, so they are nondefault Save49 table-3 rows `rightsStripped` refuses to relabel. The
-    // premises and laws below that read the live state stay asserted.
+    // ACCEPTANCE OPEN (P16 rebase rounds 6-7): only the Save45 admission of the projection. downgradeLiveTo45 refuses by
+    // name: zero penalty keeps every factor at 1, but the assessments' pressure or window and stock terms are nonzero,
+    // so they are nondefault Save49 table-3 rows `rightsStripped` refuses to relabel. K4's equality itself never read
+    // sharedMarket (it dropped the P15 roots), so it is asserted below in the live era.
     expect(() => downgradeLiveTo45(ordinary)).toThrow(NONDEFAULT_MARKET_PROJECTION)
     expect(saveModule.stableStringify(ordinary)).toBe(ordinaryBytes)
     expect(saveModule.stableStringify(state)).toBe(stateBytes)
@@ -588,6 +589,28 @@ describe('shelving-viable-control (1344-F Amendment 2)', () => {
     expect(ordinary.state.sharedMarket.assessments.every(row => row.factor === 1), 'K4 unit-factor records only').toBe(true)
     expect(ordinary.state.campaignLegacy.official).toBeNull()
     expect(ordinary.state.campaignLegacy.endOfRun).toBeNull()
+    // K4 (1355-A), round 7 in the live era: the route's week-77 state equals the same genuine input lifted by
+    // migrateToLive, outside the whole roots dropped on both sides (the P15 roots, foundingFunding, rights), shelving
+    // and slice B. Every other Save46-Save49 addition is the migration's zero default on the genuine side
+    // (convertV45ToV46 costCutting {1, null} and facilityDemolitionRefund 0, convertToP15BSave's loan kinds 0,
+    // convertV48ToV49's P16 kinds 0) and is asserted on the route: the premises above and these.
+    for (const business of state.hollywood!.businesses) for (const period of business.account.periods) {
+      for (const kind of [...RIVAL_LOAN_MONEY_KINDS, ...P16_RIVAL_MONEY_KINDS]) expect(period.movements[kind], `premise: no ${kind} on the route`).toBe(0)
+    }
+    const omit = (s: GameState): GameState => Object.fromEntries(Object.entries(s)
+      .filter(([key]) => ![...P15_ROOTS, 'foundingFunding', 'rights'].includes(key))) as unknown as GameState
+    const strip = (s: GameState) => ({ ...s, hollywood: s.hollywood === null ? null : {
+      ...s.hollywood, businesses: s.hollywood.businesses.map(b => {
+        const { screenplayShelving: _drop, ...rest } = b as unknown as Record<string, unknown>
+        return rest
+      }),
+    } })
+    // Canonical JSON retains array order and the save format's existing -0→0 law.
+    const canon = (v: unknown): unknown => Array.isArray(v) ? v.map(canon)
+      : v !== null && typeof v === 'object' ? Object.fromEntries(Object.keys(v as object).sort().map(k => [k, canon((v as Record<string, unknown>)[k])])) : v
+    const withoutSliceB = (s: GameState) => ({ ...s, relationships: (s.relationships ?? []).map(e => ({ ...e, competitions: [], romance: null })) })
+    const genuineLive = saveModule.migrateToLive(genuine as never).state as GameState
+    expect(JSON.stringify(canon(strip(withoutSliceB(omit(state)))))).toBe(JSON.stringify(canon(strip(omit(genuineLive)))))
     expect(state.hollywood!.receipts).toEqual(genuineState.hollywood!.receipts)
     expect(shelvedReceiptsOf(state.hollywood!.receipts), 'route premise: zero shelving through produced week77').toHaveLength(0)
     const BOUND = 16
