@@ -570,12 +570,16 @@ describe('CF-08 sound union-to-C# generation', () => {
       // read independently of this test (never schemaIdentity(schema) itself).
       // F40 projection59: actual canonical own-estate finance definition;
       // identity independently recorded by the normal generated manifest.
+      // P16 rebase + 18A projection62: the schemaId of the checked-in manifest regenerated at 839bb7c5,
+      // read independently of this test and recorded by lane wave3c (lane-logs/p62-declaration-measurement.json,
+      // which also checks the committed schema file deep-equals BRIDGE_SCHEMA). The header line does not
+      // read projectionVersion, so the call keeps its 59.
       const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 59 })
       expect(generated).toContain(
-        '// Schema identity: sha256:6347433150a8ed3988573840bfa22621d5f5aa35b3d053b25ff5e6700ad02dcd',
+        '// Schema identity: sha256:2b94e6df66cd5b45e398861c8130085434d4bb9c4d0cf9bdcb97607699799604',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:6347433150a8ed3988573840bfa22621d5f5aa35b3d053b25ff5e6700ad02dcd',
+        'sha256:2b94e6df66cd5b45e398861c8130085434d4bb9c4d0cf9bdcb97607699799604',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -733,8 +737,14 @@ describe('CF-08 sound union-to-C# generation', () => {
         // are 420340 bytes / 1dadf88f…; all six fixed bodies, including F12, remain
         // unchanged.
         // This measurement precedes these pins and is not failure-derived.
-        F10_CURRENT_QUOTE_UNIONS: '5590300628e24edf76819aa10cf418f31764153f1acb387652d8b89fa97494e6', // F40: independently measured all8 twice; sixfrozen bodies unchanged
-        F11_CURRENT_COMMAND_UNION: '5590300628e24edf76819aa10cf418f31764153f1acb387652d8b89fa97494e6', // F40: independently measured432433byte body, same as F10
+        // P16 rebase + 18A projection62: independent producer
+        // docs/engineering/audits/2026-10-22-codebase-review/p62-declaration-measurement.ts (SHA256 3ccf59d6…),
+        // run as the recorded run lane wave3c on 839bb7c5, the regenerated manifest commit (prior measurement
+        // the F40 pin 55903006…), exit 0. All eight positives rendered twice, six fixed bodies (F01, F02, F03,
+        // F04, F09, F12) unchanged; both current bodies are 473437 bytes / 2667c096…. Evidence:
+        // lane-logs/p62-declaration-measurement.json; never a failure message.
+        F10_CURRENT_QUOTE_UNIONS: '2667c096556cc1e5f9552390933ed8769b599810f8f7e9753ecbf5b05e0860d1', // P16 + 18A projection62: independently measured all8 twice; six fixed bodies unchanged
+        F11_CURRENT_COMMAND_UNION: '2667c096556cc1e5f9552390933ed8769b599810f8f7e9753ecbf5b05e0860d1', // P16 + 18A projection62: independently measured 473437-byte body, same as F10
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {
