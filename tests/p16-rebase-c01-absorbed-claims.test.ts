@@ -178,5 +178,22 @@ describe('C-01 follow-up: a malformed absorption record is refused by name, neve
     expect(() => validateTechnology(world, true, new Map()), 'premise: the fresh world admits').not.toThrow()
     const malformed = new Map([['studio-x', { targetId: 'studio-x', continuedProductions: 'not-an-array' } as unknown as AbsorptionRecord]])
     expect(() => validateTechnology(world, true, malformed)).toThrow(/^Technology save: absorption work dispositions must be arrays$/)
+    // Round 5 (review O6): a null row is refused by the same name.
+    const nullRow = new Map([['studio-x', { targetId: 'studio-x', continuedProductions: [null] } as unknown as AbsorptionRecord]])
+    expect(() => validateTechnology(world, true, nullRow)).toThrow(/^Technology save: absorption work dispositions must be arrays$/)
+  })
+  it('a null absorption record reaches a named validateSaveV49 refusal, not a TypeError in the era map', () => {
+    // Round 5 (review O6): the era map (save.ts p15bEraOf) runs before every rights validator and read `a.targetId`
+    // unguarded; it now admits records only, so the rights validator after the predecessor proof names the refusal.
+    // The fresh world has no industry, so validateRightsRoot refuses by name before its own absorption loop
+    // (rights.ts:1068-1069 reads `record.id` unguarded on an industry world: recorded in the report, not fixed here).
+    const save = saves.makeSave(generateWorld('p16-rebase-o6'))
+    const forged = JSON.parse(JSON.stringify(save)) as { state: { rights: { absorptions: unknown[] } } }
+    forged.state.rights.absorptions = [null]
+    let caught: unknown = null
+    try { saves.validateSaveV49(forged) } catch (error) { caught = error }
+    expect(caught, 'the forged save is refused').toBeInstanceOf(Error)
+    expect(caught, 'by name, not a TypeError').not.toBeInstanceOf(TypeError)
+    expect((caught as Error).message).toBe('validateSaveV49: rights cannot hold records without an industry')
   })
 })

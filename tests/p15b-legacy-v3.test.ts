@@ -115,10 +115,12 @@ describe('p15b modern Legacy constructed transaction controls', () => {
     copy.state.campaignLegacy.endOfRun.closureId = 'not-a-closure'
     expect(() => validateLiveSave(copy)).toThrow(/closure/i)
     // P16: every Save49 closure opens its estate in the closure week, so every older reader refuses at the live step
-    // first, naming that estate. ACCEPTANCE OPEN (P16 rebase round 4): the P15B step's 'cannot downgrade or discard the
-    // ended Legacy manifest'. Only an actual player closure publishes the ended manifest (studioClosure.ts), its estate
-    // is a rights instrument no Save48 envelope carries, and the live tick needs a rights root, so no lawful Save48
-    // control holds one. The modern Legacy v3 reason has its Save48 control in the next case.
+    // first, naming that estate. ACCEPTANCE OPEN (P16 rebase rounds 4-5): the P15B step's 'cannot downgrade or discard
+    // the ended Legacy manifest'. Only an actual player closure publishes it (studioClosure.ts). The obstacle:
+    // tick.ts:1254 calls advanceRightsWeek on every tick and rightsTick.ts:23 throws for an industry with no rights
+    // root, so no Save48 state can be advanced to a closure, and a rights-era closure opens a closure49 estate no Save48
+    // envelope carries. The modern Legacy v3 reason has its Save48 control (constructed, admitted by validateSaveP15B)
+    // in the next case.
     for (const convert of [saves.migrateToV45, saves.migrateToV46, saves.migrateToV47]) {
       expect(() => convert(save)).toThrow(/^migrateToV48: cannot discard unique estate observation or current closure provenance$/)
     }

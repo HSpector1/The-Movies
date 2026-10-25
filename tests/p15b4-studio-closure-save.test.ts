@@ -54,10 +54,12 @@ describe('p15b4 closure save step: migration and downgrade (closure/v1 §5)', ()
     const mod = await saveModule()
     const closed = makeSave(closedAt(C))
     // P16: the live step (migrateToV48) refuses first, at every older reader, naming the estate the closure opened
-    // in its closure week. ACCEPTANCE OPEN (P16 rebase round 4): the P15B step's own 'cannot downgrade or discard an
-    // actual studio closure' (and its claim and estate-event reasons). Every Save49 closure opens a closure49 estate,
-    // a rights instrument no Save48 envelope carries, and the live tick needs a rights root, so no lawful Save48
-    // control holds a closure.
+    // in its closure week. ACCEPTANCE OPEN (P16 rebase rounds 4-5): the P15B step's own 'cannot downgrade or discard an
+    // actual studio closure' (and its claim and estate-event reasons). The obstacle: tick.ts:1254 calls
+    // advanceRightsWeek on every tick and rightsTick.ts:23 throws for an industry with no rights root, so no Save48
+    // state can be advanced to a closure; a rights-era closure opens a closure49 estate (studioClosure.ts `openEstate`
+    // when the state has `rights`), a rights instrument no Save48 envelope carries. The reason strings themselves are
+    // pinned in p15b2-corporate-condition-save (strings, not the step).
     expect((raw(closedAt(C)).rights as { estates: { origin: { kind: string } }[] }).estates.map((e) => e.origin.kind), 'premise: the closure opened its estate').toContain('closure49')
     expect(() => convertV49ToV48(closed)).toThrow(ESTATE_OBSERVATION_REFUSAL)
     expect(() => migrateToV45(closed)).toThrow(ESTATE_OBSERVATION_REFUSAL)

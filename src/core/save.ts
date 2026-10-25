@@ -11640,7 +11640,9 @@ function p15bDowngradeRefusal(state: Record<string, unknown>): string | null {
 function p15bEraOf(raw: Record<string, unknown>, rights = false, titleState?: GameState): P15BEra {
   const current = titleState ?? (raw as unknown as GameState);
   const rows = rights && Array.isArray(current.rights?.absorptions) ? current.rights.absorptions : [];
-  return { studioLoans: true, closure: closureStops(raw), rights, absorptions: new Map(rows.map(a => [a.targetId, a])) };
+  // P16 rebase round 5 (review O6): only records enter the era map, so a malformed (null) absorption claims nothing in
+  // the predecessor proof and validateContinuedWorkShapes refuses it by name after it, never a TypeError here.
+  return { studioLoans: true, closure: closureStops(raw), rights, absorptions: new Map(rows.filter((a) => isRecord(a)).map(a => [a.targetId, a])) };
 }
 
 /**
@@ -11820,8 +11822,7 @@ function currentPhaseHistoryRoot(state: Record<string, unknown>): string | null 
   return P15B_SEQUENCED_ROOTS.find((key) => current(state[key])) ?? null;
 }
 
-/** The one P16 downgrade refusal: a recorded rights record, a non-zero rights movement, a rights ledger row, or
- * current phase history (a P15 or P15B row on the Save49 phase table 3). */
+/** The one P16 downgrade refusal: a recorded rights record, a non-zero rights movement or a rights ledger row. */
 function p16DowngradeRefusal(state: Record<string, unknown>): string | null {
   const root = state.rights as RightsRoot | undefined;
   if (root !== undefined) {
@@ -11840,10 +11841,6 @@ function p16DowngradeRefusal(state: Record<string, unknown>): string | null {
   }
   const ledger = state.ledger as readonly { kind: string }[] | undefined;
   if (ledger?.some((row) => (P16_LEDGER_KINDS as readonly string[]).includes(row.kind))) return 'cannot downgrade or discard a rights ledger row';
-  // P16 rebase round 4 (review O1): the step names this refusal itself instead of converting and letting the
-  // Save48 reader inside it refuse the first table-3 row.
-  const phaseRoot = currentPhaseHistoryRoot(state);
-  if (phaseRoot !== null) return `cannot downgrade or discard current phase history (${phaseRoot})`;
   return null;
 }
 
@@ -11932,7 +11929,12 @@ export function convertV48ToV49(save: SaveFileV48): SaveFileV49 {
  * refuses once, by name. */
 export function convertV49ToV48(save: SaveFileV49): SaveFileV48 {
   const validated = validateSaveV49(save);
-  const refusal = p16DowngradeRefusal(validated.state as unknown as Record<string, unknown>);
+  const state = validated.state as unknown as Record<string, unknown>;
+  // P16 rebase round 4 (review O1): this step names table-3 history itself instead of converting and letting the
+  // Save48 reader inside it refuse the first table-3 row. Round 5 (O2): here only, so the frozen builders, which share
+  // p16DowngradeRefusal, still reach the P15B step's composed reasons on a title-free ticked world.
+  const phaseRoot = currentPhaseHistoryRoot(state);
+  const refusal = p16DowngradeRefusal(state) ?? (phaseRoot === null ? null : `cannot downgrade or discard current phase history (${phaseRoot})`);
   if (refusal !== null) throw new Error(`migrateToV${P16_PREDECESSOR_SAVE_VERSION}: ${refusal}`);
   const detached = JSON.parse(JSON.stringify(validated)) as SaveFileV49;
   return validateSaveV48({ ...detached, saveVersion: P16_PREDECESSOR_SAVE_VERSION, state: stripP16MoneyKinds(stripP16Root(detached.state)) });

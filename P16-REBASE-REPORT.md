@@ -448,8 +448,9 @@ Round 3 (after lane wave3b on ac3ab27c and the regenerated contract 839bb7c5), u
             ... -> studioClosure -> estate -> rightsFinance. Getters, not arrow wrappers:
             p16b-live-condition-readers.test.ts:33-34 pin the identity of the two functions.
   drafting171 (no commit): the rebase did not cause it. Diagnosis in the defect list below.
-  Load timeouts (not code): bridge-runtime-checkpoint-prepared-reuse passes 21 of 21 alone (the 20 s case
-  took 15.1 s); bridge-p13b-s7-disclosure item 5 took 31.3 s against its 30 s budget in a two-file run and
+  Load timeouts (not code): bridge-runtime-checkpoint-prepared-reuse passes 21 of 21 in a two-file run beside
+  bridge-p13b-s7-disclosure (wave3c-alone.json, 42 of 43 overall; corrected in round 5, it was not alone; the
+  20 s case took 15.1 s); bridge-p13b-s7-disclosure item 5 took 31.3 s against its 30 s budget in that run and
   is being measured alone at main and on this tree. No budget changed.
 
 Candidate-own defects left red for the P16 lane (audit C-03):
@@ -496,13 +497,16 @@ Round 4 (the round-2 reviewer's blockers and optional items; lane wave3e on c0a6
   differential case is red at b2d3d97e (lane wave3d, c01-red.json, :147).
   77e1e9b8  Blocker 1, the P15B step's own downgrade laws. The reviewer's route (advance the never-ticked
             base's rights-less Save48 copy) is unavailable: the live tick needs a rights root
-            (rightsTick.ts refuses an industry without one). Two lawful Save48 controls instead:
+            (rightsTick.ts refuses an industry without one). Two Save48 controls instead (round 5: the
+            week-133 world is a real Save48 envelope built by the public downgrade; genuineFrozen48 is
+            constructed, admitted by validateSaveP15B, not lawful gameplay evidence):
             - week 133 on the natural week-130 route: condition records, no condition event (the first
               warning can fire at 134: CORPORATE_WARN_SUSTAIN_WEEKS 4 from the first evaluation at 131), no
               title (lane wave3 measured none through 135), no table-3 row. Its public downgrade passes the
               live step and the P15B step refuses by name.
             - genuineFrozen48 (p15b-legacy-v3): the migrated, never-ticked 6240 capture frozen by the
-              predecessor-era Legacy writer.
+              predecessor-era Legacy writer after p15b-legacy-v3.test.ts:19 sets campaignLegacy.recordedFromWeek
+              to 0 (constructed, admitted by validateSaveP15B).
             Asserted again on those controls:
               'cannot downgrade or discard a corporateCondition record (N evaluated)': p15b2
                 condition-root-downgrade (:113-114) and (c) (:167-169), p15a2 rank-root-downgrade (:945).
@@ -512,14 +516,23 @@ Round 4 (the round-2 reviewer's blockers and optional items; lane wave3e on c0a6
                 Legacy v3 reason with the shared P15 step's 'the frozen 2040 Legacy' (p15b-legacy-v3, exact),
                 each at the step and through migrateToV47, migrateToV46 and migrateToV45.
               'cannot downgrade or discard modern Legacy v3 official authority': p15b-legacy-v3 :142-144.
-            ACCEPTANCE OPEN (unasserted), by name, with the reason in each file:
+            ACCEPTANCE OPEN (unasserted), by name, with the reason in each file. The obstacle (round 5
+            wording): tick.ts:1254 calls advanceRightsWeek on every tick and rightsTick.ts:23 throws for an
+            industry with no rights root, so no Save48 state can be advanced; a ticked Save48 control can only
+            be a rights-era world taken before its first table-3 row, and the writers stamp
+            `Object.hasOwn(state, 'rights') ? 3 : 2`, so table 3 holds for every rights-era row.
               'cannot downgrade or discard a corporateCondition event', 'a studio loan', 'a loan or claim
-                ledger row' and 'the <kind> movement of <studio>': a loan needs warning or distress, so a
-                condition event precedes it, and the live writer stamps both with table 3 (p15b2).
+                ledger row' and 'the <kind> movement of <studio>': a rights-era event is table 3, and a loan
+                needs warning or distress after the sustain law's low weeks, so an event precedes it (p15b2).
               'cannot downgrade or discard an actual studio closure', 'a closure claim', 'an estate event':
-                every Save49 closure opens a closure49 estate (p15b4-studio-closure-save, terminal-regression).
+                a rights-era closure opens a closure49 estate (p15b4-studio-closure-save, terminal-regression).
               'cannot downgrade or discard the ended Legacy manifest': only a player closure publishes it
                 (p15b-legacy-v3, terminal-regression).
+              No control combines two or more of the P15B step's own reasons (its order: condition, closure,
+                Legacy, movements, ledger); each control above carries one own reason plus older steps'.
+              Round 5 pins the per-root reason strings and their join order through the exported
+                corporateConditionDowngradeRefusal and studioClosureDowngradeRefusal (p15b2): the strings,
+                not the step.
               The world-specific composed refusals of p14c2s, p14c3-cohort, p14c3-dual-extensions and
                 terminal6240: those worlds hold estates or table-3 loans; the same composition law runs on
                 the controls above.

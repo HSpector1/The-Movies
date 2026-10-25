@@ -104,8 +104,8 @@ describe('L-24: a quote the consumer could not read is a named rejection, and th
       expect(refused.accepted).toBe(false)
       if (refused.accepted) throw new Error('unreachable')
       expect(refused.reasonCode).toBe('SCHEMA_MISMATCH')
-      // The field's declared int32 bound names the refusal.
-      expect(refused.message).toMatch(/quote response violates the published contract: .*expected a value <= 2147483647/)
+      // The forced field's own path and declared int32 bound name the refusal (round 5: another int32 field cannot match).
+      expect(refused.message).toMatch(/quote response violates the published contract: .*\$\.quote\.cost: expected a value <= 2147483647/)
       expect(session.stateRevision).toBe(revision)
       // Nothing was registered: the intent registers only after a lawful mint (the session's own map).
       expect((session as unknown as { pendingQuotes: Map<string, unknown> }).pendingQuotes.size).toBe(0)

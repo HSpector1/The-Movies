@@ -19,6 +19,8 @@ import { TUNING } from '../src/core/tuning.js'
 import type { Action, GameState } from '../src/core/types.js'
 import { base, BASE_WEEK, canon, conditionRoot, drainPlayer, loansOf, PLAYER, R04, raw, recordOf, refuses, rivalClosure, ticks } from './helpers/p15b-live.js'
 import { genuineV42Week130 } from './p14d1-rival-shelving-fixtures.js'
+import { corporateConditionDowngradeRefusal } from '../src/core/corporateConditionLive.js'
+import { studioClosureDowngradeRefusal } from '../src/core/studioClosure.js'
 import { EXPECTED_LIVE_SAVE_VERSION, validateLiveSave } from './helpers/live-era.js'
 import { LIVE_DOWNGRADE_REFUSAL, rightsStripped } from './helpers/p16-era.js'
 
@@ -63,6 +65,8 @@ function recorded(): GameState {
   if (recordedAt133 === null) recordedAt133 = ticks(base(), 3)
   return recordedAt133
 }
+/** The P15B step's exact composed refusal of the week-133 control: its condition records, then R8's recovery reasons. */
+const recordedRefusal = (state: GameState): RegExp => new RegExp(`^migrateToV${FOUNDING_FUNDING_SAVE_VERSION}: cannot downgrade or discard a corporateCondition record \\(${conditionRoot(state).studios.length} evaluated\\); cannot downgrade or discard recovery authority: costCutting\\.since, facilityDemolitionRefund, facilityDisposed$`)
 function tampered(edit: (state: Record<string, unknown>) => void): Save {
   const save = clone(makeSave(borrowed())) as unknown as Save
   edit(save.state)
@@ -110,13 +114,17 @@ describe('p15b2 save step: migration and downgrade (1357-A §4.2; S1-S2)', () =>
     // A ticked save holds records: the downgrade refuses by name, at this step, on the week-133 Save48 control.
     expect(conditionRoot(recorded()).events, 'premise: no condition event before 134').toEqual([])
     const ticked = makeSave(recorded())
-    refuses(() => convertFromStep(convertV49ToV48(ticked)), 'corporateCondition')
-    refuses(() => migrateToV47(ticked), 'corporateCondition')
-    // ACCEPTANCE OPEN (P16 rebase round 4): the loan refusals ('a studio loan', 'a loan or claim ledger row', 'the
-    // <kind> movement of <studio>'). A loan needs warning or distress (studioLoan.ts loanEligible), so a condition
-    // event precedes it; the live writer stamps both with phase table 3, which no Save48 envelope carries, and the live
-    // tick needs a rights root (rightsTick.ts refuses an industry without one), so no lawful Save48 control holds a
-    // loan. The borrowed world's public downgrade refuses at the live step first.
+    // Round 5 (review O1): the exact composed message, not a substring the live step's own phase-history reason shares.
+    expect(() => convertFromStep(convertV49ToV48(ticked))).toThrow(recordedRefusal(recorded()))
+    expect(() => migrateToV47(ticked)).toThrow(recordedRefusal(recorded()))
+    // ACCEPTANCE OPEN (P16 rebase rounds 4-5): the condition-event and loan refusals ('a corporateCondition event',
+    // 'a studio loan', 'a loan or claim ledger row', 'the <kind> movement of <studio>'), and any control combining two or
+    // more of this step's own reasons (order: condition, closure, Legacy, movements, ledger). The obstacle: tick.ts:1254
+    // calls advanceRightsWeek on every tick and rightsTick.ts:23 throws for an industry with no rights root, so a Save48
+    // state cannot be advanced; a ticked Save48 control can only be a rights-era world taken before its first table-3
+    // row. The writers stamp `Object.hasOwn(state, 'rights') ? 3 : 2`, so a rights-era world's condition event is
+    // table 3, and a loan needs warning or distress (studioLoan.ts loanEligible after CORPORATE_WARN_SUSTAIN_WEEKS low
+    // weeks), so an event always precedes it. The borrowed world's public downgrade refuses at the live step first.
     expect(() => convertV49ToV48(makeSave(borrowed()))).toThrow(LIVE_DOWNGRADE_REFUSAL)
     // The loan kinds are refused below the era: a predecessor envelope carrying one fails the frozen chain.
     const forgedLedger = clone(down)
@@ -164,7 +172,7 @@ describe('p15b2 save step: migration and downgrade (1357-A §4.2; S1-S2)', () =>
     expect(state133.hollywood!.businesses.some((b) => b.costCutting.since !== null), 'premise: R8 cost cutting').toBe(true)
     expect(state133.hollywood!.receipts.some((r) => r.kind === 'facilityDisposed'), 'premise: R8 disposal').toBe(true)
     const live = makeSave(state133)
-    const composed = new RegExp(`^migrateToV${FOUNDING_FUNDING_SAVE_VERSION}: cannot downgrade or discard a corporateCondition record \\(${conditionRoot(state133).studios.length} evaluated\\); cannot downgrade or discard recovery authority: costCutting\\.since, facilityDemolitionRefund, facilityDisposed$`)
+    const composed = recordedRefusal(state133)
     expect(() => convertFromStep(convertV49ToV48(live))).toThrow(composed)
     for (const older of [migrateToV47, migrateToV46, migrateToV45]) expect(() => older(live)).toThrow(composed)
     expect(canon(makeSave(recorded()))).toBe(canon(live))
@@ -299,5 +307,19 @@ describe('p15b2 save step: the round trip (S7)', () => {
     expect(canon(reloaded)).toBe(canon(s140))
     expect(canon(ticks(reloaded, 20))).toBe(canon(ticks(s140, 20)))
     expect(conditionRoot(ticks(reloaded, 20)).studios.find((r) => r.studioId === PLAYER)!.condition.week).toBe(160)
+  })
+})
+
+// P16 rebase round 5 (review O3): the P15B roots' own reason strings and their join order, through the exported
+// per-root refusals. This pins the strings the step composes, not the step: no lawful Save48 control holds an event,
+// a loan, a closure, a claim or an estate event (the ACCEPTANCE OPEN notes above). No capture needed.
+describe('p15b2 the P15B roots\' downgrade reason strings (strings and order, not the step)', () => {
+  it('each root names its non-empty lists in order, joined by "; ", and an empty root names nothing', () => {
+    expect(corporateConditionDowngradeRefusal({ corporateCondition: { studios: [{}], events: [{}, {}], loans: [{}] } }))
+      .toBe('cannot downgrade or discard a corporateCondition record (1 evaluated); cannot downgrade or discard a corporateCondition event (2 recorded); cannot downgrade or discard a studio loan (1 contracted)')
+    expect(corporateConditionDowngradeRefusal({ corporateCondition: { studios: [], events: [], loans: [] } })).toBeNull()
+    expect(studioClosureDowngradeRefusal({ studioClosure: { closures: [{}], claims: [{}, {}], estateEvents: [{}, {}, {}] } }))
+      .toBe('cannot downgrade or discard an actual studio closure (1 recorded); cannot downgrade or discard a closure claim (2 recorded); cannot downgrade or discard an estate event (3 recorded)')
+    expect(studioClosureDowngradeRefusal({ studioClosure: { closures: [], claims: [], estateEvents: [] } })).toBeNull()
   })
 })

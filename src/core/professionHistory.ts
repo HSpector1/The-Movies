@@ -297,9 +297,9 @@ export function validateProfessionHistory(raw: Record<string, unknown>, absorpti
   // P16 rebase (audit C-01, the busy set's live-work rule): an absorbed business is frozen history from its
   // absorption week on, like a closed one, except the buyer-continued productions the buyer has not cancelled,
   // which stay obligations. The Save49 era hands the absorptions in; every earlier era has none.
-  // Arrays only: a malformed absorption record claims nothing here and is refused by name by the
+  // Arrays of records only: a malformed absorption record or row claims nothing here and is refused by name by the
   // hollywood and absorption validators that read it next, never masked by a TypeError.
-  const rowsOf = <T,>(value: readonly T[]): readonly T[] => Array.isArray(value) ? value : []
+  const rowsOf = <T,>(value: readonly T[]): readonly T[] => Array.isArray(value) ? value.filter(row => typeof row === 'object' && row !== null) : []
   const absorbedWeek = new Map([...(absorptions?.values() ?? [])].map(a => [a.targetId, a.week] as const))
   const continued = new Set([...(absorptions?.values() ?? [])].flatMap(a => rowsOf(a.continuedProductions)
     .filter(row => !rowsOf(a.workCancellations).some(c => c.productionId === row.productionId)).map(row => row.productionId)))
