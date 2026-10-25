@@ -1,0 +1,13 @@
+ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx :: World-First Lot-Native Next-Event Cadence V1 — App/Lot integration orients a cash stop to Administration and f
+ui/src/lot/WorldFirstStudioHome.test.tsx :: Studio Home V1 — App world-root navigation preserves building focus through a supporting-Dashboard Sim result
+ui/src/lot/WorldFirstStudioHome.test.tsx :: Studio Home V1 — App world-root navigation preserves topbar focus through a supporting-Dashboard Sim result
+ui/src/lot/authored-rgba-export.test.ts :: current production authored export — the shipped Stage B assets 3. the RGB channel is reduced to the recovered
+ui/src/lot/authored-rgba-export.test.ts :: current production authored export — the shipped Stage B assets 4. alpha is bit-identical between the two fini
+ui/src/lot/authored-rgba-export.test.ts :: current production authored export — the shipped Stage B assets 5. alpha is genuinely lossless, not collapsed
+ui/src/lot/authored-rgba-export.test.ts :: rgba-export tool contract 6. output is truecolour RGBA with no PLTE/tRNS, alpha preserved exactly
+ui/src/lot/authored-rgba-export.test.ts :: rgba-export tool contract 7. repeated runs are byte-identical
+ui/src/lot/authored-rgba-export.test.ts :: rgba-export tool contract 8. the historical PNG-8 path is still available and clearly separate
+ui/src/lot/authored-stage-a.test.ts :: Stage A — the committed assets satisfy the CURRENT production export contract 4. the RGB channel carries the r
+ui/src/lot/authored-stage-a.test.ts :: Stage A — the committed assets satisfy the CURRENT production export contract 5. alpha is bit-identical betwee
+ui/src/lot/authored-stage-a.test.ts :: Stage A — the committed assets satisfy the CURRENT production export contract 6. alpha is lossless, not collap
+ui/src/lot/authored-stage-a.test.ts :: Stage A — the committed assets satisfy the CURRENT production export contract 7. registration is the approved
