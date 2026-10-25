@@ -314,7 +314,15 @@ timings) and main's recorded baseline in lane-logs.
     state.studioEvents...", so deleting the `if (!rights)` block in save.ts fails a test).
   tests/stabilization-l35-legacy-manifest-week.test.ts :116: validateSaveP15B(makeSave(...)) ->
     validateLiveSave (third commit; it refused every Save49 envelope by version).
-  No stabilization test or law was removed, skipped or weakened; no budget changed.
+  tests/bridge-stabilization-l22-retired-projections.test.ts: HIGHEST_REGISTERED -> projection 61's identity
+    (53571456, projection 62).
+  tests/bridge-stabilization-l24-quote-contract.test.ts: 53571456 (18A) turned the overflow case into the accepted
+    wide-cash quote, which removed the only witness of the session's quote-contract guard (session.ts
+    mintQuoteResponse: SCHEMA_MISMATCH "quote response violates the published contract", nothing registered,
+    the session continues). That was a weakening, found by the round-2 reviewer. Round 4 restores the witness
+    with a forced out-of-range `cost` (2**31 through a spy on placementQuoteSnapshot) and checks the widened cash
+    on all four quote snapshots.
+  No other stabilization test or law was removed, skipped or weakened; no budget changed.
 
 
 8. Not done, and why
