@@ -73,7 +73,9 @@ function terminal(s:GameState,kind:'physicalPlan'|'adoption',id:string){
  for(const d of bc.dispositions)bc.counts[d.subjectKind]=(bc.counts[d.subjectKind]??0)+1
  bc.digest=closureDigest(bc.closureId,bc.dispositions)
  const mutantBefore=text(bad),missing=`no disposition for live subject ${kind}:${id}`
- expect(()=>validateStudioClosureRoot(bad as unknown as Record<string,unknown>,'pending-rival completeness')).toThrow(missing)
+ // P16 rebase: the root validator applies the era it is handed; a Save49 closure is stamped with the estate phase
+ // table 3, which only the rights era admits (the live reader passes `rightsEstate: true`), so the era comes from the state.
+ expect(()=>validateStudioClosureRoot(bad as unknown as Record<string,unknown>,'pending-rival completeness',{rightsEstate:Object.hasOwn(bad,'rights')})).toThrow(missing)
  expect(text(bad)).toBe(mutantBefore)
  expect(()=>makeSave(bad)).toThrow(missing)
  expect(text(bad)).toBe(mutantBefore)

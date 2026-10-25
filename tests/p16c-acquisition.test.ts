@@ -174,16 +174,21 @@ describe('P16C healthy absorption: the quote separates consideration, at-par cas
     expect([...squeezed.productions.find((p) => p.productionId === production.id)!.missingParticipants].sort()).toEqual([...new Set(busy.map((e) => e.terms.talentId))].sort())
   })
 
-  it('an ineligible pair returns a refusal, and executable closing is explicitly deferred with its named prerequisites, changing nothing', () => {
+  it('an ineligible pair returns a refusal, and closing refuses an undated preview and any other week by name, changing nothing', () => {
     const { state, player, r03, week } = world()
     const before = stableStringify(state)
     expect(acq.quoteAbsorption(state, { buyerId: player, targetId: player, consideration: 1, retention: { kind: 'default' }, disclosureId: null }, week, STABLE)).toEqual({ kind: 'refusal', refusal: 'playerNotForSale' })
     expect(acq.quoteAbsorption(state, { buyerId: player, targetId: r03, consideration: -1, retention: { kind: 'default' }, disclosureId: null }, week, STABLE)).toEqual({ kind: 'refusal', refusal: 'invalidConsideration' })
     expect(acq.quoteAbsorption(state, { buyerId: player, targetId: r03, consideration: 1, retention: { kind: 'default' }, disclosureId: null }, week, STABLE)).toEqual({ kind: 'refusal', refusal: 'disclosureRequired' })
-    expect(() => acq.closeAbsorption(state, { buyerId: player, targetId: r03, consideration: 1_000_000, retention: { kind: 'default' }, disclosureId: null }, week)).toThrow(/deferred.*operating-state discriminator.*employment reason/)
-    expect(acq.ABSORPTION_CLOSING_PREREQUISITES).toEqual(['P12 operating-state discriminator and terminal provenance for the absorbed identity',
-      'P12/P14 employer-bound continuation contract ids and the exact employment reason values with linked validation',
-      'P15B Wave 4 typed dispositions for the target\'s work, runs, research and facilities'])
+    // C-03 (P16 rebase): closing is no longer deferred. current200 implements closeAbsorption (acquisition.ts), which
+    // takes only the actual input week and the dated preview a quote carries, refusing each by name before any work;
+    // its remaining prerequisites are the disclosed list below (audit C-03: "replace :183 with the input-week guard").
+    const close = { buyerId: player, targetId: r03, consideration: 1_000_000, retention: { kind: 'default' as const }, disclosureId: null }
+    expect(() => acq.closeAbsorption(state, close, week + 1)).toThrow(/^absorption: closing must use the actual input week$/)
+    expect(() => acq.closeAbsorption(state, close, week)).toThrow(/^absorption closing refused: absorptionQuoteRequired$/)
+    expect(acq.ABSORPTION_CLOSING_PREREQUISITES).toEqual(['real retained-production/script/run and adoption cancellation or continuation producers',
+      'real rival-buyer employment/financial producers',
+      'real absorbed-employer market dispositions and public Action/Bridge/native transaction parity'])
     expect(stableStringify(state)).toBe(before)
   })
 })
