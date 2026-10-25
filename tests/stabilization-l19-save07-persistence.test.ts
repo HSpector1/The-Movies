@@ -193,4 +193,13 @@ describe('L-19 in the frozen Save48 validator: the predecessor era keeps the law
     const forged = JSON.parse(JSON.stringify({ ...frozen, state: { ...frozen.state, studioEvents: { ...frozen.state.studioEvents, rows } } })) as unknown
     expect(() => validateSaveP15B(forged)).toThrow(new RegExp(`${label(index, validateSaveP15B.name)}\\.seq is at or above nextSeq`))
   }, 120_000)
+  // SAVE-07 mirror (P16 rebase round 4, review O4): the frozen reader's own non-finite walk, on the same Save48 copy,
+  // at the leaf the live case above uses.
+  it('refuses a NaN at .studioHistory.rows[1].facts.anchor in the Save48 copy of the committed world', () => {
+    const forged = JSON.parse(JSON.stringify(rightsStripped(committedSaveOnce()))) as { state: { studioHistory: { rows: { facts: Record<string, unknown> }[] } } }
+    const facts = forged.state.studioHistory.rows[1]!.facts
+    expect(Number.isFinite(facts.anchor), 'premise: a finite anchor').toBe(true)
+    facts.anchor = Number.NaN
+    expect(() => validateSaveP15B(forged)).toThrow(new RegExp(`^${validateSaveP15B.name}: state\\.studioHistory\\.rows\\[1\\]\\.facts\\.anchor contains a non-finite number \\(NaN\\)$`))
+  }, 120_000)
 })

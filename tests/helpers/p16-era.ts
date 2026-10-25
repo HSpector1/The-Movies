@@ -86,9 +86,12 @@ export function rightsStripped(save: { saveVersion: number; seed: string; state:
 // older guard moved because a ticked P16 world has no Save48 projection: a world that recorded a title, and a
 // world whose closure opened an estate (every Save49 closure does, in its closure week).
 export const RIGHTS_ROOT_REFUSAL = new RegExp(`^migrateToV${P16_PREDECESSOR_SAVE_VERSION}: cannot downgrade or discard a recorded rights root$`)
-// A ticked world that recorded no title passes the live step's own checks, and the Save48 reader inside it refuses
-// the first table-3 row the live writers stamped; the root holding it names itself first.
-export const LIVE_DOWNGRADE_REFUSAL = new RegExp(`${RIGHTS_ROOT_REFUSAL.source}|^.+ estate phase table is not admitted in this predecessor era$`)
+// A ticked world that recorded no title refuses at the live step's phase-history reason instead: the first P15 or P15B
+// root (allocator order) holding a row the live writers stamped with phase table 3.
+export const PHASE_HISTORY_REFUSAL = new RegExp(`^migrateToV${P16_PREDECESSOR_SAVE_VERSION}: cannot downgrade or discard current phase history \\((?:sharedMarket|powerRanking|campaignLegacy|corporateCondition|studioClosure)\\)$`)
+// The one live-downgrade pattern for a ticked world whose title count the lane has not measured: exactly one of the
+// two named refusals above.
+export const LIVE_DOWNGRADE_REFUSAL = new RegExp(`${RIGHTS_ROOT_REFUSAL.source}|${PHASE_HISTORY_REFUSAL.source}`)
 export const ESTATE_OBSERVATION_REFUSAL = new RegExp(`^migrateToV${P16_PREDECESSOR_SAVE_VERSION}: cannot discard unique estate observation or current closure provenance$`)
 // Why the older guard moved: `rightsStripped` refuses, by name, to relabel table-3 history it cannot prove neutral.
 export const NONDEFAULT_MARKET_PROJECTION = /^rightsStripped: a nondefault current market assessment cannot be projected$/

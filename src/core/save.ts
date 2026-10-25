@@ -11812,7 +11812,16 @@ function stripP16MoneyKinds(raw: Record<string, unknown>): Record<string, unknow
   return detached;
 }
 
-/** The one P16 downgrade refusal: a recorded rights record, a non-zero rights movement or a rights ledger row. */
+/** The first P15 or P15B root, in allocator order, holding a row stamped with a phase table above the predecessor
+ * era's. Every Save48 reader admits phase table 2 at most, so such a row has no Save48 form. */
+function currentPhaseHistoryRoot(state: Record<string, unknown>): string | null {
+  const current = (value: unknown): boolean => Array.isArray(value) ? value.some(current)
+    : isRecord(value) && ((typeof value.phaseOrderVersion === 'number' && value.phaseOrderVersion > 2) || Object.values(value).some(current));
+  return P15B_SEQUENCED_ROOTS.find((key) => current(state[key])) ?? null;
+}
+
+/** The one P16 downgrade refusal: a recorded rights record, a non-zero rights movement, a rights ledger row, or
+ * current phase history (a P15 or P15B row on the Save49 phase table 3). */
 function p16DowngradeRefusal(state: Record<string, unknown>): string | null {
   const root = state.rights as RightsRoot | undefined;
   if (root !== undefined) {
@@ -11831,6 +11840,10 @@ function p16DowngradeRefusal(state: Record<string, unknown>): string | null {
   }
   const ledger = state.ledger as readonly { kind: string }[] | undefined;
   if (ledger?.some((row) => (P16_LEDGER_KINDS as readonly string[]).includes(row.kind))) return 'cannot downgrade or discard a rights ledger row';
+  // P16 rebase round 4 (review O1): the step names this refusal itself instead of converting and letting the
+  // Save48 reader inside it refuse the first table-3 row.
+  const phaseRoot = currentPhaseHistoryRoot(state);
+  if (phaseRoot !== null) return `cannot downgrade or discard current phase history (${phaseRoot})`;
   return null;
 }
 
@@ -11914,8 +11927,9 @@ export function convertV48ToV49(save: SaveFileV48): SaveFileV49 {
   return validateSaveV49({ ...old, saveVersion: P16_SAVE_VERSION, state: observePredecessorEstates(current) });
 }
 
-/** Lossless only while the rights root is empty, every rights movement is zero and no rights ledger
- * row exists: the empty root and the zero kinds drop. Otherwise refuses once, by name. */
+/** Lossless only while the rights root is empty, every rights movement is zero, no rights ledger row exists
+ * and no P15 or P15B row carries the current phase table: the empty root and the zero kinds drop. Otherwise
+ * refuses once, by name. */
 export function convertV49ToV48(save: SaveFileV49): SaveFileV48 {
   const validated = validateSaveV49(save);
   const refusal = p16DowngradeRefusal(validated.state as unknown as Record<string, unknown>);

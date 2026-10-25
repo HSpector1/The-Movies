@@ -40,6 +40,9 @@ import { tick } from '../src/core/tick.js'
 import { GENRE_ORDER } from '../src/core/tuning.js'
 import type { Action, FilmShape, GameState, Production } from '../src/core/types.js'
 import { signRole } from './helpers/stabilization-staffing.js'
+import { validateTechnology } from '../src/core/technology.js'
+import { generateWorld } from '../src/core/worldgen.js'
+import type { AbsorptionRecord } from '../src/core/rights.js'
 
 const TARGET = 'studio-aca408ec-r01', FILM = TARGET + ':film:13', WEEK = 162, SOAK_WEEKS = 52
 const PIN = 'cd11f369558e09f1d65d8e848374ea028f4c5f666c168b5527e48c098cfdfb19'
@@ -152,5 +155,17 @@ describe('C-01: an absorbed business\'s written-off work claims nobody at valida
     expect(soak).toHaveLength(SOAK_WEEKS)
     expect(soak.filter((row) => row.refusal !== null)).toEqual([])
     expect(soak.at(-1)!.week).toBe(WEEK + SOAK_WEEKS)
+  })
+})
+
+// P16 rebase round 4 (review O6): the technology reader of buyer-continued work reads `continuedProductions` only as an
+// array, like the hollywood and profession-history readers 2a78b372 guarded; it runs before either, so a malformed
+// absorption record is refused there by name. No capture needed.
+describe('C-01 follow-up: a malformed absorption record is refused by name, never as a TypeError', () => {
+  it('validateTechnology names a continuedProductions that is not an array', () => {
+    const world = generateWorld('p16-rebase-o6')
+    expect(() => validateTechnology(world, true, new Map()), 'premise: the fresh world admits').not.toThrow()
+    const malformed = new Map([['studio-x', { targetId: 'studio-x', continuedProductions: 'not-an-array' } as unknown as AbsorptionRecord]])
+    expect(() => validateTechnology(world, true, malformed)).toThrow(/^Technology save: absorption work dispositions must be arrays$/)
   })
 })

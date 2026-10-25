@@ -20,16 +20,15 @@ import type { Action, GameState } from '../src/core/types.js'
 import { base, BASE_WEEK, canon, conditionRoot, drainPlayer, loansOf, PLAYER, R04, raw, recordOf, refuses, rivalClosure, ticks } from './helpers/p15b-live.js'
 import { genuineV42Week130 } from './p14d1-rival-shelving-fixtures.js'
 import { EXPECTED_LIVE_SAVE_VERSION, validateLiveSave } from './helpers/live-era.js'
-import { rightsStripped } from './helpers/p16-era.js'
+import { LIVE_DOWNGRADE_REFUSAL, rightsStripped } from './helpers/p16-era.js'
 
 // P16 (Save49) is the live step above this one. The P15B step's own downgrade law runs on Save48 controls: the
 // never-ticked base's envelope (`rightsStripped`) and the week-133 world (`recorded`), whose public downgrade passes
 // the live step because it holds no title and no table-3 row yet. The root validators run inside the live reader
 // (`validateLiveSave`, whose predecessor proof is the P15B era's). From the first table-3 row on (a condition event,
 // at 134 at the earliest) the public downgrade refuses at the Save49 step first, by one of two named reasons: the
-// rights root it would discard (once a rival greenlight or a release minted a title), or else the Save48 reader
-// inside the step, which never admits the table-3 condition events the live writer stamped.
-const LIVE_DOWNGRADE_REFUSAL = /^(?:migrateToV48: cannot downgrade or discard a recorded rights root|validateSaveP15B: corporateCondition estate phase table is not admitted in this predecessor era)$/
+// rights root it would discard (once a rival greenlight or a release minted a title), or else the step's own
+// phase-history reason for the table-3 condition events the live writer stamped (helpers/p16-era.ts).
 
 type Save = { saveVersion: number; seed: string; state: Record<string, unknown>; broadcastCache: unknown[] }
 type SaveModule = Record<string, (save: unknown) => Save>

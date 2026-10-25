@@ -948,11 +948,11 @@ describe('p15a2 archive: root and persistence (1356-A §5; RED 12, 13, 16)', () 
     expect(stableStringify(before), 'premise: no quarter between 130 and 135').toBe(stableStringify({ version: 1, recordedFromWeek: 130, snapshots: [] }))
     const currentSave = liveSave(state)
     const currentBefore = stableStringify(currentSave)
-    // P16 rebase: five ticks recorded no title, so the live Save49 step passes its own checks and the Save48 reader
-    // inside it refuses first: the condition events of week 134 carry the Save49 phase table 3. The P15B step's
-    // composed refusal is asserted on the same route at 133 above; the frozen ranking step below keeps its genuine
-    // Save45 witness.
-    expect(() => convertOutOfStep(currentSave)).toThrow(/^validateSaveP15B: corporateCondition estate phase table is not admitted in this predecessor era$/)
+    // P16 rebase: five ticks recorded no title, so the live Save49 step refuses by its phase-history reason: the
+    // condition events of week 134 carry the Save49 phase table 3 (lane wave3 measured the Save48 reader refusing
+    // corporateCondition here before the step named it). The P15B step's composed refusal is asserted on the same
+    // route at 133 above; the frozen ranking step below keeps its genuine Save45 witness.
+    expect(() => convertOutOfStep(currentSave)).toThrow(/^migrateToV48: cannot downgrade or discard current phase history \(corporateCondition\)$/)
     expect(stableStringify(currentSave), 'the refused current input remains unchanged').toBe(currentBefore)
 
     // An original Save45 engine advanced the genuine Save42 week-130 capture through five

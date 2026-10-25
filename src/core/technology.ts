@@ -888,6 +888,8 @@ function validateSharedTechnology(state: TechnologyBearingState, v: Validator, p
     studioFilms.add(film.filmId)
   }
   const films = new Set<string>()
+  // Read only as arrays, so a malformed absorption record is refused here by name, never as a TypeError.
+  if ([...(absorptions?.values() ?? [])].some(a => !Array.isArray(a.continuedProductions))) fail('absorption work dispositions must be arrays')
   for (const p of root.productions) {
     exact(p,['studioId','productionId','method','adoptionId','lockedWeek']);studio(p.studioId);text(p.productionId)
     const key = `${p.studioId}/${p.productionId}`;if (films.has(key)) fail('duplicate filming loadout');films.add(key)
