@@ -944,12 +944,12 @@ function historicalV2FrozenControl(): GameState {
     ...built, legacySnapshotId: old.legacySnapshotId, p15DomainSequence: old.p15DomainSequence,
     phaseId: old.phaseId, phaseOrdinal: old.phaseOrdinal, phaseOrderVersion: old.phaseOrderVersion,
   } })
-  // Whole48 admission, not only Legacy/root validation.
-  const save48 = saveModule.validateSaveP15B({ saveVersion: saveModule.P15B_SAVE_VERSION, seed: historical48.seed, state: historical48, broadcastCache: historical48.broadcastItems })
+  const save48 = { saveVersion: saveModule.P15B_SAVE_VERSION, seed: historical48.seed, state: historical48, broadcastCache: historical48.broadcastItems }
   predecessorSave(historical48) // Own frozen47 admission before testing any later guard.
-  const historical = saveModule.convertV48ToV49(save48).state as unknown as GameState
-  makeSave(historical) // Whole49 admission of the lifted control.
-  return historical
+  // Whole48 admission, not only Legacy/root validation, then Whole49 admission of the lifted control: convertV48ToV49
+  // opens with validateSaveV48 (= validateSaveP15B, which returns its input) and returns through validateSaveV49, the
+  // validator makeSave runs, so neither is repeated here (P16 rebase round 7).
+  return saveModule.convertV48ToV49(save48 as never).state as unknown as GameState
 }
 
 // ── the frozen definition table as literals (1359-F2 item 1; 1353-F6 ruling 2; 1353-F7 ruling 3) ──
