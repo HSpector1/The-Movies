@@ -128,8 +128,8 @@ ui/src/lot/LotNextEventRail.test.tsx, tests/p15b-legacy-terminal-regression.test
   (the regression keeps 12A's v4 pins and takes the candidate's validateSaveV49 reads).
 
 
-3. C-01 disposition: two reader sites WITNESSED, two STATIC-UNRUN (owed by the P16 lane)
------------------------------------------------------------------------------------------
+3. C-01 disposition: one reader site WITNESSED, one PREDICTED, two STATIC-UNRUN (owed by the P16 lane)
+-----------------------------------------------------------------------------------------------------
 
 The stabilized shared-occupancy law (ledger Batch 2, L-04 and L-05): one availability set, and every
 validator and occupancy reader treats work the busy set released as history. The candidate's busy set
@@ -166,12 +166,15 @@ case: in the same world, promiseFeasibility for a directing draft and a genre-op
 beneficiaries are film 13's exited people equals the same call with r01's written-off picture removed.
 Lane wave3d (c01-red.json, a throwaway tree of b2d3d97e): the differential case is RED there ("DIRECTING_COUNT:
 expected {...} to deeply equal {...}", :147) and the other three pass. Lane wave3e: 4 of 4 green at c0a6c64e.
+The case looped over both drafts with plain expect, so at b2d3d97e it stopped at the directing draft and the
+genre-opportunity draft never ran there (round 5 reviewer). Round 5 splits them into two cases.
 
 Per reader site (round 4 correction; the round-2 text over-claimed the differential's reach):
-  promises.ts:346-347 promiseProductionOccupancy: WITNESSED (red at b2d3d97e, green at HEAD). Both
-    differential drafts read it.
-  opportunityPromises.ts:66-67 opportunityFeasibilityInputs, its owners(): WITNESSED (red at b2d3d97e,
-    green at HEAD) through the genre-opportunity draft.
+  promises.ts:346-347 promiseProductionOccupancy: WITNESSED (the directing draft, red at b2d3d97e, green at
+    HEAD).
+  opportunityPromises.ts:66-67 opportunityFeasibilityInputs, its owners(): PREDICTED until the coordinator's red
+    rerun of the split genre-opportunity case. Isolation limit: that draft also reads promiseProductionOccupancy
+    (promises.ts:554-559: the opportunity scope sets the directing scope), so a red there does not isolate owners().
   promises.ts:926-928 rivalUncappedPromiseCapacity: STATIC-UNRUN, no witness. promiseFeasibility never
     calls it; its only caller is retirementVoidsPromise (promises.ts:973).
   professionHistory.ts:297-314, the straddle check's absorbed-business rule: STATIC-UNRUN, no witness. A
@@ -522,7 +525,8 @@ Round 4 (the round-2 reviewer's blockers and optional items; lane wave3e on c0a6
             declared-bound message, unchanged revision and pendingQuotes, the repeat call, a lawful session
             registering. The acceptance case checks the widened cash on all four quote snapshots. Section 7
             lists l22 and l24 and records the l24 weakening.
-  6795c44a  Blocker 3: section 3 rewritten. WITNESSED: promises.ts:346-347 and opportunityPromises.ts:66-67.
+  6795c44a  Blocker 3: section 3 rewritten. WITNESSED: promises.ts:346-347; opportunityPromises.ts:66-67 was
+            listed WITNESSED here, corrected to PREDICTED in round 5.
             STATIC-UNRUN, no witness, owed by the P16 lane: promises.ts:926-928 (rivalUncappedPromiseCapacity)
             and professionHistory.ts:297-314. claimsLiveWork: green at HEAD, no red run.
   097f0f7d  Optional, the cheap ones:

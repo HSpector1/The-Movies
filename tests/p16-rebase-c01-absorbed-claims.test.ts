@@ -9,8 +9,9 @@
 // The rebased validator claims only the buyer-continued, uncancelled productions of an absorbed
 // business; its written-off work and every draft claim nobody, and the profession-history straddle
 // check, the promise and opportunity occupancy readers follow the same rule. The validator rule
-// landed with the apply (b2d3d97e); the reader rule landed in 0863f80b, and the differential case
-// below is the witness predicted red at b2d3d97e (its readers still kept r01's written-off picture).
+// landed with the apply (b2d3d97e); the reader rule landed in 0863f80b. The two differential cases below
+// are its witnesses: the directing draft is red at b2d3d97e (lane wave3d, c01-red.json), the genre-opportunity
+// draft is PREDICTED red there (round 5 split it out of the shared loop, which stopped at the first draft).
 //
 // Route: the candidate's own write-off transaction (tests/p16-absorption-paid-production.test.ts):
 // the genuine Original48 r04-pre162 capture, migrated to Save49, a paid full disclosure, the public
@@ -133,22 +134,32 @@ describe('C-01: an absorbed business\'s written-off work claims nobody at valida
     expect(() => saves.makeSave(seated)).not.toThrow()
   })
 
-  it('the promise and opportunity occupancy readers ignore the written-off picture: the same answers as the world without it', () => {
-    // Differential witness for the 0863f80b readers (predicted red at b2d3d97e, where `closedWeekOf`
-    // kept r01 in `promiseProductionOccupancy` and in the opportunity owners). Removing r01's frozen
-    // picture is not a lawful state; it only shows that no reader's answer depends on it.
+  // Differential witnesses for the 0863f80b readers, one draft per case so each can be red on its own. Removing r01's
+  // frozen picture is not a lawful state; it only shows that no reader's answer depends on it.
+  const TERM = { windowStartWeek: WEEK, dueWeekExclusive: WEEK + 52, startWeek: WEEK, termWeeks: 52 }
+  const differential = (draft: (h: NonNullable<GameState['hollywood']>) => PromiseDraft) => {
     const h = absorbed.hollywood!
     const withoutFrozen: GameState = { ...absorbed, hollywood: { ...h,
       businesses: h.businesses.map((b) => (b.studioId === TARGET ? { ...b, productions: [] } : b)) } }
-    const term = { windowStartWeek: WEEK, dueWeekExclusive: WEEK + 52, startWeek: WEEK, termWeeks: 52 }
-    const directing: PromiseDraft = { family: 'DIRECTING_COUNT', issuerStudioId: h.playerStudioId,
-      beneficiaryPersonId: frozen.directorId, predicate: { kind: 'directorCount', count: 1 }, ...term }
-    const opportunity: PromiseDraft = { family: 'PREFERRED_GENRE_OPPORTUNITY', issuerStudioId: h.playerStudioId,
+    const chosen = draft(h)
+    expect(promiseFeasibility(absorbed, chosen, WEEK), chosen.family).toEqual(promiseFeasibility(withoutFrozen, chosen, WEEK))
+  }
+
+  it('the promise occupancy reader ignores the written-off picture: a directing draft answers as the world without it', () => {
+    // WITNESSED red at b2d3d97e (lane wave3d, c01-red.json: DIRECTING_COUNT), where `closedWeekOf` kept r01 in
+    // `promiseProductionOccupancy` (promises.ts:346-347).
+    differential((h) => ({ family: 'DIRECTING_COUNT', issuerStudioId: h.playerStudioId,
+      beneficiaryPersonId: frozen.directorId, predicate: { kind: 'directorCount', count: 1 }, ...TERM }))
+  })
+
+  it('the opportunity owners reader ignores the written-off picture: a genre-opportunity draft answers as the world without it', () => {
+    // PREDICTED red at b2d3d97e, where `closedWeekOf` kept r01 in the opportunity owners (opportunityPromises.ts:66-67);
+    // the looped case before round 5 never ran this draft there. Isolation limit: this draft also reads
+    // `promiseProductionOccupancy` (promises.ts:554-559, the opportunity scope sets the directing scope), so a red here
+    // does not isolate owners().
+    differential((h) => ({ family: 'PREFERRED_GENRE_OPPORTUNITY', issuerStudioId: h.playerStudioId,
       beneficiaryPersonId: frozen.cast.antagonist,
-      predicate: { kind: 'genreOpportunity', count: 1, seatClass: 'allCast', genre: GENRE_ORDER[0]! }, ...term }
-    for (const draft of [directing, opportunity]) {
-      expect(promiseFeasibility(absorbed, draft, WEEK), draft.family).toEqual(promiseFeasibility(withoutFrozen, draft, WEEK))
-    }
+      predicate: { kind: 'genreOpportunity', count: 1, seatClass: 'allCast', genre: GENRE_ORDER[0]! }, ...TERM }))
   })
 
   it('every weekly save of the 52-week natural soak admits', () => {
