@@ -10,6 +10,7 @@ import { describe, expect, it } from 'vitest'
 import { genuineV42Week130 } from './p14d1-rival-shelving-fixtures.js'
 import { convertV49ToV48, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV45 } from '../src/core/save.js'
 import { validateLiveSave } from './helpers/live-era.js'
+import { ESTATE_OBSERVATION_REFUSAL } from './helpers/p16-era.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
 import { tick } from '../src/core/tick.js'
@@ -52,13 +53,15 @@ describe('p15b4 closure save step: migration and downgrade (closure/v1 §5)', ()
   it('closure-root-downgrade-refusals', async () => {
     const mod = await saveModule()
     const closed = makeSave(closedAt(C))
-    // MOVED (P16): the live Save49 step refuses first and names the closure's own provenance (its estate); the
-    // P15B step's closure refusal is reachable only from a genuine Save48 file (audit C-06): a closed P16 world's
-    // table-3 history has no Save48 envelope.
-    refuses(() => convertV49ToV48(closed), 'closure')
-    refuses(() => migrateToV45(closed), 'closure')
-    // The frozen builders refuse the same state by name: a closed studio is history no older era can carry.
-    refuses(() => (mod.migrateToV44 as (save: unknown) => unknown)(closed), 'closure')
+    // P16: the live step (migrateToV48) refuses first, at every older reader, naming the estate the closure opened
+    // in its closure week. ACCEPTANCE OPEN (P16 rebase round 4): the P15B step's own 'cannot downgrade or discard an
+    // actual studio closure' (and its claim and estate-event reasons). Every Save49 closure opens a closure49 estate,
+    // a rights instrument no Save48 envelope carries, and the live tick needs a rights root, so no lawful Save48
+    // control holds a closure.
+    expect((raw(closedAt(C)).rights as { estates: { origin: { kind: string } }[] }).estates.map((e) => e.origin.kind), 'premise: the closure opened its estate').toContain('closure49')
+    expect(() => convertV49ToV48(closed)).toThrow(ESTATE_OBSERVATION_REFUSAL)
+    expect(() => migrateToV45(closed)).toThrow(ESTATE_OBSERVATION_REFUSAL)
+    expect(() => (mod.migrateToV44 as (save: unknown) => unknown)(closed)).toThrow(ESTATE_OBSERVATION_REFUSAL)
   })
 })
 

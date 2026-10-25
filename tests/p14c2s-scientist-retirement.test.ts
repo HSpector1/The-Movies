@@ -286,9 +286,10 @@ describe('Scientist retirement persistence has an explicit semantic version boun
     expect(live.state.hollywood!.businesses.some(business => business.account.periods.some(
       period => period.movements.facilityDemolitionRefund !== 0))).toBe(true)
     expect(live.state.hollywood!.receipts.some(receipt => receipt.kind === 'facilityDisposed')).toBe(true)
-    // MOVED (P16 rebase): the live Save49 step refuses first, naming the estate a closure in this route opened. The
-    // P15B step's composed refusal (condition records, then R8's recovery reasons) needs this world's Save48 envelope,
-    // which does not exist: an estate is a rights instrument `rightsStripped` refuses to drop.
+    // P16 rebase: the live Save49 step refuses first, naming the estate a closure in this route opened. This world's
+    // P15B composed refusal (condition records, then R8's recovery reasons) is unasserted: an estate is a rights
+    // instrument `rightsStripped` refuses to drop, so it has no Save48 envelope. The same composition law is asserted
+    // on the week-133 Save48 control in p15b2-corporate-condition-save and p15a2-power-ranking-archive.
     expect(() => migrateToV36(live)).toThrow(ESTATE_OBSERVATION_REFUSAL)
     expect(JSON.stringify(live)).toBe(before)
     expect(bytes(state)).toBe(before)

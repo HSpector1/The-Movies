@@ -934,15 +934,24 @@ describe('p15a2 archive: root and persistence (1356-A §5; RED 12, 13, 16)', () 
 
   it('rank-root-downgrade-round-trip-claims-less', () => {
     let state = genuineLive130()
+    while (state.market.tick < 133) state = tick(state)
+    // P15B (1370-ar): the P15B step refuses first (its condition records) and appends the predecessor steps' own
+    // refusals rather than masking them, so R8's recovery reasons are still asserted by name on the same throw. P16
+    // rebase round 4: at week 133 this route holds condition records and no condition event (the first can fire at
+    // 134), no title and no table-3 row, so the live Save49 step converts the public downgrade and the P15B step names it.
+    const recordedSave = liveSave(state)
+    const evaluated = (state as unknown as { corporateCondition: { studios: unknown[]; events: unknown[] } }).corporateCondition
+    expect(evaluated.events, 'premise: no condition event before 134').toEqual([])
+    expect(() => convertOutOfStep(recordedSave)).toThrow(new RegExp(`^migrateToV${saveModule.P15B_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record \\(${evaluated.studios.length} evaluated\\); cannot downgrade or discard recovery authority: costCutting\\.since, facilityDemolitionRefund, facilityDisposed$`))
     while (state.market.tick < 135) state = tick(state)
     const before = archiveOf(state)
     expect(stableStringify(before), 'premise: no quarter between 130 and 135').toBe(stableStringify({ version: 1, recordedFromWeek: 130, snapshots: [] }))
     const currentSave = liveSave(state)
     const currentBefore = stableStringify(currentSave)
-    // MOVED (P16 rebase): five ticks recorded no title, so the live Save49 step passes its own checks and the Save48 reader
-    // inside it refuses first: the condition events these ticks wrote carry the Save49 phase table 3. The P15B step's
-    // composed refusal (condition records, then R8's recovery reasons) needs a Save48 envelope this world cannot have;
-    // the frozen ranking step below keeps its genuine Save45 witness.
+    // P16 rebase: five ticks recorded no title, so the live Save49 step passes its own checks and the Save48 reader
+    // inside it refuses first: the condition events of week 134 carry the Save49 phase table 3. The P15B step's
+    // composed refusal is asserted on the same route at 133 above; the frozen ranking step below keeps its genuine
+    // Save45 witness.
     expect(() => convertOutOfStep(currentSave)).toThrow(/^validateSaveP15B: corporateCondition estate phase table is not admitted in this predecessor era$/)
     expect(stableStringify(currentSave), 'the refused current input remains unchanged').toBe(currentBefore)
 

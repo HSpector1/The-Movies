@@ -22,12 +22,13 @@ import { genuineV42Week130 } from './p14d1-rival-shelving-fixtures.js'
 import { EXPECTED_LIVE_SAVE_VERSION, validateLiveSave } from './helpers/live-era.js'
 import { rightsStripped } from './helpers/p16-era.js'
 
-// P16 (Save49) is the live step above this one. The P15B step's own downgrade law runs on the Save48 envelope of a
-// world (`rightsStripped`); the root validators run inside the live reader (`validateLiveSave`, whose predecessor
-// proof is the P15B era's); a ticked P16 world has no Save48 envelope (its phase history is table 3), so its public
-// downgrade refuses at the Save49 step first, and those expectations moved there. It refuses by one of two named
-// reasons: the rights root it would discard (once a rival greenlight or a release minted a title), or else the
-// Save48 reader inside the step, which never admits the table-3 condition events the live writer stamped.
+// P16 (Save49) is the live step above this one. The P15B step's own downgrade law runs on Save48 controls: the
+// never-ticked base's envelope (`rightsStripped`) and the week-133 world (`recorded`), whose public downgrade passes
+// the live step because it holds no title and no table-3 row yet. The root validators run inside the live reader
+// (`validateLiveSave`, whose predecessor proof is the P15B era's). From the first table-3 row on (a condition event,
+// at 134 at the earliest) the public downgrade refuses at the Save49 step first, by one of two named reasons: the
+// rights root it would discard (once a rival greenlight or a release minted a title), or else the Save48 reader
+// inside the step, which never admits the table-3 condition events the live writer stamped.
 const LIVE_DOWNGRADE_REFUSAL = /^(?:migrateToV48: cannot downgrade or discard a recorded rights root|validateSaveP15B: corporateCondition estate phase table is not admitted in this predecessor era)$/
 
 type Save = { saveVersion: number; seed: string; state: Record<string, unknown>; broadcastCache: unknown[] }
@@ -53,6 +54,15 @@ function borrowed(): GameState {
     borrowedAt140 = ticks(applyActions(s134, [takeLoan(390_000)]), 6)
   }
   return borrowedAt140
+}
+/** Week 133 on the natural route: every evaluated studio has a condition record (first evaluated at 131) and no
+ * condition event can exist yet (CORPORATE_WARN_SUSTAIN_WEEKS is 4, so the first warning is 134 at the earliest);
+ * lane wave3 measured that this route mints no title through 135. r04 is in R8 cost cutting and disposed a facility
+ * at 131. So the live step converts its public downgrade and the P15B step refuses by its own name. */
+let recordedAt133: GameState | null = null
+function recorded(): GameState {
+  if (recordedAt133 === null) recordedAt133 = ticks(base(), 3)
+  return recordedAt133
 }
 function tampered(edit: (state: Record<string, unknown>) => void): Save {
   const save = clone(makeSave(borrowed())) as unknown as Save
@@ -98,12 +108,17 @@ describe('p15b2 save step: migration and downgrade (1357-A §4.2; S1-S2)', () =>
     for (const business of (down.state.hollywood as { businesses: { account: { periods: { movements: Record<string, number> }[] } }[] }).businesses) {
       for (const period of business.account.periods) for (const kind of LOAN_KINDS) expect(Object.hasOwn(period.movements, kind)).toBe(false)
     }
-    // A ticked save holds records: the downgrade refuses by name. MOVED (P16): a ticked world's public downgrade
-    // refuses at the live Save49 step first; the P15B step's condition-record and loan refusals are reachable only
-    // from a genuine Save48 file, which this repository does not hold (audit C-06).
-    const ticked = makeSave(borrowed())
-    expect(() => convertV49ToV48(ticked)).toThrow(LIVE_DOWNGRADE_REFUSAL)
-    expect(() => migrateToV47(ticked)).toThrow(LIVE_DOWNGRADE_REFUSAL)
+    // A ticked save holds records: the downgrade refuses by name, at this step, on the week-133 Save48 control.
+    expect(conditionRoot(recorded()).events, 'premise: no condition event before 134').toEqual([])
+    const ticked = makeSave(recorded())
+    refuses(() => convertFromStep(convertV49ToV48(ticked)), 'corporateCondition')
+    refuses(() => migrateToV47(ticked), 'corporateCondition')
+    // ACCEPTANCE OPEN (P16 rebase round 4): the loan refusals ('a studio loan', 'a loan or claim ledger row', 'the
+    // <kind> movement of <studio>'). A loan needs warning or distress (studioLoan.ts loanEligible), so a condition
+    // event precedes it; the live writer stamps both with phase table 3, which no Save48 envelope carries, and the live
+    // tick needs a rights root (rightsTick.ts refuses an industry without one), so no lawful Save48 control holds a
+    // loan. The borrowed world's public downgrade refuses at the live step first.
+    expect(() => convertV49ToV48(makeSave(borrowed()))).toThrow(LIVE_DOWNGRADE_REFUSAL)
     // The loan kinds are refused below the era: a predecessor envelope carrying one fails the frozen chain.
     const forgedLedger = clone(down)
     ;(forgedLedger.state.ledger as Record<string, unknown>[]).push({ week: BASE_WEEK, kind: 'loanPrincipal', amount: 1000, note: 'forged' })
@@ -141,13 +156,22 @@ describe('p15b2 save step: migration and downgrade (1357-A §4.2; S1-S2)', () =>
     const forgedRoot = clone(down)
     ;(forgedRoot.state as Record<string, unknown>).corporateCondition = clone(empty.state.corporateCondition)
     refuses(() => validateSaveV47(forgedRoot), 'corporateCondition')
-    // (c) a ticked, borrowed state refuses by name at every older reader. MOVED (P16): the live Save49 step refuses
-    // first; the composed P15B message (condition record, then the loan row, then the shared P15 step's reason,
-    // appended rather than masked) is reachable only from a genuine Save48 file, which this repository does not
-    // hold (audit C-06), because a ticked P16 world's table-3 phase history has no Save48 envelope.
-    const live = makeSave(borrowed())
-    for (const older of [migrateToV47, migrateToV46, migrateToV45]) expect(() => older(live)).toThrow(LIVE_DOWNGRADE_REFUSAL)
-    expect(canon(makeSave(borrowed()))).toBe(canon(live))
+    // (c) a ticked state refuses here first, naming this step's reasons before the predecessor steps' own, which are
+    // appended rather than masked (founding's convertV47ToV46 pattern): the week-133 control's message names its
+    // condition records, then R8's recovery reasons, at the step and through every older migrator. The shared P15
+    // step's appended reason is asserted on the Legacy v3 Save48 control (p15b-legacy-v3.test.ts); the loan reason
+    // is ACCEPTANCE OPEN (condition-root-downgrade above).
+    const state133 = recorded()
+    expect(state133.hollywood!.businesses.some((b) => b.costCutting.since !== null), 'premise: R8 cost cutting').toBe(true)
+    expect(state133.hollywood!.receipts.some((r) => r.kind === 'facilityDisposed'), 'premise: R8 disposal').toBe(true)
+    const live = makeSave(state133)
+    const composed = new RegExp(`^migrateToV${FOUNDING_FUNDING_SAVE_VERSION}: cannot downgrade or discard a corporateCondition record \\(${conditionRoot(state133).studios.length} evaluated\\); cannot downgrade or discard recovery authority: costCutting\\.since, facilityDemolitionRefund, facilityDisposed$`)
+    expect(() => convertFromStep(convertV49ToV48(live))).toThrow(composed)
+    for (const older of [migrateToV47, migrateToV46, migrateToV45]) expect(() => older(live)).toThrow(composed)
+    expect(canon(makeSave(recorded()))).toBe(canon(live))
+    // The borrowed world (table-3 events and loans) refuses at the live Save49 step first.
+    const borrowedLive = makeSave(borrowed())
+    for (const older of [migrateToV47, migrateToV46, migrateToV45]) expect(() => older(borrowedLive)).toThrow(LIVE_DOWNGRADE_REFUSAL)
   })
 })
 

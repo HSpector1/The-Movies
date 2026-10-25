@@ -223,11 +223,13 @@ it('ended-links-cutoffs-refs-phase-and-allocator-mutants-refuse-with-input-purit
 it('terminal6240-composed-downward-refusal-preserves-all-authority', budgeted(ROUTE_MS, () => {
   const final = terminalCase(6240).final; const current = save.makeSave(final); const currentBytes = canon(current)
   expect(save.validateSaveV49(current)).toBe(current)
-  // MOVED (P16 rebase): every Save49 closure opens its estate in the closure week (studioClosure.ts `openEstate` when
-  // the state carries `rights`), so this terminal world holds a closure49 estate, a rights instrument `rightsStripped`
-  // refuses to drop, and no Save48 operand exists. The public first refusal is the live step's, by name, at every older
-  // reader, and the input stays unchanged. The P15B composed refusal (condition, actual closure, modern Legacy v3
-  // official, ended manifest, frozen 2040 Legacy) needs a genuine Save48 terminal capture (audit C-06).
+  // P16 rebase: every Save49 closure opens its estate in the closure week (studioClosure.ts `openEstate` when the state
+  // carries `rights`), so this terminal world holds a closure49 estate, a rights instrument `rightsStripped` refuses to
+  // drop, and no Save48 operand exists. The public first refusal is the live step's, by name, at every older reader,
+  // and the input stays unchanged. This world's P15B composed refusal (condition, actual closure, modern Legacy v3
+  // official, ended manifest, frozen 2040 Legacy) is unasserted: ACCEPTANCE OPEN for the closure and ended-manifest
+  // reasons (round 4); the v3-official reason with the frozen-2040 reason appended has its Save48 control in
+  // p15b-legacy-v3.test.ts, and the condition-record reason with R8's appended in p15b2-corporate-condition-save.
   expect(final.rights.estates.map(e => e.origin.kind), 'premise: the player closure opened its estate').toContain('closure49')
   for (const convert of [save.convertV49ToV48, save.migrateToV47, save.migrateToV46, save.migrateToV45]) {
     expect(() => convert(current)).toThrow(/^migrateToV48: cannot discard unique estate observation or current closure provenance$/)

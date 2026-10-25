@@ -186,9 +186,10 @@ describe.each(DUAL_TARGETS)('C.3 actor→%s two genuine profession extensions', 
     expect(saved.state.hollywood!.businesses.every(b => b.account.periods.every(p => p.movements.facilityDemolitionRefund === 0))).toBe(true)
     expect(saved.state.hollywood!.receipts.some(r => r.kind === 'facilityDisposed')).toBe(false)
     // P15B (1370-ar, MASKED): this route's rivals borrow under 1357-A §6.2, so no predecessor envelope can carry the
-    // state (the test helper refuses by name). MOVED (P16 rebase): the live Save49 step now refuses first, naming the
-    // recorded rights root. The P15B step's composed refusal (condition record, then R8's recovery reason) needs this
-    // world's Save48 envelope, which does not exist: its P15 history since migration carries the Save49 phase table 3.
+    // state (the test helper refuses by name). P16 rebase: the live Save49 step now refuses first, naming the recorded
+    // rights root. This world's P15B composed refusal (condition record, then R8's recovery reason) is unasserted: its
+    // rivals' loans carry the Save49 phase table 3, so it has no Save48 envelope. The same composition law is asserted
+    // on the week-133 Save48 control in p15b2-corporate-condition-save and p15a2-power-ranking-archive.
     expect(() => migrateToV44(saved as never)).toThrow(RIGHTS_ROOT_REFUSAL)
     expect(stableStringify(saved)).toBe(savedBytes)
     expect(validateSaveV49(saved)).toBe(saved)

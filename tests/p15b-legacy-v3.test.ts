@@ -114,9 +114,11 @@ describe('p15b modern Legacy constructed transaction controls', () => {
     const copy = JSON.parse(JSON.stringify(save))
     copy.state.campaignLegacy.endOfRun.closureId = 'not-a-closure'
     expect(() => validateLiveSave(copy)).toThrow(/closure/i)
-    // MOVED (P16): every Save49 closure opens its estate in the closure week, so every older reader refuses at the live
-    // step first, naming that estate; the Legacy end-of-run refusal below it is reachable only from a genuine Save48
-    // file (audit C-06), because this closed world has no Save48 envelope.
+    // P16: every Save49 closure opens its estate in the closure week, so every older reader refuses at the live step
+    // first, naming that estate. ACCEPTANCE OPEN (P16 rebase round 4): the P15B step's 'cannot downgrade or discard the
+    // ended Legacy manifest'. Only an actual player closure publishes the ended manifest (studioClosure.ts), its estate
+    // is a rights instrument no Save48 envelope carries, and the live tick needs a rights root, so no lawful Save48
+    // control holds one. The modern Legacy v3 reason has its Save48 control in the next case.
     for (const convert of [saves.migrateToV45, saves.migrateToV46, saves.migrateToV47]) {
       expect(() => convert(save)).toThrow(/^migrateToV48: cannot discard unique estate observation or current closure provenance$/)
     }
@@ -135,6 +137,11 @@ describe('p15b modern Legacy constructed transaction controls', () => {
     // P16: the frozen readers' law runs on the predecessor-era official (`genuineFrozen48`); its historical payload
     // replays under validateSaveP15B, the Save48 reader.
     const save48 = genuineFrozen48(), state48 = save48.state as unknown as GameState
+    // The P15B step's own refusal on the Save48 control: this step's modern Legacy v3 reason first, the shared P15 step's
+    // frozen-2040 reason appended rather than masked, at the step and through every older migrator.
+    for (const convert of [saves.convertFromP15BSave, saves.migrateToV47, saves.migrateToV46, saves.migrateToV45]) {
+      expect(() => convert(save48 as never)).toThrow(new RegExp(`^migrateToV${saves.P15B_SAVE_VERSION - 1}: cannot downgrade or discard modern Legacy v3 official authority; cannot downgrade or discard the frozen 2040 Legacy$`))
+    }
     expect(state48.campaignLegacy.official!.definition, 'the predecessor writer selects the same definition').toBe(state.campaignLegacy.official!.definition)
     const oldLive = JSON.parse(JSON.stringify(save48))
     const oldTable = legacy.LEGACY_DEFINITIONS['campaign-legacy/v2']

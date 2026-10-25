@@ -293,9 +293,10 @@ describe('C.3 genuine cohort-born Actor enters a new profession with origin auth
     expect(control.state.hollywood!.receipts.some(r => r.kind === 'facilityDisposed')).toBe(true)
     // P15B (1370-ar, MASKED): this route's rivals borrow under 1357-A §6.2, so no predecessor envelope can carry the
     // state (the test helper refuses by name). The recorded Power Ranking guard stays covered on its Save45 input in
-    // tests/p15a2-power-ranking-archive.test.ts. MOVED (P16 rebase): the live Save49 step now refuses first, naming
-    // the estate a closure in this route opened; the P15B step's composed refusal (condition records, then R8's
-    // recovery reasons) needs a Save48 envelope, and an estate is a rights instrument `rightsStripped` refuses to drop.
+    // tests/p15a2-power-ranking-archive.test.ts. P16 rebase: the live Save49 step now refuses first, naming the estate a
+    // closure in this route opened. This world's P15B composed refusal (condition records, then R8's recovery reasons)
+    // is unasserted: an estate is a rights instrument `rightsStripped` refuses to drop. The same composition law is
+    // asserted on the week-133 Save48 control in p15b2-corporate-condition-save and p15a2-power-ranking-archive.
     expect(() => migrateToV44(control as never)).toThrow(ESTATE_OBSERVATION_REFUSAL)
     expect(stableStringify(control)).toBe(controlBytes)
     expect(validateSaveV49(control)).toBe(control)
