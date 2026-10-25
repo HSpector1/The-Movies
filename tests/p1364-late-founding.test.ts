@@ -35,7 +35,7 @@ import type { FoundingRegime, GameState, LedgerEntry } from '../src/core/types.j
 // R8's genuine Save45 predecessor (1363, landed as Save46): the step below this one.
 import { recoveryPredecessor45 } from './helpers/1367-recovery-predecessors.js'
 import { historicalHashState } from '../src/harness/roster-wall/historical-control.js'
-import { validateLiveSave } from './helpers/live-era.js'
+import { EXPECTED_LIVE_SAVE_VERSION, validateLiveSave } from './helpers/live-era.js'
 import { predecessorSave } from './helpers/p15-roots.js'
 
 // ── the supported entry surfaces, as the adapter wraps them (ui/src/engine/adapter.ts) ─────
@@ -1048,7 +1048,9 @@ describe('1364 mutants: each funding invariant refuses by name and the unmutated
 // ═══════════════════════════════════════════════════════════════════════════════
 describe('1364 persistence: the step, its downgrade and the frozen reader', () => {
   it('founding-step-live: the live writer stamps the founding step and the step functions exist by name', () => {
-    expect(saveModule.LIVE_SAVE_VERSION).toBe(FOUNDING_STEP + 1) // 1370-ar r2: the P15B step (Save48) stacks above the founding step
+    // 1370-ar r2: the P15B step (Save48) stacks above the founding step; P16 rebase: the P16 step (Save49) is live above it.
+    expect(saveModule.P15B_SAVE_VERSION).toBe(FOUNDING_STEP + 1)
+    expect(saveModule.LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
     expect(makeSave(newGame('p1364-step-01')).saveVersion).toBe(saveModule.LIVE_SAVE_VERSION)
     for (const name of [`validateSaveV${FOUNDING_STEP}`, `convertV${FOUNDING_STEP - 1}ToV${FOUNDING_STEP}`, `convertV${FOUNDING_STEP}ToV${FOUNDING_STEP - 1}`, `migrateToV${FOUNDING_STEP}`]) saveFn(name)
   })
@@ -1071,7 +1073,10 @@ describe('1364 persistence: the step, its downgrade and the frozen reader', () =
     const cutting = makeSave(state) as unknown as Envelope // the live writer admits R8's valid recovery fact
     expect(cutting.saveVersion).toBe(saveModule.LIVE_SAVE_VERSION)
     // 1370-ar r2: nothing is evaluated at week 0, so the P15B step's empty roots strip losslessly down to the founding step.
-    const atStep = saveFn(`convertV${saveModule.LIVE_SAVE_VERSION}ToV${FOUNDING_STEP}`)(cutting)
+    // P16 rebase round 6: the chain runs through the live P16 step first, which converts this world losslessly: at week 0
+    // no greenlight or release minted a title, no rights instrument, rights money or rights ledger row exists, the
+    // cutover anchors are unchanged, and no P15 or P15B row carries phase table 3.
+    const atStep = saveFn(`convertV${saveModule.P15B_SAVE_VERSION}ToV${FOUNDING_STEP}`)(saveModule.convertV49ToV48(cutting as never) as unknown as Envelope)
     expect(atStep.saveVersion).toBe(FOUNDING_STEP)
     const r8 = /^migrateToV45: cannot downgrade or discard recovery authority: costCutting\.since$/
     const down46 = saveFn(`convertV${FOUNDING_STEP}ToV${FOUNDING_STEP - 1}`)(atStep) // 47 -> 46 keeps the fact

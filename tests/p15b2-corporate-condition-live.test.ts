@@ -22,7 +22,8 @@ import { readFileSync } from 'node:fs'
 import { applyActions } from '../src/core/actions.js'
 import { loanMaxPrincipal } from '../src/core/studioLoan.js'
 import { studioWeeklyFixedCost } from '../src/core/powerRankingArchive.js'
-import { LIVE_SAVE_VERSION, makeSave, P15B_SAVE_VERSION, stableStringify } from '../src/core/save.js'
+import { FOUNDING_FUNDING_SAVE_VERSION, LIVE_SAVE_VERSION, makeSave, P15B_SAVE_VERSION, stableStringify } from '../src/core/save.js'
+import { EXPECTED_LIVE_SAVE_VERSION } from './helpers/live-era.js'
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import { generateWorld } from '../src/core/worldgen.js'
@@ -72,7 +73,9 @@ function natural(toWeek: number): Map<number, GameState> {
 
 describe('p15b2 live condition: root, facts and the evaluated set (1357-A §3-§4)', () => {
   it('condition-root-fresh-and-live-version', () => {
-    expect(LIVE_SAVE_VERSION, 'the P15B save step is the live version').toBe(P15B_SAVE_VERSION)
+    // P16 rebase round 6: the P15B save step is frozen at Save48, one step above founding's; the live version is P16's.
+    expect(P15B_SAVE_VERSION, 'the P15B save step stacks on the founding step').toBe(FOUNDING_FUNDING_SAVE_VERSION + 1)
+    expect(LIVE_SAVE_VERSION, 'the live version is the P16 step above it').toBe(EXPECTED_LIVE_SAVE_VERSION)
     const fresh = generateWorld('p15b2-fresh')
     expect(canon(conditionRoot(fresh))).toBe(canon({ version: 1, recordedFromWeek: 0, nextEvent: 1, nextLoan: 1, studios: [], events: [], loans: [] }))
     const migrated = conditionRoot(base())
