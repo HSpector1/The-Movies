@@ -1,6 +1,14 @@
 P16 REBASE REPORT (Owner decision 3A)
 =====================================
 
+## C-03 Sprint 1 — 2026-10-25
+
+Twelve remaining invalid-premise C-03 tests now exercise real admitted closure transactions and pass alone within unchanged 5000 ms; two cases remain blocked on authentic earlier licence/work history. Production source is unchanged. Actual money, claims, grouped title settlement, window/archive, deterministic bidder competition, affordability/warning fallback, pending work and licence survival are now exercised. R03's inherited transaction-fixture provenance and the constructed grouped partition are explicitly disclosed.
+
+Final all-P16/P16-Bridge gate: 256 passed/7 failed of 263 across 54 files. Seven failures match predecessor causes: two C-03 gaps and five deferred acquisition-policy cases. Four restored tests exceed 5000 ms in that broad run despite solo passes. Final root/UI typecheck, Bridge types and both contract checks pass. Review findings (nonempty pending coverage, rival insufficient-reserve refusal) are resolved. No full-game/browser/native acceptance claim, budget increase, source promotion or policy ratification.
+
+See [sprint results](docs/engineering/audits/2026-10-22-codebase-review/c03-sprint1/RESULTS.md), all fourteen case dispositions, preserved failed evidence and review in the same directory. Candidate predecessor is `f3b1d09d498462359365a306e53e8a0d472133ca`; this commit contains the qualified test delta. Publication is verified in the production records receipt. Sprint 1 stops here; Sprint 2 requires new Owner authorization.
+
 ## Wave 3 final technical checkpoint — 2026-10-25
 
 This Round 8 commit follows reviewed Round 7 `332a742ab5c2fa3812877a2e9279e527c5638313`.

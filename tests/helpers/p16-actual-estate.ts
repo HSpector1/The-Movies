@@ -1,10 +1,11 @@
 // Round 8 draft: original captured48 input and ordinary current49 closure. No fabricated closure facts.
-import { expect } from 'vitest'
+import { expect, vi } from 'vitest'
 import { readFileSync } from 'node:fs'
 import { createHash } from 'node:crypto'
 import { convertV48ToV49, makeSave, stableStringify, validateSaveP15B } from '../../src/core/save.js'
 import { tick } from '../../src/core/tick.js'
 import { buildEstateHandoff } from '../../src/core/estate.js'
+import * as estateApi from '../../src/core/estate.js'
 export function actualEstatePrior() {
   const path = process.env.P16_JOIN_PREC48_PATH
   expect(path, 'original publicSave48 pre-C162 capture binding').toBeTruthy()
@@ -35,4 +36,19 @@ export function actualEstateClosure() {
   expect(estate.claimsContext).toEqual(handoff.claimsContext)
   expect(estate.cashReconciliation).toEqual(handoff.cashReconciliation)
   return { prior, state, closure, estate, handoff }
+}
+
+/** Capture the real closure producer's handoff boundary; no reconstructed or removed estate rows.
+ * The input is an actual intermediate phase, not independently a complete saved aggregate. */
+export function actualEstateOpening() {
+  const open = estateApi.openEstate
+  let boundary: Parameters<typeof open> | undefined
+  const spy = vi.spyOn(estateApi, 'openEstate').mockImplementation((...args) => {
+    if (args[1].studioId === 'studio-aca408ec-r04') boundary = structuredClone(args)
+    return open(...args)
+  })
+  let actual: ReturnType<typeof actualEstateClosure>
+  try { actual = actualEstateClosure() } finally { spy.mockRestore() }
+  expect(boundary, 'real current49 closure invokes the typed estate adapter').toBeDefined()
+  return { ...actual, boundary: boundary! }
 }

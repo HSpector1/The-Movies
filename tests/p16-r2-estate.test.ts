@@ -9,6 +9,10 @@
 // cannot open while its bidders cannot be certified).
 
 import { describe, expect, it } from 'vitest'
+import { actualEstateOpening, actualEstateClosure } from './helpers/p16-actual-estate.js'
+import { tick } from '../src/core/tick.js'
+import { assertAuthenticBidTieAndLowerBid } from './helpers/p16-authentic-bidders.js'
+import { assertActualR03Pending } from './helpers/p16-authentic-pending.js'
 import * as estate from '../src/core/estate.js'
 import * as finance from '../src/core/rightsFinance.js'
 import * as rights from '../src/core/rights.js'
@@ -41,28 +45,7 @@ describe('r2 F4/F29: the estate path refuses the bilateral path\'s encumbrances'
   })
 
   it('a lot holding an active-run film or an active-production property refuses the handoff by name; the same subjects pending are admitted and never sold', () => {
-    const { state, r03, week, running, producing, clean } = world()
-    const runLot = estateHandoffFor(state, r03, week, [{ lotId: 'lot-run', subjects: [running], minimumBid: 1 }])
-    expect(estate.estateHandoffRefusal(state, runLot, week)).toBe(`lotEncumbered:activeRun:${key(running)}`)
-    const prodLot = estateHandoffFor(state, r03, week, [{ lotId: 'lot-prod', subjects: [producing], minimumBid: 1 }])
-    expect(estate.estateHandoffRefusal(state, prodLot, week)).toBe(`lotEncumbered:activeProduction:${key(producing)}`)
-    expect(() => estate.openEstate(state, runLot, week, STABLE)).toThrow(/lotEncumbered:activeRun/)
-    // Pending with their reasons, they are admitted; at D they archive with every unsold right and nothing sells them.
-    const ok = estateHandoffFor(state, r03, week, [{ lotId: 'lot-a', subjects: [clean[0]!], minimumBid: 1 }], ['closure-claim-1', 'closure-claim-2'])
-    expect(ok.pending.map((p) => [key(p.subject), p.reason])).toContainEqual([key(running), 'activeRun'])
-    expect(ok.pending.map((p) => [key(p.subject), p.reason])).toContainEqual([key(producing), 'activeProduction'])
-    expect(estate.estateHandoffRefusal(state, ok, week)).toBeNull()
-    const { state: opened, estate: record } = estate.openEstate(state, ok, week, STABLE)
-    expect(record.claimsContext).toEqual({ priorityVersion: 'closure/v1', claimIds: ['closure-claim-1', 'closure-claim-2'] })
-    expect(record.pending.map((p) => [key(p.subject), p.reason, p.status])).toContainEqual([key(running), 'activeRun', 'pending'])
-    expect(rights.currentHolder(opened, running, week)).toEqual({ kind: 'holder', holderId: r03, tradeable: false, archived: false, estate: { estateId: ok.estateId, lotId: null } })
-    expect(() => makeSave(opened)).not.toThrow()
-    const D = ok.closesWeek
-    const closed = estate.resolveEstate({ ...opened, market: { ...opened.market, tick: D } } as GameState, ok.estateId, D, STABLE)
-    const after = closed.rights.estates[0]!
-    expect(after.pending.every((p) => p.status === 'archived')).toBe(true)
-    expect(rights.currentHolder(closed, running, D)).toMatchObject({ kind: 'holder', holderId: `estate:${r03}`, archived: true })
-    expect(closed.rights.transactions.filter((t) => t.kind === 'estateSale')).toEqual([])
+    assertActualR03Pending()
   })
 
   it('a lot encumbered after the handoff (a production started on its concept) cannot sell at D: its bids are disqualified by name and the lot archives', () => {
@@ -83,57 +66,56 @@ describe('r2 F4/F29: the estate path refuses the bilateral path\'s encumbrances'
   })
 
   it('every right the closed studio held is disposed exactly once: an omitted, a duplicated, a foreign or an undisclosed-licence subject refuses the handoff', () => {
-    const { state, r03, week, clean } = world()
-    const base = estateHandoffFor(state, r03, week, [{ lotId: 'lot-a', subjects: [clean[0]!], minimumBid: 1 }])
-    expect(estate.estateHandoffRefusal(state, { ...base, pending: base.pending.slice(1) }, week)).toBe(`dispositionMissing:${key(base.pending[0]!.subject)}`)
-    expect(estate.estateHandoffRefusal(state, { ...base, pending: [...base.pending, base.pending[0]!] }, week)).toBe(`dispositionDuplicate:${key(base.pending[0]!.subject)}`)
-    expect(estate.estateHandoffRefusal(state, { ...base, pending: [...base.pending, { subject: { right: 'R2', filmId: 'no-such-film' }, reason: 'notOffered' }] }, week)).toBe('pendingSubjectNotHeld:R2:no-such-film')
-    expect(estate.estateHandoffRefusal(state, { ...base, pending: base.pending.map((p, i) => (i === 0 ? { ...p, reason: '' as never } : p)) }, week)).toBe('invalidPendingReason')
-    expect(estate.estateHandoffRefusal(state, { ...base, claimsContext: { priorityVersion: 'closure/v1', claimIds: ['c', 'c'] } }, week)).toBe('invalidClaimsContext')
-    // A lot's encumbrance references must be exactly the live licences on its subjects.
-    expect(estate.estateHandoffRefusal(state, { ...base, lots: base.lots.map((l) => ({ ...l, encumbrances: ['licence:rights-licence-99'] })) }, week)).toBe('encumbranceMismatch:lot-a')
+    const actual=actualEstateOpening(),[state,base,week]=actual.boundary,lot=base.lots[0]!,subject=lot.subjects[0]!
+    const before=JSON.stringify(state)
+    expect(estate.estateHandoffRefusal(state,base,week)).toBeNull()
+    expect(estate.estateHandoffRefusal(state,{...base,lots:base.lots.slice(1)},week)).toBe(`dispositionMissing:${key(subject)}`)
+    expect(estate.estateHandoffRefusal(state,{...base,pending:[{subject,reason:'notOffered'}]},week)).toBe(`dispositionDuplicate:${key(subject)}`)
+    expect(estate.estateHandoffRefusal(state,{...base,pending:[{subject:{right:'R2',filmId:'no-such-film'},reason:'notOffered'}]},week)).toBe('pendingSubjectNotHeld:R2:no-such-film')
+    expect(estate.estateHandoffRefusal(state,{...base,lots:base.lots.slice(1),pending:[{subject,reason:'' as never}]},week)).toBe('invalidPendingReason')
+    expect(estate.estateHandoffRefusal(state,{...base,claimsContext:{...base.claimsContext,claimIds:[base.claimsContext.claimIds[0]!,base.claimsContext.claimIds[0]!]}},week)).toBe('actualClosureClaimsMismatch')
+    expect(estate.estateHandoffRefusal(state,{...base,lots:base.lots.map((l,i)=>i===0?{...l,encumbrances:['licence:rights-licence-99']}:l)},week)).toBe(`encumbranceMismatch:${lot.lotId}`)
+    expect(JSON.stringify(state)).toBe(before)
+
   })
 })
 
 describe('r2 F18/F37/F60: the window opens at the closure week, closes exactly at D, and needs certifiable bidders', () => {
   it('openEstate refuses outside the closure week and while the P15B readers are unbound; the validator refuses an estate still open at or after D', () => {
-    const { state, r03, week, clean } = world()
-    const handoff = estateHandoffFor(state, r03, week, [{ lotId: 'lot-a', subjects: [clean[0]!], minimumBid: 1 }])
-    expect(estate.estateHandoffRefusal(state, handoff, week + 1)).toBe('notClosureWeek')
-    expect(() => estate.openEstate(state, handoff, week)).toThrow(/conditionReadersUnbound/)
-    expect(() => estate.openEstate(state, handoff, week, finance.UNBOUND_CORPORATE_CONDITION_READERS)).toThrow(/conditionReadersUnbound/)
-    const opened = estate.openEstate(state, handoff, week, STABLE).state
-    const save = detached(makeSave(opened))
-    save.state.market.tick = handoff.closesWeek
-    expect(() => rights.validateRightsRoot(save.state as unknown as Record<string, unknown>, 'r2')).toThrow(/still open at or after its close boundary/)
-    expect(() => validateSaveV49(makeSave(opened))).not.toThrow()
+    const actual=actualEstateOpening(),[state,handoff,week]=actual.boundary
+    const before=JSON.stringify(state)
+    expect(estate.estateHandoffRefusal(state,handoff,week+1)).toBe('notClosureWeek')
+    expect(estate.estateHandoffRefusal(state,handoff,week-1)).toBe('notClosureWeek')
+    // The current producer has actual bound readers; only the explicit unbound sentinel must refuse.
+    expect(estate.openEstate(state,handoff,week).estate).toEqual(actual.estate)
+    expect(()=>estate.openEstate(state,handoff,week,finance.UNBOUND_CORPORATE_CONDITION_READERS)).toThrow(/conditionReadersUnbound/)
+    const save=detached(makeSave(actual.state));save.state.market.tick=handoff.closesWeek
+    const hostileBefore=JSON.stringify(save)
+    expect(()=>rights.validateRightsRoot(save.state as unknown as Record<string,unknown>,'r2')).toThrow(/still open at or after its close boundary/)
+    expect(()=>validateSaveV49(save)).toThrow()
+    expect(JSON.stringify(save)).toBe(hostileBefore);expect(JSON.stringify(state)).toBe(before)
+    expect(()=>validateSaveV49(makeSave(actual.state))).not.toThrow()
+
   })
 })
 
 describe('r2 F38: an as-of read inside the window reports the lot as it stood that week', () => {
   it('a subject that archives at D reads unarchived at every earlier week of the window', () => {
-    const { state, r03, week, clean } = world()
-    const handoff = estateHandoffFor(state, r03, week, [{ lotId: 'lot-a', subjects: [clean[0]!], minimumBid: 1 }])
-    const opened = estate.openEstate(state, handoff, week, STABLE).state
-    const D = handoff.closesWeek
-    const closed = estate.resolveEstate({ ...opened, market: { ...opened.market, tick: D } } as GameState, handoff.estateId, D, STABLE)
-    expect(rights.currentHolder(closed, clean[0]!, D - 1)).toEqual({ kind: 'holder', holderId: r03, tradeable: false, archived: false, estate: { estateId: handoff.estateId, lotId: 'lot-a' } })
-    expect(rights.currentHolder(closed, clean[0]!, D)).toMatchObject({ holderId: `estate:${r03}`, archived: true })
+    const actual=actualEstateClosure(),record=actual.estate,D=record.closesWeek,r03=record.studioId
+    const lot=record.lots.find(l=>l.subjects.some(s=>s.right==='R2'&&s.filmId===r03+':film:0'))!
+    expect(lot).toBeDefined();const subject=lot.subjects[0]!
+    let state=actual.state
+    while(state.market.tick<D-1)state=tick(state)
+    const before=JSON.stringify(state),closed=estate.resolveEstate(state,record.estateId,D)
+    expect(JSON.stringify(state)).toBe(before);makeSave(closed)
+    for(let week=record.opensWeek;week<D;week++)expect(rights.currentHolder(closed,subject,week)).toEqual({kind:'holder',holderId:r03,tradeable:false,archived:false,estate:{estateId:record.estateId,lotId:lot.lotId}})
+    expect(rights.currentHolder(closed,subject,D)).toMatchObject({holderId:`estate:${r03}`,archived:true,tradeable:false})
+
   })
 })
 
 describe('r2 F48: the deterministic tie-break is ascending reserved identity order, not submission order', () => {
   it('equal sealed bids resolve to the lower identity row even when the higher row bid first', () => {
-    const { state, player, r01, r03, week, clean } = world()
-    const film = clean.find((s) => s.right === 'R2')!
-    const handoff = estateHandoffFor(state, r03, week, [{ lotId: 'lot-a', subjects: [film], minimumBid: 1 }])
-    let s = estate.openEstate(state, handoff, week, STABLE).state
-    s = estate.submitEstateBid(s, { estateId: handoff.estateId, lotId: 'lot-a', bidderId: r01, amount: 100_000 }, week, STABLE).state
-    s = estate.submitEstateBid(s, { estateId: handoff.estateId, lotId: 'lot-a', bidderId: player, amount: 100_000 }, week, STABLE).state
-    const D = handoff.closesWeek
-    const closed = estate.resolveEstate({ ...s, market: { ...s.market, tick: D } } as GameState, handoff.estateId, D, STABLE)
-    const bids = closed.rights.estates[0]!.bids
-    expect(bids.find((b) => b.bidderId === player)!.status).toBe('won')
-    expect(bids.find((b) => b.bidderId === r01)!.status).toBe('lost')
+    assertAuthenticBidTieAndLowerBid()
   })
 })

@@ -1,3 +1,4 @@
+import { actualEstatePrior } from './helpers/p16-actual-estate.js'
 // ── P16 r2 REDs: scope-aware rights authority, licence survival, the R4 surface, continuation links, refusal purity ──
 //
 // Review r1 (REVIEW-R1-FINDINGS.json) blockers F1/F27/F41 (a live licence survives the grantor's closure, estate
@@ -15,7 +16,7 @@ import * as sale from '../src/core/assetSale.js'
 import * as estate from '../src/core/estate.js'
 import * as licence from '../src/core/licence.js'
 import * as rights from '../src/core/rights.js'
-import { makeSave, stableStringify } from '../src/core/save.js'
+import { makeSave, stableStringify, exportCurrentState, importSave, migrateToLive } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import type { GameState, Production } from '../src/core/types.js'
 import { freePackage } from './_m4Fixtures.js'
@@ -48,36 +49,58 @@ function licensed(state: GameState, grantor: string, grantee: string, subject: S
 
 describe('r2 F1/F27/F41: a live licence survives its grantor\'s closure, an estate sale and archival', () => {
   it('the licensee keeps exclusive authority while the grantor\'s estate holds, archives, or sells the title; only the title\'s own default authority changes', () => {
-    const { state, player, r01, r02, week, property } = world()
-    const P = property(r01)
-    const granted = licensed(state, r01, r02, P, SEQUEL, week)
-    const licenceId = granted.rights.licences[0]!.id
-    expect(licence.permissionFor(granted, r02, P, 'R3', SEQUEL, week)).toEqual({ kind: 'permitted', via: 'licence', licenceId })
-    // Closure with the licensed property in a lot: the lot names the licence it is sold subject to.
-    const handoff = estateHandoffFor(granted, r01, week, [{ lotId: 'lot-p', subjects: [P], minimumBid: 1 }])
-    expect(handoff.lots[0]!.encumbrances).toEqual([`licence:${licenceId}`])
-    const opened = estate.openEstate(granted, handoff, week, STABLE).state
-    expect(licence.permissionFor(opened, r02, P, 'R3', SEQUEL, week)).toEqual({ kind: 'permitted', via: 'licence', licenceId })
-    const D = handoff.closesWeek
-    // No bid: the property archives at D. The archive freezes the TITLE; the licensee's paid term continues.
-    const archived = estate.resolveEstate({ ...opened, market: { ...opened.market, tick: D } } as GameState, handoff.estateId, D, STABLE)
-    expect(rights.currentHolder(archived, P, D)).toMatchObject({ kind: 'holder', holderId: `estate:${r01}`, archived: true, tradeable: false })
-    expect(licence.permissionFor(archived, r02, P, 'R3', SEQUEL, D)).toEqual({ kind: 'permitted', via: 'licence', licenceId })
-    expect(rights.rightsAuthority(archived, P, 'R3', D, SEQUEL)).toEqual({ kind: 'authority', studioId: r02, via: 'licence', licenceId })
-    expect(licence.licencesHeldBy(archived, r02, D).map((l) => l.id)).toEqual([licenceId])
-    // An unlicensed use of an archived title has no authority at all.
-    expect(licence.permissionFor(archived, r02, P, 'R3', REMAKE, D)).toEqual({ kind: 'refused', reason: 'archived' })
-    // At the end of the term the grant lapses: nobody holds sequel authority over an archived title.
-    const lapsed = archived.rights.licences[0]!.endWeekExclusive
-    expect(licence.permissionFor({ ...archived, market: { ...archived.market, tick: lapsed } } as GameState, r02, P, 'R3', SEQUEL, lapsed)).toEqual({ kind: 'refused', reason: `expired:${licenceId}` })
-    // An estate SALE moves the title subject to the licence: the buyer cannot use the licensed scope during the term.
-    const bid = estate.submitEstateBid(opened, { estateId: handoff.estateId, lotId: 'lot-p', bidderId: player, amount: 10_000 }, week, STABLE).state
-    const sold = estate.resolveEstate({ ...bid, market: { ...bid.market, tick: D } } as GameState, handoff.estateId, D, STABLE)
-    expect(rights.currentHolder(sold, P, D)).toMatchObject({ kind: 'holder', holderId: player, tradeable: true })
-    expect(licence.permissionFor(sold, r02, P, 'R3', SEQUEL, D)).toEqual({ kind: 'permitted', via: 'licence', licenceId })
-    expect(licence.permissionFor(sold, player, P, 'R3', SEQUEL, D)).toEqual({ kind: 'refused', reason: `noAuthority:${r02}` })
-    expect(licence.permissionFor(sold, player, P, 'R3', REMAKE, D)).toEqual({ kind: 'permitted', via: 'title', licenceId: null })
-    expect(() => rights.validateRightsRoot(sold as unknown as Record<string, unknown>, 'r2')).not.toThrow()
+    const R04='studio-aca408ec-r04',R01='studio-aca408ec-r01',P={right:'R1' as const,propertyId:'story-property:studio-aca408ec-r04:concept:0'}
+  const prior = actualEstatePrior(), before = stableStringify(prior)
+  const request = { offerorId: R01, counterpartyId: R04, direction: 'buy' as const, price: 1_000,
+    instrument: { kind: 'licence' as const, right: 'R3' as const, subject: P, scope: SEQUEL,
+      exclusive: true, startWeek: 162, endWeekExclusive: 266 } }
+  expect(sale.offerRefusal(prior, request, 162)).toBeNull()
+  const offered = sale.makeOffer(prior, request, 162)
+  const granted = sale.acceptOffer(offered.state, offered.offer.id, R04, 162)
+  expect(stableStringify(prior)).toBe(before)
+  makeSave(granted)
+  const grantedLicence = granted.rights.licences.find(l => l.grantorId === R04 && l.granteeId === R01)!
+  expect(grantedLicence).toBeDefined()
+  const permission = { kind: 'permitted', via: 'licence', licenceId: grantedLicence.id }
+  expect(licence.permissionFor(granted, R01, P, 'R3', SEQUEL, 162)).toEqual(permission)
+  let state = tick(granted)
+  const closure = state.studioClosure.closures.find(c => c.studioId === R04)!
+  expect(closure).toBeDefined(); expect(closure.closureWeek).toBe(163)
+  const opened = state.rights.estates.find(e => e.closureId === closure.closureId)!
+  expect(opened).toBeDefined()
+  const lot = opened.lots.find(l => l.subjects.some(s => s.right === 'R1' && s.propertyId === P.propertyId))!
+  expect(lot).toBeDefined(); expect(lot.encumbrances).toEqual([`licence:${grantedLicence.id}`])
+  expect(licence.permissionFor(state, R01, P, 'R3', SEQUEL, 163)).toEqual(permission)
+  while (state.market.tick < opened.closesWeek - 1) {
+    const old = state, bytes = stableStringify(old)
+    state = tick(old); expect(stableStringify(old)).toBe(bytes)
+  }
+  const D = opened.closesWeek, beforeD = state
+  state = tick(beforeD)
+  makeSave(state)
+  expect(rights.currentHolder(state, P, D)).toMatchObject({ kind: 'holder', holderId: `estate:${R04}`, archived: true, tradeable: false })
+  expect(licence.permissionFor(state, R01, P, 'R3', SEQUEL, D)).toEqual(permission)
+  expect(rights.rightsAuthority(state, P, 'R3', D, SEQUEL)).toEqual({ kind: 'authority', studioId: R01, via: 'licence', licenceId: grantedLicence.id })
+  expect(licence.licencesHeldBy(state, R01, D).map(l => l.id)).toEqual([grantedLicence.id])
+  expect(licence.permissionFor(state, R01, P, 'R3', REMAKE, D)).toEqual({ kind: 'refused', reason: 'archived' })
+  // Read-only as-of term query, not a fabricated future save or tick.
+  expect(licence.permissionFor(state, R01, P, 'R3', SEQUEL, grantedLicence.endWeekExclusive)).toEqual({ kind: 'refused', reason: `expired:${grantedLicence.id}` })
+  // Independent ordinary D successor: the title transfers subject to the same licence.
+  const buyer = beforeD.hollywood!.playerStudioId
+  const bid = { estateId: opened.estateId, lotId: lot.lotId, bidderId: buyer, amount: 13_000_000 }
+  expect(lot.minimumBid).toBeLessThanOrEqual(bid.amount)
+  expect(estate.estateBidRefusal(beforeD, bid, D - 1)).toBeNull()
+  const sold = tick(estate.submitEstateBid(beforeD, bid, D - 1).state)
+  makeSave(sold)
+  expect(()=>rights.validateRightsRoot(sold as unknown as Record<string,unknown>,'r2')).not.toThrow()
+  expect(rights.currentHolder(sold, P, D)).toMatchObject({ kind: 'holder', holderId: buyer, tradeable: true })
+  expect(licence.permissionFor(sold, R01, P, 'R3', SEQUEL, D)).toEqual(permission)
+  expect(licence.permissionFor(sold, buyer, P, 'R3', SEQUEL, D)).toEqual({ kind: 'refused', reason: `noAuthority:${R01}` })
+  expect(licence.permissionFor(sold, buyer, P, 'R3', REMAKE, D)).toEqual({ kind: 'permitted', via: 'title', licenceId: null })
+  expect(sold.hollywood!.employment).toEqual(state.hollywood!.employment)
+  expect(sold.hollywood!.activeEmploymentOrdinals).toEqual(state.hollywood!.activeEmploymentOrdinals)
+  const text = exportCurrentState(state)
+  expect(exportCurrentState(migrateToLive(importSave(text)).state)).toBe(text)
   })
 
   it('a licensed property the handoff leaves pending (not offered) keeps its licensee\'s authority from the closure week on', () => {
