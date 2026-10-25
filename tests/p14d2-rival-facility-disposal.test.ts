@@ -372,7 +372,7 @@ describe('1363-A2 Part C: admitted synthetic policy-state controls over genuine 
     const state = generatedAt(0), before = bytes(save.makeSave(state))
     const old = era().convertV46ToV45(save.convertV47ToV46(save.convertV48ToV47(save.convertV49ToV48(save.makeSave(state))))) // Save48 (1370-ar): down through the live step first
     expect(save.validateSaveV45(old)).toBe(old)
-    expect(bytes(save.convertV47ToV48(save.convertV46ToV47(era().convertV45ToV46(old) as never)))).toBe(before)
+    expect(bytes(save.convertV48ToV49(save.convertV47ToV48(save.convertV46ToV47(era().convertV45ToV46(old) as never))))).toBe(before) // P16: back up through the live step too
     expect(bytes(save.makeSave(state))).toBe(before)
   }, 120_000)
 })

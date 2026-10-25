@@ -22,6 +22,7 @@ import { runMarketBatch } from '../src/core/marketIntegration.js'
 import { P15_PHASE_ORDER_VERSION, P15_PHASE_TABLES } from '../src/core/p15Phases.js'
 import { productionCompanyTalentIds } from '../src/core/productionPeople.js'
 import { exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
+import { validateLiveSave } from './helpers/live-era.js'
 import { advanceTalentMarketWeek } from '../src/core/talentMarket.js'
 import { tick } from '../src/core/tick.js'
 import { CLAIM_PAYMENT_LEDGER_NOTE, TUNING } from '../src/core/tuning.js'
@@ -38,7 +39,10 @@ function fn<T>(mod: Mod, name: string): T {
   if (typeof value !== 'function') throw new Error(`RED: src/core/studioClosure.ts exports no function '${name}' (closure/v1)`)
   return value as T
 }
-type ValidateRoot = (raw: Record<string, unknown>, label: string) => void
+type ValidateRoot = (raw: Record<string, unknown>, label: string, policy?: { rightsEstate: boolean }) => void
+// The era the root validator applies, read from the state as the live reader reads it: a state carrying the Save49
+// rights root validates under the rights-estate law (`validateSaveV49` passes `rightsEstate: true`), never by a pin.
+const eraOf = (raw: Record<string, unknown>): { rightsEstate: boolean } => ({ rightsEstate: Object.hasOwn(raw, 'rights') })
 type CloseStudio = (s: GameState, studioId: string, causeEventId: string, options?: { endOfRunHook?: unknown }) => GameState
 const C = R04_CLOSURE_WEEK
 const D = C + TUNING.CLOSURE_ESTATE_WINDOW_WEEKS
@@ -68,7 +72,7 @@ async function everyFamilyComplete(state: GameState, closureId: string): Promise
   const mod = await closure()
   const validate = fn<ValidateRoot>(mod, 'validateStudioClosureRoot')
   const digest = fn<(id: string, rows: readonly ClosureDisposition[]) => string>(mod, 'closureDigest')
-  expect(() => validate(json(raw(state)), 'control')).not.toThrow()
+  expect(() => validate(json(raw(state)), 'control', eraOf(raw(state)))).not.toThrow()
   const record = closureRoot(state).closures.find((c) => c.closureId === closureId)!
   const kinds = [...new Set(record.dispositions.map((d) => d.subjectKind))]
   for (const kind of kinds) {
@@ -78,7 +82,7 @@ async function everyFamilyComplete(state: GameState, closureId: string): Promise
     target.counts[kind] = (target.counts[kind] ?? 0) - 1
     if (target.counts[kind] === 0) delete target.counts[kind]
     target.digest = digest(closureId, target.dispositions)
-    refuses(() => validate(copy, 'tamper'), `no disposition for live subject ${kind}:${removed!.subjectId}`)
+    refuses(() => validate(copy, 'tamper', eraOf(copy)), `no disposition for live subject ${kind}:${removed!.subjectId}`)
   }
   return kinds
 }
@@ -429,7 +433,7 @@ describe('p15b4 closure: the estate end to end (contract §3–§5, RED 3 and RE
   })
 
   it('estate-validator-mutants', async () => {
-    const validateSaveP15B = (await import('../src/core/save.js') as unknown as { validateSaveP15B: (save: unknown) => unknown }).validateSaveP15B
+    const validateSaveP15B = validateLiveSave as (save: unknown) => unknown // the live reader (Save49; its predecessor proof runs the closure root)
     const route = forgedEstateRoute(EC + 4)
     const state = route.get(EC + 4)!
     const closureId = requireClosure(state, R03).closureId

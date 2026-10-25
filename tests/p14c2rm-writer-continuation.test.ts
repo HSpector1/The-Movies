@@ -39,7 +39,7 @@ function withZeroLoanMovements<T extends { hollywood: GameStateV33['hollywood'] 
   if (state.hollywood === null) return state
   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
     ...business, account: { ...business.account, periods: business.account.periods.map((period) => ({
-      ...period, movements: { ...period.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0 } })) },
+      ...period, movements: { ...period.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0, estateSaleProceeds: 0 } })) },
   })) } }
 }
 import { addPerson, admitted, advanceTo, bytes, finishingWriter, historicalWriterPair, owner } from './helpers/p14c2rm-fixtures.js'

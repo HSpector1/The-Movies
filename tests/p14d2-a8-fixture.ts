@@ -76,7 +76,7 @@ export function loadA8() {
   const expectedState = structuredClone(historical.state)
   for (const owner of expectedState.hollywood!.businesses) {
     Object.assign(owner, { costCutting: { version: 1, since: null } })
-    for (const period of owner.account.periods) Object.assign(period.movements, { facilityDemolitionRefund: 0, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0 }) // Save48 (1370-ar): the three loan money kinds at zero
+    for (const period of owner.account.periods) Object.assign(period.movements, { facilityDemolitionRefund: 0, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0, estateSaleProceeds: 0 }) // Save48 (1370-ar): the three loan money kinds at zero
   }
   Object.assign(expectedState, { foundingFunding: initialFoundingFunding(expectedState.market.tick) }) // Save47: the null fund at the input's week
   Object.assign(expectedState, initialP15BRoots(expectedState.market.tick)) // Save48 (1370-ar): the two empty P15B roots at the input's week
@@ -99,6 +99,6 @@ export function loadA8() {
  * P15B money kinds at zero the same way: this rival never borrowed or closed. */
 export function a8AccountInRecovery(account: HistoricalAccount): RivalBusiness['account'] {
   return { ...structuredClone(account), periods: account.periods.map(period => ({ ...structuredClone(period),
-    movements: { ...period.movements, facilityDemolitionRefund: 0, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0 },
+    movements: { ...period.movements, facilityDemolitionRefund: 0, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0, estateSaleProceeds: 0 },
   })) }
 }

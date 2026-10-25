@@ -168,7 +168,7 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
   const h = (state as { hollywood?: { businesses?: Business[] } | null }).hollywood
   const withLoans = h === undefined || h === null || !Array.isArray(h.businesses) ? state : { ...state, hollywood: { ...h,
     businesses: h.businesses.map((b) => ({ ...b, account: { ...b.account, periods: b.account.periods.map((p) => ({
-      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0 } })) } })) } }
+      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0, estateSaleProceeds: 0 } })) } })) } }
   return { ...withLoans,
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
@@ -180,7 +180,7 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
 }
 
 // Save49 (P16): convertV48ToV49 adds the empty rights root at the save's own week and a zero movement of
-// each of the three rights kinds to every rival period; the OLD (V30-vintage) state never carried them, so the
+// each of the four rights kinds (estateSaleProceeds included) to every rival period; the OLD (V30-vintage) state never carried them, so the
 // expected migrated-to-live state below must carry them at the input's own week. The literals are this file's
 // own expectation, as for the P15 roots above.
 

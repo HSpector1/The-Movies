@@ -100,7 +100,7 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
   const h = (state as { hollywood?: { businesses?: Business[] } | null }).hollywood
   const withLoans = h === undefined || h === null || !Array.isArray(h.businesses) ? state : { ...state, hollywood: { ...h,
     businesses: h.businesses.map((b) => ({ ...b, account: { ...b.account, periods: b.account.periods.map((p) => ({
-      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0 } })) } })) } }
+      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0, estateSaleProceeds: 0 } })) } })) } }
   return { ...withLoans,
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
@@ -116,7 +116,7 @@ function withZeroLoanMovements<T extends WithRivalBusinesses>(state: T): T {
   if (state.hollywood === null) return state
   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
     ...business, account: { ...business.account, periods: business.account.periods.map((period) => ({
-      ...period, movements: { ...period.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0 } })) },
+      ...period, movements: { ...period.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0, estateSaleProceeds: 0 } })) },
   })) } }
 }
 const issuer = (state: GameState): string => { assert.ok(state.hollywood); return state.hollywood.playerStudioId }

@@ -114,7 +114,7 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
   const h = (state as { hollywood?: { businesses?: Business[] } | null }).hollywood
   const withLoans = h === undefined || h === null || !Array.isArray(h.businesses) ? state : { ...state, hollywood: { ...h,
     businesses: h.businesses.map((b) => ({ ...b, account: { ...b.account, periods: b.account.periods.map((p) => ({
-      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0 } })) } })) } }
+      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0, estateSaleProceeds: 0 } })) } })) } }
   return { ...withLoans,
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
@@ -130,11 +130,11 @@ function withZeroLoanMovements<T extends WithRivalBusinesses>(state: T): T {
   if (state.hollywood === null) return state
   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
     ...business, account: { ...business.account, periods: business.account.periods.map((period) => ({
-      ...period, movements: { ...period.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0 } })) },
+      ...period, movements: { ...period.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0, estateSaleProceeds: 0 } })) },
   })) } }
 }
 // Save49 (P16): convertV48ToV49 adds the empty rights root at the save's own week and a zero movement of each
-// of the three rights kinds to every rival period; the old state never carried them. Literals are this file's
+// of the four rights kinds (estateSaleProceeds included) to every rival period; the old state never carried them. Literals are this file's
 // own expectation, as for the P15 roots above.
 // 1358-F11 ruling 1: a genuine Save39 Director capture of record 1221 (manifest schema.saveVersion
 // 39), pinned and loaded as p14p4p5-opportunities Q04 loads it. Production's convertV39ToV40 alone gives

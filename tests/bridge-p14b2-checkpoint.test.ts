@@ -33,7 +33,7 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
   const h = (state as { hollywood?: { businesses?: Business[] } | null }).hollywood
   const withLoans = h === undefined || h === null || !Array.isArray(h.businesses) ? state : { ...state, hollywood: { ...h,
     businesses: h.businesses.map((b) => ({ ...b, account: { ...b.account, periods: b.account.periods.map((p) => ({
-      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0 } })) } })) } }
+      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0, estateSaleProceeds: 0 } })) } })) } }
   return { ...withLoans,
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
@@ -110,7 +110,7 @@ describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)'
         account: { ...(business.account as Record<string, unknown>),
           periods: ((business.account as { periods: Record<string, unknown>[] }).periods).map((period) => ({
             // P15B (1370-ar): the P15B step adds the three loan money kinds at zero to every rival finance period.
-            ...period, movements: { ...(period.movements as Record<string, unknown>), termination: 0, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0 } })) } }))
+            ...period, movements: { ...(period.movements as Record<string, unknown>), termination: 0, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0, estateSaleProceeds: 0 } })) } }))
       // 1344-N S2+S5 (x2 at a318722, :81 measured `"saveVersion": 42` -> 43 and `+ "screenplayShelving"`
       // {version 1, rejections [], shelved [], commissionHoldUntilWeek 0} on each of the four rival
       // businesses, nothing else): the live writer stamps 43, and the lift adds the empty shelving root.

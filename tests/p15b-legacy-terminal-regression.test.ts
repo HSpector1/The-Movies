@@ -1,4 +1,3 @@
-import { rightsStripped } from './helpers/p16-era.js'
 // Proposed tests/p15b-legacy-terminal-regression.test.ts; scratch only, NOT run/admitted.
 // All debit/film-cost inputs below are labelled constructed transactions, not natural gameplay.
 // Measured route-L terminal6239/6240/6241, late6273 and two-closure163 controls; failed original3 expectation preserved elsewhere.
@@ -13,6 +12,7 @@ import { routeL } from './helpers/p15c2-route-l.js'
 import { captureAt, budgeted, ROUTE_MS, FIXTURE_MS } from './helpers/p15c2-legacy.js'
 import { base, drainPlayer, drainRival, closureOf, playerClosure, PLAYER, R03, R04, canon } from './helpers/p15b-live.js'
 import { p15Rows } from './helpers/p15-roots.js'
+import { validateLiveSave } from './helpers/live-era.js'
 
 type Case = { before: GameState; final: GameState }
 const cache = new Map<number, Case>()
@@ -177,10 +177,13 @@ it('eligible6240-official-builder-and-adapter-faults-preserve-pre-boundary-input
 
 it('two-closure-real-final-reader-allocator-failure-preserves-caller', budgeted(FIXTURE_MS, () => {
   const input = multiCase().before; const bytes = canon(input)
-  const realReader = save.validateSaveP15B
+  // The final reader of a rights-era input is the live one (studioClosure.ts/campaignLegacy.ts pick validateSaveV49 when
+  // the state carries `rights`); `validateLiveSave` holds the unspied function, so the mock still runs REAL admission.
+  expect(Object.hasOwn(input, 'rights'), 'premise: a live-era input').toBe(true)
+  const realReader = validateLiveSave
   // Always run REAL admission first; only a detached completed candidate is damaged for actual allocator refusal.
   // This never returns a successful validation stub and cannot publish the detached hostile state.
-  const spy = vi.spyOn(save, 'validateSaveP15B').mockImplementation(envelope => {
+  const spy = vi.spyOn(save, validateLiveSave.name as 'validateSaveV49').mockImplementation(envelope => {
     const admitted = realReader(envelope)
     expect(admitted.state.studioClosure.closures.filter(c => c.closureWeek === 163)).toHaveLength(2)
     expect(admitted.state.campaignLegacy.endOfRun).not.toBeNull()
@@ -220,20 +223,14 @@ it('ended-links-cutoffs-refs-phase-and-allocator-mutants-refuse-with-input-purit
 it('terminal6240-composed-downward-refusal-preserves-all-authority', budgeted(ROUTE_MS, () => {
   const final = terminalCase(6240).final; const current = save.makeSave(final); const currentBytes = canon(current)
   expect(save.validateSaveV49(current)).toBe(current)
-  // P16's public first refusal is retained; the guarded test observation admits the full actual Save48 operand.
-  // Instruments/nonzero rights money cannot be erased to make this historical P15B control pass.
-  const baseline = rightsStripped(current); const bytes = canon(baseline)
-  expect(canon(current)).toBe(currentBytes)
-  for (const convert of [save.convertFromP15BSave, save.migrateToV47, save.migrateToV46, save.migrateToV45]) {
-    let message = ''
-    try { convert(baseline) } catch (e) { message = e instanceof Error ? e.message : String(e) }
-    expect(message).toMatch(/corporateCondition/); expect(message).toMatch(/cannot downgrade or discard an actual studio closure/)
-    expect(message).toMatch(/modern Legacy v3 official authority/); expect(message).toMatch(/ended Legacy manifest/)
-    expect(message).toMatch(/frozen 2040 Legacy/)
-    // This leaf asserts modern+P15 composition only. It is NOT nonempty fund/recovery composition proof.
-    // Precise gap: no admitted nonempty fund/recovery PLUS modern terminal composition witness supplied here.
-    // Prior founding/recovery owner suites retain their own witnesses; schedule them separately before fullqualification.
-    expect(canon(baseline)).toBe(bytes)
+  // MOVED (P16 rebase): every Save49 closure opens its estate in the closure week (studioClosure.ts `openEstate` when
+  // the state carries `rights`), so this terminal world holds a closure49 estate, a rights instrument `rightsStripped`
+  // refuses to drop, and no Save48 operand exists. The public first refusal is the live step's, by name, at every older
+  // reader, and the input stays unchanged. The P15B composed refusal (condition, actual closure, modern Legacy v3
+  // official, ended manifest, frozen 2040 Legacy) needs a genuine Save48 terminal capture (audit C-06).
+  expect(final.rights.estates.map(e => e.origin.kind), 'premise: the player closure opened its estate').toContain('closure49')
+  for (const convert of [save.convertV49ToV48, save.migrateToV47, save.migrateToV46, save.migrateToV45]) {
+    expect(() => convert(current)).toThrow(/^migrateToV48: cannot discard unique estate observation or current closure provenance$/)
     expect(canon(current)).toBe(currentBytes)
   }
 }), ROUTE_MS)

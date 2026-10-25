@@ -13,12 +13,22 @@
 // steps' own reasons rather than masking them.
 import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
-import { exportSave, FOUNDING_FUNDING_SAVE_VERSION, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV45, migrateToV46, migrateToV47, validateSaveV47 } from '../src/core/save.js'
+import { convertV48ToV49, convertV49ToV48, exportSave, FOUNDING_FUNDING_SAVE_VERSION, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV45, migrateToV46, migrateToV47, P15B_SAVE_VERSION, validateSaveV47 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { Action, GameState } from '../src/core/types.js'
 import { base, BASE_WEEK, canon, conditionRoot, drainPlayer, loansOf, PLAYER, R04, raw, recordOf, refuses, rivalClosure, ticks } from './helpers/p15b-live.js'
 import { genuineV42Week130 } from './p14d1-rival-shelving-fixtures.js'
+import { EXPECTED_LIVE_SAVE_VERSION, validateLiveSave } from './helpers/live-era.js'
+import { rightsStripped } from './helpers/p16-era.js'
+
+// P16 (Save49) is the live step above this one. The P15B step's own downgrade law runs on the Save48 envelope of a
+// world (`rightsStripped`); the root validators run inside the live reader (`validateLiveSave`, whose predecessor
+// proof is the P15B era's); a ticked P16 world has no Save48 envelope (its phase history is table 3), so its public
+// downgrade refuses at the Save49 step first, and those expectations moved there. It refuses by one of two named
+// reasons: the rights root it would discard (once a rival greenlight or a release minted a title), or else the
+// Save48 reader inside the step, which never admits the table-3 condition events the live writer stamped.
+const LIVE_DOWNGRADE_REFUSAL = /^(?:migrateToV48: cannot downgrade or discard a recorded rights root|validateSaveP15B: corporateCondition estate phase table is not admitted in this predecessor era)$/
 
 type Save = { saveVersion: number; seed: string; state: Record<string, unknown>; broadcastCache: unknown[] }
 type SaveModule = Record<string, (save: unknown) => Save>
@@ -67,9 +77,11 @@ describe('p15b2 save step: migration and downgrade (1357-A §4.2; S1-S2)', () =>
     // The step is explicit: convertToP15BSave of the predecessor projection reproduces the live save byte for byte.
     const convertFromStep = step<(save: unknown) => Save>(mod, 'convertFromP15BSave')
     const convertToStep = step<(save: unknown) => Save>(mod, 'convertToP15BSave')
-    const down = convertFromStep(live)
-    expect(down.saveVersion).toBe(LIVE_SAVE_VERSION - 1) // the predecessor, renumbered with P15B_SAVE_VERSION
-    expect(canon(convertToStep(down))).toBe(canon(live))
+    const p15b = rightsStripped(live as never) // the same world's Save48 envelope
+    const down = convertFromStep(p15b)
+    expect(down.saveVersion).toBe(P15B_SAVE_VERSION - 1) // the predecessor, renumbered with P15B_SAVE_VERSION
+    expect(canon(convertToStep(down))).toBe(canon(p15b))
+    expect(canon(convertV48ToV49(convertToStep(down) as never))).toBe(canon(live)) // and the live step lifts it back
     // The first tick evaluates its own week and nothing earlier (1352-F2 ruling 1).
     const ticked = tick(state)
     expect(conditionRoot(ticked).studios.every((r) => r.firstEvaluatedWeek === BASE_WEEK + 1)).toBe(true)
@@ -78,7 +90,7 @@ describe('p15b2 save step: migration and downgrade (1357-A §4.2; S1-S2)', () =>
   it('condition-root-downgrade', async () => {
     const mod = await saveModule()
     const convertFromStep = step<(save: unknown) => Save>(mod, 'convertFromP15BSave')
-    const empty = makeSave(base())
+    const empty = rightsStripped(makeSave(base()))
     const down = convertFromStep(empty)
     expect(Object.hasOwn(down.state, 'corporateCondition')).toBe(false)
     expect(Object.hasOwn(down.state, 'studioClosure')).toBe(false)
@@ -86,9 +98,12 @@ describe('p15b2 save step: migration and downgrade (1357-A §4.2; S1-S2)', () =>
     for (const business of (down.state.hollywood as { businesses: { account: { periods: { movements: Record<string, number> }[] } }[] }).businesses) {
       for (const period of business.account.periods) for (const kind of LOAN_KINDS) expect(Object.hasOwn(period.movements, kind)).toBe(false)
     }
-    // A ticked save holds records: the downgrade refuses by name, and a loan is named too.
-    refuses(() => convertFromStep(makeSave(tick(base()))), 'corporateCondition')
-    refuses(() => convertFromStep(makeSave(borrowed())), 'loan')
+    // A ticked save holds records: the downgrade refuses by name. MOVED (P16): a ticked world's public downgrade
+    // refuses at the live Save49 step first; the P15B step's condition-record and loan refusals are reachable only
+    // from a genuine Save48 file, which this repository does not hold (audit C-06).
+    const ticked = makeSave(borrowed())
+    expect(() => convertV49ToV48(ticked)).toThrow(LIVE_DOWNGRADE_REFUSAL)
+    expect(() => migrateToV47(ticked)).toThrow(LIVE_DOWNGRADE_REFUSAL)
     // The loan kinds are refused below the era: a predecessor envelope carrying one fails the frozen chain.
     const forgedLedger = clone(down)
     ;(forgedLedger.state.ledger as Record<string, unknown>[]).push({ week: BASE_WEEK, kind: 'loanPrincipal', amount: 1000, note: 'forged' })
@@ -106,11 +121,13 @@ describe('p15b2 save step: migration and downgrade (1357-A §4.2; S1-S2)', () =>
     const mod = await saveModule()
     const convertFromStep = step<(save: unknown) => Save>(mod, 'convertFromP15BSave')
     const convertToStep = step<(save: unknown) => Save>(mod, 'convertToP15BSave')
-    expect(LIVE_SAVE_VERSION, 'one step above the recruitment-fund era').toBe(FOUNDING_FUNDING_SAVE_VERSION + 1)
+    expect(P15B_SAVE_VERSION, 'one step above the recruitment-fund era').toBe(FOUNDING_FUNDING_SAVE_VERSION + 1)
+    expect(LIVE_SAVE_VERSION, 'the live step above it').toBe(EXPECTED_LIVE_SAVE_VERSION)
     // (a) the null-root downgrade is lossless and lands on the predecessor's own reader; every public step below
     // it (founding's fund, R8's recovery, the shared P15 step) admits the empty world, and the live migration lifts
     // each of them back to this step byte for byte.
-    const empty = makeSave(base())
+    const liveEmpty = makeSave(base())
+    const empty = rightsStripped(liveEmpty)
     const down = convertFromStep(empty)
     expect(down.saveVersion).toBe(FOUNDING_FUNDING_SAVE_VERSION)
     expect(validateSaveV47(down)).toBe(down)
@@ -118,30 +135,25 @@ describe('p15b2 save step: migration and downgrade (1357-A §4.2; S1-S2)', () =>
     expect(migrateToV47(empty).saveVersion).toBe(FOUNDING_FUNDING_SAVE_VERSION)
     expect(migrateToV46(empty).saveVersion).toBe(FOUNDING_FUNDING_SAVE_VERSION - 1)
     expect(migrateToV45(empty).saveVersion).toBe(FOUNDING_FUNDING_SAVE_VERSION - 2)
-    for (const older of [migrateToV47(empty), migrateToV46(empty), migrateToV45(empty)]) expect(canon(migrateToLive(older))).toBe(canon(empty))
+    for (const older of [migrateToV47(empty), migrateToV46(empty), migrateToV45(empty)]) expect(canon(migrateToLive(older))).toBe(canon(liveEmpty))
     // (b) the predecessor era is gated: a Save47 envelope carrying a P15B root or a loan movement is refused by
     // the frozen chain by name; the roots never leak into an older reader.
     const forgedRoot = clone(down)
     ;(forgedRoot.state as Record<string, unknown>).corporateCondition = clone(empty.state.corporateCondition)
     refuses(() => validateSaveV47(forgedRoot), 'corporateCondition')
-    // (c) a ticked, borrowed state refuses here first, naming this step's reasons before the predecessor steps'
-    // own, which are appended rather than masked (founding's convertV47ToV46 pattern): the message starts with the
-    // condition record, names the loan, and ends with the shared P15 step's reason when that step holds a row.
+    // (c) a ticked, borrowed state refuses by name at every older reader. MOVED (P16): the live Save49 step refuses
+    // first; the composed P15B message (condition record, then the loan row, then the shared P15 step's reason,
+    // appended rather than masked) is reachable only from a genuine Save48 file, which this repository does not
+    // hold (audit C-06), because a ticked P16 world's table-3 phase history has no Save48 envelope.
     const live = makeSave(borrowed())
-    let message = ''
-    try { convertFromStep(live) } catch (error) { message = (error as Error).message }
-    expect(message).toMatch(new RegExp(`^migrateToV${FOUNDING_FUNDING_SAVE_VERSION}: cannot downgrade or discard a corporateCondition record`))
-    expect(message).toMatch(/cannot downgrade or discard a loan or claim ledger row/)
-    const p15Rows = (live.state.sharedMarket as { assessments: unknown[] }).assessments.length + (live.state.powerRanking as { snapshots: unknown[] }).snapshots.length
-    if (p15Rows > 0) expect(message).toMatch(/; cannot downgrade or discard a recorded (?:shared-market assessment|Power Ranking quarter)/)
-    for (const older of [migrateToV47, migrateToV46, migrateToV45]) expect(() => older(live)).toThrow(new RegExp(`^migrateToV${FOUNDING_FUNDING_SAVE_VERSION}: cannot downgrade or discard a corporateCondition record`))
+    for (const older of [migrateToV47, migrateToV46, migrateToV45]) expect(() => older(live)).toThrow(LIVE_DOWNGRADE_REFUSAL)
     expect(canon(makeSave(borrowed()))).toBe(canon(live))
   })
 })
 
 describe('p15b2 save step: the root validator (1357-A §4.1; S3-S6)', () => {
   it('condition-validate-records-and-ids', async () => {
-    const validateSaveP15B = step<(save: unknown) => Save>(await saveModule(), 'validateSaveP15B')
+    const validateSaveP15B = validateLiveSave as unknown as (save: unknown) => Save // the live reader (Save49; its predecessor proof runs these roots)
     expect(() => validateSaveP15B(makeSave(borrowed()))).not.toThrow()
     expect(root(raw(borrowed())).events.length, 'premise: warning and distress events').toBeGreaterThanOrEqual(2)
     refuses(() => validateSaveP15B(tampered((s) => { root(s).events.push({ ...root(s).events[0]! }) })), 'corporateCondition')
@@ -158,7 +170,7 @@ describe('p15b2 save step: the root validator (1357-A §4.1; S3-S6)', () => {
   })
 
   it('condition-validate-events', async () => {
-    const validateSaveP15B = step<(save: unknown) => Save>(await saveModule(), 'validateSaveP15B')
+    const validateSaveP15B = validateLiveSave as unknown as (save: unknown) => Save // the live reader (Save49; its predecessor proof runs these roots)
     // events[1] is r04's stable→warning at 134; a `from` that is not its chain's stage breaks the chain.
     refuses(() => validateSaveP15B(tampered((s) => { root(s).events[1]!.from = 'recovery' })), 'corporateCondition')
     refuses(() => validateSaveP15B(tampered((s) => { (root(s).events[0]!.causes as { weeks: number }[])[0]!.weeks = 3 })), 'corporateCondition')
@@ -168,7 +180,7 @@ describe('p15b2 save step: the root validator (1357-A §4.1; S3-S6)', () => {
   })
 
   it('loan-validate-reconcile', async () => {
-    const validateSaveP15B = step<(save: unknown) => Save>(await saveModule(), 'validateSaveP15B')
+    const validateSaveP15B = validateLiveSave as unknown as (save: unknown) => Save // the live reader (Save49; its predecessor proof runs these roots)
     // The player's one loan (134) is the only loan at 140: r04's natural distress loan falls at 141 on the stacked
     // tree (R8's refund at 131), so the rival leaves below tamper a route where r04 holds a loan (r3, review T14).
     expect(loansOf(borrowed(), PLAYER).length).toBe(1)
@@ -221,7 +233,7 @@ describe('p15b2 save step: the root validator (1357-A §4.1; S3-S6)', () => {
   // r3 (review C2/D2): a rival's boundary loan and the player's own takeLoan in the same week are a lawful pair, and
   // the campaign stays savable. The order law still refuses a rival loan appended after the player's in one week.
   it('loan-same-week-rival-boundary-then-player-action', async () => {
-    const validateSaveP15B = step<(save: unknown) => Save>(await saveModule(), 'validateSaveP15B')
+    const validateSaveP15B = validateLiveSave as unknown as (save: unknown) => Save // the live reader (Save49; its predecessor proof runs these roots)
     const s141 = ticks(drainPlayer(base(), base().studio.cash + 1), 11)
     expect(loansOf(s141, R04).map((l) => l.contractedWeek), 'premise: r04 borrows at the 141 boundary').toEqual([141])
     expect(recordOf(s141, PLAYER)!.condition.stage).toBe('distress')
