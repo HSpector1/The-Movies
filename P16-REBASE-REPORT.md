@@ -467,8 +467,8 @@ Candidate-own defects left red for the P16 lane (audit C-03):
      the direction for negative post-exit cash); the willingness test uses floor and the disclosure
      records Math.trunc.
   3. Order-sensitive write-off check, 1 case: p16-healthy-drafting171-funded-baseline.test.ts:120.
-     Rule broken: a save must survive its own export. absorbedWork.ts:28-30 compares the stored
-     missingParticipants with people.filter(...) by join(), where people ends with
+     Rule broken: a save must survive its own export. absorbedWork.ts:29-30 compares the stored
+     missingParticipants with people.filter(...) by join(), where people (:25) ends with
      Object.values(production.cast). quoteAbsorption (acquisition.ts:320) writes the list in the cast's
      insertion order (lead, antagonist, support, hollywoodTick.ts:260). film:12 starts at week 170, after
      the r04-actual163 capture loads, so in memory its cast keys keep that order and closeAbsorption's own
@@ -478,4 +478,79 @@ Candidate-own defects left red for the P16 lane (audit C-03):
      No Owner ruling needed.
   Coverage gaps to close with them: the V45 market guard on a recorded assessment (a genuine Save45
   capture with assessments, or a ruled projection for table-3 market rows; audit C-06), and the L-24
-  emission SCHEMA_MISMATCH path, which no quote can reach after 18A.
+  emission SCHEMA_MISMATCH path, which no quote can reach after 18A (round 4 gives it a forced witness).
+
+Round 4 (the round-2 reviewer's blockers and optional items; lane wave3e on c0a6c64e), unrun:
+  Lane wave3e: typecheck 0, typecheck:bridge 0, both contract checks 0; 18 files, 211 of 240 passing; the 29
+  failing are 7 recorded baseline in 2 files and 22 new: 21 candidate-own (the 15 estate handoffs, the 5
+  fractional-ask cases, drafting171) and 1 load timeout. bridge-contract-generator, bridge-p14b5 :410,
+  p14p4p5-opportunities, p15a1 and both p16b suites pass. The C-01 witness is 4 of 4 green at HEAD; its
+  differential case is red at b2d3d97e (lane wave3d, c01-red.json, :147).
+  77e1e9b8  Blocker 1, the P15B step's own downgrade laws. The reviewer's route (advance the never-ticked
+            base's rights-less Save48 copy) is unavailable: the live tick needs a rights root
+            (rightsTick.ts refuses an industry without one). Two lawful Save48 controls instead:
+            - week 133 on the natural week-130 route: condition records, no condition event (the first
+              warning can fire at 134: CORPORATE_WARN_SUSTAIN_WEEKS 4 from the first evaluation at 131), no
+              title (lane wave3 measured none through 135), no table-3 row. Its public downgrade passes the
+              live step and the P15B step refuses by name.
+            - genuineFrozen48 (p15b-legacy-v3): the migrated, never-ticked 6240 capture frozen by the
+              predecessor-era Legacy writer.
+            Asserted again on those controls:
+              'cannot downgrade or discard a corporateCondition record (N evaluated)': p15b2
+                condition-root-downgrade (:113-114) and (c) (:167-169), p15a2 rank-root-downgrade (:945).
+              The composition rule, this step's reason first and the older steps' appended, never masked:
+                the condition record with R8's 'recovery authority: costCutting.since,
+                facilityDemolitionRefund, facilityDisposed' (p15b2 (c), p15a2 at 133, exact), and the modern
+                Legacy v3 reason with the shared P15 step's 'the frozen 2040 Legacy' (p15b-legacy-v3, exact),
+                each at the step and through migrateToV47, migrateToV46 and migrateToV45.
+              'cannot downgrade or discard modern Legacy v3 official authority': p15b-legacy-v3 :142-144.
+            ACCEPTANCE OPEN (unasserted), by name, with the reason in each file:
+              'cannot downgrade or discard a corporateCondition event', 'a studio loan', 'a loan or claim
+                ledger row' and 'the <kind> movement of <studio>': a loan needs warning or distress, so a
+                condition event precedes it, and the live writer stamps both with table 3 (p15b2).
+              'cannot downgrade or discard an actual studio closure', 'a closure claim', 'an estate event':
+                every Save49 closure opens a closure49 estate (p15b4-studio-closure-save, terminal-regression).
+              'cannot downgrade or discard the ended Legacy manifest': only a player closure publishes it
+                (p15b-legacy-v3, terminal-regression).
+              The world-specific composed refusals of p14c2s, p14c3-cohort, p14c3-dual-extensions and
+                terminal6240: those worlds hold estates or table-3 loans; the same composition law runs on
+                the controls above.
+            p15b4-studio-closure-save :56-64 pins ESTATE_OBSERVATION_REFUSAL (with the closure49 premise)
+            instead of the 'closure' substring, which matched "current closure provenance".
+  0dbdd2df  Blocker 2: tests/bridge-stabilization-l24-quote-contract.test.ts gains the rejection witness for
+            session.ts mintQuoteResponse (placementQuoteSnapshot forced to cost 2**31): SCHEMA_MISMATCH, the
+            declared-bound message, unchanged revision and pendingQuotes, the repeat call, a lawful session
+            registering. The acceptance case checks the widened cash on all four quote snapshots. Section 7
+            lists l22 and l24 and records the l24 weakening.
+  6795c44a  Blocker 3: section 3 rewritten. WITNESSED: promises.ts:346-347 and opportunityPromises.ts:66-67.
+            STATIC-UNRUN, no witness, owed by the P16 lane: promises.ts:926-928 (rivalUncappedPromiseCapacity)
+            and professionHistory.ts:297-314. claimsLiveWork: green at HEAD, no red run.
+  097f0f7d  Optional, the cheap ones:
+            O1 done: p16DowngradeRefusal names table-3 history last, "cannot downgrade or discard current phase
+              history (<root>)" (save.ts currentPhaseHistoryRoot, P15B_SEQUENCED_ROOTS order); p15a2 :955 pins
+              (corporateCondition). A source change in the candidate's own step, made to keep its "refuses once,
+              by name" promise; every Save48 reader already refused these rows, so no admitted downgrade changes.
+            O2 done: one strict LIVE_DOWNGRADE_REFUSAL (RIGHTS_ROOT_REFUSAL or PHASE_HISTORY_REFUSAL). The branch
+              is not pinned for p15b2's borrowed world or p14c3-profession-history :125: those cases pass, so
+              the lane logged no message. Pinning needs one logged run.
+            O4 done: stabilization-l19's NaN mirror on the Save48 copy (validateSaveP15B's non-finite walk).
+            O6 done: technology.ts refuses a non-array continuedProductions by name, with a unit case;
+              hollywoodValidation.ts:497 is already guarded by :324 in the same loop iteration.
+  Recorded, not done:
+    O9: phase table 2 is no longer asserted unchanged on the live tree (p15a2 p15-phase-table-v1 pins table 3);
+      no case refuses table 3 on a predecessor-era archive row (powerRankingArchive.ts:263); p16c-acquisition
+      :183 pins ABSORPTION_CLOSING_PREREQUISITES from the source, and the three old prerequisites have no witness.
+    O7: the C-01 differential compares against an unlawful world (r01's written-off picture removed by hand),
+      and its continuedProductions is [], so the buyerOperatedProductions half of the rule is unseen.
+    O8: projection 60's identity (8bf35013...) exists only in the candidate's registry; it awaits the open
+      audit decision on identities 59-61.
+  Performance (owed to the P16 lane): bridge-p13b-s7-disclosure item 5, "identical in a Save As world", takes
+    9.7 s alone at main and 24.3 s alone on this tree (lane s7-parent.json, s7-wt.json; file totals 45.1 s and
+    66.6 s; budget 30 s, unchanged). A P16 performance regression on the Save As path.
+  Attribution of the candidate-own reds (reviewer check 7):
+    Synthetic estate handoffs: the candidate's. tests/helpers/p16-fixtures.ts:250-263 invents
+      closure-<studio>-<week> with no closure record.
+    Fractional absorption ask: likely the candidate's, not proven.
+    drafting171: the key-order diagnosis above matches the reviewer's reading (absorbedWork.ts vs
+      participantsOf; stableStringify identical at both bases).
+    p16b-condition-readers: fixed in 73a7feca; attribution not proven.
