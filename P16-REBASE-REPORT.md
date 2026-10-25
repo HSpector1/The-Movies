@@ -484,6 +484,8 @@ Candidate-own defects left red for the P16 lane (audit C-03):
      research-v27 filter (:43-46) kept the four P16 rights kinds the candidate appended to RIVAL_MONEY_KINDS (:30),
      so the explicit pre-recovery admission (rivalResearch.ts admitRivalPlans) opened a V27 period with 18 kinds
      (p13b-s8-old-era-period :88). The filter now drops them, beside termination, demolition and the loan kinds.
+     Round 7 (55960057): moveRivalMoney (:63) also refuses, by kind and period, any kind its selected period lacks
+     (a loan or P16 kind in a V27 period wrote undefined + n = NaN before; unreachable today).
   P16 lane note (round 6, not a defect): the rights root records, for a rival film's materialized property, whether
      the film was announced: authenticTitles (rights.ts:456) gives the virtual property the provenance ref
      'announcement:<filmId>', and materializeLegacyTitles (:746-748) writes that source into the persisted genesis
@@ -689,3 +691,46 @@ branch p16-rebase-20261024-r5 from 72036a93), unrun:
   Mechanical self-check: no skip or only, no budget or timeout change, no fixture file; expect( lines +35 / -35 over
   12 test files. The removals are the assertions that needed a Save45 or Save46 operand (p1364 :782 block, p14d1 K4
   operand checks and its dead saveVersion-45 branch), each recorded ACCEPTANCE OPEN above.
+
+Round 7 (the third independent review of 72036a93..5a700af3: two blockers, eight observations; lane wave3k
+measured every round-6 target green: static gates 0, p15c2 37/37 alone with legacy-root-downgrade at 81.8 s,
+p13b-s7 6/6, facility-move-demolish 30/30, 19 files and 419 tests with only the 8 recorded bridge-p14b2-trust
+baseline cases, every LIVE_DOWNGRADE_REFUSAL prediction held; edited in the side worktree from 5a700af3), unrun:
+  79901d5f  Blocker 1, p14d1-rival-shelving K4: the equality is asserted again, in the live era (:613): the
+            zero-penalty route's week-77 state against migrateToLive of the same genuine week-77 input, with whole
+            roots dropped on both sides (P15_ROOTS, foundingFunding, rights), strip (shelving), withoutSliceB and
+            canon restored. The old law never compared sharedMarket (withoutP15 dropped it), so the rows that make
+            rightsStripped refuse were outside it. Every other Save45-Save49 addition is a lift's zero default
+            (convertV45ToV46 costCutting {1, null} and facilityDemolitionRefund 0, exactly what stripEmptyRecovery
+            removes; convertToP15BSave's loan kinds; convertV48ToV49's P16 kinds; initialP15BRoots and
+            observePredecessorEstates write only omitted roots), each asserted on the route (:572-576, and the new
+            loan and P16 kind premise :597-599). PREDICTED; a failure would mean P16 code changed the route's world
+            before week 77, a P16 finding. ACCEPTANCE OPEN narrows to the Save45 admission of the projection (:580-584).
+  afa404cf  Blocker 2, p1364-late-founding founding-second-grant-forged-save: Save46's 'employment start lacks its
+            actual player signing payment' is asserted again (:787-812) on the same second grant injected into
+            ticksTo(founded, 2), with the removed transplant block verbatim on convertV47ToV46(predecessorSave(early)).
+            The week-2 world has a predecessor envelope: fresh rivals start with productions:[] (hollywood.ts:227) and
+            a production runs TUNING.PRODUCTION_TICKS = 8, so no market assessment exists before week 8, and
+            founding-downgrade-null-fund-lossless (:1107) projects the same construction (another seed) after two
+            ticks. The week-30 NONDEFAULT_MARKET_PROJECTION line stays (:786) as the reason week 30 moved. PREDICTED.
+            Closes round 6's open record on p1364 :782.
+  30ab30b3  Observation 1, p15c2 historicalV2FrozenControl (:947-952): convertV48ToV49 opens with validateSaveV48 (=
+            validateSaveP15B, save.ts:680; validateSaveP15BEra returns its input) and returns through
+            validateSaveV49, the validator makeSave runs (save.ts:6739), so the explicit validateSaveP15B and
+            makeSave(historical) are dropped; the Whole48 and Whole49 admissions run once each and predecessorSave's
+            frozen47 admission stays. Budget untouched; legacy-old-law-fixture-v1 needs its time measured alone.
+  55960057  Observation 2, hollywood.ts:63: the roster refusal above (C-03 item 4). Admitted periods hold exactly
+            their era's roster (hollywoodValidation.ts:377), so no admitted path reaches it; no test pins the old
+            message. On a year boundary the freshly built period is pushed to the local working account before the
+            refusal; no money moves.
+  48945849  Observation 3, p13b-s7-announcements :153-155: the premise that the week-884 export carries at least one
+            announcement ref, so the allowed-path rule (:156) is exercised, not passed vacuously.
+  The reviewer's observations, recorded and not acted on:
+    H's version-4 forgery (p15c2 legacy-validate-stamp) is refused by both campaignLegacy.ts:1316 and the table
+      lookup at :1333, so the case witnesses the law, not the line.
+    p15c2 :689 pins P15_PHASE_ORDER_VERSION while campaignLegacy.ts:1231 stamps a literal 3.
+    After round 6 the P15 market refusal and the market-then-ranking order have no executable witness in core
+      (audit C-06).
+    Class E landed as two commits (779440a9, 7d50aa7b).
+  Mechanical self-check: no skip or only, no budget or timeout change, no fixture file; expect( lines +11 / -0 over
+  4 test files; one src line (hollywood.ts:63).
