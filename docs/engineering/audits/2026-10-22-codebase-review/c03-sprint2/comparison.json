@@ -1,0 +1,366 @@
+{
+  "predecessor": "f6c31caab28ee2290a5d9b8ab35a7463bacc9ce5",
+  "predecessorReport": "/Users/zacheryspector/studio-scratch/p16-c03-sprint1-20261025/broader-f.json",
+  "candidateSource": "771c75b7f26580e2d7a5d0ea8fb53683800c6ad9 + final-e-source.patch",
+  "changed": [
+    {
+      "identity": "p16-r2-authority.test.ts :: r2 F1/F27/F41: a live licence survives its grantor's closure, an estate sale and archival a licensed property the handoff leaves pending (not offered) keeps its licensee's authority from the closure week on",
+      "before": {
+        "status": "failed",
+        "durationMs": 640.9093530000009,
+        "firstCause": "Error: estate handoff refused: actualClosureMissing",
+        "failureMessages": [
+          "Error: estate handoff refused: actualClosureMissing\n    at Module.openEstate (/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/estate.ts:293:31)\n    at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-r2-authority.test.ts:113:27\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+        ]
+      },
+      "after": {
+        "status": "passed",
+        "durationMs": 5581.994386,
+        "firstCause": "",
+        "failureMessages": []
+      }
+    },
+    {
+      "identity": "p16-r2-estate.test.ts :: r2 F4/F29: the estate path refuses the bilateral path's encumbrances a lot encumbered after the handoff (a production started on its concept) cannot sell at D: its bids are disqualified by name and the lot archives",
+      "before": {
+        "status": "failed",
+        "durationMs": 899.1383860000005,
+        "firstCause": "Error: estate handoff refused: actualClosureMissing",
+        "failureMessages": [
+          "Error: estate handoff refused: actualClosureMissing\n    at Module.openEstate (/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/estate.ts:293:31)\n    at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-r2-estate.test.ts:55:20\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+        ]
+      },
+      "after": {
+        "status": "passed",
+        "durationMs": 11396.695039,
+        "firstCause": "",
+        "failureMessages": []
+      }
+    }
+  ],
+  "failures": [
+    {
+      "identity": "p16-r2-acquisition.test.ts :: r2 F6/F8/F33: the target consents at quote; its ask prices the cash that moves at par; money is whole dollars a consideration below the ask refuses by name; at the ask the buyer's outlay is exactly the premium-adjusted library value, never a windfall",
+      "samePredecessorCause": true,
+      "before": {
+        "status": "failed",
+        "durationMs": 748.6333570000002,
+        "firstCause": "AssertionError: expected null not to be null",
+        "failureMessages": [
+          "AssertionError: expected null not to be null\n    at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-r2-acquisition.test.ts:72:23\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)\n    at startTests (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1271:3)"
+        ]
+      },
+      "after": {
+        "status": "failed",
+        "durationMs": 996.9780260000002,
+        "firstCause": "AssertionError: expected null not to be null",
+        "failureMessages": [
+          "AssertionError: expected null not to be null\n    at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-r2-acquisition.test.ts:72:23\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)\n    at startTests (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1271:3)"
+        ]
+      },
+      "fullFailureMessagesIdentical": true
+    },
+    {
+      "identity": "p16-r2-acquisition.test.ts :: r2 F13: person-choice and relationship refusals bind the retention preview a target employee with a Nemesis on the buyer's roster refuses to join it, by name, under the default and an explicit choice alike",
+      "samePredecessorCause": true,
+      "before": {
+        "status": "failed",
+        "durationMs": 513.9611560000003,
+        "firstCause": "AssertionError: expected 'refusal' to be 'quote' // Object.is equality",
+        "failureMessages": [
+          "AssertionError: expected 'refusal' to be 'quote' // Object.is equality\n    at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-r2-acquisition.test.ts:176:28\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)\n    at startTests (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1271:3)"
+        ]
+      },
+      "after": {
+        "status": "failed",
+        "durationMs": 590.8385179999996,
+        "firstCause": "AssertionError: expected 'refusal' to be 'quote' // Object.is equality",
+        "failureMessages": [
+          "AssertionError: expected 'refusal' to be 'quote' // Object.is equality\n    at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-r2-acquisition.test.ts:176:28\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)\n    at startTests (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1271:3)"
+        ]
+      },
+      "fullFailureMessagesIdentical": true
+    },
+    {
+      "identity": "p16c-acquisition.test.ts :: P16C healthy absorption: the quote separates consideration, at-par cash, exits and disclosed guarantees default retention walks the target's contracts in order, retains what is lawful and affordable, charges each non-retained exit once to the target, and transfers post-exit cash at par",
+      "samePredecessorCause": true,
+      "before": {
+        "status": "failed",
+        "durationMs": 1109.574917,
+        "firstCause": "AssertionError: expected 'refusal' to be 'quote' // Object.is equality",
+        "failureMessages": [
+          "AssertionError: expected 'refusal' to be 'quote' // Object.is equality\n    at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16c-acquisition.test.ts:91:24\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)\n    at startTests (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1271:3)"
+        ]
+      },
+      "after": {
+        "status": "failed",
+        "durationMs": 876.9158720000005,
+        "firstCause": "AssertionError: expected 'refusal' to be 'quote' // Object.is equality",
+        "failureMessages": [
+          "AssertionError: expected 'refusal' to be 'quote' // Object.is equality\n    at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16c-acquisition.test.ts:91:24\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)\n    at startTests (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1271:3)"
+        ]
+      },
+      "fullFailureMessagesIdentical": true
+    },
+    {
+      "identity": "p16c-acquisition.test.ts :: P16C healthy absorption: work continues only where the buyer's operations admit it (the real allocator) the target's in-flight production is admitted into the buyer's managed operations by the shared allocator; without the capability, or with a stage that can seat nobody, it is marked for cancellation and the default drops the people whose work cannot continue",
+      "samePredecessorCause": true,
+      "before": {
+        "status": "failed",
+        "durationMs": 474.7281210000001,
+        "firstCause": "AssertionError: expected 'refusal' to be 'quote' // Object.is equality",
+        "failureMessages": [
+          "AssertionError: expected 'refusal' to be 'quote' // Object.is equality\n    at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16c-acquisition.test.ts:207:24\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)\n    at startTests (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1271:3)"
+        ]
+      },
+      "after": {
+        "status": "failed",
+        "durationMs": 805.1526840000006,
+        "firstCause": "AssertionError: expected 'refusal' to be 'quote' // Object.is equality",
+        "failureMessages": [
+          "AssertionError: expected 'refusal' to be 'quote' // Object.is equality\n    at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16c-acquisition.test.ts:207:24\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)\n    at startTests (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1271:3)"
+        ]
+      },
+      "fullFailureMessagesIdentical": true
+    },
+    {
+      "identity": "p16c-acquisition.test.ts :: P16C healthy absorption: work continues only where the buyer's operations admit it (the real allocator) a buyer whose operations are not managed cannot host managed work, and a production id already present in the buyer's operations is a named collision, not a merge",
+      "samePredecessorCause": true,
+      "before": {
+        "status": "failed",
+        "durationMs": 545.7479320000002,
+        "firstCause": "AssertionError: expected 'refusal' to be 'quote' // Object.is equality",
+        "failureMessages": [
+          "AssertionError: expected 'refusal' to be 'quote' // Object.is equality\n    at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16c-acquisition.test.ts:243:27\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)\n    at startTests (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1271:3)"
+        ]
+      },
+      "after": {
+        "status": "failed",
+        "durationMs": 685.4264629999998,
+        "firstCause": "AssertionError: expected 'refusal' to be 'quote' // Object.is equality",
+        "failureMessages": [
+          "AssertionError: expected 'refusal' to be 'quote' // Object.is equality\n    at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16c-acquisition.test.ts:243:27\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)\n    at startTests (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1271:3)"
+        ]
+      },
+      "fullFailureMessagesIdentical": true
+    }
+  ],
+  "over5000msDurationScreenNotBudgetVerdict": [
+    {
+      "identity": "bridge-p16-absorption-finance.test.ts :: P16 actual fractional R03 acquisition financial presentation real Bridge snapshot finance publishes the same fractional acquisition categories and cash without target private disclosure or changing save authority",
+      "beforeMs": 7836.352458,
+      "afterMs": 7500.486017000001
+    },
+    {
+      "identity": "bridge-p16-rights-parity.test.ts :: P16 real Bridge paid due diligence and healthy absorption opaque families paid preview reveals no body or held report and real commit charges exactly once with public-action equality and same-command replay",
+      "beforeMs": 8729.770417,
+      "afterMs": 7715.499735
+    },
+    {
+      "identity": "bridge-p16-rights-parity.test.ts :: P16 real Bridge paid due diligence and healthy absorption opaque families held real report prices and commits exact fractional acquisition once with original quote pair linked titles and public direct action parity",
+      "beforeMs": 9535.816925000001,
+      "afterMs": 8535.115759999999
+    },
+    {
+      "identity": "bridge-p16-rights-parity.test.ts :: P16 real Bridge paid due diligence and healthy absorption opaque families closed canonical drafts refuse supplied buyer and quote dates while private nested retention remains detached from later caller mutation",
+      "beforeMs": 6665.393928000001,
+      "afterMs": 6042.584642000002
+    },
+    {
+      "identity": "bridge-p16-rights-parity.test.ts :: P16 real Bridge paid due diligence and healthy absorption opaque families captured actual paid and absorption apply closures refuse a different fully admitted real state and public revision guards retain authority",
+      "beforeMs": 6659.068995000001,
+      "afterMs": 7627.533221999998
+    },
+    {
+      "identity": "p16-absorption-active-run.test.ts :: P16 fixed real R01 paid production completes before healthy active-run absorption actual eight ordinary ticks produce the named run and healthy absorption pays future locked installments only to buyer with original creator and settlement history",
+      "beforeMs": 8854.458966,
+      "afterMs": 8964.977615
+    },
+    {
+      "identity": "p16-absorption-active-run.test.ts :: P16 fixed real R01 paid production completes before healthy active-run absorption real admitted active-run history refuses missing handoff omitted installment wrong beneficiary and altered gross or earned cash through full current reader",
+      "beforeMs": 5422.228702,
+      "afterMs": 6501.209885999999
+    },
+    {
+      "identity": "p16-absorption-clean-target.test.ts :: P16 actual clean-target absorption from retained original48 R03 retains one linked bargain, pays five capped exits and exact fractional cash at par, preserves titles/history and ordinary replay",
+      "beforeMs": 6284.248831000001,
+      "afterMs": 5198.805849
+    },
+    {
+      "identity": "p16-absorption-continued-production.test.ts :: P16 genuine163 R02 paid post-production explicit healthy continuation actual buyer allocation holds ready work without commitment then public commit166 releases with original creator buyer R2 Standing future cash and replay",
+      "beforeMs": 8445.484725,
+      "afterMs": 5977.905479
+    },
+    {
+      "identity": "p16-absorption-continued-production.test.ts :: P16 genuine163 R02 paid post-production explicit healthy continuation actual admitted release refuses omitted or invented work counter commitment title and Standing authority with full-reader caller purity",
+      "beforeMs": 5986.057478000001,
+      "afterMs": 5724.317086999999
+    },
+    {
+      "identity": "p16-absorption-knowledge.test.ts :: P16 actual completed-source knowledge from retained original45 baseline280 public absorption grants linked knowledge, preserves source invention and performs one ordinary paid noninventor adoption with roundtrip",
+      "beforeMs": 7231.7519950000005,
+      "afterMs": 5827.12798
+    },
+    {
+      "identity": "p16-absorption-paid-production.test.ts :: P16 genuine pre162 paid R01 production cancellation-required transaction public priced quote cancels only its actual required production and ordinary ticks retain paid screenplay footage and commitment without release refund or run income",
+      "beforeMs": 6573.708674,
+      "afterMs": 5849.2315739999995
+    },
+    {
+      "identity": "p16-absorption-physical.test.ts :: P16 absorbed physical paid-work authority from fixed genuine267 ordinary ticks through original278 deadline retain completed instruments and never materialize or refund stopped paid laboratory",
+      "beforeMs": 6002.266359,
+      "afterMs": 6410.244425999999
+    },
+    {
+      "identity": "p16-absorption-public-action.test.ts :: P16 public absorbStudio dispatch on retained original48 R03 public action equals the real direct owner with original quote pair, one outlay, no second fee or bonus and byte roundtrip",
+      "beforeMs": 3859.384228,
+      "afterMs": 5622.640315000001
+    },
+    {
+      "identity": "p16-absorption-public-action.test.ts :: P16 public absorbStudio dispatch on retained original48 R03 public dispatch forces the actual player and refuses missing or unheld report and stale invalid carried quote after a real positive",
+      "beforeMs": 4537.292841999999,
+      "afterMs": 5326.160836
+    },
+    {
+      "identity": "p16-absorption-public-action.test.ts :: P16 public absorbStudio dispatch on retained original48 R03 actual held paid report expires after exactly13 ordinary ticks while a genuine fresh quote pair cannot rescue its old report authority",
+      "beforeMs": 4372.435062999999,
+      "afterMs": 6153.4210889999995
+    },
+    {
+      "identity": "p16-absorption-research-cancellation.test.ts :: P16 real absorbed research marker from fixed accepted267 input actual public close retains all earned work and paid physical history with one source-owned cancellation and roundtrip",
+      "beforeMs": 5462.410683,
+      "afterMs": 5286.74063
+    },
+    {
+      "identity": "p16-continued-work-cancel.test.ts :: P16 actual buyer public cancellation of acquired paid R02 work real public cancel frees buyer work and capacity without erasing source paid history employment first take or retained rights and replays ordinary stop",
+      "beforeMs": 6352.354762999999,
+      "afterMs": 7172.232177
+    },
+    {
+      "identity": "p16-continued-work-shooting4.test.ts :: P16 genuine completed-take shooting4 handoff public funded acquisition preserves the actual take silent lock and paid creator work through buyer wrap explicit release and save replay",
+      "beforeMs": 4965.523881,
+      "afterMs": 7060.075605
+    },
+    {
+      "identity": "p16-continued-work-shooting5-baseline.test.ts :: P16 genuine initial shooting5 continuation actual positive first take refuses missing or foreign operator lock and creator subject without mutating any refused caller",
+      "beforeMs": 7350.031102999999,
+      "afterMs": 6192.037802
+    },
+    {
+      "identity": "p16-continued-work-shooting5-baseline.test.ts :: P16 genuine initial shooting5 continuation native wrap preserves production identity then explicit release publishes creator film buyer rights and a replayable current save",
+      "beforeMs": 8198.654526999999,
+      "afterMs": 6413.529690000001
+    },
+    {
+      "identity": "p16-continued-work-silent-early.test.ts :: P16 genuine early SILENT buyer-operated production public funded acquisition and native director scenery scheduling produce one actual buyer first take with creator screenplay and paid history",
+      "beforeMs": 8716.041468,
+      "afterMs": 6632.594643
+    },
+    {
+      "identity": "p16-continued-work-silent-early.test.ts :: P16 genuine early SILENT buyer-operated production native wrap preserves production identity then explicit release publishes creator film buyer rights and a replayable current save",
+      "beforeMs": 7349.801754,
+      "afterMs": 7663.451504000002
+    },
+    {
+      "identity": "p16-continued-work-silent-phases76.test.ts :: P16 genuine initial early SILENT boundary 163 actual positive first take refuses missing or foreign operator lock and creator subject without mutating any refused caller",
+      "beforeMs": 7670.335042000001,
+      "afterMs": 5710.413412
+    },
+    {
+      "identity": "p16-continued-work-silent-phases76.test.ts :: P16 genuine initial early SILENT boundary 163 native wrap preserves production identity then explicit release publishes creator film buyer rights and a replayable current save",
+      "beforeMs": 7435.6097089999985,
+      "afterMs": 7587.717597999999
+    },
+    {
+      "identity": "p16-continued-work-silent-phases76.test.ts :: P16 genuine initial early SILENT boundary 164 native wrap preserves production identity then explicit release publishes creator film buyer rights and a replayable current save",
+      "beforeMs": 4948.9560280000005,
+      "afterMs": 6355.134094999998
+    },
+    {
+      "identity": "p16-estate-d-ceremony.test.ts :: P16 D ceremony actual13M sale intake pays partial claims once before one archival and replays",
+      "beforeMs": 7893.886382999999,
+      "afterMs": 7502.329158999999
+    },
+    {
+      "identity": "p16-estate-d-join-negative.test.ts :: P16 joinedD strict-save corruption and actual publication rollback refuses missing duplicate amount and foreign saleReceipt without mutating the admitted source",
+      "beforeMs": 9711.168247,
+      "afterMs": 6984.245665999999
+    },
+    {
+      "identity": "p16-finance-presentation.test.ts :: actual13M estate buyer debit has one signed finance category and unchanged ledger-order net without exposing rival estate accounting",
+      "beforeMs": 5250.243837,
+      "afterMs": 5561.2515619999995
+    },
+    {
+      "identity": "p16-healthy-drafting171-funded-baseline.test.ts :: P16 real funded171 stopped drafting writeoff real explicit writer exits preserve original draft costs due reservation and concurrent paid film beyond due with no buyer credit progress refund and save replay",
+      "beforeMs": 7207.221759999999,
+      "afterMs": 7484.0834589999995
+    },
+    {
+      "identity": "p16-held-title-buyer-public.test.ts :: real purchased R04film0 survives four fixed public campaigns and joins actual buyer closure without changing creator history",
+      "beforeMs": 17870.814404,
+      "afterMs": 17935.061300999998
+    },
+    {
+      "identity": "p16-held-title-seller.test.ts :: real public film0 sale before R04 C excludes the sold title from current closure and handoff while retaining creator history",
+      "beforeMs": 7756.207990000001,
+      "afterMs": 5517.627862
+    },
+    {
+      "identity": "p16-initial-shooting5-writeoff.test.ts :: P16 genuine initial shooting5 explicit nonretention writeoff fixed empty retention pays actual capped exits and preserves stopped paid source work and silent lock without buyer work refund take or release through ordinary deadline",
+      "beforeMs": 6760.764024000001,
+      "afterMs": 6918.251001
+    },
+    {
+      "identity": "p16-quote-age.test.ts :: F17 public bilateral quote-age boundaries from genuine pre162 accepts real disclosure age12 but refuses fresh offer age1 when that same disclosure becomes13",
+      "beforeMs": 5112.953312,
+      "afterMs": 5146.4092329999985
+    },
+    {
+      "identity": "p16-r2-authority.test.ts :: r2 F1/F27/F41: a live licence survives its grantor's closure, an estate sale and archival the licensee keeps exclusive authority while the grantor's estate holds, archives, or sells the title; only the title's own default authority changes",
+      "beforeMs": 7670.719827000001,
+      "afterMs": 6856.821321999999
+    },
+    {
+      "identity": "p16-r2-authority.test.ts :: r2 F1/F27/F41: a live licence survives its grantor's closure, an estate sale and archival a licensed property the handoff leaves pending (not offered) keeps its licensee's authority from the closure week on",
+      "beforeMs": 640.9093530000009,
+      "afterMs": 5581.994386
+    },
+    {
+      "identity": "p16-r2-estate.test.ts :: r2 F4/F29: the estate path refuses the bilateral path's encumbrances a lot holding an active-run film or an active-production property refuses the handoff by name; the same subjects pending are admitted and never sold",
+      "beforeMs": 7127.650357999999,
+      "afterMs": 5183.733869
+    },
+    {
+      "identity": "p16-r2-estate.test.ts :: r2 F4/F29: the estate path refuses the bilateral path's encumbrances a lot encumbered after the handoff (a production started on its concept) cannot sell at D: its bids are disqualified by name and the lot archives",
+      "beforeMs": 899.1383860000005,
+      "afterMs": 11396.695039
+    },
+    {
+      "identity": "p16-rebase-estate-licence-survival.test.ts :: actual closure and unsold archival preserve the existing paid exclusive licence, scope and expiry",
+      "beforeMs": 7441.319290999999,
+      "afterMs": 8521.934997
+    },
+    {
+      "identity": "p16-rival-buyer-absorption163-baseline.test.ts :: P16 genuine actual163 rival buyer explicit nonretention acquisition real R02 funded close owns exact money and titles without player pollution then preserves paid target work through ordinary ticks save reload and replay",
+      "beforeMs": 5751.947648,
+      "afterMs": 6172.329693000001
+    },
+    {
+      "identity": "p16b-live-condition-readers.test.ts :: P16 default readers consume real P15B evaluated condition and loan authority fails closed before evaluation and permits the genuinely evaluated stable borrower without a loan",
+      "beforeMs": 7184.002425,
+      "afterMs": 7761.724480000001
+    },
+    {
+      "identity": "p16b-live-condition-readers.test.ts :: P16 default readers consume real P15B evaluated condition and loan authority refuses a real public loan even after ordinary evaluated recovery returns the bidder to stable",
+      "beforeMs": 7137.991805,
+      "afterMs": 7862.498978000001
+    },
+    {
+      "identity": "p16c-estate.test.ts :: P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival the ordinary route: ticks carry the estate to D; explicit unbound readers refuse, while actual bound readers sell, archive, save and reload byte-for-byte",
+      "beforeMs": 7118.5855329999995,
+      "afterMs": 6777.269610000001
+    }
+  ],
+  "missingIdentities": []
+}

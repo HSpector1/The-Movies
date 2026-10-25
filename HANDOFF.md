@@ -1,17 +1,15 @@
 # HANDOFF
 
-## Sprint 2 performance checkpoint — 2026-10-25 (current)
+## Astra engineering Sprint 2 — completed 2026-10-25 (current)
 
-- Candidate checkpoint descends from f6c31caab28ee2290a5d9b8ab35a7463bacc9ce5. Coordinator owns integration/runtime; GPT-6.1 Sol handles bounded implementation preparation, Astra scope/review decisions. One lane, no P16 source to main.
-- Reused validation-local title resolution removes measured repeated folds; all guards/history/money laws remain. Existing S7 Save As: entry candidate32.4s timeout -> changed20.9s pass; fresh pre-P16 main20.1s. Original30s budget. Independent source review has no actionable blocker. Root/UI and Bridge typechecks pass.
-- Focused complete valuation/estate/join files22/22 assertions pass; corruption leaf8.22s exceeds5s and remains timing-open. No full final P16 integration gate claim yet. Evidence: docs/engineering/audits/2026-10-22-codebase-review/c03-sprint2/.
-- Paid licence on actual pending player estate now passes all assertions in3.086s in a temporary witness; integrate into original authority case and qualify complete file. Initial managed-first-take premise error preserved. Post-opening encumbrance reverse-ownership witness prepared externally and remains unrun.
-- No active runtime at commit. Next: integrate qualified pending law, investigate remaining authentic route, then complete affected S7/P16 checkpoint and publish final Sprint2 records. Preserve pending Owner policy decisions and all historical evidence.
+- Candidate final checkpoint descends from published performance commit771c75b7 (entryf6c31caa). Exact final SHA and explicit remote postflight are in production HANDOFF/publication receipt. Sole coordinator integration; GPT-6.1 Sol implementation preparation, Astra scope/final decisions. No active runtime or lock; source review and integration audit complete.
+- Both C-03 missing premises resolved with genuine transactions: all14 laws now reach assertions.13/14 complete-file budgets qualified; post-opening6.943s remains over5s (11.397s broad). Pendinglicence3.124s solo/5.582s broad. No invented closure/cash/history/P17 or notOffered policy.
+- Reviewed same-operation title-resolution reuse: fresh SaveAs32.359s timeout→20.913s pass; pre-P16main20.111s, unchanged30s. Full S7 file22/22 assertions; inherited adoptions timing remains open.
+- Final54-file P16 gate258/263, five identical inherited fractional-policy failures, no new assertion failure. Broader timing gaps retained. Final root/UI and Bridge types plus both contract checks pass. Runtime reused after unused-import-only cleanup.
+- Evidence: docs/engineering/audits/2026-10-22-codebase-review/c03-sprint2/RESULTS.md, CASE-DISPOSITIONS.md, OWNER-RESIDUAL.md, review and manifest. Original current200, patches, captures and failures preserved. No full-game/native/browser qualification or P16-to-main promotion.
+- Sprint2 COMPLETE. Next: return result and Owner residual; do not auto-start Sprint3. Recommend new bounded authorization for remaining measured estate timing, then Owner-selected policy/integration blockers. Fractional rounding, C06/Legacy/S7 provenance and main promotion remain unapproved.
 
-
-Last writer: Codex, 2026-10-25, sole C-03 Sprint 1 coordinator.
-
-## C-03 Sprint 1 completed — 2026-10-25 (current)
+## C-03 Sprint 1 completed — 2026-10-25 (historical)
 
 - Candidate `p16-rebase-20261024`, this checkpoint descends from `f3b1d09d498462359365a306e53e8a0d472133ca`. Sole coordinator: Codex. Publication SHA/postflight belongs to the current production HANDOFF and records receipt. No running lane; no source integration into main.
 - Twelve of fourteen remaining C-03 cases now have admitted replacement witnesses and complete-file solo passes within original 5000 ms; two original failures remain active. No gameplay source changed. R03 uses an unchanged disclosed transaction fixture, not a natural campaign; grouped films use a lawful constructed adapter partition.

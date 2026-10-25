@@ -3808,3 +3808,22 @@ LOGIC VERIFIED · UNITY NOT VERIFIED. Records under `docs/engineering/playabilit
 - **What worked:** C.4 and C.2b REDs were written against a throwing scaffold, so every non-justified case was
   shown to fail before the implementation existed, and the originals were archived before any run against the
   writer's code. Test-side repairs afterwards were traced one by one (root cause first), never tuned to green.
+
+## GS. Compare failure causes and mutation boundaries before declaring stabilization — **BR**
+
+Wave 3's name-keyed baseline hid a new registry pin failure; its wrapper also exited zero after a child failed. Read actual child results and compare full assertion names plus causes against the actual predecessor. Seven regression witnesses then proved that invalid year-boundary money kinds appended a period before refusing, cast key order broke stopped-work import, and first-production-only hostability dropped a writer needed by later seated work. Validate the prospective period before append, compare participant membership after duplicate checks, and derive hostability from all seated work while preserving the wire field.
+
+Recovering import/replay exposed a previously unreached whole-record equality: the stopped project was immutable, but a different acquired film legitimately added run receipts. Preserve equality for every other field and assert the exact schedule, receipt IDs, ledger credits and unchanged source account; do not merely drop the assertion. Complete-file checks passed in wave3n. Original broad-run failures and synchronous over-budget PASS results remain preserved; solo passes do not waive them. Evidence: `engineering/audits/2026-10-22-codebase-review/wave3-final/`, final source candidate `04ffae89`.
+
+
+### GS follow-up — C-03 Sprint 1, 2026-10-25
+
+Fourteen synthetic estate cases stopped at `actualClosureMissing`, so their downstream assertions could not diagnose current transactions. Capture the real adapter invocation during the ordinary closure tick and distinguish that phase from a complete saved aggregate. Reuse unchanged source-bound captures; disclose inherited fixture provenance. A constructed grouped lot is admissible only when the existing contract permits it and exact inventory, valuation, closure, claims and money remain authentic.
+
+Twelve replacement cases reached their original laws and passed complete-file solo budgets; two still lack lawful earlier licence/work evidence and remain active failures. Independent review caught an empty pending array masquerading as coverage and a lost rival-account negative branch. Restore each original law explicitly, even when another nearby case passes. Broad execution still exceeded 5 seconds for four restored leaves; individual-file passes do not waive those timings. Evidence and exact missing premises: [C-03 Sprint 1](engineering/audits/2026-10-22-codebase-review/c03-sprint1/RESULTS.md).
+
+### GS follow-up — C-03 Sprint 2, 2026-10-25
+
+An absent fixture is not an impossible producer route. Retained own-concept remake authority enabled both missing estate premises: sell sequel scope while keeping remake, or sell R1 and buy remake authority back before actual rival closure. Preserve exact payer/payee, title events, loan history and ordinary ticks. Script-development legacy does not imply operations legacy: managed first-take holds at5. Seal the clean-lot bid before creating later encumbrance so the test proves the original temporal law.
+
+Profile the real runtime separately from fixture collection. Estate validation repeatedly resolved identical title history per subject despite already owning a fresh synchronous resolution. Reusing that result improved SaveAs without a mutable cache or skipped checks. Keep synchronous assertion PASS separate from budget acceptance; new reached laws cannot use old failing setup durations as performance baselines. Reuse valid focused/broad evidence, and rerun only types after unused-import cleanup. Evidence: [Sprint2](engineering/audits/2026-10-22-codebase-review/c03-sprint2/RESULTS.md).

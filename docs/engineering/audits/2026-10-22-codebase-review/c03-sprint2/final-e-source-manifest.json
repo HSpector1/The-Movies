@@ -1,0 +1,16 @@
+{
+  "head": "771c75b7f26580e2d7a5d0ea8fb53683800c6ad9",
+  "sourceAndTestFiles": {
+    "src/core/estate.ts": "5b2c328dc1dd7b145e60832a420ebbf229501207a1e773bd74dcb8642cbc2bb1",
+    "src/core/propertyValuation.ts": "1a538f9b3992f03efee8c15eb106f6885d0610964a4ac7787ee5a4d341664821",
+    "src/core/save.ts": "0132ddaa87e9a23f5f2db35326f8c33dd6d907309d8ea2c32cb37489d08f5f7f",
+    "src/core/rights.ts": "76f6910918a6a53e0332bcf98e1f44a7f399b2f628b42fdeec11782a828a4b92",
+    "tests/p16c-estate.test.ts": "d96f6d8c82b1d7873e945c615aea91433ae7d3299f578f470da6bd3df9b7947f",
+    "tests/p16-r2-estate.test.ts": "09e07c15d0995ac302e208497750e914f490d06c3a141481f13bf788abf3c69c",
+    "tests/p16-r2-authority.test.ts": "b7f377d7b51f3cf58e14bae6b8e1e07e8b68c9b770c5bb2a04c4d63f4cbb9ec4",
+    "tests/bridge-p13b-s7-disclosure.test.ts": "9df96b27216592e12ae8ab846b1f80ffd06cd5d61aa435220ab13a09ab60cd72"
+  },
+  "testDelta": "final-e-source.patch",
+  "budgets": "unchanged",
+  "execution": "final-e.log; sole lane"
+}
