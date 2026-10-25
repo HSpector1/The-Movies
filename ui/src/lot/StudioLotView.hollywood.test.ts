@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 
 const runtime = vi.hoisted(() => {
   type ProductionSelection = {
@@ -39,7 +39,44 @@ const runtime = vi.hoisted(() => {
     emit(name: string) { this.handlers.get(name)?.() }
   }
 
+  class Key {
+    enabled = true
+    isDown = false
+    reset() {
+      this.isDown = false
+      return this
+    }
+  }
+
+  /**
+   * The scene keyboard surface the View drives (17A). `preventDefault` and `captures` are
+   * Phaser's KeyboardManager state as the grid world leaves it (`createCursorKeys()`
+   * captures Left, Up, Right, Down and Space; W/A/S/D/R are added with capture OFF), and
+   * `onKeyDown` applies the manager's own rule, so a test reads capture off a real event.
+   */
+  class Keyboard {
+    enabled = true
+    preventDefault = true
+    captures = [37, 38, 39, 40, 32]
+    keys: Key[] = []
+    constructor() {
+      for (const code of [37, 38, 39, 40, 32, 87, 65, 83, 68, 82]) this.keys[code] = new Key()
+    }
+    enableGlobalCapture() {
+      this.preventDefault = true
+      return this
+    }
+    disableGlobalCapture() {
+      this.preventDefault = false
+      return this
+    }
+    readonly onKeyDown = (event: KeyboardEvent) => {
+      if (this.preventDefault && this.captures.includes(event.keyCode)) event.preventDefault()
+    }
+  }
+
   class HollywoodScene {
+    input = { keyboard: new Keyboard() }
     data: {
       snapshot?: unknown
       reducedMotion?: boolean
@@ -66,7 +103,13 @@ const runtime = vi.hoisted(() => {
     failClosedCalls = 0
     snapshotsApplied: unknown[] = []
     setReducedMotion(on: boolean) { this.reduced.push(on) }
-    setInputSuspended(on: boolean) { this.inputSuspensions.push(on) }
+    setInputSuspended(on: boolean) {
+      this.inputSuspensions.push(on)
+      // As TycoonScene and LotScene do: the release re-enables Phaser's global capture.
+      this.input.keyboard.enabled = !on
+      if (on) this.input.keyboard.disableGlobalCapture()
+      else this.input.keyboard.enableGlobalCapture()
+    }
     resetPerformanceTelemetry() { this.telemetryResets++ }
     failClosedFromHost() { this.failClosedCalls++ }
     applySnapshot(snapshot: unknown) { this.snapshotsApplied.push(snapshot) }
@@ -156,7 +199,12 @@ const runtime = vi.hoisted(() => {
     scene = new SceneManager()
     loop = { sleep: vi.fn(), wake: vi.fn() }
     destroy = vi.fn()
-    constructor(_config: unknown) { games.push(this) }
+    // The real Phaser.Game creates its canvas inside the configured parent.
+    canvas = document.createElement('canvas')
+    constructor(config: { parent: HTMLElement }) {
+      config.parent.append(this.canvas)
+      games.push(this)
+    }
   }
 
   const games: Game[] = []
@@ -752,5 +800,129 @@ describe('StudioLotView tycoon world selection', () => {
     game.events.emit('contextlost')
     expect(onHollywoodFailure).toHaveBeenCalledWith('renderer-context-lost')
     expect(scene.failClosedCalls).toBe(1)
+  })
+})
+
+// ── Owner decision 17A (L-09): arrows and Space only while the canvas has focus ──
+
+describe('StudioLotView keeps the arrows and Space for the focused control (17A)', () => {
+  const removals: Array<() => void> = []
+  afterEach(() => {
+    for (const remove of removals.splice(0)) remove()
+    document.body.replaceChildren()
+  })
+
+  /** Mount the grid world in the document, with Phaser's window keydown listener live. */
+  function mountGridWorld() {
+    const parent = document.createElement('div')
+    document.body.append(parent)
+    const view = new StudioLotView({ parent, snapshot, hollywood: true, tycoon: true })
+    const game = runtime.games.at(-1)!
+    game.events.emit('ready')
+    const keyboard = (game.scene.getScene('tycoon') as InstanceType<typeof runtime.HollywoodScene>)
+      .input.keyboard
+    window.addEventListener('keydown', keyboard.onKeyDown)
+    removals.push(() => window.removeEventListener('keydown', keyboard.onKeyDown))
+    return { view, canvas: game.canvas, keyboard }
+  }
+
+  /** Dispatch a keydown at the focused element; true when the world captured it. */
+  function captured(target: Element, keyCode: number): boolean {
+    const event = new KeyboardEvent('keydown', { keyCode, bubbles: true, cancelable: true })
+    target.dispatchEvent(event)
+    return event.defaultPrevented
+  }
+
+  const [LEFT, UP, RIGHT, DOWN, SPACE, W] = [37, 38, 39, 40, 32, 87]
+
+  it('leaves a focused select or text field its keys, captures them once a press focuses the canvas, and releases them on blur', () => {
+    const { canvas, keyboard } = mountGridWorld()
+    const loan = document.createElement('select')
+    loan.append(new Option('Borrow $1,000,000'), new Option('Borrow $2,000,000'))
+    const search = document.createElement('input')
+    document.body.append(loan, search)
+
+    loan.focus()
+    expect(document.activeElement).toBe(loan)
+    expect(captured(loan, DOWN)).toBe(false)
+    expect(captured(loan, SPACE)).toBe(false)
+    search.focus()
+    expect(captured(search, LEFT)).toBe(false)
+    expect(captured(search, SPACE)).toBe(false)
+    // The world does not act on a key the control owns either.
+    expect(keyboard.keys[DOWN].enabled).toBe(false)
+    expect(keyboard.keys[SPACE].enabled).toBe(false)
+
+    canvas.dispatchEvent(new Event('pointerdown'))
+    // Focusable by press, never a Tab stop: the mount is aria-hidden.
+    expect(canvas.getAttribute('tabindex')).toBe('-1')
+    expect(document.activeElement).toBe(canvas)
+    expect(captured(canvas, RIGHT)).toBe(true)
+    expect(captured(canvas, SPACE)).toBe(true)
+    expect(keyboard.keys[RIGHT].enabled).toBe(true)
+    // Letters stay uncaptured with focus too (Batch 6).
+    expect(captured(canvas, W)).toBe(false)
+
+    // A key held as focus leaves is released, or the camera would pan forever.
+    keyboard.keys[RIGHT].isDown = true
+    canvas.blur()
+    expect(captured(document.body, UP)).toBe(false)
+    expect(keyboard.keys[RIGHT].enabled).toBe(false)
+    expect(keyboard.keys[RIGHT].isDown).toBe(false)
+    loan.focus()
+    expect(captured(loan, DOWN)).toBe(false)
+  })
+
+  it('lets a modal suspension win over canvas focus, and keeps focus elsewhere winning over every release', () => {
+    const { view, canvas, keyboard } = mountGridWorld()
+    canvas.dispatchEvent(new Event('pointerdown'))
+    expect(captured(canvas, UP)).toBe(true)
+
+    view.setInputSuspended(true)
+    expect(document.activeElement).toBe(canvas)
+    expect(captured(canvas, UP)).toBe(false)
+    expect(keyboard.keys[UP].enabled).toBe(false)
+    // Focus returning to the canvas under the modal does not revive the capture.
+    canvas.blur()
+    canvas.focus()
+    expect(captured(canvas, UP)).toBe(false)
+
+    view.setInputSuspended(false)
+    expect(captured(canvas, UP)).toBe(true)
+    expect(keyboard.keys[UP].enabled).toBe(true)
+
+    // The scene's release re-enables Phaser's global capture; with a button focused the
+    // View must take it back on the modal path and on the visibility path alike.
+    const button = document.createElement('button')
+    document.body.append(button)
+    button.focus()
+    view.setInputSuspended(true)
+    // A press reaching the canvas under the modal leaves focus with the modal's control.
+    canvas.dispatchEvent(new Event('pointerdown'))
+    expect(document.activeElement).toBe(button)
+    view.setInputSuspended(false)
+    expect(captured(button, SPACE)).toBe(false)
+    view.pause()
+    view.resume()
+    expect(captured(button, SPACE)).toBe(false)
+    expect(keyboard.keys[SPACE].enabled).toBe(false)
+  })
+
+  it('never lets a retired canvas hand the keys to its replacement', () => {
+    const { view, canvas: retired } = mountGridWorld()
+    view.recreate()
+    const replacement = runtime.games.at(-1)!
+    replacement.events.emit('ready')
+    const keyboard = (replacement.scene.getScene('tycoon') as InstanceType<typeof runtime.HollywoodScene>)
+      .input.keyboard
+
+    retired.dispatchEvent(new Event('pointerdown'))
+    expect(document.activeElement).toBe(retired)
+    expect(keyboard.preventDefault).toBe(false)
+    expect(keyboard.keys[RIGHT].enabled).toBe(false)
+
+    replacement.canvas.dispatchEvent(new Event('pointerdown'))
+    expect(keyboard.preventDefault).toBe(true)
+    expect(keyboard.keys[RIGHT].enabled).toBe(true)
   })
 })

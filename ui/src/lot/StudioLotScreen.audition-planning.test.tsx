@@ -221,6 +221,8 @@ describe('StudioLotScreen — retained audition-planning origin', () => {
       expect(onOpen).toHaveBeenCalledOnce()
       const [renderedState, origin] = onOpen.mock.calls[0]!
       expect(renderedState).toBe(state)
+      // L-40 (15A): the opener names the cue's screenplay by explicit id.
+      expect(origin.projectId).toBe(ready.sections.readyToPlan[0]!.projectId)
       expect(origin.opener).toBe(opener)
       expect(origin.opener.isConnected).toBe(true)
       expect(origin.cue).toEqual({

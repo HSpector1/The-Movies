@@ -166,6 +166,7 @@ vi.mock('../screens/Saves.tsx', async () => {
 
 vi.mock('./StudioLotScreen.tsx', async () => {
   const React = await import('react')
+  const adapter = await import('../engine/adapter.ts')
   return {
     default: (props: LotProps) => {
       authorityProbe.lotProps = props
@@ -187,6 +188,15 @@ vi.mock('./StudioLotScreen.tsx', async () => {
           // This mock stands in for the COMPANION rail row, which is the opener kind it
           // renders below. The inspector arm is proven in its own App-authority spec.
           openerKind: 'companion',
+          // L-40 (15A): the companion names the Casting cue's screenplay by explicit id,
+          // through the same rule the real rail row uses.
+          projectId: (() => {
+            try {
+              return adapter.castingCuePlanProjectId(props.state) ?? ''
+            } catch {
+              return ''
+            }
+          })(),
           opener,
           cue: {
             buildingId: 'casting',

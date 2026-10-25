@@ -115,6 +115,10 @@ describe('activeProductionCompanyContexts', () => {
     expect(activeProductionCompanyContexts(snapshot([waiting], peopleFor(waiting)))).toHaveLength(1)
     const wrongPhase = { ...waiting, phase: 'shooting' as const }
     expect(activeProductionCompanyContexts(snapshot([wrongPhase], peopleFor(wrongPhase)))).toBeNull()
+    // L-40 (15A): the clause names a set wait too, and the blocker vocabulary now admits it.
+    const setWait = { ...waiting, blocker: { kind: 'set-unavailable' as const,
+      headline: 'Rehearsal held — set check pending', detail: 'No usable standing set was available.' } }
+    expect(activeProductionCompanyContexts(snapshot([setWait], peopleFor(setWait)))).toHaveLength(1)
   })
   it('joins and canonically orders two complete same-title companies without mutating input', () => {
     const operationA = operation('a', { title: 'Same Picture' })
@@ -218,15 +222,39 @@ describe('activeProductionCompanyContexts', () => {
     expect(activeProductionCompanyContexts(snapshot([operationA, operationB], people))).toBeNull()
   })
 
-  it('rejects unsupported provenance and more than two operation rows', () => {
+  it('rejects unsupported provenance', () => {
     const state = snapshot([operation()]) as StudioLotSnapshot & {
       operationsMode: 'managed' | 'legacy'
     }
     state.operationsMode = 'legacy'
     expect(activeProductionCompanyContexts(state)).toBeNull()
+  })
 
-    const rows = [operation('a'), operation('b'), operation('c')]
-    expect(activeProductionCompanyContexts(snapshot(rows))).toBeNull()
+  // L-40 (Owner decision 15A). This case used to read "rejects … more than two operation
+  // rows" and pinned `toBeNull()` for three complete companies: the cap of two that
+  // outlived MAX_CONCURRENT_PRODUCTIONS, under which the whole presentation vanished at
+  // a studio's third picture. Every picture is proved on its own now, so three pictures
+  // are three companies — including one on a stage the studio built.
+  it('presents three complete concurrent companies, each proved on its own', () => {
+    const rows = [
+      operation('a'),
+      operation('b'),
+      operation('c', { locationBuildingId: 'placed-41', facilityLabel: 'Soundstage 3' }),
+    ]
+    const state = snapshot(rows)
+    const contexts = activeProductionCompanyContexts(state)
+    expect(contexts?.map((context) => context.operation.productionId)).toEqual([
+      'production-a',
+      'production-b',
+      'production-c',
+    ])
+    expect(contexts?.every((context) => context.members.length === 6)).toBe(true)
+    expect(lotPeopleForCompanyPresentation(state)).toHaveLength(18)
+
+    // Per-production proof still fails the claim atomically when ANY picture is bad.
+    const bad = { ...rows[2]!, leadName: 'Not the lead' }
+    expect(activeProductionCompanyContexts(snapshot([rows[0]!, rows[1]!, bad], state.people)))
+      .toBeNull()
   })
 
   it.each([

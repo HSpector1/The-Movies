@@ -86,6 +86,8 @@ function targetKey(target: LotNextEventWorldTarget): string {
       return `production:${target.productionId}:${target.title}:${target.location}`;
     case "wrap":
       return `wrap:${target.productionId}:${target.title}:${target.stageFacilityId}`;
+    case "release-review":
+      return `release-review:${target.productionId}:${target.title}`;
     case "run-completed":
       return `run-completed:${target.runs.map((run) => `${run.productionId}:${run.title}`).join("|")}`;
     case "cash":
@@ -311,6 +313,18 @@ function ReasonIdentity({ target }: { target: LotNextEventWorldTarget }) {
           <span className="lot-next-event-kicker">Principal photography wrapped</span>
           <strong>{target.title}</strong>
           <span>The company is clearing {target.stageName}</span>
+        </div>
+      );
+    // L-37 (15A): the release decision's own exact receipt, in the same identity shape.
+    case "release-review":
+      return (
+        <div
+          className="lot-next-event-identity"
+          data-testid="lot-next-event-identity"
+        >
+          <span className="lot-next-event-kicker">Release decision</span>
+          <strong>{target.title}</strong>
+          <span>Release Ready — commit it to release, or knowingly hold</span>
         </div>
       );
     case "run-completed":

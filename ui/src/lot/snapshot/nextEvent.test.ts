@@ -1,25 +1,34 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
+import * as adapter from '../../engine/adapter.ts'
 import {
   advanceToNextEvent,
   advanceWeek,
   castingSessionsBoard,
   commissionScriptAction,
+  commitPictureToReleaseAction,
   foundManagedStudioAction,
   foundingApplicantCards,
   greenlight,
   newGame,
+  placeFacilityAction,
+  placementQuote,
   requiredNegative,
+  runProductionCommand,
   runScriptProjectAction,
   scriptProjectsBoard,
   signContractAction,
   startCastingSessionAction,
   startDevelopmentCastingAnnexAction,
+  studioDecision,
+  studioLotSnapshot,
+  studioPlacement,
 } from '../../engine/adapter.ts'
 import type {
   CommissionScriptPayload,
   CreativeRole,
   DraftPackage,
   GameState,
+  PlacementRequest,
   SimResult,
   StartCastingSessionPayload,
 } from '../../engine/adapter.ts'
@@ -29,10 +38,19 @@ import {
   acceptedLotNextEventConstructionCompletion,
   acceptedLotNextEventGuardNeutral,
   acceptedLotNextEventReceipt,
+  currentLotNextEventProductionCommand,
+  currentLotNextEventReleaseReview,
   lotNextEventNeutralFeedback,
   sameLotNextEventReceipt,
 } from './nextEvent.ts'
 import type { LotNextEventReceipt } from './nextEvent.ts'
+import { lotStageIdentities } from './stageIdentity.ts'
+import type { LotStageIdentity } from './StudioLotSnapshot.ts'
+import { placedBuildingId } from './StudioLotSnapshot.ts'
+
+afterEach(() => {
+  vi.restoreAllMocks()
+})
 
 const SHAPE = {
   opening: 'slowSetup',
@@ -220,6 +238,78 @@ function constructionResult(seed: string): { before: GameState; result: SimResul
   const started = startDevelopmentCastingAnnexAction(state)
   if (!started.ok) throw new Error(started.error)
   return { before: started.next, result: advanceToNextEvent(started.next) }
+}
+
+// ── L-37 (Owner decision 15A) fixtures ───────────────────────────────────────
+
+/** The first LEGAL Build Mode placement on a parcel that is not the legacy Annex pad. */
+function firstLegalBuildModeRequest(state: GameState): PlacementRequest {
+  const view = studioPlacement(state)
+  const blueprint = view.catalog[0]
+  if (blueprint === undefined) throw new Error('setup: the placement catalog is empty')
+  for (const parcel of view.parcels) {
+    if (parcel.id === 'expansion') continue
+    for (let gy = parcel.rect.y0; gy <= parcel.rect.y1; gy++) {
+      for (let gx = parcel.rect.x0; gx <= parcel.rect.x1; gx++) {
+        const request = { blueprintId: blueprint.blueprintId, origin: { gx, gy } }
+        if (placementQuote(state, request).ok) return request
+      }
+    }
+  }
+  throw new Error('setup: no legal Build Mode placement')
+}
+
+function buildModeResult(seed: string): { before: GameState; result: SimResult } {
+  const managed = managedStudio(seed)
+  const state: GameState = {
+    ...managed,
+    scriptDevelopment: { mode: 'legacy', projects: [] },
+    castingSessions: { mode: 'legacy', sessions: [] },
+  }
+  const placed = placeFacilityAction(state, firstLegalBuildModeRequest(state))
+  if (!placed.ok) throw new Error(placed.error)
+  const result = advanceToNextEvent(placed.next)
+  if (result.stopReason !== 'constructionCompleted') {
+    throw new Error(`setup: expected constructionCompleted, got ${result.stopReason}`)
+  }
+  return { before: placed.next, result }
+}
+
+/** A managed picture walked, command by command, to its Release Ready stop. */
+function managedReleaseReviewResult(seed: string): { before: GameState; result: SimResult } {
+  let state = greenlitManaged(seed)
+  for (let guard = 0; guard < 24; guard += 1) {
+    const result = advanceToNextEvent(state)
+    if (result.stopReason === 'releaseReview' && result.weeks > 0) return { before: state, result }
+    const command = result.productionDecision?.command ?? null
+    if (command === null) {
+      state = result.next
+      continue
+    }
+    const ran = runProductionCommand(result.next, command)
+    if (!ran.ok) throw new Error(`setup: ${ran.error}`)
+    state = ran.next
+  }
+  throw new Error('setup: the managed picture never reached its release review')
+}
+
+/**
+ * The audit's second symptom (L-37): after acting on an exact receipt the Lot's
+ * eligibility gate (`lotNextEventEligibility`, which reads `studioDecision`) must open,
+ * and the next sim must actually advance. Production commands that follow at once are
+ * run too; each one is the next exact decision, never a stall.
+ */
+function expectNextSimAllowed(state: GameState): void {
+  let current = state
+  for (let guard = 0; guard < 4; guard += 1) {
+    const pending = studioDecision(current)
+    if (pending?.kind !== 'productionDecision' || pending.decision.command === null) break
+    const ran = runProductionCommand(current, pending.decision.command)
+    if (!ran.ok) throw new Error(ran.error)
+    current = ran.next
+  }
+  expect(studioDecision(current)).toBeNull()
+  expect(advanceToNextEvent(current).weeks).toBeGreaterThan(0)
 }
 
 describe('strict Lot next-event presentation boundary', () => {
@@ -530,5 +620,153 @@ describe('strict Lot next-event presentation boundary', () => {
       constructionCompletion: { ...completion, completedWeek: receipt.toWeek + 1 },
     }
     expect(sameLotNextEventReceipt(wrongCoeventWeek, wrongCoeventWeek)).toBe(false)
+  })
+})
+
+describe('L-37 (Owner decision 15A) — exact receipts beyond the founding stages', () => {
+  it('gives a production decision on a BUILT stage an exact receipt with its command', () => {
+    const production = productionResult('next-event-receipt-built-stage')
+    const decision = production.result.productionDecision!
+    const command = decision.command
+    if (command === null) throw new Error('setup: expected a commanded production decision')
+    // The engine cannot be steered onto a third soundstage without a three-picture lot,
+    // so the snapshot reports the picture on a body the studio BUILT, with the stage
+    // identity the derived vocabulary gives such a body (the L-38 precedent).
+    const base = studioLotSnapshot(production.result.next)
+    const built: LotStageIdentity = {
+      facilityId: 'facility-soundstage-3',
+      facilityName: 'Soundstage 3',
+      buildingId: placedBuildingId(41),
+      origin: 'placed',
+      standing: true,
+    }
+    vi.spyOn(adapter, 'studioLotSnapshot').mockReturnValue({
+      ...base,
+      stages: [...lotStageIdentities(base), built],
+      productionOperations: (base.productionOperations ?? []).map((operation) =>
+        operation.productionId === decision.productionId
+          ? { ...operation, locationBuildingId: built.buildingId }
+          : operation,
+      ),
+    })
+
+    // Before 15A the operation proof accepted only `stage-a`/`stage-b`: this was null
+    // and the rail fell to neutral with no command.
+    const receipt = acceptedLotNextEventReceipt(production.before, production.result)
+    expect(receipt?.target).toEqual({
+      kind: 'production',
+      productionId: decision.productionId,
+      title: decision.title,
+      location: 'stage-12-semantic',
+      buildingId: 'placed-41',
+      stageName: 'Soundstage 3',
+    })
+    // …and it carries the action the rail offers as its world action.
+    expect(currentLotNextEventProductionCommand(production.result.next, receipt!)).toEqual(command)
+
+    // A body that is not one of this studio's stages still names no place.
+    vi.restoreAllMocks()
+    vi.spyOn(adapter, 'studioLotSnapshot').mockReturnValue({
+      ...base,
+      productionOperations: (base.productionOperations ?? []).map((operation) =>
+        operation.productionId === decision.productionId
+          ? { ...operation, locationBuildingId: placedBuildingId(42) }
+          : operation,
+      ),
+    })
+    expect(acceptedLotNextEventReceipt(production.before, production.result)).toBeNull()
+    vi.restoreAllMocks()
+
+    const ran = runProductionCommand(production.result.next, command)
+    if (!ran.ok) throw new Error(ran.error)
+    expectNextSimAllowed(ran.next)
+  })
+
+  it('gives every release review its own exact shape, then opens the gate once committed', () => {
+    // Legacy studio: the stage is presentation, so the receipt names no body.
+    const legacyBefore = greenlitLegacy('next-event-receipt-release-review-legacy')
+    const legacy = advanceToNextEvent(legacyBefore)
+    expect(legacy.stopReason).toBe('releaseReview')
+    expect(legacy.weeks).toBeGreaterThan(0)
+    const legacyReceipt = acceptedLotNextEventReceipt(legacyBefore, legacy)
+    expect(legacyReceipt?.target).toEqual({
+      kind: 'release-review',
+      productionId: legacy.releaseDecision!.productionId,
+      title: legacy.releaseDecision!.title,
+      buildingId: null,
+    })
+    expect(legacyReceipt?.stopReason).toBe('releaseReview')
+
+    // Managed studio: the body the engine holds a Release Ready picture at.
+    const managed = managedReleaseReviewResult('next-event-receipt-release-review-managed')
+    const productionId = managed.result.releaseDecision!.productionId
+    const row = (studioLotSnapshot(managed.result.next).productionOperations ?? []).find(
+      (operation) => operation.productionId === productionId,
+    )
+    expect(row?.locationBuildingId).not.toBeNull()
+    const receipt = acceptedLotNextEventReceipt(managed.before, managed.result)
+    expect(receipt?.target).toEqual({
+      kind: 'release-review',
+      productionId,
+      title: managed.result.releaseDecision!.title,
+      buildingId: row?.locationBuildingId,
+    })
+    expect(currentLotNextEventReleaseReview(managed.result.next, receipt!)).toEqual(receipt!.target)
+
+    // The pairing is exact both ways: a release review cannot wear a production target.
+    const disguised: LotNextEventReceipt = {
+      ...receipt!,
+      target: {
+        kind: 'production',
+        productionId,
+        title: managed.result.releaseDecision!.title,
+        location: 'stage-7',
+        buildingId: 'stage-a',
+        stageName: 'Soundstage 7',
+      },
+    }
+    expect(sameLotNextEventReceipt(disguised, disguised)).toBe(false)
+
+    // Committing is the action; the receipt then demotes and the next sim runs.
+    const committed = commitPictureToReleaseAction(managed.result.next, productionId)
+    if (!committed.ok) throw new Error(committed.error)
+    expect(currentLotNextEventReleaseReview(committed.next, receipt!)).toBeNull()
+    expectNextSimAllowed(committed.next)
+  })
+
+  it('gives a Build Mode completion an exact receipt that names the facility the studio built', () => {
+    const built = buildModeResult('next-event-receipt-build-mode')
+    const completion = acceptedLotNextEventConstructionCompletion(built.before, built.result)
+    // Before 15A this read the legacy Annex parcel only, so it was null here.
+    expect(completion).toEqual(built.result.constructionCompletion)
+    const placed = studioPlacement(built.result.next).placements.filter(
+      (placement) => placement.facilityId === completion!.facilityId,
+    )
+    expect(placed).toHaveLength(1)
+    expect(placed[0]!.parcelId).not.toBe('expansion')
+    expect(acceptedLotNextEventReceipt(built.before, built.result)?.target).toEqual({
+      kind: 'construction',
+      projectId: completion!.projectId,
+      facilityId: completion!.facilityId,
+      name: completion!.name,
+      buildingId: placedBuildingId(placed[0]!.id),
+    })
+
+    // The co-event survives a neutral primary, exactly as the Annex's does.
+    const brokenPrimary: SimResult = {
+      ...built.result,
+      summary: { ...built.result.summary, fromWeek: built.result.summary.fromWeek + 1 },
+    }
+    expect(acceptedLotNextEventReceipt(built.before, brokenPrimary)).toBeNull()
+    expect(lotNextEventNeutralFeedback(built.before, brokenPrimary)?.constructionCompletion)
+      .toEqual(completion)
+
+    // A completion the placement projection does not show completing is still refused.
+    expect(acceptedLotNextEventConstructionCompletion(built.before, {
+      ...built.result,
+      constructionCompletion: { ...completion!, name: 'A building nobody built' },
+    })).toBeNull()
+
+    expectNextSimAllowed(built.result.next)
   })
 })

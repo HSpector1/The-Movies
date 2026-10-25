@@ -6626,9 +6626,7 @@ function managedCastingLotCue(
       }
     }
   }
-  const readyWithLegalPlan = board.sections.readyToPlan.find((project) =>
-    project.legalActions.some((action) => action.kind === 'planAuditions'),
-  )
+  const readyWithLegalPlan = firstPlannableCastingProject(board)
   if (readyWithLegalPlan !== undefined) {
     if (board.capacity.available === 0) {
       return {
@@ -6646,6 +6644,25 @@ function managedCastingLotCue(
   // three currently eligible primary Actors) is not positive Casting activity.
   // Yield so a real pre-production operation at this building remains visible.
   return null
+}
+
+/** The Ready screenplay the Casting cue names for auditions (one rule, two readers). */
+function firstPlannableCastingProject(board: CastingSessionsReadModel) {
+  return board.sections.readyToPlan.find((project) =>
+    project.legalActions.some((action) => action.kind === 'planAuditions'),
+  )
+}
+
+/**
+ * L-40 (Owner decision 15A): the project id the Casting cue's "ready for auditions"
+ * names, or null. The Lot's companion opener hands it to the retained planner as the
+ * EXPLICIT project to plan, so a studio with several Ready screenplays opens the planner
+ * for the one the cue printed instead of refusing because it cannot choose. May throw
+ * wherever `castingSessionsBoard` throws.
+ */
+export function castingCuePlanProjectId(state: GameState): string | null {
+  if (state.castingSessions.mode !== 'managed') return null
+  return firstPlannableCastingProject(castingSessionsBoard(state))?.projectId ?? null
 }
 
 const LOT_PRODUCTION_COMPANY_ROLE_ORDER = [
@@ -6673,7 +6690,10 @@ export function managedProductionCompanyProjection(
   operations: readonly ProductionOperationsState[],
 ): ManagedProductionCompanyProjection | null {
   const productions = state.studio.activeProductions
-  if (state.operations.mode !== 'managed' || productions.length > 2) return null
+  // L-40 (15A): no picture count — each production is proved on its own below. The
+  // `> 2` cap outlived the engine's deleted MAX_CONCURRENT_PRODUCTIONS and withheld
+  // every company once a studio ran a third picture.
+  if (state.operations.mode !== 'managed') return null
 
   const productionIds = new Set<string>()
   for (const production of productions) {

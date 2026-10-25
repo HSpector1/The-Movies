@@ -41,6 +41,12 @@ export const LOT_AUDITION_OPENER_TESTID: Readonly<
 }
 
 export type LotAuditionPlanningOpenAuthority = {
+  /**
+   * L-40 (Owner decision 15A): the EXPLICIT screenplay to plan. The planner used to take
+   * the board's only Ready card (`readyToPlan[0]`) and refuse whenever there were two, so
+   * a studio with a second Ready screenplay was ejected to the full-screen Casting Room.
+   */
+  projectId: string
   hollywoodEnabled: boolean
   origin: 'lot-browse-talent'
   worldInputOwner: boolean
@@ -173,6 +179,7 @@ const RECEIPT_KEYS = [
 ] as const
 const READ_KEYS = ['role', 'talentId', 'name'] as const
 const AUTHORITY_KEYS = [
+  'projectId',
   'hollywoodEnabled',
   'origin',
   'worldInputOwner',
@@ -669,10 +676,11 @@ function strictFirstFreeSlot(
 }
 
 /**
- * The one legal NEW-session planner context for this exact world, or null.
+ * The one legal NEW-session planner context for the NAMED screenplay in this exact world,
+ * or null.
  *
  * WHAT THIS PROVES: that the projected Casting board IS the Core read model, that the one
- * card it offers is faithful to the screenplay, concept, writer and candidates the state
+ * card carrying `projectId` is faithful to the screenplay, concept, writer and candidates the state
  * actually holds, and that a Development & Casting slot is genuinely free for the session
  * the player is about to start. Every one of those proofs is kept.
  *
@@ -693,8 +701,12 @@ function strictFirstFreeSlot(
  * studio first — so both sections must be empty and every session already on the books must
  * be `complete`. Their COMPLETED records belong to `history`, which may hold any number.
  */
-function strictContextForState(state: GameState): LotAuditionPlanningContext | null {
+function strictContextForState(
+  state: GameState,
+  projectId: unknown,
+): LotAuditionPlanningContext | null {
   if (
+    !isNonEmptyString(projectId) ||
     !isClosedCanonicalState(state) ||
     state.founding !== null ||
     state.economyEngagedEver !== true ||
@@ -730,9 +742,8 @@ function strictContextForState(state: GameState): LotAuditionPlanningContext | n
   for (const section of SECTION_KEYS) {
     const rows = projected.sections[section]
     if (!Array.isArray(rows) || !hasCanonicalArrayKeys(rows)) return null
-    // readyToPlan — exactly the ONE picture this planner is about; two would be a choice
-    // this selector must never make for the player.
-    if (section === 'readyToPlan' && rows.length !== 1) return null
+    // readyToPlan — any number (L-40, 15A). The player's opener names the picture by
+    // its explicit project id, so this selector never chooses one for them.
     // auditioning / needsReview — work in flight or a decision owed. Both still refuse.
     if ((section === 'auditioning' || section === 'needsReview') && rows.length !== 0) return null
     // history — the studio's completed camera tests. Any number of them is an ordinary
@@ -740,7 +751,12 @@ function strictContextForState(state: GameState): LotAuditionPlanningContext | n
   }
   const readyToPlan = projected.sections.readyToPlan
   if (!Array.isArray(readyToPlan)) return null
-  const card = strictCard(state, readyToPlan[0])
+  // Exactly ONE card may carry the named id; a duplicated card is a malformed board.
+  const named = (readyToPlan as unknown[]).filter(
+    (row) => isPlainRecord(row) && row.projectId === projectId,
+  )
+  if (named.length !== 1) return null
+  const card = strictCard(state, named[0])
   const firstFreeSlot = strictFirstFreeSlot(state, projected.capacity)
   if (card === null || firstFreeSlot === null) return null
   return {
@@ -794,7 +810,7 @@ export function currentLotAuditionPlanningContext(
       typeof authority.originPresentation !== 'object' ||
       authority.originPresentation === null
     ) return null
-    return strictContextForState(authority.originState)
+    return strictContextForState(authority.originState, authority.projectId)
   } catch {
     return null
   }
@@ -928,7 +944,7 @@ export function acceptedLotAuditionPlanningReceipt(
       after.construction.mode !== 'managed' ||
       !sameClosedFieldsExcept(before, after, new Set(['castingSessions']))
     ) return null
-    const context = strictContextForState(before)
+    const context = strictContextForState(before, payload.projectId)
     if (context === null) return null
     const closedPayload = lotAuditionPlanningPayload(context, payload)
     if (closedPayload === null) return null

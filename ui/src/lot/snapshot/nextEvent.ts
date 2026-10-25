@@ -2,8 +2,8 @@ import {
   findConcept,
   payrollSummary,
   studioDecision,
-  studioDevelopment,
   studioLotSnapshot,
+  studioPlacement,
 } from '../../engine/adapter.ts'
 import type {
   ConstructionCompletionSummary,
@@ -83,6 +83,21 @@ export type LotNextEventWorldTarget =
       stageFacilityId: string
       stageName: string
       buildingId: BuildingId
+    }
+  /**
+   * L-37 (Owner decision 15A) — THE RELEASE DECISION'S OWN SHAPE.
+   *
+   * A Release Ready picture is past Shooting and its card carries no command (commit or
+   * hold is a choice), so the production-decision proof could never accept it and every
+   * release review fell to the neutral rail. `buildingId` is the body the engine holds the
+   * picture at when the engine owns stage assignment (Production & Post), and null where
+   * it does not: a legacy studio's stage is presentation, not a place.
+   */
+  | {
+      kind: 'release-review'
+      productionId: string
+      title: string
+      buildingId: BuildingId | null
     }
   | {
       kind: 'run-completed'
@@ -418,7 +433,8 @@ function copyCompletion(
 }
 
 /**
- * Independently validate the optional Annex completion co-event.
+ * Independently validate the optional construction completion co-event (the Annex or any
+ * Build Mode placement, L-37).
  *
  * This deliberately does not depend on primary-receipt acceptance, allowing one
  * exact completion notice to survive a neutral primary event without preserving
@@ -449,30 +465,23 @@ export function acceptedLotNextEventConstructionCompletion(
       result.weeks !== result.toWeek - result.fromWeek
     ) return null
 
-    const prior = studioDevelopment(result.preTick)
-    const current = studioDevelopment(result.next)
+    // L-37 (15A): proved through the PLACEMENT PROJECTION, which owns every facility on
+    // the property. This read `studioDevelopment`, which projects only the legacy Annex
+    // parcel, so every Build Mode completion was refused here and its whole receipt fell
+    // to the neutral rail. The Annex is a placement too and is proved the same way.
+    const prior = completedPlacement(result.preTick, completion)
+    const current = completedPlacement(result.next, completion)
     if (
-      prior.mode !== 'managed' ||
-      prior.status !== 'building' ||
-      current.mode !== 'managed' ||
+      prior === null ||
+      current === null ||
+      prior.status !== 'underConstruction' ||
       current.status !== 'operational' ||
-      prior.parcelId !== 'expansion' ||
-      current.parcelId !== 'expansion' ||
-      prior.projectId !== completion.projectId ||
-      current.projectId !== completion.projectId ||
       prior.facilityId !== completion.facilityId ||
       current.facilityId !== completion.facilityId ||
       prior.name !== completion.name ||
       current.name !== completion.name ||
-      prior.completedWeek !== null ||
-      prior.dueWeek !== completion.completedWeek ||
-      prior.remainingAdvances !== 1 ||
-      current.completedWeek !== completion.completedWeek ||
-      current.dueWeek !== completion.completedWeek ||
-      current.currentWeek !== completion.completedWeek ||
-      current.remainingAdvances !== 0 ||
-      current.completedAdvances !== current.durationWeeks ||
-      current.completedCapacityGain !== 1
+      prior.completesWeek !== completion.completedWeek ||
+      current.completesWeek !== completion.completedWeek
     ) return null
 
     return copyCompletion(completion)
@@ -488,7 +497,8 @@ function exactDecisionPayloads(
   return (
     (reason === 'scriptReview') === (result.scriptDecision !== null) &&
     (reason === 'castingReview') === (result.castingDecision !== null) &&
-    (reason === 'productionDecision') === (result.productionDecision !== null)
+    (reason === 'productionDecision') === (result.productionDecision !== null) &&
+    (reason === 'releaseReview') === (result.releaseDecision !== null)
   )
 }
 
@@ -512,7 +522,10 @@ function isExactOperationForCard(
     !isFiniteNumber(value.progress01) ||
     value.progress01 < 0 ||
     value.progress01 > 1 ||
-    (value.locationBuildingId !== 'stage-a' && value.locationBuildingId !== 'stage-b') ||
+    // L-37 (15A): any body. Whether it is one of THIS studio's soundstages is answered
+    // by `lotStageIdentityFor` in `productionTarget`, so a stage the studio built gets
+    // the same exact receipt as the founding two.
+    !isNonEmptyString(value.locationBuildingId) ||
     value.facilityLabel !== card.currentFacility ||
     value.directorId !== card.director.id ||
     value.directorName !== card.director.name ||
@@ -594,6 +607,34 @@ function productionTarget(
   }
 }
 
+/** L-37 (15A): the release decision's own proof (see the `release-review` target). */
+function releaseReviewTarget(
+  state: GameState,
+  card: ProductionBoardCardView,
+): Extract<LotNextEventWorldTarget, { kind: 'release-review' }> | null {
+  if (
+    !isNonEmptyString(card.productionId) ||
+    !isNonEmptyString(card.title) ||
+    card.command !== null ||
+    state.studio.activeProductions.filter((production) => production.id === card.productionId)
+      .length !== 1
+  ) return null
+  const snapshot = studioLotSnapshot(state)
+  if (!Array.isArray(snapshot.productionOperations)) return null
+  const rows = snapshot.productionOperations.filter(
+    (operation) => operation.productionId === card.productionId,
+  )
+  if (rows.length !== 1 || rows[0]!.title !== card.title) return null
+  const location = rows[0]!.locationBuildingId
+  return {
+    kind: 'release-review',
+    productionId: card.productionId,
+    title: card.title,
+    buildingId:
+      snapshot.stageAssignmentAuthority === 'engine' && isNonEmptyString(location) ? location : null,
+  }
+}
+
 function exactRunTransition(
   result: SimResult,
   rows: readonly LotNextEventCompletedRun[],
@@ -650,32 +691,47 @@ function exactRunTransition(
 const LEGACY_EXPANSION_BUILDING_ID = 'expansion'
 
 /**
- * WHICH world id the completed facility is (C1-M1b).
+ * The ONE placement a completion names, as the placement projection shows it (C1-M1b,
+ * L-37).
  *
- * Read off the placement root itself — the authority that owns the fact — and matched by
- * the completion's own `projectId`, which `constructionCompletionsBetween` copied from
- * that same record. A placement on the LEGACY parcel keeps being named `expansion`
- * exactly as the accepted Annex receipt requires; everything else is named as itself.
- *
- * Null when the placement cannot be identified: a receipt that cannot say what finished
- * is withheld, never pointed at a building that did not (laws 6 / 21).
+ * The projection carries no project id, so the placement is identified on the placement
+ * root by the completion's own `projectId` (which `constructionCompletionsBetween` copied
+ * from that record) and then read back from the projection by its placement id. Null
+ * when either side cannot name exactly one: a receipt that cannot say what finished is
+ * withheld, never pointed at a building that did not (laws 6 / 21).
+ */
+function completedPlacement(
+  state: GameState,
+  completion: ConstructionCompletionSummary,
+): ReturnType<typeof studioPlacement>['placements'][number] | null {
+  const root: unknown = (state as unknown as Record<string, unknown>).placement
+  const facilities = isRecord(root) && Array.isArray(root.facilities) ? root.facilities : null
+  if (facilities === null) return null
+  const matches = facilities.filter(
+    (placed): placed is Record<string, unknown> =>
+      isRecord(placed) && placed.projectId === completion.projectId,
+  )
+  const only = matches.length === 1 ? matches[0]! : null
+  if (only === null || !isNonNegativeSafeInteger(only.id)) return null
+  const placementId = only.id
+  const projected = studioPlacement(state).placements.filter((placed) => placed.id === placementId)
+  return projected.length === 1 ? projected[0]! : null
+}
+
+/**
+ * WHICH world id the completed facility is (C1-M1b). A placement on the LEGACY parcel
+ * keeps being named `expansion` exactly as the accepted Annex receipt requires;
+ * everything else is named as itself.
  */
 function completedBuildingId(
   next: GameState,
   completion: ConstructionCompletionSummary,
 ): BuildingId | null {
-  const facilities: unknown = (next as unknown as Record<string, unknown>).placement
-  const placements =
-    isRecord(facilities) && Array.isArray(facilities.facilities) ? facilities.facilities : null
-  if (placements === null) return null
-  const matches = placements.filter(
-    (placed): placed is Record<string, unknown> =>
-      isRecord(placed) && placed.projectId === completion.projectId,
-  )
-  if (matches.length !== 1) return null
-  const only = matches[0]!
-  if (only.parcelId === LEGACY_EXPANSION_BUILDING_ID) return LEGACY_EXPANSION_BUILDING_ID
-  return isNonNegativeSafeInteger(only.id) ? placedBuildingId(only.id) : null
+  const placed = completedPlacement(next, completion)
+  if (placed === null) return null
+  return placed.parcelId === LEGACY_EXPANSION_BUILDING_ID
+    ? LEGACY_EXPANSION_BUILDING_ID
+    : placedBuildingId(placed.id)
 }
 
 function targetFor(
@@ -745,9 +801,9 @@ function targetFor(
       ) return null
       return productionTarget(result.next, current.decision)
     }
-    // P06A (charter W1): the release decision points at the picture's current
-    // world owner through the SAME production-target resolver — the receipt
-    // follows the authoritative location mapping wherever it stands.
+    // P06A (charter W1), L-37 (15A): the release decision has its OWN target. It went
+    // through the production-decision resolver, which demands phase Shooting and a
+    // command, so no release review was ever exact.
     case 'releaseReview': {
       const current = studioDecision(result.next)
       if (
@@ -755,7 +811,7 @@ function targetFor(
         result.releaseDecision === null ||
         !sameClosedValue(result.releaseDecision, current.decision)
       ) return null
-      return productionTarget(result.next, current.decision)
+      return releaseReviewTarget(result.next, current.decision)
     }
     // C2a-M5 (charter §4.3-M5, named required work). The receipt points at the
     // STAGE, and every fact on it is the engine's: the wrap row named the picture
@@ -967,6 +1023,11 @@ function isTarget(value: unknown): value is LotNextEventWorldTarget {
         isNonEmptyString(value.stageFacilityId) &&
         isNonEmptyString(value.stageName) &&
         isNonEmptyString(value.buildingId)
+    case 'release-review':
+      return hasExactOwnKeys(value, ['kind', 'productionId', 'title', 'buildingId']) &&
+        isNonEmptyString(value.productionId) &&
+        isNonEmptyString(value.title) &&
+        (value.buildingId === null || isNonEmptyString(value.buildingId))
     case 'run-completed': {
       if (!hasExactOwnKeys(value, ['kind', 'runs', 'buildingId']) || value.buildingId !== 'theater') {
         return false
@@ -1026,6 +1087,7 @@ function isLotNextEventReceipt(value: unknown): value is LotNextEventReceipt {
   // C2a-M5: the pairing is exact in BOTH directions — a wrap receipt carries a wrap
   // target, and nothing else may.
   if ((reason === 'wrap') !== (target.kind === 'wrap')) return false
+  if ((reason === 'releaseReview') !== (target.kind === 'release-review')) return false
   if (reason === 'runCompleted') {
     if (target.kind !== 'run-completed' || rows.length === 0 || !sameClosedValue(rows, target.runs)) {
       return false
@@ -1108,6 +1170,26 @@ export function currentLotNextEventProductionCommand(
       target.stageName !== receipt.target.stageName
     ) return null
     return current.decision.command
+  } catch {
+    return null
+  }
+}
+
+/**
+ * L-37 (15A): the still-current release decision named by an exact receipt, or null.
+ * The Lot and App use it exactly as `currentLotNextEventProductionCommand` is used: a
+ * picture that has since been committed, released or replaced demotes the receipt.
+ */
+export function currentLotNextEventReleaseReview(
+  state: GameState,
+  receipt: LotNextEventReceipt,
+): Extract<LotNextEventWorldTarget, { kind: 'release-review' }> | null {
+  try {
+    if (!isLotNextEventReceipt(receipt) || receipt.target.kind !== 'release-review') return null
+    const current = studioDecision(state)
+    if (current?.kind !== 'releaseReview') return null
+    const target = releaseReviewTarget(state, current.decision)
+    return target !== null && sameClosedValue(target, receipt.target) ? target : null
   } catch {
     return null
   }

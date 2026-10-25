@@ -27,6 +27,7 @@ import type {
 } from '../engine/adapter.ts'
 import {
   campaignDate,
+  castingCuePlanProjectId,
   careerIdentityLabel,
   placementQuote,
   facilityDemolitionRefusal,
@@ -139,6 +140,7 @@ import {
 } from './snapshot/auditionPlanning.ts'
 import {
   currentLotNextEventProductionCommand,
+  currentLotNextEventReleaseReview,
   sameLotNextEventProductionCommand,
   sameLotNextEventReceipt,
   type LotCadenceFeedback,
@@ -285,6 +287,12 @@ export type { LotAuditionPlanningOpenerKind }
  */
 export type LotAuditionPlanningOrigin = Readonly<{
   openerKind: LotAuditionPlanningOpenerKind
+  /**
+   * L-40 (Owner decision 15A): the screenplay THIS opener names, by explicit id. The
+   * companion row names the Casting cue's picture; the inspector verb names the
+   * picture its label prints (the engine journey's `scriptProjectId`).
+   */
+  projectId: string
   opener: HTMLButtonElement
   cue: Readonly<{
     buildingId: 'casting'
@@ -1065,6 +1073,15 @@ export function StudioLotScreen({
     rawExactNextEventReceipt?.target.kind === 'casting'
       ? rawExactNextEventReceipt
       : null
+  // L-37 (15A): a release receipt whose picture is no longer the current release
+  // decision (committed, released, replaced) demotes exactly like a stale command.
+  const invalidNextEventReleaseReceipt =
+    exactNextEventReceiptIsClosed &&
+    rawExactNextEventReceipt !== null &&
+    rawExactNextEventReceipt.target.kind === 'release-review' &&
+    currentLotNextEventReleaseReview(state, rawExactNextEventReceipt) === null
+      ? rawExactNextEventReceipt
+      : null
   const currentScriptReviewContext = currentLotScriptReviewContext(state)
   const nextEventScriptReviewContext =
     rawNextEventScriptReceipt === null ||
@@ -1107,7 +1124,8 @@ export function StudioLotScreen({
     malformedExactNextEventReceipt ??
     invalidNextEventProductionReceipt ??
     invalidNextEventScriptReceipt ??
-    invalidNextEventCastingReceipt
+    invalidNextEventCastingReceipt ??
+    invalidNextEventReleaseReceipt
   const nextEventFeedback: Extract<
     LotCadenceFeedback,
     { kind: 'next-event-exact' | 'next-event-neutral' }
@@ -2040,16 +2058,22 @@ export function StudioLotScreen({
           return
         case 'contracts':
           return
+        // L-37 (15A): a Build Mode completion and a built stage are pointed at by the
+        // body the receipt carries; `expansion` and `stage-b` were the only answers.
         case 'construction':
-          if (hollywood) view.selectHollywoodAnnexPlace?.()
-          else view.select('expansion')
+          if (hollywood) {
+            if (receipt.target.buildingId === 'expansion') view.selectHollywoodAnnexPlace?.()
+          } else view.select(receipt.target.buildingId)
+          return
+        case 'release-review':
+          if (!hollywood && receipt.target.buildingId !== null) view.select(receipt.target.buildingId)
           return
         case 'production':
           if (receipt.target.location === 'stage-7') {
             if (hollywood) view.selectHollywoodProduction?.(receipt.target.productionId)
             else view.select('stage-a')
           } else if (!hollywood) {
-            view.select('stage-b')
+            view.select(receipt.target.buildingId)
           }
       }
     })
@@ -2948,7 +2972,10 @@ export function StudioLotScreen({
         setSelected(null)
         break
       case 'construction':
-        setSelected('expansion')
+        setSelected(receipt.target.buildingId)
+        break
+      case 'release-review':
+        setSelected(receipt.target.buildingId)
         break
       case 'production': {
         const target = receipt.target
@@ -2961,8 +2988,7 @@ export function StudioLotScreen({
             })
           })
         } else {
-          const building = target.location === 'stage-7' ? 'stage-a' : 'stage-b'
-          setSelected(building)
+          setSelected(target.buildingId)
         }
       }
     }
@@ -4177,8 +4203,24 @@ export function StudioLotScreen({
       !cueText.endsWith(reason)
     ) return null
 
+    let projectId: string | null = null
+    try {
+      if (openerKind === 'companion') {
+        projectId = castingCuePlanProjectId(latestGameStateRef.current)
+      } else {
+        const journey = firstFilmJourneyContext(latestSnapshotRef.current)
+        projectId = journey.kind === 'view' && journey.view.next?.kind === 'plan-auditions'
+          ? journey.view.scriptProjectId
+          : null
+      }
+    } catch {
+      projectId = null
+    }
+    if (projectId === null) return null
+
     return {
       openerKind,
+      projectId,
       opener,
       cue: {
         buildingId: 'casting',
@@ -8085,6 +8127,8 @@ export function StudioLotScreen({
           </p>
         )
       }
+      case 'release-review':
+        return <p>Release decision · {receipt.target.title} · Release Ready</p>
       case 'run-completed':
         return <p>Theatrical run completed · {receipt.target.runs.map((run) => run.title).join(' · ')}</p>
       // C2a-M5 (charter §4.3-M5) — landed by ENGINE-M5 as the forced consequence
@@ -8157,6 +8201,9 @@ export function StudioLotScreen({
               case 'production':
                 return `Open Production Board details · ${exactNextEventReceipt.target.title}`
               case 'wrap':
+                return `Open Production Board details · ${exactNextEventReceipt.target.title}`
+              // L-37 (15A): the Production Board card owns the release commit/hold control.
+              case 'release-review':
                 return `Open Production Board details · ${exactNextEventReceipt.target.title}`
               case 'run-completed':
                 return 'Open Dashboard releases'

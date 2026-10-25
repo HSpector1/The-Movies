@@ -83,6 +83,10 @@ const ATTENTION_STATES = new Set<AttentionState>([
 
 const BLOCKER_KINDS = new Set([
   'facility-capacity',
+  // L-40 (15A), found beside the cap: the C2a-M2 arm the operation type and the
+  // resource-wait clause below both name. Without it a picture waiting on a SET failed
+  // `hasValidBlocker` and blanked every company on the Lot.
+  'set-unavailable',
   'director-dispatch',
   'scenery-load-in',
   'take-scheduling',
@@ -258,6 +262,10 @@ export function productionCompanyRoleLabel(role: LotProductionCompanyRole): stri
  * `null` so older Director/Lead snapshots can use their frozen compatibility
  * selector. Once any company row is present, callers must treat `null` as a
  * failed expanded claim rather than falling back within that same claim.
+ *
+ * L-40 (Owner decision 15A): there is no picture count. A cap of two outlived the
+ * engine's `MAX_CONCURRENT_PRODUCTIONS` and made the whole presentation vanish at the
+ * third picture; every picture is proved on its own below, as it always was.
  */
 export function activeProductionCompanyContexts(
   snapshot: StudioLotSnapshot,
@@ -266,8 +274,7 @@ export function activeProductionCompanyContexts(
     snapshot.operationsMode !== 'managed' ||
     snapshot.stageAssignmentAuthority !== 'engine' ||
     !Array.isArray(snapshot.productionOperations) ||
-    !Array.isArray(snapshot.people) ||
-    snapshot.productionOperations.length > 2
+    !Array.isArray(snapshot.people)
   ) return null
 
   const rawOperations: unknown[] = snapshot.productionOperations

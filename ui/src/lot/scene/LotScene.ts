@@ -1239,6 +1239,7 @@ export class LotScene extends Phaser.Scene {
     if (this.input.keyboard) {
       this.input.keyboard.enabled = !on
       // A modal over the Lot owns the page's keys (arrows, Space, Shift) while it is open (L-09).
+      // The release is not page-wide: StudioLotView re-applies it only while the canvas has focus (17A).
       if (on) this.input.keyboard.disableGlobalCapture()
       else this.input.keyboard.enableGlobalCapture()
     }

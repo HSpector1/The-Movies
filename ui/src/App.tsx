@@ -186,6 +186,7 @@ import {
   acceptedLotNextEventGuardNeutral,
   acceptedLotNextEventReceipt,
   currentLotNextEventProductionCommand,
+  currentLotNextEventReleaseReview,
   lotNextEventNeutralFeedback,
   sameLotNextEventProductionCommand,
   sameLotNextEventReceipt,
@@ -596,8 +597,12 @@ function exactLotAuditionPlanningOrigin(
   if (
     typeof value !== 'object' ||
     value === null ||
-    Reflect.ownKeys(value).length !== 3 ||
+    Reflect.ownKeys(value).length !== 4 ||
     !Object.prototype.hasOwnProperty.call(value, 'openerKind') ||
+    // L-40 (15A): the opener names its screenplay by explicit id.
+    !Object.prototype.hasOwnProperty.call(value, 'projectId') ||
+    typeof value.projectId !== 'string' ||
+    value.projectId.trim().length === 0 ||
     !Object.prototype.hasOwnProperty.call(value, 'opener') ||
     !Object.prototype.hasOwnProperty.call(value, 'cue') ||
     typeof value.openerKind !== 'string' ||
@@ -1966,6 +1971,7 @@ export function App() {
     let context: LotAuditionPlanningContext | null = null
     try {
       context = currentLotAuditionPlanningContext({
+        projectId: origin.projectId,
         hollywoodEnabled,
         origin: 'lot-browse-talent',
         worldInputOwner: true,
@@ -2031,6 +2037,8 @@ export function App() {
     const currentPresentation = activeLotPresentationRef.current
     try {
       const context = currentLotAuditionPlanningContext({
+        // L-40 (15A): revalidate the SAME screenplay the workspace opened for.
+        projectId: workspace.context.project.projectId,
         hollywoodEnabled,
         origin: 'lot-browse-talent',
         worldInputOwner: true,
@@ -3565,6 +3573,18 @@ export function App() {
             kind: 'dashboard',
             returnContext,
             focusProductionId: wrapTarget.productionId,
+          })
+          return true
+        }
+        // L-37 (15A): the release decision's deep surface is the picture's Production
+        // Board card, where its commit/hold control lives.
+        case 'release-review': {
+          const releaseTarget = currentLotNextEventReleaseReview(current, receipt)
+          if (releaseTarget === null) return demoteRendered()
+          setScreen({
+            kind: 'dashboard',
+            returnContext,
+            focusProductionId: releaseTarget.productionId,
           })
           return true
         }

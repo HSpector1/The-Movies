@@ -36,7 +36,9 @@ import {
   STUDIO_LOT_BRAND,
 } from '../engine/adapter.ts'
 import { operationalAnnexWorkContext } from './snapshot/annexWork.ts'
+import { activeProductionCompanyContexts } from './snapshot/productionCompany.ts'
 import { contendedStudio, freeSlate } from '../../../tests/_m4Fixtures.ts'
+import { richFoundedStudio } from '../../../tests/contracts/_contractFixtures.ts'
 
 // ── engine-level fixtures (mirroring tests/d12-economy.test.ts) ───────────────
 function foundStudio(seed: string): GameState {
@@ -1217,7 +1219,11 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
     expect(reusedPeople.some((person) => person.id === reusedId)).toBe(false)
   })
 
-  it('does not truncate a third managed picture into an apparently complete company', () => {
+  // L-40 (Owner decision 15A) re-point. Under the deleted two-picture cap this case pinned
+  // "a third managed picture withholds every company"; the cap is gone, and the same
+  // fixture now pins the reason it still withholds: the third picture is a clone that
+  // re-seats picture one's people, and a seat on two pictures fails the proof atomically.
+  it('withholds every company atomically when a third picture re-seats another picture’s people', () => {
     let state = greenlightFilm(
       greenlightFilm(foundManagedStudio('lot-managed-company-overflow', true), 0, 0),
       1,
@@ -1261,6 +1267,65 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
     expect(
       snap.people.filter((person) => person.authority === 'active-production').length,
     ).toBeLessThanOrEqual(4)
+  })
+
+  it('L-40: projects three complete concurrent companies, and the Lot presents all three', () => {
+    // Nine actors, three directors, three craft leads: three pictures that share no seat.
+    let state = applyActions(
+      richFoundedStudio('lot-managed-three-companies', { actor: 9, director: 3, craft: 3 }),
+      [{ kind: 'activateStudioOperations' }],
+    )
+    state = greenlightFilm(greenlightFilm(state, 0, 0), 1, 1)
+    const actors = rosterIds(state, 'actor')
+    // `participants` is omitted: it is optional, and it would freeze picture one's people.
+    const { participants: _frozen, ...source } = state.studio.activeProductions[0]!
+    void _frozen
+    const thirdId = 'production-third'
+    state = {
+      ...state,
+      studio: {
+        ...state.studio,
+        activeProductions: [
+          ...state.studio.activeProductions,
+          {
+            ...source,
+            id: thirdId,
+            remainingTicks: 1,
+            writerId: rosterIds(state, 'writer')[2]!,
+            directorId: rosterIds(state, 'director')[2]!,
+            cast: { lead: actors[6]!, antagonist: actors[7]!, support: actors[8]! },
+            craftIds: [rosterIds(state, 'craft')[2]!],
+          },
+        ],
+      },
+      operations: {
+        ...state.operations,
+        workflows: [
+          ...state.operations.workflows,
+          {
+            productionId: thirdId,
+            phase: 'releaseReady',
+            reservations: [],
+            shootingTask: null,
+            blocker: null,
+            setup: null,
+            planRevision: 0,
+            bindings: emptyWorkflowBindings(),
+          },
+        ],
+      },
+    }
+
+    const snap = studioLotSnapshot(state)
+    const ids = state.studio.activeProductions.map((production) => production.id).sort()
+    expect(snap.productionOperations?.map((entry) => entry.productionId)).toEqual(ids)
+    expect(snap.productionOperations?.every((entry) => entry.companyMembers?.length === 6)).toBe(true)
+    expect(
+      snap.people.filter((person) => person.authority === 'active-production'),
+    ).toHaveLength(18)
+    // The Lot's own presentation validator — the surface that vanished at three.
+    expect(activeProductionCompanyContexts(snap)?.map((company) => company.operation.productionId))
+      .toEqual(ids)
   })
 
   it('labels legacy stage assignment while preserving every pre-operations lot field', () => {

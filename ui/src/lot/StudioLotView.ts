@@ -40,6 +40,13 @@ import type { LotPersonState } from './snapshot/StudioLotSnapshot'
 import { threeLotEnabled } from '../flags.ts'
 import type { ThreeLotEvent, ThreeLotScene } from './three/ThreeLotScene'
 
+/**
+ * The keys the world captures from the page: Left, Up, Right, Down and Space, as DOM
+ * keyCodes (`createCursorKeys()`; its Shift is a modifier Phaser never prevents). Literals,
+ * because the Phaser doubles in the unit suites carry no `Input.Keyboard.KeyCodes`.
+ */
+const CANVAS_KEY_CODES = [37, 38, 39, 40, 32] as const
+
 export type { CameraPreset, CharacterInfo, MomentKind }
 export type { HollywoodGateVisitorPresentation, HollywoodGateVisitorSelection }
 
@@ -148,6 +155,8 @@ export class StudioLotView {
   private reducedMotion = false
   /** Modal overlays suspend world input without pausing or recreating the renderer. */
   private inputSuspended = false
+  /** The live Phaser canvas has focus; only then does the world own the arrows and Space. */
+  private canvasFocused = false
   /** Suppress duplicate loader/create/context-loss reports within one renderer generation. */
   private hollywoodFailureReported = false
   private destroyed = false
@@ -288,6 +297,7 @@ export class StudioLotView {
       this.tycoonScene = this.worldSceneKey === 'tycoon' ? (scene as TycoonScene) : null
       this.hollywoodScene.setReducedMotion(this.reducedMotion)
       this.hollywoodScene.setInputSuspended(this.inputSuspended)
+      this.followCanvasFocus(this.game)
       if (this.pendingSnapshot && this.pendingSnapshot !== this.sceneBootSnapshot) {
         this.hollywoodScene.applySnapshot(this.pendingSnapshot)
       }
@@ -343,6 +353,7 @@ export class StudioLotView {
       if (this.game === null) return
       this.scene = this.game.scene.getScene('lot') as LotScene
       this.scene.setInputSuspended(this.inputSuspended)
+      this.followCanvasFocus(this.game)
       if (this.pendingSnapshot && this.pendingSnapshot !== this.sceneBootSnapshot) {
         this.scene.applySnapshot(this.pendingSnapshot)
       }
@@ -487,6 +498,7 @@ export class StudioLotView {
     // an overlay while leaving the renderer itself free to wake normally.
     this.scene?.setInputSuspended(this.inputSuspended)
     this.hollywoodScene?.setInputSuspended(this.inputSuspended)
+    this.syncCanvasKeys()
     if (this.hollywoodScene && this.pendingSnapshot) {
       this.hollywoodScene.applySnapshot(this.pendingSnapshot)
       this.reconcilePendingGateVisitor()
@@ -523,6 +535,54 @@ export class StudioLotView {
     this.scene?.setInputSuspended(on)
     this.hollywoodScene?.setInputSuspended(on)
     this.threeScene?.setInputSuspended(on)
+    this.syncCanvasKeys()
+  }
+
+  /**
+   * Owner decision 17A (L-09): the world takes the arrows and Space from the page only
+   * while its canvas has focus. Phaser's KeyboardManager listens on `window` and
+   * preventDefaults its captured keys whatever has focus, so a focused loan select or
+   * button lost them. A press on the canvas focuses it (Phaser's own mousedown
+   * preventDefault would stop the browser doing so), except under a modal, whose focus
+   * must not move behind it. tabIndex -1, not 0: the mount is aria-hidden and the DOM
+   * companion is the semantic route, so no Tab stop here.
+   */
+  private followCanvasFocus(game: Phaser.Game): void {
+    const canvas = game.canvas
+    canvas.tabIndex = -1
+    canvas.addEventListener('pointerdown', () => {
+      if (!this.inputSuspended) canvas.focus({ preventScroll: true })
+    })
+    const follow = (focused: boolean) => () => {
+      if (game !== this.game) return
+      this.canvasFocused = focused
+      this.syncCanvasKeys()
+    }
+    canvas.addEventListener('focus', follow(true))
+    canvas.addEventListener('blur', follow(false))
+    this.canvasFocused = document.activeElement === canvas
+    this.syncCanvasKeys()
+  }
+
+  /**
+   * Apply 17A to the live Phaser world. It runs after every scene `setInputSuspended`,
+   * whose release re-enables Phaser's global capture: a modal's suspension wins over
+   * focus, and focus elsewhere wins over that release. Disabling the keys, not only
+   * the capture, keeps the camera and the playback skip off a key another control owns.
+   */
+  private syncCanvasKeys(): void {
+    const keyboard = (this.scene ?? this.hollywoodScene)?.input.keyboard
+    if (!keyboard) return
+    const owned = this.canvasFocused && !this.inputSuspended
+    if (owned) keyboard.enableGlobalCapture()
+    else keyboard.disableGlobalCapture()
+    for (const code of CANVAS_KEY_CODES) {
+      const key = keyboard.keys[code]
+      if (!key) continue
+      key.enabled = owned
+      // A key held while focus leaves never sees its keyup and would pan forever.
+      if (!owned) key.reset()
+    }
   }
 
   /** D1-A review: switch the studio-identity mode (baseline | concept-a | fallback). */

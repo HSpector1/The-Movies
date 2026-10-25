@@ -216,6 +216,41 @@ describe("LotNextEventRail", () => {
     expect(screen.getByTestId("lot-next-event-dismiss")).toHaveFocus();
   });
 
+  it("names a release decision in its own exact identity, with its deep action (L-37)", () => {
+    const deep = vi.fn();
+    const receipt: LotNextEventReceipt = {
+      ...exactReceipt({
+        kind: "release-review",
+        productionId: "prod-44",
+        title: "A Fraction of Midnight",
+        buildingId: "post",
+      }),
+      stopReason: "releaseReview",
+      stopMessage: "Stopped at Week 13: A Fraction of Midnight is Release Ready.",
+    };
+    render(
+      <LotNextEventRail
+        feedback={{ kind: "next-event-exact", receipt }}
+        deepAction={{
+          label: "Open Production Board details · A Fraction of Midnight",
+          onActivate: deep,
+        }}
+        onDismiss={() => {}}
+      />,
+    );
+
+    const identity = screen.getByTestId("lot-next-event-identity");
+    expect(identity).toHaveTextContent("Release decision");
+    expect(identity).toHaveTextContent("A Fraction of Midnight");
+    expect(identity).not.toHaveTextContent("prod-44");
+    fireEvent.click(
+      screen.getByRole("button", {
+        name: "Open Production Board details · A Fraction of Midnight",
+      }),
+    );
+    expect(deep).toHaveBeenCalledOnce();
+  });
+
   it("retains every completed-run identity in receipt order", () => {
     const receipt = exactReceipt({
       kind: "run-completed",

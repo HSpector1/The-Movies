@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { makeSave } from '../../../../src/core/index.ts'
+import { castingSessionsReadModel, makeSave } from '../../../../src/core/index.ts'
 import * as adapter from '../../engine/adapter.ts'
 import {
   acknowledgeCastingSessionAction,
@@ -135,10 +135,27 @@ function secondPictureStudio(seed: string): GameState {
   return accepted.next
 }
 
-function authority(state: GameState): LotAuditionPlanningOpenAuthority {
+/**
+ * L-40 (15A): the planner takes an EXPLICIT project id. By default these cases name the
+ * first Ready screenplay of the Core read model (a world with none names an id no card
+ * carries, which the planner must refuse).
+ */
+function firstReadyProjectId(state: GameState): string {
+  try {
+    return castingSessionsReadModel(state).sections.readyToPlan[0]?.projectId ?? 'no-ready-screenplay'
+  } catch {
+    return 'no-ready-screenplay'
+  }
+}
+
+function authority(
+  state: GameState,
+  projectId = firstReadyProjectId(state),
+): LotAuditionPlanningOpenAuthority {
   const screen = { kind: 'lot' }
   const presentation = {}
   return {
+    projectId,
     hollywoodEnabled: true,
     origin: 'lot-browse-talent',
     worldInputOwner: true,
@@ -151,8 +168,8 @@ function authority(state: GameState): LotAuditionPlanningOpenAuthority {
   }
 }
 
-function contextFor(state: GameState): LotAuditionPlanningContext {
-  const context = currentLotAuditionPlanningContext(authority(state))
+function contextFor(state: GameState, projectId?: string): LotAuditionPlanningContext {
+  const context = currentLotAuditionPlanningContext(authority(state, projectId))
   if (context === null) throw new Error('setup: expected audition-planning context')
   return context
 }
@@ -218,6 +235,8 @@ describe('current Lot audition-planning context', () => {
     const state = readyStudio('audition-planning-origin')
     const exact = authority(state)
     const changes: LotAuditionPlanningOpenAuthority[] = [
+      { ...exact, projectId: '' },
+      { ...exact, projectId: 'script-not-on-the-board' },
       { ...exact, hollywoodEnabled: false },
       { ...exact, origin: 'other' as 'lot-browse-talent' },
       { ...exact, worldInputOwner: false },
@@ -292,6 +311,49 @@ describe('current Lot audition-planning context', () => {
     const rewritten = clone(started.next)
     rewritten.castingSessions.sessions[0]!.status = 'review'
     expect(acceptedLotAuditionPlanningReceipt(state, rewritten, payload)).toBeNull()
+  })
+
+  it('L-40: opens the planner for the explicitly named screenplay among three Ready ones', () => {
+    // THE DEFECT THIS PINS. The planner took `readyToPlan[0]` and refused whenever the
+    // board held two, so a studio's second Ready screenplay ejected the player to the
+    // full-screen Casting Room from every opener.
+    let state = managedStudio('audition-planning-three-ready')
+    for (let picture = 0; picture < 3; picture += 1) {
+      const commissioned = commissionScriptAction(state, commissionPayload(state))
+      if (!commissioned.ok) throw new Error(commissioned.error)
+      const drafted = advanceWeek(commissioned.next).next
+      const accept = scriptProjectsBoard(drafted).sections.needsReview[0]?.legalActions.find(
+        (action) => action.kind === 'acceptScript',
+      )
+      if (accept === undefined) throw new Error(`setup: screenplay ${String(picture)} cannot be accepted`)
+      const accepted = runScriptProjectAction(drafted, accept)
+      if (!accepted.ok) throw new Error(accepted.error)
+      state = accepted.next
+    }
+    const ready = castingSessionsBoard(state).sections.readyToPlan
+    expect(ready).toHaveLength(3)
+
+    for (const card of ready) {
+      const named = currentLotAuditionPlanningContext(authority(state, card.projectId))
+      expect(named?.project).toEqual(card)
+      expect(named?.planAction).toEqual({
+        kind: 'planAuditions',
+        projectId: card.projectId,
+        label: 'Plan auditions',
+      })
+    }
+
+    const third = ready[2]!
+    const context = contextFor(state, third.projectId)
+    const payload = payloadFor(context)
+    const started = startCastingSessionAction(state, payload)
+    if (!started.ok) throw new Error(started.error)
+    const receipt = acceptedLotAuditionPlanningReceipt(state, started.next, payload)
+    expect(receipt?.projectId).toBe(third.projectId)
+    expect(receipt?.title).toBe(third.title)
+    // A payload for another screenplay is not the plan this context authorized.
+    expect(lotAuditionPlanningPayload(context, { ...payload, projectId: ready[0]!.projectId }))
+      .toBeNull()
   })
 
   it('refuses while any session is still in flight, even one the board files under history', () => {
