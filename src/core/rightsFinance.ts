@@ -43,7 +43,14 @@ export const UNBOUND_CORPORATE_CONDITION_READERS: CorporateConditionReaders = Ob
 })
 
 /** P15B's evaluated condition and actual outstanding-loan readers are the default for every P16 entry. */
-export const corporateConditionReaders: CorporateConditionReaders = Object.freeze({ conditionRecord, outstandingLoan })
+// Getters read the live bindings at access time: this module can evaluate inside the import cycle
+// corporateConditionLive -> employment -> ... -> studioClosure -> estate -> rightsFinance -> corporateConditionLive,
+// before corporateConditionLive has defined its exports, and a value captured then is undefined. The getters still
+// return the same two functions (tests/p16b-live-condition-readers.test.ts pins that identity).
+export const corporateConditionReaders: CorporateConditionReaders = Object.freeze({
+  get conditionRecord() { return conditionRecord },
+  get outstandingLoan() { return outstandingLoan },
+})
 
 export type ConditionFacts = { stage: ConditionStage; hasOutstandingLoan: boolean }
 
