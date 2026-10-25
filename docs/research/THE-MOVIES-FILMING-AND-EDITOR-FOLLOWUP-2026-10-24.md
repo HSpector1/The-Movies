@@ -12,7 +12,7 @@ Sources reused:
 
 - [Official English PC manual](https://cdn.steamstatic.com/steam/apps/7900/manuals/manual_english.pdf), retail base-game documentation. Retained file `artifacts/reference/the-movies-pc-manual-steam.pdf`, SHA-256 `d9b3d66f2ca4893b0ccd1ddf27dab4a382c27a4839d534af21503452269164d4`. Printed page numbers below; PDF spread indexes are zero-based. Manual claims have high confidence as documented behavior, not observed execution.
 - [Pinned manual reconciliation](https://github.com/HSpector1/the-movies-rea-research-20261014/blob/9da7919e9180fec210a2598f489bd9c6f73f960b/docs/research/video-evidence-20261024/MANUAL-GUIDE-DELTA.md), including costume/import ambiguities and evidence identity.
-- [Pinned coordinator evidence and coverage limits](https://github.com/HSpector1/the-movies-rea-research-20261014/blob/9da7919e9180fec210a2598f489bd9c6f73f960b/docs/research/video-evidence-20261024/COORDINATOR-ANSWERS.md), with episode notes and frame manifests in the same directory. The 43-video pass was sampled still review plus available automatic captions, not continuous viewing or audio listening. No new footage downloaded for this follow-up.
+- [Pinned coordinator evidence and coverage limits](https://github.com/HSpector1/the-movies-rea-research-20261014/blob/9a5f97e2a3a2882a7eb5a42337d5aefeca228f0d/docs/research/video-evidence-20261024/COORDINATOR-ANSWERS.md), with episode notes and frame manifests in the same directory. The 43-video pass was sampled still review plus available automatic captions, not continuous viewing or audio listening. No new footage downloaded for this follow-up.
 
 ## 1. Complete filming and equipment lifecycle
 
@@ -95,6 +95,53 @@ The decisive adopted boundary is [FILM-CHRONICLE-V1-CONTRACT.md:356–365](https
 3. **Export:** export one short known film, retain preset/thumbnail choice, verify the output file plays outside the game and compare scene order/title/credits. Do not claim preset bitrates, codec identity or interoperability without inspecting the artifact.
 
 If Studio later adopts this scope, its first acceptance should distinguish editable storage from rendered output: author → reorder/split/delete → preview → save/cold-reopen → export → external playback. Add cancelled export, duplicate commands and stale draft ownership to that existing workflow's tests. Keep multitrack edits, role-bound speech and audible playback separate from volume-control tests. Until a concrete scope is adopted, avoid speculative schemas/frameworks or an implementation sprint estimate.
+
+
+## 3. Additional findings: contention, interruptions and progression
+
+This compact update reconciles the local `GAMEPLAY-OBSERVATION-GAPS.md` with published research at `9a5f97e2a3a2882a7eb5a42337d5aefeca228f0d`. Its assigned research-repository path, `docs/development/builder-packets/GAMEPLAY-OBSERVATION-GAPS.md`, returned404 on main during this update; it is **not a published source link**. Use the [corrected coordinator answer](https://github.com/HSpector1/the-movies-rea-research-20261014/blob/9a5f97e2a3a2882a7eb5a42337d5aefeca228f0d/docs/research/video-evidence-20261024/COORDINATOR-ANSWERS.md#corrections-to-earlier-route-recommendations) and [published Geekism episode notes](https://github.com/HSpector1/the-movies-rea-research-20261014/blob/9a5f97e2a3a2882a7eb5a42337d5aefeca228f0d/docs/research/video-evidence-20261024/GEEKISM.md) for retained evidence. No new video research or acceptance gates are added; the local report's five proposed implementation slices are not adopted here.
+
+### Occupied sets: blocking is documented; automatic recovery is unknown
+
+**Manual:** retail-base p13 (PDF index6) identifies an occupied set as one reason a required set appears red. Its subsequent construction/assembly paragraph does not establish queue ordering or automatic recovery after another film leaves.
+
+**Commentary:** [Flabaliki1,23:20–27:13](https://www.youtube.com/watch?v=EALqGBsuoQ8&t=1400s) supplies the closest retained sequence:23:20 reports another movie using the set;24:32–36 says the ready film cannot shoot;26:53–27:03 waits for the first film;27:06–13 describes manually issuing Shoot It after it finishes. Edition is reported base, installation unverified; a widescreen modification is disclosed in episode2.
+
+**Observed visuals:** retained360p cues0029–0032 at24:00/25:00/26:00/27:00 show casting/construction context, not a readable same-film identity across blockage and resumed shooting. The described Shoot It gesture falls between samples. [Corrected episode1 notes and pins](https://github.com/HSpector1/the-movies-rea-research-20261014/blob/9a5f97e2a3a2882a7eb5a42337d5aefeca228f0d/docs/research/video-evidence-20261024/FLABALIKI.md#L24) supersede the earlier stronger queue recommendation.
+
+**UNKNOWN:** automatic queue registration/order, unattended resumption, waiting actors/director/crew behavior, and reassignment to a compatible set during an active wait. The manual confirms red-set feedback; exact occupied-set warning/progress behavior is not visually qualified here. **Inference limit:** a manually delayed initial start proves neither that intervention is always required nor that an already-started film automatically resumes.
+
+### Distinct interruption/recovery classes
+
+All rows below are **caption commentary**, not continuously witnessed causal tests. Geekism reports base game and restarts normal play in episode2; build/mod inventory is unverified and awards can modify behavior. Episodes20–21 additionally follow an attempted applicant mod of uncertain effect. Flabaliki4 is reported base; Flabaliki13 is expansion-enabled.
+
+| Class / source | Reported action and outcome | Unknown consequences |
+|---|---|---|
+| Rehearsal disruption — [G4,08:30](https://youtu.be/yqRncTT7CX0?t=510) | Dragging stars to trailers interrupts rehearsal; creator recasts/rehearses. | Lost progress and role clearing; not proof of mid-film recasting. |
+| Crew shortage — [G8,01:23–04:49](https://youtu.be/e5D8qT77W8o?t=83) | Second shoot lacks crew; builder/janitor converted to crew. | Exact assignment/resumption predicate and film-specific counts. |
+| Shared personnel — [G12,02:07–11:15](https://youtu.be/XxIPKG6nv10?t=127) | Western waits for an extra used by a comedy, reportedly resumes after it finishes. | Intervention between samples; not a set-contention or automatic-queue proof. |
+| Temporary absence — [F4,24:35 and26:20](https://www.youtube.com/watch?v=tOEsrY44--c&t=1475s) | Creator redirects stars from leisure to filming. | Need threshold, autonomous return and preserved takes. |
+| Retirement pending completion — [G20,37:12](https://youtu.be/GK-HG5mMRKA?t=2232), [G21,23:29–25:31](https://youtu.be/pKg080DMt3k?t=1409) | Notice reportedly allows director to finish current film; later retirement follows completion. | Universal retirement policy; mod caveat applies. |
+| Abandonment after failed recovery — [F13,12:01–12:52](https://www.youtube.com/watch?v=a-WJQMs9LQs&t=721s) | Creator cans a stalled film and says its staff are released. | Root cause, refund, retained footage/draft and cancellation losses; expansion evidence only. |
+
+These distinguish recoverable shortages/absence, pre-shoot disruption, deferred departure and abandonment. They do not establish every recovery as automatic. Actor quitting mid-film, replacement casting and exact financial/progress losses remain **UNKNOWN**.
+
+### Four progression mechanisms, not one unlock counter
+
+Manual pp22–23 documents starting-decade access, research ahead of rivals and rank rewards. The following examples are **commentary corroboration**, with the Geekism base-game/award qualifications above; exact thresholds, rates and a complete unlock calendar are not recovered.
+
+| Mechanism | Evidence and distinction |
+|---|---|
+| Calendar/public availability | [G4,24:38](https://youtu.be/yqRncTT7CX0?t=1478) describes researching technology before general1931 availability. Calendar access differs from completing research. |
+| Staffed research | [G3,14:26 and17:06](https://youtu.be/12jqKxiFPIQ?t=866): laboratory and early1930s costume research. Exact staffing/work-rate rules remain unknown. |
+| Studio milestone/rank rewards | [G13,25:20–26:42](https://youtu.be/jr6TMizSHYA?t=1520): cash milestone followed by proficient office replacement. Bank balance, cumulative earnings and release/award counters are distinct; narrated numbers need readable confirmation. |
+| Competitive award modifiers | [G9,07:00](https://youtu.be/xQdWGCp8tNA?t=420) attributes no alcohol addiction to Party On; [G13,05:42–07:50 and24:36](https://youtu.be/jr6TMizSHYA?t=342) reports losing it and addiction becoming possible again. Temporary effects must not be mistaken for permanent vanilla behavior; exact duration/removal predicates remain unknown. |
+
+### Studio comparison: implemented policies, not recovered original rules
+
+At the existing source pin `342e9a903bc2ffec563c58ea8f511a67c3e4f994`, [allocateForPhase](https://github.com/HSpector1/The-Movies/blob/342e9a903bc2ffec563c58ea8f511a67c3e4f994/src/core/operations.ts#L284) atomically acquires stage/set resources, retains relevant bindings and distinguishes stage capacity from set unavailability. [productionsInSweepOrder](https://github.com/HSpector1/The-Movies/blob/342e9a903bc2ffec563c58ea8f511a67c3e4f994/src/core/operations.ts#L1477) prioritizes longest waiting with numeric ordinal ties; the [weekly sweep](https://github.com/HSpector1/The-Movies/blob/342e9a903bc2ffec563c58ea8f511a67c3e4f994/src/core/operations.ts#L1628) retries freed capacity within the same week. Resource acquisition differs from shooting: the first take still requires explicit scheduling. [Technology retargeting](https://github.com/HSpector1/The-Movies/blob/342e9a903bc2ffec563c58ea8f511a67c3e4f994/src/core/technologyProduction.ts#L101) can change an unfilmed rehearsal assignment through its qualified route, but locks at filming-phase entry; it is not unrestricted live set substitution.
+
+This is static source comparison, not fresh test/player acceptance. **Studio's allocation, fairness, retry and retarget policies are not necessarily recovered original-game rules.** The historical evidence neither demonstrates a fidelity defect nor justifies replacing them. No mandatory implementation work or new P16 gate follows.
 
 ## Coordinator disposition
 
