@@ -66,6 +66,7 @@ import type {
   Talent,
 } from '../src/core/index.js'
 import { validateLiveSave } from './helpers/live-era.js'
+import { initialRightsRoot } from '../src/core/rights.js'
 
 const ANNEX = DEVELOPMENT_CASTING_ANNEX_BLUEPRINT.id
 const ANNEX_FACILITY = DEVELOPMENT_CASTING_ANNEX_BLUEPRINT.facilityIdBase
@@ -884,6 +885,14 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     // refund boundary this test is about). A natively founded world records an 'opened' fund, so, as with
     // `talentProvenance` above, there is no emptiness precondition to prove before stripping it.
     delete forgedV11.state.foundingFunding
+    // P16 rebase round 6: and the Save49 rights root, for the same reason (the V11 exact-keys allowlist trips on
+    // 'unknown field "rights"' before the walk reaches the demolition refund boundary). Removed only while it is the
+    // generateWorld default, guard-before-strip: this world never holds an industry, so advanceRightsWeek leaves the
+    // root as worldgen wrote it, initialRightsRoot(0) (rights.ts): version, recordedFromWeek 0, an empty
+    // legacyBoundary (propertyIds, filmIds, propertyAnchors), empty properties, filmTitles, titleEvents, licences,
+    // offers, transactions, diligence, estates and absorptions, and nextId 1.
+    expect(forgedV11.state.rights).toEqual(initialRightsRoot(0))
+    delete forgedV11.state.rights
     for (const person of forgedV11.state.talent as Record<string, unknown>[]) {
       for (const key of ['skills', 'ceilings', 'devRate', 'genreExperience', 'workHistory']) {
         delete (person[key] as Record<string, unknown>).research
