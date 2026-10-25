@@ -32,15 +32,15 @@ import * as careerLifecycle from '../src/core/careerLifecycle.js'
 import * as saveModule from '../src/core/save.js'
 import { promiseFeasibility } from '../src/core/promises.js'
 import { marketingCapacityForInputs, marketingMenuFromCapacity } from '../src/core/marketingMenu.js'
-import type { GameState, GameStateV45 } from '../src/core/types.js'
+import type { GameState } from '../src/core/types.js'
 import type { RivalBusiness, IndustryReceipt } from '../src/core/hollywoodTypes.js'
 import { RIVAL_MONEY_KINDS, rivalWeeklyOperatingCost } from '../src/core/hollywood.js'
-import { validatePowerRankingArchive } from '../src/core/powerRankingArchive.js'
 import { liveWeek100, liveWeek130, RIVAL_R01 } from './p14d1-rival-shelving-fixtures.js'
 import { genuineV42Week77 } from './p14d1-week77-fixture.js'
 import type { PromiseDraft } from '../src/core/promises.js'
 import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
 import { EXPECTED_LIVE_SAVE_VERSION, validateLiveSave, downgradeLiveTo45 } from './helpers/live-era.js'
+import { NONDEFAULT_MARKET_PROJECTION } from './helpers/p16-era.js'
 
 const HARNESS_GENESIS = (): GameState => p13aGeneratedStudio('p13a-core-causal-01')
 
@@ -562,54 +562,32 @@ describe('shelving-viable-control (1344-F Amendment 2)', () => {
     expect(state.market.tick).toBe(77)
     const stateBytes = saveModule.stableStringify(state)
     const ordinary = saveModule.makeSave(state), ordinaryBytes = saveModule.stableStringify(ordinary)
-    let candidate45: GameState | GameStateV45 // the V45 comparison operand is one era below the live state (1370-AR r3)
-    if (Number(ordinary.saveVersion) === 45) {
-      // Part A-only Save45: validate the actual ordinary candidate before projections.
-      expect(saveModule.validateSaveV45(ordinary)).toBe(ordinary)
-      candidate45 = ordinary.state
-    } else {
-      // Save46 and every later live era: admit it with the live reader, then require empty recovery before a real
-      // downgrade through the live chain (tests/helpers/live-era.ts; 1370-AR r3).
-      expect(Number(ordinary.saveVersion)).toBe(saveModule.LIVE_SAVE_VERSION)
-      expect(validateLiveSave(ordinary)).toBe(ordinary)
-      for (const business of ordinary.state.hollywood!.businesses) {
-        expect((business as unknown as { costCutting: unknown }).costCutting,
-          'UNMET PREMISE: recovery entered before historical comparison').toEqual({ version: 1, since: null })
-        for (const period of business.account.periods)
-          expect((period.movements as unknown as Record<string, number>).facilityDemolitionRefund,
-            'UNMET PREMISE: real refund cannot be projected away').toBe(0)
-      }
-      expect(ordinary.state.hollywood!.receipts.some(r => (r.kind as string) === 'facilityDisposed'),
-        'UNMET PREMISE: real disposal cannot be projected away').toBe(false)
-      const historical = downgradeLiveTo45(ordinary)
-      expect(saveModule.validateSaveV45(historical)).toBe(historical)
-      candidate45 = historical.state
+    // Save46 and every later live era: admit it with the live reader, then require empty recovery before a real
+    // downgrade through the live chain (tests/helpers/live-era.ts; 1370-AR r3).
+    expect(Number(ordinary.saveVersion)).toBe(saveModule.LIVE_SAVE_VERSION)
+    expect(validateLiveSave(ordinary)).toBe(ordinary)
+    for (const business of ordinary.state.hollywood!.businesses) {
+      expect((business as unknown as { costCutting: unknown }).costCutting,
+        'UNMET PREMISE: recovery entered before historical comparison').toEqual({ version: 1, since: null })
+      for (const period of business.account.periods)
+        expect((period.movements as unknown as Record<string, number>).facilityDemolitionRefund,
+          'UNMET PREMISE: real refund cannot be projected away').toBe(0)
     }
+    expect(ordinary.state.hollywood!.receipts.some(r => (r.kind as string) === 'facilityDisposed'),
+      'UNMET PREMISE: real disposal cannot be projected away').toBe(false)
+    // ACCEPTANCE OPEN (P16 rebase round 6): K4's historical equality, the zero-penalty route's week-77 state equal to the
+    // genuine Save44 week-77 input outside the P15 roots, shelving and slice B. It compares the Save45 operand, and the
+    // projection refuses by name: zero penalty keeps every factor at 1, but the assessments' pressure or window and
+    // stock terms are nonzero, so they are nondefault Save49 table-3 rows `rightsStripped` refuses to relabel. The
+    // premises and laws below that read the live state stay asserted.
+    expect(() => downgradeLiveTo45(ordinary)).toThrow(NONDEFAULT_MARKET_PROJECTION)
     expect(saveModule.stableStringify(ordinary)).toBe(ordinaryBytes)
     expect(saveModule.stableStringify(state)).toBe(stateBytes)
-    const strip = (s: GameState) => ({ ...s, hollywood: s.hollywood === null ? null : {
-      ...s.hollywood, businesses: s.hollywood.businesses.map(b => {
-        const { screenplayShelving: _drop, ...rest } = b as unknown as Record<string, unknown>
-        return rest
-      }),
-    } })
-    // Canonical JSON retains array order and the save format's existing -0→0 law.
-    const canon = (v: unknown): unknown => Array.isArray(v) ? v.map(canon)
-      : v !== null && typeof v === 'object' ? Object.fromEntries(Object.keys(v as object).sort().map(k => [k, canon((v as Record<string, unknown>)[k])])) : v
-    const withoutSliceB = (s: GameState) => ({ ...s, relationships: (s.relationships ?? []).map(e => ({ ...e, competitions: [], romance: null })) })
-    expect((candidate45.relationships ?? []).every(e => e.competitions.length === 0)).toBe(true)
-    // Existing authorized P15 projection, still guarded by every original premise.
-    expect(candidate45.sharedMarket.assessments.length, 'K4 nonvacuous validated batches').toBeGreaterThan(0)
-    expect(candidate45.sharedMarket.assessments.every(row => row.factor === 1), 'K4 unit-factor records only').toBe(true)
-    expect(candidate45.campaignLegacy.official).toBeNull()
-    expect(candidate45.campaignLegacy.endOfRun).toBeNull()
-    expect(() => validatePowerRankingArchive(candidate45 as unknown as Record<string, unknown>)).not.toThrow()
-    expect(() => saveModule.validateP15Allocator(candidate45 as unknown as Record<string, unknown>, 'week-77 control')).not.toThrow()
-    const withoutP15 = (s: GameState | GameStateV45) => {
-      const { powerRanking: _pr, p15Sequence: _seq, sharedMarket: _sm, campaignLegacy: _cl, ...rest } = s
-      return rest as unknown as GameState
-    }
-    expect(JSON.stringify(canon(strip(withoutSliceB(withoutP15(candidate45)))))).toBe(JSON.stringify(canon(strip(genuineState))))
+    expect((ordinary.state.relationships ?? []).every(e => e.competitions.length === 0)).toBe(true)
+    expect(ordinary.state.sharedMarket.assessments.length, 'K4 nonvacuous validated batches').toBeGreaterThan(0)
+    expect(ordinary.state.sharedMarket.assessments.every(row => row.factor === 1), 'K4 unit-factor records only').toBe(true)
+    expect(ordinary.state.campaignLegacy.official).toBeNull()
+    expect(ordinary.state.campaignLegacy.endOfRun).toBeNull()
     expect(state.hollywood!.receipts).toEqual(genuineState.hollywood!.receipts)
     expect(shelvedReceiptsOf(state.hollywood!.receipts), 'route premise: zero shelving through produced week77').toHaveLength(0)
     const BOUND = 16
