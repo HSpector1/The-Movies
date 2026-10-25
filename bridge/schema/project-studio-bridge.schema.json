@@ -2999,9 +2999,7 @@
         "cashAfter": {
           "anyOf": [
             {
-              "maximum": 2147483647,
-              "minimum": -2147483648,
-              "type": "integer"
+              "type": "number"
             },
             {
               "type": "null"
@@ -3011,9 +3009,7 @@
         "cashBefore": {
           "anyOf": [
             {
-              "maximum": 2147483647,
-              "minimum": -2147483648,
-              "type": "integer"
+              "type": "number"
             },
             {
               "type": "null"
@@ -4195,14 +4191,10 @@
           ]
         },
         "cashAfter": {
-          "maximum": 2147483647,
-          "minimum": -2147483648,
-          "type": "integer"
+          "type": "number"
         },
         "cashBefore": {
-          "maximum": 2147483647,
-          "minimum": -2147483648,
-          "type": "integer"
+          "type": "number"
         },
         "commitLabel": {
           "minLength": 1,
@@ -13881,14 +13873,10 @@
           "type": "integer"
         },
         "cashAfter": {
-          "maximum": 2147483647,
-          "minimum": -2147483648,
-          "type": "integer"
+          "type": "number"
         },
         "cashBefore": {
-          "maximum": 2147483647,
-          "minimum": -2147483648,
-          "type": "integer"
+          "type": "number"
         },
         "cellLegality": {
           "items": {
@@ -18335,14 +18323,10 @@
           "type": "integer"
         },
         "cashAfter": {
-          "maximum": 2147483647,
-          "minimum": -2147483648,
-          "type": "integer"
+          "type": "number"
         },
         "cashBefore": {
-          "maximum": 2147483647,
-          "minimum": -2147483648,
-          "type": "integer"
+          "type": "number"
         },
         "commitLabel": {
           "minLength": 1,
