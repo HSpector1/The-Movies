@@ -135,7 +135,8 @@ describe('P13B-S7 announcements persist nowhere: genuine V26 fixture, live load,
 
     const exported = save.exportCurrentState(at884)
     expect(exported).not.toMatch(/technologyAnnounced/)
-    // P16 rebase round 6: the law is that no announcement RECORD persists, so no key anywhere in the export names one.
+    // P16 rebase round 6: the law is that no announcement RECORD persists, so no key anywhere in the export starts with
+    // "announcement" (the old text match's reach on keys; a retirement record's ageAtAnnouncement is not one).
     // A text match on "announcement is broader than that law: the Save49 rights root keeps a title event's provenance
     // ref, `announcement:<filmId>` (rights.ts authenticTitles, written by materializeLegacyTitles for a rival film's
     // virtual property whose film was announced). That value names an already persisted filmAnnounced receipt, not an
@@ -145,7 +146,7 @@ describe('P13B-S7 announcements persist nowhere: genuine V26 fixture, live load,
       if (Array.isArray(node)) { node.forEach((item, i) => walk(item, `${path}[${i}]`)); return }
       if (typeof node === 'string') { if (/^announcement/i.test(node)) refs.push(path); return }
       if (node === null || typeof node !== 'object') return
-      for (const [key, value] of Object.entries(node)) { if (/announcement/i.test(key)) keys.push(`${path}.${key}`); walk(value, `${path}.${key}`) }
+      for (const [key, value] of Object.entries(node)) { if (/^announcement/i.test(key)) keys.push(`${path}.${key}`); walk(value, `${path}.${key}`) }
     }
     walk(JSON.parse(exported), '')
     expect(keys).toEqual([])
