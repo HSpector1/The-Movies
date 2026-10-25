@@ -4,14 +4,17 @@ P16 REBASE REPORT (Owner decision 3A)
 Branch p16-rebase-20261024, worktree ~/studio-scratch/p16-rebase-20261024-wt, base main 8792de52.
 Candidate: current200 PATCH.diff, sha256 d59d331be952e608aa4da9f89f88d71212826adb62a1f54ebbaf0cd6c4e1a1c5
 (verified before the apply; the file and K/p16 were only read).
-State: STATIC-UNRUN. The agent ran no tsc, vitest, vite-node, npm script or generator. Every claim
-below comes from reading source and from git; compilation, assertions and timing are the lane's.
+State: the agent ran no tsc, vitest, vite-node, npm script or generator. The coordinator ran the lane
+at 59ec1457 (lane-logs/wave3.log): typecheck 0, typecheck:bridge 0, both contract checks pass after
+generation, UI 30 of 30, core 1,149 of 1,323 in 139 files. Section 10 records the follow-up commits;
+they are unrun.
 
 Commits on the branch, in order:
   b2d3d97e  P16: apply the current200 candidate onto main at 8792de52; conflicts resolved by the ledger's rules
   0863f80b  P16 C-01: absorbed work obeys the stabilized shared-occupancy law in every reader L-05 fixed
   96ea1da7  P16: the candidate's suites compile against the stabilized laws; the 12A witness reads the live save
-  (this report is the fourth commit)
+  59ec1457  P16: rebase report (this file, first version)
+  9c9b38d5 .. d691d07f  the follow-up after the first lane run (section 10); this correction follows them
 
 Headline numbers
   200 candidate paths: 71 added, 129 modified (52 added test files, 61 modified test files, 87 source,
@@ -22,8 +25,8 @@ Headline numbers
   Static import check: 0 unresolved imports or missing exports across 1,255 tracked TypeScript files.
   Expected failures by static reading, by class (section 6): 16 tests in 5 files (C-03); 32 files that
   need captures outside the repository (31 candidate files, audit C-06, plus the new C-01 regression);
-  38 Bridge files whose projection or registry pins predate projection 62 (C-02; 10 of them
-  candidate-modified); 9 files that still treat Save48 as the live save. The classes overlap where a
+  39 Bridge files whose projection or registry pins predate projection 62 (C-02; 10 of them
+  candidate-modified); 11 files that still treat Save48 as the live save. The classes overlap where a
   file belongs to two.
 
 
@@ -31,8 +34,9 @@ Headline numbers
 ----------------------------
 
 git -c gc.auto=0 -c maintenance.auto=0 --no-optional-locks apply --3way --index PATCH.diff.
-A plain --check failed at 14 paths; the three-way merge reduced that to 10 conflicts
-(physicalPlans.ts, technology.ts and LotNextEventRail.tsx merged without markers).
+A plain --check fails at 13 paths (re-run on 2026-10-25 against 8792de52 in a scratch index; the first
+version of this report said 14, which was wrong). The three-way merge left 10 conflicts; the other 3
+merged without markers: physicalPlans.ts, technology.ts and LotNextEventRail.tsx.
 
 generated/unity/project-studio-bridge.contract-manifest.json
   Rule (ledger): never hand-merge; regenerate. Kept main's file unchanged. The candidate's version
@@ -48,6 +52,11 @@ src/core/hollywoodValidation.ts (3 hunks)
   buyer-cancelled work claim nobody (audit C-01). The writer claim line from L-05
   (`if(terminalWeek===null)`) merged unchanged and now reads the candidate's terminalWeek
   (closure or absorption), so absorption-scripts/v2 stopped drafts claim nobody.
+  The production rule (`claimsLiveWork`, hollywoodValidation.ts:324-325 at 59ec1457) is stricter than
+  the ledger's literal rule. Read literally, "not cancelled by the absorption" keeps the claims of a
+  written-off picture (stoppedProductions). The merge follows audit C-01 instead: the busy set released
+  those people, so a write-off claims nobody. 2a78b372 adds Array.isArray guards there and in
+  professionHistory.ts, so a malformed absorption record refuses by name.
 
 src/core/save.ts (5 hunks, plus the ledger rule for the two era-independent helpers)
   The five conflicts were the V14-V18 WithPolicy signatures: kept both the candidate's "rights-p16"
@@ -74,6 +83,9 @@ src/core/campaignLegacy.ts (12A)
   No ledger rule. Both kept: 12A made v4 a modern definition (isModernDefinition); the candidate admits
   the Save49 estate phase table 3 only under the rights era. Merged rule: table > 2 refused outside the
   rights era; a modern definition (v3 or v4) must use table 2, or table 3 under the rights era.
+  The refusal text changed (campaignLegacy.ts:1316): main's 'must use the actual-closure finale phase
+  table 2' is now the candidate's 'must use an admitted actual-closure finale phase table'. No test pins
+  either text.
 
 src/core/studioClosure.ts (12A, 2 hunks)
   No ledger rule. Both kept: both import sets; the ended manifest stays campaign-legacy/v4 with 12A's
@@ -116,8 +128,8 @@ ui/src/lot/LotNextEventRail.test.tsx, tests/p15b-legacy-terminal-regression.test
   (the regression keeps 12A's v4 pins and takes the candidate's validateSaveV49 reads).
 
 
-3. C-01 disposition: FIXED in source, regression STATIC-UNRUN
---------------------------------------------------------------
+3. C-01 disposition: FIXED in source; the reader witness awaits its red run
+---------------------------------------------------------------------------
 
 The stabilized shared-occupancy law (ledger Batch 2, L-04 and L-05): one availability set, and every
 validator and occupancy reader treats work the busy set released as history. The candidate's busy set
@@ -148,6 +160,13 @@ b2d3d97e with claimsLiveWork reverted to the candidate's rule (section 9, step 5
 the stabilization staffing helper the test imports. The regression exercises the validator claim
 rule; the profession-history rule has no natural witness yet (it needs an exited actor's profession
 change after the write-off).
+Lane result at 59ec1457: the file's 3 tests pass. The reviewer found them not red at b2d3d97e, because
+claimsLiveWork landed in the apply commit, so the reader edits had no witness. 2a78b372 adds one: in
+the same world, promiseFeasibility for a directing draft and a genre-opportunity draft whose
+beneficiaries are film 13's exited people equals the same call with r01's written-off picture removed.
+It is PREDICTED red at b2d3d97e (closedWeekOf keeps r01 in promiseProductionOccupancy and
+rivalUncappedPromiseCapacity, and opportunityFeasibilityInputs lists r01 as an owner) and green after
+0863f80b; the header and comments say "predicted" until the red run exists.
 
 Not done, with the reason:
   licence.ts activeProductionOn still counts terminal studios' frozen work (C-13 / P16-04). Sharing
@@ -156,7 +175,12 @@ Not done, with the reason:
   The audit's second regression (an exited stopped-draft writer hired and commissioned) needs a world
   with absorption-scripts/v2 stopped drafts. The r04-pre162 route has none; the drafting171 captures
   do. The writer rule itself is the terminalWeek skip above.
-  L-05 optional 4 (overlaps that began before the terminal week) stays DEFERRED, as the ledger records.
+  Forged overlap before absorption: an explicit P16 deferral. A forged save in which a person held two
+    assignments in the weeks before an absorption, one of them on the picture the absorption later wrote
+    off, passes the validator, because a written-off picture claims nobody. No producer writes that
+    overlap (the busy set held the person until the write-off). This is L-05 optional 4 (overlaps that
+    began before the terminal week) applied to absorbed businesses; the ledger defers it for closures,
+    and P16 defers it for absorptions with it.
 
 
 4. 19A section 5: NOT IMPLEMENTED (not small); the next step
@@ -236,7 +260,8 @@ bindings that A/p16-work-release61-generation-runner-r6/runner.sh sets:
   C-05 still applies: the R6 runner pins p16-absorption-continued-production at 443a8b3e..., which the
   candidate no longer matches, so R6 cannot admit this tree.
 
-6c. C-02, projection and registry pins (38 files; source declares projection 62):
+6c. C-02, projection and registry pins (39 files with tests/bridge.test.ts:167 SNAPSHOT_VERSION, which
+the first version missed; source declares projection 62; moved in 53571456, section 10):
   34 files assert PROJECTION_VERSION or the schema $id at 58: bridge-operations-events,
     bridge-owner-ux-projection21-schema, bridge-p10a-w0-people-projection, bridge-p11-capital-contributors,
     bridge-p11-ready, bridge-p13b-r07-setup, bridge-p13b-s1b-seats, bridge-p13b-s2-labs,
@@ -263,13 +288,15 @@ did not update these files, except the last one):
     convertFromP15BSave(live), LIVE_SAVE_VERSION - 1 as the P15B predecessor)
   tests/p15b4-studio-closure-save.test.ts (16 sites)
   tests/p15b4-studio-closure.test.ts :436, :478
-  tests/p15b-legacy-v3.test.ts :97, :102, :113
+  tests/p15b-legacy-v3.test.ts :97, :102, :103, :113, :124
   tests/p15b-legacy-official-order.test.ts :23, :44
   tests/p15b-legacy-atomic.test.ts :69 (spies validateSaveP15B; the publisher now calls validateSaveV49)
   tests/p14c2s-scientist-retirement.test.ts :290, :293 and tests/p15a2-power-ranking-archive.test.ts :939
     (expect "migrateToV48: ... corporateCondition"; the V49 -> V48 step now refuses the rights root first)
   tests/p15b-legacy-terminal-regression.test.ts :180-183 (candidate-modified; the two-closure spy is
     still on validateSaveP15B)
+  tests/p14c3-cohort-transition.test.ts :297 and tests/p14c3-dual-extensions.test.ts :190 (expect the
+    P15B step's composed refusal; the V49 -> V48 step refuses first). The first version missed these two.
   The candidate's own pattern fixes them: validateLiveSave for "the live save", and rightsStripped (or
   convertV49ToV48's named refusal) for downgrade assertions, as p13b-s8-save-v27 does.
 
@@ -281,8 +308,10 @@ timings) and main's recorded baseline in lane-logs.
 7. Stabilization tests the rebase touched
 ------------------------------------------
 
-  tests/stabilization-l19-save07-persistence.test.ts: prefix "validateSaveP15B" -> "validateSaveV49"
-    (apply commit; the laws now run first in the live validator).
+  tests/stabilization-l19-save07-persistence.test.ts: prefix "validateSaveP15B" -> the live reader's
+    name (apply commit; 2a78b372 derives it from validateLiveSave.name and adds the frozen-copy case:
+    validateSaveP15B(rightsStripped(save)) with a forged seq row still refuses "^validateSaveP15B:
+    state.studioEvents...", so deleting the `if (!rights)` block in save.ts fails a test).
   tests/stabilization-l35-legacy-manifest-week.test.ts :116: validateSaveP15B(makeSave(...)) ->
     validateLiveSave (third commit; it refused every Save49 envelope by version).
   No stabilization test or law was removed, skipped or weakened; no budget changed.
@@ -323,3 +352,52 @@ timings) and main's recorded baseline in lane-logs.
      expect the seated save to throw "simultaneous active assignments"; expect it green from 0863f80b on.
   6. Then the audit's C-04 gate: test:core, test:bridge and test:ui on this tree at unchanged budgets,
      compared with main's recorded baseline.
+
+
+10. Follow-up after the first lane run (59ec1457), unrun
+--------------------------------------------------------
+
+  9c9b38d5  P16: regenerated Bridge contract for projection 62 (the coordinator's generator output)
+  2a78b372  C-01 follow-up: the differential reader witness (section 3), the L-19 frozen-copy case and
+            the name-derived prefix (section 7), the Array.isArray guards (section 1)
+  a38b35b8  Save48 assumed live: 21 expected lifts lacked estateSaleProceeds (P16_RIVAL_MONEY_KINDS has
+            four); the P15B root-validator suites read validateLiveSave; the P15B step's own downgrade
+            runs on rightsStripped(save); the closure root validator receives the state's era; the
+            finalizer spies follow the live reader; p14d2's down/up control climbs back through
+            convertV48ToV49. A ticked or closed P16 world has no Save48 envelope, so its downgrade
+            expectations moved to the live step's named refusal.
+  5cea24ae  First refusal moved: p14b9 keeps its Save44 guard (its world never ticks, so it projects);
+            the candidate's live-step line ran before `newSave` was declared (TDZ) and now follows it.
+            The rest assert the live step by name plus the projection's own refusal, because the world's
+            P15 history carries table 3 (nondefault market rows, current phase history) or a closure
+            opened an estate: p13b-s8-save-v27, p14c2b-save-v36, p14c2rm-writer-continuation,
+            p14p3-directing-promises, p14c3-profession-history, p14c3-dual-extensions,
+            p14c2s-scientist-retirement, p14c3-cohort-transition.
+  53571456  Projection 62 + 18A: cashBefore/cashAfter of the casting, placement, set-commission and
+            contract quote snapshots are number(); every projection and registry pin moved (6c); the
+            L-24 witness asserts the wide-cash quote is accepted and registered. The F10/F11 declaration
+            hashes and bridge-p14b5's running SCHEMA_ID literal wait for the regenerated identity and an
+            independent producer measurement, by those tests' own rule.
+  d691d07f  C-03: p15a2 reads the live phase table 3 and keeps the archive's downgrade guard on the
+            committed week-53 capture and its Save48 predecessor; p15b4-pending-rival-work hands the
+            validator its era; p16c-acquisition :183 asserts the implemented close guards.
+
+Candidate defects left unchanged (the test states the candidate's own rule; the code breaks it):
+  Synthetic estate handoffs (p16-r2-estate 6, p16c-estate 6, p16-r2-authority 2, p16-r2-validator 1):
+    estateHandoffFor builds a handoff for a studio that never closed; estate.ts closureAuthorityRefusal
+    answers 'actualClosureMissing' first. Audit C-03's fix: rebuild them on the real r04 pre162 -> C163
+    closure, as p16-estate-join does, or retire them with a recorded supersession.
+  Fractional absorption ask (p16c-acquisition :91, :202, :238; p16-r2-acquisition :72, :176):
+    acquisition.ts takes postExitCash = account cash - the sum of terminationCost, both doubles (r03
+    holds 11,588,432.0095 at week 53; weeklySalary is annual / 52), so the ask is fractional and the
+    named refusal 'considerationBelowAsk:<ask>' fails the tests' whole-dollar pattern (r2 F33, "money is
+    whole dollars"). The fix needs a rounding ruling, for example the floor the willingness test uses.
+  Condition readers captured in a module cycle (p16b-condition-readers :67): rightsFinance.ts freezes
+    { conditionRecord, outstandingLoan } at module evaluation; on the path acquisition ->
+    corporateConditionLive -> ... -> estate -> rightsFinance, rightsFinance evaluates first and captures
+    undefined. The order is the same at b2d3d97e, so the rebase did not cause it. Wrapping both in arrow
+    functions removes the capture.
+  p16-healthy-drafting171-funded-baseline :120: absorbedWork.ts:30 refuses the reloaded state
+    ('missing-participant cancellation differs from actual coupled retention') although closeAbsorption's
+    own makeSave admitted it in memory. Not diagnosed statically; a run printing both participant lists
+    decides it.
