@@ -42,7 +42,9 @@ export type RivalFinanceEra = 'live' | 'research-v27'
 export function newFinancePeriod(week: number, opening: number, era: RivalFinanceEra = 'live'): RivalFinancePeriod {
   const kinds = era === 'live' ? RIVAL_MONEY_KINDS
     // P15B (1370-ar): the three loan kinds are the live era's too; a frozen-era period keeps the V27 roster.
-    : RIVAL_MONEY_KINDS.filter(kind => kind !== 'termination' && kind !== 'facilityDemolitionRefund' && !(RIVAL_LOAN_MONEY_KINDS as readonly string[]).includes(kind))
+    // P16 rebase round 6: so are the four P16 rights kinds, which the candidate appended to RIVAL_MONEY_KINDS only.
+    : RIVAL_MONEY_KINDS.filter(kind => kind !== 'termination' && kind !== 'facilityDemolitionRefund' && !(RIVAL_LOAN_MONEY_KINDS as readonly string[]).includes(kind)
+      && !(P16_RIVAL_MONEY_KINDS as readonly string[]).includes(kind))
   return { fromWeek: week, throughWeek: week, opening, closing: opening,
     movements: Object.fromEntries(kinds.map(kind => [kind,0])) as RivalFinancePeriod['movements'] }
 }
