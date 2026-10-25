@@ -101,7 +101,15 @@ export type LegacyManifestKind = 'official2040' | 'endOfRun'
 /** The keys of the frozen definition table (1359-A §5.1): every era a stored manifest may name. */
 export type HistoricalLegacyDefinitionId = 'campaign-legacy/v1' | 'campaign-legacy/v2'
 export const MODERN_LEGACY_DEFINITION = 'campaign-legacy/v3' as const
-export type LegacyDefinitionId = HistoricalLegacyDefinitionId | typeof MODERN_LEGACY_DEFINITION
+/** Owner decision 12A (audit L-35): v3's law and domains under the next adapter revision, which settles a player run
+ * only through the paid input week (1362-O 5.2). The end-of-run writer names it; a published v3 manifest replays
+ * under v3's adapter. The official writer keeps v3: it freezes at market.tick = B, where both adapters cut alike. */
+export const ENDED_LEGACY_DEFINITION = 'campaign-legacy/v4' as const
+export type ModernLegacyDefinitionId = typeof MODERN_LEGACY_DEFINITION | typeof ENDED_LEGACY_DEFINITION
+export type LegacyDefinitionId = HistoricalLegacyDefinitionId | ModernLegacyDefinitionId
+/** The actual-closure eras: the studioClosures domain and the modern evaluators. */
+const isModernDefinition = (definition: unknown): definition is ModernLegacyDefinitionId =>
+  definition === MODERN_LEGACY_DEFINITION || definition === ENDED_LEGACY_DEFINITION
 export type LegacyStatus = 'complete' | 'limited' | 'notRecorded'
 export type LegacyFilmDomainId = 'playerFilms' | 'industryFilms'
 export type LegacyCareerEventDomainId = 'playerCareerEvents' | 'industryCareerEvents'
@@ -799,7 +807,7 @@ function lenses(f: Facts, s: LegacyStudioFact, releases: Release[], discoveries:
 
 // ── the builder and the freeze step ───────────────────────────────────────────
 export function buildLegacyManifest(facts: LegacyFacts, kind: LegacyManifestKind, definition: LegacyDefinitionId = CAMPAIGN_LEGACY_DEFINITION): LegacyManifest {
-  if (definition === MODERN_LEGACY_DEFINITION || definition === 'campaign-legacy/v1') return LEGACY_DEFINITIONS[definition].evaluate(facts, kind)
+  if (isModernDefinition(definition) || definition === 'campaign-legacy/v1') return LEGACY_DEFINITIONS[definition].evaluate(facts, kind)
   return evaluateLegacyManifest(facts, kind, CAMPAIGN_LEGACY_DEFINITION,
     { boundaryWeek: LEGACY_BOUNDARY_WEEK, postFinaleMode: LEGACY_POST_FINALE_MODE, thresholds: liveLegacyThresholds() })
 }
@@ -809,7 +817,7 @@ export function buildLegacyManifest(facts: LegacyFacts, kind: LegacyManifestKind
 function evaluateLegacyManifest(facts: LegacyFacts, kind: LegacyManifestKind, definition: LegacyDefinitionId,
   era: Pick<LegacyDefinition, 'boundaryWeek' | 'postFinaleMode' | 'thresholds'>): LegacyManifest {
   if (kind !== 'official2040' && kind !== 'endOfRun') fail('kind', 'must be official2040 or endOfRun')
-  const f = readFacts(facts, definition === MODERN_LEGACY_DEFINITION)
+  const f = readFacts(facts, isModernDefinition(definition))
   if (kind === 'official2040' && f.B !== era.boundaryWeek) fail('boundaryWeek', 'must be 2040 · Week 1 for the official Legacy')
   const th = era.thresholds
   const studios = f.studios.map((s): LegacyStudio => {
@@ -944,7 +952,7 @@ const LEGACY_ERA_STRUCTURE = Object.freeze({
 /** A frozen entry. Its evaluator stamps the entry's own id, boundary and mode and applies the entry's own
  * thresholds, so a replay under one era never writes another's (1353-U finding 8; 1353-F7 ruling 4). */
 function frozenDefinition(definition: LegacyDefinitionId, thresholds: LegacyThresholds): LegacyDefinition {
-  const era = { ...LEGACY_ERA_STRUCTURE, thresholds, ...(definition === MODERN_LEGACY_DEFINITION ? { domainIds: Object.freeze([...LEGACY_DOMAIN_IDS, 'studioClosures']) } : {}) }
+  const era = { ...LEGACY_ERA_STRUCTURE, thresholds, ...(isModernDefinition(definition) ? { domainIds: Object.freeze([...LEGACY_DOMAIN_IDS, 'studioClosures']) } : {}) }
   return Object.freeze({
     ...era,
     evaluate: (facts: LegacyFacts, kind: LegacyManifestKind) => evaluateLegacyManifest(facts, kind, definition, era),
@@ -956,6 +964,7 @@ export const LEGACY_DEFINITIONS: Readonly<Record<LegacyDefinitionId, LegacyDefin
   'campaign-legacy/v1': frozenDefinition('campaign-legacy/v1', V1_THRESHOLDS),
   'campaign-legacy/v2': frozenDefinition('campaign-legacy/v2', V2_THRESHOLDS),
   'campaign-legacy/v3': frozenDefinition('campaign-legacy/v3', V2_THRESHOLDS),
+  'campaign-legacy/v4': frozenDefinition('campaign-legacy/v4', V2_THRESHOLDS),
 })
 
 // ── the root (1359-A §5) ──────────────────────────────────────────────────────
@@ -975,7 +984,7 @@ export type CampaignLegacyRoot = {
   /** Wave 5 (1359-A §6): always null in this era. */
   endOfRun: null
 }
-export type EndedLegacy = OfficialLegacy & { kind: 'endOfRun'; definition: typeof MODERN_LEGACY_DEFINITION; postFinaleMode: null; closureId: string }
+export type EndedLegacy = OfficialLegacy & { kind: 'endOfRun'; definition: ModernLegacyDefinitionId; postFinaleMode: null; closureId: string }
 export type ModernCampaignLegacyRoot = Omit<CampaignLegacyRoot, 'official' | 'endOfRun'> & { official: OfficialLegacy | null; endOfRun: EndedLegacy | null }
 /** The empty root a fresh world, a migration and a historical lift write: recording from `week`, unfrozen. No
  * freeze runs at migration (1359-A §5.2). */
@@ -1032,6 +1041,10 @@ export function legacyFactsFromState(state: GameState, boundaryWeek: number, def
   const h = state.hollywood
   const genreOf = new Map(state.concepts.map((concept) => [concept.id, concept.genre]))
   const runOf = new Map(state.theatricalRuns.map((run) => [run.productionId, run]))
+  // 12A (L-35): the tick producing week T pays input week T − 1, so from v4 a run is settled only through the paid
+  // input week. An end-of-run cut at C + 1 reads the run whose last installment falls at C as in run, as its
+  // closure record does; at the official freeze (B = market.tick) the cut is v3's.
+  const paidCut = definition === ENDED_LEGACY_DEFINITION ? Math.min(boundaryWeek, state.market.tick) : boundaryWeek
 
   const films: LegacyFilmFact[] = []
   for (const film of state.studio.releasedFilms) {
@@ -1042,7 +1055,7 @@ export function legacyFactsFromState(state: GameState, boundaryWeek: number, def
     const run = runOf.get(film.productionId)
     // Run end by arithmetic, never by status: a run is settled at B when its last payment week is below B.
     const settledWeek = run === undefined || run.status === 'legacyCompleted' ? film.releaseTick
-      : film.releaseTick + run.totalWeeks <= boundaryWeek ? film.releaseTick + run.totalWeeks - 1 : null
+      : film.releaseTick + run.totalWeeks <= paidCut ? film.releaseTick + run.totalWeeks - 1 : null
     films.push({
       filmId: film.productionId, studioId: h.playerStudioId, domainId: 'playerFilms', provenance: 'campaign',
       releaseWeek: film.releaseTick, genre, criticScore: film.criticScore, audienceScore: null,
@@ -1150,7 +1163,7 @@ export function legacyFactsFromState(state: GameState, boundaryWeek: number, def
       }))
     }
   }
-  if (definition === MODERN_LEGACY_DEFINITION) {
+  if (isModernDefinition(definition)) {
     const root = siblingBefore(state, 'studioClosure', boundaryWeek)
     domains.push({ domainId: 'studioClosures', highWatermark: root === undefined ? 0 : largestSequence(rowsOf(root.closures)), recordedFromWeek: root?.recordedFromWeek as number ?? null })
     if (root !== undefined) facts.studioClosures = rowsOf(root.closures).map(c => ({ closureId: c.closureId as string,
@@ -1192,7 +1205,7 @@ export function legacyRefResolver(state: GameState, boundaryWeek: number, defini
     position: event.p15DomainSequence as number, week: event.week as number }]))
   index('marketAssessments', rowsOf(siblingBefore(state, 'sharedMarket', boundaryWeek)?.assessments).map((assessment) => [assessment.releaseId as string, {
     position: assessment.p15DomainSequence as number, week: assessment.week as number }]))
-  if (definition === MODERN_LEGACY_DEFINITION) index('studioClosures', rowsOf(siblingBefore(state, 'studioClosure', boundaryWeek)?.closures).map(c => [c.closureId as string, { position: c.p15DomainSequence as number, week: c.closureWeek as number }]))
+  if (isModernDefinition(definition)) index('studioClosures', rowsOf(siblingBefore(state, 'studioClosure', boundaryWeek)?.closures).map(c => [c.closureId as string, { position: c.p15DomainSequence as number, week: c.closureWeek as number }]))
   return (ref) => places.get(ref.domainId)?.get(ref.id)
 }
 
@@ -1282,7 +1295,8 @@ function validateLegacyManifest(raw: Record<string, unknown>, label: string, mod
   // 3. Identity, against the frozen definition table.
   if (official.kind !== (ended ? 'endOfRun' : 'official2040')) refuse('official.kind', 'must match its official or ended slot')
   if (typeof official.definition !== 'string' || !Object.hasOwn(LEGACY_DEFINITIONS, official.definition)
-    || (!modern && official.definition === MODERN_LEGACY_DEFINITION) || (ended && official.definition !== MODERN_LEGACY_DEFINITION)) {
+    || (!modern && isModernDefinition(official.definition))
+    || (ended ? !isModernDefinition(official.definition) : official.definition === ENDED_LEGACY_DEFINITION)) {
     refuse('official.definition', 'must name a definition of the frozen table')
   }
   const entry = LEGACY_DEFINITIONS[official.definition]
@@ -1295,7 +1309,7 @@ function validateLegacyManifest(raw: Record<string, unknown>, label: string, mod
   if (typeof sequence !== 'number' || !Number.isSafeInteger(sequence) || sequence < 1) {
     refuse('official.p15DomainSequence', 'must be a whole number of at least 1')
   }
-  if (official.definition === MODERN_LEGACY_DEFINITION && official.phaseOrderVersion !== 2) refuse('official.phaseOrderVersion', 'must use the actual-closure finale phase table 2')
+  if (isModernDefinition(official.definition) && official.phaseOrderVersion !== 2) refuse('official.phaseOrderVersion', 'must use the actual-closure finale phase table 2')
   if (!ended && official.definition === MODERN_LEGACY_DEFINITION
     && state.studioClosure.closures.some(c => c.closureWeek <= B && c.p15DomainSequence >= sequence)) {
     refuse('official.p15DomainSequence', 'must follow every actual closure dated at or before the official boundary')
@@ -1419,7 +1433,7 @@ function validateLegacyManifest(raw: Record<string, unknown>, label: string, mod
       refuse(`${at}.status`, 'must read notRecorded exactly when the domain records nothing before the boundary')
     }
     const sibling = SIBLING_ROOTS.find((candidate) => candidate.domainId === source.domainId)
-      ?? (official.definition === MODERN_LEGACY_DEFINITION && source.domainId === 'studioClosures' ? { domainId: 'studioClosures', key: 'studioClosure' } : undefined)
+      ?? (isModernDefinition(official.definition) && source.domainId === 'studioClosures' ? { domainId: 'studioClosures', key: 'studioClosure' } : undefined)
     if (sibling !== undefined) {
       const siblingRoot = siblingBefore(state, sibling.key, cutoff)
       const expected = siblingRoot === undefined ? 0 : largestSequence(source.domainId === 'studioClosures' ? rowsOf(siblingRoot.closures) : sequencedRows(siblingRoot, source.domainId), sequence)

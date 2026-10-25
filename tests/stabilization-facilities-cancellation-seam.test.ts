@@ -11,6 +11,8 @@
 //   R4 a body whose only installation record was cancelled could be moved (the record's address
 //      then disagreed with its body) or demolished (the record dangled);
 //   R5 a plan-built body that was moved failed its plan's coordinate check at every save.
+//      (Owner ruling 14B, 2026-10-23: its demolition is admitted through the refund row;
+//      tests/stabilization-l31-demolish-plan-built.test.ts carries that journey.)
 // R3 (re-adopting sound on a Post whose earlier fit-out was cancelled) is in the second describe.
 import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
@@ -121,7 +123,7 @@ describe('a restoration is never work to order', () => {
 })
 
 describe('physical plans seam (R5)', () => {
-  it('R5: a plan-built body keeps its plan\'s proof after a move; demolition is refused while the plan names it', () => {
+  it('R5: a plan-built body keeps its plan\'s proof after a move; the plan no longer holds it against demolition (14B)', () => {
     const base = p13aLaboratorySlice()
     const origin = nextLaboratoryOrigin(base)
     const queued = applyActions(base, [{ kind: 'queuePhysicalPlan', work: { kind: 'placement', blueprintId: 'research-laboratory', origin }, approvedMaximumDebit: 5_000_000 } as never])
@@ -137,9 +139,7 @@ describe('physical plans seam (R5)', () => {
     expect(moved.placement.facilities.find((f) => f.id === placed.id)!.origin).toEqual(destination)
     // Before the fix every save of the moved world failed: "plan … names a placement standing somewhere else".
     ticksAdmitted(admitted(moved), 2)
-    const refusal = facilityDemolitionRefusal(moved, { placementId: placed.id })
-    expect(refusal?.code).toBe('facilityEngaged')
-    expect(refusal && 'holders' in refusal ? refusal.holders.map((h) => h.holderId) : []).toEqual([plan!.id])
+    expect(facilityDemolitionRefusal(moved, { placementId: placed.id })).toBeNull()
   }, 30_000)
 })
 

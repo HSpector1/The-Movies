@@ -37,7 +37,7 @@ import { openTheatricalRun } from './economy.js'
 import { terminationCost } from './employment.js'
 import { moveRivalMoney } from './hollywood.js'
 import { closedWeekOf } from './operatingState.js'
-import { buildLegacyManifest, legacyFactsFromState, MODERN_LEGACY_DEFINITION, LEGACY_BOUNDARY_WEEK, type EndedLegacy, type OfficialLegacy } from './campaignLegacy.js'
+import { buildLegacyManifest, legacyFactsFromState, ENDED_LEGACY_DEFINITION, MODERN_LEGACY_DEFINITION, LEGACY_BOUNDARY_WEEK, type EndedLegacy, type OfficialLegacy } from './campaignLegacy.js'
 import { validateSaveP15B, P15B_SAVE_VERSION } from './save.js'
 import { P15_PHASE_TABLES, p15PhaseTriple } from './p15Phases.js'
 import { breakPromisesOnCancel, breakPromisesOnTermination } from './promises.js'
@@ -426,8 +426,9 @@ function publishClosureFinale(state: GameState, hook?: EndOfRunHook | null): Gam
   }
   if (player !== undefined && player.endOfRun === null) {
     const sequence = next.p15Sequence.next
-    const manifest = buildLegacyManifest(legacyFactsFromState(next, player.closureWeek + 1, MODERN_LEGACY_DEFINITION), 'endOfRun', MODERN_LEGACY_DEFINITION)
-    const ended: EndedLegacy = { ...manifest, kind: 'endOfRun', definition: MODERN_LEGACY_DEFINITION, postFinaleMode: null,
+    // 12A (L-35): the cut stays C + 1; the v4 adapter settles a run only through the paid input week C − 1.
+    const manifest = buildLegacyManifest(legacyFactsFromState(next, player.closureWeek + 1, ENDED_LEGACY_DEFINITION), 'endOfRun', ENDED_LEGACY_DEFINITION)
+    const ended: EndedLegacy = { ...manifest, kind: 'endOfRun', definition: ENDED_LEGACY_DEFINITION, postFinaleMode: null,
       closureId: player.closureId, legacySnapshotId: `campaign-legacy-${sequence}`, p15DomainSequence: sequence, ...p15PhaseTriple('p15c.finale') }
     next = { ...next, campaignLegacy: { ...next.campaignLegacy, endOfRun: ended },
       studioClosure: { ...next.studioClosure, closures: next.studioClosure.closures.map(c => c.closureId === player.closureId ? { ...c, endOfRun: ended.legacySnapshotId } : c) },

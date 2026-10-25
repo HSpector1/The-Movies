@@ -416,9 +416,11 @@ export function laboratoryActionSpecs(state: GameState): readonly LaboratoryActi
       // P13B-S3's companion rule on this technology's own STAGE blueprint: the same physical
       // work as a PLAN, at its own quoted price. It mints NO adoption — a plan reserves and
       // commits nothing — so the immediate rows above stay offered beside it. Withheld once that
-      // blueprint is already committed on this stage in any status, or already queued, held or
-      // started against it, exactly as the Laboratory's instrument module companions are.
-      if (state.placement.facilities.some(p => p.blueprintId === entry.stageInstallationId && p.installation?.targetFacilityId === stage.id)) continue
+      // blueprint is already committed on this stage (under construction or operational), or
+      // already queued, held or started against it. Owner decision 10A (L-32): a cancelled
+      // record installed nothing, so, as on the adopt row above and in `queryFacilityInstallation`,
+      // it no longer withholds the companion on the stage its adoption was cancelled on.
+      if (state.placement.facilities.some(p => p.blueprintId === entry.stageInstallationId && p.installation?.targetFacilityId === stage.id && p.status !== 'cancelled')) continue
       if (state.physicalPlans.plans.some(plan => plan.studioId === own &&
         (plan.status === 'queued' || plan.status === 'held' || plan.status === 'started') &&
         plan.work.kind === 'installation' && plan.work.blueprintId === entry.stageInstallationId &&

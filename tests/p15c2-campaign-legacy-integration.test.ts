@@ -1115,7 +1115,7 @@ describe('p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359
     // definition bump, fails here, whatever Wave 1's own pin says.
     const table = definitionsTable()
     // The table holds exactly two eras: v1 kept frozen (1353-F6 ruling 2) and v2 beside it.
-    expect(Object.keys(table).sort(), 'frozen historical entries plus adopted modern era').toEqual(['campaign-legacy/v1', 'campaign-legacy/v2', 'campaign-legacy/v3'])
+    expect(Object.keys(table).sort(), 'frozen historical entries plus adopted modern era').toEqual(['campaign-legacy/v1', 'campaign-legacy/v2', 'campaign-legacy/v3', 'campaign-legacy/v4'])
     expect(MODERN_LEGACY_DEFINITION).toBe('campaign-legacy/v3')
     expect(fieldsOf(table['campaign-legacy/v3']), 'modern actual-closure domain, unchanged thresholds').toBe(canon({ ...V2, domainIds: [...V2.domainIds, 'studioClosures'] }))
     // Each frozen entry equals its literals, field by field.

@@ -41,7 +41,7 @@ it('terminal6239-6240-6241-cutoffs-ranking-and-modern-official-history', budgete
   for (const c of [6239, 6240, 6241] as const) {
     const { before, final } = terminalCase(c); const player = closureOf(final, final.hollywood!.playerStudioId)!
     const ended = final.campaignLegacy.endOfRun!
-    expect(ended).toMatchObject({ definition: 'campaign-legacy/v3', kind: 'endOfRun', boundaryWeek: c + 1, postFinaleMode: null, closureId: player.closureId })
+    expect(ended).toMatchObject({ definition: 'campaign-legacy/v4', kind: 'endOfRun', boundaryWeek: c + 1, postFinaleMode: null, closureId: player.closureId })
     expect(final.market.tick).toBe(c); expect(player.endOfRun).toBe(ended.legacySnapshotId)
     const refs = closureRefs(ended, player.studioId)
     expect(refs.archetype.contrary).toContainEqual({ domainId: 'studioClosures', id: player.closureId })
@@ -75,7 +75,7 @@ it('terminal6241-preserves-frozen-v1-v2-official-through-actual-player-closure',
     const bytes = canon(official); const final = tick(state)
     expect(closureOf(final, final.hollywood!.playerStudioId)?.closureWeek).toBe(6241)
     expect(canon(final.campaignLegacy.official)).toBe(bytes)
-    expect(final.campaignLegacy.endOfRun!.definition).toBe('campaign-legacy/v3')
+    expect(final.campaignLegacy.endOfRun!.definition).toBe('campaign-legacy/v4')
     expect(() => save.makeSave(final)).not.toThrow(); expect(canon(input)).toBe(sourceBytes)
   }
 }), ROUTE_MS)

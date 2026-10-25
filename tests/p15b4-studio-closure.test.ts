@@ -507,7 +507,7 @@ describe('p15b4 closure: the player, the market, the families and the transactio
     // The record's exact rows: the claim, the two sets kept in place and the preserved cash; nothing pending on this route.
     expect(record.loan).toBeNull()
     expect(record.dispositions.map((d) => [d.subjectKind, d.status])).toEqual([['cash', 'applied'], ['employment', 'applied'], ['set', 'applied'], ['set', 'applied']])
-    expect(s.campaignLegacy.endOfRun).toMatchObject({ kind: 'endOfRun', definition: 'campaign-legacy/v3', closureId: record.closureId, boundaryWeek: C + 1 })
+    expect(s.campaignLegacy.endOfRun).toMatchObject({ kind: 'endOfRun', definition: 'campaign-legacy/v4', closureId: record.closureId, boundaryWeek: C + 1 })
     expect(s.campaignLegacy.endOfRun!.p15DomainSequence).toBeGreaterThan(record.p15DomainSequence)
     expect(s.p15Sequence.next).toBe(s.campaignLegacy.endOfRun!.p15DomainSequence + 1)
     expect(() => makeSave(s)).not.toThrow()

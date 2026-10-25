@@ -109,6 +109,7 @@ export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> 
   // P14B.2: exact outgoing projection-45 identity; T1 froze a genuine checkpoint
   // before this bump. Missing older identities are not fabricated by this entry.
   ['sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d', 'projection-v45'],
+  // Projections 32–44 are RETIRED, not missing: RETIRED_PROTOCOL_4_SCHEMA_IDS below.
   // R3-N7-SIM-01: the OUTGOING projection-31 identity, minted by the N4/N5/N6
   // read-model deltas and carried by every durable checkpoint written before the
   // read-only `operationsEvents` section advanced the running schema to
@@ -218,6 +219,30 @@ export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> 
   ['sha256:1bad05a95c284e64ceaef54c276f2dd0ccad8ca3ef1b12198068bb61b85198c9', 'projection-v23'],
   ['sha256:b779faa92227bd1f2e623ad04d0899c87e7ddc60ce43f9ae9c39a7626c20a83d', 'projection-v22'],
   ['sha256:625377a2804a681da3be209da02850e221ae33ac5f58b727f6395736ad607ad1', 'projection-v21'],
+])
+
+// Owner decision 20A (audit L-22 / BRIDGE-03, 2026-10-22 review): projections 32–44 are RETIRED.
+// Each identity below shipped 2026-09-16..18 (one per generator bump, read from the
+// "Schema identity" header of generated/unity/StudioBridgeDtos.Generated.cs at the named
+// commit), but no genuine checkpoint written under any of them exists in the repository or the
+// local evidence, so registering one on the governed prior path would mean fabricating its
+// fixture. No durable profile from this range is expected to load: the schemaId refusal in
+// hydrateAndEncodeBridgeRuntimeCheckpoint names the retired projection instead of migrating it.
+// Move an entry into SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS only with a genuine fixture of it.
+export const RETIRED_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+  ['sha256:b3a76d197481175c3a4a615f634cf227ae00b95981625df3f67784b307fc9e5c', 'projection-v32'], // 2906aef5
+  ['sha256:9ee4bcff04e06d47fa672f6091d3f9eac98c3a19829260fd9587ab22d06d55f6', 'projection-v33'], // c67d5cd3
+  ['sha256:eeebeedefeaa734290081eccb2b8e3701f95df3db2d66fd33a314581b99965b2', 'projection-v34'], // 877aad57
+  ['sha256:889c83c6278aaf54fc392282bb555ce03f61f8381e20cc62618e0106cf6f1da3', 'projection-v35'], // c18abe8a
+  ['sha256:c2247716204c53ecab8f23d0aa0fae64676fada87d76024487d5f69c56ffe74c', 'projection-v36'], // 8334a3f9
+  ['sha256:2158ef1606497912f8589b5ae6496e55d4d73a2ee687e4b1867837c593af7aa8', 'projection-v37'], // aba67618
+  ['sha256:baecd21e5fbfd4f13bd08b7af132d4b05fe24a40f1b38cd19d2782d9e2d0851e', 'projection-v38'], // 06f05cf5
+  ['sha256:bdd3e666c84dce94c8ae65415fc5878e61c4616574c1a57d1f2951cb793d2213', 'projection-v39'], // 25298f5a
+  ['sha256:3283d0fd2117eeb2935711bbc633eb9659c1b228bc9db9ecdf5161b7b196e791', 'projection-v40'], // 66220629
+  ['sha256:16b8432222d8cccf08be3fa056db4b4c975f39648ac67cd57d103a4c74663365', 'projection-v41'], // 87aac7de
+  ['sha256:a3f8b03c00eee8e7c18b7f7c5d1f56c884f96d6173f5ab59ed7396911f56e981', 'projection-v42'], // 562cdf2d
+  ['sha256:95351b9d1af70fd7d890dc6d8dc75ac40430d059f87fec526a42707b1f7bb1c7', 'projection-v43'], // cea19cf2
+  ['sha256:05e53f126b28c601a2ed80fb614347da571c90946b65808f111f77bf7bdd5392', 'projection-v44'], // b39e646f
 ])
 
 export const DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS = Object.freeze({
@@ -1100,7 +1125,11 @@ function hydrateAndEncodeBridgeRuntimeCheckpoint(
     fail('checkpoint.protocolVersion', `must be ${String(PROTOCOL_VERSION)}`)
   }
   if (record['schemaId'] !== SCHEMA_ID) {
-    fail('checkpoint.schemaId', 'does not match the running TypeScript bridge schema')
+    const retired = typeof record['schemaId'] === 'string' ? RETIRED_PROTOCOL_4_SCHEMA_IDS.get(record['schemaId']) : undefined
+    fail('checkpoint.schemaId', retired === undefined
+      ? 'does not match the running TypeScript bridge schema'
+      : `does not match the running TypeScript bridge schema: ${retired} is retired (Owner decision 20A: ` +
+        'projections 32–44 have no genuine checkpoint to migrate from), so a profile written under it does not load')
   }
 
   const sessionId = requireString(record['sessionId'], 'checkpoint.sessionId')

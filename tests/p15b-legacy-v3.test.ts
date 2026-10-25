@@ -88,7 +88,7 @@ describe('p15b modern Legacy constructed transaction controls', () => {
   it('early-closure-publishes-linked-ended-without-extra-week', () => {
     const state = closedControl(); const c = closureOf(state, PLAYER)!; const e = ended(state)
     expect(c.closureWeek).toBeLessThan(6240)
-    expect(e).toMatchObject({ closureId: c.closureId, definition: 'campaign-legacy/v3', kind: 'endOfRun', boundaryWeek: c.closureWeek + 1, postFinaleMode: null })
+    expect(e).toMatchObject({ closureId: c.closureId, definition: 'campaign-legacy/v4', kind: 'endOfRun', boundaryWeek: c.closureWeek + 1, postFinaleMode: null })
     expect(c.endOfRun).toBe(e.legacySnapshotId); expect(state.market.tick).toBe(c.closureWeek)
     expect(state.campaignLegacy.official).toBeNull(); expect(e.p15DomainSequence).toBeGreaterThan(c.p15DomainSequence)
   })

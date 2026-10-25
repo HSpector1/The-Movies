@@ -173,7 +173,6 @@ import {
   conversionStandardOf,
   conversionTargetFacilityIds,
   isOfficeConversionBlueprint,
-  lawfulConversionCommitments,
   offlineFacilityIds,
   placementOffline,
   standardRank,
@@ -1334,9 +1333,10 @@ export function moveFacility(state: GameState, request: FacilityMoveRequest): Ga
       ? { ...candidate, parcelId: parcel.id, origin: quote.origin }
       : candidate
 
-  // The fee goes through the ordinary cash path and is charged from the quote,
-  // never from a caller. At FACILITY_MOVE_COST = 0 this is a no-op today, which
-  // is the point: the path is exercised by every move test that already runs.
+  // The fee is charged from the quote, never from a caller. It has no ledger kind
+  // yet, so a nonzero fee would move cash with no row and break the cash
+  // reconciliation (L-34): the catalog invariant holds FACILITY_MOVE_COST at 0
+  // until a move-fee kind exists at a save version that admits it.
   return {
     ...state,
     studio: { ...state.studio, cash: state.studio.cash - quote.cost },
@@ -1365,18 +1365,15 @@ export function facilityDemolitionRefusal(
   const { placed } = eligibility
   // Demolition removes the record. Anything that still names it would dangle and the next
   // tick would refuse the world: an installation record on this body in ANY status (a
-  // cancelled job is retained history with its own capex and refund rows; FAC-04), and a
-  // started physical plan that proves itself by this placement (FAC-05).
+  // cancelled job is retained history with its own capex and refund rows; FAC-04). A
+  // started physical plan that built this body does NOT hold it (Owner ruling 14B): the
+  // plan validator accepts its demolished placement through this demolition's refund row,
+  // the way the operating-cost history already reads a demolished facility (FAC-05).
   const holders: FacilityEngagement[] = []
   for (const record of state.placement.facilities) {
     if (record.installation?.targetFacilityId !== placed.facilityId) continue
     holders.push({ kind: 'installation', facilityId: placed.facilityId, holderId: record.projectId,
       activity: record.status === 'cancelled' ? 'cancelled installation history retained on this facility' : 'installed equipment attached to this facility' })
-  }
-  for (const plan of state.physicalPlans?.plans ?? []) {
-    if (plan.status === 'started' && plan.startedPlacementId === placed.id) {
-      holders.push({ kind: 'installation', facilityId: placed.facilityId, holderId: plan.id, activity: 'a started physical plan names this building' })
-    }
   }
   if (holders.length === 0) return null
   return { code: 'facilityEngaged', placementId: request.placementId, facilityId: placed.facilityId, holders }
@@ -1406,10 +1403,11 @@ export function demolishFacility(
     (candidate) => candidate.id === request.placementId,
   )
   if (placed === undefined) return state // unreachable: the refusal probe passed
-  const blueprint = blueprintById(placed.blueprintId)
-  if (blueprint === null) return state // unreachable: same
-
-  const refund = facilityDemolitionRefund(blueprint)
+  // L-34 (Owner ruling 11A): a fraction of the capital this project was actually
+  // charged, never of a since-retuned catalog price (which could even exceed it).
+  const capex = state.ledger.find((row) => row.kind === 'constructionCapex' && row.constructionProjectId === placed.projectId)
+  if (capex === undefined) throw new Error(`demolishFacility: placement ${String(placed.id)} has no construction capex row`)
+  const refund = Math.round(-capex.amount * FACILITY_DEMOLITION_REFUND_FRACTION)
   const entry: LedgerEntry = {
     week: state.market.tick,
     kind: 'facilityDemolitionRefund',
@@ -1500,9 +1498,12 @@ function assertBlueprintCatalogInvariants(): void {
       FACILITY_DEMOLITION_REFUND_FRACTION < 1,
     'the demolition refund fraction must be at least 0 and strictly below 1',
   )
+  // L-34: a move fee has no ledger kind, so a nonzero one would take cash with no row
+  // and every later save would fail the cash reconciliation. Refused here by name
+  // until the kind exists (a new ledger kind is a save-version change).
   invariant(
-    Number.isInteger(FACILITY_MOVE_COST) && FACILITY_MOVE_COST >= 0,
-    'the facility move cost must be a non-negative integer',
+    FACILITY_MOVE_COST === 0,
+    'the facility move cost must be 0 until a move fee has its own ledger row',
   )
 
   const ids = new Set<string>()
@@ -2019,17 +2020,13 @@ export function assertStudioPlacementInvariants(
       Number.isInteger(placed.placedWeek) && placed.placedWeek >= 0 && placed.placedWeek <= state.market.tick,
       `${label} placedWeek must be a non-negative integer at or before the current week`,
     )
-    // P13B-S4: a conversion's DURATION is source-dependent (16 weeks from standard
-    // I, 8 from II), and the source is history rather than a persisted field — so
-    // the span is proved against the authored set of durations this blueprint can
-    // ever have been quoted at. Every other blueprint keeps its single exact span.
-    const conversionCommitments = lawfulConversionCommitments(placed.blueprintId)
-    const lawfulSpans = conversionCommitments === null
-      ? [blueprint.buildWeeks]
-      : conversionCommitments.map((commitment) => commitment.buildWeeks)
+    // L-34 (Owner ruling 11A): the span is the COMMITTED build time, recorded on this
+    // record when the work was quoted. It is never re-read against the live catalog, so a
+    // retuned `buildWeeks` (or conversion duration) never refuses work committed before it.
+    const span = placed.completesWeek - placed.placedWeek
     invariant(
-      lawfulSpans.includes(placed.completesWeek - placed.placedWeek),
-      `${label} completesWeek must equal placedWeek + ${lawfulSpans.map(String).join(' or ')}`,
+      Number.isSafeInteger(span) && span >= 1,
+      `${label} completesWeek must be at least one whole week after placedWeek`,
     )
     invariant(
       placed.status === 'underConstruction' || placed.status === 'operational' || placed.status === 'cancelled',
@@ -2134,8 +2131,8 @@ export function assertStudioPlacementInvariants(
     }
   }
 
-  // Every capital row corresponds to exactly one placement, at its exact week and
-  // exact committed price — OR, since C1-M3a, to exactly one demolition refund
+  // Every capital row corresponds to exactly one placement, at its exact week (the
+  // row itself is the committed price, L-34) — OR, since C1-M3a, to exactly one demolition refund
   // that ended it. Those are the only two possibilities, and the correlation is
   // proved in BOTH directions: a capex row whose building is gone must have been
   // refunded, and a refund must name a real prior capex row. Neither a silently
@@ -2177,18 +2174,14 @@ export function assertStudioPlacementInvariants(
 
     const blueprint = blueprintById(placed.blueprintId)!
     invariant(entry.week === placed.placedWeek, 'construction capex week must equal placedWeek')
-    // P13B-S4: an Office conversion is charged the price of the EXACT source it
-    // was quoted from, so the row is reconciled against the authored (cost, weeks)
-    // PAIR — a $850,000 conversion that took 16 weeks was never quoted by this
-    // engine and is refused as firmly as a wrong amount always was.
-    const commitments = lawfulConversionCommitments(placed.blueprintId)
+    // L-34 (Owner ruling 11A): this row IS the committed price. It is never compared
+    // with the live catalog, so retuning a capex (or a conversion price) never refuses
+    // work committed before it; what it must be is a real charge. Every record that
+    // restates the price is reconciled against THIS row: the cancellation receipt (V26
+    // validator), the demolition refund below and the studio's cash.
     invariant(
-      commitments === null
-        ? entry.amount === -blueprint.capex
-        : commitments.some((commitment) =>
-            entry.amount === -commitment.cost &&
-            placed.completesWeek - placed.placedWeek === commitment.buildWeeks),
-      'construction capex amount must equal the blueprint capex',
+      Number.isSafeInteger(entry.amount) && entry.amount < 0,
+      'construction capex amount must be a negative whole-dollar charge',
     )
     invariant(entry.note === blueprint.ledgerNote, 'construction capex note is not canonical')
   }
@@ -2199,8 +2192,8 @@ export function assertStudioPlacementInvariants(
     )
   }
 
-  // The other direction: every refund is backed by a real capital event, at the
-  // exact depreciated amount, no earlier than the spend and no later than now.
+  // The other direction: every refund is backed by a real capital event, as a
+  // whole-dollar credit below that row, no earlier than the spend and no later than now.
   for (const entry of refundRows) {
     const label = `demolition refund "${entry.constructionProjectId}"`
     const capex = capexByProjectId.get(entry.constructionProjectId)
@@ -2208,15 +2201,13 @@ export function assertStudioPlacementInvariants(
     const blueprint = blueprintByLedgerNote(capex.note)
     invariant(blueprint !== null, `${label} refunds a project whose blueprint is unknown`)
     invariant(entry.note === FACILITY_DEMOLITION_LEDGER_NOTE, `${label} note is not canonical`)
+    // L-34 (Owner ruling 11A): reconciled against the COMMITTED capex row, never the live
+    // refund fraction or capex, so a retune never refuses a refund already paid. Strictly
+    // lossy, restated where the money actually moves: the credit is a whole-dollar fraction
+    // strictly below what was spent, so no build/demolish cycle can profit.
     invariant(
-      entry.amount === facilityDemolitionRefund(blueprint),
-      `${label} amount is not the depreciated fraction of its capital cost`,
-    )
-    // Strictly lossy, restated where the money actually moves: the credit can
-    // never return more than was spent, so no build/demolish cycle can profit.
-    invariant(
-      entry.amount < -capex.amount,
-      `${label} returns more than the capital that was committed`,
+      Number.isSafeInteger(entry.amount) && entry.amount < -capex.amount,
+      `${label} amount is not the depreciated fraction of its capital cost: a whole-dollar credit strictly below the committed capital`,
     )
     invariant(
       Number.isInteger(entry.week) && entry.week >= capex.week && entry.week <= state.market.tick,

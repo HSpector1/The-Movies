@@ -40,7 +40,7 @@ describe('p15b early complete aggregate transaction controls', () => {
     const result = closure.advanceStudioClosureWeek(input)
     expect(terminal(result), 'SEMANTIC RED: complete aggregate must publish player ended').not.toBeNull()
     const e = terminal(result)!; const c = closureOf(result, PLAYER)!
-    expect(e).toMatchObject({ closureId: c.closureId, boundaryWeek: c.closureWeek + 1, definition: 'campaign-legacy/v3' })
+    expect(e).toMatchObject({ closureId: c.closureId, boundaryWeek: c.closureWeek + 1, definition: 'campaign-legacy/v4' })
     expect(c.endOfRun).toBe(e.legacySnapshotId); expect(result.market.tick).toBe(input.market.tick)
     expect(result.campaignLegacy.official).toBeNull()
     expect(e.p15DomainSequence).toBeGreaterThan(c.p15DomainSequence)

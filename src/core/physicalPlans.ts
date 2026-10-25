@@ -150,6 +150,10 @@ export function planAdmissionView(state: GameState, plan: PhysicalPlan, atWeek: 
       predecessor.startedPlacementId === null
         ? undefined
         : state.placement.facilities.find((placed) => placed.id === predecessor.startedPlacementId)
+    // Owner ruling 14B: a started predecessor whose body was demolished never completes.
+    if (predecessor.status === 'started' && predecessor.startedPlacementId !== null && placement === undefined) {
+      return wait(`dependency ${dependencyId} built a placement that has since been demolished`)
+    }
     // "Operational" is read BEFORE this advance's completions: a predecessor that
     // finishes in week w enables its dependent at w+1's boundary, never within w.
     if (predecessor.status !== 'started' || placement === undefined || placement.status !== 'operational') {
@@ -322,6 +326,7 @@ export function validatePhysicalPlans(state: GameState): void {
   const ids = new Set<string>()
   const ordinals = new Set<string>()
   const startedPlacements = new Set<number>()
+  const claimedRefunds = new Set<string>()
   for (const plan of root.plans) {
     exact(plan, PLAN_KEYS, 'a physical plan')
     text(plan.id, 'plan id')
@@ -426,11 +431,27 @@ export function validatePhysicalPlans(state: GameState): void {
     } else if (plan.status === 'started') {
       if (plan.startedPlacementId === null || plan.commitReceipt === null) fail(`plan ${plan.id} started without a placement and a commit receipt`)
       const placed = state.placement.facilities.find((facility) => facility.id === plan.startedPlacementId)
-      if (placed === undefined) fail(`plan ${plan.id} names placement ${String(plan.startedPlacementId)}, which does not exist`)
-      if (placed!.blueprintId !== work.blueprintId) fail(`plan ${plan.id} names a placement of another blueprint`)
-      if (work.kind === 'installation') {
-        const target = resolvedTargetFacilityId(state, work)
-        if (placed!.installation?.targetFacilityId !== target) fail(`plan ${plan.id} names a placement installed on another facility`)
+      if (placed === undefined) {
+        // Owner ruling 14B: a plan-built BODY may be demolished, and its plan stays
+        // `started`. The demolition proves it, as it does for operating-cost history:
+        // the refund row of a project this blueprint canonically minted for that
+        // placement id, whose capex row is the one this plan committed (same week, same
+        // cost). An installation record can never be demolished, so it never qualifies.
+        const receipt = plan.commitReceipt
+        const refund = work.kind !== 'placement' || blueprint === null || plan.startedPlacementId! >= state.placement.nextPlacementId ? undefined : state.ledger.find((row) => {
+          if (row.kind !== 'facilityDemolitionRefund' || claimedRefunds.has(row.constructionProjectId)) return false
+          if (row.constructionProjectId !== blueprint.projectIdBase && row.constructionProjectId !== `${blueprint.projectIdBase}-${String(plan.startedPlacementId)}`) return false
+          const capex = state.ledger.find((entry) => entry.kind === 'constructionCapex' && entry.constructionProjectId === row.constructionProjectId)
+          return capex !== undefined && capex.note === blueprint.ledgerNote && capex.week === receipt?.week && -capex.amount === receipt?.cost
+        })
+        if (refund === undefined) fail(`plan ${plan.id} names placement ${String(plan.startedPlacementId)}, which does not exist and no demolition refund row proves it was demolished`)
+        claimedRefunds.add(refund!.constructionProjectId!)
+      } else {
+        if (placed.blueprintId !== work.blueprintId) fail(`plan ${plan.id} names a placement of another blueprint`)
+        if (work.kind === 'installation') {
+          const target = resolvedTargetFacilityId(state, work)
+          if (placed.installation?.targetFacilityId !== target) fail(`plan ${plan.id} names a placement installed on another facility`)
+        }
       }
       // A body is identified by its placement id and blueprint, never its coordinates
       // (C1-M6): a lawful move keeps the plan's proof intact (FAC-05).

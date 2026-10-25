@@ -325,11 +325,14 @@ describe('Placement Core V12 — the frozen envelope', () => {
         /id is not reserved by nextPlacementId/,
       ],
       [
+        // L-34 (Owner ruling 11A): the recorded span IS the committed build time, so a
+        // span the live catalog does not author is history, not forgery
+        // (tests/stabilization-l34-history-vs-tuning.test.ts). A clock that never ran is.
         'wrong completion clock',
         (save) => {
-          save.state.placement.facilities[0]!.completesWeek += 1
+          save.state.placement.facilities[0]!.completesWeek = save.state.placement.facilities[0]!.placedWeek
         },
-        /completesWeek must equal placedWeek \+ 13/,
+        /completesWeek must be at least one whole week after placedWeek/,
       ],
       [
         'status ahead of the clock',
@@ -364,13 +367,16 @@ describe('Placement Core V12 — the frozen envelope', () => {
         /has no construction capex row/,
       ],
       [
+        // L-34 (Owner ruling 11A): the capex row IS the committed price, so an amount the
+        // live catalog does not author is history, not forgery; a "charge" that pays the
+        // studio is.
         'wrong capex amount',
         (save) => {
           const row = save.state.ledger.find((entry) => entry.kind === 'constructionCapex')!
-          row.amount = -1
-          save.state.studio.cash += ANNEX_CAPEX - 1
+          row.amount = 1
+          save.state.studio.cash += ANNEX_CAPEX + 1
         },
-        /construction capex amount must equal the blueprint capex/,
+        /construction capex amount must be a negative whole-dollar charge/,
       ],
       [
         'retired V11 project root repopulated',
