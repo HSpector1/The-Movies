@@ -128,8 +128,8 @@ ui/src/lot/LotNextEventRail.test.tsx, tests/p15b-legacy-terminal-regression.test
   (the regression keeps 12A's v4 pins and takes the candidate's validateSaveV49 reads).
 
 
-3. C-01 disposition: FIXED in source; the reader witness awaits its red run
----------------------------------------------------------------------------
+3. C-01 disposition: two reader sites WITNESSED, two STATIC-UNRUN (owed by the P16 lane)
+-----------------------------------------------------------------------------------------
 
 The stabilized shared-occupancy law (ledger Batch 2, L-04 and L-05): one availability set, and every
 validator and occupancy reader treats work the busy set released as history. The candidate's busy set
@@ -161,12 +161,24 @@ the stabilization staffing helper the test imports. The regression exercises the
 rule; the profession-history rule has no natural witness yet (it needs an exited actor's profession
 change after the write-off).
 Lane result at 59ec1457: the file's 3 tests pass. The reviewer found them not red at b2d3d97e, because
-claimsLiveWork landed in the apply commit, so the reader edits had no witness. 2a78b372 adds one: in
-the same world, promiseFeasibility for a directing draft and a genre-opportunity draft whose
+claimsLiveWork landed in the apply commit, so the reader edits had no witness. 2a78b372 adds a differential
+case: in the same world, promiseFeasibility for a directing draft and a genre-opportunity draft whose
 beneficiaries are film 13's exited people equals the same call with r01's written-off picture removed.
-It is PREDICTED red at b2d3d97e (closedWeekOf keeps r01 in promiseProductionOccupancy and
-rivalUncappedPromiseCapacity, and opportunityFeasibilityInputs lists r01 as an owner) and green after
-0863f80b; the header and comments say "predicted" until the red run exists.
+Lane wave3d (c01-red.json, a throwaway tree of b2d3d97e): the differential case is RED there ("DIRECTING_COUNT:
+expected {...} to deeply equal {...}", :147) and the other three pass. Lane wave3e: 4 of 4 green at c0a6c64e.
+
+Per reader site (round 4 correction; the round-2 text over-claimed the differential's reach):
+  promises.ts:346-347 promiseProductionOccupancy: WITNESSED (red at b2d3d97e, green at HEAD). Both
+    differential drafts read it.
+  opportunityPromises.ts:66-67 opportunityFeasibilityInputs, its owners(): WITNESSED (red at b2d3d97e,
+    green at HEAD) through the genre-opportunity draft.
+  promises.ts:926-928 rivalUncappedPromiseCapacity: STATIC-UNRUN, no witness. promiseFeasibility never
+    calls it; its only caller is retirementVoidsPromise (promises.ts:973).
+  professionHistory.ts:297-314, the straddle check's absorbed-business rule: STATIC-UNRUN, no witness. A
+    validator path; it needs an exited person's profession change after the write-off.
+  hollywoodValidation.ts claimsLiveWork, the validator claim rule: green at HEAD through the three
+    seated-world cases, which also pass at b2d3d97e (the rule is in the apply commit), so it has no red run.
+The P16 lane owes witnesses for the two STATIC-UNRUN sites; round 4 writes none, as the brief directs.
 
 Not done, with the reason:
   licence.ts activeProductionOn still counts terminal studios' frozen work (C-13 / P16-04). Sharing
