@@ -778,11 +778,39 @@ describe('1364 R-B: a founded campaign never opens a second founding draft or re
       expect(canon(parsed), `${title}: the parsed input is not mutated`).toBe(canon(JSON.parse(text)))
     }
     // The fund is the only thing that exempted the signature from cash: Save46 refuses it as the old law does.
-    // ACCEPTANCE OPEN (P16 rebase round 6): Save46's 'employment start lacks its actual player signing payment' on this
-    // second grant. The check needs the week-30 world's admitted Save46 baseline (convertV47ToV46 of its predecessor
-    // envelope), and that world's market history holds nondefault Save49 table-3 assessments, which `rightsStripped`
-    // refuses to relabel; no Save48-era world carries these injected facts. The live reader's refusals above stand.
+    // P16 rebase round 7: the week-30 world has no predecessor envelope (its market history holds nondefault Save49
+    // table-3 assessments, which `rightsStripped` refuses to relabel), so the same second grant is injected two weeks
+    // after the week-0 founding. No assessment exists before week 8 (fresh rivals start with no productions, and a
+    // production runs TUNING.PRODUCTION_TICKS = 8), and founding-downgrade-null-fund-lossless projects the same
+    // construction (another seed) after two ticks.
     expect(() => predecessorSave(week30)).toThrow(NONDEFAULT_MARKET_PROJECTION)
+    const early = ticksTo(founded, 2)
+    {
+      const { closed } = injectSecondGrant(early) // the same injection, two weeks after the founding
+      // Admit the valid pre-forgery own-era baseline first. Never send the forged grant through
+      // predecessorSave: its strict V47 guard would mask the V46 cash-payment assertion.
+      const baseline = saveFn(`convertV${FOUNDING_STEP}ToV${FOUNDING_STEP - 1}`)(predecessorSave(early))
+      expect(() => saveFn(`validateSaveV${FOUNDING_STEP - 1}`)(baseline)).not.toThrow()
+      const predecessorState = detached(baseline.state)
+      // Transfer only the injected cash-free signature and second landmark; retain V46 account schema.
+      predecessorState.contracts = detached(closed.contracts)
+      predecessorState.freeAgents = detached(closed.freeAgents)
+      predecessorState.studioHistory = detached(closed.studioHistory)
+      predecessorState.hollywood = { ...predecessorState.hollywood!,
+        employment: detached(closed.hollywood!.employment),
+        activeEmploymentOrdinals: detached(closed.hollywood!.activeEmploymentOrdinals),
+        receipts: detached(closed.hollywood!.receipts), nextReceipt: closed.hollywood!.nextReceipt }
+      expect(predecessorState.hollywood.nextReceipt).toBe(predecessorState.hollywood.receipts.length)
+      expect(new Set(predecessorState.hollywood.receipts.map(r => r.eventId)).size).toBe(predecessorState.hollywood.receipts.length)
+      expect(predecessorState.studioHistory.nextEventId).toBe(closed.studioHistory.nextEventId)
+      expect(canon(predecessorState.ledger)).toBe(canon(baseline.state.ledger))
+      expect(predecessorState.studio.cash).toBe(baseline.state.studio.cash)
+      const hostile = { ...baseline, state: predecessorState }
+      const hostileBytes = canon(hostile)
+      expect(() => saveFn(`validateSaveV${FOUNDING_STEP - 1}`)(hostile))
+        .toThrow(/employment start lacks its actual player signing payment/)
+      expect(canon(hostile)).toBe(hostileBytes)
+    }
   }, HEAVY)
 
   it('founding-fund-lifetime: R-E I1, a fund closes in its recording week and an open fund stays in it; the r6 verification\'s forms refuse by name: the week-40 refill of a closed fund (probe-c, opened and observed), an ordinary week-30 cash signing relabelled as funded (D1) and a legacy founding re-opened a week later (D2)', () => {
