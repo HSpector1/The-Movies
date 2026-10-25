@@ -65,13 +65,14 @@ import type { GameState, Genre, SegmentId } from '../src/core/types.js'
 import { makeReceptionInputs } from './_fixtures.js'
 import { genuineV42Week130 } from './p14d1-rival-shelving-fixtures.js'
 import {
-  cancelPicture, canon, CAPTURE_DIRECTORY, commitPictures, detached, diffPaths, digest, k1AllowedPaths, keepKeys,
+  cancelPicture, canon, CAPTURE_DIRECTORY, commitPictures, detached, diffPaths, digest, keepKeys,
   capturePremise, kRoute, m0aRoute, MARKET_PHASE_ID, marketRoot, pairWeek, PERSISTED_ROW_KEYS, PIN_DIRECTORY,
   pressured, receptionPinCases, releaseHistory, rivalDue, rivalRouteAt, ROUTE_CAP_WEEK, routeAt, rowsAt, runPinCase, sequenceRoot,
   sha256, soloWeek, swapStudioIds, twinWeek, withEmptyMarketRoot, withSyntheticMarketRows,
   type Member, type PersistedAssessment, type PinManifest, type Released,
 } from './helpers/p15a1-market-route.js'
-import { P15_ROOTS, p15Rows, stripP15 } from './helpers/p15-roots.js'
+import { P15_ROOTS, p15Rows, predecessorSave, stripP15 } from './helpers/p15-roots.js'
+import { NONDEFAULT_MARKET_PROJECTION, PHASE_HISTORY_PROJECTION, RIGHTS_ROOT_REFUSAL } from './helpers/p16-era.js'
 import { historicalSave45Comparison } from './helpers/historical-save45-comparison.js'
 
 // ── the frozen P15 introduction step (coordinator; 1356-C) ──────────────────────
@@ -100,8 +101,9 @@ const convertIntoStep = (save: unknown): Envelope => saveFn(`convertV${MARKET_ST
 const convertOutOfStep = (save: unknown): Envelope => saveFn(`convertV${MARKET_STEP}ToV${MARKET_STEP - 1}`)(migrateIntoStep(save))
 const migrateBelowStep = (save: unknown): Envelope => saveFn(`migrateToV${MARKET_STEP - 1}`)(save)
 const liveSave = (state: GameState): Envelope => makeSave(state) as unknown as Envelope
-/** 1355-A §3.5 "refuse by name" (the save.ts:10686-10703 pattern). */
-const DOWNGRADE_REFUSAL = /cannot downgrade or discard .*(shared.?market|market assessment)/i
+// 1355-A §3.5 "refuse by name" (the save.ts:10686-10703 pattern): the market step's refusal,
+// /cannot downgrade or discard .*(shared.?market|market assessment)/i, has no lawful operand in a P16 world
+// (RED 16 below records the move), so no case pins it here.
 
 // ── the new seam, typed locally so this file compiles before it exists ────────────
 type SeamInputs = ReceptionInputs & { competitionFactor?: number }
@@ -447,23 +449,12 @@ describe('p15a1 market chronology controls (RED 10-11, 1355-A §4 K1/K2)', () =>
     const pins = readPins(`K1 week ${k1.week}, committed ${String(k1.committed)}, post-tick digest ${digest(post)}`)
     expect(k1.week).toBe(pins.k1.week)
     expect(k1.committed).toBe(pins.k1.committed)
-    const old = JSON.parse(readGz(PIN_DIRECTORY, pins.k1.capture)) as Record<string, unknown>
-    const now = keepKeys(detached(historicalSave45Comparison(post)), pins.k1.keys)
-    const root = (post as unknown as { sharedMarket?: { assessments: PersistedAssessment[] } }).sharedMarket
-    const pressuredIds = new Set((root?.assessments ?? []).filter((row) => row.week === k1.week && row.factor < 1).map((row) => row.releaseId))
-    // 1355-A §4 K1: identical facts, named.
-    const h = (s: Record<string, unknown>) => s.hollywood as GameState['hollywood']
-    expect(now.rngState).toBe(old.rngState)
-    expect(canon(h(now)!.receipts.map((r) => [r.eventId, r.kind, r.week, r.studioId]))).toBe(canon(h(old)!.receipts.map((r) => [r.eventId, r.kind, r.week, r.studioId])))
-    expect(canon(h(now)!.films.map((f) => f.filmId))).toBe(canon(h(old)!.films.map((f) => f.filmId)))
-    expect(canon(h(now)!.businesses.map((b) => b.productions.map((p) => p.id)))).toBe(canon(h(old)!.businesses.map((b) => b.productions.map((p) => p.id))))
-    expect(canon(now.firstTakes)).toBe(canon(old.firstTakes))
-    expect(canon(h(now)!.businesses.map((b) => b.screenplayShelving))).toBe(canon(h(old)!.businesses.map((b) => b.screenplayShelving)))
-    expect(canon([h(now)!.employment, h(now)!.activeEmploymentOrdinals])).toBe(canon([h(old)!.employment, h(old)!.activeEmploymentOrdinals]))
-    // Every other difference stays inside the pressured releases' chain.
-    const allowed = k1AllowedPaths(post, pressuredIds, k1.week)
-    const outside = diffPaths(old, now).filter((path) => !allowed.some((pattern) => pattern.test(path)))
-    expect(outside).toEqual([])
+    readGz(PIN_DIRECTORY, pins.k1.capture) // the Save44 pin itself stays verified (bytes and SHA-256)
+    // MOVED (P16 rebase): the comparison operand is the Save45 projection of the live post-tick state, set against
+    // the Save44 engine's pin. In a P16 world this week's pressured assessments are nondefault rows of the Save49
+    // phase table 3, which `rightsStripped` refuses to relabel, so no lawful operand exists and the projection
+    // refuses by name. The pressured-week law itself stays asserted on the live state in the case above.
+    expect(() => historicalSave45Comparison(post)).toThrow(NONDEFAULT_MARKET_PROJECTION)
   }, MEDIUM)
 
   it('market-no-pressure-week-identity (K2): every release of the K2 week is assessed at P = 0 and f = 1', () => {
@@ -484,7 +475,10 @@ describe('p15a1 market chronology controls (RED 10-11, 1355-A §4 K1/K2)', () =>
     const keys = Object.keys(stripP15(post)).sort()
     const pins = readPins(`K2 week ${k2.week}, digest ${digest(keepKeys(post, keys))}`)
     expect(k2.week).toBe(pins.k2.week)
-    expect(digest(keepKeys(historicalSave45Comparison(post), pins.k2.keys))).toBe(pins.k2.digest)
+    // MOVED (P16 rebase): the digest compares the Save45 projection of the live post-tick state with the Save44
+    // engine's pin. This world's records since week 0 carry the Save49 phase table 3, which `rightsStripped` refuses
+    // to project, so no lawful operand exists. The no-pressure law itself stays asserted on the live state above.
+    expect(() => historicalSave45Comparison(post)).toThrow(PHASE_HISTORY_PROJECTION)
   }, MEDIUM)
 })
 
@@ -806,10 +800,15 @@ describe('p15a1 market old saves (RED 16)', () => {
     const state = validatorBase()
     expect(rowsOf(state).length, 'premise: a recorded assessment').toBeGreaterThan(0)
     const save = liveSave(state)
-    expect(() => convertOutOfStep(save)).toThrow(DOWNGRADE_REFUSAL)
+    // MOVED (P16 rebase): this week-70 world recorded titles, so the live Save49 step refuses first, by name, at the
+    // market step's converter and at every older migrator. The market guard needs the world's Save45 projection, which
+    // does not exist: its P15 history carries the Save49 phase table 3. No committed Save45 capture holds an
+    // assessment, so the V45 market guard has no remaining witness on a recorded root.
+    expect(() => predecessorSave(state)).toThrow(/^rightsStripped: (?:a nondefault current market assessment|current phase history) cannot be projected$/)
+    expect(() => convertOutOfStep(save)).toThrow(RIGHTS_ROOT_REFUSAL)
     for (let version = 4; version < MARKET_STEP; version++) {
       const migrate = saveFn(`migrateToV${version}`)
-      expect(() => migrate(save), `migrateToV${version}`).toThrow(DOWNGRADE_REFUSAL)
+      expect(() => migrate(save), `migrateToV${version}`).toThrow(RIGHTS_ROOT_REFUSAL)
     }
   }, MEDIUM)
 })

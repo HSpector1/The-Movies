@@ -425,7 +425,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
       // MOVED (P16 rebase): the live step refuses first, by name (the world recorded titles). The chain below starts
       // from the world's Save48 projection, which does not exist here: its shared-market history is table 3 and
       // nondefault, and `rightsStripped` refuses to relabel it, so the V45 guard pinned here before is unreachable from
-      // this world. p15a1-market-integration and p15a2-power-ranking-archive keep the V45 guards on own-era input.
+      // this world. p15a2-power-ranking-archive keeps the V45 ranking guard on genuine input; the market guard has none.
       expect(() => saves.convertV49ToV48(save)).toThrow(RIGHTS_ROOT_REFUSAL)
       expect(() => api.convertV39ToV38(save)).toThrow(NONDEFAULT_MARKET_PROJECTION)
     }
@@ -525,7 +525,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
     // MOVED (P16 rebase): the live step refuses first, by name (the world recorded titles). The chain below starts
     // from the world's Save48 projection, which does not exist here: its shared-market history is table 3 and
     // nondefault, and `rightsStripped` refuses to relabel it, so the V45 guard pinned here before is unreachable from
-    // this world. p15a1-market-integration and p15a2-power-ranking-archive keep the V45 guards on own-era input.
+    // this world. p15a2-power-ranking-archive keeps the V45 ranking guard on genuine input; the market guard has none.
     expect(() => saves.convertV49ToV48(saves.makeSave(abandoned))).toThrow(RIGHTS_ROOT_REFUSAL)
     expect(() => futureSave().convertV39ToV38(saves.makeSave(abandoned))).toThrow(NONDEFAULT_MARKET_PROJECTION)
   }, LEAF_TIMEOUT_MS)
@@ -787,7 +787,7 @@ describe('P3 second slice: cancellation and same-domain waiver', () => {
       // MOVED (P16 rebase): the live step refuses first, by name (the world recorded titles). The chain below starts
       // from the world's Save48 projection, which does not exist here: its shared-market history is table 3 and
       // nondefault, and `rightsStripped` refuses to relabel it, so the V45 guard pinned here before is unreachable from
-      // this world. p15a1-market-integration and p15a2-power-ranking-archive keep the V45 guards on own-era input.
+      // this world. p15a2-power-ranking-archive keeps the V45 ranking guard on genuine input; the market guard has none.
       expect(() => saves.convertV49ToV48(save)).toThrow(RIGHTS_ROOT_REFUSAL)
       expect(() => futureSave().convertV39ToV38(save)).toThrow(NONDEFAULT_MARKET_PROJECTION)
       // 1361-N S9 (MASKED), F7 ruling 2: the recorded Power Ranking quarter makes

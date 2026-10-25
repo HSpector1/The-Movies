@@ -775,6 +775,7 @@ describe('P4/P5 actual public binding and cast work', () => {
 import * as opportunityOwner from '../src/core/opportunityPromises.js'
 import { EXPECTED_LIVE_SAVE_VERSION, validateLiveSave } from './helpers/live-era.js'
 import { predecessorSave } from './helpers/p15-roots.js'
+import { NONDEFAULT_MARKET_PROJECTION } from './helpers/p16-era.js'
 type ControlSave = ReturnType<typeof saves.makeSave>
 function controlsStart() {
   return { q06: clone(routeCounts.Q06), outside: outsideRouteAttempts }
@@ -879,7 +880,11 @@ describe('P4/P5 retained subject and waiver authority controls', () => {
     // assessments first and the quarter second. The pre-1365 pin was
     // /^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/.
     expect(() => convertV49ToV48(released as never)).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
-    expect(() => saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(saves.convertV46ToV45(saves.convertV47ToV46(predecessorSave(released.state)))))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded shared-market assessment \(9 recorded\); cannot downgrade or discard a recorded Power Ranking quarter$/)
+    // MOVED (P16 rebase): the live step's refusal above is the first guard. This chain starts from the route's Save48
+    // projection, which does not exist: its shared-market history is table 3 and nondefault, and `rightsStripped`
+    // refuses to relabel it, so the V45 market guard pinned here before is unreachable from this route.
+    // p15a2-power-ranking-archive keeps the V45 ranking guard on genuine input; the market guard has none.
+    expect(() => saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(saves.convertV46ToV45(saves.convertV47ToV46(predecessorSave(released.state)))))))))).toThrow(NONDEFAULT_MARKET_PROJECTION)
     expect(stable(released)).toBe(before) // Combined tag+fact refusal; not isolated fact-only proof.
     controlsEnd(counters)
   }, LEAF_TIMEOUT_MS)
