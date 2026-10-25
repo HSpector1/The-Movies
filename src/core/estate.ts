@@ -169,7 +169,7 @@ export function validateEstateJoins(state: GameState, label: string): void {
       if (typeof lot.lotId !== 'string' || lot.lotId.length === 0 || lotIds.has(lot.lotId)
         || !Number.isSafeInteger(lot.minimumBid) || lot.minimumBid < 0 || lot.subjects.length === 0) fail('invalid or duplicate typed lot')
       lotIds.add(lot.lotId)
-      const values = lot.subjects.map(subject => subjectValueV1(state, subject, classificationWeek))
+      const values = lot.subjects.map(subject => subjectValueV1(state, subject, classificationWeek, resolved))
       if (values.some(value => value.kind !== 'available')
         || values.reduce((sum, value) => sum + (value.kind === 'available' ? value.value : 0), 0) !== lot.minimumBid) fail('lot minimum differs from observed source valuation')
       // Licence history survives; terms minted after the original snapshot are not its encumbrances.

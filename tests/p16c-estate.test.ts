@@ -57,6 +57,23 @@ describe('P16C estate handoff: the typed adapter point opens an estate; it never
     expect(finance.permittedBidderRefusal(opened,r03,week)).toBe('terminal')
     // The actual adapter phase is not relabelled as an independently saved whole tick.
     expect(()=>makeSave(actual.state)).not.toThrow()
+    // Reuse this admitted closure; a later validation must resolve its current title evidence afresh.
+    const changed = structuredClone(actual.state)
+    const subject = actual.estate.lots.flatMap(l => l.subjects).find(s => s.right === 'R1')!
+    expect(subject?.right).toBe('R1')
+    if (subject.right !== 'R1') throw new Error('actual estate has no R1 title')
+    const property = changed.rights.properties.find(p => p.propertyId === subject.propertyId)!
+    expect(property).toBeDefined()
+    expect(typeof property.title).toBe('string')
+    const originalTitle = property.title
+    expect(() => estate.validateEstateJoins(changed, 'fresh-title')).not.toThrow()
+    property.title = originalTitle === 'Hostile estate title' ? 'Another hostile estate title' : 'Hostile estate title'
+    expect(rights.resolveTitles(changed).unavailable).toContainEqual({ subject, reason: 'ambiguousProvenance' })
+    const changedBefore = stableStringify(changed)
+    expect(() => estate.validateEstateJoins(changed, 'fresh-title')).toThrow('estate join held rights must be disposed exactly once at closure')
+    expect(stableStringify(changed)).toBe(changedBefore)
+    property.title = originalTitle
+    expect(() => estate.validateEstateJoins(changed, 'fresh-title')).not.toThrow()
     expect(opened.studio.cash).toBe(state.studio.cash)
     expect(opened.hollywood!.employment).toEqual(state.hollywood!.employment)
     expect(opened.hollywood!.businesses.map(b=>b.account)).toEqual(state.hollywood!.businesses.map(b=>b.account))

@@ -1,5 +1,14 @@
 # HANDOFF
 
+## Sprint 2 performance checkpoint — 2026-10-25 (current)
+
+- Candidate checkpoint descends from f6c31caab28ee2290a5d9b8ab35a7463bacc9ce5. Coordinator owns integration/runtime; GPT-6.1 Sol handles bounded implementation preparation, Astra scope/review decisions. One lane, no P16 source to main.
+- Reused validation-local title resolution removes measured repeated folds; all guards/history/money laws remain. Existing S7 Save As: entry candidate32.4s timeout -> changed20.9s pass; fresh pre-P16 main20.1s. Original30s budget. Independent source review has no actionable blocker. Root/UI and Bridge typechecks pass.
+- Focused complete valuation/estate/join files22/22 assertions pass; corruption leaf8.22s exceeds5s and remains timing-open. No full final P16 integration gate claim yet. Evidence: docs/engineering/audits/2026-10-22-codebase-review/c03-sprint2/.
+- Paid licence on actual pending player estate now passes all assertions in3.086s in a temporary witness; integrate into original authority case and qualify complete file. Initial managed-first-take premise error preserved. Post-opening encumbrance reverse-ownership witness prepared externally and remains unrun.
+- No active runtime at commit. Next: integrate qualified pending law, investigate remaining authentic route, then complete affected S7/P16 checkpoint and publish final Sprint2 records. Preserve pending Owner policy decisions and all historical evidence.
+
+
 Last writer: Codex, 2026-10-25, sole C-03 Sprint 1 coordinator.
 
 ## C-03 Sprint 1 completed — 2026-10-25 (current)

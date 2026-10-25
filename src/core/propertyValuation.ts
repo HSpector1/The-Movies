@@ -50,11 +50,12 @@ const scoreInRange = (score: number): boolean => Number.isFinite(score) && score
 export function r2CatalogueValue(score: number): number { return Math.round((TUNING.RIGHTS_R2_CATALOGUE_VALUE_AT_100 * score) / 100) }
 export function r1OptionValue(maxQuality: number): number { return Math.round((TUNING.RIGHTS_R1_OPTION_VALUE_AT_100 * maxQuality) / 100) }
 
-/** The value of one subject at the end of `asOfWeek`, independent of who holds it; used by lots and disclosures. */
-export function subjectValueV1(state: GameState, subject: RightSubject, asOfWeek: number): { kind: 'available'; value: number } | Exclude<ValuationResult, { kind: 'available' }> {
+/** The value of one subject at the end of `asOfWeek`, independent of who holds it; used by lots and disclosures.
+ * Internal callers may reuse only a resolution freshly derived from this unchanged state in the same synchronous operation. */
+export function subjectValueV1(state: GameState, subject: RightSubject, asOfWeek: number, resolvedTitles?: ReturnType<typeof resolveTitles>): { kind: 'available'; value: number } | Exclude<ValuationResult, { kind: 'available' }> {
   const refusal = asOfWeekRefusal(state, asOfWeek)
   if (refusal !== null) return { kind: 'unavailable', reason: refusal }
-  const resolved = resolveTitles(state)
+  const resolved = resolvedTitles ?? resolveTitles(state)
   const films = scoredFilms(state)
   return itemValue(resolved, films, subject, asOfWeek)
 }
