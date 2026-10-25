@@ -1,0 +1,72 @@
+[
+  {
+    "file": "p16-r2-acquisition.test.ts",
+    "test": "r2 F6/F8/F33: the target consents at quote; its ask prices the cash that moves at par; money is whole dollars a consideration below the ask refuses by name; at the ask the buyer's outlay is exactly the premium-adjusted library value, never a windfall",
+    "cause": "AssertionError: expected null not to be null",
+    "predecessorStatus": "failed",
+    "predecessorCause": "AssertionError: expected null not to be null",
+    "sameFirstCause": true,
+    "duration": 748.6333570000002,
+    "predecessorDuration": 611.8792209999997
+  },
+  {
+    "file": "p16-r2-acquisition.test.ts",
+    "test": "r2 F13: person-choice and relationship refusals bind the retention preview a target employee with a Nemesis on the buyer's roster refuses to join it, by name, under the default and an explicit choice alike",
+    "cause": "AssertionError: expected 'refusal' to be 'quote' // Object.is equality",
+    "predecessorStatus": "failed",
+    "predecessorCause": "AssertionError: expected 'refusal' to be 'quote' // Object.is equality",
+    "sameFirstCause": true,
+    "duration": 513.9611560000003,
+    "predecessorDuration": 667.3084410000001
+  },
+  {
+    "file": "p16-r2-authority.test.ts",
+    "test": "r2 F1/F27/F41: a live licence survives its grantor's closure, an estate sale and archival a licensed property the handoff leaves pending (not offered) keeps its licensee's authority from the closure week on",
+    "cause": "Error: estate handoff refused: actualClosureMissing",
+    "predecessorStatus": "failed",
+    "predecessorCause": "Error: estate handoff refused: actualClosureMissing",
+    "sameFirstCause": true,
+    "duration": 640.9093530000009,
+    "predecessorDuration": 678.9500620000003
+  },
+  {
+    "file": "p16-r2-estate.test.ts",
+    "test": "r2 F4/F29: the estate path refuses the bilateral path's encumbrances a lot encumbered after the handoff (a production started on its concept) cannot sell at D: its bids are disqualified by name and the lot archives",
+    "cause": "Error: estate handoff refused: actualClosureMissing",
+    "predecessorStatus": "failed",
+    "predecessorCause": "Error: estate handoff refused: actualClosureMissing",
+    "sameFirstCause": true,
+    "duration": 899.1383860000005,
+    "predecessorDuration": 937.1991240000002
+  },
+  {
+    "file": "p16c-acquisition.test.ts",
+    "test": "P16C healthy absorption: the quote separates consideration, at-par cash, exits and disclosed guarantees default retention walks the target's contracts in order, retains what is lawful and affordable, charges each non-retained exit once to the target, and transfers post-exit cash at par",
+    "cause": "AssertionError: expected 'refusal' to be 'quote' // Object.is equality",
+    "predecessorStatus": "failed",
+    "predecessorCause": "AssertionError: expected 'refusal' to be 'quote' // Object.is equality",
+    "sameFirstCause": true,
+    "duration": 1109.574917,
+    "predecessorDuration": 798.6919040000002
+  },
+  {
+    "file": "p16c-acquisition.test.ts",
+    "test": "P16C healthy absorption: work continues only where the buyer's operations admit it (the real allocator) the target's in-flight production is admitted into the buyer's managed operations by the shared allocator; without the capability, or with a stage that can seat nobody, it is marked for cancellation and the default drops the people whose work cannot continue",
+    "cause": "AssertionError: expected 'refusal' to be 'quote' // Object.is equality",
+    "predecessorStatus": "failed",
+    "predecessorCause": "AssertionError: expected 'refusal' to be 'quote' // Object.is equality",
+    "sameFirstCause": true,
+    "duration": 474.7281210000001,
+    "predecessorDuration": 408.6222940000007
+  },
+  {
+    "file": "p16c-acquisition.test.ts",
+    "test": "P16C healthy absorption: work continues only where the buyer's operations admit it (the real allocator) a buyer whose operations are not managed cannot host managed work, and a production id already present in the buyer's operations is a named collision, not a merge",
+    "cause": "AssertionError: expected 'refusal' to be 'quote' // Object.is equality",
+    "predecessorStatus": "failed",
+    "predecessorCause": "AssertionError: expected 'refusal' to be 'quote' // Object.is equality",
+    "sameFirstCause": true,
+    "duration": 545.7479320000002,
+    "predecessorDuration": 466.23583999999937
+  }
+]

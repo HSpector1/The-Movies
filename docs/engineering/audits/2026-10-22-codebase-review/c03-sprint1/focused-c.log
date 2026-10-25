@@ -1,0 +1,120 @@
+v20.20.2
+Filesystem   1024-blocks     Used Available Capacity iused    ifree %iused  Mounted on
+/dev/disk1s1   118284248 88119648   4688592    95% 2607088 46885920    5%   /System/Volumes/Data
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt
+
+ ❯ |core| tests/p16-r2-authority.test.ts (9 tests | 1 failed) 18878ms
+   ✓ r2 F1/F27/F41: a live licence survives its grantor's closure, an estate sale and archival > the licensee keeps exclusive authority while the grantor's estate holds, archives, or sells the title; only the title's own default authority changes 9864ms
+   × r2 F1/F27/F41: a live licence survives its grantor's closure, an estate sale and archival > a licensed property the handoff leaves pending (not offered) keeps its licensee's authority from the closure week on 1176ms
+     → estate handoff refused: actualClosureMissing
+   ✓ r2 F5/F28/F42: an exclusive R3 licence limits the greenlight continuation hook and branch authority > a same-concept greenlight is a remake: an exclusive remake licensee holds that authority, so the R1 holder is refused; other licensed uses leave it with the holder 1480ms
+   ✓ r2 F5/F28/F42: an exclusive R3 licence limits the greenlight continuation hook and branch authority > branch authority is the parent's spin-off authority: an exclusive spin-off licensee holds it during the term; the title holder again after it 835ms
+   ✓ r2 F11: a continuation with its own concept links to the parent property and mints no R1 > the holder and an exclusive licensee each link under permissionFor; the excluded holder is refused; the link mints nothing for the new concept; the release titles the film under the parent 1551ms
+   ✓ r2 F10/F35: the R4 surface works for television and merchandise, exclusive or not, once its consumer is live > the gate refuses every R4 grant by default; lifted, R4 grants follow their own law and permissionFor answers nonexclusive and exclusive grantees 895ms
+   ✓ r2 F62/F23: a rights refusal at greenlight is pure — at the front door and at a queued greenlight's dequeue > after the player sells a concept's R1, its re-greenlight through applyActions refuses by name and the state is byte-identical 1021ms
+   ✓ r2 F62/F23: a rights refusal at greenlight is pure — at the front door and at a queued greenlight's dequeue > a queued greenlight whose concept's R1 is sold while it waits expires at dequeue with the rights reason and leaves no event naming a production that never existed 1052ms
+   ✓ r2: the continuation hook and the R1 holder agree with permissionFor at every week of a licence term > the holder regains remake authority the week an exclusive remake licence lapses 1001ms
+ ❯ |core| tests/p16c-estate.test.ts (7 tests | 3 failed) 20577ms
+   ✓ P16C estate handoff: the typed adapter point opens an estate; it never declares a studio terminal > opens from a valid handoff, materializes the lot titles, and from the closure week the studio's rights are estate-only 3549ms
+   ✓ P16C estate handoff: the typed adapter point opens an estate; it never declares a studio terminal > refuses a malformed handoff by name: overlapping lots, a subject the studio does not hold, a wrong window, an unknown studio, a duplicate estate 3521ms
+   × P16C sealed bids: admission only before D, reservations, refusals > admits one sealed bid per bidder per lot before D, reserves the amount, and refuses by name otherwise 804ms
+     → estate handoff refused: actualClosureMissing
+   × P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival > resolves exactly once at D with exact debits, proceeds to the estate once, title to the winners, archival of the unsold lot, and no person moved 745ms
+     → estate handoff refused: actualClosureMissing
+   × P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival > the natural route: ticks carry the estate to D; the shipped (unbound) binding refuses the ceremony by name instead of archiving every lot; with bound readers the week-D ceremony sells, archives, saves and reloads byte-for-byte 1022ms
+     → estate handoff refused: actualClosureMissing
+   ✓ P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival > a winner who can no longer afford a later lot after winning an earlier one falls back to the next valid bid 5955ms
+   ✓ P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival > a genuinely paid-down bidder enters warning before D and its higher bid falls back to a stable rival 4947ms
+ ❯ |core| tests/p16-r2-estate.test.ts (7 tests | 1 failed) 22593ms
+   ✓ r2 F4/F29: the estate path refuses the bilateral path's encumbrances > premise: the closing studio (r02) at week 53 holds a film in an active run and a property with an active production, and the bilateral path refuses both 1368ms
+   ✓ r2 F4/F29: the estate path refuses the bilateral path's encumbrances > a lot holding an active-run film or an active-production property refuses the handoff by name; the same subjects pending are admitted and never sold 6632ms
+   × r2 F4/F29: the estate path refuses the bilateral path's encumbrances > a lot encumbered after the handoff (a production started on its concept) cannot sell at D: its bids are disqualified by name and the lot archives 731ms
+     → estate handoff refused: actualClosureMissing
+   ✓ r2 F4/F29: the estate path refuses the bilateral path's encumbrances > every right the closed studio held is disposed exactly once: an omitted, a duplicated, a foreign or an undisclosed-licence subject refuses the handoff 2371ms
+   ✓ r2 F18/F37/F60: the window opens at the closure week, closes exactly at D, and needs certifiable bidders > openEstate refuses outside the closure week and while the P15B readers are unbound; the validator refuses an estate still open at or after D 2877ms
+   ✓ r2 F38: an as-of read inside the window reports the lot as it stood that week > a subject that archives at D reads unarchived at every earlier week of the window 3601ms
+   ✓ r2 F48: the deterministic tie-break is ascending reserved identity order, not submission order > equal sealed bids resolve to the lower identity row even when the higher row bid first 5010ms
+stdout | tests/p16-c03-estate-handoff.test.ts > captures authentic closure authority and observes fixed bidder premises without altering history
+C03_HANDOFF {"week":163,"claims":{"priorityVersion":"closure/v1","claimIds":["closure-claim-1","closure-claim-2","closure-claim-3","closure-claim-4","closure-claim-5","closure-claim-6"]},"lots":[{"lotId":"studio-closure-1:rights-lot:1","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:concept:0"}],"minimumBid":9528,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:2","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:concept:1"}],"minimumBid":11432,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:3","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:concept:2"}],"minimumBid":12231,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:4","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:concept:3"}],"minimumBid":16366,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:5","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:concept:4"}],"minimumBid":12514,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:6","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:concept:6"}],"minimumBid":12027,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:7","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:concept:7"}],"minimumBid":15161,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:8","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:concept:8"}],"minimumBid":10791,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:9","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:historical-concept:0"}],"minimumBid":15250,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:10","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:historical-concept:1"}],"minimumBid":17000,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:11","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:film:0"}],"minimumBid":38114,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:12","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:film:1"}],"minimumBid":45727,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:13","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:film:2"}],"minimumBid":48925,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:14","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:film:3"}],"minimumBid":65462,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:15","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:film:4"}],"minimumBid":50057,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:16","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:film:6"}],"minimumBid":48107,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:17","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:film:7"}],"minimumBid":60644,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:18","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:film:8"}],"minimumBid":43164,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:19","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:historical-film:0"}],"minimumBid":61000,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:20","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:historical-film:1"}],"minimumBid":68000,"encumbrances":[]}],"pending":[]}
+C03_BIDDERS {"week":175,"studios":[{"id":"studio-aca408ec-player","row":0,"refusal":null,"cash":17375000,"reserve":390000},{"id":"studio-aca408ec-r01","row":1,"refusal":null,"cash":10079961.807734229,"reserve":2618330},{"id":"studio-aca408ec-r02","row":2,"refusal":null,"cash":15587110.591538565,"reserve":2385032},{"id":"studio-aca408ec-r03","row":3,"refusal":null,"cash":5397657.718992807,"reserve":2585986},{"id":"studio-aca408ec-r04","row":4,"refusal":"terminal","cash":-12098169.044389319,"reserve":1001000}],"lots":[{"lotId":"studio-closure-1:rights-lot:1","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:concept:0"}],"minimumBid":9528,"encumbrances":[],"status":"open","winningBidId":null,"transactionId":null},{"lotId":"studio-closure-1:rights-lot:2","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:concept:1"}],"minimumBid":11432,"encumbrances":[],"status":"open","winningBidId":null,"transactionId":null},{"lotId":"studio-closure-1:rights-lot:3","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:concept:2"}],"minimumBid":12231,"encumbrances":[],"status":"open","winningBidId":null,"transactionId":null},{"lotId":"studio-closure-1:rights-lot:4","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:concept:3"}],"minimumBid":16366,"encumbrances":[],"status":"open","winningBidId":null,"transactionId":null},{"lotId":"studio-closure-1:rights-lot:5","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:concept:4"}],"minimumBid":12514,"encumbrances":[],"status":"open","winningBidId":null,"transactionId":null},{"lotId":"studio-closure-1:rights-lot:6","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:concept:6"}],"minimumBid":12027,"encumbrances":[],"status":"open","winningBidId":null,"transactionId":null},{"lotId":"studio-closure-1:rights-lot:7","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:concept:7"}],"minimumBid":15161,"encumbrances":[],"status":"open","winningBidId":null,"transactionId":null},{"lotId":"studio-closure-1:rights-lot:8","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:concept:8"}],"minimumBid":10791,"encumbrances":[],"status":"open","winningBidId":null,"transactionId":null},{"lotId":"studio-closure-1:rights-lot:9","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:historical-concept:0"}],"minimumBid":15250,"encumbrances":[],"status":"open","winningBidId":null,"transactionId":null},{"lotId":"studio-closure-1:rights-lot:10","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:historical-concept:1"}],"minimumBid":17000,"encumbrances":[],"status":"open","winningBidId":null,"transactionId":null},{"lotId":"studio-closure-1:rights-lot:11","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:film:0"}],"minimumBid":38114,"encumbrances":[],"status":"open","winningBidId":null,"transactionId":null},{"lotId":"studio-closure-1:rights-lot:12","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:film:1"}],"minimumBid":45727,"encumbrances":[],"status":"open","winningBidId":null,"transactionId":null},{"lotId":"studio-closure-1:rights-lot:13","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:film:2"}],"minimumBid":48925,"encumbrances":[],"status":"open","winningBidId":null,"transactionId":null},{"lotId":"studio-closure-1:rights-lot:14","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:film:3"}],"minimumBid":65462,"encumbrances":[],"status":"open","winningBidId":null,"transactionId":null},{"lotId":"studio-closure-1:rights-lot:15","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:film:4"}],"minimumBid":50057,"encumbrances":[],"status":"open","winningBidId":null,"transactionId":null},{"lotId":"studio-closure-1:rights-lot:16","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:film:6"}],"minimumBid":48107,"encumbrances":[],"status":"open","winningBidId":null,"transactionId":null},{"lotId":"studio-closure-1:rights-lot:17","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:film:7"}],"minimumBid":60644,"encumbrances":[],"status":"open","winningBidId":null,"transactionId":null},{"lotId":"studio-closure-1:rights-lot:18","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:film:8"}],"minimumBid":43164,"encumbrances":[],"status":"open","winningBidId":null,"transactionId":null},{"lotId":"studio-closure-1:rights-lot:19","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:historical-film:0"}],"minimumBid":61000,"encumbrances":[],"status":"open","winningBidId":null,"transactionId":null},{"lotId":"studio-closure-1:rights-lot:20","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:historical-film:1"}],"minimumBid":68000,"encumbrances":[],"status":"open","winningBidId":null,"transactionId":null}]}
+
+ ✓ |core| tests/p16-c03-estate-handoff.test.ts (1 test) 3914ms
+   ✓ captures authentic closure authority and observes fixed bidder premises without altering history 3912ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p16-r2-authority.test.ts > r2 F1/F27/F41: a live licence survives its grantor's closure, an estate sale and archival > a licensed property the handoff leaves pending (not offered) keeps its licensee's authority from the closure week on
+Error: estate handoff refused: actualClosureMissing
+ ❯ Module.openEstate src/core/estate.ts:293:31
+    291|   requireBoundReaders(readers, 'opening an estate')
+    292|   const refusal = estateHandoffRefusal(state, handoff, week)
+    293|   if (refusal !== null) throw new Error(`estate handoff refused: ${ref…
+       |                               ^
+    294|   let next = state
+    295|   for (const subject of [...handoff.lots.flatMap((lot) => lot.subjects…
+ ❯ tests/p16-r2-authority.test.ts:113:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL |core|  tests/p16-r2-estate.test.ts > r2 F4/F29: the estate path refuses the bilateral path's encumbrances > a lot encumbered after the handoff (a production started on its concept) cannot sell at D: its bids are disqualified by name and the lot archives
+Error: estate handoff refused: actualClosureMissing
+ ❯ Module.openEstate src/core/estate.ts:293:31
+    291|   requireBoundReaders(readers, 'opening an estate')
+    292|   const refusal = estateHandoffRefusal(state, handoff, week)
+    293|   if (refusal !== null) throw new Error(`estate handoff refused: ${ref…
+       |                               ^
+    294|   let next = state
+    295|   for (const subject of [...handoff.lots.flatMap((lot) => lot.subjects…
+ ❯ tests/p16-r2-estate.test.ts:55:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL |core|  tests/p16c-estate.test.ts > P16C sealed bids: admission only before D, reservations, refusals > admits one sealed bid per bidder per lot before D, reserves the amount, and refuses by name otherwise
+Error: estate handoff refused: actualClosureMissing
+ ❯ Module.openEstate src/core/estate.ts:293:31
+    291|   requireBoundReaders(readers, 'opening an estate')
+    292|   const refusal = estateHandoffRefusal(state, handoff, week)
+    293|   if (refusal !== null) throw new Error(`estate handoff refused: ${ref…
+       |                               ^
+    294|   let next = state
+    295|   for (const subject of [...handoff.lots.flatMap((lot) => lot.subjects…
+ ❯ tests/p16c-estate.test.ts:127:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL |core|  tests/p16c-estate.test.ts > P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival > resolves exactly once at D with exact debits, proceeds to the estate once, title to the winners, archival of the unsold lot, and no person moved
+Error: estate handoff refused: actualClosureMissing
+ ❯ Module.openEstate src/core/estate.ts:293:31
+    291|   requireBoundReaders(readers, 'opening an estate')
+    292|   const refusal = estateHandoffRefusal(state, handoff, week)
+    293|   if (refusal !== null) throw new Error(`estate handoff refused: ${ref…
+       |                               ^
+    294|   let next = state
+    295|   for (const subject of [...handoff.lots.flatMap((lot) => lot.subjects…
+ ❯ bidsPlaced tests/p16c-estate.test.ts:159:24
+ ❯ tests/p16c-estate.test.ts:173:76
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL |core|  tests/p16c-estate.test.ts > P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival > the natural route: ticks carry the estate to D; the shipped (unbound) binding refuses the ceremony by name instead of archiving every lot; with bound readers the week-D ceremony sells, archives, saves and reloads byte-for-byte
+Error: estate handoff refused: actualClosureMissing
+ ❯ Module.openEstate src/core/estate.ts:293:31
+    291|   requireBoundReaders(readers, 'opening an estate')
+    292|   const refusal = estateHandoffRefusal(state, handoff, week)
+    293|   if (refusal !== null) throw new Error(`estate handoff refused: ${ref…
+       |                               ^
+    294|   let next = state
+    295|   for (const subject of [...handoff.lots.flatMap((lot) => lot.subjects…
+ ❯ bidsPlaced tests/p16c-estate.test.ts:159:24
+ ❯ tests/p16c-estate.test.ts:217:71
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+ Test Files  3 failed | 1 passed (4)
+      Tests  5 failed | 19 passed (24)
+   Start at  15:42:43
+   Duration  31.00s (transform 5.20s, setup 0ms, collect 15.86s, tests 65.96s, environment 1ms, prepare 1.40s)
+
+JSON report written to /Users/zacheryspector/studio-scratch/p16-c03-sprint1-20261025/focused-c.json
+=== focused-c child exit=1

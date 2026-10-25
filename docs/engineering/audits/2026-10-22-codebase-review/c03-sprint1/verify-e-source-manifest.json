@@ -1,0 +1,8 @@
+{
+  "tests/helpers/p16-actual-estate.ts": "32ab8ba91dd8ed92c5937d9b959d6b18eee01d70a73be1f40a665c8aa0239267",
+  "tests/p16c-estate.test.ts": "c4505b963bdc25647b669f877690424873e41c9dcb12291fee534175d8605c40",
+  "tests/p16-r2-estate.test.ts": "ffa25bfdf1d9cd0000ad5c9bb8d0002c9331ae87e44574729ce3e6f3805d9f5a",
+  "tests/p16-r2-authority.test.ts": "eecc316293040ca9198331ec6534758cf0ef8a476a2cfb7d98c824659f82f844",
+  "tests/helpers/p16-authentic-bidders.ts": "1791d9520b61f5c1b5dbb0a3c8bcb097c103f02c1cc9b52316a9cca67c17b658",
+  "tests/helpers/p16-authentic-pending.ts": "d58a1d61a7016bdc8c91277660fe5c1486742af613c64eddd87b49bb379a1461"
+}

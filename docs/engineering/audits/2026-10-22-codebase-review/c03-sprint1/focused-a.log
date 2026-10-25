@@ -1,0 +1,268 @@
+v20.20.2
+Filesystem   1024-blocks     Used Available Capacity iused    ifree %iused  Mounted on
+/dev/disk1s1   118284248 88157732   4650508    95% 2614224 46505080    5%   /System/Volumes/Data
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt
+
+ ❯ |core| tests/p16c-estate.test.ts (6 tests | 6 failed) 6323ms
+   × P16C estate handoff: the typed adapter point opens an estate; it never declares a studio terminal > opens from a valid handoff, materializes the lot titles, and from the closure week the studio's rights are estate-only 1679ms
+     → expected 'actualClosureMissing' to be null
+   × P16C estate handoff: the typed adapter point opens an estate; it never declares a studio terminal > refuses a malformed handoff by name: overlapping lots, a subject the studio does not hold, a wrong window, an unknown studio, a duplicate estate 930ms
+     → expected 'actualClosureMissing' to be 'lotOverlap' // Object.is equality
+   × P16C sealed bids: admission only before D, reservations, refusals > admits one sealed bid per bidder per lot before D, reserves the amount, and refuses by name otherwise 953ms
+     → estate handoff refused: actualClosureMissing
+   × P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival > resolves exactly once at D with exact debits, proceeds to the estate once, title to the winners, archival of the unsold lot, and no person moved 977ms
+     → estate handoff refused: actualClosureMissing
+   × P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival > the natural route: ticks carry the estate to D; the shipped (unbound) binding refuses the ceremony by name instead of archiving every lot; with bound readers the week-D ceremony sells, archives, saves and reloads byte-for-byte 850ms
+     → estate handoff refused: actualClosureMissing
+   × P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival > a winner who can no longer afford a later lot after winning an earlier one falls back to the next valid bid 932ms
+     → estate handoff refused: actualClosureMissing
+ ❯ |core| tests/p16-r2-estate.test.ts (7 tests | 6 failed) 6859ms
+   ✓ r2 F4/F29: the estate path refuses the bilateral path's encumbrances > premise: the closing studio (r02) at week 53 holds a film in an active run and a property with an active production, and the bilateral path refuses both 1617ms
+   × r2 F4/F29: the estate path refuses the bilateral path's encumbrances > a lot holding an active-run film or an active-production property refuses the handoff by name; the same subjects pending are admitted and never sold 749ms
+     → expected 'actualClosureMissing' to be 'lotEncumbered:activeRun:R2:studio-aca…' // Object.is equality
+   × r2 F4/F29: the estate path refuses the bilateral path's encumbrances > a lot encumbered after the handoff (a production started on its concept) cannot sell at D: its bids are disqualified by name and the lot archives 1078ms
+     → estate handoff refused: actualClosureMissing
+   × r2 F4/F29: the estate path refuses the bilateral path's encumbrances > every right the closed studio held is disposed exactly once: an omitted, a duplicated, a foreign or an undisclosed-licence subject refuses the handoff 867ms
+     → expected 'actualClosureMissing' to be 'dispositionMissing:R1:story-property:…' // Object.is equality
+   × r2 F18/F37/F60: the window opens at the closure week, closes exactly at D, and needs certifiable bidders > openEstate refuses outside the closure week and while the P15B readers are unbound; the validator refuses an estate still open at or after D 943ms
+     → expected 'actualClosureMissing' to be 'notClosureWeek' // Object.is equality
+   × r2 F38: an as-of read inside the window reports the lot as it stood that week > a subject that archives at D reads unarchived at every earlier week of the window 902ms
+     → estate handoff refused: actualClosureMissing
+   × r2 F48: the deterministic tie-break is ascending reserved identity order, not submission order > equal sealed bids resolve to the lower identity row even when the higher row bid first 699ms
+     → estate handoff refused: actualClosureMissing
+ ❯ |core| tests/p16-r2-authority.test.ts (9 tests | 2 failed) 10152ms
+   × r2 F1/F27/F41: a live licence survives its grantor's closure, an estate sale and archival > the licensee keeps exclusive authority while the grantor's estate holds, archives, or sells the title; only the title's own default authority changes 1575ms
+     → estate handoff refused: actualClosureMissing
+   × r2 F1/F27/F41: a live licence survives its grantor's closure, an estate sale and archival > a licensed property the handoff leaves pending (not offered) keeps its licensee's authority from the closure week on 786ms
+     → estate handoff refused: actualClosureMissing
+   ✓ r2 F5/F28/F42: an exclusive R3 licence limits the greenlight continuation hook and branch authority > a same-concept greenlight is a remake: an exclusive remake licensee holds that authority, so the R1 holder is refused; other licensed uses leave it with the holder 1171ms
+   ✓ r2 F5/F28/F42: an exclusive R3 licence limits the greenlight continuation hook and branch authority > branch authority is the parent's spin-off authority: an exclusive spin-off licensee holds it during the term; the title holder again after it 962ms
+   ✓ r2 F11: a continuation with its own concept links to the parent property and mints no R1 > the holder and an exclusive licensee each link under permissionFor; the excluded holder is refused; the link mints nothing for the new concept; the release titles the film under the parent 1809ms
+   ✓ r2 F10/F35: the R4 surface works for television and merchandise, exclusive or not, once its consumer is live > the gate refuses every R4 grant by default; lifted, R4 grants follow their own law and permissionFor answers nonexclusive and exclusive grantees 787ms
+   ✓ r2 F62/F23: a rights refusal at greenlight is pure — at the front door and at a queued greenlight's dequeue > after the player sells a concept's R1, its re-greenlight through applyActions refuses by name and the state is byte-identical 1431ms
+   ✓ r2 F62/F23: a rights refusal at greenlight is pure — at the front door and at a queued greenlight's dequeue > a queued greenlight whose concept's R1 is sold while it waits expires at dequeue with the rights reason and leaves no event naming a production that never existed 902ms
+   ✓ r2: the continuation hook and the R1 holder agree with permissionFor at every week of a licence term > the holder regains remake authority the week an exclusive remake licence lapses 724ms
+stdout | tests/p16-c03-estate-handoff.test.ts > captures authentic closure authority and observes fixed bidder premises without altering history
+C03_HANDOFF {"week":163,"claims":{"priorityVersion":"closure/v1","claimIds":["closure-claim-1","closure-claim-2","closure-claim-3","closure-claim-4","closure-claim-5","closure-claim-6"]},"lots":[{"lotId":"studio-closure-1:rights-lot:1","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:concept:0"}],"minimumBid":9528,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:2","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:concept:1"}],"minimumBid":11432,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:3","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:concept:2"}],"minimumBid":12231,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:4","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:concept:3"}],"minimumBid":16366,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:5","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:concept:4"}],"minimumBid":12514,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:6","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:concept:6"}],"minimumBid":12027,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:7","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:concept:7"}],"minimumBid":15161,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:8","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:concept:8"}],"minimumBid":10791,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:9","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:historical-concept:0"}],"minimumBid":15250,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:10","subjects":[{"right":"R1","propertyId":"story-property:studio-aca408ec-r04:historical-concept:1"}],"minimumBid":17000,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:11","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:film:0"}],"minimumBid":38114,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:12","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:film:1"}],"minimumBid":45727,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:13","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:film:2"}],"minimumBid":48925,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:14","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:film:3"}],"minimumBid":65462,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:15","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:film:4"}],"minimumBid":50057,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:16","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:film:6"}],"minimumBid":48107,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:17","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:film:7"}],"minimumBid":60644,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:18","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:film:8"}],"minimumBid":43164,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:19","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:historical-film:0"}],"minimumBid":61000,"encumbrances":[]},{"lotId":"studio-closure-1:rights-lot:20","subjects":[{"right":"R2","filmId":"studio-aca408ec-r04:historical-film:1"}],"minimumBid":68000,"encumbrances":[]}],"pending":[]}
+
+ ❯ |core| tests/p16-c03-estate-handoff.test.ts (1 test | 1 failed) 3515ms
+   × captures authentic closure authority and observes fixed bidder premises without altering history 3513ms
+     → rights: studio-aca408ec-r05 has no operating account
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 15 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p16-c03-estate-handoff.test.ts > captures authentic closure authority and observes fixed bidder premises without altering history
+Error: rights: studio-aca408ec-r05 has no operating account
+ ❯ studioCash src/core/rightsFinance.ts:94:37
+     92|   if (studioId === h.playerStudioId) return state.studio.cash
+     93|   const business = h.businesses.find((b) => b.studioId === studioId)
+     94|   if (business === undefined) throw new Error(`rights: ${studioId} has…
+       |                                     ^
+     95|   return business.account.cash
+     96| }
+ ❯ Module.spendableCash src/core/rightsFinance.ts:107:10
+ ❯ tests/p16-c03-estate-handoff.test.ts:18:209
+ ❯ tests/p16-c03-estate-handoff.test.ts:18:104
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/15]⎯
+
+ FAIL |core|  tests/p16-r2-authority.test.ts > r2 F1/F27/F41: a live licence survives its grantor's closure, an estate sale and archival > the licensee keeps exclusive authority while the grantor's estate holds, archives, or sells the title; only the title's own default authority changes
+Error: estate handoff refused: actualClosureMissing
+ ❯ Module.openEstate src/core/estate.ts:293:31
+    291|   requireBoundReaders(readers, 'opening an estate')
+    292|   const refusal = estateHandoffRefusal(state, handoff, week)
+    293|   if (refusal !== null) throw new Error(`estate handoff refused: ${ref…
+       |                               ^
+    294|   let next = state
+    295|   for (const subject of [...handoff.lots.flatMap((lot) => lot.subjects…
+ ❯ tests/p16-r2-authority.test.ts:59:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/15]⎯
+
+ FAIL |core|  tests/p16-r2-authority.test.ts > r2 F1/F27/F41: a live licence survives its grantor's closure, an estate sale and archival > a licensed property the handoff leaves pending (not offered) keeps its licensee's authority from the closure week on
+Error: estate handoff refused: actualClosureMissing
+ ❯ Module.openEstate src/core/estate.ts:293:31
+    291|   requireBoundReaders(readers, 'opening an estate')
+    292|   const refusal = estateHandoffRefusal(state, handoff, week)
+    293|   if (refusal !== null) throw new Error(`estate handoff refused: ${ref…
+       |                               ^
+    294|   let next = state
+    295|   for (const subject of [...handoff.lots.flatMap((lot) => lot.subjects…
+ ❯ tests/p16-r2-authority.test.ts:90:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/15]⎯
+
+ FAIL |core|  tests/p16-r2-estate.test.ts > r2 F4/F29: the estate path refuses the bilateral path's encumbrances > a lot holding an active-run film or an active-production property refuses the handoff by name; the same subjects pending are admitted and never sold
+AssertionError: expected 'actualClosureMissing' to be 'lotEncumbered:activeRun:R2:studio-aca…' // Object.is equality
+
+Expected: "lotEncumbered:activeRun:R2:studio-aca408ec-r02:film:4"
+Received: "actualClosureMissing"
+
+ ❯ tests/p16-r2-estate.test.ts:46:62
+     44|     const { state, r03, week, running, producing, clean } = world()
+     45|     const runLot = estateHandoffFor(state, r03, week, [{ lotId: 'lot-r…
+     46|     expect(estate.estateHandoffRefusal(state, runLot, week)).toBe(`lot…
+       |                                                              ^
+     47|     const prodLot = estateHandoffFor(state, r03, week, [{ lotId: 'lot-…
+     48|     expect(estate.estateHandoffRefusal(state, prodLot, week)).toBe(`lo…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/15]⎯
+
+ FAIL |core|  tests/p16-r2-estate.test.ts > r2 F4/F29: the estate path refuses the bilateral path's encumbrances > a lot encumbered after the handoff (a production started on its concept) cannot sell at D: its bids are disqualified by name and the lot archives
+Error: estate handoff refused: actualClosureMissing
+ ❯ Module.openEstate src/core/estate.ts:293:31
+    291|   requireBoundReaders(readers, 'opening an estate')
+    292|   const refusal = estateHandoffRefusal(state, handoff, week)
+    293|   if (refusal !== null) throw new Error(`estate handoff refused: ${ref…
+       |                               ^
+    294|   let next = state
+    295|   for (const subject of [...handoff.lots.flatMap((lot) => lot.subjects…
+ ❯ tests/p16-r2-estate.test.ts:72:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/15]⎯
+
+ FAIL |core|  tests/p16-r2-estate.test.ts > r2 F4/F29: the estate path refuses the bilateral path's encumbrances > every right the closed studio held is disposed exactly once: an omitted, a duplicated, a foreign or an undisclosed-licence subject refuses the handoff
+AssertionError: expected 'actualClosureMissing' to be 'dispositionMissing:R1:story-property:…' // Object.is equality
+
+Expected: "dispositionMissing:R1:story-property:studio-aca408ec-r02:concept:1"
+Received: "actualClosureMissing"
+
+ ❯ tests/p16-r2-estate.test.ts:88:99
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/15]⎯
+
+ FAIL |core|  tests/p16-r2-estate.test.ts > r2 F18/F37/F60: the window opens at the closure week, closes exactly at D, and needs certifiable bidders > openEstate refuses outside the closure week and while the P15B readers are unbound; the validator refuses an estate still open at or after D
+AssertionError: expected 'actualClosureMissing' to be 'notClosureWeek' // Object.is equality
+
+Expected: "notClosureWeek"
+Received: "actualClosureMissing"
+
+ ❯ tests/p16-r2-estate.test.ts:102:67
+    100|     const { state, r03, week, clean } = world()
+    101|     const handoff = estateHandoffFor(state, r03, week, [{ lotId: 'lot-…
+    102|     expect(estate.estateHandoffRefusal(state, handoff, week + 1)).toBe…
+       |                                                                   ^
+    103|     expect(() => estate.openEstate(state, handoff, week)).toThrow(/con…
+    104|     expect(() => estate.openEstate(state, handoff, week, finance.UNBOU…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/15]⎯
+
+ FAIL |core|  tests/p16-r2-estate.test.ts > r2 F38: an as-of read inside the window reports the lot as it stood that week > a subject that archives at D reads unarchived at every earlier week of the window
+Error: estate handoff refused: actualClosureMissing
+ ❯ Module.openEstate src/core/estate.ts:293:31
+    291|   requireBoundReaders(readers, 'opening an estate')
+    292|   const refusal = estateHandoffRefusal(state, handoff, week)
+    293|   if (refusal !== null) throw new Error(`estate handoff refused: ${ref…
+       |                               ^
+    294|   let next = state
+    295|   for (const subject of [...handoff.lots.flatMap((lot) => lot.subjects…
+ ❯ tests/p16-r2-estate.test.ts:117:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/15]⎯
+
+ FAIL |core|  tests/p16-r2-estate.test.ts > r2 F48: the deterministic tie-break is ascending reserved identity order, not submission order > equal sealed bids resolve to the lower identity row even when the higher row bid first
+Error: estate handoff refused: actualClosureMissing
+ ❯ Module.openEstate src/core/estate.ts:293:31
+    291|   requireBoundReaders(readers, 'opening an estate')
+    292|   const refusal = estateHandoffRefusal(state, handoff, week)
+    293|   if (refusal !== null) throw new Error(`estate handoff refused: ${ref…
+       |                               ^
+    294|   let next = state
+    295|   for (const subject of [...handoff.lots.flatMap((lot) => lot.subjects…
+ ❯ tests/p16-r2-estate.test.ts:130:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/15]⎯
+
+ FAIL |core|  tests/p16c-estate.test.ts > P16C estate handoff: the typed adapter point opens an estate; it never declares a studio terminal > opens from a valid handoff, materializes the lot titles, and from the closure week the studio's rights are estate-only
+AssertionError: expected 'actualClosureMissing' to be null
+
+- Expected: 
+null
+
++ Received: 
+"actualClosureMissing"
+
+ ❯ tests/p16c-estate.test.ts:63:63
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/15]⎯
+
+ FAIL |core|  tests/p16c-estate.test.ts > P16C estate handoff: the typed adapter point opens an estate; it never declares a studio terminal > refuses a malformed handoff by name: overlapping lots, a subject the studio does not hold, a wrong window, an unknown studio, a duplicate estate
+AssertionError: expected 'actualClosureMissing' to be 'lotOverlap' // Object.is equality
+
+Expected: "lotOverlap"
+Received: "actualClosureMissing"
+
+ ❯ tests/p16c-estate.test.ts:91:146
+     89|     const { state, r01, handoff, week, lotA, lotB } = world()
+     90|     const before = stableStringify(state)
+     91|     expect(estate.estateHandoffRefusal(state, { ...handoff, lots: [lot…
+       |                                                                                                                                                  ^
+     92|     const foreign = state.hollywood!.films.find((f) => f.studioId === …
+     93|     expect(estate.estateHandoffRefusal(state, { ...handoff, lots: [{ .…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/15]⎯
+
+ FAIL |core|  tests/p16c-estate.test.ts > P16C sealed bids: admission only before D, reservations, refusals > admits one sealed bid per bidder per lot before D, reserves the amount, and refuses by name otherwise
+Error: estate handoff refused: actualClosureMissing
+ ❯ Module.openEstate src/core/estate.ts:293:31
+    291|   requireBoundReaders(readers, 'opening an estate')
+    292|   const refusal = estateHandoffRefusal(state, handoff, week)
+    293|   if (refusal !== null) throw new Error(`estate handoff refused: ${ref…
+       |                               ^
+    294|   let next = state
+    295|   for (const subject of [...handoff.lots.flatMap((lot) => lot.subjects…
+ ❯ tests/p16c-estate.test.ts:113:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/15]⎯
+
+ FAIL |core|  tests/p16c-estate.test.ts > P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival > resolves exactly once at D with exact debits, proceeds to the estate once, title to the winners, archival of the unsold lot, and no person moved
+Error: estate handoff refused: actualClosureMissing
+ ❯ Module.openEstate src/core/estate.ts:293:31
+    291|   requireBoundReaders(readers, 'opening an estate')
+    292|   const refusal = estateHandoffRefusal(state, handoff, week)
+    293|   if (refusal !== null) throw new Error(`estate handoff refused: ${ref…
+       |                               ^
+    294|   let next = state
+    295|   for (const subject of [...handoff.lots.flatMap((lot) => lot.subjects…
+ ❯ bidsPlaced tests/p16c-estate.test.ts:145:24
+ ❯ tests/p16c-estate.test.ts:159:76
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/15]⎯
+
+ FAIL |core|  tests/p16c-estate.test.ts > P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival > the natural route: ticks carry the estate to D; the shipped (unbound) binding refuses the ceremony by name instead of archiving every lot; with bound readers the week-D ceremony sells, archives, saves and reloads byte-for-byte
+Error: estate handoff refused: actualClosureMissing
+ ❯ Module.openEstate src/core/estate.ts:293:31
+    291|   requireBoundReaders(readers, 'opening an estate')
+    292|   const refusal = estateHandoffRefusal(state, handoff, week)
+    293|   if (refusal !== null) throw new Error(`estate handoff refused: ${ref…
+       |                               ^
+    294|   let next = state
+    295|   for (const subject of [...handoff.lots.flatMap((lot) => lot.subjects…
+ ❯ bidsPlaced tests/p16c-estate.test.ts:145:24
+ ❯ tests/p16c-estate.test.ts:203:71
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/15]⎯
+
+ FAIL |core|  tests/p16c-estate.test.ts > P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival > a winner who can no longer afford a later lot after winning an earlier one falls back to the next valid bid
+Error: estate handoff refused: actualClosureMissing
+ ❯ Module.openEstate src/core/estate.ts:293:31
+    291|   requireBoundReaders(readers, 'opening an estate')
+    292|   const refusal = estateHandoffRefusal(state, handoff, week)
+    293|   if (refusal !== null) throw new Error(`estate handoff refused: ${ref…
+       |                               ^
+    294|   let next = state
+    295|   for (const subject of [...handoff.lots.flatMap((lot) => lot.subjects…
+ ❯ tests/p16c-estate.test.ts:238:24
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/15]⎯
+
+ Test Files  4 failed (4)
+      Tests  15 failed | 8 passed (23)
+   Start at  15:36:07
+   Duration  18.96s (transform 6.47s, setup 0ms, collect 19.02s, tests 26.85s, environment 1ms, prepare 1.33s)
+
+JSON report written to /Users/zacheryspector/studio-scratch/p16-c03-sprint1-20261025/focused-a.json
+=== focused-a child exit=1
