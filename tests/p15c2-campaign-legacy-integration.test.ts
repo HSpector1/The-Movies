@@ -104,6 +104,7 @@ import { TUNING } from '../src/core/tuning.js'
 import type { GameState, TalentCareerEvent } from '../src/core/types.js'
 import { generateWorld } from '../src/core/worldgen.js'
 import { P15_ROOTS, p15Rows, predecessorSave, stripP15 } from './helpers/p15-roots.js'
+import { rightsStripped } from './helpers/p16-era.js'
 import {
   asSaveFile,
   B,
@@ -923,18 +924,27 @@ describe('p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5)', 
 
 // Separate explicitly constructed historical producer control on the existing labelled
 // G6240F input. This is NOT a downgrade or relabel of the modern manifest.
+// P16 rebase round 6: built in the predecessor era, as p15b-legacy-v3's genuineFrozen48 is. The live freeze stamps
+// table 3 on a rights-era state, and the test helper refuses to relabel table-3 history (table 3 inserts
+// p16.estateSale at ordinal 2, so the finale's ordinal is 6, not 5: a relabel would rewrite the stamp). The same
+// genuine 6240 world's Save48 envelope, taken before the freeze while it holds no table-3 row, is frozen by the same
+// writer, which keeps table 2 without a rights root; the live step then lifts it (convertV48ToV49 keeps the stamp).
 function historicalV2FrozenControl(): GameState {
-  const state = genuineFrozen()
-  makeSave(state)
+  const base48 = rightsStripped(makeSave(genuine6240())).state as unknown as GameState
+  const state = stepFn()(withRoot(base48, 'campaignLegacy', { ...legacyOf(base48), recordedFromWeek: 0 }))
   const old = officialOf(state)
+  expect(old.phaseOrderVersion, 'premise: the predecessor-era writer keeps table 2').toBe(2)
   const built = LEGACY_DEFINITIONS['campaign-legacy/v2'].evaluate(
     legacyFactsFromState(state, B, 'campaign-legacy/v2'), 'official2040')
-  const historical = withRoot(state, 'campaignLegacy', { ...legacyOf(state), official: {
+  const historical48 = withRoot(state, 'campaignLegacy', { ...legacyOf(state), official: {
     ...built, legacySnapshotId: old.legacySnapshotId, p15DomainSequence: old.p15DomainSequence,
     phaseId: old.phaseId, phaseOrdinal: old.phaseOrdinal, phaseOrderVersion: old.phaseOrderVersion,
   } })
-  makeSave(historical) // Whole48 admission, not only Legacy/root validation.
-  predecessorSave(historical) // Own frozen47 admission before testing any later guard.
+  // Whole48 admission, not only Legacy/root validation.
+  const save48 = saveModule.validateSaveP15B({ saveVersion: saveModule.P15B_SAVE_VERSION, seed: historical48.seed, state: historical48, broadcastCache: historical48.broadcastItems })
+  predecessorSave(historical48) // Own frozen47 admission before testing any later guard.
+  const historical = saveModule.convertV48ToV49(save48).state as unknown as GameState
+  makeSave(historical) // Whole49 admission of the lifted control.
   return historical
 }
 
