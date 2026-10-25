@@ -401,3 +401,61 @@ Candidate defects left unchanged (the test states the candidate's own rule; the 
     ('missing-participant cancellation differs from actual coupled retention') although closeAbsorption's
     own makeSave admitted it in memory. Not diagnosed statically; a run printing both participant lists
     decides it.
+
+Round 3 (after lane wave3b on ac3ab27c and the regenerated contract 839bb7c5), unrun:
+  Lane wave3b: typecheck 0, typecheck:bridge 0, generate 0, both contract checks 0, UI 30 of 30, core 238
+  files with 2,226 passing and 91 failing: 60 recorded main baseline, 31 new (2 pins, 2 load timeouts,
+  1 sparse-checkout ENOENT the coordinator fixed, 4 era-class cases, 22 candidate-own).
+  c7039311  Pins from the independent projection 62 measurement (lane wave3c on 839bb7c5,
+            lane-logs/p62-declaration-measurement.json; producer
+            docs/engineering/audits/2026-10-22-codebase-review/p62-declaration-measurement.ts, committed):
+            bridge-contract-generator F10/F11 -> 2667c096... (473,437 bytes; eight positives rendered twice,
+            six fixed bodies unchanged); its whole-schema identity and bridge-p14b5's running SCHEMA_ID ->
+            the manifest schemaId sha256:2b94e6df.... The header line does not read projectionVersion, so
+            the generator call keeps its 59. No other live-identity pin exists; the OUTGOING_58-61
+            constants are history and stay.
+  3ba586cb  The four era-class cases: p14p4p5-opportunities Q07 pins the projection's nondefault-market
+            refusal after the live-step line; p15a1 K1/K2 compare live post-tick states with Save44 engine
+            pins, so they need the Save45 projection, which refuses by name (K1 nondefault market, K2 phase
+            history); RED 16 asserts the live rights-root refusal at the step and every older migrator.
+            No committed Save45 capture holds a shared-market assessment, so the V45 market guard has no
+            witness left (the round-2 comments in p14p3 that named p15a1 as its witness are corrected).
+  73a7feca  p16b-condition-readers: rightsFinance.ts's default readers are getters over the live bindings,
+            because the module evaluates inside the import cycle corporateConditionLive -> employment ->
+            ... -> studioClosure -> estate -> rightsFinance. Getters, not arrow wrappers:
+            p16b-live-condition-readers.test.ts:33-34 pin the identity of the two functions.
+  drafting171 (no commit): the rebase did not cause it. Diagnosis in the defect list below.
+  Load timeouts (not code): bridge-runtime-checkpoint-prepared-reuse passes 21 of 21 alone (the 20 s case
+  took 15.1 s); bridge-p13b-s7-disclosure item 5 took 31.3 s against its 30 s budget in a two-file run and
+  is being measured alone at main and on this tree. No budget changed.
+
+Candidate-own defects left red for the P16 lane (audit C-03):
+  1. Synthetic estate handoffs, 15 cases: p16-r2-estate.test.ts :46, :72, :88, :102, :117, :130;
+     p16c-estate.test.ts :63, :91, :113, :159, :203, :238; p16-r2-authority.test.ts :59, :90;
+     p16-r2-validator.test.ts :183. Rule broken: estate.ts closureAuthorityRefusal (called first in
+     estateHandoffRefusal) requires an actual closure record that the handoff joins; the tests hand in
+     estateHandoffFor handoffs for an r03 that never closed. Fix owed: rebuild them on the real r04
+     pre162 -> C163 closure, as p16-estate-join does, or retire them with a recorded supersession. They
+     hold the only licence-survives-the-estate and estate-buys-no-people tests, so Owner rulings 5.1 and
+     5.3 have no reachable coverage until then. No new Owner ruling needed.
+  2. Fractional absorption ask, 5 cases: p16c-acquisition.test.ts :91, :207, :243;
+     p16-r2-acquisition.test.ts :72, :176. Rule broken: r2 F33, "money is whole dollars". acquisition.ts
+     quoteAbsorption takes postExitCash = account cash - the sum of terminationCost, both doubles (r03
+     holds 11,588,432.0095 at week 53; weeklySalary is annual / 52), so absorptionAsk is fractional and
+     the named refusal 'considerationBelowAsk:<ask>' fails the tests' whole-dollar pattern. Fix owed: a
+     whole-dollar post-exit cash. NEEDS AN OWNER RULING on the rounding (floor, truncate or round, and
+     the direction for negative post-exit cash); the willingness test uses floor and the disclosure
+     records Math.trunc.
+  3. Order-sensitive write-off check, 1 case: p16-healthy-drafting171-funded-baseline.test.ts:120.
+     Rule broken: a save must survive its own export. absorbedWork.ts:28-30 compares the stored
+     missingParticipants with people.filter(...) by join(), where people ends with
+     Object.values(production.cast). quoteAbsorption (acquisition.ts:320) writes the list in the cast's
+     insertion order (lead, antagonist, support, hollywoodTick.ts:260). film:12 starts at week 170, after
+     the r04-actual163 capture loads, so in memory its cast keys keep that order and closeAbsorption's own
+     makeSave admits the state. exportCurrentState is stableStringify(makeSave(...)), which sorts the keys
+     to antagonist, lead, support, so importSave recomputes the list in another order and refuses.
+     Fix owed: compare as sets, or derive both lists from the fixed seat order instead of Object.values.
+     No Owner ruling needed.
+  Coverage gaps to close with them: the V45 market guard on a recorded assessment (a genuine Save45
+  capture with assessments, or a ruled projection for table-3 market rows; audit C-06), and the L-24
+  emission SCHEMA_MISMATCH path, which no quote can reach after 18A.
