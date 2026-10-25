@@ -1,0 +1,14 @@
+{
+  "candidateBranch": "p16-rebase-20261024",
+  "candidateCommit": "481fd444befc8c4743fedad0a842aff98ed8dddb",
+  "remote": "https://github.com/HSpector1/The-Movies.git",
+  "explicitRemoteVerified": true,
+  "remoteAdvertisement": "481fd444befc8c4743fedad0a842aff98ed8dddb\trefs/heads/p16-rebase-20261024",
+  "recordsParent": "a92e2c66895cfb444295c5664b15dd7869341788",
+  "recordsScope": [
+    "HANDOFF.md",
+    "docs/"
+  ],
+  "sourcePromotedToMain": false,
+  "allIntensiveJobsFinished": true
+}

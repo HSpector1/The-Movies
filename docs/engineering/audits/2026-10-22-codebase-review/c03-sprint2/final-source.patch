@@ -1,0 +1,293 @@
+diff --git a/tests/p16-r2-authority.test.ts b/tests/p16-r2-authority.test.ts
+index 4e0ed134..6e0ac3b2 100644
+--- a/tests/p16-r2-authority.test.ts
++++ b/tests/p16-r2-authority.test.ts
+@@ -18,9 +18,12 @@ import * as licence from '../src/core/licence.js'
+ import * as rights from '../src/core/rights.js'
+ import { makeSave, stableStringify, exportCurrentState, importSave, migrateToLive } from '../src/core/save.js'
+ import { tick } from '../src/core/tick.js'
+-import type { GameState, Production } from '../src/core/types.js'
++import { signRole } from './helpers/stabilization-staffing.js'
++import { conditionRecord } from '../src/core/corporateConditionLive.js'
++import { resolveShape } from '../src/core/shape.js'
++import type { Action, FilmShape, GameState, Production } from '../src/core/types.js'
+ import { freePackage } from './_m4Fixtures.js'
+-import { detached, estateHandoffFor, greenlightPayload, industryContendedStudio, liveFromGenuine, mintRoute, STABLE } from './helpers/p16-fixtures.js'
++import { detached, greenlightPayload, industryContendedStudio, liveFromGenuine, mintRoute, STABLE } from './helpers/p16-fixtures.js'
+ 
+ type Subject = { right: 'R1'; propertyId: string } | { right: 'R2'; filmId: string }
+ const SEQUEL = { use: 'sequel' as const }
+@@ -103,16 +106,116 @@ describe('r2 F1/F27/F41: a live licence survives its grantor\'s closure, an esta
+   expect(exportCurrentState(migrateToLive(importSave(text)).state)).toBe(text)
+   })
+ 
+-  it('a licensed property the handoff leaves pending (not offered) keeps its licensee\'s authority from the closure week on', () => {
+-    const { state, r01, r02, week, property, film } = world()
+-    const P = property(r01)
+-    const granted = licensed(state, r01, r02, P, SEQUEL, week)
+-    const licenceId = granted.rights.licences[0]!.id
+-    const handoff = estateHandoffFor(granted, r01, week, [{ lotId: 'lot-f', subjects: [film(r01)], minimumBid: 1 }])
+-    expect(handoff.pending.some((p) => p.subject.right === 'R1' && p.subject.propertyId === (P as { propertyId: string }).propertyId)).toBe(true)
+-    const opened = estate.openEstate(granted, handoff, week, STABLE).state
+-    expect(licence.permissionFor(opened, r02, P, 'R3', SEQUEL, week)).toEqual({ kind: 'permitted', via: 'licence', licenceId })
+-    expect(rights.currentHolder(opened, P, week)).toEqual({ kind: 'holder', holderId: r01, tradeable: false, archived: false, estate: { estateId: handoff.estateId, lotId: null } })
++  // Replaces the inadmissible synthetic handoff; actual pending reason is activeProduction.
++  it('a paid sequel licence survives actual player closure while its original owner’s unscheduled remake makes the title pending', () => {
++    const R01 = 'studio-aca408ec-r01'
++    const SHAPE: FilmShape = { opening: 'slowSetup', midpoint: 'reversal', ending: 'bittersweet' }
++    const prior = actualEstatePrior(), original = stableStringify(prior)
++    let state = prior
++    const player = state.hollywood!.playerStudioId, week = state.market.tick
++    expect(week).toBe(162)
++    expect(state.scriptDevelopment.mode).toBe('legacy')
++    expect(state.operations.mode).toBe('managed')
++    expect(state.studio.activeProductions).toEqual([])
++    expect(state.studio.releasedFilms).toEqual([])
++    const used = new Set<string>()
++    const writer = signRole(state, 'writer', 1, used); state = writer.state
++    const director = signRole(state, 'director', 1, used); state = director.state
++    const actors = signRole(state, 'actor', 3, used); state = actors.state
++    const craft = signRole(state, 'craft', 1, used); state = craft.state
++    const concept = state.concepts[0]!
++    const greenlight: Action & { kind: 'greenlight' } = { kind: 'greenlight', production: {
++      conceptId: concept.id, shape: SHAPE,
++      promise: { genre: concept.genre, intendedSegments: ['adult'],
++        ranges: { intimacy: [-1, 1], tonalWeight: [-1, 1], kineticEnergy: [-1, 1] } },
++      writerId: writer.ids[0]!, directorId: director.ids[0]!, craftIds: [craft.ids[0]!],
++      cast: { lead: actors.ids[0]!, antagonist: actors.ids[1]!, support: actors.ids[2]! },
++      budget: { negative: concept.baseNegativeCost * resolveShape(SHAPE).budgetDemandMultiplier * state.era.costScale, marketing: 0 },
++    } }
++    const firstCash = state.studio.cash
++    state = applyActions(state, [greenlight])
++    const cancelledId = state.studio.activeProductions.at(-1)!.id
++    expect(state.studio.cash).toBe(firstCash - greenlight.production.budget.negative)
++    const paidOnce = state.studio.cash
++    state = applyActions(state, [{ kind: 'cancel', productionId: cancelledId }])
++    expect(state.studio.cash).toBe(paidOnce)
++    const subject = { right: 'R1' as const, propertyId: rights.storyPropertyId(concept.id) }
++    expect(licence.blockingEncumbrance(state, subject)).toBeNull()
++    expect(rights.currentHolder(state, subject, week)).toMatchObject({ holderId: player, tradeable: true })
++    makeSave(state)
++
++    // R01 is the buyer/payer/licensee. The player is the seller/payee/grantor and keeps R1.
++    const request = { offerorId: R01, counterpartyId: player, direction: 'buy' as const, price: 1_000,
++      instrument: { kind: 'licence' as const, right: 'R3' as const, subject, scope: SEQUEL,
++        exclusive: true, startWeek: week, endWeekExclusive: week + 104 } }
++    expect(sale.offerRefusal(state, request, week)).toBeNull()
++    const beforeGrant = state.studio.cash
++    const buyerCash = state.hollywood!.businesses.find(b => b.studioId === R01)!.account.cash
++    const offered = sale.makeOffer(state, request, week)
++    state = sale.acceptOffer(offered.state, offered.offer.id, player, week)
++    const grantedLicence = state.rights.licences.find(l => l.grantorId === player && l.granteeId === R01 && l.subject.right === 'R1' && l.subject.propertyId === subject.propertyId)!
++    expect(grantedLicence).toBeDefined()
++    expect(state.rights.transactions.find(t => t.id === grantedLicence.transactionId)).toMatchObject({
++      kind: 'licenceGrant', payerId: R01, payeeId: player, amount: 1_000, licenceId: grantedLicence.id,
++    })
++    expect(state.studio.cash).toBe(beforeGrant + 1_000)
++    expect(state.hollywood!.businesses.find(b => b.studioId === R01)!.account.cash).toBe(buyerCash - 1_000)
++    const licensed = { kind: 'permitted', via: 'licence', licenceId: grantedLicence.id }
++    expect(licence.permissionFor(state, R01, subject, 'R3', SEQUEL, week)).toEqual(licensed)
++    expect(licence.permissionFor(state, player, subject, 'R3', REMAKE, week)).toEqual({ kind: 'permitted', via: 'title', licenceId: null })
++    makeSave(state)
++
++    // All required company seats have real contracts, so the unchanged greenlight owes no freelancer fees.
++    // This one declared policy spends the available whole dollars; no price/seed/clock search follows.
++    const available = state.studio.cash, filmBudget = Math.floor(available)
++    expect(filmBudget).toBeGreaterThan(0)
++    const beforeProductionRows = state.ledger.length
++    state = applyActions(state, [{ ...greenlight, production: { ...greenlight.production,
++      budget: { negative: filmBudget, marketing: 0 } } }])
++    const productionId = state.studio.activeProductions.at(-1)!.id
++    expect(productionId).not.toBe(cancelledId)
++    expect(state.studio.cash).toBe(available - filmBudget)
++    expect(state.studio.cash).toBeGreaterThanOrEqual(0)
++    expect(state.studio.cash).toBeLessThan(1)
++    expect(state.ledger.slice(beforeProductionRows)).toEqual([
++      { week, kind: 'production', amount: -filmBudget, productionId, note: 'negative + marketing' },
++    ])
++    expect(licence.blockingEncumbrance(state, subject)).toBe('activeProduction')
++    expect(licence.permissionFor(state, R01, subject, 'R3', SEQUEL, week)).toEqual(licensed)
++    makeSave(state)
++
++    // The capture has managed operations despite legacy script development. Entering Shooting
++    // creates an unassigned task; no assignment/load-in/take action is issued here, so the real
++    // first-take gate holds this remake at 5. Payroll/overhead then causes actual player closure.
++    // This is not a distress pause or a picture that reached the separate Release Ready gate.
++    const expectedClosure = week + 33
++    for (let i = 0; i < 33; i++) state = tick(state)
++    const closure = state.studioClosure.closures.find(c => c.studioId === player)!
++    expect(state.market.tick).toBe(expectedClosure)
++    expect(closure).toBeDefined()
++    expect(closure.closureWeek).toBe(expectedClosure)
++    expect(conditionRecord(state, player)?.condition.stage).toBe('closed')
++    expect(state.corporateCondition.loans.filter(l => l.studioId === player)).toEqual([])
++    expect(state.studio.activeProductions.find(p => p.id === productionId)).toMatchObject({ conceptId: concept.id, remainingTicks: 5 })
++    expect(state.operations.workflows.find(w => w.productionId === productionId)).toMatchObject({
++      phase: 'shooting', shootingTask: { status: 'unassigned', directorId: director.ids[0]! }, blocker: null,
++    })
++    expect(state.studio.releasedFilms).toEqual([])
++    expect(state.releaseAuthority.commitments).toEqual([])
++    expect(closure.dispositions).toEqual(expect.arrayContaining([
++      expect.objectContaining({ subjectKind: 'production', subjectId: productionId, status: 'applied' }),
++    ]))
++    const estate = state.rights.estates.find(e => e.closureId === closure.closureId)!
++    expect(estate).toBeDefined()
++    expect(estate.pending).toContainEqual({ subject, reason: 'activeProduction', status: 'pending' })
++    expect(estate.lots.flatMap(l => l.subjects)).not.toContainEqual(subject)
++    expect(licence.permissionFor(state, R01, subject, 'R3', SEQUEL, expectedClosure)).toEqual(licensed)
++    expect(rights.currentHolder(state, subject, expectedClosure)).toEqual({ kind: 'holder', holderId: player,
++      tradeable: false, archived: false, estate: { estateId: estate.estateId, lotId: null } })
++    makeSave(state)
++    const saved = exportCurrentState(state)
++    expect(exportCurrentState(migrateToLive(importSave(saved)).state)).toBe(saved)
++    expect(stableStringify(prior)).toBe(original)
+   })
+ })
+ 
+diff --git a/tests/p16-r2-estate.test.ts b/tests/p16-r2-estate.test.ts
+index 6e10bd7b..0fd3b42a 100644
+--- a/tests/p16-r2-estate.test.ts
++++ b/tests/p16-r2-estate.test.ts
+@@ -16,9 +16,38 @@ import { assertActualR03Pending } from './helpers/p16-authentic-pending.js'
+ import * as estate from '../src/core/estate.js'
+ import * as finance from '../src/core/rightsFinance.js'
+ import * as rights from '../src/core/rights.js'
+-import { makeSave, validateSaveV49 } from '../src/core/save.js'
+-import type { GameState } from '../src/core/types.js'
+-import { blockingEncumbranceFromFacts, detached, estateHandoffFor, heldSubjectsFromFacts, liveFromGenuine, STABLE } from './helpers/p16-fixtures.js'
++import { makeSave, validateSaveV49, importSave, migrateToLive, stableStringify, exportCurrentState } from '../src/core/save.js'
++import type { GameState, Action, FilmShape } from '../src/core/types.js'
++import { blockingEncumbranceFromFacts, detached, heldSubjectsFromFacts, liveFromGenuine } from './helpers/p16-fixtures.js'
++
++import { manifestPin93, week93Raw } from './p14d1-rival-shelving-fixtures.js'
++import { signRole } from './helpers/stabilization-staffing.js'
++import { applyActions } from '../src/core/actions.js'
++import { acceptOffer, makeOffer, offerRefusal } from '../src/core/assetSale.js'
++import { blockingEncumbrance, permissionFor } from '../src/core/licence.js'
++import { estateBidRefusal, submitEstateBid } from '../src/core/estate.js'
++import { conditionRecord } from '../src/core/corporateConditionLive.js'
++import { currentHolder, storyPropertyId, subjectKey } from '../src/core/rights.js'
++import { postPurchaseReserve, spendableCash } from '../src/core/rightsFinance.js'
++import { resolveShape } from '../src/core/shape.js'
++
++// Genuine93 reverse-ownership witness. The fixed1M rival-origin offer is a scripted lawful API choice,
++// not natural AI willingness. Original5000ms budget and first5626ms overrun remain recorded.
++const R04='studio-aca408ec-r04', PRICE=1_000_000, FEE=1_000, BID=1_000
++const SHAPE:FilmShape={opening:'slowSetup',midpoint:'reversal',ending:'bittersweet'}
++function packageFor(state:GameState,conceptId:string) {
++ const used=new Set<string>();const writer=signRole(state,'writer',1,used);state=writer.state
++ const director=signRole(state,'director',1,used);state=director.state
++ const actors=signRole(state,'actor',3,used);state=actors.state
++ const craft=signRole(state,'craft',1,used);state=craft.state
++ const concept=state.concepts.find(c=>c.id===conceptId)!
++ const action:Action & {kind:'greenlight'}={kind:'greenlight',production:{conceptId,shape:SHAPE,
++  promise:{genre:concept.genre,intendedSegments:['adult'],ranges:{intimacy:[-1,1],tonalWeight:[-1,1],kineticEnergy:[-1,1]}},
++  writerId:writer.ids[0]!,directorId:director.ids[0]!,craftIds:[craft.ids[0]!],
++  cast:{lead:actors.ids[0]!,antagonist:actors.ids[1]!,support:actors.ids[2]!},
++  budget:{negative:concept.baseNegativeCost*resolveShape(SHAPE).budgetDemandMultiplier*state.era.costScale,marketing:0}}}
++ return {state,action}
++}
+ 
+ type Subject = { right: 'R1'; propertyId: string } | { right: 'R2'; filmId: string }
+ const key = (s: Subject) => (s.right === 'R1' ? `R1:${s.propertyId}` : `R2:${s.filmId}`)
+@@ -48,22 +77,84 @@ describe('r2 F4/F29: the estate path refuses the bilateral path\'s encumbrances'
+     assertActualR03Pending()
+   })
+ 
+-  it('a lot encumbered after the handoff (a production started on its concept) cannot sell at D: its bids are disqualified by name and the lot archives', () => {
+-    const { state, player, r03, week, clean } = world()
+-    const property = clean.find((s) => s.right === 'R1') as { right: 'R1'; propertyId: string }
+-    const handoff = estateHandoffFor(state, r03, week, [{ lotId: 'lot-p', subjects: [property], minimumBid: 1 }])
+-    let s = estate.openEstate(state, handoff, week, STABLE).state
+-    s = estate.submitEstateBid(s, { estateId: handoff.estateId, lotId: 'lot-p', bidderId: player, amount: 5_000 }, week, STABLE).state
+-    const busy = detached(s)
+-    const other = busy.hollywood!.businesses.find((b) => b.studioId !== r03 && b.productions.length > 0)!
+-    other.productions[0] = { ...other.productions[0]!, conceptId: property.propertyId.slice('story-property:'.length) }
+-    const D = handoff.closesWeek
+-    const closed = estate.resolveEstate({ ...busy, market: { ...busy.market, tick: D } } as GameState, handoff.estateId, D, STABLE)
+-    const record = closed.rights.estates[0]!
+-    expect(record.bids[0]).toMatchObject({ status: 'disqualified', disqualification: `lotEncumbered:activeProduction:${key(property)}` })
+-    expect(record.lots[0]!.status).toBe('archived')
+-    expect(closed.studio.cash).toBe(busy.studio.cash)
+-  })
++  it('a lot encumbered after the handoff (a production started on its concept) cannot sell at D: its bids are disqualified by name and the lot archives',()=>{
++ manifestPin93();const prior=migrateToLive(importSave(week93Raw())).state,priorBytes=stableStringify(prior)
++ expect(prior.market.tick).toBe(93)
++ let state=tick(prior);expect(state.market.tick).toBe(94)
++ const player=state.hollywood!.playerStudioId,week=state.market.tick,conceptId=state.concepts[0]!.id
++ console.info(JSON.stringify({proof:'reverse68-evaluated94',condition:conditionRecord(state,R04),cash:state.hollywood!.businesses.find(b=>b.studioId===R04)!.account.cash,reserve:postPurchaseReserve(state,R04)}))
++ expect(conditionRecord(state,R04)?.condition.stage).toBe('stable')
++ const first=packageFor(state,conceptId);state=applyActions(first.state,[first.action])
++ const firstId=state.studio.activeProductions.at(-1)!.id
++ state=applyActions(state,[{kind:'cancel',productionId:firstId}])
++ const subject={right:'R1' as const,propertyId:storyPropertyId(conceptId)}
++ expect(blockingEncumbrance(state,subject)).toBeNull()
++ const sale={offerorId:R04,counterpartyId:player,direction:'buy' as const,price:PRICE,instrument:{kind:'title' as const,subject}}
++ console.info(JSON.stringify({proof:'reverse68-sale-margin',spendable:spendableCash(state,R04),price:PRICE,reserve:postPurchaseReserve(state,R04),refusal:offerRefusal(state,sale,week)}))
++ expect(offerRefusal(state,sale,week)).toBeNull()
++ const playerBeforeSale=state.studio.cash,rivalBeforeSale=state.hollywood!.businesses.find(b=>b.studioId===R04)!.account.cash
++ const offered=makeOffer(state,sale,week);state=acceptOffer(offered.state,offered.offer.id,player,week)
++ expect(state.studio.cash).toBe(playerBeforeSale+PRICE)
++ expect(state.hollywood!.businesses.find(b=>b.studioId===R04)!.account.cash).toBe(rivalBeforeSale-PRICE)
++ const saleTx=state.rights.transactions.find(t=>t.offerId===offered.offer.id)!
++ expect(saleTx).toMatchObject({kind:'titleSale',week,payerId:R04,payeeId:player,amount:PRICE,subject,licenceId:null})
++ expect(saleTx.titleEventIds).toHaveLength(1)
++ expect(state.rights.titleEvents.find(e=>e.id===saleTx.titleEventIds[0])).toMatchObject({subject,priorHolder:player,newHolder:R04,cause:'sale'})
++ expect(currentHolder(state,subject,week)).toMatchObject({holderId:R04,tradeable:true})
++ const grant={offerorId:player,counterpartyId:R04,direction:'buy' as const,price:FEE,instrument:{kind:'licence' as const,right:'R3' as const,subject,scope:{use:'remake' as const},exclusive:true,startWeek:week,endWeekExclusive:week+208}}
++ expect(offerRefusal(state,grant,week)).toBeNull()
++ const playerBeforeGrant=state.studio.cash,rivalBeforeGrant=state.hollywood!.businesses.find(b=>b.studioId===R04)!.account.cash
++ const licenceOffer=makeOffer(state,grant,week);state=acceptOffer(licenceOffer.state,licenceOffer.offer.id,R04,week)
++ expect(state.studio.cash).toBe(playerBeforeGrant-FEE)
++ expect(state.hollywood!.businesses.find(b=>b.studioId===R04)!.account.cash).toBe(rivalBeforeGrant+FEE)
++ const grantedLicence=state.rights.licences.find(l=>l.grantorId===R04&&l.granteeId===player&&l.subject.right==='R1'&&l.subject.propertyId===subject.propertyId)!
++ expect(grantedLicence).toBeDefined()
++ expect(state.rights.transactions.find(t=>t.id===grantedLicence.transactionId)).toMatchObject({kind:'licenceGrant',week,payerId:player,payeeId:R04,amount:FEE,subject,licenceId:grantedLicence.id,offerId:licenceOffer.offer.id,titleEventIds:[]})
++ makeSave(state)
++ const maxWeek=week+104
++ while(state.market.tick<maxWeek&&!state.studioClosure.closures.some(c=>c.studioId===R04))state=tick(state)
++ const closure=state.studioClosure.closures.find(c=>c.studioId===R04)
++ console.info(JSON.stringify({proof:'reverse68-natural-continuation',week:state.market.tick,closure:closure??null,condition:conditionRecord(state,R04),cash:state.hollywood!.businesses.find(b=>b.studioId===R04)?.account.cash,loans:state.corporateCondition.loans.filter(l=>l.studioId===R04)}))
++ expect(closure,'bounded104-week continuation must actually reach rival closure; absence is not global impossibility').toBeDefined()
++ const opened=state.rights.estates.find(e=>e.closureId===closure!.closureId)!
++ const lot=opened.lots.find(l=>l.subjects.some(s=>subjectKey(s)===subjectKey(subject)))!
++ expect(lot).toBeDefined();expect(lot.encumbrances).toContain('licence:'+grantedLicence.id)
++ expect(blockingEncumbrance(state,subject)).toBeNull()
++ const permitted={kind:'permitted',via:'licence',licenceId:grantedLicence.id}
++ expect(permissionFor(state,player,subject,'R3',{use:'remake'},state.market.tick)).toEqual(permitted)
++ while(state.market.tick<opened.closesWeek-1)state=tick(state)
++ const remake=packageFor(state,conceptId);state=remake.state
++ expect(blockingEncumbrance(state,subject)).toBeNull()
++ expect(permissionFor(state,player,subject,'R3',{use:'remake'},state.market.tick)).toEqual(permitted)
++ expect(BID).toBeGreaterThanOrEqual(lot.minimumBid)
++ const bid={estateId:opened.estateId,lotId:lot.lotId,bidderId:player,amount:BID}
++ expect(estateBidRefusal(state,bid,state.market.tick)).toBeNull();makeSave(state)
++ const before=stableStringify(state),submitted=submitEstateBid(state,bid,state.market.tick)
++ const submittedBefore=stableStringify(submitted.state)
++ const controlBusy=applyActions(state,[remake.action]),bidBusy=applyActions(submitted.state,[remake.action])
++ expect(stableStringify(state)).toBe(before)
++ expect(stableStringify(submitted.state)).toBe(submittedBefore)
++ expect(blockingEncumbrance(controlBusy,subject)).toBe('activeProduction')
++ expect(blockingEncumbrance(bidBusy,subject)).toBe('activeProduction')
++ expect(permissionFor(bidBusy,player,subject,'R3',{use:'remake'},state.market.tick)).toEqual(permitted)
++ const controlBefore=stableStringify(controlBusy),bidBefore=stableStringify(bidBusy)
++ const control=tick(controlBusy),closed=tick(bidBusy)
++ expect(stableStringify(controlBusy)).toBe(controlBefore)
++ expect(stableStringify(bidBusy)).toBe(bidBefore)
++ expect(stableStringify(state)).toBe(before)
++ const final=closed.rights.estates.find(e=>e.estateId===opened.estateId)!
++ expect(final.bids.find(b=>b.id===submitted.bid.id)).toMatchObject({status:'disqualified',disqualification:'lotEncumbered:activeProduction:'+subjectKey(subject)})
++ expect(final.lots.find(l=>l.lotId===lot.lotId)!.status).toBe('archived')
++ expect(closed.studio.cash).toBe(control.studio.cash)
++ expect(closed.ledger).toEqual(control.ledger)
++ expect(closed.rights.transactions.filter(t=>t.estateId===opened.estateId&&t.lotId===lot.lotId)).toEqual([])
++ expect(closed.rights.transactions.find(t=>t.id===saleTx.id)).toEqual(saleTx)
++ expect(closed.rights.transactions.find(t=>t.id===grantedLicence.transactionId)).toEqual(state.rights.transactions.find(t=>t.id===grantedLicence.transactionId))
++ makeSave(closed)
++ const saved=exportCurrentState(closed)
++ expect(exportCurrentState(migrateToLive(importSave(saved)).state)).toBe(saved)
++ expect(stableStringify(prior)).toBe(priorBytes)
++})
+ 
+   it('every right the closed studio held is disposed exactly once: an omitted, a duplicated, a foreign or an undisclosed-licence subject refuses the handoff', () => {
+     const actual=actualEstateOpening(),[state,base,week]=actual.boundary,lot=base.lots[0]!,subject=lot.subjects[0]!

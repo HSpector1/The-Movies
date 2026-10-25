@@ -1,0 +1,9 @@
+# Original estate68: reverse ownership reaches the actual law
+
+Root sole-lane run `premises-d.log`, JSON `reverse-first.json`, passed every standalone witness assertion on the measured candidate. Genuine pinned Save42 week93 migrated to current truth; ordinary first tick94 evaluated R04 stable with cash4,956,744.95561068 and reserve3,198,676. The fixed1,000,000 R04-origin title offer is a scripted lawful API choice, not proof of autonomous AI willingness. Real player greenlight/cancel founded the property; R04 bought R1 and then received1,000 for an exclusive remake licence back to the player. Both transactions/cash movements are asserted.
+
+Ordinary continuation reached actual R04 closure C198, estate D211. This corrects the prior missing-witness classification: the earlier reverse-ownership route is reachable through current producers. At D−1, staffing is genuine, the lot is clean and the bid admitted BEFORE the same remake action is applied to bid/no-bid branches. Ordinary D ticks reach the exact activeProduction disqualification, archive, equal player cash/ledger versus the no-bid control, zero sale transaction for that lot, purity, retained original transactions and exact export/reload equality.
+
+The standalone leaf took5626ms against the unchanged original5000ms. Synchronous Vitest PASS establishes reached assertions, NOT timing qualification. Preserve that overrun. `estate-integrated.PROPOSED.ts` replaces only the original case68 in the complete existing r2-estate file, adding its dependencies/helper in that file. No setup is moved outside the leaf, no state/cache/fixture is substituted and no assertion removed for speed. This integrated complete-file candidate is STATIC/UNRUN until root schedules it.
+
+Source optimization is separately measured/reviewed; this witness changes no gameplay law. Full game/native/browser/Owner acceptance is not established.

@@ -2,7 +2,16 @@
 
 Last writer: Codex, 2026-10-25, sole coordinator for the stabilization order below.
 
-## C-03 Sprint 1 completed — 2026-10-25 (current)
+## Astra engineering Sprint 2 — completed 2026-10-25 (current)
+
+- Candidate `p16-rebase-20261024` at `481fd444befc8c4743fedad0a842aff98ed8dddb`, pushed and explicit GitHub remote ref verified. Performance commit771c75b7; entryf6c31caa. Main/wip records publication descends from a92e2c66 and carries only HANDOFF/docs. Sole coordinator integration; GPT-6.1 Sol implementation preparation, Astra scope/final decisions. No active runtime or lock; source review and integration audit complete.
+- Both C-03 missing premises resolved with genuine transactions: all14 laws now reach assertions.13/14 complete-file budgets qualified; post-opening6.943s remains over5s (11.397s broad). Pendinglicence3.124s solo/5.582s broad. No invented closure/cash/history/P17 or notOffered policy.
+- Reviewed same-operation title-resolution reuse: fresh SaveAs32.359s timeout→20.913s pass; pre-P16main20.111s, unchanged30s. Full S7 file22/22 assertions; inherited adoptions timing remains open.
+- Final54-file P16 gate258/263, five identical inherited fractional-policy failures, no new assertion failure. Broader timing gaps retained. Final root/UI and Bridge types plus both contract checks pass. Runtime reused after unused-import-only cleanup.
+- Evidence: docs/engineering/audits/2026-10-22-codebase-review/c03-sprint2/RESULTS.md, CASE-DISPOSITIONS.md, OWNER-RESIDUAL.md, review and manifest. Original current200, patches, captures and failures preserved. No full-game/native/browser qualification or P16-to-main promotion.
+- Sprint2 COMPLETE. Next: return result and Owner residual; do not auto-start Sprint3. Recommend new bounded authorization for remaining measured estate timing, then Owner-selected policy/integration blockers. Fractional rounding, C06/Legacy/S7 provenance and main promotion remain unapproved.
+
+## C-03 Sprint 1 completed — 2026-10-25 (historical)
 
 - Candidate `p16-rebase-20261024` at `f6c31caab28ee2290a5d9b8ab35a7463bacc9ce5`, pushed and explicit GitHub ref verified. Test commit `8f67f7fc`; predecessor `f3b1d09d`. Sole coordinator: Codex. Records-only checkpoint on wip descends from `904a0ea8`; main synchronization authorized after path/ref checks. No running lane; no source integration into main.
 - Twelve of fourteen remaining C-03 cases now have admitted replacement witnesses and complete-file solo passes within original 5000 ms; two original failures remain active. No gameplay source changed. R03 uses an unchanged disclosed transaction fixture, not a natural campaign; grouped films use a lawful constructed adapter partition.
