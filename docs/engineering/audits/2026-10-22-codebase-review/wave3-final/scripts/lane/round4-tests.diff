@@ -1,0 +1,425 @@
+diff --git a/tests/bridge-stabilization-l24-quote-contract.test.ts b/tests/bridge-stabilization-l24-quote-contract.test.ts
+index d0a6e788..96b7502f 100644
+--- a/tests/bridge-stabilization-l24-quote-contract.test.ts
++++ b/tests/bridge-stabilization-l24-quote-contract.test.ts
+@@ -6,11 +6,14 @@
+ // name the refusal, a schema without bounds still meets the int32 floor, and a violation is a
+ // NAMED rejection that leaves the session (and the runtime around it) alive.
+ // Owner decision 18A (projection 62) widened the quote snapshots' cashBefore/cashAfter to `number()`, so the
+-// overflow case is now an ACCEPTED quote carrying the wide value; the int32 unit cases still guard every `integer()`.
+-import { describe, expect, it } from 'vitest'
++// overflow case is now an ACCEPTED quote carrying the wide value; the int32 unit cases still guard every `integer()`,
++// and the session's guard keeps its witness: a quote with an out-of-range `integer()` field (forced, since no
++// lawful world reaches one any more) is still a named rejection that leaves the session alive.
++import { describe, expect, it, vi } from 'vitest'
+ import { PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
+ import type { BridgePlacementDraftPayload } from '../bridge/schema/bridge-schema.ts'
+ import { BRIDGE_SCHEMA } from '../bridge/schema/bridge-schema.ts'
++import * as placementModule from '../bridge/placement.ts'
+ import { BridgeSchemaError, parseWireValue } from '../bridge/schema/runtime.ts'
+ import { BridgeSession } from '../bridge/session.ts'
+ import { applyActions, beginFounding, contractOffer, FOUNDING_MINIMUMS, generateWorld, queryPlacement } from '../src/core/index.js'
+@@ -66,7 +69,16 @@ describe('L-24 / 18A: a studio holding more than int32 cash quotes normally (pro
+     // 18A widened the quote snapshots' cash to `number()`, the double every other wire cash field already is.
+     expect(answered.quote.cashBefore).toBe(INT32_MAX + 1)
+     expect(answered.quote.cashAfter).toBe(INT32_MAX + 1 - answered.quote.cost)
+-    expect((BRIDGE_SCHEMA.$defs.StudioPlacementQuoteSnapshot.properties as Record<string, unknown>).cashBefore).toEqual({ type: 'number' })
++    // All four quote snapshots carry the widened cash: casting's nullable, placement, set commission and contract.
++    for (const [name, shape] of [
++      ['StudioCastingQuoteSnapshot', { anyOf: [{ type: 'number' }, { type: 'null' }] }],
++      ['StudioPlacementQuoteSnapshot', { type: 'number' }],
++      ['StudioSetCommissionQuoteSnapshot', { type: 'number' }],
++      ['StudioContractQuoteSnapshot', { type: 'number' }],
++    ] as const) {
++      const properties = BRIDGE_SCHEMA.$defs[name].properties as Record<string, unknown>
++      for (const field of ['cashBefore', 'cashAfter']) expect(properties[field], `${name}.${field}`).toEqual(shape)
++    }
+     expect(session.stateRevision).toBe(revision)
+     // The lawful answer registers its intent (the session's own map), exactly as a quote inside the int32 range does.
+     expect((session as unknown as { pendingQuotes: Map<string, unknown> }).pendingQuotes.has(answered.quote.intentId)).toBe(true)
+@@ -75,3 +87,41 @@ describe('L-24 / 18A: a studio holding more than int32 cash quotes normally (pro
+     expect(inRange.accepted).toBe(true)
+   }, 60_000)
+ })
++
++describe('L-24: a quote the consumer could not read is a named rejection, and the session goes on', () => {
++  it('an out-of-contract quote field gets SCHEMA_MISMATCH, nothing is registered, and the next call answers', () => {
++    const state = founded('stabilization-l24')
++    const draft: BridgePlacementDraftPayload = { verb: 'build', blueprintId: 'research-laboratory', origin: firstLegalOrigin(state, 'research-laboratory') }
++    // The placement quote's `cost` is a `nonNegativeInteger()` (int32 maximum); the builder is forced past it, the only
++    // way left to reach the guard after 18A widened the one field a real world overflowed.
++    const real = placementModule.placementQuoteSnapshot
++    const forced = vi.spyOn(placementModule, 'placementQuoteSnapshot').mockImplementation((...args) => ({ ...real(...args), cost: 2 ** 31 }))
++    try {
++      const session = new BridgeSession(state)
++      const revision = session.stateRevision
++      const refused = session.quote(quoteEnvelope(session, 'l24-overflow', draft))
++      expect(forced).toHaveBeenCalled()
++      expect(refused.accepted).toBe(false)
++      if (refused.accepted) throw new Error('unreachable')
++      expect(refused.reasonCode).toBe('SCHEMA_MISMATCH')
++      // The field's declared int32 bound names the refusal.
++      expect(refused.message).toMatch(/quote response violates the published contract: .*expected a value <= 2147483647/)
++      expect(session.stateRevision).toBe(revision)
++      // Nothing was registered: the intent registers only after a lawful mint (the session's own map).
++      expect((session as unknown as { pendingQuotes: Map<string, unknown> }).pendingQuotes.size).toBe(0)
++      // The session is not failed: the same question is answered again, the same way.
++      const again = session.quote(quoteEnvelope(session, 'l24-overflow-again', draft))
++      expect(again.accepted).toBe(false)
++      if (again.accepted) throw new Error('unreachable')
++      expect(again.reasonCode).toBe('SCHEMA_MISMATCH')
++      expect((session as unknown as { pendingQuotes: Map<string, unknown> }).pendingQuotes.size).toBe(0)
++    } finally {
++      forced.mockRestore()
++    }
++    // A lawful session on the same world quotes and registers normally.
++    const lawful = new BridgeSession(state)
++    const accepted = lawful.quote(quoteEnvelope(lawful, 'l24-lawful', draft))
++    if (!accepted.accepted) throw new Error(`premise: the lawful quote is accepted, got ${accepted.reasonCode}: ${accepted.message}`)
++    expect((lawful as unknown as { pendingQuotes: Map<string, unknown> }).pendingQuotes.has(accepted.quote.intentId)).toBe(true)
++  }, 60_000)
++})
+diff --git a/tests/helpers/p16-era.ts b/tests/helpers/p16-era.ts
+index 8792ff96..cc19e28f 100644
+--- a/tests/helpers/p16-era.ts
++++ b/tests/helpers/p16-era.ts
+@@ -86,9 +86,12 @@ export function rightsStripped(save: { saveVersion: number; seed: string; state:
+ // older guard moved because a ticked P16 world has no Save48 projection: a world that recorded a title, and a
+ // world whose closure opened an estate (every Save49 closure does, in its closure week).
+ export const RIGHTS_ROOT_REFUSAL = new RegExp(`^migrateToV${P16_PREDECESSOR_SAVE_VERSION}: cannot downgrade or discard a recorded rights root$`)
+-// A ticked world that recorded no title passes the live step's own checks, and the Save48 reader inside it refuses
+-// the first table-3 row the live writers stamped; the root holding it names itself first.
+-export const LIVE_DOWNGRADE_REFUSAL = new RegExp(`${RIGHTS_ROOT_REFUSAL.source}|^.+ estate phase table is not admitted in this predecessor era$`)
++// A ticked world that recorded no title refuses at the live step's phase-history reason instead: the first P15 or P15B
++// root (allocator order) holding a row the live writers stamped with phase table 3.
++export const PHASE_HISTORY_REFUSAL = new RegExp(`^migrateToV${P16_PREDECESSOR_SAVE_VERSION}: cannot downgrade or discard current phase history \\((?:sharedMarket|powerRanking|campaignLegacy|corporateCondition|studioClosure)\\)$`)
++// The one live-downgrade pattern for a ticked world whose title count the lane has not measured: exactly one of the
++// two named refusals above.
++export const LIVE_DOWNGRADE_REFUSAL = new RegExp(`${RIGHTS_ROOT_REFUSAL.source}|${PHASE_HISTORY_REFUSAL.source}`)
+ export const ESTATE_OBSERVATION_REFUSAL = new RegExp(`^migrateToV${P16_PREDECESSOR_SAVE_VERSION}: cannot discard unique estate observation or current closure provenance$`)
+ // Why the older guard moved: `rightsStripped` refuses, by name, to relabel table-3 history it cannot prove neutral.
+ export const NONDEFAULT_MARKET_PROJECTION = /^rightsStripped: a nondefault current market assessment cannot be projected$/
+diff --git a/tests/p14c2s-scientist-retirement.test.ts b/tests/p14c2s-scientist-retirement.test.ts
+index b1b02c17..2855503a 100644
+--- a/tests/p14c2s-scientist-retirement.test.ts
++++ b/tests/p14c2s-scientist-retirement.test.ts
+@@ -286,9 +286,10 @@ describe('Scientist retirement persistence has an explicit semantic version boun
+     expect(live.state.hollywood!.businesses.some(business => business.account.periods.some(
+       period => period.movements.facilityDemolitionRefund !== 0))).toBe(true)
+     expect(live.state.hollywood!.receipts.some(receipt => receipt.kind === 'facilityDisposed')).toBe(true)
+-    // MOVED (P16 rebase): the live Save49 step refuses first, naming the estate a closure in this route opened. The
+-    // P15B step's composed refusal (condition records, then R8's recovery reasons) needs this world's Save48 envelope,
+-    // which does not exist: an estate is a rights instrument `rightsStripped` refuses to drop.
++    // P16 rebase: the live Save49 step refuses first, naming the estate a closure in this route opened. This world's
++    // P15B composed refusal (condition records, then R8's recovery reasons) is unasserted: an estate is a rights
++    // instrument `rightsStripped` refuses to drop, so it has no Save48 envelope. The same composition law is asserted
++    // on the week-133 Save48 control in p15b2-corporate-condition-save and p15a2-power-ranking-archive.
+     expect(() => migrateToV36(live)).toThrow(ESTATE_OBSERVATION_REFUSAL)
+     expect(JSON.stringify(live)).toBe(before)
+     expect(bytes(state)).toBe(before)
+diff --git a/tests/p14c3-cohort-transition.test.ts b/tests/p14c3-cohort-transition.test.ts
+index f97b40d8..065ca643 100644
+--- a/tests/p14c3-cohort-transition.test.ts
++++ b/tests/p14c3-cohort-transition.test.ts
+@@ -293,9 +293,10 @@ describe('C.3 genuine cohort-born Actor enters a new profession with origin auth
+     expect(control.state.hollywood!.receipts.some(r => r.kind === 'facilityDisposed')).toBe(true)
+     // P15B (1370-ar, MASKED): this route's rivals borrow under 1357-A §6.2, so no predecessor envelope can carry the
+     // state (the test helper refuses by name). The recorded Power Ranking guard stays covered on its Save45 input in
+-    // tests/p15a2-power-ranking-archive.test.ts. MOVED (P16 rebase): the live Save49 step now refuses first, naming
+-    // the estate a closure in this route opened; the P15B step's composed refusal (condition records, then R8's
+-    // recovery reasons) needs a Save48 envelope, and an estate is a rights instrument `rightsStripped` refuses to drop.
++    // tests/p15a2-power-ranking-archive.test.ts. P16 rebase: the live Save49 step now refuses first, naming the estate a
++    // closure in this route opened. This world's P15B composed refusal (condition records, then R8's recovery reasons)
++    // is unasserted: an estate is a rights instrument `rightsStripped` refuses to drop. The same composition law is
++    // asserted on the week-133 Save48 control in p15b2-corporate-condition-save and p15a2-power-ranking-archive.
+     expect(() => migrateToV44(control as never)).toThrow(ESTATE_OBSERVATION_REFUSAL)
+     expect(stableStringify(control)).toBe(controlBytes)
+     expect(validateSaveV49(control)).toBe(control)
+diff --git a/tests/p14c3-dual-extensions.test.ts b/tests/p14c3-dual-extensions.test.ts
+index 989eb98d..28d71c9c 100644
+--- a/tests/p14c3-dual-extensions.test.ts
++++ b/tests/p14c3-dual-extensions.test.ts
+@@ -186,9 +186,10 @@ describe.each(DUAL_TARGETS)('C.3 actor→%s two genuine profession extensions',
+     expect(saved.state.hollywood!.businesses.every(b => b.account.periods.every(p => p.movements.facilityDemolitionRefund === 0))).toBe(true)
+     expect(saved.state.hollywood!.receipts.some(r => r.kind === 'facilityDisposed')).toBe(false)
+     // P15B (1370-ar, MASKED): this route's rivals borrow under 1357-A §6.2, so no predecessor envelope can carry the
+-    // state (the test helper refuses by name). MOVED (P16 rebase): the live Save49 step now refuses first, naming the
+-    // recorded rights root. The P15B step's composed refusal (condition record, then R8's recovery reason) needs this
+-    // world's Save48 envelope, which does not exist: its P15 history since migration carries the Save49 phase table 3.
++    // state (the test helper refuses by name). P16 rebase: the live Save49 step now refuses first, naming the recorded
++    // rights root. This world's P15B composed refusal (condition record, then R8's recovery reason) is unasserted: its
++    // rivals' loans carry the Save49 phase table 3, so it has no Save48 envelope. The same composition law is asserted
++    // on the week-133 Save48 control in p15b2-corporate-condition-save and p15a2-power-ranking-archive.
+     expect(() => migrateToV44(saved as never)).toThrow(RIGHTS_ROOT_REFUSAL)
+     expect(stableStringify(saved)).toBe(savedBytes)
+     expect(validateSaveV49(saved)).toBe(saved)
+diff --git a/tests/p15a2-power-ranking-archive.test.ts b/tests/p15a2-power-ranking-archive.test.ts
+index 314d9b96..109d17c5 100644
+--- a/tests/p15a2-power-ranking-archive.test.ts
++++ b/tests/p15a2-power-ranking-archive.test.ts
+@@ -934,16 +934,25 @@ describe('p15a2 archive: root and persistence (1356-A §5; RED 12, 13, 16)', ()
+ 
+   it('rank-root-downgrade-round-trip-claims-less', () => {
+     let state = genuineLive130()
++    while (state.market.tick < 133) state = tick(state)
++    // P15B (1370-ar): the P15B step refuses first (its condition records) and appends the predecessor steps' own
++    // refusals rather than masking them, so R8's recovery reasons are still asserted by name on the same throw. P16
++    // rebase round 4: at week 133 this route holds condition records and no condition event (the first can fire at
++    // 134), no title and no table-3 row, so the live Save49 step converts the public downgrade and the P15B step names it.
++    const recordedSave = liveSave(state)
++    const evaluated = (state as unknown as { corporateCondition: { studios: unknown[]; events: unknown[] } }).corporateCondition
++    expect(evaluated.events, 'premise: no condition event before 134').toEqual([])
++    expect(() => convertOutOfStep(recordedSave)).toThrow(new RegExp(`^migrateToV${saveModule.P15B_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record \\(${evaluated.studios.length} evaluated\\); cannot downgrade or discard recovery authority: costCutting\\.since, facilityDemolitionRefund, facilityDisposed$`))
+     while (state.market.tick < 135) state = tick(state)
+     const before = archiveOf(state)
+     expect(stableStringify(before), 'premise: no quarter between 130 and 135').toBe(stableStringify({ version: 1, recordedFromWeek: 130, snapshots: [] }))
+     const currentSave = liveSave(state)
+     const currentBefore = stableStringify(currentSave)
+-    // MOVED (P16 rebase): five ticks recorded no title, so the live Save49 step passes its own checks and the Save48 reader
+-    // inside it refuses first: the condition events these ticks wrote carry the Save49 phase table 3. The P15B step's
+-    // composed refusal (condition records, then R8's recovery reasons) needs a Save48 envelope this world cannot have;
+-    // the frozen ranking step below keeps its genuine Save45 witness.
+-    expect(() => convertOutOfStep(currentSave)).toThrow(/^validateSaveP15B: corporateCondition estate phase table is not admitted in this predecessor era$/)
++    // P16 rebase: five ticks recorded no title, so the live Save49 step refuses by its phase-history reason: the
++    // condition events of week 134 carry the Save49 phase table 3 (lane wave3 measured the Save48 reader refusing
++    // corporateCondition here before the step named it). The P15B step's composed refusal is asserted on the same
++    // route at 133 above; the frozen ranking step below keeps its genuine Save45 witness.
++    expect(() => convertOutOfStep(currentSave)).toThrow(/^migrateToV48: cannot downgrade or discard current phase history \(corporateCondition\)$/)
+     expect(stableStringify(currentSave), 'the refused current input remains unchanged').toBe(currentBefore)
+ 
+     // An original Save45 engine advanced the genuine Save42 week-130 capture through five
+diff --git a/tests/p15b-legacy-terminal-regression.test.ts b/tests/p15b-legacy-terminal-regression.test.ts
+index ff80e4c2..4929ec7a 100644
+--- a/tests/p15b-legacy-terminal-regression.test.ts
++++ b/tests/p15b-legacy-terminal-regression.test.ts
+@@ -223,11 +223,13 @@ it('ended-links-cutoffs-refs-phase-and-allocator-mutants-refuse-with-input-purit
+ it('terminal6240-composed-downward-refusal-preserves-all-authority', budgeted(ROUTE_MS, () => {
+   const final = terminalCase(6240).final; const current = save.makeSave(final); const currentBytes = canon(current)
+   expect(save.validateSaveV49(current)).toBe(current)
+-  // MOVED (P16 rebase): every Save49 closure opens its estate in the closure week (studioClosure.ts `openEstate` when
+-  // the state carries `rights`), so this terminal world holds a closure49 estate, a rights instrument `rightsStripped`
+-  // refuses to drop, and no Save48 operand exists. The public first refusal is the live step's, by name, at every older
+-  // reader, and the input stays unchanged. The P15B composed refusal (condition, actual closure, modern Legacy v3
+-  // official, ended manifest, frozen 2040 Legacy) needs a genuine Save48 terminal capture (audit C-06).
++  // P16 rebase: every Save49 closure opens its estate in the closure week (studioClosure.ts `openEstate` when the state
++  // carries `rights`), so this terminal world holds a closure49 estate, a rights instrument `rightsStripped` refuses to
++  // drop, and no Save48 operand exists. The public first refusal is the live step's, by name, at every older reader,
++  // and the input stays unchanged. This world's P15B composed refusal (condition, actual closure, modern Legacy v3
++  // official, ended manifest, frozen 2040 Legacy) is unasserted: ACCEPTANCE OPEN for the closure and ended-manifest
++  // reasons (round 4); the v3-official reason with the frozen-2040 reason appended has its Save48 control in
++  // p15b-legacy-v3.test.ts, and the condition-record reason with R8's appended in p15b2-corporate-condition-save.
+   expect(final.rights.estates.map(e => e.origin.kind), 'premise: the player closure opened its estate').toContain('closure49')
+   for (const convert of [save.convertV49ToV48, save.migrateToV47, save.migrateToV46, save.migrateToV45]) {
+     expect(() => convert(current)).toThrow(/^migrateToV48: cannot discard unique estate observation or current closure provenance$/)
+diff --git a/tests/p15b-legacy-v3.test.ts b/tests/p15b-legacy-v3.test.ts
+index 62505e5d..fa49ac17 100644
+--- a/tests/p15b-legacy-v3.test.ts
++++ b/tests/p15b-legacy-v3.test.ts
+@@ -114,9 +114,11 @@ describe('p15b modern Legacy constructed transaction controls', () => {
+     const copy = JSON.parse(JSON.stringify(save))
+     copy.state.campaignLegacy.endOfRun.closureId = 'not-a-closure'
+     expect(() => validateLiveSave(copy)).toThrow(/closure/i)
+-    // MOVED (P16): every Save49 closure opens its estate in the closure week, so every older reader refuses at the live
+-    // step first, naming that estate; the Legacy end-of-run refusal below it is reachable only from a genuine Save48
+-    // file (audit C-06), because this closed world has no Save48 envelope.
++    // P16: every Save49 closure opens its estate in the closure week, so every older reader refuses at the live step
++    // first, naming that estate. ACCEPTANCE OPEN (P16 rebase round 4): the P15B step's 'cannot downgrade or discard the
++    // ended Legacy manifest'. Only an actual player closure publishes the ended manifest (studioClosure.ts), its estate
++    // is a rights instrument no Save48 envelope carries, and the live tick needs a rights root, so no lawful Save48
++    // control holds one. The modern Legacy v3 reason has its Save48 control in the next case.
+     for (const convert of [saves.migrateToV45, saves.migrateToV46, saves.migrateToV47]) {
+       expect(() => convert(save)).toThrow(/^migrateToV48: cannot discard unique estate observation or current closure provenance$/)
+     }
+@@ -135,6 +137,11 @@ describe('p15b modern Legacy constructed transaction controls', () => {
+     // P16: the frozen readers' law runs on the predecessor-era official (`genuineFrozen48`); its historical payload
+     // replays under validateSaveP15B, the Save48 reader.
+     const save48 = genuineFrozen48(), state48 = save48.state as unknown as GameState
++    // The P15B step's own refusal on the Save48 control: this step's modern Legacy v3 reason first, the shared P15 step's
++    // frozen-2040 reason appended rather than masked, at the step and through every older migrator.
++    for (const convert of [saves.convertFromP15BSave, saves.migrateToV47, saves.migrateToV46, saves.migrateToV45]) {
++      expect(() => convert(save48 as never)).toThrow(new RegExp(`^migrateToV${saves.P15B_SAVE_VERSION - 1}: cannot downgrade or discard modern Legacy v3 official authority; cannot downgrade or discard the frozen 2040 Legacy$`))
++    }
+     expect(state48.campaignLegacy.official!.definition, 'the predecessor writer selects the same definition').toBe(state.campaignLegacy.official!.definition)
+     const oldLive = JSON.parse(JSON.stringify(save48))
+     const oldTable = legacy.LEGACY_DEFINITIONS['campaign-legacy/v2']
+diff --git a/tests/p15b2-corporate-condition-save.test.ts b/tests/p15b2-corporate-condition-save.test.ts
+index 36b8417a..8750d7c2 100644
+--- a/tests/p15b2-corporate-condition-save.test.ts
++++ b/tests/p15b2-corporate-condition-save.test.ts
+@@ -20,15 +20,15 @@ import type { Action, GameState } from '../src/core/types.js'
+ import { base, BASE_WEEK, canon, conditionRoot, drainPlayer, loansOf, PLAYER, R04, raw, recordOf, refuses, rivalClosure, ticks } from './helpers/p15b-live.js'
+ import { genuineV42Week130 } from './p14d1-rival-shelving-fixtures.js'
+ import { EXPECTED_LIVE_SAVE_VERSION, validateLiveSave } from './helpers/live-era.js'
+-import { rightsStripped } from './helpers/p16-era.js'
++import { LIVE_DOWNGRADE_REFUSAL, rightsStripped } from './helpers/p16-era.js'
+ 
+-// P16 (Save49) is the live step above this one. The P15B step's own downgrade law runs on the Save48 envelope of a
+-// world (`rightsStripped`); the root validators run inside the live reader (`validateLiveSave`, whose predecessor
+-// proof is the P15B era's); a ticked P16 world has no Save48 envelope (its phase history is table 3), so its public
+-// downgrade refuses at the Save49 step first, and those expectations moved there. It refuses by one of two named
+-// reasons: the rights root it would discard (once a rival greenlight or a release minted a title), or else the
+-// Save48 reader inside the step, which never admits the table-3 condition events the live writer stamped.
+-const LIVE_DOWNGRADE_REFUSAL = /^(?:migrateToV48: cannot downgrade or discard a recorded rights root|validateSaveP15B: corporateCondition estate phase table is not admitted in this predecessor era)$/
++// P16 (Save49) is the live step above this one. The P15B step's own downgrade law runs on Save48 controls: the
++// never-ticked base's envelope (`rightsStripped`) and the week-133 world (`recorded`), whose public downgrade passes
++// the live step because it holds no title and no table-3 row yet. The root validators run inside the live reader
++// (`validateLiveSave`, whose predecessor proof is the P15B era's). From the first table-3 row on (a condition event,
++// at 134 at the earliest) the public downgrade refuses at the Save49 step first, by one of two named reasons: the
++// rights root it would discard (once a rival greenlight or a release minted a title), or else the step's own
++// phase-history reason for the table-3 condition events the live writer stamped (helpers/p16-era.ts).
+ 
+ type Save = { saveVersion: number; seed: string; state: Record<string, unknown>; broadcastCache: unknown[] }
+ type SaveModule = Record<string, (save: unknown) => Save>
+@@ -54,6 +54,15 @@ function borrowed(): GameState {
+   }
+   return borrowedAt140
+ }
++/** Week 133 on the natural route: every evaluated studio has a condition record (first evaluated at 131) and no
++ * condition event can exist yet (CORPORATE_WARN_SUSTAIN_WEEKS is 4, so the first warning is 134 at the earliest);
++ * lane wave3 measured that this route mints no title through 135. r04 is in R8 cost cutting and disposed a facility
++ * at 131. So the live step converts its public downgrade and the P15B step refuses by its own name. */
++let recordedAt133: GameState | null = null
++function recorded(): GameState {
++  if (recordedAt133 === null) recordedAt133 = ticks(base(), 3)
++  return recordedAt133
++}
+ function tampered(edit: (state: Record<string, unknown>) => void): Save {
+   const save = clone(makeSave(borrowed())) as unknown as Save
+   edit(save.state)
+@@ -98,12 +107,17 @@ describe('p15b2 save step: migration and downgrade (1357-A §4.2; S1-S2)', () =>
+     for (const business of (down.state.hollywood as { businesses: { account: { periods: { movements: Record<string, number> }[] } }[] }).businesses) {
+       for (const period of business.account.periods) for (const kind of LOAN_KINDS) expect(Object.hasOwn(period.movements, kind)).toBe(false)
+     }
+-    // A ticked save holds records: the downgrade refuses by name. MOVED (P16): a ticked world's public downgrade
+-    // refuses at the live Save49 step first; the P15B step's condition-record and loan refusals are reachable only
+-    // from a genuine Save48 file, which this repository does not hold (audit C-06).
+-    const ticked = makeSave(borrowed())
+-    expect(() => convertV49ToV48(ticked)).toThrow(LIVE_DOWNGRADE_REFUSAL)
+-    expect(() => migrateToV47(ticked)).toThrow(LIVE_DOWNGRADE_REFUSAL)
++    // A ticked save holds records: the downgrade refuses by name, at this step, on the week-133 Save48 control.
++    expect(conditionRoot(recorded()).events, 'premise: no condition event before 134').toEqual([])
++    const ticked = makeSave(recorded())
++    refuses(() => convertFromStep(convertV49ToV48(ticked)), 'corporateCondition')
++    refuses(() => migrateToV47(ticked), 'corporateCondition')
++    // ACCEPTANCE OPEN (P16 rebase round 4): the loan refusals ('a studio loan', 'a loan or claim ledger row', 'the
++    // <kind> movement of <studio>'). A loan needs warning or distress (studioLoan.ts loanEligible), so a condition
++    // event precedes it; the live writer stamps both with phase table 3, which no Save48 envelope carries, and the live
++    // tick needs a rights root (rightsTick.ts refuses an industry without one), so no lawful Save48 control holds a
++    // loan. The borrowed world's public downgrade refuses at the live step first.
++    expect(() => convertV49ToV48(makeSave(borrowed()))).toThrow(LIVE_DOWNGRADE_REFUSAL)
+     // The loan kinds are refused below the era: a predecessor envelope carrying one fails the frozen chain.
+     const forgedLedger = clone(down)
+     ;(forgedLedger.state.ledger as Record<string, unknown>[]).push({ week: BASE_WEEK, kind: 'loanPrincipal', amount: 1000, note: 'forged' })
+@@ -141,13 +155,22 @@ describe('p15b2 save step: migration and downgrade (1357-A §4.2; S1-S2)', () =>
+     const forgedRoot = clone(down)
+     ;(forgedRoot.state as Record<string, unknown>).corporateCondition = clone(empty.state.corporateCondition)
+     refuses(() => validateSaveV47(forgedRoot), 'corporateCondition')
+-    // (c) a ticked, borrowed state refuses by name at every older reader. MOVED (P16): the live Save49 step refuses
+-    // first; the composed P15B message (condition record, then the loan row, then the shared P15 step's reason,
+-    // appended rather than masked) is reachable only from a genuine Save48 file, which this repository does not
+-    // hold (audit C-06), because a ticked P16 world's table-3 phase history has no Save48 envelope.
+-    const live = makeSave(borrowed())
+-    for (const older of [migrateToV47, migrateToV46, migrateToV45]) expect(() => older(live)).toThrow(LIVE_DOWNGRADE_REFUSAL)
+-    expect(canon(makeSave(borrowed()))).toBe(canon(live))
++    // (c) a ticked state refuses here first, naming this step's reasons before the predecessor steps' own, which are
++    // appended rather than masked (founding's convertV47ToV46 pattern): the week-133 control's message names its
++    // condition records, then R8's recovery reasons, at the step and through every older migrator. The shared P15
++    // step's appended reason is asserted on the Legacy v3 Save48 control (p15b-legacy-v3.test.ts); the loan reason
++    // is ACCEPTANCE OPEN (condition-root-downgrade above).
++    const state133 = recorded()
++    expect(state133.hollywood!.businesses.some((b) => b.costCutting.since !== null), 'premise: R8 cost cutting').toBe(true)
++    expect(state133.hollywood!.receipts.some((r) => r.kind === 'facilityDisposed'), 'premise: R8 disposal').toBe(true)
++    const live = makeSave(state133)
++    const composed = new RegExp(`^migrateToV${FOUNDING_FUNDING_SAVE_VERSION}: cannot downgrade or discard a corporateCondition record \\(${conditionRoot(state133).studios.length} evaluated\\); cannot downgrade or discard recovery authority: costCutting\\.since, facilityDemolitionRefund, facilityDisposed$`)
++    expect(() => convertFromStep(convertV49ToV48(live))).toThrow(composed)
++    for (const older of [migrateToV47, migrateToV46, migrateToV45]) expect(() => older(live)).toThrow(composed)
++    expect(canon(makeSave(recorded()))).toBe(canon(live))
++    // The borrowed world (table-3 events and loans) refuses at the live Save49 step first.
++    const borrowedLive = makeSave(borrowed())
++    for (const older of [migrateToV47, migrateToV46, migrateToV45]) expect(() => older(borrowedLive)).toThrow(LIVE_DOWNGRADE_REFUSAL)
+   })
+ })
+ 
+diff --git a/tests/p15b4-studio-closure-save.test.ts b/tests/p15b4-studio-closure-save.test.ts
+index b0818d06..0e271c4f 100644
+--- a/tests/p15b4-studio-closure-save.test.ts
++++ b/tests/p15b4-studio-closure-save.test.ts
+@@ -10,6 +10,7 @@ import { describe, expect, it } from 'vitest'
+ import { genuineV42Week130 } from './p14d1-rival-shelving-fixtures.js'
+ import { convertV49ToV48, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV45 } from '../src/core/save.js'
+ import { validateLiveSave } from './helpers/live-era.js'
++import { ESTATE_OBSERVATION_REFUSAL } from './helpers/p16-era.js'
+ import { TUNING } from '../src/core/tuning.js'
+ import type { GameState } from '../src/core/types.js'
+ import { tick } from '../src/core/tick.js'
+@@ -52,13 +53,15 @@ describe('p15b4 closure save step: migration and downgrade (closure/v1 §5)', ()
+   it('closure-root-downgrade-refusals', async () => {
+     const mod = await saveModule()
+     const closed = makeSave(closedAt(C))
+-    // MOVED (P16): the live Save49 step refuses first and names the closure's own provenance (its estate); the
+-    // P15B step's closure refusal is reachable only from a genuine Save48 file (audit C-06): a closed P16 world's
+-    // table-3 history has no Save48 envelope.
+-    refuses(() => convertV49ToV48(closed), 'closure')
+-    refuses(() => migrateToV45(closed), 'closure')
+-    // The frozen builders refuse the same state by name: a closed studio is history no older era can carry.
+-    refuses(() => (mod.migrateToV44 as (save: unknown) => unknown)(closed), 'closure')
++    // P16: the live step (migrateToV48) refuses first, at every older reader, naming the estate the closure opened
++    // in its closure week. ACCEPTANCE OPEN (P16 rebase round 4): the P15B step's own 'cannot downgrade or discard an
++    // actual studio closure' (and its claim and estate-event reasons). Every Save49 closure opens a closure49 estate,
++    // a rights instrument no Save48 envelope carries, and the live tick needs a rights root, so no lawful Save48
++    // control holds a closure.
++    expect((raw(closedAt(C)).rights as { estates: { origin: { kind: string } }[] }).estates.map((e) => e.origin.kind), 'premise: the closure opened its estate').toContain('closure49')
++    expect(() => convertV49ToV48(closed)).toThrow(ESTATE_OBSERVATION_REFUSAL)
++    expect(() => migrateToV45(closed)).toThrow(ESTATE_OBSERVATION_REFUSAL)
++    expect(() => (mod.migrateToV44 as (save: unknown) => unknown)(closed)).toThrow(ESTATE_OBSERVATION_REFUSAL)
+   })
+ })
+ 
+diff --git a/tests/p16-rebase-c01-absorbed-claims.test.ts b/tests/p16-rebase-c01-absorbed-claims.test.ts
+index 726a45b0..d21c99c5 100644
+--- a/tests/p16-rebase-c01-absorbed-claims.test.ts
++++ b/tests/p16-rebase-c01-absorbed-claims.test.ts
+@@ -40,6 +40,9 @@ import { tick } from '../src/core/tick.js'
+ import { GENRE_ORDER } from '../src/core/tuning.js'
+ import type { Action, FilmShape, GameState, Production } from '../src/core/types.js'
+ import { signRole } from './helpers/stabilization-staffing.js'
++import { validateTechnology } from '../src/core/technology.js'
++import { generateWorld } from '../src/core/worldgen.js'
++import type { AbsorptionRecord } from '../src/core/rights.js'
+ 
+ const TARGET = 'studio-aca408ec-r01', FILM = TARGET + ':film:13', WEEK = 162, SOAK_WEEKS = 52
+ const PIN = 'cd11f369558e09f1d65d8e848374ea028f4c5f666c168b5527e48c098cfdfb19'
+@@ -154,3 +157,15 @@ describe('C-01: an absorbed business\'s written-off work claims nobody at valida
+     expect(soak.at(-1)!.week).toBe(WEEK + SOAK_WEEKS)
+   })
+ })
++
++// P16 rebase round 4 (review O6): the technology reader of buyer-continued work reads `continuedProductions` only as an
++// array, like the hollywood and profession-history readers 2a78b372 guarded; it runs before either, so a malformed
++// absorption record is refused there by name. No capture needed.
++describe('C-01 follow-up: a malformed absorption record is refused by name, never as a TypeError', () => {
++  it('validateTechnology names a continuedProductions that is not an array', () => {
++    const world = generateWorld('p16-rebase-o6')
++    expect(() => validateTechnology(world, true, new Map()), 'premise: the fresh world admits').not.toThrow()
++    const malformed = new Map([['studio-x', { targetId: 'studio-x', continuedProductions: 'not-an-array' } as unknown as AbsorptionRecord]])
++    expect(() => validateTechnology(world, true, malformed)).toThrow(/^Technology save: absorption work dispositions must be arrays$/)
++  })
++})
+diff --git a/tests/stabilization-l19-save07-persistence.test.ts b/tests/stabilization-l19-save07-persistence.test.ts
+index a6961369..88effb6d 100644
+--- a/tests/stabilization-l19-save07-persistence.test.ts
++++ b/tests/stabilization-l19-save07-persistence.test.ts
+@@ -193,4 +193,13 @@ describe('L-19 in the frozen Save48 validator: the predecessor era keeps the law
+     const forged = JSON.parse(JSON.stringify({ ...frozen, state: { ...frozen.state, studioEvents: { ...frozen.state.studioEvents, rows } } })) as unknown
+     expect(() => validateSaveP15B(forged)).toThrow(new RegExp(`${label(index, validateSaveP15B.name)}\\.seq is at or above nextSeq`))
+   }, 120_000)
++  // SAVE-07 mirror (P16 rebase round 4, review O4): the frozen reader's own non-finite walk, on the same Save48 copy,
++  // at the leaf the live case above uses.
++  it('refuses a NaN at .studioHistory.rows[1].facts.anchor in the Save48 copy of the committed world', () => {
++    const forged = JSON.parse(JSON.stringify(rightsStripped(committedSaveOnce()))) as { state: { studioHistory: { rows: { facts: Record<string, unknown> }[] } } }
++    const facts = forged.state.studioHistory.rows[1]!.facts
++    expect(Number.isFinite(facts.anchor), 'premise: a finite anchor').toBe(true)
++    facts.anchor = Number.NaN
++    expect(() => validateSaveP15B(forged)).toThrow(new RegExp(`^${validateSaveP15B.name}: state\\.studioHistory\\.rows\\[1\\]\\.facts\\.anchor contains a non-finite number \\(NaN\\)$`))
++  }, 120_000)
+ })

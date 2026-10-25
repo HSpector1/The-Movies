@@ -1,0 +1,5 @@
+1171-p3-current45-capture/MANIFEST.json
+1221-p4p5-outgoing-capture/MANIFEST.json
+1230-legacy46-baseline.txt
+39-p3-market-week45.json
+978-c3-historical-controls.json

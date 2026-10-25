@@ -3808,3 +3808,9 @@ LOGIC VERIFIED · UNITY NOT VERIFIED. Records under `docs/engineering/playabilit
 - **What worked:** C.4 and C.2b REDs were written against a throwing scaffold, so every non-justified case was
   shown to fail before the implementation existed, and the originals were archived before any run against the
   writer's code. Test-side repairs afterwards were traced one by one (root cause first), never tuned to green.
+
+## GS. Compare failure causes and mutation boundaries before declaring stabilization — **BR**
+
+Wave 3's name-keyed baseline hid a new registry pin failure; its wrapper also exited zero after a child failed. Read actual child results and compare full assertion names plus causes against the actual predecessor. Seven regression witnesses then proved that invalid year-boundary money kinds appended a period before refusing, cast key order broke stopped-work import, and first-production-only hostability dropped a writer needed by later seated work. Validate the prospective period before append, compare participant membership after duplicate checks, and derive hostability from all seated work while preserving the wire field.
+
+Recovering import/replay exposed a previously unreached whole-record equality: the stopped project was immutable, but a different acquired film legitimately added run receipts. Preserve equality for every other field and assert the exact schedule, receipt IDs, ledger credits and unchanged source account; do not merely drop the assertion. Complete-file checks passed in wave3n. Original broad-run failures and synchronous over-budget PASS results remain preserved; solo passes do not waive them. Evidence: `engineering/audits/2026-10-22-codebase-review/wave3-final/`, final source candidate `04ffae89`.

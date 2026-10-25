@@ -1,8 +1,17 @@
 # HANDOFF
 
-Last writer: Claude (Fable 5.1), 2026-10-25, sole coordinator for the stabilization order below.
+Last writer: Codex, 2026-10-25, sole coordinator for the stabilization order below.
 
-## Wave 3 takeover, 2026-10-25 (read first; written mid-run at 5a700af3 pushed, 332a742a pending)
+## Wave 3 completion checkpoint, 2026-10-25 (current; read first)
+
+- **Candidate:** `p16-rebase-20261024` at `f3b1d09d498462359365a306e53e8a0d472133ca`, pushed and explicit remote verified at `https://github.com/HSpector1/The-Movies.git`. Clean primary worktree `~/studio-scratch/p16-rebase-20261024-wt`. Side ref `p16-rebase-20261024-r5` remains at `332a742a`; its worktree was already absent at takeover. Original current200 PATCH/MANIFEST hashes remain unchanged.
+- **Records:** production checkout on `wip/headless-program-20260916-ts`; this records checkpoint descends from `99e3af62`. Only HANDOFF/docs/evidence change here. Records-only main synchronization authorized after branch/path checks; never merge candidate gameplay. Explicit remote verification belongs to the publication postflight, not a stale tracking ref.
+- **Done:** wave3j's missing full core recovered at unchanged 5a; reviewed Round 7 fast-forward/push; wave3l completed; three source fixes and regression tests reviewed and published in Round 8. wave3m 267/287 with 20 failures classified; wave3n fixes the stale receipt assertion and passes all four complete files within original per-test budgets. Typechecks/contracts pass. No job or lane lock remains; no full final-tree gate claim.
+- **Evidence / lessons:** [final stabilization report](docs/engineering/audits/2026-10-22-codebase-review/STABILIZATION-REPORT.md), [ledger](docs/engineering/audits/2026-10-22-codebase-review/LEDGER.md), [Owner decisions](docs/engineering/audits/2026-10-22-codebase-review/wave3-final/OWNER-DECISIONS.md), [lesson GS](docs/LESSONS-LEARNED.md#gs-compare-failure-causes-and-mutation-boundaries-before-declaring-stabilization--br). Exact prior handoff archived in `wave3-final/HANDOFF-before-wave3-final-20261025.md`; AUTO bytes preserved.
+- **Still open:** 14 old synthetic estate failures, five fractional-policy cases, historical/frozen-era gaps, broad-run timing and S7 Save As regression; C-08 natural close proof and named null-row refusal hardening; no native/browser/Owner acceptance. Solo passes do not waive earlier failures. Decisions: ask rounding, C-06 relabel/provenance, Legacy stamp/era, S7 provenance and main integration. No P17/P18.
+- **Next recommended development step:** bounded C-03 genuine closure coverage, starting with remaining handoff/window/disposition laws, then authentic bidder tie/fallback and active-run/pending premises. Use existing mapping and fixed captures; no fixture coercion, source guard weakening, budget change or new planning campaign. Wave 3 verification/publication is complete once this records commit's push and explicit remote postflight finish; return the result/brief, do not restart it.
+
+## Historical Wave 3 takeover, 2026-10-25 (superseded; written mid-run)
 
 - **Where the work is:** production checkout `R` on `wip/headless-program-20260916-ts`, equal to `main` (both pushed). The P16 rebase candidate is branch `p16-rebase-20261024`, origin at `5a700af3`, primary sparse worktree `~/studio-scratch/p16-rebase-20261024-wt`. Round 7 is `332a742a` on `p16-rebase-20261024-r5` in the side worktree `~/studio-scratch/p16-rebase-r5-wt` (sparse: no docs beyond the audit folder, no ui). Persistent copies of every session script, baseline, brief and draft: `~/studio-scratch/1370-codebase-review-20261022-r1/wave3-scripts/` (`lane/*.sh` with paths rewritten to that folder; `compare-wt.py`; `baseline-core-failures.txt`, `baseline-ui-parent.txt`; `wave3-facts.md`; `ledger-3A-row.md` and `records-drafts.md` with placeholders for the final numbers). Lane logs and JSON reports: `~/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/`.
 - **In flight:** the full gate `wave3j` on `5a700af3` in the primary worktree, started 06:58 through the sole lane (`lane-run-r8.sh 0 .../lane-logs/wave3j.log bash .../wave3-scripts/lane/wave3j.sh`; the running copy is the session one, same content). Expected finish about 10:10; done when the log ends with `=== ALL DONE`. Do not edit, fast-forward or check out the primary worktree while it runs; do not start another vitest run beside it.
@@ -172,14 +181,14 @@ headings above retain their established names. History carries evidence, not cur
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-25 06:32 CDT by **claude** on PreCompact (session 9cc1c978-4c1c-4700-a984-2931170871a6)
-- Branch: `wip/headless-program-20260916-ts` @ `d7f2be0a392cf92aa09ddd679e808162d761e438`
+- Stamped: 2026-10-25 09:12 CDT by **claude** on SessionEnd (session 9cc1c978-4c1c-4700-a984-2931170871a6)
+- Branch: `wip/headless-program-20260916-ts` @ `99e3af62b7333b65c5bad5e10b78173f6a2ae370`
 - Upstream: `none`, unpushed commits: ?
 - Uncommitted files: 0
 - Last commits:
+  - 99e3af62 Records: the fifteen audit domain reports beside the ledger
+  - 12e05bdc Records: wave 3 checkpoint (rounds 4–7, third review, full gate wave3f) and the takeover handoff
   - d7f2be0a Records: wave 3 (P16 rebase) rounds 1-3 recorded; 18A folded into projection 62 on the candidate branch
   - 9f36dd23 TycoonScene: the key-capture comment states the 17A rule
   - 8792de52 Records: waves 1 and 2 landed, PR 19 merged, handoff current
-  - a7c4360c Owner decisions 2026-10-24, wave 2: exact Lot receipts for every stage and completion, the two-production cap lifted, keys captured only with canvas focus
-  - fccf4270 docs(research): name the retained artifact root without a machine path
 <!-- AUTO:END -->

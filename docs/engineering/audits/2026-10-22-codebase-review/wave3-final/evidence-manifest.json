@@ -1,0 +1,642 @@
+[
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/final-bridge.json.gz",
+    "published": "lane-logs/final-bridge.json.gz",
+    "sourceSha256": "92a6d9b19d28cc3cdd31be3f0e8acc2180713524484b553d7ea3be7f4b8b7852",
+    "sourceBytes": 76629,
+    "publishedSha256": "92a6d9b19d28cc3cdd31be3f0e8acc2180713524484b553d7ea3be7f4b8b7852",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/final-core.json.gz",
+    "published": "lane-logs/final-core.json.gz",
+    "sourceSha256": "c07f5a5a11a5190f62ee8b56d299fea5a8534aef729ede56a6729adce91bcb4b",
+    "sourceBytes": 368753,
+    "publishedSha256": "c07f5a5a11a5190f62ee8b56d299fea5a8534aef729ede56a6729adce91bcb4b",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/final-fixups-r1.log.gz",
+    "published": "lane-logs/final-fixups-r1.log.gz",
+    "sourceSha256": "ec4e27065067c4ca1b4dd172c4b1225cc5373a8fbc99af47c6000cf2b517ffee",
+    "sourceBytes": 392475,
+    "publishedSha256": "ec4e27065067c4ca1b4dd172c4b1225cc5373a8fbc99af47c6000cf2b517ffee",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/final-fixups-r1.log.meta",
+    "published": "lane-logs/final-fixups-r1.log.meta.gz",
+    "sourceSha256": "7290547cb6c7cfc125f2096b9064d79be16829637a4facb7da6fdbc0d1da9cdb",
+    "sourceBytes": 238,
+    "publishedSha256": "c9a91d2508200d2f75e3e91e179d006d95557818d5013b075a1081d92b1079ef",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/final-gates.log.gz",
+    "published": "lane-logs/final-gates.log.gz",
+    "sourceSha256": "7cc83119b138cf5b21d13690f476bead330b27074487884766a08ff12f24ddd8",
+    "sourceBytes": 1771851,
+    "publishedSha256": "7cc83119b138cf5b21d13690f476bead330b27074487884766a08ff12f24ddd8",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/final-gates.log.meta",
+    "published": "lane-logs/final-gates.log.meta.gz",
+    "sourceSha256": "17ea24fef7ba268f5dcf5cb6239c36bacf0e39632fd4e199a7d4aded9198506c",
+    "sourceBytes": 237,
+    "publishedSha256": "d94011e368b532405676787835c0c454c081400f8df41ec6ce9b2163857a25ab",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/final-ui.json.gz",
+    "published": "lane-logs/final-ui.json.gz",
+    "sourceSha256": "22130e523e316fb7aecfd6f7b4d2934acf0b7467e07c2b6e3db69fe2ea60e3f7",
+    "sourceBytes": 145448,
+    "publishedSha256": "22130e523e316fb7aecfd6f7b4d2934acf0b7467e07c2b6e3db69fe2ea60e3f7",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/p16-gate2-bridge-classified.json",
+    "published": "lane-logs/p16-gate2-bridge-classified.json.gz",
+    "sourceSha256": "99985c73451f00868c2912d525facaeb9cd318a9ee394694faf09e48365ad97b",
+    "sourceBytes": 23298,
+    "publishedSha256": "acd4eca8a22351c4c95ce2fb5fbfbfaa1d88a95e5610e4fc3c3b713ff16ed4b8",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/p16-gate2-bridge-compare.txt",
+    "published": "lane-logs/p16-gate2-bridge-compare.txt.gz",
+    "sourceSha256": "f43dc9a7fbff2c26851974a2af0b515ec76a2077ef02e06d42ebfcc88d99cd4b",
+    "sourceBytes": 994,
+    "publishedSha256": "528967149588a8ad5677f71fea3e12a6c4fab77feda9291e2186349d975a6c4e",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/p16-gate2-bridge.json",
+    "published": "lane-logs/p16-gate2-bridge.json.gz",
+    "sourceSha256": "5d2764b793b438aad30b7ac361af9ab74527c0c6c5e095139cf363a991bc3cd3",
+    "sourceBytes": 554022,
+    "publishedSha256": "8f3d7e96dd64de872f063dd9d3b90eadf8495c8424721bd97072afc43bd0f2c8",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/p16-gate2-bridge.json.cause-comparison.txt",
+    "published": "lane-logs/p16-gate2-bridge.json.cause-comparison.txt.gz",
+    "sourceSha256": "883e2a03ea48c6618400bae03c1c3bfba2c1d9890b8198dafe95c54da2b782af",
+    "sourceBytes": 2977,
+    "publishedSha256": "42a424c98ab847e14444411291ae33340b43a9c4020535f8f6d3e18c128fa37b",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/p16-gate2-core-recovery-classified.json",
+    "published": "lane-logs/p16-gate2-core-recovery-classified.json.gz",
+    "sourceSha256": "80cc2fa10521c5349d7288b6d41742b6929f68a9d4712d25f8e708707039f3b0",
+    "sourceBytes": 90255,
+    "publishedSha256": "a15d6804d56969af90c22a3ba7835d57a907b46deb583af26561fd4a73cbb0d4",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/p16-gate2-core-recovery-compare.txt",
+    "published": "lane-logs/p16-gate2-core-recovery-compare.txt.gz",
+    "sourceSha256": "53601cc3808887f0e70681e4e58c250da144288abe4f81f68d20ed4765c53e19",
+    "sourceBytes": 8350,
+    "publishedSha256": "fd53be8ff7d5fe0c82581261cf8494a161dcfa6ef2f5832e403a9ad935868862",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/p16-gate2-core-recovery.cause-comparison.txt",
+    "published": "lane-logs/p16-gate2-core-recovery.cause-comparison.txt.gz",
+    "sourceSha256": "ec8fbd0fc11478835987cddeb6ca7ff579dbc908709df65562539acc9cabf3b6",
+    "sourceBytes": 9745,
+    "publishedSha256": "59d21528439499203d6b475e3c444024af3835a82f283473c7808c0c139d947a",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/p16-gate2-core-recovery.json",
+    "published": "lane-logs/p16-gate2-core-recovery.json.gz",
+    "sourceSha256": "24b5b91a87b6738fa9f7e49e5b44c994a8caaeba0d405059cd0b0f03dddcfb54",
+    "sourceBytes": 2832412,
+    "publishedSha256": "7773719d333714b10f85a2eed7707d7ae15c6264097ed60a5fe572e082aaa00e",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/p16-gate2-ui-classified.json",
+    "published": "lane-logs/p16-gate2-ui-classified.json.gz",
+    "sourceSha256": "19f150363961e4ac42238ed210822737c9e74882dbf7292dc231c9aa0c5fedfd",
+    "sourceBytes": 1952,
+    "publishedSha256": "c30a2f56c7f99f31d35780d57027cc5e93130607156848a2f743c57af4ed4cad",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/p16-gate2-ui-compare.txt",
+    "published": "lane-logs/p16-gate2-ui-compare.txt.gz",
+    "sourceSha256": "7acf4afb9cdd9f99d8170dee80f558ea4f5fb1b6dc7b9c8a743ea55c2f620c85",
+    "sourceBytes": 632,
+    "publishedSha256": "7039fdfbe0ed75044a7ce12240013e2978481685a720045fe7aa9f23c5167d35",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/p16-gate2-ui.json",
+    "published": "lane-logs/p16-gate2-ui.json.gz",
+    "sourceSha256": "0db4eee1bd8c2a49defeb7e7c001723d458ca74478b81681bb93eb0500a34727",
+    "sourceBytes": 1068975,
+    "publishedSha256": "63ff2f4db7df6f0ec09f289f631914be0ff4c726090ee8c04597e6f8a2d51aef",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/p16-gate2-ui.json.cause-comparison.txt",
+    "published": "lane-logs/p16-gate2-ui.json.cause-comparison.txt.gz",
+    "sourceSha256": "41ae334ed0c89927048b060ef6d6828beeb1f09886beb2d519a7f7d6ef7df981",
+    "sourceBytes": 761,
+    "publishedSha256": "62a3cbcf097bdf79a4632c690c439f8880003a19f2aded654fbdee55709045c4",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3-core.json.gz",
+    "published": "lane-logs/wave3-core.json.gz",
+    "sourceSha256": "37b096cd077175c99ea09c0bb665f38eb49c5e8df6459e438d018d58b7847beb",
+    "sourceBytes": 92083,
+    "publishedSha256": "37b096cd077175c99ea09c0bb665f38eb49c5e8df6459e438d018d58b7847beb",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3-ui.json.gz",
+    "published": "lane-logs/wave3-ui.json.gz",
+    "sourceSha256": "0c2aa4071204f8a17e46715ea7f874cb94769a7bfe9676de9164ca5b017e28e5",
+    "sourceBytes": 2398,
+    "publishedSha256": "0c2aa4071204f8a17e46715ea7f874cb94769a7bfe9676de9164ca5b017e28e5",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3.log.gz",
+    "published": "lane-logs/wave3.log.gz",
+    "sourceSha256": "55e740c4b9c0b6fa81cb4c76c4e1cc96d378cef8607355a49803a010a04405f4",
+    "sourceBytes": 2860687,
+    "publishedSha256": "55e740c4b9c0b6fa81cb4c76c4e1cc96d378cef8607355a49803a010a04405f4",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3.log.meta",
+    "published": "lane-logs/wave3.log.meta.gz",
+    "sourceSha256": "d7d61ec5bc9024b15746a229726811e981b37a713e93359d9ea289ca284d061f",
+    "sourceBytes": 231,
+    "publishedSha256": "ab5093e0cef2ab37fb56647e39fdf943d799b0cedd4b6e1fa1a51d026a88baad",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3b-core.json.gz",
+    "published": "lane-logs/wave3b-core.json.gz",
+    "sourceSha256": "5af2cfcbe1b7c2c1e00f59ccefdb6404c06a34e1624aa9e429b8bda0bd3ca50d",
+    "sourceBytes": 155743,
+    "publishedSha256": "5af2cfcbe1b7c2c1e00f59ccefdb6404c06a34e1624aa9e429b8bda0bd3ca50d",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3b-ui.json.gz",
+    "published": "lane-logs/wave3b-ui.json.gz",
+    "sourceSha256": "9030b25d8e42f530e694e174abc20a21efed284a1afa7d20167ad2362304db17",
+    "sourceBytes": 2387,
+    "publishedSha256": "9030b25d8e42f530e694e174abc20a21efed284a1afa7d20167ad2362304db17",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3b.log.gz",
+    "published": "lane-logs/wave3b.log.gz",
+    "sourceSha256": "eaa1da31ee1beb8e93e7bd23dd7b66928ac7d7887872d46f3e9e27f4bc736349",
+    "sourceBytes": 1117251,
+    "publishedSha256": "eaa1da31ee1beb8e93e7bd23dd7b66928ac7d7887872d46f3e9e27f4bc736349",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3b.log.meta",
+    "published": "lane-logs/wave3b.log.meta.gz",
+    "sourceSha256": "d4d6f3c11b10b010e85937021589995cabfcd1aa3b7e126672f760ead4d0bd7a",
+    "sourceBytes": 232,
+    "publishedSha256": "27d32991b07f9d88d55bc0d1a3b4628269f479b9e598457e28fae4369141ec19",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3c-alone.json.gz",
+    "published": "lane-logs/wave3c-alone.json.gz",
+    "sourceSha256": "59af14f373e759909056ad159cf9852cdc68b9ed309a80b916007fe9ae33ed4f",
+    "sourceBytes": 3916,
+    "publishedSha256": "59af14f373e759909056ad159cf9852cdc68b9ed309a80b916007fe9ae33ed4f",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3c.log.gz",
+    "published": "lane-logs/wave3c.log.gz",
+    "sourceSha256": "39f0873100ccd148efa642feed5c2c507b400c57e09e5e0d8613a4077890bbdd",
+    "sourceBytes": 2700,
+    "publishedSha256": "39f0873100ccd148efa642feed5c2c507b400c57e09e5e0d8613a4077890bbdd",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3c.log.meta",
+    "published": "lane-logs/wave3c.log.meta.gz",
+    "sourceSha256": "b692595c9bdc6833f3749eb7fb767f94c89039877d8af60df44dc2ae72182785",
+    "sourceBytes": 232,
+    "publishedSha256": "c9e35a05f11f9c5ad6056eafb9cbb695616a243683822b36fa5c75edc96c494b",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3d.log.gz",
+    "published": "lane-logs/wave3d.log.gz",
+    "sourceSha256": "f5aac6ad2c027a4ece69ac608f5126eb957485ae989d8aab999404d617d59f59",
+    "sourceBytes": 2195,
+    "publishedSha256": "f5aac6ad2c027a4ece69ac608f5126eb957485ae989d8aab999404d617d59f59",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3d.log.meta",
+    "published": "lane-logs/wave3d.log.meta.gz",
+    "sourceSha256": "57a61e656def5b3a075afce61fce5b54c6f5f19d6c68ea720bb1b2f55be76c29",
+    "sourceBytes": 232,
+    "publishedSha256": "2ca9d76d3caa0ab80f90799acb115ffc733188b1ebcb2c55fca9b9cd5cd58ff6",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3e-core.json.gz",
+    "published": "lane-logs/wave3e-core.json.gz",
+    "sourceSha256": "6ca599fb0a5974b6901ea31a317b72947a7975a3c3011423df727566d1eacd36",
+    "sourceBytes": 19768,
+    "publishedSha256": "6ca599fb0a5974b6901ea31a317b72947a7975a3c3011423df727566d1eacd36",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3e.log.gz",
+    "published": "lane-logs/wave3e.log.gz",
+    "sourceSha256": "49fae18188b1510e37f291f3f39dd09dfdfc22aadb087cebfbf521a52dd50934",
+    "sourceBytes": 36858,
+    "publishedSha256": "49fae18188b1510e37f291f3f39dd09dfdfc22aadb087cebfbf521a52dd50934",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3e.log.meta",
+    "published": "lane-logs/wave3e.log.meta.gz",
+    "sourceSha256": "0dd3a5a7f0a127f13dc57850405afb18579035a4cd56509a74874a63f5006c49",
+    "sourceBytes": 232,
+    "publishedSha256": "8eded4e08a857a5280a75349f3f9b2dc36f4adc0707f19f6fa3d547e4e27e672",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3f.log.gz",
+    "published": "lane-logs/wave3f.log.gz",
+    "sourceSha256": "742f2b404213a38c351f2b7cb71f8f7874ad043198d21eda36fb949bcdfa6411",
+    "sourceBytes": 1965289,
+    "publishedSha256": "742f2b404213a38c351f2b7cb71f8f7874ad043198d21eda36fb949bcdfa6411",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3f.log.meta",
+    "published": "lane-logs/wave3f.log.meta.gz",
+    "sourceSha256": "d5a0156265192baa7b0aa0ec11ad6daa468c3195810ae77c5cfde48640c9d917",
+    "sourceBytes": 232,
+    "publishedSha256": "f1f68cffa9f1014769f62a3d3973c85d4e5763cd37c73199ffc021efa4ded766",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3g-core.json.gz",
+    "published": "lane-logs/wave3g-core.json.gz",
+    "sourceSha256": "5d813cfa44b0f5a702b9443d05567517b04d5dca8a02a2a02877863f3fa0fafc",
+    "sourceBytes": 27387,
+    "publishedSha256": "5d813cfa44b0f5a702b9443d05567517b04d5dca8a02a2a02877863f3fa0fafc",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3g-l24-alone.json.gz",
+    "published": "lane-logs/wave3g-l24-alone.json.gz",
+    "sourceSha256": "67f7c6df13e113d4c82244bc7e32350f3e3b6538cda6664828222545159423e6",
+    "sourceBytes": 889,
+    "publishedSha256": "67f7c6df13e113d4c82244bc7e32350f3e3b6538cda6664828222545159423e6",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3g.log.gz",
+    "published": "lane-logs/wave3g.log.gz",
+    "sourceSha256": "7303624a7ce940d45f71a82a0f04a5a7d5adc9d1b4dbd2e8bd18fa63d94af009",
+    "sourceBytes": 33834,
+    "publishedSha256": "7303624a7ce940d45f71a82a0f04a5a7d5adc9d1b4dbd2e8bd18fa63d94af009",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3g.log.meta",
+    "published": "lane-logs/wave3g.log.meta.gz",
+    "sourceSha256": "5ed8b07c4d97c69ee62a39a1b5c98a4c10a582986e6f96c783f6c98a16421938",
+    "sourceBytes": 232,
+    "publishedSha256": "e1307e7a97fe7e0c4b7aaa38a5ed552da58187171c41d13185ba8029b28ce12f",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3i-core.json.gz",
+    "published": "lane-logs/wave3i-core.json.gz",
+    "sourceSha256": "978b1ed34182e49fc23b20a1e741185479bc3cd97ca77bfdfd32d5506584d680",
+    "sourceBytes": 36607,
+    "publishedSha256": "978b1ed34182e49fc23b20a1e741185479bc3cd97ca77bfdfd32d5506584d680",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3i.log.gz",
+    "published": "lane-logs/wave3i.log.gz",
+    "sourceSha256": "c95bb35668e3b0a94e4c31261bc5fbb0da1fb4bc62c79bc44027b57f49696045",
+    "sourceBytes": 195973,
+    "publishedSha256": "c95bb35668e3b0a94e4c31261bc5fbb0da1fb4bc62c79bc44027b57f49696045",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3i.log.meta",
+    "published": "lane-logs/wave3i.log.meta.gz",
+    "sourceSha256": "6c74108cd2fcf3aa38c985d9075f58897b6dcdf7a1d0847e19a36bd6a1047a38",
+    "sourceBytes": 232,
+    "publishedSha256": "8f75e68d6e814d7874fae40d533aa3e3eefa9053556b4d8357c821159048ec60",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3j-core-recovery.log",
+    "published": "lane-logs/wave3j-core-recovery.log.gz",
+    "sourceSha256": "0d6ba24bdecf16c056621b14c56274ebc2da440fc3328ecab582144727705583",
+    "sourceBytes": 15585303,
+    "publishedSha256": "fd3a5a2c782dd57b8cae8e7c9ac2dcb9574d31bbbc45723ac6a6937ce785e4e4",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3j-core-recovery.log.meta",
+    "published": "lane-logs/wave3j-core-recovery.log.meta.gz",
+    "sourceSha256": "7882465228e9440fa5ca1e19c5564c45af7d0c9aa5f892a7bd70185246955096",
+    "sourceBytes": 236,
+    "publishedSha256": "9a017af35b82f651edcada60b5fb12c1444a00784eb0aee612503987f9f69e87",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3j.log",
+    "published": "lane-logs/wave3j.log.gz",
+    "sourceSha256": "3b5271d4264e7a66ca9f41bc53ab56f47dd56ce4d0d8f628be09c1c6c3310c11",
+    "sourceBytes": 12026695,
+    "publishedSha256": "de3f681e98fe1a4fe6895a2933125d7679ed7da5417870e3c9f6f6f0b5478964",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3j.log.meta",
+    "published": "lane-logs/wave3j.log.meta.gz",
+    "sourceSha256": "36ecdfbea6463289af10a5e029fdd79e9eb6e9f6c1ea8a2c60074bf3fa51ff2d",
+    "sourceBytes": 195,
+    "publishedSha256": "ca9f26c63dc96290744466139c90ac00d59b72cb95aa9d056ca3708d8a80f374",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3k-core.json.gz",
+    "published": "lane-logs/wave3k-core.json.gz",
+    "sourceSha256": "e6bc5408741062475cb4d9f8ed0f0f67c14e23cfd268b5d9881c2b3c3a5f71c2",
+    "sourceBytes": 21839,
+    "publishedSha256": "e6bc5408741062475cb4d9f8ed0f0f67c14e23cfd268b5d9881c2b3c3a5f71c2",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3k-solo-facility-move-demolish.json.gz",
+    "published": "lane-logs/wave3k-solo-facility-move-demolish.json.gz",
+    "sourceSha256": "b9cd06a1b9741c9989cdd97807254ecfe992154d80711ec0896ed65051202d98",
+    "sourceBytes": 2144,
+    "publishedSha256": "b9cd06a1b9741c9989cdd97807254ecfe992154d80711ec0896ed65051202d98",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3k-solo-p13b-s7-announcements.json.gz",
+    "published": "lane-logs/wave3k-solo-p13b-s7-announcements.json.gz",
+    "sourceSha256": "1e2e28b9e898b4b84bada6533a8c653b2e348e7e5ed4a4e78f5d81441f5dc601",
+    "sourceBytes": 1018,
+    "publishedSha256": "1e2e28b9e898b4b84bada6533a8c653b2e348e7e5ed4a4e78f5d81441f5dc601",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3k-solo-p15c2-campaign-legacy-integration.json.gz",
+    "published": "lane-logs/wave3k-solo-p15c2-campaign-legacy-integration.json.gz",
+    "sourceSha256": "4810d4ff9c07aea56898c8527010775d6d847eeb5888c65079aadbd6306e3330",
+    "sourceBytes": 1842,
+    "publishedSha256": "4810d4ff9c07aea56898c8527010775d6d847eeb5888c65079aadbd6306e3330",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3k.log.gz",
+    "published": "lane-logs/wave3k.log.gz",
+    "sourceSha256": "40a732dabc4f672d46c19c906b4b692410c0f7c92b5c0c2ea1584f8bcf5ab7d3",
+    "sourceBytes": 15256,
+    "publishedSha256": "40a732dabc4f672d46c19c906b4b692410c0f7c92b5c0c2ea1584f8bcf5ab7d3",
+    "encoding": "original gzip"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3k.log.meta",
+    "published": "lane-logs/wave3k.log.meta.gz",
+    "sourceSha256": "93e05e2380065867a8dbc6b0cd885f31fa1ae257849a4d4359a86a01946c22ae",
+    "sourceBytes": 232,
+    "publishedSha256": "345d3de1fedbe9715433736b230da88a92590694777641c4cdb0c9826a976fbe",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3l-causes.txt",
+    "published": "lane-logs/wave3l-causes.txt.gz",
+    "sourceSha256": "1570dd262aff8677b517360df7d41efbeba27f1bd485f721e740ed977ba035c0",
+    "sourceBytes": 6367,
+    "publishedSha256": "7dbfffd475a2783642ce94c48a3810533faf3c6497abecaea8c5084073c0b57e",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3l-core.json",
+    "published": "lane-logs/wave3l-core.json.gz",
+    "sourceSha256": "48d737049e4d8f473872acb6b9314420f83e2e9fc0dbaefabfe7d0b1efed5888",
+    "sourceBytes": 182401,
+    "publishedSha256": "8a9aa2cd236a0cc18981ca4918f72fcc7002dce51585d4bb616edfce6102eabe",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3l-probe-head.json",
+    "published": "lane-logs/wave3l-probe-head.json.gz",
+    "sourceSha256": "3ee24ec89836653414279d8ef04268fe0ff2f89b10d39d1838a0eb1ec45a41ca",
+    "sourceBytes": 955,
+    "publishedSha256": "ddf45d8f4190f23b7c1d7630aa806d9674de569e09555a1d389569e50aebee68",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3l-probe-parent.json",
+    "published": "lane-logs/wave3l-probe-parent.json.gz",
+    "sourceSha256": "afd9cbedb1bf2580c1b02980bda4d616abb589bf89e5c26359ee33adf68f604a",
+    "sourceBytes": 941,
+    "publishedSha256": "e57059988d4ecd86d46a8562a1367b976dfc68ca32d11150a2b1f008a0140d43",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3l-solo-p1364-late-founding.json",
+    "published": "lane-logs/wave3l-solo-p1364-late-founding.json.gz",
+    "sourceSha256": "7e09b83edc7445274b9a7252641d59cff98c4b439555612751a32190f08dccf3",
+    "sourceBytes": 37564,
+    "publishedSha256": "1d26d3fcef1e08f60ca4f5f54e4d02f1d077023fb10f176758080b04aaf6958b",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3l-solo-p13b-s7-announcements.json",
+    "published": "lane-logs/wave3l-solo-p13b-s7-announcements.json.gz",
+    "sourceSha256": "68904ca7febe533f914a8d64d42df764056ef19f04074dc11ac3f8aadf77ad7d",
+    "sourceBytes": 4258,
+    "publishedSha256": "f045661495d61ab18fc2b023c1cc8302da786fb15fed00b1a5f856c0cd5a359f",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3l-solo-p14d1-rival-shelving.json",
+    "published": "lane-logs/wave3l-solo-p14d1-rival-shelving.json.gz",
+    "sourceSha256": "5f5dc786f4ffad9d04e880b18355d9dd8cd6c1009a8b4655107dcbaf30d7b7fe",
+    "sourceBytes": 14461,
+    "publishedSha256": "88b95078f46241b8dffc738909344fb1f9428a0275b5fa0fd2c92791fbf12524",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3l-solo-p15c2-campaign-legacy-integration.json",
+    "published": "lane-logs/wave3l-solo-p15c2-campaign-legacy-integration.json.gz",
+    "sourceSha256": "9511eab668e3ab82ac858b42828a98d85f6423ed6c81e31d98ff4204e2b06f0b",
+    "sourceBytes": 13286,
+    "publishedSha256": "f4a932741925de4f737dbe6d640c6da82a9747266ccff0cb152fc736c04c67dc",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3l-ui-lot-main.json",
+    "published": "lane-logs/wave3l-ui-lot-main.json.gz",
+    "sourceSha256": "a1c6de90bd55121a83f54ec89459c0d018e5e0229bb079b6bd091ceae1f482d8",
+    "sourceBytes": 27224,
+    "publishedSha256": "afb0e6a81b0678db10a83046be5cd03b9e8fceec7ade405413ddd4b21cd1024c",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3l-ui-lot-solo.json",
+    "published": "lane-logs/wave3l-ui-lot-solo.json.gz",
+    "sourceSha256": "e6dcad35a6915f95aa57cd190fe4efe10e74c4677f7b12e669a691d5597b73ea",
+    "sourceBytes": 27247,
+    "publishedSha256": "85cf836b2bd2652fe9372dfbceae74e10f847259844378e48f6974f2afb44f1b",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3l.log",
+    "published": "lane-logs/wave3l.log.gz",
+    "sourceSha256": "58d43a6122490bbaefef6eff6abe95a1b5aff89b5e6f30b8e71651163a4cb9a6",
+    "sourceBytes": 8637606,
+    "publishedSha256": "15d26ce2b7ba7bf0a3e1a513237576b6a58cf7d99254df5a6006a663f9fdbead",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3l.log.meta",
+    "published": "lane-logs/wave3l.log.meta.gz",
+    "sourceSha256": "99d06b8dc5d7e34874b625386fdbec7b82514826a99ee8f80e2dfd6459d06b69",
+    "sourceBytes": 222,
+    "publishedSha256": "1d7671f5903e4f746388023a3962e3c4f6c94d0c68594c20e3e42a6a3b6598f1",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3m-classified.json",
+    "published": "lane-logs/wave3m-classified.json.gz",
+    "sourceSha256": "1f42a09c4e1182d2196922914cb658a77032664abaa5223938443f8b12a3d342",
+    "sourceBytes": 59452,
+    "publishedSha256": "01178ce4b1f5e4dda75db6d2892b287cbfec594568882842d4f842ff3f680fde",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3m-core.json",
+    "published": "lane-logs/wave3m-core.json.gz",
+    "sourceSha256": "5e67045b1c1abc2c3d40e15d8b08507b8b194b93be4b9d5550b774c642a345d2",
+    "sourceBytes": 178140,
+    "publishedSha256": "b3b5ec438a9c7b30342fed6b8f0946dd2e8a92060d4d1570cf2dd3bd79b997b1",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3m-over-5000ms.json",
+    "published": "lane-logs/wave3m-over-5000ms.json.gz",
+    "sourceSha256": "45443d2790b86248635fad1d4a4154a0a5989cb85e4a352dc82f74cd46ccc6a8",
+    "sourceBytes": 9780,
+    "publishedSha256": "f5c2b6f470c0daf18b34ba657b6b4eabd95485583df3a399edcb6689f73b6572",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3m-red.json",
+    "published": "lane-logs/wave3m-red.json.gz",
+    "sourceSha256": "fa5399d9a5340ac98fe294b2302cc79123827aea43c715ae70be2e38177e37b2",
+    "sourceBytes": 26281,
+    "publishedSha256": "f60f3a9fe46ade6d51b1607d403ad3f1796bb0bf48ad48c9aacf2be66892883a",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3m-red.log",
+    "published": "lane-logs/wave3m-red.log.gz",
+    "sourceSha256": "274194416b9e3aad5cdffd589846260f1ed3d8b28502df45c2f1efafbd566edc",
+    "sourceBytes": 12764,
+    "publishedSha256": "134b22e7fe162e4f5e1c36f9589fe33ab73fb88adeb15e1ead6ac23d1cbf1988",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3m-red.log.meta",
+    "published": "lane-logs/wave3m-red.log.meta.gz",
+    "sourceSha256": "b19840df7a52467aeee5669f565d6b805547d05b43b065a8cb9bbaf9e558e1f5",
+    "sourceBytes": 226,
+    "publishedSha256": "7706e639cee9a7a5ea6084b9f1177ab3224a0b2e69105db83205de5eef720e19",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3m.log",
+    "published": "lane-logs/wave3m.log.gz",
+    "sourceSha256": "579db02c37a88ef67bdcf62639e9e58d5a06a480592e13b684f96e4c82e0fa0c",
+    "sourceBytes": 94492,
+    "publishedSha256": "ac887d5d24861c656ae198bd218449696a1abb03ed256d0085d57faa0d242a6f",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3m.log.meta",
+    "published": "lane-logs/wave3m.log.meta.gz",
+    "sourceSha256": "8f49b6b7a203fc9fa66208ed877e267b27932c579745862769c31e0fb389ce2c",
+    "sourceBytes": 222,
+    "publishedSha256": "eecfd4316e3d4c6a8ae2dffd9b625a209ccae954802bf840507811c4e38fee00",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3n-bridge-p14r2r3-prior55.json",
+    "published": "lane-logs/wave3n-bridge-p14r2r3-prior55.json.gz",
+    "sourceSha256": "d9f5c2470141b685043d4c2176d2f0e7e5a4e18e3b8405ea8df649a8a410c330",
+    "sourceBytes": 1400,
+    "publishedSha256": "ade862b1b1681a4e69d485320cf203ad12d9e3612b10a4562140c9f6cac3f292",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3n-p16-estate-d-ceremony.json",
+    "published": "lane-logs/wave3n-p16-estate-d-ceremony.json.gz",
+    "sourceSha256": "f52bfe768253faeee8c529f2ac0e2f79a1f428acfb3161e2f14f3b50046c1804",
+    "sourceBytes": 1007,
+    "publishedSha256": "451822aa039f4f1f7709f540b0c83249ba29dc342d75fee995108605e0f03302",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3n-p16-healthy-drafting171-funded-baseline.json",
+    "published": "lane-logs/wave3n-p16-healthy-drafting171-funded-baseline.json.gz",
+    "sourceSha256": "9c5e92a3685b61653420efc21d9ec91fe836d1e2af47a12a475a4f940246bb3e",
+    "sourceBytes": 2175,
+    "publishedSha256": "9dcfa2224d3fbaf3c9ed25ba3dc2797480db921c36bd10547f004dcc7a6eaaf9",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3n-p16-rebase-estate-licence-survival.json",
+    "published": "lane-logs/wave3n-p16-rebase-estate-licence-survival.json.gz",
+    "sourceSha256": "1d05a51932bc60e4d3b34085c6bcf970c854589d3e216ad9c237d8849f480d18",
+    "sourceBytes": 1028,
+    "publishedSha256": "708004658d510e2d7406ef40ab3674aa31c2ac51fb1fb9a062915ca4124561df",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3n.log",
+    "published": "lane-logs/wave3n.log.gz",
+    "sourceSha256": "27273df21a9d89e545c67f8559817100242a543de5d7bb7df01415ec0d47014c",
+    "sourceBytes": 8658,
+    "publishedSha256": "c8156d88041eb6e706e2495c737bca0481215c761d64aae31cae26601022d3d1",
+    "encoding": "gzip of original bytes"
+  },
+  {
+    "original": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3n.log.meta",
+    "published": "lane-logs/wave3n.log.meta.gz",
+    "sourceSha256": "68d89e5e29e49d8cdcf696e3a234b649098610f4ecfe1c1a7f51e0d10d797456",
+    "sourceBytes": 222,
+    "publishedSha256": "b57a9488258a2ebf991b5313c3de9038137d271647802f517eb96c7fb8560e69",
+    "encoding": "gzip of original bytes"
+  }
+]
