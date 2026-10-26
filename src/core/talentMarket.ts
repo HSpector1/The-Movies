@@ -515,6 +515,25 @@ export function invalidateCasesAtClosure(state: GameState, subjectStudioId: stri
   return next
 }
 
+/** The absorbing close ends the original issuing/subject employer, but retained
+ * people have a real buyer contract. Keep the native removal/receipt owners and
+ * avoid the closure-only claim that every affected person is a free agent. */
+export const ABSORPTION_PROPOSAL_REASON = 'the issuing studio was absorbed'
+export const ABSORPTION_CASE_REASON = 'the subject studio was absorbed'
+export const ABSORPTION_CASE_DROP_REASON = 'the original employment interval ended in an absorption'
+export function withdrawProposalAtAbsorption(state: GameState, talentId: string, issuerStudioId: string): GameState {
+  const next = withdrawProposal(state, talentId, issuerStudioId)
+  return { ...next, talentMarket: appendReceipt(next.talentMarket, { kind: 'proposalWithdrawn', week: state.market.tick, talentId,
+    studioId: issuerStudioId, reasons: [ABSORPTION_PROPOSAL_REASON] }) }
+}
+export function invalidateCaseAtAbsorption(state: GameState, kase: TalentMarketCaseV36): GameState {
+  if (!state.talentMarket.cases.includes(kase) || kase.outcome !== null) {
+    throw new Error('talentMarket: absorption requires the actual open case')
+  }
+  return closeCase(state, kase, 'invalidated', state.market.tick, ABSORPTION_CASE_REASON, null,
+    [ABSORPTION_CASE_DROP_REASON])
+}
+
 export function currentProposals(state: GameState, talentId: string): readonly TalentMarketProposal[] {
   return state.talentMarket.proposals.filter((p) => p.talentId === talentId)
 }

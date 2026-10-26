@@ -247,9 +247,9 @@ function dispatchRow(session: BridgeSession, actions: readonly WireAction[], row
 
 describe('P13B-S5-T4 bridge adoption wire: projection bump (36 -> 37)', () => {
   it('bumps PROJECTION_VERSION to 37 and its schema $id / x-project-studio.projectionVersion move with it', () => {
-    expect(PROJECTION_VERSION).toBe(63)
-    expect(BRIDGE_SCHEMA.$id).toContain('projection-63')
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(63)
+    expect(PROJECTION_VERSION).toBe(64)
+    expect(BRIDGE_SCHEMA.$id).toContain('projection-64')
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(64)
   })
   it('AVAILABLE_INTENT_KINDS gains the adoptTechnology kind, distinct from researchAction/installationAction/physicalPlanAction', () => {
     expect((AVAILABLE_INTENT_KINDS as readonly string[])).toContain('adoptTechnology')

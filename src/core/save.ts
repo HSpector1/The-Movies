@@ -1,3 +1,4 @@
+import { absorbedPromiseAuthority } from './absorbedObligations.js'
 import { carriedProductionAuthority, type CarriedProductionAuthority } from './continuedScripts.js'
 import { buyerScriptDevelopment } from './continuedScripts.js'
 import { buyerOperationsForAllWork, buyerOperatedProductions } from './continuedWork.js'
@@ -9568,7 +9569,7 @@ function validateSaveV30WithWriting(save: unknown, retirementWriting?: Retiremen
   const raw = v14Record(checkEnvelope(save, 'validateSaveV30'), 'state');
   if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSaveV30: firstTakes root missing');
   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV30: promises root missing');
-  if (directingPromises === 40) validatePromiseRootsV40(raw, era.rights ? era.absorptions : undefined, era.carriedProduction);
+  if (directingPromises === 40) validatePromiseRootsV40(raw, era.rights ? era.absorptions : undefined, era.carriedProduction, era.absorbedPromises);
   else if (directingPromises === 39) validatePromiseRootsV39(raw);
   else validatePromiseRootsV30(raw);
   try {
@@ -10892,7 +10893,7 @@ function proveProfessionSave(save: unknown, version: 38 | 39 | 40 | 41, rivalShe
   validateSaveV37WithProfession({ ...save, saveVersion: 37, state: stripProfessionHistory(raw) }, professionContext, writing,
     version === 38 ? false : version === 41 ? 40 : version, version === 41, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding, era);
   if (version >= 39) validateDirectorWaiverLinks((save as SaveFileV39 | SaveFileV40 | SaveFileV41).state.promises);
-  if (version >= 40) validateOpportunityWaiverLinks((save as SaveFileV40 | SaveFileV41).state);
+  if (version >= 40) validateOpportunityWaiverLinks((save as SaveFileV40 | SaveFileV41).state, era.absorbedPromises);
   onValidatedWriting?.(writing);
   return { save: save as SaveFileV38 | SaveFileV39 | SaveFileV40 | SaveFileV41, professionContext };
 }
@@ -11670,7 +11671,7 @@ function p15bEraOf(raw: Record<string, unknown>, rights = false, titleState?: Ga
   const rows = rights && Array.isArray(current.rights?.absorptions) ? current.rights.absorptions : [];
   // P16 rebase round 5 (review O6): only records enter the era map, so a malformed (null) absorption claims nothing in
   // the predecessor proof and validateContinuedWorkShapes refuses it by name after it, never a TypeError here.
-  return { studioLoans: true, closure: closureStops(raw), rights, carriedProduction:rights?carriedProductionAuthority(current):undefined, absorptions: new Map(rows.filter((a) => isRecord(a)).map(a => [a.targetId, a])) };
+  return { studioLoans: true, closure: closureStops(raw), rights, carriedProduction:rights?carriedProductionAuthority(current):undefined, absorbedPromises:rights?absorbedPromiseAuthority(current):undefined, absorptions: new Map(rows.filter((a) => isRecord(a)).map(a => [a.targetId, a])) };
 }
 
 /**
@@ -11765,7 +11766,7 @@ function validateSaveP15BEra(save: unknown, rights: boolean, titleState?: GameSt
   // watermark, so it must see the P15B roots; the frozen chain below it strips them (`stripP15Roots`).
   validateP15BPredecessorEra({ ...save, saveVersion: P15B_PREDECESSOR_VERSION, state: raw }, era, false, onValidatedWriting);
   validateCorporateConditionRoot(raw, 'validateSaveP15B', era.closure ?? new Map(), era.rights, new Map([...(era.absorptions?.values() ?? [])].map(a => [a.targetId, a.week])));
-  validateStudioClosureRoot(raw, 'validateSaveP15B', { rightsEstate: era.rights, ...(titleState === undefined ? {} : { titleState }) });
+  validateStudioClosureRoot(raw, 'validateSaveP15B', { rightsEstate: era.rights, ...(titleState === undefined ? {} : { titleState }), ...(era.absorbedPromises === undefined ? {} : { absorptionWithdrawals: era.absorbedPromises.withdrawalEvents }) });
   validateP15Allocator(raw, 'validateSaveP15B', P15B_SEQUENCED_ROOTS);
   return save as SaveFileP15B;
 }

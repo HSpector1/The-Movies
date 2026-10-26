@@ -58,6 +58,8 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
 // that window would carry the earlier hash, and this map is keyed on the
 // hash, not the label.
 export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+  // Authentic outgoing63: install only after its original-runtime capture is verified.
+  ['sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1', 'projection-v63'],
   // Authentic generated outgoing62, before retained-writing projection63.
   ['sha256:2b94e6df66cd5b45e398861c8130085434d4bb9c4d0cf9bdcb97607699799604', 'projection-v62'],
   // Exact earned outgoing61, before disclosed terminal script write-off quote terms.

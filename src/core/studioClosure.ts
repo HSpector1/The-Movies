@@ -1,3 +1,4 @@
+import { absorbedPromiseAuthority, type AbsorptionWithdrawalAuthority } from './absorbedObligations.js'
 import { buyerOperatedProductions, buyerContinuedProductions } from './continuedWork.js'
 // ── P15B Wave 4 (record 1370-ar): the actual closure, `closure/v1` ──────────────────────────────
 // Authority (docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/p15b-prep/
@@ -233,7 +234,10 @@ function rivalPlanComplete(h: HollywoodState, planId: string, work: GameState['p
 
 /** §5 "final validation failure": a transaction validates its own result before it publishes. */
 function validated(result: GameState, label: string): GameState {
-  validateStudioClosureRoot(result as unknown as Record<string, unknown>, label, { rightsEstate: Object.hasOwn(result, 'rights') })
+  const rightsEstate=Object.hasOwn(result,'rights')
+  const obligations=rightsEstate?absorbedPromiseAuthority(result):undefined
+  validateStudioClosureRoot(result as unknown as Record<string, unknown>, label, { rightsEstate,
+    ...(obligations===undefined?{}:{absorptionWithdrawals:obligations.withdrawalEvents}) })
   return result
 }
 
@@ -251,7 +255,7 @@ function continuedBuyerScripts(state:GameState) {
   if(!state.rights || !state.hollywood)return []
   const productions=new Set(buyerContinuedProductions(state).map(p=>p.id))
   return [...state.hollywood.businesses.flatMap(b=>b.development.projects.filter(p=>p.productionId!==null && productions.has(p.productionId))),
-    ...state.rights.absorptions.flatMap(a=>(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'))&&a.buyerId===state.hollywood!.playerStudioId?a.continuedScripts.map(r=>r.project):[])]
+    ...state.rights.absorptions.flatMap(a=>(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7'))&&a.buyerId===state.hollywood!.playerStudioId?a.continuedScripts.map(r=>r.project):[])]
 }
 
 function prepareStudioClosure(state: GameState, studioId: string, causeEventId: string): GameState {
@@ -618,7 +622,7 @@ const isWeek = (value: unknown): value is number => Number.isSafeInteger(value) 
 const close = (a: number, b: number): boolean => Math.abs(a - b) <= 1e-6
 
 /** Validates `studioClosure` against the whole state (the frozen chain and the condition root already proven). */
-export function validateStudioClosureRoot(raw: Record<string, unknown>, label: string, policy: { rightsEstate: boolean; titleState?: GameState } = { rightsEstate: false }): void {
+export function validateStudioClosureRoot(raw: Record<string, unknown>, label: string, policy: { rightsEstate: boolean; titleState?: GameState; absorptionWithdrawals?: AbsorptionWithdrawalAuthority } = { rightsEstate: false }): void {
   const fail = (message: string): never => { throw new Error(`${label}: studioClosure ${message}`) }
   const root = raw.studioClosure
   if (!isRecord(root)) return fail('root must be an object')
@@ -981,7 +985,16 @@ export function validateStudioClosureRoot(raw: Record<string, unknown>, label: s
   for (const b of h.businesses) {
     if (!closedAt.has(b.studioId) && b.account.periods.some((p) => ((p.movements as Record<string, number>).claimPayment ?? 0) !== 0)) fail(`rival ${b.studioId} holds claimPayment money but has not closed`)
   }
-  for (const r of marketReceipts) if (r.kind === 'proposalWithdrawn' && (r.studioId === null || closedAt.get(r.studioId) !== r.week)) fail(`market receipt ${r.eventId} withdraws a proposal for a closure that did not happen`)
+  for (const r of marketReceipts) if (r.kind === 'proposalWithdrawn' && (r.studioId === null || closedAt.get(r.studioId) !== r.week)) {
+    // Current49's owner forwards only an exact event already proved by its full
+    // v7 obligation join. A reason string or raw absorption row grants nothing.
+    const absorbed=policy.rightsEstate?policy.absorptionWithdrawals?.get(r.eventId):undefined
+    if (!absorbed || absorbed.kind !== r.kind || absorbed.eventId !== r.eventId || absorbed.week !== r.week
+      || absorbed.studioId !== r.studioId || absorbed.talentId !== r.talentId
+      || JSON.stringify(absorbed.reasons) !== JSON.stringify(r.reasons) || JSON.stringify(absorbed.dropped) !== JSON.stringify(r.dropped)) {
+      fail(`market receipt ${r.eventId} withdraws a proposal for a closure that did not happen`)
+    }
+  }
   for (const kase of state.talentMarket.cases) if (kase.reason === CLOSURE_CASE_REASON && closedAt.get(kase.subjectStudioId) !== kase.closedWeek) fail(`a market case was invalidated for a closure that did not happen`)
 }
 

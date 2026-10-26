@@ -1,3 +1,5 @@
+import { absorbedPromiseAuthority, absorbedPromiseContractEnded, operatingPromiseIssuer, promiseTakeIssuerMatches, operationalPromiseView, operationalPromise } from './absorbedObligations.js'
+import type { AbsorbedPromiseAuthority } from './absorbedObligations.js'
 import type { CarriedProductionAuthority } from './continuedScripts.js'
 import type { AbsorptionRecord } from './rights.js'
 // ── P14B.1 — The First Kept Promise Core ─────────────────────────────────────
@@ -550,6 +552,11 @@ function retirementQuoteTakeWeek(state: GameState, draft: PromiseDraft, week: nu
  * their own clock. The quote is not the permanent retirement-outcome predicate.
  */
 export function promiseFeasibility(state: GameState, draft: PromiseDraft, week: number): PromiseFeasibilityReceipt {
+  const authority=absorbedPromiseAuthority(state)
+  return calculatePromiseFeasibility(operationalPromiseView(state,authority),operationalPromise(state,draft,authority),week)
+}
+
+function calculatePromiseFeasibility(state: GameState, draft: PromiseDraft, week: number): PromiseFeasibilityReceipt {
   const X = draft.predicate.count
   const from = Math.max(draft.windowStartWeek, week)
   const opportunityScope = opportunityReservations(state, draft, from)
@@ -850,15 +857,17 @@ export function promiseCastSlots(promise: { predicate: PromisePredicate }): read
  * only; no receipts, no RNG. */
 export function promisedCastMasks(
   state: { promises: readonly ReadablePromise[] }, issuerStudioId: string, takeWeek: number,
-  subject?: { genre: Genre; scriptProjectId: string | null },
+  subject?: { genre: Genre; scriptProjectId: string | null }, authority=absorbedPromiseAuthority(state),
 ): ReadonlyMap<string, readonly CastSlot[]> {
   const masks = new Map<string, readonly CastSlot[]>()
   for (const promise of state.promises) {
     if (isDirectorPromise(promise)) continue
+    const assignment=authority?.assignments.get(promise.promiseId)
+    const canonical=(id:string|null)=>id===null?null:assignment?.projectIds.get(id)??id
     if (isOpportunityPredicate(promise.predicate) && (subject === undefined
       || (promise.predicate.kind === 'genreOpportunity' ? promise.predicate.genre !== subject.genre
-        : promise.predicate.scriptProjectId !== subject.scriptProjectId))) continue
-    if (!evaluable(promise) || promise.issuerStudioId !== issuerStudioId
+        : canonical(promise.predicate.scriptProjectId) !== canonical(subject.scriptProjectId)))) continue
+    if (!evaluable(promise) || (assignment&&takeWeek>=assignment.week?assignment.buyerStudioId:promise.issuerStudioId) !== issuerStudioId
       || promise.progress >= promise.predicate.count
       || takeWeek < promise.windowStartWeek || takeWeek >= promise.dueWeekExclusive) continue
     const slots = promiseCastSlots(promise)
@@ -870,18 +879,21 @@ export function promisedCastMasks(
 
 export function qualifyingTakes(
   state: Pick<GameStateV30, 'firstTakes'> & Partial<Pick<GameState, 'firstTakeSubjects'>>,
-  promise: ReadablePromise,
+  promise: ReadablePromise, authority=absorbedPromiseAuthority(state),
 ): readonly FirstTakeReceipt[] {
   const slots = promiseCastSlots(promise)
   const director = isDirectorPromise(promise)
   const productions = new Set<string>()
-  return state.firstTakes.filter((take) => {
+  return state.firstTakes.filter((take,ordinal) => {
     if (productions.has(take.productionId)
-      || take.studioId !== promise.issuerStudioId
+      || !promiseTakeIssuerMatches(promise as ProfessionalPromise,take,ordinal,authority)
       || take.week < promise.windowStartWeek || take.week >= promise.dueWeekExclusive
       || !(director ? take.directorId === promise.beneficiaryPersonId
         : slots.some((slot) => take.cast[slot] === promise.beneficiaryPersonId))) return false
-    if (isOpportunityPredicate(promise.predicate) && !opportunitySubjectMatches(promise.predicate,
+    const assignment=authority?.assignments.get(promise.promiseId)
+    const predicate=isOpportunityPredicate(promise.predicate)&&promise.predicate.kind==='projectOpportunity'&&assignment&&ordinal>=assignment.firstTakeCountBeforeClose
+      ?{...promise.predicate,scriptProjectId:assignment.projectIds.get(promise.predicate.scriptProjectId)??promise.predicate.scriptProjectId}:promise.predicate
+    if (isOpportunityPredicate(predicate) && !opportunitySubjectMatches(predicate,
       state.firstTakeSubjects?.facts.find(subject => subject.eventId === take.eventId))) return false
     productions.add(take.productionId)
     return true
@@ -908,8 +920,10 @@ export function qualifyingTakes(
  * FRAGILE term, no receipt (record 26 §2): a joint conflict, an unsupported
  * family and a FRAGILE remainder are all `null` here. Pure, no RNG.
  */
-export function targetSpecificImpossibility(state: GameState, promise: ProfessionalPromise, week: number): string | null {
-  const remaining = Math.max(0, promise.predicate.count - qualifyingTakes(state, promise).length)
+export function targetSpecificImpossibility(state: GameState, promise: ProfessionalPromise, week: number, authority=absorbedPromiseAuthority(state)): string | null {
+  const remaining = Math.max(0, promise.predicate.count - qualifyingTakes(state, promise,authority).length)
+  promise=operationalPromise(state,promise,authority)
+  state=operationalPromiseView(state,authority)
   if (remaining === 0) return null
   if (isOpportunityPredicate(promise.predicate)) return opportunityPhysicalImpossibility(state, { ...promise, predicate: promise.predicate }, week)
   const t0 = Math.max(promise.windowStartWeek, expectedFirstTakeWeek(state, promise, week, 0))
@@ -1033,10 +1047,11 @@ function settle(
 export function advancePromisesWeek(state: GameState): GameState {
   requirePromiseRoots(state)
   const week = state.market.tick
+  const authority=absorbedPromiseAuthority(state)
   let next = state
   for (const promise of state.promises) {
     if (!evaluable(promise)) continue
-    const takes = qualifyingTakes(next, promise)
+    const takes = qualifyingTakes(next, promise,authority)
     const progress = Math.min(promise.predicate.count, takes.length)
     if (takes.length >= promise.predicate.count) {
       const evidenceRefs = takes.slice(0, promise.predicate.count).map((t) => t.eventId)
@@ -1056,7 +1071,7 @@ export function advancePromisesWeek(state: GameState): GameState {
       }, week, 'a promise to this person was kept')
       continue
     }
-    if (retirementVoidsPromise(next, promise, week, promise.predicate.count - progress)) {
+    if (retirementVoidsPromise(operationalPromiseView(next,authority), operationalPromise(next,promise,authority), week, promise.predicate.count - progress)) {
       next = settle(next, promise, {
         progress,
         evidenceRefs: takes.map((take) => take.eventId),
@@ -1089,13 +1104,15 @@ export function advancePromisesWeek(state: GameState): GameState {
  * the beneficiary early, so every open promise it made them is BROKEN at the
  * termination, not at the next weekly pass.
  */
-export function breakPromisesOnTermination(state: GameState, issuerStudioId: string, personId: string): GameState {
+export function breakPromisesOnTermination(state: GameState, issuerStudioId: string, personId: string, authority=absorbedPromiseAuthority(state)): GameState {
   requirePromiseRoots(state)
   const week = state.market.tick
   let next = state
   for (const promise of state.promises) {
     if (!evaluable(promise)) continue
-    if (promise.issuerStudioId !== issuerStudioId || promise.beneficiaryPersonId !== personId) continue
+    if (operatingPromiseIssuer(state,promise,week,authority) !== issuerStudioId || promise.beneficiaryPersonId !== personId) continue
+    const assignment=authority?.assignments.get(promise.promiseId)
+    if(assignment&&!absorbedPromiseContractEnded(state,assignment,week))continue
     next = settle(next, promise, {
       outcome: 'BROKEN',
       outcomeCause: 'the studio terminated this contract early, ending the window',
@@ -1115,27 +1132,30 @@ export function breakPromisesOnTermination(state: GameState, issuerStudioId: str
  * unsupported family or a FRAGILE remainder never breaks; a first take already
  * taken is never un-taken (companion §4.2: "first take, then cancellation").
  */
-export function breakPromisesOnCancel(state: GameState, issuerStudioId: string, cancelled: Production): GameState {
+export function breakPromisesOnCancel(state: GameState, issuerStudioId: string, cancelled: Production, authority=absorbedPromiseAuthority(state), selectedPromiseIds?:ReadonlySet<string>): GameState {
   requirePromiseRoots(state)
   const week = state.market.tick
   if (state.firstTakes.some((t) => t.productionId === cancelled.id)) return state
   let next = state
   for (const promise of state.promises) {
     if (!evaluable(promise)) continue
-    if (promise.issuerStudioId !== issuerStudioId) continue
+    if ((selectedPromiseIds&&!selectedPromiseIds.has(promise.promiseId))||operatingPromiseIssuer(state,promise,week,authority) !== issuerStudioId) continue
+    const operating=operationalPromise(state,promise,authority),view=operationalPromiseView(state,authority)
     // The post-cancel owner has cleared its production link; the concept still
     // identifies the exact retained screenplay that cancellation returned to Ready.
     if (isOpportunityPredicate(promise.predicate)) {
-      const owner = state.hollywood?.playerStudioId === issuerStudioId ? state.scriptDevelopment
-        : state.hollywood?.businesses.find(row => row.studioId === issuerStudioId)?.development
-      const project = owner?.projects.find(row => row.id === ('scriptProjectId' in promise.predicate ? promise.predicate.scriptProjectId : ''))
-      if (promise.predicate.kind === 'projectOpportunity' && project?.conceptId !== cancelled.conceptId) continue
-      if (promise.predicate.kind === 'genreOpportunity' && !opportunityProductionMatches(state, issuerStudioId, promise.predicate, cancelled)) continue
+      const owner = view.hollywood?.playerStudioId === issuerStudioId ? view.scriptDevelopment
+        : view.hollywood?.businesses.find(row => row.studioId === issuerStudioId)?.development
+      const project = owner?.projects.find(row => row.id === ('scriptProjectId' in operating.predicate ? operating.predicate.scriptProjectId : ''))
+      const assignment=authority?.assignments.get(promise.promiseId)
+      const sourceMatch=assignment!==undefined&&opportunityProductionMatches(state,assignment.sourceStudioId,promise.predicate,cancelled)
+      if (promise.predicate.kind === 'projectOpportunity' && project?.conceptId !== cancelled.conceptId && !sourceMatch) continue
+      if (promise.predicate.kind === 'genreOpportunity' && !opportunityProductionMatches(view, issuerStudioId, promise.predicate, cancelled) && !sourceMatch) continue
     }
     const directing = isDirectorPromise(promise)
     if (!(directing ? cancelled.directorId === promise.beneficiaryPersonId
       : promiseCastSlots(promise).some((slot) => cancelled.cast[slot] === promise.beneficiaryPersonId))) continue
-    if (targetSpecificImpossibility(state, promise, week) === null) continue
+    if (targetSpecificImpossibility(state, promise, week,authority) === null) continue
     next = settle(next, promise, {
       outcome: 'BROKEN',
       outcomeCause: directing
@@ -1151,12 +1171,14 @@ export function breakPromisesOnCancel(state: GameState, issuerStudioId: string, 
  * is committed. A queued or refused request never creates a terminal outcome. */
 export function breakPromisesOnGreenlight(state: GameState, issuerStudioId: string, production: Production,
   week = state.market.tick): GameState {
+  const authority=absorbedPromiseAuthority(state),view=operationalPromiseView(state,authority)
   let next = state
   for (const promise of state.promises) {
-    if (!evaluable(promise) || promise.issuerStudioId !== issuerStudioId
+    const operating=operationalPromise(state,promise,authority)
+    if (!evaluable(promise) || operatingPromiseIssuer(state,promise,week,authority) !== issuerStudioId
       || !isOpportunityPredicate(promise.predicate) || promise.predicate.kind !== 'projectOpportunity'
-      || promise.progress >= promise.predicate.count || qualifyingTakes(state, promise).length >= promise.predicate.count
-      || !opportunityProductionMatches(state, issuerStudioId, promise.predicate, production)
+      || promise.progress >= promise.predicate.count || qualifyingTakes(state, promise,authority).length >= promise.predicate.count
+      || !opportunityProductionMatches(view, issuerStudioId,operating.predicate as OpportunityPredicate, production)
       || promiseCastSlots(promise).some(slot => production.cast[slot] === promise.beneficiaryPersonId)) continue
     next = settle(next, promise, { outcome: 'BROKEN', outcomeEventId: null,
       outcomeCause: 'the studio fixed the named project cast without this person in the promised seat' },
@@ -1237,19 +1259,26 @@ function identicalSubstitute(promise: ProfessionalPromise, substitute: PromiseAt
 
 /** Restriction inclusion is independent of class inclusion and remaining count. It reads only the
  * Save40 era's state, so the frozen V40/V41 proof can ask it as well as the live writer. */
-function opportunitySubstitutionRefusal(state: GameStateV40, promise: ProfessionalPromise, substitute: PromiseAttachment): string | null {
+function opportunitySubstitutionRefusal(state: GameStateV40, promise: ProfessionalPromise, substitute: PromiseAttachment, authority?:AbsorbedPromiseAuthority): string | null {
   if (!isOpportunityPredicate(promise.predicate)) return null
   if (!isOpportunityPredicate(substitute.predicate)) return 'a substitute cannot erase the promised genre or project restriction'
   if (promise.predicate.kind === 'projectOpportunity') {
-    return substitute.predicate.kind === 'projectOpportunity' && substitute.predicate.scriptProjectId === promise.predicate.scriptProjectId
+    const assignment=authority?.assignments.get(promise.promiseId)
+    const canonical=(id:string)=>assignment?.projectIds.get(id)??id
+    return substitute.predicate.kind === 'projectOpportunity' && canonical(substitute.predicate.scriptProjectId) === canonical(promise.predicate.scriptProjectId)
       ? null : 'a substitute must retain the same named script project'
   }
   if (substitute.predicate.kind === 'genreOpportunity') return substitute.predicate.genre === promise.predicate.genre
     ? null : 'a substitute must retain the same promised genre'
-  const owner = takeSubjectOwner(state, promise.issuerStudioId)
+  const assignment=authority?.assignments.get(promise.promiseId)
+  const owner = takeSubjectOwner(state, assignment?.buyerStudioId??promise.issuerStudioId)
   const id = substitute.predicate.scriptProjectId
   const project = owner?.development.projects.find(row => row.id === id)
-  return owner?.concepts.find(row => row.id === project?.conceptId)?.genre === promise.predicate.genre
+  const sourceId=assignment?[...assignment.projectIds].find(([source,buyer])=>source===id||buyer===id)?.[0]:undefined
+  const sourceProject=sourceId===undefined?undefined:state.hollywood?.businesses.find(b=>b.studioId===assignment?.sourceStudioId)?.development.projects.find(p=>p.id===sourceId)
+  const genre=project?owner?.concepts.find(row => row.id === project.conceptId)?.genre
+    :sourceProject?state.hollywood?.concepts.find(c=>c.id===sourceProject.conceptId)?.genre:undefined
+  return genre === promise.predicate.genre
     ? null : 'the substitute project must belong to the original promised genre'
 }
 
@@ -1327,7 +1356,7 @@ export function waiverAccepted(
   if (!directing && !promiseCastSlots({ predicate: substitute.predicate }).every((slot) => promised.includes(slot))) {
     return 'the part offered is weaker than the part promised'
   }
-  const restrictionRefusal = opportunitySubstitutionRefusal(state, promise, substitute)
+  const restrictionRefusal = opportunitySubstitutionRefusal(state, promise, substitute,absorbedPromiseAuthority(state))
   if (restrictionRefusal !== null) return restrictionRefusal
   const remaining = promise.predicate.count - promise.progress
   if (substitute.predicate.count < remaining) {
@@ -1563,11 +1592,11 @@ export function validatePromiseRootsV39(state: unknown): void {
   validatePromiseRootsForVersion(state, 39)
 }
 
-export function validatePromiseRootsV40(state: unknown, absorptions?:ReadonlyMap<string,AbsorptionRecord>, carriedProduction?:CarriedProductionAuthority): void {
-  validatePromiseRootsForVersion(state, 40,absorptions,carriedProduction)
+export function validatePromiseRootsV40(state: unknown, absorptions?:ReadonlyMap<string,AbsorptionRecord>, carriedProduction?:CarriedProductionAuthority, absorbedPromises?:AbsorbedPromiseAuthority): void {
+  validatePromiseRootsForVersion(state, 40,absorptions,carriedProduction,absorbedPromises)
 }
 
-function validatePromiseRootsForVersion(state: unknown, saveVersion: 29 | 30 | 39 | 40, absorptions?:ReadonlyMap<string,AbsorptionRecord>, carriedProduction?:CarriedProductionAuthority): void {
+function validatePromiseRootsForVersion(state: unknown, saveVersion: 29 | 30 | 39 | 40, absorptions?:ReadonlyMap<string,AbsorptionRecord>, carriedProduction?:CarriedProductionAuthority, absorbedPromises?:AbsorbedPromiseAuthority): void {
   const fail = (message: string): never => {
     throw new Error(`validateSaveV${String(saveVersion)}: ${message}`)
   }
@@ -1677,8 +1706,12 @@ function validatePromiseRootsForVersion(state: unknown, saveVersion: 29 | 30 | 3
       if (refusal !== null) return fail(`${at}.predicate ${refusal}`)
       if (row.version !== OPPORTUNITY_PROMISE_RULES_VERSION) return fail(`${at}.version must be opportunity revision7`)
       qualifyingSlots = opportunitySlots(predicate as unknown as OpportunityPredicate)
+      const assignment=absorbedPromises?.assignments.get(promiseId)
+      const operationalOwner=assignment===undefined?undefined:takeSubjectOwner(state as unknown as GameState,assignment.buyerStudioId)
       if (predicate.kind === 'projectOpportunity' && !takeSubjectOwner(state as unknown as GameState, String(row.issuerStudioId))
-        ?.development.projects.some(project => project.id === predicate.scriptProjectId)) {
+        ?.development.projects.some(project => project.id === predicate.scriptProjectId)
+        && !(assignment&&([...assignment.projectIds].some(([source,buyer])=>source===predicate.scriptProjectId||buyer===predicate.scriptProjectId)
+          ||operationalOwner?.development.projects.some(project=>project.id===predicate.scriptProjectId)))) {
         return fail(`${at}.predicate.scriptProjectId does not name a retained project of its issuing studio`)
       }
     } else if (director) {
@@ -1758,14 +1791,17 @@ function validatePromiseRootsForVersion(state: unknown, saveVersion: 29 | 30 | 3
       if (evidence.has(id)) return fail(`${at}.evidenceRefs repeats a first take`)
       evidence.add(id)
       const take = takesById.get(id)
-      if (take === undefined || take.studioId !== row.issuerStudioId
+      if (take === undefined || !promiseTakeIssuerMatches(row as unknown as ProfessionalPromise,take,takes.findIndex(t=>isRecord(t)&&t.eventId===id),absorbedPromises)
         || !(director ? take.directorId === row.beneficiaryPersonId
           : qualifyingSlots.some((slot) => take.cast[slot] === row.beneficiaryPersonId))
         || take.week < start || take.week >= due
         || (row.outcomeWeek !== null && take.week > Number(row.outcomeWeek))) {
         return fail(`${at}.evidenceRefs does not name a qualifying first take inside this promise's window`)
       }
-      if (opportunity && !opportunitySubjectMatches(predicate as unknown as OpportunityPredicate,
+      const assignment=absorbedPromises?.assignments.get(promiseId)
+      const mapped=opportunity&&predicate.kind==='projectOpportunity'&&assignment&&takes.indexOf(take)>=assignment.firstTakeCountBeforeClose
+        ?{...predicate,scriptProjectId:assignment.projectIds.get(String(predicate.scriptProjectId))??predicate.scriptProjectId}:predicate
+      if (opportunity && !opportunitySubjectMatches(mapped as unknown as OpportunityPredicate,
         subjects.find(subject => subject.eventId === id))) return fail(`${at}.evidenceRefs does not match its recorded take subject`)
     }
     if (evidence.size > progress) return fail(`${at}.evidenceRefs exceeds its recorded progress`)
@@ -1922,7 +1958,7 @@ export function validateDirectorWaiverLinks(promises: readonly ProfessionalPromi
 
 /** Called only after complete40 admission, with full material and employment authority. Typed by
  * the era it proves: save.ts hands it the V40/V41 state, which carries no later root. */
-export function validateOpportunityWaiverLinks(state: GameStateV40): void {
+export function validateOpportunityWaiverLinks(state: GameStateV40,authority?:AbsorbedPromiseAuthority): void {
   const indices = new Map(state.promises.map((row, i) => [row.promiseId, i] as const))
   const incoming = new Set<string>()
   const fail = (id: string, reason: string): never => { throw new Error(`validateSaveV40: opportunity waiver ${id} ${reason}`) }
@@ -1944,7 +1980,7 @@ export function validateOpportunityWaiverLinks(state: GameStateV40): void {
     if (successor.feasibilityReceipt.classification !== 'REASONABLY_ACHIEVABLE') fail(original.promiseId, 'must have an accepted achievable receipt')
     if (isDirectorPredicate(original.predicate) !== isDirectorPredicate(successor.predicate)
       || !promiseCastSlots(successor).every(slot => promiseCastSlots(original).includes(slot))) fail(original.promiseId, 'cannot weaken the work domain or cast class')
-    const restriction = opportunitySubstitutionRefusal(state, original, successor)
+    const restriction = opportunitySubstitutionRefusal(state, original, successor,authority)
     if (restriction !== null) fail(original.promiseId, restriction)
     if (successor.predicate.count < original.predicate.count - original.progress) fail(original.promiseId, 'does not cover the remaining work')
   }

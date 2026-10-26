@@ -1,0 +1,227 @@
+{
+  "status": "FROZEN-STATIC-UNRUN",
+  "base": "Current X plus conditional outgoing63 patch, installed only after verified actual63 capture",
+  "measuredSchemaId": "sha256:57f12ee28d21aa47c7514afa1c058105a10f10a9e76d400d664e97c23dc90272",
+  "generationReceipt": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/contract64/GENERATED-OUTPUTS.json",
+  "generationReceiptSha256": "94eb2bdbbd7dbf01c129e6c25f8200d17f59ccbdcd991721f3e31d9d0e8a221c",
+  "patch": {
+    "path": "CURRENT64-LITERALS.patch",
+    "sha256": "324b2ab86d58f53cf3ecbc23c50cb310fd91e4c5bdd33b5a8ec9c84036ea65af",
+    "bytes": 33802
+  },
+  "files": [
+    {
+      "path": "tests/bridge-operations-events.test.ts",
+      "base": "current-X",
+      "preimageSha256": "dd26e0b40a0fd4e8be420d1743268d6f9554876ea58886bbd37dcc0c75a46284",
+      "postimageSha256": "8fc2036d4139d0002b99102110d55f3f811b4fcf4ee253ce2be10899e75b5efd"
+    },
+    {
+      "path": "tests/bridge-owner-ux-projection21-schema.test.ts",
+      "base": "current-X",
+      "preimageSha256": "54a2e61c8573eb3d83eab197c5c5470f98cf172f83c09621c96966751f22ee44",
+      "postimageSha256": "93f92d778eba0b9c9660abc9ee659529700b255016d312325d73b9f2c25bf3c6"
+    },
+    {
+      "path": "tests/bridge-p10a-w0-people-projection.test.ts",
+      "base": "current-X",
+      "preimageSha256": "1554f3dbfb51c4264d53367effd694e0eac4e4149d3ff94df954c0f61ad70f02",
+      "postimageSha256": "0620086d0bd0a6b3b9c6bc983c211a708b5191ca38553b1946b6cc917e7b88eb"
+    },
+    {
+      "path": "tests/bridge-p11-capital-contributors.test.ts",
+      "base": "current-X",
+      "preimageSha256": "13509d9497881b448767a7b6848026669ae195cb1ef5577ea44e991ce30e0f77",
+      "postimageSha256": "c98369bb99f00875bf3f6951638db843aebbecd70185232946e82e3688816923"
+    },
+    {
+      "path": "tests/bridge-p11-ready.test.ts",
+      "base": "current-X",
+      "preimageSha256": "50060deff2dda57ec73ce13578fc05e9f0c50a0a46b91eb3c2cbb0c3c2d6c77c",
+      "postimageSha256": "53dc420c3dd639ecc1a58c48c2bc31ac8226561181bd5ee6f4464cb59409960f"
+    },
+    {
+      "path": "tests/bridge-p13b-r07-setup.test.ts",
+      "base": "current-X",
+      "preimageSha256": "3eaa618450ce9007b8c2fd41ab6990daf0447c0aae6c844008e943029f62cba4",
+      "postimageSha256": "1202a7c99e0abd9dd69926d4b7006c513b86e247dd216cba7161d8616a4789b2"
+    },
+    {
+      "path": "tests/bridge-p13b-s1b-seats.test.ts",
+      "base": "current-X",
+      "preimageSha256": "219d9c7d3c40d70cc4a8e59ab96fc4445ef5714befcfbd62a169b4db32a6cb61",
+      "postimageSha256": "287c989e6a68d51fda101c8ffa86a5a64fb01692065ccca317c92ef1bd5599a5"
+    },
+    {
+      "path": "tests/bridge-p13b-s2-labs.test.ts",
+      "base": "current-X",
+      "preimageSha256": "cf4982247fc065a599e4666d8c6c5616e9469806b8aa54e3dee96fe7036fa6d1",
+      "postimageSha256": "81251d657f7dda4ddd1daf73095c8fbfd8b6279afcdcaacad61237d4a45a10a7"
+    },
+    {
+      "path": "tests/bridge-p13b-s3-plans.test.ts",
+      "base": "current-X",
+      "preimageSha256": "05e6222b3230d0721f6c71d08bdfb27648518da7e0d0b0fbdf6907b9e0c4f527",
+      "postimageSha256": "a2b39b7390d9dcc8228cd84759a47aa95a0535184714f7182d0309ddf6b2e09c"
+    },
+    {
+      "path": "tests/bridge-p13b-s4-office.test.ts",
+      "base": "current-X",
+      "preimageSha256": "437f6e41bddf9ff61a2e16e21561d57daf3c59da7f47c958cae4a36d57092514",
+      "postimageSha256": "894b2da33e1a6328cdedecb4673ccba077c0cd4936c54c441b7fb69c61bc637c"
+    },
+    {
+      "path": "tests/bridge-p13b-s5-adoption.test.ts",
+      "base": "current-X",
+      "preimageSha256": "10c381b2c271a931dbdd744c1b742c361272503793772d06cbc567cb76743802",
+      "postimageSha256": "20eb2fc8847454df44b67f004de6abdc65a4a21d4242e5eb24c09abba1ba28b5"
+    },
+    {
+      "path": "tests/bridge-p13b-s6-cancellation.test.ts",
+      "base": "current-X",
+      "preimageSha256": "581a029c3353cd1e54e30b23cf4b0dc8d018cbc03407449333b8798840e26478",
+      "postimageSha256": "bef3bbcdfb87a97d7762f5d3764bb7c1905246bf1311225613a2b16006243a90"
+    },
+    {
+      "path": "tests/bridge-p13b-s7-disclosure.test.ts",
+      "base": "current-X",
+      "preimageSha256": "1256759979328e2100cf2e2da6186e2e645edb16905e86e44f9a990ed044c30b",
+      "postimageSha256": "614398123b11dc4ff625f3bcc13e516ba569bf4c2f73a2d048ba87f9c9bdd8c6"
+    },
+    {
+      "path": "tests/bridge-p13b-s8-rivals.test.ts",
+      "base": "current-X",
+      "preimageSha256": "2664d31be66a2360a9218a9d7cef0a2162c0dc2c316717a2aa08d1befff5663f",
+      "postimageSha256": "4548590aff47b565e6611c34f838f577f019ee1c2ee047c47e1d9a7eda73e42b"
+    },
+    {
+      "path": "tests/bridge-p14a1-market.test.ts",
+      "base": "current-X",
+      "preimageSha256": "400572dfc62383cb2077f4d19b5d941ac5a2a7217da78f59ca78b33528b218ac",
+      "postimageSha256": "5cb6b72cea085f715188867f647b6d55a28bb3cef05d329953baafa3f3291a10"
+    },
+    {
+      "path": "tests/bridge-p14a1-release-busy-set.test.ts",
+      "base": "current-X",
+      "preimageSha256": "03d75c4da0295494074412e7784db2d8fcccff77173300e844088ea0e054f6d2",
+      "postimageSha256": "355e22d6759eb8cfa581eb40a86d457df5b0620ac4397ea127e3ee1120ac8379"
+    },
+    {
+      "path": "tests/bridge-p14a2-market.test.ts",
+      "base": "current-X",
+      "preimageSha256": "79f03bd15d0254aef2564e12fbc3f3793b305f75f7171952c1ad253230e0fca0",
+      "postimageSha256": "3e6ed69b03d072ffbc33fe11f08477dc9a7d72892ca5f04a351c3c84084c9dbb"
+    },
+    {
+      "path": "tests/bridge-p14a3-world.test.ts",
+      "base": "current-X",
+      "preimageSha256": "76332e2965cf594d68eeeb93f6f79b1da103c6032419b922dff279186659086a",
+      "postimageSha256": "edd69dc41b2311b53efe994cdbb3abb2e197c3fb85da64d1bd0f7c428ea19760"
+    },
+    {
+      "path": "tests/bridge-p14b1-promises.test.ts",
+      "base": "current-X",
+      "preimageSha256": "535ae4a0695a8013bb9a081eb4209f14a084455f93df9b382027d3d3a796f106",
+      "postimageSha256": "b2201161990d1a5410efb6f9dbf7ab1960da1053627a9d64b8587e3567bf544a"
+    },
+    {
+      "path": "tests/bridge-p14b10-relationship-labels.test.ts",
+      "base": "current-X",
+      "preimageSha256": "6a99de734e4758b06ba7c13522d4b0e882916b84347eb58ab65f1d6d90809814",
+      "postimageSha256": "28b7f15d0ac7de01a185056d572426171cce73b3339a63b7b4799fc5bfe2bcd9"
+    },
+    {
+      "path": "tests/bridge-p14b2-trust.test.ts",
+      "base": "current-X",
+      "preimageSha256": "86669f338f0001eab915ceb878e1e81db297ca812ebb4c548b04d3707bb7a02a",
+      "postimageSha256": "95fa362c91d1c3e12f3e92a635954023aeaed38406ab4be76f1fcf86f746656c"
+    },
+    {
+      "path": "tests/bridge-p14b3-promise-command.test.ts",
+      "base": "current-X",
+      "preimageSha256": "8b5afb7eaeba00f9114b29a8a754ebb8025f1abd81910d32ffe2df0dffc1893d",
+      "postimageSha256": "fdfe22bb359bee89984b9c41fa61eaf3275f692f038d031dbd9e734e34fadfd1"
+    },
+    {
+      "path": "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+      "base": "current-X",
+      "preimageSha256": "a695abbd81a184f06777a44341bee4ff6608b999e03e38c210796176699498fc",
+      "postimageSha256": "e1129ab61a40c08471d176e7ca50fd9db8a82aecf4693baf91867af3acb30584"
+    },
+    {
+      "path": "tests/bridge-p14b5-relationships.test.ts",
+      "base": "outgoing63-draft",
+      "preimageSha256": "6a6236313ae1bd3fcd5071f3b5ff796976cd0f4d74396271b82d16bf9845bd38",
+      "postimageSha256": "b322d48add587996d283bcc9d379c655451ca43121b0206b27430ff49cb84479"
+    },
+    {
+      "path": "tests/bridge-p14b7-promise-waiver.test.ts",
+      "base": "current-X",
+      "preimageSha256": "676741bfd90aea6ef7f71f440b073e0ad05a3cd28b5ad5cc05f1c00460d691a8",
+      "postimageSha256": "c7db06829af3bbd9319c91e4ca5e17ff48cb113712919062009ffc274b233ecc"
+    },
+    {
+      "path": "tests/bridge-p14b8-waiver-surface.test.ts",
+      "base": "outgoing63-draft",
+      "preimageSha256": "9a4bd2207a95a4aab57802b81e00013589a2eb649345d2dd82fe6723529aafb0",
+      "postimageSha256": "cb8380a73425a0a5a77d79f153200f087e6c8c27feb6925e76ff44cfacb65fd8"
+    },
+    {
+      "path": "tests/bridge-p14c2rm-runtime.test.ts",
+      "base": "current-X",
+      "preimageSha256": "fc99087423803ee661d603117bdafb9b4f277c353e1fc33fef6e23738bae1112",
+      "postimageSha256": "0309c47e19d09daf770b7badafb24561d6ef07ba792b126e03358b0694249b09"
+    },
+    {
+      "path": "tests/bridge-p14c2s-scientist-runtime.test.ts",
+      "base": "current-X",
+      "preimageSha256": "8867784156ed5185cf5e3e7946a7989d59cda212dbfef8f70d24bd5736432ca9",
+      "postimageSha256": "bf32d4e4bb4a8dae58af841094c738c8a02d479506ee0ca42129e94593343137"
+    },
+    {
+      "path": "tests/bridge-p14c3-promise-digest-continuity.test.ts",
+      "base": "current-X",
+      "preimageSha256": "aed8ec9f4784d43b68defa28f1fcc55df73822ceedf8b38259ded9ca88e3d626",
+      "postimageSha256": "047fd9fdb30de3fa1a56ca878775f0eebd1e200a42ef7ead0e781e6b85cbb220"
+    },
+    {
+      "path": "tests/bridge-p14c3-runtime.test.ts",
+      "base": "current-X",
+      "preimageSha256": "49e0544baf921db39a1961431fc71c93d3b018e46775ac8358e0f6340c0d9942",
+      "postimageSha256": "9b592275580520c8535496e0aa0f585a45bd73386b7b28ee4e13f31a2e744b09"
+    },
+    {
+      "path": "tests/bridge-p14p3-directing-promises.test.ts",
+      "base": "current-X",
+      "preimageSha256": "8b1dd6ce49fd708262de441e5dbcaf9e5d344467da84587d15c3498b0a53350a",
+      "postimageSha256": "96af95dd04650fe117892ed8351689806ba93fe91c14665c43657ca0f75da6a8"
+    },
+    {
+      "path": "tests/bridge-p14p4p5-opportunities.test.ts",
+      "base": "outgoing63-draft",
+      "preimageSha256": "64a4ff83384959da96a93d2f2323d4c7c9e271bec5cfda4592388975a92f1290",
+      "postimageSha256": "57fd9dae147315c83718e1930e95df368ed2914b9bdeb397b42bbf42bbf3a449"
+    },
+    {
+      "path": "tests/bridge-p14r2r3-prior55.test.ts",
+      "base": "outgoing63-draft",
+      "preimageSha256": "53e942ca1eb51b126a731c5ac329b2f91986453b89a2c5f7c5a4743bfdb94de4",
+      "postimageSha256": "736cd9470f86cd297913666673d3eb5bb1fdae0ba8f9779e9a1e6c78be31c11c"
+    },
+    {
+      "path": "tests/bridge-r3n4-read-model-deltas.test.ts",
+      "base": "current-X",
+      "preimageSha256": "22b31ce21961477692c40d4e8db63af0f74df8d636b367f134f16ef2ce3b82d4",
+      "postimageSha256": "1c3eb14fcadb423d5ed4d9e8390fb25769ce017f23198fd8a5b1adee7a5ff8a2"
+    },
+    {
+      "path": "tests/bridge-schema.test.ts",
+      "base": "current-X",
+      "preimageSha256": "a6bb7ac17d8758bf0b8dbdb48765ef352f29e258c2db464fde67d3daec792236",
+      "postimageSha256": "bf83c45eca45efd43719e077c1648f95ab634bb57beb58bb2bafc5f4f91e6103"
+    }
+  ],
+  "fileCount": 35,
+  "declarationBodyGoldens": "UNTOUCHED; await committed-source measurement",
+  "historicalPriorIdentities": "Unchanged, including conditional authentic outgoing63"
+}

@@ -1,0 +1,30 @@
+{
+  "method": "Existing static literal/constant map-pair extraction; ordinal ID sort; sha256 compact JSON pairs. Reproduces both old50 pins before adding only authentic63; no game/runtime/failure-derived inputs.",
+  "registryPreimageSHA256": "fde85439016f639e3b20f4949fe4194bfd1ddcc510b432561d6ca592bc90dc41",
+  "addition": [
+    "sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1",
+    "projection-v63"
+  ],
+  "oldRegistrySize": 51,
+  "newRegistrySize": 52,
+  "cases": [
+    {
+      "path": "tests/bridge-p14p4p5-opportunities.test.ts",
+      "excludedOLD_SCHEMA": "sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302",
+      "oldLength": 50,
+      "oldSHA256": "02f707e70f7162358974a2d145e103fb1ab6fa1fc1579ce4a83907cb6375e8f0",
+      "oldPinReproduced": true,
+      "newLength": 51,
+      "newSHA256": "1a452a621135f08777522f426ed07fece0cf0fd70bc1ff54abc94d7f97ba98dc"
+    },
+    {
+      "path": "tests/bridge-p14r2r3-prior55.test.ts",
+      "excludedOLD_SCHEMA": "sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158",
+      "oldLength": 50,
+      "oldSHA256": "83e188de62b8061164ee875e9956bfeade3e04583053c20ad52d7ee650c34d35",
+      "oldPinReproduced": true,
+      "newLength": 51,
+      "newSHA256": "9270841e6d49ab6f908129ecf3a233e4855406a345c5d10b7c7d34606782d201"
+    }
+  ]
+}

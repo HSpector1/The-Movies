@@ -63,6 +63,27 @@
       "type": "object",
       "x-csharp-name": "StudioAbsorptionExplicitRetention"
     },
+    "StudioAbsorptionMarketVerdict": {
+      "additionalProperties": false,
+      "properties": {
+        "caseCount": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "proposalCount": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "caseCount",
+        "proposalCount"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioAbsorptionMarketVerdict"
+    },
     "StudioAbsorptionProductionVerdict": {
       "additionalProperties": false,
       "properties": {
@@ -95,6 +116,41 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioAbsorptionProductionVerdict"
+    },
+    "StudioAbsorptionPromiseVerdict": {
+      "additionalProperties": false,
+      "properties": {
+        "disposition": {
+          "enum": [
+            "unboundHistory",
+            "continued",
+            "exit"
+          ],
+          "type": "string"
+        },
+        "promiseId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sourceContractId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "disposition",
+        "promiseId",
+        "sourceContractId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioAbsorptionPromiseVerdict"
     },
     "StudioAbsorptionQuoteSnapshot": {
       "additionalProperties": false,
@@ -211,6 +267,9 @@
         "guarantees": {
           "type": "number"
         },
+        "marketObligations": {
+          "$ref": "#/$defs/StudioAbsorptionMarketVerdict"
+        },
         "outlay": {
           "type": "number"
         },
@@ -220,6 +279,12 @@
         "productions": {
           "items": {
             "$ref": "#/$defs/StudioAbsorptionProductionVerdict"
+          },
+          "type": "array"
+        },
+        "promiseObligations": {
+          "items": {
+            "$ref": "#/$defs/StudioAbsorptionPromiseVerdict"
           },
           "type": "array"
         },
@@ -258,9 +323,11 @@
         "exitCharges",
         "exitedContracts",
         "guarantees",
+        "marketObligations",
         "outlay",
         "postExitCash",
         "productions",
+        "promiseObligations",
         "reserveAfter",
         "resultingWeeklyFixedCost",
         "retainedContracts",
@@ -894,7 +961,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 63,
+          "const": 64,
           "type": "integer"
         },
         "stateDigest": {
@@ -1011,7 +1078,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 63,
+          "const": 64,
           "type": "integer"
         },
         "stateDigest": {
@@ -1546,7 +1613,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 63,
+          "const": 64,
           "type": "integer"
         },
         "stateDigest": {
@@ -1625,7 +1692,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 63,
+          "const": 64,
           "type": "integer"
         },
         "stateDigest": {
@@ -1917,7 +1984,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 63,
+          "const": 64,
           "type": "integer"
         },
         "stateDigest": {
@@ -19602,7 +19669,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-63",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-64",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -19658,7 +19725,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 63,
+    "projectionVersion": 64,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

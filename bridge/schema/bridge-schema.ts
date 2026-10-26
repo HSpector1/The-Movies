@@ -288,8 +288,9 @@ export const PROTOCOL_VERSION = 4 as const
 // Projection60: actual absorbed Ranking definition and retained employment continuation reason.
 // Projection62: explicit stopped-drafting/rewriting outcomes in the coupled absorption preview.
 // Projection63: carried-screenplay blocker and retained-writing absorption verdicts.
+// Projection64: truthful retained/exit/unbound promise and market disposition facts in the absorption quote.
 // Protocol4 and Save49 are unchanged; generated artifacts derive this identity.
-export const PROJECTION_VERSION = 63 as const
+export const PROJECTION_VERSION = 64 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -2302,9 +2303,13 @@ const StudioAbsorptionScriptVerdict = object('StudioAbsorptionScriptVerdict',{
  scriptProjectId:nonEmptyText(),status:enumeration(['drafting','rewriting'] as const),writerIds:array(nonEmptyText()),
  disposition:enumeration(['writeOff','continues','continuationRequired'] as const),reason:enumeration(['writersNotRetained','writerTeamRetained','writerContinuationProducerRequired','partialWriterTeamProducerRequired','writerCapacityUnavailable'] as const),
 })
+const StudioAbsorptionPromiseVerdict = object('StudioAbsorptionPromiseVerdict',{promiseId:nonEmptyText(),disposition:enumeration(['unboundHistory','continued','exit'] as const),sourceContractId:nullable(nonEmptyText())})
+const StudioAbsorptionMarketVerdict = object('StudioAbsorptionMarketVerdict',{proposalCount:nonNegativeInteger(),caseCount:nonNegativeInteger()})
 const StudioAbsorptionQuoteTerms = object('StudioAbsorptionQuoteTerms',{
  consideration:number(),targetCashBeforeExits:number(),exitCharges:number(),postExitCash:number(),guarantees:number(),outlay:number(),ask:number(),
  reserveAfter:number(),resultingWeeklyFixedCost:number(),affordable:bool(),rightsCount:nonNegativeInteger(),
+ promiseObligations:array(reference('StudioAbsorptionPromiseVerdict',StudioAbsorptionPromiseVerdict)),
+ marketObligations:reference('StudioAbsorptionMarketVerdict',StudioAbsorptionMarketVerdict),
  retainedContracts:array(nonEmptyText()),exitedContracts:array(nonEmptyText()),
  productions:array(reference('StudioAbsorptionProductionVerdict',StudioAbsorptionProductionVerdict)),
  scripts:array(reference('StudioAbsorptionScriptVerdict',StudioAbsorptionScriptVerdict)),
@@ -3724,7 +3729,7 @@ const definitions = {
   StudioContractDraftPayload,
   StudioQuoteContractRequest,
   StudioDiligenceStudioTarget, StudioDiligenceLotTarget, StudioDiligenceTarget, StudioDiligenceDraftPayload, StudioQuoteDiligenceRequest, StudioDiligenceQuoteSnapshot,
-  StudioAbsorptionDefaultRetention, StudioAbsorptionExplicitRetention, StudioAbsorptionRetention, StudioAbsorptionDraftPayload, StudioQuoteAbsorptionRequest, StudioAbsorptionProductionVerdict, StudioAbsorptionScriptVerdict, StudioAbsorptionQuoteTerms, StudioAbsorptionQuoteSnapshot,
+  StudioAbsorptionDefaultRetention, StudioAbsorptionExplicitRetention, StudioAbsorptionRetention, StudioAbsorptionDraftPayload, StudioQuoteAbsorptionRequest, StudioAbsorptionProductionVerdict, StudioAbsorptionScriptVerdict, StudioAbsorptionPromiseVerdict, StudioAbsorptionMarketVerdict, StudioAbsorptionQuoteTerms, StudioAbsorptionQuoteSnapshot,
   StudioLoanDraftPayload,
   StudioQuoteLoanRequest,
   StudioLoanQuoteSnapshot,

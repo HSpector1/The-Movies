@@ -1,3 +1,4 @@
+import { absorbedPromiseAuthority, operatingPromiseIssuer, operationalPromise, operationalPromiseView } from '../src/core/absorbedObligations.js'
 // P14B.1-T3 — the THIN Core promise surface (projection 45).
 //
 // ONE bridge module owns every promise fact Unity may read, so companion §2.1.5's
@@ -102,16 +103,17 @@ export function promiseHistoryFor(
   talentId: string,
   viewerStudioId: string,
 ): MarketPromiseHistoryRow[] {
+  const authority=absorbedPromiseAuthority(state),view=operationalPromiseView(state,authority)
   return allPromises(state)
     .flatMap((promise): MarketPromiseHistoryRow[] => {
-      if (promise.issuerStudioId !== viewerStudioId
+      if ((promise.issuerStudioId !== viewerStudioId && operatingPromiseIssuer(state,promise,state.market.tick,authority)!==viewerStudioId)
         || promise.beneficiaryPersonId !== talentId
         || promise.contractId === null) return []
       return [{
         promiseId: promise.promiseId,
         family: promise.family,
         count: promise.predicate.count,
-        ...disclosedPromiseTerms(state, promise.issuerStudioId, promise.predicate),
+        ...disclosedPromiseTerms(view,operatingPromiseIssuer(state,promise,state.market.tick,authority),operationalPromise(state,promise,authority).predicate),
         windowStartWeek: promise.windowStartWeek,
         dueWeekExclusive: promise.dueWeekExclusive,
         contractId: promise.contractId,
@@ -249,7 +251,8 @@ export function promiseWaiverDraftToEngine(state: GameState, draft: WireWaiverDr
   const promise = allPromises(state).find((candidate) => candidate.promiseId === draft.promiseId)
   // THE GATE. `hollywood` absent means no player studio is on the record, and
   // `string !== undefined` refuses — fail-closed, never a permissive default.
-  if (promise === undefined || promise.issuerStudioId !== state.hollywood?.playerStudioId) {
+  const authority=absorbedPromiseAuthority(state)
+  if (promise === undefined || operatingPromiseIssuer(state,promise,state.market.tick,authority) !== state.hollywood?.playerStudioId) {
     return { ok: false, error: noSuchPromiseOfYours(draft.promiseId) }
   }
   const talent = state.talent.find((candidate) => candidate.id === promise.beneficiaryPersonId)

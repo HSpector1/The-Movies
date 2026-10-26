@@ -2,6 +2,15 @@
 
 Last writer: Codex, 2026-10-26, sole coordinator for the authorized Sprints 5–16 program.
 
+## Active Sprint 8 obligation and Bridge checkpoint — 2026-10-26
+
+- Sole coordinator continues authorized Sprints 5–16. Experimental branch is p16-retained-writing-20261026; primary candidate remains 013c4edc. Resolve exact checkpoint HEAD from Git. No main gameplay promotion or qualified downstream predecessor.
+- Reviewed v7 obligation source preserves original promise history, retained duties, native exit outcomes and exact market dispositions. Historical closure validation now accepts only freshly attested matching absorption withdrawal receipts. Original failures and focused review are preserved on records branch at 6a12b0d6, audit p16-sprint8.
+- Root types pass. Genuine R02 close/work/Accept/save-replay/later termination reaches assertions in 8.135 seconds, over the original 5-second budget. Complete public-action file passes 6/6 under budget, including actual market withdrawal and malformed-row refusals. Foreign overlap limits the earlier qualification; full affected writer/history/consumer checks remain pending.
+- Canonical projection 64 artifacts were generated and checked through the lane; authentic outgoing 63 was captured by its committed public runtime, then registered. Independent postflight released the freeze. Union fixture output is byte-identical. Current consumer literals follow the generated identity; committed-source declaration measurement and its two golden hashes remain pending.
+- Next: finish independent nonempty Bridge assertions and authentic prior-checkpoint control; create the local recoverable source checkpoint required by measurement, measure committed declarations, then run affected checks through fresh preflight/sole lane. Do not rerun original REDs or retry used runners. A short quiet observation does not establish a reliable long-gate window.
+- Program remains incomplete: remaining Sprint 8 producers, required broader gates, three missing original full-game captures, browser installation approval, native toolchain and Owner acceptance. No fabricated premises, budget changes, P17/P18 predecessor waiver or foreign process interruption.
+
 ## Immediate continuation — 2026-10-26, queued-release focused checkpoint
 
 - Sole coordinator/one intensive tree; Owner Sprints5–16 authorization continues. Primary p16-rebase-20261024 stays013c4edc. Experimental p16-retained-writing-20261026 carries reviewed queued-release correction c1e79adf and genuine witness/control; resolve exact current HEAD from Git. No main gameplay promotion.

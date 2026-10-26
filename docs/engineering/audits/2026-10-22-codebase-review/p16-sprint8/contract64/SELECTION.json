@@ -1,0 +1,23 @@
+{
+  "status": "PREPARED-NOT-RUN",
+  "head": "9c91232dd980cbe05399b6fd77ed55454e671f86",
+  "scope": "Immutable committed9c public outgoing63 save-dispatch capture; current64 exact-input scratch generation and checks of all four output artifacts; no checkout writes",
+  "runner": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/contract64/run.sh",
+  "manifest": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/contract64/SOURCE-MANIFEST.json",
+  "diskFloorKiB": 3670016,
+  "runtime": "Sequential Node20.20.2 via existing p16-env. Public bootstrap+save is actual runtime; zero ticks. No tests.",
+  "expectedOutputs": [
+    "outgoing63/outgoing63.checkpoint.json.gz",
+    "outgoing63/OUTGOING63-RECEIPT.json",
+    "GENERATED-OUTPUTS.json",
+    "snapshot64/bridge/schema/project-studio-bridge.schema.json",
+    "snapshot64/generated/unity/StudioBridgeDtos.Generated.cs",
+    "snapshot64/generated/unity/project-studio-bridge.contract-manifest.json",
+    "snapshot64/generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs"
+  ],
+  "separateMeasurement": {
+    "runner": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/contract64/measure.sh",
+    "requires": "Coordinator-installed generated64 committed; explicit actual HEAD; original consumed source clean/tracked before and after",
+    "guarantees": "Existing eight declarations rendered twice; six fixed bodies unchanged; current two independently measured; generated schema/DTO/manifest joined to live source"
+  }
+}

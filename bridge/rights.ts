@@ -41,6 +41,6 @@ export function absorptionQuoteSnapshot(state:GameState,draft:BridgeAbsorptionDr
  return {...base,startsNow:ok,ok,refusalReason:q.kind==='refusal'?q.refusal:applied?.ok===false?applied.error:null,
   terms:q.kind==='quote'?{consideration:q.consideration,targetCashBeforeExits:q.targetCashBeforeExits,exitCharges:q.exitCharges,postExitCash:q.postExitCash,
    guarantees:q.guarantees,outlay:q.outlay,ask:q.ask,reserveAfter:q.reserveAfter,resultingWeeklyFixedCost:q.resultingWeeklyFixedCost,
-   affordable:q.affordable,rightsCount:q.rights.length,retainedContracts:q.contracts.filter(c=>c.retained).map(c=>c.contractId),
+   affordable:q.affordable,promiseObligations:q.promiseObligations.map(p=>({...p})),marketObligations:{...q.marketObligations},rightsCount:q.rights.length,retainedContracts:q.contracts.filter(c=>c.retained).map(c=>c.contractId),
    exitedContracts:q.contracts.filter(c=>!c.retained).map(c=>c.contractId),scripts:q.scripts.map(s=>({scriptProjectId:s.scriptProjectId,status:s.status,writerIds:[...s.writerIds],disposition:s.disposition,reason:s.reason})),productions:q.productions.map(p=>({productionId:p.productionId,disposition:p.disposition,reason:p.reason}))}:null}
 }

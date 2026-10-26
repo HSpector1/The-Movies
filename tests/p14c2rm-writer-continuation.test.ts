@@ -4,8 +4,15 @@ import { withEmptyRecovery } from './helpers/recovery-migration-expectation.js'
 // historical reader amendment. Expected outcomes come from the reviewed contract.
 import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
+import { absorptionAsk, absorptionProducerRefusal, quoteAbsorption } from '../src/core/acquisition.js'
+import { conditionRecord, outstandingLoan, releaseRefusal } from '../src/core/corporateConditionLive.js'
+import { libraryValuationV1 } from '../src/core/propertyValuation.js'
+import { trustDrivers } from '../src/core/promises.js'
+import { permittedBidderRefusal, spendableCash, weeklyFixedCost } from '../src/core/rightsFinance.js'
+import { personReservationRefusal } from '../src/core/talentMarket.js'
+import { TUNING } from '../src/core/tuning.js'
 import { retirementRecordFor } from '../src/core/careerLifecycle.js'
-import { activeContract } from '../src/core/employment.js'
+import { activeContract, terminationCost, weeklyPayroll } from '../src/core/employment.js'
 import { studioConstructionView } from '../src/core/placement.js'
 import { availableDevelopmentCastingSlots } from '../src/core/scriptDevelopment.js'
 import { studioCalendar } from '../src/core/studioCalendar.js'
@@ -94,6 +101,237 @@ describe('880-B natural retired-writer continuation', () => {
     expect(validateSaveV49(envelope(reopened)).state).toBe(reopened)
     expect(stableStringify(reopened)).toBe(before)
     expect(stableStringify(f.finishing)).toBe(before)
+  })
+
+
+  it('continues genuine acquired obligations beside an own expired-contract retirement draft through Accept and save/replay', () => {
+    // Original c000479d historical producer; helper pins both untouched Save37
+    // strings and the original disclosed +10m P14B.2 fixture funding. No new
+    // cash, employment, promise, condition, retirement or work is authored here.
+    const historical = historicalWriterPair(), historyBefore = stableStringify(historical)
+    const initial = migrateToLive(historical.commissioned).state, initialBefore = stableStringify(initial)
+    expect(initial.market.tick).toBe(311)
+    const state = tick(initial), stateBefore = stableStringify(state)
+    expect(stableStringify(initial)).toBe(initialBefore)
+    expect(stableStringify(historical)).toBe(historyBefore)
+    expect(state.market.tick).toBe(312)
+    const buyer = owner(state), target = 'studio-56472515-r02', writer = 'person-studio-56472515-r02-0'
+    const own = writeProject(state, historical.writerId)
+    expect(own).toMatchObject({ id: 'script-0000', status: 'drafting', commissionedWeek: 311, dueWeek: 314 })
+    expect(activeContract(state, historical.writerId)).toBeUndefined()
+    expect(retirementRecordFor(state, historical.writerId)).toMatchObject({ status: 'finishing_commitments', effectiveWeek: 312 })
+    for (const studioId of [buyer, target]) {
+      expect(conditionRecord(state, studioId)?.condition, 'actual first post-migration condition evaluation').toMatchObject({ stage: 'stable', week: 312 })
+      expect(outstandingLoan(state, studioId, 312)).toBeUndefined()
+    }
+    expect(permittedBidderRefusal(state, buyer, 312)).toBeNull()
+    const source = state.hollywood!.businesses.find(row => row.studioId === target)!
+    const script = source.development.projects.find(row => row.id === 'script-0035')!
+    expect(script).toMatchObject({ status: 'drafting', commissionedWeek: 310, dueWeek: 313, writerId: writer, writerIds: [writer] })
+    expect(source.productions).toMatchObject([{ id: target + ':film:34', remainingTicks: 7 }])
+    expect(source.productions).toHaveLength(1)
+    const employment = state.hollywood!.activeEmploymentOrdinals.map(i => state.hollywood!.employment[i]!)
+      .filter(row => row.studioId === target && row.endedWeek === null && row.terms.startWeek <= 312 && 312 < row.terms.endWeekExclusive)
+    expect(employment).toHaveLength(6)
+    const keep = employment.find(row => row.terms.talentId === writer)!
+    expect(keep).toMatchObject({ contractId: target + ':contract:' + writer + ':208', terms: { startWeek: 208, endWeekExclusive: 416 } })
+    expect(personReservationRefusal(state, writer, buyer, 312), 'fixed writer must actually consent; no substitute').toBeNull()
+    const openPromises = state.promises.filter(row => row.issuerStudioId === target && row.outcome === null)
+    const unbound = openPromises.filter(row => row.contractId === null)
+    const bound = openPromises.filter(row => row.contractId !== null)
+    expect(openPromises).toHaveLength(22); expect(unbound).toHaveLength(19)
+    expect(bound.map(row => row.promiseId)).toEqual(['promise-13', 'promise-15', 'promise-23'])
+    expect(unbound.filter(row => bound.some(other => other.beneficiaryPersonId === row.beneficiaryPersonId)),
+      'this genuine unbound cohort is disjoint from the bound obligations being continued or settled').toEqual([])
+    const retainedPromise = bound.find(row => row.promiseId === 'promise-13')!
+    expect(retainedPromise).toMatchObject({ contractId: keep.contractId, beneficiaryPersonId: writer,
+      windowStartWeek: 208, dueWeekExclusive: 416, predicate: { count: 1 }, progress: 0, evidenceRefs: [] })
+    // This genuine world has no affected open market rows: it cannot qualify
+    // proposal withdrawal or nonempty case invalidation by assertion alone.
+    expect(state.talentMarket.proposals.filter(row => row.issuerStudioId === target)).toEqual([])
+    expect(state.talentMarket.cases.filter(row => row.subjectStudioId === target && row.closedWeek === null)).toEqual([])
+    const paid = applyActions(state, [{ kind: 'requestDueDiligence', target: { kind: 'studio', studioId: target },
+      scope: ['rights', 'employment', 'liabilities'] }]), paidBefore = stableStringify(paid)
+    expect(stableStringify(state)).toBe(stateBefore)
+    const disclosure = paid.rights.diligence.at(-1)!
+    expect(disclosure).toMatchObject({ recipientId: buyer, week: 312, target: { kind: 'studio', studioId: target },
+      scope: ['rights', 'employment', 'liabilities'], fee: TUNING.RIGHTS_DUE_DILIGENCE_FEE })
+    expect(paid.studio.cash).toBe(state.studio.cash - disclosure.fee)
+    expect(paid.ledger.slice(state.ledger.length)).toMatchObject([{ kind: 'dueDiligenceFee', week: 312, amount: -disclosure.fee, note: disclosure.transactionId }])
+    const exits = employment.filter(row => row.contractId !== keep.contractId).reduce((sum, row) => sum + terminationCost(row.terms, 312), 0)
+    expect(exits).toBeGreaterThan(0)
+    const postExitCash = source.account.cash - exits, library = libraryValuationV1(paid, target, 312)
+    expect(library.kind, 'real complete held-title valuation, no guessed price').toBe('available')
+    if (library.kind !== 'available') throw new Error('actual R02 library valuation unavailable')
+    const consideration = absorptionAsk(library.total, postExitCash)
+    const preview = { buyerId: buyer, targetId: target, consideration, disclosureId: disclosure.id,
+      retention: { kind: 'explicit' as const, contractIds: [keep.contractId] } }
+    const quote = quoteAbsorption(paid, preview, 312)
+    expect(stableStringify(paid)).toBe(paidBefore)
+    expect(quote.kind, 'actual public consent, retention, reserve and capacity quote').toBe('quote')
+    if (quote.kind !== 'quote') throw new Error(quote.refusal)
+    expect(quote.affordable).toBe(true)
+    expect(quote.ask).toBe(consideration); expect(quote.rightsValue).toBe(library.total)
+    expect(quote.contracts.filter(row => row.retained).map(row => row.contractId)).toEqual([keep.contractId])
+    expect(quote.contracts.filter(row => !row.retained)).toHaveLength(5)
+    expect(quote.exitCharges).toBe(exits); expect(quote.targetCashBeforeExits).toBe(source.account.cash)
+    expect(quote.postExitCash).toBe(postExitCash); expect(quote.outlay).toBe(consideration - postExitCash)
+    const fixedCost = Math.ceil(weeklyFixedCost(paid, buyer) + keep.terms.annualSalary / TUNING.TICKS_PER_YEAR + TUNING.OVERHEAD_PER_EMPLOYEE)
+    expect(quote.resultingWeeklyFixedCost).toBe(fixedCost)
+    expect(quote.reserveAfter).toBe(TUNING.RIGHTS_RESERVE_WEEKS * fixedCost)
+    expect(spendableCash(paid, buyer) - quote.outlay).toBeGreaterThanOrEqual(quote.reserveAfter)
+    expect(quote.productions).toMatchObject([{ productionId: target + ':film:34', remainingTicks: 7, disposition: 'cancelRequired', reason: 'missingParticipants' }])
+    expect(quote.scripts).toEqual([{ scriptProjectId: script.id, status: 'drafting', writerIds: [writer], sourceContractIds: [keep.contractId],
+      disposition: 'continues', reason: 'writerTeamRetained' }])
+    const { buyerId: _buyerId, ...absorption } = { ...preview, quotedAtWeek: quote.quotedAtWeek, quoteAgePolicyVersion: quote.quoteAgePolicyVersion }
+    console.info('P16_OBLIGATIONS_REAL312_PREMISES ' + JSON.stringify({ week: 312, target, ownDue: own.dueWeek, acquiredDue: script.dueWeek,
+      unbound: unbound.length, bound: bound.map(row => row.promiseId), fee: disclosure.fee, consideration, exitCharges: exits,
+      postExitCash, outlay: quote.outlay, reserve: quote.reserveAfter, producerRefusal: absorptionProducerRefusal(paid, preview) }))
+    let closed: GameState
+    try {
+      // Original-source RED is exactly absorption: absorbedPromiseDispositionProducerRequired.
+      // Do not turn that refusal into a passing acceptance or skip the laws below.
+      closed = applyActions(paid, [{ kind: 'absorbStudio', absorption }])
+    } finally {
+      expect(stableStringify(paid)).toBe(paidBefore)
+      expect(stableStringify(state)).toBe(stateBefore)
+      expect(stableStringify(initial)).toBe(initialBefore)
+      expect(stableStringify(historical)).toBe(historyBefore)
+    }
+    const record = closed.rights.absorptions.find(row => row.targetId === target)!
+    expect(record).toBeDefined(); expect(record.week).toBe(312)
+    expect(record.exitCharges).toBe(exits); expect(record.postExitCash).toBe(postExitCash)
+    expect(record.outlay).toBe(consideration - postExitCash)
+    expect(closed.studio.cash).toBe(paid.studio.cash - record.outlay)
+    expect(closed.ledger.slice(paid.ledger.length)).toMatchObject([{ kind: 'acquisitionOutlay', week: 312, amount: -record.outlay, note: record.id }])
+    const targetClosed = closed.hollywood!.businesses.find(row => row.studioId === target)!
+    expect(targetClosed.account.cash).toBe(0)
+    expect(targetClosed.account.periods.reduce((sum, row) => sum + row.movements.termination, 0))
+      .toBe(source.account.periods.reduce((sum, row) => sum + row.movements.termination, 0) - exits)
+    expect(targetClosed.account.periods.reduce((sum, row) => sum + row.movements.acquisitionOutlay, 0)).toBe(-postExitCash)
+    const link = record.contracts.find(row => row.sourceContractId === keep.contractId)!
+    expect(link.buyerContractId).not.toBeNull()
+    const retainedEmployment = closed.hollywood!.employment.find(row => row.contractId === link.buyerContractId)!
+    expect(retainedEmployment).toMatchObject({ studioId: buyer, endedWeek: null, reason: 'absorptionContinuation' })
+    expect(retainedEmployment.terms).toEqual({ ...keep.terms, startWeek: 312, termWeeks: 104 })
+    expect(closed.contracts.filter(row => row.startWeek <= 312 && 312 < row.endWeekExclusive)).toEqual([retainedEmployment.terms])
+    expect(activeContract(closed, historical.writerId)).toBeUndefined()
+    expect(closed.ledger.filter(row => row.kind === 'signingBonus')).toEqual(paid.ledger.filter(row => row.kind === 'signingBonus'))
+    expect(closed.promises.find(row => row.promiseId === retainedPromise.promiseId)).toEqual(retainedPromise)
+    const exitPromises = bound.filter(row => row.promiseId !== retainedPromise.promiseId)
+    for (const original of exitPromises) {
+      const settled = closed.promises.find(row => row.promiseId === original.promiseId)!
+      expect(settled).toEqual({ ...original, outcome: 'BROKEN', outcomeWeek: 312,
+        outcomeCause: 'the studio terminated this contract early, ending the window', outcomeEventId: settled.outcomeEventId })
+      expect(settled.outcomeEventId).not.toBeNull()
+      expect(closed.talentMarket.receipts.filter(row => row.eventId === settled.outcomeEventId)).toMatchObject([
+        { kind: 'promiseOutcome', week: 312, studioId: target, talentId: original.beneficiaryPersonId }])
+      expect(trustDrivers(closed, original.beneficiaryPersonId, target, 312).filter(row => row.kind === 'promiseBroken' && row.week === 312)).toHaveLength(1)
+    }
+    expect(closed.talentMarket.receipts.slice(paid.talentMarket.receipts.length).filter(row => row.kind === 'promiseOutcome')).toHaveLength(2)
+    for (const original of unbound) {
+      expect(closed.promises.find(row => row.promiseId === original.promiseId)).toEqual(original)
+      // Other native causes may legitimately change professional memory. Only
+      // promise drivers belong to this no-outcome control; the genuine bound
+      // exit cohort above has its own positive BROKEN/receipt assertions.
+      expect(trustDrivers(closed, original.beneficiaryPersonId, target, 312)
+        .filter(row => row.kind === 'promiseKept' || row.kind === 'promiseBroken'))
+        .toEqual(trustDrivers(paid, original.beneficiaryPersonId, target, 312)
+          .filter(row => row.kind === 'promiseKept' || row.kind === 'promiseBroken'))
+    }
+    if (!('continuedScripts' in record)) throw new Error('actual acquired screenplay continuation required')
+    expect(record.continuedScripts).toHaveLength(1)
+    const carried = record.continuedScripts[0]!
+    expect(carried.originalScript).toEqual(script)
+    expect(carried.originalCosts).toEqual(source.projects.find(row => row.scriptProjectId === script.id))
+    expect(carried.sourceContractIds).toEqual([keep.contractId]); expect(carried.buyerContractIds).toEqual([link.buyerContractId])
+    expect(carried.project).toMatchObject({ status: 'drafting', dueWeek: 313, writerId: writer, writerIds: [writer], conceptId: script.conceptId })
+    expect(carried.project.reservation).not.toBeNull()
+    expect(carried.project.reservation!.facilityId + ':' + carried.project.reservation!.slot)
+      .not.toBe(own.reservation!.facilityId + ':' + own.reservation!.slot)
+    expect(closed.scriptDevelopment).toEqual(paid.scriptDevelopment)
+    expect(targetClosed.development).toEqual(source.development); expect(targetClosed.projects).toEqual(source.projects)
+    const loaded = readBack(closed), closedBefore = stableStringify(closed), loadedBefore = stableStringify(loaded)
+    const review = tick(closed), replayReview = tick(loaded)
+    expect(stableStringify(closed)).toBe(closedBefore); expect(stableStringify(loaded)).toBe(loadedBefore)
+    expect(stableStringify(replayReview)).toBe(stableStringify(review)); expect(review.market.tick).toBe(313)
+    expect(writeProject(review, historical.writerId)).toEqual(own)
+    expect(activeContract(review, historical.writerId)).toBeUndefined()
+    expect(retirementRecordFor(review, historical.writerId)).toMatchObject({ status: 'finishing_commitments', effectiveWeek: 312 })
+    expect(review.ledger.filter(row => row.kind === 'payroll' && row.week === 312)).toMatchObject([{ amount: -weeklyPayroll(closed, 312) }])
+    const reviewRecord = review.rights.absorptions.find(row => row.id === record.id)!
+    if (!('continuedScripts' in reviewRecord)) throw new Error('actual acquired screenplay review required')
+    expect(reviewRecord.continuedScripts[0]!.project).toMatchObject({ id: carried.project.id, status: 'review', dueWeek: null, reservation: null, writerId: writer })
+    const reviewBefore = stableStringify(review), replayBefore = stableStringify(replayReview)
+    const accepted = applyActions(review, [{ kind: 'acceptScript', projectId: carried.project.id }])
+    const replayAccepted = applyActions(replayReview, [{ kind: 'acceptScript', projectId: carried.project.id }])
+    expect(stableStringify(review)).toBe(reviewBefore); expect(stableStringify(replayReview)).toBe(replayBefore)
+    const final = readBack(accepted)
+    expect(stableStringify(replayAccepted)).toBe(stableStringify(final))
+    const acceptedRecord = final.rights.absorptions.find(row => row.id === record.id)!
+    if (!('continuedScripts' in acceptedRecord) || !('scriptDecisions' in acceptedRecord)) throw new Error('actual carried Accept history required')
+    expect(acceptedRecord.continuedScripts[0]!.project).toEqual({ ...reviewRecord.continuedScripts[0]!.project, status: 'ready' })
+    expect(acceptedRecord.scriptDecisions).toMatchObject([{ kind: 'accept', projectId: carried.project.id, week: 313 }])
+    expect(writeProject(final, historical.writerId)).toEqual(own)
+    expect(final.promises.find(row => row.promiseId === retainedPromise.promiseId)).toEqual(retainedPromise)
+    expect(final.promises.filter(row => exitPromises.some(original => original.promiseId === row.promiseId)))
+      .toEqual(closed.promises.filter(row => exitPromises.some(original => original.promiseId === row.promiseId)))
+    for (const original of unbound) expect(final.promises.find(row => row.promiseId === original.promiseId)).toEqual(original)
+    expect(final.hollywood!.businesses.find(row => row.studioId === target)!.development).toEqual(source.development)
+    expect(stableStringify(paid)).toBe(paidBefore); expect(stableStringify(historical)).toBe(historyBefore)
+    // A completed/accepted screenplay leaves its credited writer free to end
+    // their actual buyer employment. The original promise must still bind that
+    // real action, without changing issuer/contract provenance or minting work.
+    expect(final.market.tick).toBe(313)
+    const liveContract = activeContract(final, writer)!
+    expect(liveContract).toEqual(retainedEmployment.terms)
+    expect(releaseRefusal(final, buyer, writer), 'actual Ready/unseated writer may be released').toBeNull()
+    const releaseCost = terminationCost(liveContract, 313)
+    expect(releaseCost).toBeGreaterThan(0); expect(final.studio.cash).toBeGreaterThanOrEqual(releaseCost)
+    const finalBefore = stableStringify(final), replayAcceptedBefore = stableStringify(replayAccepted)
+    const terminated = applyActions(final, [{ kind: 'releaseTalent', talentId: writer }])
+    const replayTerminated = applyActions(replayAccepted, [{ kind: 'releaseTalent', talentId: writer }])
+    expect(stableStringify(final)).toBe(finalBefore); expect(stableStringify(replayAccepted)).toBe(replayAcceptedBefore)
+    expect(stableStringify(replayTerminated)).toBe(stableStringify(terminated))
+    expect(activeContract(terminated, writer)).toBeUndefined()
+    expect(terminated.freeAgents).toContain(writer)
+    expect(terminated.studio.cash).toBe(final.studio.cash - releaseCost)
+    expect(terminated.ledger.slice(final.ledger.length)).toEqual([
+      { week: 313, kind: 'termination', amount: -releaseCost, talentId: writer, note: 'early-release termination cost' }])
+    expect(terminated.hollywood!.employment.find(row => row.contractId === link.buyerContractId))
+      .toEqual({ ...retainedEmployment, endedWeek: 313 })
+    expect(terminated.hollywood!.employment.find(row => row.contractId === keep.contractId))
+      .toEqual(final.hollywood!.employment.find(row => row.contractId === keep.contractId))
+    expect(terminated.hollywood!.receipts.slice(final.hollywood!.receipts.length)).toMatchObject([
+      { kind: 'employment', week: 313, studioId: buyer, talentId: writer, contractId: link.buyerContractId,
+        fromStudioId: buyer, toStudioId: null, reason: 'termination' }])
+    const broken = terminated.promises.find(row => row.promiseId === retainedPromise.promiseId)!
+    expect(broken).toEqual({ ...retainedPromise, outcome: 'BROKEN', outcomeWeek: 313,
+      outcomeCause: 'the studio terminated this contract early, ending the window', outcomeEventId: broken.outcomeEventId })
+    expect(broken.outcomeEventId).not.toBeNull()
+    expect(terminated.talentMarket.receipts.slice(final.talentMarket.receipts.length)).toEqual([
+      { eventId: broken.outcomeEventId, kind: 'promiseOutcome', week: 313, studioId: target, talentId: writer,
+        reasons: ['a promise to this person was broken by an early termination'], dropped: [] }])
+    expect(terminated.promises.filter(row => row.promiseId !== retainedPromise.promiseId))
+      .toEqual(final.promises.filter(row => row.promiseId !== retainedPromise.promiseId))
+    expect(trustDrivers(terminated, writer, target, 313).filter(row => row.kind === 'promiseBroken' && row.week === 313))
+      .toEqual([{ kind: 'promiseBroken', week: 313, positive: false, reason: 'broke a promise' }])
+    expect(trustDrivers(terminated, writer, buyer, 313).filter(row => row.kind === 'promiseKept' || row.kind === 'promiseBroken'))
+      .toEqual(trustDrivers(final, writer, buyer, 313).filter(row => row.kind === 'promiseKept' || row.kind === 'promiseBroken'))
+    expect(trustDrivers(terminated, writer, buyer, 313).filter(row => row.kind === 'terminatedEarly' && row.week === 313))
+      .toEqual([{ kind: 'terminatedEarly', week: 313, positive: false, reason: 'ended a contract early' }])
+    expect(terminated.firstTakes).toEqual(final.firstTakes)
+    expect(writeProject(terminated, historical.writerId)).toEqual(own)
+    expect(terminated.rights.absorptions.find(row => row.id === record.id)).toEqual(acceptedRecord)
+    const restored = readBack(terminated), restoredBefore = stableStringify(restored)
+    // Releasing the same actual interval twice cannot create another charge or
+    // outcome; use the public refusal, not a second call to a settlement seam.
+    expect(() => applyActions(restored, [{ kind: 'releaseTalent', talentId: writer }]))
+      .toThrow(/releaseTalent rejected .*has no active contract \(D-11\.9\)/)
+    expect(stableStringify(restored)).toBe(restoredBefore)
+    expect(stableStringify(final)).toBe(finalBefore); expect(stableStringify(paid)).toBe(paidBefore)
+    expect(stableStringify(historical)).toBe(historyBefore)
+
   })
 
   it('continues the real finishing task through its actual due week, then retires once', () => {

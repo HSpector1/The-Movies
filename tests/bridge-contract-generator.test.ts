@@ -577,10 +577,10 @@ describe('CF-08 sound union-to-C# generation', () => {
       // Projection63: independently measured on0e0cdfde; p16-sprint7/declaration-measurement/measurement.json.
       const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 59 })
       expect(generated).toContain(
-        '// Schema identity: sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1',
+        '// Schema identity: sha256:57f12ee28d21aa47c7514afa1c058105a10f10a9e76d400d664e97c23dc90272',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1',
+        'sha256:57f12ee28d21aa47c7514afa1c058105a10f10a9e76d400d664e97c23dc90272',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
