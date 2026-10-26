@@ -1,0 +1,61 @@
+{
+  "status": "STATIC-UNRUN; no engine, compiler or test executed",
+  "baseHead": "9c91232dd980cbe05399b6fd77ed55454e671f86",
+  "target": "tests/p16-absorption-public-action.test.ts",
+  "budget": "unchanged default5000ms; one new named test; all loading/migration/actions/tick/assertions inside leaf",
+  "originalAssertions": "All original file bytes preserved apart from added imports; new leaf appended. Existing R02 witness untouched.",
+  "expectedOriginalSourceRed": "absorption: absorbedMarketDispositionProducerRequired AFTER all actual proposal/condition/diligence/consent/reserve premises; any earlier failure is an unresolved premise, not permission to mutate it",
+  "claim": "Genuine target-issued proposal withdrawal only; target-subject case invalidation remains unproved",
+  "files": {
+    "preimage/tests/p16-absorption-public-action.test.ts": {
+      "bytes": 14473,
+      "sha256": "8a7b432cac6109dddbb3ef83a54aee385f3919e290fae712f6420bfb2072aca3"
+    },
+    "postimage/tests/p16-absorption-public-action.test.ts": {
+      "bytes": 22937,
+      "sha256": "370d75f8e79514184a6792bb0b2abaab2439b0540ac5daef49cb51ed62e9495b"
+    },
+    "MARKET-RED.patch": {
+      "bytes": 8985,
+      "sha256": "5a7faad6bca7597906943f00dde3dc37106aa31b27876e95f9f9ba2102664f01"
+    },
+    "MARKET-LEAF.txt": {
+      "bytes": 8164,
+      "sha256": "ad978692b1f3e304a71b956a6ccf52f50c49fc8bb610d4109fd1a47d6319caaf"
+    },
+    "PURPOSE.md": {
+      "bytes": 5856,
+      "sha256": "de2e28fbd99ee9713918afffc7d2675cb019576ab40e43df5870edd4c2d39cd3"
+    }
+  },
+  "sourceAndCapturePins": {
+    "src/core/acquisition.ts": {
+      "bytes": 61307,
+      "sha256": "674be539ae188b8193e693bca0805b1d9efa33ab113f780d7eb47d2fd3e7d58e"
+    },
+    "src/core/talentMarket.ts": {
+      "bytes": 95347,
+      "sha256": "a02be5ac8c6d0571c77d17d6a8a9f80fa1f2268e8c0ea5016fec22dc18f44ad9"
+    },
+    "src/core/tick.ts": {
+      "bytes": 71927,
+      "sha256": "f21a55dcae3e4d6a49b0385fc54d63c527d5a90c565aef1c568fe46929ca7e21"
+    },
+    "src/core/hollywoodTick.ts": {
+      "bytes": 49010,
+      "sha256": "12611c7c78db0b49b92d6213a0f67c92e89d7b3e86c8d375e18ed3ee5cca37c8"
+    },
+    "tests/helpers/p14c2a-fixtures.ts": {
+      "bytes": 11775,
+      "sha256": "281477b38bd248f53dc3c530041e8e08f1b4d96e8763d5147d1578146b580de2"
+    },
+    "tests/fixtures/p14/genuine-v33-c2-corpus/genuine-v33-c2-contract-and-case.json.gz": {
+      "bytes": 59566,
+      "sha256": "3bda857bd65b28badce1fee25192644ba5b3f16538ed1e9c9b96527fd023c97a"
+    },
+    "tests/fixtures/p14/genuine-v33-c2-corpus/genuine-v33-c2-contract-and-case.provenance.json": {
+      "bytes": 8448,
+      "sha256": "7e93e0d84862462541b02871a41ef76299a9e19caffbf01e6d677d02ba82ae78"
+    }
+  }
+}

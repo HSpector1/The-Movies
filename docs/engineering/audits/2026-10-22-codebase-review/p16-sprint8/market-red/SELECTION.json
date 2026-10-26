@@ -1,0 +1,10 @@
+{
+  "head": "9c91232dd980cbe05399b6fd77ed55454e671f86",
+  "purpose": "Genuine target proposal withdrawal original-source RED",
+  "file": "tests/p16-absorption-public-action.test.ts",
+  "name": "withdraws the absorbed rival proposal",
+  "sourceManifestEntries": 1648,
+  "budgetMs": 5000,
+  "testPatchSha256": "5a7faad6bca7597906943f00dde3dc37106aa31b27876e95f9f9ba2102664f01",
+  "premiseLimit": "Earlier premise failure means close UNREACHED; no target-subject case proof."
+}
