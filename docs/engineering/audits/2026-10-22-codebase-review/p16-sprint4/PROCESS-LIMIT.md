@@ -1,0 +1,9 @@
+# Sprint 4 execution qualification limit
+
+Coordinator discovered after final-g launch that current HANDOFF operational details require launch headroom 3,670,016 KiB, runtime floor 3,145,728 KiB and the equipment preflight. The coordinator had relied on the older Wave 3 2.3 GB note and manually checked lane/processes/disk instead. This was a preflight failure; the older note did not supersede the operational requirement. Entry headroom was approximately 3.3 GiB and final-g launch 3,419,568 KiB. Sprint 4 runs therefore do not carry the required equipment-preflight qualification. No receipt is backfilled or threshold amended.
+
+Final-g was already running when discovered. Its normal completion and independent audit are preserved, with observed runtime disk above 3,145,728 KiB. No foreign process was terminated and no cleanup performed. A foreign Godot test observed before final-g was allowed to finish before Studio launched. No further game jobs are authorized to launch below the existing floor; the future full-tree gate must pass the actual preflight at its then-current source and environment.
+
+Actual assertions and measured times remain evidence, with this separate process limit. They cannot be represented as full resource-qualified acceptance. Repeating unchanged suites solely to erase the process record is not warranted; the next required broad milestone supplies fresh qualification under compliant conditions.
+
+At 21:17:43 CDT a new foreign Godot process (PID8367, parent8355) was observed using about44% CPU after the Studio21:16 launch. The prior foreign job had exited before launch, but this later overlap means the combined run cannot be described as machine-exclusive or solo. No foreign process was touched. Exact timing effects cannot be inferred from this observation.

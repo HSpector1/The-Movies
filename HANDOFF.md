@@ -2,7 +2,16 @@
 
 Last writer: Codex, 2026-10-25, sole coordinator for the stabilization order below.
 
-## Astra engineering Sprint 3 — complete, 2026-10-25 (current)
+## Astra engineering Sprint 4 — complete, 2026-10-25 (current)
+
+- Candidate branch `p16-rebase-20261024`; reviewed source/test checkpoint `3364567ccfa2f29d240b8a73f30e91fcb1816bd5` descends from `b5566fc12acdfb61b18138dc7fa288ea59c24780`. Final candidate `b3be2b78f821ca356158b63083eced051d20f3f7` is pushed and explicit GitHub ref verified; only evidence/handoff changed after the source checkpoint. Main/wip entry `632dc4587ee16b7ae62d6fd6c604652171adaf0d`; records only, no gameplay promotion.
+- Reviewed skill reuse: S7 15.954→12.610s, post-opening7.134→6.599s, still over5s. Named null-row refusal fixed with genuine full-reader RED; original48 historical condition/closure/money refusal composition now reached, but extended leaf5.320s is not timing-qualified.
+- Final coherent54-file P16/Bridge263/263; S722/22; historical forecast4/4; root/UI/Bridge types and contracts0. No new assertion regression found. Broader estate9.607s/joinedD7.020s/replay7.005s and S7adoptions14.776s remain over5s. No source change after final manifest/audit.
+- Process limit: launches relied incorrectly on old2.3GB note; operational launch3,670,016KiB/preflight was not met (final3,419,568KiB). Recorded runtime disk stayed above3,145,728KiB. New foreign Godot work began during final run. Results are not full resource/exclusivity qualification. No further runtime below current floor; no cleanup or foreign termination.
+- Source/review/evidence: `docs/engineering/audits/2026-10-22-codebase-review/p16-sprint4/RESULTS.md`, REVIEW, PROCESS-LIMIT, manifest and integration/BLOCKERS. Raw profiles/failures/captures preserved in `~/studio-scratch/p16-sprint4-20261025/`; current200 unchanged. One coordinator writer/lane; Sol preparation and one independent reviewer. No Studio job/lock remains after audited completion.
+- Sprint4 is complete; finish only this records publication postflight and return control. No automatic Sprint5. Next recommendation: recover known full-gate inputs, meet current equipment preflight/headroom/exclusivity, then full core-including-Bridge/UI once (prepared, UNRUN), followed by existing platform/player acceptance. Natural C08, named historical compositions and unavailable producers remain explicit. Owner A–E settled; main promotion separately unauthorized. No P17/P18.
+
+## Astra engineering Sprint 3 — complete, 2026-10-25 (historical)
 
 - Candidate `p16-rebase-20261024` at `b5566fc12acdfb61b18138dc7fa288ea59c24780`, pushed and explicit GitHub ref verified. Production repair `7bafd123`; final policy-test/records checkpoint `b5566fc1`. Main/wip records descend from `30a4d0bfd7f610f69bcff86b6162bb79bac7ea24`; only HANDOFF/docs synchronize. No P16 source merge, history rewrite or Sprint 4.
 - Owner A–F are binding in the existing Wave 3 decision brief. All five original fractional-policy cases pass; actual signed cash, exits and history remain at par. Genuine negative R04 close/save/replay passes in 3.071s solo and 4.005s broad, with zero lawful exits.

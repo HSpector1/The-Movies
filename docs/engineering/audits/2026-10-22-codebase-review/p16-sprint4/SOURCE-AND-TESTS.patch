@@ -1,0 +1,169 @@
+diff --git a/src/core/forecast.ts b/src/core/forecast.ts
+index ebd203a4..05e019b0 100644
+--- a/src/core/forecast.ts
++++ b/src/core/forecast.ts
+@@ -75,7 +75,9 @@ export type DeterministicCore = {
+   budgetAdequacy: number
+ }
+ 
+-function computeDeterministicCore(inp: ForecastInputs, engaged = false): DeterministicCore {
++/** Fresh budget-independent scalar reads for this exact concept, talent, shape and final promise.
++ * Internal reuse may vary only budget; no value is retained across search packages or calls. */
++export function forecastSkills(inp: ForecastInputs) {
+   // §5.1 craft — D-9.5: the identical FOUR reads, but use = 'perceived' (forecast
+   // reads perceived; reception reads actual). Structure downstream unchanged.
+   // RULING C (2026-07-26): the shape being greenlit (`inp.shape`, the raw FilmShape)
+@@ -140,6 +142,12 @@ function computeDeterministicCore(inp: ForecastInputs, engaged = false): Determi
+         )
+       : 40
+ 
++  return { scriptStrength, directorExecution, castExecution, castWeightedRoleFit, technical }
++}
++
++function computeDeterministicCore(inp: ForecastInputs, engaged = false, preparedSkills?: ReturnType<typeof forecastSkills>): DeterministicCore {
++  const { scriptStrength, directorExecution, castExecution, castWeightedRoleFit, technical } = preparedSkills ?? forecastSkills(inp)
++
+   const requiredNegative =
+     inp.concept.baseNegativeCost * inp.shapeEffects.budgetDemandMultiplier * inp.era.costScale
+   const budgetAdequacy =
+@@ -266,8 +274,8 @@ export type ForecastCenters = {
+   starDraw: number
+ }
+ 
+-export function forecastCenters(inp: ForecastInputs, saturateFame = false, engaged = false): ForecastCenters {
+-  const core = computeDeterministicCore(inp, engaged)
++export function forecastCenters(inp: ForecastInputs, saturateFame = false, engaged = false, preparedSkills?: ReturnType<typeof forecastSkills>): ForecastCenters {
++  const core = computeDeterministicCore(inp, engaged, preparedSkills)
+   const appeal = computeSegmentAppeal(inp, core.delivered, core.craft, core.timelinessContribution, saturateFame)
+   return {
+     centers: appeal.segmentAppeal,
+diff --git a/src/core/hollywoodPolicy.ts b/src/core/hollywoodPolicy.ts
+index 92ee359c..a2eba6c4 100644
+--- a/src/core/hollywoodPolicy.ts
++++ b/src/core/hollywoodPolicy.ts
+@@ -1,5 +1,5 @@
+ import { terminationCost, weeklySalary } from './employment.js'
+-import { computeForecast, forecastCenters } from './forecast.js'
++import { computeForecast, forecastCenters, forecastSkills } from './forecast.js'
+ import { marketingCapacityForInputs, marketingMenuFromCapacity } from './marketingMenu.js'
+ import { resolveShape } from './shape.js'
+ import { clamp } from './math.js'
+@@ -59,11 +59,12 @@ export function searchIndustryPackages(input:ReceptionInputs,policy:RivalBusines
+       const range=(n:number):[number,number]=>[clamp(n-TUNING.HOLLYWOOD_PROMISE_HALF_WIDTH,-1,1),clamp(n+TUNING.HOLLYWOOD_PROMISE_HALF_WIDTH,-1,1)]
+       inp={...inp,promise:{...inp.promise,ranges:{intimacy:range(center.intimacy),tonalWeight:range(center.tonalWeight),kineticEnergy:range(center.kineticEnergy)}}}
+     }
++    const skills=forecastSkills(inp)
+     const required=inp.concept.baseNegativeCost*inp.shapeEffects.budgetDemandMultiplier*inp.era.costScale
+     for(const scale of TUNING.HOLLYWOOD_NEGATIVE_CHOICES) {
+       const negative=Math.round(required*scale*policy.negativeScale)
+       const base={...inp,budget:{negative,marketing:0}}
+-      const centers=forecastCenters(base,true,true)
++      const centers=forecastCenters(base,true,true,skills)
+       for(const marketing of marketingMenuFromCapacity(marketingCapacityForInputs(base,true,centers))) {
+         const exceedsCash=negative+marketing>options.cashAvailable
+         if(exceedsCash) {
+diff --git a/src/core/rights.ts b/src/core/rights.ts
+index 9b2bbb5a..0035bfa8 100644
+--- a/src/core/rights.ts
++++ b/src/core/rights.ts
+@@ -1065,7 +1065,8 @@ export function validateRightsRoot(raw: Record<string, unknown>, label: string):
+     ids.add(id)
+     return n
+   }
+-  for (const record of rights.absorptions) {
++  for (const [i, record] of rights.absorptions.entries()) {
++    if (!isRow(record)) refuse(`absorptions[${i}]`, 'must be an object')
+     idNumber(record.id, 'absorptions.id')
+     for(const receipt of record.runReceipts) idNumber(receipt.id,'absorptions.runReceipts.id')
+     for(const step of record.workSteps) idNumber(step.id,'absorptions.workSteps.id')
+diff --git a/tests/p14d2-binding-cash.test.ts b/tests/p14d2-binding-cash.test.ts
+index 5c119a25..514f5244 100644
+--- a/tests/p14d2-binding-cash.test.ts
++++ b/tests/p14d2-binding-cash.test.ts
+@@ -143,8 +143,12 @@ describe('1363 Part A — binding cash', () => {
+         diagnoseUnaffordableViability: true }
+       const reused = search(viable[0], viable[1], comparisonOptions)
+       expect(reused.choice).not.toBeNull()
+-      const forecastSpy = vi.spyOn(forecasts, 'computeForecast').mockImplementation((input, context, saturateFame, engaged) =>
+-        freshForecast(input, context, saturateFame, engaged))
++      const forecastSpy = vi.spyOn(forecasts, 'computeForecast').mockImplementation((input, context, saturateFame, engaged, preparedCenters) => {
++        const fresh = freshForecast(input, context, saturateFame, engaged)
++        // Compare every negative/marketing candidate, including candidates that do not win the search.
++        expect(freshForecast(input, context, saturateFame, engaged, preparedCenters)).toEqual(fresh)
++        return fresh
++      })
+       const capacitySpy = vi.spyOn(marketing, 'marketingCapacityForInputs').mockImplementation((input, engaged) =>
+         freshCapacity(input, engaged))
+       try {
+diff --git a/tests/p16-absorption-clean-target.test.ts b/tests/p16-absorption-clean-target.test.ts
+index f5aef333..bbe7eec9 100644
+--- a/tests/p16-absorption-clean-target.test.ts
++++ b/tests/p16-absorption-clean-target.test.ts
+@@ -139,12 +139,14 @@ describe('P16 actual clean-target absorption from retained original48 R03',()=>{
+  it('full current reader refuses independent cent drift and missing employment/title links, and named downgrade preserves its caller',()=>{
+   const p=prepared(),{result,record}=complete(p),save=saves.makeSave(result)
+   const baseline=saves.stableStringify(save)
+-  const mutate=(change:(state:GameState)=>void)=>{
++  const mutate=(change:(state:GameState)=>void,expected=/absorption|rights|employment|contract/i)=>{
+    const envelope=JSON.parse(baseline) as typeof save;change(envelope.state)
+    const before=saves.stableStringify(envelope)
+-   try {expect(()=>saves.validateSaveV49(envelope)).toThrow(/absorption|rights|employment|contract/i)}
++   try {expect(()=>saves.validateSaveV49(envelope)).toThrow(expected)}
+    finally {expect(saves.stableStringify(envelope)).toBe(before)}
+   }
++  expect(save.state.rights.absorptions).toHaveLength(1)
++  mutate(state=>{state.rights.absorptions.push(null as never)},/^validateSaveV49: rights\.absorptions\[1\] must be an object$/)
+   for(const field of ['cashBeforeExits','exitCharges','postExitCash','outlay'] as const)
+    mutate(state=>{state.rights.absorptions.find(a=>a.id===record.id)![field]+=0.01})
+   mutate(state=>{state.rights.absorptions.find(a=>a.id===record.id)!.contracts.find(c=>c.buyerContractId===null)!.exitCost+=0.01})
+diff --git a/tests/p16-r03-observed-migration.test.ts b/tests/p16-r03-observed-migration.test.ts
+index 0b4f0265..06222245 100644
+--- a/tests/p16-r03-observed-migration.test.ts
++++ b/tests/p16-r03-observed-migration.test.ts
+@@ -2,7 +2,7 @@
+ import { expect, it } from 'vitest'
+ import { readFileSync } from 'node:fs'
+ import { createHash } from 'node:crypto'
+-import { convertV48ToV49, convertV49ToV48, exportSave, makeSave, stableStringify, validateSaveP15B } from '../src/core/save.js'
++import { convertFromP15BSave, convertV48ToV49, convertV49ToV48, exportSave, makeSave, migrateToV45, migrateToV46, migrateToV47, stableStringify, validateSaveP15B } from '../src/core/save.js'
+ const studioId='studio-aca408ec-r03',filmId=studioId+':film:13'
+ const pins={132:'6c2d21b44b718bf33c9c8f019c0d737f59cd02a53573f4a31c29c0b21d6b0f25',134:'677b0615a7a0a7e54bd6865c6f526d0f7b773d7c28d77ff739c6deca33a9653a',144:'c4d319f62d97c9e667fbca2dee8cf87fa21f7a9169192ed7ed1bed9dac40e89b'} as const
+ function capture(week:keyof typeof pins) {
+@@ -61,5 +61,37 @@ it('observed original48 R03 settled134 and archived144 preserve earned payments
+   expect(archives).toHaveLength(week===144?1:0)
+   if(week===144)expect(archives[0]!.week).toBe(144)
+   expect(v.estate.closedWeek).toBe(week===144?144:null);preserved(v)
++  if(week===144) {
++   // Original p15b2 condition-root-downgrade + stacked-step-save48, and p15b4
++   // closure-root-downgrade-refusals: unchanged historical48 reaches the real step.
++   // This disclosed transaction capture is not a natural-campaign or player-ledger witness.
++   const state=v.old.state
++   expect([state.corporateCondition.studios.length,state.corporateCondition.events.length,state.corporateCondition.loans.length]).toEqual([5,6,1])
++   expect([state.studioClosure.closures.length,state.studioClosure.claims.length,state.studioClosure.estateEvents.length]).toEqual([1,6,7])
++   expect(state.hollywood!.businesses.flatMap(b=>b.account.periods.flatMap(p=>
++    (['loanPrincipal','loanInstallment','claimPayment'] as const).filter(kind=>p.movements[kind]!==0)
++     .map(kind=>[b.studioId,kind,p.movements[kind]])))).toEqual([
++      [studioId,'claimPayment',-488226],
++      ['studio-aca408ec-r04','loanPrincipal',3198000],
++      ['studio-aca408ec-r04','loanInstallment',-137760],
++     ])
++   const expected='migrateToV47: '+[
++    'cannot downgrade or discard a corporateCondition record (5 evaluated)',
++    'cannot downgrade or discard a corporateCondition event (6 recorded)',
++    'cannot downgrade or discard a studio loan (1 contracted)',
++    'cannot downgrade or discard an actual studio closure (1 recorded)',
++    'cannot downgrade or discard a closure claim (6 recorded)',
++    'cannot downgrade or discard an estate event (7 recorded)',
++    'cannot downgrade or discard the claimPayment movement of studio-aca408ec-r03',
++    'cannot downgrade or discard the loanPrincipal movement of studio-aca408ec-r04',
++    'cannot downgrade or discard the loanInstallment movement of studio-aca408ec-r04',
++    'cannot downgrade or discard recovery authority: costCutting.since, facilityDemolitionRefund, facilityDisposed',
++    'cannot downgrade or discard a recorded Power Ranking quarter',
++   ].join('; ')
++   for(const downgrade of [convertFromP15BSave,migrateToV47,migrateToV46,migrateToV45]) {
++    expect(()=>downgrade(v.old)).toThrowError(new Error(expected))
++    expect(stableStringify(v.old)).toBe(v.before)
++   }
++  }
+  }
+ })

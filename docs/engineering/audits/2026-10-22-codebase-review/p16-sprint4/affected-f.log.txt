@@ -1,0 +1,82 @@
+=== BEGIN s7-after
+21:09  up 17 days,  4:58, 1 user, load averages: 6.53 6.83 5.70
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt
+
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts (22 tests | 21 skipped) 12614ms
+   ✓ P13B-S7-T3 item 3: replacementLabel on the purchase row, adopt-* rows and adoptions[] rows, for both technologies > committed adoptions[] rows for both technologies carry replacementLabel verbatim (s6SoundReady/s6LightingReady) 12610ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 21 skipped (22)
+   Start at  21:09:45
+   Duration  41.58s (transform 5.80s, setup 0ms, collect 28.08s, tests 12.61s, environment 0ms, prepare 168ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/p16-sprint4-20261025/s7-after.json
+=== END s7-after exit=0
+=== BEGIN estate-after
+21:10  up 17 days,  4:59, 1 user, load averages: 9.52 7.49 6.00
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt
+
+stdout | tests/p16-r2-estate.test.ts > r2 F4/F29: the estate path refuses the bilateral path's encumbrances > a lot encumbered after the handoff (a production started on its concept) cannot sell at D: its bids are disqualified by name and the lot archives
+{"proof":"reverse68-evaluated94","condition":{"studioId":"studio-aca408ec-r04","firstEvaluatedWeek":94,"definitionVersion":"corporate-condition/v1","condition":{"stage":"stable","since":94,"week":94,"lowRun":0,"negativeRun":0,"clearRun":1,"distressWeeks":0}},"cash":4956744.95561068,"reserve":3198676}
+{"proof":"reverse68-sale-margin","spendable":4956744.95561068,"price":1000000,"reserve":3198676,"refusal":null}
+{"proof":"reverse68-natural-continuation","week":198,"closure":{"closureId":"studio-closure-1","studioId":"studio-aca408ec-r04","closureWeek":198,"causeEventId":"corporate-event-6","lawVersion":"closure/v1","p15DomainSequence":29,"phaseId":"p15b.closure","phaseOrdinal":5,"phaseOrderVersion":3,"cash":{"closing":-1957571.0443893196,"distributable":0},"loan":{"loanId":"corporate-loan-1","stopWeek":198,"paidInstallments":44,"paidAmount":948640,"remainder":172480},"dispositions":[{"subjectKind":"cash","subjectId":"studio-aca408ec-r04","prior":"closing -1957571.0443893196","result":"distributable 0; 0 paid to claims at closure; balance preserved","status":"applied","claimId":null,"lotId":null,"lawVersion":"closure/v1"},{"subjectKind":"facility","subjectId":"studio-aca408ec-r04:development","prior":"development-casting","result":"nonoperational in place; zero refund","status":"applied","claimId":null,"lotId":null,"lawVersion":"closure/v1"},{"subjectKind":"facility","subjectId":"studio-aca408ec-r04:post","prior":"post","result":"nonoperational in place; zero refund","status":"applied","claimId":null,"lotId":null,"lawVersion":"closure/v1"},{"subjectKind":"facility","subjectId":"studio-aca408ec-r04:scenery","prior":"set-scenery","result":"nonoperational in place; zero refund","status":"applied","claimId":null,"lotId":null,"lawVersion":"closure/v1"},{"subjectKind":"facility","subjectId":"studio-aca408ec-r04:stage","prior":"soundstage","result":"nonoperational in place; zero refund","status":"applied","claimId":null,"lotId":null,"lawVersion":"closure/v1"},{"subjectKind":"loan","subjectId":"corporate-loan-1","prior":"total 1121120; contracted week 153","result":"stopped at week 198; 44 installments paid (948640); remainder 172480 unpaid and non-distributable","status":"applied","claimId":null,"lotId":null,"lawVersion":"closure/v1"},{"subjectKind":"physicalPlan","subjectId":"studio-aca408ec-r04:plan:1","prior":"started","result":"complete; its plant is a terminal facility","status":"applied","claimId":null,"lotId":null,"lawVersion":"closure/v1"},{"subjectKind":"screenplay","subjectId":"script-0005","prior":"ready","result":"work stopped at week 198; authored material, progress and spend retained; no completion","status":"applied","claimId":null,"lotId":null,"lawVersion":"closure/v1"},{"subjectKind":"title","subjectId":"studio-aca408ec-r04:film:0","prior":"owned","result":"R2 lot studio-closure-1:lot:1; sale route pending until the estate closes","status":"pending","claimId":null,"lotId":"studio-closure-1:lot:1","lawVersion":"closure/v1"},{"subjectKind":"title","subjectId":"studio-aca408ec-r04:film:1","prior":"owned","result":"R2 lot studio-closure-1:lot:2; sale route pending until the estate closes","status":"pending","claimId":null,"lotId":"studio-closure-1:lot:2","lawVersion":"closure/v1"},{"subjectKind":"title","subjectId":"studio-aca408ec-r04:film:2","prior":"owned","result":"R2 lot studio-closure-1:lot:3; sale route pending until the estate closes","status":"pending","claimId":null,"lotId":"studio-closure-1:lot:3","lawVersion":"closure/v1"},{"subjectKind":"title","subjectId":"studio-aca408ec-r04:film:3","prior":"owned","result":"R2 lot studio-closure-1:lot:4; sale route pending until the estate closes","status":"pending","claimId":null,"lotId":"studio-closure-1:lot:4","lawVersion":"closure/v1"},{"subjectKind":"title","subjectId":"studio-aca408ec-r04:film:4","prior":"owned","result":"R2 lot studio-closure-1:lot:5; sale route pending until the estate closes","status":"pending","claimId":null,"lotId":"studio-closure-1:lot:5","lawVersion":"closure/v1"},{"subjectKind":"title","subjectId":"studio-aca408ec-r04:film:6","prior":"owned","result":"R2 lot studio-closure-1:lot:6; sale route pending until the estate closes","status":"pending","claimId":null,"lotId":"studio-closure-1:lot:6","lawVersion":"closure/v1"},{"subjectKind":"title","subjectId":"studio-aca408ec-r04:film:7","prior":"owned","result":"R2 lot studio-closure-1:lot:7; sale route pending until the estate closes","status":"pending","claimId":null,"lotId":"studio-closure-1:lot:7","lawVersion":"closure/v1"},{"subjectKind":"title","subjectId":"studio-aca408ec-r04:film:8","prior":"owned","result":"R2 lot studio-closure-1:lot:8; sale route pending until the estate closes","status":"pending","claimId":null,"lotId":"studio-closure-1:lot:8","lawVersion":"closure/v1"},{"subjectKind":"title","subjectId":"studio-aca408ec-r04:historical-film:0","prior":"owned","result":"R2 lot studio-closure-1:lot:9; sale route pending until the estate closes","status":"pending","claimId":null,"lotId":"studio-closure-1:lot:9","lawVersion":"closure/v1"},{"subjectKind":"title","subjectId":"studio-aca408ec-r04:historical-film:1","prior":"owned","result":"R2 lot studio-closure-1:lot:10; sale route pending until the estate closes","status":"pending","claimId":null,"lotId":"studio-closure-1:lot:10","lawVersion":"closure/v1"}],"counts":{"cash":1,"facility":4,"loan":1,"physicalPlan":1,"screenplay":1,"title":10},"digest":"1e25742b","estate":{"opensWeek":198,"closesWeek":211,"lots":[{"lotId":"studio-closure-1:lot:1","right":"R2","subjectId":"studio-aca408ec-r04:film:0"},{"lotId":"studio-closure-1:lot:2","right":"R2","subjectId":"studio-aca408ec-r04:film:1"},{"lotId":"studio-closure-1:lot:3","right":"R2","subjectId":"studio-aca408ec-r04:film:2"},{"lotId":"studio-closure-1:lot:4","right":"R2","subjectId":"studio-aca408ec-r04:film:3"},{"lotId":"studio-closure-1:lot:5","right":"R2","subjectId":"studio-aca408ec-r04:film:4"},{"lotId":"studio-closure-1:lot:6","right":"R2","subjectId":"studio-aca408ec-r04:film:6"},{"lotId":"studio-closure-1:lot:7","right":"R2","subjectId":"studio-aca408ec-r04:film:7"},{"lotId":"studio-closure-1:lot:8","right":"R2","subjectId":"studio-aca408ec-r04:film:8"},{"lotId":"studio-closure-1:lot:9","right":"R2","subjectId":"studio-aca408ec-r04:historical-film:0"},{"lotId":"studio-closure-1:lot:10","right":"R2","subjectId":"studio-aca408ec-r04:historical-film:1"}]},"receipts":[],"endOfRun":null},"condition":{"studioId":"studio-aca408ec-r04","firstEvaluatedWeek":94,"definitionVersion":"corporate-condition/v1","condition":{"stage":"closed","since":198,"week":198,"lowRun":37,"negativeRun":33,"clearRun":0,"distressWeeks":0}},"cash":-1957571.0443893196,"loans":[{"loanId":"corporate-loan-1","studioId":"studio-aca408ec-r04","lawVersion":"studio-loan/v1","contractedWeek":153,"weeklyFixedCostAtContract":38500,"principal":1001000,"total":1121120,"installments":[21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560],"p15DomainSequence":17,"phaseId":"p15b.condition","phaseOrdinal":4,"phaseOrderVersion":3}]}
+
+ ✓ |core| tests/p16-r2-estate.test.ts (7 tests | 6 skipped) 6606ms
+   ✓ r2 F4/F29: the estate path refuses the bilateral path's encumbrances > a lot encumbered after the handoff (a production started on its concept) cannot sell at D: its bids are disqualified by name and the lot archives 6599ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 6 skipped (7)
+   Start at  21:10:30
+   Duration  12.93s (transform 3.98s, setup 0ms, collect 5.44s, tests 6.61s, environment 0ms, prepare 250ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/p16-sprint4-20261025/estate-after.json
+=== END estate-after exit=0
+=== BEGIN forecast-and-refusal
+21:10  up 17 days,  4:59, 1 user, load averages: 8.17 7.29 5.95
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt
+
+ ✓ |core| tests/forecast.test.ts (20 tests) 63ms
+ ✓ |core| tests/forecast-independence.test.ts (10 tests) 215ms
+ ✓ |core| tests/d17b-marketing-menu.test.ts (5 tests) 1154ms
+   ✓ D-17B marketing menu — production capacity parity and regime split > anchors on the same capacity returned by the production box-office pass 475ms
+   ✓ D-17B marketing menu — production capacity parity and regime split > preserves the disengaged/M0A fixed menu and candidate bytes 310ms
+ ✓ |core| tests/p14d2-binding-cash.test.ts (9 tests) 13656ms
+   ✓ 1363 Part A — binding cash > A1: opt-in skipped-viable counts match independent candidates; existing results and opt-out forecast cost stay unchanged 383ms
+   ✓ 1363 Part A — binding cash > A3: an all-hopeless partial-affordability refusal advances its rejection count 2373ms
+   ✓ 1363 Part A — binding cash > A4: an all-hopeless refusal with every candidate unaffordable still advances 1221ms
+   ✓ 1363 Part A — binding cash > A6: hopeless due retry advances, allowing the next due ordinal its next decision 2586ms
+   ✓ 1363 Part A — binding cash > A6: a truly cash-bound due retry keeps its due date 685ms
+   ✓ 1363 Part A — binding cash > A7: where every candidate is affordable, live tick equals the legacy-classification control 1080ms
+   ✓ 1363 Part A — binding cash > A9: extra skipped-candidate forecasts do not move simulation RNG or mutate their input 1645ms
+ ✓ |core| tests/p16-absorption-clean-target.test.ts (5 tests) 19619ms
+   ✓ P16 actual clean-target absorption from retained original48 R03 > retains one linked bargain, pays five capped exits and exact fractional cash at par, preserves titles/history and ordinary replay 7586ms
+   ✓ P16 actual clean-target absorption from retained original48 R03 > full current reader refuses independent cent drift and missing employment/title links, and named downgrade preserves its caller 4410ms
+   ✓ P16 actual clean-target absorption from retained original48 R03 > real current49 publication refusal rolls back the fully admitted clean-target caller after actual joined validation 2179ms
+   ✓ P16 actual clean-target absorption from retained original48 R03 > recorded original preview pair survives real close and reload; missing unknown future and age13 records refuse full readers purely 2718ms
+   ✓ P16 actual clean-target absorption from retained original48 R03 > carried close refuses missing partial unknown future and age13 preview pairs on a real positive current input without refreshing or mutation 2724ms
+
+ Test Files  5 passed (5)
+      Tests  49 passed (49)
+   Start at  21:10:45
+   Duration  26.23s (transform 6.52s, setup 0ms, collect 18.45s, tests 34.71s, environment 2ms, prepare 2.69s)
+
+JSON report written to /Users/zacheryspector/studio-scratch/p16-sprint4-20261025/affected-files.json
+=== END forecast-and-refusal exit=0
+=== BEGIN root-types
+21:11  up 17 days, 5 hrs, 1 user, load averages: 9.09 7.61 6.11
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+=== END root-types exit=0
+=== BEGIN bridge-types
+21:13  up 17 days,  5:02, 1 user, load averages: 6.98 7.28 6.22
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+=== END bridge-types exit=0
+=== ALL DONE

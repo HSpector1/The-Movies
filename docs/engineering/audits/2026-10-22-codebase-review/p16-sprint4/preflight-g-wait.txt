@@ -1,0 +1,1 @@
+2026-10-25 21:15 CDT: no Studio node/vitest/tsc or lane lock; foreign REA Godot test PID7834 parent7469 (run_godot_tests.py three files --timeout60) at ~72% CPU. Deferred Studio launch; no foreign process touched. Available3419568KiB.

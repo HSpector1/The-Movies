@@ -1,0 +1,49 @@
+--- a/tests/p16-r03-observed-migration.test.ts
++++ b/tests/p16-r03-observed-migration.test.ts
+@@ -2,7 +2,7 @@
+ import { expect, it } from 'vitest'
+ import { readFileSync } from 'node:fs'
+ import { createHash } from 'node:crypto'
+-import { convertV48ToV49, convertV49ToV48, exportSave, makeSave, stableStringify, validateSaveP15B } from '../src/core/save.js'
++import { convertFromP15BSave, convertV48ToV49, convertV49ToV48, exportSave, makeSave, migrateToV45, migrateToV46, migrateToV47, stableStringify, validateSaveP15B } from '../src/core/save.js'
+ const studioId='studio-aca408ec-r03',filmId=studioId+':film:13'
+ const pins={132:'6c2d21b44b718bf33c9c8f019c0d737f59cd02a53573f4a31c29c0b21d6b0f25',134:'677b0615a7a0a7e54bd6865c6f526d0f7b773d7c28d77ff739c6deca33a9653a',144:'c4d319f62d97c9e667fbca2dee8cf87fa21f7a9169192ed7ed1bed9dac40e89b'} as const
+ function capture(week:keyof typeof pins) {
+@@ -61,5 +61,37 @@
+   expect(archives).toHaveLength(week===144?1:0)
+   if(week===144)expect(archives[0]!.week).toBe(144)
+   expect(v.estate.closedWeek).toBe(week===144?144:null);preserved(v)
++  if(week===144) {
++   // Original p15b2 condition-root-downgrade + stacked-step-save48, and p15b4
++   // closure-root-downgrade-refusals: unchanged historical48 reaches the real step.
++   // This disclosed transaction capture is not a natural-campaign or player-ledger witness.
++   const state=v.old.state
++   expect([state.corporateCondition.studios.length,state.corporateCondition.events.length,state.corporateCondition.loans.length]).toEqual([5,6,1])
++   expect([state.studioClosure.closures.length,state.studioClosure.claims.length,state.studioClosure.estateEvents.length]).toEqual([1,6,7])
++   expect(state.hollywood!.businesses.flatMap(b=>b.account.periods.flatMap(p=>
++    (['loanPrincipal','loanInstallment','claimPayment'] as const).filter(kind=>p.movements[kind]!==0)
++     .map(kind=>[b.studioId,kind,p.movements[kind]])))).toEqual([
++      [studioId,'claimPayment',-488226],
++      ['studio-aca408ec-r04','loanPrincipal',3198000],
++      ['studio-aca408ec-r04','loanInstallment',-137760],
++     ])
++   const expected='migrateToV47: '+[
++    'cannot downgrade or discard a corporateCondition record (5 evaluated)',
++    'cannot downgrade or discard a corporateCondition event (6 recorded)',
++    'cannot downgrade or discard a studio loan (1 contracted)',
++    'cannot downgrade or discard an actual studio closure (1 recorded)',
++    'cannot downgrade or discard a closure claim (6 recorded)',
++    'cannot downgrade or discard an estate event (7 recorded)',
++    'cannot downgrade or discard the claimPayment movement of studio-aca408ec-r03',
++    'cannot downgrade or discard the loanPrincipal movement of studio-aca408ec-r04',
++    'cannot downgrade or discard the loanInstallment movement of studio-aca408ec-r04',
++    'cannot downgrade or discard recovery authority: costCutting.since, facilityDemolitionRefund, facilityDisposed',
++    'cannot downgrade or discard a recorded Power Ranking quarter',
++   ].join('; ')
++   for(const downgrade of [convertFromP15BSave,migrateToV47,migrateToV46,migrateToV45]) {
++    expect(()=>downgrade(v.old)).toThrowError(new Error(expected))
++    expect(stableStringify(v.old)).toBe(v.before)
++   }
++  }
+  }
+ })

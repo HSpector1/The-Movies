@@ -1,0 +1,11 @@
+{
+  "base": "b5566fc12acdfb61b18138dc7fa288ea59c24780",
+  "files": {
+    "src/core/forecast.ts": "3fea9b3bc02541e1a9495df11d902cc084f7749e9609e1ad6e4f60ab587a764f",
+    "src/core/hollywoodPolicy.ts": "e404030cfaae9984fc1811e89ad9b23bae9b4a5ded681bed09911a7734101320",
+    "src/core/rights.ts": "7e52c3dfdb267e43a64bcbb086796136f0cf55659a3becfaf6b0632ddd2e9d2f",
+    "tests/p14d2-binding-cash.test.ts": "d6b6c943384bf36238cf1e47e042e05eb10c0a3de7c9cf43881355af42f11309",
+    "tests/p16-absorption-clean-target.test.ts": "8a7e1855ba04adc557ee36b52db89fc177d972bd7f7529148d744b35b7a298a4",
+    "tests/p16-r03-observed-migration.test.ts": "ea958f488b775bdd66b367bfc1300006e7c56e2a6c243ee1a400c422dd76d150"
+  }
+}

@@ -1,0 +1,39 @@
+=== BEGIN null-red
+21:00  up 17 days,  4:49, 1 user, load averages: 5.74 6.75 4.83
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt
+
+ ❯ |core| tests/p16-absorption-clean-target.test.ts (5 tests | 1 failed | 4 skipped) 2067ms
+   × P16 actual clean-target absorption from retained original48 R03 > full current reader refuses independent cent drift and missing employment/title links, and named downgrade preserves its caller 2065ms
+     → expected [Function] to throw error matching /^validateSaveV49: rights absorptions\…/ but got 'Cannot read properties of null (readi…'
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p16-absorption-clean-target.test.ts > P16 actual clean-target absorption from retained original48 R03 > full current reader refuses independent cent drift and missing employment/title links, and named downgrade preserves its caller
+AssertionError: expected [Function] to throw error matching /^validateSaveV49: rights absorptions\…/ but got 'Cannot read properties of null (readi…'
+
+- Expected: 
+/^validateSaveV49: rights absorptions\[1\] must be an object$/
+
++ Received: 
+"Cannot read properties of null (reading 'id')"
+
+ ❯ mutate tests/p16-absorption-clean-target.test.ts:145:53
+    143|    const envelope=JSON.parse(baseline) as typeof save;change(envelope.…
+    144|    const before=saves.stableStringify(envelope)
+    145|    try {expect(()=>saves.validateSaveV49(envelope)).toThrow(expected)}
+       |                                                     ^
+    146|    finally {expect(saves.stableStringify(envelope)).toBe(before)}
+    147|   }
+ ❯ tests/p16-absorption-clean-target.test.ts:149:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 skipped (5)
+   Start at  21:00:12
+   Duration  8.10s (transform 3.76s, setup 0ms, collect 5.28s, tests 2.07s, environment 0ms, prepare 231ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/p16-sprint4-20261025/null-red.json
+=== END null-red exit=1
+=== ALL DONE

@@ -1,0 +1,330 @@
+
+PROFILE CPU.20261025.205614.92976.0.001.cpuprofile sampled seconds 65.527
+SELF
+58.944 (idle) 
+1.022 (garbage collector) 
+0.274 (program) 
+0.246 compileSourceTextModule node:internal/modules/esm/utils
+0.227 addUneditedChunk file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.218 enter file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.21 visit file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.173 encode$1 file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.158 decode file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.139 readFileHandle node:internal/fs/promises
+0.136 traceMappings file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.123 compileForInternalLoader node:internal/bootstrap/realm
+0.117 (anonymous) file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.115 parseAstAsync file:///Users/zacheryspector/The-Movies-headless-program/node_modules/rollup/dist/es/shared/parseAst.js
+0.1 addSegmentInternal file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.092 slice node:buffer
+0.086 withInlineSourcemap file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/source-map.mjs
+0.075 get file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.071 (anonymous) 
+0.069 openFileHandle 
+0.068 writeBuffer 
+0.066 traceSegment file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.066 eachNext file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.062 originalPositionFor file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.06 close 
+0.059 start file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/dist/chunks/cac.CB_9Zo9Q.js
+0.059 realpath 
+0.053 RegExp: \w 
+0.049 decode node:internal/encoding
+0.048 stat 
+0.045 wasm-function[20] wasm://wasm/f757504a
+0.044 k file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.041 write node:buffer
+0.041 writeFile node:internal/fs/promises
+0.035 loadAndTransform file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+INCLUSIVE
+65.527 (root) 
+58.944 (idle) 
+2.168 ssrTransformScript file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+1.022 (garbage collector) 
+0.826 processTicksAndRejections node:internal/process/task_queues
+0.782 combineSourcemaps file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.777 remapping file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.757 runMicrotasks 
+0.675 traceMappings file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.644 walk file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.594 walk$1 file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.593 visit file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.59 (anonymous) file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.554 generateMap file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.449 loadAndTranslate node:internal/modules/esm/loader
+0.43 #translate node:internal/modules/esm/loader
+0.409 generateDecodedMap file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.399 parseAstAsync file:///Users/zacheryspector/The-Movies-headless-program/node_modules/rollup/dist/es/shared/parseAst.js
+0.393 eachNext file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.333 enter file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.283 convertProgram file:///Users/zacheryspector/The-Movies-headless-program/node_modules/rollup/dist/es/shared/parseAst.js
+0.283 convertNode file:///Users/zacheryspector/The-Movies-headless-program/node_modules/rollup/dist/es/shared/parseAst.js
+0.282 convertNodeList file:///Users/zacheryspector/The-Movies-headless-program/node_modules/rollup/dist/es/shared/parseAst.js
+0.282 program file:///Users/zacheryspector/The-Movies-headless-program/node_modules/rollup/dist/es/shared/parseAst.js
+0.28 addUneditedChunk file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.274 (program) 
+0.264 moduleStrategy node:internal/modules/esm/translators
+0.25 transform file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.249 compileSourceTextModule node:internal/modules/esm/utils
+0.238 blockStatement file:///Users/zacheryspector/The-Movies-headless-program/node_modules/rollup/dist/es/shared/parseAst.js
+0.233 loadAndTransform file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.232 evaluate 
+0.23 functionDeclaration file:///Users/zacheryspector/The-Movies-headless-program/node_modules/rollup/dist/es/shared/parseAst.js
+0.216 resolveId file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+0.206 decodedMappings file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js
+CORE BY FIXTURE SECTION
+
+PROFILE CPU.20261025.205615.92979.0.001.cpuprofile sampled seconds 63.47
+SELF
+7.504 (idle) 
+4.242 resolveTitles file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/rights.ts
+2.174 searchIndustryPackages file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/hollywoodPolicy.ts
+2.13 (garbage collector) 
+1.874 projectSkillWeights file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/talentSummary.ts
+1.696 computeDeterministicCore file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/forecast.ts
+1.587 applyMods file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/talentSummary.ts
+1.582 computeForecast file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/forecast.ts
+1.451 assertStudioPlacementInvariants file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/placement.ts
+1.445 tick file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/tick.ts
+1.327 computeBoxOffice file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/reception.ts
+1.252 fnv1a64 file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/math.ts
+0.985 (anonymous) file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/rights.ts
+0.925 computeSegmentAppeal file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/reception.ts
+0.805 advanceHollywoodWeek file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/hollywoodTick.ts
+0.786 specificity file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/shape.ts
+0.778 persistedProductionIds file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/productionIdentity.ts
+0.762 collectProductionIds file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/productionIdentity.ts
+0.758 authenticTitles file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/rights.ts
+0.681 forecastCenters file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/forecast.ts
+0.63 get file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/tuning.ts
+0.596 runDecision file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/hollywoodTick.ts
+0.535 skillVector file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/talentSummary.ts
+0.53 appealReachSum file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/reception.ts
+0.487 assertStudioConstructionInvariants file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/construction.ts
+0.418 decide file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/hollywoodTick.ts
+0.415 add file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/productionIdentity.ts
+0.407 resourceClaims file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/occupancy.ts
+0.364 get file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/math.ts
+0.357 (anonymous) file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/studioClosure.ts
+0.347 castSlotExecution file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/talentSummary.ts
+0.346 assertStudioHistoryInvariants file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/studioHistory.ts
+0.345 staff file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/hollywoodTick.ts
+0.344 (anonymous) file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/hollywoodTick.ts
+0.34 rivalCapacityOpex file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/hollywood.ts
+INCLUSIVE
+63.47 (root) 
+53.175 processTicksAndRejections node:internal/process/task_queues
+53.165 runMicrotasks 
+52.075 (anonymous) file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/bridge-p13b-s7-disclosure.test.ts
+50.975 advanceTo file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/harness/p13a/fixtures.ts
+50.656 tick file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/tick.ts
+32.961 (anonymous) file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js
+25.134 advanceHollywoodWeek file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/hollywoodTick.ts
+20.993 decide file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/hollywoodTick.ts
+20.417 runDecision file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/hollywoodTick.ts
+20.126 runTest file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js
+20.125 runWithTimeout file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js
+18.041 searchIndustryPackages file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/hollywoodPolicy.ts
+16.44 labWorld file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/bridge-p13b-s7-disclosure.test.ts
+14.156 chooseIndustryPackage file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/hollywoodPolicy.ts
+12.835 runWithSuite file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js
+12.835 collect file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js
+11.606 s6LightingReady file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/harness/p13b/s6-fixtures.ts
+11.532 p13bTwoLabWorld file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/harness/p13b/fixtures.ts
+10.123 advanceStudioClosureWeek file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/studioClosure.ts
+10.087 advanceClosureBoundary file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/studioClosure.ts
+9.915 forecastCenters file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/forecast.ts
+9.306 evaluate file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/hollywoodTick.ts
+7.839 computeDeterministicCore file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/forecast.ts
+7.785 s6SoundReady file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/harness/p13b/s6-fixtures.ts
+7.504 (idle) 
+7.266 p13aResearchReady file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/harness/p13a/fixtures.ts
+7.252 p13aResearchEntry file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/harness/p13a/fixtures.ts
+5.866 resolveTitles file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/rights.ts
+5.772 validateSaveV49 file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/save.ts
+5.719 assertLiveStudioPlacementInvariants file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/placement.ts
+5.475 publishClosureFinale file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/studioClosure.ts
+5.309 assertStudioPlacementInvariants file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/placement.ts
+5.257 effectiveSkill file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/talentSummary.ts
+5.103 computeForecast file:///Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/forecast.ts
+CORE BY FIXTURE SECTION
+other/collect 31.651 tick
+other/collect 14.82 advanceHollywoodWeek
+other/collect 12.188 decide
+other/collect 11.87 runDecision
+lighting 11.319 tick
+other/collect 10.31 searchIndustryPackages
+other/collect 8.465 chooseIndustryPackage
+sound 7.686 tick
+other/collect 6.787 advanceStudioClosureWeek
+other/collect 6.759 advanceClosureBoundary
+other/collect 5.678 forecastCenters
+sound 5.161 advanceHollywoodWeek
+lighting 5.153 advanceHollywoodWeek
+other/collect 4.834 evaluate
+other/collect 4.555 computeDeterministicCore
+sound 4.444 decide
+lighting 4.361 decide
+sound 4.327 runDecision
+lighting 4.219 runDecision
+other/collect 4.152 (anonymous)
+other/collect 4.013 validateSaveV49
+sound 3.98 searchIndustryPackages
+other/collect 3.951 resolveTitles
+lighting 3.751 searchIndustryPackages
+other/collect 3.716 publishClosureFinale
+other/collect 3.679 assertLiveStudioPlacementInvariants
+other/collect 3.442 assertStudioPlacementInvariants
+other/collect 3.141 effectiveSkill
+other/collect 2.893 computeForecast
+lighting 2.864 chooseIndustryPackage
+
+PROFILE CPU.20261025.205615.92980.0.001.cpuprofile sampled seconds 64.003
+SELF
+63.44 (idle) 
+0.144 setProcessTitle file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/dist/chunks/utils.C8RiOc4B.js
+0.06 (program) 
+0.055 compileSourceTextModule node:internal/modules/esm/utils
+0.044 (garbage collector) 
+0.035 fileURLToPath node:internal/url
+0.031 dirname node:path
+0.028 compileForInternalLoader node:internal/bootstrap/realm
+0.012 spawnSync node:internal/child_process
+0.01 open node:internal/fs/promises
+0.009 realpathSync node:fs
+0.006 parseSource node:internal/deps/cjs-module-lexer/lexer
+0.006 resolvePackageTargetString node:internal/modules/esm/resolve
+0.005 URL node:internal/url
+0.004 openFileHandle 
+0.004 Socket node:net
+0.004 requireBuiltin node:internal/bootstrap/realm
+0.003 getOwn node:internal/bootstrap/realm
+0.003 parse 
+0.003 (anonymous) node:internal/per_context/primordials
+0.003 Module._findPath node:internal/modules/cjs/loader
+0.003 getPathFromURLPosix node:internal/url
+0.003 read node:internal/modules/package_json_reader
+0.003 readFileHandle node:internal/fs/promises
+0.003 exit node:internal/process/per_thread
+0.002 #translate node:internal/modules/esm/loader
+0.002 resolve node:path
+0.002 cjsPreparseModuleExports node:internal/modules/esm/translators
+0.002 close 
+0.002 close node:internal/fs/promises
+0.002 internalModuleStat 
+0.002 isRelativeSpecifier node:internal/modules/esm/resolve
+0.002 readFile node:internal/fs/promises
+0.002 deprecate node:internal/util
+0.001 patchProcessObject node:internal/process/pre_execution
+INCLUSIVE
+64.003 (root) 
+63.44 (idle) 
+0.173 evaluate 
+0.167 run node:internal/modules/esm/module_job
+0.147 (anonymous) file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/dist/worker.js
+0.145 loadAndTranslate node:internal/modules/esm/loader
+0.144 setProcessTitle file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/dist/chunks/utils.C8RiOc4B.js
+0.123 #translate node:internal/modules/esm/loader
+0.105 getModuleJobForImport node:internal/modules/esm/loader
+0.079 #cachedDefaultResolve node:internal/modules/esm/loader
+0.079 resolve node:internal/modules/esm/loader
+0.079 defaultResolve node:internal/modules/esm/loader
+0.078 defaultResolve node:internal/modules/esm/resolve
+0.075 (anonymous) node:internal/main/run_main_module
+0.071 moduleResolve node:internal/modules/esm/resolve
+0.06 (program) 
+0.056 moduleStrategy node:internal/modules/esm/translators
+0.055 compileSourceTextModule node:internal/modules/esm/utils
+0.048 commonjsStrategy node:internal/modules/esm/translators
+0.047 finalizeResolution node:internal/modules/esm/resolve
+0.046 cjsPreparseModuleExports node:internal/modules/esm/translators
+0.046 createCJSModuleWrap node:internal/modules/esm/translators
+0.045 requireBuiltin node:internal/bootstrap/realm
+0.044 compileForInternalLoader node:internal/bootstrap/realm
+0.044 (garbage collector) 
+0.043 _link node:internal/modules/esm/module_job
+0.041 executeUserEntryPoint node:internal/modules/run_main
+0.039 asyncRunEntryPointWithESMLoader node:internal/modules/run_main
+0.038 fileURLToPath node:internal/url
+0.037 import node:internal/modules/esm/loader
+0.037 runEntryPointWithESMLoader node:internal/modules/run_main
+0.036 (anonymous) node:internal/modules/run_main
+0.034 prepareExecution node:internal/process/pre_execution
+0.034 prepareMainThreadExecution node:internal/process/pre_execution
+0.033 Module._resolveFilename node:internal/modules/cjs/loader
+CORE BY FIXTURE SECTION
+
+PROFILE CPU.20261025.205615.92981.0.001.cpuprofile sampled seconds 63.988
+SELF
+63.451 (idle) 
+0.095 setProcessTitle file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/dist/chunks/utils.C8RiOc4B.js
+0.09 compileForInternalLoader node:internal/bootstrap/realm
+0.072 (garbage collector) 
+0.047 (program) 
+0.021 prepareExecution node:internal/process/pre_execution
+0.02 URL node:internal/url
+0.019 compileSourceTextModule node:internal/modules/esm/utils
+0.011 spawnSync node:internal/child_process
+0.011 (anonymous) node:internal/worker
+0.01 Socket node:net
+0.01 getOwn node:internal/bootstrap/realm
+0.008 openFileHandle 
+0.006 parse 
+0.006 internalModuleStat 
+0.004 parseSource node:internal/deps/cjs-module-lexer/lexer
+0.004 toString node:internal/url
+0.004 defaultResolve node:internal/modules/esm/resolve
+0.004 normalizeString node:path
+0.003 parseCJS node:internal/deps/cjs-module-lexer/lexer
+0.003 (anonymous) node:internal/modules/esm/loader
+0.003 (anonymous) file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/dist/chunks/index.K90BXFOx.js
+0.003 internalModuleReadJSON 
+0.003 #cachedDefaultResolve node:internal/modules/esm/loader
+0.003 resolvePackageTargetString node:internal/modules/esm/resolve
+0.003 getSource node:internal/modules/esm/load
+0.003 wrappedFn node:internal/errors
+0.002 fstat 
+0.002 wrapSafe node:internal/modules/cjs/loader
+0.002 reallyExit 
+0.002 resolve node:path
+0.002 getFileProtocolModuleFormat node:internal/modules/esm/get_format
+0.002 finalizeResolution node:internal/modules/esm/resolve
+0.002 realpathSync node:fs
+0.002 initSocketHandle node:net
+INCLUSIVE
+63.988 (root) 
+63.451 (idle) 
+0.138 evaluate 
+0.137 loadAndTranslate node:internal/modules/esm/loader
+0.129 compileForInternalLoader node:internal/bootstrap/realm
+0.129 requireBuiltin node:internal/bootstrap/realm
+0.126 run node:internal/modules/esm/module_job
+0.123 #translate node:internal/modules/esm/loader
+0.098 (anonymous) file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/dist/worker.js
+0.095 setProcessTitle file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/dist/chunks/utils.C8RiOc4B.js
+0.088 builtinStrategy node:internal/modules/esm/translators
+0.082 (anonymous) node:internal/main/run_main_module
+0.079 getModuleJobForImport node:internal/modules/esm/loader
+0.073 compileForPublicLoader node:internal/bootstrap/realm
+0.073 loadBuiltinModule node:internal/modules/helpers
+0.072 (garbage collector) 
+0.064 prepareExecution node:internal/process/pre_execution
+0.064 prepareMainThreadExecution node:internal/process/pre_execution
+0.064 #cachedDefaultResolve node:internal/modules/esm/loader
+0.064 resolve node:internal/modules/esm/loader
+0.061 defaultResolve node:internal/modules/esm/loader
+0.061 defaultResolve node:internal/modules/esm/resolve
+0.058 _link node:internal/modules/esm/module_job
+0.054 (anonymous) node:internal/worker
+0.054 (anonymous) node:worker_threads
+0.047 (program) 
+0.041 setupChildProcessIpcChannel node:internal/process/pre_execution
+0.032 moduleResolve node:internal/modules/esm/resolve
+0.031 URL node:internal/url
+0.03 _forkChild node:child_process
+0.028 (anonymous) node:internal/child_process/serialization
+0.028 setupChannel node:internal/child_process
+0.021 moduleStrategy node:internal/modules/esm/translators
+0.019 compileSourceTextModule node:internal/modules/esm/utils
+0.018 finalizeResolution node:internal/modules/esm/resolve
+CORE BY FIXTURE SECTION
