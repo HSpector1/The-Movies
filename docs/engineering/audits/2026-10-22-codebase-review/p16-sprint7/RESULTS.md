@@ -1,3 +1,9 @@
+## Consumer continuation — 2026-10-26, 15:01 CDT
+
+Experimental native lifecycle source is published at e0d4c23939bcb4caf35957896959c32afef82c6b (source commit 2ba1ecfb). Final consumer attempt completed UI 20/20 within 30-second budgets and three core files: market 16/16, waiver 32/32, relationships 10/15. The five D5 first errors exactly match the retained predecessor; later assertions remain unreached. Other 35 core files lack completion. Foreign Godot restarted around 14:59; only the verified Studio tree was stopped, wrapper 143. Independent audit verified all 1,645 pins and released the freeze. Keep completed results and original timings; no full gate claim.
+
+Fresh native-consumers-remaining/run.sh is prepared but UNRUN for only the 35 unfinished core files, same published source and original budgets/workers. Await a fresh clear host check and preflight through the sole lane. Completed current-source UI/three core files/types/affected files will not be repeated without invalidation. Source-only queue-premise preparation continues separately; no new gameplay change or qualification.
+
 ## Native lifecycle verification checkpoint — 2026-10-26, 14:49 CDT
 
 Final root, Bridge and UI typechecks pass on reviewed v2+v4+v5+v6 source. Complete screenplay10/10 functional results are reused; all exceed their original five-second budgets. Actual paid greenlight, cancellation/replay, first take, hold/save, issuer/date refusals, release/replay, market/Legacy, rights and conservation are reached. Concurrent queued work is not established.
