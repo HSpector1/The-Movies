@@ -1,0 +1,53 @@
+{
+  "status": "STATIC-UNRUN",
+  "baseHead": "9c91232dd980cbe05399b6fd77ed55454e671f86",
+  "basis": "Installed S8 sources + generated64/outgoing63 registration; runtime test exact installed outgoing63-draft postimage8939d229. No projection literal or generator pin edits in this delta.",
+  "patch": {
+    "path": "CONSUMER-ASSERTIONS.patch",
+    "sha256": "10ae986f0402b2083ce380f0b5b0b2145f5bf4c35d7a2f4ed252573df335ad01",
+    "bytes": 10240
+  },
+  "files": [
+    {
+      "path": "tests/p14c2rm-writer-continuation.test.ts",
+      "preimageSha256": "1d58652d24a5419941613df703f4f4a78227eb7e9d553507c4405294e516743c",
+      "postimageSha256": "d7b545657fc6b78ab5f4cbacdbc9ea8c998d15a92f3b7e061a996817189a2914",
+      "preimageBytes": 53264,
+      "postimageBytes": 57381,
+      "allOriginalNonblankLinesRetained": true,
+      "addedLines": 48
+    },
+    {
+      "path": "tests/p16-absorption-public-action.test.ts",
+      "preimageSha256": "81151babb96af387256d1980acbb5725d248285f5ac0615d56a2c5972b771c02",
+      "postimageSha256": "9a567917045b2d9931b08cf7a3d5e9dcc0680516d81e18171d1b05b97e8c3871",
+      "preimageBytes": 23781,
+      "postimageBytes": 24648,
+      "allOriginalNonblankLinesRetained": true,
+      "addedLines": 11
+    },
+    {
+      "path": "tests/bridge-runtime-checkpoint.test.ts",
+      "preimageSha256": "8939d229f7011c6178536b94b1dfa4afd7b5ad1ef8aad18637bdcf44ec007914",
+      "postimageSha256": "1c0d4c686f5a02fea5256b65e3a4ed9c473f8d93459c09b758614655b7f164ef",
+      "preimageBytes": 55777,
+      "postimageBytes": 58934,
+      "allOriginalNonblankLinesRetained": true,
+      "addedLines": 39
+    }
+  ],
+  "requiredFixtureCopies": [
+    {
+      "from": "../outgoing63/outgoing63.checkpoint.json.gz",
+      "to": "tests/fixtures/p16/genuine-projection63-runtime/outgoing63.checkpoint.json.gz",
+      "sha256": "f24ac06cc84661015383792be732551e1647543106cd91483a3efac2fb892c26"
+    },
+    {
+      "from": "../outgoing63/OUTGOING63-RECEIPT.json",
+      "to": "tests/fixtures/p16/genuine-projection63-runtime/OUTGOING63-RECEIPT.json",
+      "sha256": "1007c33e567f26a775a707b12fbfbd139c93e48be03fd1d4a3d722b25ad7405e"
+    }
+  ],
+  "budgets": "Original5000 per core leaf; all setup and extra true discarded close remain timed; no new leaves/helper framework/extra ticks.",
+  "execution": "No compiler, generator, engine or tests run. Coordinator installs exact fixtures and patch, then owns qualification."
+}

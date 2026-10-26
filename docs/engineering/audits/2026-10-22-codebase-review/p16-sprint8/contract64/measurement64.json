@@ -1,0 +1,94 @@
+{
+  "producer": "p64-declaration-measurement.ts",
+  "producerSha256": "5da00dd1d703fd4bd9f975cca6d4836b3a4c56ccfb6338874b4fac3ea9e7153d",
+  "priorMeasurement": "Independent committed projection63 measurement at0e0cdfde (df9a088d4edd…)",
+  "source": {
+    "head": "b5c11b5a570820b4c8e8ded6830294b84d57d5a2",
+    "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untracked": ""
+  },
+  "protocolVersion": 4,
+  "projectionVersion": 64,
+  "schemaId": "sha256:57f12ee28d21aa47c7514afa1c058105a10f10a9e76d400d664e97c23dc90272",
+  "manifest": {
+    "bytes": 820,
+    "sha256": "8a757d6aa72096a7188ea4b72c511c47a0642ceb299167b5a4b5b4f1c1a41110"
+  },
+  "generatedCsharp": {
+    "bytes": 987757,
+    "sha256": "d80acca15d87c65429860263eeb9f5a59b65b41c30f1bdbfcc084883a43c6943",
+    "isDeclarationBodyHash": false
+  },
+  "schemaFile": {
+    "bytes": 440139,
+    "sha256": "a72ede58bbb0ea0bac4cae4d650f331153af10578c709e7e4cff2c022bf6dc13"
+  },
+  "identities": {
+    "F01_STRING_OR_NULL": {
+      "sha256": "797f92b1f532d61f21dad93ba8fea8da02dd5104c4f744213c9832cb2c1f6bdd",
+      "bytes": 452,
+      "deterministic": true,
+      "priorSha256": "797f92b1f532d61f21dad93ba8fea8da02dd5104c4f744213c9832cb2c1f6bdd",
+      "matchesPrior": true
+    },
+    "F02_OBJECT_OR_NULL": {
+      "sha256": "0fef8c834b895f9cf185af8f421357c642dc71984f1b4618a79eba9c4dd60e1f",
+      "bytes": 648,
+      "deterministic": true,
+      "priorSha256": "0fef8c834b895f9cf185af8f421357c642dc71984f1b4618a79eba9c4dd60e1f",
+      "matchesPrior": true
+    },
+    "F03_COMPATIBLE_OBJECTS": {
+      "sha256": "99f44add260a66d0eab17a86d3f743110277292606dff073a90a354bad335c68",
+      "bytes": 1072,
+      "deterministic": true,
+      "priorSha256": "99f44add260a66d0eab17a86d3f743110277292606dff073a90a354bad335c68",
+      "matchesPrior": true
+    },
+    "F04_DISCRIMINATED_OBJECTS": {
+      "sha256": "d878443418291974137b9affddf066d3b65d8d09286febebcafec35561a2fc5b",
+      "bytes": 5462,
+      "deterministic": true,
+      "priorSha256": "d878443418291974137b9affddf066d3b65d8d09286febebcafec35561a2fc5b",
+      "matchesPrior": true
+    },
+    "F09_ARRAY_ITEM_UNION": {
+      "sha256": "7c1f83b70b0e82152821b0c4a5e59bdedcf901f639445b45ec7ef49010e2af1b",
+      "bytes": 5087,
+      "deterministic": true,
+      "priorSha256": "7c1f83b70b0e82152821b0c4a5e59bdedcf901f639445b45ec7ef49010e2af1b",
+      "matchesPrior": true
+    },
+    "F10_CURRENT_QUOTE_UNIONS": {
+      "sha256": "97ddfba0428d3e0b1368e22e8ef04b509bdf003536abb25cdf8a2b4e4082d004",
+      "bytes": 475215,
+      "deterministic": true,
+      "priorSha256": "df9a088d4edd52652fc4eab583a83b36c667a50d3fd14d0be4715eadeb2a6f74",
+      "matchesPrior": false
+    },
+    "F11_CURRENT_COMMAND_UNION": {
+      "sha256": "97ddfba0428d3e0b1368e22e8ef04b509bdf003536abb25cdf8a2b4e4082d004",
+      "bytes": 475215,
+      "deterministic": true,
+      "priorSha256": "df9a088d4edd52652fc4eab583a83b36c667a50d3fd14d0be4715eadeb2a6f74",
+      "matchesPrior": false
+    },
+    "F12_P05_PRODUCTION_SENTINEL": {
+      "sha256": "78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6",
+      "bytes": 15018,
+      "deterministic": true,
+      "priorSha256": "78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6",
+      "matchesPrior": true
+    }
+  },
+  "positiveFixtures": 8,
+  "fixedPositiveFixtures": 6,
+  "renders": 16,
+  "actualTicks": 0,
+  "completion": "ALL_EIGHT_POSITIVES_MEASURED_TWICE_SIX_FIXED_UNCHANGED",
+  "environment": {
+    "node": "v20.20.2",
+    "platform": "darwin",
+    "arch": "x64"
+  }
+}

@@ -1,0 +1,138 @@
+--- a/tests/p14c2rm-writer-continuation.test.ts
++++ b/tests/p14c2rm-writer-continuation.test.ts
+@@ -8,6 +8,11 @@
+ import { conditionRecord, outstandingLoan, releaseRefusal } from '../src/core/corporateConditionLive.js'
+ import { libraryValuationV1 } from '../src/core/propertyValuation.js'
+ import { trustDrivers } from '../src/core/promises.js'
++import { absorptionQuoteSnapshot } from '../bridge/rights.ts'
++import { promiseHistoryFor, promiseWaiverDraftToEngine } from '../bridge/promises.ts'
++import { promiseRowsForPerson } from '../bridge/trust.ts'
++import { BRIDGE_SCHEMA } from '../bridge/schema/bridge-schema.ts'
++import { parseWireValue } from '../bridge/schema/runtime.ts'
+ import { permittedBidderRefusal, spendableCash, weeklyFixedCost } from '../src/core/rightsFinance.js'
+ import { personReservationRefusal } from '../src/core/talentMarket.js'
+ import { TUNING } from '../src/core/tuning.js'
+@@ -332,6 +337,49 @@
+     expect(stableStringify(final)).toBe(finalBefore); expect(stableStringify(paid)).toBe(paidBefore)
+     expect(stableStringify(historical)).toBe(historyBefore)
+ 
++    // S8 consumer law on the same genuine states, after the original journey.
++    // Preview executes a real discarded public close; all cost stays in this leaf.
++    const expectedObligations = openPromises.map(row => ({ promiseId: row.promiseId,
++      disposition: row.contractId === null ? 'unboundHistory' : row.contractId === keep.contractId ? 'continued' : 'exit',
++      sourceContractId: row.contractId }))
++    expect(quote.promiseObligations).toEqual(expectedObligations)
++    expect(quote.marketObligations).toEqual({ proposalCount: 0, caseCount: 0 })
++    const bridgeQuote = absorptionQuoteSnapshot(paid, { targetId: target, consideration,
++      disclosureId: disclosure.id, retention: preview.retention }, 's8-real-r02-obligations')
++    expect(bridgeQuote).toMatchObject({ kind: 'absorbStudio', ok: true, refusalReason: null,
++      terms: { promiseObligations: expectedObligations, marketObligations: { proposalCount: 0, caseCount: 0 } } })
++    expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioAbsorptionQuoteSnapshot, bridgeQuote)).toEqual(bridgeQuote)
++    expect(stableStringify(paid)).toBe(paidBefore)
++
++    expect(retainedPromise.family).toBe('APPEARANCE_COUNT')
++    const originalHistory = promiseHistoryFor(paid, writer, target).find(row => row.promiseId === retainedPromise.promiseId)!
++    expect(originalHistory).toEqual({ promiseId: retainedPromise.promiseId, family: 'APPEARANCE_COUNT',
++      count: 1, qualifyingRole: 'cast', seatClass: null, windowStartWeek: 208, dueWeekExclusive: 416,
++      contractId: keep.contractId, outcome: null, outcomeWeek: null, outcomeCause: null,
++      supersededByPromiseId: null, progress: 0 })
++    expect(promiseRowsForPerson(paid, writer, buyer)).toEqual([])
++    expect(promiseRowsForPerson(final, writer, buyer)).toEqual([originalHistory])
++    expect(promiseHistoryFor(final, writer, target).find(row => row.promiseId === retainedPromise.promiseId)).toEqual(originalHistory)
++    const unrelated = final.hollywood!.businesses.find(row => row.studioId !== target && row.studioId !== buyer)!.studioId
++    expect(promiseHistoryFor(final, writer, unrelated)).toEqual([])
++    const settledHistory = promiseRowsForPerson(restored, writer, buyer)
++    expect(settledHistory).toEqual([{ ...originalHistory, outcome: 'BROKEN', outcomeWeek: 313, outcomeCause: broken.outcomeCause }])
++    expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioMarketPromiseHistoryRow, settledHistory[0])).toEqual(settledHistory[0])
++
++    // Identical original terms are a real request, never an admitted substitute.
++    // The buyer must pass ownership and receive the native no-change refusal.
++    const waiverDraft = { promiseId: retainedPromise.promiseId, substitute: { family: 'APPEARANCE_COUNT' as const,
++      count: retainedPromise.predicate.count, windowStartWeek: retainedPromise.windowStartWeek,
++      dueWeekExclusive: retainedPromise.dueWeekExclusive } }, waiverBefore = stableStringify(waiverDraft)
++    expect(promiseWaiverDraftToEngine(paid, waiverDraft)).toEqual({ ok: false,
++      error: `This studio has no promise ${JSON.stringify(retainedPromise.promiseId)} on its record.` })
++    const conversion = promiseWaiverDraftToEngine(final, waiverDraft)
++    expect(conversion).toMatchObject({ ok: true, kind: 'waivePromise', promiseId: retainedPromise.promiseId,
++      talentId: writer, refusal: 'an identical substitute changes nothing this studio owes',
++      substitute: { family: 'APPEARANCE_COUNT', predicate: { count: 1 }, windowStartWeek: 208, dueWeekExclusive: 416 } })
++    expect(stableStringify(waiverDraft)).toBe(waiverBefore)
++    expect(stableStringify(final)).toBe(finalBefore); expect(stableStringify(restored)).toBe(restoredBefore)
++    expect(stableStringify(paid)).toBe(paidBefore); expect(stableStringify(historical)).toBe(historyBefore)
+   })
+ 
+   it('continues the real finishing task through its actual due week, then retires once', () => {
+--- a/tests/p16-absorption-public-action.test.ts
++++ b/tests/p16-absorption-public-action.test.ts
+@@ -18,6 +18,9 @@
+ import { caseForTalent, marketEligibility, proposalDraft, submitProposal } from '../src/core/talentMarket.js'
+ import { rivalWeeklyOperatingCost } from '../src/core/hollywood.js'
+ import { spendableCash } from '../src/core/rightsFinance.js'
++import { absorptionQuoteSnapshot } from '../bridge/rights.ts'
++import { BRIDGE_SCHEMA } from '../bridge/schema/bridge-schema.ts'
++import { parseWireValue } from '../bridge/schema/runtime.ts'
+ const TARGET='studio-aca408ec-r03'
+ const PIN='cd11f369558e09f1d65d8e848374ea028f4c5f666c168b5527e48c098cfdfb19'
+ 
+@@ -293,5 +296,13 @@
+    expect(()=>saves.validateSaveV49(hostile),defect).toThrow(/^absorption obligations:/)
+    expect(saves.stableStringify(hostile),defect+' caller purity').toBe(before)
+   }
++  // Nonempty real target proposal: keep the absent target-case limit explicit.
++  expect(quote.promiseObligations).toEqual([])
++  expect(quote.marketObligations).toEqual({proposalCount:1,caseCount:0})
++  const bridgeQuote=absorptionQuoteSnapshot(paid,{targetId:target,consideration,retention,disclosureId:report.id},'s8-real-proposal-obligations')
++  expect(bridgeQuote).toMatchObject({kind:'absorbStudio',ok:true,refusalReason:null,
++   terms:{promiseObligations:[],marketObligations:{proposalCount:1,caseCount:0}}})
++  expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioAbsorptionQuoteSnapshot,bridgeQuote)).toEqual(bridgeQuote)
++  expect(saves.stableStringify(paid)).toBe(paidBefore)
+  })
+ })
+--- a/tests/bridge-runtime-checkpoint.test.ts
++++ b/tests/bridge-runtime-checkpoint.test.ts
+@@ -768,6 +768,45 @@
+   it.each(Array.from(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.entries()))(
+     'accepts and migrates the enumerated %s (%s) identity',
+     (schemaId, era) => {
++      if (era === 'projection-v63') {
++        // Actual source9c public save command; no edited header/journal or save slots.
++        const compressed = readFileSync(new URL('./fixtures/p16/genuine-projection63-runtime/outgoing63.checkpoint.json.gz', import.meta.url))
++        expect(createHash('sha256').update(compressed).digest('hex')).toBe('f24ac06cc84661015383792be732551e1647543106cd91483a3efac2fb892c26')
++        const raw = gunzipSync(compressed).toString('utf8')
++        expect(sha256(raw)).toBe('e699c9b066da20ca4c46498215bca841afa5ddc9e9e571d6c3586520d0e0df65')
++        const original = JSON.parse(raw) as BridgeRuntimeCheckpointV1, before = canonicalJson(original)
++        expect(schemaId).toBe('sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1')
++        expect(original).toMatchObject({ schemaId, protocolVersion: 4, stateRevision: 0,
++          sessionId: 'p16-authentic-outgoing63-session' })
++        expect(original.journal).toHaveLength(1)
++        expect(original.journal[0]).toMatchObject({ route: 'save', commandId: 'outgoing63-real-save' })
++        expect(JSON.parse(original.journal[0]!.responseJson)).toMatchObject({ accepted: true, schemaId })
++        expect(original.savedSaveJson).not.toBeNull()
++        for (const slot of [original.currentSaveJson, original.savedSaveJson!]) {
++          expect(sha256(slot)).toBe('e62846b41b09e95fe1e6d139a0d8e7af3b1f3179606dbf61446746dbdd0f64ba')
++          expect(JSON.parse(slot)).toMatchObject({ saveVersion: 49, state: { market: { tick: 0 } } })
++        }
++        let sessions = 0
++        const loaded = loadBridgeRuntimeCheckpoint(raw, undefined, () => { sessions += 1; return 'fresh-session-projection-v63' })
++        expect(sessions).toBe(1)
++        expect(loaded.migratedFromProtocolVersion).toBe(PROTOCOL_VERSION)
++        expect(loaded.hydrated.checkpoint).toMatchObject({ schemaId: SCHEMA_ID, protocolVersion: PROTOCOL_VERSION,
++          sessionId: 'fresh-session-projection-v63', stateRevision: 0, journal: [], journalDigest: sha256('[]') })
++        expect(loaded.hydrated.journal).toEqual([])
++        // Both actual Save49 slots are already live; preserve their whole bytes.
++        expect(loaded.hydrated.checkpoint.currentSaveJson).toBe(original.currentSaveJson)
++        expect(loaded.hydrated.checkpoint.savedSaveJson).toBe(original.savedSaveJson)
++        expect(loaded.hydrated.currentSave).toEqual(JSON.parse(original.currentSaveJson))
++        expect(loaded.hydrated.savedSave).toEqual(JSON.parse(original.savedSaveJson!))
++        expect(loaded.hydrated.checkpoint.currentStateDigest).toBe(original.currentStateDigest)
++        expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(original.savedStateDigest)
++        const encoded = encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint)
++        const reopened = loadBridgeRuntimeCheckpoint(encoded, undefined, () => { throw new Error('current64 must not migrate again') })
++        expect(reopened.migratedFromProtocolVersion).toBeNull()
++        expect(encodeBridgeRuntimeCheckpoint(reopened.hydrated.checkpoint)).toBe(encoded)
++        expect(canonicalJson(original)).toBe(before)
++        return
++      }
+       const seedState = createManagedBridgeState(`prior-p4-each-${era}`)
+       const currentSaveJson = exportSave(makeSaveV14(seedState))
+       const priorBytes = priorProtocol4Bytes({

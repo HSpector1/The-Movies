@@ -1,0 +1,6 @@
+{
+  "head": "b5c11b5a570820b4c8e8ded6830294b84d57d5a2",
+  "purpose": "Existing all-eight declarations rendered twice against clean committed canonical64; no test runtime",
+  "sourceManifestEntries": 23,
+  "output": "../measurement64.json"
+}

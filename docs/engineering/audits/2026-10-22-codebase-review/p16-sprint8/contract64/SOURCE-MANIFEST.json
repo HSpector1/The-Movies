@@ -1,0 +1,20 @@
+{
+  "/Users/zacheryspector/studio-scratch/p16-retained-writing-20261026-wt/bridge/schema/bridge-schema.ts": "6f032b3a6800408dfb3109e166353c9013db3e1890ff10313c725debc75863b3",
+  "/Users/zacheryspector/studio-scratch/p16-retained-writing-20261026-wt/bridge/schema/industry-schema.ts": "8bbd85b5efc45a07b5c455df10dcffcb598a39a1c9e7930b580a8be9272ea4ba",
+  "/Users/zacheryspector/studio-scratch/p16-retained-writing-20261026-wt/bridge/schema/intent-schema.ts": "74f7129f47c353600c51ff9059bd480f6eec4788c1776d37f0be074b82cf9fb1",
+  "/Users/zacheryspector/studio-scratch/p16-retained-writing-20261026-wt/bridge/schema/canonical.ts": "b84768f3a565f7e027938fefd46960ffbbd55a35d44a51145e94b82a1529e340",
+  "/Users/zacheryspector/studio-scratch/p16-retained-writing-20261026-wt/bridge/schema/dsl.ts": "199880cc5ad275cdf4e277c7afba44823022d9e0e0b93bbee01e4fb8ad7cef8b",
+  "/Users/zacheryspector/studio-scratch/p16-retained-writing-20261026-wt/package-lock.json": "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de",
+  "/Users/zacheryspector/studio-scratch/p16-retained-writing-20261026-wt/package.json": "4225946c45d9cee2b9b8784db31f3cedb03cf62e7ff7f6114161a10048bb0564",
+  "/Users/zacheryspector/studio-scratch/p16-retained-writing-20261026-wt/scripts/bridge-contract-csharp.ts": "9adf58d7350062e25fdb4fbed73b7bdf8d613b89f4e2841eb032d06e32294057",
+  "/Users/zacheryspector/studio-scratch/p16-retained-writing-20261026-wt/scripts/generate-bridge-contract.ts": "2e032f3b53b03591631c3dbab773368ff1aff8ba74217efd5d45388f5182dd56",
+  "/Users/zacheryspector/studio-scratch/p16-retained-writing-20261026-wt/scripts/generate-bridge-contract-fixtures.ts": "c8f9ae362f19165ddd98b8ca7d73a9764f6b72c8dec3b939074f90c88da9cb51",
+  "/Users/zacheryspector/studio-scratch/p16-retained-writing-20261026-wt/tests/fixtures/bridge-contract-union-fixtures.ts": "0689507dd4e5407ec9fdc5ba3834ab9304d29120040ccac2af254cb51b637e8f",
+  "/Users/zacheryspector/studio-scratch/p16-retained-writing-20261026-wt/generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs": "be4b1dd1da2e7dc28906b9bad1ab0fa73e32d4dbe69eef344d9aeaf0a697bdb6",
+  "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/contract64/run.sh": "5bad8a088e3d96540546357e4b3541c85c5423688fc245ebd8d130cc4668962f",
+  "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/contract64/capture63.ts": "6dfd60a6a933238a83657eb72482bdbfb80332173fd03ed7583e3445dc3811c0",
+  "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/contract64/measure.sh": "72baf2f942a658fde339dd5bdeab1e3096785024f6084b5e89a5a4e1a4fc6471",
+  "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/contract64/p64-declaration-measurement.ts": "5da00dd1d703fd4bd9f975cca6d4836b3a4c56ccfb6338874b4fac3ea9e7153d",
+  "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/contract64/INPUTS.json": "9ddc0bb254aa78875f469b13b11a72bebfb112fc59c0189446524fdb53ef7240",
+  "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/contract64/SELECTION.json": "f084650c2ca7ef606ebe2946e4fef62d79d1f41291879192fa059d988c2e471d"
+}

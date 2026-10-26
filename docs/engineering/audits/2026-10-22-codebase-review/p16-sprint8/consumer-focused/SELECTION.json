@@ -1,0 +1,16 @@
+{
+  "head": "b5c11b5a570820b4c8e8ded6830294b84d57d5a2",
+  "purpose": "New nonempty obligation Bridge assertions and authentic outgoing63 import; complete affected generator file after committed-source measurement",
+  "sourceManifestEntries": 1653,
+  "budget": "Original per-leaf budgets unchanged; synchronous overrun not qualified",
+  "checks": [
+    "root types",
+    "three existing changed leaves",
+    "complete generator file"
+  ],
+  "unrun": [
+    "complete writer and runtime files",
+    "remaining40-file consumer milestone",
+    "broader historical/game gates"
+  ]
+}
