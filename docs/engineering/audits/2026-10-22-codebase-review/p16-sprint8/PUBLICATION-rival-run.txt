@@ -3,3 +3,6 @@ https://github.com/HSpector1/The-Movies.git
 1710b432d9f7ba7fa1afac0ce4d74aa6ee72ef54	refs/heads/p16-retained-writing-20261026
 Primary 013c4edc90c0ce063fea00ebb187161ad6eb3414 and main ab65eb20c73c35ac3530f59181332cc9a313b604 remain unchanged.
 Scoped source checkpoint; full technical qualification incomplete.
+
+Settlement test checkpoint explicit remote verified:
+e1cd19ed7f59472fdf3f7bb8bb0647387070d955	refs/heads/p16-retained-writing-20261026

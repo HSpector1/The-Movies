@@ -1,0 +1,25 @@
+{
+  "status": "STATIC-UNRUN",
+  "baseHead": "1710b432d9f7ba7fa1afac0ce4d74aa6ee72ef54",
+  "files": [
+    {
+      "path": "src/core/acquisition.ts",
+      "baseSha256": "a05f1e5acbc01471a9aa906bf171d4b1a632eac2f09e6b817db18da7402411e5",
+      "postimageSha256": "65545a63f2d9710d1179fb245cf61a48057affd0f4cf91230f7cae91f528d3a8",
+      "baseBytes": 62637,
+      "postimageBytes": 62994
+    },
+    {
+      "path": "src/core/hollywoodValidation.ts",
+      "baseSha256": "11e188621ec80eb2ed6a318a9d06099abfed52e8052ef571b1092d3995e5c668",
+      "postimageSha256": "92185129ee20ef5acd9d5804806be5d6de02f48e04b420c2623955743daddf3c",
+      "baseBytes": 70984,
+      "postimageBytes": 71198
+    }
+  ],
+  "patch": {
+    "path": "RIVAL-RETENTION.patch",
+    "sha256": "fa54f5bfb352b965bebd340906089c6e50a27eb330835b8c38273f2bdc5080c1",
+    "bytes": 6846
+  }
+}

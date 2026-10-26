@@ -1,0 +1,98 @@
+{
+  "status": "FROZEN-STATIC-UNRUN",
+  "baseHead": "1710b432d9f7ba7fa1afac0ce4d74aa6ee72ef54",
+  "patch": {
+    "path": "SETTLEMENT.patch",
+    "sha256": "361f5f9d84ddff0e5b1b8060581cfceaf4883c004026fdfcf010c84c9627888e",
+    "bytes": 6252
+  },
+  "file": {
+    "path": "tests/p16-absorption-active-run.test.ts",
+    "preimagePath": "preimage.ts",
+    "preimageSHA256": "9b48e240f004c7ec5c104bfac7126129310a33545b8ea31ff862866c47321207",
+    "preimageBytes": 25517,
+    "postimagePath": "postimage.ts",
+    "postimageSHA256": "ec7bf900543ef4e78d366fe0befe121c1b59825c769403cc3fe4329745cce205",
+    "postimageBytes": 30840
+  },
+  "selector": {
+    "file": "tests/p16-absorption-active-run.test.ts",
+    "describe": "P16 genuine rival buyer of the original R01 theatrical run",
+    "it": "pays the next acquired installment to R02 alongside its own final installment with native account conservation and save replay"
+  },
+  "capture": {
+    "environment": "P16_ORIGINAL48_CAPTURE_ROOT",
+    "file": "r04-actual163.save48.json",
+    "sha256": "c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad",
+    "provenance": "Unchanged original admitted drained-R04 transaction fixture; no new state constructor."
+  },
+  "budget": {
+    "milliseconds": 5000,
+    "changed": false,
+    "setupInsideLeaf": true,
+    "addedTicks": 5,
+    "totalTicks": 14,
+    "runtimeMeasured": false
+  },
+  "preservation": "Unified diff adds lines only; all original assertions, original three leaf identities and hostile-owner amendment preserved.",
+  "sourcePins": [
+    {
+      "path": "src/core/absorbedRuns.ts",
+      "sha256": "6c5cc695b8f317fbffadef4404aae359c421162f7f1f7b9f5a215b09d648813e",
+      "bytes": 11950
+    },
+    {
+      "path": "src/core/hollywoodTick.ts",
+      "sha256": "106c81b7d255d34e6aee9863f3d060bd6b5d91bae63a5c8d5b3d5cb8e8e41324",
+      "bytes": 50020
+    },
+    {
+      "path": "src/core/hollywoodValidation.ts",
+      "sha256": "11e188621ec80eb2ed6a318a9d06099abfed52e8052ef571b1092d3995e5c668",
+      "bytes": 70984
+    },
+    {
+      "path": "src/core/acquisition.ts",
+      "sha256": "a05f1e5acbc01471a9aa906bf171d4b1a632eac2f09e6b817db18da7402411e5",
+      "bytes": 62637
+    },
+    {
+      "path": "src/core/studioClosure.ts",
+      "sha256": "3e4761fd77ab1da67b77144c4e60cdcf8bd211f53223fde70b685b8e19d53d7e",
+      "bytes": 83253
+    },
+    {
+      "path": "src/core/economy.ts",
+      "sha256": "caa6f20444be1544d64e2226f8eb89823c8d787c1460473169e0954ef15d0e10",
+      "bytes": 4416
+    },
+    {
+      "path": "src/core/corporateCondition.ts",
+      "sha256": "428f2e59c141ad765b0a04cb032de7801a0006cfe3ddd5953ef429a835fadf44",
+      "bytes": 10410
+    },
+    {
+      "path": "src/core/tuning.ts",
+      "sha256": "2ca372df40dd150cdd50f650eb0e0f9cfc601551e6f29f231e3646773957d3f2",
+      "bytes": 146558
+    },
+    {
+      "path": "src/core/save.ts",
+      "sha256": "7860bc537691afb1b1186e608e2ea478a2acfc982e4282ea5c23c55095c372a1",
+      "bytes": 593599
+    }
+  ],
+  "notes": {
+    "path": "NOTES.md",
+    "sha256": "8a6d8d139cc3c6a6f4f2e7d5f3f24cd9a504797b3536a977e5420da6694291a1",
+    "bytes": 4930
+  },
+  "staticChecks": [
+    "Exact checkout preimage retained",
+    "Patch regenerated exactly from retained pre/post bytes",
+    "No deleted/changed original lines",
+    "Three original leaves retained",
+    "No timeout or setup-hook additions"
+  ],
+  "qualification": "No engine, compiler, test, generator, checkout write or Git mutation performed. Five-second qualification and all new assertions remain unrun."
+}

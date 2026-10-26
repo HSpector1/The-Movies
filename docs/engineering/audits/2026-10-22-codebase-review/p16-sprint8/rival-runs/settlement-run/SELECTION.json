@@ -1,0 +1,19 @@
+{
+  "head": "1710b432d9f7ba7fa1afac0ce4d74aa6ee72ef54",
+  "purpose": "Extend same genuine rival leaf to full175 settlement and174 save/replay; no new leaf or budget",
+  "sourceManifestEntries": 1658,
+  "selector": {
+    "file": "tests/p16-absorption-active-run.test.ts",
+    "describe": "P16 genuine rival buyer of the original R01 theatrical run",
+    "it": "pays the next acquired installment to R02 alongside its own final installment with native account conservation and save replay"
+  },
+  "budget": {
+    "milliseconds": 5000,
+    "changed": false,
+    "setupInsideLeaf": true,
+    "addedTicks": 5,
+    "totalTicks": 14,
+    "runtimeMeasured": false
+  },
+  "reuse": "All unchanged source compiler/history/generator evidence; original RED and other active-run leaves not rerun"
+}
