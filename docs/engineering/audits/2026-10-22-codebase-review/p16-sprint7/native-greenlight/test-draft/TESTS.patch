@@ -1,0 +1,170 @@
+--- a/tests/p16-carried-script-accept.test.ts
++++ b/tests/p16-carried-script-accept.test.ts
+@@ -14,7 +14,11 @@
+ import {productionPhaseForRemainingTicks} from '../src/core/productionPhases.js'
+ import {absorptionProducerRefusal,quoteAbsorption,closeAbsorption,absorptionAsk} from '../src/core/acquisition.js'
+ import {requestDiligence} from '../src/core/dueDiligence.js'
+-import {terminationCost} from '../src/core/employment.js'
++import {activeProductionCompanyTalentIds,busyTalentIds,canAfford,hiringMarketIds,terminationCost} from '../src/core/employment.js'
++import {playerOffer} from '../src/core/talentMarket.js'
++import {currentHolder} from '../src/core/rights.js'
++import {legacyFactsFromState} from '../src/core/campaignLegacy.js'
++import {runUntil} from './_p04a2WriterCreditFixtures.js'
+ import {libraryValuationV1} from '../src/core/propertyValuation.js'
+ import {permittedBidderRefusal,spendableCash} from '../src/core/rightsFinance.js'
+ const TARGET='studio-aca408ec-r01'
+@@ -200,13 +204,125 @@
+  expect(next.operations).toEqual(before.operations);expect(next.scriptDevelopment).toEqual(before.scriptDevelopment)
+  expect(next.rights.titleEvents).toEqual(before.rights.titleEvents);expect(next.rights.transactions).toEqual(before.rights.transactions)
+  const ready=scriptProjectsReadModel(next),readyCard=ready.sections.readyToPackage.find(p=>p.projectId===projectId)!,packageView=ready.packages.find(p=>p.projectId===projectId)!
+- expect(readyCard).toBeDefined();expect(readyCard.legalActions).toEqual([])
+- expect(packageView).toBeDefined();expect(packageView.openAction).toBeNull()
+- expect(packageView.availability).toMatchObject({knownGatesClear:false,canSubmitGreenlightIntent:false,willQueueGreenlightIntent:false,staffingAvailable:false})
+- expect(packageView.availability.blockers.some(b=>b.kind==='carried-action')).toBe(true)
++ expect(readyCard).toBeDefined();expect(readyCard.legalActions.some(action=>action.kind==='planAuditions')).toBe(false)
++ expect(packageView).toBeDefined();expect(packageView.availability.writerAvailable).toBe(true)
++ // Acquired packaging now follows actual staffing/capacity; auditions remain unavailable.
++ expect(packageView.openAction?.kind??null).toBe(packageView.availability.staffingAvailable?'openPackage':null)
++ expect(packageView.availability.blockers.some(b=>b.kind==='carried-action')).toBe(false)
+  return {j,before,beforeBytes,next,record,decision,projectId}
+ }
+ function acceptedRecord(state:GameState,id:string){const a=state.rights.absorptions.find(a=>a.id===id)!;if(a.producerVersion!=='absorption-scripts/v4')throw new Error('accepted v4 witness required');return a}
++function nativeRecord(state:GameState,id:string){const record=state.rights.absorptions.find(a=>a.id===id)!;if(record.producerVersion!=='absorption-scripts/v6')throw new Error('actual native v6 producer required');return record}
++function nativeGreenlight(a:ReturnType<typeof accepted>){
++ // One fixed production crew, hired through public actions at ordinary 52-week terms.
++ // No alternative person/date/price route if a real availability or cash premise fails.
++ const crew=a.j.p.source.productions[0]!
++ expect(crew.id).toBe(TARGET+':film:12')
++ const ids=[crew.directorId,crew.cast.lead,crew.cast.antagonist,crew.cast.support,...crew.craftIds]
++ expect(ids).toHaveLength(5);expect(new Set(ids).size).toBe(5);expect(ids).not.toContain(a.j.project.writerId)
++ let state=a.next
++ for(const talentId of ids){
++  expect(hiringMarketIds(state),'fixed crew must actually be available to hire').toContain(talentId)
++  expect(busyTalentIds(state).has(talentId),'fixed crew must have no active assignment').toBe(false)
++  const before=state,bytes=JSON.stringify(before),offer=playerOffer(before,talentId,52,before.market.tick)
++  expect(canAfford(before,offer.signingBonus).ok,'actual signing bonus affordability').toBe(true)
++  state=applyActions(before,[{kind:'signContract',talentId,termWeeks:52}])
++  expect(JSON.stringify(before)).toBe(bytes)
++  expect(state.studio.cash).toBe(before.studio.cash-offer.signingBonus)
++  expect(state.ledger.slice(before.ledger.length)).toMatchObject([{kind:'signingBonus',talentId,amount:-offer.signingBonus}])
++ }
++ const concept=state.hollywood!.concepts.find(c=>c.id===a.j.project.conceptId)!
++ expect(concept,'actual source concept').toBeDefined();expect(state.concepts.some(c=>c.id===concept.id)).toBe(false)
++ const production={projectId:a.projectId,directorId:crew.directorId,craftIds:[...crew.craftIds],cast:{...crew.cast},budget:{negative:concept.baseNegativeCost,marketing:0}}
++ expect(production.budget.negative).toBeGreaterThan(0)
++ expect(canAfford(state,production.budget.negative).ok,'fixed native budget affordability').toBe(true)
++ const packageView=scriptProjectsReadModel(state).packages.find(p=>p.projectId===a.projectId)!
++ expect(packageView.openAction).toMatchObject({kind:'openPackage',projectId:a.projectId})
++ expect(packageView.availability).toMatchObject({staffingAvailable:true,writerAvailable:true,canSubmitGreenlightIntent:true,willQueueGreenlightIntent:false})
++ const before=state,bytes=JSON.stringify(before)
++ state=applyActions(before,[{kind:'greenlightScriptProject',production}])
++ expect(JSON.stringify(before)).toBe(bytes);expect(state.productionQueue).toEqual(before.productionQueue)
++ const picture=state.studio.activeProductions.find(p=>!before.studio.activeProductions.some(old=>old.id===p.id))!
++ expect(picture,'native producer must actually start, not queue').toBeDefined()
++ expect(picture).toMatchObject({conceptId:concept.id,writerId:a.j.project.writerId,directorId:crew.directorId,cast:crew.cast,craftIds:crew.craftIds,budget:production.budget,startTick:173,remainingTicks:8})
++ expect(state.ledger.slice(before.ledger.length)).toMatchObject([{kind:'production',productionId:picture.id,amount:-production.budget.negative}])
++ expect(state.studio.cash).toBe(before.studio.cash-production.budget.negative)
++ expect(state.ledger.slice(before.ledger.length).some(row=>row.kind==='freelancerFee')).toBe(false)
++ expect(activeProductionCompanyTalentIds(state).has(picture.writerId)).toBe(false)
++ for(const id of ids)expect(activeProductionCompanyTalentIds(state).has(id)).toBe(true)
++ expect(state.contracts.find(c=>c.talentId===picture.writerId)).toEqual(a.next.contracts.find(c=>c.talentId===picture.writerId))
++ const record=nativeRecord(state,a.record.id)
++ expect(record.scriptDecisions.map(d=>d.kind)).toEqual(['accept','greenlight'])
++ expect(record.continuedScripts[0]!.project).toMatchObject({status:'inProduction',productionId:picture.id})
++ expect(record.scriptCompletions).toEqual(a.record.scriptCompletions)
++ expect(record.continuedScripts[0]!.originalScript).toEqual(a.record.continuedScripts[0]!.originalScript)
++ expect(record.continuedScripts[0]!.originalCosts).toEqual(a.record.continuedScripts[0]!.originalCosts)
++ expect(state.scriptDevelopment.projects).toEqual(a.next.scriptDevelopment.projects)
++ saves.makeSave(state)
++ return {state,picture,production,concept,ids}
++}
++function nativeLifecycle(a:ReturnType<typeof accepted>){
++ const n=nativeGreenlight(a),started=n.state,startBytes=JSON.stringify(started)
++ const text=saves.exportCurrentState(started),reload=saves.migrateToLive(saves.importSave(text)).state
++ expect(saves.exportCurrentState(reload)).toBe(text)
++ expect(()=>applyActions(started,[{kind:'greenlightScriptProject',production:n.production}])).toThrow('applyActions: greenlight rejected — managed studios must greenlight an authoritative Ready script project')
++ expect(JSON.stringify(started)).toBe(startBytes)
++ const cancel={kind:'cancel' as const,productionId:n.picture.id}
++ const cancelled=applyActions(started,[cancel]),cancelReplay=applyActions(reload,[cancel])
++ expect(JSON.stringify(started)).toBe(startBytes)
++ expect(saves.exportCurrentState(cancelled)).toBe(saves.exportCurrentState(cancelReplay))
++ expect(cancelled.studio.cash).toBe(started.studio.cash);expect(cancelled.ledger).toEqual(started.ledger)
++ expect(cancelled.studio.activeProductions.some(p=>p.id===n.picture.id)).toBe(false)
++ expect(cancelled.operations.workflows.some(w=>w.productionId===n.picture.id)).toBe(false)
++ expect(nativeRecord(cancelled,a.record.id).continuedScripts[0]!.project).toMatchObject({status:'ready',productionId:null})
++ expect(nativeRecord(cancelled,a.record.id).scriptDecisions.map(d=>d.kind)).toEqual(['accept','greenlight','cancelProduction'])
++ const cancelledBytes=JSON.stringify(cancelled)
++ let state=applyActions(cancelled,[{kind:'greenlightScriptProject',production:n.production}])
++ expect(JSON.stringify(cancelled)).toBe(cancelledBytes)
++ const picture=state.studio.activeProductions.find(p=>p.conceptId===n.concept.id)!
++ expect(picture.id).not.toBe(n.picture.id)
++ expect(state.studio.cash).toBe(cancelled.studio.cash-n.production.budget.negative)
++ expect(state.ledger.filter(row=>row.kind==='production'&&(row.productionId===n.picture.id||row.productionId===picture.id))).toHaveLength(2)
++ // Reuse the existing ordinary set/director/take driver. No workflow or clock edits.
++ const walkStart=state,walkBytes=JSON.stringify(state)
++ state=runUntil(state,s=>s.studio.activeProductions.find(p=>p.id===picture.id)?.remainingTicks===1,20)
++ expect(JSON.stringify(walkStart)).toBe(walkBytes)
++ expect(state.studio.activeProductions.find(p=>p.id===picture.id)?.remainingTicks).toBe(1)
++ expect(state.firstTakes.filter(t=>t.productionId===picture.id)).toHaveLength(1)
++ expect(state.firstTakes.find(t=>t.productionId===picture.id)).toMatchObject({studioId:a.j.p.buyer,directorId:picture.directorId,cast:picture.cast})
++ const held=step(state)
++ expect(held.studio.activeProductions.find(p=>p.id===picture.id)?.remainingTicks).toBe(1)
++ expect(held.studio.releasedFilms.some(f=>f.productionId===picture.id)).toBe(false)
++ const holdText=saves.exportCurrentState(held),holdReload=saves.migrateToLive(saves.importSave(holdText)).state
++ const commit={kind:'commitPictureToRelease' as const,productionId:picture.id},heldBytes=JSON.stringify(held)
++ const committed=applyActions(held,[commit]);expect(JSON.stringify(held)).toBe(heldBytes)
++ const committedBytes=JSON.stringify(committed)
++ expect(()=>applyActions(committed,[{kind:'cancel',productionId:picture.id}])).toThrow(/committed to release/)
++ expect(JSON.stringify(committed)).toBe(committedBytes)
++ const final=step(committed),replay=step(applyActions(holdReload,[commit]))
++ expect(saves.exportCurrentState(final)).toBe(saves.exportCurrentState(replay))
++ const film=final.studio.releasedFilms.find(f=>f.productionId===picture.id)!
++ expect(film).toMatchObject({productionId:picture.id,conceptId:n.concept.id,releaseTick:held.market.tick,directorId:picture.directorId,participants:picture.participants})
++ expect(final.studio.activeProductions.some(p=>p.id===picture.id)).toBe(false)
++ expect(nativeRecord(final,a.record.id).continuedScripts[0]!.project).toMatchObject({status:'produced',productionId:picture.id})
++ expect(nativeRecord(final,a.record.id).scriptDecisions.map(d=>d.kind)).toEqual(['accept','greenlight','cancelProduction','greenlight','productionReleased'])
++ expect(final.sharedMarket.assessments.filter(row=>row.releaseId===picture.id)).toMatchObject([{week:film.releaseTick,studioId:a.j.p.buyer,genre:n.concept.genre}])
++ expect(legacyFactsFromState(final,final.market.tick).films.find(f=>f.filmId===picture.id)).toMatchObject({studioId:a.j.p.buyer,genre:n.concept.genre,releaseWeek:film.releaseTick,domainId:'playerFilms'})
++ expect(currentHolder(final,{right:'R2',filmId:picture.id},final.market.tick)).toMatchObject({kind:'holder',holderId:a.j.p.buyer})
++ const property=final.rights.properties.find(p=>p.conceptId===n.concept.id)!
++ expect(property.workLinks).toEqual([n.picture.id,picture.id])
++ expect(final.rights.titleEvents.filter(e=>e.subject.right==='R1'&&e.subject.propertyId===property.propertyId&&e.cause==='genesis')).toHaveLength(1)
++ expect(final.ledger.slice(a.next.ledger.length).reduce((cash,row)=>cash+row.amount,a.next.studio.cash)).toBe(final.studio.cash)
++ const run=final.theatricalRuns.find(r=>r.productionId===picture.id)!
++ expect(run).toBeDefined();expect(run.weekIndex).toBe(1)
++ expect(final.ledger.filter(row=>row.kind==='studioRevenue'&&row.productionId===picture.id).reduce((sum,row)=>sum+row.amount,0)).toBe(run.cumulativeStudioRevenuePaid)
++ expect(final.concepts).toEqual(a.next.concepts);expect(final.scriptDevelopment.projects).toEqual(a.next.scriptDevelopment.projects)
++ expect(final.hollywood!.businesses.find(b=>b.studioId===TARGET)!.development.projects).toEqual(a.j.p.source.development.projects)
++ expect(final.hollywood!.businesses.find(b=>b.studioId===TARGET)!.projects).toEqual(a.j.p.source.projects)
++ expect(nativeRecord(final,a.record.id).scriptCompletions).toEqual(a.record.scriptCompletions)
++ expect(nativeRecord(final,a.record.id).continuedScripts[0]!.originalScript).toEqual(a.record.continuedScripts[0]!.originalScript)
++ pureOriginal(a.j.p)
++}
+ describe('P16 genuine carried draft public acceptance',()=>{
+  it('public173 Review to Ready records one durable decision and offers only supported management actions while source employment titles and earned assessment remain unchanged',()=>{
+   const a=accepted(),before=JSON.stringify(a.next)
+@@ -221,6 +337,7 @@
+   expect(acceptedRecord(final,a.record.id).scriptCompletions).toEqual(a.record.scriptCompletions)
+   expect(carriedProject(final,a.record.id)).toEqual(carriedProject(a.next,a.record.id))
+   pureOriginal(a.j.p)
++  nativeLifecycle(a)
+  })
+  it('fully admitted accepted state rejects missing wrong future premature and duplicate decision authority with precise reader owners and whole caller purity',()=>{
+   const a=accepted()
+@@ -234,6 +351,16 @@
+    {label:'ready work retagged as undecided exact v3',expected:/continued script: native buyer project differs from original work\/earned completion/,change:x=>{const record=acceptedRecord(x,a.record.id);Reflect.set(record,'producerVersion','absorption-scripts/v3');Reflect.deleteProperty(record,'scriptDecisions')}}
+   ]
+   for(const {label,expected,change} of cases){const x=structuredClone(a.next);change(x);const before=JSON.stringify(x);try{expect(()=>saves.makeSave(x),label).toThrow(expected)}finally{expect(JSON.stringify(x),label).toBe(before)}}
++  // One admitted native production supplies every new v6 hostile; no invented positive history.
++  const n=nativeGreenlight(a)
++  const nativeCases:Array<{label:string;expected:RegExp;change:(x:GameState)=>void}>=[
++   {label:'numeric v6 decision ID',expected:/^continued script: native production input decision\.id must be a string$/,change:x=>{Reflect.set(nativeRecord(x,a.record.id).scriptDecisions[1]!,'id',7)}},
++   {label:'null actual paid ledger row',expected:/^continued script: native production input ledger\[\d+\] must be an object$/,change:x=>{Reflect.set(x.ledger,x.ledger.findIndex(row=>row.productionId===n.picture.id&&row.kind==='production'),null)}},
++   {label:'missing consumed employment root',expected:/^continued script: native production input hollywood\.employment must be an array$/,change:x=>{Reflect.deleteProperty(x.hollywood!,'employment')}},
++   {label:'active budget differs from unchanged paid snapshot',expected:/^continued script: native active production differs from paid greenlight$/,change:x=>{x.studio.activeProductions.find(p=>p.id===n.picture.id)!.budget.negative+=1}},
++   {label:'active cast differs from unchanged paid snapshot',expected:/^continued script: native active production differs from paid greenlight$/,change:x=>{const p=x.studio.activeProductions.find(p=>p.id===n.picture.id)!;[p.cast.lead,p.cast.support]=[p.cast.support,p.cast.lead]}}
++  ]
++  for(const {label,expected,change} of nativeCases){const x=structuredClone(n.state);change(x);const before=JSON.stringify(x);try{expect(()=>saves.makeSave(x),label).toThrow(expected)}finally{expect(JSON.stringify(x),label).toBe(before)}}
+  })
+  it('real native accept producer failure after producing Ready preserves original Review caller without claiming an uncalled makeSave seam',()=>{
+   const j=completion('explicit'),before=JSON.stringify(j.final),real=nativeScript.acceptScriptProject,marker='CARRIED_NATIVE_ACCEPT_FAILURE';let reached=0

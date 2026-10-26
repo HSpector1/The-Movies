@@ -1,0 +1,48 @@
+{
+  "status": "STATIC-UNRUN-TEST-DRAFT",
+  "baseHead": "5a730f42d5a66d22cba4808b5c642510c2f068bb",
+  "sourceDraft": {
+    "manifest": "/Users/zacheryspector/studio-scratch/p16-sprint7-native-greenlight-20261026/v2/DRAFT-MANIFEST.json",
+    "manifestSha256": "08c87541514055f3c09b9ae7e9921d527f23299c53ce7a1013a3dd6f4399cafe",
+    "patch": "/Users/zacheryspector/studio-scratch/p16-sprint7-native-greenlight-20261026/v2/NATIVE-LIFECYCLE-v2.patch",
+    "patchSha256": "678c3a06e0ad1b6a0c7d974280d4c187ae70c36ea65e9d4d7db2716fa1d59bca",
+    "sourceFiles": 24
+  },
+  "files": [
+    {
+      "path": "tests/p16-carried-script-accept.test.ts",
+      "preimageSha256": "a7bd894bd802569aa52455a57483b5d46c9111bdb59d4e525027e2c5751603e0",
+      "postimageSha256": "76c91414c3aced11dc00dcfe021498050efb32c2d8bd46e4595c2964e1a3ce23",
+      "postimage": "postimages/tests/p16-carried-script-accept.test.ts",
+      "bytes": 35127
+    }
+  ],
+  "patch": {
+    "path": "TESTS.patch",
+    "sha256": "907df2a0888eeba9f1d6c5e6f59310ba1ab31c2c3517b718a2cdb60773063a0a",
+    "bytes": 16223
+  },
+  "reusedHelper": {
+    "path": "tests/_p04a2WriterCreditFixtures.ts",
+    "sha256": "99ca26159c8b7044230c8ca76797a1c2e8fad41cf6253ba7fddf41c402b961c2",
+    "verb": "runUntil uses native driveTakes and tick; no fixture constructor is called"
+  },
+  "capture": {
+    "env": "P16_ORIGINAL48_CAPTURE_ROOT",
+    "file": "r04-actual163.save48.json",
+    "sha256": "c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad"
+  },
+  "originalCaseCount": 3,
+  "draftCaseCount": 3,
+  "newTestLeaves": 0,
+  "budgetMs": 5000,
+  "setup": "unchanged per-leaf accepted()/completion()/prepared() chain, no caching or setup moved outside budget",
+  "verification": {
+    "engine": false,
+    "tests": false,
+    "compiler": false,
+    "generator": false,
+    "repositoryWrites": false,
+    "staticHashAndTextChecks": true
+  }
+}

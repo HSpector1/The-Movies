@@ -1,0 +1,176 @@
+{
+  "status": "STATIC-UNRUN-FINDING-CORRECTION",
+  "baseHead": "5a730f42d5a66d22cba4808b5c642510c2f068bb",
+  "immutableV1PatchSha256": "3abaadf274c1c181ee6f566b617bff7d309d66a7453bc0c95f7696324d4fdc96",
+  "immutableV1Verified": true,
+  "files": [
+    {
+      "path": "bridge/finance.ts",
+      "baseSha256": "bac2d6302259663991ffedfa8ed6395fb0b3ec7ece1cc13b2b4884ba2ac7e7d9",
+      "postimageSha256": "5680d7fdcb45c5dd81d4ccec0f70c9c77fe2e2d82e4acb5ab1c3ca25169b4155",
+      "postimage": "working/bridge/finance.ts"
+    },
+    {
+      "path": "bridge/industry.ts",
+      "baseSha256": "9c85e928cab05a3852c3019c79cbd29546223062946023f071f31de737ad1bfd",
+      "postimageSha256": "734497d5b3737f793f359e7d42494ab625a5d11608d2f8855c039ecaf27b7639",
+      "postimage": "working/bridge/industry.ts"
+    },
+    {
+      "path": "src/core/absorbedScripts.ts",
+      "baseSha256": "160bcad29aa90ac79e6fde23df300767bca1b2c33171726c49076bee320f3289",
+      "postimageSha256": "04ade48e36ee7d3ecd098e78334b65db6bdcfa03c2a1840a30ee5f84064b5845",
+      "postimage": "working/src/core/absorbedScripts.ts"
+    },
+    {
+      "path": "src/core/acquisition.ts",
+      "baseSha256": "e165fa7c3432bd17fd406f0541c2ae972797333766b713293d2d227b98ae1a9e",
+      "postimageSha256": "674be539ae188b8193e693bca0805b1d9efa33ab113f780d7eb47d2fd3e7d58e",
+      "postimage": "working/src/core/acquisition.ts"
+    },
+    {
+      "path": "src/core/actions.ts",
+      "baseSha256": "86aa087289234063d658991162207edc6579431d026e53eb88f659b9aa744564",
+      "postimageSha256": "b84257f7b35aac67676a1724482df23966f98776a08b402dd0411bdc869561cc",
+      "postimage": "working/src/core/actions.ts"
+    },
+    {
+      "path": "src/core/campaignLegacy.ts",
+      "baseSha256": "4ccfa46eae1701c6af605535ff58c8cb96fecb04dca749fd29c76c960302778f",
+      "postimageSha256": "74af9bbcb1a3d57ecf74a117c8e40ae31be04ab8dab2a277cefcff51a2951250",
+      "postimage": "working/src/core/campaignLegacy.ts"
+    },
+    {
+      "path": "src/core/castingPackageReadModel.ts",
+      "baseSha256": "0643589d85477e64f284ea90d8ba9e793eab1008f5b9a3076eb47a4c7686d16e",
+      "postimageSha256": "fa897aacf2e3d5e955853059510836ee37f449f5770736acc0c87e0cd6ab890c",
+      "postimage": "working/src/core/castingPackageReadModel.ts"
+    },
+    {
+      "path": "src/core/construction.ts",
+      "baseSha256": "374460c1c7d4e7aa521d2ae159d76142e38cea0191a5399c8af2890cd1a5b477",
+      "postimageSha256": "efadaecb7ba4704cec733d56fdd460fa8eecdd5ec9dfbc52a3119dc5b368b9aa",
+      "postimage": "working/src/core/construction.ts"
+    },
+    {
+      "path": "src/core/continuedScripts.ts",
+      "baseSha256": "0f104e522f6274d12cc702ba471837d90f6d64f05abe5e7f08c3d194e67f0c1b",
+      "postimageSha256": "d7b604de911cd7106848a965ad159eee1113d23848f80d6fd7a3ab9d1f001b7c",
+      "postimage": "working/src/core/continuedScripts.ts"
+    },
+    {
+      "path": "src/core/hollywoodValidation.ts",
+      "baseSha256": "b56df2f20a9f4cd3a4d04e7b48736c1ffeb28f864d0050cf819bd62a5b53a446",
+      "postimageSha256": "f10627a9222f247a3f53289543b88dabb053e4edae6fa7e2cc0cb86c2c6bda4a",
+      "postimage": "working/src/core/hollywoodValidation.ts"
+    },
+    {
+      "path": "src/core/index.ts",
+      "baseSha256": "6fb3e9a6be4e5bc9d51c42ea108a51b522f26ce3b4f75b4a0904b73ac6837394",
+      "postimageSha256": "12d314af178b138279d4d50f059aa4975941616ce67afa9cca817ac1647325ee",
+      "postimage": "working/src/core/index.ts"
+    },
+    {
+      "path": "src/core/marketIntegration.ts",
+      "baseSha256": "2c6e5b2866005807f3c5f8fac0b3b42bd396cfc77b365394d2146d1ec40c2f4a",
+      "postimageSha256": "3cfd3c5ad3086489033271c69957b1dfa96b16b67ba4076d0ac25cddbe82e3dd",
+      "postimage": "working/src/core/marketIntegration.ts"
+    },
+    {
+      "path": "src/core/occupancy.ts",
+      "baseSha256": "5ab4894a99a213e9ea4be109418e1f4a5b892b9ab992e72284c673dc45383786",
+      "postimageSha256": "a94d906b97267e242dc8c8a6cab3243ef141b101f90d835a161646d227a9e929",
+      "postimage": "working/src/core/occupancy.ts"
+    },
+    {
+      "path": "src/core/placement.ts",
+      "baseSha256": "19ce21e00aca4ef3e5b6c8685abc8a65965a978da6346e9732f5283224df786f",
+      "postimageSha256": "a7699cf473d2467ec6c2cc5e2ad8d6bae586fa77f000e2ae7cfba3f7c04219bf",
+      "postimage": "working/src/core/placement.ts"
+    },
+    {
+      "path": "src/core/productionIdentity.ts",
+      "baseSha256": "068db3a41d4ab2f33a3ceb438d37b2d733e15c76ce58b3b7d98fd4e4037c7c47",
+      "postimageSha256": "6898bf681a08158938745afa77dcd7ceb5031e254d730ae1664c60ea8483e3df",
+      "postimage": "working/src/core/productionIdentity.ts"
+    },
+    {
+      "path": "src/core/releaseAuthority.ts",
+      "baseSha256": "3102dc3735605f9bd0c870b55d11da4c0599971319b594a3028d69d671d01081",
+      "postimageSha256": "1ae159cb884abd5f2723d5ed2e825883bc5a3a55703244e12e6fea604e5a0e11",
+      "postimage": "working/src/core/releaseAuthority.ts"
+    },
+    {
+      "path": "src/core/rights.ts",
+      "baseSha256": "310741413e5dde8e8077fb585b3f5cde380d7735c426825defd42dffbd44a580",
+      "postimageSha256": "ed7bb51aa5d5f5ce191e761a7250a72a909c332a378df6010450e1ddb24ebd96",
+      "postimage": "working/src/core/rights.ts"
+    },
+    {
+      "path": "src/core/save.ts",
+      "baseSha256": "1c0a6edbc339844e7c169fbe6fa01da2d2db8587a0dd12824326167684ca0d48",
+      "postimageSha256": "ee9821d8205d6913b3c6a72c9675dbc213b0a44b8c1a71205d6c3a3a43c0e8ee",
+      "postimage": "working/src/core/save.ts"
+    },
+    {
+      "path": "src/core/scriptReadModel.ts",
+      "baseSha256": "30973f9bf29f08e217de97dc024472acd0890dd54cffa2a3f27f10a7eca29b3b",
+      "postimageSha256": "e1efb64b5d4e0fa3b6edfc35b00ab3088b0856de38f9f3bfe3b0eb85f859d3ce",
+      "postimage": "working/src/core/scriptReadModel.ts"
+    },
+    {
+      "path": "src/core/studioCalendar.ts",
+      "baseSha256": "67ebbbe36e8c136bb7806543b9bba39b37681bafb8e51d927c35f293eb0042c2",
+      "postimageSha256": "1e6ce12d5fee007c1f89ced0e799977d77d7dbe7ed414e8069b8e815520fdebf",
+      "postimage": "working/src/core/studioCalendar.ts"
+    },
+    {
+      "path": "src/core/studioClosure.ts",
+      "baseSha256": "c0bdaa3fae213ec39324dd391af8f0c8730bff6e8049cb0944cbf498bba06767",
+      "postimageSha256": "9aad6233d20b4fb2149d3cf9a6d79459f4506fc289498c4f41442c7355add2ef",
+      "postimage": "working/src/core/studioClosure.ts"
+    },
+    {
+      "path": "src/core/technologyProduction.ts",
+      "baseSha256": "aa77c468b2b59742fcf5fea9d24229ab0e0f01d656b25a18af59ce987fa3f176",
+      "postimageSha256": "33bb4b975217ec040dbd7a73dd8a64addf81466fab734f16e8089e8d0ba6f127",
+      "postimage": "working/src/core/technologyProduction.ts"
+    },
+    {
+      "path": "src/core/tick.ts",
+      "baseSha256": "11aace322a6c6b4db7ea7fb5129db94463581044440a98b99a62cda54ea0c45a",
+      "postimageSha256": "e65702143a1365f9df4eff3f5fa6335e598084301b3822fce39b9f38e8da30b4",
+      "postimage": "working/src/core/tick.ts"
+    },
+    {
+      "path": "ui/src/engine/adapter.ts",
+      "baseSha256": "832da0a9dc59ea50aa2c3ce8a8e87e5baab296e0ec26029514dd19c3cf78de44",
+      "postimageSha256": "b4c936e117f1a1c770c489ef397a59e0ebe3db9793f22dd81f6c9acbf25b94b5",
+      "postimage": "working/ui/src/engine/adapter.ts"
+    }
+  ],
+  "findingCorrectionFiles": [
+    "src/core/campaignLegacy.ts",
+    "src/core/continuedScripts.ts",
+    "src/core/marketIntegration.ts",
+    "src/core/save.ts"
+  ],
+  "patches": [
+    {
+      "path": "NATIVE-LIFECYCLE-v2.patch",
+      "sha256": "678c3a06e0ad1b6a0c7d974280d4c187ae70c36ea65e9d4d7db2716fa1d59bca",
+      "bytes": 91242
+    },
+    {
+      "path": "V1-TO-V2.patch",
+      "sha256": "cb57bc7a2583d9ba7588a3cff6f37c2103411e0991e32b2809c0410cb6eea999",
+      "bytes": 21580
+    }
+  ],
+  "tests": "No test edits. Separate c03 test draft owned independently. Original ten cases unchanged.",
+  "verification": {
+    "runtime": false,
+    "compiler": false,
+    "tests": false
+  }
+}

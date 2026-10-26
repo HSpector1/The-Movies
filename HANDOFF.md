@@ -2,12 +2,13 @@
 
 Last writer: Codex, 2026-10-26, sole coordinator for the authorized Sprints 5–16 program.
 
-## Immediate continuation — 2026-10-26, availability polling authorized
+## Immediate continuation — 2026-10-26, reviewed draft and five-minute checks
 
-- Owner now authorizes five-minute availability checks and automatic resume when unblocked. Experimental source5a730f42 and primary013c4edc remain unchanged. Two fresh launches were interrupted after foreign Godot restarted; only owned trees stopped. Both independent audits released1,641pins; no test job/lock remains.
-- Results: UItypes0; completed4corefiles94 assertions89pass/5exact inheritedD5 failures. ThreeUI files20/20, body maxima1.294/3.534/8.349s; foreign overlap disqualifies exclusive timing. No fullcore result. Preserve consumer-resume and consumer-remainder original logs/audits and exact failure/reachability limits.
-- Next availability check about12:03CDT, five minutes after clear11:58:11 scan. Seek a quiet interval, then fresh preflight for prepared ~/studio-scratch/p16-sprint7-verification-20261026/consumer-core-remainder/run.sh.35 unfinishedcorefiles only; reuse completed4core/3UI and types as scoped evidence. Check source pins before freeze; never reuse one-shotlogs.
-- Sol is preparing the approved carried-greenlight lifecycle outside checkout; no patch integrated or runtime. Preserve creator/history and normal buyer production laws, avoid a duplicate production engine. Full-game gate still requires three originalr3n1fixtures. No background execution promised; user requested continued checks within session.
+- Owner authorizes five-minute availability checks and automatic resume when genuinely unblocked. No Studio job or lock remains. Experimental source 5a730f42 and primary 013c4edc are unchanged. Three attempts were interrupted and audited. Godot was observed at 12:33:41 using 94.4% CPU; the 12:44 scan was clear, but no paused window was confirmed. Next check about 12:49 CDT.
+- Corrected source and independent tests are frozen at ~/studio-scratch/p16-sprint7-native-greenlight-20261026/{v2,test-draft}, archived under p16-sprint7/native-greenlight with the original draft, reviews and postimages. Source patch 678c3a06…; test patch 907df2a0…. Static application checks pass. There are 24 source files and one existing three-case test file, with original five-second budgets. Nothing is installed, compiled or run.
+- Review found missing market/Legacy readers, malformed early proof and an absent paid-production join. Targeted review says all three are addressed statically. Hiring, affordability, production progress and new refusal controls remain unrun. Sol, the test author and reviewer are finished; root remains sole integration writer.
+- Next runtime: after resource ownership clears, obtain original-source refusal evidence, apply the reviewed combination, then run focused types/lifecycle/history checks through fresh preflight. Preserve the old 35-file consumer attempt as interrupted; include affected consumers in the coherent final gate instead of running obsolete source first. Freeze source/index/HANDOFF through the independent audit.
+- Reuse only scoped observations: all typechecks 0; four core files with 89/94 assertions and five exact inherited D5 failures; three UI files with 20/20 assertions. Foreign overlap and timing limits remain. Full-game qualification needs three original r3n1 fixtures. No P17 predecessor, gameplay promotion or completed Sprint 7. Continue checks in-session; never promise background execution. Preserve active inputs and unique evidence.
 
 ## Consumer gate checkpoint — 2026-10-26 (current side tree)
 
