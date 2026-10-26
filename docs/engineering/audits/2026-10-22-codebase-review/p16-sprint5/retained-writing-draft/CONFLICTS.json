@@ -1,0 +1,16 @@
+[
+  {
+    "path": "src/core/actions.ts",
+    "oldLines": [
+      2058,
+      2064
+    ],
+    "finalLines": [
+      2059,
+      2065
+    ],
+    "exactCurrentMatches": 0,
+    "old": "        state.operations,\n        action.project,\n        week,\n        castingOccupiedFacilitySlots(state.castingSessions),\n        // Adapting a premise the market already owns is the fast path, and it is the\n        // C1 clock to the week (`00E`.9's bounded blast radius).\n        scriptDraftWeeks({\n",
+    "new": "        state.operations,\n        action.project,\n        week,\n        new Set([...castingOccupiedFacilitySlots(state.castingSessions),...scriptOccupiedFacilitySlots({...state.scriptDevelopment,projects:buyerScriptDevelopment(state).projects.filter(p=>!state.scriptDevelopment.projects.some(own=>own.id===p.id))})]),\n        // Adapting a premise the market already owns is the fast path, and it is the\n        // C1 clock to the week (`00E`.9's bounded blast radius).\n        scriptDraftWeeks({\n"
+  }
+]

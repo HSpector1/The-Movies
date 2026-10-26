@@ -1,0 +1,17 @@
+[
+  {
+    "packet": "p16-retained-drafting-continuation-source-r1",
+    "patchSHA256": "e449d2c693e2b9259edaa534bb38554b339388b418fb3b7b74e09c7e84f08a5b",
+    "manifestSHA256": "3812ba7b3e4d71712158a4dde3da10a89989e013b20a3150182eee45a7c9c730"
+  },
+  {
+    "packet": "p16-carried-script-actions-r2",
+    "patchSHA256": "ac8245a8eae9d5471c23495958c9a0dd51eebba5b90b6dc99cc9838bdc5b2cb1",
+    "manifestSHA256": "d896b1ac57577dab2369ca82fb5681ff5700df7fe360808ff6382c85cb64bd81"
+  },
+  {
+    "packet": "p16-carried-script-rewrite-r3",
+    "patchSHA256": "8cb3ef4d8c95a8d61d91737b43e6699cc566bb4f5c9ffad87854c0dbfe197a33",
+    "manifestSHA256": "deec9523f4e8efbb88d5d42ef7aac02d83ba95f5470939abab332215d71ba1f3"
+  }
+]

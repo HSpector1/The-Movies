@@ -1,0 +1,12 @@
+{
+  "candidate": "b3be2b78f821ca356158b63083eced051d20f3f7",
+  "gameplaySourceChanged": false,
+  "sourceAndHarnessPinsUnchanged": true,
+  "sourcePreimageAndPostimageCount": 13,
+  "unchangedOriginalTestFiles": 3,
+  "declaredOriginalTests": 10,
+  "allPatchHashesAndLengthsVerified": true,
+  "gitApplyCheckExit": 0,
+  "gameRuntime": "UNRUN_RESOURCE_AND_INPUT_BLOCKED",
+  "note": "Static byte/applicability checks only; no type, behavioral, schema generation or timing qualification."
+}

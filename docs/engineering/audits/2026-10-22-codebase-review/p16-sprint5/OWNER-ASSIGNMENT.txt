@@ -1,0 +1,210 @@
+PROJECT: STUDIO — ASTRA CONTINUOUS PROGRAM, SPRINTS 5–16
+
+OWNER AUTHORIZATION AND OBJECTIVE
+
+Continue as the existing Project: Studio engineering coordinator. I authorize the twelve bounded work packages below, including implementation, proportionate verification, focused independent review and publication on owned non-main development branches.
+
+This supersedes the earlier instructions to stop after each sprint and request permission for the next. Continue sequentially while the session can execute and prerequisites are met. Checkpoint after each meaningful sprint; report briefly and proceed without waiting for a routine “continue.” At context, usage or execution limits, preserve a recoverable handoff with the exact next action. Do not promise unattended/background execution or claim all twelve will fit in one session.
+
+This is not twelve new research or testing campaigns. Turn the existing requirements and prepared work into functioning, integrated gameplay. The sprint boundaries are planning units: combine overlapping work or reuse already-completed work when justified, without dropping outcomes. Do not manufacture twelve reports or twelve new branches merely to satisfy the numbering.
+
+P17 and bounded P18 implementation are authorized by this program AFTER their actual technical predecessors qualify under the adopted contracts. The browser and native integration work specified below is authorized on the existing project clients. Historical “no P17/P18” or “no browser/native execution in this stabilization sprint” notes do not block these specifically authorized later packages. All unrelated scope restrictions remain.
+
+P16/P17/P18 gameplay promotion to main is NOT authorized. Records-only main synchronization remains limited to its existing authority and path checks. No public release, deployment, history rewrite or implied Owner gameplay acceptance.
+
+RECOVER THE CURRENT STATE ONCE
+
+Repository: https://github.com/HSpector1/The-Movies
+Candidate branch: p16-rebase-20261024
+Last verified candidate: b3be2b78f821ca356158b63083eced051d20f3f7
+Main/wip records: 0bf84f9252f34671849a3d3c4dc638b945f38c8e
+Working ref: refs/heads/wip/headless-program-20260916-ts
+
+These are recovery references, never reset targets. Resolve explicit remote refs and reconcile newer local work. You remain the coordinator; do not look for an absent predecessor merely because historical handoffs name one. Check only for actual overlapping writers/runs before writing.
+
+Read AGENTS.md, the CURRENT HANDOFF, the relevant WORKFLOW/LESSON_MAP route and selected project-local skills. Use studio-workflow, studio-review, Ponytail, systematic-debugging and verification-before-completion where relevant. Preserve AUTO, original candidates, failures, patches, manifests and private evidence boundaries. Do not repeat setup or read every archive.
+
+Under docs/engineering/audits/2026-10-22-codebase-review/, use:
+- LEDGER.md and the current STABILIZATION-REPORT addenda.
+- p16-sprint4/RESULTS.md, PROCESS-LIMIT.md and integration/BLOCKERS.md.
+- The existing Wave 3 Owner-decision record and 19A-greenlight-tail-rights-design.md.
+- Prepared full-gate scripts/input manifests and the current P16 remaining-requirements table.
+
+For downstream implementation, read only the applicable adopted sources and later amendments:
+- docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-G-downstream-contract-adoption.md
+- The P16-RIGHTS-ESTATE-CONTRACT, P17-CAMEO-CONTRACT and P18-FIRST-SEASON-CONTRACT under that evidence directory's 1367-stage subdirectories.
+- P17-RECOVERED-SPECIFICATION-STATE.md and its canonical report.
+- Existing P17/P18 candidate packages, actual current producer interfaces and later Owner rulings.
+- UNITY-INTEGRATION-BACKLOG, current consumer-lock configuration and relevant OWNER-PLAYTEST-LIST items for platform work.
+
+Older phase statuses and illustrative version numbers are historical. Do not mechanically apply old drafts or invent a save/schema version. Existing research, including PR19, informs relevant work; it does not override adopted successor design.
+
+NON-NEGOTIABLE CORRECTION FROM SPRINT 4
+
+Sprint 4's assertions are retained observations, NOT fully resource/exclusivity-qualified acceptance. Its below-floor launches and overlapping foreign Godot execution must remain disclosed.
+
+Before any heavy execution, use the current authoritative equipment preflight and sole execution lane. The operational values at this checkpoint are 3,670,016 KiB launch and 3,145,728 KiB runtime. The old 2.3 GB note is not authority. Use a legitimately newer explicit amendment only if one exists; do not choose the easier threshold from conflicting historical text.
+
+Measure the actual machine. Do not assume the new Mac has arrived or that a previous free-space reading remains valid. Establish exclusivity across the host, not merely within this repository. A Studio lock alone does not prevent foreign jobs. Coordinate the exclusive window through available ownership mechanisms; if an Owner action is genuinely required, ask once with the measured reason. Never terminate foreign work or run a cleanup campaign.
+
+If foreign intensive execution begins during a run, follow the existing controlled interruption/postflight procedure. Preserve results, but withhold exclusive qualification; record which interval and claims are affected. No retroactive receipt or invented clean execution window.
+
+Failed readiness blocks the affected runtime operation, not safe source preparation. Do not loop unchanged failed preflights or create scheduled polling.
+
+SPRINT 5 — ESTABLISH A VALID CURRENT-TREE FULL-GATE BASELINE
+
+Recover ONLY the known missing full-gate inputs through their existing manifests and authorized recovery procedures. Verify hashes and provenance; restore required tracked material through the normal safe checkout mechanism. No broad archive hydration, private-save search or newly fabricated substitutes.
+
+Use the prepared source-pinned full core/UI milestone, including the required types and contracts, with valid preflight and exclusivity. The core workspace already includes Bridge tests: confirm the exact selection and avoid a duplicate Bridge runtime run unless its distinct command contract requires one.
+
+Run this milestone once after prerequisites pass. Read actual child outcomes, collection/setup errors, reached assertions, explicit per-leaf budgets and postflight. Compare with the exact retained predecessor by full identity, failure cause and timing—not name alone. Do not label missing inputs or collection failures as tested functionality.
+
+Finish: one trustworthy broad baseline, a short classification of consequential regressions, inherited failures, unrun coverage and timing limitations. Do not claim Sprint 4 was retrospectively qualified.
+
+SPRINT 6 — REPAIR CONSEQUENTIAL INTEGRATION REGRESSIONS; SHOW A REAL BROWSER LOOP
+
+Fix demonstrated P16-introduced correctness, save/load, financial or Bridge regressions exposed by Sprint 5. Prioritize faults that make supported play fail or lose state. Address measured shared performance causes where evidence justifies a bounded repair; do not create one optimization sprint per slow leaf.
+
+Keep inherited issues visible and follow their adopted dispositions. Do not silently waive mandatory timing or require all historical debt to disappear where the actual technical-landing contract does not require that.
+
+On the coherent candidate, use the existing browser harness for one minimal real journey through new studio, ordinary film production/release and save/reload/continue. Reuse the established route; no replacement E2E framework. Inspect actual rendered feedback, not only mocked component output. Repair reproducible blockers in that route within existing design.
+
+Finish: substantiated regressions addressed, relevant checks recorded, and a real browser result or exact local prerequisite blocker. A unit pass is not browser evidence.
+
+SPRINT 7 — COMPLETE REQUIRED ACQUIRED SCREENPLAY/WORK CONTINUATION
+
+Reconcile the current P16 requirements with the preserved retained-drafting, completion, Accept and Rewrite source/test packages. Reuse qualified implementations; adapt only the missing pieces to today's candidate.
+
+Complete already-approved buyer-side continuation: real remaining writer obligations, work/capacity, retained paid progress, explicit player decisions, supported completion/cancellation and correct source history. Preserve actual contract terms and creator identity. Do not substitute cancellation for an approved continuation merely to complete an acquisition.
+
+Integrate through the actual producer, public action, save and Bridge path. Existing refusal stays until its producer is implemented and verified. Historical prepared packages are inputs, not patches to replay blindly.
+
+Finish: the required screenplay/work paths function through admitted actions, or each genuinely unsupported dependency is precisely identified. No duplicated research progress, free work, invented receipts or new writing subsystem.
+
+SPRINT 8 — COMPLETE REMAINING REQUIRED P16 ACQUISITION PRODUCERS
+
+Work down the existing requirements for rival-buyer retention, running-film receipts, setup/sound continuation, due physical/adoption completion and open promise/market disposition. Implement only gaps required by adopted P16 scope; preserve already-qualified paths.
+
+Use actual employment, capacity, equipment, research, transaction and settlement owners. Wire refusals and actionable previews to the real supported operation; do not remove guards before the underlying producer exists. Keep historical payment, creator credit, current title and current operational location distinct.
+
+Revisit natural C-08 close coverage only through newly available lawful routes or a specifically identified genuine historical input. Do not add rival concurrency solely to manufacture a test, forge two paid productions, or repeat an unchanged reachability search. If the premise remains unavailable, retain the precise gap; constructed quote evidence is not natural close proof.
+
+Finish: a requirement-by-requirement disposition of the remaining P16 producers, with real transactions for completed paths. A correctly refused required feature remains unfinished, not “done because it fails safely.”
+
+SPRINT 9 — QUALIFY A P16 TECHNICAL CHECKPOINT AND PLAYER TRANSACTIONS
+
+Close reachable named historical compositions using authentic era inputs and existing accepted constructed controls where permitted. Do not relabel modern tables as historical or rerun a scenario already covered by unchanged qualified evidence. Keep absent ended-manifest/fund/market compositions explicit where their premises are still missing.
+
+Qualify the actual P16 producer/consumer boundary, canonical schema, persistence, conservation and migration under the existing checkpoint contract. Run the required checkpoint gates once the changes from Sprints 6–8 are coherent; do not reuse Sprint 5 across invalidating changes.
+
+Through the existing browser client, exercise supported rights purchase/licensing, a healthy acquisition and an estate outcome, including understandable refusal and save/reload where the existing requirements call for it. A cleared transaction fixture is acceptable for transaction proof; label it, and keep natural economic acceptance separate.
+
+Publish an immutable non-main P16 technical checkpoint only when its actual prerequisites qualify. Distinguish technical checkpoint, platform acceptance and Owner acceptance. Missing native or whole-program acceptance must not be silently waived or invented as a new prerequisite where the adopted contract explicitly defers it.
+
+Finish: either a qualified technical predecessor for downstream work or the exact blocking obligations. No P16 gameplay promotion to main.
+
+SPRINT 10 — INTEGRATE P17 CONTINUATIONS AND FRANCHISE STATE
+
+Only after the required P16 technical predecessor qualifies, adapt the preserved P17 draft to it. Use real P16 title/licence readers and the adopted greenlight link-versus-mint design. Do not leave mock rights adapters or create duplicate ownership.
+
+Implement the adopted continuation types and lineage, Recognition/Momentum/Fatigue distinctions, property-wide fatigue, healthy-reboot legality and quality-qualified 35% recognition floor. Dormant return stays within Direct Sequel, not a new sixth type.
+
+Preserve permanent creator history and current rights, expired/revoked permission handling, source-grounded events, old saves and deterministic replay. Do not silently retune research formulas based only on a desired outcome.
+
+Finish: supported P17 continuations operate through real commission/greenlight/production/release and persistence paths on the qualified predecessor. No optional crossover, inflated-expectations feature or unapproved cast expansion.
+
+SPRINT 11 — P17 FEATURED APPEARANCES AND PLAYER-FACING INTEGRATION
+
+Implement the separately adopted bounded cameo/featured-role contract using existing eligible film professionals, actual employment/availability, lawful fees, promised work and cancellation/closure obligations. Preserve the selected principal-role shape and at-most-two featured appearances; no new celebrity population.
+
+Complete the necessary existing-browser/Bridge surfaces for players to understand parent rights, continuation choice, appearances, cost and resulting outcomes. Keep quality distinct from inherited awareness and preserve property-wide fatigue across reboots.
+
+Run the affected P17 milestone checks and a representative player continuation journey. Publish a qualified technical P17 checkpoint when its prescribed requirements are met.
+
+Finish: a usable, rights-backed P17 workflow—not just a calculated result or an isolated draft.
+
+SPRINT 12 — P18 FIRST-SEASON COMMISSION AND SHARED WORKLOAD
+
+Only after required P16/P17 predecessors qualify, adapt the existing bounded P18 draft. Scope is one limited series and its first six-episode season represented as one twelve-unit workload, under the adopted contract—not six separate film pipelines.
+
+Implement the genuine producer and commissioner P16 authorities, actual external-party identity, contracted people, operational sound-chain requirements, shared availability/capacity and admission affordability. Use the same authoritative allocation/occupancy owners as films; do not create duplicate payroll or a private TV scheduler.
+
+Keep the advance as recoupable cash, not earned revenue or rescue financing. Apply the exact adopted schedule, figures and later amendments; do not turn an explicitly unresolved design-note assumption into authority without resolving that narrow issue.
+
+Finish: a lawful commission can be accepted/refused and progress through real paid work with correct identities and persistence.
+
+SPRINT 13 — P18 DELIVERY, CANCELLATION AND DISTRIBUTION
+
+Complete earned milestones, delivery and lateness, cancellation/refund/charge settlement, partial repayment, actual closure treatment and the adopted 52-week distribution term. Preserve costs and fulfilled obligations; settle each amount exactly once through the correct owner.
+
+Do not create recurring royalties, automatic next seasons, platform-company simulation or film-only award/Standing/Recognition/Momentum/Fatigue effects. Later seasons remain fresh commitments, not automatic continuation.
+
+Add only the minimal existing-client surfaces needed to quote, understand, operate and inspect this bounded season. Verify supported completion and refusal/cancellation journeys, with save/reload and actual receipts. No general TV dashboard redesign.
+
+Finish: an integrated first-season lifecycle and an honest qualified technical P18 checkpoint, with unresolved acceptance named.
+
+SPRINT 14 — COHERENT CROSS-SYSTEM CAMPAIGN QUALIFICATION
+
+At the settled combined candidate, execute the already-adopted cross-system obligations: historical migration, conservation, deterministic save/replay, long-campaign/post-2040 behavior, rival recovery/closure and interactions across film, rights, continuations and TV, as specified by the existing acceptance contracts.
+
+Use existing long-route fixtures and exact source-bound evidence where valid. Do not invent a universal scenario or substitute transaction fixtures for a specifically required natural campaign. Measure whether recovery happens; never force successful survival or add hidden subsidies to make a desired outcome occur.
+
+Run the required full current-tree milestone through the qualified lane, avoiding redundant overlapping suites. Fix consequential introduced failures with focused checks and rerun only the evidence invalidated by those fixes, plus any explicitly required final gate.
+
+Finish: a defensible integrated qualification record, not a combined pass count assembled from incompatible candidates. Maintain named inherited failures and timing limits.
+
+SPRINT 15 — UNITY/NATIVE CONSUMER AND EXISTING LOT INTEGRATION
+
+Use the actual authorized Unity counterpart identified by the consumer-lock configuration; presently the records point to HSpector1/project-studio-unity-visual-spike. Resolve its current counterpart source, ownership and paired engine/schema identity rather than assuming an old clone is current.
+
+This package authorizes bounded changes to that existing counterpart for the adopted P16/P17/P18 consumer surfaces and existing lot interactions. Do not introduce another client or borrow the separate Godot reconstruction's implementation, assets or acceptance claims.
+
+With an available compatible authorized toolchain, compile the real consumer and run the existing EditMode/PlayMode/interaction checks appropriate to the change. Verify real input, focus, lifecycle cleanup, save/load and truthful actionable/refused commands. Generated C# or a synthetic consumer-lock test is not a native build.
+
+No unapproved runtime installation, licence purchase, global upgrade or asset acquisition. If the platform/toolchain is unavailable, complete safe source preparation, identify the precise setup needed and continue independent final-deliverable preparation. Mark native acceptance BLOCKED/UNRUN, not completed.
+
+Finish: paired source/build identities and actual native evidence, or a precise remaining platform blocker.
+
+SPRINT 16 — PLAYTEST CANDIDATE, TARGETED POLISH AND INTEGRATION HANDOFF
+
+Prepare a reproducible local playtest candidate on the qualified available platform, with a working launch path, exact commits, approved assets, clear known limitations and existing save/restore behavior. Do not distribute private saves or unapproved original-game material.
+
+Exercise and fix reproducible high-impact usability defects in the existing gameplay: starting a studio, making/releasing films, understanding money and blocked work, save/reload, and the qualified P16/P17/P18 routes. Use existing playtest requirements and PR19 evidence selectively; do not build a machinima editor, movie exporter, full art overhaul or other deferred major capability here.
+
+Invite the Owner to play with one short route and list of known issues. Human acceptance is not something the agent can perform on the Owner's behalf. Missing Owner feedback does not block preparation or independent reproducible repairs; it stays OWNER ACCEPTANCE PENDING.
+
+Produce one final integration recommendation: ready for separately authorized promotion, conditional on named items, or not ready. A draft integration PR may be prepared if helpful, but do not merge or enable automatic merge. Retain the complete individual commit history.
+
+Finish: a real playtest deliverable or exact blocker, consolidated results, remaining scope and a truthful recommendation. This is not a declaration that the full game is finished.
+
+PROGRAM-WIDE EXECUTION RULES
+
+1. EFFICIENT VERIFICATION. Reuse existing cases first. Add or extend a test only to prove an uncovered adopted law, a reproduced defect or a required acceptance gap. No coverage-percentage target, test-count inflation, redundant matrix or new test framework. Use focused investigation, complete affected files at coherent boundaries, and existing broad gates at their milestones—not after every edit or record update.
+
+2. EVIDENCE REUSE. Reuse only when relevant source, fixture, dependency, environment and execution-condition identities support it. Sprint 4's process limitation cannot be reused as compliant runtime proof. Replacing that evidence does not require repeating closed research, setup or every intermediate diagnostic.
+
+3. PERFORMANCE. Preserve actual per-leaf budgets, including explicit exceptions. A duration over five seconds is not automatically a failure if that leaf has a larger declared budget. A synchronous PASS over its actual budget is not timing-qualified. No assertion removal, validator bypass, moved setup or widened deadline to claim success. Stop unchanged profiling loops; identify the actual next decision or repair.
+
+4. REVIEW. One focused independent review for consequential deltas, followed by resolution of substantiated findings. No automatic review swarm. Independent means not the same author merely declaring their own patch reviewed. If an allowed reviewer is unavailable, report that limitation rather than invent approval.
+
+5. BRANCHES. Continue P16 on its existing candidate. After each qualified technical checkpoint, use a minimal number of clearly owned descendant integration branches for P17/P18; preserve exact predecessor ancestry and local work. Main need not receive gameplay for a qualified candidate to be a downstream technical base. This is not a waiver of predecessor verification. No force push, squash/rebase of published history, destructive reset, blanket cleanup or indiscriminate worktree creation.
+
+6. PROTECTION. Every Git invocation retains -c gc.auto=0 -c maintenance.auto=0 --no-optional-locks. Keep source/index/HANDOFF and bound instructions frozen through required run/postflight/audit. Respect existing hook chains, private-data boundaries and truthful authorship records. Do not overwrite original current200 or historical packages.
+
+7. COORDINATION. One coordinator owns integration and scheduling; delegated writers have disjoint scope. One heavy execution tree across the machine. Reuse supported agents, skills, scripts and resources. No additional terminals, nested agent swarms, REA/provider startup or workflow reinstallation campaign.
+
+8. SETTLED POLICY. Owner A–E remain binding: complete-sum ceiling/minimum-zero ask; actual positive/negative/fractional cash at par; aggregate reserve rounding; strict unqualified C-06 refusal; genuine Legacy historical admission; narrow receipt-backed S7 source references with derived payloads. Do not reopen these choices or invent new historical provenance.
+
+9. BLOCKERS AND CONTINUATION. Do not ask for approval after routine fixes or sprint checkpoints. Escalate only a real new product choice, required waiver, destructive action, spending/install outside scope, unsatisfied mandatory predecessor or resource/ownership blocker. State exact evidence, your recommendation and which independent work remains possible. Continue that independent work; never run dependent sprints against unqualified mock predecessors or silently change the acceptance class.
+
+10. FINISH CONDITIONS. A sprint completes when its actual deliverable and applicable verification are met—not when its number comes up. If a task needs another bounded slice, record carryover in the existing ledger, preserve dependencies and continue authorized work without inventing scope. Do not promise all twelve outcomes regardless of blockers.
+
+CHECKPOINT AND HANDOFF
+
+Use the existing ledger and current HANDOFF, not a second project-management system. Keep one compact twelve-row program view there, with status, exact candidate, remaining dependency and next action. Put detailed evidence in the existing sprint/evidence locations.
+
+At each substantive checkpoint, record what changed for the player or simulation, actual checks and their limits, reused evidence, remaining mandatory gaps, published commit/ref and the next action. Push eligible work and verify the explicit remote. Update lessons only for a genuinely reusable finding. Avoid mandatory skill-use paperwork.
+
+After a completed sprint, give a short report and begin the next eligible sprint without another routine Owner approval. At the end of Sprint 16—or an actual stop boundary—provide the integrated results, precise unfinished scope, required Owner decisions and recommended next milestone. Do not start Sprint 17 or promote gameplay to main automatically.
+
+START NOW: recover the current state, honor the Sprint 4 qualification limitation, satisfy the real Sprint 5 prerequisites, and execute the authorized program. No new broad research or planning campaign.

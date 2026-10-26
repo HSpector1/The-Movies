@@ -1,0 +1,26 @@
+{
+  "status": "SOURCE_TEXT_CHECK_ONLY_NOT_RUNTIME_PROOF",
+  "preservedMarkers": {
+    "src/core/acquisition.ts": {
+      "Math.ceil((libraryValue * (100 + TUNING.RIGHTS_WILLINGNESS_PREMIUM_PERCENT)) / 100 + postExitCash)": true,
+      "weeklySalary: e.terms.annualSalary / TUNING.TICKS_PER_YEAR": true,
+      "const hostablePeople = new Set": true,
+      "a.postExitCash !== a.cashBeforeExits-a.exitCharges": true
+    },
+    "src/core/rights.ts": {
+      "if (!isRow(record)) refuse(`absorptions[${i}]`, 'must be an object')": true
+    },
+    "src/core/actions.ts": {
+      "function requireWriterTermCoversDraft(": true,
+      "requireWriterTermCoversDraft(state, action.project.writerId, week, week + poolDraftWeeks,": true,
+      "assertGreenlightStaffingIdle": true,
+      "if (idx === -1 && continuedReleaseOwner": true
+    },
+    "src/core/save.ts": {
+      "const nonFinite = nonFiniteNumberTail(raw);": true,
+      "assertStudioEventSequenceLaw(raw, 'validateSaveV49');": true,
+      "rows.filter((a) => isRecord(a))": true
+    }
+  },
+  "currentPreimagesStillMatch": true
+}

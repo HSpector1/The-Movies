@@ -1,0 +1,1620 @@
+{
+  "status": "RELATIVE_MODULE_FILE_EXISTENCE_ONLY_NO_COMPILER",
+  "imports": [
+    {
+      "importer": "src/core/rights.ts",
+      "specifier": "./hollywoodTypes.js",
+      "resolvedSource": "src/core/hollywoodTypes.ts"
+    },
+    {
+      "importer": "src/core/rights.ts",
+      "specifier": "./types.js",
+      "resolvedSource": "src/core/types.ts"
+    },
+    {
+      "importer": "src/core/rights.ts",
+      "specifier": "./technologyTypes.js",
+      "resolvedSource": "src/core/technologyTypes.ts"
+    },
+    {
+      "importer": "src/core/rights.ts",
+      "specifier": "./standing.js",
+      "resolvedSource": "src/core/standing.ts"
+    },
+    {
+      "importer": "src/core/rights.ts",
+      "specifier": "./quoteAge.js",
+      "resolvedSource": "src/core/quoteAge.ts"
+    },
+    {
+      "importer": "src/core/rights.ts",
+      "specifier": "./hollywoodStartingData.js",
+      "resolvedSource": "src/core/hollywoodStartingData.ts"
+    },
+    {
+      "importer": "src/core/rights.ts",
+      "specifier": "./hollywoodTypes.js",
+      "resolvedSource": "src/core/hollywoodTypes.ts"
+    },
+    {
+      "importer": "src/core/rights.ts",
+      "specifier": "./types.js",
+      "resolvedSource": "src/core/types.ts"
+    },
+    {
+      "importer": "src/core/scriptDevelopment.ts",
+      "specifier": "./productionPeople.js",
+      "resolvedSource": "src/core/productionPeople.ts"
+    },
+    {
+      "importer": "src/core/scriptDevelopment.ts",
+      "specifier": "./retirementWriting.js",
+      "resolvedSource": "src/core/retirementWriting.ts"
+    },
+    {
+      "importer": "src/core/scriptDevelopment.ts",
+      "specifier": "./math.js",
+      "resolvedSource": "src/core/math.ts"
+    },
+    {
+      "importer": "src/core/scriptDevelopment.ts",
+      "specifier": "./occupancy.js",
+      "resolvedSource": "src/core/occupancy.ts"
+    },
+    {
+      "importer": "src/core/scriptDevelopment.ts",
+      "specifier": "./productionQueue.js",
+      "resolvedSource": "src/core/productionQueue.ts"
+    },
+    {
+      "importer": "src/core/scriptDevelopment.ts",
+      "specifier": "./tuning.js",
+      "resolvedSource": "src/core/tuning.ts"
+    },
+    {
+      "importer": "src/core/scriptDevelopment.ts",
+      "specifier": "./types.js",
+      "resolvedSource": "src/core/types.ts"
+    },
+    {
+      "importer": "src/core/continuedScripts.ts",
+      "specifier": "./operations.js",
+      "resolvedSource": "src/core/operations.ts"
+    },
+    {
+      "importer": "src/core/continuedScripts.ts",
+      "specifier": "./employment.js",
+      "resolvedSource": "src/core/employment.ts"
+    },
+    {
+      "importer": "src/core/continuedScripts.ts",
+      "specifier": "./castingSessions.js",
+      "resolvedSource": "src/core/castingSessions.ts"
+    },
+    {
+      "importer": "src/core/continuedScripts.ts",
+      "specifier": "./occupancy.js",
+      "resolvedSource": "src/core/occupancy.ts"
+    },
+    {
+      "importer": "src/core/continuedScripts.ts",
+      "specifier": "./types.js",
+      "resolvedSource": "src/core/types.ts"
+    },
+    {
+      "importer": "src/core/continuedScripts.ts",
+      "specifier": "./rights.js",
+      "resolvedSource": "src/core/rights.ts"
+    },
+    {
+      "importer": "src/core/continuedScripts.ts",
+      "specifier": "./rights.js",
+      "resolvedSource": "src/core/rights.ts"
+    },
+    {
+      "importer": "src/core/continuedScripts.ts",
+      "specifier": "./scriptDevelopment.js",
+      "resolvedSource": "src/core/scriptDevelopment.ts"
+    },
+    {
+      "importer": "src/core/continuedScripts.ts",
+      "specifier": "./continuedWork.js",
+      "resolvedSource": "src/core/continuedWork.ts"
+    },
+    {
+      "importer": "src/core/continuedScripts.ts",
+      "specifier": "./operatingState.js",
+      "resolvedSource": "src/core/operatingState.ts"
+    },
+    {
+      "importer": "src/core/continuedScripts.ts",
+      "specifier": "./tuning.js",
+      "resolvedSource": "src/core/tuning.ts"
+    },
+    {
+      "importer": "src/core/continuedScripts.ts",
+      "specifier": "./facilityEffects.js",
+      "resolvedSource": "src/core/facilityEffects.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./technologyCatalogue.js",
+      "resolvedSource": "src/core/technologyCatalogue.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./technologyTypes.js",
+      "resolvedSource": "src/core/technologyTypes.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./corporateConditionLive.js",
+      "resolvedSource": "src/core/corporateConditionLive.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./operatingState.js",
+      "resolvedSource": "src/core/operatingState.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./save.js",
+      "resolvedSource": "src/core/save.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./operatingState.js",
+      "resolvedSource": "src/core/operatingState.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./quoteAge.js",
+      "resolvedSource": "src/core/quoteAge.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./hollywood.js",
+      "resolvedSource": "src/core/hollywood.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./careerLifecycle.js",
+      "resolvedSource": "src/core/careerLifecycle.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./castingSessions.js",
+      "resolvedSource": "src/core/castingSessions.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./employment.js",
+      "resolvedSource": "src/core/employment.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./hollywoodTypes.js",
+      "resolvedSource": "src/core/hollywoodTypes.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./occupancy.js",
+      "resolvedSource": "src/core/occupancy.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./operations.js",
+      "resolvedSource": "src/core/operations.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./productionPhases.js",
+      "resolvedSource": "src/core/productionPhases.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./productionQueue.js",
+      "resolvedSource": "src/core/productionQueue.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./propertyValuation.js",
+      "resolvedSource": "src/core/propertyValuation.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./rightsFinance.js",
+      "resolvedSource": "src/core/rightsFinance.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./rights.js",
+      "resolvedSource": "src/core/rights.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./absorbedRuns.js",
+      "resolvedSource": "src/core/absorbedRuns.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./continuedWork.js",
+      "resolvedSource": "src/core/continuedWork.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./continuedWorkValidation.js",
+      "resolvedSource": "src/core/continuedWorkValidation.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./absorbedWork.js",
+      "resolvedSource": "src/core/absorbedWork.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./absorbedScripts.js",
+      "resolvedSource": "src/core/absorbedScripts.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./continuedScripts.js",
+      "resolvedSource": "src/core/continuedScripts.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./scriptDevelopment.js",
+      "resolvedSource": "src/core/scriptDevelopment.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./scriptDevelopment.js",
+      "resolvedSource": "src/core/scriptDevelopment.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./talentMarket.js",
+      "resolvedSource": "src/core/talentMarket.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./technologyRival.js",
+      "resolvedSource": "src/core/technologyRival.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./tuning.js",
+      "resolvedSource": "src/core/tuning.ts"
+    },
+    {
+      "importer": "src/core/acquisition.ts",
+      "specifier": "./types.js",
+      "resolvedSource": "src/core/types.ts"
+    },
+    {
+      "importer": "src/core/absorbedScripts.ts",
+      "specifier": "./types.js",
+      "resolvedSource": "src/core/types.ts"
+    },
+    {
+      "importer": "src/core/absorbedScripts.ts",
+      "specifier": "./hollywoodTypes.js",
+      "resolvedSource": "src/core/hollywoodTypes.ts"
+    },
+    {
+      "importer": "src/core/absorbedScripts.ts",
+      "specifier": "./rights.js",
+      "resolvedSource": "src/core/rights.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./continuedScripts.js",
+      "resolvedSource": "src/core/continuedScripts.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./hollywoodTick.js",
+      "resolvedSource": "src/core/hollywoodTick.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./continuedWork.js",
+      "resolvedSource": "src/core/continuedWork.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./liveRetirementWriting.js",
+      "resolvedSource": "src/core/liveRetirementWriting.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./hollywoodTick.js",
+      "resolvedSource": "src/core/hollywoodTick.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./marketIntegration.js",
+      "resolvedSource": "src/core/marketIntegration.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./foundingFunding.js",
+      "resolvedSource": "src/core/foundingFunding.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./aging.js",
+      "resolvedSource": "src/core/aging.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./careerLifecycle.js",
+      "resolvedSource": "src/core/careerLifecycle.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./campaignLegacy.js",
+      "resolvedSource": "src/core/campaignLegacy.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./powerRankingArchive.js",
+      "resolvedSource": "src/core/powerRankingArchive.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./corporateConditionLive.js",
+      "resolvedSource": "src/core/corporateConditionLive.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./studioClosure.js",
+      "resolvedSource": "src/core/studioClosure.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./rightsTick.js",
+      "resolvedSource": "src/core/rightsTick.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./estate.js",
+      "resolvedSource": "src/core/estate.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./promises.js",
+      "resolvedSource": "src/core/promises.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./relationships.js",
+      "resolvedSource": "src/core/relationships.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./talentMarket.js",
+      "resolvedSource": "src/core/talentMarket.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./technology.js",
+      "resolvedSource": "src/core/technology.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./technologyProduction.js",
+      "resolvedSource": "src/core/technologyProduction.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./technologyMilestones.js",
+      "resolvedSource": "src/core/technologyMilestones.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./occupancy.js",
+      "resolvedSource": "src/core/occupancy.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./hollywood.js",
+      "resolvedSource": "src/core/hollywood.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./releaseCareers.js",
+      "resolvedSource": "src/core/releaseCareers.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./releaseAuthority.js",
+      "resolvedSource": "src/core/releaseAuthority.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./broadcast.js",
+      "resolvedSource": "src/core/broadcast.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./castingSessions.js",
+      "resolvedSource": "src/core/castingSessions.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./construction.js",
+      "resolvedSource": "src/core/construction.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./placement.js",
+      "resolvedSource": "src/core/placement.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./development.js",
+      "resolvedSource": "src/core/development.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./employment.js",
+      "resolvedSource": "src/core/employment.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./economy.js",
+      "resolvedSource": "src/core/economy.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./math.js",
+      "resolvedSource": "src/core/math.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./occupancy.js",
+      "resolvedSource": "src/core/occupancy.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./operations.js",
+      "resolvedSource": "src/core/operations.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./productionSetup.js",
+      "resolvedSource": "src/core/productionSetup.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./queueAdmission.js",
+      "resolvedSource": "src/core/queueAdmission.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./physicalPlans.js",
+      "resolvedSource": "src/core/physicalPlans.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./sceneryLoadIn.js",
+      "resolvedSource": "src/core/sceneryLoadIn.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./sets.js",
+      "resolvedSource": "src/core/sets.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./studioEvents.js",
+      "resolvedSource": "src/core/studioEvents.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./facilityEffects.js",
+      "resolvedSource": "src/core/facilityEffects.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./scriptDevelopment.js",
+      "resolvedSource": "src/core/scriptDevelopment.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./tuning.js",
+      "resolvedSource": "src/core/tuning.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./reception.js",
+      "resolvedSource": "src/core/reception.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./rng.js",
+      "resolvedSource": "src/core/rng.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./shape.js",
+      "resolvedSource": "src/core/shape.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./standing.js",
+      "resolvedSource": "src/core/standing.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./studioHistory.js",
+      "resolvedSource": "src/core/studioHistory.ts"
+    },
+    {
+      "importer": "src/core/tick.ts",
+      "specifier": "./types.js",
+      "resolvedSource": "src/core/types.ts"
+    },
+    {
+      "importer": "src/core/employment.ts",
+      "specifier": "./continuedScripts.js",
+      "resolvedSource": "src/core/continuedScripts.ts"
+    },
+    {
+      "importer": "src/core/employment.ts",
+      "specifier": "./productionPeople.js",
+      "resolvedSource": "src/core/productionPeople.ts"
+    },
+    {
+      "importer": "src/core/employment.ts",
+      "specifier": "./hollywood.js",
+      "resolvedSource": "src/core/hollywood.ts"
+    },
+    {
+      "importer": "src/core/employment.ts",
+      "specifier": "./continuedWork.js",
+      "resolvedSource": "src/core/continuedWork.ts"
+    },
+    {
+      "importer": "src/core/employment.ts",
+      "specifier": "./operatingState.js",
+      "resolvedSource": "src/core/operatingState.ts"
+    },
+    {
+      "importer": "src/core/employment.ts",
+      "specifier": "./foundingFunding.js",
+      "resolvedSource": "src/core/foundingFunding.ts"
+    },
+    {
+      "importer": "src/core/employment.ts",
+      "specifier": "./math.js",
+      "resolvedSource": "src/core/math.ts"
+    },
+    {
+      "importer": "src/core/employment.ts",
+      "specifier": "./rng.js",
+      "resolvedSource": "src/core/rng.ts"
+    },
+    {
+      "importer": "src/core/employment.ts",
+      "specifier": "./scriptDevelopment.js",
+      "resolvedSource": "src/core/scriptDevelopment.ts"
+    },
+    {
+      "importer": "src/core/employment.ts",
+      "specifier": "./tuning.js",
+      "resolvedSource": "src/core/tuning.ts"
+    },
+    {
+      "importer": "src/core/employment.ts",
+      "specifier": "./facilityEffects.js",
+      "resolvedSource": "src/core/facilityEffects.ts"
+    },
+    {
+      "importer": "src/core/employment.ts",
+      "specifier": "./careerLifecycle.js",
+      "resolvedSource": "src/core/careerLifecycle.ts"
+    },
+    {
+      "importer": "src/core/employment.ts",
+      "specifier": "./types.js",
+      "resolvedSource": "src/core/types.ts"
+    },
+    {
+      "importer": "src/core/employment.ts",
+      "specifier": "./worldgen.js",
+      "resolvedSource": "src/core/worldgen.ts"
+    },
+    {
+      "importer": "src/core/occupancy.ts",
+      "specifier": "./types.js",
+      "resolvedSource": "src/core/types.ts"
+    },
+    {
+      "importer": "src/core/occupancy.ts",
+      "specifier": "./technologyTypes.js",
+      "resolvedSource": "src/core/technologyTypes.ts"
+    },
+    {
+      "importer": "src/core/occupancy.ts",
+      "specifier": "./officeConversion.js",
+      "resolvedSource": "src/core/officeConversion.ts"
+    },
+    {
+      "importer": "src/core/occupancy.ts",
+      "specifier": "./rights.js",
+      "resolvedSource": "src/core/rights.ts"
+    },
+    {
+      "importer": "src/core/occupancy.ts",
+      "specifier": "./hollywoodTypes.js",
+      "resolvedSource": "src/core/hollywoodTypes.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./continuedScripts.js",
+      "resolvedSource": "src/core/continuedScripts.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./continuedWork.js",
+      "resolvedSource": "src/core/continuedWork.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./officeConversion.js",
+      "resolvedSource": "src/core/officeConversion.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./acquisition.js",
+      "resolvedSource": "src/core/acquisition.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./rivalResearch.js",
+      "resolvedSource": "src/core/rivalResearch.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./retirementWriting.js",
+      "resolvedSource": "src/core/retirementWriting.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./technology.js",
+      "resolvedSource": "src/core/technology.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./researchPeople.js",
+      "resolvedSource": "src/core/researchPeople.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./productionSetup.js",
+      "resolvedSource": "src/core/productionSetup.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./installationCancellation.js",
+      "resolvedSource": "src/core/installationCancellation.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./technologyTypes.js",
+      "resolvedSource": "src/core/technologyTypes.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./hollywood.js",
+      "resolvedSource": "src/core/hollywood.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./hollywoodValidation.js",
+      "resolvedSource": "src/core/hollywoodValidation.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./powerRankingArchive.js",
+      "resolvedSource": "src/core/powerRankingArchive.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./p15Phases.js",
+      "resolvedSource": "src/core/p15Phases.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./foundingFunding.js",
+      "resolvedSource": "src/core/foundingFunding.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./marketIntegration.js",
+      "resolvedSource": "src/core/marketIntegration.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./campaignLegacy.js",
+      "resolvedSource": "src/core/campaignLegacy.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./corporateConditionLive.js",
+      "resolvedSource": "src/core/corporateConditionLive.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./studioClosure.js",
+      "resolvedSource": "src/core/studioClosure.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./hollywoodValidation.js",
+      "resolvedSource": "src/core/hollywoodValidation.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./hollywood.js",
+      "resolvedSource": "src/core/hollywood.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./hollywoodTypes.js",
+      "resolvedSource": "src/core/hollywoodTypes.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./estate.js",
+      "resolvedSource": "src/core/estate.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./rights.js",
+      "resolvedSource": "src/core/rights.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./hollywoodTypes.js",
+      "resolvedSource": "src/core/hollywoodTypes.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./math.js",
+      "resolvedSource": "src/core/math.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./rng.js",
+      "resolvedSource": "src/core/rng.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./talentSummary.js",
+      "resolvedSource": "src/core/talentSummary.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./tuning.js",
+      "resolvedSource": "src/core/tuning.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./releaseAuthority.js",
+      "resolvedSource": "src/core/releaseAuthority.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./studioHistory.js",
+      "resolvedSource": "src/core/studioHistory.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./physicalPlans.js",
+      "resolvedSource": "src/core/physicalPlans.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./talentMarket.js",
+      "resolvedSource": "src/core/talentMarket.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./promises.js",
+      "resolvedSource": "src/core/promises.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./relationships.js",
+      "resolvedSource": "src/core/relationships.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./aging.js",
+      "resolvedSource": "src/core/aging.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./careerLifecycle.js",
+      "resolvedSource": "src/core/careerLifecycle.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./professionHistory.js",
+      "resolvedSource": "src/core/professionHistory.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./professionHistory.js",
+      "resolvedSource": "src/core/professionHistory.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./employment.js",
+      "resolvedSource": "src/core/employment.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./employment.js",
+      "resolvedSource": "src/core/employment.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./types.js",
+      "resolvedSource": "src/core/types.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./economy.js",
+      "resolvedSource": "src/core/economy.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./occupancy.js",
+      "resolvedSource": "src/core/occupancy.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./operations.js",
+      "resolvedSource": "src/core/operations.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./productionPhases.js",
+      "resolvedSource": "src/core/productionPhases.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./scriptDevelopment.js",
+      "resolvedSource": "src/core/scriptDevelopment.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./sets.js",
+      "resolvedSource": "src/core/sets.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./studioEvents.js",
+      "resolvedSource": "src/core/studioEvents.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./screenplay.js",
+      "resolvedSource": "src/core/screenplay.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./castingSessions.js",
+      "resolvedSource": "src/core/castingSessions.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./placement.js",
+      "resolvedSource": "src/core/placement.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./lot.js",
+      "resolvedSource": "src/core/lot.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./tuning.js",
+      "resolvedSource": "src/core/tuning.ts"
+    },
+    {
+      "importer": "src/core/save.ts",
+      "specifier": "./construction.js",
+      "resolvedSource": "src/core/construction.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./continuedScripts.js",
+      "resolvedSource": "src/core/continuedScripts.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./continuedWork.js",
+      "resolvedSource": "src/core/continuedWork.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./filmParticipants.js",
+      "resolvedSource": "src/core/filmParticipants.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./liveRetirementWriting.js",
+      "resolvedSource": "src/core/liveRetirementWriting.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./technology.js",
+      "resolvedSource": "src/core/technology.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./technologyProduction.js",
+      "resolvedSource": "src/core/technologyProduction.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./researchPeople.js",
+      "resolvedSource": "src/core/researchPeople.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./aging.js",
+      "resolvedSource": "src/core/aging.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./careerLifecycle.js",
+      "resolvedSource": "src/core/careerLifecycle.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./professionTransitions.js",
+      "resolvedSource": "src/core/professionTransitions.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./employment.js",
+      "resolvedSource": "src/core/employment.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./forecast.js",
+      "resolvedSource": "src/core/forecast.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./industryCareer.js",
+      "resolvedSource": "src/core/industryCareer.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./foundingFunding.js",
+      "resolvedSource": "src/core/foundingFunding.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./industryEmployment.js",
+      "resolvedSource": "src/core/industryEmployment.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./rights.js",
+      "resolvedSource": "src/core/rights.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./assetSale.js",
+      "resolvedSource": "src/core/assetSale.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./dueDiligence.js",
+      "resolvedSource": "src/core/dueDiligence.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./acquisition.js",
+      "resolvedSource": "src/core/acquisition.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./estate.js",
+      "resolvedSource": "src/core/estate.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./promises.js",
+      "resolvedSource": "src/core/promises.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./corporateConditionLive.js",
+      "resolvedSource": "src/core/corporateConditionLive.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./studioClosure.js",
+      "resolvedSource": "src/core/studioClosure.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./relationships.js",
+      "resolvedSource": "src/core/relationships.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./talentMarket.js",
+      "resolvedSource": "src/core/talentMarket.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./installationCancellation.js",
+      "resolvedSource": "src/core/installationCancellation.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./math.js",
+      "resolvedSource": "src/core/math.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./occupancy.js",
+      "resolvedSource": "src/core/occupancy.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./castingSessions.js",
+      "resolvedSource": "src/core/castingSessions.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./construction.js",
+      "resolvedSource": "src/core/construction.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./placement.js",
+      "resolvedSource": "src/core/placement.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./physicalPlans.js",
+      "resolvedSource": "src/core/physicalPlans.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./productionSetup.js",
+      "resolvedSource": "src/core/productionSetup.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./lot.js",
+      "resolvedSource": "src/core/lot.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./operations.js",
+      "resolvedSource": "src/core/operations.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./publicity.js",
+      "resolvedSource": "src/core/publicity.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./standing.js",
+      "resolvedSource": "src/core/standing.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./studioHistory.js",
+      "resolvedSource": "src/core/studioHistory.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./sceneryLoadIn.js",
+      "resolvedSource": "src/core/sceneryLoadIn.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./sets.js",
+      "resolvedSource": "src/core/sets.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./releaseAuthority.js",
+      "resolvedSource": "src/core/releaseAuthority.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./studioEvents.js",
+      "resolvedSource": "src/core/studioEvents.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./productionIdentity.js",
+      "resolvedSource": "src/core/productionIdentity.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./productionAdmission.js",
+      "resolvedSource": "src/core/productionAdmission.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./productionQueue.js",
+      "resolvedSource": "src/core/productionQueue.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./scriptDevelopment.js",
+      "resolvedSource": "src/core/scriptDevelopment.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./screenplay.js",
+      "resolvedSource": "src/core/screenplay.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./facilityEffects.js",
+      "resolvedSource": "src/core/facilityEffects.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./reception.js",
+      "resolvedSource": "src/core/reception.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./rng.js",
+      "resolvedSource": "src/core/rng.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./shape.js",
+      "resolvedSource": "src/core/shape.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./tuning.js",
+      "resolvedSource": "src/core/tuning.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./talentSummary.js",
+      "resolvedSource": "src/core/talentSummary.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./types.js",
+      "resolvedSource": "src/core/types.ts"
+    },
+    {
+      "importer": "src/core/actions.ts",
+      "specifier": "./worldgen.js",
+      "resolvedSource": "src/core/worldgen.ts"
+    },
+    {
+      "importer": "src/core/scriptReadModel.ts",
+      "specifier": "./operatingState.js",
+      "resolvedSource": "src/core/operatingState.ts"
+    },
+    {
+      "importer": "src/core/scriptReadModel.ts",
+      "specifier": "./continuedScripts.js",
+      "resolvedSource": "src/core/continuedScripts.ts"
+    },
+    {
+      "importer": "src/core/scriptReadModel.ts",
+      "specifier": "./continuedWork.js",
+      "resolvedSource": "src/core/continuedWork.ts"
+    },
+    {
+      "importer": "src/core/scriptReadModel.ts",
+      "specifier": "./employment.js",
+      "resolvedSource": "src/core/employment.ts"
+    },
+    {
+      "importer": "src/core/scriptReadModel.ts",
+      "specifier": "./castingSessions.js",
+      "resolvedSource": "src/core/castingSessions.ts"
+    },
+    {
+      "importer": "src/core/scriptReadModel.ts",
+      "specifier": "./scriptDevelopment.js",
+      "resolvedSource": "src/core/scriptDevelopment.ts"
+    },
+    {
+      "importer": "src/core/scriptReadModel.ts",
+      "specifier": "./math.js",
+      "resolvedSource": "src/core/math.ts"
+    },
+    {
+      "importer": "src/core/scriptReadModel.ts",
+      "specifier": "./facilityEffects.js",
+      "resolvedSource": "src/core/facilityEffects.ts"
+    },
+    {
+      "importer": "src/core/scriptReadModel.ts",
+      "specifier": "./productionQueue.js",
+      "resolvedSource": "src/core/productionQueue.ts"
+    },
+    {
+      "importer": "src/core/scriptReadModel.ts",
+      "specifier": "./talentSummary.js",
+      "resolvedSource": "src/core/talentSummary.ts"
+    },
+    {
+      "importer": "src/core/scriptReadModel.ts",
+      "specifier": "./sceneryLoadIn.js",
+      "resolvedSource": "src/core/sceneryLoadIn.ts"
+    },
+    {
+      "importer": "src/core/scriptReadModel.ts",
+      "specifier": "./screenplay.js",
+      "resolvedSource": "src/core/screenplay.ts"
+    },
+    {
+      "importer": "src/core/scriptReadModel.ts",
+      "specifier": "./tuning.js",
+      "resolvedSource": "src/core/tuning.ts"
+    },
+    {
+      "importer": "src/core/scriptReadModel.ts",
+      "specifier": "./types.js",
+      "resolvedSource": "src/core/types.ts"
+    },
+    {
+      "importer": "src/core/studioClosure.ts",
+      "specifier": "./continuedWork.js",
+      "resolvedSource": "src/core/continuedWork.ts"
+    },
+    {
+      "importer": "src/core/studioClosure.ts",
+      "specifier": "./corporateConditionLive.js",
+      "resolvedSource": "src/core/corporateConditionLive.ts"
+    },
+    {
+      "importer": "src/core/studioClosure.ts",
+      "specifier": "./economy.js",
+      "resolvedSource": "src/core/economy.ts"
+    },
+    {
+      "importer": "src/core/studioClosure.ts",
+      "specifier": "./employment.js",
+      "resolvedSource": "src/core/employment.ts"
+    },
+    {
+      "importer": "src/core/studioClosure.ts",
+      "specifier": "./hollywood.js",
+      "resolvedSource": "src/core/hollywood.ts"
+    },
+    {
+      "importer": "src/core/studioClosure.ts",
+      "specifier": "./operatingState.js",
+      "resolvedSource": "src/core/operatingState.ts"
+    },
+    {
+      "importer": "src/core/studioClosure.ts",
+      "specifier": "./campaignLegacy.js",
+      "resolvedSource": "src/core/campaignLegacy.ts"
+    },
+    {
+      "importer": "src/core/studioClosure.ts",
+      "specifier": "./save.js",
+      "resolvedSource": "src/core/save.ts"
+    },
+    {
+      "importer": "src/core/studioClosure.ts",
+      "specifier": "./rights.js",
+      "resolvedSource": "src/core/rights.ts"
+    },
+    {
+      "importer": "src/core/studioClosure.ts",
+      "specifier": "./estate.js",
+      "resolvedSource": "src/core/estate.ts"
+    },
+    {
+      "importer": "src/core/studioClosure.ts",
+      "specifier": "./p15Phases.js",
+      "resolvedSource": "src/core/p15Phases.ts"
+    },
+    {
+      "importer": "src/core/studioClosure.ts",
+      "specifier": "./promises.js",
+      "resolvedSource": "src/core/promises.ts"
+    },
+    {
+      "importer": "src/core/studioClosure.ts",
+      "specifier": "./talentMarket.js",
+      "resolvedSource": "src/core/talentMarket.ts"
+    },
+    {
+      "importer": "src/core/studioClosure.ts",
+      "specifier": "./technology.js",
+      "resolvedSource": "src/core/technology.ts"
+    },
+    {
+      "importer": "src/core/studioClosure.ts",
+      "specifier": "./tuning.js",
+      "resolvedSource": "src/core/tuning.ts"
+    },
+    {
+      "importer": "src/core/studioClosure.ts",
+      "specifier": "./hollywoodTypes.js",
+      "resolvedSource": "src/core/hollywoodTypes.ts"
+    },
+    {
+      "importer": "src/core/studioClosure.ts",
+      "specifier": "./types.js",
+      "resolvedSource": "src/core/types.ts"
+    },
+    {
+      "importer": "src/core/studioClosure.ts",
+      "specifier": "./operatingState.js",
+      "resolvedSource": "src/core/operatingState.ts"
+    },
+    {
+      "importer": "bridge/schema/bridge-schema.ts",
+      "specifier": "./dsl.ts",
+      "resolvedSource": "bridge/schema/dsl.ts"
+    },
+    {
+      "importer": "bridge/schema/bridge-schema.ts",
+      "specifier": "./intent-schema.ts",
+      "resolvedSource": "bridge/schema/intent-schema.ts"
+    },
+    {
+      "importer": "bridge/schema/bridge-schema.ts",
+      "specifier": "./intent-schema.ts",
+      "resolvedSource": "bridge/schema/intent-schema.ts"
+    },
+    {
+      "importer": "bridge/schema/bridge-schema.ts",
+      "specifier": "./industry-schema.ts",
+      "resolvedSource": "bridge/schema/industry-schema.ts"
+    },
+    {
+      "importer": "tests/p16-retained-drafting-continuation.test.ts",
+      "specifier": "../src/core/save.js",
+      "resolvedSource": "tests/../src/core/save.ts"
+    },
+    {
+      "importer": "tests/p16-retained-drafting-continuation.test.ts",
+      "specifier": "../src/core/actions.js",
+      "resolvedSource": "tests/../src/core/actions.ts"
+    },
+    {
+      "importer": "tests/p16-retained-drafting-continuation.test.ts",
+      "specifier": "../src/core/tuning.js",
+      "resolvedSource": "tests/../src/core/tuning.ts"
+    },
+    {
+      "importer": "tests/p16-retained-drafting-continuation.test.ts",
+      "specifier": "../src/core/types.js",
+      "resolvedSource": "tests/../src/core/types.ts"
+    },
+    {
+      "importer": "tests/p16-retained-drafting-continuation.test.ts",
+      "specifier": "../src/core/scriptDevelopment.js",
+      "resolvedSource": "tests/../src/core/scriptDevelopment.ts"
+    },
+    {
+      "importer": "tests/p16-retained-drafting-continuation.test.ts",
+      "specifier": "../src/core/facilityEffects.js",
+      "resolvedSource": "tests/../src/core/facilityEffects.ts"
+    },
+    {
+      "importer": "tests/p16-retained-drafting-continuation.test.ts",
+      "specifier": "../src/core/tick.js",
+      "resolvedSource": "tests/../src/core/tick.ts"
+    },
+    {
+      "importer": "tests/p16-retained-drafting-continuation.test.ts",
+      "specifier": "../src/core/corporateConditionLive.js",
+      "resolvedSource": "tests/../src/core/corporateConditionLive.ts"
+    },
+    {
+      "importer": "tests/p16-retained-drafting-continuation.test.ts",
+      "specifier": "../src/core/productionPhases.js",
+      "resolvedSource": "tests/../src/core/productionPhases.ts"
+    },
+    {
+      "importer": "tests/p16-retained-drafting-continuation.test.ts",
+      "specifier": "../src/core/acquisition.js",
+      "resolvedSource": "tests/../src/core/acquisition.ts"
+    },
+    {
+      "importer": "tests/p16-retained-drafting-continuation.test.ts",
+      "specifier": "../src/core/dueDiligence.js",
+      "resolvedSource": "tests/../src/core/dueDiligence.ts"
+    },
+    {
+      "importer": "tests/p16-retained-drafting-continuation.test.ts",
+      "specifier": "../src/core/employment.js",
+      "resolvedSource": "tests/../src/core/employment.ts"
+    },
+    {
+      "importer": "tests/p16-retained-drafting-continuation.test.ts",
+      "specifier": "../src/core/propertyValuation.js",
+      "resolvedSource": "tests/../src/core/propertyValuation.ts"
+    },
+    {
+      "importer": "tests/p16-retained-drafting-continuation.test.ts",
+      "specifier": "../src/core/rightsFinance.js",
+      "resolvedSource": "tests/../src/core/rightsFinance.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-accept.test.ts",
+      "specifier": "../src/core/save.js",
+      "resolvedSource": "tests/../src/core/save.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-accept.test.ts",
+      "specifier": "../src/core/scriptDevelopment.js",
+      "resolvedSource": "tests/../src/core/scriptDevelopment.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-accept.test.ts",
+      "specifier": "../src/core/scriptReadModel.js",
+      "resolvedSource": "tests/../src/core/scriptReadModel.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-accept.test.ts",
+      "specifier": "../src/core/actions.js",
+      "resolvedSource": "tests/../src/core/actions.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-accept.test.ts",
+      "specifier": "../src/core/types.js",
+      "resolvedSource": "tests/../src/core/types.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-accept.test.ts",
+      "specifier": "../src/core/scriptDevelopment.js",
+      "resolvedSource": "tests/../src/core/scriptDevelopment.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-accept.test.ts",
+      "specifier": "../src/core/facilityEffects.js",
+      "resolvedSource": "tests/../src/core/facilityEffects.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-accept.test.ts",
+      "specifier": "../src/core/tick.js",
+      "resolvedSource": "tests/../src/core/tick.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-accept.test.ts",
+      "specifier": "../src/core/corporateConditionLive.js",
+      "resolvedSource": "tests/../src/core/corporateConditionLive.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-accept.test.ts",
+      "specifier": "../src/core/productionPhases.js",
+      "resolvedSource": "tests/../src/core/productionPhases.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-accept.test.ts",
+      "specifier": "../src/core/acquisition.js",
+      "resolvedSource": "tests/../src/core/acquisition.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-accept.test.ts",
+      "specifier": "../src/core/dueDiligence.js",
+      "resolvedSource": "tests/../src/core/dueDiligence.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-accept.test.ts",
+      "specifier": "../src/core/employment.js",
+      "resolvedSource": "tests/../src/core/employment.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-accept.test.ts",
+      "specifier": "../src/core/propertyValuation.js",
+      "resolvedSource": "tests/../src/core/propertyValuation.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-accept.test.ts",
+      "specifier": "../src/core/rightsFinance.js",
+      "resolvedSource": "tests/../src/core/rightsFinance.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-rewrite.test.ts",
+      "specifier": "../src/core/save.js",
+      "resolvedSource": "tests/../src/core/save.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-rewrite.test.ts",
+      "specifier": "../src/core/scriptDevelopment.js",
+      "resolvedSource": "tests/../src/core/scriptDevelopment.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-rewrite.test.ts",
+      "specifier": "../src/core/continuedScripts.js",
+      "resolvedSource": "tests/../src/core/continuedScripts.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-rewrite.test.ts",
+      "specifier": "../src/core/continuedWork.js",
+      "resolvedSource": "tests/../src/core/continuedWork.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-rewrite.test.ts",
+      "specifier": "../src/core/scriptReadModel.js",
+      "resolvedSource": "tests/../src/core/scriptReadModel.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-rewrite.test.ts",
+      "specifier": "../src/core/actions.js",
+      "resolvedSource": "tests/../src/core/actions.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-rewrite.test.ts",
+      "specifier": "../src/core/types.js",
+      "resolvedSource": "tests/../src/core/types.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-rewrite.test.ts",
+      "specifier": "../src/core/scriptDevelopment.js",
+      "resolvedSource": "tests/../src/core/scriptDevelopment.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-rewrite.test.ts",
+      "specifier": "../src/core/facilityEffects.js",
+      "resolvedSource": "tests/../src/core/facilityEffects.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-rewrite.test.ts",
+      "specifier": "../src/core/tick.js",
+      "resolvedSource": "tests/../src/core/tick.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-rewrite.test.ts",
+      "specifier": "../src/core/corporateConditionLive.js",
+      "resolvedSource": "tests/../src/core/corporateConditionLive.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-rewrite.test.ts",
+      "specifier": "../src/core/productionPhases.js",
+      "resolvedSource": "tests/../src/core/productionPhases.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-rewrite.test.ts",
+      "specifier": "../src/core/acquisition.js",
+      "resolvedSource": "tests/../src/core/acquisition.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-rewrite.test.ts",
+      "specifier": "../src/core/dueDiligence.js",
+      "resolvedSource": "tests/../src/core/dueDiligence.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-rewrite.test.ts",
+      "specifier": "../src/core/employment.js",
+      "resolvedSource": "tests/../src/core/employment.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-rewrite.test.ts",
+      "specifier": "../src/core/propertyValuation.js",
+      "resolvedSource": "tests/../src/core/propertyValuation.ts"
+    },
+    {
+      "importer": "tests/p16-carried-script-rewrite.test.ts",
+      "specifier": "../src/core/rightsFinance.js",
+      "resolvedSource": "tests/../src/core/rightsFinance.ts"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "status": "STATIC_ADAPTED_UNINSTALLED_UNRUN",
+  "candidateHEAD": "b3be2b78f821ca356158b63083eced051d20f3f7",
+  "sourceReceiptSHA256": "0fcd447a5169e8507187edc30c1737b5ad41553910b8d5443a7d90d5beb77982",
+  "testBindingReceiptSHA256": "1c19b3a07f4ce503796274b44f69b205361fdf8604f12780270854950e4e423a",
+  "patches": {
+    "SOURCE.patch": {
+      "sha256": "ef8b12e42e2e803835510ffe58b90e1277bd855a8d692361adde8e8ad75236eb",
+      "bytes": 74009
+    },
+    "TESTS.patch": {
+      "sha256": "d1c8ec1ce7455e7d44485e12675691d9dc31577eca69bfb6ad1b2352d633f606",
+      "bytes": 69678
+    },
+    "COMBINED.patch": {
+      "sha256": "e1759853dff858e9c8d817a39d4a247d11c99263df3c7fe14be0fb47d30dacef",
+      "bytes": 143687
+    }
+  },
+  "sourcePaths": 13,
+  "testFiles": 3,
+  "declaredTestIdentities": 10,
+  "unresolvedTextConflicts": 0,
+  "manualAdaptations": 1,
+  "draftReady": true,
+  "claim": "STATIC_ADAPTED_UNINSTALLED_UNRUN",
+  "README_SHA256": "2c086fd60ee9af8e60697c1f0dc763da3aa8e5ff30034bf34bfb8f9b77925e63"
+}

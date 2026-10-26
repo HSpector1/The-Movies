@@ -1,0 +1,1687 @@
+--- a/src/core/rights.ts
++++ b/src/core/rights.ts
+@@ -1,5 +1,5 @@
+ import type { RivalProjectCosts } from './hollywoodTypes.js'
+-import type { FacilityCapability, ProductionPhase, Production, ProductionWorkflow, Standing, ReleaseCommitment, ScriptProject } from './types.js'
++import type { FacilityCapability, ProductionPhase, Production, ProductionWorkflow, Standing, ReleaseCommitment, ScriptProject, ScriptAssessment, ScriptReservation, StudioFacility, PlacedFacility, StudioOperations, ScriptDevelopment } from './types.js'
+ import type { TechnologyId } from './technologyTypes.js'
+ import type { StandingContext, ReleaseBenchmarks } from './standing.js'
+ // ── P16A: story properties, four separate rights, title history and the rights root ──
+@@ -220,6 +220,21 @@
+   scriptProjectId: string; reason: 'writersNotRetained'; sourceContractIds: string[]
+   originalScript: ScriptProject; originalCosts: RivalProjectCosts
+ }
++export type AbsorptionContinuedScript = {
++  sourceScriptProjectId: string; sourceContractIds: string[]; buyerContractIds: string[]
++  originalScript: ScriptProject; originalCosts: RivalProjectCosts
++  reservationAtClose: ScriptReservation; project: ScriptProject
++}
++export type AbsorptionScriptDecision =
++  | { id:string; projectId:string; kind:'accept'; week:number }
++  | { id:string; projectId:string; kind:'rewrite'; week:number; reservation:ScriptReservation;
++      nativeInput:{operations:StudioOperations;development:ScriptDevelopment;occupiedSlots:string[]};
++      allocationAuthority:{projectIds:string[];workflowIds:string[];productions:Production[];occupiedSlots:string[];developmentContext:AbsorptionScriptCompletion['developmentContext'];estUplift:number} }
++export type AbsorptionScriptCompletion = {
++  id: string; projectId: string; week: number; inputWeek: number; estUplift: number
++  developmentContext: { facilities: StudioFacility[]; placements: PlacedFacility[]; paidRows: { projectId: string; week: number; amount: number }[] }
++  writerRewriting: { actual: number; perceived: number } | null; assessment: ScriptAssessment
++}
+ type AbsorptionRecordBase = {
+   id: string; week: number; buyerId: string; targetId: string; disclosureId: string
+   quotedAtWeek: number; quoteAgePolicyVersion: QuoteAgePolicyVersion
+@@ -245,6 +260,9 @@
+ export type AbsorptionRecord = AbsorptionRecordBase & (
+   | { producerVersion: 'absorption-clean/v1'; stoppedScripts?: never }
+   | { producerVersion: 'absorption-scripts/v2'; stoppedScripts: AbsorptionStoppedScript[] }
++  | { producerVersion: 'absorption-scripts/v3'; stoppedScripts: AbsorptionStoppedScript[]; continuedScripts: AbsorptionContinuedScript[]; scriptCompletions: AbsorptionScriptCompletion[] }
++  | { producerVersion: 'absorption-scripts/v4'; stoppedScripts: AbsorptionStoppedScript[]; continuedScripts: AbsorptionContinuedScript[]; scriptCompletions: AbsorptionScriptCompletion[]; scriptDecisions: { id:string; projectId:string; kind:'accept'; week:number }[] }
++  | { producerVersion: 'absorption-scripts/v5'; stoppedScripts: AbsorptionStoppedScript[]; continuedScripts: AbsorptionContinuedScript[]; scriptCompletions: AbsorptionScriptCompletion[]; scriptDecisions: AbsorptionScriptDecision[] }
+ )
+ 
+ type BoundarySourceKind = 'player-ledger' | 'player-active' | 'player-release' | 'rival-announcement' | 'rival-active' | 'rival-release'
+@@ -1071,6 +1089,11 @@
+     for(const receipt of record.runReceipts) idNumber(receipt.id,'absorptions.runReceipts.id')
+     for(const step of record.workSteps) idNumber(step.id,'absorptions.workSteps.id')
+     for(const cancellation of record.workCancellations) idNumber(cancellation.id,'absorptions.workCancellations.id')
++    if((record.producerVersion==='absorption-scripts/v3'||record.producerVersion==='absorption-scripts/v4'||record.producerVersion==='absorption-scripts/v5')){
++      for(const row of record.continuedScripts)idNumber(row.project.id,'absorptions.continuedScripts.project.id')
++      for(const row of record.scriptCompletions)idNumber(row.id,'absorptions.scriptCompletions.id')
++      if(record.producerVersion==='absorption-scripts/v4'||record.producerVersion==='absorption-scripts/v5')for(const row of record.scriptDecisions)idNumber(row.id,'absorptions.scriptDecisions.id')
++    }
+   }
+   const bySubject = new Map<string, TitleEvent[]>()
+   for (const [i, e] of rights.titleEvents.entries()) {
+--- a/src/core/scriptDevelopment.ts
++++ b/src/core/scriptDevelopment.ts
+@@ -796,6 +796,9 @@
+ }
+ 
+ export type ScriptDevelopmentInvariantContext = {
++  /** Current49 joined owner supplies the exact registry-bound ordered IDs; frozen callers omit it. */
++  current49ProjectIds?: readonly string[]
++  current49ProductionScripts?: ReadonlyMap<string, ScriptProject>
+   studioId?: string | undefined
+   retirementWriting?: RetirementWritingAuthority | undefined
+   currentWeek: number
+@@ -971,10 +974,11 @@
+     occupiedResourceSlots({ operations: context.operations }, { owners: ['production'] }).keys(),
+   )
+ 
++  invariant(context.current49ProjectIds===undefined || context.current49ProjectIds.length===development.projects.length, 'current script identity context length differs')
+   for (let index = 0; index < development.projects.length; index++) {
+     const project = development.projects[index]!
+     invariant(
+-      project.id === canonicalScriptProjectId(index),
++      project.id === (context.current49ProjectIds?.[index] ?? canonicalScriptProjectId(index)),
+       `project at index ${String(index)} must be ${canonicalScriptProjectId(index)}`,
+     )
+     invariant(!conceptIds.has(project.conceptId), `duplicate concept link "${project.conceptId}"`)
+@@ -1137,7 +1141,7 @@
+     const project = development.projects.find(
+       (candidate) =>
+         candidate.status === 'inProduction' && candidate.productionId === production.id,
+-    )
++    ) ?? context.current49ProductionScripts?.get(production.id)
+     invariant(project !== undefined, `active production "${production.id}" has no screenplay project`)
+   }
+ }
+--- /dev/null
++++ b/src/core/continuedScripts.ts
+@@ -0,0 +1,340 @@
++import { assertStudioOperationsInvariants } from './operations.js'
++import { activeContract, busyTalentIds } from './employment.js'
++import { castingOccupiedFacilitySlots } from './castingSessions.js'
++import { resourceClaims } from './occupancy.js'
++import type { GameState, ScriptDevelopment, ScriptProject } from './types.js'
++import type { AbsorptionRecord, AbsorptionScriptCompletion, AbsorptionScriptDecision } from './rights.js'
++import { allocateRightsId } from './rights.js'
++import { allocateScriptReservation, completeDueScriptWork, assertScriptDevelopmentInvariants, assessFirstDraft, scriptRewriteDelta, acceptScriptProject, requestScriptRewrite } from './scriptDevelopment.js'
++import { buyerOperationsForAllWork, buyerOperatedProductions } from './continuedWork.js'
++import { closedWeekOf } from './operatingState.js'
++import { SCRIPT_DEVELOPMENT_OFFICE_TIER_2_EST_UPLIFT, SCRIPT_DEVELOPMENT_OFFICE_TIER_3_EST_UPLIFT, FACILITY_BLUEPRINTS } from './tuning.js'
++import { developmentOfficeEstUplift } from './facilityEffects.js'
++
++type Owner=Extract<AbsorptionRecord,{producerVersion:'absorption-scripts/v3'|'absorption-scripts/v4'|'absorption-scripts/v5'}>
++function fail(why:string):never{throw new Error(`continued script: ${why}`)}
++const exact=(x:object,keys:string[])=>Object.keys(x).sort().join()===keys.sort().join()
++function same(a:unknown,b:unknown):boolean{
++ if(a===b)return true
++ if(a===null||b===null||typeof a!=='object'||typeof b!=='object')return false
++ if(Array.isArray(a)||Array.isArray(b))return Array.isArray(a)&&Array.isArray(b)&&a.length===b.length&&a.every((v,i)=>same(v,b[i]))
++ const x=a as Record<string,unknown>,y=b as Record<string,unknown>,keys=Object.keys(x).sort()
++ return keys.join()===Object.keys(y).sort().join()&&keys.every(k=>same(x[k],y[k]))
++}
++function owners(state:GameState):Owner[]{
++ return (state.rights?.absorptions??[]).filter((a):a is Owner=>(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||a.producerVersion==='absorption-scripts/v5'))
++}
++export function continuedScriptOwner(state:GameState,id:string){
++ for(const a of owners(state)){const row=a.continuedScripts.find(r=>r.project.id===id);if(row)return {a,row}}
++ return null
++}
++export function buyerScriptDevelopment(state:GameState):ScriptDevelopment{
++ const player=state.hollywood?.playerStudioId
++ const projects=owners(state).filter(a=>a.buyerId===player).flatMap(a=>a.continuedScripts.map(r=>r.project))
++ return projects.length===0?state.scriptDevelopment:{...state.scriptDevelopment,projects:[...state.scriptDevelopment.projects,...projects]}
++}
++export function buyerScriptConcepts(state:GameState){
++ const ids=new Set(owners(state).filter(a=>a.buyerId===state.hollywood?.playerStudioId).flatMap(a=>a.continuedScripts.map(r=>r.originalScript.conceptId)))
++ return [...state.concepts,...(state.hollywood?.concepts??[]).filter(c=>ids.has(c.id)&&!state.concepts.some(own=>own.id===c.id))]
++}
++/** Bind actual native reservations after production allocation, using the SAME buyer facility pool. */
++export function bindContinuedScripts(state:GameState,id:string,occupied:ReadonlySet<string>):GameState{
++ let next=state
++ const original=owners(state).find(a=>a.id===id)
++ if(!original)return state
++ if(original.buyerId!==state.hollywood?.playerStudioId)fail('rival buyer drafting producer required')
++ for(const originalRow of original.continuedScripts){
++  const allocated=allocateRightsId(next.rights,'absorbed-script')
++  const boundPool=buyerScriptDevelopment(next)
++  const pool={...boundPool,projects:boundPool.projects.filter(p=>!original.continuedScripts.some(r=>r.project.id===p.id&&r.project.id===r.sourceScriptProjectId))}
++  const reservation=allocateScriptReservation(buyerOperationsForAllWork(next),pool,allocated.id,occupied)
++  if(!reservation)fail('buyer native development capacity unavailable')
++  next={...next,rights:{...allocated.root,absorptions:allocated.root.absorptions.map(a=>a.id===id&&(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||a.producerVersion==='absorption-scripts/v5')?{...a,
++   continuedScripts:a.continuedScripts.map(r=>r.sourceScriptProjectId===originalRow.sourceScriptProjectId?{...r,reservationAtClose:reservation,
++    project:{...r.originalScript,id:allocated.id,reservation}}:r)}:a)}}
++ }
++ return next
++}
++/** ONE native script-work pass for own and continued work, in stored order. */
++export function advanceBuyerScriptWork(state:GameState,arrivalWeek:number,estUplift:number):{state:GameState;development:ScriptDevelopment}{
++ const before=buyerScriptDevelopment(state)
++ const foreign=owners(state).filter(a=>a.buyerId===state.hollywood?.playerStudioId).flatMap(a=>a.continuedScripts.map(row=>({a,row})))
++ if(foreign.length&&closedWeekOf(state).has(state.hollywood!.playerStudioId))fail('closed buyer cannot advance writing')
++ const completed=completeDueScriptWork(before,arrivalWeek,{concepts:buyerScriptConcepts(state),talent:state.talent,estUplift})
++ let rights=state.rights
++ for(const {a,row} of foreign){
++  const project=completed.projects.find(p=>p.id===row.project.id)!
++  if(project===row.project)continue
++  if((row.project.status!=='drafting'&&row.project.status!=='rewriting')||project.status!=='review'||project.assessment===null)fail('unexpected native script transition')
++  if(a.scriptCompletions.some(r=>r.projectId===project.id&&r.week===arrivalWeek)||a.scriptCompletions.filter(r=>r.projectId===project.id).length>=(row.project.rewriteCount===1?2:1))fail('completion replay')
++  const writer=state.talent.find(t=>t.id===project.writerId)!
++  const rewriting=writer.skills.writing.rewriting
++  if(row.project.status==='rewriting'&&!rewriting)fail('native rewrite skill context missing')
++  const writerRewriting=row.project.status==='rewriting'&&rewriting?{actual:rewriting.actual,perceived:rewriting.perceived}:null
++  const allocated=allocateRightsId(rights,'script-completion')
++  const receipt:AbsorptionScriptCompletion={id:allocated.id,projectId:project.id,week:arrivalWeek,inputWeek:state.market.tick,estUplift,writerRewriting,assessment:{...project.assessment},developmentContext:{facilities:structuredClone(state.operations.facilities),placements:structuredClone(state.placement.facilities),paidRows:state.ledger.filter(r=>r.kind==='constructionCapex'&&r.week<=state.market.tick&&state.placement.facilities.some(p=>p.projectId===r.constructionProjectId)).map(r=>({projectId:r.constructionProjectId!,week:r.week,amount:r.amount}))}}
++  rights={...allocated.root,absorptions:allocated.root.absorptions.map(r=>r.id===a.id&&(r.producerVersion==='absorption-scripts/v3'||r.producerVersion==='absorption-scripts/v4'||r.producerVersion==='absorption-scripts/v5')?{...r,
++   continuedScripts:r.continuedScripts.map(s=>s.project.id===project.id?{...s,project}:s),scriptCompletions:[...r.scriptCompletions,receipt]}:r)}
++ }
++ const own=new Set(state.scriptDevelopment.projects.map(p=>p.id))
++ return {state:{...state,rights},development:{...state.scriptDevelopment,projects:completed.projects.filter(p=>own.has(p.id))}}
++}
++/** The public buyer decision uses the genuine combined native work pool; source history is untouched. */
++export function acceptContinuedScript(state:GameState,projectId:string):GameState {
++ const owner=continuedScriptOwner(state,projectId)
++ if(!owner)fail('unknown buyer review project')
++ if(owner.a.buyerId!==state.hollywood?.playerStudioId||closedWeekOf(state).has(owner.a.buyerId))fail('review decision requires operating buyer')
++ const completed=acceptScriptProject(buyerScriptDevelopment(state),projectId)
++ const project=completed.projects.find(p=>p.id===projectId)!
++ const allocated=allocateRightsId(state.rights,'script-decision')
++ const decision={id:allocated.id,projectId,kind:'accept' as const,week:state.market.tick}
++ const next={...state,rights:{...allocated.root,absorptions:allocated.root.absorptions.map((a):AbsorptionRecord=>{
++  if(a.id!==owner.a.id||!(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||a.producerVersion==='absorption-scripts/v5'))return a
++  const continuedScripts=a.continuedScripts.map(r=>r.project.id===projectId?{...r,project}:r)
++  if(a.producerVersion==='absorption-scripts/v5')return {...a,continuedScripts,scriptDecisions:[...a.scriptDecisions,decision]}
++  return {...a,producerVersion:'absorption-scripts/v4',continuedScripts,scriptDecisions:[...(a.producerVersion==='absorption-scripts/v4'?a.scriptDecisions:[]),decision]}
++ })}}
++ validateContinuedScripts(next)
++ return next
++}
++export function carriedRewriteHistorySupported(state:GameState):boolean {
++ return state.scriptDevelopment.projects.length===0&&buyerScriptDevelopment(state).projects.length===1
++}
++/** A real buyer rewrite: native allocator and existing contracted-time/busy gates, no new commission. */
++export function rewriteContinuedScript(state:GameState,projectId:string):GameState {
++ const owner=continuedScriptOwner(state,projectId)
++ if(!owner)fail('unknown buyer rewrite project')
++ if(owner.a.buyerId!==state.hollywood?.playerStudioId||closedWeekOf(state).has(owner.a.buyerId))fail('rewrite requires operating buyer')
++ // The native own root does not preserve historical task reservations after completion.
++ // Admit only the real single carried task until a coupled historical owner exists.
++ if(!carriedRewriteHistorySupported(state))fail('competing screenplay history producer required')
++ const writer=owner.row.project.writerId
++ if(!activeContract(state,writer,state.market.tick))fail('rewrite writer is not buyer contracted')
++ if(busyTalentIds(state).has(writer))fail('rewrite writer has an active assignment')
++ const occupiedSlots=[...new Set([...castingOccupiedFacilitySlots(state.castingSessions),...resourceClaims(state).filter(r=>r.owner==='installation'&&r.facilitySlotKey!==null).map(r=>r.facilitySlotKey!)])].sort()
++ const nativeInput={operations:structuredClone(buyerOperationsForAllWork(state)),development:structuredClone(buyerScriptDevelopment(state)),occupiedSlots}
++ const allocationAuthority={projectIds:nativeInput.development.projects.map(p=>p.id),workflowIds:nativeInput.operations.workflows.map(w=>w.productionId),productions:structuredClone(buyerOperatedProductions(state)),occupiedSlots:[...occupiedSlots],
++  developmentContext:{facilities:structuredClone(state.operations.facilities),placements:structuredClone(state.placement.facilities),paidRows:state.ledger.filter(r=>r.kind==='constructionCapex'&&r.week<=state.market.tick&&state.placement.facilities.some(p=>p.projectId===r.constructionProjectId)).map(r=>({projectId:r.constructionProjectId!,week:r.week,amount:r.amount}))},estUplift:developmentOfficeEstUplift(state)}
++ const development=requestScriptRewrite(nativeInput.development,nativeInput.operations,projectId,state.market.tick,new Set(occupiedSlots))
++ const project=development.projects.find(p=>p.id===projectId)!
++ if(project.reservation===null)fail('native rewrite returned no reservation')
++ const allocated=allocateRightsId(state.rights,'script-decision')
++ const decision:AbsorptionScriptDecision={id:allocated.id,projectId,kind:'rewrite',week:state.market.tick,reservation:structuredClone(project.reservation),nativeInput,allocationAuthority}
++ const next={...state,rights:{...allocated.root,absorptions:allocated.root.absorptions.map(a=>a.id===owner.a.id&&(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||a.producerVersion==='absorption-scripts/v5')?{...a,
++  producerVersion:'absorption-scripts/v5' as const,continuedScripts:a.continuedScripts.map(r=>r.project.id===projectId?{...r,project}:r),
++  scriptDecisions:[...(a.producerVersion==='absorption-scripts/v3'?[]:a.scriptDecisions),decision]}:a)}}
++ validateContinuedScripts(next)
++ return next
++}
++function validateDevelopmentObservation(state:GameState,ctx:AbsorptionScriptCompletion['developmentContext'],inputWeek:number,estUplift:number):void {
++    if(!ctx||!exact(ctx,['facilities','placements','paidRows'])||!Array.isArray(ctx.facilities)||!Array.isArray(ctx.placements)||!Array.isArray(ctx.paidRows))fail('native facility observation missing')
++    const placementIds=new Set<number>()
++    for(const p of ctx.placements){
++     if(!p||!exact(p,['id','blueprintId','parcelId','origin','cells','facilityId','projectId','status','placedWeek','completesWeek','cancellation',...(Object.hasOwn(p,'installation')?['installation']:[])])||placementIds.has(p.id)||!Number.isInteger(p.id)||p.id<1||!FACILITY_BLUEPRINTS.some(b=>b.id===p.blueprintId)
++      ||!Number.isInteger(p.placedWeek)||p.placedWeek<0||p.placedWeek>inputWeek||!Number.isInteger(p.completesWeek)||p.completesWeek<p.placedWeek
++      ||!['operational','underConstruction','cancelled'].includes(p.status)||p.status==='operational'&&p.completesWeek>inputWeek
++      ||p.status==='underConstruction'&&p.completesWeek<=inputWeek)fail('native facility observation timing differs')
++     placementIds.add(p.id)
++     const retained=state.placement.facilities.find(now=>now.id===p.id)
++     if(retained&&(retained.blueprintId!==p.blueprintId||retained.projectId!==p.projectId||retained.facilityId!==p.facilityId||retained.placedWeek!==p.placedWeek||retained.completesWeek!==p.completesWeek||!same(retained.installation,p.installation)))fail('native facility observation source differs')
++     const paid=state.ledger.filter(l=>l.kind==='constructionCapex'&&l.constructionProjectId===p.projectId&&l.week===p.placedWeek)
++     if(paid.length===0||paid.some(l=>!Number.isFinite(l.amount)||l.amount>=0))fail('native facility observation has no paid source')
++    }
++    const paidRows=state.ledger.filter(l=>l.kind==='constructionCapex'&&l.week<=inputWeek&&ctx.placements.some(p=>p.projectId===l.constructionProjectId)).map(l=>({projectId:l.constructionProjectId!,week:l.week,amount:l.amount}))
++    if(!same(ctx.paidRows,paidRows))fail('native facility paid observation differs')
++    const facilities=new Set<string>()
++    for(const f of ctx.facilities){
++     if(!f||!exact(f,['id','name','capability','capacity'])||facilities.has(f.id)||typeof f.id!=='string'||typeof f.name!=='string'||!Number.isInteger(f.capacity)||f.capacity<0||!['development-casting','soundstage','set-scenery','post','laboratory'].includes(f.capability))fail('native facility registry observation differs')
++     facilities.add(f.id)
++     const retained=state.operations.facilities.find(now=>now.id===f.id)
++     if(retained&&retained.capability!==f.capability)fail('native facility registry source differs')
++     if(!retained&&!ctx.placements.some(p=>p.facilityId===f.id&&p.status==='operational'))fail('native facility registry observation has no source')
++    }
++    const observed={...state,operations:{...state.operations,facilities:ctx.facilities},placement:{...state.placement,facilities:ctx.placements}}
++    if(estUplift!==developmentOfficeEstUplift(observed))fail('native facility assessment effect differs')
++}
++function validateCompletionContext(state:GameState,r:AbsorptionScriptCompletion):void {
++ validateDevelopmentObservation(state,r.developmentContext,r.inputWeek,r.estUplift)
++}
++/** Exact current owner proof. No caller-supplied ID exemption reaches a save reader. */
++export function validateContinuedScripts(state:GameState):void{
++ const player=state.hollywood?.playerStudioId
++ const current=owners(state)
++ const nativeIds=state.scriptDevelopment.projects.map(p=>p.id)
++ const seen=new Set(nativeIds)
++ for(const a of current){
++  if(a.buyerId!==player||!Array.isArray(a.continuedScripts)||a.continuedScripts.length===0||!Array.isArray(a.scriptCompletions))fail('unknown native writing owner')
++  const source=state.hollywood!.businesses.find(b=>b.studioId===a.targetId)!
++  const still=source.development.projects.filter(p=>p.status==='drafting'||p.status==='rewriting')
++  const stopped=new Set(a.stoppedScripts.map(p=>p.scriptProjectId))
++  if(!same(a.continuedScripts.map(r=>r.sourceScriptProjectId),still.filter(p=>!stopped.has(p.id)).map(p=>p.id)))fail('source continuation bijection/order differs')
++  const decisions:AbsorptionScriptDecision[]=a.producerVersion==='absorption-scripts/v3'?[]:a.scriptDecisions
++  if(a.producerVersion!=='absorption-scripts/v3'&&(!Array.isArray(decisions)||decisions.length===0))fail('missing buyer script decision')
++  if(a.producerVersion==='absorption-scripts/v5'&&!decisions.some(d=>d.kind==='rewrite'))fail('rewrite producer has no actual request')
++  const decisionKeys=new Set<string>()
++  let lastDecisionWeek=a.week
++  for(const decision of decisions){
++   const rewrite=decision.kind==='rewrite'
++   if(!decision||!exact(decision,rewrite?['id','projectId','kind','week','reservation','nativeInput','allocationAuthority']:['id','projectId','kind','week'])||!/^script-decision-[1-9][0-9]*$/.test(decision.id)
++    ||decision.kind!=='accept'&&!rewrite||rewrite&&a.producerVersion!=='absorption-scripts/v5'
++    ||!Number.isInteger(decision.week)||decision.week<lastDecisionWeek||decision.week>state.market.tick||decision.week>=(closedWeekOf(state).get(a.buyerId)??Infinity)
++    ||decisionKeys.has(`${decision.projectId}:${decision.kind}`)||!a.continuedScripts.some(r=>r.project.id===decision.projectId))fail('buyer script decision authority/order differs')
++   decisionKeys.add(`${decision.projectId}:${decision.kind}`);lastDecisionWeek=decision.week
++  }
++  const expectedReceipts:{projectId:string;week:number}[]=[]
++  for(const row of a.continuedScripts){
++   if(!exact(row,['sourceScriptProjectId','sourceContractIds','buyerContractIds','originalScript','originalCosts','reservationAtClose','project']))fail('unknown continuation fields')
++   const original=source.development.projects.find(p=>p.id===row.sourceScriptProjectId)
++   const cost=source.projects.find(p=>p.scriptProjectId===row.sourceScriptProjectId)
++   if(!original||!same(original,row.originalScript)||!cost||!same(cost,row.originalCosts)||original.productionId!==null||cost.productionId!==null
++    ||original.dueWeek===null||original.dueWeek<=a.week||original.commissionedWeek>a.week||original.reservation===null)fail('original paid creator/script history differs')
++   const project=row.project
++   if(!/^absorbed-script-[1-9][0-9]*$/.test(project.id)||seen.has(project.id))fail('native work identity collision')
++   seen.add(project.id);nativeIds.push(project.id)
++   const writers=[...new Set(original.writerIds)]
++   const links=writers.map(id=>a.contracts.find(c=>c.talentId===id))
++   if(writers.length===0||links.some(c=>!c||c.buyerContractId===null)
++    ||!same(row.sourceContractIds,links.map(c=>c!.sourceContractId))||!same(row.buyerContractIds,links.map(c=>c!.buyerContractId)))fail('partial or missing retained writer team')
++   for(const link of links){
++    const old=state.hollywood!.employment.find(e=>e.contractId===link!.sourceContractId)!
++    const kept=state.hollywood!.employment.find(e=>e.contractId===link!.buyerContractId)!
++    if(!old||!kept||old.studioId!==a.targetId||old.terms.startWeek>original.commissionedWeek||old.terms.endWeekExclusive<=a.week||old.endedWeek!==a.week
++     ||kept.studioId!==a.buyerId||kept.reason!=='absorptionContinuation'||kept.terms.startWeek!==a.week||kept.terms.endWeekExclusive<original.dueWeek
++     ||!same(kept.terms,{...old.terms,startWeek:a.week,termWeeks:old.terms.endWeekExclusive-a.week}))fail('original source and actual buyer writing bargain differ')
++   }
++   const until=Math.min(state.market.tick,closedWeekOf(state).get(a.buyerId)??Infinity)
++   const allReceipts=a.scriptCompletions.filter(r=>r.projectId===project.id)
++   const receipts=allReceipts.filter(r=>r.week===original.dueWeek)
++   const due=original.dueWeek<=until
++   if(receipts.length!==(due?1:0))fail('native completion/actual due boundary bijection differs')
++   let expected:ScriptProject={...original,id:project.id,reservation:row.reservationAtClose}
++   if(due){
++    const r=receipts[0]!
++    if(!exact(r,['id','projectId','week','inputWeek','estUplift','developmentContext','writerRewriting','assessment'])||!/^script-completion-[1-9][0-9]*$/.test(r.id)
++     ||r.week!==original.dueWeek||r.inputWeek!==r.week-1||r.inputWeek<a.week||![0,SCRIPT_DEVELOPMENT_OFFICE_TIER_2_EST_UPLIFT,SCRIPT_DEVELOPMENT_OFFICE_TIER_3_EST_UPLIFT].includes(r.estUplift))fail('completion observation differs')
++    validateCompletionContext(state,r)
++    const concept=state.hollywood!.concepts.find(c=>c.id===original.conceptId)!
++    let assessment
++    if(original.status==='drafting'){
++     if(r.writerRewriting!==null)fail('first draft invents rewrite context')
++     assessment=assessFirstDraft(concept,r.estUplift)
++    }else{
++     const profile=r.writerRewriting
++     if(!original.assessment||!profile||!exact(profile,['actual','perceived'])||![profile.actual,profile.perceived].every(n=>Number.isFinite(n)&&n>=0&&n<=100))fail('rewrite observation missing')
++     const clamp=(n:number)=>Math.max(0,Math.min(100,n))
++     assessment={actualStrength:clamp(original.assessment!.actualStrength+scriptRewriteDelta(original.assessment!.actualStrength,profile!.actual)),
++      perceivedStrength:clamp(original.assessment!.perceivedStrength+scriptRewriteDelta(original.assessment!.perceivedStrength,profile!.perceived))}
++    }
++    if(!same(r.assessment,assessment))fail('native earned assessment differs')
++    expected={...expected,status:'review',dueWeek:null,reservation:null,assessment}
++    expectedReceipts.push({projectId:project.id,week:r.week})
++   }
++   let latestCompletion=original.dueWeek
++   let expectedCount=due?1:0
++   for(const decision of decisions.filter(r=>r.projectId===project.id)){
++    if(!due||decision.week<latestCompletion)fail('buyer review decision precedes earned completion')
++    if(decision.kind==='accept'){
++     expected=acceptScriptProject({mode:'managed',projects:[expected]},project.id).projects[0]!
++     continue
++    }
++    const input=decision.nativeInput
++    if(!input||!exact(input,['operations','development','occupiedSlots'])||!Array.isArray(input.occupiedSlots)
++     ||!same(input.occupiedSlots,[...new Set(input.occupiedSlots)].sort())||input.occupiedSlots.some(k=>typeof k!=='string')
++     ||!input.development||!Array.isArray(input.development.projects)||!same(input.development.projects.find(p=>p.id===project.id),expected))fail('native rewrite input differs from earned project')
++    if(!exact(input.development,['mode','projects'])||input.development.mode!=='managed'||!input.operations||!exact(input.operations,['mode','facilities','workflows'])||input.operations.mode!=='managed'||!Array.isArray(input.operations.facilities)||!Array.isArray(input.operations.workflows))fail('native rewrite owner context differs')
++    const decisionOrder=Number(decision.id.slice(decision.id.lastIndexOf('-')+1))
++    const authority=decision.allocationAuthority
++    if(!authority||!exact(authority,['projectIds','workflowIds','productions','occupiedSlots','developmentContext','estUplift'])||!Array.isArray(authority.projectIds)||!Array.isArray(authority.workflowIds)
++     ||!Array.isArray(authority.productions)||!Array.isArray(authority.occupiedSlots)||!same(input.occupiedSlots,authority.occupiedSlots)
++     ||!same(input.development.projects.map(p=>p.id),authority.projectIds)||!same(input.operations.workflows.map(w=>w.productionId),authority.workflowIds)
++     ||new Set(authority.projectIds).size!==authority.projectIds.length||new Set(authority.workflowIds).size!==authority.workflowIds.length)fail('native rewrite complete allocation pool differs')
++    validateDevelopmentObservation(state,authority.developmentContext,decision.week,authority.estUplift)
++    if(!same(input.operations.facilities,authority.developmentContext.facilities))fail('native rewrite facilities differ from observed source')
++    if(!same(authority.workflowIds,authority.productions.map(p=>p.id)))fail('native rewrite production inventory differs')
++    assertStudioOperationsInvariants(input.operations,authority.productions,{facilityPolicy:'configured',offlineFacilityIds:'deferred',sharedOccupancy:{scriptDevelopment:input.development}})
++    for(const observed of authority.productions){
++     const foreign=state.rights.absorptions.filter(owner=>owner.buyerId===a.buyerId&&owner.week<=decision.week&&Number(owner.id.slice(owner.id.lastIndexOf('-')+1))<decisionOrder).flatMap(owner=>owner.continuedProductions.map(r=>({owner,row:r}))).find(r=>r.row.productionId===observed.id)
++     if(foreign){
++      const original=foreign.row.originalProduction
++      const priorSteps=foreign.owner.workSteps.filter(step=>step.productionId===observed.id&&step.week<decision.week)
++      const remaining=priorSteps.length?priorSteps[priorSteps.length-1]!.afterRemaining:original.remainingTicks
++      if(observed.remainingTicks!==remaining||observed.conceptId!==original.conceptId||observed.startTick!==original.startTick||!same(observed.budget,original.budget)||observed.writerId!==original.writerId||!same(observed.shape,original.shape)||!same(observed.promise,original.promise))fail('native rewrite observed production differs from paid work')
++     }else{
++      const paid=state.ledger.filter(l=>l.kind==='production'&&l.productionId===observed.id&&l.week<=decision.week)
++      if(paid.length===0||paid[0]!.week!==observed.startTick||!Number.isFinite(paid[0]!.amount)||paid[0]!.amount>-(observed.budget.negative+observed.budget.marketing))fail('native rewrite observed production has no paid source')
++     }
++    }
++    for(const own of state.studio.activeProductions.filter(p=>p.startTick<decision.week))if(!authority.workflowIds.includes(own.id))fail('native rewrite own workflow pool incomplete')
++    for(const film of state.studio.releasedFilms.filter(f=>f.releaseTick>=decision.week)){
++     const paid=state.ledger.find(l=>l.kind==='production'&&l.productionId===film.productionId&&l.week<decision.week)
++     if(paid&&!authority.workflowIds.includes(film.productionId))fail('native rewrite released workflow history incomplete')
++    }
++    // Native own projects are append-only canonical rows. Older commissions cannot be omitted;
++    // observed same-week prefix binds action order without inventing later commissions in the past.
++    const ownAtRequest=state.scriptDevelopment.projects.filter(p=>authority.projectIds.includes(p.id))
++    if(!same(authority.projectIds.slice(0,ownAtRequest.length),ownAtRequest.map(p=>p.id))
++     ||state.scriptDevelopment.projects.some(p=>p.commissionedWeek<decision.week&&!authority.projectIds.includes(p.id)))fail('native rewrite own project pool incomplete')
++    const carriedAtRequest=current.filter(owner=>owner.week<=decision.week).flatMap(owner=>owner.continuedScripts.map(r=>r.project)).filter(p=>Number(p.id.slice(p.id.lastIndexOf('-')+1))<decisionOrder)
++    if(!same(authority.projectIds.slice(ownAtRequest.length),carriedAtRequest.map(p=>p.id)))fail('native rewrite carried project pool incomplete')
++    if(ownAtRequest.length!==0||carriedAtRequest.length!==1||carriedAtRequest[0]!.id!==project.id||!same(authority.projectIds,[project.id]))fail('competing screenplay history is not admitted')
++    // The sole native input project was exactly compared to reconstructed earned state above;
++    // there is no competing historical task whose discarded live reservation could be trusted.
++    for(const workflow of input.operations.workflows){
++     const foreign=state.rights.absorptions.filter(owner=>owner.buyerId===a.buyerId&&owner.week<=decision.week&&Number(owner.id.slice(owner.id.lastIndexOf('-')+1))<decisionOrder).flatMap(owner=>owner.continuedProductions.map(r=>({owner,row:r}))).find(r=>r.row.productionId===workflow.productionId)
++     const paid=state.ledger.find(l=>l.kind==='production'&&l.productionId===workflow.productionId&&l.week<=decision.week)
++     if(!paid&&!foreign)fail('native rewrite workflow has no genuine paid owner')
++     if(foreign){
++      const ended=foreign.owner.workCancellations.find(r=>r.productionId===workflow.productionId)?.week??foreign.owner.workReleases.find(r=>r.productionId===workflow.productionId)?.week??Infinity
++      if(ended<decision.week)fail('native rewrite workflow follows actual work end')
++     }
++    }
++    // All authentic acquired work still operating at this request belongs in the pool.
++    for(const owner of state.rights.absorptions.filter(owner=>owner.buyerId===a.buyerId&&owner.week<=decision.week&&Number(owner.id.slice(owner.id.lastIndexOf('-')+1))<decisionOrder))for(const work of owner.continuedProductions){
++     const ended=owner.workCancellations.find(r=>r.productionId===work.productionId)?.week??owner.workReleases.find(r=>r.productionId===work.productionId)?.week??Infinity
++     if(ended>decision.week&&!authority.workflowIds.includes(work.productionId))fail('native rewrite acquired workflow pool incomplete')
++    }
++    const contextIds=new Set<string>()
++    for(const observed of input.development.projects){
++     const known=state.scriptDevelopment.projects.find(p=>p.id===observed.id)??current.flatMap(owner=>owner.continuedScripts.map(r=>r.project)).find(p=>p.id===observed.id)
++     if(!known||contextIds.has(observed.id)||observed.conceptId!==known.conceptId||observed.writerId!==known.writerId||!same(observed.writerIds,known.writerIds)||observed.commissionedWeek!==known.commissionedWeek||!same(observed.shape,known.shape)||!same(observed.promise,known.promise))fail('native rewrite input has no authentic project source')
++     contextIds.add(observed.id)
++    }
++    const employment=state.hollywood!.employment.find(e=>e.studioId===a.buyerId&&e.terms.talentId===expected.writerId&&e.terms.startWeek<=decision.week&&e.terms.endWeekExclusive>decision.week&&(e.endedWeek===null||e.endedWeek>decision.week))
++    if(!employment)fail('rewrite has no actual buyer employment authority')
++    expected=requestScriptRewrite(input.development,input.operations,project.id,decision.week,new Set(input.occupiedSlots)).projects.find(p=>p.id===project.id)!
++    if(!same(expected.reservation,decision.reservation))fail('native rewrite reservation differs')
++    const rewriteWeek=decision.week+1
++    if(rewriteWeek<=until){
++     const repeated=allReceipts.filter(r=>r.week===rewriteWeek)
++     if(repeated.length!==1)fail('buyer rewrite completion bijection differs')
++     const r=repeated[0]!
++     if(!exact(r,['id','projectId','week','inputWeek','estUplift','developmentContext','writerRewriting','assessment'])||!/^script-completion-[1-9][0-9]*$/.test(r.id)||r.inputWeek!==decision.week)fail('buyer rewrite completion boundary differs')
++     validateCompletionContext(state,r)
++     const profile=r.writerRewriting
++     if(!expected.assessment||!profile||!exact(profile,['actual','perceived'])||![profile.actual,profile.perceived].every(n=>Number.isFinite(n)&&n>=0&&n<=100))fail('rewrite observation missing')
++     const clamp=(n:number)=>Math.max(0,Math.min(100,n))
++     const assessment={actualStrength:clamp(expected.assessment.actualStrength+scriptRewriteDelta(expected.assessment.actualStrength,profile.actual)),perceivedStrength:clamp(expected.assessment.perceivedStrength+scriptRewriteDelta(expected.assessment.perceivedStrength,profile.perceived))}
++     if(!same(r.assessment,assessment))fail('native earned rewrite assessment differs')
++     expected={...expected,status:'review',dueWeek:null,reservation:null,assessment}
++     expectedReceipts.push({projectId:project.id,week:rewriteWeek});expectedCount++;latestCompletion=rewriteWeek
++    }else latestCompletion=rewriteWeek
++   }
++   if(allReceipts.length!==expectedCount)fail('unknown or duplicate buyer completion')
++   if(!same(project,expected)||!exact(row.reservationAtClose,['projectId','facilityId','capability','slot'])||row.reservationAtClose.projectId!==project.id)fail('native buyer project differs from original work/earned completion')
++  }
++  if(!same(a.scriptCompletions.map(r=>[r.projectId,r.week]),expectedReceipts.sort((x,y)=>x.week-y.week).map(r=>[r.projectId,r.week])))fail('completion receipt order or unknown subject differs')
++ }
++ if(current.length===0)return
++ const closed=closedWeekOf(state).get(player!)
++ const productionScripts=new Map<string,ScriptProject>()
++ for(const a of state.rights.absorptions.filter(a=>a.buyerId===player)){
++  const source=state.hollywood!.businesses.find(b=>b.studioId===a.targetId)!
++  for(const row of a.continuedProductions){
++   const script=source.development.projects.find(p=>p.productionId===row.productionId&&p.status==='inProduction')
++   if(script)productionScripts.set(row.productionId,script)
++  }
++ }
++ assertScriptDevelopmentInvariants(buyerScriptDevelopment(state),{current49ProjectIds:nativeIds,current49ProductionScripts:productionScripts,studioId:player,
++  currentWeek:Math.min(state.market.tick,closed??Infinity),concepts:buyerScriptConcepts(state),talent:state.talent,contracts:state.contracts,
++  operations:buyerOperationsForAllWork(state),activeProductions:buyerOperatedProductions(state),releasedFilms:state.studio.releasedFilms})
++}
+--- a/src/core/acquisition.ts
++++ b/src/core/acquisition.ts
+@@ -59,6 +59,8 @@
+ import { validateContinuedWork } from './continuedWorkValidation.js'
+ import { validateAbsorbedProductionStops } from './absorbedWork.js'
+ import { validateAbsorbedScripts } from './absorbedScripts.js'
++import { bindContinuedScripts, buyerScriptDevelopment, validateContinuedScripts } from './continuedScripts.js'
++import { allocateScriptReservation } from './scriptDevelopment.js'
+ import { scriptOccupiedFacilitySlots } from './scriptDevelopment.js'
+ import { personReservationRefusal } from './talentMarket.js'
+ import { rivalInstallationSlots } from './technologyRival.js'
+@@ -94,7 +96,7 @@
+ }
+ export type AbsorptionScriptQuote = {
+   scriptProjectId: string; status: 'drafting' | 'rewriting'; writerIds: string[]; sourceContractIds: string[]
+-  disposition: 'writeOff' | 'continuationRequired'; reason: 'writersNotRetained' | 'writerContinuationProducerRequired'
++  disposition: 'writeOff' | 'continues' | 'continuationRequired'; reason: 'writersNotRetained' | 'writerTeamRetained' | 'writerContinuationProducerRequired' | 'partialWriterTeamProducerRequired' | 'writerCapacityUnavailable'
+ }
+ export type AbsorptionQuote = {
+   kind: 'quote'
+@@ -193,7 +195,7 @@
+   if (buyerId === h.playerStudioId) {
+     return { operations: buyerOperationsForAllWork(state), occupied: new Set<string>([
+       ...resourceClaims(state).filter((c) => c.owner === 'installation' && c.facilitySlotKey !== null).map((c) => c.facilitySlotKey!),
+-      ...scriptOccupiedFacilitySlots(state.scriptDevelopment),
++      ...scriptOccupiedFacilitySlots(buyerScriptDevelopment(state)),
+       ...castingOccupiedFacilitySlots(state.castingSessions),
+       ...setOccupiedFacilitySlots(state.sets, state.operations, state.scriptDevelopment, state.castingSessions),
+     ]) }
+@@ -331,11 +333,29 @@
+   })
+   const scripts: AbsorptionScriptQuote[]=business.development.projects.flatMap((script):AbsorptionScriptQuote[]=>{
+     if(script.status!=='drafting' && script.status!=='rewriting')return []
+-    const sourceContractIds=stoppedScriptContracts(state,input.targetId,script,input.retention,week)
+-    const stopped=sourceContractIds!==null && sourceContractIds.every(id=>!retained.has(id))
+-    return [{scriptProjectId:script.id,status:script.status,writerIds:[...script.writerIds],sourceContractIds:sourceContractIds??[],
+-      disposition:stopped?'writeOff':'continuationRequired',reason:stopped?'writersNotRetained':'writerContinuationProducerRequired'}]
++    const writerContracts=script.writerIds.map(id=>rows.find(row=>row.talentId===id))
++    const sourceContractIds=writerContracts.every(Boolean)?writerContracts.map(row=>row!.contractId):[]
++    const kept=sourceContractIds.filter(id=>retained.has(id))
++    const stopped=stoppedScriptContracts(state,input.targetId,script,input.retention,week)!==null&&kept.length===0
++    const continues=sourceContractIds.length===script.writerIds.length&&kept.length===sourceContractIds.length
++      && writerContracts.every(row=>row!.endWeekExclusive>=script.dueWeek!)
++    return [{scriptProjectId:script.id,status:script.status,writerIds:[...script.writerIds],sourceContractIds,
++      disposition:stopped?'writeOff':continues?'continues':'continuationRequired',reason:stopped?'writersNotRetained':continues?'writerTeamRetained':kept.length>0?'partialWriterTeamProducerRequired':'writerContinuationProducerRequired'}]
+   })
++  // Preview the SAME returned production allocations, then reserve writing cumulatively.
++  let scriptOperations=buyer.operations
++  let scriptPool=buyerScriptDevelopment(state)
++  for(const p of productions.filter(p=>p.disposition==='continues')){
++    const actual=business.productions.find(row=>row.id===p.productionId)!
++    scriptOperations=addManagedProductionWorkflow(scriptOperations,actual,buyer.occupied)
++  }
++  for(const script of scripts.filter(s=>s.disposition==='continues')){
++    const id=`prospective-script:${input.targetId}:${script.scriptProjectId}`
++    const reservation=allocateScriptReservation(scriptOperations,scriptPool,id,buyer.occupied)
++    if(input.buyerId!==h.playerStudioId||state.scriptDevelopment.mode!=='managed'||!reservation){script.disposition='continuationRequired';script.reason='writerCapacityUnavailable';continue}
++    const original=business.development.projects.find(p=>p.id===script.scriptProjectId)!
++    scriptPool={...scriptPool,projects:[...scriptPool.projects,{...original,id,reservation}]}
++  }
+   const rights = subjectsHeldBy(resolveTitles(state), state.rights.estates, input.targetId, week)
+   const research = (state.technology.projects ?? []).filter((p) => p.studioId === input.targetId && p.status !== 'completed' && p.status !== 'cancelled')
+     .map((p) => ({ projectId: p.id, disposition: 'cancelRetainingVerifiedProgress' as const, verifiedWork: p.verifiedWork, expenditure: p.expenditure }))
+@@ -396,8 +416,7 @@
+   const b = h.businesses.find(b => b.studioId === input.targetId)
+   if (!b) return 'unknownTarget'
+   // Active source runs use their real linked buyer-beneficiary producer after closing.
+-  if (b.development.projects.some(p => (p.status === 'drafting' || p.status === 'rewriting')
+-    && stoppedScriptContracts(state,input.targetId,p,input.retention,state.market.tick)===null)) return 'retainedScriptProducerRequired'
++  // The quote owns exact writer-team/capacity outcomes; no blanket drafting refusal.
+   if (state.physicalPlans.plans.some(p => p.studioId === input.targetId && p.status === 'started' && unfinishedAbsorptionPlan(state,p)
+     && p.commitReceipt!.week + p.approvedQuote.buildWeeks <= state.market.tick)) return 'missingActualPhysicalCompletionProducer'
+   if (state.technology.adoptions.some(a => a.studioId === input.targetId && a.operationalWeek === null && a.cancelledWeek === null && state.market.tick >= a.committedWeek+technologyEntry(a.technologyId).deploymentWeeks)) return 'missingActualAdoptionCompletionProducer'
+@@ -427,13 +446,15 @@
+   const q = quoteAbsorption(state,input,week)
+   if (q.kind !== 'quote') throw new Error(`absorption: ${q.refusal}`)
+   if (!q.affordable) throw new Error('absorption: insufficientCashAfterReserve')
+-  if(q.scripts.some(script=>script.disposition!=='writeOff'))throw new Error('absorption: retainedScriptProducerRequired')
++  const unsupportedScript=q.scripts.find(script=>script.disposition==='continuationRequired')
++  if(unsupportedScript)throw new Error(`absorption: ${unsupportedScript.reason==='partialWriterTeamProducerRequired'?'partialWriterTeamProducerRequired':unsupportedScript.reason==='writerCapacityUnavailable'?'retainedScriptCapacityProducerRequired':'retainedScriptProducerRequired'}`)
+   // This real rival-owner slice has no new employer contracts, buyer workflows or future
+   // run service. Never turn a quoted continuation into a convenient terminal write-off.
+   if(input.buyerId!==state.hollywood!.playerStudioId){
+     if(q.contracts.some(c=>c.retained))throw new Error('absorption: rivalBuyerRetentionProducerRequired')
+     if(q.productions.some(p=>p.disposition==='continues'))throw new Error('absorption: rivalBuyerContinuedWorkProducerRequired')
+     if(q.runs.length!==0)throw new Error('absorption: rivalBuyerRunProducerRequired')
++    if(q.scripts.some(s=>s.disposition==='continues'))throw new Error('absorption: rivalBuyerScriptProducerRequired')
+   }
+ 
+   // Never replace a lawful continuation verdict with a convenient cancellation.
+@@ -488,8 +509,17 @@
+       if(!script || p.disposition!=='cancelRequired' || p.reason===null) throw new Error('absorption: cancelled production lacks authentic coupled script/verdict')
+       return {productionId:p.productionId,scriptProjectId:script.id,remainingTicks:p.remainingTicks,phase:p.phase,reason:p.reason,blockedCapability:p.blockedCapability,missingParticipants:[...p.missingParticipants]}
+     }),facilities:q.facilities.map(f => f.facilityId),titleEventIds:[],knowledge:q.knowledge,physicalPlans:q.physicalPlans,adoptions:q.adoptions,
+-    ...(q.scripts.length===0?{producerVersion:'absorption-clean/v1' as const}:{producerVersion:'absorption-scripts/v2' as const,
+-      stoppedScripts:q.scripts.map(script=>{
++    ...(q.scripts.length===0?{producerVersion:'absorption-clean/v1' as const}:{
++      ...(q.scripts.some(s=>s.disposition==='continues')?{producerVersion:'absorption-scripts/v3' as const,
++        continuedScripts:q.scripts.filter(s=>s.disposition==='continues').map(script=>{
++          const originalScript=h.businesses.find(b=>b.studioId===input.targetId)!.development.projects.find(p=>p.id===script.scriptProjectId)!
++          const originalCosts=h.businesses.find(b=>b.studioId===input.targetId)!.projects.find(p=>p.scriptProjectId===script.scriptProjectId)!
++          return {sourceScriptProjectId:script.scriptProjectId,sourceContractIds:[...script.sourceContractIds],
++            buyerContractIds:script.sourceContractIds.map(id=>links.find(link=>link.sourceContractId===id)!.buyerContractId!),
++            originalScript:structuredClone(originalScript),originalCosts:structuredClone(originalCosts),
++            reservationAtClose:structuredClone(originalScript.reservation!),project:structuredClone(originalScript)}
++        }),scriptCompletions:[]}:{producerVersion:'absorption-scripts/v2' as const}),
++      stoppedScripts:q.scripts.filter(s=>s.disposition==='writeOff').map(script=>{
+         const originalScript=h.businesses.find(b=>b.studioId===input.targetId)!.development.projects.find(p=>p.id===script.scriptProjectId)!
+         const originalCosts=h.businesses.find(b=>b.studioId===input.targetId)!.projects.find(p=>p.scriptProjectId===script.scriptProjectId)!
+         return {scriptProjectId:script.scriptProjectId,reason:'writersNotRetained' as const,sourceContractIds:[...script.sourceContractIds],
+@@ -527,6 +557,7 @@
+   next = moveStudioCash(next,input.targetId,'acquisitionOutlay',-record.postExitCash,week,record.id)
+   next = moveStudioCash(next,input.buyerId,'acquisitionOutlay',-record.outlay,week,record.id)
+   next=bindContinuedWork(next,record,buyerOperations(state,input.buyerId).occupied)
++  next=bindContinuedScripts(next,record.id,buyerOperations(state,input.buyerId).occupied)
+   const titleEventIds: string[] = []
+   for (const subject of q.rights) {
+     const moved = appendTitleEvent(next,{subject,priorHolder:input.targetId,newHolder:input.buyerId,cause:'absorption',date:{kind:'campaign',week},source:{kind:'absorption',absorptionId:record.id}})
+@@ -547,11 +578,11 @@
+   const exact = (value: object, keys: readonly string[]) => Object.keys(value).sort().join() === [...keys].sort().join()
+   const keys = ['id','week','buyerId','targetId','disclosureId','quotedAtWeek','quoteAgePolicyVersion','consideration','cashBeforeExits','exitCharges','postExitCash','outlay','evaluatedBuyerWeek','evaluatedTargetWeek','contracts','research','facilities','titleEventIds','knowledge','physicalPlans','adoptions','stoppedProductions','continuedProductions','buyerWorkflows','workSteps','workReleases','workCancellations','runs','runReceipts','producerVersion']
+   for (const a of state.rights.absorptions) {
+-    if (typeof a !== 'object' || a === null || !exact(a,a.producerVersion==='absorption-scripts/v2'?[...keys,'stoppedScripts']:keys)) fail('record has unknown or missing fields')
++    if (typeof a !== 'object' || a === null || !exact(a,(a.producerVersion==='absorption-scripts/v4'||a.producerVersion==='absorption-scripts/v5')?[...keys,'stoppedScripts','continuedScripts','scriptCompletions','scriptDecisions']:a.producerVersion==='absorption-scripts/v3'?[...keys,'stoppedScripts','continuedScripts','scriptCompletions']:a.producerVersion==='absorption-scripts/v2'?[...keys,'stoppedScripts']:keys)) fail('record has unknown or missing fields')
+     if (a.quoteAgePolicyVersion !== 0 && a.quoteAgePolicyVersion !== 1) fail('unknown quote age policy version')
+     const quoteAge = quoteAgeRefusal('absorptionPreview', a.quotedAtWeek, a.week, a.quoteAgePolicyVersion)
+     if (quoteAge !== null) fail(`recorded acceptance quote age ${quoteAge}`)
+-    if (!h || (a.producerVersion !== 'absorption-clean/v1' && a.producerVersion !== 'absorption-scripts/v2') || !/^absorption-[1-9][0-9]*$/.test(a.id)) fail('unknown producer or id')
++    if (!h || (a.producerVersion !== 'absorption-clean/v1' && a.producerVersion !== 'absorption-scripts/v2' && a.producerVersion !== 'absorption-scripts/v3' && a.producerVersion !== 'absorption-scripts/v4' && a.producerVersion !== 'absorption-scripts/v5') || !/^absorption-[1-9][0-9]*$/.test(a.id)) fail('unknown producer or id')
+     const number = Number(a.id.slice('absorption-'.length))
+     if (number <= priorNumber || a.week < priorWeek) fail('records do not retain producer order')
+     priorNumber = number; priorWeek = a.week
+@@ -677,4 +708,5 @@
+     } else if (subjectsHeldBy(resolveTitles(state),state.rights.estates,a.targetId,a.week).length) fail('held title disposition omitted')
+     for (const e of events) if (!exact(e.source,['kind','absorptionId']) || e.priorHolder !== a.targetId || e.newHolder !== a.buyerId || e.date.kind !== 'campaign' || e.date.week !== a.week) fail('title transition differs')
+   }
+-}
++  validateContinuedScripts(state)
++}
+--- a/src/core/absorbedScripts.ts
++++ b/src/core/absorbedScripts.ts
+@@ -21,8 +21,11 @@
+     if(Object.hasOwn(a,'stoppedScripts')||expected.length!==0)fail('legacy producer cannot carry stopped drafting history')
+     return
+   }
+-  if(a.producerVersion!=='absorption-scripts/v2'||!Array.isArray(a.stoppedScripts)||a.stoppedScripts.length===0)fail('missing versioned script write-off')
+-  if(a.stoppedScripts.map(r=>r.scriptProjectId).join()!==expected.map(p=>p.id).join())fail('in-flight script write-off bijection/order differs')
++  if((a.producerVersion!=='absorption-scripts/v2'&&a.producerVersion!=='absorption-scripts/v3'&&a.producerVersion!=='absorption-scripts/v4'&&a.producerVersion!=='absorption-scripts/v5')||!Array.isArray(a.stoppedScripts)
++    ||a.producerVersion==='absorption-scripts/v2'&&a.stoppedScripts.length===0)fail('missing versioned script write-off')
++  const continued=new Set((a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||a.producerVersion==='absorption-scripts/v5')?a.continuedScripts.map(r=>r.sourceScriptProjectId):[])
++  const stopped=expected.filter(p=>!continued.has(p.id))
++  if(a.stoppedScripts.map(r=>r.scriptProjectId).join()!==stopped.map(p=>p.id).join())fail('in-flight script write-off bijection/order differs')
+   for(const row of a.stoppedScripts){
+     if(typeof row!=='object'||row===null||Object.keys(row).sort().join()!==['scriptProjectId','reason','sourceContractIds','originalScript','originalCosts'].sort().join()
+       ||row.reason!=='writersNotRetained'||!Array.isArray(row.sourceContractIds))fail('invalid script disposition shape')
+--- a/src/core/tick.ts
++++ b/src/core/tick.ts
+@@ -1,3 +1,4 @@
++import { advanceBuyerScriptWork, buyerScriptDevelopment } from './continuedScripts.js'
+ import { prepareContinuedReleases } from './hollywoodTick.js'
+ import { buyerOperationsForAllWork, buyerOperatedProductions, buyerContinuedProductions, publishOperatedAdvance, recordContinuedWorkSteps, continuedCommittedReleaseIds } from './continuedWork.js'
+ import { prepareLiveWritingContext } from './liveRetirementWriting.js'
+@@ -108,7 +109,6 @@
+ } from './studioEvents.js'
+ import { developmentOfficeEstUplift } from './facilityEffects.js'
+ import {
+-  completeDueScriptWork,
+   markScriptProjectProduced,
+   scriptOccupiedFacilitySlots,
+   scriptProjectForProduction,
+@@ -283,19 +283,9 @@
+   // A commission/rewrite made in week t is due at t+1 and completes during the
+   // single visible advance from t to t+1. Completed work releases its shared
+   // Development & Casting slot before productions allocate their next phase.
+-  let scriptDevelopment = completeDueScriptWork(
+-    state.scriptDevelopment,
+-    currentTick + 1,
+-    {
+-      concepts: state.concepts,
+-      talent: state.talent,
+-      // C1-M4: read from the estate STANDING NOW. Step 1.6 completes construction
+-      // later in this same advance, so an office finishing this week does not
+-      // uplift a draft finishing this week — the same "contributes nothing until
+-      // it flips" law capacity has followed since V11.
+-      estUplift: developmentOfficeEstUplift(state),
+-    },
+-  )
++  const writingAdvance=advanceBuyerScriptWork(state,currentTick+1,developmentOfficeEstUplift(state))
++  state=writingAdvance.state // private aggregate: actual continued work, not a published intermediate save
++  let scriptDevelopment=writingAdvance.development
+ 
+   // ── 0.6 CASTING SESSIONS ─────────────────────────────────────────────────
+   // Due camera tests resolve after screenplay work and before production
+@@ -376,7 +366,7 @@
+     new Set([...committedReleaseIds,...continuedCommittedReleaseIds(workInput)]),
+     new Set([
+       ...resourceClaims(state).filter(c => c.owner === 'installation' && c.facilitySlotKey !== null).map(c => c.facilitySlotKey!),
+-      ...scriptOccupiedFacilitySlots(scriptDevelopment),
++      ...scriptOccupiedFacilitySlots({...scriptDevelopment,projects:[...scriptDevelopment.projects,...buyerScriptDevelopment(state).projects.filter(p=>!state.scriptDevelopment.projects.some(own=>own.id===p.id))]}),
+       ...castingOccupiedFacilitySlots(castingSessions),
+       ...setOccupiedFacilitySlots(
+         state.sets,
+--- a/src/core/employment.ts
++++ b/src/core/employment.ts
+@@ -1,3 +1,4 @@
++import { buyerScriptDevelopment, buyerScriptConcepts } from './continuedScripts.js'
+ import { productionCompanyTalentIds } from './productionPeople.js'
+ import { initializeHollywood, industryBusyTalentIds, rivalEmployment } from './hollywood.js'
+ import { buyerOperatedProductions } from './continuedWork.js'
+@@ -148,8 +149,8 @@
+ export function activeWritingAssignmentIds(state: GameState): Set<string> {
+   const ids = new Set<string>()
+   for (const assignment of activeScriptWriterAssignments(
+-    state.scriptDevelopment,
+-    state.concepts,
++    buyerScriptDevelopment(state),
++    buyerScriptConcepts(state),
+   )) {
+     ids.add(assignment.talentId)
+   }
+--- a/src/core/occupancy.ts
++++ b/src/core/occupancy.ts
+@@ -442,7 +442,8 @@
+   }
+ 
+   // 3. Screenplays. Tested on the reservation, never the status.
+-  for (const project of sources.scriptDevelopment?.projects ?? []) {
++  const continuedScripts=(sources.rights?.absorptions??[]).flatMap(a=>(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||a.producerVersion==='absorption-scripts/v5')&&a.buyerId===sources.hollywood?.playerStudioId?a.continuedScripts.map(r=>r.project).filter(p=>!sources.scriptDevelopment?.projects.some(own=>own.id===p.id)):[])
++  for (const project of [...(sources.scriptDevelopment?.projects??[]),...continuedScripts]) {
+     if (project.reservation === null) continue
+     claims.push({
+       key: resourceSlotKey('facility', project.reservation.facilityId, project.reservation.slot),
+--- a/src/core/save.ts
++++ b/src/core/save.ts
+@@ -1,3 +1,4 @@
++import { buyerScriptDevelopment } from './continuedScripts.js'
+ import { buyerOperationsForAllWork, buyerOperatedProductions } from './continuedWork.js'
+ import { facilityOffline } from './officeConversion.js'
+ import { validateAbsorptionRoot } from './acquisition.js'
+@@ -11884,7 +11885,7 @@
+   assertStudioOperationsInvariants(operations, productions, { facilityPolicy: 'configured',
+     offlineFacilityIds: new Set(operations.facilities.filter(f => facilityOffline(state, f.id)).map(f => f.id)),
+     sharedOccupancy: { placement: state.placement, technology: state.technology,
+-      scriptDevelopment: state.scriptDevelopment, castingSessions: state.castingSessions,
++      scriptDevelopment: buyerScriptDevelopment(state), castingSessions: state.castingSessions,
+       construction: state.construction, sets: state.sets } });
+ }
+ 
+--- a/src/core/actions.ts
++++ b/src/core/actions.ts
+@@ -1,3 +1,4 @@
++import { continuedScriptOwner, buyerScriptDevelopment, acceptContinuedScript, rewriteContinuedScript } from './continuedScripts.js'
+ import { continuedReleaseOwner, cancelContinuedProduction, buyerOperatedProductions, buyerOperationsForAllWork, withBuyerOperations, publishBuyerOperationsAction } from './continuedWork.js'
+ import { buildFilmParticipants } from './filmParticipants.js'
+ import { liveRetirementWritingAuthority, prepareLiveWritingContext, type LiveWritingContext } from './liveRetirementWriting.js'
+@@ -554,7 +555,7 @@
+             state.operations,
+             production,
+             new Set([
+-              ...scriptOccupiedFacilitySlots(state.scriptDevelopment),
++              ...scriptOccupiedFacilitySlots(buyerScriptDevelopment(state)),
+               ...castingOccupiedFacilitySlots(state.castingSessions),
+               // C2a-M2: the scenery crews the sets root is holding. A greenlight
+               // opens in Development and takes no scenery slot, so this changes
+@@ -2129,7 +2130,7 @@
+         state.operations,
+         action.project,
+         week,
+-        castingOccupiedFacilitySlots(state.castingSessions),
++        new Set([...castingOccupiedFacilitySlots(state.castingSessions),...scriptOccupiedFacilitySlots({...state.scriptDevelopment,projects:buyerScriptDevelopment(state).projects.filter(p=>!state.scriptDevelopment.projects.some(own=>own.id===p.id))})]),
+         poolDraftWeeks,
+       )
+       return assertCurrentScreenplayState(
+@@ -2244,7 +2245,7 @@
+       promise: payload.promise,
+     },
+     week,
+-    castingOccupiedFacilitySlots(state.castingSessions),
++    new Set([...castingOccupiedFacilitySlots(state.castingSessions),...scriptOccupiedFacilitySlots({...state.scriptDevelopment,projects:buyerScriptDevelopment(state).projects.filter(p=>!state.scriptDevelopment.projects.some(own=>own.id===p.id))})]),
+     draftWeeks,
+   )
+ 
+@@ -2378,6 +2379,7 @@
+   action: Action & { kind: 'requestScriptRewrite' },
+   writingContext: LiveWritingContext,
+ ): GameState {
++  if(continuedScriptOwner(state,action.projectId))return rewriteContinuedScript(state,action.projectId)
+   const project = state.scriptDevelopment.projects.find(
+     (candidate) => candidate.id === action.projectId,
+   )
+@@ -2403,7 +2405,7 @@
+       state.operations,
+       action.projectId,
+       state.market.tick,
+-      castingOccupiedFacilitySlots(state.castingSessions),
++      new Set([...castingOccupiedFacilitySlots(state.castingSessions),...scriptOccupiedFacilitySlots({...state.scriptDevelopment,projects:buyerScriptDevelopment(state).projects.filter(p=>!state.scriptDevelopment.projects.some(own=>own.id===p.id))})]),
+     ),
+   }, writingContext)
+ }
+@@ -2413,6 +2415,7 @@
+   action: Action & { kind: 'acceptScript' },
+   writingContext: LiveWritingContext,
+ ): GameState {
++  if(continuedScriptOwner(state,action.projectId))return acceptContinuedScript(state,action.projectId)
+   return assertCurrentScriptState({
+     ...state,
+     scriptDevelopment: acceptScriptProject(
+@@ -2430,6 +2433,7 @@
+   allowQueue = true,
+   injectedEvents?: StudioEventSink,
+ ): GameState {
++  if(continuedScriptOwner(state,action.production.projectId))throw new Error('applyActions: continuedScriptGreenlightProducerRequired')
+   const project = state.scriptDevelopment.projects.find(
+     (candidate) => candidate.id === action.production.projectId,
+   )
+--- a/src/core/scriptReadModel.ts
++++ b/src/core/scriptReadModel.ts
+@@ -1,3 +1,5 @@
++import { closedWeekOf } from './operatingState.js'
++import { buyerScriptDevelopment, buyerScriptConcepts, continuedScriptOwner, carriedRewriteHistorySupported } from './continuedScripts.js'
+ import { buyerOperatedProductions, buyerOperationsForAllWork, continuedCommittedReleaseIds } from './continuedWork.js'
+ // ── Script Projects V1 player read boundary ─────────────────────────────────
+ // Pure projection over GameState. This module deliberately returns fresh, narrow
+@@ -71,6 +73,7 @@
+   | 'greenlight-queued'
+   | 'no-concepts'
+   | 'no-writers'
++  | 'carried-action'
+ 
+ export type ScriptPlayerBlocker = {
+   kind: ScriptPlayerBlockerKind
+@@ -332,7 +335,7 @@
+ }
+ 
+ function requireConcept(state: GameState, conceptId: string) {
+-  const concept = state.concepts.find((candidate) => candidate.id === conceptId) ?? state.hollywood?.concepts.find(candidate=>candidate.id===conceptId)
++  const concept = buyerScriptConcepts(state).find((candidate) => candidate.id === conceptId) ?? state.hollywood?.concepts.find(candidate=>candidate.id===conceptId)
+   if (concept === undefined) {
+     throw new Error(`scriptReadModel: unknown concept "${conceptId}"`)
+   }
+@@ -411,8 +414,8 @@
+ 
+ function writerAssignmentLabel(state: GameState, writerId: string): string | null {
+   const scriptAssignment = activeScriptWriterAssignments(
+-    state.scriptDevelopment,
+-    state.concepts,
++    buyerScriptDevelopment(state),
++    buyerScriptConcepts(state),
+   ).find((assignment) => assignment.talentId === writerId)
+   if (scriptAssignment !== undefined) return scriptAssignment.label
+   return activeProductionAssignment(state, writerId)
+@@ -494,7 +497,7 @@
+ /** Exact, slot-by-slot shared Development & Casting usage. */
+ export function scriptCapacityView(state: GameState): ScriptCapacityView {
+   const occupancy = [
+-    ...developmentCastingOccupancy(state.operations, state.scriptDevelopment),
++    ...developmentCastingOccupancy(state.operations, buyerScriptDevelopment(state)),
+     ...castingDevelopmentCastingOccupancy(state.operations, state.castingSessions),
+   ]
+   const occupancyBySlot = new Map<string, DevelopmentCastingOccupancy>()
+@@ -516,7 +519,7 @@
+         const entry = occupancyBySlot.get(facilitySlotKey(facility.id, slot))
+         let occupant: ScriptCapacityOccupantView | null = null
+         if (entry !== undefined && entry.owner === 'script') {
+-          const project = state.scriptDevelopment.projects.find(
++          const project = buyerScriptDevelopment(state).projects.find(
+             (candidate) => candidate.id === entry.ownerId,
+           )
+           if (project === undefined) {
+@@ -553,7 +556,7 @@
+           if (session === undefined) {
+             throw new Error(`scriptReadModel: occupancy references unknown casting session "${entry.ownerId}"`)
+           }
+-          const project = state.scriptDevelopment.projects.find(
++          const project = buyerScriptDevelopment(state).projects.find(
+             (candidate) => candidate.id === session.projectId,
+           )
+           if (project === undefined) {
+@@ -617,14 +620,14 @@
+   capacity: ScriptCapacityView,
+ ): ScriptCommissionAvailabilityView {
+   const claimedConcepts = new Set(
+-    state.scriptDevelopment.projects.map((project) => project.conceptId),
++    buyerScriptDevelopment(state).projects.map((project) => project.conceptId),
+   )
+   const queuedPoolConceptIds = new Set(
+     state.productionQueue.flatMap((entry) =>
+       entry.kind === 'commissionScript' ? [entry.payload.conceptId] : [],
+     ),
+   )
+-  const concepts = state.concepts
++  const concepts = buyerScriptConcepts(state)
+     .filter(
+       (concept) =>
+         !claimedConcepts.has(concept.id) &&
+@@ -662,7 +665,7 @@
+     )
+ 
+   const blockers: ScriptPlayerBlocker[] = []
+-  if (state.scriptDevelopment.mode !== 'managed') {
++  if (buyerScriptDevelopment(state).mode !== 'managed') {
+     blockers.push({
+       kind: 'script-mode',
+       headline: 'Managed screenplay development is not active',
+@@ -687,7 +690,7 @@
+     })
+   }
+   if (
+-    state.scriptDevelopment.mode === 'managed' &&
++    buyerScriptDevelopment(state).mode === 'managed' &&
+     state.operations.mode === 'managed' &&
+     capacity.available === 0
+   ) {
+@@ -757,6 +760,13 @@
+   project: ScriptProject,
+   capacity: ScriptCapacityView,
+ ): ScriptPackageAvailabilityView {
++  if(continuedScriptOwner(state,project.id))return {
++    knownGatesClear:false,canSubmitGreenlightIntent:false,willQueueGreenlightIntent:false,
++    writerAvailable:false,staffingAvailable:false,productionSlotAvailable:false,developmentCastingSlotAvailable:false,
++    blockers:[{kind:'carried-action',headline:'Acquired screenplay packaging unavailable',
++      detail:'This acquired screenplay can be accepted, but cannot yet start a new buyer production.',
++      remedy:'Keep the accepted screenplay in Ready until buyer packaging is available.'}],
++  }
+   const blockers = writerBlockers(state, project, 'package')
+   const greenlightQueued = hasQueuedGreenlightScriptProject(
+     state.productionQueue,
+@@ -907,6 +917,7 @@
+   state: GameState,
+   project: ScriptProject,
+ ): boolean {
++  if(continuedScriptOwner(state,project.id))return false
+   if (hasQueuedCastingSession(state.productionQueue, project.id)) return false
+   const busy = busyTalentIds(state)
+   const freelancerMarket = new Set(freelancerMarketIds(state))
+@@ -928,13 +939,17 @@
+   const concept = requireConcept(state, project.conceptId)
+   const blockers: ScriptPlayerBlocker[] = []
+   const legalActions: ScriptProjectActionView[] = []
++  const carried=continuedScriptOwner(state,project.id)
++  const buyerClosed=carried!==null&&closedWeekOf(state).has(carried.a.buyerId)
+   if (project.status === 'review') {
+-    legalActions.push({
++    if(!buyerClosed)legalActions.push({
+       kind: 'acceptScript',
+       projectId: project.id,
+       label: project.rewriteCount === 0 ? 'Accept first draft' : 'Accept final draft',
+     })
+-    if (project.rewriteCount === 0) {
++    if(buyerClosed)blockers.push({kind:'carried-action',headline:'Buyer studio is closed',detail:'This screenplay is read-only history.',remedy:'Read the retained screenplay history.'})
++    if(carried&&!buyerClosed&&!carriedRewriteHistorySupported(state))blockers.push({kind:'carried-action',headline:'Buyer rewrite unavailable',detail:'Another screenplay history requires a separate buyer work owner.',remedy:'Accept this draft or keep it in Review.'})
++    if (project.rewriteCount === 0 && !buyerClosed && (!carried||carriedRewriteHistorySupported(state))) {
+       blockers.push(...writerBlockers(state, project, 'rewrite'))
+       if (capacity.available === 0) {
+         blockers.push({
+@@ -1089,7 +1104,7 @@
+     return {
+       kind: 'review-required',
+       headline: 'Screenplay review required',
+-      detail: `${review.title} needs an Accept or Rewrite decision.`,
++      detail: review.legalActions.some(a=>a.kind==='requestScriptRewrite')?`${review.title} needs an Accept or Rewrite decision.`:`${review.title} is waiting for an Accept decision.`,
+     }
+   }
+   if (capacity.capacity === 0 || capacity.available === 0) {
+@@ -1156,7 +1171,7 @@
+  */
+ export function scriptProjectsReadModel(state: GameState): ScriptProjectsReadModel {
+   const capacity = scriptCapacityView(state)
+-  const projects = [...state.scriptDevelopment.projects].sort((a, b) => compareId(a.id, b.id))
++  const projects = [...buyerScriptDevelopment(state).projects].sort((a, b) => compareId(a.id, b.id))
+   const sections: ScriptProjectsReadModel['sections'] = {
+     needsReview: [],
+     inDevelopment: [],
+@@ -1187,7 +1202,7 @@
+         }
+ 
+   return {
+-    mode: state.scriptDevelopment.mode,
++    mode: buyerScriptDevelopment(state).mode,
+     capacity,
+     sections,
+     commission: commissionAvailability(state, capacity),
+@@ -1283,7 +1298,7 @@
+   if (scriptDecision !== null) return scriptDecision
+   const castingReview = nextCastingSessionNeedingReview(state.castingSessions)
+   if (castingReview !== undefined) {
+-    const project = state.scriptDevelopment.projects.find(
++    const project = buyerScriptDevelopment(state).projects.find(
+       (candidate) => candidate.id === castingReview.projectId,
+     )
+     if (project === undefined) {
+@@ -1360,7 +1375,7 @@
+   state: GameState,
+   projectId: string,
+ ): ScriptAssessmentExplanationView[] | null {
+-  const project = state.scriptDevelopment.projects.find(
++  const project = buyerScriptDevelopment(state).projects.find(
+     (candidate) => candidate.id === projectId,
+   )
+   if (project === undefined || project.assessment === null) return null
+@@ -1460,8 +1475,8 @@
+   state: GameState,
+   projectId: string,
+ ): RewriteDecisionPreviewView | null {
+-  if (state.scriptDevelopment.mode !== 'managed') return null
+-  const project = state.scriptDevelopment.projects.find(
++  if (buyerScriptDevelopment(state).mode !== 'managed') return null
++  const project = buyerScriptDevelopment(state).projects.find(
+     (candidate) => candidate.id === projectId,
+   )
+   if (project === undefined) return null
+--- a/src/core/studioClosure.ts
++++ b/src/core/studioClosure.ts
+@@ -250,7 +250,8 @@
+ function continuedBuyerScripts(state:GameState) {
+   if(!state.rights || !state.hollywood)return []
+   const productions=new Set(buyerContinuedProductions(state).map(p=>p.id))
+-  return state.hollywood.businesses.flatMap(b=>b.development.projects.filter(p=>p.productionId!==null && productions.has(p.productionId)))
++  return [...state.hollywood.businesses.flatMap(b=>b.development.projects.filter(p=>p.productionId!==null && productions.has(p.productionId))),
++    ...state.rights.absorptions.flatMap(a=>(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||a.producerVersion==='absorption-scripts/v5')&&a.buyerId===state.hollywood!.playerStudioId?a.continuedScripts.map(r=>r.project):[])]
+ }
+ 
+ function prepareStudioClosure(state: GameState, studioId: string, causeEventId: string): GameState {
+--- a/bridge/schema/bridge-schema.ts
++++ b/bridge/schema/bridge-schema.ts
+@@ -1148,6 +1148,7 @@
+     'package-staffing',
+     'casting-session',
+     'greenlight-queued',
++    'carried-action',
+     'no-concepts',
+     'no-writers',
+   ])
+@@ -2297,7 +2298,7 @@
+ const StudioAbsorptionProductionVerdict = object('StudioAbsorptionProductionVerdict',{productionId:nonEmptyText(),disposition:enumeration(['continues','cancelRequired'] as const),reason:nullable(text())})
+ const StudioAbsorptionScriptVerdict = object('StudioAbsorptionScriptVerdict',{
+  scriptProjectId:nonEmptyText(),status:enumeration(['drafting','rewriting'] as const),writerIds:array(nonEmptyText()),
+- disposition:enumeration(['writeOff','continuationRequired'] as const),reason:enumeration(['writersNotRetained','writerContinuationProducerRequired'] as const),
++ disposition:enumeration(['writeOff','continues','continuationRequired'] as const),reason:enumeration(['writersNotRetained','writerTeamRetained','writerContinuationProducerRequired','partialWriterTeamProducerRequired','writerCapacityUnavailable'] as const),
+ })
+ const StudioAbsorptionQuoteTerms = object('StudioAbsorptionQuoteTerms',{
+  consideration:number(),targetCashBeforeExits:number(),exitCharges:number(),postExitCash:number(),guarantees:number(),outlay:number(),ask:number(),
+--- /dev/null
++++ b/tests/p16-retained-drafting-continuation.test.ts
+@@ -0,0 +1,206 @@
++// UNRUN one fixed eight-tick diagnostic; not healthy drafting feature acceptance.
++import {describe,it,expect,vi} from 'vitest'
++import {readFileSync} from 'node:fs'
++import {createHash} from 'node:crypto'
++import * as saves from '../src/core/save.js'
++import {applyActions} from '../src/core/actions.js'
++import {SCRIPT_DEVELOPMENT_OFFICE_TIER_2_EST_UPLIFT} from '../src/core/tuning.js'
++import type {GameState} from '../src/core/types.js'
++import {assessFirstDraft} from '../src/core/scriptDevelopment.js'
++import {developmentOfficeEstUplift} from '../src/core/facilityEffects.js'
++import {tick} from '../src/core/tick.js'
++import {conditionRecord,outstandingLoan} from '../src/core/corporateConditionLive.js'
++import {productionPhaseForRemainingTicks} from '../src/core/productionPhases.js'
++import {absorptionProducerRefusal,quoteAbsorption,closeAbsorption,absorptionAsk} from '../src/core/acquisition.js'
++import {requestDiligence} from '../src/core/dueDiligence.js'
++import {terminationCost} from '../src/core/employment.js'
++import {libraryValuationV1} from '../src/core/propertyValuation.js'
++import {permittedBidderRefusal,spendableCash} from '../src/core/rightsFinance.js'
++const TARGET='studio-aca408ec-r01'
++function prepared(){
++  const root=process.env.P16_ORIGINAL48_CAPTURE_ROOT;expect(root).toBeTruthy()
++  const bytes=readFileSync(root+'/r04-actual163.save48.json')
++  expect(createHash('sha256').update(bytes).digest('hex')).toBe('c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad')
++  const raw=JSON.parse(bytes.toString()),rawBefore=JSON.stringify(raw),old=saves.validateSaveP15B(raw),oldBefore=JSON.stringify(old)
++  const initial=saves.convertV48ToV49(old).state
++  expect(JSON.stringify(raw)).toBe(rawBefore);expect(JSON.stringify(old)).toBe(oldBefore)
++  expect(initial.market.tick).toBe(163)
++  const original=initial.hollywood!.businesses.find(b=>b.studioId===TARGET)!
++  expect(original.productions).toMatchObject([{id:TARGET+':film:13',remainingTicks:7}])
++  const oldIds=new Set(original.development.projects.map(p=>p.id)),initialBefore=JSON.stringify(initial)
++  let state=initial
++  for(let input=163;input<=170;input++){
++   expect(state.market.tick).toBe(input);const prior=state,before=JSON.stringify(prior)
++   state=tick(prior);expect(JSON.stringify(prior)).toBe(before);expect(state.market.tick).toBe(input+1)
++  }
++  let beforeAdmission=JSON.stringify(state);saves.makeSave(state);expect(JSON.stringify(state)).toBe(beforeAdmission)
++  const source=state.hollywood!.businesses.find(b=>b.studioId===TARGET)!
++  const active=source.activeScriptOrdinals.map(i=>source.development.projects[i]!)
++  const snapshot={week:state.market.tick,studioId:TARGET,condition:conditionRecord(state,TARGET)?.condition,
++   cash:source.account.cash,decisionWeek:source.nextDecisionWeek,
++   activeProductions:source.productions.map(p=>({id:p.id,remainingTicks:p.remainingTicks,phase:productionPhaseForRemainingTicks(p.remainingTicks)})),
++   activeScripts:active.map(p=>({id:p.id,status:p.status,commissionedWeek:p.commissionedWeek,dueWeek:p.dueWeek,productionId:p.productionId,reservation:p.reservation})),
++   newScriptIds:active.filter(p=>!oldIds.has(p.id)).map(p=>p.id)}
++  console.info('P16_FIXED_DRAFT171_OBSERVATION '+JSON.stringify(snapshot))
++  // Stop on the first absent premise. Existing script0015 or a greenlit older project is not a substitute.
++  expect(state.market.tick).toBe(171)
++  const fresh=active.filter(p=>!oldIds.has(p.id)&&p.status==='drafting')
++  expect(fresh,'fixed route must actually produce new active drafting, no existing-project fallback').toHaveLength(1)
++  expect(fresh[0]!.commissionedWeek).toBe(170)
++  expect(source.productions).toHaveLength(1)
++  const concurrent=source.productions[0]!
++  expect(concurrent).toMatchObject({id:TARGET+':film:12',startTick:170,remainingTicks:8})
++  const screenplay=active.find(p=>p.id==='script-0012')!
++  expect(screenplay).toMatchObject({status:'inProduction',commissionedWeek:155,productionId:concurrent.id,dueWeek:null})
++  expect(oldIds.has(screenplay.id)).toBe(true)
++  const concurrentCost=source.projects.find(p=>p.scriptProjectId===screenplay.id)!
++  expect(concurrentCost).toMatchObject({productionId:concurrent.id,conceptId:concurrent.conceptId,announcedWeek:170,production:concurrent.budget.negative,marketing:concurrent.budget.marketing})
++  expect(concurrentCost.production).toBeGreaterThan(0)
++  expect(state.hollywood!.receipts.filter(r=>r.studioId===TARGET&&r.kind==='filmAnnounced'&&r.productionId===concurrent.id)).toMatchObject([{week:170,conceptId:concurrent.conceptId}])
++  expect(conditionRecord(state,TARGET)?.condition).toMatchObject({stage:'stable',week:171})
++  expect(outstandingLoan(state,TARGET,171)).toBeUndefined()
++  const unactivated=state,unactivatedBefore=JSON.stringify(state)
++  expect(state.scriptDevelopment).toMatchObject({mode:'legacy',projects:[]})
++  state=applyActions(unactivated,[{kind:'activateScriptDevelopment'}])
++  expect(JSON.stringify(unactivated)).toBe(unactivatedBefore)
++  expect(state.scriptDevelopment).toMatchObject({mode:'managed',projects:[]})
++  expect(state.studio.cash).toBe(unactivated.studio.cash);expect(state.ledger).toEqual(unactivated.ledger)
++  expect(state.operations).toEqual(unactivated.operations)
++  beforeAdmission=JSON.stringify(state);saves.makeSave(state);expect(JSON.stringify(state)).toBe(beforeAdmission)
++  const buyer=state.hollywood!.playerStudioId
++  expect(conditionRecord(state,buyer)?.condition).toMatchObject({stage:'stable',week:171})
++  expect(outstandingLoan(state,buyer,171)).toBeUndefined();expect(permittedBidderRefusal(state,buyer,171)).toBeNull()
++  const paid=requestDiligence(state,{recipientId:buyer,target:{kind:'studio',studioId:TARGET},scope:['rights','employment','liabilities']},171)
++  expect(JSON.stringify(state)).toBe(beforeAdmission)
++  expect(paid.record).toMatchObject({week:171,recipientId:buyer,target:{kind:'studio',studioId:TARGET},scope:['rights','employment','liabilities']})
++  expect(paid.record.fee).toBeGreaterThan(0);expect(paid.state.studio.cash).toBe(state.studio.cash-paid.record.fee)
++  const paidBefore=JSON.stringify(paid.state);saves.makeSave(paid.state);expect(JSON.stringify(paid.state)).toBe(paidBefore)
++  const employment=state.hollywood!.activeEmploymentOrdinals.map(i=>state.hollywood!.employment[i]!).filter(e=>e.studioId===TARGET&&e.endedWeek===null&&e.terms.startWeek<=171&&171<e.terms.endWeekExclusive)
++  expect(employment.length).toBeGreaterThan(0)
++  const exits=employment.reduce((sum,e)=>sum+terminationCost(e.terms,171),0),postExitCash=source.account.cash-exits
++  const library=libraryValuationV1(paid.state,TARGET,171);expect(library.kind).toBe('available')
++  if(library.kind!=='available')throw new Error('fixed171 library valuation prerequisite absent')
++  const consideration=Math.ceil(absorptionAsk(library.total,postExitCash))
++  const preview={buyerId:buyer,targetId:TARGET,consideration,retention:{kind:'explicit' as const,contractIds:[] as string[]},disclosureId:paid.record.id}
++  const quote=quoteAbsorption(paid.state,preview,171)
++  expect(quote.kind,'fixed real paid quote, no alternate date amount buyer or retention').toBe('quote')
++  if(quote.kind!=='quote')throw new Error(quote.refusal)
++  expect(quote.affordable).toBe(true)
++  expect(quote.exitCharges).toBe(exits);expect(quote.postExitCash).toBe(postExitCash)
++  expect(quote.outlay).toBe(consideration-postExitCash)
++  expect(spendableCash(paid.state,buyer)-quote.outlay).toBeGreaterThanOrEqual(quote.reserveAfter)
++  expect(quote.contracts.every(c=>!c.retained)).toBe(true)
++  expect(quote.productions).toMatchObject([{productionId:TARGET+':film:12',remainingTicks:8,phase:'development',disposition:'cancelRequired'}])
++  const input={...preview,quotedAtWeek:quote.quotedAtWeek,quoteAgePolicyVersion:quote.quoteAgePolicyVersion}
++  console.info('P16_FIXED_FUNDED_DRAFT171 '+JSON.stringify({week:171,buyerId:buyer,targetId:TARGET,scriptId:fresh[0]!.id,fee:paid.record.fee,consideration,exitCharges:exits,postExitCash,outlay:quote.outlay,reserve:quote.reserveAfter,affordable:quote.affordable,productionVerdicts:quote.productions}))
++  expect(absorptionProducerRefusal(paid.state,input)).toBeNull()
++  expect(quote.scripts.length).toBeGreaterThan(0)
++  expect(quote.scripts.every(q=>q.disposition==='writeOff'&&q.reason==='writersNotRetained')).toBe(true)
++  return {raw,rawBefore,old,oldBefore,initial,initialBefore,state,beforeAdmission,source,buyer,paid,paidBefore,quote,input,fresh,unactivated,unactivatedBefore}
++}
++function pureOriginal(p:ReturnType<typeof prepared>){
++ expect(JSON.stringify(p.unactivated)).toBe(p.unactivatedBefore)
++ expect(JSON.stringify(p.paid.state)).toBe(p.paidBefore);expect(JSON.stringify(p.state)).toBe(p.beforeAdmission)
++ expect(JSON.stringify(p.initial)).toBe(p.initialBefore);expect(JSON.stringify(p.raw)).toBe(p.rawBefore);expect(JSON.stringify(p.old)).toBe(p.oldBefore)
++}
++function scriptRecord(state:GameState,id:string){const record=state.rights.absorptions.find(a=>a.id===id)!;if(!record||record.producerVersion!=='absorption-scripts/v3')throw new Error('actual scripts/v3 producer required');return record}
++function carriedProject(state:GameState,id:string){const row=scriptRecord(state,id).continuedScripts.find(row=>row.sourceScriptProjectId==='script-0014');expect(row).toBeDefined();return row!.project}
++function retained(p:ReturnType<typeof prepared>,kind:'default'|'explicit'){
++ const script=p.source.development.projects.find(s=>s.id==='script-0014')!
++ expect(script).toMatchObject({status:'drafting',commissionedWeek:170,dueWeek:173,productionId:null})
++ const writers=[...new Set(script.writerIds)]
++ const contractIds=writers.map(id=>{const e=p.state.hollywood!.activeEmploymentOrdinals.map(i=>p.state.hollywood!.employment[i]!).find(e=>e.studioId===TARGET&&e.terms.talentId===id&&e.endedWeek===null&&e.terms.startWeek<=171&&171<e.terms.endWeekExclusive);expect(e).toBeDefined();return e!.contractId})
++ const retention=kind==='default'?{kind:'default' as const}:{kind:'explicit' as const,contractIds}
++ const library=libraryValuationV1(p.paid.state,TARGET,171);expect(library.kind).toBe('available');if(library.kind!=='available')throw new Error('fixed library premise')
++ const consideration=Math.ceil(absorptionAsk(library.total,p.source.account.cash))
++ const preview={buyerId:p.buyer,targetId:TARGET,consideration,retention,disclosureId:p.paid.record.id}
++ const quote=quoteAbsorption(p.paid.state,preview,171);expect(quote.kind).toBe('quote');if(quote.kind!=='quote')throw new Error(quote.refusal)
++ expect(quote.affordable).toBe(true)
++ for(const id of contractIds)expect(quote.contracts.find(c=>c.contractId===id)?.retained,'each actual required writer retains the real bargain').toBe(true)
++ const input={...preview,quotedAtWeek:quote.quotedAtWeek,quoteAgePolicyVersion:quote.quoteAgePolicyVersion}
++ const result=closeAbsorption(p.paid.state,input,171);pureOriginal(p)
++ const record=result.rights.absorptions.find(a=>a.targetId===TARGET)!
++ const scripts=scriptRecord(result,record.id).continuedScripts
++ const rows=scripts.filter(row=>row.sourceScriptProjectId===script.id)
++ expect(rows).toHaveLength(1);const row=rows[0]!,carried=row.project
++ expect(row.originalScript).toEqual(script)
++ expect(row.originalCosts).toEqual(p.source.projects.find(cost=>cost.scriptProjectId===script.id))
++ expect(row.sourceContractIds).toEqual(contractIds)
++ expect(row.buyerContractIds).toEqual(contractIds.map(id=>record.contracts.find(c=>c.sourceContractId===id)!.buyerContractId))
++ expect(result.scriptDevelopment.projects).toEqual(p.paid.state.scriptDevelopment.projects)
++ expect(carried.id).not.toBe(script.id)
++ expect(carried.id).toMatch(/^absorbed-script-[1-9][0-9]*$/)
++ expect(Number(carried.id.slice('absorbed-script-'.length))).toBeLessThan(result.rights.nextId)
++ expect(row.reservationAtClose).toEqual(carried.reservation)
++ expect(carried).toMatchObject({conceptId:script.conceptId,status:'drafting',commissionedWeek:170,dueWeek:173,productionId:null,writerIds:script.writerIds,writerId:script.writerId,shape:script.shape,promise:script.promise,rewriteCount:script.rewriteCount,assessment:script.assessment})
++ expect(carried.reservation).not.toBeNull()
++ expect(result.operations.facilities.some(f=>f.id===carried.reservation!.facilityId&&f.capability===carried.reservation!.capability)).toBe(true)
++ for(const id of contractIds){const source=p.state.hollywood!.employment.find(e=>e.contractId===id)!,link=record.contracts.find(c=>c.sourceContractId===id)!
++  expect(link.buyerContractId).not.toBeNull();const buyer=result.hollywood!.employment.find(e=>e.contractId===link.buyerContractId)!
++  expect(buyer.studioId).toBe(p.buyer);expect(buyer.terms).toEqual({...source.terms,startWeek:171,termWeeks:source.terms.endWeekExclusive-171})
++ }
++ expect(result.ledger.filter(e=>e.kind==='signingBonus')).toEqual(p.paid.state.ledger.filter(e=>e.kind==='signingBonus'))
++ expect(result.hollywood!.businesses.find(b=>b.studioId===TARGET)!.development.projects).toEqual(p.source.development.projects)
++ expect(result.hollywood!.businesses.find(b=>b.studioId===TARGET)!.projects).toEqual(p.source.projects)
++ saves.makeSave(result)
++ return {result,record,script,carried,input}
++}
++function step(state:GameState){const before=JSON.stringify(state),next=tick(state);expect(JSON.stringify(state)).toBe(before);return next}
++function completion(kind:'default'|'explicit'){
++ const p=prepared(),c=retained(p,kind),second=step(c.result)
++ expect(second.market.tick).toBe(172)
++ expect(carriedProject(second,c.record.id)).toMatchObject({status:'drafting',dueWeek:173,assessment:null})
++ const text=saves.exportCurrentState(second),reload=saves.migrateToLive(saves.importSave(text)).state
++ expect(saves.exportCurrentState(reload)).toBe(text)
++ const final=step(second),replay=step(reload);expect(final.market.tick).toBe(173)
++ expect(saves.exportCurrentState(final)).toBe(saves.exportCurrentState(replay))
++ const project=carriedProject(final,c.record.id)
++ expect(project).toMatchObject({status:'review',dueWeek:null,reservation:null,writerIds:c.script.writerIds,conceptId:c.script.conceptId,productionId:null})
++ const concept=second.hollywood!.concepts.find(concept=>concept.id===c.script.conceptId)!
++ expect(concept).toBeDefined()
++ const uplift=developmentOfficeEstUplift(second),assessment=assessFirstDraft(concept,uplift)
++ expect(project.assessment).toEqual(assessment)
++ const completions=scriptRecord(final,c.record.id).scriptCompletions.filter(row=>row.projectId===c.carried.id)
++ expect(completions).toHaveLength(1)
++ expect(completions[0]).toMatchObject({projectId:c.carried.id,week:173,inputWeek:172,estUplift:uplift,writerRewriting:null,assessment})
++ expect(completions[0]!.developmentContext).toEqual({facilities:second.operations.facilities,placements:second.placement.facilities,paidRows:second.ledger.filter(r=>r.kind==='constructionCapex'&&r.week<=172&&second.placement.facilities.some(p=>p.projectId===r.constructionProjectId)).map(r=>({projectId:r.constructionProjectId!,week:r.week,amount:r.amount}))})
++ const after=step(final);expect(after.market.tick).toBe(174)
++ expect(scriptRecord(after,c.record.id).scriptCompletions).toEqual(scriptRecord(final,c.record.id).scriptCompletions)
++ expect(carriedProject(after,c.record.id)).toEqual(project)
++ const afterText=saves.exportCurrentState(after),afterReload=saves.migrateToLive(saves.importSave(afterText)).state
++ expect(saves.exportCurrentState(afterReload)).toBe(afterText)
++ expect(final.hollywood!.businesses.find(b=>b.studioId===TARGET)!.development.projects).toEqual(p.source.development.projects)
++ expect(final.hollywood!.businesses.find(b=>b.studioId===TARGET)!.projects).toEqual(p.source.projects)
++ expect(scriptRecord(final,c.record.id).continuedScripts.filter(row=>row.project.id===c.carried.id)).toHaveLength(1)
++ expect(final.scriptDevelopment.projects).toEqual(c.result.scriptDevelopment.projects)
++ pureOriginal(p);return {p,c,second,final,project}
++}
++describe('P16 genuine171 retained drafting native completion',()=>{
++ it('default actual writer retention carries one namespaced live buyer draft through actual due173 with creator paid history save and replay',()=>{completion('default')})
++ it('explicit all required writers in a partial company choice retains original terms without a second bonus and completes native buyer work once',()=>{completion('explicit')})
++ it('real completed carried work full reader refuses missing live project source ID collision altered writer or invented assessment without mutating caller',()=>{
++  const j=completion('explicit')
++  const cases:Array<{label:string;expected:RegExp;change:(x:GameState)=>void}>=[
++   {label:'omitted entire source continuation',expected:/absorption script: in-flight script write-off bijection\/order differs/,change:x=>{scriptRecord(x,j.c.record.id).continuedScripts=[]}},
++   {label:'missing source writer contract linkage',expected:/continued script: partial or missing retained writer team/,change:x=>{scriptRecord(x,j.c.record.id).continuedScripts[0]!.sourceContractIds=[]}},
++   {label:'forged buyer writer contract linkage',expected:/continued script: partial or missing retained writer team/,change:x=>{scriptRecord(x,j.c.record.id).continuedScripts[0]!.buyerContractIds=['missing-buyer-contract']}},
++   {label:'original paid script cost mismatch',expected:/continued script: original paid creator\/script history differs/,change:x=>{scriptRecord(x,j.c.record.id).continuedScripts[0]!.originalCosts.development+=1}},
++   {label:'original creator script snapshot mismatch',expected:/continued script: original paid creator\/script history differs/,change:x=>{scriptRecord(x,j.c.record.id).continuedScripts[0]!.originalScript.writerIds=[]}},
++   {label:'missing native completion receipt',expected:/continued script: native completion\/actual due boundary bijection differs/,change:x=>{scriptRecord(x,j.c.record.id).scriptCompletions=[]}},
++   {label:'completion earned assessment mutated',expected:/continued script: native earned assessment differs/,change:x=>{scriptRecord(x,j.c.record.id).scriptCompletions[0]!.assessment.actualStrength+=1}},
++   {label:'co-mutated uplift and assessment copies lack actual facility authority',expected:/continued script: native facility assessment effect differs/,change:x=>{const r=scriptRecord(x,j.c.record.id).scriptCompletions[0]!,row=scriptRecord(x,j.c.record.id).continuedScripts[0]!;r.estUplift=r.estUplift===0?SCRIPT_DEVELOPMENT_OFFICE_TIER_2_EST_UPLIFT:0;const concept=x.hollywood!.concepts.find(c=>c.id===row.originalScript.conceptId)!;r.assessment=assessFirstDraft(concept,r.estUplift);row.project.assessment={...r.assessment}}},
++   {label:'global allocator omits an already minted work identity',expected:/id .* is at or above nextId/,change:x=>{x.rights.nextId=Number(j.c.carried.id.slice('absorbed-script-'.length))}}
++  ]
++  for(const {label,change,expected} of cases){const x=structuredClone(j.final);change(x);const before=JSON.stringify(x);try{expect(()=>saves.makeSave(x),label).toThrow(expected)}finally{expect(JSON.stringify(x),label).toBe(before)}}
++  const atClose=structuredClone(j.c.result)
++  scriptRecord(atClose,j.c.record.id).continuedScripts[0]!.reservationAtClose.facilityId='missing-buyer-facility'
++  const before=JSON.stringify(atClose)
++  try{expect(()=>saves.makeSave(atClose)).toThrow(/continued script: native buyer project differs from original work\/earned completion/)}finally{expect(JSON.stringify(atClose)).toBe(before)}
++
++ })
++ it('real fully joined retained draft publication fault leaves original paid writer work cash title and caller unchanged',()=>{
++  const p=prepared(),c=retained(p,'explicit'),real=saves.makeSave,marker='RETAINED_DRAFT_PUBLICATION_FAULT';let outputs=0
++  const spy=vi.spyOn(saves,'makeSave').mockImplementation(state=>{const admitted=real(state);if(admitted.state.rights.absorptions.some(a=>a.targetId===TARGET)){outputs++;throw new Error(marker)}return admitted})
++  try{expect(()=>closeAbsorption(p.paid.state,c.input,171)).toThrow(marker);expect(outputs).toBe(1)}finally{spy.mockRestore();pureOriginal(p)}
++ })
++})
+--- /dev/null
++++ b/tests/p16-carried-script-accept.test.ts
+@@ -0,0 +1,244 @@
++// UNRUN one fixed eight-tick diagnostic; not healthy drafting feature acceptance.
++import {describe,it,expect,vi} from 'vitest'
++import {readFileSync} from 'node:fs'
++import {createHash} from 'node:crypto'
++import * as saves from '../src/core/save.js'
++import * as nativeScript from '../src/core/scriptDevelopment.js'
++import {scriptProjectsReadModel} from '../src/core/scriptReadModel.js'
++import {applyActions} from '../src/core/actions.js'
++import type {GameState} from '../src/core/types.js'
++import {assessFirstDraft} from '../src/core/scriptDevelopment.js'
++import {developmentOfficeEstUplift} from '../src/core/facilityEffects.js'
++import {tick} from '../src/core/tick.js'
++import {conditionRecord,outstandingLoan} from '../src/core/corporateConditionLive.js'
++import {productionPhaseForRemainingTicks} from '../src/core/productionPhases.js'
++import {absorptionProducerRefusal,quoteAbsorption,closeAbsorption,absorptionAsk} from '../src/core/acquisition.js'
++import {requestDiligence} from '../src/core/dueDiligence.js'
++import {terminationCost} from '../src/core/employment.js'
++import {libraryValuationV1} from '../src/core/propertyValuation.js'
++import {permittedBidderRefusal,spendableCash} from '../src/core/rightsFinance.js'
++const TARGET='studio-aca408ec-r01'
++function prepared(){
++  const root=process.env.P16_ORIGINAL48_CAPTURE_ROOT;expect(root).toBeTruthy()
++  const bytes=readFileSync(root+'/r04-actual163.save48.json')
++  expect(createHash('sha256').update(bytes).digest('hex')).toBe('c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad')
++  const raw=JSON.parse(bytes.toString()),rawBefore=JSON.stringify(raw),old=saves.validateSaveP15B(raw),oldBefore=JSON.stringify(old)
++  const initial=saves.convertV48ToV49(old).state
++  expect(JSON.stringify(raw)).toBe(rawBefore);expect(JSON.stringify(old)).toBe(oldBefore)
++  expect(initial.market.tick).toBe(163)
++  const original=initial.hollywood!.businesses.find(b=>b.studioId===TARGET)!
++  expect(original.productions).toMatchObject([{id:TARGET+':film:13',remainingTicks:7}])
++  const oldIds=new Set(original.development.projects.map(p=>p.id)),initialBefore=JSON.stringify(initial)
++  let state=initial
++  for(let input=163;input<=170;input++){
++   expect(state.market.tick).toBe(input);const prior=state,before=JSON.stringify(prior)
++   state=tick(prior);expect(JSON.stringify(prior)).toBe(before);expect(state.market.tick).toBe(input+1)
++  }
++  let beforeAdmission=JSON.stringify(state);saves.makeSave(state);expect(JSON.stringify(state)).toBe(beforeAdmission)
++  const source=state.hollywood!.businesses.find(b=>b.studioId===TARGET)!
++  const active=source.activeScriptOrdinals.map(i=>source.development.projects[i]!)
++  const snapshot={week:state.market.tick,studioId:TARGET,condition:conditionRecord(state,TARGET)?.condition,
++   cash:source.account.cash,decisionWeek:source.nextDecisionWeek,
++   activeProductions:source.productions.map(p=>({id:p.id,remainingTicks:p.remainingTicks,phase:productionPhaseForRemainingTicks(p.remainingTicks)})),
++   activeScripts:active.map(p=>({id:p.id,status:p.status,commissionedWeek:p.commissionedWeek,dueWeek:p.dueWeek,productionId:p.productionId,reservation:p.reservation})),
++   newScriptIds:active.filter(p=>!oldIds.has(p.id)).map(p=>p.id)}
++  console.info('P16_FIXED_DRAFT171_OBSERVATION '+JSON.stringify(snapshot))
++  // Stop on the first absent premise. Existing script0015 or a greenlit older project is not a substitute.
++  expect(state.market.tick).toBe(171)
++  const fresh=active.filter(p=>!oldIds.has(p.id)&&p.status==='drafting')
++  expect(fresh,'fixed route must actually produce new active drafting, no existing-project fallback').toHaveLength(1)
++  expect(fresh[0]!.commissionedWeek).toBe(170)
++  expect(source.productions).toHaveLength(1)
++  const concurrent=source.productions[0]!
++  expect(concurrent).toMatchObject({id:TARGET+':film:12',startTick:170,remainingTicks:8})
++  const screenplay=active.find(p=>p.id==='script-0012')!
++  expect(screenplay).toMatchObject({status:'inProduction',commissionedWeek:155,productionId:concurrent.id,dueWeek:null})
++  expect(oldIds.has(screenplay.id)).toBe(true)
++  const concurrentCost=source.projects.find(p=>p.scriptProjectId===screenplay.id)!
++  expect(concurrentCost).toMatchObject({productionId:concurrent.id,conceptId:concurrent.conceptId,announcedWeek:170,production:concurrent.budget.negative,marketing:concurrent.budget.marketing})
++  expect(concurrentCost.production).toBeGreaterThan(0)
++  expect(state.hollywood!.receipts.filter(r=>r.studioId===TARGET&&r.kind==='filmAnnounced'&&r.productionId===concurrent.id)).toMatchObject([{week:170,conceptId:concurrent.conceptId}])
++  expect(conditionRecord(state,TARGET)?.condition).toMatchObject({stage:'stable',week:171})
++  expect(outstandingLoan(state,TARGET,171)).toBeUndefined()
++  const unactivated=state,unactivatedBefore=JSON.stringify(state)
++  expect(state.scriptDevelopment).toMatchObject({mode:'legacy',projects:[]})
++  state=applyActions(unactivated,[{kind:'activateScriptDevelopment'}])
++  expect(JSON.stringify(unactivated)).toBe(unactivatedBefore)
++  expect(state.scriptDevelopment).toMatchObject({mode:'managed',projects:[]})
++  expect(state.studio.cash).toBe(unactivated.studio.cash);expect(state.ledger).toEqual(unactivated.ledger)
++  expect(state.operations).toEqual(unactivated.operations)
++  beforeAdmission=JSON.stringify(state);saves.makeSave(state);expect(JSON.stringify(state)).toBe(beforeAdmission)
++  const buyer=state.hollywood!.playerStudioId
++  expect(conditionRecord(state,buyer)?.condition).toMatchObject({stage:'stable',week:171})
++  expect(outstandingLoan(state,buyer,171)).toBeUndefined();expect(permittedBidderRefusal(state,buyer,171)).toBeNull()
++  const paid=requestDiligence(state,{recipientId:buyer,target:{kind:'studio',studioId:TARGET},scope:['rights','employment','liabilities']},171)
++  expect(JSON.stringify(state)).toBe(beforeAdmission)
++  expect(paid.record).toMatchObject({week:171,recipientId:buyer,target:{kind:'studio',studioId:TARGET},scope:['rights','employment','liabilities']})
++  expect(paid.record.fee).toBeGreaterThan(0);expect(paid.state.studio.cash).toBe(state.studio.cash-paid.record.fee)
++  const paidBefore=JSON.stringify(paid.state);saves.makeSave(paid.state);expect(JSON.stringify(paid.state)).toBe(paidBefore)
++  const employment=state.hollywood!.activeEmploymentOrdinals.map(i=>state.hollywood!.employment[i]!).filter(e=>e.studioId===TARGET&&e.endedWeek===null&&e.terms.startWeek<=171&&171<e.terms.endWeekExclusive)
++  expect(employment.length).toBeGreaterThan(0)
++  const exits=employment.reduce((sum,e)=>sum+terminationCost(e.terms,171),0),postExitCash=source.account.cash-exits
++  const library=libraryValuationV1(paid.state,TARGET,171);expect(library.kind).toBe('available')
++  if(library.kind!=='available')throw new Error('fixed171 library valuation prerequisite absent')
++  const consideration=Math.ceil(absorptionAsk(library.total,postExitCash))
++  const preview={buyerId:buyer,targetId:TARGET,consideration,retention:{kind:'explicit' as const,contractIds:[] as string[]},disclosureId:paid.record.id}
++  const quote=quoteAbsorption(paid.state,preview,171)
++  expect(quote.kind,'fixed real paid quote, no alternate date amount buyer or retention').toBe('quote')
++  if(quote.kind!=='quote')throw new Error(quote.refusal)
++  expect(quote.affordable).toBe(true)
++  expect(quote.exitCharges).toBe(exits);expect(quote.postExitCash).toBe(postExitCash)
++  expect(quote.outlay).toBe(consideration-postExitCash)
++  expect(spendableCash(paid.state,buyer)-quote.outlay).toBeGreaterThanOrEqual(quote.reserveAfter)
++  expect(quote.contracts.every(c=>!c.retained)).toBe(true)
++  expect(quote.productions).toMatchObject([{productionId:TARGET+':film:12',remainingTicks:8,phase:'development',disposition:'cancelRequired'}])
++  const input={...preview,quotedAtWeek:quote.quotedAtWeek,quoteAgePolicyVersion:quote.quoteAgePolicyVersion}
++  console.info('P16_FIXED_FUNDED_DRAFT171 '+JSON.stringify({week:171,buyerId:buyer,targetId:TARGET,scriptId:fresh[0]!.id,fee:paid.record.fee,consideration,exitCharges:exits,postExitCash,outlay:quote.outlay,reserve:quote.reserveAfter,affordable:quote.affordable,productionVerdicts:quote.productions}))
++  expect(absorptionProducerRefusal(paid.state,input)).toBeNull()
++  expect(quote.scripts.length).toBeGreaterThan(0)
++  expect(quote.scripts.every(q=>q.disposition==='writeOff'&&q.reason==='writersNotRetained')).toBe(true)
++  return {raw,rawBefore,old,oldBefore,initial,initialBefore,state,beforeAdmission,source,buyer,paid,paidBefore,quote,input,fresh,unactivated,unactivatedBefore}
++}
++function pureOriginal(p:ReturnType<typeof prepared>){
++ expect(JSON.stringify(p.unactivated)).toBe(p.unactivatedBefore)
++ expect(JSON.stringify(p.paid.state)).toBe(p.paidBefore);expect(JSON.stringify(p.state)).toBe(p.beforeAdmission)
++ expect(JSON.stringify(p.initial)).toBe(p.initialBefore);expect(JSON.stringify(p.raw)).toBe(p.rawBefore);expect(JSON.stringify(p.old)).toBe(p.oldBefore)
++}
++function scriptRecord(state:GameState,id:string){const record=state.rights.absorptions.find(a=>a.id===id)!;if(!record||(record.producerVersion!=='absorption-scripts/v3'&&record.producerVersion!=='absorption-scripts/v4'))throw new Error('actual scripts/v3 producer required');return record}
++function carriedProject(state:GameState,id:string){const row=scriptRecord(state,id).continuedScripts.find(row=>row.sourceScriptProjectId==='script-0014');expect(row).toBeDefined();return row!.project}
++function retained(p:ReturnType<typeof prepared>,kind:'default'|'explicit'){
++ const script=p.source.development.projects.find(s=>s.id==='script-0014')!
++ expect(script).toMatchObject({status:'drafting',commissionedWeek:170,dueWeek:173,productionId:null})
++ const writers=[...new Set(script.writerIds)]
++ const contractIds=writers.map(id=>{const e=p.state.hollywood!.activeEmploymentOrdinals.map(i=>p.state.hollywood!.employment[i]!).find(e=>e.studioId===TARGET&&e.terms.talentId===id&&e.endedWeek===null&&e.terms.startWeek<=171&&171<e.terms.endWeekExclusive);expect(e).toBeDefined();return e!.contractId})
++ const retention=kind==='default'?{kind:'default' as const}:{kind:'explicit' as const,contractIds}
++ const library=libraryValuationV1(p.paid.state,TARGET,171);expect(library.kind).toBe('available');if(library.kind!=='available')throw new Error('fixed library premise')
++ const consideration=Math.ceil(absorptionAsk(library.total,p.source.account.cash))
++ const preview={buyerId:p.buyer,targetId:TARGET,consideration,retention,disclosureId:p.paid.record.id}
++ const quote=quoteAbsorption(p.paid.state,preview,171);expect(quote.kind).toBe('quote');if(quote.kind!=='quote')throw new Error(quote.refusal)
++ expect(quote.affordable).toBe(true)
++ for(const id of contractIds)expect(quote.contracts.find(c=>c.contractId===id)?.retained,'each actual required writer retains the real bargain').toBe(true)
++ const input={...preview,quotedAtWeek:quote.quotedAtWeek,quoteAgePolicyVersion:quote.quoteAgePolicyVersion}
++ const result=closeAbsorption(p.paid.state,input,171);pureOriginal(p)
++ const record=result.rights.absorptions.find(a=>a.targetId===TARGET)!
++ const scripts=scriptRecord(result,record.id).continuedScripts
++ const rows=scripts.filter(row=>row.sourceScriptProjectId===script.id)
++ expect(rows).toHaveLength(1);const row=rows[0]!,carried=row.project
++ expect(row.originalScript).toEqual(script)
++ expect(row.originalCosts).toEqual(p.source.projects.find(cost=>cost.scriptProjectId===script.id))
++ expect(row.sourceContractIds).toEqual(contractIds)
++ expect(row.buyerContractIds).toEqual(contractIds.map(id=>record.contracts.find(c=>c.sourceContractId===id)!.buyerContractId))
++ expect(result.scriptDevelopment.projects).toEqual(p.paid.state.scriptDevelopment.projects)
++ expect(carried.id).not.toBe(script.id)
++ expect(carried.id).toMatch(/^absorbed-script-[1-9][0-9]*$/)
++ expect(Number(carried.id.slice('absorbed-script-'.length))).toBeLessThan(result.rights.nextId)
++ expect(row.reservationAtClose).toEqual(carried.reservation)
++ expect(carried).toMatchObject({conceptId:script.conceptId,status:'drafting',commissionedWeek:170,dueWeek:173,productionId:null,writerIds:script.writerIds,writerId:script.writerId,shape:script.shape,promise:script.promise,rewriteCount:script.rewriteCount,assessment:script.assessment})
++ expect(carried.reservation).not.toBeNull()
++ expect(result.operations.facilities.some(f=>f.id===carried.reservation!.facilityId&&f.capability===carried.reservation!.capability)).toBe(true)
++ for(const id of contractIds){const source=p.state.hollywood!.employment.find(e=>e.contractId===id)!,link=record.contracts.find(c=>c.sourceContractId===id)!
++  expect(link.buyerContractId).not.toBeNull();const buyer=result.hollywood!.employment.find(e=>e.contractId===link.buyerContractId)!
++  expect(buyer.studioId).toBe(p.buyer);expect(buyer.terms).toEqual({...source.terms,startWeek:171,termWeeks:source.terms.endWeekExclusive-171})
++ }
++ expect(result.ledger.filter(e=>e.kind==='signingBonus')).toEqual(p.paid.state.ledger.filter(e=>e.kind==='signingBonus'))
++ expect(result.hollywood!.businesses.find(b=>b.studioId===TARGET)!.development.projects).toEqual(p.source.development.projects)
++ expect(result.hollywood!.businesses.find(b=>b.studioId===TARGET)!.projects).toEqual(p.source.projects)
++ saves.makeSave(result)
++ return {result,record,script,carried,input}
++}
++function step(state:GameState){const before=JSON.stringify(state),next=tick(state);expect(JSON.stringify(state)).toBe(before);return next}
++function completion(kind:'default'|'explicit'){
++ const p=prepared(),c=retained(p,kind),second=step(c.result)
++ expect(second.market.tick).toBe(172)
++ expect(carriedProject(second,c.record.id)).toMatchObject({status:'drafting',dueWeek:173,assessment:null})
++ const text=saves.exportCurrentState(second),reload=saves.migrateToLive(saves.importSave(text)).state
++ expect(saves.exportCurrentState(reload)).toBe(text)
++ const final=step(second),replay=step(reload);expect(final.market.tick).toBe(173)
++ expect(saves.exportCurrentState(final)).toBe(saves.exportCurrentState(replay))
++ const project=carriedProject(final,c.record.id)
++ expect(project).toMatchObject({status:'review',dueWeek:null,reservation:null,writerIds:c.script.writerIds,conceptId:c.script.conceptId,productionId:null})
++ const concept=second.hollywood!.concepts.find(concept=>concept.id===c.script.conceptId)!
++ expect(concept).toBeDefined()
++ const uplift=developmentOfficeEstUplift(second),assessment=assessFirstDraft(concept,uplift)
++ expect(project.assessment).toEqual(assessment)
++ const completions=scriptRecord(final,c.record.id).scriptCompletions.filter(row=>row.projectId===c.carried.id)
++ expect(completions).toHaveLength(1)
++ expect(completions[0]).toMatchObject({projectId:c.carried.id,week:173,inputWeek:172,estUplift:uplift,writerRewriting:null,assessment})
++ expect(completions[0]!.developmentContext).toEqual({facilities:second.operations.facilities,placements:second.placement.facilities,paidRows:second.ledger.filter(r=>r.kind==='constructionCapex'&&r.week<=172&&second.placement.facilities.some(p=>p.projectId===r.constructionProjectId)).map(r=>({projectId:r.constructionProjectId!,week:r.week,amount:r.amount}))})
++ expect(final.hollywood!.businesses.find(b=>b.studioId===TARGET)!.development.projects).toEqual(p.source.development.projects)
++ expect(final.hollywood!.businesses.find(b=>b.studioId===TARGET)!.projects).toEqual(p.source.projects)
++ expect(scriptRecord(final,c.record.id).continuedScripts.filter(row=>row.project.id===c.carried.id)).toHaveLength(1)
++ expect(final.scriptDevelopment.projects).toEqual(c.result.scriptDevelopment.projects)
++ pureOriginal(p);return {p,c,second,final,project}
++}
++function accepted(){
++ const j=completion('explicit'),before=j.final,projectId=j.c.carried.id,beforeBytes=JSON.stringify(before)
++ expect(scriptRecord(before,j.c.record.id).producerVersion).toBe('absorption-scripts/v3')
++ expect(carriedProject(before,j.c.record.id).status).toBe('review')
++ const model=scriptProjectsReadModel(before),card=model.sections.needsReview.find(p=>p.projectId===projectId)!
++ expect(card).toBeDefined();expect(card.legalActions.map(a=>a.kind)).toEqual(['acceptScript','requestScriptRewrite'])
++ expect(card.legalActions.some(a=>a.kind==='requestScriptRewrite')).toBe(true)
++ const next=applyActions(before,[{kind:'acceptScript',projectId}])
++ expect(JSON.stringify(before)).toBe(beforeBytes)
++ saves.makeSave(next)
++ const record=next.rights.absorptions.find(a=>a.id===j.c.record.id)!
++ if(record.producerVersion!=='absorption-scripts/v4')throw new Error('actual accepted v4 producer required')
++ expect(record.scriptDecisions).toHaveLength(1)
++ const decision=record.scriptDecisions[0]!
++ expect(decision).toMatchObject({projectId,kind:'accept',week:173})
++ expect(decision.id).toMatch(/^script-decision-[1-9][0-9]*$/)
++ expect(Number(decision.id.slice('script-decision-'.length))).toBe(before.rights.nextId)
++ expect(next.rights.nextId).toBe(before.rights.nextId+1)
++ expect(carriedProject(next,j.c.record.id)).toEqual({...j.project,status:'ready'})
++ const original=scriptRecord(before,j.c.record.id)
++ expect(record.scriptCompletions).toEqual(original.scriptCompletions)
++ expect(record.contracts).toEqual(original.contracts);expect(record.titleEventIds).toEqual(original.titleEventIds)
++ expect(record.continuedScripts[0]!.originalScript).toEqual(original.continuedScripts[0]!.originalScript)
++ expect(record.continuedScripts[0]!.originalCosts).toEqual(original.continuedScripts[0]!.originalCosts)
++ expect(next.hollywood).toEqual(before.hollywood);expect(next.studio.cash).toBe(before.studio.cash)
++ expect(next.ledger).toEqual(before.ledger);expect(next.contracts).toEqual(before.contracts)
++ expect(next.operations).toEqual(before.operations);expect(next.scriptDevelopment).toEqual(before.scriptDevelopment)
++ expect(next.rights.titleEvents).toEqual(before.rights.titleEvents);expect(next.rights.transactions).toEqual(before.rights.transactions)
++ const ready=scriptProjectsReadModel(next),readyCard=ready.sections.readyToPackage.find(p=>p.projectId===projectId)!,packageView=ready.packages.find(p=>p.projectId===projectId)!
++ expect(readyCard).toBeDefined();expect(readyCard.legalActions).toEqual([])
++ expect(packageView).toBeDefined();expect(packageView.openAction).toBeNull()
++ expect(packageView.availability).toMatchObject({knownGatesClear:false,canSubmitGreenlightIntent:false,willQueueGreenlightIntent:false,staffingAvailable:false})
++ expect(packageView.availability.blockers.some(b=>b.kind==='carried-action')).toBe(true)
++ return {j,before,beforeBytes,next,record,decision,projectId}
++}
++function acceptedRecord(state:GameState,id:string){const a=state.rights.absorptions.find(a=>a.id===id)!;if(a.producerVersion!=='absorption-scripts/v4')throw new Error('accepted v4 witness required');return a}
++describe('P16 genuine carried draft public acceptance',()=>{
++ it('public173 Review to Ready records one durable decision and offers only supported management actions while source employment titles and earned assessment remain unchanged',()=>{
++  const a=accepted(),before=JSON.stringify(a.next)
++  try{expect(()=>applyActions(a.next,[{kind:'acceptScript',projectId:a.projectId}])).toThrow(/script development: accept rejected .* does not need review/)}finally{expect(JSON.stringify(a.next)).toBe(before)}
++  const readyBefore=JSON.stringify(a.next)
++  try{expect(()=>applyActions(a.next,[{kind:'requestScriptRewrite',projectId:a.projectId}])).toThrow(/script development: rewrite rejected/)}finally{expect(JSON.stringify(a.next)).toBe(readyBefore)}
++  const text=saves.exportCurrentState(a.next),reload=saves.migrateToLive(saves.importSave(text)).state
++  expect(saves.exportCurrentState(reload)).toBe(text)
++  const final=step(a.next),replay=step(reload);expect(final.market.tick).toBe(174)
++  expect(saves.exportCurrentState(final)).toBe(saves.exportCurrentState(replay))
++  expect(acceptedRecord(final,a.record.id).scriptDecisions).toEqual(a.record.scriptDecisions)
++  expect(acceptedRecord(final,a.record.id).scriptCompletions).toEqual(a.record.scriptCompletions)
++  expect(carriedProject(final,a.record.id)).toEqual(carriedProject(a.next,a.record.id))
++  pureOriginal(a.j.p)
++ })
++ it('fully admitted accepted state rejects missing wrong future premature and duplicate decision authority with precise reader owners and whole caller purity',()=>{
++  const a=accepted()
++  const cases:Array<{label:string;expected:RegExp;change:(x:GameState)=>void}>=[
++   {label:'missing required durable decision',expected:/continued script: missing buyer script decision/,change:x=>{acceptedRecord(x,a.record.id).scriptDecisions=[]}},
++   {label:'decision names unknown carried work',expected:/continued script: buyer script decision authority\/order differs/,change:x=>{acceptedRecord(x,a.record.id).scriptDecisions[0]!.projectId='missing-carried-project'}},
++   {label:'decision invents unsupported kind',expected:/continued script: buyer script decision authority\/order differs/,change:x=>{Reflect.set(acceptedRecord(x,a.record.id).scriptDecisions[0]!,'kind','rewrite')}},
++   {label:'decision future boundary',expected:/continued script: buyer script decision authority\/order differs/,change:x=>{acceptedRecord(x,a.record.id).scriptDecisions[0]!.week=174}},
++   {label:'decision precedes actual earned completion',expected:/continued script: buyer review decision precedes earned completion/,change:x=>{acceptedRecord(x,a.record.id).scriptDecisions[0]!.week=172}},
++   {label:'duplicate globally allocated decision ID',expected:/duplicate id script-decision-/,change:x=>{acceptedRecord(x,a.record.id).scriptDecisions.push(structuredClone(a.decision))}},
++   {label:'ready work retagged as undecided exact v3',expected:/continued script: native buyer project differs from original work\/earned completion/,change:x=>{const record=acceptedRecord(x,a.record.id);Reflect.set(record,'producerVersion','absorption-scripts/v3');Reflect.deleteProperty(record,'scriptDecisions')}}
++  ]
++  for(const {label,expected,change} of cases){const x=structuredClone(a.next);change(x);const before=JSON.stringify(x);try{expect(()=>saves.makeSave(x),label).toThrow(expected)}finally{expect(JSON.stringify(x),label).toBe(before)}}
++ })
++ it('real native accept producer failure after producing Ready preserves original Review caller without claiming an uncalled makeSave seam',()=>{
++  const j=completion('explicit'),before=JSON.stringify(j.final),real=nativeScript.acceptScriptProject,marker='CARRIED_NATIVE_ACCEPT_FAILURE';let reached=0
++  const spy=vi.spyOn(nativeScript,'acceptScriptProject').mockImplementation((development,id)=>{const result=real(development,id);if(id===j.c.carried.id){expect(result.projects.find(p=>p.id===id)?.status).toBe('ready');reached++;throw new Error(marker)}return result})
++  try{expect(()=>applyActions(j.final,[{kind:'acceptScript',projectId:j.c.carried.id}])).toThrow(marker);expect(reached).toBe(1)}finally{spy.mockRestore();expect(JSON.stringify(j.final)).toBe(before);pureOriginal(j.p)}
++  saves.makeSave(j.final)
++ })
++})
+--- /dev/null
++++ b/tests/p16-carried-script-rewrite.test.ts
+@@ -0,0 +1,256 @@
++// UNRUN one fixed eight-tick diagnostic; not healthy drafting feature acceptance.
++import {describe,it,expect,vi} from 'vitest'
++import {readFileSync} from 'node:fs'
++import {createHash} from 'node:crypto'
++import * as saves from '../src/core/save.js'
++import * as nativeScript from '../src/core/scriptDevelopment.js'
++import {buyerScriptDevelopment} from '../src/core/continuedScripts.js'
++import {buyerOperationsForAllWork,buyerOperatedProductions} from '../src/core/continuedWork.js'
++import {scriptProjectsReadModel} from '../src/core/scriptReadModel.js'
++import {applyActions} from '../src/core/actions.js'
++import type {GameState} from '../src/core/types.js'
++import {assessFirstDraft} from '../src/core/scriptDevelopment.js'
++import {developmentOfficeEstUplift} from '../src/core/facilityEffects.js'
++import {tick} from '../src/core/tick.js'
++import {conditionRecord,outstandingLoan} from '../src/core/corporateConditionLive.js'
++import {productionPhaseForRemainingTicks} from '../src/core/productionPhases.js'
++import {absorptionProducerRefusal,quoteAbsorption,closeAbsorption,absorptionAsk} from '../src/core/acquisition.js'
++import {requestDiligence} from '../src/core/dueDiligence.js'
++import {terminationCost} from '../src/core/employment.js'
++import {libraryValuationV1} from '../src/core/propertyValuation.js'
++import {permittedBidderRefusal,spendableCash} from '../src/core/rightsFinance.js'
++const TARGET='studio-aca408ec-r01'
++function prepared(){
++  const root=process.env.P16_ORIGINAL48_CAPTURE_ROOT;expect(root).toBeTruthy()
++  const bytes=readFileSync(root+'/r04-actual163.save48.json')
++  expect(createHash('sha256').update(bytes).digest('hex')).toBe('c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad')
++  const raw=JSON.parse(bytes.toString()),rawBefore=JSON.stringify(raw),old=saves.validateSaveP15B(raw),oldBefore=JSON.stringify(old)
++  const initial=saves.convertV48ToV49(old).state
++  expect(JSON.stringify(raw)).toBe(rawBefore);expect(JSON.stringify(old)).toBe(oldBefore)
++  expect(initial.market.tick).toBe(163)
++  const original=initial.hollywood!.businesses.find(b=>b.studioId===TARGET)!
++  expect(original.productions).toMatchObject([{id:TARGET+':film:13',remainingTicks:7}])
++  const oldIds=new Set(original.development.projects.map(p=>p.id)),initialBefore=JSON.stringify(initial)
++  let state=initial
++  for(let input=163;input<=170;input++){
++   expect(state.market.tick).toBe(input);const prior=state,before=JSON.stringify(prior)
++   state=tick(prior);expect(JSON.stringify(prior)).toBe(before);expect(state.market.tick).toBe(input+1)
++  }
++  let beforeAdmission=JSON.stringify(state);saves.makeSave(state);expect(JSON.stringify(state)).toBe(beforeAdmission)
++  const source=state.hollywood!.businesses.find(b=>b.studioId===TARGET)!
++  const active=source.activeScriptOrdinals.map(i=>source.development.projects[i]!)
++  const snapshot={week:state.market.tick,studioId:TARGET,condition:conditionRecord(state,TARGET)?.condition,
++   cash:source.account.cash,decisionWeek:source.nextDecisionWeek,
++   activeProductions:source.productions.map(p=>({id:p.id,remainingTicks:p.remainingTicks,phase:productionPhaseForRemainingTicks(p.remainingTicks)})),
++   activeScripts:active.map(p=>({id:p.id,status:p.status,commissionedWeek:p.commissionedWeek,dueWeek:p.dueWeek,productionId:p.productionId,reservation:p.reservation})),
++   newScriptIds:active.filter(p=>!oldIds.has(p.id)).map(p=>p.id)}
++  console.info('P16_FIXED_DRAFT171_OBSERVATION '+JSON.stringify(snapshot))
++  // Stop on the first absent premise. Existing script0015 or a greenlit older project is not a substitute.
++  expect(state.market.tick).toBe(171)
++  const fresh=active.filter(p=>!oldIds.has(p.id)&&p.status==='drafting')
++  expect(fresh,'fixed route must actually produce new active drafting, no existing-project fallback').toHaveLength(1)
++  expect(fresh[0]!.commissionedWeek).toBe(170)
++  expect(source.productions).toHaveLength(1)
++  const concurrent=source.productions[0]!
++  expect(concurrent).toMatchObject({id:TARGET+':film:12',startTick:170,remainingTicks:8})
++  const screenplay=active.find(p=>p.id==='script-0012')!
++  expect(screenplay).toMatchObject({status:'inProduction',commissionedWeek:155,productionId:concurrent.id,dueWeek:null})
++  expect(oldIds.has(screenplay.id)).toBe(true)
++  const concurrentCost=source.projects.find(p=>p.scriptProjectId===screenplay.id)!
++  expect(concurrentCost).toMatchObject({productionId:concurrent.id,conceptId:concurrent.conceptId,announcedWeek:170,production:concurrent.budget.negative,marketing:concurrent.budget.marketing})
++  expect(concurrentCost.production).toBeGreaterThan(0)
++  expect(state.hollywood!.receipts.filter(r=>r.studioId===TARGET&&r.kind==='filmAnnounced'&&r.productionId===concurrent.id)).toMatchObject([{week:170,conceptId:concurrent.conceptId}])
++  expect(conditionRecord(state,TARGET)?.condition).toMatchObject({stage:'stable',week:171})
++  expect(outstandingLoan(state,TARGET,171)).toBeUndefined()
++  const unactivated=state,unactivatedBefore=JSON.stringify(state)
++  expect(state.scriptDevelopment).toMatchObject({mode:'legacy',projects:[]})
++  state=applyActions(unactivated,[{kind:'activateScriptDevelopment'}])
++  expect(JSON.stringify(unactivated)).toBe(unactivatedBefore)
++  expect(state.scriptDevelopment).toMatchObject({mode:'managed',projects:[]})
++  expect(state.studio.cash).toBe(unactivated.studio.cash);expect(state.ledger).toEqual(unactivated.ledger)
++  expect(state.operations).toEqual(unactivated.operations)
++  beforeAdmission=JSON.stringify(state);saves.makeSave(state);expect(JSON.stringify(state)).toBe(beforeAdmission)
++  const buyer=state.hollywood!.playerStudioId
++  expect(conditionRecord(state,buyer)?.condition).toMatchObject({stage:'stable',week:171})
++  expect(outstandingLoan(state,buyer,171)).toBeUndefined();expect(permittedBidderRefusal(state,buyer,171)).toBeNull()
++  const paid=requestDiligence(state,{recipientId:buyer,target:{kind:'studio',studioId:TARGET},scope:['rights','employment','liabilities']},171)
++  expect(JSON.stringify(state)).toBe(beforeAdmission)
++  expect(paid.record).toMatchObject({week:171,recipientId:buyer,target:{kind:'studio',studioId:TARGET},scope:['rights','employment','liabilities']})
++  expect(paid.record.fee).toBeGreaterThan(0);expect(paid.state.studio.cash).toBe(state.studio.cash-paid.record.fee)
++  const paidBefore=JSON.stringify(paid.state);saves.makeSave(paid.state);expect(JSON.stringify(paid.state)).toBe(paidBefore)
++  const employment=state.hollywood!.activeEmploymentOrdinals.map(i=>state.hollywood!.employment[i]!).filter(e=>e.studioId===TARGET&&e.endedWeek===null&&e.terms.startWeek<=171&&171<e.terms.endWeekExclusive)
++  expect(employment.length).toBeGreaterThan(0)
++  const exits=employment.reduce((sum,e)=>sum+terminationCost(e.terms,171),0),postExitCash=source.account.cash-exits
++  const library=libraryValuationV1(paid.state,TARGET,171);expect(library.kind).toBe('available')
++  if(library.kind!=='available')throw new Error('fixed171 library valuation prerequisite absent')
++  const consideration=Math.ceil(absorptionAsk(library.total,postExitCash))
++  const preview={buyerId:buyer,targetId:TARGET,consideration,retention:{kind:'explicit' as const,contractIds:[] as string[]},disclosureId:paid.record.id}
++  const quote=quoteAbsorption(paid.state,preview,171)
++  expect(quote.kind,'fixed real paid quote, no alternate date amount buyer or retention').toBe('quote')
++  if(quote.kind!=='quote')throw new Error(quote.refusal)
++  expect(quote.affordable).toBe(true)
++  expect(quote.exitCharges).toBe(exits);expect(quote.postExitCash).toBe(postExitCash)
++  expect(quote.outlay).toBe(consideration-postExitCash)
++  expect(spendableCash(paid.state,buyer)-quote.outlay).toBeGreaterThanOrEqual(quote.reserveAfter)
++  expect(quote.contracts.every(c=>!c.retained)).toBe(true)
++  expect(quote.productions).toMatchObject([{productionId:TARGET+':film:12',remainingTicks:8,phase:'development',disposition:'cancelRequired'}])
++  const input={...preview,quotedAtWeek:quote.quotedAtWeek,quoteAgePolicyVersion:quote.quoteAgePolicyVersion}
++  console.info('P16_FIXED_FUNDED_DRAFT171 '+JSON.stringify({week:171,buyerId:buyer,targetId:TARGET,scriptId:fresh[0]!.id,fee:paid.record.fee,consideration,exitCharges:exits,postExitCash,outlay:quote.outlay,reserve:quote.reserveAfter,affordable:quote.affordable,productionVerdicts:quote.productions}))
++  expect(absorptionProducerRefusal(paid.state,input)).toBeNull()
++  expect(quote.scripts.length).toBeGreaterThan(0)
++  expect(quote.scripts.every(q=>q.disposition==='writeOff'&&q.reason==='writersNotRetained')).toBe(true)
++  return {raw,rawBefore,old,oldBefore,initial,initialBefore,state,beforeAdmission,source,buyer,paid,paidBefore,quote,input,fresh,unactivated,unactivatedBefore}
++}
++function pureOriginal(p:ReturnType<typeof prepared>){
++ expect(JSON.stringify(p.unactivated)).toBe(p.unactivatedBefore)
++ expect(JSON.stringify(p.paid.state)).toBe(p.paidBefore);expect(JSON.stringify(p.state)).toBe(p.beforeAdmission)
++ expect(JSON.stringify(p.initial)).toBe(p.initialBefore);expect(JSON.stringify(p.raw)).toBe(p.rawBefore);expect(JSON.stringify(p.old)).toBe(p.oldBefore)
++}
++function scriptRecord(state:GameState,id:string){const record=state.rights.absorptions.find(a=>a.id===id)!;if(!record||(record.producerVersion!=='absorption-scripts/v3'&&record.producerVersion!=='absorption-scripts/v4'&&record.producerVersion!=='absorption-scripts/v5'))throw new Error('actual scripts/v3 producer required');return record}
++function carriedProject(state:GameState,id:string){const row=scriptRecord(state,id).continuedScripts.find(row=>row.sourceScriptProjectId==='script-0014');expect(row).toBeDefined();return row!.project}
++function retained(p:ReturnType<typeof prepared>,kind:'default'|'explicit'){
++ const script=p.source.development.projects.find(s=>s.id==='script-0014')!
++ expect(script).toMatchObject({status:'drafting',commissionedWeek:170,dueWeek:173,productionId:null})
++ const writers=[...new Set(script.writerIds)]
++ const contractIds=writers.map(id=>{const e=p.state.hollywood!.activeEmploymentOrdinals.map(i=>p.state.hollywood!.employment[i]!).find(e=>e.studioId===TARGET&&e.terms.talentId===id&&e.endedWeek===null&&e.terms.startWeek<=171&&171<e.terms.endWeekExclusive);expect(e).toBeDefined();return e!.contractId})
++ const retention=kind==='default'?{kind:'default' as const}:{kind:'explicit' as const,contractIds}
++ const library=libraryValuationV1(p.paid.state,TARGET,171);expect(library.kind).toBe('available');if(library.kind!=='available')throw new Error('fixed library premise')
++ const consideration=Math.ceil(absorptionAsk(library.total,p.source.account.cash))
++ const preview={buyerId:p.buyer,targetId:TARGET,consideration,retention,disclosureId:p.paid.record.id}
++ const quote=quoteAbsorption(p.paid.state,preview,171);expect(quote.kind).toBe('quote');if(quote.kind!=='quote')throw new Error(quote.refusal)
++ expect(quote.affordable).toBe(true)
++ for(const id of contractIds)expect(quote.contracts.find(c=>c.contractId===id)?.retained,'each actual required writer retains the real bargain').toBe(true)
++ const input={...preview,quotedAtWeek:quote.quotedAtWeek,quoteAgePolicyVersion:quote.quoteAgePolicyVersion}
++ const result=closeAbsorption(p.paid.state,input,171);pureOriginal(p)
++ const record=result.rights.absorptions.find(a=>a.targetId===TARGET)!
++ const scripts=scriptRecord(result,record.id).continuedScripts
++ const rows=scripts.filter(row=>row.sourceScriptProjectId===script.id)
++ expect(rows).toHaveLength(1);const row=rows[0]!,carried=row.project
++ expect(row.originalScript).toEqual(script)
++ expect(row.originalCosts).toEqual(p.source.projects.find(cost=>cost.scriptProjectId===script.id))
++ expect(row.sourceContractIds).toEqual(contractIds)
++ expect(row.buyerContractIds).toEqual(contractIds.map(id=>record.contracts.find(c=>c.sourceContractId===id)!.buyerContractId))
++ expect(result.scriptDevelopment.projects).toEqual(p.paid.state.scriptDevelopment.projects)
++ expect(carried.id).not.toBe(script.id)
++ expect(carried.id).toMatch(/^absorbed-script-[1-9][0-9]*$/)
++ expect(Number(carried.id.slice('absorbed-script-'.length))).toBeLessThan(result.rights.nextId)
++ expect(row.reservationAtClose).toEqual(carried.reservation)
++ expect(carried).toMatchObject({conceptId:script.conceptId,status:'drafting',commissionedWeek:170,dueWeek:173,productionId:null,writerIds:script.writerIds,writerId:script.writerId,shape:script.shape,promise:script.promise,rewriteCount:script.rewriteCount,assessment:script.assessment})
++ expect(carried.reservation).not.toBeNull()
++ expect(result.operations.facilities.some(f=>f.id===carried.reservation!.facilityId&&f.capability===carried.reservation!.capability)).toBe(true)
++ for(const id of contractIds){const source=p.state.hollywood!.employment.find(e=>e.contractId===id)!,link=record.contracts.find(c=>c.sourceContractId===id)!
++  expect(link.buyerContractId).not.toBeNull();const buyer=result.hollywood!.employment.find(e=>e.contractId===link.buyerContractId)!
++  expect(buyer.studioId).toBe(p.buyer);expect(buyer.terms).toEqual({...source.terms,startWeek:171,termWeeks:source.terms.endWeekExclusive-171})
++ }
++ expect(result.ledger.filter(e=>e.kind==='signingBonus')).toEqual(p.paid.state.ledger.filter(e=>e.kind==='signingBonus'))
++ expect(result.hollywood!.businesses.find(b=>b.studioId===TARGET)!.development.projects).toEqual(p.source.development.projects)
++ expect(result.hollywood!.businesses.find(b=>b.studioId===TARGET)!.projects).toEqual(p.source.projects)
++ saves.makeSave(result)
++ return {result,record,script,carried,input}
++}
++function step(state:GameState){const before=JSON.stringify(state),next=tick(state);expect(JSON.stringify(state)).toBe(before);return next}
++function completion(kind:'default'|'explicit'){
++ const p=prepared(),c=retained(p,kind),second=step(c.result)
++ expect(second.market.tick).toBe(172)
++ expect(carriedProject(second,c.record.id)).toMatchObject({status:'drafting',dueWeek:173,assessment:null})
++ const text=saves.exportCurrentState(second),reload=saves.migrateToLive(saves.importSave(text)).state
++ expect(saves.exportCurrentState(reload)).toBe(text)
++ const final=step(second),replay=step(reload);expect(final.market.tick).toBe(173)
++ expect(saves.exportCurrentState(final)).toBe(saves.exportCurrentState(replay))
++ const project=carriedProject(final,c.record.id)
++ expect(project).toMatchObject({status:'review',dueWeek:null,reservation:null,writerIds:c.script.writerIds,conceptId:c.script.conceptId,productionId:null})
++ const concept=second.hollywood!.concepts.find(concept=>concept.id===c.script.conceptId)!
++ expect(concept).toBeDefined()
++ const uplift=developmentOfficeEstUplift(second),assessment=assessFirstDraft(concept,uplift)
++ expect(project.assessment).toEqual(assessment)
++ const completions=scriptRecord(final,c.record.id).scriptCompletions.filter(row=>row.projectId===c.carried.id)
++ expect(completions).toHaveLength(1)
++ expect(completions[0]).toMatchObject({projectId:c.carried.id,week:173,inputWeek:172,estUplift:uplift,writerRewriting:null,assessment})
++ expect(completions[0]!.developmentContext).toEqual({facilities:second.operations.facilities,placements:second.placement.facilities,paidRows:second.ledger.filter(r=>r.kind==='constructionCapex'&&r.week<=172&&second.placement.facilities.some(p=>p.projectId===r.constructionProjectId)).map(r=>({projectId:r.constructionProjectId!,week:r.week,amount:r.amount}))})
++ expect(final.hollywood!.businesses.find(b=>b.studioId===TARGET)!.development.projects).toEqual(p.source.development.projects)
++ expect(final.hollywood!.businesses.find(b=>b.studioId===TARGET)!.projects).toEqual(p.source.projects)
++ expect(scriptRecord(final,c.record.id).continuedScripts.filter(row=>row.project.id===c.carried.id)).toHaveLength(1)
++ expect(final.scriptDevelopment.projects).toEqual(c.result.scriptDevelopment.projects)
++ pureOriginal(p);return {p,c,second,final,project}
++}
++function rewriteRecord(state:GameState,id:string){const a=state.rights.absorptions.find(a=>a.id===id)!;if(a.producerVersion!=='absorption-scripts/v5')throw new Error('actual v5 rewrite owner required');return a}
++function rewriteDecision(state:GameState,id:string){const d=rewriteRecord(state,id).scriptDecisions.find(d=>d.kind==='rewrite');if(!d||d.kind!=='rewrite')throw new Error('actual rewrite decision required');return d}
++function rewritten(){
++ const j=completion('explicit'),projectId=j.c.carried.id,before=JSON.stringify(j.final)
++ expect(j.final.scriptDevelopment.projects).toEqual([])
++ expect(buyerScriptDevelopment(j.final).projects.map(p=>p.id)).toEqual([projectId])
++ const card=scriptProjectsReadModel(j.final).sections.needsReview.find(p=>p.projectId===projectId)!
++ expect(card.legalActions.some(a=>a.kind==='requestScriptRewrite')).toBe(true)
++ const state=applyActions(j.final,[{kind:'requestScriptRewrite',projectId}])
++ expect(JSON.stringify(j.final)).toBe(before)
++ saves.makeSave(state)
++ const record=rewriteRecord(state,j.c.record.id),decision=record.scriptDecisions.find(d=>d.kind==='rewrite')!
++ if(decision.kind!=='rewrite')throw new Error('real rewrite decision required')
++ expect(decision).toMatchObject({projectId,kind:'rewrite',week:173})
++ expect(record.scriptDecisions).toHaveLength(1)
++ expect(decision.nativeInput.development).toEqual(buyerScriptDevelopment(j.final))
++ expect(decision.nativeInput.operations).toEqual(buyerOperationsForAllWork(j.final))
++ expect(decision.allocationAuthority).toEqual({projectIds:buyerScriptDevelopment(j.final).projects.map(p=>p.id),workflowIds:buyerOperationsForAllWork(j.final).workflows.map(w=>w.productionId),productions:buyerOperatedProductions(j.final),occupiedSlots:decision.nativeInput.occupiedSlots,developmentContext:{facilities:j.final.operations.facilities,placements:j.final.placement.facilities,paidRows:j.final.ledger.filter(r=>r.kind==='constructionCapex'&&r.week<=173&&j.final.placement.facilities.some(p=>p.projectId===r.constructionProjectId)).map(r=>({projectId:r.constructionProjectId!,week:r.week,amount:r.amount}))},estUplift:developmentOfficeEstUplift(j.final)})
++ expect(decision.allocationAuthority.projectIds).toContain(projectId)
++ const native=nativeScript.requestScriptRewrite(decision.nativeInput.development,decision.nativeInput.operations,projectId,173,new Set(decision.nativeInput.occupiedSlots)).projects.find(p=>p.id===projectId)!
++ const project=carriedProject(state,j.c.record.id)
++ expect(project).toEqual(native);expect(project).toMatchObject({status:'rewriting',rewriteCount:1,dueWeek:174})
++ expect(project.reservation).toEqual(decision.reservation)
++ expect(state.operations.facilities.some(f=>f.id===project.reservation!.facilityId&&f.capability===project.reservation!.capability)).toBe(true)
++ expect(record.scriptCompletions).toEqual(scriptRecord(j.final,j.c.record.id).scriptCompletions)
++ expect(state.studio.cash).toBe(j.final.studio.cash);expect(state.ledger).toEqual(j.final.ledger)
++ const after=step(state);expect(after.market.tick).toBe(174)
++ const output=carriedProject(after,j.c.record.id),writer=state.talent.find(t=>t.id===project.writerId)!
++ expect(writer.skills.writing.rewriting).toBeDefined()
++ expect(output).toMatchObject({status:'review',dueWeek:null,reservation:null,rewriteCount:1})
++ expect(output.assessment).toEqual(nativeScript.rewriteAssessment(j.project.assessment!,writer))
++ const completions=rewriteRecord(after,j.c.record.id).scriptCompletions
++ expect(completions).toHaveLength(2);expect(completions[0]).toEqual(record.scriptCompletions[0])
++ expect(completions[1]).toMatchObject({projectId,week:174,inputWeek:173,writerRewriting:writer.skills.writing.rewriting,assessment:output.assessment})
++ expect(after.hollywood!.businesses.find(b=>b.studioId===TARGET)!.development.projects).toEqual(j.p.source.development.projects)
++ expect(after.hollywood!.businesses.find(b=>b.studioId===TARGET)!.projects).toEqual(j.p.source.projects)
++ pureOriginal(j.p);return {j,projectId,state,record,decision,after,output}
++}
++describe('P16 genuine carried script public rewrite',()=>{
++ it('actual public rewrite uses native buyer reservation and talent to append a second earned Review then public final Accept and once-only175 replay',()=>{
++  const a=rewritten(),text=saves.exportCurrentState(a.after),reload=saves.migrateToLive(saves.importSave(text)).state
++  expect(saves.exportCurrentState(reload)).toBe(text)
++  const before=JSON.stringify(a.after),ready=applyActions(a.after,[{kind:'acceptScript',projectId:a.projectId}])
++  expect(JSON.stringify(a.after)).toBe(before)
++  expect(carriedProject(ready,a.j.c.record.id)).toEqual({...a.output,status:'ready'})
++  const r=rewriteRecord(ready,a.j.c.record.id)
++  expect(r.scriptDecisions.map(d=>({projectId:d.projectId,kind:d.kind,week:d.week}))).toEqual([{projectId:a.projectId,kind:'rewrite',week:173},{projectId:a.projectId,kind:'accept',week:174}])
++  expect(r.scriptCompletions).toEqual(rewriteRecord(a.after,a.j.c.record.id).scriptCompletions)
++  const final=step(ready),replay=step(applyActions(reload,[{kind:'acceptScript',projectId:a.projectId}]))
++  expect(final.market.tick).toBe(175);expect(saves.exportCurrentState(final)).toBe(saves.exportCurrentState(replay))
++  expect(rewriteRecord(final,a.j.c.record.id).scriptDecisions).toEqual(r.scriptDecisions)
++  expect(rewriteRecord(final,a.j.c.record.id).scriptCompletions).toEqual(r.scriptCompletions)
++  const rejectedBefore=JSON.stringify(a.after)
++  try{expect(()=>applyActions(a.after,[{kind:'requestScriptRewrite',projectId:a.projectId}])).toThrow(/script development: rewrite rejected/)}finally{expect(JSON.stringify(a.after)).toBe(rejectedBefore)}
++ })
++ it('real rewritten history refuses missing request or second receipt wrong due talent assessment and historical capacity forgery with exact owners',()=>{
++  const a=rewritten()
++  const cases:Array<{label:string;expected:RegExp;change:(x:GameState)=>void}>=[
++   {label:'missing all actual buyer decisions',expected:/continued script: missing buyer script decision/,change:x=>{rewriteRecord(x,a.j.c.record.id).scriptDecisions=[]}},
++   {label:'missing second earned completion',expected:/continued script: buyer rewrite completion bijection differs/,change:x=>{rewriteRecord(x,a.j.c.record.id).scriptCompletions=rewriteRecord(x,a.j.c.record.id).scriptCompletions.slice(0,1)}},
++   {label:'rewrite input boundary changed',expected:/continued script: buyer rewrite completion boundary differs/,change:x=>{rewriteRecord(x,a.j.c.record.id).scriptCompletions[1]!.inputWeek=172}},
++   {label:'second earned assessment changed',expected:/continued script: native earned rewrite assessment differs/,change:x=>{rewriteRecord(x,a.j.c.record.id).scriptCompletions[1]!.assessment.actualStrength+=1}},
++   {label:'request before original earned Review',expected:/continued script: buyer review decision precedes earned completion/,change:x=>{rewriteDecision(x,a.j.c.record.id).week=172}},
++   {label:'wrong historical returned reservation',expected:/continued script: native rewrite reservation differs/,change:x=>{rewriteDecision(x,a.j.c.record.id).reservation.slot+=1}},
++   {label:'invented historical facility plus reservation preserves actual observation',expected:/continued script: native rewrite facilities differ from observed source/,change:x=>{const d=rewriteDecision(x,a.j.c.record.id),facility=d.reservation.facilityId;expect(d.nativeInput.operations.facilities.some(f=>f.id===facility)).toBe(true);d.nativeInput.operations.facilities=d.nativeInput.operations.facilities.map(f=>f.id===facility?{...f,id:'invented-native-facility'}:f);d.reservation.facilityId='invented-native-facility'}},
++   {label:'actual rewrite subject omitted from native input',expected:/continued script: native rewrite input differs from earned project/,change:x=>{const d=rewriteDecision(x,a.j.c.record.id);d.nativeInput.development.projects=d.nativeInput.development.projects.filter(p=>p.id!==a.projectId)}},
++   {label:'historical actual Review status rewritten in raw native input',expected:/continued script: native rewrite input differs from earned project/,change:x=>{rewriteDecision(x,a.j.c.record.id).nativeInput.development.projects.find(p=>p.id===a.projectId)!.status='ready'}},
++   {label:'historical Review invents a live reservation in raw native input',expected:/continued script: native rewrite input differs from earned project/,change:x=>{const d=rewriteDecision(x,a.j.c.record.id);d.nativeInput.development.projects.find(p=>p.id===a.projectId)!.reservation=structuredClone(d.reservation)}},
++   {label:'actual subject omitted from preserved pool manifest',expected:/continued script: native rewrite complete allocation pool differs/,change:x=>{const d=rewriteDecision(x,a.j.c.record.id);d.allocationAuthority.projectIds=d.allocationAuthority.projectIds.filter(id=>id!==a.projectId)}},
++   {label:'actual current rewrite count erased',expected:/continued script: native buyer project differs from original work\/earned completion/,change:x=>{carriedProject(x,a.j.c.record.id).rewriteCount=0}}
++
++  ]
++  for(const {label,change,expected} of cases){const x=structuredClone(a.after);change(x);const before=JSON.stringify(x);try{expect(()=>saves.makeSave(x),label).toThrow(expected)}finally{expect(JSON.stringify(x),label).toBe(before)}}
++ })
++ it('actual native rewrite producer failure after returning real rewriting work preserves original Review caller',()=>{
++  const j=completion('explicit'),before=JSON.stringify(j.final),real=nativeScript.requestScriptRewrite,marker='CARRIED_NATIVE_REWRITE_FAILURE';let reached=0
++  const spy=vi.spyOn(nativeScript,'requestScriptRewrite').mockImplementation((...args)=>{const result=real(...args);if(args[2]===j.c.carried.id){expect(result.projects.find(p=>p.id===args[2])).toMatchObject({status:'rewriting',rewriteCount:1,dueWeek:174});reached++;throw new Error(marker)}return result})
++  try{expect(()=>applyActions(j.final,[{kind:'requestScriptRewrite',projectId:j.c.carried.id}])).toThrow(marker);expect(reached).toBe(1)}finally{spy.mockRestore();expect(JSON.stringify(j.final)).toBe(before);pureOriginal(j.p)}
++  saves.makeSave(j.final)
++ })
++})
