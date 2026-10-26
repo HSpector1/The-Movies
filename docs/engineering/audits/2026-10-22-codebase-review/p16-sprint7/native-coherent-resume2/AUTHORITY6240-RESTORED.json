@@ -1,0 +1,7 @@
+{
+  "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json",
+  "gitBlob": "2c087275e1d68eb756dc02400033ea8a5c077687",
+  "bytes": 6720108,
+  "sha256": "c9bfb1428cf27dad13c26b6f135f3cd3ee00b9303c45076e97abecb357c8aab1",
+  "reason": "Restore exact tracked sparse input after audited20ENOENT failures; no fixture fabrication"
+}

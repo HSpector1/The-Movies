@@ -1,0 +1,130 @@
+{
+  "classification": "interrupted-partial",
+  "wrapperExit": 143,
+  "sourceHead": "5a730f42d5a66d22cba4808b5c642510c2f068bb",
+  "sourcePins": 1642,
+  "pinsMatch": true,
+  "screenplay": {
+    "childExit": 0,
+    "passed": 10,
+    "failed": 0,
+    "completedAt": "2026-10-26T14:03:15-05:00",
+    "assertions": [
+      {
+        "file": "p16-carried-script-accept.test.ts",
+        "test": "public173 Review to Ready records one durable decision and offers only supported management actions while source employment titles and earned assessment remain unchanged",
+        "vitestStatus": "passed",
+        "durationMs": 17438.635005,
+        "originalBudgetMs": 5000,
+        "budgetQualified": false
+      },
+      {
+        "file": "p16-carried-script-accept.test.ts",
+        "test": "fully admitted accepted state rejects missing wrong future premature and duplicate decision authority with precise reader owners and whole caller purity",
+        "vitestStatus": "passed",
+        "durationMs": 14189.579993999996,
+        "originalBudgetMs": 5000,
+        "budgetQualified": false
+      },
+      {
+        "file": "p16-carried-script-accept.test.ts",
+        "test": "real native accept producer failure after producing Ready preserves original Review caller without claiming an uncalled makeSave seam",
+        "vitestStatus": "passed",
+        "durationMs": 5213.614663,
+        "originalBudgetMs": 5000,
+        "budgetQualified": false
+      },
+      {
+        "file": "p16-carried-script-rewrite.test.ts",
+        "test": "actual public rewrite uses native buyer reservation and talent to append a second earned Review then public final Accept and once-only175 replay",
+        "vitestStatus": "passed",
+        "durationMs": 11405.201643,
+        "originalBudgetMs": 5000,
+        "budgetQualified": false
+      },
+      {
+        "file": "p16-carried-script-rewrite.test.ts",
+        "test": "real rewritten history refuses missing request or second receipt wrong due talent assessment and historical capacity forgery with exact owners",
+        "vitestStatus": "passed",
+        "durationMs": 12280.102428000002,
+        "originalBudgetMs": 5000,
+        "budgetQualified": false
+      },
+      {
+        "file": "p16-carried-script-rewrite.test.ts",
+        "test": "actual native rewrite producer failure after returning real rewriting work preserves original Review caller",
+        "vitestStatus": "passed",
+        "durationMs": 8435.432728000003,
+        "originalBudgetMs": 5000,
+        "budgetQualified": false
+      },
+      {
+        "file": "p16-retained-drafting-continuation.test.ts",
+        "test": "default actual writer retention carries one namespaced live buyer draft through actual due173 with creator paid history save and replay",
+        "vitestStatus": "passed",
+        "durationMs": 9325.521428,
+        "originalBudgetMs": 5000,
+        "budgetQualified": false
+      },
+      {
+        "file": "p16-retained-drafting-continuation.test.ts",
+        "test": "explicit all required writers in a partial company choice retains original terms without a second bonus and completes native buyer work once",
+        "vitestStatus": "passed",
+        "durationMs": 7500.393036000001,
+        "originalBudgetMs": 5000,
+        "budgetQualified": false
+      },
+      {
+        "file": "p16-retained-drafting-continuation.test.ts",
+        "test": "real completed carried work full reader refuses missing live project source ID collision altered writer or invented assessment without mutating caller",
+        "vitestStatus": "passed",
+        "durationMs": 13694.918285000003,
+        "originalBudgetMs": 5000,
+        "budgetQualified": false
+      },
+      {
+        "file": "p16-retained-drafting-continuation.test.ts",
+        "test": "real fully joined retained draft publication fault leaves original paid writer work cash title and caller unchanged",
+        "vitestStatus": "passed",
+        "durationMs": 5033.264405000002,
+        "originalBudgetMs": 5000,
+        "budgetQualified": false
+      }
+    ]
+  },
+  "affected": {
+    "childExit": null,
+    "completeJson": false,
+    "observedFileSummaries": [
+      {
+        "file": "p15c1-campaign-legacy.test.ts",
+        "passed": 71,
+        "failed": 1,
+        "firstFailure": "campaign-legacy-definition-version-export: Test timed out in 5000ms",
+        "loggedDurationMs": 5010
+      },
+      {
+        "file": "p15a1-shared-market.test.ts",
+        "passed": 33,
+        "failed": 0
+      },
+      {
+        "file": "p15c2-campaign-legacy-integration.test.ts",
+        "passed": 17,
+        "failed": 20,
+        "firstFailure": "ENOENT authority-6240.json; fixture-dependent assertions unreached"
+      }
+    ],
+    "noCompleteFileSummary": [
+      "tests/p14b1-first-take.test.ts",
+      "tests/p14c2rm-writer-continuation.test.ts",
+      "tests/p14c3-save-v38.test.ts",
+      "tests/stabilization-l02-casting-profession.test.ts",
+      "tests/casting-package-read-model.test.ts",
+      "tests/p14p4p5-opportunities.test.ts"
+    ]
+  },
+  "types": "unrun",
+  "exclusiveQualification": false,
+  "chronology": "Screenplay child completed before the later observed foreign runner/Godot started; later observation cannot explain those ten overruns."
+}
