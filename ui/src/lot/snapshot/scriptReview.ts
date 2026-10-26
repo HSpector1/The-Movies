@@ -213,6 +213,7 @@ const BLOCKER_KINDS = new Set([
   // a room, not a counter.
   'package-staffing',
   'casting-session',
+  'carried-action',
   'no-concepts',
   'no-writers',
 ])

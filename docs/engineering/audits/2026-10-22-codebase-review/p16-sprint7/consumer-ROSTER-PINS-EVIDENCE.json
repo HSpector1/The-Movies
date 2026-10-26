@@ -1,0 +1,34 @@
+{
+  "method": "Parse literal map pairs including named constants from source9ff330b4; exclude each exact OLD_SCHEMA; sort ordinal by ID; sha256(json.dumps(pairs,separators=(comma,colon))). No game/runtime or failure-derived outputs.",
+  "registrySource": "9ff330b4:bridge/runtime-checkpoint.ts",
+  "registrySourceSHA256": "3b5601e3750922cfe26d698ada2c149a26c95d35910793faeef32096d8dc2f6b",
+  "authenticAddition": [
+    "sha256:2b94e6df66cd5b45e398861c8130085434d4bb9c4d0cf9bdcb97607699799604",
+    "projection-v62"
+  ],
+  "cases": [
+    {
+      "path": "tests/bridge-p14p4p5-opportunities.test.ts",
+      "excludedOLD_SCHEMA": "sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302",
+      "oldLength": 49,
+      "oldSHA256": "0ce03ceaf04a0a67cd225e8c83ea3bb58867486a35c24bd15ccfe751da659193",
+      "oldPinReproduced": true,
+      "newLength": 50,
+      "newSHA256": "02f707e70f7162358974a2d145e103fb1ab6fa1fc1579ce4a83907cb6375e8f0",
+      "versionAdjustedPreimageSHA256": "1b0337f9528cefeb85bbbc321e5ebd87d81fb6781cd9f875f64f79b34cde4ea6",
+      "postimageSHA256": "ccc965fcc1751cd852a34a497f2f638395d3f141cfb0a8e0ea91ce9a92d0ddb0"
+    },
+    {
+      "path": "tests/bridge-p14r2r3-prior55.test.ts",
+      "excludedOLD_SCHEMA": "sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158",
+      "oldLength": 49,
+      "oldSHA256": "9bf201f42187876c1bffe9209303f3f870c3a4c80b1335d695f555f1e0ad446c",
+      "oldPinReproduced": true,
+      "newLength": 50,
+      "newSHA256": "83e188de62b8061164ee875e9956bfeade3e04583053c20ad52d7ee650c34d35",
+      "versionAdjustedPreimageSHA256": "9b612a59076748740c29feb4bd483309b97525345b69a7bc6637fb06c6ce6112",
+      "postimageSHA256": "f509c76107c828502964cdedb8034add9a5157728337a8bf8e3fbea43867346a"
+    }
+  ],
+  "patchSHA256": "12b587831382d86a80dc3825ef933f48ef7146479e8fb373e3e0d2fa54823e44"
+}

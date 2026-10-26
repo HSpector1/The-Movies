@@ -2,7 +2,14 @@
 
 Last writer: Codex, 2026-10-26, sole coordinator for the authorized Sprints 5–16 program.
 
-## Experimental retained-writing slice — 2026-10-26 (current side tree)
+## Consumer boundary checkpoint — 2026-10-26 (current side tree)
+
+- Reviewed browser parser now accepts exact carried-action while refusing unknown kinds: existing leaf RED238ms, complete19/19 GREEN (max274ms), original30s budget. Projection63 generated; contract and fixture checks0. Exact outgoing generated62 identity registered; reviewer independently verified both roster49→50 hash updates. No gameplay or save policy change.
+- Source descends9ff330b4 on experimental p16-retained-writing-20261026; primary013c4edc unchanged. All generated changes/audits and original RED preserved under p16-sprint7. No runtime/lock remains.
+- Next: run existing adapted p63-declaration-measurement.ts through current preflight/sole lane on this committed source; independently measured schema/F10/F11 identities must replace current generator-test pins. Then applicable complete Bridge/UI consumer gate/types after exact required input materialization.35 current projection-literal test files updated, frozen fixtures preserved, runtime UNRUN. Do not promote experimental source until required qualification.
+- Fulltree Sprint5 still needs three original r3n1 inputs. Genuine coexistence, broader acquired screenplay lifecycle/history, platform and predecessor requirements remain open. Continue from current records LEDGER; this is not Sprint7 completion.
+
+## Experimental retained-writing slice — 2026-10-26 (previous checkpoint)
 
 - Coordinator-owned p16-retained-writing-20261026 descends from6fdbe966; primary candidate013c4edc unchanged. This checkpoint repairs the carried-action casting mapping and exact hostile first-owner expectation. No feature-complete/P16 technical/main promotion claim.
 - Root/Bridge types0; retained complete4/4 within5s (max4.142s). Prior unchanged Accept3/3 and Rewrite3/3 functional results reused, four over5s. Affected history/consumer128/129: sole failure exactly matches332a742a live49-versus-strict38 expectation; final purity assertion remains unreached. Four historical passed bodies exceed5s.

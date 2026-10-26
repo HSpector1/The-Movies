@@ -146,7 +146,7 @@ function baseEdge(index: number, a: string, b: string, week: number, extra: Part
 
 describe('P14B10 T1 — the projection version moves once for slice B (1347-F Addendum)', () => {
   it('PROJECTION_VERSION is 57', () => {
-    expect(PROJECTION_VERSION).toBe(62)
+    expect(PROJECTION_VERSION).toBe(63)
   })
 })
 

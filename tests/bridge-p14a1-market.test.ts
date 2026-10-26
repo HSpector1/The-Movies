@@ -149,9 +149,9 @@ function employmentQuery(sessionId: string, targetId: string): IndustryQuery {
 
 describe('group 1: PROJECTION_VERSION', () => {
   it('PROJECTION_VERSION is 46; the schema $id and x-project-studio.projectionVersion move with it', () => {
-    expect(PROJECTION_VERSION).toBe(62)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-62`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(62)
+    expect(PROJECTION_VERSION).toBe(63)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-63`)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(63)
   })
 })
 

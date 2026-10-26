@@ -1,0 +1,5 @@
+{
+  "bridge/schema/project-studio-bridge.schema.json": "94f78b0a64a523ad60bf079f78c9d795726886b5534014470a737da33ac270e2",
+  "generated/unity/StudioBridgeDtos.Generated.cs": "49e31be22eb03c02fc565c4d8589dabd13a14450cbd6512f86f14dfab0176013",
+  "generated/unity/project-studio-bridge.contract-manifest.json": "2ccdb2453b56387ee20514712728b9050c4e1374d758a3fbea7ec8192e3699f5"
+}

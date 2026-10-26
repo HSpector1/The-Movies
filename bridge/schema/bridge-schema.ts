@@ -287,7 +287,9 @@ export const PROTOCOL_VERSION = 4 as const
 // Projection59: separate F40 finance categories and own retained estate accounting. Protocol4 is unchanged.
 // Projection60: actual absorbed Ranking definition and retained employment continuation reason.
 // Projection62: explicit stopped-drafting/rewriting outcomes in the coupled absorption preview.
-export const PROJECTION_VERSION = 62 as const
+// Projection63: carried-screenplay blocker and retained-writing absorption verdicts.
+// Protocol4 and Save49 are unchanged; generated artifacts derive this identity.
+export const PROJECTION_VERSION = 63 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })

@@ -200,6 +200,21 @@ describe('current Lot screenplay review context', () => {
         remedy: expect.any(String),
       }),
     ])
+    // Parser-fixture control for the exact blocker the carried Review owner emits.
+    // It supplies presentation data only, not invented acquisition history.
+    const carriedBlocker = {
+      kind: 'carried-action' as const,
+      headline: 'Buyer rewrite unavailable',
+      detail: 'Another screenplay history requires a separate buyer work owner.',
+      remedy: 'Accept this draft or keep it in Review.',
+    }
+    const carriedBoard = boardFor(withoutWriterContract)
+    selectedCard(carriedBoard).blockers = [carriedBlocker]
+    mockBoard(carriedBoard)
+    expect(currentLotScriptReviewContext(withoutWriterContract)).toMatchObject({
+      blockers: [carriedBlocker],
+      legalActions: [expect.objectContaining({ kind: 'acceptScript' })],
+    })
   })
 
   it('requires an optional event target to be a closed exact ID/title pair', () => {
@@ -392,6 +407,10 @@ describe('current Lot screenplay review context', () => {
   it('rejects malformed assessment, optional fields, and blocker records', () => {
     const state = firstReviewState('lot-script-review-malformed')
     const mutations: Array<(board: ScriptProjectsReadModel) => void> = [
+      (board) => { selectedCard(board).blockers = [{
+        kind: 'unknown-carried-action' as never, headline: 'Unavailable',
+        detail: 'Unknown blocker kind', remedy: 'No authority',
+      }] },
       (board) => { selectedCard(board).dueWeek = 1 },
       (board) => { selectedCard(board).weeksUntilDecision = 0 },
       (board) => { selectedCard(board).productionId = '' },

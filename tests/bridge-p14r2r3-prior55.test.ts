@@ -183,8 +183,8 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
 
     // The schema/projection literals the migration target must already carry.
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(62)
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-62')
+    expect(PROJECTION_VERSION).toBe(63)
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-63')
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OLD_SCHEMA)).toEqual([[OLD_SCHEMA, 'projection-v55']])
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     // 1308-D required change 1 / 1308-F item 1 (B55-3-style older-roster pin, mirrored from
@@ -205,8 +205,9 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
       .sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0)
     // Projection 62 registers outgoing58–61 as well; exclude only genuine55.
     // Recomputed by the same sorted canonical-pair method; the predecessor retains its 45/fc2e8804 pin.
-    expect(older).toHaveLength(49)
-    expect(sha(canonicalJson(older))).toBe('9bf201f42187876c1bffe9209303f3f870c3a4c80b1335d695f555f1e0ad446c')
+    // Projection63 adds only authentic outgoing62; same independently reproduced sorted-pair method.
+    expect(older).toHaveLength(50)
+    expect(sha(canonicalJson(older))).toBe('83e188de62b8061164ee875e9956bfeade3e04583053c20ad52d7ee650c34d35')
 
     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
     expect(loaded.migratedFromProtocolVersion).toBe(4)

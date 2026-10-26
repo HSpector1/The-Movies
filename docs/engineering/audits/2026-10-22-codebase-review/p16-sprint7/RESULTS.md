@@ -1,3 +1,7 @@
+## Consumer follow-up checkpoint
+
+Browser strict parser defect proven by an existing-leaf control (null for lawful carried-action). One vocabulary entry fixes it; complete19/19, max274ms under original30s. Constructed presentation fixture explicitly proves parsing only, not a genuine acquired browser journey. Unknown-kind refusal remains. Projection63 generation and contract/fixture checks all0. Outgoing generated62 migration identity retained; two sorted-roster pins independently reproduced49→50. All source/generated writes audited; no active run. Independent generated declaration hash measurement and complete current-version Bridge/UI consumer qualification remain next and UNRUN.
+
 # Retained-writing checkpoint — 2026-10-26
 
 Primary candidate remains013c4edc; this experimental branch is not Sprint7-complete or integration-qualified. Retained drafting, actual due-week completion, public Accept and bounded Rewrite now reach their genuine transaction/save/replay assertions. No P17/P18 or gameplay main promotion.

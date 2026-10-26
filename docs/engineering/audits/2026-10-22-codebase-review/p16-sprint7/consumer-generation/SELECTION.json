@@ -1,0 +1,16 @@
+{
+  "head": "9ff330b4a2de131037c4dbcfc03de9676a558b61",
+  "scope": [
+    "complete UI parser file budget30000 unchanged",
+    "canonical contract generation",
+    "contract check",
+    "fixture check"
+  ],
+  "declaredGeneratedWrites": [
+    "bridge/schema/project-studio-bridge.schema.json",
+    "generated/unity/StudioBridgeDtos.Generated.cs",
+    "generated/unity/project-studio-bridge.contract-manifest.json"
+  ],
+  "source": "reviewed schema63/outgoing62 registry and parser whitelist; all other source/index/HANDOFF frozen through audit",
+  "manifest": "SOURCE-MANIFEST.json"
+}

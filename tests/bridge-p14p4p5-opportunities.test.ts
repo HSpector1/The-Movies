@@ -513,8 +513,8 @@ describe('P4/P5 closed Bridge material and outgoing runtime authority', () => {
     const old = prior54(), preimage = canonicalJson(old.value), factory = vi.fn(() => '1236-prior54')
     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
     expect(loaded.migratedFromProtocolVersion).toBe(4); expect(factory).toHaveBeenCalledTimes(1)
-    expect(PROTOCOL_VERSION).toBe(4); expect(PROJECTION_VERSION).toBe(62)
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-62')
+    expect(PROTOCOL_VERSION).toBe(4); expect(PROJECTION_VERSION).toBe(63)
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-63')
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OLD_SCHEMA)).toEqual([[OLD_SCHEMA, 'projection-v54']])
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     const older = [...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id !== OLD_SCHEMA)
@@ -535,8 +535,9 @@ describe('P4/P5 closed Bridge material and outgoing runtime authority', () => {
     // P16 rebase round 6: the registry gained outgoing58-61 (projection-v58..v61, the P16 rebase's own entries,
     // 53571456), so the sorted pairs excluding 54 number 49. Recomputed by the same method, never from a run: the
     // method reproduces the prior pin 66ff414a... from main 8792de52's map, then gives 0ce03cea... for this map.
-    expect(older).toHaveLength(49)
-    expect(sha(canonicalJson(older))).toBe('0ce03ceaf04a0a67cd225e8c83ea3bb58867486a35c24bd15ccfe751da659193')
+    // Projection63 adds only authentic outgoing62; same independently reproduced sorted-pair method.
+    expect(older).toHaveLength(50)
+    expect(sha(canonicalJson(older))).toBe('02f707e70f7162358974a2d145e103fb1ab6fa1fc1579ce4a83907cb6375e8f0')
     const current = loaded.hydrated.checkpoint
     expect(current).toMatchObject({ schemaId: SCHEMA_ID, sessionId: '1236-prior54', stateRevision: 0, journal: [], journalDigest: sha('[]') })
     expect(current.sessionId).not.toBe(old.value.sessionId)
