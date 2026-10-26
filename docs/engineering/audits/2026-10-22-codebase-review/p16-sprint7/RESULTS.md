@@ -1,3 +1,9 @@
+## Consumer continuation remains resource-blocked — 2026-10-26, 15:58 CDT
+
+Published experimental9c91232d is unchanged and clean. Clear host samples at15:52:18,15:53:36,15:55:26 and15:57:30 preceded fresh successful preflight (10,536,808KiB free) and the remaining35-file launch15:57:45. Foreign Godot then started during collection. Only our verified six-process tree was stopped; wrapper143, no completed tests/JSON. Independent audit verifies1,645pins, absent owned jobs/lane and releases the freeze. The used runner must not be relaunched.
+
+No new consumer qualification results from this attempt. Focused root types and30 assertions across Accept/queue/release remain as published, with Accept overruns and overlap disclosed. A sustained coordinated window or confirmed completion of the other terminal's intensive work is necessary before another long attempt; repeated idle snapshots have not provided that window. Owner declined pausing foreign work; no foreign signals or new approval loop. Full-game missing inputs and retirement/acquired-history conjunction remain independent blockers. Source9c91232d and primary013c4edc are preserved; no gameplay main merge, prerequisite waiver or program-completion claim.
+
 Publication verified: experimental `p16-retained-writing-20261026` is `9c91232dd980cbe05399b6fd77ed55454e671f86` on explicit GitHub ref. Primary remains `013c4edc90c0ce063fea00ebb187161ad6eb3414`; main remains `ab65eb20c73c35ac3530f59181332cc9a313b604`. Prepared next runner is `~/studio-scratch/p16-sprint7-verification-20261026/native-queue-consumers/run.sh`, UNRUN pending fresh preflight and host availability.
 
 ## Queued-release repair focused verification complete — 2026-10-26, 15:48 CDT
