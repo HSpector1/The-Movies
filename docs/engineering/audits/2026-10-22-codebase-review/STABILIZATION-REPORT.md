@@ -1,3 +1,15 @@
+## Authentic queue witness prepared, unrun — 2026-10-26, 15:13 CDT
+
+Independent test preparation reuses the actual held state after every original direct-lifecycle assertion. A separate fork publicly hires the six real R04 former employees, commissions and earns own c-00, Accepts it, then commissions two real one-week drafts to occupy both Development & Casting slots. Their next completion should free capacity on the same input week as the committed carried release. Current hiring, term, cash, draft and queue premises are explicit assertions, not claimed results. No transplanted cash/roster, cheaper substitute, changed budget, new test leaf or removed assertion.
+
+Patch a5a5669a021ebd5c7f16640bf442c8066f5705c76acc1f8030d98abdf8b4c063 is installed only in the existing test file on experimental e0d4c239; production source unchanged. Exact pre/postimages, 13 source/helper pins and premise report are preserved under native-greenlight/queue-test-preparation. Fresh native-queue-red/run.sh is prepared UNRUN with1,645pins. Foreign Godot was active before preflight, so no runtime launched. A setup failure must not be called reproduction of the conditional queue defect. Check again in five minutes; broader35 remains resource-blocked and original results remain preserved.
+
+## Recurring foreign workload — 2026-10-26, 15:07 CDT
+
+The 15:04 host check and fresh preflight were clear. The remaining-35 consumer attempt then met another foreign Godot launch during collection; controlled interruption ended wrapper143 with no completed results. Independent audit verifies1,645pins, all owned PIDs absent and lane released. The stop script's final SIGCONT raced the already-exited owned shell; no foreign process was signaled. Both consumer runners are USED, not reusable launch commands. Longer verification remains blocked by recurring foreign execution; a fresh idle snapshot is not evidence that the other session finished. Continue requested five-minute checks, but avoid repeating an unchanged long attempt without useful availability evidence.
+
+Completed UI20 and core63 outcomes remain reusable on e0d4c239. Exact source-only QUEUE-PREMISE identifies absent own Ready work in the retained capture; independent test preparation is now checking ordinary commission/completion and paid staffing as a lawful extension. No runtime proof, source patch or acceptance claim exists for that extension yet.
+
 ## Consumer continuation — 2026-10-26, 15:01 CDT
 
 Experimental native lifecycle source is published at e0d4c23939bcb4caf35957896959c32afef82c6b (source commit 2ba1ecfb). Final consumer attempt completed UI 20/20 within 30-second budgets and three core files: market 16/16, waiver 32/32, relationships 10/15. The five D5 first errors exactly match the retained predecessor; later assertions remain unreached. Other 35 core files lack completion. Foreign Godot restarted around 14:59; only the verified Studio tree was stopped, wrapper 143. Independent audit verified all 1,645 pins and released the freeze. Keep completed results and original timings; no full gate claim.
