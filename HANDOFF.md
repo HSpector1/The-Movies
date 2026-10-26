@@ -1,8 +1,18 @@
 # HANDOFF
 
-Last writer: Codex, 2026-10-25, sole coordinator for the stabilization order below.
+Last writer: Codex, 2026-10-25, sole coordinator for the authorized Sprints 5–16 program.
 
-## Astra engineering Sprint 4 — complete, 2026-10-25 (current)
+## Sprints 5–16 authorized program — active, 2026-10-25 (current)
+
+- Owner authorization: `docs/engineering/audits/2026-10-22-codebase-review/p16-sprint5/OWNER-ASSIGNMENT.txt`. Continue eligible bounded packages without routine approvals; P17/P18 require qualified technical predecessors. No gameplay promotion to main. This supersedes historical stop-after-sprint and no-P17/P18 notes only within the new scope.
+- Published candidate `p16-rebase-20261024` at `013c4edc90c0ce063fea00ebb187161ad6eb3414`, explicit remote verified; records-only checkpoint over unchanged gameplay base `b3be2b78f821ca356158b63083eced051d20f3f7`. Main/wip entry `0bf84f9252f34671849a3d3c4dc638b945f38c8e`; this records-only publication follows. No gameplay source changed. Sole coordinator/integration writer; Sol external preparation only.
+- Sprint 5 BLOCKED: actual equipment preflight at 22:31 CDT refused with 2,261,252 KiB free versus launch 3,670,016 / runtime 3,145,728 KiB. Zero detected heavy jobs at that observation; no Studio lane/job started. This is not an exclusive-window guarantee. No repeated failed preflight, cleanup or foreign termination.
+- One tracked full-gate input restored exactly: authority-failure.json blob `762fdec7330a1f24a126b6ed0e763e7e79ccfc94`. Three ignored r3n1 checkpoints remain absent; known manifests lack them and historical records locate them on the old laptop. Original package/reports and sufficient headroom/exclusive window requested from Owner. Evidence: `p16-sprint5/INPUT-RECOVERY.md` and `ENTRY.json`; raw host receipt stays private in scratch.
+- Independent preparation: 13-path retained-writing/Accept/Rewrite draft and unchanged ten tests preserved outside candidate. Final independent review found omitted retirement-writing authority; installation BLOCKED pending proper live/save authority integration and runtime witness (p16-sprint5/DRAFT-REVIEW.md). Runtime, integration and Sprint 7 completion remain unclaimed. Existing browser smoke already covers new studio → film release → save/reload; no replacement harness. See program rows in LEDGER and preserved Sprint 4 lessons/process limit.
+- Next: recover original three-fixture package/provenance; once actual resources/exclusivity change, bind the prepared full-tree runner/selection to this candidate, pass current equipment preflight and execute full core (includes Bridge) plus UI once through sole lane. Freeze source/index/HANDOFF through postflight and independent audit. Do not substitute a P16-only run or manufacture historical inputs.
+- No new gameplay policy decision requested. Sprints 10–14 and combined platform qualification remain dependent; native/browser/Owner acceptance stays separate. Original current200, prior failures and candidates preserved. Program not complete; do not promise background execution.
+
+## Astra engineering Sprint 4 — complete, 2026-10-25 (historical)
 
 - Candidate branch `p16-rebase-20261024`; reviewed source/test checkpoint `3364567ccfa2f29d240b8a73f30e91fcb1816bd5` descends from `b5566fc12acdfb61b18138dc7fa288ea59c24780`. Final candidate `b3be2b78f821ca356158b63083eced051d20f3f7` is pushed and explicit GitHub ref verified; only evidence/handoff changed after the source checkpoint. Main/wip entry `632dc4587ee16b7ae62d6fd6c604652171adaf0d`; records only, no gameplay promotion.
 - Reviewed skill reuse: S7 15.954→12.610s, post-opening7.134→6.599s, still over5s. Named null-row refusal fixed with genuine full-reader RED; original48 historical condition/closure/money refusal composition now reached, but extended leaf5.320s is not timing-qualified.

@@ -409,3 +409,26 @@ Execution qualification limit: coordinator used the historical2.3GB note instead
 Natural C08 close remains without a genuine shared-writer/two-production rival input; current native starts/routes and inspected captures do not supply one. This bounded evidence is not proof all historical saves impossible. Named player-ledger/ended-manifest, Legacy/fund, shared-market and older direct-step compositions remain open. Unsupported transaction producers remain explicit refusals; no P17/P18/new gameplay added. Native/browser/Owner playtesting and P16 promotion remain separate requirements. Owner A–E stay settled; no new policy ruling requested. [Results](p16-sprint4/RESULTS.md), [blocker reconciliation](p16-sprint4/integration/BLOCKERS.md), [review](p16-sprint4/REVIEW.md), and [process limit](p16-sprint4/PROCESS-LIMIT.md) preserve the exact scope. Minimum next sprint: recover required full-gate inputs/headroom, qualify the current full tree once, then actionable regression/platform/player work. Do not start it automatically.
 
 Final Sprint4 candidate `b3be2b78f821ca356158b63083eced051d20f3f7` pushed and explicit remote ref verified. Reviewed source/test checkpoint `3364567ccfa2f29d240b8a73f30e91fcb1816bd5`; subsequent candidate commit is records only. See [publication receipt](p16-sprint4/PUBLICATION.json).
+
+## Authorized Sprints 5–16 program — 2026-10-25
+
+Governing [Owner assignment](p16-sprint5/OWNER-ASSIGNMENT.txt) supersedes routine stop-after-sprint instructions. Entry candidate for every row is `b3be2b78f821ca356158b63083eced051d20f3f7`; no later gameplay candidate exists at this checkpoint. Continue eligible packages without another routine approval, but no gameplay promotion to main or predecessor waiver. Sprint 4 results retain their resource/exclusivity limitations.
+
+| Sprint | Status at entry candidate | Remaining dependency / exact next action |
+| --- | --- | --- |
+| 5 — full baseline | BLOCKED | Recover three original r3n1 inputs/reports; sufficient disk and exclusive window; bind and pass current preflight, run prepared full core-including-Bridge/UI once. One tracked input restored and hash-verified. |
+| 6 — regression/browser | NOT RUN | Classify actual Sprint 5 outcomes; existing ui/e2e/smoke.spec.ts supplies real production/release/save route under original 120 s budget. Browser launch also resource-blocked. |
+| 7 — screenplay continuation | DRAFT PREPARED; INSTALLATION BLOCKED | Thirteen-path adaptation and exact final ten tests preserved outside baseline. Review identifies omitted retirement-writing authority; resolve and qualify before installation. Carried greenlight and broader screenplay-history support remain required. |
+| 8 — other acquisition producers | NOT STARTED | Implement only adopted remaining producers against coherent P16 source; no guard removal ahead of producer. Natural C-08 remains genuinely unavailable under current inspected routes. |
+| 9 — technical P16 checkpoint | DEPENDENCY BLOCKED | Coherent Sprints 6–8, historical/consumer gates and actual browser transactions; no immutable qualified checkpoint yet. |
+| 10 — P17 continuation | PREDECESSOR BLOCKED | Actual qualified P16 technical checkpoint before adapting preserved P17 source. |
+| 11 — P17 appearances/UI | PREDECESSOR BLOCKED | Real P17 continuation/rights owners, then bounded adopted cameo and player journey. |
+| 12 — P18 commission | PREDECESSOR BLOCKED | Qualified P16/P17 technical predecessors and shared workload owners. |
+| 13 — P18 lifecycle | PREDECESSOR BLOCKED | Real commissioned season before delivery/cancellation/distribution qualification. |
+| 14 — combined campaign | PREDECESSOR BLOCKED | Coherent qualified combined candidate, authentic campaign inputs and resource-qualified full milestone. |
+| 15 — Unity/native | NOT STARTED | Resolve actual authorized counterpart/toolchain and paired combined schema/source; generated C# is not native acceptance. |
+| 16 — playtest/handoff | NOT STARTED | Qualified available platform and reproducible candidate; Owner acceptance remains human. |
+
+Sprint 5 entry preflight refused at 2,261,252 KiB, below 3,670,016 KiB launch and 3,145,728 KiB runtime floors. No heavy command ran. Private process inventories remain local; [sanitized receipt](p16-sprint5/ENTRY.json) and [input recovery](p16-sprint5/INPUT-RECOVERY.md) preserve the exact limitation. The three missing fixture families are historical ENOENT gaps, not newly demonstrated gameplay defects. No threshold change, invented fixture, cleanup or repeating preflight against unchanged conditions.
+
+Publication: candidate `013c4edc90c0ce063fea00ebb187161ad6eb3414` on `p16-rebase-20261024` pushed and explicit GitHub ref verified. This checkpoint changes only HANDOFF/docs; executable gameplay remains the b3be2b78 baseline. Sprint 5 is blocked, draft installation is blocked, and the authorized program remains incomplete.

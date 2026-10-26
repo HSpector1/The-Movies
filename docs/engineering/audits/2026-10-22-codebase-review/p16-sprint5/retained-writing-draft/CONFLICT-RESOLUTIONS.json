@@ -1,0 +1,11 @@
+[
+  {
+    "path": "src/core/actions.ts",
+    "historicalOldLines": [
+      2058,
+      2064
+    ],
+    "resolution": "Apply only the carried external occupancy union to the current commissionScriptProject call; preserve current poolDraftWeeks computation and requireWriterTermCoversDraft guard. The old inline scriptDraftWeeks context no longer exists due to landed writer-term validation.",
+    "status": "STATIC_MANUAL_CONTEXT_ADAPTATION_NO_RUNTIME"
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "status": "UNCHANGED_FINAL_TEN_BODIES_STATIC_UNRUN",
+  "files": [
+    {
+      "path": "tests/p16-retained-drafting-continuation.test.ts",
+      "packet": "p16-retained-drafting-continuation-tests-r3-bound",
+      "sha256": "c26900d8ddf8f95f501d7ed6d6b41d67fea903027809c68157fb4821677cbec0",
+      "identities": 4,
+      "budgetMs": 5000
+    },
+    {
+      "path": "tests/p16-carried-script-accept.test.ts",
+      "packet": "p16-carried-script-accept-tests-r5-rewrite-r3-bound",
+      "sha256": "a7bd894bd802569aa52455a57483b5d46c9111bdb59d4e525027e2c5751603e0",
+      "identities": 3,
+      "budgetMs": 5000
+    },
+    {
+      "path": "tests/p16-carried-script-rewrite.test.ts",
+      "packet": "p16-carried-script-rewrite-tests-r3-bound",
+      "sha256": "2fd0f1a06cb6656b5c97320137a71ddae537b3b0cf534e9d0e15d6b18bb14d85",
+      "identities": 3,
+      "budgetMs": 5000
+    }
+  ]
+}

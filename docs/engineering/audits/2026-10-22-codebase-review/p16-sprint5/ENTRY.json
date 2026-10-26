@@ -1,0 +1,14 @@
+{
+  "candidate": "b3be2b78f821ca356158b63083eced051d20f3f7",
+  "records": "0bf84f9252f34671849a3d3c4dc638b945f38c8e",
+  "ownerAssignmentSha256": "1913443f3ca03f0c1e2612ccc24d278de6a95614b9bd25c913222fc9008a09ad",
+  "preflightAt": "2026-10-25T22:31:48.178010-05:00",
+  "freeKiB": 2261252,
+  "launchMinimumKiB": 3670016,
+  "runtimeFloorKiB": 3145728,
+  "launchAllowed": false,
+  "competingHeavyCount": 0,
+  "qualification": "BLOCKED; no game runtime launched. Receipt binds existing HANDOFF generation runner, not the prepared full-tree script. Rebind full-gate selection at actual eligible launch.",
+  "trackedRecoveredBlob": "762fdec7330a1f24a126b6ed0e763e7e79ccfc94",
+  "privateReceipt": "p16-sprint5-20261025/preflight-entry.LOCAL.json"
+}

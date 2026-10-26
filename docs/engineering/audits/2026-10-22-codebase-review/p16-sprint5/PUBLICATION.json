@@ -1,0 +1,10 @@
+{
+  "candidateBranch": "p16-rebase-20261024",
+  "candidateCommit": "013c4edc90c0ce063fea00ebb187161ad6eb3414",
+  "gameplaySourcePredecessor": "b3be2b78f821ca356158b63083eced051d20f3f7",
+  "checkpointScope": "HANDOFF/docs only; gameplay unchanged; draft uninstalled and unrun",
+  "remote": "https://github.com/HSpector1/The-Movies.git",
+  "explicitRemoteRefVerified": true,
+  "sprint5": "BLOCKED_RESOURCE_AND_ORIGINAL_INPUTS",
+  "programComplete": false
+}
