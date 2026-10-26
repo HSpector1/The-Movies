@@ -1,8 +1,8 @@
 {
-  "experimentalBranch": "p16-retained-writing-20261026",
-  "commit": "9ff330b4a2de131037c4dbcfc03de9676a558b61",
   "remote": "https://github.com/HSpector1/The-Movies.git",
-  "explicitRemoteVerified": true,
-  "primaryCandidateUnchanged": "013c4edc90c0ce063fea00ebb187161ad6eb3414",
-  "status": "partial qualification; Sprint7 incomplete; no main gameplay promotion"
+  "branch": "p16-retained-writing-20261026",
+  "sha": "5a730f42d5a66d22cba4808b5c642510c2f068bb",
+  "verification": "explicit ls-remote after successful push",
+  "primaryUnchanged": "013c4edc90c0ce063fea00ebb187161ad6eb3414",
+  "qualification": "partial consumer gate; final pin follow-up unrun; exclusivity pending"
 }

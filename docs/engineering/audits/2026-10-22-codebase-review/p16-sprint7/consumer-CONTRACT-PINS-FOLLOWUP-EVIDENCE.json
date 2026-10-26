@@ -1,0 +1,28 @@
+{
+  "status": "STATIC_UNRUN",
+  "sourceHead": "0e0cdfde48d5dca06437c711e03a4f9f1a37360f",
+  "independentMeasurementPath": "/Users/zacheryspector/studio-scratch/p16-sprint7-verification-20261026/declaration-measurement/measurement.json",
+  "independentMeasurementSHA256": "e9065b7faece90e8267a806a39fbce5ac0319e406d3d7559b42fb0db5d88dc1d",
+  "measurementProducerSHA256": "382e78694af8562454cbff2d932507ea5a84cbee061a982be729e5bb994eea18",
+  "measuredCurrent63": "sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1",
+  "authenticOutgoing62": "sha256:2b94e6df66cd5b45e398861c8130085434d4bb9c4d0cf9bdcb97607699799604",
+  "files": [
+    {
+      "path": "tests/bridge-p14b5-relationships.test.ts",
+      "preimageSHA256": "8f1f6d24e33ad86a58b125c4fa8a990002bc95b19cb55cc32fea51bddd7bd622",
+      "postimageSHA256": "0df5cec04e4ea7e98e9547f7f247ff15eb3ee055ecf60640883ce8bc0f2f7abc"
+    },
+    {
+      "path": "tests/bridge-p14b8-waiver-surface.test.ts",
+      "preimageSHA256": "ca561dd7869c4f1718f2a7a5066f4072733d4c0190538b9a7f170acb912bb3a4",
+      "postimageSHA256": "a5acc0e7ffcb2675d014f613ff60fe28e18cd2a2b410f5d10a69623de17fc6dd"
+    },
+    {
+      "path": "tests/bridge-runtime-checkpoint.test.ts",
+      "preimageSHA256": "f249b0566b23c1897332f3ff82847b4ba8aaf43ce212874922fff2516afc74e4",
+      "postimageSHA256": "72e7c023414a2687f743eff47afee17cddfd3fd1a6e27758db29187f237e9602"
+    }
+  ],
+  "patchSHA256": "34951f70da235a3ca3111e59ef926a3c85d2a8c2e47140d996881d167388b611",
+  "scope": "Only current63 hash and exact prior-list/count accompaniment. All old prior entries and five inherited D5 ledger assertions unchanged; same-test downstream prior roster repaired."
+}

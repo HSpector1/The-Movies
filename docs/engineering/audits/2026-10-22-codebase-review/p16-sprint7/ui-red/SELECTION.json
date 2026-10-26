@@ -1,0 +1,7 @@
+{
+  "head": "9ff330b4a2de131037c4dbcfc03de9676a558b61",
+  "purpose": "existing parser leaf extension fails on genuine emitted carried-action vocabulary; constructed presentation fixture only",
+  "scope": "one existing UI leaf; budget30000 unchanged",
+  "source": "original parser; test-only delta",
+  "manifest": "SOURCE-MANIFEST.json"
+}

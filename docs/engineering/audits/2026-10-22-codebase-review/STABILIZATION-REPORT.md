@@ -1,5 +1,14 @@
 # Stabilization report — Owner order 2026-10-22 "IMPLEMENT CODE REVIEW FINDINGS"
 
+## Consumer checkpoint, 2026-10-26
+
+Experimental branch `p16-retained-writing-20261026` is published and explicit GitHub ref verified at `5a730f42d5a66d22cba4808b5c642510c2f068bb`. Primary P16 remains `013c4edc90c0ce063fea00ebb187161ad6eb3414`; no gameplay enters main. The UI parser now preserves legitimate carried-action blockers (existing leaf RED, complete file 19/19 GREEN). Projection 63 generated/checks passed and authentic outgoing 62 is retained. Declaration identities independently measured; final expectation-only follow-up remains STATIC-UNRUN.
+
+Consumer gate interrupted with exit 143 when foreign Godot appeared; workload was not observed before exit, so exclusivity and causal timing remain unknown. Independent audit released all 1,640 source pins. Six completed files: 187/196 assertions; four current-contract pins corrected, five inherited D5 failures match exact predecessor causes. Remaining 33 core files incomplete and three UI files unrun. Root/Bridge types pass; missing tracked atlas caused UI type failure, then was restored byte-for-byte. UI type rerun is pending. No timing/full-gate qualification inferred.
+
+Next: Owner-confirmed exclusive window, fresh bound consumer runner/preflight, preserve original budgets and reuse unchanged qualified evidence. Full-game Sprint 5 separately needs three original r3n1 fixtures. No jobs or lane lock remain. Existing lifecycle, genuine authority-composition and platform/player acceptance requirements remain open. Details and sanitized reports: `p16-sprint7/RESULTS.md`, `consumer-gate/AUDIT.md`, `declaration-measurement/`. Raw host inventories remain private. Cleanup continues only for exact remotely preserved or safely reproducible session files; active inputs and dependencies are retained.
+
+
 Branch `wip/headless-program-20260916-ts`, base at phase start `0a12cbfd`, head at report time `f75e76ce (follow-up 5; the records commit follows it)`. Every runtime claim names a lane log under `lane-logs/` beside this file (also copied into the repository under `docs/engineering/audits/2026-10-22-codebase-review/`). The findings ledger (`LEDGER.md`) carries one row per audit finding with FIXED / VERIFIED / DEFERRED / NOT REPRODUCED / BLOCKED and the evidence.
 
 ## What improved

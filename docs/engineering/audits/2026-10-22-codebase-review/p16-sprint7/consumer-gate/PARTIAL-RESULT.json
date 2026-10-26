@@ -1,0 +1,61 @@
+{
+  "status": "INTERRUPTED_EXCLUSIVITY_UNESTABLISHED",
+  "wrapperExit": 143,
+  "types": {
+    "root": 0,
+    "UI": 2,
+    "Bridge": 0
+  },
+  "UITypeCause": "missing tracked role-atlas JSON; restored after audit; rerun unrun",
+  "completedCoreFiles": [
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "tests": 31,
+      "failed": 0,
+      "fileMs": 4532
+    },
+    {
+      "file": "tests/bridge-p14a2-market.test.ts",
+      "tests": 16,
+      "failed": 0,
+      "fileMs": 53171
+    },
+    {
+      "file": "tests/bridge-p14b8-waiver-surface.test.ts",
+      "tests": 32,
+      "failed": 1,
+      "fileMs": 73610
+    },
+    {
+      "file": "tests/bridge-p14b5-relationships.test.ts",
+      "tests": 15,
+      "failed": 7,
+      "fileMs": 79587
+    },
+    {
+      "file": "tests/bridge-p13b-s7-disclosure.test.ts",
+      "tests": 22,
+      "failed": 0,
+      "fileMs": 88967
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "tests": 80,
+      "failed": 1,
+      "fileMs": 314107
+    }
+  ],
+  "selectedCoreFiles": 39,
+  "UIRuntime": "UNRUN",
+  "currentSource": "0e0cdfde48d5dca06437c711e03a4f9f1a37360f plus measured generator/schema test pins",
+  "resource": {
+    "launchFreeKiB": 10762496,
+    "observedFreeKiB": [
+      10761944,
+      10751508,
+      9699884
+    ]
+  },
+  "foreignObservation": "Godot process23025 observed; exited before workload inspection; no foreign termination; uncertainty retained, no exclusive qualification",
+  "limits": "No full JSON/overall core result. Only completed file summaries count; partial files and unrun coverage remain unknown. No timing qualification follows from printed assertion passes."
+}

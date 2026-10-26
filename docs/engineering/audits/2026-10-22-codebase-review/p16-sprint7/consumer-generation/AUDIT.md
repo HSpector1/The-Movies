@@ -1,0 +1,11 @@
+# Consumer generation checkpoint independent audit
+
+Reviewed the completed checkpoint only; no runtime, source edits, or generators were launched by the reviewer.
+
+- Wrapper and all four actual children exited 0: complete UI parser, canonical contract generation, contract check, and fixture check. UI JSON reports 19 passed, zero failed; maximum test body 273.872 ms is within the unchanged 30,000 ms budget.
+- HEAD matches selected `9ff330b4a2de131037c4dbcfc03de9676a558b61`. All 40 source-manifest hashes and preflight pins matched. Preflight allowed launch with 10,788,248 KiB free. The owned runner/test/generator process scan was empty and the heavy-lane lock absent at audit.
+- Exactly the three declared generated outputs changed: canonical JSON schema, Unity DTOs, and contract manifest. Contract check verified these outputs; fixture check verified the unchanged Unity union fixture. Projection is 63, protocol 4, schema ID `sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1`.
+- Outgoing projection 62 registry entry uses the authentic prior generated identity `sha256:2b94e6df66cd5b45e398861c8130085434d4bb9c4d0cf9bdcb97607699799604`; it does not admit an edited hypothetical version 62 shape.
+- The separately frozen ROSTER-PINS.patch resolves the earlier exact-roster omission. Independent Python reconstruction from the actual literal registry reproduced BOTH original 49-entry digests and BOTH proposed 50-entry digests. The sole roster addition is that authentic outgoing-62 pair; all older pairs remain. Opportunities: old `0ce03ceaf04a0a67cd225e8c83ea3bb58867486a35c24bd15ccfe751da659193`, new `02f707e70f7162358974a2d145e103fb1ab6fa1fc1579ce4a83907cb6375e8f0`. Prior55: old `9bf201f42187876c1bffe9209303f3f870c3a4c80b1335d695f555f1e0ad446c`, new `83e188de62b8061164ee875e9956bfeade3e04583053c20ad52d7ee650c34d35`.
+
+No consequential checkpoint blocker found. Release the checkpoint source/index/HANDOFF freeze to the sole coordinator. This qualifies only the selected parser and generation/check commands. Full consumer tests, current generated hash pins from an independent producer after the checkpoint commit, and native consumer qualification remain outstanding; this is not full consumer acceptance. Roster patch review is static, not a claim that its consumer suites ran.

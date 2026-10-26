@@ -1,0 +1,8 @@
+{
+  "path": "ui/public/lot/hollywood/role-atlas-v1.json",
+  "gitBlob": "aa34696e36f97431cea6a92d10d164506f90a40d",
+  "sha256": "641e007a87e4702641246cf7e36e43e012acdf1fb72a9dbbe0ac868f9d4af89c",
+  "sourceHEAD": "0e0cdfde48d5dca06437c711e03a4f9f1a37360f",
+  "cause": "tracked module absent in sparse checkout",
+  "UITypecheckAfterRestore": "UNRUN_EXCLUSIVITY_PENDING"
+}

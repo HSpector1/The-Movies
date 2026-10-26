@@ -2,6 +2,16 @@
 
 Last writer: Codex, 2026-10-26, sole coordinator for the authorized Sprints 5–16 program.
 
+## Consumer gate checkpoint — 2026-10-26 (current side tree)
+
+- Experimental branch p16-retained-writing-20261026 published at 5a730f42d5a66d22cba4808b5c642510c2f068bb (explicit remote verified), with production source 0e0cdfde; primary candidate 013c4edc is unchanged. Projection 63 measurement succeeded. Final contract identity/roster expectation corrections are static and unrun; no gameplay promotion.
+- Consumer gate interrupted with exit 143 after a foreign Godot process appeared and exited before workload inspection. Intensity unknown; exclusivity unestablished. Independent audit released all 1,640 pins. No owned job or lane lock remains. Owner exclusive-window response is pending.
+- Partial results: six completed core files, 187/196 assertions; four stale contract pins corrected, five exact inherited D5 errors retained. Root/Bridge types pass. UI type failed on a missing tracked atlas, now restored exactly; rerun and three UI files unrun. Other 33 core files incomplete; timing qualification withheld.
+- Next: confirm exclusive window, then fresh preflight/source binding for remaining consumer verification. Reuse qualified unchanged evidence. Do not restart the stopped runner. Full-game gate separately needs three original r3n1 fixtures. See p16-sprint7/RESULTS.md, consumer-gate/AUDIT.md and declaration-measurement.
+- Continue safe cleanup only after exact remote preservation; keep active inputs, dependencies, candidates and private host evidence. Prior receipts record about 125 MiB plus 3.3 MiB reclaimed. Program and platform/player qualification remain incomplete.
+
+## Previous program checkpoint
+
 ## Sprints 5–16 authorized program — active, 2026-10-26 (current)
 
 - Owner continuous program remains authorized; no routine continuation approval, P17/P18 need actual predecessors, no gameplay main promotion. Assignment p16-sprint5/OWNER-ASSIGNMENT.txt; existing LEDGER table is the program view. Sole coordinator writer and one intensive execution tree.
