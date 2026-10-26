@@ -1,3 +1,13 @@
+## Availability-driven continuation, 2026-10-26
+
+Owner explicitly authorized availability checks every five minutes and automatic continuation when unblocked. Two fresh preflights passed on unchanged experimental source `5a730f42`; both subsequent runs were controlled-interrupted with wrapper 143 after foreign Godot restarted. No foreign work was terminated. Independent audits verified all 1,641 source/input pins and preflight hashes, then released each freeze; no owned test job or lane lock remains at this checkpoint.
+
+`consumer-resume`: UI typecheck 0. Four completed core files yield 94 assertions: 89 pass and five exact inherited D5 errors. The corrected current contract/roster expectations now pass. Five full identities/first errors match predecessor 332a742a; the S8 discrepancy is settled-count 48 versus43, and poaching fails publicPreferredTerm expected52/actual208, not a clock assertion. Later D5 assertions remain unreached. Core has no complete child result/JSON. Foreign Godot observed at11:46:06,24.1%CPU,elapsed32s; the four summaries were already observed at11:45:01. These observations do not qualify the overall gate or all timing.
+
+`consumer-remainder`: reused those four unchanged files and prior types; ran three UI files first. UI completed20/20, child0; maximum bodies 1.294s,3.534s,8.349s, below the unchanged UI30s default but foreign overlap prevents exclusive timing qualification. Godot observed11:52:55 at20.1%CPU,elapsed50s. The remaining35 corefiles started but were interrupted without completion. UI results will be reused as scoped assertion evidence; no complete broad gate is claimed.
+
+Fresh35-core-only runner is prepared (NOT LAUNCHED) at `studio-scratch/p16-sprint7-verification-20261026/consumer-core-remainder/run.sh`. At11:58:11 the host scan was clear, lane absent, free8,325,536KiB. Following two short clear gaps that preceded new foreign jobs, seek a quiet interval with the next five-minute check before fresh preflight/launch. Keep polling within the active session, never promise background execution. Actual source preparation remains disjoint in scratch; no new gameplay integrated. Full-game gate still needs original r3n1 fixtures.
+
 ## Consumer gate checkpoint — 2026-10-26
 
 Projection 63 declaration measurement completed successfully on source `0e0cdfde` with its separately pinned helper. Schema identity is `sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1`; F10/F11 declaration hashes are `df9a088d4edd52652fc4eab583a83b36c667a50d3fd14d0be4715eadeb2a6f74`. Measurement and audit are retained beside this result.
