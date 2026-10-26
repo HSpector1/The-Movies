@@ -4,7 +4,7 @@ Last writer: Codex, 2026-10-25, sole coordinator for the stabilization order bel
 
 ## Astra engineering Sprint 4 — complete, 2026-10-25 (current)
 
-- Candidate branch `p16-rebase-20261024`; this reviewed checkpoint descends from `b5566fc12acdfb61b18138dc7fa288ea59c24780`. Final publication SHA/explicit remote receipt will be recorded on the records branch after commit. Main/wip entry `632dc4587ee16b7ae62d6fd6c604652171adaf0d`; records only, no gameplay promotion.
+- Candidate branch `p16-rebase-20261024`; reviewed source/test checkpoint `3364567ccfa2f29d240b8a73f30e91fcb1816bd5` descends from `b5566fc12acdfb61b18138dc7fa288ea59c24780`. Final candidate publication includes only evidence/handoff changes afterward; exact remote receipt is on the records branch. Main/wip entry `632dc4587ee16b7ae62d6fd6c604652171adaf0d`; records only, no gameplay promotion.
 - Reviewed skill reuse: S7 15.954→12.610s, post-opening7.134→6.599s, still over5s. Named null-row refusal fixed with genuine full-reader RED; original48 historical condition/closure/money refusal composition now reached, but extended leaf5.320s is not timing-qualified.
 - Final coherent54-file P16/Bridge263/263; S722/22; historical forecast4/4; root/UI/Bridge types and contracts0. No new assertion regression found. Broader estate9.607s/joinedD7.020s/replay7.005s and S7adoptions14.776s remain over5s. No source change after final manifest/audit.
 - Process limit: launches relied incorrectly on old2.3GB note; operational launch3,670,016KiB/preflight was not met (final3,419,568KiB). Recorded runtime disk stayed above3,145,728KiB. New foreign Godot work began during final run. Results are not full resource/exclusivity qualification. No further runtime below current floor; no cleanup or foreign termination.

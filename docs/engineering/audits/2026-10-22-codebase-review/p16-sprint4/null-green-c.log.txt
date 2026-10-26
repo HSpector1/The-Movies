@@ -1,0 +1,44 @@
+=== BEGIN null-green
+21:03  up 17 days,  4:52, 1 user, load averages: 5.28 5.98 4.92
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt
+
+ ✓ |core| tests/p16-rebase-c01-absorbed-claims.test.ts (7 tests) 11920ms
+ ❯ |core| tests/p16-absorption-clean-target.test.ts (5 tests | 1 failed) 15365ms
+   ✓ P16 actual clean-target absorption from retained original48 R03 > retains one linked bargain, pays five capped exits and exact fractional cash at par, preserves titles/history and ordinary replay 6516ms
+   × P16 actual clean-target absorption from retained original48 R03 > full current reader refuses independent cent drift and missing employment/title links, and named downgrade preserves its caller 2057ms
+     → expected [Function] to throw error matching /^validateSaveV49: rights absorptions\…/ but got 'validateSaveV49: rights.absorptions[1…'
+   ✓ P16 actual clean-target absorption from retained original48 R03 > real current49 publication refusal rolls back the fully admitted clean-target caller after actual joined validation 1693ms
+   ✓ P16 actual clean-target absorption from retained original48 R03 > recorded original preview pair survives real close and reload; missing unknown future and age13 records refuse full readers purely 2799ms
+   ✓ P16 actual clean-target absorption from retained original48 R03 > carried close refuses missing partial unknown future and age13 preview pairs on a real positive current input without refreshing or mutation 2299ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p16-absorption-clean-target.test.ts > P16 actual clean-target absorption from retained original48 R03 > full current reader refuses independent cent drift and missing employment/title links, and named downgrade preserves its caller
+AssertionError: expected [Function] to throw error matching /^validateSaveV49: rights absorptions\…/ but got 'validateSaveV49: rights.absorptions[1…'
+
+- Expected: 
+/^validateSaveV49: rights absorptions\[1\] must be an object$/
+
++ Received: 
+"validateSaveV49: rights.absorptions[1] must be an object"
+
+ ❯ mutate tests/p16-absorption-clean-target.test.ts:145:53
+    143|    const envelope=JSON.parse(baseline) as typeof save;change(envelope.…
+    144|    const before=saves.stableStringify(envelope)
+    145|    try {expect(()=>saves.validateSaveV49(envelope)).toThrow(expected)}
+       |                                                     ^
+    146|    finally {expect(saves.stableStringify(envelope)).toBe(before)}
+    147|   }
+ ❯ tests/p16-absorption-clean-target.test.ts:149:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 11 passed (12)
+   Start at  21:03:47
+   Duration  21.88s (transform 4.29s, setup 0ms, collect 11.22s, tests 27.28s, environment 2ms, prepare 471ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/p16-sprint4-20261025/null-green.json
+=== END null-green exit=1
+=== ALL DONE

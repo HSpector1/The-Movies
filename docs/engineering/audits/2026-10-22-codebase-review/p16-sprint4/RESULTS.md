@@ -1,6 +1,6 @@
 # Sprint 4 — targeted performance and integration readiness
 
-P16 remains isolated on `p16-rebase-20261024`. Entry was `b5566fc12acdfb61b18138dc7fa288ea59c24780`; main/wip entry `632dc4587ee16b7ae62d6fd6c604652171adaf0d`. This sprint makes one bounded performance optimization, repairs named null-row refusal, and extends genuine historical migration evidence. It does not claim all timing or integration acceptance is closed.
+P16 remains isolated on `p16-rebase-20261024`. Entry was `b5566fc12acdfb61b18138dc7fa288ea59c24780`; main/wip entry `632dc4587ee16b7ae62d6fd6c604652171adaf0d`. Reviewed production/test checkpoint: `3364567ccfa2f29d240b8a73f30e91fcb1816bd5`. The following records-only checkpoint does not change those tested bytes. This sprint makes one bounded performance optimization, repairs named null-row refusal, and extends genuine historical migration evidence. It does not claim all timing or integration acceptance is closed.
 
 ## Changes and proof
 

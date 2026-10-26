@@ -1,0 +1,408 @@
+=== BEGIN final-bridge-contract
+21:16  up 17 days,  5:05, 1 user, load averages: 10.49 9.49 7.34
+
+> project-studio-core@0.1.0 check:bridge-contract
+> vite-node scripts/generate-bridge-contract.ts --check
+
+verified /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/bridge/schema/project-studio-bridge.schema.json
+verified /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/generated/unity/StudioBridgeDtos.Generated.cs
+verified /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/generated/unity/project-studio-bridge.contract-manifest.json
+=== END final-bridge-contract exit=0
+=== BEGIN final-bridge-fixtures
+21:16  up 17 days,  5:05, 1 user, load averages: 10.53 9.51 7.36
+
+> project-studio-core@0.1.0 check:bridge-contract:fixtures
+> vite-node scripts/generate-bridge-contract-fixtures.ts --check
+
+verified /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs
+=== END final-bridge-fixtures exit=0
+=== BEGIN s7-complete
+21:16  up 17 days,  5:05, 1 user, load averages: 10.53 9.51 7.36
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt
+
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts (22 tests) 70343ms
+   ✓ P13B-S7-T3 item 2: Laboratory forecast rows — windowed before 884 (no leak), exact at/after 884, sound exact throughout > week 793 (windowed, unannounced): lighting forecast row is a window 884..988; campaignDate(936).label appears NOWHERE in the Laboratory page JSON 594ms
+   ✓ P13B-S7-T3 item 2: Laboratory forecast rows — windowed before 884 (no leak), exact at/after 884, sound exact throughout > week 884 and week 900 (exact, announced): lighting forecast row publishes the exact 936 date, window labels null 899ms
+   ✓ P13B-S7-T3 item 3: replacementLabel on the purchase row, adopt-* rows and adoptions[] rows, for both technologies > an uncommitted adopt-synchronized-sound-* row and an uncommitted adopt-lighting-control-01-* row both carry replacementLabel verbatim 523ms
+   ✓ P13B-S7-T3 item 3: replacementLabel on the purchase row, adopt-* rows and adoptions[] rows, for both technologies > committed adoptions[] rows for both technologies carry replacementLabel verbatim (s6SoundReady/s6LightingReady) 14776ms
+   ✓ P13B-S7-T3 item 4: generalised wait-<id>/purchase-<id> rows — sound unchanged, lighting per the MEASURED engine law (see header) > purchase-lighting-control-01 at week 936 (commercial open): enabled, accessCost in its own text; commit charges accessCost once, advances stateRevision, refuses the same intent at the old revision, and both rows publish disabled with the engine's access-held sentence once access is held 5237ms
+   ✓ P13B-S7-T3 item 5: Industry announcement row — derived, nullable studioId, excluded from per-studio History, absent for sound, Save As identical > identical in a Save As world: two independently-saved-as campaign slots of the same week-884 state publish byte-identical announcement rows 19985ms
+   ✓ P13B-S7-T3 item 6: rival-independence on the wire — identical forecast/announcement rows across states differing only in rival facts (PARTIAL until S8, per the engine's own test 2 scope) > Laboratory forecast rows (both technologies) are byte-identical across the two rival-divergent states at week 417 1423ms
+   ✓ P13B-S7-T3 item 6: rival-independence on the wire — identical forecast/announcement rows across states differing only in rival facts (PARTIAL until S8, per the engine's own test 2 scope) > industry announcement rows are byte-identical across the two rival-divergent states, both at week 417 (empty) and advanced independently to week 900 (one lighting row) 22751ms
+   ✓ P13B-S7-T3 item 7: genuine V26 fixture loads through the bridge and publishes the windowed lighting forecast at week 795 > sha256 matches provenance; BridgeSession.fromSaveJson loads it; the Laboratory page publishes a windowed lighting forecast (884..988), never 936 4060ms
+
+ Test Files  1 passed (1)
+      Tests  22 passed (22)
+   Start at  21:16:27
+   Duration  97.08s (transform 5.15s, setup 0ms, collect 25.67s, tests 70.34s, environment 0ms, prepare 389ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/p16-sprint4-20261025/s7-complete.json
+=== END s7-complete exit=0
+=== BEGIN p16-integration
+21:18  up 17 days,  5:07, 1 user, load averages: 8.73 9.02 7.40
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt
+
+ ✓ |core| tests/p16b-asset-sale.test.ts (11 tests) 12934ms
+   ✓ P16B permitted bidder and cash law > a stable, operating, founded studio with no distress loan is a permitted bidder; every other stage, a loan, founding, or an un-entered identity refuses by name 1395ms
+   ✓ P16B permitted bidder and cash law > the post-purchase reserve is RIGHTS_RESERVE_WEEKS of the buyer's resulting weekly fixed cost, and spendable cash is cash minus open reservations 942ms
+   ✓ P16B permitted bidder and cash law > the explicit UNBOUND negative fixture refuses a bidder without evaluated condition authority 1015ms
+   ✓ P16B bilateral title sale: player buys a rival film through a binding offer the rival answers at the next tick > reserves the price while the offer is open, closes atomically with exact receipts on both sides, moves the R2 title and its value, and saves/reloads 1755ms
+   ✓ P16B bilateral title sale: player buys a rival film through a binding offer the rival answers at the next tick > an offer below the rival's willingness is rejected at the next tick, the reservation is released, and a re-offer inside the cooldown refuses 1104ms
+   ✓ P16B bilateral title sale: player buys a rival film through a binding offer the rival answers at the next tick > refusals are pure and named: non-holder seller, unknown subject, active run (R2), active production (R1), ineligible buyer, unaffordable price, double-spent reservation, duplicate open offer, self-dealing 1258ms
+   ✓ P16B symmetric law: rival <-> rival sale, withdrawal, expiry, holdback > a rival sells a film to a rival at acceptance with exact movements on both accounts; withdrawal releases; expiry releases 1031ms
+   ✓ P16B symmetric law: rival <-> rival sale, withdrawal, expiry, holdback > a bought title cannot be resold inside the holdback; a sale is refused by the seller side when the buyer's facts changed at acceptance (revalidation) 673ms
+   ✓ P16B licences: R3 exclusive term grants, overlap, scope, survival through a title sale, reversion > grants an exclusive sequel licence with consideration; authority for that scope moves to the grantee while the title stays with the grantor 1700ms
+   ✓ P16B licences: R3 exclusive term grants, overlap, scope, survival through a title sale, reversion > a whole-title sale of the property preserves the live licence and the grantee; an expired licence reverts authority to the holder 909ms
+   ✓ P16B actions: the player's verbs route through applyActions with refusal purity > makeRightsOffer / withdrawRightsOffer / acceptRightsOffer / rejectRightsOffer dispatch; a refused verb throws and changes nothing; the buyer-side verbs refuse by name while the P15B readers are unbound 1149ms
+stdout | tests/p16c-acquisition.test.ts > C-08 shared credited writer quote-boundary diagnostic > a first unhostable production must not drop a writer required by a later hostable production
+C08_CONSTRUCTED_QUOTE {"first":"c08-first-unhostable","second":"c08-second-hostable","writerId":"person-studio-aca408ec-r03-0","disposition":{"contractId":"studio-aca408ec-r03:contract:person-studio-aca408ec-r03-0:0","talentId":"person-studio-aca408ec-r03-0","annualSalary":257755,"signingBonus":46396,"startWeek":0,"endWeekExclusive":208,"weeklySalary":4956.826923076923,"exitCost":128882,"guarantee":768335,"busyOn":"c08-first-unhostable","retained":true,"reason":null},"affordable":true,"scope":"quote-boundary only; not admitted save, close, Bridge or natural reachability proof"}
+
+ ✓ |core| tests/p16c-acquisition.test.ts (9 tests) 14216ms
+   ✓ P16C healthy absorption: eligibility matrix > a stable buyer may quote a willing stable rival; the operating player is NotForSale; stage, loan and identity refusals are named 1345ms
+   ✓ P16C healthy absorption: eligibility matrix > the rival's willingness is a disclosed policy over its rights value plus the cash it hands over at par; it may reject the offer 971ms
+   ✓ P16C healthy absorption: the quote separates consideration, at-par cash, exits and disclosed guarantees > default retention walks the target's contracts in order, retains what is lawful and affordable, charges each non-retained exit once to the target, and transfers post-exit cash at par 1195ms
+   ✓ P16C healthy absorption: the quote separates consideration, at-par cash, exits and disclosed guarantees > negative post-exit cash transfers at par: the outlay exceeds the consideration by exactly the shortfall 5653ms
+   ✓ P16C healthy absorption: the quote separates consideration, at-par cash, exits and disclosed guarantees > explicit retention retains exactly the chosen contracts; retained work cannot outlive its participants, so a production with a dropped participant is marked for explicit cancellation 874ms
+   ✓ P16C healthy absorption: the quote separates consideration, at-par cash, exits and disclosed guarantees > an ineligible pair returns a refusal, and closing refuses an undated preview and any other week by name, changing nothing 1230ms
+   ✓ P16C healthy absorption: work continues only where the buyer's operations admit it (the real allocator) > the target's in-flight production is admitted into the buyer's managed operations by the shared allocator; without the capability, or with a stage that can seat nobody, it is marked for cancellation and the default drops the people whose work cannot continue 773ms
+   ✓ P16C healthy absorption: work continues only where the buyer's operations admit it (the real allocator) > a buyer whose operations are not managed cannot host managed work, and a production id already present in the buyer's operations is a named collision, not a merge 1025ms
+   ✓ C-08 shared credited writer quote-boundary diagnostic > a first unhostable production must not drop a writer required by a later hostable production 1120ms
+ ✓ |core| tests/p16-r2-authority.test.ts (9 tests) 20750ms
+   ✓ r2 F1/F27/F41: a live licence survives its grantor's closure, an estate sale and archival > the licensee keeps exclusive authority while the grantor's estate holds, archives, or sells the title; only the title's own default authority changes 8572ms
+   ✓ r2 F1/F27/F41: a live licence survives its grantor's closure, an estate sale and archival > a paid sequel licence survives actual player closure while its original owner’s unscheduled remake makes the title pending 5043ms
+   ✓ r2 F5/F28/F42: an exclusive R3 licence limits the greenlight continuation hook and branch authority > a same-concept greenlight is a remake: an exclusive remake licensee holds that authority, so the R1 holder is refused; other licensed uses leave it with the holder 1282ms
+   ✓ r2 F5/F28/F42: an exclusive R3 licence limits the greenlight continuation hook and branch authority > branch authority is the parent's spin-off authority: an exclusive spin-off licensee holds it during the term; the title holder again after it 1002ms
+   ✓ r2 F11: a continuation with its own concept links to the parent property and mints no R1 > the holder and an exclusive licensee each link under permissionFor; the excluded holder is refused; the link mints nothing for the new concept; the release titles the film under the parent 1704ms
+   ✓ r2 F10/F35: the R4 surface works for television and merchandise, exclusive or not, once its consumer is live > the gate refuses every R4 grant by default; lifted, R4 grants follow their own law and permissionFor answers nonexclusive and exclusive grantees 676ms
+   ✓ r2 F62/F23: a rights refusal at greenlight is pure — at the front door and at a queued greenlight's dequeue > after the player sells a concept's R1, its re-greenlight through applyActions refuses by name and the state is byte-identical 910ms
+   ✓ r2 F62/F23: a rights refusal at greenlight is pure — at the front door and at a queued greenlight's dequeue > a queued greenlight whose concept's R1 is sold while it waits expires at dequeue with the rights reason and leaves no event naming a production that never existed 723ms
+   ✓ r2: the continuation hook and the R1 holder agree with permissionFor at every week of a licence term > the holder regains remake authority the week an exclusive remake licence lapses 835ms
+ ✓ |core| tests/p16a-valuation.test.ts (12 tests) 13403ms
+   ✓ P16A valuation: the charter fold over genuine predecessor films > values every rival library at the save week exactly as the per-item rounded formula sums 1615ms
+   ✓ P16A valuation: the charter fold over genuine predecessor films > an as-of read at week 0 sees only authored-start (beforeCampaign) titles; later weeks fold only films released through that week 731ms
+   ✓ P16A valuation: the charter fold over genuine predecessor films > a property whose film is announced but not yet released contributes a zero R1 item and no R2 item 1034ms
+   ✓ P16A valuation: the charter fold over genuine predecessor films > refuses a future, negative or fractional asOfWeek, an unknown holder and a world without an industry, each with its typed reason 906ms
+   ✓ P16A valuation: the charter fold over genuine predecessor films > values a migration-origin player library (routeL6240: twelve pre-origin films) from its released results 1030ms
+   ✓ P16A valuation: rounding and the consumer-only score boundary > rounds each item once: scores 0, 100, 12.3456 and 0.0005 value exactly 0, 100000, 12346 and 1 890ms
+   ✓ P16A valuation: rounding and the consumer-only score boundary > a finite score outside [0,100] returns typed unavailable naming the FilmId, with no clamp, skip, partial total, or state mutation, and title resolution still works 1632ms
+   ✓ P16A valuation: rounding and the consumer-only score boundary > the same refusal applies when the film would enter an R1 maxQualityThroughDate for a property whose R2 holder differs 823ms
+   ✓ P16A valuation: rounding and the consumer-only score boundary > a film a recorded quarter ranks cannot carry an out-of-range score even at Save45 (the ranking law refuses it); the P16 era adds no new admission gate, and the valuation boundary is proven on the lifted state 1384ms
+   ✓ r2 (review F14): RED A1 on a predecessor-valid save that carries a finite out-of-range score > the genuine route-L week-6239 Save44 capture with a pre-origin player film at score 101 validates, migrates to Save45 and the live era; valuation refuses by name and the holder still resolves 1278ms
+   ✓ P16A valuation: pure, cashless, and identical before/after materialization and reload > valuation changes no cash, ledger, RNG or root, and an exact materialization of virtual titles changes no result 1159ms
+   ✓ P16A valuation: pure, cashless, and identical before/after materialization and reload > a later structurally valid title-sale event moves the R2 value to the new holder from its date, while R1 stays with the creator 881ms
+ ✓ |core| tests/p16a-mint-hooks.test.ts (12 tests) 7088ms
+   ✓ P16A mint: player greenlight > an accepted greenlight mints exactly one property with one R1 genesis, titled from the greenlight concept, linked to the production 1064ms
+   ✓ P16A mint: player greenlight > a second greenlight of the same concept by its R1 holder links the new production to the one property; a non-holder is refused and changes nothing 571ms
+   ✓ P16A mint: player release > the releasing tick appends exactly one R2 FilmTitle with the release week, release title, creator and work link; the committed state has none 359ms
+   ✓ P16A mint: player release > cancellation preserves the genuine R1 history and never invents an R2 title 648ms
+   ✓ P16A mint: player release > tick is deterministic and reload/replay never duplicates a mint 981ms
+   ✓ P16A mint: rival greenlight and release > each rival greenlight mints one property with the rival as creator at its decision week, and each rival release mints one R2 title 345ms
+   ✓ P16A recording boundary: a world that greenlights before its industry opens > records rights from the week the industry opens: pre-industry work is legacy (derived, never persisted), the save validates, and the holder resolves to the player 334ms
+   ✓ F15 boundary mint integrity > rejects deletion of a newly hooked boundary property and genesis, without mutating the save 514ms
+   ✓ F15 boundary mint integrity > retains an actual pre-opening greenlight at the same boundary week as derived legacy 634ms
+   ✓ F15 actual cancel/save/reload/regreenlight retains cutover identity and original creation week 455ms
+   ✓ F15 observed active fallback without a greenlight ledger survives disappearance without inventing a debit 955ms
+ ✓ |core| tests/p16c-estate.test.ts (7 tests) 24858ms
+   ✓ P16C estate handoff: the typed adapter point opens an estate; it never declares a studio terminal > opens from a valid handoff, materializes the lot titles, and from the closure week the studio's rights are estate-only 3405ms
+   ✓ P16C estate handoff: the typed adapter point opens an estate; it never declares a studio terminal > refuses a malformed handoff by name: overlapping lots, a subject the studio does not hold, a wrong window, an unknown studio, a duplicate estate 2741ms
+   ✓ P16C sealed bids: admission only before D, reservations, refusals > admits one sealed bid per bidder per lot before D, reserves the amount, and refuses by name otherwise 2014ms
+   ✓ P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival > resolves exactly once at D with exact debits, proceeds to the estate once, title to the winners, archival of the unsold lot, and no person moved 3654ms
+   ✓ P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival > the ordinary route: ticks carry the estate to D; explicit unbound readers refuse, while actual bound readers sell, archive, save and reload byte-for-byte 7005ms
+   ✓ P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival > a winner who can no longer afford a later lot after winning an earlier one falls back to the next valid bid 2917ms
+   ✓ P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival > a genuinely paid-down bidder enters warning before D and its higher bid falls back to a stable rival 3116ms
+ ✓ |core| tests/p16-absorption-clean-target.test.ts (5 tests) 23317ms
+   ✓ P16 actual clean-target absorption from retained original48 R03 > retains one linked bargain, pays five capped exits and exact fractional cash at par, preserves titles/history and ordinary replay 6065ms
+   ✓ P16 actual clean-target absorption from retained original48 R03 > full current reader refuses independent cent drift and missing employment/title links, and named downgrade preserves its caller 5307ms
+   ✓ P16 actual clean-target absorption from retained original48 R03 > real current49 publication refusal rolls back the fully admitted clean-target caller after actual joined validation 2544ms
+   ✓ P16 actual clean-target absorption from retained original48 R03 > recorded original preview pair survives real close and reload; missing unknown future and age13 records refuse full readers purely 4731ms
+   ✓ P16 actual clean-target absorption from retained original48 R03 > carried close refuses missing partial unknown future and age13 preview pairs on a real positive current input without refreshing or mutation 4669ms
+ ✓ |core| tests/p16-absorption-knowledge.test.ts (3 tests) 14649ms
+   ✓ P16 actual completed-source knowledge from retained original45 baseline280 > public absorption grants linked knowledge, preserves source invention and performs one ordinary paid noninventor adoption with roundtrip 6721ms
+   ✓ P16 actual completed-source knowledge from retained original45 baseline280 > full current reader refuses either omitted knowledge authority, foreign source and false completed history while frozen45 rejects the new access field 4746ms
+   ✓ P16 actual completed-source knowledge from retained original45 baseline280 > full reader rejects a source-project prototype and a money-conserved later-inventor discount on actual acquired adoption 3181ms
+ ✓ |core| tests/p16-r2-acquisition.test.ts (8 tests) 6901ms
+   ✓ r2 F7: no quote without the buyer's own fresh, full-scope, paid disclosure about this target > refuses a missing, foreign, narrow, other-target or stale disclosure by name, and reveals nothing 1418ms
+   ✓ r2 F6/F8/F33: the target consents at quote; its ask is whole dollars and actual cash moves at par > a consideration below the ask refuses by name; at the ask the buyer's outlay covers the premium-adjusted library value with less than one dollar of rounding 1003ms
+   ✓ r2 F2/F24/F59: capacity is the buyer's real usable capacity, cumulative over the target's productions and every remaining phase > two target productions competing for the buyer's one free stage: the first continues, the second cannot be seated and its people are not kept by default 895ms
+   ✓ r2 F2/F24/F59: capacity is the buyer's real usable capacity, cumulative over the target's productions and every remaining phase > a development-phase production needs a stage later: a buyer with no stage at all cannot continue it, and the default keeps none of its people 706ms
+   ✓ r2 F2/F24/F59: capacity is the buyer's real usable capacity, cumulative over the target's productions and every remaining phase > a stage that exists but can seat nobody is not usable capacity: the shooting picture cannot be seated and its people are not kept by default 709ms
+   ✓ r2 F46: the default never keeps a film while dropping its busy cast > when nobody can be afforded, every contract is dropped as unaffordable and the production is marked for explicit cancellation naming each missing participant 715ms
+   ✓ r2 F13: person-choice and relationship refusals bind the retention preview > a target employee with a Nemesis on the buyer's roster refuses to join it, by name, under the default and an explicit choice alike 661ms
+   ✓ r2 F47/F21: in-flight research is quoted as cancelled with its verified progress kept at its source, and nothing moves > the target's active project is listed with its verified work and expenditure; a quote changes no state 789ms
+ ✓ |core| tests/p16-absorption-continued-production.test.ts (3 tests) 15965ms
+   ✓ P16 genuine163 R02 paid post-production explicit healthy continuation > actual buyer allocation holds ready work without commitment then public commit166 releases with original creator buyer R2 Standing future cash and replay 6698ms
+   ✓ P16 genuine163 R02 paid post-production explicit healthy continuation > actual admitted release refuses omitted or invented work counter commitment title and Standing authority with full-reader caller purity 6241ms
+   ✓ P16 genuine163 R02 paid post-production explicit healthy continuation > real complete current49 publication fault rolls back the original public163 caller after all native snapshot and title employment joins validate 3024ms
+ ✓ |core| tests/bridge-p16-rights-parity.test.ts (7 tests) 44741ms
+   ✓ P16 real Bridge paid due diligence and healthy absorption opaque families > paid preview reveals no body or held report and real commit charges exactly once with public-action equality and same-command replay 8513ms
+   ✓ P16 real Bridge paid due diligence and healthy absorption opaque families > held real report prices and commits exact fractional acquisition once with original quote pair linked titles and public direct action parity 9982ms
+   ✓ P16 real Bridge paid due diligence and healthy absorption opaque families > unheld and genuinely paid partial-scope reports refuse before private absorption terms and never register an executable intent 2271ms
+   ✓ P16 real Bridge paid due diligence and healthy absorption opaque families > closed canonical drafts refuse supplied buyer and quote dates while private nested retention remains detached from later caller mutation 6758ms
+   ✓ P16 real Bridge paid due diligence and healthy absorption opaque families > captured actual paid and absorption apply closures refuse a different fully admitted real state and public revision guards retain authority 8584ms
+   ✓ P16 real Bridge paid due diligence and healthy absorption opaque families > seventeen fixed legal quotes share cap16 across families and evict the first absorption without preview fees or authority changes 5415ms
+   ✓ P16 real Bridge paid due diligence and healthy absorption opaque families > actual full-writer publication failure after legal preview rolls back paid fee and acquisition with no successful validator stub 3217ms
+ ✓ |core| tests/p16-continued-work-cancel.test.ts (3 tests) 16017ms
+   ✓ P16 actual buyer public cancellation of acquired paid R02 work > real public cancel frees buyer work and capacity without erasing source paid history employment first take or retained rights and replays ordinary stop 7018ms
+   ✓ P16 actual buyer public cancellation of acquired paid R02 work > real cancelled-publication failure preserves the admitted buyer source after successful manual cancellation positive 3760ms
+   ✓ P16 actual buyer public cancellation of acquired paid R02 work > actual cancellation authority is complete once-only and full joined readers refuse missing foreign counter date or repeated receipts while committed work stays irreversible 5237ms
+stdout | tests/p16-r2-estate.test.ts > r2 F4/F29: the estate path refuses the bilateral path's encumbrances > a lot encumbered after the handoff (a production started on its concept) cannot sell at D: its bids are disqualified by name and the lot archives
+{"proof":"reverse68-evaluated94","condition":{"studioId":"studio-aca408ec-r04","firstEvaluatedWeek":94,"definitionVersion":"corporate-condition/v1","condition":{"stage":"stable","since":94,"week":94,"lowRun":0,"negativeRun":0,"clearRun":1,"distressWeeks":0}},"cash":4956744.95561068,"reserve":3198676}
+{"proof":"reverse68-sale-margin","spendable":4956744.95561068,"price":1000000,"reserve":3198676,"refusal":null}
+{"proof":"reverse68-natural-continuation","week":198,"closure":{"closureId":"studio-closure-1","studioId":"studio-aca408ec-r04","closureWeek":198,"causeEventId":"corporate-event-6","lawVersion":"closure/v1","p15DomainSequence":29,"phaseId":"p15b.closure","phaseOrdinal":5,"phaseOrderVersion":3,"cash":{"closing":-1957571.0443893196,"distributable":0},"loan":{"loanId":"corporate-loan-1","stopWeek":198,"paidInstallments":44,"paidAmount":948640,"remainder":172480},"dispositions":[{"subjectKind":"cash","subjectId":"studio-aca408ec-r04","prior":"closing -1957571.0443893196","result":"distributable 0; 0 paid to claims at closure; balance preserved","status":"applied","claimId":null,"lotId":null,"lawVersion":"closure/v1"},{"subjectKind":"facility","subjectId":"studio-aca408ec-r04:development","prior":"development-casting","result":"nonoperational in place; zero refund","status":"applied","claimId":null,"lotId":null,"lawVersion":"closure/v1"},{"subjectKind":"facility","subjectId":"studio-aca408ec-r04:post","prior":"post","result":"nonoperational in place; zero refund","status":"applied","claimId":null,"lotId":null,"lawVersion":"closure/v1"},{"subjectKind":"facility","subjectId":"studio-aca408ec-r04:scenery","prior":"set-scenery","result":"nonoperational in place; zero refund","status":"applied","claimId":null,"lotId":null,"lawVersion":"closure/v1"},{"subjectKind":"facility","subjectId":"studio-aca408ec-r04:stage","prior":"soundstage","result":"nonoperational in place; zero refund","status":"applied","claimId":null,"lotId":null,"lawVersion":"closure/v1"},{"subjectKind":"loan","subjectId":"corporate-loan-1","prior":"total 1121120; contracted week 153","result":"stopped at week 198; 44 installments paid (948640); remainder 172480 unpaid and non-distributable","status":"applied","claimId":null,"lotId":null,"lawVersion":"closure/v1"},{"subjectKind":"physicalPlan","subjectId":"studio-aca408ec-r04:plan:1","prior":"started","result":"complete; its plant is a terminal facility","status":"applied","claimId":null,"lotId":null,"lawVersion":"closure/v1"},{"subjectKind":"screenplay","subjectId":"script-0005","prior":"ready","result":"work stopped at week 198; authored material, progress and spend retained; no completion","status":"applied","claimId":null,"lotId":null,"lawVersion":"closure/v1"},{"subjectKind":"title","subjectId":"studio-aca408ec-r04:film:0","prior":"owned","result":"R2 lot studio-closure-1:lot:1; sale route pending until the estate closes","status":"pending","claimId":null,"lotId":"studio-closure-1:lot:1","lawVersion":"closure/v1"},{"subjectKind":"title","subjectId":"studio-aca408ec-r04:film:1","prior":"owned","result":"R2 lot studio-closure-1:lot:2; sale route pending until the estate closes","status":"pending","claimId":null,"lotId":"studio-closure-1:lot:2","lawVersion":"closure/v1"},{"subjectKind":"title","subjectId":"studio-aca408ec-r04:film:2","prior":"owned","result":"R2 lot studio-closure-1:lot:3; sale route pending until the estate closes","status":"pending","claimId":null,"lotId":"studio-closure-1:lot:3","lawVersion":"closure/v1"},{"subjectKind":"title","subjectId":"studio-aca408ec-r04:film:3","prior":"owned","result":"R2 lot studio-closure-1:lot:4; sale route pending until the estate closes","status":"pending","claimId":null,"lotId":"studio-closure-1:lot:4","lawVersion":"closure/v1"},{"subjectKind":"title","subjectId":"studio-aca408ec-r04:film:4","prior":"owned","result":"R2 lot studio-closure-1:lot:5; sale route pending until the estate closes","status":"pending","claimId":null,"lotId":"studio-closure-1:lot:5","lawVersion":"closure/v1"},{"subjectKind":"title","subjectId":"studio-aca408ec-r04:film:6","prior":"owned","result":"R2 lot studio-closure-1:lot:6; sale route pending until the estate closes","status":"pending","claimId":null,"lotId":"studio-closure-1:lot:6","lawVersion":"closure/v1"},{"subjectKind":"title","subjectId":"studio-aca408ec-r04:film:7","prior":"owned","result":"R2 lot studio-closure-1:lot:7; sale route pending until the estate closes","status":"pending","claimId":null,"lotId":"studio-closure-1:lot:7","lawVersion":"closure/v1"},{"subjectKind":"title","subjectId":"studio-aca408ec-r04:film:8","prior":"owned","result":"R2 lot studio-closure-1:lot:8; sale route pending until the estate closes","status":"pending","claimId":null,"lotId":"studio-closure-1:lot:8","lawVersion":"closure/v1"},{"subjectKind":"title","subjectId":"studio-aca408ec-r04:historical-film:0","prior":"owned","result":"R2 lot studio-closure-1:lot:9; sale route pending until the estate closes","status":"pending","claimId":null,"lotId":"studio-closure-1:lot:9","lawVersion":"closure/v1"},{"subjectKind":"title","subjectId":"studio-aca408ec-r04:historical-film:1","prior":"owned","result":"R2 lot studio-closure-1:lot:10; sale route pending until the estate closes","status":"pending","claimId":null,"lotId":"studio-closure-1:lot:10","lawVersion":"closure/v1"}],"counts":{"cash":1,"facility":4,"loan":1,"physicalPlan":1,"screenplay":1,"title":10},"digest":"1e25742b","estate":{"opensWeek":198,"closesWeek":211,"lots":[{"lotId":"studio-closure-1:lot:1","right":"R2","subjectId":"studio-aca408ec-r04:film:0"},{"lotId":"studio-closure-1:lot:2","right":"R2","subjectId":"studio-aca408ec-r04:film:1"},{"lotId":"studio-closure-1:lot:3","right":"R2","subjectId":"studio-aca408ec-r04:film:2"},{"lotId":"studio-closure-1:lot:4","right":"R2","subjectId":"studio-aca408ec-r04:film:3"},{"lotId":"studio-closure-1:lot:5","right":"R2","subjectId":"studio-aca408ec-r04:film:4"},{"lotId":"studio-closure-1:lot:6","right":"R2","subjectId":"studio-aca408ec-r04:film:6"},{"lotId":"studio-closure-1:lot:7","right":"R2","subjectId":"studio-aca408ec-r04:film:7"},{"lotId":"studio-closure-1:lot:8","right":"R2","subjectId":"studio-aca408ec-r04:film:8"},{"lotId":"studio-closure-1:lot:9","right":"R2","subjectId":"studio-aca408ec-r04:historical-film:0"},{"lotId":"studio-closure-1:lot:10","right":"R2","subjectId":"studio-aca408ec-r04:historical-film:1"}]},"receipts":[],"endOfRun":null},"condition":{"studioId":"studio-aca408ec-r04","firstEvaluatedWeek":94,"definitionVersion":"corporate-condition/v1","condition":{"stage":"closed","since":198,"week":198,"lowRun":37,"negativeRun":33,"clearRun":0,"distressWeeks":0}},"cash":-1957571.0443893196,"loans":[{"loanId":"corporate-loan-1","studioId":"studio-aca408ec-r04","lawVersion":"studio-loan/v1","contractedWeek":153,"weeklyFixedCostAtContract":38500,"principal":1001000,"total":1121120,"installments":[21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560,21560],"p15DomainSequence":17,"phaseId":"p15b.condition","phaseOrdinal":4,"phaseOrderVersion":3}]}
+
+ ✓ |core| tests/p16-r2-estate.test.ts (7 tests) 24346ms
+   ✓ r2 F4/F29: the estate path refuses the bilateral path's encumbrances > premise: the closing studio (r02) at week 53 holds a film in an active run and a property with an active production, and the bilateral path refuses both 1133ms
+   ✓ r2 F4/F29: the estate path refuses the bilateral path's encumbrances > a lot holding an active-run film or an active-production property refuses the handoff by name; the same subjects pending are admitted and never sold 3907ms
+   ✓ r2 F4/F29: the estate path refuses the bilateral path's encumbrances > a lot encumbered after the handoff (a production started on its concept) cannot sell at D: its bids are disqualified by name and the lot archives 9607ms
+   ✓ r2 F4/F29: the estate path refuses the bilateral path's encumbrances > every right the closed studio held is disposed exactly once: an omitted, a duplicated, a foreign or an undisclosed-licence subject refuses the handoff 1908ms
+   ✓ r2 F18/F37/F60: the window opens at the closure week, closes exactly at D, and needs certifiable bidders > openEstate refuses outside the closure week and while the P15B readers are unbound; the validator refuses an estate still open at or after D 2096ms
+   ✓ r2 F38: an as-of read inside the window reports the lot as it stood that week > a subject that archives at D reads unarchived at every earlier week of the window 2218ms
+   ✓ r2 F48: the deterministic tie-break is ascending reserved identity order, not submission order > equal sealed bids resolve to the lower identity row even when the higher row bid first 3475ms
+ ✓ |core| tests/p16-r2-validator.test.ts (15 tests) 17994ms
+   ✓ r2 F9/F31: no P16 money without the transaction that carries its effect > the control: a lawful closed title sale validates 1411ms
+   ✓ r2 F9/F31: no P16 money without the transaction that carries its effect > refuses an absorption transaction (no producer exists in this checkpoint) even with consistent cash 838ms
+   ✓ r2 F9/F31: no P16 money without the transaction that carries its effect > refuses an unknown transaction kind 1356ms
+   ✓ r2 F9/F31: no P16 money without the transaction that carries its effect > refuses a title sale that moved no title and names no accepted offer, though its cash reconciles 940ms
+   ✓ r2 F9/F31: no P16 money without the transaction that carries its effect > refuses a real title sale whose payee was erased and whose seller credit was removed 903ms
+   ✓ r2 F9/F31: no P16 money without the transaction that carries its effect > refuses a licence grant transaction with no licence, and a diligence fee with no disclosure record 1233ms
+   ✓ r2 F43/F15: a persisted property's date is its own greenlight evidence, never earlier > a property and its genesis backdated together (to before the campaign, or to week 0) refuse as ambiguous provenance 1468ms
+   ✓ r2 F43/F15: a persisted property's date is its own greenlight evidence, never earlier > the lawful earlier date survives: a property first greenlit by a production later cancelled keeps that week 1432ms
+   ✓ r2 F45/F16: chain continuity is refused on its own, with every holder a known identity > a sale event whose priorHolder is a real studio but not the previous holder breaks continuity 830ms
+   ✓ r2 F58: the licence-overlap, bid-window and estate-proceeds rules each refuse a forged save > two exclusive sequel licences whose terms are edited to overlap refuse 911ms
+   ✓ r2 F58: the licence-overlap, bid-window and estate-proceeds rules each refuse a forged save > a sealed bid dated before its window, and estate proceeds that differ from the estate sales, refuse 4247ms
+   ✓ r2 F12: valuation is explicit unavailable when any subject the holder holds or created is unavailable — never a partial total > a holder whose persisted property contradicts its source cannot be valued at all 770ms
+   ✓ r2 F51: an unsafe sum refuses only valuation > when per-item values overflow the safe integer range the read is unavailable(unsafeSum) and nothing changes 1028ms
+   ✓ r2 F53/F65: the boundary week is legacy; a missing title is null > a release with no attested title mints title null with source unavailable, never an empty string 622ms
+stdout | tests/p16-healthy-drafting171-funded-baseline.test.ts > P16 real funded171 stopped drafting writeoff > real explicit writer exits preserve original draft costs due reservation and concurrent paid film beyond due with no buyer credit progress refund and save replay
+P16_FIXED_DRAFT171_OBSERVATION {"week":171,"studioId":"studio-aca408ec-r01","condition":{"stage":"stable","since":131,"week":171,"lowRun":0,"negativeRun":0,"clearRun":41,"distressWeeks":0},"cash":8721431.484490331,"decisionWeek":171,"activeProductions":[{"id":"studio-aca408ec-r01:film:12","remainingTicks":8,"phase":"development"}],"activeScripts":[{"id":"script-0012","status":"inProduction","commissionedWeek":155,"dueWeek":null,"productionId":"studio-aca408ec-r01:film:12","reservation":null},{"id":"script-0014","status":"drafting","commissionedWeek":170,"dueWeek":173,"productionId":null,"reservation":{"projectId":"script-0014","facilityId":"studio-aca408ec-r01:development","capability":"development-casting","slot":1}}],"newScriptIds":["script-0014"]}
+P16_FIXED_FUNDED_DRAFT171 {"week":171,"buyerId":"studio-aca408ec-player","targetId":"studio-aca408ec-r01","scriptId":"script-0014","fee":50000,"consideration":8365640,"exitCharges":1305330,"postExitCash":7416101.484490331,"outlay":949538.5155096687,"reserve":390000,"affordable":true,"productionVerdicts":[{"productionId":"studio-aca408ec-r01:film:12","remainingTicks":8,"phase":"development","missingParticipants":["person-studio-aca408ec-r01-0","person-studio-aca408ec-r01-1","person-studio-aca408ec-r01-5","person-studio-aca408ec-r01-4","person-studio-aca408ec-r01-3","person-studio-aca408ec-r01-2"],"disposition":"cancelRequired","reason":"missingParticipants","blockedCapability":null}]}
+
+stdout | tests/p16-healthy-drafting171-funded-baseline.test.ts > P16 real funded171 stopped drafting writeoff > actual scripts v2 publication rejects missing dispositions wrong writer cost or original body with whole hostile caller purity
+P16_FIXED_DRAFT171_OBSERVATION {"week":171,"studioId":"studio-aca408ec-r01","condition":{"stage":"stable","since":131,"week":171,"lowRun":0,"negativeRun":0,"clearRun":41,"distressWeeks":0},"cash":8721431.484490331,"decisionWeek":171,"activeProductions":[{"id":"studio-aca408ec-r01:film:12","remainingTicks":8,"phase":"development"}],"activeScripts":[{"id":"script-0012","status":"inProduction","commissionedWeek":155,"dueWeek":null,"productionId":"studio-aca408ec-r01:film:12","reservation":null},{"id":"script-0014","status":"drafting","commissionedWeek":170,"dueWeek":173,"productionId":null,"reservation":{"projectId":"script-0014","facilityId":"studio-aca408ec-r01:development","capability":"development-casting","slot":1}}],"newScriptIds":["script-0014"]}
+P16_FIXED_FUNDED_DRAFT171 {"week":171,"buyerId":"studio-aca408ec-player","targetId":"studio-aca408ec-r01","scriptId":"script-0014","fee":50000,"consideration":8365640,"exitCharges":1305330,"postExitCash":7416101.484490331,"outlay":949538.5155096687,"reserve":390000,"affordable":true,"productionVerdicts":[{"productionId":"studio-aca408ec-r01:film:12","remainingTicks":8,"phase":"development","missingParticipants":["person-studio-aca408ec-r01-0","person-studio-aca408ec-r01-1","person-studio-aca408ec-r01-5","person-studio-aca408ec-r01-4","person-studio-aca408ec-r01-3","person-studio-aca408ec-r01-2"],"disposition":"cancelRequired","reason":"missingParticipants","blockedCapability":null}]}
+
+stdout | tests/p16-healthy-drafting171-funded-baseline.test.ts > P16 real funded171 stopped drafting writeoff > actual joined scripts v2 final publication validation fault cannot expose writer exits cash titles or partial stopped work
+P16_FIXED_DRAFT171_OBSERVATION {"week":171,"studioId":"studio-aca408ec-r01","condition":{"stage":"stable","since":131,"week":171,"lowRun":0,"negativeRun":0,"clearRun":41,"distressWeeks":0},"cash":8721431.484490331,"decisionWeek":171,"activeProductions":[{"id":"studio-aca408ec-r01:film:12","remainingTicks":8,"phase":"development"}],"activeScripts":[{"id":"script-0012","status":"inProduction","commissionedWeek":155,"dueWeek":null,"productionId":"studio-aca408ec-r01:film:12","reservation":null},{"id":"script-0014","status":"drafting","commissionedWeek":170,"dueWeek":173,"productionId":null,"reservation":{"projectId":"script-0014","facilityId":"studio-aca408ec-r01:development","capability":"development-casting","slot":1}}],"newScriptIds":["script-0014"]}
+P16_FIXED_FUNDED_DRAFT171 {"week":171,"buyerId":"studio-aca408ec-player","targetId":"studio-aca408ec-r01","scriptId":"script-0014","fee":50000,"consideration":8365640,"exitCharges":1305330,"postExitCash":7416101.484490331,"outlay":949538.5155096687,"reserve":390000,"affordable":true,"productionVerdicts":[{"productionId":"studio-aca408ec-r01:film:12","remainingTicks":8,"phase":"development","missingParticipants":["person-studio-aca408ec-r01-0","person-studio-aca408ec-r01-1","person-studio-aca408ec-r01-5","person-studio-aca408ec-r01-4","person-studio-aca408ec-r01-3","person-studio-aca408ec-r01-2"],"disposition":"cancelRequired","reason":"missingParticipants","blockedCapability":null}]}
+
+ ✓ |core| tests/p16-healthy-drafting171-funded-baseline.test.ts (3 tests) 15666ms
+   ✓ P16 real funded171 stopped drafting writeoff > real explicit writer exits preserve original draft costs due reservation and concurrent paid film beyond due with no buyer credit progress refund and save replay 7518ms
+   ✓ P16 real funded171 stopped drafting writeoff > actual scripts v2 publication rejects missing dispositions wrong writer cost or original body with whole hostile caller purity 4450ms
+   ✓ P16 real funded171 stopped drafting writeoff > actual joined scripts v2 final publication validation fault cannot expose writer exits cash titles or partial stopped work 3696ms
+ ✓ |core| tests/p16a-save-v46.test.ts (15 tests) 20153ms
+   ✓ Save49 era surface > validateSave dispatches49 and names the handled range "1 through 49" 2145ms
+   ✓ Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 > convertV48ToV49 adds exactly the empty rights root at the save week and zero P16 movements on every rival period; nothing else moves 1567ms
+   ✓ Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 > migrateToLive lifts the genuine raw capture to 46 through importSave, and a second migration is a no-op 1372ms
+   ✓ Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 > convertV49ToV48 is lossless while the root is empty and every P16 movement is zero, round-tripping to the genuine bytes 3790ms
+   ✓ Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 > the downgrade refuses by name once a rights record exists; a P16 movement or ledger row without its transaction is refused by the validator first 1076ms
+   ✓ the actual migrated Save48 predecessor refuses rights authority below Save49 without retagging a modern envelope 999ms
+   ✓ Save49 rights root validator: shape, title events, holders, estates > the control: a materialized genesis pair validates 1187ms
+   ✓ Save49 rights root validator: shape, title events, holders, estates > refuses a missing root, a wrong version, a recordedFromWeek outside [0, tick], or unknown keys 1240ms
+   ✓ Save49 rights root validator: shape, title events, holders, estates > refuses a duplicate genesis, a broken priorHolder chain, a future-dated event, bad ordinals, duplicate ids, a mismatched subject and an unknown holder 1890ms
+   ✓ Save49 rights root validator: shape, title events, holders, estates > refuses a persisted record that contradicts the authentic source (creator, date or title) as ambiguous provenance 1291ms
+   ✓ Save49 rights root validator: shape, title events, holders, estates > an archive event needs its estate record, and an estate record must name a reserved identity 1067ms
+   ✓ Save49 rights root validator: shape, title events, holders, estates > every authored-start manifest film stays resolvable after migration: the root invents none of them 886ms
+   ✓ F15 genuine predecessor migration keeps observational frontier and lossless empty-era roundtrip 1358ms
+ ✓ |core| tests/p16-continued-work-shooting5-baseline.test.ts (3 tests) 15422ms
+   ✓ P16 genuine initial shooting5 continuation > actual positive first take refuses missing or foreign operator lock and creator subject without mutating any refused caller 6467ms
+   ✓ P16 genuine initial shooting5 continuation > real joined public acquisition publication fault leaves the admitted earlier paid work caller untouched 2963ms
+   ✓ P16 genuine initial shooting5 continuation > native wrap preserves production identity then explicit release publishes creator film buyer rights and a replayable current save 5990ms
+ ✓ |core| tests/p16-continued-work-silent-early.test.ts (4 tests) 19535ms
+   ✓ P16 genuine early SILENT buyer-operated production > public funded acquisition and native director scenery scheduling produce one actual buyer first take with creator screenplay and paid history 6982ms
+   ✓ P16 genuine early SILENT buyer-operated production > actual positive first take refuses missing or foreign operator lock and creator subject without mutating any refused caller 4527ms
+   ✓ P16 genuine early SILENT buyer-operated production > real joined public acquisition publication fault leaves the admitted earlier paid work caller untouched 2263ms
+   ✓ P16 genuine early SILENT buyer-operated production > native wrap preserves production identity then explicit release publishes creator film buyer rights and a replayable current save 5760ms
+ ✓ |core| tests/p16-rebase-c01-absorbed-claims.test.ts (7 tests) 14603ms
+ ✓ |core| tests/p16-continued-work-silent-phases76.test.ts (6 tests) 26100ms
+   ✓ P16 genuine initial early SILENT boundary 163 > actual positive first take refuses missing or foreign operator lock and creator subject without mutating any refused caller 5906ms
+   ✓ P16 genuine initial early SILENT boundary 163 > real joined public acquisition publication fault leaves the admitted earlier paid work caller untouched 2529ms
+   ✓ P16 genuine initial early SILENT boundary 163 > native wrap preserves production identity then explicit release publishes creator film buyer rights and a replayable current save 6179ms
+   ✓ P16 genuine initial early SILENT boundary 164 > actual positive first take refuses missing or foreign operator lock and creator subject without mutating any refused caller 4649ms
+   ✓ P16 genuine initial early SILENT boundary 164 > real joined public acquisition publication fault leaves the admitted earlier paid work caller untouched 2059ms
+   ✓ P16 genuine initial early SILENT boundary 164 > native wrap preserves production identity then explicit release publishes creator film buyer rights and a replayable current save 4776ms
+ ✓ |core| tests/p16a-rights-identity.test.ts (12 tests) 8453ms
+   ✓ P16A legacy resolver: authored-start films resolve from the manifest, not a FilmConcept > each authored film yields a virtual R2 title and R1 property dated beforeCampaign(year) with manifest title and creator 1340ms
+   ✓ P16A legacy resolver: authored-start films resolve from the manifest, not a FilmConcept > simulated rival films resolve R2 at the release week and R1 at the earliest attested event (the announcement), creator permanent 635ms
+   ✓ P16A legacy resolver: authored-start films resolve from the manifest, not a FilmConcept > a migration-origin player library resolves from released FilmResults with the player identity as creator; a film with no release-frozen title row has title null, never a fabricated one 807ms
+   ✓ P16A legacy resolver: authored-start films resolve from the manifest, not a FilmConcept > resolution is a pure read: the state bytes are unchanged and two reads agree 734ms
+   ✓ P16A holders and as-of reads > currentHolder resolves the creator for every legacy subject, tradeable, with no estate authority involved 651ms
+   ✓ P16A holders and as-of reads > an as-of read before a simulated film existed sees no holder for it, while authored (beforeCampaign) titles are held at week 0 742ms
+   ✓ P16A holders and as-of reads > asOfWeek must be a whole week in [0, market.tick] 809ms
+   ✓ P16A holders and as-of reads > a world without an industry has no rights: every read is unavailable (noIndustry) and nothing is minted 608ms
+   ✓ P16A default R3/R4 authority (A4) and parent-bound branches > with an empty licence set, R3 continuation authority is the current R1 holder and R4 derives from the relevant R1/R2 holder 688ms
+   ✓ P16A default R3/R4 authority (A4) and parent-bound branches > a spin-off character or branch has no rights of its own: branch authority resolves to the parent property until an explicit promotion exists 532ms
+   ✓ P16A live route: identities of a real player greenlight and release > the released player film resolves with the player identity as creator, the greenlight week as property creation and the release week as the title date 897ms
+ ✓ |core| tests/p16-absorption-public-action.test.ts (5 tests) 18573ms
+   ✓ P16 public absorbStudio dispatch on retained original48 R03 > public action equals the real direct owner with original quote pair, one outlay, no second fee or bonus and byte roundtrip 3882ms
+   ✓ P16 public absorbStudio dispatch on retained original48 R03 > public dispatch forces the actual player and refuses missing or unheld report and stale invalid carried quote after a real positive 5558ms
+   ✓ P16 public absorbStudio dispatch on retained original48 R03 > real full publication fault rolls back public caller after the transaction owner builds and validates its joined output 2636ms
+   ✓ P16 public absorbStudio dispatch on retained original48 R03 > actual R01 paid foreign-recipient report never authorizes player absorption or reveals its body to the player 2304ms
+   ✓ P16 public absorbStudio dispatch on retained original48 R03 > actual held paid report expires after exactly13 ordinary ticks while a genuine fresh quote pair cannot rescue its old report authority 4191ms
+ ✓ |core| tests/p16-rival-buyer-absorption163-baseline.test.ts (3 tests) 10516ms
+   ✓ P16 genuine actual163 rival buyer explicit nonretention acquisition > real R02 funded close owns exact money and titles without player pollution then preserves paid target work through ordinary ticks save reload and replay 5828ms
+   ✓ P16 genuine actual163 rival buyer explicit nonretention acquisition > actual rival close full reader refuses wrong buyer cash and missing paid work disposition without modifying hostile callers 2434ms
+   ✓ P16 genuine actual163 rival buyer explicit nonretention acquisition > real full joined rival publication fault after all actual effects validates then rolls back the original caller 2253ms
+ ✓ |core| tests/p16-continued-work-shooting4.test.ts (3 tests) 10835ms
+   ✓ P16 genuine completed-take shooting4 handoff > public funded acquisition preserves the actual take silent lock and paid creator work through buyer wrap explicit release and save replay 5379ms
+   ✓ P16 genuine completed-take shooting4 handoff > actual positive shooting handoff refuses invented buyer take lock or altered source paid snapshot with full caller purity 2755ms
+   ✓ P16 genuine completed-take shooting4 handoff > real fully admitted shooting acquisition publication fault rolls back original input without cancelling paid work 2699ms
+ ✓ |core| tests/p16-absorption-active-run.test.ts (2 tests) 13466ms
+   ✓ P16 fixed real R01 paid production completes before healthy active-run absorption > actual eight ordinary ticks produce the named run and healthy absorption pays future locked installments only to buyer with original creator and settlement history 7880ms
+   ✓ P16 fixed real R01 paid production completes before healthy active-run absorption > real admitted active-run history refuses missing handoff omitted installment wrong beneficiary and altered gross or earned cash through full current reader 5583ms
+ ✓ |core| tests/p16-initial-shooting5-writeoff.test.ts (3 tests) 10957ms
+   ✓ P16 genuine initial shooting5 explicit nonretention writeoff > fixed empty retention pays actual capped exits and preserves stopped paid source work and silent lock without buyer work refund take or release through ordinary deadline 5605ms
+   ✓ P16 genuine initial shooting5 explicit nonretention writeoff > actual stopped shooting5 positive refuses missing disposition or altered paid remaining work without modifying rejected caller 2862ms
+   ✓ P16 genuine initial shooting5 explicit nonretention writeoff > real joined publication failure rolls back public empty-retention acquisition after valid capped exits and paid-work disposition 2486ms
+ ✓ |core| tests/p16-quote-age.test.ts (7 tests) 14427ms
+   ✓ F17 public bilateral quote-age boundaries from genuine pre162 > accepts age0 with real title/cash/transaction once and caller purity 2641ms
+   ✓ F17 public bilateral quote-age boundaries from genuine pre162 > accepts age3 after ordinary advancement while the player-addressed sell offer stays open 1610ms
+   ✓ F17 public bilateral quote-age boundaries from genuine pre162 > expires at age4 after ordinary advancement and refuses without any sale/payment 1361ms
+   ✓ F17 public bilateral quote-age boundaries from genuine pre162 > refuses unknown stamps, future quotes and accepted-age4 mutations after a real positive control 2305ms
+   ✓ F17 public bilateral quote-age boundaries from genuine pre162 > accepts real disclosure age12 but refuses fresh offer age1 when that same disclosure becomes13 4548ms
+   ✓ F17 public bilateral quote-age boundaries from genuine pre162 > admits explicitly constructed unstamped/zero legacy-shape rows without claiming historical capture 1956ms
+ ✓ |core| tests/p16b-licence.test.ts (5 tests) 5473ms
+   ✓ P16B licence producer: the four-right instrument boundaries > R1/R2 move only by whole-title sale; R3 is an exclusive term licence on a property with an enumerated continuation use; R4 has no executable grant before P18 1394ms
+   ✓ P16B licence producer: the four-right instrument boundaries > only the current R1 holder grants: a non-holder, a grantee sub-licensing and an overlapping exclusive use are refused; a different use or an adjacent term is not 769ms
+   ✓ P16B licence producer: the four-right instrument boundaries > mintLicence is the one writer: the exact allocated id, every field, the allocator advanced once, nothing else touched, refusals thrown by name 1295ms
+   ✓ P16B licence producer: the four-right instrument boundaries > permissionFor is the live check a consumer makes at every boundary: scoped exclusive authority moves to the grantee for the term and reverts to the holder at expiry 754ms
+   ✓ P16B licence producer: the four-right instrument boundaries > the bilateral sale closes through the producer: the licence a closed R3 offer records is exactly mintLicence's, and the refusal names are the producer's 1255ms
+ ✓ |core| tests/p16-absorption-physical.test.ts (2 tests) 10766ms
+   ✓ P16 absorbed physical paid-work authority from fixed genuine267 > ordinary ticks through original278 deadline retain completed instruments and never materialize or refund stopped paid laboratory 6604ms
+   ✓ P16 absorbed physical paid-work authority from fixed genuine267 > full joined reader rejects missing either owner, altered real paid cost, foreign authority and duplicate disposition while frozen physical admission stays exact 4159ms
+ ✓ |core| tests/bridge-p16-absorption-finance.test.ts (2 tests) 12156ms
+   ✓ P16 actual fractional R03 acquisition financial presentation > real paid diligence and signed fractional net acquisition remain separate recorded categories and reconcile exact period and cash totals 3451ms
+   ✓ P16 actual fractional R03 acquisition financial presentation > real Bridge snapshot finance publishes the same fractional acquisition categories and cash without target private disclosure or changing save authority 8703ms
+ ✓ |core| tests/p16b-due-diligence.test.ts (6 tests) 6463ms
+   ✓ P16B due diligence: one costed, dated, scoped disclosure event > charges the fee exactly once, records recipient/target/week/scope/stale policy, and discloses only the target's relevant facts 2053ms
+   ✓ P16B due diligence: one costed, dated, scoped disclosure event > a narrower scope discloses only that scope; the fee is the same real fee 694ms
+   ✓ P16B due diligence: one costed, dated, scoped disclosure event > only the recipient can read the private body; everyone else gets null; public reads see no body 987ms
+   ✓ P16B due diligence: one costed, dated, scoped disclosure event > refuses by name: an ineligible recipient, an unknown or self target, an empty scope, or a fee that would break the current reserve; a refusal changes nothing 922ms
+   ✓ P16B due diligence: one costed, dated, scoped disclosure event > a rival receives the same lawful event with the fee moved on its own account; a stale disclosure cannot back a binding offer 946ms
+   ✓ P16B due diligence: one costed, dated, scoped disclosure event > the player's requestDueDiligence verb dispatches through applyActions and, while the P15B readers are unbound, refuses by name with no fee charged 860ms
+stdout | tests/p16-stopped-drafting171-refusals.test.ts > P16 real171 drafting continuation remains explicitly unsupported > default writer choice exposes continuation required and refuses the actual funded close without converting drafting to writeoff
+P16_FIXED_DRAFT171_OBSERVATION {"week":171,"studioId":"studio-aca408ec-r01","condition":{"stage":"stable","since":131,"week":171,"lowRun":0,"negativeRun":0,"clearRun":41,"distressWeeks":0},"cash":8721431.484490331,"decisionWeek":171,"activeProductions":[{"id":"studio-aca408ec-r01:film:12","remainingTicks":8,"phase":"development"}],"activeScripts":[{"id":"script-0012","status":"inProduction","commissionedWeek":155,"dueWeek":null,"productionId":"studio-aca408ec-r01:film:12","reservation":null},{"id":"script-0014","status":"drafting","commissionedWeek":170,"dueWeek":173,"productionId":null,"reservation":{"projectId":"script-0014","facilityId":"studio-aca408ec-r01:development","capability":"development-casting","slot":1}}],"newScriptIds":["script-0014"]}
+P16_FIXED_FUNDED_DRAFT171 {"week":171,"buyerId":"studio-aca408ec-player","targetId":"studio-aca408ec-r01","scriptId":"script-0014","fee":50000,"consideration":8365640,"exitCharges":1305330,"postExitCash":7416101.484490331,"outlay":949538.5155096687,"reserve":390000,"affordable":true,"productionVerdicts":[{"productionId":"studio-aca408ec-r01:film:12","remainingTicks":8,"phase":"development","missingParticipants":["person-studio-aca408ec-r01-0","person-studio-aca408ec-r01-1","person-studio-aca408ec-r01-5","person-studio-aca408ec-r01-4","person-studio-aca408ec-r01-3","person-studio-aca408ec-r01-2"],"disposition":"cancelRequired","reason":"missingParticipants","blockedCapability":null}]}
+
+stdout | tests/p16-stopped-drafting171-refusals.test.ts > P16 real171 drafting continuation remains explicitly unsupported > explicit writer retention in a partial company selection requires a real continuation owner and preserves all original input
+P16_FIXED_DRAFT171_OBSERVATION {"week":171,"studioId":"studio-aca408ec-r01","condition":{"stage":"stable","since":131,"week":171,"lowRun":0,"negativeRun":0,"clearRun":41,"distressWeeks":0},"cash":8721431.484490331,"decisionWeek":171,"activeProductions":[{"id":"studio-aca408ec-r01:film:12","remainingTicks":8,"phase":"development"}],"activeScripts":[{"id":"script-0012","status":"inProduction","commissionedWeek":155,"dueWeek":null,"productionId":"studio-aca408ec-r01:film:12","reservation":null},{"id":"script-0014","status":"drafting","commissionedWeek":170,"dueWeek":173,"productionId":null,"reservation":{"projectId":"script-0014","facilityId":"studio-aca408ec-r01:development","capability":"development-casting","slot":1}}],"newScriptIds":["script-0014"]}
+P16_FIXED_FUNDED_DRAFT171 {"week":171,"buyerId":"studio-aca408ec-player","targetId":"studio-aca408ec-r01","scriptId":"script-0014","fee":50000,"consideration":8365640,"exitCharges":1305330,"postExitCash":7416101.484490331,"outlay":949538.5155096687,"reserve":390000,"affordable":true,"productionVerdicts":[{"productionId":"studio-aca408ec-r01:film:12","remainingTicks":8,"phase":"development","missingParticipants":["person-studio-aca408ec-r01-0","person-studio-aca408ec-r01-1","person-studio-aca408ec-r01-5","person-studio-aca408ec-r01-4","person-studio-aca408ec-r01-3","person-studio-aca408ec-r01-2"],"disposition":"cancelRequired","reason":"missingParticipants","blockedCapability":null}]}
+
+ ✓ |core| tests/p16-stopped-drafting171-refusals.test.ts (2 tests) 7131ms
+   ✓ P16 real171 drafting continuation remains explicitly unsupported > default writer choice exposes continuation required and refuses the actual funded close without converting drafting to writeoff 4250ms
+   ✓ P16 real171 drafting continuation remains explicitly unsupported > explicit writer retention in a partial company selection requires a real continuation owner and preserves all original input 2880ms
+ ✓ |core| tests/p16-estate-join.test.ts (5 tests) 8348ms
+   ✓ P16 joined estate actual-source boundaries > actual49 closure atomically publishes matching handoff once without changing the caller 4207ms
+   ✓ P16 joined estate actual-source boundaries > genuine normal48 migration admits without manufacturing actual closure or estate history 1421ms
+   ✓ P16 joined estate actual-source boundaries > genuine public48 liveclosure migration observes authentic provenance without retroactive49 events 977ms
+   ✓ P16 joined estate actual-source boundaries > current49 handoff cannot masquerade as observed48 or borrow foreign claim authority 1012ms
+   ✓ P16 joined estate actual-source boundaries > actual terminal bidder refuses with retained business and even a labelled stale-stable reader 719ms
+ ✓ |core| tests/p16-estate-d-ceremony.test.ts (1 test) 6795ms
+   ✓ P16 D ceremony actual13M sale intake pays partial claims once before one archival and replays 6794ms
+ ✓ |core| tests/p16-absorption-research-cancellation.test.ts (2 tests) 9326ms
+   ✓ P16 real absorbed research marker from fixed accepted267 input > actual public close retains all earned work and paid physical history with one source-owned cancellation and roundtrip 5054ms
+   ✓ P16 real absorbed research marker from fixed accepted267 input > full joined reader refuses either omitted authority or malformed marker and frozen own-era project readers reject its new field 4270ms
+ ✓ |core| tests/p16-absorption-paid-production.test.ts (2 tests) 9354ms
+   ✓ P16 genuine pre162 paid R01 production cancellation-required transaction > public priced quote cancels only its actual required production and ordinary ticks retain paid screenplay footage and commitment without release refund or run income 5639ms
+   ✓ P16 genuine pre162 paid R01 production cancellation-required transaction > strict joined reader rejects omitted disposition wrong screenplay remaining footage and invented missing participant after actual cancellation positive 3713ms
+ ✓ |core| tests/p16-estate-run-continuation.test.ts (2 tests) 7858ms
+   ✓ P16 retained original48 active estate run continues under current49 > actual132 active run settles133 with estate beneficiary, contract-priority payments and fractional cash conservation through134 replay 3695ms
+   ✓ P16 retained original48 active estate run continues under current49 > actual134 continuation reaches one144 archival without duplicate run money and full reader rejects changed beneficiary receipt and claim payment 4161ms
+ ✓ |core| tests/p16b-condition-readers.test.ts (4 tests) 3914ms
+   ✓ P16B permitted bidders read P15B condition and loan records through one bound reader pair > the explicit UNBOUND negative fixture fails closed: no record for anyone, every bidder refused by name, the loan reader throws if consulted 1363ms
+   ✓ P16B permitted bidders read P15B condition and loan records through one bound reader pair > bound to P15B-shaped records, the first-slice matrix holds: exactly stable and no outstanding loan, the stage refusal first 676ms
+   ✓ P16B permitted bidders read P15B condition and loan records through one bound reader pair > default entries refuse a genuinely migrated studio without an evaluated record; explicit UNBOUND revalidation rejects the weekly phase 1144ms
+   ✓ P16B permitted bidders read P15B condition and loan records through one bound reader pair > the readers also answer for the OTHER party: a liabilities disclosure and an absorption target need the target's record 729ms
+ ✓ |core| tests/p16-held-title-seller.test.ts (1 test) 6277ms
+   ✓ real public film0 sale before R04 C excludes the sold title from current closure and handoff while retaining creator history 6275ms
+stdout | tests/p16-estate-d-join-negative.test.ts > P16 joinedD strict-save corruption and actual publication rollback > refuses missing duplicate amount and foreign saleReceipt without mutating the admitted source
+{"proof":"p16-D-hostile-first-refusal","label":"missing-saleReceipt","strict49":"validateSaveP15B: studioClosure closure studio-closure-1 estateSaleProceeds period 3 does not match its actual intake receipts","writer":"validateSaveP15B: studioClosure closure studio-closure-1 estateSaleProceeds period 3 does not match its actual intake receipts"}
+{"proof":"p16-D-hostile-first-refusal","label":"duplicate-saleReceipt","strict49":"validateSaveP15B: studioClosure estate event estate-event-1 is out of append order or at or above nextEstateEvent","writer":"validateSaveP15B: studioClosure estate event estate-event-1 is out of append order or at or above nextEstateEvent"}
+{"proof":"p16-D-hostile-first-refusal","label":"amount-saleReceipt","strict49":"validateSaveP15B: studioClosure closure studio-closure-1 estateSaleProceeds period 3 does not match its actual intake receipts","writer":"validateSaveP15B: studioClosure closure studio-closure-1 estateSaleProceeds period 3 does not match its actual intake receipts"}
+{"proof":"p16-D-hostile-first-refusal","label":"foreign-saleReceipt","strict49":"validateSaveV49: estate join sale intake differs from actual estate transaction","writer":"validateSaveV49: estate join sale intake differs from actual estate transaction"}
+
+stdout | tests/p16-estate-d-join-negative.test.ts > P16 joinedD strict-save corruption and actual publication rollback > refuses extra estateSaleProceeds and an extra buyer rights debit even with their matching cash changes
+{"proof":"p16-D-hostile-first-refusal","label":"extra-estateSaleProceeds","strict49":"validateSaveP15B: studioClosure closure studio-closure-1 estateSaleProceeds period 3 does not match its actual intake receipts","writer":"validateSaveP15B: studioClosure closure studio-closure-1 estateSaleProceeds period 3 does not match its actual intake receipts"}
+{"proof":"p16-D-hostile-first-refusal","label":"extra-buyer-rights-debit","strict49":"validateSaveV49: rights.transactions studio-aca408ec-player rightsConsideration -13000001 does not reconcile with its rights transactions (-13000000)","writer":"validateSaveV49: rights.transactions studio-aca408ec-player rightsConsideration -13000001 does not reconcile with its rights transactions (-13000000)"}
+
+ ✓ |core| tests/p16-estate-d-join-negative.test.ts (3 tests) 9172ms
+   ✓ P16 joinedD strict-save corruption and actual publication rollback > refuses missing duplicate amount and foreign saleReceipt without mutating the admitted source 7020ms
+   ✓ P16 joinedD strict-save corruption and actual publication rollback > refuses extra estateSaleProceeds and an extra buyer rights debit even with their matching cash changes 1087ms
+   ✓ P16 joinedD strict-save corruption and actual publication rollback > a real strict49 D publication refusal cannot publish partial sale cash claims or archival 1063ms
+ ✓ |core| tests/p16-rival-buyer-rights.test.ts (3 tests) 6689ms
+   ✓ P16 genuine rival buyer bilateral rights parity > real paid R03 diligence and funded R01 seller offer close once through direct and ordinary rival answer owners with exact rival cash title and save parity 3294ms
+   ✓ P16 genuine rival buyer bilateral rights parity > positive rival close does not grant foreign acceptance or seller use of buyer-held private report authority 1785ms
+   ✓ P16 genuine rival buyer bilateral rights parity > real second cash owner refusal cannot expose a partial title payment or accepted rival offer to the original caller 1605ms
+ ✓ |core| tests/bridge-p16-paid-reports.test.ts (2 tests) 7640ms
+   ✓ P16 real recipient-bound paid-report Bridge readback > no unpaid body then real player report only; foreign R01 paid report and missing selection stay private with detached responses and guarded revisions 3385ms
+   ✓ P16 real recipient-bound paid-report Bridge readback > real rights-only paid scope remains exact dated history after13 ordinary ticks and stale readback grants no extra employment or liability fields 4253ms
+ ✓ |core| tests/p16-r03-observed-migration.test.ts (2 tests) 8116ms
+   ✓ observed original48 R03 week132 preserves nonzero claimPayment and the authentic active run through public49 migration and same-boundary downgrade 2795ms
+   ✓ observed original48 R03 settled134 and archived144 preserve earned payments and one original archival without inventing past49 history 5320ms
+ ✓ |core| tests/p16-r2-sale.test.ts (5 tests) 5471ms
+   ✓ r2 F49: affordability is rechecked at closing > a buy offer made while affordable refuses at acceptance once the buyer's cash no longer covers the reserve 1665ms
+   ✓ r2 F50: an exclusive R3 grant on a property with an active production refuses, like its title sale > the producer and the offer path both name activeProductionEncumbrance for a licence on the in-flight concept 1034ms
+   ✓ r2 F56: the weekly tick expires open offers > an offer the player never answers expires at its expiry week through tick, not only through a direct call 1193ms
+   ✓ r2 F57: a rival buys at or below its bid and rejects one dollar above it > a sell offer to a rival at its bid closes; one dollar over is rejected naming the bid 724ms
+   ✓ r2 F36: rivals answer open offers in allocation order > with cash for one of two sell offers, the earlier-allocated offer (rights-offer-9) closes before rights-offer-10 849ms
+ ✓ |core| tests/p16-estate-observed-migration.test.ts (4 tests) 9435ms
+   ✓ P16 observed original48 migration retains terminal authority without new history > C163 and archivedD176 retain complete closure claim loan run archive roots and same-boundary lossless roundtrip 5432ms
+   ✓ P16 observed original48 migration retains terminal authority without new history > archived176 observes one original archival, never reopens bidding, and retains nontradeable film ownership 1201ms
+   ✓ P16 observed original48 migration retains terminal authority without new history > a real new public bid is admitted current authority and blocks discard of an otherwise reconstructable live observation 1697ms
+   ✓ P16 observed original48 migration retains terminal authority without new history > frozen48 reader refuses the added current rights root without retagging a49 envelope 1103ms
+ ✓ |core| tests/p16-estate-claim-boundaries.test.ts (3 tests) 12319ms
+   ✓ P16 real estate cash and claim-payment boundaries on fixed R04 lot > negative cash after a real sale pays zero claims and never invents a negative-cash creditor 5196ms
+   ✓ P16 real estate cash and claim-payment boundaries on fixed R04 lot > whole distributable cash equal to retained claims pays exactly all claims and retains fractional residual 3587ms
+   ✓ P16 real estate cash and claim-payment boundaries on fixed R04 lot > actual excess sale cash caps every claim at original and leaves the excess in the retained estate account 3534ms
+stdout | tests/p16-held-title-buyer-public.test.ts > real purchased R04film0 survives four fixed public campaigns and joins actual buyer closure without changing creator history
+{"proof":"P16_BUYER_PUBLIC_PHASE_COST_DIAGNOSTIC","completed":true,"actualClosureWeek":269,"elapsedMs":17063.486272,"observations":[{"phase":"actual-public-purchase-and-seller-C","week":163,"milliseconds":2223.296852},{"phase":"ordinary-advance-and-public-blitz","week":163,"milliseconds":299.04077700000016},{"phase":"ordinary-advance-and-public-push","week":169,"milliseconds":1216.2067340000003},{"phase":"ordinary-advance-and-public-whisper","week":175,"milliseconds":1301.196591},{"phase":"ordinary-advance-and-public-push","week":181,"milliseconds":1528.2619949999998},{"phase":"ordinary-advance-to-actual-buyer-C","week":269,"milliseconds":9936.818777999999},{"phase":"full-terminal-owner-assertions-and-purity","week":269,"milliseconds":558.6166260000027}],"unfinishedPhaseMs":0.05953199999930803,"scope":"timings only; originaldefault5s remains binding; no segmentation qualification"}
+
+ ✓ |core| tests/p16-held-title-buyer-public.test.ts (1 test) 17079ms
+   ✓ real purchased R04film0 survives four fixed public campaigns and joins actual buyer closure without changing creator history 17078ms
+ ✓ |core| tests/p16-r2-rename.test.ts (2 tests) 3038ms
+   ✓ r2 F3/F26: rename between greenlight and release > the property keeps its greenlight title, the film carries the release title, and the campaign saves, reloads byte-for-byte, ticks and saves again 2363ms
+   ✓ r2 F3/F26: rename between greenlight and release > without a lawful rename the greenlight snapshot must equal the concept's title: a forged property title refuses as ambiguous provenance 645ms
+stdout | tests/p16-healthy-new-drafting171.test.ts > P16 fixed genuine actual163 new healthy drafting premise > observes exactly eight ordinary ticks then requires a genuinely new active drafting project before diagnosing the current absorption owner
+P16_FIXED_DRAFT171_OBSERVATION {"week":171,"studioId":"studio-aca408ec-r01","condition":{"stage":"stable","since":131,"week":171,"lowRun":0,"negativeRun":0,"clearRun":41,"distressWeeks":0},"cash":8721431.484490331,"decisionWeek":171,"activeProductions":[{"id":"studio-aca408ec-r01:film:12","remainingTicks":8,"phase":"development"}],"activeScripts":[{"id":"script-0012","status":"inProduction","commissionedWeek":155,"dueWeek":null,"productionId":"studio-aca408ec-r01:film:12","reservation":null},{"id":"script-0014","status":"drafting","commissionedWeek":170,"dueWeek":173,"productionId":null,"reservation":{"projectId":"script-0014","facilityId":"studio-aca408ec-r01:development","capability":"development-casting","slot":1}}],"newScriptIds":["script-0014"]}
+P16_FIXED_DRAFT171_REFUSAL {"week":171,"refusal":"retainedScriptProducerRequired","featureAcceptance":false}
+
+ ✓ |core| tests/p16-healthy-new-drafting171.test.ts (1 test) 3428ms
+   ✓ P16 fixed genuine actual163 new healthy drafting premise > observes exactly eight ordinary ticks then requires a genuinely new active drafting project before diagnosing the current absorption owner 3426ms
+ ✓ |core| tests/p16-finance-presentation.test.ts (2 tests) 6518ms
+   ✓ actual13M estate buyer debit has one signed finance category and unchanged ledger-order net without exposing rival estate accounting 5029ms
+   ✓ NONCAMPAIGN isolated signed reporting keeps ordinary rights fractional acquisition and diligence separate without inventing cash authority 1488ms
+ ✓ |core| tests/p16-tuning.test.ts (13 tests) 46ms
+ ✓ |core| tests/p16-rebase-estate-licence-survival.test.ts (1 test) 9283ms
+   ✓ actual closure and unsold archival preserve the existing paid exclusive licence, scope and expiry 9282ms
+ ✓ |core| tests/p16-estate-current49-rollback.test.ts (1 test) 2686ms
+   ✓ actual49 closure publication refusal rolls back the fully admitted pre-C caller 2684ms
+ ✓ |core| tests/p16b-live-condition-readers.test.ts (2 tests) 17273ms
+   ✓ P16 default readers consume real P15B evaluated condition and loan authority > fails closed before evaluation and permits the genuinely evaluated stable borrower without a loan 8097ms
+   ✓ P16 default readers consume real P15B evaluated condition and loan authority > refuses a real public loan even after ordinary evaluated recovery returns the bidder to stable 9174ms
+
+ Test Files  54 passed (54)
+      Tests  263 passed (263)
+   Start at  21:18:08
+   Duration  275.42s (transform 10.98s, setup 0ms, collect 84.28s, tests 667.94s, environment 22ms, prepare 16.32s)
+
+JSON report written to /Users/zacheryspector/studio-scratch/p16-sprint4-20261025/p16-integration.json
+=== END p16-integration exit=0
+=== BEGIN historical-forecast
+21:22  up 17 days,  5:11, 1 user, load averages: 17.62 13.73 9.96
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt
+
+ ✓ |core| tests/p13b-s7-forecast.test.ts (4 tests) 10ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  21:22:47
+   Duration  1.07s (transform 281ms, setup 0ms, collect 349ms, tests 10ms, environment 0ms, prepare 179ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/p16-sprint4-20261025/historical-forecast.json
+=== END historical-forecast exit=0
+=== BEGIN final-root-types
+21:22  up 17 days,  5:11, 1 user, load averages: 16.69 13.60 9.93
+=== END final-root-types exit=0
+=== ALL DONE

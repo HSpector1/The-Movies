@@ -66,5 +66,6 @@
     "final-gate/full-tree-next.PREPARED.sh": "1e8d689084b4b5244d46fdc330882eaf2eaa67b4310b25f39ac5dc7a09963c39",
     "final-gate/PROPOSAL.md": "ea259886ab2ec966de2b4164886cc353928915cd40941f2a3182d04d0b5dd0ab"
   },
-  "profileNote": "Original CPU profiles remain at sourceDirectory; published .gz files decompress to these original hashes."
+  "profileNote": "Original CPU profiles remain at sourceDirectory; published .gz files decompress to these original hashes.",
+  "logNote": "Published *.log.txt preserves exact original *.log bytes, avoiding repository *.log ignore; original SHA256 keys name the source files."
 }

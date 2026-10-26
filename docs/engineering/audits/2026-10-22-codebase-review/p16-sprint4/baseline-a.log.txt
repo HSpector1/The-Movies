@@ -1,0 +1,73 @@
+=== BEGIN s7-baseline
+20:54  up 17 days,  4:43, 1 user, load averages: 4.26 4.06 3.11
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt
+
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts (22 tests | 21 skipped) 15956ms
+   ✓ P13B-S7-T3 item 3: replacementLabel on the purchase row, adopt-* rows and adoptions[] rows, for both technologies > committed adoptions[] rows for both technologies carry replacementLabel verbatim (s6SoundReady/s6LightingReady) 15954ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 21 skipped (22)
+   Start at  20:54:56
+   Duration  49.00s (transform 6.21s, setup 0ms, collect 31.73s, tests 15.96s, environment 0ms, prepare 240ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/p16-sprint4-20261025/s7-baseline.json
+=== END s7-baseline exit=0
+=== BEGIN joins-baseline
+20:55  up 17 days,  4:44, 1 user, load averages: 6.42 4.75 3.42
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt
+
+stdout | tests/p16-estate-d-join-negative.test.ts > P16 joinedD strict-save corruption and actual publication rollback > refuses missing duplicate amount and foreign saleReceipt without mutating the admitted source
+{"proof":"p16-D-hostile-first-refusal","label":"missing-saleReceipt","strict49":"validateSaveP15B: studioClosure closure studio-closure-1 estateSaleProceeds period 3 does not match its actual intake receipts","writer":"validateSaveP15B: studioClosure closure studio-closure-1 estateSaleProceeds period 3 does not match its actual intake receipts"}
+{"proof":"p16-D-hostile-first-refusal","label":"duplicate-saleReceipt","strict49":"validateSaveP15B: studioClosure estate event estate-event-1 is out of append order or at or above nextEstateEvent","writer":"validateSaveP15B: studioClosure estate event estate-event-1 is out of append order or at or above nextEstateEvent"}
+{"proof":"p16-D-hostile-first-refusal","label":"amount-saleReceipt","strict49":"validateSaveP15B: studioClosure closure studio-closure-1 estateSaleProceeds period 3 does not match its actual intake receipts","writer":"validateSaveP15B: studioClosure closure studio-closure-1 estateSaleProceeds period 3 does not match its actual intake receipts"}
+{"proof":"p16-D-hostile-first-refusal","label":"foreign-saleReceipt","strict49":"validateSaveV49: estate join sale intake differs from actual estate transaction","writer":"validateSaveV49: estate join sale intake differs from actual estate transaction"}
+
+stdout | tests/p16-estate-d-join-negative.test.ts > P16 joinedD strict-save corruption and actual publication rollback > refuses extra estateSaleProceeds and an extra buyer rights debit even with their matching cash changes
+{"proof":"p16-D-hostile-first-refusal","label":"extra-estateSaleProceeds","strict49":"validateSaveP15B: studioClosure closure studio-closure-1 estateSaleProceeds period 3 does not match its actual intake receipts","writer":"validateSaveP15B: studioClosure closure studio-closure-1 estateSaleProceeds period 3 does not match its actual intake receipts"}
+{"proof":"p16-D-hostile-first-refusal","label":"extra-buyer-rights-debit","strict49":"validateSaveV49: rights.transactions studio-aca408ec-player rightsConsideration -13000001 does not reconcile with its rights transactions (-13000000)","writer":"validateSaveV49: rights.transactions studio-aca408ec-player rightsConsideration -13000001 does not reconcile with its rights transactions (-13000000)"}
+
+ ✓ |core| tests/p16-estate-d-join-negative.test.ts (3 tests) 4691ms
+   ✓ P16 joinedD strict-save corruption and actual publication rollback > refuses missing duplicate amount and foreign saleReceipt without mutating the admitted source 3664ms
+   ✓ P16 joinedD strict-save corruption and actual publication rollback > refuses extra estateSaleProceeds and an extra buyer rights debit even with their matching cash changes 540ms
+   ✓ P16 joinedD strict-save corruption and actual publication rollback > a real strict49 D publication refusal cannot publish partial sale cash claims or archival 485ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  20:55:48
+   Duration  11.01s (transform 4.20s, setup 0ms, collect 5.49s, tests 4.69s, environment 0ms, prepare 232ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/p16-sprint4-20261025/joins-baseline.json
+=== END joins-baseline exit=0
+=== BEGIN replay-baseline
+20:56  up 17 days,  4:44, 1 user, load averages: 6.28 4.81 3.47
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt
+
+ ✓ |core| tests/p16c-estate.test.ts (7 tests | 6 skipped) 5863ms
+   ✓ P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival > the ordinary route: ticks carry the estate to D; explicit unbound readers refuse, while actual bound readers sell, archive, save and reload byte-for-byte 5861ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 6 skipped (7)
+   Start at  20:56:02
+   Duration  11.08s (transform 3.24s, setup 0ms, collect 4.23s, tests 5.86s, environment 0ms, prepare 135ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/p16-sprint4-20261025/replay-baseline.json
+=== END replay-baseline exit=0
+=== BEGIN s7-profile
+20:56  up 17 days,  4:45, 1 user, load averages: 6.96 5.01 3.56
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt
+
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts (22 tests | 21 skipped) 20940ms
+   ✓ P13B-S7-T3 item 3: replacementLabel on the purchase row, adopt-* rows and adoptions[] rows, for both technologies > committed adoptions[] rows for both technologies carry replacementLabel verbatim (s6SoundReady/s6LightingReady) 20937ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 21 skipped (22)
+   Start at  20:56:14
+   Duration  64.15s (transform 6.60s, setup 0ms, collect 41.81s, tests 20.94s, environment 0ms, prepare 301ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/p16-sprint4-20261025/s7-profile.json
+=== END s7-profile exit=0
+=== ALL DONE

@@ -1,0 +1,16 @@
+=== BEGIN null-corrected
+21:06  up 17 days,  4:55, 1 user, load averages: 6.24 6.19 5.20
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt
+
+ ✓ |core| tests/p16-absorption-clean-target.test.ts (5 tests | 4 skipped) 3319ms
+   ✓ P16 actual clean-target absorption from retained original48 R03 > full current reader refuses independent cent drift and missing employment/title links, and named downgrade preserves its caller 3317ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 4 skipped (5)
+   Start at  21:06:33
+   Duration  8.93s (transform 3.69s, setup 0ms, collect 4.75s, tests 3.32s, environment 0ms, prepare 246ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/p16-sprint4-20261025/null-corrected.json
+=== END null-corrected exit=0
+=== ALL DONE
