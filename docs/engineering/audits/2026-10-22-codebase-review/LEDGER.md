@@ -1,5 +1,14 @@
 # Findings ledger — stabilization phase (Owner order 2026-10-22 "IMPLEMENT CODE REVIEW FINDINGS")
 
+## Continuation readiness, 2026-10-26
+
+Fresh host observation found foreign Godot PID 43875 using 55% CPU; no Studio lane lock. Available disk was 10,738,636 KiB, above launch floor. No heavy Studio execution or foreign termination. The Owner was asked to pause other engine/build jobs for the exclusive window; response remains pending. This is a resource prerequisite, not a routine continuation approval.
+
+A fresh 39-core/3-UI consumer runner is prepared, NOT LAUNCHED, at `studio-scratch/p16-sprint7-verification-20261026/consumer-resume/run.sh`, source `5a730f42`, with 1,641 input/source pins including the restored atlas. Root/Bridge typecheck observations are reused because subsequent changes affect tests/records only; UI types remain required. Shell syntax checked only. Immediately before launch, confirm host exclusivity and rerun the authoritative equipment preflight with a fresh private receipt; verify all prepared pins and freeze source/index/HANDOFF through postflight/audit. No completed qualification is claimed.
+
+Sol's bounded source inspection identifies the next acquired-screenplay seam in `p16-sprint7/greenlight-GREENLIGHT-BOUNDARY.md`: existing current49 contexts prove source-at-close productions, not new buyer-created post-close production. A coherent greenlight/cancel/release producer needs its actual durable provenance. This is an engineering dependency within approved scope, not a new Owner policy question. No speculative receipt/version, source patch or runtime was introduced. The primary and experimental candidates are unchanged. Full-game qualification separately still needs three original r3n1 fixtures.
+
+
 ## Consumer checkpoint, 2026-10-26
 
 Experimental branch `p16-retained-writing-20261026` is published and explicit GitHub ref verified at `5a730f42d5a66d22cba4808b5c642510c2f068bb`. Primary P16 remains `013c4edc90c0ce063fea00ebb187161ad6eb3414`; no gameplay enters main. The UI parser now preserves legitimate carried-action blockers (existing leaf RED, complete file 19/19 GREEN). Projection 63 generated/checks passed and authentic outgoing 62 is retained. Declaration identities independently measured; final expectation-only follow-up remains STATIC-UNRUN.

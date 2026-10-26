@@ -2,6 +2,12 @@
 
 Last writer: Codex, 2026-10-26, sole coordinator for the authorized Sprints 5–16 program.
 
+## Immediate continuation — 2026-10-26
+
+- Source remains experimental 5a730f42; primary 013c4edc unchanged. Fresh observation found foreign Godot at 55% CPU; no Studio lock, 10,738,636 KiB free. No runtime launched. Owner exclusive-window answer remains pending; do not treat general continuation as proof that foreign jobs stopped.
+- Fresh runner prepared at ~/studio-scratch/p16-sprint7-verification-20261026/consumer-resume/run.sh with 1,641 pins. Next: exclusive window, actual host inspection and fresh authoritative preflight; revalidate prepared source before freeze/launch. Reuse root/Bridge types; UI types and complete consumer milestone remain required. No old one-shot runner reuse.
+- Safe source inspection completed: p16-sprint7/greenlight-GREENLIGHT-BOUNDARY.md and source pins explain the actual post-close buyer-production provenance gap. It is approved engineering work, not an Owner policy blocker. No speculative patch. Full-game gate still needs original r3n1 inputs. No background jobs or new cleanup; preserve current dependencies/inputs.
+
 ## Consumer gate checkpoint — 2026-10-26 (current side tree)
 
 - Experimental branch p16-retained-writing-20261026 published at 5a730f42d5a66d22cba4808b5c642510c2f068bb (explicit remote verified), with production source 0e0cdfde; primary candidate 013c4edc is unchanged. Projection 63 measurement succeeded. Final contract identity/roster expectation corrections are static and unrun; no gameplay promotion.
