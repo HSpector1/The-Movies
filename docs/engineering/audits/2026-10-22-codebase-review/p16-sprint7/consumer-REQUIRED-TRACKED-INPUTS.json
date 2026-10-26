@@ -1,0 +1,28 @@
+{
+  "sourceHEAD": "0e0cdfde48d5dca06437c711e03a4f9f1a37360f",
+  "inputs": {
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json": "fc6938ee18e75cf2d7f66c96fa9b7e06ccc73a9d",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/genuine-v39-p3-market-week45.json.gz": "4bb2d24e3540b1e564c8941576055a0864f91b5b",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/MANIFEST.json": "d1260b806924fd1a8966068605c379cd876c2db1",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/director-bound-week52.json.gz": "dab583842c5fc7eaebfc23741799a19d2ede1325",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/director-earned-week61.json.gz": "f37c46a86b38697416da924c9e4aeef0fbf2bb02",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/director-waived-week61.json.gz": "d7b7d847bbea84dbe249bcca16627895b54f3d99",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/runtime54-waiver-current61-saved61.json.gz": "161191106a769423032740db75f1b4054021fd9e",
+    "ui/e2e/lot-native-next-event-v1/script-review.save.json": "71c2c59e6667f03d242d71955776181330445347",
+    "ui/e2e/p11-core-v1/manifest.json": "32461204b8126f69ac3b02f7fb14a68f58d8d84f",
+    "ui/e2e/p11-core-v1/s2-p11-capital-heavy.checkpoint.json": "e7cb2d294fdf390f9f2e6b2c136ccadf03543222",
+    "ui/e2e/p11-core-v2/s2-p11-capital-heavy.checkpoint.json": "c9c8711b3f6039f746ac54789c2aedcbbecb080d",
+    "ui/e2e/p11-core-v2/s3-p11-ongoing-deficit.checkpoint.json": "9c602c3d9a2d1c7ece2f9383773d1eaeca6832e4",
+    "ui/e2e/p11-core-v2/s5-p11-steady.checkpoint.json": "2dce042bff3c7745bb2bf5e560eddbe8e155f440",
+    "ui/e2e/p11-core-v2/s6-p11-positive-long-payroll.checkpoint.json": "434a4d3a60696efce83795f8afaa96ea22fd4858",
+    "ui/e2e/p11-core-v2/s7-p11-same-title-active-settled.checkpoint.json": "f02e44f129ff7e705d626c72cd51b48fe49da02c",
+    "ui/e2e/p11-core-v2/s8-p11-incomplete-history.checkpoint.json": "086a980fd8713b64e82764e7df503f620099c21d",
+    "ui/e2e/p11-core-v3/s10-p11-ready-package.checkpoint.json": "e12325a097f0a02e22f83c22fa7439c86601da75",
+    "ui/e2e/p11-core-v3/s11-p11-in-production.checkpoint.json": "efebe7bc3bef5ae335b506cef90992629463cb8b",
+    "ui/e2e/p11-core-v3/s12-p11-post-production.checkpoint.json": "7c4a38b0684c0d188185720d6c46b2cd15150403",
+    "ui/e2e/p11-core-v3/s13-p11-release-ready.checkpoint.json": "1d677b35af0fea53e0df393e70de67cabc90a5d3",
+    "ui/e2e/p11-core-v3/s14-p11-renewal-window.checkpoint.json": "8cc7f1744fabefdad5fae7c6a2daad4980e3f4dd",
+    "ui/e2e/p11-core-v3/s16-p11-long-portfolio.checkpoint.json": "e77d0a31119ecac89bbf80b44b58990fee1522f2",
+    "ui/e2e/p11-core-v3/s9-p11-development-review.checkpoint.json": "03ef520d1d1d06be323e1a64abe81086542c8792"
+  }
+}

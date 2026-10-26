@@ -574,12 +574,13 @@ describe('CF-08 sound union-to-C# generation', () => {
       // read independently of this test and recorded by lane wave3c (lane-logs/p62-declaration-measurement.json,
       // which also checks the committed schema file deep-equals BRIDGE_SCHEMA). The header line does not
       // read projectionVersion, so the call keeps its 59.
+      // Projection63: independently measured on0e0cdfde; p16-sprint7/declaration-measurement/measurement.json.
       const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 59 })
       expect(generated).toContain(
-        '// Schema identity: sha256:2b94e6df66cd5b45e398861c8130085434d4bb9c4d0cf9bdcb97607699799604',
+        '// Schema identity: sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:2b94e6df66cd5b45e398861c8130085434d4bb9c4d0cf9bdcb97607699799604',
+        'sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -743,8 +744,9 @@ describe('CF-08 sound union-to-C# generation', () => {
         // the F40 pin 55903006…), exit 0. All eight positives rendered twice, six fixed bodies (F01, F02, F03,
         // F04, F09, F12) unchanged; both current bodies are 473437 bytes / 2667c096…. Evidence:
         // lane-logs/p62-declaration-measurement.json; never a failure message.
-        F10_CURRENT_QUOTE_UNIONS: '2667c096556cc1e5f9552390933ed8769b599810f8f7e9753ecbf5b05e0860d1', // P16 + 18A projection62: independently measured all8 twice; six fixed bodies unchanged
-        F11_CURRENT_COMMAND_UNION: '2667c096556cc1e5f9552390933ed8769b599810f8f7e9753ecbf5b05e0860d1', // P16 + 18A projection62: independently measured 473437-byte body, same as F10
+        // Projection63: all8 measured twice,6fixed unchanged; current bodies473809bytes.
+        F10_CURRENT_QUOTE_UNIONS: 'df9a088d4edd52652fc4eab583a83b36c667a50d3fd14d0be4715eadeb2a6f74', // P16 + 18A projection62: independently measured all8 twice; six fixed bodies unchanged
+        F11_CURRENT_COMMAND_UNION: 'df9a088d4edd52652fc4eab583a83b36c667a50d3fd14d0be4715eadeb2a6f74', // P16 + 18A projection62: independently measured 473437-byte body, same as F10
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {

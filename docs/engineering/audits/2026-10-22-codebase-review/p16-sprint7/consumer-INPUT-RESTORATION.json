@@ -1,0 +1,140 @@
+[
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json",
+    "gitBlob": "fc6938ee18e75cf2d7f66c96fa9b7e06ccc73a9d",
+    "sha256": "a261fc3177527d05d5a8daf624de7af015df8c9a8fedd3e11b37fe1597a2f4b6",
+    "bytes": 11550
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/genuine-v39-p3-market-week45.json.gz",
+    "gitBlob": "4bb2d24e3540b1e564c8941576055a0864f91b5b",
+    "sha256": "12799a849b0b4aff49cd9707ea8c1b87c64b4e787ff261b2e9cf4b109a953117",
+    "bytes": 86995
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/MANIFEST.json",
+    "gitBlob": "d1260b806924fd1a8966068605c379cd876c2db1",
+    "sha256": "02115df5d6e7d4c33284b9a439a7c79601e1b2e807f4fa96c20149f5c84186f3",
+    "bytes": 21306
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/director-bound-week52.json.gz",
+    "gitBlob": "dab583842c5fc7eaebfc23741799a19d2ede1325",
+    "sha256": "b894a85ffad37378f93dc8a8e83bad926ab7a1bb857dd76e9b9926b520fec6e1",
+    "bytes": 93047
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/director-earned-week61.json.gz",
+    "gitBlob": "f37c46a86b38697416da924c9e4aeef0fbf2bb02",
+    "sha256": "97a1a96c32f0abe290a798734b322611e0be1f5a1c29461753c1d0b50feeceeb",
+    "bytes": 101049
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/director-waived-week61.json.gz",
+    "gitBlob": "d7b7d847bbea84dbe249bcca16627895b54f3d99",
+    "sha256": "95ca93ba0a0f16b1c11ad34960a9617217685a681e8ad27ebf896e75f1debb0e",
+    "bytes": 101260
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/runtime54-waiver-current61-saved61.json.gz",
+    "gitBlob": "161191106a769423032740db75f1b4054021fd9e",
+    "sha256": "f329404212db51462182fea9e9291cc01fe3054437119f04ba9d9900353b6240",
+    "bytes": 370182
+  },
+  {
+    "path": "ui/e2e/lot-native-next-event-v1/script-review.save.json",
+    "gitBlob": "71c2c59e6667f03d242d71955776181330445347",
+    "sha256": "7de7c830aa8bb71e43baff712f94134e98b3337c4411517aa5fdc6dfa75574e1",
+    "bytes": 221880
+  },
+  {
+    "path": "ui/e2e/p11-core-v1/manifest.json",
+    "gitBlob": "32461204b8126f69ac3b02f7fb14a68f58d8d84f",
+    "sha256": "626c85c7429695d04e5a93ffa701d805dc6154354f44b919b77daa08e68656e3",
+    "bytes": 23636
+  },
+  {
+    "path": "ui/e2e/p11-core-v1/s2-p11-capital-heavy.checkpoint.json",
+    "gitBlob": "e7cb2d294fdf390f9f2e6b2c136ccadf03543222",
+    "sha256": "dc9ce6bdd6dc062e46d5cf3d1fe64b614640cd163bd692ed2aa8e374cbbf2d98",
+    "bytes": 263403
+  },
+  {
+    "path": "ui/e2e/p11-core-v2/s2-p11-capital-heavy.checkpoint.json",
+    "gitBlob": "c9c8711b3f6039f746ac54789c2aedcbbecb080d",
+    "sha256": "acf06e099b3f873e274b59a11e560c48a0ff2ab664df3446896f625ca26bad09",
+    "bytes": 263403
+  },
+  {
+    "path": "ui/e2e/p11-core-v2/s3-p11-ongoing-deficit.checkpoint.json",
+    "gitBlob": "9c602c3d9a2d1c7ece2f9383773d1eaeca6832e4",
+    "sha256": "f1ed234e84b6fd5cfc1e3b948ee0729d090051c58901b23a3023c3cd76b2f4cd",
+    "bytes": 291910
+  },
+  {
+    "path": "ui/e2e/p11-core-v2/s5-p11-steady.checkpoint.json",
+    "gitBlob": "2dce042bff3c7745bb2bf5e560eddbe8e155f440",
+    "sha256": "2a106fc1a452244851c8b3ae639b71df765c09943bd129381985ef8cd216ef07",
+    "bytes": 248467
+  },
+  {
+    "path": "ui/e2e/p11-core-v2/s6-p11-positive-long-payroll.checkpoint.json",
+    "gitBlob": "434a4d3a60696efce83795f8afaa96ea22fd4858",
+    "sha256": "3158d9bf3ff32bf6a622bf2e4d624acb4a9d720475f42612e96e28ae47cb4146",
+    "bytes": 279193
+  },
+  {
+    "path": "ui/e2e/p11-core-v2/s7-p11-same-title-active-settled.checkpoint.json",
+    "gitBlob": "f02e44f129ff7e705d626c72cd51b48fe49da02c",
+    "sha256": "8878416914e48c02e96f8e3a60ed9aca5facae4ccb89d12edf45540450d6c7f8",
+    "bytes": 279196
+  },
+  {
+    "path": "ui/e2e/p11-core-v2/s8-p11-incomplete-history.checkpoint.json",
+    "gitBlob": "086a980fd8713b64e82764e7df503f620099c21d",
+    "sha256": "0039d5eae56b54d74d0a4467a90471d66da18eb65d8a2fd4060193b9a637f508",
+    "bytes": 278115
+  },
+  {
+    "path": "ui/e2e/p11-core-v3/s10-p11-ready-package.checkpoint.json",
+    "gitBlob": "e12325a097f0a02e22f83c22fa7439c86601da75",
+    "sha256": "be71eb4f11ac4db5e5af9fac56072d6d55335242c12afeb960af005f2f58ec7a",
+    "bytes": 294173
+  },
+  {
+    "path": "ui/e2e/p11-core-v3/s11-p11-in-production.checkpoint.json",
+    "gitBlob": "efebe7bc3bef5ae335b506cef90992629463cb8b",
+    "sha256": "f104496acbc7c3bb21a1f41f1d07658d83c722a41bacf632430105fba7ca1819",
+    "bytes": 299567
+  },
+  {
+    "path": "ui/e2e/p11-core-v3/s12-p11-post-production.checkpoint.json",
+    "gitBlob": "7c4a38b0684c0d188185720d6c46b2cd15150403",
+    "sha256": "c98c3909d3f463424157e6161c3724ce0b57d6d735f10c2e700ac79544b305cb",
+    "bytes": 302609
+  },
+  {
+    "path": "ui/e2e/p11-core-v3/s13-p11-release-ready.checkpoint.json",
+    "gitBlob": "1d677b35af0fea53e0df393e70de67cabc90a5d3",
+    "sha256": "a3f2935822ecd2d8368c498410344cb9035bbe700ee4749153cce263e9a24990",
+    "bytes": 303251
+  },
+  {
+    "path": "ui/e2e/p11-core-v3/s14-p11-renewal-window.checkpoint.json",
+    "gitBlob": "8cc7f1744fabefdad5fae7c6a2daad4980e3f4dd",
+    "sha256": "9b9de0721dcad4e952da7831d68c48e9ec97391bbe58b27835a94dc75745a17d",
+    "bytes": 283551
+  },
+  {
+    "path": "ui/e2e/p11-core-v3/s16-p11-long-portfolio.checkpoint.json",
+    "gitBlob": "e77d0a31119ecac89bbf80b44b58990fee1522f2",
+    "sha256": "7e0817770af4674b3f596dc579ba73f81f22042a2ceeba362693db07d8b943d3",
+    "bytes": 1036139
+  },
+  {
+    "path": "ui/e2e/p11-core-v3/s9-p11-development-review.checkpoint.json",
+    "gitBlob": "03ef520d1d1d06be323e1a64abe81086542c8792",
+    "sha256": "5f75f6eee2387ef7c72f528e49b99ac37c4b40183910a71c2ae592ba5bf649ce",
+    "bytes": 293320
+  }
+]

@@ -65,13 +65,13 @@ for (const name of Object.keys(prior) as Name[]) {
 }
 assert.equal(renders, 16)
 for (const name of Object.keys(prior) as Name[]) if (!current.has(name))
-  assert.ok(identities[name].matchesPrior, `${name}: fixed positive changed outside the projection 62 scope`)
+  assert.ok(identities[name].matchesPrior, `${name}: fixed positive changed outside the projection 63 scope`)
 assert.equal(identities.F10_CURRENT_QUOTE_UNIONS.sha256, identities.F11_CURRENT_COMMAND_UNION.sha256)
 assert.equal(identities.F10_CURRENT_QUOTE_UNIONS.bytes, identities.F11_CURRENT_COMMAND_UNION.bytes)
-assert.equal(identities.F10_CURRENT_QUOTE_UNIONS.matchesPrior, false, 'the quote cash widening and the two new quote requests change the whole-current declarations')
+assert.equal(identities.F10_CURRENT_QUOTE_UNIONS.matchesPrior, false, 'the carried blocker and absorption verdict vocabulary change current declarations')
 assert.deepEqual(sourceIdentity(), sourceBefore, 'source/HEAD drift during the measurement')
-console.log(JSON.stringify({ producer: 'p62-declaration-measurement.ts', producerSha256: sha(readFileSync(fileURLToPath(import.meta.url))),
-  priorMeasurement: 'F40 pin at ac3ab27c (5590300628e2…)', source: sourceBefore,
+console.log(JSON.stringify({ producer: 'p63-declaration-measurement.ts', producerSha256: sha(readFileSync(fileURLToPath(import.meta.url))),
+  priorMeasurement: 'Wave3 projection62 pin (2667c096556c…)', source: sourceBefore,
   protocolVersion: PROTOCOL_VERSION, projectionVersion: PROJECTION_VERSION, schemaId,
   manifest: { bytes: manifestBytes.length, sha256: sha(manifestBytes) },
   generatedCsharp: { bytes: wholeCsharp.length, sha256: sha(wholeCsharp), isDeclarationBodyHash: false },

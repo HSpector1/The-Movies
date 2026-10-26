@@ -2,12 +2,13 @@
 
 Last writer: Codex, 2026-10-26, sole coordinator for the authorized Sprints 5–16 program.
 
-## Consumer boundary checkpoint — 2026-10-26 (current side tree)
+## Consumer gate checkpoint — 2026-10-26 (current side tree)
 
-- Reviewed browser parser now accepts exact carried-action while refusing unknown kinds: existing leaf RED238ms, complete19/19 GREEN (max274ms), original30s budget. Projection63 generated; contract and fixture checks0. Exact outgoing generated62 identity registered; reviewer independently verified both roster49→50 hash updates. No gameplay or save policy change.
-- Source descends9ff330b4 on experimental p16-retained-writing-20261026; primary013c4edc unchanged. All generated changes/audits and original RED preserved under p16-sprint7. No runtime/lock remains.
-- Next: run existing adapted p63-declaration-measurement.ts through current preflight/sole lane on this committed source; independently measured schema/F10/F11 identities must replace current generator-test pins. Then applicable complete Bridge/UI consumer gate/types after exact required input materialization.35 current projection-literal test files updated, frozen fixtures preserved, runtime UNRUN. Do not promote experimental source until required qualification.
-- Fulltree Sprint5 still needs three original r3n1 inputs. Genuine coexistence, broader acquired screenplay lifecycle/history, platform and predecessor requirements remain open. Continue from current records LEDGER; this is not Sprint7 completion.
+- Experimental branch p16-retained-writing-20261026 descends from source 0e0cdfde; primary candidate 013c4edc is unchanged. Projection 63 measurement succeeded. Final contract identity/roster expectation corrections are static and unrun; no gameplay promotion.
+- Consumer gate interrupted with exit 143 after a foreign Godot process appeared and exited before workload inspection. Intensity unknown; exclusivity unestablished. Independent audit released all 1,640 pins. No owned job or lane lock remains. Owner exclusive-window response is pending.
+- Partial results: six completed core files, 187/196 assertions; four stale contract pins corrected, five exact inherited D5 errors retained. Root/Bridge types pass. UI type failed on a missing tracked atlas, now restored exactly; rerun and three UI files unrun. Other 33 core files incomplete; timing qualification withheld.
+- Next: confirm exclusive window, then fresh preflight/source binding for remaining consumer verification. Reuse qualified unchanged evidence. Do not restart the stopped runner. Full-game gate separately needs three original r3n1 fixtures. See p16-sprint7/RESULTS.md, consumer-gate/AUDIT.md and declaration-measurement.
+- Continue safe cleanup only after exact remote preservation; keep active inputs, dependencies, candidates and private host evidence. Prior receipts record about 125 MiB plus 3.3 MiB reclaimed. Program and platform/player qualification remain incomplete.
 
 ## Experimental retained-writing slice — 2026-10-26 (previous checkpoint)
 

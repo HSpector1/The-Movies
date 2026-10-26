@@ -1,3 +1,17 @@
+## Consumer gate checkpoint — 2026-10-26
+
+Projection 63 declaration measurement completed successfully on source `0e0cdfde` with its separately pinned helper. Schema identity is `sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1`; F10/F11 declaration hashes are `df9a088d4edd52652fc4eab583a83b36c667a50d3fd14d0be4715eadeb2a6f74`. Measurement and audit are retained beside this result.
+
+The 39 core / 3 UI consumer gate was interrupted (wrapper 143) when a foreign Godot process appeared. It exited before workload inspection; intensity and causal performance effects are unknown. Only our own processes were stopped. Independent audit verified all 1,640 source/input pins and released the freeze. No lane lock or owned job remains. Qualification requires an exclusive execution window, requested from the Owner and still pending.
+
+Six core files completed: 196 assertions, 187 passed and nine failed. This is a partial count, not a gate total. Four failures are obsolete current-schema/registry expectations; the independently measured identity and authentic outgoing-62 roster now correct them, including an unreached roster assertion. These final three test-file edits are STATIC-UNRUN. The remaining five D5 relationship failures match the exact first errors in predecessor `332a742a` wave3l-core.json (SHA `48d737049e4d8f473872acb6b9314420f83e2e9fc0dbaefabfe7d0b1efed5888`): causal count 18/40, seed-b 47/48, S8 probe 43/48, public adoption 36/48, poaching 208/52. Their downstream digest/receipt checks remain unreached. No assertions or budgets were removed.
+
+Root and Bridge typechecks exited 0. UI typecheck exited 2 because sparse checkout omitted tracked role-atlas-v1.json; it was restored exactly from Git blob `aa34696e36f97431cea6a92d10d164506f90a40d`. UI typecheck after restoration and all three UI runtime files remain unrun. Other 33 core files did not complete; no overall Vitest JSON exists. Timing and exclusivity qualification are withheld. Prior UI parser 19/19 and contract generation/check results remain valid within their recorded scopes.
+
+Next: after an exclusive window is confirmed, bind a fresh runner/receipt to the final checkpoint and complete affected consumer verification with original budgets, reusing unchanged evidence where permitted. Full-game Sprint 5 still requires the three original r3n1 fixtures. Browser/native/Owner acceptance, acquired screenplay lifecycle and genuine combined retirement authority remain open; no primary-candidate or main promotion.
+
+Storage: prior verified offloads reclaimed about 125 MiB plus 3.3 MiB of raw logs in this continuation; earlier cleanup receipts remain authoritative. Active dependencies, restored inputs, original candidates and comparison JSON stay local. Private process inventories are excluded from publication. Do not rerun unchanged tests merely for cleanup.
+
 ## Consumer follow-up checkpoint
 
 Browser strict parser defect proven by an existing-leaf control (null for lawful carried-action). One vocabulary entry fixes it; complete19/19, max274ms under original30s. Constructed presentation fixture explicitly proves parsing only, not a genuine acquired browser journey. Unknown-kind refusal remains. Projection63 generation and contract/fixture checks all0. Outgoing generated62 migration identity retained; two sorted-roster pins independently reproduced49→50. All source/generated writes audited; no active run. Independent generated declaration hash measurement and complete current-version Bridge/UI consumer qualification remain next and UNRUN.

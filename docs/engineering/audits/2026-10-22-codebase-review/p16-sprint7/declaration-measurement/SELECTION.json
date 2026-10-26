@@ -1,0 +1,6 @@
+{
+  "head": "0e0cdfde48d5dca06437c711e03a4f9f1a37360f",
+  "scope": "adapt existing independent declaration producer; all8 twice,6fixed unchanged; actual generated schema/manifest matches source; no gameplay/test execution",
+  "producerMetadata": "working measurement helper labels corrected and separately hash-pinned; consumed code/generated/tests committed",
+  "manifest": "SOURCE-MANIFEST.json"
+}

@@ -996,6 +996,8 @@ describe('prior protocol-4 acceptance boundary pins', () => {
       'sha256:204a71924bd8c2e8ae9af47591226894b3e42f62457da3cc20ed6b106ede611a',
       // Authentic outgoing ready26: d906's generated header and unchanged v3 corpus.
       'sha256:2b339a6a8b3e5add0726b7eaac9ce8746e235d8b6111a6816f890ff56afdffd1',
+      // Projection63 retains authentic generated outgoing62.
+      'sha256:2b94e6df66cd5b45e398861c8130085434d4bb9c4d0cf9bdcb97607699799604',
       // R2/R3: genuine1307 outgoing55 current111/saved110 checkpoint.
       'sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158',
       // Relationship slice B: outgoing56, 349b2d3e… (OUTGOING_56 above).
