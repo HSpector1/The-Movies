@@ -1,0 +1,16 @@
+# Sprint 8 obligation producer checkpoint
+
+IN PROGRESS. Published gameplay source remains experimental9c91232d; primary013c4edc unchanged. Local X contains the reviewed source chain and independent tests, not yet a qualified published gameplay checkpoint. Reconstruct exactly from source/SOURCE.patch, source-types/TYPES.patch, source-review-fix/REVIEW-FIX.patch, then source-market-reader/MARKET-READER.patch; each manifest binds pre/postimage hashes. Tests and all original failures are preserved.
+
+The draft implements v7 obligation disposition, original promise attribution, retained buyer duties, native exit outcomes and market withdrawals/case invalidation; strict current/historical joins are retained. Independent review found and corrected incomplete case snapshots, duplicate/order admission, null-row dereferences and a real historical closure-reader failure. The latter now consumes exact fresh validated withdrawal snapshots, never a reason-only exemption. Native cases/competitors and actual retained-cancellation outcomes remain runtime-unproved.
+
+Actual verification:
+- Original-source genuine promise RED3963.600ms and market RED1292.920ms; caller purity reached, downstream originally unreached. Reused, not rerun.
+- first-green: roottypes2; runtime tests intentionally UNRUN. Compiler errors preserved; native type guards corrected.
+- typed-green: roottypes0; retained R02 close, work/Accept, save/replay and later buyer termination/duplicate refusal all functionally PASS8134.535ms, FAIL original5000ms budget. Market fails1847.809ms at close publication: closure reader incorrectly requires a studio closure for the genuine absorption withdrawal; later assertions unreached.
+- market-green after exact reader repair: roottypes0, complete public-action6/6, maximum1780.601ms under5000; market1187.071ms reaches exact withdrawal/preserved competing offer, cash, save/reload and two malformed-row named refusals/purity.
+- All three runs have independent1649-pin/six-preflight audits releasing freezes. Foreign Godot overlapped final compilation; attempted own-only stop found root already absent, so NO SIGNALS. Final results are functional evidence, not exclusive-resource qualification. Private inventories remain local.
+
+No budget, assertion or fixture law was weakened. The test extension reuses the same admitted R02 transaction and adds no tick/hiring/leaf. Current canonical source declares projection64; generated artifacts and outgoing63 migration registration remain pending. Full affected writer/historical files, Bridge/UI consumers and coherent broader qualification remain unrun on this final source. Browser approval, original full-game inputs, native/Owner acceptance and earlier timing/historical failures remain open.
+
+Next: finish canonical64 outputs and genuine outgoing63 compatibility, then affected final-source checks through the sole lane when available. Preserve long-gate resource limits; do not repeat an unchanged interrupted runner. Remaining Sprint8 producers are in REMAINING-PRODUCERS.md; the fixed rival-run candidate route is only a static premise in rival-runs/PREMISE.md, not an admitted transaction or implemented producer. No P17/P18 predecessor, gameplay main promotion or completed-program claim.

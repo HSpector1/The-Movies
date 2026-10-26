@@ -1,0 +1,40 @@
+{
+  "status": "FROZEN-STATIC-UNRUN",
+  "baseHead": "9c91232dd980cbe05399b6fd77ed55454e671f86",
+  "target": "tests/p16-absorption-public-action.test.ts",
+  "baseTestPackage": "tests-market/MARKET-RED.patch SHA5a7faad6bca7597906943f00dde3dc37106aa31b27876e95f9f9ba2102664f01",
+  "sourceReview": {
+    "path": "source/SOURCE-REVIEW.md",
+    "sha256": "214abcbb66099589666e1487335764d5a5c2a5a77906de9d6b731c683af2d956",
+    "finding": 3
+  },
+  "reviewedSourcePatch": {
+    "path": "source/SOURCE.patch",
+    "sha256": "eafc93058abecd8f07bbdd02e460ff3e4c3a1aa52d5fea40ef36cccba9fddce3"
+  },
+  "scope": "Two malformed clones from the actual positive closed exported save; null sibling row or null closeEvent only. Full public validateSaveV49 must refuse with absorption obligations: and preserve whole caller.",
+  "preservation": "Exact original370d postimage retained byte-for-byte after removing appended controls; same leaf and unchanged5000ms budget; all positive/reload assertions run first.",
+  "limits": "No runtime/compiler/test/X edits; other nonempty-case review findings remain source-inferred/unqualified. Any overrun remains explicit.",
+  "files": {
+    "preimage/tests/p16-absorption-public-action.test.ts": {
+      "bytes": 22937,
+      "sha256": "370d75f8e79514184a6792bb0b2abaab2439b0540ac5daef49cb51ed62e9495b"
+    },
+    "postimage/tests/p16-absorption-public-action.test.ts": {
+      "bytes": 23781,
+      "sha256": "81151babb96af387256d1980acbb5725d248285f5ac0615d56a2c5972b771c02"
+    },
+    "MARKET-SHAPE.patch": {
+      "bytes": 1157,
+      "sha256": "edd288bcb9c3bed478cbf08f559491fd9e0334eaaa3d4d2584d64763104500cb"
+    },
+    "CONTROLS.txt": {
+      "bytes": 844,
+      "sha256": "5c1f6910aca92f7a110ef5944f0f7485573d5d9ff4bed4c56a831034d00c0173"
+    },
+    "PURPOSE.md": {
+      "bytes": 1617,
+      "sha256": "551519fea59b7d978619361f74b666577c807bd0cce59d3421c410c93818dbba"
+    }
+  }
+}

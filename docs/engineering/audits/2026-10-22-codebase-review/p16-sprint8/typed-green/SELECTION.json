@@ -1,0 +1,18 @@
+{
+  "head": "9c91232dd980cbe05399b6fd77ed55454e671f86",
+  "purpose": "Compiler-corrected draft: reach actual positive-path blockers before review repair; case completeness flaws remain unapproved",
+  "sourcePatch": "eafc93058abecd8f07bbdd02e460ff3e4c3a1aa52d5fea40ef36cccba9fddce3",
+  "sourceManifestEntries": 1649,
+  "budgetMs": 5000,
+  "checks": [
+    "root types",
+    "existing two named leaves only"
+  ],
+  "pending": [
+    "canonical64 generation",
+    "independent source review",
+    "affected complete files and consumers"
+  ],
+  "testFollowupSha256": "07ba284693ad8e6fba31fe9b4be9e96a9b491e418a1874b809da3e8936aa4713",
+  "compilerCorrection": "a55f02eaf8da746e8180ec716a05903424ccd40d1833f3f2b149f54521a1a7ca"
+}

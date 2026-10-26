@@ -1,0 +1,71 @@
+--- a/tests/p14c2rm-writer-continuation.test.ts
++++ b/tests/p14c2rm-writer-continuation.test.ts
+@@ -5,7 +5,7 @@
+ import { describe, expect, it } from 'vitest'
+ import { applyActions } from '../src/core/actions.js'
+ import { absorptionAsk, absorptionProducerRefusal, quoteAbsorption } from '../src/core/acquisition.js'
+-import { conditionRecord, outstandingLoan } from '../src/core/corporateConditionLive.js'
++import { conditionRecord, outstandingLoan, releaseRefusal } from '../src/core/corporateConditionLive.js'
+ import { libraryValuationV1 } from '../src/core/propertyValuation.js'
+ import { trustDrivers } from '../src/core/promises.js'
+ import { permittedBidderRefusal, spendableCash, weeklyFixedCost } from '../src/core/rightsFinance.js'
+@@ -279,6 +279,59 @@
+     for (const original of unbound) expect(final.promises.find(row => row.promiseId === original.promiseId)).toEqual(original)
+     expect(final.hollywood!.businesses.find(row => row.studioId === target)!.development).toEqual(source.development)
+     expect(stableStringify(paid)).toBe(paidBefore); expect(stableStringify(historical)).toBe(historyBefore)
++    // A completed/accepted screenplay leaves its credited writer free to end
++    // their actual buyer employment. The original promise must still bind that
++    // real action, without changing issuer/contract provenance or minting work.
++    expect(final.market.tick).toBe(313)
++    const liveContract = activeContract(final, writer)!
++    expect(liveContract).toEqual(retainedEmployment.terms)
++    expect(releaseRefusal(final, buyer, writer), 'actual Ready/unseated writer may be released').toBeNull()
++    const releaseCost = terminationCost(liveContract, 313)
++    expect(releaseCost).toBeGreaterThan(0); expect(final.studio.cash).toBeGreaterThanOrEqual(releaseCost)
++    const finalBefore = stableStringify(final), replayAcceptedBefore = stableStringify(replayAccepted)
++    const terminated = applyActions(final, [{ kind: 'releaseTalent', talentId: writer }])
++    const replayTerminated = applyActions(replayAccepted, [{ kind: 'releaseTalent', talentId: writer }])
++    expect(stableStringify(final)).toBe(finalBefore); expect(stableStringify(replayAccepted)).toBe(replayAcceptedBefore)
++    expect(stableStringify(replayTerminated)).toBe(stableStringify(terminated))
++    expect(activeContract(terminated, writer)).toBeUndefined()
++    expect(terminated.freeAgents).toContain(writer)
++    expect(terminated.studio.cash).toBe(final.studio.cash - releaseCost)
++    expect(terminated.ledger.slice(final.ledger.length)).toEqual([
++      { week: 313, kind: 'termination', amount: -releaseCost, talentId: writer, note: 'early-release termination cost' }])
++    expect(terminated.hollywood!.employment.find(row => row.contractId === link.buyerContractId))
++      .toEqual({ ...retainedEmployment, endedWeek: 313 })
++    expect(terminated.hollywood!.employment.find(row => row.contractId === keep.contractId))
++      .toEqual(final.hollywood!.employment.find(row => row.contractId === keep.contractId))
++    expect(terminated.hollywood!.receipts.slice(final.hollywood!.receipts.length)).toMatchObject([
++      { kind: 'employment', week: 313, studioId: buyer, talentId: writer, contractId: link.buyerContractId,
++        fromStudioId: buyer, toStudioId: null, reason: 'termination' }])
++    const broken = terminated.promises.find(row => row.promiseId === retainedPromise.promiseId)!
++    expect(broken).toEqual({ ...retainedPromise, outcome: 'BROKEN', outcomeWeek: 313,
++      outcomeCause: 'the studio terminated this contract early, ending the window', outcomeEventId: broken.outcomeEventId })
++    expect(broken.outcomeEventId).not.toBeNull()
++    expect(terminated.talentMarket.receipts.slice(final.talentMarket.receipts.length)).toEqual([
++      { eventId: broken.outcomeEventId, kind: 'promiseOutcome', week: 313, studioId: target, talentId: writer,
++        reasons: ['a promise to this person was broken by an early termination'], dropped: [] }])
++    expect(terminated.promises.filter(row => row.promiseId !== retainedPromise.promiseId))
++      .toEqual(final.promises.filter(row => row.promiseId !== retainedPromise.promiseId))
++    expect(trustDrivers(terminated, writer, target, 313).filter(row => row.kind === 'promiseBroken' && row.week === 313))
++      .toEqual([{ kind: 'promiseBroken', week: 313, positive: false, reason: 'broke a promise' }])
++    expect(trustDrivers(terminated, writer, buyer, 313).filter(row => row.kind === 'promiseKept' || row.kind === 'promiseBroken'))
++      .toEqual(trustDrivers(final, writer, buyer, 313).filter(row => row.kind === 'promiseKept' || row.kind === 'promiseBroken'))
++    expect(trustDrivers(terminated, writer, buyer, 313).filter(row => row.kind === 'terminatedEarly' && row.week === 313))
++      .toEqual([{ kind: 'terminatedEarly', week: 313, positive: false, reason: 'ended a contract early' }])
++    expect(terminated.firstTakes).toEqual(final.firstTakes)
++    expect(writeProject(terminated, historical.writerId)).toEqual(own)
++    expect(terminated.rights.absorptions.find(row => row.id === record.id)).toEqual(acceptedRecord)
++    const restored = readBack(terminated), restoredBefore = stableStringify(restored)
++    // Releasing the same actual interval twice cannot create another charge or
++    // outcome; use the public refusal, not a second call to a settlement seam.
++    expect(() => applyActions(restored, [{ kind: 'releaseTalent', talentId: writer }]))
++      .toThrow(/releaseTalent rejected .*has no active contract \(D-11\.9\)/)
++    expect(stableStringify(restored)).toBe(restoredBefore)
++    expect(stableStringify(final)).toBe(finalBefore); expect(stableStringify(paid)).toBe(paidBefore)
++    expect(stableStringify(historical)).toBe(historyBefore)
++
+   })
+ 
+   it('continues the real finishing task through its actual due week, then retires once', () => {

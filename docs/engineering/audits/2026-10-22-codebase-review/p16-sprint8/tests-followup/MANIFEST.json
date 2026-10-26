@@ -1,0 +1,60 @@
+{
+  "status": "STATIC-UNRUN; no runtime/compiler/test/checkout edit",
+  "baseHead": "9c91232dd980cbe05399b6fd77ed55454e671f86",
+  "preimagePurpose": "Installed original S8 RED postimage791b2135; initial S8/tests/OBLIGATIONS-RED.patch c190b55f21c73daefb1e487ce56df96c7f5ef5d1095e64fdd6f645ea6b60702b preserved unchanged",
+  "budget": "Existing5000ms unchanged; no new leaf, fixture, helper or tick; all original assertions run before extension",
+  "coverage": "Actual buyer termination immediately settles retained original promise once; source issuer/contract attribution, native buyer charge/termination receipt, unrelated history unchanged, full save/replay and duplicate-release purity",
+  "limit": "No claim of buyer first-take fulfilment. Runtime affordability/admission/full-save/performance still unproved; preserve first failure or timeout.",
+  "files": {
+    "preimage/tests/p14c2rm-writer-continuation.test.ts": {
+      "bytes": 48662,
+      "sha256": "791b213576131d47de491e962f22ce7d72b6749c0ec225ea2ca5014999545de1"
+    },
+    "postimage/tests/p14c2rm-writer-continuation.test.ts": {
+      "bytes": 53264,
+      "sha256": "1d58652d24a5419941613df703f4f4a78227eb7e9d553507c4405294e516743c"
+    },
+    "RETAINED-TERMINATION.patch": {
+      "bytes": 5866,
+      "sha256": "07ba284693ad8e6fba31fe9b4be9e96a9b491e418a1874b809da3e8936aa4713"
+    },
+    "CONTINUATION.txt": {
+      "bytes": 4586,
+      "sha256": "9350e4b610e28ad0d3c3feddfb94f1d0b7b312b9c6d4ff3070de2d82c5fcfcd3"
+    },
+    "PURPOSE.md": {
+      "bytes": 4328,
+      "sha256": "e1a34bb2e07fcb0640f17da71f909c8465c45f841f6fbd0b0052c11d9d89b715"
+    }
+  },
+  "sourcePins": {
+    "src/core/actions.ts": {
+      "bytes": 143136,
+      "sha256": "1a928cfe72e97a124fa3274bf05c632a6d309d018382342e804c41d482721305"
+    },
+    "src/core/promises.ts": {
+      "bytes": 111967,
+      "sha256": "9d35534e93cc1de843f47318927508681e4d948e088d24349aa20fad6b257f7a"
+    },
+    "src/core/corporateConditionLive.ts": {
+      "bytes": 41770,
+      "sha256": "5514b4d58e394941417dc992fb57e8bbc5d6168cac1c27570f9d1b1d184c9a92"
+    },
+    "src/core/industryEmployment.ts": {
+      "bytes": 2560,
+      "sha256": "51a4128847d310a735ae72ad9fa1ef3fc5fa698db2a6c195879abdcc0b6e0c39"
+    },
+    "src/core/employment.ts": {
+      "bytes": 30584,
+      "sha256": "3d00df38ba28adbb75024e270b715c8ea2b72deee110fff4be8c6571fb61bbbe"
+    },
+    "tests/p14b3-reservations.test.ts": {
+      "bytes": 12745,
+      "sha256": "cebc8c51c5316935b1ce2f03d324859f471e43ea1b36e06ef024004ec029019a"
+    },
+    "tests/helpers/p14c2rm-fixtures.ts": {
+      "bytes": 19661,
+      "sha256": "d998a6bd78e80832edb41d5efaf0c2de79c9e7f3fb122e92e3ca63864b98ddc3"
+    }
+  }
+}

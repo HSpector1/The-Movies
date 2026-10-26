@@ -1,0 +1,21 @@
+{
+  "baseHead": "9c91232dd980cbe05399b6fd77ed55454e671f86",
+  "files": {
+    "src/core/rights.ts": "f5c2ea531d65f743c56915e1fe66a160ed0da06d134a083eb0ba1ed5e7a5bf43",
+    "src/core/acquisition.ts": "674be539ae188b8193e693bca0805b1d9efa33ab113f780d7eb47d2fd3e7d58e",
+    "src/core/absorbedScripts.ts": "04ade48e36ee7d3ecd098e78334b65db6bdcfa03c2a1840a30ee5f84064b5845",
+    "src/core/continuedScripts.ts": "8d0524115d81458fafc37e50e2a8f1d2446035ee73b1f18a32afb2be896f1926",
+    "src/core/occupancy.ts": "a94d906b97267e242dc8c8a6cab3243ef141b101f90d835a161646d227a9e929",
+    "src/core/studioClosure.ts": "9aad6233d20b4fb2149d3cf9a6d79459f4506fc289498c4f41442c7355add2ef",
+    "src/core/save.ts": "dd7a05d7ddce0f9ec78eff3dea5dd0cf34c37254d3af3209a9d72692e5a6fe31",
+    "src/core/hollywoodValidation.ts": "f10627a9222f247a3f53289543b88dabb053e4edae6fa7e2cc0cb86c2c6bda4a",
+    "src/core/promises.ts": "9d35534e93cc1de843f47318927508681e4d948e088d24349aa20fad6b257f7a",
+    "src/core/opportunityPromises.ts": "adf9810fe48af2bf83367db554cef5b148a64ae0d23b8fca74d9d7be3199a73f",
+    "src/core/talentMarket.ts": "a02be5ac8c6d0571c77d17d6a8a9f80fa1f2268e8c0ea5016fec22dc18f44ad9",
+    "bridge/promises.ts": "c206b985ea238a3f4352bc32544bd5e6476d069c4d46cbdee7973f588476e564",
+    "bridge/rights.ts": "af33dce0ca49027b8151ff01a6ef8d94ad9aceaac5db2c8edaab049f334e5702",
+    "bridge/schema/bridge-schema.ts": "e26c79acb15e38b8c0f302bf75d4246086c1f61ec1c56d37a414be111e03c819",
+    "src/core/productionIdentity.ts": "6898bf681a08158938745afa77dcd7ceb5031e254d730ae1664c60ea8483e3df"
+  },
+  "status": "IN-PROGRESS-NOT-INSTALLABLE"
+}

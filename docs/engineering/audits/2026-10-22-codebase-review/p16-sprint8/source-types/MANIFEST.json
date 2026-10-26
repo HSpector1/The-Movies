@@ -1,0 +1,27 @@
+{
+  "status": "FROZEN-STATIC-UNRUN",
+  "basePackagePatchSha256": "eafc93058abecd8f07bbdd02e460ff3e4c3a1aa52d5fea40ef36cccba9fddce3",
+  "baseHead": "9c91232dd980cbe05399b6fd77ed55454e671f86",
+  "patch": {
+    "path": "TYPES.patch",
+    "sha256": "a55f02eaf8da746e8180ec716a05903424ccd40d1833f3f2b149f54521a1a7ca",
+    "bytes": 3867
+  },
+  "files": [
+    {
+      "path": "src/core/absorbedObligations.ts",
+      "preimageSha256": "b07a5a2425c64bbec9519b35ec9cec322ed45d103fb642879da55816b8a996d3",
+      "postimageSha256": "50bc3c5397622817426db532d1c30d8fad092983dfb93d60ba6267744d05c76f",
+      "postimageBytes": 39843
+    },
+    {
+      "path": "src/core/continuedScripts.ts",
+      "preimageSha256": "9837b36c05a2948a748649052efecaa296e5fb581209f817b6545ddaa00f797c",
+      "postimageSha256": "cec1f34588754c1c0093eedd6ff73179af7f1288793dca3043886b9fc1cd8c4f",
+      "postimageBytes": 55743
+    }
+  ],
+  "runtime": false,
+  "compiler": false,
+  "scope": "Compiler diagnostics only; no case-completeness changes"
+}

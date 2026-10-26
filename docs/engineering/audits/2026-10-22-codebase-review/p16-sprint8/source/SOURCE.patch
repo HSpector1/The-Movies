@@ -1,0 +1,1203 @@
+diff --git a/bridge/promises.ts b/bridge/promises.ts
+--- a/bridge/promises.ts
++++ b/bridge/promises.ts
+@@ -1,3 +1,4 @@
++import { absorbedPromiseAuthority, operatingPromiseIssuer, operationalPromise, operationalPromiseView } from '../src/core/absorbedObligations.js'
+ // P14B.1-T3 — the THIN Core promise surface (projection 45).
+ //
+ // ONE bridge module owns every promise fact Unity may read, so companion §2.1.5's
+@@ -102,16 +103,17 @@
+   talentId: string,
+   viewerStudioId: string,
+ ): MarketPromiseHistoryRow[] {
++  const authority=absorbedPromiseAuthority(state),view=operationalPromiseView(state,authority)
+   return allPromises(state)
+     .flatMap((promise): MarketPromiseHistoryRow[] => {
+-      if (promise.issuerStudioId !== viewerStudioId
++      if ((promise.issuerStudioId !== viewerStudioId && operatingPromiseIssuer(state,promise,state.market.tick,authority)!==viewerStudioId)
+         || promise.beneficiaryPersonId !== talentId
+         || promise.contractId === null) return []
+       return [{
+         promiseId: promise.promiseId,
+         family: promise.family,
+         count: promise.predicate.count,
+-        ...disclosedPromiseTerms(state, promise.issuerStudioId, promise.predicate),
++        ...disclosedPromiseTerms(view,operatingPromiseIssuer(state,promise,state.market.tick,authority),operationalPromise(state,promise,authority).predicate),
+         windowStartWeek: promise.windowStartWeek,
+         dueWeekExclusive: promise.dueWeekExclusive,
+         contractId: promise.contractId,
+@@ -249,7 +251,8 @@
+   const promise = allPromises(state).find((candidate) => candidate.promiseId === draft.promiseId)
+   // THE GATE. `hollywood` absent means no player studio is on the record, and
+   // `string !== undefined` refuses — fail-closed, never a permissive default.
+-  if (promise === undefined || promise.issuerStudioId !== state.hollywood?.playerStudioId) {
++  const authority=absorbedPromiseAuthority(state)
++  if (promise === undefined || operatingPromiseIssuer(state,promise,state.market.tick,authority) !== state.hollywood?.playerStudioId) {
+     return { ok: false, error: noSuchPromiseOfYours(draft.promiseId) }
+   }
+   const talent = state.talent.find((candidate) => candidate.id === promise.beneficiaryPersonId)
+diff --git a/bridge/rights.ts b/bridge/rights.ts
+--- a/bridge/rights.ts
++++ b/bridge/rights.ts
+@@ -41,6 +41,6 @@
+  return {...base,startsNow:ok,ok,refusalReason:q.kind==='refusal'?q.refusal:applied?.ok===false?applied.error:null,
+   terms:q.kind==='quote'?{consideration:q.consideration,targetCashBeforeExits:q.targetCashBeforeExits,exitCharges:q.exitCharges,postExitCash:q.postExitCash,
+    guarantees:q.guarantees,outlay:q.outlay,ask:q.ask,reserveAfter:q.reserveAfter,resultingWeeklyFixedCost:q.resultingWeeklyFixedCost,
+-   affordable:q.affordable,rightsCount:q.rights.length,retainedContracts:q.contracts.filter(c=>c.retained).map(c=>c.contractId),
++   affordable:q.affordable,promiseObligations:q.promiseObligations.map(p=>({...p})),marketObligations:{...q.marketObligations},rightsCount:q.rights.length,retainedContracts:q.contracts.filter(c=>c.retained).map(c=>c.contractId),
+    exitedContracts:q.contracts.filter(c=>!c.retained).map(c=>c.contractId),scripts:q.scripts.map(s=>({scriptProjectId:s.scriptProjectId,status:s.status,writerIds:[...s.writerIds],disposition:s.disposition,reason:s.reason})),productions:q.productions.map(p=>({productionId:p.productionId,disposition:p.disposition,reason:p.reason}))}:null}
+ }
+diff --git a/bridge/schema/bridge-schema.ts b/bridge/schema/bridge-schema.ts
+--- a/bridge/schema/bridge-schema.ts
++++ b/bridge/schema/bridge-schema.ts
+@@ -288,8 +288,9 @@
+ // Projection60: actual absorbed Ranking definition and retained employment continuation reason.
+ // Projection62: explicit stopped-drafting/rewriting outcomes in the coupled absorption preview.
+ // Projection63: carried-screenplay blocker and retained-writing absorption verdicts.
++// Projection64: truthful retained/exit/unbound promise and market disposition facts in the absorption quote.
+ // Protocol4 and Save49 are unchanged; generated artifacts derive this identity.
+-export const PROJECTION_VERSION = 63 as const
++export const PROJECTION_VERSION = 64 as const
+ 
+ const nonEmptyText = () => text({ minLength: 1 })
+ const nonNegativeInteger = () => integer({ minimum: 0 })
+@@ -2302,9 +2303,13 @@
+  scriptProjectId:nonEmptyText(),status:enumeration(['drafting','rewriting'] as const),writerIds:array(nonEmptyText()),
+  disposition:enumeration(['writeOff','continues','continuationRequired'] as const),reason:enumeration(['writersNotRetained','writerTeamRetained','writerContinuationProducerRequired','partialWriterTeamProducerRequired','writerCapacityUnavailable'] as const),
+ })
++const StudioAbsorptionPromiseVerdict = object('StudioAbsorptionPromiseVerdict',{promiseId:nonEmptyText(),disposition:enumeration(['unboundHistory','continued','exit'] as const),sourceContractId:nullable(nonEmptyText())})
++const StudioAbsorptionMarketVerdict = object('StudioAbsorptionMarketVerdict',{proposalCount:nonNegativeInteger(),caseCount:nonNegativeInteger()})
+ const StudioAbsorptionQuoteTerms = object('StudioAbsorptionQuoteTerms',{
+  consideration:number(),targetCashBeforeExits:number(),exitCharges:number(),postExitCash:number(),guarantees:number(),outlay:number(),ask:number(),
+  reserveAfter:number(),resultingWeeklyFixedCost:number(),affordable:bool(),rightsCount:nonNegativeInteger(),
++ promiseObligations:array(reference('StudioAbsorptionPromiseVerdict',StudioAbsorptionPromiseVerdict)),
++ marketObligations:reference('StudioAbsorptionMarketVerdict',StudioAbsorptionMarketVerdict),
+  retainedContracts:array(nonEmptyText()),exitedContracts:array(nonEmptyText()),
+  productions:array(reference('StudioAbsorptionProductionVerdict',StudioAbsorptionProductionVerdict)),
+  scripts:array(reference('StudioAbsorptionScriptVerdict',StudioAbsorptionScriptVerdict)),
+@@ -3724,7 +3729,7 @@
+   StudioContractDraftPayload,
+   StudioQuoteContractRequest,
+   StudioDiligenceStudioTarget, StudioDiligenceLotTarget, StudioDiligenceTarget, StudioDiligenceDraftPayload, StudioQuoteDiligenceRequest, StudioDiligenceQuoteSnapshot,
+-  StudioAbsorptionDefaultRetention, StudioAbsorptionExplicitRetention, StudioAbsorptionRetention, StudioAbsorptionDraftPayload, StudioQuoteAbsorptionRequest, StudioAbsorptionProductionVerdict, StudioAbsorptionScriptVerdict, StudioAbsorptionQuoteTerms, StudioAbsorptionQuoteSnapshot,
++  StudioAbsorptionDefaultRetention, StudioAbsorptionExplicitRetention, StudioAbsorptionRetention, StudioAbsorptionDraftPayload, StudioQuoteAbsorptionRequest, StudioAbsorptionProductionVerdict, StudioAbsorptionScriptVerdict, StudioAbsorptionPromiseVerdict, StudioAbsorptionMarketVerdict, StudioAbsorptionQuoteTerms, StudioAbsorptionQuoteSnapshot,
+   StudioLoanDraftPayload,
+   StudioQuoteLoanRequest,
+   StudioLoanQuoteSnapshot,
+diff --git a/src/core/absorbedObligations.ts b/src/core/absorbedObligations.ts
+--- /dev/null
++++ b/src/core/absorbedObligations.ts
+@@ -0,0 +1,454 @@
++import { terminationCost } from './employment.js'
++import { TUNING } from './tuning.js'
++import { buyerScriptDevelopment, buyerScriptConcepts } from './continuedScripts.js'
++import { buyerOperatedProductions, buyerOperationsForAllWork } from './continuedWork.js'
++import type { AbsorptionRecord } from './rights.js'
++import type { GameState, ProfessionalPromise, TalentMarketProposal, TalentMarketCaseV36 } from './types.js'
++import { breakPromisesOnTermination, breakPromisesOnCancel, attachedPromiseDigest, proposalDigest, promiseCastSlots, qualifyingTakes } from './promises.js'
++import { withdrawProposalAtAbsorption, invalidateCaseAtAbsorption, ABSORPTION_PROPOSAL_REASON, ABSORPTION_CASE_REASON, ABSORPTION_CASE_DROP_REASON } from './talentMarket.js'
++
++export type AbsorptionPromiseDisposition =
++ | {kind:'unboundHistory';original:ProfessionalPromise}
++ | {kind:'continued';original:ProfessionalPromise;sourceContractId:string;buyerContractId:string}
++ | {kind:'exit';original:ProfessionalPromise;sourceContractId:string;outcomeEventId:string}
++export type AbsorptionCloseEvent =
++ | {kind:'exitOutcome';promiseId:string;eventId:string}
++ | {kind:'cancelOutcome';promiseId:string;productionId:string;eventId:string}
++ | {kind:'withdrawal';talentId:string;issuerStudioId:string;eventId:string}
++ | {kind:'caseInvalidation';talentId:string;subjectStudioId:string;contractId:string;openedWeek:number;eventId:string}
++export type AbsorptionObligations = {
++ promiseCountBeforeClose:number;firstTakeCountBeforeClose:number;marketReceiptCountBeforeClose:number
++ promises:AbsorptionPromiseDisposition[]
++ withdrawals:{original:TalentMarketProposal;eventId:string}[]
++ cases:{original:TalentMarketCaseV36;droppedProposals:TalentMarketProposal[];eventId:string}[]
++ closeEvents:AbsorptionCloseEvent[]
++}
++export type AbsorbedPromiseAssignment = Readonly<{
++ absorptionId:string;week:number;sourceStudioId:string;buyerStudioId:string
++ sourceContractId:string;buyerContractId:string;original:ProfessionalPromise
++ firstTakeCountBeforeClose:number
++ projectIds:ReadonlyMap<string,string>
++}>
++export type AbsorbedPromiseAuthority = Readonly<{
++ assignments:ReadonlyMap<string,AbsorbedPromiseAssignment>
++}>
++const fail=(why:string):never=>{throw new Error(`absorption obligations: ${why}`)}
++const record=(value:unknown):value is Record<string,unknown>=>value!==null&&typeof value==='object'&&!Array.isArray(value)
++const exact=(value:object,keys:readonly string[])=>Object.keys(value).sort().join()===([...keys].sort().join())
++function same(a:unknown,b:unknown):boolean{
++ if(a===b)return true
++ if(a===null||b===null||typeof a!=='object'||typeof b!=='object')return false
++ if(Array.isArray(a)||Array.isArray(b))return Array.isArray(a)&&Array.isArray(b)&&a.length===b.length&&a.every((x,i)=>same(x,b[i]))
++ const x=a as Record<string,unknown>,y=b as Record<string,unknown>,keys=Object.keys(x).sort()
++ return same(keys,Object.keys(y).sort())&&keys.every(k=>same(x[k],y[k]))
++}
++const mutablePromiseKeys=new Set(['progress','evidenceRefs','outcome','outcomeWeek','outcomeCause','outcomeEventId','supersededByPromiseId'])
++function immutablePromise(p:ProfessionalPromise):Record<string,unknown>{return Object.fromEntries(Object.entries(p).filter(([key])=>!mutablePromiseKeys.has(key)))}
++
++/** Original issuer/contract are history. Only this proven current employer owns
++ * future work selection; outcome and trust attribution never use this alias. */
++export function operatingPromiseIssuer(state:GameState,promise:ProfessionalPromise,week=state.market.tick,authority=absorbedPromiseAuthority(state)):string{
++ const assigned=authority?.assignments.get(promise.promiseId)
++ return assigned&&week>=assigned.week?assigned.buyerStudioId:promise.issuerStudioId
++}
++export function promiseTakeIssuerMatches(promise:ProfessionalPromise,take:GameState['firstTakes'][number],ordinal:number,authority?:AbsorbedPromiseAuthority):boolean{
++ const a=authority?.assignments.get(promise.promiseId)
++ return a===undefined?take.studioId===promise.issuerStudioId:ordinal<a.firstTakeCountBeforeClose
++  ?take.studioId===a.sourceStudioId&&take.week<=a.week
++  :take.studioId===a.buyerStudioId&&take.week>a.week
++}
++
++/** Snapshot terms are authored by the actual close, not reconstructed from old
++ * proposalSubmitted receipts (which never stored their terms). */
++function validateProposalSnapshot(state:GameState,p:TalentMarketProposal,C:number,promiseLimit:number):void{
++ if(!record(p)||!exact(p,['talentId','issuerStudioId','termWeeks','premiumTier','startWeek','annualSalary','signingBonus','submittedWeek','digest','promises','representation'])
++  ||typeof p.talentId!=='string'||p.talentId.length===0||typeof p.issuerStudioId!=='string'||p.issuerStudioId.length===0||!TUNING.CONTRACT_TERM_OPTIONS.includes(p.termWeeks)||!TUNING.MARKET_PREMIUM_TIERS.includes(p.premiumTier)
++  ||!Number.isSafeInteger(p.startWeek)||p.startWeek<C||!Number.isSafeInteger(p.submittedWeek)||p.submittedWeek>C
++  ||!Number.isSafeInteger(p.annualSalary)||p.annualSalary<0||!Number.isSafeInteger(p.signingBonus)||p.signingBonus!==Math.round(p.annualSalary*TUNING.CONTRACT_SIGNING_BONUS_FRACTION)
++  ||p.representation!==null||!Array.isArray(p.promises)||p.promises.length>1)fail('removed proposal snapshot shape differs')
++ const roots=state.promises.slice(0,promiseLimit)
++ for(const id of p.promises){const promise=roots.find(row=>row.promiseId===id)
++  if(!promise||promise.issuerStudioId!==p.issuerStudioId||promise.beneficiaryPersonId!==p.talentId||promise.contractId!==null)fail('removed proposal has no original attached unbound promise')
++ }
++ if(p.digest!==proposalDigest(p.talentId,p.issuerStudioId,p.termWeeks,p.startWeek,p.premiumTier,attachedPromiseDigest({promises:roots},p.promises)))fail('removed proposal material digest differs')
++ const submitted=state.talentMarket.receipts.some(r=>r.kind==='proposalSubmitted'&&r.week===p.submittedWeek&&r.talentId===p.talentId&&r.studioId===p.issuerStudioId)
++ if(!submitted)fail('removed proposal lacks a submission receipt')
++}
++
++/** The shared market root also owns native promise outcomes. A close consumes
++ * exactly one contiguous segment; no same-week pre-close outcome can stand in
++ * for one of these events. Full source/contract proof precedes this check. */
++function validateCloseEventSegment(state:GameState,a:AbsorptionRecord,o:AbsorptionObligations):void{
++ const start=o.marketReceiptCountBeforeClose
++ if(!Number.isSafeInteger(start)||start<0||start+o.closeEvents.length>state.talentMarket.receipts.length)fail('close receipt prefix differs')
++ const used=new Set<string>()
++ let phase=0,lastCancellation=-1,lastCancelledPromise=-1
++ const expectedExits=a.contracts.filter(link=>link.buyerContractId===null).flatMap(link=>o.promises.filter(d=>d.kind==='exit'&&d.sourceContractId===link.sourceContractId).map(d=>d.original.promiseId))
++ const actualExits=o.closeEvents.filter((ref):ref is Extract<AbsorptionCloseEvent,{kind:'exitOutcome'}>=>ref.kind==='exitOutcome').map(ref=>ref.promiseId)
++ if(!same(expectedExits,actualExits))fail('native exit settlement order differs')
++ if(!same(o.closeEvents.filter(ref=>ref.kind==='withdrawal').map(ref=>ref.eventId),o.withdrawals.map(row=>row.eventId))
++  ||!same(o.closeEvents.filter(ref=>ref.kind==='caseInvalidation').map(ref=>ref.eventId),o.cases.map(row=>row.eventId)))fail('market disposition order differs')
++ for(let i=0;i<o.closeEvents.length;i++){
++  const ref=o.closeEvents[i]!,receipt=state.talentMarket.receipts[start+i]!
++  if(!record(ref)||typeof ref.eventId!=='string'||used.has(ref.eventId)||receipt.eventId!==ref.eventId||receipt.week!==a.week)fail('close event segment differs')
++  used.add(ref.eventId)
++  const nextPhase=ref.kind==='exitOutcome'?0:ref.kind==='cancelOutcome'?1:ref.kind==='withdrawal'?2:ref.kind==='caseInvalidation'?3:-1
++  if(nextPhase<phase||nextPhase<0)fail('close event order differs')
++  phase=nextPhase
++  if(ref.kind==='exitOutcome'||ref.kind==='cancelOutcome'){
++   if(!exact(ref,ref.kind==='cancelOutcome'?['kind','promiseId','productionId','eventId']:['kind','promiseId','eventId']))fail('close outcome reference shape differs')
++   const disposition=o.promises.find(row=>row.original.promiseId===ref.promiseId)
++   const current=state.promises.find(row=>row.promiseId===ref.promiseId)
++   const requiredKind=ref.kind==='exitOutcome'?'exit':'continued'
++   const reason=ref.kind==='exitOutcome'?'a promise to this person was broken by an early termination':'a promise to this person was broken by a cancelled picture'
++   if(!disposition||disposition.kind!==requiredKind||!current||current.outcome!=='BROKEN'||current.outcomeWeek!==a.week||current.outcomeEventId!==ref.eventId
++    ||receipt.kind!=='promiseOutcome'||receipt.talentId!==disposition.original.beneficiaryPersonId||receipt.studioId!==a.targetId
++    ||!same(receipt.reasons,[reason])||!same(receipt.dropped,[]))fail('close outcome differs from native settlement')
++   const cause=ref.kind==='exitOutcome'?'the studio terminated this contract early, ending the window':disposition.original.family==='DIRECTING_COUNT'
++    ?'the studio cancelled the picture this person was directing, and no path was left':'the studio cancelled the picture this person was cast in, and no path was left'
++   if(!same(current,{...disposition.original,outcome:'BROKEN',outcomeWeek:a.week,outcomeCause:cause,outcomeEventId:ref.eventId}))fail('native close settlement changed prior promise work')
++   if(disposition.kind==='exit'&&disposition.outcomeEventId!==ref.eventId)fail('exit outcome reference differs')
++   if(ref.kind==='cancelOutcome'){
++    const ordinal=a.stoppedProductions.findIndex(p=>p.productionId===ref.productionId),promiseOrdinal=o.promises.indexOf(disposition)
++    if(ordinal<lastCancellation||ordinal===lastCancellation&&promiseOrdinal<=lastCancelledPromise)fail('native cancellation settlement order differs')
++    lastCancellation=ordinal;lastCancelledPromise=promiseOrdinal
++    const source=state.hollywood!.businesses.find(b=>b.studioId===a.targetId)
++    if(!source||!Array.isArray(source.productions)||source.productions.some(p=>!record(p)||!record(p.cast)))fail('cancelled source pictures shape differs')
++    const picture=source.productions.find(p=>p.id===ref.productionId)
++    if(!picture||!a.stoppedProductions.some(p=>p.productionId===ref.productionId)
++     ||!(disposition.original.family==='DIRECTING_COUNT'?picture.directorId===disposition.original.beneficiaryPersonId
++      :['lead','antagonist','support'].some(slot=>picture.cast[slot as keyof typeof picture.cast]===disposition.original.beneficiaryPersonId)))fail('cancel outcome lacks actual stopped qualifying seat')
++   }
++  }else if(ref.kind==='withdrawal'){
++   if(!exact(ref,['kind','talentId','issuerStudioId','eventId']))fail('withdrawal reference shape differs')
++   const item=o.withdrawals.find(row=>row.eventId===ref.eventId)
++   if(!item||item.original.talentId!==ref.talentId||item.original.issuerStudioId!==ref.issuerStudioId||ref.issuerStudioId!==a.targetId
++    ||receipt.kind!=='proposalWithdrawn'||receipt.talentId!==ref.talentId||receipt.studioId!==ref.issuerStudioId
++    ||!same(receipt.reasons,[ABSORPTION_PROPOSAL_REASON])||!same(receipt.dropped,[]))fail('close withdrawal differs')
++  }else{
++   if(!exact(ref,['kind','talentId','subjectStudioId','contractId','openedWeek','eventId']))fail('case reference shape differs')
++   const item=o.cases.find(row=>row.eventId===ref.eventId)
++   if(!item||item.original.talentId!==ref.talentId||item.original.subjectStudioId!==ref.subjectStudioId||ref.subjectStudioId!==a.targetId
++    ||item.original.contractId!==ref.contractId||item.original.openedWeek!==ref.openedWeek
++    ||receipt.kind!=='invalidated'||receipt.talentId!==ref.talentId||receipt.studioId!==null
++    ||!same(receipt.reasons,[ABSORPTION_CASE_DROP_REASON])||!same(receipt.dropped,[]))fail('close case invalidation differs')
++  }
++ }
++ if(o.withdrawals.some(row=>!used.has(row.eventId))||o.cases.some(row=>!used.has(row.eventId))
++  ||o.promises.some(row=>row.kind==='exit'&&!used.has(row.outcomeEventId)))fail('close dispositions omit their native event')
++ const end=start+o.closeEvents.length
++ if(state.talentMarket.receipts.some((receipt,index)=>(index<start||index>=end)&&receipt.week===a.week
++  &&((receipt.kind==='proposalWithdrawn'&&receipt.studioId===a.targetId&&same(receipt.reasons,[ABSORPTION_PROPOSAL_REASON]))
++   ||(receipt.kind==='invalidated'&&o.cases.some(row=>row.original.talentId===receipt.talentId)&&same(receipt.reasons,[ABSORPTION_CASE_DROP_REASON])))))fail('unexplained absorption market event')
++}
++
++const promiseKeys=['promiseId','family','version','issuerStudioId','beneficiaryPersonId','predicate','windowStartWeek','dueWeekExclusive','feasibilityReceipt','progress','evidenceRefs','outcome','outcomeWeek','outcomeCause','outcomeEventId','contractId','supersededByPromiseId'] as const
++function openOriginal(value:unknown,C:number):asserts value is ProfessionalPromise{
++ if(!record(value)||!exact(value,promiseKeys)||typeof value.promiseId!=='string'||typeof value.issuerStudioId!=='string'||typeof value.beneficiaryPersonId!=='string'
++  ||typeof value.family!=='string'||!Number.isSafeInteger(value.version)||Number(value.version)<1
++  ||!Number.isSafeInteger(value.windowStartWeek)||Number(value.windowStartWeek)>C||!Number.isSafeInteger(value.dueWeekExclusive)||Number(value.dueWeekExclusive)<=Number(value.windowStartWeek)
++  ||!record(value.predicate)||!Number.isSafeInteger(value.predicate.count)||Number(value.predicate.count)<1
++  ||!record(value.feasibilityReceipt)||typeof value.feasibilityReceipt.inputsDigest!=='string'
++  ||!Number.isSafeInteger(value.progress)||Number(value.progress)<0||!Array.isArray(value.evidenceRefs)||value.evidenceRefs.some(id=>typeof id!=='string')
++  ||value.outcome!==null||value.outcomeWeek!==null||value.outcomeCause!==null||value.outcomeEventId!==null||value.supersededByPromiseId!==null
++  ||(value.contractId!==null&&typeof value.contractId!=='string'))fail('original open promise snapshot shape differs')
++}
++
++/** No v7 means no new traversal, authority, or changed frozen-reader order.
++ * This owner proves only the source/employment/receipt joins required BEFORE
++ * frozen promise descent. Native promise, absorption and current49 validators
++ * remain mandatory after descent; this does not validate a whole save. */
++export function absorbedPromiseAuthority(input:unknown):AbsorbedPromiseAuthority|undefined{
++ if(!record(input)||!record(input.rights)||!Array.isArray(input.rights.absorptions))return undefined
++ if(!input.rights.absorptions.some(a=>record(a)&&a.producerVersion==='absorption-obligations/v7'))return undefined
++ if(!record(input.market)||!Number.isSafeInteger(input.market.tick)||!Array.isArray(input.promises)||!Array.isArray(input.firstTakes)
++  ||!record(input.talentMarket)||!Array.isArray(input.talentMarket.receipts)||!Array.isArray(input.talentMarket.proposals)||!Array.isArray(input.talentMarket.cases)
++  ||!record(input.hollywood)||typeof input.hollywood.playerStudioId!=='string'||!Array.isArray(input.hollywood.employment)||!Array.isArray(input.hollywood.receipts)||!Array.isArray(input.hollywood.businesses)
++  ||!record(input.firstTakeSubjects)||!Array.isArray(input.firstTakeSubjects.facts))fail('consumed obligation roots are missing')
++ const state=input as unknown as GameState,h=state.hollywood!,assignments=new Map<string,AbsorbedPromiseAssignment>()
++ const receipts=state.talentMarket.receipts
++ if(state.firstTakes.some(t=>!record(t)||!Number.isSafeInteger(t.week)||typeof t.eventId!=='string'||!record(t.cast))
++  ||state.firstTakeSubjects.facts.some(f=>!record(f)))fail('consumed first take shape differs')
++ if(receipts.some(r=>!record(r)||typeof r.eventId!=='string'||!Array.isArray(r.reasons)||!Array.isArray(r.dropped)))fail('consumed market receipt shape differs')
++ if(state.promises.some(p=>!record(p)||typeof p.promiseId!=='string'||typeof p.issuerStudioId!=='string'||typeof p.family!=='string'||!record(p.predicate)||!Number.isSafeInteger(p.predicate.count)))fail('consumed promise root shape differs')
++ if(new Set(state.promises.map(p=>p.promiseId)).size!==state.promises.length||new Set(receipts.map(r=>r.eventId)).size!==receipts.length)fail('consumed promise or event identity is duplicated')
++ if(h.businesses.some(b=>!record(b)))fail('consumed source business shape differs')
++ if(h.employment.some(e=>!record(e)||typeof e.contractId!=='string'||!record(e.terms)||!Number.isSafeInteger(e.terms.startWeek)||!Number.isSafeInteger(e.terms.endWeekExclusive)))fail('consumed employment shape differs')
++ if(state.talentMarket.cases.some(c=>!record(c))||state.talentMarket.proposals.some(p=>!record(p)))fail('consumed market subjects shape differs')
++ if(h.receipts.some(r=>!record(r)))fail('consumed industry receipt shape differs')
++ for(const a of state.rights.absorptions){
++  if(a.producerVersion!=='absorption-obligations/v7')continue
++  if(typeof a.id!=='string'||!Number.isSafeInteger(a.week)||a.week<0||a.week>state.market.tick||a.buyerId!==h.playerStudioId||typeof a.targetId!=='string'||a.buyerId===a.targetId
++   ||!Array.isArray(a.contracts)||a.contracts.some(link=>!record(link)||typeof link.sourceContractId!=='string'||typeof link.talentId!=='string'||(link.buyerContractId!==null&&typeof link.buyerContractId!=='string'))
++   ||!Array.isArray(a.stoppedProductions)||a.stoppedProductions.some(p=>!record(p)||typeof p.productionId!=='string')
++   ||!Array.isArray(a.stoppedScripts)||!Array.isArray(a.continuedScripts)||!Array.isArray(a.scriptCompletions)||!Array.isArray(a.scriptDecisions)||!record(a.obligations))fail('obligation absorption identity differs')
++  const o=a.obligations
++  if(!exact(o,['promiseCountBeforeClose','firstTakeCountBeforeClose','marketReceiptCountBeforeClose','promises','withdrawals','cases','closeEvents'])
++   ||!Number.isSafeInteger(o.promiseCountBeforeClose)||o.promiseCountBeforeClose<0||o.promiseCountBeforeClose>state.promises.length
++   ||!Number.isSafeInteger(o.firstTakeCountBeforeClose)||o.firstTakeCountBeforeClose<0||o.firstTakeCountBeforeClose>state.firstTakes.length
++   ||!Number.isSafeInteger(o.marketReceiptCountBeforeClose)||o.marketReceiptCountBeforeClose<0||o.marketReceiptCountBeforeClose>receipts.length
++   ||!Array.isArray(o.promises)||!Array.isArray(o.withdrawals)||!Array.isArray(o.cases)||!Array.isArray(o.closeEvents)
++   ||o.promises.length+o.withdrawals.length+o.cases.length===0)fail('obligation record shape differs')
++  if(state.firstTakes.some((t,i)=>i<o.firstTakeCountBeforeClose?t.week>a.week:t.week<=a.week))fail('close first take prefix differs')
++  const prefix=state.promises.slice(0,o.promiseCountBeforeClose),seen=new Set<string>()
++  let lastOriginalIndex=-1
++  for(const d of o.promises){
++   if(!record(d)||!['unboundHistory','continued','exit'].includes(d.kind)||!exact(d,d.kind==='unboundHistory'?['kind','original']:d.kind==='continued'?['kind','original','sourceContractId','buyerContractId']:['kind','original','sourceContractId','outcomeEventId']))fail('promise disposition shape differs')
++   openOriginal(d.original,a.week)
++   const original=d.original,index=prefix.findIndex(p=>p.promiseId===original.promiseId),current=prefix[index]
++   if(index<=lastOriginalIndex||seen.has(original.promiseId)||original.issuerStudioId!==a.targetId||!same(immutablePromise(original),immutablePromise(current!)))fail('promise disposition original identity differs')
++   lastOriginalIndex=index
++   seen.add(original.promiseId)
++   if(d.kind==='unboundHistory'){
++    if(original.contractId!==null||!same(current,original))fail('unbound history was changed')
++    continue
++   }
++   const originalTakes=qualifyingTakes({firstTakes:state.firstTakes.slice(0,o.firstTakeCountBeforeClose),firstTakeSubjects:state.firstTakeSubjects},original)
++   if(original.progress!==Math.min(original.predicate.count,originalTakes.length)||original.evidenceRefs.some(id=>!originalTakes.some(t=>t.eventId===id)))fail('original promise progress differs from pre-close takes')
++   if(original.contractId!==d.sourceContractId||typeof d.sourceContractId!=='string')fail('promise source contract differs')
++   const links=a.contracts.filter(link=>record(link)&&link.sourceContractId===d.sourceContractId&&link.talentId===original.beneficiaryPersonId)
++   const sources=h.employment.filter(e=>e.contractId===d.sourceContractId)
++   if(links.length!==1||sources.length!==1)fail('promise source employment is not unique')
++   const link=links[0]!,source=sources[0]!
++   if(source.studioId!==a.targetId||source.terms.talentId!==original.beneficiaryPersonId||source.endedWeek!==a.week
++    ||source.terms.startWeek>a.week||source.terms.endWeekExclusive<=a.week||original.dueWeekExclusive>source.terms.endWeekExclusive)fail('promise source employment interval differs')
++   const sourceEvents=h.receipts.filter(r=>r.kind==='employment'&&r.week===a.week&&r.studioId===a.targetId&&r.contractId===d.sourceContractId&&r.talentId===original.beneficiaryPersonId
++    &&r.fromStudioId===a.targetId&&r.toStudioId===null&&r.reason===(d.kind==='exit'?'absorptionExit':'absorptionContinuation'))
++   if(sourceEvents.length!==1)fail('promise source employment event differs')
++   if(d.kind==='exit'){
++    if(link.buyerContractId!==null||typeof d.outcomeEventId!=='string')fail('exit disposition has continued employment')
++    continue
++   }
++   if(typeof d.buyerContractId!=='string'||link.buyerContractId!==d.buyerContractId)fail('promise buyer contract link differs')
++   const buyers=h.employment.filter(e=>e.contractId===d.buyerContractId)
++   if(buyers.length!==1)fail('promise buyer employment is not unique')
++   const buyer=buyers[0]!,expected={...source.terms,startWeek:a.week,termWeeks:source.terms.endWeekExclusive-a.week}
++   if(buyer.studioId!==a.buyerId||buyer.reason!=='absorptionContinuation'||!same(buyer.terms,expected)
++    ||(buyer.endedWeek!==null&&buyer.endedWeek<a.week))fail('promise buyer bargain differs')
++   const buyerEvents=h.receipts.filter(r=>r.kind==='employment'&&r.week===a.week&&r.studioId===a.buyerId&&r.contractId===d.buyerContractId&&r.talentId===original.beneficiaryPersonId
++    &&r.fromStudioId===a.targetId&&r.toStudioId===a.buyerId&&r.reason==='absorptionContinuation')
++   if(buyerEvents.length!==1||assignments.has(original.promiseId))fail('promise buyer employment event differs')
++   assignments.set(original.promiseId,{absorptionId:a.id,week:a.week,sourceStudioId:a.targetId,buyerStudioId:a.buyerId,
++    sourceContractId:d.sourceContractId,buyerContractId:d.buyerContractId,original,firstTakeCountBeforeClose:o.firstTakeCountBeforeClose,projectIds:closingProjectIds(state,a)})
++  }
++  // A root already terminal before the receipt prefix, or already superseded
++  // before the promise prefix, was not open at close and cannot be re-broken.
++  for(const current of prefix){
++   if(current.issuerStudioId!==a.targetId)continue
++   const outcomeIndex=current.outcomeEventId===null?-1:receipts.findIndex(r=>r.eventId===current.outcomeEventId)
++   const supersededBefore=current.supersededByPromiseId!==null&&prefix.some(p=>p.promiseId===current.supersededByPromiseId)
++   const openAtClose=!supersededBefore&&(current.outcome===null||(outcomeIndex>=o.marketReceiptCountBeforeClose&&outcomeIndex>=0))
++   if(openAtClose&&!seen.has(current.promiseId))fail('open source promise omitted at close')
++   if(!openAtClose&&seen.has(current.promiseId))fail('already terminal promise included at close')
++  }
++  for(const row of [...o.withdrawals,...o.cases])if(!record(row)||typeof row.eventId!=='string')fail('market disposition shape differs')
++  let priorSubmission=-1
++  for(const row of o.withdrawals){if(!exact(row,['original','eventId']))fail('withdrawal snapshot shape differs');validateProposalSnapshot(state,row.original,a.week,o.promiseCountBeforeClose)
++   if(row.original.issuerStudioId!==a.targetId)fail('withdrawal issuer differs')
++   let submission=-1;receipts.slice(0,o.marketReceiptCountBeforeClose).forEach((r,i)=>{if(r.kind==='proposalSubmitted'&&r.talentId===row.original.talentId&&r.studioId===a.targetId)submission=i})
++   if(submission<=priorSubmission||receipts[submission]?.week!==row.original.submittedWeek)fail('withdrawal source order differs')
++   priorSubmission=submission
++  }
++  let priorCase=-1
++  for(const row of o.cases){if(!exact(row,['original','droppedProposals','eventId'])||!record(row.original)||!Array.isArray(row.droppedProposals)
++    ||row.original.subjectStudioId!==a.targetId||row.original.outcome!==null||row.original.closedWeek!==null||row.original.reason!==null)fail('case snapshot shape differs')
++   for(const p of row.droppedProposals){validateProposalSnapshot(state,p,a.week,o.promiseCountBeforeClose);if(p.talentId!==row.original.talentId||p.issuerStudioId===a.targetId)fail('case dropped proposal attribution differs')}
++   const matches=state.talentMarket.cases.filter(k=>k.talentId===row.original.talentId&&k.subjectStudioId===row.original.subjectStudioId&&k.contractId===row.original.contractId&&k.openedWeek===row.original.openedWeek)
++   const ordinal=matches.length===1?state.talentMarket.cases.indexOf(matches[0]!):-1
++   if(ordinal<=priorCase)fail('case source order differs')
++   priorCase=ordinal
++   if(matches.length!==1||!same({...matches[0],outcome:null,closedWeek:null,reason:null},row.original)||matches[0]!.outcome!=='invalidated'||matches[0]!.closedWeek!==a.week||matches[0]!.reason!==ABSORPTION_CASE_REASON)fail('case terminal join differs')
++  }
++  if(new Set(o.withdrawals.map(row=>row.original.talentId)).size!==o.withdrawals.length
++   ||new Set(o.cases.map(row=>row.original.contractId)).size!==o.cases.length
++   ||state.talentMarket.proposals.some(p=>p.issuerStudioId===a.targetId)
++   ||state.talentMarket.cases.some(c=>c.subjectStudioId===a.targetId&&c.outcome===null))fail('absorption leaves an open original market subject')
++  validateCloseEventSegment(state,a,o)
++ }
++ // Typed forward waiver chains inherit only the same original employment duty.
++ // This is a narrow pre-descent join; native full waiver validators still run.
++ const indices=new Map(state.promises.map((p,i)=>[p.promiseId,i] as const)),incoming=new Set<string>()
++ for(const [id,assignment] of assignments){
++  const predecessor=state.promises[indices.get(id)!]!,successorId=predecessor.supersededByPromiseId
++  if(successorId===null)continue
++  const index=indices.get(successorId),successor=index===undefined?undefined:state.promises[index]
++  if(!successor||(index??-1)<=indices.get(id)!||incoming.has(successorId)||predecessor.outcome!=='WAIVED'||predecessor.outcomeWeek===null
++   ||!record(successor.predicate)||!record(successor.feasibilityReceipt)||successor.contractId!==predecessor.contractId
++   ||successor.issuerStudioId!==predecessor.issuerStudioId||successor.beneficiaryPersonId!==predecessor.beneficiaryPersonId
++   ||successor.feasibilityReceipt.week!==predecessor.outcomeWeek||successor.windowStartWeek<=predecessor.outcomeWeek
++   ||successor.feasibilityReceipt.classification!=='REASONABLY_ACHIEVABLE'||successor.predicate.count<predecessor.predicate.count-predecessor.progress
++   ||(predecessor.family==='DIRECTING_COUNT')!==(successor.family==='DIRECTING_COUNT')
++   ||!promiseCastSlots(successor).every(slot=>promiseCastSlots(predecessor).includes(slot)))fail('continued promise successor duty differs')
++  const old=predecessor.predicate,fresh=successor.predicate
++  if('kind' in old&&old.kind==='projectOpportunity'){
++   const canonical=(value:string)=>assignment.projectIds.get(value)??value
++   if(!('kind' in fresh)||fresh.kind!=='projectOpportunity'||canonical(fresh.scriptProjectId)!==canonical(old.scriptProjectId))fail('continued promise successor changes named project')
++  }else if('kind' in old&&old.kind==='genreOpportunity'){
++   if(!('kind' in fresh)||(fresh.kind==='genreOpportunity'?fresh.genre!==old.genre:fresh.kind!=='projectOpportunity'||assignedProjectGenre(state,assignment,fresh.scriptProjectId)!==old.genre))fail('continued promise successor weakens genre')
++  }
++  incoming.add(successorId)
++  if(assignments.has(successorId))fail('continued promise successor has two owners')
++  assignments.set(successorId,assignment)
++ }
++ for(const a of state.rights.absorptions){
++  if(a.producerVersion!=='absorption-obligations/v7')continue
++  if(state.promises.slice(a.obligations.promiseCountBeforeClose).some(p=>p.issuerStudioId===a.targetId&&!assignments.has(p.promiseId)))fail('post-close source promise has no actual typed successor duty')
++ }
++ return {assignments}
++}
++
++/** Read-only calculator view. Stored roots, issuer history and producer inputs
++ * remain untouched. This view must never be passed to a producer or save writer. */
++export function operationalPromiseView(state:GameState,authority:AbsorbedPromiseAuthority|undefined):GameState{
++ if(!authority||authority.assignments.size===0)return state
++ const productions=buyerOperatedProductions(state),development=buyerScriptDevelopment(state),concepts=buyerScriptConcepts(state)
++ const active=new Set(productions.map(p=>p.id)),projects=[...development.projects]
++ for(const a of state.rights.absorptions){
++  if(a.buyerId!==state.hollywood?.playerStudioId)continue
++  const source=state.hollywood.businesses.find(b=>b.studioId===a.targetId)
++  for(const row of a.continuedProductions){
++   if(!active.has(row.productionId)||projects.some(p=>p.id===row.scriptProjectId))continue
++   const project=source?.development.projects.find(p=>p.id===row.scriptProjectId&&p.productionId===row.productionId)
++   if(!project||project.conceptId!==row.originalProduction.conceptId)fail('operational promise project lacks its actual continued film')
++   projects.push(project)
++   const concept=state.hollywood.concepts.find(c=>c.id===project.conceptId)
++   if(!concept)fail('operational promise project concept is missing')
++   if(!concepts.some(c=>c.id===concept.id))concepts.push(concept)
++  }
++ }
++ // The calculator now sees these same actual operating rows in its native
++ // roots. Do not append them a second time through shared continuation readers.
++ // Terminal identities and every unmerged collection remain in the read view.
++ const rights={...state.rights,absorptions:state.rights.absorptions.map(a=>a.buyerId===state.hollywood?.playerStudioId
++  ?{...a,continuedProductions:[],buyerWorkflows:[]}:a)}
++ return {...state,rights,concepts,scriptDevelopment:{...development,projects},
++  studio:{...state.studio,activeProductions:productions},operations:buyerOperationsForAllWork(state),
++  promises:state.promises.map(p=>operationalPromise(state,p,authority))}
++}
++export function operationalPromise<T extends {promiseId?:string;issuerStudioId:string;predicate:ProfessionalPromise['predicate']}>(_state:GameState,p:T,authority:AbsorbedPromiseAuthority|undefined):T{
++ const assignment=p.promiseId===undefined?undefined:authority?.assignments.get(p.promiseId)
++ if(!assignment)return p
++ let predicate=p.predicate
++ if('kind' in predicate&&predicate.kind==='projectOpportunity'){
++  const projectId=assignment.projectIds.get(predicate.scriptProjectId)
++  if(projectId)predicate={...predicate,scriptProjectId:projectId}
++ }
++ return {...p,issuerStudioId:assignment.buyerStudioId,predicate}
++}
++
++/** Atomic close owner. `before` is the already admitted input and `next` has
++ * actual linked employment/work, but has not published the v7 obligation row.
++ * Closing authority is invocation-local and cannot escape this function. */
++export function closeAbsorbedObligations(before:GameState,next:GameState,absorptionId:string):GameState{
++ const a=next.rights.absorptions.find(row=>row.id===absorptionId)
++ if(!a)fail('closing absorption is missing')
++ const originals=before.promises.filter(p=>p.issuerStudioId===a.targetId&&p.outcome===null)
++ const proposals=before.talentMarket.proposals.filter(p=>p.issuerStudioId===a.targetId)
++ const cases=before.talentMarket.cases.filter(c=>c.subjectStudioId===a.targetId&&c.outcome===null)
++ if(originals.length+proposals.length+cases.length===0)return next
++ if(before.market.tick!==a.week||next.market.tick!==a.week||!same(next.promises,before.promises)||!same(next.talentMarket,before.talentMarket))fail('closing obligation input changed before its native segment')
++ const o:AbsorptionObligations={promiseCountBeforeClose:before.promises.length,firstTakeCountBeforeClose:before.firstTakes.length,
++  marketReceiptCountBeforeClose:before.talentMarket.receipts.length,promises:[],withdrawals:[],cases:[],closeEvents:[]}
++ const assignments=new Map(absorbedPromiseAuthority(before)?.assignments??[])
++ for(const original of originals){
++  if(original.contractId===null){o.promises.push({kind:'unboundHistory',original:structuredClone(original)});continue}
++  const link=a.contracts.find(row=>row.sourceContractId===original.contractId&&row.talentId===original.beneficiaryPersonId)
++  if(!link)fail('open bound promise has no actual closing employment')
++  if(link.buyerContractId===null){o.promises.push({kind:'exit',original:structuredClone(original),sourceContractId:link.sourceContractId,outcomeEventId:''});continue}
++  o.promises.push({kind:'continued',original:structuredClone(original),sourceContractId:link.sourceContractId,buyerContractId:link.buyerContractId})
++  assignments.set(original.promiseId,{absorptionId:a.id,week:a.week,sourceStudioId:a.targetId,buyerStudioId:a.buyerId,
++   sourceContractId:link.sourceContractId,buyerContractId:link.buyerContractId,original,firstTakeCountBeforeClose:before.firstTakes.length,projectIds:closingProjectIds(next,a)})
++ }
++ // Capture the next script subproducer only as the coherent v7 close. Empty
++ // arrays grant no writing authority; actual future decisions retain this tag.
++ next={...next,rights:{...next.rights,absorptions:next.rights.absorptions.map(row=>row.id!==a.id?row:{...row,
++  producerVersion:'absorption-obligations/v7',stoppedScripts:'stoppedScripts' in row?row.stoppedScripts??[]:[],
++  continuedScripts:'continuedScripts' in row?row.continuedScripts:[],scriptCompletions:'scriptCompletions' in row?row.scriptCompletions:[],
++  scriptDecisions:'scriptDecisions' in row?row.scriptDecisions:[],obligations:o})}}
++ const authority={assignments}
++ const appendOutcomes=(prior:GameState,after:GameState,kind:'exitOutcome'|'cancelOutcome',productionId?:string)=>{
++  for(const receipt of after.talentMarket.receipts.slice(prior.talentMarket.receipts.length)){
++   const promise=after.promises.find(p=>p.outcomeEventId===receipt.eventId)
++   if(receipt.kind!=='promiseOutcome'||!promise)fail('native close settlement emitted an unrelated event')
++   if(kind==='exitOutcome'){
++    const disposition=o.promises.find(d=>d.kind==='exit'&&d.original.promiseId===promise.promiseId)
++    if(!disposition||disposition.kind!=='exit')fail('native exit settled an unrelated promise')
++    disposition.outcomeEventId=receipt.eventId
++    o.closeEvents.push({kind,promiseId:promise.promiseId,eventId:receipt.eventId})
++   }else o.closeEvents.push({kind,promiseId:promise.promiseId,eventId:receipt.eventId,productionId:productionId!})
++  }
++ }
++ for(const link of a.contracts){
++  if(link.buyerContractId!==null)continue
++  const prior=next
++  next=breakPromisesOnTermination(next,a.targetId,link.talentId,authority)
++  appendOutcomes(prior,next,'exitOutcome')
++ }
++ const continued=new Set(o.promises.filter(d=>d.kind==='continued').map(d=>d.original.promiseId))
++ const source=before.hollywood!.businesses.find(b=>b.studioId===a.targetId)!
++ for(const stopped of a.stoppedProductions){
++  const picture=source.productions.find(p=>p.id===stopped.productionId)
++  if(!picture)fail('native cancelled source picture is missing')
++  const prior=next
++  next=breakPromisesOnCancel(next,a.buyerId,picture,authority,continued)
++  appendOutcomes(prior,next,'cancelOutcome',picture.id)
++ }
++ for(const proposal of proposals){
++  next=withdrawProposalAtAbsorption(next,proposal.talentId,proposal.issuerStudioId)
++  const eventId=next.talentMarket.receipts.at(-1)!.eventId
++  o.withdrawals.push({original:structuredClone(proposal),eventId})
++  o.closeEvents.push({kind:'withdrawal',talentId:proposal.talentId,issuerStudioId:proposal.issuerStudioId,eventId})
++ }
++ for(const kase of cases){
++  const droppedProposals=next.talentMarket.proposals.filter(p=>p.talentId===kase.talentId).map(p=>structuredClone(p))
++  next=invalidateCaseAtAbsorption(next,kase)
++  const eventId=next.talentMarket.receipts.at(-1)!.eventId
++  o.cases.push({original:structuredClone(kase),droppedProposals,eventId})
++  o.closeEvents.push({kind:'caseInvalidation',talentId:kase.talentId,subjectStudioId:kase.subjectStudioId,contractId:kase.contractId,openedWeek:kase.openedWeek,eventId})
++ }
++ return next
++}
++
++function closingProjectIds(state:GameState,a:AbsorptionRecord):ReadonlyMap<string,string>{
++ const out=new Map<string,string>()
++ if(!Array.isArray(a.continuedProductions))fail('continued promise picture links missing')
++ if(!('continuedScripts' in a))return out
++ if(!Array.isArray(a.continuedScripts))fail('continued promise project links missing')
++ const source=state.hollywood!.businesses.find(b=>b.studioId===a.targetId)
++ if(!source||!record(source.development)||!Array.isArray(source.development.projects)||source.development.projects.some(p=>!record(p)))fail('continued promise source projects missing')
++ for(const link of a.continuedScripts){
++  if(!record(link)||typeof link.sourceScriptProjectId!=='string'||!record(link.originalScript)||!record(link.project)||typeof link.project.id!=='string'
++   ||link.originalScript.id!==link.sourceScriptProjectId||link.project.conceptId!==link.originalScript.conceptId
++   ||out.has(link.sourceScriptProjectId)||[...out.values()].includes(link.project.id)
++   ||!same(source.development.projects.find(p=>p.id===link.sourceScriptProjectId),link.originalScript))fail('continued promise project source differs')
++  out.set(link.sourceScriptProjectId,link.project.id)
++ }
++ for(const row of a.continuedProductions){
++  if(!record(row)||typeof row.scriptProjectId!=='string'||typeof row.productionId!=='string'||!record(row.originalProduction))fail('continued promise picture source shape differs')
++  const project=source.development.projects.find(p=>p.id===row.scriptProjectId&&p.productionId===row.productionId)
++  if(!project||project.conceptId!==row.originalProduction.conceptId||row.originalProduction.id!==row.productionId||out.has(row.scriptProjectId))fail('continued promise picture source differs')
++  out.set(row.scriptProjectId,row.scriptProjectId)
++ }
++ return out
++}
++function assignedProjectGenre(state:GameState,a:AbsorbedPromiseAssignment,id:string):string|undefined{
++ const own=state.scriptDevelopment.projects.find(p=>p.id===id)
++ if(own)return state.concepts.find(c=>c.id===own.conceptId)?.genre
++ const sourceId=[...a.projectIds].find(([source,buyer])=>source===id||buyer===id)?.[0]
++ const source=state.hollywood!.businesses.find(b=>b.studioId===a.sourceStudioId)
++ const project=source?.development.projects.find(p=>p.id===sourceId)
++ return project?state.hollywood!.concepts.find(c=>c.id===project.conceptId)?.genre:undefined
++}
++
++/** Player release settles promises immediately BEFORE syncPlayerEmployment.
++ * Recognize only its exact removed linked bargain and paid native ledger tail;
++ * later historical reads use the real ended interval written by that sync. */
++export function absorbedPromiseContractEnded(state:GameState,a:AbsorbedPromiseAssignment,week:number):boolean{
++ const linked=state.hollywood?.employment.find(e=>e.contractId===a.buyerContractId&&e.studioId===a.buyerStudioId&&e.terms.talentId===a.original.beneficiaryPersonId)
++ if(!linked)return false
++ if(linked.endedWeek===week)return true
++ const paid=state.ledger.at(-1)
++ return linked.endedWeek===null&&a.buyerStudioId===state.hollywood?.playerStudioId&&linked.terms.startWeek<=week&&week<linked.terms.endWeekExclusive
++  &&!state.contracts.some(c=>same(c,linked.terms))&&state.freeAgents.includes(linked.terms.talentId)
++  &&paid?.kind==='termination'&&paid.week===week&&paid.talentId===linked.terms.talentId&&paid.amount===-terminationCost(linked.terms,week)
++}
+diff --git a/src/core/absorbedScripts.ts b/src/core/absorbedScripts.ts
+--- a/src/core/absorbedScripts.ts
++++ b/src/core/absorbedScripts.ts
+@@ -21,9 +21,9 @@
+     if(Object.hasOwn(a,'stoppedScripts')||expected.length!==0)fail('legacy producer cannot carry stopped drafting history')
+     return
+   }
+-  if((a.producerVersion!=='absorption-scripts/v2'&&a.producerVersion!=='absorption-scripts/v3'&&a.producerVersion!=='absorption-scripts/v4'&&(a.producerVersion!=='absorption-scripts/v5'&&a.producerVersion!=='absorption-scripts/v6'))||!Array.isArray(a.stoppedScripts)
++  if((a.producerVersion!=='absorption-scripts/v2'&&a.producerVersion!=='absorption-scripts/v3'&&a.producerVersion!=='absorption-scripts/v4'&&(a.producerVersion!=='absorption-scripts/v5'&&a.producerVersion!=='absorption-scripts/v6'&&a.producerVersion!=='absorption-obligations/v7'))||!Array.isArray(a.stoppedScripts)
+     ||a.producerVersion==='absorption-scripts/v2'&&a.stoppedScripts.length===0)fail('missing versioned script write-off')
+-  const continued=new Set((a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'))?a.continuedScripts.map(r=>r.sourceScriptProjectId):[])
++  const continued=new Set((a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7'))?a.continuedScripts.map(r=>r.sourceScriptProjectId):[])
+   const stopped=expected.filter(p=>!continued.has(p.id))
+   if(a.stoppedScripts.map(r=>r.scriptProjectId).join()!==stopped.map(p=>p.id).join())fail('in-flight script write-off bijection/order differs')
+   for(const row of a.stoppedScripts){
+diff --git a/src/core/acquisition.ts b/src/core/acquisition.ts
+--- a/src/core/acquisition.ts
++++ b/src/core/acquisition.ts
+@@ -1,3 +1,4 @@
++import { closeAbsorbedObligations, absorbedPromiseAuthority } from './absorbedObligations.js'
+ import { TECHNOLOGY_CATALOGUE, technologyEntry } from './technologyCatalogue.js'
+ import type { ResearchProject } from './technologyTypes.js'
+ import { outstandingLoan } from './corporateConditionLive.js'
+@@ -111,6 +112,8 @@
+   resultingWeeklyFixedCost: number; reserveAfter: number; affordable: boolean
+   productions: AbsorptionProductionQuote[]
+   scripts: AbsorptionScriptQuote[]
++  promiseObligations: {promiseId:string;disposition:'unboundHistory'|'continued'|'exit';sourceContractId:string|null}[]
++  marketObligations: {proposalCount:number;caseCount:number}
+   research: { projectId: string; disposition: 'cancelRetainingVerifiedProgress'; verifiedWork: number; expenditure: number }[]
+   facilities: { facilityId: string; disposition: 'remainsWithTargetHistory' }[]
+   adoptions: AbsorptionRecord['adoptions']
+@@ -367,10 +370,13 @@
+   const knowledge: AbsorptionRecord['knowledge']=state.technology.projects.filter(p=>p.studioId===input.targetId&&p.status==='completed')
+     .map(p=>({technologyId:p.technologyId,sourceProjectId:p.id,completedWeek:p.completedWeek!,
+       disposition:state.technology.access.some(a=>a.studioId===input.buyerId&&a.technologyId===p.technologyId&&a.acquiredWeek!==null)?'alreadyHeld':'granted'}))
++  const promiseObligations:AbsorptionQuote['promiseObligations']=state.promises.filter(p=>p.issuerStudioId===input.targetId&&p.outcome===null).map(p=>({
++    promiseId:p.promiseId,disposition:p.contractId===null?'unboundHistory':contracts.some(c=>c.contractId===p.contractId&&c.retained)?'continued':'exit',sourceContractId:p.contractId}))
++  const marketObligations={proposalCount:state.talentMarket.proposals.filter(p=>p.issuerStudioId===input.targetId).length,caseCount:state.talentMarket.cases.filter(c=>c.subjectStudioId===input.targetId&&c.closedWeek===null).length}
+   return { kind: 'quote', quotedAtWeek: input.quotedAtWeek ?? week, quoteAgePolicyVersion: input.quoteAgePolicyVersion ?? QUOTE_AGE_POLICY_VERSION, buyerId: input.buyerId, targetId: input.targetId, week, consideration: input.consideration, disclosureId: input.disclosureId!, rights,
+     rightsValue: willingness.value, contracts, exitCharges: m.exitCharges, targetCashBeforeExits: targetCash,
+     postExitCash: m.postExitCash, guarantees: m.guarantees, outlay: m.outlay, ask: willingness.ask!, resultingWeeklyFixedCost: m.resultingWeeklyFixedCost,
+-    reserveAfter: m.reserveAfter, affordable: m.affordable, productions, scripts, research, facilities, physicalPlans, knowledge, adoptions, runs }
++    reserveAfter: m.reserveAfter, affordable: m.affordable, productions, scripts, promiseObligations, marketObligations, research, facilities, physicalPlans, knowledge, adoptions, runs }
+ }
+ 
+ /** Rival paid plant stays started after completion (rivalResearch.ts:283–320).
+@@ -421,9 +427,9 @@
+   if (state.physicalPlans.plans.some(p => p.studioId === input.targetId && p.status === 'started' && unfinishedAbsorptionPlan(state,p)
+     && p.commitReceipt!.week + p.approvedQuote.buildWeeks <= state.market.tick)) return 'missingActualPhysicalCompletionProducer'
+   if (state.technology.adoptions.some(a => a.studioId === input.targetId && a.operationalWeek === null && a.cancelledWeek === null && state.market.tick >= a.committedWeek+technologyEntry(a.technologyId).deploymentWeeks)) return 'missingActualAdoptionCompletionProducer'
+-  if (state.promises.some(p => p.issuerStudioId === input.targetId && p.outcome === null)) return 'absorbedPromiseDispositionProducerRequired'
+-  if (state.talentMarket.cases.some(c => c.subjectStudioId === input.targetId && c.closedWeek === null)
+-    || state.talentMarket.proposals.some(p => p.issuerStudioId === input.targetId)) return 'absorbedMarketDispositionProducerRequired'
++  if (input.buyerId!==h.playerStudioId&&state.promises.some(p => p.issuerStudioId === input.targetId && p.outcome === null)) return 'absorbedPromiseDispositionProducerRequired'
++  if (input.buyerId!==h.playerStudioId&&(state.talentMarket.cases.some(c => c.subjectStudioId === input.targetId && c.closedWeek === null)
++    || state.talentMarket.proposals.some(p => p.issuerStudioId === input.targetId))) return 'absorbedMarketDispositionProducerRequired'
+   return null
+ }
+ 
+@@ -565,6 +571,7 @@
+     next = moved.state; titleEventIds.push(moved.event.id)
+   }
+   next = {...next,rights:{...next.rights,absorptions:next.rights.absorptions.map(a => a.id === record.id ? {...a,titleEventIds} : a)}}
++  next=closeAbsorbedObligations(state,next,record.id)
+   makeSave(next) // one joined publication; no intermediate terminal or sale-only state escapes
+   return next
+ }
+@@ -579,11 +586,11 @@
+   const exact = (value: object, keys: readonly string[]) => Object.keys(value).sort().join() === [...keys].sort().join()
+   const keys = ['id','week','buyerId','targetId','disclosureId','quotedAtWeek','quoteAgePolicyVersion','consideration','cashBeforeExits','exitCharges','postExitCash','outlay','evaluatedBuyerWeek','evaluatedTargetWeek','contracts','research','facilities','titleEventIds','knowledge','physicalPlans','adoptions','stoppedProductions','continuedProductions','buyerWorkflows','workSteps','workReleases','workCancellations','runs','runReceipts','producerVersion']
+   for (const a of state.rights.absorptions) {
+-    if (typeof a !== 'object' || a === null || !exact(a,(a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'))?[...keys,'stoppedScripts','continuedScripts','scriptCompletions','scriptDecisions']:a.producerVersion==='absorption-scripts/v3'?[...keys,'stoppedScripts','continuedScripts','scriptCompletions']:a.producerVersion==='absorption-scripts/v2'?[...keys,'stoppedScripts']:keys)) fail('record has unknown or missing fields')
++    if (typeof a !== 'object' || a === null || !exact(a,a.producerVersion==='absorption-obligations/v7'?[...keys,'stoppedScripts','continuedScripts','scriptCompletions','scriptDecisions','obligations']:(a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'))?[...keys,'stoppedScripts','continuedScripts','scriptCompletions','scriptDecisions']:a.producerVersion==='absorption-scripts/v3'?[...keys,'stoppedScripts','continuedScripts','scriptCompletions']:a.producerVersion==='absorption-scripts/v2'?[...keys,'stoppedScripts']:keys)) fail('record has unknown or missing fields')
+     if (a.quoteAgePolicyVersion !== 0 && a.quoteAgePolicyVersion !== 1) fail('unknown quote age policy version')
+     const quoteAge = quoteAgeRefusal('absorptionPreview', a.quotedAtWeek, a.week, a.quoteAgePolicyVersion)
+     if (quoteAge !== null) fail(`recorded acceptance quote age ${quoteAge}`)
+-    if (!h || (a.producerVersion !== 'absorption-clean/v1' && a.producerVersion !== 'absorption-scripts/v2' && a.producerVersion !== 'absorption-scripts/v3' && a.producerVersion !== 'absorption-scripts/v4' && (a.producerVersion!=='absorption-scripts/v5'&&a.producerVersion!=='absorption-scripts/v6')) || !/^absorption-[1-9][0-9]*$/.test(a.id)) fail('unknown producer or id')
++    if (!h || (a.producerVersion !== 'absorption-clean/v1' && a.producerVersion !== 'absorption-scripts/v2' && a.producerVersion !== 'absorption-scripts/v3' && a.producerVersion !== 'absorption-scripts/v4' && (a.producerVersion!=='absorption-scripts/v5'&&a.producerVersion!=='absorption-scripts/v6'&&a.producerVersion!=='absorption-obligations/v7')) || !/^absorption-[1-9][0-9]*$/.test(a.id)) fail('unknown producer or id')
+     const number = Number(a.id.slice('absorption-'.length))
+     if (number <= priorNumber || a.week < priorWeek) fail('records do not retain producer order')
+     priorNumber = number; priorWeek = a.week
+@@ -638,7 +645,8 @@
+     validateAbsorbedProductionStops(state,b!,a)
+     validateContinuedWork(state,b!,a)
+     validateAbsorbedRuns(state,b!,a)
+-    if (state.promises.some(p => p.issuerStudioId === a.targetId && p.outcome === null)
++    if(a.producerVersion==='absorption-obligations/v7')absorbedPromiseAuthority(state)
++    else if (state.promises.some(p => p.issuerStudioId === a.targetId && p.outcome === null)
+       || state.talentMarket.cases.some(c => c.subjectStudioId === a.targetId && c.closedWeek === null)
+       || state.talentMarket.proposals.some(p => p.issuerStudioId === a.targetId)) fail('unsupported open promise/market obligation entered clean producer')
+     if (a.facilities.join() !== b!.operations.facilities.map(f => f.id).join()) fail('retained facility history differs')
+diff --git a/src/core/continuedScripts.ts b/src/core/continuedScripts.ts
+--- a/src/core/continuedScripts.ts
++++ b/src/core/continuedScripts.ts
+@@ -13,7 +13,12 @@
+ import { TUNING, SCRIPT_DEVELOPMENT_OFFICE_TIER_2_EST_UPLIFT, SCRIPT_DEVELOPMENT_OFFICE_TIER_3_EST_UPLIFT, FACILITY_BLUEPRINTS } from './tuning.js'
+ import { developmentOfficeEstUplift } from './facilityEffects.js'
+ 
+-type Owner=Extract<AbsorptionRecord,{producerVersion:'absorption-scripts/v3'|'absorption-scripts/v4'|'absorption-scripts/v5'|'absorption-scripts/v6'}>
++type Owner=Extract<AbsorptionRecord,{producerVersion:'absorption-scripts/v3'|'absorption-scripts/v4'|'absorption-scripts/v5'|'absorption-scripts/v6'|'absorption-obligations/v7'}>
++function withScriptDecisions(a:Owner,continuedScripts:Owner['continuedScripts'],scriptDecisions:AbsorptionScriptDecision[],version:'absorption-scripts/v5'|'absorption-scripts/v6'):Owner{
++ return a.producerVersion==='absorption-obligations/v7'
++  ?{...a,continuedScripts,scriptDecisions}
++  :{...a,producerVersion:version,continuedScripts,scriptDecisions}
++}
+ function fail(why:string):never{throw new Error(`continued script: ${why}`)}
+ const exact=(x:object,keys:string[])=>Object.keys(x).sort().join()===keys.sort().join()
+ function same(a:unknown,b:unknown):boolean{
+@@ -24,7 +29,7 @@
+  return keys.join()===Object.keys(y).sort().join()&&keys.every(k=>same(x[k],y[k]))
+ }
+ function owners(state:GameState):Owner[]{
+- return (state.rights?.absorptions??[]).filter((a):a is Owner=>(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6')))
++ return (state.rights?.absorptions??[]).filter((a):a is Owner=>(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7'))&&(!(a.producerVersion==='absorption-obligations/v7')||a.continuedScripts.length>0))
+ }
+ export function continuedScriptOwner(state:GameState,id:string){
+  for(const a of owners(state)){const row=a.continuedScripts.find(r=>r.project.id===id);if(row)return {a,row}}
+@@ -61,11 +66,9 @@
+  if(!owner||owner.a.buyerId!==state.hollywood?.playerStudioId)fail('native production has no carried buyer screenplay')
+  const allocated=allocateRightsId(state.rights,'script-decision')
+  const event={...structuredClone(decision),id:allocated.id}
+- return {...state,rights:{...allocated.root,absorptions:allocated.root.absorptions.map(a=>a.id===owner.a.id?{
+-  ...owner.a,producerVersion:'absorption-scripts/v6' as const,
+-  continuedScripts:owner.a.continuedScripts.map(row=>row.project.id===projectId?{...row,project}:row),
+-  scriptDecisions:[...(owner.a.producerVersion==='absorption-scripts/v3'?[]:owner.a.scriptDecisions),event],
+- }:a)}}
++ return {...state,rights:{...allocated.root,absorptions:allocated.root.absorptions.map(a=>a.id===owner.a.id?withScriptDecisions(owner.a,
++  owner.a.continuedScripts.map(row=>row.project.id===projectId?{...row,project}:row),
++  [...(owner.a.producerVersion==='absorption-scripts/v3'?[]:owner.a.scriptDecisions),event],'absorption-scripts/v6'):a)}}
+ }
+ /** Called only after the ordinary native producer returned the paid production. */
+ export function linkCarriedScriptToProduction(state:GameState,projectId:string,production:Production):GameState {
+@@ -153,7 +156,7 @@
+   text(a.id,'absorption.id')
+   rows(a.continuedProductions,'absorption.continuedProductions').forEach(r=>production(r.originalProduction,'continuedProduction.originalProduction'))
+   rows(a.workSteps,'absorption.workSteps');rows(a.workCancellations,'absorption.workCancellations');rows(a.workReleases,'absorption.workReleases')
+-  if(!['absorption-scripts/v3','absorption-scripts/v4','absorption-scripts/v5','absorption-scripts/v6'].includes(a.producerVersion as string))continue
++  if(!['absorption-scripts/v3','absorption-scripts/v4','absorption-scripts/v5','absorption-scripts/v6','absorption-obligations/v7'].includes(a.producerVersion as string))continue
+   const source=businesses.find(b=>b.studioId===a.targetId)
+   if(!source)fail('native production input source business missing')
+   development(source.development,'source.development');rows(source.projects,'source.projects')
+@@ -216,9 +219,9 @@
+ export function carriedProductionAuthority(state:GameState):CarriedProductionAuthority|undefined {
+  const raw=state.rights?.absorptions
+  // Older saves retain their existing validation traversal and refusal order.
+- if(!Array.isArray(raw)||!raw.some(a=>a&&typeof a==='object'&&a.producerVersion==='absorption-scripts/v6'))return undefined
++ if(!Array.isArray(raw)||!raw.some(a=>a&&typeof a==='object'&&(a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7'&&Array.isArray(a.scriptDecisions)&&a.scriptDecisions.some(d=>d&&typeof d==='object'&&d.kind==='greenlight'))))return undefined
+  assertCarriedHistoryInputShape(state)
+- const current=owners(state).filter(a=>a.producerVersion==='absorption-scripts/v6')
++ const current=owners(state).filter(a=>a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7'&&a.scriptDecisions.some(d=>d.kind==='greenlight'))
+  // This replays exact receipt IDs/order, source bargains/paid work, earned
+  // assessment and every native lifecycle transition BEFORE granting any lookup.
+  validateContinuedScriptHistory(state)
+@@ -270,7 +273,7 @@
+   const pool={...boundPool,projects:boundPool.projects.filter(p=>!original.continuedScripts.some(r=>r.project.id===p.id&&r.project.id===r.sourceScriptProjectId))}
+   const reservation=allocateScriptReservation(buyerOperationsForAllWork(next),pool,allocated.id,occupied)
+   if(!reservation)fail('buyer native development capacity unavailable')
+-  next={...next,rights:{...allocated.root,absorptions:allocated.root.absorptions.map(a=>a.id===id&&(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'))?{...a,
++  next={...next,rights:{...allocated.root,absorptions:allocated.root.absorptions.map(a=>a.id===id&&(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7'))?{...a,
+    continuedScripts:a.continuedScripts.map(r=>r.sourceScriptProjectId===originalRow.sourceScriptProjectId?{...r,reservationAtClose:reservation,
+     project:{...r.originalScript,id:allocated.id,reservation}}:r)}:a)}}
+  }
+@@ -294,7 +297,7 @@
+   const writerRewriting=row.project.status==='rewriting'&&rewriting?{actual:rewriting.actual,perceived:rewriting.perceived}:null
+   const allocated=allocateRightsId(rights,'script-completion')
+   const receipt:AbsorptionScriptCompletion={id:allocated.id,projectId:project.id,week:arrivalWeek,inputWeek:state.market.tick,estUplift,writerRewriting,assessment:{...project.assessment},developmentContext:{facilities:structuredClone(state.operations.facilities),placements:structuredClone(state.placement.facilities),paidRows:state.ledger.filter(r=>r.kind==='constructionCapex'&&r.week<=state.market.tick&&state.placement.facilities.some(p=>p.projectId===r.constructionProjectId)).map(r=>({projectId:r.constructionProjectId!,week:r.week,amount:r.amount}))}}
+-  rights={...allocated.root,absorptions:allocated.root.absorptions.map(r=>r.id===a.id&&(r.producerVersion==='absorption-scripts/v3'||r.producerVersion==='absorption-scripts/v4'||(r.producerVersion==='absorption-scripts/v5'||r.producerVersion==='absorption-scripts/v6'))?{...r,
++  rights={...allocated.root,absorptions:allocated.root.absorptions.map(r=>r.id===a.id&&(r.producerVersion==='absorption-scripts/v3'||r.producerVersion==='absorption-scripts/v4'||(r.producerVersion==='absorption-scripts/v5'||r.producerVersion==='absorption-scripts/v6'||r.producerVersion==='absorption-obligations/v7'))?{...r,
+    continuedScripts:r.continuedScripts.map(s=>s.project.id===project.id?{...s,project}:s),scriptCompletions:[...r.scriptCompletions,receipt]}:r)}
+  }
+  const own=new Set(state.scriptDevelopment.projects.map(p=>p.id))
+@@ -310,9 +313,9 @@
+  const allocated=allocateRightsId(state.rights,'script-decision')
+  const decision={id:allocated.id,projectId,kind:'accept' as const,week:state.market.tick}
+  const next={...state,rights:{...allocated.root,absorptions:allocated.root.absorptions.map((a):AbsorptionRecord=>{
+-  if(a.id!==owner.a.id||!(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6')))return a
++  if(a.id!==owner.a.id||!(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7')))return a
+   const continuedScripts=a.continuedScripts.map(r=>r.project.id===projectId?{...r,project}:r)
+-  if((a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'))return {...a,continuedScripts,scriptDecisions:[...a.scriptDecisions,decision]}
++  if((a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7'))return {...a,continuedScripts,scriptDecisions:[...a.scriptDecisions,decision]}
+   return {...a,producerVersion:'absorption-scripts/v4',continuedScripts,scriptDecisions:[...(a.producerVersion==='absorption-scripts/v4'?a.scriptDecisions:[]),decision]}
+  })}}
+  validateContinuedScripts(next,liveRetirementWritingAuthority(next,writingContext))
+@@ -341,9 +344,9 @@
+  if(project.reservation===null)fail('native rewrite returned no reservation')
+  const allocated=allocateRightsId(state.rights,'script-decision')
+  const decision:AbsorptionScriptDecision={id:allocated.id,projectId,kind:'rewrite',week:state.market.tick,reservation:structuredClone(project.reservation),nativeInput,allocationAuthority}
+- const next={...state,rights:{...allocated.root,absorptions:allocated.root.absorptions.map(a=>a.id===owner.a.id&&(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'))?{...a,
+-  producerVersion:(a.producerVersion==='absorption-scripts/v6'?'absorption-scripts/v6':'absorption-scripts/v5') as 'absorption-scripts/v5'|'absorption-scripts/v6',continuedScripts:a.continuedScripts.map(r=>r.project.id===projectId?{...r,project}:r),
+-  scriptDecisions:[...(a.producerVersion==='absorption-scripts/v3'?[]:a.scriptDecisions),decision]}:a)}}
++ const next={...state,rights:{...allocated.root,absorptions:allocated.root.absorptions.map(a=>a.id===owner.a.id&&(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7'))?withScriptDecisions(a,
++  a.continuedScripts.map(r=>r.project.id===projectId?{...r,project}:r),
++  [...(a.producerVersion==='absorption-scripts/v3'?[]:a.scriptDecisions),decision],a.producerVersion==='absorption-scripts/v6'?'absorption-scripts/v6':'absorption-scripts/v5'):a)}}
+  validateContinuedScripts(next,liveRetirementWritingAuthority(next,writingContext))
+  return next
+ }
+@@ -391,7 +394,7 @@
+   const stopped=new Set(a.stoppedScripts.map(p=>p.scriptProjectId))
+   if(!same(a.continuedScripts.map(r=>r.sourceScriptProjectId),still.filter(p=>!stopped.has(p.id)).map(p=>p.id)))fail('source continuation bijection/order differs')
+   const decisions:AbsorptionScriptDecision[]=a.producerVersion==='absorption-scripts/v3'?[]:a.scriptDecisions
+-  if(a.producerVersion!=='absorption-scripts/v3'&&(!Array.isArray(decisions)||decisions.length===0))fail('missing buyer script decision')
++  if(!Array.isArray(decisions)||(a.producerVersion!=='absorption-scripts/v3'&&a.producerVersion!=='absorption-obligations/v7'&&decisions.length===0))fail('missing buyer script decision')
+   if(a.producerVersion==='absorption-scripts/v5'&&!decisions.some(d=>d.kind==='rewrite'))fail('rewrite producer has no actual request')
+   if(a.producerVersion==='absorption-scripts/v6'&&!decisions.some(d=>d.kind==='greenlight'))fail('native production producer has no actual greenlight')
+   const decisionKeys=new Set<string>()
+@@ -401,13 +404,13 @@
+    if(!decision||typeof decision!=='object')fail('buyer script decision shape differs')
+    if(typeof decision.id!=='string')fail('buyer script decision id must be a string')
+    const receiptOrder=Number(decision.id.slice(decision.id.lastIndexOf('-')+1))
+-   if(a.producerVersion==='absorption-scripts/v6'&&(!Number.isSafeInteger(receiptOrder)||receiptOrder<=lastDecisionOrder||receiptOrder>=state.rights.nextId))fail('native production receipt order differs')
++   if((a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7')&&(!Number.isSafeInteger(receiptOrder)||receiptOrder<=lastDecisionOrder||receiptOrder>=state.rights.nextId))fail('native production receipt order differs')
+    lastDecisionOrder=receiptOrder
+    const rewrite=decision.kind==='rewrite'
+    const greenlight=decision.kind==='greenlight',cancel=decision.kind==='cancelProduction',released=decision.kind==='productionReleased'
+    const lifecycle=greenlight||cancel||released
+    if(!decision||!exact(decision,rewrite?['id','projectId','kind','week','reservation','nativeInput','allocationAuthority']:greenlight?['id','projectId','kind','week','production','paidRows']:cancel?['id','projectId','kind','week','production']:released?['id','projectId','kind','week','productionId']:['id','projectId','kind','week'])||!/^script-decision-[1-9][0-9]*$/.test(decision.id)
+-    ||decision.kind!=='accept'&&!rewrite&&!lifecycle||lifecycle&&a.producerVersion!=='absorption-scripts/v6'||rewrite&&(a.producerVersion!=='absorption-scripts/v5'&&a.producerVersion!=='absorption-scripts/v6')
++    ||decision.kind!=='accept'&&!rewrite&&!lifecycle||lifecycle&&a.producerVersion!=='absorption-scripts/v6'&&a.producerVersion!=='absorption-obligations/v7'||rewrite&&(a.producerVersion!=='absorption-scripts/v5'&&a.producerVersion!=='absorption-scripts/v6'&&a.producerVersion!=='absorption-obligations/v7')
+     ||!Number.isInteger(decision.week)||decision.week<lastDecisionWeek||decision.week>state.market.tick||decision.week>=(closedWeekOf(state).get(a.buyerId)??Infinity)
+     ||decisionKeys.has(`${decision.projectId}:${decision.kind}:${lifecycle?(released?decision.productionId:decision.production.id):''}`)||!a.continuedScripts.some(r=>r.project.id===decision.projectId))fail('buyer script decision authority/order differs')
+    decisionKeys.add(`${decision.projectId}:${decision.kind}:${lifecycle?(released?decision.productionId:decision.production.id):''}`);lastDecisionWeek=decision.week
+@@ -601,7 +604,7 @@
+  const nativeIds=[...state.scriptDevelopment.projects.map(p=>p.id),...current.flatMap(a=>a.continuedScripts.map(row=>row.project.id))]
+  if(current.length===0)return
+  const closed=closedWeekOf(state).get(player!)
+- const productionScripts=new Map<string,ScriptProject>(current.filter(a=>a.producerVersion==='absorption-scripts/v6').flatMap(a=>a.continuedScripts.filter(row=>row.project.productionId!==null).map(row=>[row.project.productionId!,row.project] as const)))
++ const productionScripts=new Map<string,ScriptProject>(current.filter(a=>a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7').flatMap(a=>a.continuedScripts.filter(row=>row.project.productionId!==null).map(row=>[row.project.productionId!,row.project] as const)))
+  for(const a of state.rights.absorptions.filter(a=>a.buyerId===player)){
+   const source=state.hollywood!.businesses.find(b=>b.studioId===a.targetId)!
+   for(const row of a.continuedProductions){
+diff --git a/src/core/hollywoodValidation.ts b/src/core/hollywoodValidation.ts
+--- a/src/core/hollywoodValidation.ts
++++ b/src/core/hollywoodValidation.ts
+@@ -1,3 +1,4 @@
++import type { AbsorbedPromiseAuthority } from './absorbedObligations.js'
+ import type { CarriedProductionAuthority } from './continuedScripts.js'
+ import type { AbsorptionRecord } from './rights.js'
+ import type { ProfessionValidationContext } from './professionHistory.js'
+@@ -83,7 +84,7 @@
+ // the terminal history it is (Wave 4): no decision cadence, costs charged only through its closure week,
+ // every interval ended at that week by a `closure` receipt, no active work. Every frozen reader keeps
+ // the operating law.
+-export type P15BEra = { studioLoans: boolean; closure: ReadonlyMap<string, number> | null; rights: boolean; carriedProduction?: CarriedProductionAuthority | undefined; absorptions?: ReadonlyMap<string, AbsorptionRecord> }
++export type P15BEra = { studioLoans: boolean; closure: ReadonlyMap<string, number> | null; rights: boolean; carriedProduction?: CarriedProductionAuthority | undefined; absorbedPromises?: AbsorbedPromiseAuthority | undefined; absorptions?: ReadonlyMap<string, AbsorptionRecord> }
+ export const NO_P15B_ERA: P15BEra = { studioLoans: false, closure: null, rights: false }
+ export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>, research = false, plans: readonly PhysicalPlan[] = [], terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext, era: P15BEra = NO_P15B_ERA): asserts value is HollywoodState | null {
+   const researchKinds = new Set<string>(RIVAL_RESEARCH_MONEY_KINDS)
+diff --git a/src/core/occupancy.ts b/src/core/occupancy.ts
+--- a/src/core/occupancy.ts
++++ b/src/core/occupancy.ts
+@@ -442,7 +442,7 @@
+   }
+ 
+   // 3. Screenplays. Tested on the reservation, never the status.
+-  const continuedScripts=(sources.rights?.absorptions??[]).flatMap(a=>(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'))&&a.buyerId===sources.hollywood?.playerStudioId?a.continuedScripts.map(r=>r.project).filter(p=>!sources.scriptDevelopment?.projects.some(own=>own.id===p.id)):[])
++  const continuedScripts=(sources.rights?.absorptions??[]).flatMap(a=>(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7'))&&a.buyerId===sources.hollywood?.playerStudioId?a.continuedScripts.map(r=>r.project).filter(p=>!sources.scriptDevelopment?.projects.some(own=>own.id===p.id)):[])
+   for (const project of [...(sources.scriptDevelopment?.projects??[]),...continuedScripts]) {
+     if (project.reservation === null) continue
+     claims.push({
+diff --git a/src/core/productionIdentity.ts b/src/core/productionIdentity.ts
+--- a/src/core/productionIdentity.ts
++++ b/src/core/productionIdentity.ts
+@@ -33,7 +33,7 @@
+   }
+ 
+   for (const active of state.studio.activeProductions) add(active.id)
+-  for(const a of (state as Partial<GameState>).rights?.absorptions??[])if(a.producerVersion==='absorption-scripts/v6')for(const d of a.scriptDecisions){
++  for(const a of (state as Partial<GameState>).rights?.absorptions??[])if(a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7')for(const d of a.scriptDecisions){
+     if(d.kind==='greenlight'||d.kind==='cancelProduction')add(d.production.id)
+     if(d.kind==='productionReleased')add(d.productionId)
+   }
+diff --git a/src/core/promises.ts b/src/core/promises.ts
+--- a/src/core/promises.ts
++++ b/src/core/promises.ts
+@@ -1,3 +1,5 @@
++import { absorbedPromiseAuthority, absorbedPromiseContractEnded, operatingPromiseIssuer, promiseTakeIssuerMatches, operationalPromiseView, operationalPromise } from './absorbedObligations.js'
++import type { AbsorbedPromiseAuthority } from './absorbedObligations.js'
+ import type { CarriedProductionAuthority } from './continuedScripts.js'
+ import type { AbsorptionRecord } from './rights.js'
+ // ── P14B.1 — The First Kept Promise Core ─────────────────────────────────────
+@@ -550,6 +552,11 @@
+  * their own clock. The quote is not the permanent retirement-outcome predicate.
+  */
+ export function promiseFeasibility(state: GameState, draft: PromiseDraft, week: number): PromiseFeasibilityReceipt {
++  const authority=absorbedPromiseAuthority(state)
++  return calculatePromiseFeasibility(operationalPromiseView(state,authority),operationalPromise(state,draft,authority),week)
++}
++
++function calculatePromiseFeasibility(state: GameState, draft: PromiseDraft, week: number): PromiseFeasibilityReceipt {
+   const X = draft.predicate.count
+   const from = Math.max(draft.windowStartWeek, week)
+   const opportunityScope = opportunityReservations(state, draft, from)
+@@ -850,15 +857,17 @@
+  * only; no receipts, no RNG. */
+ export function promisedCastMasks(
+   state: { promises: readonly ReadablePromise[] }, issuerStudioId: string, takeWeek: number,
+-  subject?: { genre: Genre; scriptProjectId: string | null },
++  subject?: { genre: Genre; scriptProjectId: string | null }, authority=absorbedPromiseAuthority(state),
+ ): ReadonlyMap<string, readonly CastSlot[]> {
+   const masks = new Map<string, readonly CastSlot[]>()
+   for (const promise of state.promises) {
+     if (isDirectorPromise(promise)) continue
++    const assignment=authority?.assignments.get(promise.promiseId)
++    const canonical=(id:string|null)=>id===null?null:assignment?.projectIds.get(id)??id
+     if (isOpportunityPredicate(promise.predicate) && (subject === undefined
+       || (promise.predicate.kind === 'genreOpportunity' ? promise.predicate.genre !== subject.genre
+-        : promise.predicate.scriptProjectId !== subject.scriptProjectId))) continue
+-    if (!evaluable(promise) || promise.issuerStudioId !== issuerStudioId
++        : canonical(promise.predicate.scriptProjectId) !== canonical(subject.scriptProjectId)))) continue
++    if (!evaluable(promise) || (assignment&&takeWeek>=assignment.week?assignment.buyerStudioId:promise.issuerStudioId) !== issuerStudioId
+       || promise.progress >= promise.predicate.count
+       || takeWeek < promise.windowStartWeek || takeWeek >= promise.dueWeekExclusive) continue
+     const slots = promiseCastSlots(promise)
+@@ -870,18 +879,21 @@
+ 
+ export function qualifyingTakes(
+   state: Pick<GameStateV30, 'firstTakes'> & Partial<Pick<GameState, 'firstTakeSubjects'>>,
+-  promise: ReadablePromise,
++  promise: ReadablePromise, authority=absorbedPromiseAuthority(state),
+ ): readonly FirstTakeReceipt[] {
+   const slots = promiseCastSlots(promise)
+   const director = isDirectorPromise(promise)
+   const productions = new Set<string>()
+-  return state.firstTakes.filter((take) => {
++  return state.firstTakes.filter((take,ordinal) => {
+     if (productions.has(take.productionId)
+-      || take.studioId !== promise.issuerStudioId
++      || !promiseTakeIssuerMatches(promise as ProfessionalPromise,take,ordinal,authority)
+       || take.week < promise.windowStartWeek || take.week >= promise.dueWeekExclusive
+       || !(director ? take.directorId === promise.beneficiaryPersonId
+         : slots.some((slot) => take.cast[slot] === promise.beneficiaryPersonId))) return false
+-    if (isOpportunityPredicate(promise.predicate) && !opportunitySubjectMatches(promise.predicate,
++    const assignment=authority?.assignments.get(promise.promiseId)
++    const predicate=isOpportunityPredicate(promise.predicate)&&promise.predicate.kind==='projectOpportunity'&&assignment&&ordinal>=assignment.firstTakeCountBeforeClose
++      ?{...promise.predicate,scriptProjectId:assignment.projectIds.get(promise.predicate.scriptProjectId)??promise.predicate.scriptProjectId}:promise.predicate
++    if (isOpportunityPredicate(predicate) && !opportunitySubjectMatches(predicate,
+       state.firstTakeSubjects?.facts.find(subject => subject.eventId === take.eventId))) return false
+     productions.add(take.productionId)
+     return true
+@@ -908,8 +920,10 @@
+  * FRAGILE term, no receipt (record 26 §2): a joint conflict, an unsupported
+  * family and a FRAGILE remainder are all `null` here. Pure, no RNG.
+  */
+-export function targetSpecificImpossibility(state: GameState, promise: ProfessionalPromise, week: number): string | null {
+-  const remaining = Math.max(0, promise.predicate.count - qualifyingTakes(state, promise).length)
++export function targetSpecificImpossibility(state: GameState, promise: ProfessionalPromise, week: number, authority=absorbedPromiseAuthority(state)): string | null {
++  const remaining = Math.max(0, promise.predicate.count - qualifyingTakes(state, promise,authority).length)
++  promise=operationalPromise(state,promise,authority)
++  state=operationalPromiseView(state,authority)
+   if (remaining === 0) return null
+   if (isOpportunityPredicate(promise.predicate)) return opportunityPhysicalImpossibility(state, { ...promise, predicate: promise.predicate }, week)
+   const t0 = Math.max(promise.windowStartWeek, expectedFirstTakeWeek(state, promise, week, 0))
+@@ -1033,10 +1047,11 @@
+ export function advancePromisesWeek(state: GameState): GameState {
+   requirePromiseRoots(state)
+   const week = state.market.tick
++  const authority=absorbedPromiseAuthority(state)
+   let next = state
+   for (const promise of state.promises) {
+     if (!evaluable(promise)) continue
+-    const takes = qualifyingTakes(next, promise)
++    const takes = qualifyingTakes(next, promise,authority)
+     const progress = Math.min(promise.predicate.count, takes.length)
+     if (takes.length >= promise.predicate.count) {
+       const evidenceRefs = takes.slice(0, promise.predicate.count).map((t) => t.eventId)
+@@ -1056,7 +1071,7 @@
+       }, week, 'a promise to this person was kept')
+       continue
+     }
+-    if (retirementVoidsPromise(next, promise, week, promise.predicate.count - progress)) {
++    if (retirementVoidsPromise(operationalPromiseView(next,authority), operationalPromise(next,promise,authority), week, promise.predicate.count - progress)) {
+       next = settle(next, promise, {
+         progress,
+         evidenceRefs: takes.map((take) => take.eventId),
+@@ -1089,13 +1104,15 @@
+  * the beneficiary early, so every open promise it made them is BROKEN at the
+  * termination, not at the next weekly pass.
+  */
+-export function breakPromisesOnTermination(state: GameState, issuerStudioId: string, personId: string): GameState {
++export function breakPromisesOnTermination(state: GameState, issuerStudioId: string, personId: string, authority=absorbedPromiseAuthority(state)): GameState {
+   requirePromiseRoots(state)
+   const week = state.market.tick
+   let next = state
+   for (const promise of state.promises) {
+     if (!evaluable(promise)) continue
+-    if (promise.issuerStudioId !== issuerStudioId || promise.beneficiaryPersonId !== personId) continue
++    if (operatingPromiseIssuer(state,promise,week,authority) !== issuerStudioId || promise.beneficiaryPersonId !== personId) continue
++    const assignment=authority?.assignments.get(promise.promiseId)
++    if(assignment&&!absorbedPromiseContractEnded(state,assignment,week))continue
+     next = settle(next, promise, {
+       outcome: 'BROKEN',
+       outcomeCause: 'the studio terminated this contract early, ending the window',
+@@ -1115,27 +1132,30 @@
+  * unsupported family or a FRAGILE remainder never breaks; a first take already
+  * taken is never un-taken (companion §4.2: "first take, then cancellation").
+  */
+-export function breakPromisesOnCancel(state: GameState, issuerStudioId: string, cancelled: Production): GameState {
++export function breakPromisesOnCancel(state: GameState, issuerStudioId: string, cancelled: Production, authority=absorbedPromiseAuthority(state), selectedPromiseIds?:ReadonlySet<string>): GameState {
+   requirePromiseRoots(state)
+   const week = state.market.tick
+   if (state.firstTakes.some((t) => t.productionId === cancelled.id)) return state
+   let next = state
+   for (const promise of state.promises) {
+     if (!evaluable(promise)) continue
+-    if (promise.issuerStudioId !== issuerStudioId) continue
++    if ((selectedPromiseIds&&!selectedPromiseIds.has(promise.promiseId))||operatingPromiseIssuer(state,promise,week,authority) !== issuerStudioId) continue
++    const operating=operationalPromise(state,promise,authority),view=operationalPromiseView(state,authority)
+     // The post-cancel owner has cleared its production link; the concept still
+     // identifies the exact retained screenplay that cancellation returned to Ready.
+     if (isOpportunityPredicate(promise.predicate)) {
+-      const owner = state.hollywood?.playerStudioId === issuerStudioId ? state.scriptDevelopment
+-        : state.hollywood?.businesses.find(row => row.studioId === issuerStudioId)?.development
+-      const project = owner?.projects.find(row => row.id === ('scriptProjectId' in promise.predicate ? promise.predicate.scriptProjectId : ''))
+-      if (promise.predicate.kind === 'projectOpportunity' && project?.conceptId !== cancelled.conceptId) continue
+-      if (promise.predicate.kind === 'genreOpportunity' && !opportunityProductionMatches(state, issuerStudioId, promise.predicate, cancelled)) continue
++      const owner = view.hollywood?.playerStudioId === issuerStudioId ? view.scriptDevelopment
++        : view.hollywood?.businesses.find(row => row.studioId === issuerStudioId)?.development
++      const project = owner?.projects.find(row => row.id === ('scriptProjectId' in operating.predicate ? operating.predicate.scriptProjectId : ''))
++      const assignment=authority?.assignments.get(promise.promiseId)
++      const sourceMatch=assignment!==undefined&&opportunityProductionMatches(state,assignment.sourceStudioId,promise.predicate,cancelled)
++      if (promise.predicate.kind === 'projectOpportunity' && project?.conceptId !== cancelled.conceptId && !sourceMatch) continue
++      if (promise.predicate.kind === 'genreOpportunity' && !opportunityProductionMatches(view, issuerStudioId, promise.predicate, cancelled) && !sourceMatch) continue
+     }
+     const directing = isDirectorPromise(promise)
+     if (!(directing ? cancelled.directorId === promise.beneficiaryPersonId
+       : promiseCastSlots(promise).some((slot) => cancelled.cast[slot] === promise.beneficiaryPersonId))) continue
+-    if (targetSpecificImpossibility(state, promise, week) === null) continue
++    if (targetSpecificImpossibility(state, promise, week,authority) === null) continue
+     next = settle(next, promise, {
+       outcome: 'BROKEN',
+       outcomeCause: directing
+@@ -1151,12 +1171,14 @@
+  * is committed. A queued or refused request never creates a terminal outcome. */
+ export function breakPromisesOnGreenlight(state: GameState, issuerStudioId: string, production: Production,
+   week = state.market.tick): GameState {
++  const authority=absorbedPromiseAuthority(state),view=operationalPromiseView(state,authority)
+   let next = state
+   for (const promise of state.promises) {
+-    if (!evaluable(promise) || promise.issuerStudioId !== issuerStudioId
++    const operating=operationalPromise(state,promise,authority)
++    if (!evaluable(promise) || operatingPromiseIssuer(state,promise,week,authority) !== issuerStudioId
+       || !isOpportunityPredicate(promise.predicate) || promise.predicate.kind !== 'projectOpportunity'
+-      || promise.progress >= promise.predicate.count || qualifyingTakes(state, promise).length >= promise.predicate.count
+-      || !opportunityProductionMatches(state, issuerStudioId, promise.predicate, production)
++      || promise.progress >= promise.predicate.count || qualifyingTakes(state, promise,authority).length >= promise.predicate.count
++      || !opportunityProductionMatches(view, issuerStudioId,operating.predicate as OpportunityPredicate, production)
+       || promiseCastSlots(promise).some(slot => production.cast[slot] === promise.beneficiaryPersonId)) continue
+     next = settle(next, promise, { outcome: 'BROKEN', outcomeEventId: null,
+       outcomeCause: 'the studio fixed the named project cast without this person in the promised seat' },
+@@ -1237,19 +1259,26 @@
+ 
+ /** Restriction inclusion is independent of class inclusion and remaining count. It reads only the
+  * Save40 era's state, so the frozen V40/V41 proof can ask it as well as the live writer. */
+-function opportunitySubstitutionRefusal(state: GameStateV40, promise: ProfessionalPromise, substitute: PromiseAttachment): string | null {
++function opportunitySubstitutionRefusal(state: GameStateV40, promise: ProfessionalPromise, substitute: PromiseAttachment, authority?:AbsorbedPromiseAuthority): string | null {
+   if (!isOpportunityPredicate(promise.predicate)) return null
+   if (!isOpportunityPredicate(substitute.predicate)) return 'a substitute cannot erase the promised genre or project restriction'
+   if (promise.predicate.kind === 'projectOpportunity') {
+-    return substitute.predicate.kind === 'projectOpportunity' && substitute.predicate.scriptProjectId === promise.predicate.scriptProjectId
++    const assignment=authority?.assignments.get(promise.promiseId)
++    const canonical=(id:string)=>assignment?.projectIds.get(id)??id
++    return substitute.predicate.kind === 'projectOpportunity' && canonical(substitute.predicate.scriptProjectId) === canonical(promise.predicate.scriptProjectId)
+       ? null : 'a substitute must retain the same named script project'
+   }
+   if (substitute.predicate.kind === 'genreOpportunity') return substitute.predicate.genre === promise.predicate.genre
+     ? null : 'a substitute must retain the same promised genre'
+-  const owner = takeSubjectOwner(state, promise.issuerStudioId)
++  const assignment=authority?.assignments.get(promise.promiseId)
++  const owner = takeSubjectOwner(state, assignment?.buyerStudioId??promise.issuerStudioId)
+   const id = substitute.predicate.scriptProjectId
+   const project = owner?.development.projects.find(row => row.id === id)
+-  return owner?.concepts.find(row => row.id === project?.conceptId)?.genre === promise.predicate.genre
++  const sourceId=assignment?[...assignment.projectIds].find(([source,buyer])=>source===id||buyer===id)?.[0]:undefined
++  const sourceProject=sourceId===undefined?undefined:state.hollywood?.businesses.find(b=>b.studioId===assignment?.sourceStudioId)?.development.projects.find(p=>p.id===sourceId)
++  const genre=project?owner?.concepts.find(row => row.id === project.conceptId)?.genre
++    :sourceProject?state.hollywood?.concepts.find(c=>c.id===sourceProject.conceptId)?.genre:undefined
++  return genre === promise.predicate.genre
+     ? null : 'the substitute project must belong to the original promised genre'
+ }
+ 
+@@ -1327,7 +1356,7 @@
+   if (!directing && !promiseCastSlots({ predicate: substitute.predicate }).every((slot) => promised.includes(slot))) {
+     return 'the part offered is weaker than the part promised'
+   }
+-  const restrictionRefusal = opportunitySubstitutionRefusal(state, promise, substitute)
++  const restrictionRefusal = opportunitySubstitutionRefusal(state, promise, substitute,absorbedPromiseAuthority(state))
+   if (restrictionRefusal !== null) return restrictionRefusal
+   const remaining = promise.predicate.count - promise.progress
+   if (substitute.predicate.count < remaining) {
+@@ -1563,11 +1592,11 @@
+   validatePromiseRootsForVersion(state, 39)
+ }
+ 
+-export function validatePromiseRootsV40(state: unknown, absorptions?:ReadonlyMap<string,AbsorptionRecord>, carriedProduction?:CarriedProductionAuthority): void {
+-  validatePromiseRootsForVersion(state, 40,absorptions,carriedProduction)
+-}
+-
+-function validatePromiseRootsForVersion(state: unknown, saveVersion: 29 | 30 | 39 | 40, absorptions?:ReadonlyMap<string,AbsorptionRecord>, carriedProduction?:CarriedProductionAuthority): void {
++export function validatePromiseRootsV40(state: unknown, absorptions?:ReadonlyMap<string,AbsorptionRecord>, carriedProduction?:CarriedProductionAuthority, absorbedPromises?:AbsorbedPromiseAuthority): void {
++  validatePromiseRootsForVersion(state, 40,absorptions,carriedProduction,absorbedPromises)
++}
++
++function validatePromiseRootsForVersion(state: unknown, saveVersion: 29 | 30 | 39 | 40, absorptions?:ReadonlyMap<string,AbsorptionRecord>, carriedProduction?:CarriedProductionAuthority, absorbedPromises?:AbsorbedPromiseAuthority): void {
+   const fail = (message: string): never => {
+     throw new Error(`validateSaveV${String(saveVersion)}: ${message}`)
+   }
+@@ -1677,8 +1706,12 @@
+       if (refusal !== null) return fail(`${at}.predicate ${refusal}`)
+       if (row.version !== OPPORTUNITY_PROMISE_RULES_VERSION) return fail(`${at}.version must be opportunity revision7`)
+       qualifyingSlots = opportunitySlots(predicate as unknown as OpportunityPredicate)
++      const assignment=absorbedPromises?.assignments.get(promiseId)
++      const operationalOwner=assignment===undefined?undefined:takeSubjectOwner(state as unknown as GameState,assignment.buyerStudioId)
+       if (predicate.kind === 'projectOpportunity' && !takeSubjectOwner(state as unknown as GameState, String(row.issuerStudioId))
+-        ?.development.projects.some(project => project.id === predicate.scriptProjectId)) {
++        ?.development.projects.some(project => project.id === predicate.scriptProjectId)
++        && !(assignment&&([...assignment.projectIds].some(([source,buyer])=>source===predicate.scriptProjectId||buyer===predicate.scriptProjectId)
++          ||operationalOwner?.development.projects.some(project=>project.id===predicate.scriptProjectId)))) {
+         return fail(`${at}.predicate.scriptProjectId does not name a retained project of its issuing studio`)
+       }
+     } else if (director) {
+@@ -1758,14 +1791,17 @@
+       if (evidence.has(id)) return fail(`${at}.evidenceRefs repeats a first take`)
+       evidence.add(id)
+       const take = takesById.get(id)
+-      if (take === undefined || take.studioId !== row.issuerStudioId
++      if (take === undefined || !promiseTakeIssuerMatches(row as unknown as ProfessionalPromise,take,takes.findIndex(t=>isRecord(t)&&t.eventId===id),absorbedPromises)
+         || !(director ? take.directorId === row.beneficiaryPersonId
+           : qualifyingSlots.some((slot) => take.cast[slot] === row.beneficiaryPersonId))
+         || take.week < start || take.week >= due
+         || (row.outcomeWeek !== null && take.week > Number(row.outcomeWeek))) {
+         return fail(`${at}.evidenceRefs does not name a qualifying first take inside this promise's window`)
+       }
+-      if (opportunity && !opportunitySubjectMatches(predicate as unknown as OpportunityPredicate,
++      const assignment=absorbedPromises?.assignments.get(promiseId)
++      const mapped=opportunity&&predicate.kind==='projectOpportunity'&&assignment&&takes.indexOf(take)>=assignment.firstTakeCountBeforeClose
++        ?{...predicate,scriptProjectId:assignment.projectIds.get(String(predicate.scriptProjectId))??predicate.scriptProjectId}:predicate
++      if (opportunity && !opportunitySubjectMatches(mapped as unknown as OpportunityPredicate,
+         subjects.find(subject => subject.eventId === id))) return fail(`${at}.evidenceRefs does not match its recorded take subject`)
+     }
+     if (evidence.size > progress) return fail(`${at}.evidenceRefs exceeds its recorded progress`)
+@@ -1922,7 +1958,7 @@
+ 
+ /** Called only after complete40 admission, with full material and employment authority. Typed by
+  * the era it proves: save.ts hands it the V40/V41 state, which carries no later root. */
+-export function validateOpportunityWaiverLinks(state: GameStateV40): void {
++export function validateOpportunityWaiverLinks(state: GameStateV40,authority?:AbsorbedPromiseAuthority): void {
+   const indices = new Map(state.promises.map((row, i) => [row.promiseId, i] as const))
+   const incoming = new Set<string>()
+   const fail = (id: string, reason: string): never => { throw new Error(`validateSaveV40: opportunity waiver ${id} ${reason}`) }
+@@ -1944,7 +1980,7 @@
+     if (successor.feasibilityReceipt.classification !== 'REASONABLY_ACHIEVABLE') fail(original.promiseId, 'must have an accepted achievable receipt')
+     if (isDirectorPredicate(original.predicate) !== isDirectorPredicate(successor.predicate)
+       || !promiseCastSlots(successor).every(slot => promiseCastSlots(original).includes(slot))) fail(original.promiseId, 'cannot weaken the work domain or cast class')
+-    const restriction = opportunitySubstitutionRefusal(state, original, successor)
++    const restriction = opportunitySubstitutionRefusal(state, original, successor,authority)
+     if (restriction !== null) fail(original.promiseId, restriction)
+     if (successor.predicate.count < original.predicate.count - original.progress) fail(original.promiseId, 'does not cover the remaining work')
+   }
+diff --git a/src/core/rights.ts b/src/core/rights.ts
+--- a/src/core/rights.ts
++++ b/src/core/rights.ts
+@@ -268,6 +268,7 @@
+   | { producerVersion: 'absorption-scripts/v4'; stoppedScripts: AbsorptionStoppedScript[]; continuedScripts: AbsorptionContinuedScript[]; scriptCompletions: AbsorptionScriptCompletion[]; scriptDecisions: { id:string; projectId:string; kind:'accept'; week:number }[] }
+   | { producerVersion: 'absorption-scripts/v5'; stoppedScripts: AbsorptionStoppedScript[]; continuedScripts: AbsorptionContinuedScript[]; scriptCompletions: AbsorptionScriptCompletion[]; scriptDecisions: AbsorptionScriptDecision[] }
+   | { producerVersion: 'absorption-scripts/v6'; stoppedScripts: AbsorptionStoppedScript[]; continuedScripts: AbsorptionContinuedScript[]; scriptCompletions: AbsorptionScriptCompletion[]; scriptDecisions: AbsorptionScriptDecision[] }
++  | { producerVersion: 'absorption-obligations/v7'; stoppedScripts: AbsorptionStoppedScript[]; continuedScripts: AbsorptionContinuedScript[]; scriptCompletions: AbsorptionScriptCompletion[]; scriptDecisions: AbsorptionScriptDecision[]; obligations: import('./absorbedObligations.js').AbsorptionObligations }
+ )
+ 
+ type BoundarySourceKind = 'player-ledger' | 'player-active' | 'player-release' | 'rival-announcement' | 'rival-active' | 'rival-release'
+@@ -1094,10 +1095,10 @@
+     for(const receipt of record.runReceipts) idNumber(receipt.id,'absorptions.runReceipts.id')
+     for(const step of record.workSteps) idNumber(step.id,'absorptions.workSteps.id')
+     for(const cancellation of record.workCancellations) idNumber(cancellation.id,'absorptions.workCancellations.id')
+-    if((record.producerVersion==='absorption-scripts/v3'||record.producerVersion==='absorption-scripts/v4'||(record.producerVersion==='absorption-scripts/v5'||record.producerVersion==='absorption-scripts/v6'))){
++    if((record.producerVersion==='absorption-scripts/v3'||record.producerVersion==='absorption-scripts/v4'||(record.producerVersion==='absorption-scripts/v5'||record.producerVersion==='absorption-scripts/v6'||record.producerVersion==='absorption-obligations/v7'))){
+       for(const row of record.continuedScripts)idNumber(row.project.id,'absorptions.continuedScripts.project.id')
+       for(const row of record.scriptCompletions)idNumber(row.id,'absorptions.scriptCompletions.id')
+-      if(record.producerVersion==='absorption-scripts/v4'||(record.producerVersion==='absorption-scripts/v5'||record.producerVersion==='absorption-scripts/v6'))for(const row of record.scriptDecisions)idNumber(row.id,'absorptions.scriptDecisions.id')
++      if(record.producerVersion==='absorption-scripts/v4'||(record.producerVersion==='absorption-scripts/v5'||record.producerVersion==='absorption-scripts/v6'||record.producerVersion==='absorption-obligations/v7'))for(const row of record.scriptDecisions)idNumber(row.id,'absorptions.scriptDecisions.id')
+     }
+   }
+   const bySubject = new Map<string, TitleEvent[]>()
+diff --git a/src/core/save.ts b/src/core/save.ts
+--- a/src/core/save.ts
++++ b/src/core/save.ts
+@@ -1,3 +1,4 @@
++import { absorbedPromiseAuthority } from './absorbedObligations.js'
+ import { carriedProductionAuthority, type CarriedProductionAuthority } from './continuedScripts.js'
+ import { buyerScriptDevelopment } from './continuedScripts.js'
+ import { buyerOperationsForAllWork, buyerOperatedProductions } from './continuedWork.js'
+@@ -9568,7 +9569,7 @@
+   const raw = v14Record(checkEnvelope(save, 'validateSaveV30'), 'state');
+   if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSaveV30: firstTakes root missing');
+   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV30: promises root missing');
+-  if (directingPromises === 40) validatePromiseRootsV40(raw, era.rights ? era.absorptions : undefined, era.carriedProduction);
++  if (directingPromises === 40) validatePromiseRootsV40(raw, era.rights ? era.absorptions : undefined, era.carriedProduction, era.absorbedPromises);
+   else if (directingPromises === 39) validatePromiseRootsV39(raw);
+   else validatePromiseRootsV30(raw);
+   try {
+@@ -10892,7 +10893,7 @@
+   validateSaveV37WithProfession({ ...save, saveVersion: 37, state: stripProfessionHistory(raw) }, professionContext, writing,
+     version === 38 ? false : version === 41 ? 40 : version, version === 41, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding, era);
+   if (version >= 39) validateDirectorWaiverLinks((save as SaveFileV39 | SaveFileV40 | SaveFileV41).state.promises);
+-  if (version >= 40) validateOpportunityWaiverLinks((save as SaveFileV40 | SaveFileV41).state);
++  if (version >= 40) validateOpportunityWaiverLinks((save as SaveFileV40 | SaveFileV41).state, era.absorbedPromises);
+   onValidatedWriting?.(writing);
+   return { save: save as SaveFileV38 | SaveFileV39 | SaveFileV40 | SaveFileV41, professionContext };
+ }
+@@ -11670,7 +11671,7 @@
+   const rows = rights && Array.isArray(current.rights?.absorptions) ? current.rights.absorptions : [];
+   // P16 rebase round 5 (review O6): only records enter the era map, so a malformed (null) absorption claims nothing in
+   // the predecessor proof and validateContinuedWorkShapes refuses it by name after it, never a TypeError here.
+-  return { studioLoans: true, closure: closureStops(raw), rights, carriedProduction:rights?carriedProductionAuthority(current):undefined, absorptions: new Map(rows.filter((a) => isRecord(a)).map(a => [a.targetId, a])) };
++  return { studioLoans: true, closure: closureStops(raw), rights, carriedProduction:rights?carriedProductionAuthority(current):undefined, absorbedPromises:rights?absorbedPromiseAuthority(current):undefined, absorptions: new Map(rows.filter((a) => isRecord(a)).map(a => [a.targetId, a])) };
+ }
+ 
+ /**
+diff --git a/src/core/studioClosure.ts b/src/core/studioClosure.ts
+--- a/src/core/studioClosure.ts
++++ b/src/core/studioClosure.ts
+@@ -251,7 +251,7 @@
+   if(!state.rights || !state.hollywood)return []
+   const productions=new Set(buyerContinuedProductions(state).map(p=>p.id))
+   return [...state.hollywood.businesses.flatMap(b=>b.development.projects.filter(p=>p.productionId!==null && productions.has(p.productionId))),
+-    ...state.rights.absorptions.flatMap(a=>(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'))&&a.buyerId===state.hollywood!.playerStudioId?a.continuedScripts.map(r=>r.project):[])]
++    ...state.rights.absorptions.flatMap(a=>(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7'))&&a.buyerId===state.hollywood!.playerStudioId?a.continuedScripts.map(r=>r.project):[])]
+ }
+ 
+ function prepareStudioClosure(state: GameState, studioId: string, causeEventId: string): GameState {
+diff --git a/src/core/talentMarket.ts b/src/core/talentMarket.ts
+--- a/src/core/talentMarket.ts
++++ b/src/core/talentMarket.ts
+@@ -513,6 +513,25 @@
+       ['the employing studio closed; the person is a free agent now'])
+   }
+   return next
++}
++
++/** The absorbing close ends the original issuing/subject employer, but retained
++ * people have a real buyer contract. Keep the native removal/receipt owners and
++ * avoid the closure-only claim that every affected person is a free agent. */
++export const ABSORPTION_PROPOSAL_REASON = 'the issuing studio was absorbed'
++export const ABSORPTION_CASE_REASON = 'the subject studio was absorbed'
++export const ABSORPTION_CASE_DROP_REASON = 'the original employment interval ended in an absorption'
++export function withdrawProposalAtAbsorption(state: GameState, talentId: string, issuerStudioId: string): GameState {
++  const next = withdrawProposal(state, talentId, issuerStudioId)
++  return { ...next, talentMarket: appendReceipt(next.talentMarket, { kind: 'proposalWithdrawn', week: state.market.tick, talentId,
++    studioId: issuerStudioId, reasons: [ABSORPTION_PROPOSAL_REASON] }) }
++}
++export function invalidateCaseAtAbsorption(state: GameState, kase: TalentMarketCaseV36): GameState {
++  if (!state.talentMarket.cases.includes(kase) || kase.outcome !== null) {
++    throw new Error('talentMarket: absorption requires the actual open case')
++  }
++  return closeCase(state, kase, 'invalidated', state.market.tick, ABSORPTION_CASE_REASON, null,
++    [ABSORPTION_CASE_DROP_REASON])
+ }
+ 
+ export function currentProposals(state: GameState, talentId: string): readonly TalentMarketProposal[] {

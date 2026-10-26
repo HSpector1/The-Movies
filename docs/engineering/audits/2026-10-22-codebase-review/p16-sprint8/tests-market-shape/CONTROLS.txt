@@ -1,0 +1,14 @@
+  // Review item3: the genuine positive v7 activates pre-descent authority.
+  // These are explicitly invalid JSON clones, never admitted campaign history.
+  for(const defect of ['null absorption sibling','null close event'] as const) {
+   const hostile=JSON.parse(text)
+   if(defect==='null absorption sibling')hostile.state.rights.absorptions.push(null)
+   else {
+    const owner=hostile.state.rights.absorptions.find((a:{id:string})=>a.id===record.id)
+    expect(owner.obligations.closeEvents.length,'actual nonempty native withdrawal event prerequisite').toBeGreaterThan(0)
+    owner.obligations.closeEvents[0]=null
+   }
+   const before=saves.stableStringify(hostile)
+   expect(()=>saves.validateSaveV49(hostile),defect).toThrow(/^absorption obligations:/)
+   expect(saves.stableStringify(hostile),defect+' caller purity').toBe(before)
+  }

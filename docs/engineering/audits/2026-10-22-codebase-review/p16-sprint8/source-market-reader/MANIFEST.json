@@ -1,0 +1,36 @@
+{
+  "status": "FROZEN-STATIC-UNRUN",
+  "basePackages": [
+    "source",
+    "source-types",
+    "source-review-fix"
+  ],
+  "patch": {
+    "path": "MARKET-READER.patch",
+    "sha256": "f97746c165977a5a96a071252814c4fa6110fd53a46b4f88cb57def15df5a1dc",
+    "bytes": 10212
+  },
+  "files": [
+    {
+      "path": "src/core/absorbedObligations.ts",
+      "preimageSha256": "a495c8e1a1f027a8e10bab9db3f73b2b5c2b8ca46edfc8a91f900c9b6c805b7c",
+      "postimageSha256": "2ab1dfddfeb1e087ee20394a2cd500579d723d23285c5526f2a66c29d6ed428e",
+      "postimageBytes": 42110
+    },
+    {
+      "path": "src/core/save.ts",
+      "preimageSha256": "10466907440fc788ccce0f3e2496119147e5613db2444535054dc009bce35f98",
+      "postimageSha256": "7860bc537691afb1b1186e608e2ea478a2acfc982e4282ea5c23c55095c372a1",
+      "postimageBytes": 593599
+    },
+    {
+      "path": "src/core/studioClosure.ts",
+      "preimageSha256": "b4adeadc99979af0952e259a053cbeaf93c62a74cc0ffea79f23aae299a29491",
+      "postimageSha256": "ca35e18143a39495a4a897f8704a3f3343cb777548bec370ea33c4cea5e87ffe",
+      "postimageBytes": 82689
+    }
+  ],
+  "runtime": false,
+  "compiler": false,
+  "redEvidence": "../typed-green/run.log: actual market close studioClosure.ts984 refusal; R02 source law passed original leaf but exceeded original budget"
+}

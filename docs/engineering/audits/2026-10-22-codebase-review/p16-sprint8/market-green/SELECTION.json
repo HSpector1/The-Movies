@@ -1,0 +1,12 @@
+{
+  "head": "9c91232dd980cbe05399b6fd77ed55454e671f86",
+  "purpose": "Root types and complete affected public-action file after exact absorption-withdrawal reader repair; includes independent null-row controls",
+  "sourceManifestEntries": 1649,
+  "budgetMs": 5000,
+  "readerPatch": "f97746c165977a5a96a071252814c4fa6110fd53a46b4f88cb57def15df5a1dc",
+  "unrun": [
+    "complete writer file",
+    "Bridge64 generation and consumers",
+    "historical save dependent gates"
+  ]
+}

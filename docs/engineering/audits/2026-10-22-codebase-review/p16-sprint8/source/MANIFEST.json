@@ -1,0 +1,121 @@
+{
+  "status": "FROZEN-STATIC-UNRUN",
+  "baseHead": "9c91232dd980cbe05399b6fd77ed55454e671f86",
+  "patch": {
+    "path": "SOURCE.patch",
+    "sha256": "eafc93058abecd8f07bbdd02e460ff3e4c3a1aa52d5fea40ef36cccba9fddce3",
+    "bytes": 107826
+  },
+  "postimagesRoot": "working",
+  "files": [
+    {
+      "path": "bridge/promises.ts",
+      "preimageSha256": "c206b985ea238a3f4352bc32544bd5e6476d069c4d46cbdee7973f588476e564",
+      "postimageSha256": "7dad063136a879f7dffcdca54ef0f1422e1faad5249c61ffb4bc139c2ec20723",
+      "postimageBytes": 16286
+    },
+    {
+      "path": "bridge/rights.ts",
+      "preimageSha256": "af33dce0ca49027b8151ff01a6ef8d94ad9aceaac5db2c8edaab049f334e5702",
+      "postimageSha256": "88081804cb7f67a2313c1f7585143d0311e03b5ae627b4fda50b4b627a43b82e",
+      "postimageBytes": 4505
+    },
+    {
+      "path": "bridge/schema/bridge-schema.ts",
+      "preimageSha256": "e26c79acb15e38b8c0f302bf75d4246086c1f61ec1c56d37a414be111e03c819",
+      "postimageSha256": "6f032b3a6800408dfb3109e166353c9013db3e1890ff10313c725debc75863b3",
+      "postimageBytes": 200634
+    },
+    {
+      "path": "src/core/absorbedObligations.ts",
+      "preimageSha256": null,
+      "postimageSha256": "b07a5a2425c64bbec9519b35ec9cec322ed45d103fb642879da55816b8a996d3",
+      "postimageBytes": 39725
+    },
+    {
+      "path": "src/core/absorbedScripts.ts",
+      "preimageSha256": "04ade48e36ee7d3ecd098e78334b65db6bdcfa03c2a1840a30ee5f84064b5845",
+      "postimageSha256": "4dbe50caef4198ca89171cffa8fd2cb180561740e9ec68efc5207aa9ece13270",
+      "postimageBytes": 4293
+    },
+    {
+      "path": "src/core/acquisition.ts",
+      "preimageSha256": "674be539ae188b8193e693bca0805b1d9efa33ab113f780d7eb47d2fd3e7d58e",
+      "postimageSha256": "6b4539d5ba1e08f2e67c7742ceced117dfe0484827fb034a9b58c8ef1e2f2c3a",
+      "postimageBytes": 62603
+    },
+    {
+      "path": "src/core/continuedScripts.ts",
+      "preimageSha256": "8d0524115d81458fafc37e50e2a8f1d2446035ee73b1f18a32afb2be896f1926",
+      "postimageSha256": "9837b36c05a2948a748649052efecaa296e5fb581209f817b6545ddaa00f797c",
+      "postimageBytes": 55651
+    },
+    {
+      "path": "src/core/hollywoodValidation.ts",
+      "preimageSha256": "f10627a9222f247a3f53289543b88dabb053e4edae6fa7e2cc0cb86c2c6bda4a",
+      "postimageSha256": "659f0fb2cc3de35c95e3892d39483d1a8629bdb916e49be31da791d3e804c222",
+      "postimageBytes": 70812
+    },
+    {
+      "path": "src/core/occupancy.ts",
+      "preimageSha256": "a94d906b97267e242dc8c8a6cab3243ef141b101f90d835a161646d227a9e929",
+      "postimageSha256": "bef047e1e845be0f6b9c3e311d6926a25a02b732264f053ea1e06e8e96c72ecd",
+      "postimageBytes": 32521
+    },
+    {
+      "path": "src/core/productionIdentity.ts",
+      "preimageSha256": "6898bf681a08158938745afa77dcd7ceb5031e254d730ae1664c60ea8483e3df",
+      "postimageSha256": "e1fd0511603fb6b2ebe8d1b5f62d9ba368afa9e408cd5b3a1e0f73cfc2cd5396",
+      "postimageBytes": 12647
+    },
+    {
+      "path": "src/core/promises.ts",
+      "preimageSha256": "9d35534e93cc1de843f47318927508681e4d948e088d24349aa20fad6b257f7a",
+      "postimageSha256": "7bedd9e6e1210cb58f8950a2f2ed708802c1d8ed206a81af041830914c42c04b",
+      "postimageBytes": 116342
+    },
+    {
+      "path": "src/core/rights.ts",
+      "preimageSha256": "f5c2ea531d65f743c56915e1fe66a160ed0da06d134a083eb0ba1ed5e7a5bf43",
+      "postimageSha256": "d62321a8d15724046cf3acdea1aa63fdb0b1a576cb6c5588678ac2412d34fdaa",
+      "postimageBytes": 106574
+    },
+    {
+      "path": "src/core/save.ts",
+      "preimageSha256": "dd7a05d7ddce0f9ec78eff3dea5dd0cf34c37254d3af3209a9d72692e5a6fe31",
+      "postimageSha256": "10466907440fc788ccce0f3e2496119147e5613db2444535054dc009bce35f98",
+      "postimageBytes": 593486
+    },
+    {
+      "path": "src/core/studioClosure.ts",
+      "preimageSha256": "9aad6233d20b4fb2149d3cf9a6d79459f4506fc289498c4f41442c7355add2ef",
+      "postimageSha256": "b4adeadc99979af0952e259a053cbeaf93c62a74cc0ffea79f23aae299a29491",
+      "postimageBytes": 81744
+    },
+    {
+      "path": "src/core/talentMarket.ts",
+      "preimageSha256": "a02be5ac8c6d0571c77d17d6a8a9f80fa1f2268e8c0ea5016fec22dc18f44ad9",
+      "postimageSha256": "9c81a5e39c8c3fa64419f080918e6cca95872a371aa96a4416f9293790cf3094",
+      "postimageBytes": 96618
+    }
+  ],
+  "verification": {
+    "runtime": false,
+    "compiler": false,
+    "tests": false,
+    "generator": false
+  },
+  "projectionVersion": 64,
+  "saveVersion": 49,
+  "producerVersion": "absorption-obligations/v7",
+  "redEvidence": [
+    "../original-red/run.log",
+    "../market-red/run.log"
+  ],
+  "remainingQualification": [
+    "Coordinator compiler and focused public-route GREEN, preserving all original budgets",
+    "Independent consequential source review",
+    "Actual canonical64 generation/declaration and consumer literal updates by coordinator",
+    "Nonempty target-subject case/competing-offer invalidation and actual cancellation-outcome routes remain unqualified"
+  ]
+}

@@ -1,0 +1,76 @@
+diff --git a/src/core/absorbedObligations.ts b/src/core/absorbedObligations.ts
+--- a/src/core/absorbedObligations.ts
++++ b/src/core/absorbedObligations.ts
+@@ -80,6 +80,7 @@
+  * exactly one contiguous segment; no same-week pre-close outcome can stand in
+  * for one of these events. Full source/contract proof precedes this check. */
+ function validateCloseEventSegment(state:GameState,a:AbsorptionRecord,o:AbsorptionObligations):void{
++ if(o.closeEvents.some(ref=>!record(ref)))fail('close event must be an object')
+  const start=o.marketReceiptCountBeforeClose
+  if(!Number.isSafeInteger(start)||start<0||start+o.closeEvents.length>state.talentMarket.receipts.length)fail('close receipt prefix differs')
+  const used=new Set<string>()
+@@ -140,7 +141,7 @@
+  const end=start+o.closeEvents.length
+  if(state.talentMarket.receipts.some((receipt,index)=>(index<start||index>=end)&&receipt.week===a.week
+   &&((receipt.kind==='proposalWithdrawn'&&receipt.studioId===a.targetId&&same(receipt.reasons,[ABSORPTION_PROPOSAL_REASON]))
+-   ||(receipt.kind==='invalidated'&&o.cases.some(row=>row.original.talentId===receipt.talentId)&&same(receipt.reasons,[ABSORPTION_CASE_DROP_REASON])))))fail('unexplained absorption market event')
++   ||(receipt.kind==='invalidated'&&state.talentMarket.cases.some(kase=>kase.subjectStudioId===a.targetId&&kase.closedWeek===a.week&&kase.reason===ABSORPTION_CASE_REASON&&kase.talentId===receipt.talentId)&&same(receipt.reasons,[ABSORPTION_CASE_DROP_REASON])))))fail('unexplained absorption market event')
+ }
+ 
+ const promiseKeys=['promiseId','family','version','issuerStudioId','beneficiaryPersonId','predicate','windowStartWeek','dueWeekExclusive','feasibilityReceipt','progress','evidenceRefs','outcome','outcomeWeek','outcomeCause','outcomeEventId','contractId','supersededByPromiseId'] as const
+@@ -162,6 +163,7 @@
+ export function absorbedPromiseAuthority(input:unknown):AbsorbedPromiseAuthority|undefined{
+  if(!record(input)||!record(input.rights)||!Array.isArray(input.rights.absorptions))return undefined
+  if(!input.rights.absorptions.some(a=>record(a)&&a.producerVersion==='absorption-obligations/v7'))return undefined
++ if(input.rights.absorptions.some(a=>!record(a)))fail('consumed absorption row must be an object')
+  if(!record(input.market)||!Number.isSafeInteger(input.market.tick)||!Array.isArray(input.promises)||!Array.isArray(input.firstTakes)
+   ||!record(input.talentMarket)||!Array.isArray(input.talentMarket.receipts)||!Array.isArray(input.talentMarket.proposals)||!Array.isArray(input.talentMarket.cases)
+   ||!record(input.hollywood)||typeof input.hollywood.playerStudioId!=='string'||!Array.isArray(input.hollywood.employment)||!Array.isArray(input.hollywood.receipts)||!Array.isArray(input.hollywood.businesses)
+@@ -243,23 +245,44 @@
+    if(!openAtClose&&seen.has(current.promiseId))fail('already terminal promise included at close')
+   }
+   for(const row of [...o.withdrawals,...o.cases])if(!record(row)||typeof row.eventId!=='string')fail('market disposition shape differs')
++  const removedProposalIdentities=new Set<string>()
++  const submissionBeforeClose=(p:TalentMarketProposal):number=>{
++   const identity=JSON.stringify([p.talentId,p.issuerStudioId])
++   if(removedProposalIdentities.has(identity))fail('removed proposal identity is duplicated across close dispositions')
++   removedProposalIdentities.add(identity)
++   let submission=-1
++   receipts.slice(0,o.marketReceiptCountBeforeClose).forEach((r,i)=>{if(r.kind==='proposalSubmitted'&&r.talentId===p.talentId&&r.studioId===p.issuerStudioId)submission=i})
++   if(submission<0||receipts[submission]!.week!==p.submittedWeek)fail('removed proposal lacks its latest pre-close submission')
++   return submission
++  }
+   let priorSubmission=-1
+   for(const row of o.withdrawals){if(!exact(row,['original','eventId']))fail('withdrawal snapshot shape differs');validateProposalSnapshot(state,row.original,a.week,o.promiseCountBeforeClose)
+    if(row.original.issuerStudioId!==a.targetId)fail('withdrawal issuer differs')
+-   let submission=-1;receipts.slice(0,o.marketReceiptCountBeforeClose).forEach((r,i)=>{if(r.kind==='proposalSubmitted'&&r.talentId===row.original.talentId&&r.studioId===a.targetId)submission=i})
+-   if(submission<=priorSubmission||receipts[submission]?.week!==row.original.submittedWeek)fail('withdrawal source order differs')
++   const submission=submissionBeforeClose(row.original)
++   if(submission<=priorSubmission)fail('withdrawal source order differs')
+    priorSubmission=submission
+   }
+   let priorCase=-1
+   for(const row of o.cases){if(!exact(row,['original','droppedProposals','eventId'])||!record(row.original)||!Array.isArray(row.droppedProposals)
+     ||row.original.subjectStudioId!==a.targetId||row.original.outcome!==null||row.original.closedWeek!==null||row.original.reason!==null)fail('case snapshot shape differs')
+-   for(const p of row.droppedProposals){validateProposalSnapshot(state,p,a.week,o.promiseCountBeforeClose);if(p.talentId!==row.original.talentId||p.issuerStudioId===a.targetId)fail('case dropped proposal attribution differs')}
++   let priorDroppedSubmission=-1
++   for(const p of row.droppedProposals){
++    validateProposalSnapshot(state,p,a.week,o.promiseCountBeforeClose)
++    if(p.talentId!==row.original.talentId||p.issuerStudioId===a.targetId)fail('case dropped proposal attribution differs')
++    const submission=submissionBeforeClose(p)
++    if(submission<=priorDroppedSubmission)fail('case dropped proposal source order differs')
++    priorDroppedSubmission=submission
++   }
+    const matches=state.talentMarket.cases.filter(k=>k.talentId===row.original.talentId&&k.subjectStudioId===row.original.subjectStudioId&&k.contractId===row.original.contractId&&k.openedWeek===row.original.openedWeek)
+    const ordinal=matches.length===1?state.talentMarket.cases.indexOf(matches[0]!):-1
+    if(ordinal<=priorCase)fail('case source order differs')
+    priorCase=ordinal
+    if(matches.length!==1||!same({...matches[0],outcome:null,closedWeek:null,reason:null},row.original)||matches[0]!.outcome!=='invalidated'||matches[0]!.closedWeek!==a.week||matches[0]!.reason!==ABSORPTION_CASE_REASON)fail('case terminal join differs')
+   }
++  // The persisted native case root, not the supplied disposition list, owns
++  // completeness. Reset only terminal fields to join each exact original case.
++  const nativeCases=state.talentMarket.cases.filter(kase=>kase.subjectStudioId===a.targetId&&kase.outcome==='invalidated'&&kase.closedWeek===a.week&&kase.reason===ABSORPTION_CASE_REASON)
++  if(!same(nativeCases.map(kase=>({...kase,outcome:null,closedWeek:null,reason:null})),o.cases.map(row=>row.original)))fail('native absorption case disposition bijection differs')
+   if(new Set(o.withdrawals.map(row=>row.original.talentId)).size!==o.withdrawals.length
+    ||new Set(o.cases.map(row=>row.original.contractId)).size!==o.cases.length
+    ||state.talentMarket.proposals.some(p=>p.issuerStudioId===a.targetId)

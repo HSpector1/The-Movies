@@ -1,0 +1,25 @@
+{
+  "status": "FROZEN-STATIC-UNRUN",
+  "baseSourcePackagePatchSha256": "eafc93058abecd8f07bbdd02e460ff3e4c3a1aa52d5fea40ef36cccba9fddce3",
+  "baseTypesPatchSha256": "a55f02eaf8da746e8180ec716a05903424ccd40d1833f3f2b149f54521a1a7ca",
+  "patch": {
+    "path": "REVIEW-FIX.patch",
+    "sha256": "f0ff49eedad3822c625e45e0f76b65671818480570033e7325065d0504300566",
+    "bytes": 6969
+  },
+  "files": [
+    {
+      "path": "src/core/absorbedObligations.ts",
+      "preimageSha256": "50bc3c5397622817426db532d1c30d8fad092983dfb93d60ba6267744d05c76f",
+      "postimageSha256": "a495c8e1a1f027a8e10bab9db3f73b2b5c2b8ca46edfc8a91f900c9b6c805b7c",
+      "postimageBytes": 41372
+    }
+  ],
+  "runtime": false,
+  "compiler": false,
+  "reviewFindings": [
+    1,
+    2,
+    3
+  ]
+}

@@ -1,0 +1,45 @@
+diff --git a/src/core/absorbedObligations.ts b/src/core/absorbedObligations.ts
+--- a/src/core/absorbedObligations.ts
++++ b/src/core/absorbedObligations.ts
+@@ -1,3 +1,4 @@
++import { isOpportunityPredicate } from './opportunityPromises.js'
+ import { terminationCost } from './employment.js'
+ import { TUNING } from './tuning.js'
+ import { buyerScriptDevelopment, buyerScriptConcepts } from './continuedScripts.js'
+@@ -32,7 +33,7 @@
+ export type AbsorbedPromiseAuthority = Readonly<{
+  assignments:ReadonlyMap<string,AbsorbedPromiseAssignment>
+ }>
+-const fail=(why:string):never=>{throw new Error(`absorption obligations: ${why}`)}
++function fail(why:string):never{throw new Error(`absorption obligations: ${why}`)}
+ const record=(value:unknown):value is Record<string,unknown>=>value!==null&&typeof value==='object'&&!Array.isArray(value)
+ const exact=(value:object,keys:readonly string[])=>Object.keys(value).sort().join()===([...keys].sort().join())
+ function same(a:unknown,b:unknown):boolean{
+@@ -280,11 +281,11 @@
+    ||(predecessor.family==='DIRECTING_COUNT')!==(successor.family==='DIRECTING_COUNT')
+    ||!promiseCastSlots(successor).every(slot=>promiseCastSlots(predecessor).includes(slot)))fail('continued promise successor duty differs')
+   const old=predecessor.predicate,fresh=successor.predicate
+-  if('kind' in old&&old.kind==='projectOpportunity'){
++  if(isOpportunityPredicate(old)&&old.kind==='projectOpportunity'){
+    const canonical=(value:string)=>assignment.projectIds.get(value)??value
+-   if(!('kind' in fresh)||fresh.kind!=='projectOpportunity'||canonical(fresh.scriptProjectId)!==canonical(old.scriptProjectId))fail('continued promise successor changes named project')
+-  }else if('kind' in old&&old.kind==='genreOpportunity'){
+-   if(!('kind' in fresh)||(fresh.kind==='genreOpportunity'?fresh.genre!==old.genre:fresh.kind!=='projectOpportunity'||assignedProjectGenre(state,assignment,fresh.scriptProjectId)!==old.genre))fail('continued promise successor weakens genre')
++   if(!isOpportunityPredicate(fresh)||fresh.kind!=='projectOpportunity'||canonical(fresh.scriptProjectId)!==canonical(old.scriptProjectId))fail('continued promise successor changes named project')
++  }else if(isOpportunityPredicate(old)&&old.kind==='genreOpportunity'){
++   if(!isOpportunityPredicate(fresh)||(fresh.kind==='genreOpportunity'?fresh.genre!==old.genre:fresh.kind!=='projectOpportunity'||assignedProjectGenre(state,assignment,fresh.scriptProjectId)!==old.genre))fail('continued promise successor weakens genre')
+   }
+   incoming.add(successorId)
+   if(assignments.has(successorId))fail('continued promise successor has two owners')
+diff --git a/src/core/continuedScripts.ts b/src/core/continuedScripts.ts
+--- a/src/core/continuedScripts.ts
++++ b/src/core/continuedScripts.ts
+@@ -221,7 +221,7 @@
+  // Older saves retain their existing validation traversal and refusal order.
+  if(!Array.isArray(raw)||!raw.some(a=>a&&typeof a==='object'&&(a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7'&&Array.isArray(a.scriptDecisions)&&a.scriptDecisions.some(d=>d&&typeof d==='object'&&d.kind==='greenlight'))))return undefined
+  assertCarriedHistoryInputShape(state)
+- const current=owners(state).filter(a=>a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7'&&a.scriptDecisions.some(d=>d.kind==='greenlight'))
++ const current=owners(state).filter((a):a is Extract<Owner,{producerVersion:'absorption-scripts/v6'|'absorption-obligations/v7'}>=>a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7'&&a.scriptDecisions.some(d=>d.kind==='greenlight'))
+  // This replays exact receipt IDs/order, source bargains/paid work, earned
+  // assessment and every native lifecycle transition BEFORE granting any lookup.
+  validateContinuedScriptHistory(state)
