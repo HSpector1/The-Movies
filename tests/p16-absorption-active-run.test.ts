@@ -13,6 +13,7 @@ import { libraryValuationV1 } from '../src/core/propertyValuation.js'
 import { resolveTitles, subjectsHeldBy, currentHolder, actualP16Money } from '../src/core/rights.js'
 import { permittedBidderRefusal, spendableCash, weeklyFixedCost } from '../src/core/rightsFinance.js'
 import { TUNING } from '../src/core/tuning.js'
+import { openTheatricalRun } from '../src/core/economy.js'
 import { tick } from '../src/core/tick.js'
 import type { GameState } from '../src/core/types.js'
 import {financeTotals,periodSummary} from '../src/core/economyView.js'
@@ -305,5 +306,74 @@ describe('P16 genuine rival buyer of the original R01 theatrical run', () => {
   expect(restored.rights.absorptions.find(a=>a.id===record.id)!.runReceipts).toEqual([receipt])
   expect(JSON.stringify(paid.state)).toBe(paidBefore);expect(JSON.stringify(initial)).toBe(initialBefore)
   expect(JSON.stringify(old)).toBe(oldBefore);expect(JSON.stringify(raw)).toBe(rawBefore)
+
+  // Continue this same paid rival acquisition; no new fixture or altered clock/history.
+  const end=run.releaseTick+run.totalWeeks;expect(end).toBe(175)
+  const nextBefore=JSON.stringify(next)
+  let settled=next
+  for(let boundary=172;boundary<=end;boundary++) {
+   const prior=settled,priorBefore=JSON.stringify(prior),week=boundary-1
+   const priorRecord=prior.rights.absorptions.find(a=>a.id===record.id)!
+   const finalText=boundary===end?saves.exportCurrentState(prior):null
+   const finalReload=finalText===null?null:saves.migrateToLive(saves.importSave(finalText)).state
+   const finalReloadBefore=finalReload===null?null:JSON.stringify(finalReload)
+   if(finalReload!==null) {
+    expect(finalReload.market.tick).toBe(174)
+    expect(saves.exportCurrentState(finalReload)).toBe(finalText)
+   }
+   settled=tick(prior)
+   expect(JSON.stringify(prior)).toBe(priorBefore);expect(settled.market.tick).toBe(boundary)
+   const current=settled.rights.absorptions.find(a=>a.id===record.id)!,installment=current.runReceipts.at(-1)!
+   const index=week-run.releaseTick,gross=run.weeklyGross[index]!,revenue=gross*run.studioShare
+   expect(current).toMatchObject({buyerId,targetId:TARGET,week:170})
+   expect(current.runs).toEqual(record.runs)
+   expect(current.runReceipts.slice(0,-1)).toEqual(priorRecord.runReceipts)
+   expect(current.runReceipts).toHaveLength(boundary-record.week)
+   expect(installment).toMatchObject({week,productionId:FILM,weekIndex:index,gross,revenue})
+   expect(current.runReceipts.filter(r=>r.productionId===FILM&&r.weekIndex===index)).toHaveLength(1)
+   expect(settled.ledger.filter(e=>e.kind==='absorbedRunRevenue')).toEqual(closed.ledger.filter(e=>e.kind==='absorbedRunRevenue'))
+   const beforeBuyer=prior.hollywood!.businesses.find(b=>b.studioId===buyerId)!
+   const afterBuyer=settled.hollywood!.businesses.find(b=>b.studioId===buyerId)!
+   // Include any ordinary native release actually produced this week; do not assume idle R02.
+   const nativeRevenue=settled.hollywood!.films.reduce((sum,ownFilm)=>{
+    if(ownFilm.provenance!=='simulation/v1'||ownFilm.studioId!==buyerId)return sum
+    const result=ownFilm.result,opening=result.boxOffice.opening
+    const schedule=openTheatricalRun(result,opening,opening>0?result.boxOffice.total/opening:1,result.releaseTick)
+    const ownIndex=week-result.releaseTick
+    return sum+(ownIndex>=0&&ownIndex<schedule.totalWeeks?schedule.weeklyGross[ownIndex]!*schedule.studioShare:0)
+   },0)
+   const earnedBefore=beforeBuyer.account.periods.reduce((sum,p)=>sum+p.movements.studioRevenue,0)
+   const earnedAfter=afterBuyer.account.periods.reduce((sum,p)=>sum+p.movements.studioRevenue,0)
+   expect(earnedAfter-earnedBefore).toBeCloseTo(nativeRevenue+revenue,6)
+   const moneyBefore=beforeBuyer.account.periods.reduce((sum,p)=>sum+Object.values(p.movements).reduce((n,m)=>n+m,0),0)
+   const moneyAfter=afterBuyer.account.periods.reduce((sum,p)=>sum+Object.values(p.movements).reduce((n,m)=>n+m,0),0)
+   expect(afterBuyer.account.cash-beforeBuyer.account.cash).toBeCloseTo(moneyAfter-moneyBefore,6)
+   expect(afterBuyer.account.cash).toBeCloseTo(afterBuyer.account.openingBalance+moneyAfter,6)
+   expect(settled.hollywood!.businesses.find(b=>b.studioId===TARGET)!.account).toEqual(targetAtClose.account)
+   expect(settled.studio.cash).toBeCloseTo(prior.studio.cash+settled.ledger.slice(prior.ledger.length).reduce((sum,e)=>sum+e.amount,0),6)
+   if(finalReload!==null) {
+    const finalReplay=tick(finalReload)
+    expect(JSON.stringify(finalReload)).toBe(finalReloadBefore)
+    expect(saves.exportCurrentState(finalReplay)).toBe(saves.exportCurrentState(settled))
+   }
+  }
+  const finalRecord=settled.rights.absorptions.find(a=>a.id===record.id)!
+  expect(finalRecord.runReceipts).toHaveLength(run.totalWeeks-run.weekIndex)
+  expect(finalRecord.runReceipts.reduce((sum,r)=>sum+r.revenue,0))
+   .toBe(run.weeklyGross.slice(run.weekIndex).reduce((sum,g)=>sum+g*run.studioShare,0))
+  const settledFilm=settled.hollywood!.films.find(f=>f.filmId===FILM)!
+  if(settledFilm.provenance!=='simulation/v1')throw new Error('settled acquired run must retain its actual source film')
+  expect(settledFilm).toMatchObject({studioId:TARGET,settledWeek:174})
+  expect(settledFilm.result).toEqual(film.result)
+  expect(settledFilm.studioRevenueReceived).toBeCloseTo(run.cumulativeStudioRevenuePaid+finalRecord.runReceipts.reduce((sum,r)=>sum+r.revenue,0),6)
+  expect(settled.hollywood!.businesses.find(b=>b.studioId===TARGET)!.runs).toEqual([])
+  expect(settled.hollywood!.receipts.filter(r=>r.kind==='filmSettled'&&r.productionId===FILM))
+   .toMatchObject([{week:174,studioId:TARGET,productionId:FILM}])
+  expect(settled.hollywood!.receipts.filter(r=>r.kind==='filmSettled'&&r.productionId===FILM)).toHaveLength(1)
+  expect(settled.hollywood!.receipts.filter(r=>r.kind==='filmSettled'&&r.productionId===ownFilmId))
+   .toEqual(next.hollywood!.receipts.filter(r=>r.kind==='filmSettled'&&r.productionId===ownFilmId))
+  expect(JSON.stringify(next)).toBe(nextBefore)
+  expect(JSON.stringify(closed)).toBe(closedBefore);expect(JSON.stringify(paid.state)).toBe(paidBefore)
+  expect(JSON.stringify(initial)).toBe(initialBefore);expect(JSON.stringify(old)).toBe(oldBefore);expect(JSON.stringify(raw)).toBe(rawBefore)
  })
 })

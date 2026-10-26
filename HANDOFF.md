@@ -2,13 +2,13 @@
 
 Last writer: Codex, 2026-10-26, sole coordinator for the authorized Sprints 5–16 program.
 
-## Current verification boundary — 2026-10-26, 18:18 CDT
+## Current verification boundary — 2026-10-26, 18:29 CDT
 
-- Experimental branch p16-retained-writing-20261026 carries the reviewed rival receipt producer and independently authored consumer tests atop published b5c11b5a. Resolve this checkpoint HEAD from Git; primary 013c4edc and main ab65eb20 remain unchanged. No qualified technical-predecessor claim.
-- Genuine original-b5 rival RED reaches rivalBuyerRunProducerRequired in 1.504s. Corrected actual R02 receipt/account/save-replay passes 1.677s and original player run passes 3.032s. Earlier hostile expectation failure is preserved; exact earlier accounting-refusal assertion now reaches all later controls.
-- coherent-focused: four selected leaves reach assertions; retained obligations/Accept/replay 12.773s and hostile reader 6.544s exceed original 5s. Proposal/consumer 1.563s and authentic63 migration 1.937s are within budget. Complete generator 31/31; root and Bridge types exit 0. Independent audit verifies 1,658 source/six preflight pins and releases freeze; no job/lock remains. No foreign Godot observed in samples, not proof of continuous exclusivity.
-- Next: publish this scoped source/evidence checkpoint, then affected closure/history verification and authentic later-recipient/full-run evidence before expanding rival employment retention. Complete consumer/history/full-game and platform gates remain open. Do not rerun original REDs or used runners; long gate still needs a reliable exclusive window.
-- Browser component installation approval remains pending. Missing original full-game captures, native toolchain and Owner playtest remain separate blockers. Keep all original failures and budgets; no P17/P18 predecessor waiver or gameplay main promotion.
+- Experimental p16-retained-writing-20261026 source 1710b432 is remote verified; this checkpoint adds only the independently authored same-leaf settlement extension and handoff. Resolve new HEAD from Git. Primary 013c4edc and main ab65eb20 unchanged; no technical-predecessor qualification.
+- Rival acquired-run witness now pays all remaining installments, preserves source settlement at174, reaches175 and save174/replay175 in 2.988s under original5s. Independent audit releases all1,658 source/six preflight pins. No active runtime or lock. Three affected genuine estate/history files also pass8/8 below5s (max4.339s), already audited/published records68fa1cd1.
+- Prior coherent-focused: four reached leaves; retained12.773s and hostile6.544s exceed5s. Proposal1.563s/authentic63 migration1.937s within budget; complete generator31/31 and root/Bridge types0. Original REDs, failed hostile expectation and interrupted attempts preserved. No foreign Godot observed in recent launch/post samples; continuous exclusivity not inferred.
+- Next: original-source genuine nonempty rival-retention witness from independent scratch test author, then integrate the statically reviewed two-owner source draft only after an admitted RED. Source draft/review: S8/rival-retention/source, not installed. Native cost-cutting, continued-work/script and bound-promise restrictions remain; no invented employment/cash/history.
+- Active acquired-recipient closure is unavailable in this stable170/six-week-run route: settlement175 precedes lawful distress closure. Keep this and historical overlap/later absorption gaps open. Complete consumers/full-game/browser/native/Owner gates remain; missing three original captures, browser install approval and native toolchain persist. No P17/P18 waiver or main gameplay promotion.
 
 ## Active Sprint 8 obligation and Bridge checkpoint — 2026-10-26
 
