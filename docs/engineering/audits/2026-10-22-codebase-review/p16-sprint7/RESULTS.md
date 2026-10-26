@@ -1,3 +1,9 @@
+## First-take correction checkpoint — 2026-10-26
+
+The original first-take failure remains the regression witness. A four-file correction supplies exact native greenlight production/issuer/project provenance to first-take production and current-era historical validation. Independent review found a wrong-issuer fallback and missing production-time bounds; corrected v4 strictly binds the buyer and native countdown/terminal interval. Targeted review clears both statically. The existing positive test adds two refusal controls against its actual take, preserving all original assertions and budgets. No new standalone test or fabricated transaction was added.
+
+Source v4 patch 939f8451 and test delta eb0cda4c are installed on the experimental checkout. Its focused attempt passed fresh preflight but was interrupted with wrapper 143 when foreign Godot work started. No test result was produced. Independent audit verified all 1,642 pins and released the freeze; no owned process or lock remains. Detailed draft versions, reviews, manifests and postimages are preserved under native-greenlight/{v3,v4,test-v2}, with interrupted evidence in native-first-take-v4. Runtime and type qualification of this correction remain open. Fresh one-shot retry is prepared outside the repo as native-first-take-v4-resume/run.sh, pending the next clear host check and fresh preflight. Primary candidate and all acceptance requirements remain unchanged.
+
 ## Native lifecycle runtime checkpoint — 2026-10-26
 
 The short original-source RED completed with one failed and two selected-out cases: packaging writerAvailable was false where the new supported route requires true (2.700 seconds). Genuine public Accept and prior preservation assertions were reached. This proves the old packaging refusal, not downstream lifecycle behavior.

@@ -1,0 +1,91 @@
+--- a/src/core/continuedScripts.ts
++++ b/src/core/continuedScripts.ts
+@@ -47,7 +47,7 @@
+  productionScripts: ReadonlyMap<string,ScriptProject>;
+  /** Every actual native greenlight remains joined after cancellation clears the
+   * current project link, or after a later greenlight assigns a different ID. */
+- productionScriptHistory: ReadonlyMap<string,Readonly<{studioId:string;project:ScriptProject}>>;
++ productionScriptHistory: ReadonlyMap<string,Readonly<{studioId:string;project:ScriptProject;firstTakeEarliestWeek:number;firstTakeLatestWeek:number|null}>>;
+  originalProductions: readonly Production[];
+ }>
+ export function carriedScriptForProduction(state:GameState,productionId:string){
+@@ -193,12 +193,26 @@
+  if(concepts.length!==conceptIds.size)fail('native production has no exact source concept')
+  const productionScripts=new Map(projects.filter(p=>p.productionId!==null).map(p=>[p.productionId!,p] as const))
+  const originalProductions=current.flatMap(a=>a.scriptDecisions.flatMap(d=>d.kind==='greenlight'?[d.production]:d.kind==='cancelProduction'?[d.production]:[]))
+- const productionScriptHistory=new Map<string,Readonly<{studioId:string;project:ScriptProject}>>()
++ const productionScriptHistory=new Map<string,Readonly<{studioId:string;project:ScriptProject;firstTakeEarliestWeek:number;firstTakeLatestWeek:number|null}>>()
+  for(const a of current)for(const decision of a.scriptDecisions){
+   if(decision.kind!=='greenlight')continue
+   const project=a.continuedScripts.find(row=>row.project.id===decision.projectId)?.project
+   if(!project||productionScriptHistory.has(decision.production.id))fail('native production history has no unique screenplay')
+-  productionScriptHistory.set(decision.production.id,{studioId:a.buyerId,project})
++  // Greenlight's input week is skipped. Four later countdown advances
++  // reach the native 5→4 take, whose receipt names the produced week.
++  const firstTakeEarliestWeek=decision.week+(decision.production.remainingTicks-4)+1
++  const terminal=a.scriptDecisions.find(d=>(d.kind==='cancelProduction'&&d.production.id===decision.production.id)
++    ||(d.kind==='productionReleased'&&d.productionId===decision.production.id))
++  const live=state.studio.activeProductions.find(p=>p.id===decision.production.id)
++  // At a cancellation/current boundary B with remaining r, the take has
++  // already produced remaining=4; at least4-r later advances were needed.
++  // A release receipt instead names input R, with1→0 still ahead of its
++  // produced week: from4 it needs three prior advances, hence latest R-3.
++  const boundary=terminal?.week??state.market.tick
++  const remaining=terminal?.kind==='cancelProduction'?terminal.production.remainingTicks:live?.remainingTicks
++  const firstTakeLatestWeek=terminal?.kind==='productionReleased'?terminal.week-3
++    :remaining!==undefined&&remaining<=4?boundary-(4-remaining):null
++  productionScriptHistory.set(decision.production.id,{studioId:a.buyerId,project,firstTakeEarliestWeek,firstTakeLatestWeek})
+  }
+  return {concepts,productionScripts,productionScriptHistory,originalProductions}
+ }
+--- a/src/core/firstTakeSubjects.ts
++++ b/src/core/firstTakeSubjects.ts
+@@ -8,18 +8,19 @@
+ /** Project IDs are local to their issuer. Never resolve one across businesses. */
+ export function takeSubjectOwner(state: Pick<SubjectState, 'hollywood' | 'studio' | 'concepts' | 'scriptDevelopment'>,
+   studioId: string, productionId?: string, absorptions?: ReadonlyMap<string,AbsorptionRecord>, carriedProduction?:CarriedProductionAuthority): { concepts: readonly FilmConcept[]; development: ScriptDevelopment; productions: readonly Production[]; creatorStudioId:string } | undefined {
+-  const acquired=productionId===undefined?undefined:[...(absorptions?.values()??[])].find(a=>a.buyerId===studioId && a.continuedProductions.some(p=>p.productionId===productionId))
+-  if(acquired){const source=state.hollywood?.businesses.find(b=>b.studioId===acquired.targetId);return source===undefined?undefined:{concepts:state.hollywood!.concepts,development:source.development,productions:source.productions,creatorStudioId:source.studioId}}
+   // A new buyer production is distinct from a seller production continued at
+   // close. Its exact paid greenlight history supplies source screenplay/concept
+   // visibility while the buyer remains the film's issuing/creator studio.
+   const native=productionId===undefined?undefined:carriedProduction?.productionScriptHistory.get(productionId)
+-  if(native&&native.studioId===studioId&&state.hollywood?.playerStudioId===studioId){
++  if(native){
++    if(native.studioId!==studioId||state.hollywood?.playerStudioId!==studioId)return undefined
+     const concept=carriedProduction?.concepts.find(row=>row.id===native.project.conceptId)
+     const original=carriedProduction?.originalProductions.find(row=>row.id===productionId)
+     if(!concept||!original||original.conceptId!==concept.id)return undefined
+     return {concepts:[concept],development:{mode:'managed',projects:[native.project]},productions:[original],creatorStudioId:studioId}
+   }
++  const acquired=productionId===undefined?undefined:[...(absorptions?.values()??[])].find(a=>a.buyerId===studioId && a.continuedProductions.some(p=>p.productionId===productionId))
++  if(acquired){const source=state.hollywood?.businesses.find(b=>b.studioId===acquired.targetId);return source===undefined?undefined:{concepts:state.hollywood!.concepts,development:source.development,productions:source.productions,creatorStudioId:source.studioId}}
+   if (state.hollywood?.playerStudioId === studioId) {
+     return { concepts: state.concepts, development: state.scriptDevelopment, productions: state.studio.activeProductions, creatorStudioId:studioId }
+   }
+@@ -30,7 +31,7 @@
+ 
+ /** Called in the same transaction that appends the unchanged six-field receipt. */
+ export function subjectForNewTake(state: GameState, studioId: string, production: Production, eventId: string): FirstTakeSubject {
+-  const carried=studioId===state.hollywood?.playerStudioId&&!state.concepts.some(c=>c.id===production.conceptId)
++  const carried=!state.concepts.some(c=>c.id===production.conceptId)
+     ?carriedProductionAuthority(state):undefined
+   const owner = takeSubjectOwner(state, studioId,production.id,new Map((state.rights?.absorptions??[]).map(a=>[a.targetId,a])),carried)
+   const concept = owner?.concepts.find(row => row.id === production.conceptId)
+@@ -74,11 +75,14 @@
+     if (fact.eventId !== take.eventId) fail(`facts[${i}] must name its ordered first take`)
+     if (typeof fact.conceptId !== 'string' || fact.conceptId.trim() === '') fail(`facts[${i}] needs a concept`)
+     if (!(GENRE_ORDER as readonly unknown[]).includes(fact.genre)) fail(`facts[${i}] needs a catalogue genre`)
++    const native=carriedProduction?.productionScriptHistory.get(take.productionId)
++    if(native&&native.studioId!==take.studioId)return fail(`facts[${i}] does not name its native issuing buyer`)
+     const owner = takeSubjectOwner(state, take.studioId,take.productionId,absorptions,carriedProduction)
+     const concept = owner?.concepts.find(row => row.id === fact.conceptId)
+     if (owner === undefined || concept === undefined || concept.genre !== fact.genre) return fail(`facts[${i}] disagrees with its owner's concept`)
+-    const native=carriedProduction?.productionScriptHistory.get(take.productionId)
+-    if(native&&native.studioId===take.studioId){
++    if(native){
++      if(native.firstTakeLatestWeek===null||take.week<native.firstTakeEarliestWeek||take.week>native.firstTakeLatestWeek)
++        return fail(`facts[${i}] is outside its native production first-take interval`)
+       const original=carriedProduction?.originalProductions.find(row=>row.id===take.productionId)
+       if(!original||fact.scriptProjectId!==native.project.id||take.directorId!==original.directorId
+         ||CAST_SLOTS.some(slot=>take.cast[slot]!==original.cast[slot]))return fail(`facts[${i}] disagrees with its native paid screenplay or crew`)

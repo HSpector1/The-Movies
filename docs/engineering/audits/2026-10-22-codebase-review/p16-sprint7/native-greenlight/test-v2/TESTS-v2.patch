@@ -1,0 +1,30 @@
+--- a/tests/p16-carried-script-accept.test.ts
++++ b/tests/p16-carried-script-accept.test.ts
+@@ -294,6 +294,27 @@
+  expect(held.studio.activeProductions.find(p=>p.id===picture.id)?.remainingTicks).toBe(1)
+  expect(held.studio.releasedFilms.some(f=>f.productionId===picture.id)).toBe(false)
+  const holdText=saves.exportCurrentState(held),holdReload=saves.migrateToLive(saves.importSave(holdText)).state
++ // Mutate only detached copies of the actual native take admitted above.
++ const take=holdReload.firstTakes.find(t=>t.productionId===picture.id)!
++ const factIndex=holdReload.firstTakeSubjects.facts.findIndex(f=>f.eventId===take.eventId)
++ expect(factIndex).toBeGreaterThanOrEqual(0)
++ expect(holdReload.firstTakeSubjects.facts[factIndex]).toMatchObject({eventId:take.eventId,conceptId:n.concept.id,scriptProjectId:a.projectId})
++ const sourceProjectId=a.record.continuedScripts[0]!.sourceScriptProjectId
++ expect(sourceProjectId).not.toBe(a.projectId)
++ expect(holdReload.hollywood!.businesses.find(b=>b.studioId===TARGET)!.development.projects.find(p=>p.id===sourceProjectId)).toMatchObject({id:sourceProjectId,conceptId:n.concept.id})
++ expect(holdReload.hollywood!.identities.find(s=>s.studioId===TARGET)?.enteredWeek).toEqual(expect.any(Number))
++ const wrongIssuer=structuredClone(holdReload)
++ wrongIssuer.firstTakes.find(t=>t.eventId===take.eventId)!.studioId=TARGET
++ wrongIssuer.firstTakeSubjects.facts[factIndex]!.scriptProjectId=sourceProjectId
++ const issuerBytes=JSON.stringify(wrongIssuer)
++ try{expect(()=>saves.makeSave(wrongIssuer)).toThrow(`validateSaveV40: firstTakeSubjects facts[${factIndex}] does not name its native issuing buyer`)}finally{expect(JSON.stringify(wrongIssuer)).toBe(issuerBytes)}
++ const beforeGreenlight=picture.startTick-1
++ expect(beforeGreenlight).toBeGreaterThanOrEqual(holdReload.studioHistory.recordingStartedWeek)
++ expect(beforeGreenlight).toBeLessThanOrEqual(holdReload.market.tick)
++ const wrongWeek=structuredClone(holdReload)
++ wrongWeek.firstTakes.find(t=>t.eventId===take.eventId)!.week=beforeGreenlight
++ const weekBytes=JSON.stringify(wrongWeek)
++ try{expect(()=>saves.makeSave(wrongWeek)).toThrow(`validateSaveV40: firstTakeSubjects facts[${factIndex}] is outside its native production first-take interval`)}finally{expect(JSON.stringify(wrongWeek)).toBe(weekBytes)}
+  const commit={kind:'commitPictureToRelease' as const,productionId:picture.id},heldBytes=JSON.stringify(held)
+  const committed=applyActions(held,[commit]);expect(JSON.stringify(held)).toBe(heldBytes)
+  const committedBytes=JSON.stringify(committed)

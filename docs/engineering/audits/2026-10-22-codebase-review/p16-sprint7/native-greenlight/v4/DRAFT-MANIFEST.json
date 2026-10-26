@@ -1,0 +1,56 @@
+{
+  "status": "STATIC-UNRUN-TARGETED-CORRECTION",
+  "gitHead": "5a730f42d5a66d22cba4808b5c642510c2f068bb",
+  "baseDescription": "Installed reviewed v2 source plus independent test draft; preimages below govern application, not clean HEAD alone",
+  "immutableV3PatchSha256": "0c05d33b698811c9a24c2c77e4c8cac9dc0fca4768c8d024e6dd0d9d82c5e0fb",
+  "v3PreservationVerified": true,
+  "files": [
+    {
+      "path": "src/core/continuedScripts.ts",
+      "installedV2PreimageSha256": "d7b604de911cd7106848a965ad159eee1113d23848f80d6fd7a3ab9d1f001b7c",
+      "v3PreimageSha256": "f0afcf31bbccea6bad3cb813c7a62ad524e92d084796271c9e69a9764e8f17e6",
+      "v4PostimageSha256": "8217b43843bdb1f077a164ea468e5287d76bcc06dc53d4125bea0fe38991cbd7",
+      "postimage": "working/src/core/continuedScripts.ts"
+    },
+    {
+      "path": "src/core/firstTakeSubjects.ts",
+      "installedV2PreimageSha256": "049878eeea2ced72a8509d1cfa54652edcf98a61f0a7fa0fd31e7c525063dde7",
+      "v3PreimageSha256": "96608da7b160e824b3c8299d437d9bbf1a8114f62a9d45fa6e52ef6100cb6c56",
+      "v4PostimageSha256": "985398260cc46357214d13a07e8439ec9a496d0bb590d20dc96faf48242ff92c",
+      "postimage": "working/src/core/firstTakeSubjects.ts"
+    },
+    {
+      "path": "src/core/promises.ts",
+      "installedV2PreimageSha256": "8c0d68f6e45d2ade937ec4992d30f71beae29607ad17c46c225c5a6d85c42235",
+      "v3PreimageSha256": "9d35534e93cc1de843f47318927508681e4d948e088d24349aa20fad6b257f7a",
+      "v4PostimageSha256": "9d35534e93cc1de843f47318927508681e4d948e088d24349aa20fad6b257f7a",
+      "postimage": "working/src/core/promises.ts"
+    },
+    {
+      "path": "src/core/save.ts",
+      "installedV2PreimageSha256": "ee9821d8205d6913b3c6a72c9675dbc213b0a44b8c1a71205d6c3a3a43c0e8ee",
+      "v3PreimageSha256": "dd7a05d7ddce0f9ec78eff3dea5dd0cf34c37254d3af3209a9d72692e5a6fe31",
+      "v4PostimageSha256": "dd7a05d7ddce0f9ec78eff3dea5dd0cf34c37254d3af3209a9d72692e5a6fe31",
+      "postimage": "working/src/core/save.ts"
+    }
+  ],
+  "patches": [
+    {
+      "path": "FIRST-TAKE-AUTHORITY-v4.patch",
+      "sha256": "939f84516a4508ee14795e23f0e896e8052c817dd5ed0b44138f23d45c14e91e",
+      "bytes": 12021
+    },
+    {
+      "path": "V3-TO-V4.patch",
+      "sha256": "4307fd720e800647bd7c1642949e6ee4452415fadceec4079d95280fd55a1610",
+      "bytes": 8008
+    }
+  ],
+  "tests": "Unchanged; independent test-v2 owned by c03",
+  "verification": {
+    "runtime": false,
+    "compiler": false,
+    "tests": false,
+    "repositoryEdits": false
+  }
+}

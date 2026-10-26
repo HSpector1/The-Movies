@@ -1,0 +1,14 @@
+# First-take authority test correction
+
+Apply `TESTS-v2.patch` to the installed original test postimage only, after composing the frozen v4 source correction. `MANIFEST.json` binds base `5a730f42`, exact test preimage/postimage and v4 source hashes. The delta is one 21-line insertion in `nativeLifecycle`; all three original leaves, assertions, setup and 5,000 ms budgets remain unchanged.
+
+The existing positive journey must produce its second native production's genuine first take, reach the held release state and pass the existing full export/import/migration before either control runs. No take, project, payment, contract, source history or clock is added to that positive state. Mutations exist only on detached copies used as explicitly invalid inputs.
+
+- Wrong issuer: retain the actual production, event and concept, but replace the take issuer with the real absorbed studio and the subject project with its genuine original source screenplay. Preconditions establish that the issuer is entered, the source project exists with the same concept, and its ID differs from the buyer's acquired project. The reader must report `firstTakeSubjects facts[i] does not name its native issuing buyer`, closing v3's rival fallback.
+- Wrong week: retain all real take identity, crew and project facts, but date the receipt at actual `picture.startTick - 1`. Explicit preconditions keep this inside the original campaign recording interval, so the expected refusal is `firstTakeSubjects facts[i] is outside its native production first-take interval`, not a generic campaign-date rejection.
+
+Both controls use full `saves.makeSave` and assert JSON equality of the entire mutated caller in `finally`. They reuse the existing actual fact index and add no helpers, imports, test leaves, ticks or alternate positive setup. Existing commit/release, shared-market, Legacy, title, conservation, save/replay and source-immutability assertions follow unchanged.
+
+The original first production was cancelled before any take. It cannot furnish a genuine post-cancel take control, and this patch does not fabricate one or add another costly journey. A post-cancel timing claim remains outside this delta. V4's interval implementation and guard strings are bound by the source manifest; this test author performed only static source/text/hash checks.
+
+Parent-reported prior evidence remains intact: root types passed, original hostile/rollback assertions passed but exceeded their original budgets, and the positive reached real greenlight/cancel/re-greenlight before failing `first take subject: missing issuing owner or concept`. The corrected first take, held save, new refusals and subsequent release remain unrun here. This addition supplies no timing waiver or qualification claim; the original failed run and over-budget evidence are preserved.

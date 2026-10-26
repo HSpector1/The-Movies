@@ -1,0 +1,49 @@
+{
+  "status": "STATIC-UNRUN-TEST-CORRECTION",
+  "baseHead": "5a730f42d5a66d22cba4808b5c642510c2f068bb",
+  "baseDescription": "Installed original independent test postimage; preimage hash governs this insertion, not clean HEAD alone",
+  "sourceDraft": {
+    "manifest": "/Users/zacheryspector/studio-scratch/p16-sprint7-native-greenlight-20261026/v4/DRAFT-MANIFEST.json",
+    "manifestSha256": "a11b4574ecdad7ce1916d5bf8146a8db3baa7d1a457348b46100e67f7263c47e",
+    "patch": "/Users/zacheryspector/studio-scratch/p16-sprint7-native-greenlight-20261026/v4/FIRST-TAKE-AUTHORITY-v4.patch",
+    "patchSha256": "939f84516a4508ee14795e23f0e896e8052c817dd5ed0b44138f23d45c14e91e",
+    "sourceFiles": 4,
+    "status": "Author-confirmed frozen v4; runtime not performed by test author"
+  },
+  "priorTestDraft": {
+    "manifest": "/Users/zacheryspector/studio-scratch/p16-sprint7-native-greenlight-20261026/test-draft/MANIFEST.json",
+    "manifestSha256": "83bd404825efe30bead8a5010830a9bb6bd600d5bf82041ffeb001ab128efab3",
+    "patchSha256": "907df2a0888eeba9f1d6c5e6f59310ba1ab31c2c3517b718a2cdb60773063a0a"
+  },
+  "files": [
+    {
+      "path": "tests/p16-carried-script-accept.test.ts",
+      "preimageSha256": "76c91414c3aced11dc00dcfe021498050efb32c2d8bd46e4595c2964e1a3ce23",
+      "postimageSha256": "26d81c9ecbae6d81c2c32c1b82141e24bc7ae99acb6f92496b582f3873f5ce26",
+      "postimage": "postimages/tests/p16-carried-script-accept.test.ts",
+      "bytes": 37032
+    }
+  ],
+  "patch": {
+    "path": "TESTS-v2.patch",
+    "sha256": "eb0cda4c184e41a666511c377959fd2b10154cd4d0eb4b6ea5e3879ac0eed07a",
+    "bytes": 2579,
+    "addedLines": 21,
+    "removedLines": 0
+  },
+  "purpose": "Two full-save refusal and whole-caller-purity controls on detached copies of the existing actual held native first-take state: wrong entered issuer plus genuine original source project; before-greenlight take week still inside original campaign interval",
+  "originalCaseCount": 3,
+  "draftCaseCount": 3,
+  "newTestLeaves": 0,
+  "budgetMs": 5000,
+  "setup": "Existing accepted/nativeGreenlight/runUntil/save chain remains inside original positive leaf; no added tick, alternate route, fixture, cache, or setup hook",
+  "coverageLimit": "Original first production cancelled before any take. No post-cancel take is fabricated or claimed; a separate genuine after-take cancellation journey is not added.",
+  "verification": {
+    "engine": false,
+    "tests": false,
+    "compiler": false,
+    "generator": false,
+    "repositoryWrites": false,
+    "staticHashAndTextChecks": true
+  }
+}
