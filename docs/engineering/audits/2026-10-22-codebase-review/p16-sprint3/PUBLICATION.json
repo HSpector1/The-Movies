@@ -1,0 +1,12 @@
+{
+  "candidateBranch": "p16-rebase-20261024",
+  "candidateHead": "b5566fc12acdfb61b18138dc7fa288ea59c24780",
+  "remote": "https://github.com/HSpector1/The-Movies.git",
+  "explicitRemoteRefVerified": "refs/heads/p16-rebase-20261024",
+  "productionRepair": "7bafd12309f21faa15d5735c53d209976557a839",
+  "entryCandidate": "481fd444befc8c4743fedad0a842aff98ed8dddb",
+  "recordsEntry": "30a4d0bfd7f610f69bcff86b6162bb79bac7ea24",
+  "recordsScope": "HANDOFF and docs only; no gameplay source promotion",
+  "runtimeComplete": true,
+  "reviewComplete": true
+}

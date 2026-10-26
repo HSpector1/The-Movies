@@ -1,0 +1,11 @@
+--- a/src/core/acquisition.ts
++++ b/src/core/acquisition.ts
+@@ -164,7 +164,7 @@
+ 
+ /** r2 (F8/F33): the consent ask — premium-adjusted library value plus the post-exit cash that moves at par, never below zero. */
+ export function absorptionAsk(libraryValue: number, postExitCash: number): number {
+-  return Math.max(0, Math.ceil((libraryValue * (100 + TUNING.RIGHTS_WILLINGNESS_PREMIUM_PERCENT)) / 100) + postExitCash)
++  return Math.max(0, Math.ceil((libraryValue * (100 + TUNING.RIGHTS_WILLINGNESS_PREMIUM_PERCENT)) / 100 + postExitCash))
+ }
+ 
+ /** The provisional consent policy: a rival sells its business at or above its ask (`absorptionAsk`). */

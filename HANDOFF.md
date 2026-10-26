@@ -2,7 +2,16 @@
 
 Last writer: Codex, 2026-10-25, sole coordinator for the stabilization order below.
 
-## Astra engineering Sprint 2 — completed 2026-10-25 (current)
+## Astra engineering Sprint 3 — complete, 2026-10-25 (current)
+
+- Candidate `p16-rebase-20261024` at `b5566fc12acdfb61b18138dc7fa288ea59c24780`, pushed and explicit GitHub ref verified. Production repair `7bafd123`; final policy-test/records checkpoint `b5566fc1`. Main/wip records descend from `30a4d0bfd7f610f69bcff86b6162bb79bac7ea24`; only HANDOFF/docs synchronize. No P16 source merge, history rewrite or Sprint 4.
+- Owner A–F are binding in the existing Wave 3 decision brief. All five original fractional-policy cases pass; actual signed cash, exits and history remain at par. Genuine negative R04 close/save/replay passes in 3.071s solo and 4.005s broad, with zero lawful exits.
+- Fresh forecast centers reduce post-opening 10.784→5.246s and adoptions 20.134→10.465s; both remain over 5s. Full S7 22/22 assertions, Save As 14.349s within 30s. Joined-D/replay and other timing failures remain open.
+- One 54-file gate: 260/263, with all original five and 11 P16 Bridge assertions passing. Three obsolete rival price pins corrected under Owner A; complete affected file 3/3 within 5s. Production source unchanged after gate. Final root/UI/Bridge types and contracts pass; source/integration review clear. All 17 P14 seating failures match predecessor causes.
+- Evidence: `docs/engineering/audits/2026-10-22-codebase-review/p16-sprint3/RESULTS.md`, review, source manifests and retained failures; [lesson GS follow-up](docs/LESSONS-LEARNED.md#gs-follow-up--p16-sprint-3-2026-10-25). No runtime or lane lock remains. Sole coordinator integration; Sol implementation preparation and independent focused review.
+- Sprint 3 is complete. Next: return the concise results report after this records-only publication postflight. Recommend newly authorized work on remaining measured joined-D/replay and S7-adoption costs, then required game/platform and historical acceptance. Do not automatically start Sprint 4 or promote P16. No new policy ruling is needed for A–E; main integration remains an Owner decision.
+
+## Astra engineering Sprint 2 — completed 2026-10-25 (historical)
 
 - Candidate `p16-rebase-20261024` at `481fd444befc8c4743fedad0a842aff98ed8dddb`, pushed and explicit GitHub remote ref verified. Performance commit771c75b7; entryf6c31caa. Main/wip records publication descends from a92e2c66 and carries only HANDOFF/docs. Sole coordinator integration; GPT-6.1 Sol implementation preparation, Astra scope/final decisions. No active runtime or lock; source review and integration audit complete.
 - Both C-03 missing premises resolved with genuine transactions: all14 laws now reach assertions.13/14 complete-file budgets qualified; post-opening6.943s remains over5s (11.397s broad). Pendinglicence3.124s solo/5.582s broad. No invented closure/cash/history/P17 or notOffered policy.

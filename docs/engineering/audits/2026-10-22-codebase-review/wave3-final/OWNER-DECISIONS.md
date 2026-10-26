@@ -1,6 +1,23 @@
 # Wave 3 Owner decisions — verified checkpoint 2026-10-25
 
+## Binding Sprint 3 Owner decisions — 2026-10-25
+
+These explicit Owner decisions supersede the pending recommendations below for P16. Historical evidence remains preserved; no historical transaction rewrite is authorized.
+
+- **A — Consent ask:** `max(0, ceil(premium-adjusted library value + actual post-exit cash))`. Ceiling applies to the complete sum. Preserve actual positive, negative and fractional target cash, exit charges and cash transferred at par.
+- **B — Buyer reserve:** calculate the complete lawful resulting weekly fixed cost, including retained salaries and overhead; round that total upward once, then multiply by the existing reserve-weeks constant. Compare actual spendable buyer cash with outlay plus reserve. Do not round individual salaries first.
+- **C — C-06:** retain strict refusal for unqualified table-3-to-table-2 transformations. Shared ordinal or row name is insufficient proof; no blanket relabel.
+- **D — Legacy:** preserve genuine historical table-2 migrations and valid structural admission. No new marker, blanket rejection or invented stamp-versus-era law. A demonstrated admission defect needs a separately bounded correction.
+- **E — S7:** approve persisted `announcement:<filmId>` exclusively in existing `rights.titleEvents[n].source.ref`, supported by the real receipt. Payloads remain derived; historical compatibility checks remain.
+- **F — Performance/integration:** original budgets unchanged; candidate-only gameplay, no P16 merge to main in Sprint 3 and no P17/P18. Records-only synchronization retains its limited authorization.
+
 The P16 candidate remains separate from main. Routine technical repairs below do not require a gameplay ruling. The existing ledger retains unrelated deferred issues.
+
+## Sprint 3 implementation outcome
+
+A/B are implemented and independently reviewed; all five original failures now pass. C/D retain existing strict refusal and genuine structural admission. E retains the approved existing source-ref representation and derived payload. No new policy decision is requested. Timing, historical controls and full-game/platform/player acceptance remain engineering work; P16 promotion requires a separate Owner authorization. See [Sprint 3 results](../p16-sprint3/RESULTS.md).
+
+## Historical Wave 3 brief — superseded where A–F govern
 
 | Decision | Existing rule and conflicting evidence | Options | Recommendation and consequence |
 | --- | --- | --- | --- |

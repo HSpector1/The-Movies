@@ -1,0 +1,10 @@
+{
+  "src/core/acquisition.ts": "221e7c63f412d686a99c4ae997ab4d4ae5f39ffcc651593e66e75dfe013bee92",
+  "src/core/forecast.ts": "faa5002eb0e2b866a3b74abd927ea7b89b7fef3a47f3128c997b191a25e6ce3e",
+  "src/core/marketingMenu.ts": "f1504f5ab54868466b6c878a2cf958a6f47363f85a32ac9f95cfc8663fcef98d",
+  "src/core/hollywoodPolicy.ts": "2918d9185a2899f22d00be1102893b9c6c98ddef41360c3fc96565dde12e0c29",
+  "tests/p16c-acquisition.test.ts": "dd81191bad69f0a327dfc8f9be59dd6317800d94e588cd48ecbddeba272d4961",
+  "tests/p16-r2-acquisition.test.ts": "122554694550faba0cb400541c241f359b0cef15d9c9f5c5e8f31a3627893d9a",
+  "tests/p14d2-binding-cash.test.ts": "1a13f4031394cad32d143d389680964d91a7dbf55ef41de39963887d356392b7",
+  "tests/p16-rival-buyer-absorption163-baseline.test.ts": "356c862cc6f4006a6cb0db8248216a9de14bc8d886a7d74053eec44b900b4c6a"
+}

@@ -1,0 +1,46 @@
+--- a/src/core/acquisition.ts
++++ b/src/core/acquisition.ts
+@@ -37,7 +37,7 @@
+ // (1362-O 5.5; contract §6) before it reveals anything; the target's consent is checked AT THE QUOTE against an ask that
+ // prices the post-exit cash the buyer takes at par (1362-O 5.8: no acquisition windfall); P14's person-choice refusals
+ // (a Distrusted issuer, a Nemesis on the roster) bind the buyer like any other employer; asset consideration is whole dollars; actual target cash transfers at par, including fractions.
+-// Fixed cost and reserve retain their existing rounded-up quote policy.
++// The ask rounds the complete premium-plus-cash sum; the reserve rounds the aggregate resulting fixed cost.
+ //
+ // Executable current49 milestone: clean targets only, with terminal/linked-employer/cash/title/research
+ // producers below. Work/run/knowledge/rival-buyer producer extensions remain required before acceptance.
+@@ -45,7 +45,7 @@
+ import { moveRivalMoney } from './hollywood.js'
+ import { contractEndRefusal } from './careerLifecycle.js'
+ import { castingOccupiedFacilitySlots } from './castingSessions.js'
+-import { guaranteedComp, terminationCost, weeklySalary } from './employment.js'
++import { guaranteedComp, terminationCost } from './employment.js'
+ import type { RivalBusiness } from './hollywoodTypes.js'
+ import { resourceClaims, setOccupiedFacilitySlots } from './occupancy.js'
+ import { addManagedProductionWorkflow } from './operations.js'
+@@ -164,7 +164,7 @@
+ 
+ /** r2 (F8/F33): the consent ask — premium-adjusted library value plus the post-exit cash that moves at par, never below zero. */
+ export function absorptionAsk(libraryValue: number, postExitCash: number): number {
+-  return Math.max(0, Math.ceil((libraryValue * (100 + TUNING.RIGHTS_WILLINGNESS_PREMIUM_PERCENT)) / 100) + postExitCash)
++  return Math.max(0, Math.ceil((libraryValue * (100 + TUNING.RIGHTS_WILLINGNESS_PREMIUM_PERCENT)) / 100 + postExitCash))
+ }
+ 
+ /** The provisional consent policy: a rival sells its business at or above its ask (`absorptionAsk`). */
+@@ -262,7 +262,7 @@
+   const rows: Row[] = h.activeEmploymentOrdinals.map((i) => h.employment[i]!)
+     .filter((e) => e.studioId === input.targetId && e.endedWeek === null && e.terms.startWeek <= week && week < e.terms.endWeekExclusive)
+     .map((e) => ({ contractId: e.contractId, talentId: e.terms.talentId, annualSalary: e.terms.annualSalary, signingBonus: e.terms.signingBonus,
+-      startWeek: e.terms.startWeek, endWeekExclusive: e.terms.endWeekExclusive, weeklySalary: weeklySalary(e.terms.annualSalary),
++      startWeek: e.terms.startWeek, endWeekExclusive: e.terms.endWeekExclusive, weeklySalary: e.terms.annualSalary / TUNING.TICKS_PER_YEAR,
+       exitCost: terminationCost(e.terms, week), guarantee: guaranteedComp(e.terms, week) }))
+   if (input.retention.kind === 'explicit') {
+     for (const id of input.retention.contractIds) if (!rows.some((r) => r.contractId === id)) return { kind: 'refusal', refusal: `unknownContract:${id}` }
+@@ -282,6 +282,7 @@
+     const postExitCash = targetCash - exitCharges
+     const outlay = input.consideration - postExitCash
+     const kept = rows.filter((r) => retained.has(r.contractId))
++    // Reserve projection sums retained salary rates before rounding; actual payroll/exits keep their own law.
+     const resultingWeeklyFixedCost = Math.ceil(buyerFixed + kept.reduce((s, r) => s + r.weeklySalary, 0) + TUNING.OVERHEAD_PER_EMPLOYEE * kept.length)
+     const reserveAfter = TUNING.RIGHTS_RESERVE_WEEKS * resultingWeeklyFixedCost
+     return { exitCharges, postExitCash, outlay, resultingWeeklyFixedCost, reserveAfter, affordable: spendable - outlay >= reserveAfter,
