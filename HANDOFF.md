@@ -1,6 +1,6 @@
 # HANDOFF
 
-Last writer: Codex, 2026-10-25, sole coordinator for the authorized Sprints 5–16 program.
+Last writer: Codex, 2026-10-26, sole coordinator for the authorized Sprints 5–16 program.
 
 ## Sprints 5–16 authorized program — active, 2026-10-25 (current)
 
@@ -9,6 +9,7 @@ Last writer: Codex, 2026-10-25, sole coordinator for the authorized Sprints 5–
 - Sprint 5 BLOCKED: actual equipment preflight at 22:31 CDT refused with 2,261,252 KiB free versus launch 3,670,016 / runtime 3,145,728 KiB. Zero detected heavy jobs at that observation; no Studio lane/job started. This is not an exclusive-window guarantee. No repeated failed preflight, cleanup or foreign termination.
 - One tracked full-gate input restored exactly: authority-failure.json blob `762fdec7330a1f24a126b6ed0e763e7e79ccfc94`. Three ignored r3n1 checkpoints remain absent; known manifests lack them and historical records locate them on the old laptop. Original package/reports and sufficient headroom/exclusive window requested from Owner. Evidence: `p16-sprint5/INPUT-RECOVERY.md` and `ENTRY.json`; raw host receipt stays private in scratch.
 - Independent preparation: 13-path retained-writing/Accept/Rewrite draft and unchanged ten tests preserved outside candidate. Final independent review found omitted retirement-writing authority; installation BLOCKED pending proper live/save authority integration and runtime witness (p16-sprint5/DRAFT-REVIEW.md). Runtime, integration and Sprint 7 completion remain unclaimed. Existing browser smoke already covers new studio → film release → save/reload; no replacement harness. See program rows in LEDGER and preserved Sprint 4 lessons/process limit.
+- Owner-authorized cleanup, 2026-10-26: removed unregistered/unopened Claude extension 2.1.306 (registered 2.1.310 retained) and regenerable Homebrew/pip caches. Net free-space gain 378,980 KiB; after cleanup 2,467,392 KiB, still 1,202,624 KiB below launch minimum. No source, dependencies, evidence or session history removed. Receipt: `p16-sprint5/storage-cleanup-20261026.json`. No heavy launch or repeated preflight. Records checkpoint follows main/wip e52739c7; candidate remains 013c4edc.
 - Next: recover original three-fixture package/provenance; once actual resources/exclusivity change, bind the prepared full-tree runner/selection to this candidate, pass current equipment preflight and execute full core (includes Bridge) plus UI once through sole lane. Freeze source/index/HANDOFF through postflight and independent audit. Do not substitute a P16-only run or manufacture historical inputs.
 - No new gameplay policy decision requested. Sprints 10–14 and combined platform qualification remain dependent; native/browser/Owner acceptance stays separate. Original current200, prior failures and candidates preserved. Program not complete; do not promise background execution.
 

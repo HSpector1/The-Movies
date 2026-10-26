@@ -1,0 +1,27 @@
+{
+  "at": "2026-10-26T08:16:29.086809-05:00",
+  "authorization": "Owner requested deletion of local files no longer needed for development",
+  "deleted": [
+    {
+      "path": "/Users/zacheryspector/.vscode/extensions/anthropic.claude-code-2.1.306-darwin-x64",
+      "allocatedKiB": 289804
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Caches/Homebrew/api",
+      "allocatedKiB": 54872
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Caches/Homebrew/bootsnap",
+      "allocatedKiB": 6700
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Caches/pip/http-v2",
+      "allocatedKiB": 23284
+    }
+  ],
+  "freeBeforeKiB": 2088412,
+  "freeAfterKiB": 2467392,
+  "netFreeIncreaseKiB": 378980,
+  "launchMinimumKiB": 3670016,
+  "sourceEvidenceDependenciesPreserved": true
+}
