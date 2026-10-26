@@ -418,7 +418,6 @@ function absorptionPlanQuote(state: GameState, targetId: string): AbsorptionReco
 export function absorptionProducerRefusal(state: GameState, input: AbsorptionInput): string | null {
   const h = state.hollywood
   if (!h) return 'noIndustry'
-  if (input.buyerId !== h.playerStudioId && (input.retention.kind !== 'explicit' || input.retention.contractIds.length !== 0)) return 'rivalBuyerRetentionProducerRequired'
   if (acquiredActiveRunFilms(state,input.targetId,state.market.tick).length!==0) return 'acquiredRunReassignmentProducerRequired'
   const b = h.businesses.find(b => b.studioId === input.targetId)
   if (!b) return 'unknownTarget'
@@ -455,9 +454,12 @@ export function closeAbsorption(state: GameState, input: AbsorptionInput, week: 
   if (!q.affordable) throw new Error('absorption: insufficientCashAfterReserve')
   const unsupportedScript=q.scripts.find(script=>script.disposition==='continuationRequired')
   if(unsupportedScript)throw new Error(`absorption: ${unsupportedScript.reason==='partialWriterTeamProducerRequired'?'partialWriterTeamProducerRequired':unsupportedScript.reason==='writerCapacityUnavailable'?'retainedScriptCapacityProducerRequired':'retainedScriptProducerRequired'}`)
-  // This real rival-owner slice has no new employer contracts or buyer workflows. Never turn a quoted continuation into a convenient terminal write-off.
+  // Rival employment uses its native interval owner; continued production and writing
+  // still need their own buyer workflow producers. Never silently write them off.
   if(input.buyerId!==state.hollywood!.playerStudioId){
-    if(q.contracts.some(c=>c.retained))throw new Error('absorption: rivalBuyerRetentionProducerRequired')
+    // Cost-cutting has no native new-employment producer; do not clear its mode
+    // or use an acquisition to evade the existing commitment/market law.
+    if(q.contracts.some(c=>c.retained) && state.hollywood!.businesses.find(b=>b.studioId===input.buyerId)!.costCutting.since!==null)throw new Error('absorption: rivalBuyerCostCuttingRetentionProducerRequired')
     if(q.productions.some(p=>p.disposition==='continues'))throw new Error('absorption: rivalBuyerContinuedWorkProducerRequired')
     if(q.scripts.some(s=>s.disposition==='continues'))throw new Error('absorption: rivalBuyerScriptProducerRequired')
   }
@@ -483,9 +485,11 @@ export function closeAbsorption(state: GameState, input: AbsorptionInput, week: 
     let buyerContractId: string | null = null
     if (row.retained) {
       const terms = {...original.terms,startWeek:week,termWeeks:original.terms.endWeekExclusive-week}
-      buyerContractId = `${input.buyerId}:contract:${row.talentId}:${week}:player-${employment.length}`
+      buyerContractId = `${input.buyerId}:contract:${row.talentId}:${week}${input.buyerId===h.playerStudioId?`:player-${employment.length}`:''}`
       employment.push({contractId:buyerContractId,studioId:input.buyerId,terms,endedWeek:null,reason:'absorptionContinuation'})
-      contracts.push(terms)
+      // Rival payroll reads Hollywood employment directly; only a player bargain
+      // belongs in the player contracts/action root. The source bonus stays factual.
+      if(input.buyerId===h.playerStudioId)contracts.push(terms)
     }
     receipts.push({kind:'employment',eventId:`industry-event-${nextReceipt++}`,week,studioId:input.targetId,
       talentId:row.talentId,fromStudioId:input.targetId,toStudioId:null,contractId:row.contractId,
@@ -494,7 +498,8 @@ export function closeAbsorption(state: GameState, input: AbsorptionInput, week: 
       talentId:row.talentId,fromStudioId:input.targetId,toStudioId:input.buyerId,contractId:buyerContractId,reason:'absorptionContinuation'})
     links.push({sourceContractId:row.contractId,buyerContractId,talentId:row.talentId,exitCost:row.retained?0:row.exitCost})
   }
-  const employed = new Set(contracts.filter(c => c.startWeek <= week && week < c.endWeekExclusive).map(c => c.talentId))
+  const employed = new Set([...contracts.filter(c => c.startWeek <= week && week < c.endWeekExclusive).map(c => c.talentId),
+    ...links.filter(c=>c.buyerContractId!==null).map(c=>c.talentId)])
   const released = q.contracts.filter(c => !c.retained).map(c => c.talentId)
   const freeAgents = [...new Set([...state.freeAgents,...released])].filter(id => !employed.has(id))
   const record: AbsorptionRecord = {id:allocated.id,week,buyerId:input.buyerId,targetId:input.targetId,disclosureId:q.disclosureId,
@@ -614,10 +619,9 @@ export function validateAbsorptionRoot(state: GameState, label: string, retireme
     if (!d || d.recipientId !== a.buyerId || d.target.kind !== 'studio' || d.target.studioId !== a.targetId
       || !ABSORPTION_DISCLOSURE_SCOPE.every(s => d.scope.includes(s)) || d.week > a.week || d.staleFromWeek <= a.week) fail('missing genuine fresh full disclosure')
     if (![a.contracts,a.research,a.facilities,a.titleEventIds,a.knowledge,a.physicalPlans,a.adoptions,a.stoppedProductions,a.continuedProductions,a.buyerWorkflows,a.workSteps,a.workReleases,a.workCancellations,a.runs,a.runReceipts].every(Array.isArray)) fail('dispositions must be arrays')
-    if(a.buyerId!==h!.playerStudioId && (a.contracts.some(c=>c.buyerContractId!==null)
-      || a.continuedProductions.length!==0 || a.buyerWorkflows.length!==0 || a.workSteps.length!==0
+    if(a.buyerId!==h!.playerStudioId && (a.continuedProductions.length!==0 || a.buyerWorkflows.length!==0 || a.workSteps.length!==0
       || a.workReleases.length!==0 || a.workCancellations.length!==0)) {
-      fail('rival buyer retained employment/work producer is not admitted')
+      fail('rival buyer continued work producer is not admitted')
     }
     if(acquiredActiveRunFilms(state,a.targetId,a.week).length!==0)fail('acquired run reassignment producer is not admitted')
     const originals = h!.employment.filter(e => e.studioId === a.targetId && e.endedWeek === a.week && e.terms.endWeekExclusive > a.week

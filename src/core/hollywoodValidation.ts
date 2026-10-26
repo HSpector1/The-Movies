@@ -419,7 +419,9 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
     const scriptById=new Map(b.development.projects.map(p=>[p.id,p]))
     requireFact(scriptById.size===b.development.projects.length,'duplicate screenplay identity')
     const activeProductionById=new Map(b.productions.map(p=>[p.id,p]))
-    requireFact(close(movements.signing!, -employed.reduce((sum,e)=>sum+e.terms.signingBonus,0)),'signing bonuses do not reconcile')
+    // A linked continuation carries its original paid signing provenance, not a
+    // second payment by this employer. Ordinary entry/replacement/renewal still pay.
+    requireFact(close(movements.signing!, -employed.filter(e=>e.reason!=='absorptionContinuation').reduce((sum,e)=>sum+e.terms.signingBonus,0)),'signing bonuses do not reconcile')
     const personWeeks = employed.map(e=>Math.max(0,Math.min(state.market.tick,e.endedWeek ?? e.terms.endWeekExclusive)-e.terms.startWeek))
     requireFact(close(movements.payroll!, -employed.reduce((sum,e,i)=>sum+personWeeks[i]!*weeklySalary(e.terms.annualSalary),0)), 'payroll does not reconcile with employment intervals')
     const elapsed = chargedThrough-studios.get(b.studioId)!.enteredWeek!

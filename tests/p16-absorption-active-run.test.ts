@@ -9,6 +9,9 @@ import * as acquisition from '../src/core/acquisition.js'
 import { requestDiligence } from '../src/core/dueDiligence.js'
 import { conditionRecord, outstandingLoan } from '../src/core/corporateConditionLive.js'
 import { terminationCost } from '../src/core/employment.js'
+import { weeklySalary, guaranteedComp } from '../src/core/employment.js'
+import { releaseRefusal } from '../src/core/corporateConditionLive.js'
+import { rivalWeeklyOperatingCost } from '../src/core/hollywood.js'
 import { libraryValuationV1 } from '../src/core/propertyValuation.js'
 import { resolveTitles, subjectsHeldBy, currentHolder, actualP16Money } from '../src/core/rights.js'
 import { permittedBidderRefusal, spendableCash, weeklyFixedCost } from '../src/core/rightsFinance.js'
@@ -374,6 +377,139 @@ describe('P16 genuine rival buyer of the original R01 theatrical run', () => {
    .toEqual(next.hollywood!.receipts.filter(r=>r.kind==='filmSettled'&&r.productionId===ownFilmId))
   expect(JSON.stringify(next)).toBe(nextBefore)
   expect(JSON.stringify(closed)).toBe(closedBefore);expect(JSON.stringify(paid.state)).toBe(paidBefore)
+  expect(JSON.stringify(initial)).toBe(initialBefore);expect(JSON.stringify(old)).toBe(oldBefore);expect(JSON.stringify(raw)).toBe(rawBefore)
+ })
+})
+
+// Fixed original director retention; ordinary rival staffing remains authoritative afterwards.
+describe('P16 genuine rival employment retention at the original170 acquisition',()=>{
+ it('retains the actual remaining bargain without another bonus then pays its native surplus termination before payroll with save replay',()=>{
+  const root=process.env.P16_ORIGINAL48_CAPTURE_ROOT;expect(root).toBeTruthy()
+  const bytes=readFileSync(root+'/r04-actual163.save48.json')
+  expect(createHash('sha256').update(bytes).digest('hex')).toBe('c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad')
+  // Same admitted drained-R04 fixture as above; no new finance or historical constructor.
+  const raw=JSON.parse(bytes.toString()),rawBefore=JSON.stringify(raw),old=saves.validateSaveP15B(raw),oldBefore=JSON.stringify(old)
+  const initial=saves.convertV48ToV49(old).state,initialBefore=JSON.stringify(initial)
+  expect(initial.market.tick).toBe(163)
+  let state=initial
+  for(let boundary=164;boundary<=170;boundary++) {
+   const prior=state,before=JSON.stringify(prior);state=tick(prior)
+   expect(state.market.tick).toBe(boundary);expect(JSON.stringify(prior)).toBe(before)
+  }
+  saves.makeSave(state)
+  const buyerId='studio-aca408ec-r02',personId='person-studio-aca408ec-r01-1'
+  const sourceId=TARGET+':contract:'+personId+':0',buyerContractId=buyerId+':contract:'+personId+':170'
+  const source=state.hollywood!.businesses.find(b=>b.studioId===TARGET)!,buyer=state.hollywood!.businesses.find(b=>b.studioId===buyerId)!
+  const employees=state.hollywood!.activeEmploymentOrdinals.map(i=>state.hollywood!.employment[i]!).filter(e=>e.studioId===TARGET)
+  const original=employees.find(e=>e.contractId===sourceId)!
+  expect(employees).toHaveLength(6);expect(original).toBeDefined()
+  expect(original).toMatchObject({studioId:TARGET,endedWeek:null,reason:'entry',terms:{talentId:personId,startWeek:0,termWeeks:208,endWeekExclusive:208,annualSalary:141075,signingBonus:25394}})
+  expect(state.talent.find(t=>t.id===personId)?.role).toBe('director')
+  expect(source.productions).toEqual([])
+  expect(source.development.projects.filter(p=>p.status==='drafting'||p.status==='rewriting')).toEqual([])
+  expect(source.runs).toMatchObject([{productionId:FILM,releaseTick:169,weekIndex:1}])
+  expect(buyer.costCutting.since).toBeNull()
+  for(const id of [buyerId,TARGET]) {
+   expect(conditionRecord(state,id)?.condition).toMatchObject({stage:'stable',week:170})
+   expect(outstandingLoan(state,id,170)).toBeUndefined()
+  }
+  expect(state.promises.filter(p=>p.issuerStudioId===TARGET&&p.outcome===null)).toEqual([])
+  expect(state.talentMarket.proposals.filter(p=>p.issuerStudioId===TARGET)).toEqual([])
+  expect(state.talentMarket.cases.filter(c=>c.subjectStudioId===TARGET&&c.closedWeek===null)).toEqual([])
+  const before=JSON.stringify(state)
+  const paid=requestDiligence(state,{recipientId:buyerId,target:{kind:'studio',studioId:TARGET},scope:['rights','employment','liabilities']},170)
+  expect(JSON.stringify(state)).toBe(before)
+  const paidBefore=JSON.stringify(paid.state)
+  expect(paid.state.studio).toEqual(state.studio);expect(paid.state.ledger).toEqual(state.ledger)
+  expect(paid.state.hollywood!.businesses.find(b=>b.studioId===buyerId)!.account.cash).toBe(buyer.account.cash-paid.record.fee)
+  const exits=employees.filter(e=>e.contractId!==sourceId).reduce((sum,e)=>sum+terminationCost(e.terms,170),0)
+  expect(exits).toBe(1234792)
+  const postExitCash=source.account.cash-exits,value=libraryValuationV1(paid.state,TARGET,170)
+  expect(value.kind).toBe('available');if(value.kind!=='available')throw new Error('fixed director retention needs actual library value')
+  const consideration=acquisition.absorptionAsk(value.total,postExitCash)
+  const preview={buyerId,targetId:TARGET,consideration,retention:{kind:'explicit' as const,contractIds:[sourceId]},disclosureId:paid.record.id}
+  const quote=acquisition.quoteAbsorption(paid.state,preview,170)
+  expect(quote.kind,'fixed original director must actually consent and fit the complete transaction').toBe('quote')
+  if(quote.kind!=='quote')throw new Error(quote.refusal)
+  expect(quote.contracts.filter(c=>c.retained)).toMatchObject([{contractId:sourceId,talentId:personId,busyOn:null,reason:null}])
+  expect(quote.contracts.filter(c=>c.retained)).toHaveLength(1)
+  expect(quote.contracts.filter(c=>!c.retained)).toHaveLength(5)
+  expect(quote.productions).toEqual([]);expect(quote.scripts).toEqual([])
+  expect(quote.affordable).toBe(true);expect(quote.ask).toBe(consideration)
+  expect(quote.exitCharges).toBe(exits);expect(quote.postExitCash).toBe(postExitCash)
+  expect(quote.guarantees).toBe(guaranteedComp(original.terms,170));expect(quote.guarantees).toBe(103094)
+  expect(quote.outlay).toBe(consideration-postExitCash)
+  expect(quote.resultingWeeklyFixedCost).toBe(Math.ceil(weeklyFixedCost(paid.state,buyerId)+original.terms.annualSalary/TUNING.TICKS_PER_YEAR+TUNING.OVERHEAD_PER_EMPLOYEE))
+  expect(quote.reserveAfter).toBe(TUNING.RIGHTS_RESERVE_WEEKS*quote.resultingWeeklyFixedCost)
+  expect(spendableCash(paid.state,buyerId)-quote.outlay).toBeGreaterThanOrEqual(quote.reserveAfter)
+  const input={...preview,quotedAtWeek:quote.quotedAtWeek,quoteAgePolicyVersion:quote.quoteAgePolicyVersion}
+  expect(input.quotedAtWeek).toBe(170)
+  console.info('S8_RIVAL_RETENTION_REAL170_PREMISES '+JSON.stringify({buyerId,targetId:TARGET,sourceId,personId,exits,consideration,outlay:quote.outlay,reserve:quote.reserveAfter,guarantees:quote.guarantees,producerRefusal:acquisition.absorptionProducerRefusal(paid.state,input)}))
+  let closed:GameState
+  try {closed=acquisition.closeAbsorption(paid.state,input,170)}
+  finally {
+   expect(JSON.stringify(paid.state)).toBe(paidBefore);expect(JSON.stringify(state)).toBe(before)
+   expect(JSON.stringify(initial)).toBe(initialBefore);expect(JSON.stringify(old)).toBe(oldBefore);expect(JSON.stringify(raw)).toBe(rawBefore)
+  }
+  const record=closed.rights.absorptions.find(a=>a.targetId===TARGET)!
+  expect(record.contracts.filter(c=>c.buyerContractId!==null)).toEqual([{sourceContractId:sourceId,buyerContractId,talentId:personId,exitCost:0}])
+  expect(record.contracts.filter(c=>c.buyerContractId===null).map(c=>({id:c.sourceContractId,cost:c.exitCost})))
+   .toEqual(employees.filter(e=>e.contractId!==sourceId).map(e=>({id:e.contractId,cost:terminationCost(e.terms,170)})))
+  expect(record).toMatchObject({buyerId,targetId:TARGET,week:170,exitCharges:exits,postExitCash,outlay:quote.outlay})
+  expect(record.continuedProductions).toEqual([]);expect(record.buyerWorkflows).toEqual([])
+  const ended=closed.hollywood!.employment.find(e=>e.contractId===sourceId)!,kept=closed.hollywood!.employment.find(e=>e.contractId===buyerContractId)!
+  expect(ended).toEqual({...original,endedWeek:170})
+  expect(kept).toEqual({contractId:buyerContractId,studioId:buyerId,endedWeek:null,reason:'absorptionContinuation',terms:{...original.terms,startWeek:170,termWeeks:38}})
+  expect(closed.hollywood!.activeEmploymentOrdinals.map(i=>closed.hollywood!.employment[i]!.contractId)).toContain(buyerContractId)
+  expect(closed.freeAgents).not.toContain(personId)
+  for(const e of employees.filter(e=>e.contractId!==sourceId))expect(closed.freeAgents).toContain(e.terms.talentId)
+  expect(closed.contracts).toEqual(paid.state.contracts);expect(closed.studio).toEqual(paid.state.studio)
+  expect(closed.operations).toEqual(paid.state.operations);expect(closed.ledger).toEqual(paid.state.ledger)
+  expect(closed.hollywood!.receipts.slice(0,paid.state.hollywood!.receipts.length)).toEqual(paid.state.hollywood!.receipts)
+  const closeReceipts=closed.hollywood!.receipts.slice(paid.state.hollywood!.receipts.length).filter(r=>r.kind==='employment')
+  expect(closeReceipts).toHaveLength(7)
+  expect(closeReceipts.filter(r=>r.talentId===personId)).toMatchObject([
+   {week:170,studioId:TARGET,contractId:sourceId,talentId:personId,fromStudioId:TARGET,toStudioId:null,reason:'absorptionContinuation'},
+   {week:170,studioId:buyerId,contractId:buyerContractId,talentId:personId,fromStudioId:TARGET,toStudioId:buyerId,reason:'absorptionContinuation'},
+  ])
+  const booked=(s:GameState,id:string,kind:'signing'|'termination'|'payroll')=>s.hollywood!.businesses.find(b=>b.studioId===id)!.account.periods.reduce((sum,p)=>sum+p.movements[kind],0)
+  for(const id of [TARGET,buyerId])expect(booked(closed,id,'signing')).toBe(booked(paid.state,id,'signing'))
+  expect(booked(closed,TARGET,'termination')-booked(paid.state,TARGET,'termination')).toBe(-exits)
+  expect(booked(closed,buyerId,'termination')).toBe(booked(paid.state,buyerId,'termination'))
+  const closedBuyer=closed.hollywood!.businesses.find(b=>b.studioId===buyerId)!
+  expect(closedBuyer.account.cash).toBe(buyer.account.cash-paid.record.fee-record.outlay)
+  expect(closed.hollywood!.businesses.find(b=>b.studioId===TARGET)!.account.cash).toBe(0)
+  // Existing R02 staffing keeps its original director, then releases the newly surplus interval before payroll.
+  expect(buyer.nextDecisionWeek).toBe(170)
+  expect(releaseRefusal(closed,buyerId,personId)).toBeNull()
+  expect(kept.terms.endWeekExclusive-170).toBeGreaterThan(TUNING.HIRING_TERMINATION_CAP_WEEKS)
+  expect(closed.promises.filter(p=>p.issuerStudioId===buyerId&&p.beneficiaryPersonId===personId&&p.outcome===null)).toEqual([])
+  const charge=terminationCost(kept.terms,170);expect(charge).toBe(70538)
+  // Sufficient affordability even before removing this person's salary/overhead from the native reserve.
+  expect(closedBuyer.account.cash-charge).toBeGreaterThanOrEqual(rivalWeeklyOperatingCost(closedBuyer,closed.hollywood!,170)*closedBuyer.policy.reserveWeeks)
+  const closedBefore=JSON.stringify(closed),text=saves.exportCurrentState(closed),reload=saves.migrateToLive(saves.importSave(text)).state,reloadBefore=JSON.stringify(reload)
+  expect(saves.exportCurrentState(reload)).toBe(text)
+  const next=tick(closed),replay=tick(reload)
+  expect(JSON.stringify(closed)).toBe(closedBefore);expect(JSON.stringify(reload)).toBe(reloadBefore)
+  expect(next.market.tick).toBe(171);expect(saves.exportCurrentState(replay)).toBe(saves.exportCurrentState(next))
+  expect(next.hollywood!.employment.find(e=>e.contractId===buyerContractId)).toEqual({...kept,endedWeek:170})
+  const termination=next.hollywood!.receipts.filter(r=>r.kind==='employment'&&r.contractId===buyerContractId&&r.reason==='termination')
+  expect(termination).toHaveLength(1)
+  expect(termination[0]).toMatchObject({week:170,studioId:buyerId,talentId:personId,fromStudioId:buyerId,toStudioId:null})
+  expect(booked(next,buyerId,'termination')-booked(closed,buyerId,'termination')).toBe(-charge)
+  const paidPeople=next.hollywood!.employment.filter(e=>e.studioId===buyerId&&e.terms.startWeek<=170&&170<e.terms.endWeekExclusive&&(e.endedWeek===null||e.endedWeek>170))
+  expect(paidPeople.some(e=>e.contractId===buyerContractId)).toBe(false)
+  expect(booked(next,buyerId,'payroll')-booked(closed,buyerId,'payroll')).toBe(-paidPeople.reduce((sum,e)=>sum+weeklySalary(e.terms.annualSalary),0))
+  const nextBuyer=next.hollywood!.businesses.find(b=>b.studioId===buyerId)!
+  const totalBefore=closedBuyer.account.periods.reduce((sum,p)=>sum+Object.values(p.movements).reduce((n,m)=>n+m,0),0)
+  const totalAfter=nextBuyer.account.periods.reduce((sum,p)=>sum+Object.values(p.movements).reduce((n,m)=>n+m,0),0)
+  expect(nextBuyer.account.cash-closedBuyer.account.cash).toBeCloseTo(totalAfter-totalBefore,6)
+  expect(nextBuyer.account.cash).toBeCloseTo(nextBuyer.account.openingBalance+totalAfter,6)
+  const finalText=saves.exportCurrentState(next),finalReload=saves.migrateToLive(saves.importSave(finalText)).state
+  expect(saves.exportCurrentState(finalReload)).toBe(finalText)
+  try {expect(()=>acquisition.closeAbsorption(closed,input,170)).toThrow(/^absorption: targetTerminal$/)}
+  finally {expect(JSON.stringify(closed)).toBe(closedBefore)}
+  expect(JSON.stringify(paid.state)).toBe(paidBefore);expect(JSON.stringify(state)).toBe(before)
   expect(JSON.stringify(initial)).toBe(initialBefore);expect(JSON.stringify(old)).toBe(oldBefore);expect(JSON.stringify(raw)).toBe(rawBefore)
  })
 })
