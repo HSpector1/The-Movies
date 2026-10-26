@@ -1,0 +1,18 @@
+[
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/director-satisfied-week78.json.gz",
+    "gitBlob": "734503c5410622eacdcc560c1c537e73558394f1",
+    "bytes": 114159,
+    "sha256": "788fdd550d240751c0ca4d89991b7dfd925495341f19b6e09c30d6efd8520e29",
+    "rawSha256": "d0ce6b5427f2ca880214024019798e3372123e8148f542a6e22578b11c18ee80",
+    "source": "Exact tracked HEAD blob; original test pins verified"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/director-canceled-work-week61.json.gz",
+    "gitBlob": "0dde4bcdaf14ef8675d9fae02c9eab3b17174efd",
+    "bytes": 99923,
+    "sha256": "c6492f5660b2e8fb20d48c6f054566b25f47500512d2b9ff87a8a6ebb46788b6",
+    "rawSha256": "8ebb7ca8758c79c8ada73889d24ecc4038e1e3b0edf5bd77c56c723cffee290d",
+    "source": "Exact tracked HEAD blob; original test pins verified"
+  }
+]

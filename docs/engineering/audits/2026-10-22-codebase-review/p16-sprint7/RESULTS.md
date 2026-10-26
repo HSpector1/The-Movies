@@ -1,3 +1,15 @@
+## Native lifecycle verification checkpoint — 2026-10-26, 14:49 CDT
+
+Final root, Bridge and UI typechecks pass on reviewed v2+v4+v5+v6 source. Complete screenplay10/10 functional results are reused; all exceed their original five-second budgets. Actual paid greenlight, cancellation/replay, first take, hold/save, issuer/date refusals, release/replay, market/Legacy, rights and conservation are reached. Concurrent queued work is not established.
+
+Seven complete affected files:176/179 passed. Exact tracked Q04 captures were restored and Q04 passed in15,899ms under its original60,000ms budget, with nine unchanged cases skipped. Combined scoped evidence covers177/179 successful identities, not a rerun full gate. Remaining: inherited strict38/live49 equality with final purity unreached; Legacy downgrade elapsed142,193ms against explicit120,000ms after completing its semantic body. The inspected wave3l report lacks a comparable Legacy measurement, so causation/inheritance is unestablished. Fifteen other default-five-second passing historical bodies exceed budget. Opportunities uses60-second budgets and has no overrun.
+
+Earlier isolated Legacy import passed4,286ms before interruption; retain the earlier broad5,010ms timeout. All new runs have independent pin audits and no remaining job/lock. Final compiler/affected/Q04 samples observed no foreign Godot; samples do not prove continuous exclusivity. Fresh preflights exceeded8.5millionKiB free and observed runtime disk remained above the unchanged floor. No validation, assertions or budgets changed.
+
+Evidence: native-final-remainder, native-root-types-only, native-client-types, native-affected-final and native-q04-restored beside this record. Q04 restoration verifies exact Git blobs plus original compressed/raw hashes. Prior independent v2/v4/v5/v6 reviews, findings and failed attempts remain in native-greenlight. Experimental source is recoverable, not promoted to primary013c4edc or main. Sprint7 remains incomplete: broader consumers, genuine combined retirement/acquired history, queued-release seam, timing, three original r3n1 full-game inputs and platform/Owner acceptance remain open.
+
+Efficiency: reused completed screenplay10, market33 and scoped prior evidence; ran unfinished affected files and invalidated compilers; after exact fixture restoration reran only Q04. No new tests, repeated full suites, fabricated inputs or archive search.
+
 ## Consumer gate checkpoint — 2026-10-26
 
 Projection 63 declaration measurement completed successfully on source `0e0cdfde` with its separately pinned helper. Schema identity is `sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1`; F10/F11 declaration hashes are `df9a088d4edd52652fc4eab583a83b36c667a50d3fd14d0be4715eadeb2a6f74`. Measurement and audit are retained beside this result.
