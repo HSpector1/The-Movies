@@ -1,0 +1,22 @@
+{
+  "time": "2026-10-26T17:51:46.460529-05:00",
+  "remoteVerified": "b5c11b5a570820b4c8e8ded6830294b84d57d5a2",
+  "status": "REMOVED_AFTER_EXACT_PRESERVATION_VERIFICATION",
+  "snapshots": [
+    {
+      "folder": "snapshot63",
+      "sourceCommit": "9c91232dd980cbe05399b6fd77ed55454e671f86",
+      "regularFiles": 644,
+      "regularBytes": 15436029,
+      "nodeModulesSymlink": "removed link only; target retained"
+    },
+    {
+      "folder": "snapshot64",
+      "sourceCommit": "b5c11b5a570820b4c8e8ded6830294b84d57d5a2",
+      "regularFiles": 15,
+      "regularBytes": 1950614,
+      "nodeModulesSymlink": "removed link only; target retained"
+    }
+  ],
+  "preserved": "Actual outgoing63 capture, all producer/measurement scripts, receipts, manifests, audits and generated outputs in published candidate; current source and dependencies unchanged"
+}

@@ -1,0 +1,258 @@
+--- a/src/core/absorbedRuns.ts
++++ b/src/core/absorbedRuns.ts
+@@ -9,18 +9,34 @@
+   return openTheatricalRun(film.result,film.result.boxOffice.opening,film.result.boxOffice.opening>0?film.result.boxOffice.total/film.result.boxOffice.opening:1,film.result.releaseTick)
+ }
+ 
++/** Canonical foreign films whose future stream this buyer actually acquired before `week`.
++ * Derive the set from original source releases and the close boundary, never from a supplied
++ * handoff/receipt list. The full acquisition validator still proves every close and handoff.
++ * Historical readers call this only with their current49 original title-state context. */
++export function acquiredActiveRunFilms(state:GameState,buyerId:string,week:number):LiveIndustryFilm[] {
++  if(!state.hollywood || !Array.isArray(state.rights?.absorptions))fail('missing acquired run ownership context')
++  const result:LiveIndustryFilm[]=[]
++  for(const a of state.rights.absorptions) {
++    if(!a || typeof a.buyerId!=='string' || typeof a.targetId!=='string' || !Number.isSafeInteger(a.week))fail('malformed acquired run ownership context')
++    if(a.buyerId!==buyerId || a.week>week)continue
++    for(const film of state.hollywood.films) {
++      if(film.provenance!=='simulation/v1' || film.studioId!==a.targetId)continue
++      const run=canonical(film),release=film.result.releaseTick
++      if(release<=a.week && a.week<release+run.totalWeeks && week<release+run.totalWeeks)result.push(film)
++    }
++  }
++  return result
++}
++
++type RivalRunRevenue={buyerId:string;week:number;amount:number;receiptId:string}
++
+ /** Real ordinary input-week servicing. Original creator/film/run and locked theatrical schedule stay
+  * with their source; the actual absorption owns only the future cash beneficiary and new receipts. */
+-export function advanceAbsorbedRuns(state:GameState,h:HollywoodState,b:RivalBusiness,a:AbsorptionRecord,week:number):{rights:GameState['rights'];ledger:LedgerEntry[]} {
++export function advanceAbsorbedRuns(state:GameState,h:HollywoodState,b:RivalBusiness,a:AbsorptionRecord,week:number):{rights:GameState['rights'];ledger:LedgerEntry[];rivalRevenue:RivalRunRevenue[]} {
+   if(week!==state.market.tick || a.targetId!==b.studioId || week<a.week)fail('not the actual servicing boundary/beneficiary')
+-  if(a.buyerId!==h.playerStudioId){
+-    // A runless terminal target still visits the ordinary absorbed-business branch. Prove
+-    // the absent run owner against authentic films; never credit a rival receipt to the player.
+-    validateAbsorbedRuns({...state,hollywood:h},b,a)
+-    return {rights:state.rights,ledger:[]}
+-  }
++  if(a.buyerId!==h.playerStudioId && !h.businesses.some(buyer=>buyer.studioId===a.buyerId))fail('missing actual rival beneficiary')
+   let rights=state.rights
+-  const ledger:LedgerEntry[]=[];const runs:typeof b.runs=[];const ordinals:number[]=[]
++  const ledger:LedgerEntry[]=[];const rivalRevenue:RivalRunRevenue[]=[];const runs:typeof b.runs=[];const ordinals:number[]=[]
+   if(b.runs.length)h.films=[...h.films]
+   for(const [i,old] of b.runs.entries()) {
+     if(!a.runs.some(r=>r.productionId===old.productionId))fail('active source run lacks actual handoff')
+@@ -32,7 +48,10 @@
+     const allocated=allocateRightsId(rights,'absorption-run')
+     const receipt={id:allocated.id,week,productionId:old.productionId,weekIndex:old.weekIndex,gross,revenue}
+     rights={...allocated.root,absorptions:allocated.root.absorptions.map(r=>r.id===a.id?{...r,runReceipts:[...r.runReceipts,receipt]}:r)}
+-    if(revenue>0)ledger.push({week,kind:'absorbedRunRevenue',amount:revenue,note:receipt.id})
++    if(revenue>0) {
++      if(a.buyerId===h.playerStudioId)ledger.push({week,kind:'absorbedRunRevenue',amount:revenue,note:receipt.id})
++      else rivalRevenue.push({buyerId:a.buyerId,week,amount:revenue,receiptId:receipt.id})
++    }
+     const run={...old,weekIndex:old.weekIndex+1,cumulativeGrossPaid:old.cumulativeGrossPaid+gross,cumulativeStudioRevenuePaid:old.cumulativeStudioRevenuePaid+revenue}
+     const settled=run.weekIndex>=run.totalWeeks
+     h.films[ordinal]={...film,studioRevenueReceived:run.cumulativeStudioRevenuePaid,settledWeek:settled?week:null}
+@@ -40,7 +59,7 @@
+     else {runs.push(run);ordinals.push(ordinal)}
+   }
+   b.runs=runs;b.activeRunFilmOrdinals=ordinals
+-  return {rights,ledger}
++  return {rights,ledger,rivalRevenue}
+ }
+ 
+ /** Unconditional current49 cash orphan guard, including when there are no absorption records. */
+@@ -48,6 +67,31 @@
+   for(const row of state.ledger.filter(r=>r.kind==='absorbedRunRevenue')) {
+     const owners=state.rights.absorptions.flatMap(a=>Array.isArray(a.runReceipts)?a.runReceipts.filter(r=>r.id===row.note).map(r=>({a,r})):[])
+     if(owners.length!==1 || owners[0]!.a.buyerId!==state.hollywood?.playerStudioId || owners[0]!.r.revenue!==row.amount || owners[0]!.r.week!==row.week)fail('orphan/wrong-beneficiary run revenue')
++  }
++}
++
++/** Called only after all absorption records and installments have their complete joined proof. */
++export function validateRivalAbsorbedRunMoney(state:GameState):void {
++  const h=state.hollywood
++  if(!h)return
++  // Real rival books aggregate theatrical income by their existing account periods. Prove
++  // both overlapping native income and assigned installments; no fictional cash rows.
++  for(const buyer of h.businesses) {
++    const incoming=state.rights.absorptions.filter(a=>a.buyerId===buyer.studioId).flatMap(a=>a.runReceipts)
++    if(incoming.length===0)continue
++    const outgoing=state.rights.absorptions.filter(a=>a.targetId===buyer.studioId).flatMap(a=>a.runReceipts)
++    const films=h.films.filter((f):f is LiveIndustryFilm=>f.provenance==='simulation/v1' && f.studioId===buyer.studioId)
++    for(const period of buyer.account.periods) {
++      const inPeriod=(week:number)=>period.fromWeek<=week && week<=period.throughWeek
++      let expected=0
++      for(const film of films) {
++        const run=canonical(film),end=Math.min(run.totalWeeks,state.market.tick-run.releaseTick)
++        for(let i=0;i<end;i++)if(inPeriod(run.releaseTick+i))expected+=run.weeklyGross[i]!*run.studioShare
++      }
++      expected-=outgoing.filter(r=>inPeriod(r.week)).reduce((sum,r)=>sum+r.revenue,0)
++      expected+=incoming.filter(r=>inPeriod(r.week)).reduce((sum,r)=>sum+r.revenue,0)
++      if(!Number.isFinite(expected) || !Number.isFinite(period.movements.studioRevenue) || Math.abs(period.movements.studioRevenue-expected)>1e-7*Math.max(1,Math.abs(expected),Math.abs(period.movements.studioRevenue)))fail('rival earned revenue period differs from actual installments')
++    }
+   }
+ }
+ 
+@@ -60,8 +104,7 @@
+   const afterClose=a.workReleases.map(release=>{const film=films.find(f=>f.filmId===release.productionId && f.result.releaseTick===release.week);if(!film)fail('continued release lacks actual original film');return film})
+   const owned=[...atClose,...afterClose.filter(f=>!atClose.some(old=>old.filmId===f.filmId))]
+   if(a.buyerId!==state.hollywood.playerStudioId && (!state.hollywood.businesses.some(b=>b.studioId===a.buyerId)
+-    || owned.length!==0 || a.runs.length!==0 || a.runReceipts.length!==0 || b.runs.length!==0
+-    || a.workReleases.length!==0 || films.some(f=>f.result.releaseTick>a.week)))fail('rival buyer run producer is not admitted')
++    || a.workReleases.length!==0 || films.some(f=>f.result.releaseTick>a.week)))fail('rival buyer continued release producer is not admitted')
+ 
+   if(new Set(a.runs.map(r=>r.productionId)).size!==a.runs.length || a.runs.map(r=>r.productionId).sort().join()!==owned.map(f=>f.filmId).sort().join())fail('original active-run handoff incomplete')
+   const expected=new Map<string,{week:number;productionId:string;weekIndex:number;gross:number;revenue:number}>()
+@@ -84,7 +127,9 @@
+     if(!want || seen.has(key) || ids.has(receipt.id) || receipt.week!==want.week || receipt.gross!==want.gross || receipt.revenue!==want.revenue)fail('invented/replayed/altered theatrical installment')
+     seen.add(key);ids.add(receipt.id)
+     const rows=state.ledger.filter(r=>r.kind==='absorbedRunRevenue' && r.note===receipt.id)
+-    if(receipt.revenue===0 ? rows.length!==0 : rows.length!==1 || rows[0]!.amount!==receipt.revenue || rows[0]!.week!==receipt.week)fail('buyer receipt lacks exact earned cash row')
++    if(a.buyerId!==state.hollywood.playerStudioId || receipt.revenue===0) {
++      if(rows.length!==0)fail('rival/zero receipt credited to player')
++    } else if(rows.length!==1 || rows[0]!.amount!==receipt.revenue || rows[0]!.week!==receipt.week)fail('buyer receipt lacks exact earned cash row')
+   }
+   if(seen.size!==expected.size)fail('ordinary due installment omitted')
+   for(const row of state.ledger.filter(r=>r.kind==='absorbedRunRevenue')) {
+--- a/src/core/hollywoodTick.ts
++++ b/src/core/hollywoodTick.ts
+@@ -507,6 +507,7 @@
+   let physicalPlans=state.physicalPlans
+   let rights=state.rights
+   const absorbedRunRevenue:LedgerEntry[]=[]
++  const rivalRunRevenue:ReturnType<typeof advanceAbsorbedRuns>['rivalRevenue']=[]
+   const growth:ReleaseGrowthRecord[]=[]
+   const firstTakes:{studioId:string;production:Production}[]=[]
+   const greenlights:{studioId:string;production:Production}[]=[]
+@@ -524,6 +525,7 @@
+       validateAbsorbedScripts(state,b,transaction)
+       const runAdvance=advanceAbsorbedRuns({...state,rights},h,b,transaction,week)
+       rights=runAdvance.rights;absorbedRunRevenue.push(...runAdvance.ledger)
++      rivalRunRevenue.push(...runAdvance.rivalRevenue)
+       continue
+     }
+     if(closed.has(b.studioId)){payRuns(h,b,week);continue}
+@@ -593,6 +595,16 @@
+     for(const project of complete.projects)if(project.status==='review')complete=acceptScriptProject(complete,project.id)
+     storeHotDevelopment(b,complete)
+   }
++  // Assigned income, like native payRuns, is unavailable to this week's policy. Flush
++  // after every business so source array order cannot advance a buyer's spending power.
++  // A closed recipient retains its actual terminal account; the closure phase journals
++  // and distributes this same due installment through its canonical estate run owner.
++  for(const payment of rivalRunRevenue) {
++    const buyer=h.businesses.find(b=>b.studioId===payment.buyerId)
++    const owners=rights.absorptions.filter(a=>a.buyerId===payment.buyerId).flatMap(a=>a.runReceipts.filter(r=>r.id===payment.receiptId))
++    if(!buyer || payment.week!==week || owners.length!==1 || owners[0]!.week!==week || owners[0]!.revenue!==payment.amount)throw new Error('absorption run: missing actual rival cash instruction owner')
++    moveRivalMoney(buyer.account,'studioRevenue',payment.amount,week)
++  }
+   return {hollywood:h,talent,growth,technology,physicalPlans,firstTakes,greenlights,suppliedTalent,rights,absorbedRunRevenue}
+ }
+ 
+--- a/src/core/hollywoodValidation.ts
++++ b/src/core/hollywoodValidation.ts
+@@ -437,7 +437,8 @@
+     for(const kind of ['development','production','marketing'] as const) requireFact(close(movements[kind]!, -b.projects.reduce((sum,p)=>sum+p[kind],0)), `${kind} commitments do not reconcile`)
+     const ownedFilms = h.films.filter(f=>f.studioId===b.studioId && f.provenance==='simulation/v1')
+     const ownedFilmById=new Map(ownedFilms.map(f=>[f.filmId,f]))
+-    requireFact(close(movements.studioRevenue!, ownedFilms.reduce((sum,f)=>sum+(f.provenance==='simulation/v1'?f.studioRevenueReceived:0),0) - (absorptionOf(b.studioId)?.runReceipts.reduce((sum,r)=>sum+r.revenue,0) ?? 0)), 'studio revenue does not reconcile')
++    requireFact(close(movements.studioRevenue!, ownedFilms.reduce((sum,f)=>sum+(f.provenance==='simulation/v1'?f.studioRevenueReceived:0),0) - (absorptionOf(b.studioId)?.runReceipts.reduce((sum,r)=>sum+r.revenue,0) ?? 0)
++      + (era.rights ? [...(era.absorptions?.values() ?? [])].filter(a=>a.buyerId===b.studioId).reduce((sum,a)=>sum+a.runReceipts.reduce((paid,r)=>paid+r.revenue,0),0) : 0)), 'studio revenue does not reconcile')
+     list(b.productions); list(b.runs); list(b.projects)
+     for (const p of b.productions) {
+       shared.production(p,concepts); requireFact(!productionIds.has(p.id),'production identity collision'); productionIds.add(p.id)
+--- a/src/core/acquisition.ts
++++ b/src/core/acquisition.ts
+@@ -56,7 +56,7 @@
+ import { libraryValuationV1 } from './propertyValuation.js'
+ import { conditionFactsFor, corporateConditionReaders, moveStudioCash, permittedBidderRefusal, spendableCash, weeklyFixedCost, type CorporateConditionReaders } from './rightsFinance.js'
+ import { allocateRightsId, appendTitleEvent, resolveTitles, subjectsHeldBy, type AbsorptionRecord, type DiligenceScopeItem, type RightSubject } from './rights.js'
+-import { validateAbsorbedRuns, validateAbsorbedRunMoney } from './absorbedRuns.js'
++import { acquiredActiveRunFilms, validateAbsorbedRuns, validateAbsorbedRunMoney, validateRivalAbsorbedRunMoney } from './absorbedRuns.js'
+ import { bindContinuedWork, continuedWorkRefusal, buyerOperationsForAllWork } from './continuedWork.js'
+ import { validateContinuedWork } from './continuedWorkValidation.js'
+ import { validateAbsorbedProductionStops } from './absorbedWork.js'
+@@ -419,7 +419,7 @@
+   const h = state.hollywood
+   if (!h) return 'noIndustry'
+   if (input.buyerId !== h.playerStudioId && (input.retention.kind !== 'explicit' || input.retention.contractIds.length !== 0)) return 'rivalBuyerRetentionProducerRequired'
+-  if (input.buyerId !== h.playerStudioId && h.businesses.find(b => b.studioId === input.targetId)?.runs.length) return 'rivalBuyerRunProducerRequired'
++  if (acquiredActiveRunFilms(state,input.targetId,state.market.tick).length!==0) return 'acquiredRunReassignmentProducerRequired'
+   const b = h.businesses.find(b => b.studioId === input.targetId)
+   if (!b) return 'unknownTarget'
+   // Active source runs use their real linked buyer-beneficiary producer after closing.
+@@ -455,12 +455,10 @@
+   if (!q.affordable) throw new Error('absorption: insufficientCashAfterReserve')
+   const unsupportedScript=q.scripts.find(script=>script.disposition==='continuationRequired')
+   if(unsupportedScript)throw new Error(`absorption: ${unsupportedScript.reason==='partialWriterTeamProducerRequired'?'partialWriterTeamProducerRequired':unsupportedScript.reason==='writerCapacityUnavailable'?'retainedScriptCapacityProducerRequired':'retainedScriptProducerRequired'}`)
+-  // This real rival-owner slice has no new employer contracts, buyer workflows or future
+-  // run service. Never turn a quoted continuation into a convenient terminal write-off.
++  // This real rival-owner slice has no new employer contracts or buyer workflows. Never turn a quoted continuation into a convenient terminal write-off.
+   if(input.buyerId!==state.hollywood!.playerStudioId){
+     if(q.contracts.some(c=>c.retained))throw new Error('absorption: rivalBuyerRetentionProducerRequired')
+     if(q.productions.some(p=>p.disposition==='continues'))throw new Error('absorption: rivalBuyerContinuedWorkProducerRequired')
+-    if(q.runs.length!==0)throw new Error('absorption: rivalBuyerRunProducerRequired')
+     if(q.scripts.some(s=>s.disposition==='continues'))throw new Error('absorption: rivalBuyerScriptProducerRequired')
+   }
+ 
+@@ -618,9 +616,10 @@
+     if (![a.contracts,a.research,a.facilities,a.titleEventIds,a.knowledge,a.physicalPlans,a.adoptions,a.stoppedProductions,a.continuedProductions,a.buyerWorkflows,a.workSteps,a.workReleases,a.workCancellations,a.runs,a.runReceipts].every(Array.isArray)) fail('dispositions must be arrays')
+     if(a.buyerId!==h!.playerStudioId && (a.contracts.some(c=>c.buyerContractId!==null)
+       || a.continuedProductions.length!==0 || a.buyerWorkflows.length!==0 || a.workSteps.length!==0
+-      || a.workReleases.length!==0 || a.workCancellations.length!==0 || a.runs.length!==0 || a.runReceipts.length!==0)) {
+-      fail('rival buyer retained employment/work/run producer is not admitted')
+-    }
++      || a.workReleases.length!==0 || a.workCancellations.length!==0)) {
++      fail('rival buyer retained employment/work producer is not admitted')
++    }
++    if(acquiredActiveRunFilms(state,a.targetId,a.week).length!==0)fail('acquired run reassignment producer is not admitted')
+     const originals = h!.employment.filter(e => e.studioId === a.targetId && e.endedWeek === a.week && e.terms.endWeekExclusive > a.week
+       && h!.receipts.some(r => r.kind === 'employment' && r.contractId === e.contractId && r.toStudioId === null && (r.reason === 'absorptionExit' || r.reason === 'absorptionContinuation')))
+     if (a.contracts.map(c => c.sourceContractId).join() !== originals.map(c => c.contractId).join()) fail('employment dispositions differ from authoritative original order')
+@@ -718,4 +717,5 @@
+     for (const e of events) if (!exact(e.source,['kind','absorptionId']) || e.priorHolder !== a.targetId || e.newHolder !== a.buyerId || e.date.kind !== 'campaign' || e.date.week !== a.week) fail('title transition differs')
+   }
+   validateContinuedScripts(state, retirementWriting)
+-}
++  validateRivalAbsorbedRunMoney(state)
++}
+--- a/src/core/studioClosure.ts
++++ b/src/core/studioClosure.ts
+@@ -1,3 +1,4 @@
++import { acquiredActiveRunFilms } from './absorbedRuns.js'
+ import { absorbedPromiseAuthority, type AbsorptionWithdrawalAuthority } from './absorbedObligations.js'
+ import { buyerOperatedProductions, buyerContinuedProductions } from './continuedWork.js'
+ // ── P15B Wave 4 (record 1370-ar): the actual closure, `closure/v1` ──────────────────────────────
+@@ -335,6 +336,7 @@
+     for (const run of [...state.theatricalRuns,...continuedBuyerRuns(state)]) if (run.status === 'active') row('theatricalRun', run.productionId, `weekIndex ${run.weekIndex} of ${run.totalWeeks}`, 'remaining scheduled receipts pending in this saved world', 'pending')
+   } else {
+     for (const run of business!.runs) row('theatricalRun', run.productionId, `weekIndex ${run.weekIndex} of ${run.totalWeeks}`, 'the estate collects the genuinely scheduled remaining receipts', 'applied')
++    if(Object.hasOwn(state,'rights'))for(const film of acquiredActiveRunFilms(state,studioId,week))row('theatricalRun',film.filmId,`assigned run from ${film.studioId}`, 'the estate collects the genuinely assigned remaining receipts', 'applied')
+   }
+   for (const project of next.technology.projects) {
+     if (project.studioId !== studioId || (project.status !== 'active' && project.status !== 'paused')) continue
+@@ -770,11 +772,12 @@
+     // its due week, for every run the closure found live; none accelerated, none lost, none paid twice.
+     if (!Array.isArray(c.dispositions)) return fail(`closure ${c.closureId} dispositions must be an array`)
+     const expectedReceipts = new Map<string, { week: number; amount: number }>()
++    const acquiredRuns=policy.rightsEstate && !player ? acquiredActiveRunFilms(titleState!,c.studioId,C) : []
+     if (!player) {
+       for (const d of c.dispositions) {
+         if (!isRecord(d) || d.subjectKind !== 'theatricalRun') continue
+         const film = films.get(d.subjectId)
+-        if (film === undefined || film.studioId !== c.studioId) return fail(`closure ${c.closureId} run ${String(d.subjectId)} has no live film of its studio`)
++        if (film === undefined || (film.studioId !== c.studioId && !acquiredRuns.some(f=>f.filmId===film.filmId))) return fail(`closure ${c.closureId} run ${String(d.subjectId)} has no live film of its studio/assigned stream`)
+         for (let due = C; due < tick; due++) {
+           const amount = estateRunInstallment(film, due)
+           if (amount !== null) expectedReceipts.set(`${film.filmId}:due:${due}`, { week: due + 1, amount })
+@@ -922,6 +925,7 @@
+     if (player) for (const run of [...state.theatricalRuns,...(policy.rightsEstate?continuedBuyerRuns(titleState!):[])]) { if (run.status === 'active') expect('theatricalRun', run.productionId, 'pending') }
+     else {
+       for (const run of business!.runs) expect('theatricalRun', run.productionId, 'applied')
++      for(const film of acquiredRuns)expect('theatricalRun',film.filmId,'applied')
+       // A run the estate settled since C settles at its final due week, at or after C (hollywoodTick.payRuns).
+       for (const f of films.values()) if (f.studioId === c.studioId && f.settledWeek !== null && f.settledWeek >= C) expect('theatricalRun', f.filmId, 'applied')
+     }

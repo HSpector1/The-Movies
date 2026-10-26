@@ -1,0 +1,52 @@
+--- a/src/core/absorbedRuns.ts
++++ b/src/core/absorbedRuns.ts
+@@ -79,26 +79,34 @@
+   for(const buyer of h.businesses) {
+     const incoming=state.rights.absorptions.filter(a=>a.buyerId===buyer.studioId).flatMap(a=>a.runReceipts)
+     if(incoming.length===0)continue
+-    const outgoing=state.rights.absorptions.filter(a=>a.targetId===buyer.studioId).flatMap(a=>a.runReceipts)
++    const outgoing=new Map(state.rights.absorptions.filter(a=>a.targetId===buyer.studioId).flatMap(a=>a.runReceipts)
++      .map(r=>[`${r.productionId}|${r.weekIndex}`,r]))
+     const films=h.films.filter((f):f is LiveIndustryFilm=>f.provenance==='simulation/v1' && f.studioId===buyer.studioId)
+-    // Native historical books may overlap at an endpoint. As in the Hollywood
+-    // accountant, each fact belongs only to the LAST period containing its week.
+-    const periodOf=(week:number,amount:number):number=>{
++    const byWeek=new Map<number,number>()
++    const book=(week:number,amount:number)=>byWeek.set(week,(byWeek.get(week)??0)+amount)
++    for(const film of films) {
++      const run=canonical(film),end=Math.min(run.totalWeeks,state.market.tick-run.releaseTick)
++      for(let i=0;i<end;i++) {
++        // Full installment proof has joined each outgoing amount to this exact
++        // canonical component. Cancel it before summing so fractional sold income
++        // does not leave a rounding residue in its original creator's books.
++        const sold=outgoing.get(`${film.filmId}|${i}`)
++        book(run.releaseTick+i,run.weeklyGross[i]!*run.studioShare-(sold?.revenue??0))
++      }
++    }
++    for(const receipt of incoming)book(receipt.week,receipt.revenue)
++    // Allocate signed net booked money, not its gross components. Native periods
++    // can overlap at an endpoint: the LAST matching window owns each week's net.
++    const expected=buyer.account.periods.map(()=>0)
++    for(const [week,amount] of byWeek) {
+       let index=-1
+       for(const [i,period] of buyer.account.periods.entries())if(period.fromWeek<=week && week<=period.throughWeek)index=i
+-      if(index<0 && amount!==0)fail('rival earned installment has no actual account period')
+-      return index
++      if(index<0) {if(amount!==0)fail('rival earned installment has no actual account period')}
++      else expected[index]=expected[index]!+amount
+     }
+     for(const [index,period] of buyer.account.periods.entries()) {
+-      const inPeriod=(week:number,amount:number)=>periodOf(week,amount)===index
+-      let expected=0
+-      for(const film of films) {
+-        const run=canonical(film),end=Math.min(run.totalWeeks,state.market.tick-run.releaseTick)
+-        for(let i=0;i<end;i++)if(inPeriod(run.releaseTick+i,run.weeklyGross[i]!*run.studioShare))expected+=run.weeklyGross[i]!*run.studioShare
+-      }
+-      expected-=outgoing.filter(r=>inPeriod(r.week,r.revenue)).reduce((sum,r)=>sum+r.revenue,0)
+-      expected+=incoming.filter(r=>inPeriod(r.week,r.revenue)).reduce((sum,r)=>sum+r.revenue,0)
+-      if(!Number.isFinite(expected) || !Number.isFinite(period.movements.studioRevenue) || Math.abs(period.movements.studioRevenue-expected)>1e-7*Math.max(1,Math.abs(expected),Math.abs(period.movements.studioRevenue)))fail('rival earned revenue period differs from actual installments')
++      const want=expected[index]!
++      if(!Number.isFinite(want) || !Number.isFinite(period.movements.studioRevenue) || Math.abs(period.movements.studioRevenue-want)>1e-7*Math.max(1,Math.abs(want),Math.abs(period.movements.studioRevenue)))fail('rival earned revenue period differs from actual installments')
+     }
+   }
+ }

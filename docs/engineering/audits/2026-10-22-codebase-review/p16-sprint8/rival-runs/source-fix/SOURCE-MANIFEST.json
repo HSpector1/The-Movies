@@ -1,0 +1,19 @@
+{
+  "status": "STATIC-UNRUN",
+  "baseHead": "b5c11b5a570820b4c8e8ded6830294b84d57d5a2",
+  "requiresSourcePatchSha256": "91f92fa2f88e2a391e303b57c993c10461870dc3ed267e730f9f736b2d76dc89",
+  "files": [
+    {
+      "path": "src/core/absorbedRuns.ts",
+      "baseSha256": "cf3acc400a25c25b4f9a7b9e5910a05857e43b77109c061827078198eadae3fe",
+      "postimageSha256": "7f0c8cec1c681bb037932d98cd0ba81739cf3bd8970e61e88c48dabe07d54f2c",
+      "baseBytes": 11064,
+      "postimageBytes": 11610
+    }
+  ],
+  "patch": {
+    "path": "LAST-PERIOD.patch",
+    "sha256": "96f5afcf314dd4739bc27f8d8ee930bd7f338808ac9b9d846b6dbc64e4e93841",
+    "bytes": 2206
+  }
+}

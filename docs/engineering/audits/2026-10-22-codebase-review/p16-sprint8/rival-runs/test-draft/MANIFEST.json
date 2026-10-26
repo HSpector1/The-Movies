@@ -1,0 +1,33 @@
+{
+  "status": "STATIC-UNRUN",
+  "baseHead": "b5c11b5a570820b4c8e8ded6830294b84d57d5a2",
+  "patch": {
+    "path": "RIVAL-RUN-RED.patch",
+    "sha256": "08337064ab994872518f291e3737522029ad24bbcf303df12a26d3b8f3a68e3c",
+    "bytes": 13231
+  },
+  "file": {
+    "path": "tests/p16-absorption-active-run.test.ts",
+    "preimageSHA256": "c8b0dec556f47d16a55b17ebd7a27e6b2d22cb4a7c6683531a7508e715ec4847",
+    "postimageSHA256": "577f9f7bd9fe136a23dea89bd3fd793887c0fa3576dda947c66214c94696a17d",
+    "preimageBytes": 13081,
+    "postimageBytes": 25464
+  },
+  "selector": {
+    "file": "tests/p16-absorption-active-run.test.ts",
+    "describe": "P16 genuine rival buyer of the original R01 theatrical run",
+    "it": "pays the next acquired installment to R02 alongside its own final installment with native account conservation and save replay"
+  },
+  "capture": {
+    "environment": "P16_ORIGINAL48_CAPTURE_ROOT",
+    "file": "r04-actual163.save48.json",
+    "sha256": "c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad",
+    "provenance": "Original67077b72 admitted drained-R04 transaction fixture; unchanged R01/R02, not natural campaign; no new constructor or seed search."
+  },
+  "expectedOriginalSourceFailure": "absorption: rivalBuyerRunProducerRequired, after S8_RIVAL_RUN_REAL170_PREMISES",
+  "budget": "Unchanged default5000ms; seven genuine setup ticks and two actual next-week replay ticks all remain inside one added leaf. No setup outside budget.",
+  "originalCases": "Both existing player active-run cases and their helpers/assertions remain unchanged.",
+  "futureScope": "Actual next installment only, native rival studioRevenue plus own final film installment; no later beneficiary closure or acquired whole-run settlement claimed.",
+  "interfaceConfirmation": "Source author confirmed unchanged run handoff/runReceipts and existing rival studioRevenue money kind; no test-invented schema.",
+  "execution": "No compiler, tests, engine, generator, checkout write or Git mutation by author."
+}

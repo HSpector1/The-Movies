@@ -1,0 +1,46 @@
+{
+  "status": "STATIC-UNRUN",
+  "baseHead": "b5c11b5a570820b4c8e8ded6830294b84d57d5a2",
+  "files": [
+    {
+      "path": "src/core/absorbedRuns.ts",
+      "baseSha256": "220ea2e7570a7f14a1f5c410b7c326fcab62c261b988a84e87e23338c9af83f6",
+      "postimageSha256": "cf3acc400a25c25b4f9a7b9e5910a05857e43b77109c061827078198eadae3fe",
+      "baseBytes": 8040,
+      "postimageBytes": 11064
+    },
+    {
+      "path": "src/core/hollywoodTick.ts",
+      "baseSha256": "12611c7c78db0b49b92d6213a0f67c92e89d7b3e86c8d375e18ed3ee5cca37c8",
+      "postimageSha256": "106c81b7d255d34e6aee9863f3d060bd6b5d91bae63a5c8d5b3d5cb8e8e41324",
+      "baseBytes": 49010,
+      "postimageBytes": 50020
+    },
+    {
+      "path": "src/core/hollywoodValidation.ts",
+      "baseSha256": "659f0fb2cc3de35c95e3892d39483d1a8629bdb916e49be31da791d3e804c222",
+      "postimageSha256": "11e188621ec80eb2ed6a318a9d06099abfed52e8052ef571b1092d3995e5c668",
+      "baseBytes": 70812,
+      "postimageBytes": 70984
+    },
+    {
+      "path": "src/core/acquisition.ts",
+      "baseSha256": "6b4539d5ba1e08f2e67c7742ceced117dfe0484827fb034a9b58c8ef1e2f2c3a",
+      "postimageSha256": "a05f1e5acbc01471a9aa906bf171d4b1a632eac2f09e6b817db18da7402411e5",
+      "baseBytes": 62603,
+      "postimageBytes": 62637
+    },
+    {
+      "path": "src/core/studioClosure.ts",
+      "baseSha256": "ca35e18143a39495a4a897f8704a3f3343cb777548bec370ea33c4cea5e87ffe",
+      "postimageSha256": "3e4761fd77ab1da67b77144c4e60cdcf8bd211f53223fde70b685b8e19d53d7e",
+      "baseBytes": 82689,
+      "postimageBytes": 83253
+    }
+  ],
+  "patch": {
+    "path": "RIVAL-RUNS.patch",
+    "sha256": "91f92fa2f88e2a391e303b57c993c10461870dc3ed267e730f9f736b2d76dc89",
+    "bytes": 20344
+  }
+}

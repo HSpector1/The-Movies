@@ -1,0 +1,31 @@
+--- a/src/core/absorbedRuns.ts
++++ b/src/core/absorbedRuns.ts
+@@ -81,15 +81,23 @@
+     if(incoming.length===0)continue
+     const outgoing=state.rights.absorptions.filter(a=>a.targetId===buyer.studioId).flatMap(a=>a.runReceipts)
+     const films=h.films.filter((f):f is LiveIndustryFilm=>f.provenance==='simulation/v1' && f.studioId===buyer.studioId)
+-    for(const period of buyer.account.periods) {
+-      const inPeriod=(week:number)=>period.fromWeek<=week && week<=period.throughWeek
++    // Native historical books may overlap at an endpoint. As in the Hollywood
++    // accountant, each fact belongs only to the LAST period containing its week.
++    const periodOf=(week:number,amount:number):number=>{
++      let index=-1
++      for(const [i,period] of buyer.account.periods.entries())if(period.fromWeek<=week && week<=period.throughWeek)index=i
++      if(index<0 && amount!==0)fail('rival earned installment has no actual account period')
++      return index
++    }
++    for(const [index,period] of buyer.account.periods.entries()) {
++      const inPeriod=(week:number,amount:number)=>periodOf(week,amount)===index
+       let expected=0
+       for(const film of films) {
+         const run=canonical(film),end=Math.min(run.totalWeeks,state.market.tick-run.releaseTick)
+-        for(let i=0;i<end;i++)if(inPeriod(run.releaseTick+i))expected+=run.weeklyGross[i]!*run.studioShare
++        for(let i=0;i<end;i++)if(inPeriod(run.releaseTick+i,run.weeklyGross[i]!*run.studioShare))expected+=run.weeklyGross[i]!*run.studioShare
+       }
+-      expected-=outgoing.filter(r=>inPeriod(r.week)).reduce((sum,r)=>sum+r.revenue,0)
+-      expected+=incoming.filter(r=>inPeriod(r.week)).reduce((sum,r)=>sum+r.revenue,0)
++      expected-=outgoing.filter(r=>inPeriod(r.week,r.revenue)).reduce((sum,r)=>sum+r.revenue,0)
++      expected+=incoming.filter(r=>inPeriod(r.week,r.revenue)).reduce((sum,r)=>sum+r.revenue,0)
+       if(!Number.isFinite(expected) || !Number.isFinite(period.movements.studioRevenue) || Math.abs(period.movements.studioRevenue-expected)>1e-7*Math.max(1,Math.abs(expected),Math.abs(period.movements.studioRevenue)))fail('rival earned revenue period differs from actual installments')
+     }
+   }
