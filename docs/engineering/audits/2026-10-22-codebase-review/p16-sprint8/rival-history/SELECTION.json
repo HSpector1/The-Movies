@@ -1,0 +1,17 @@
+{
+  "head": "1710b432d9f7ba7fa1afac0ce4d74aa6ee72ef54",
+  "purpose": "Affected existing genuine estate and frozen migration complete files after rival-account/closure source delta",
+  "files": [
+    "tests/p16-estate-run-continuation.test.ts",
+    "tests/p16-r03-observed-migration.test.ts",
+    "tests/p16-estate-observed-migration.test.ts"
+  ],
+  "sourceManifestEntries": 1658,
+  "budget": "Unchanged original leaf budgets; timing classified separately",
+  "reuse": "Root/Bridge compilers and complete generator coherent-focused; positive active-run leaves first-green; no source changes since those tests",
+  "unrun": [
+    "actual later acquired recipient closure",
+    "full rival remaining-run settlement",
+    "broader consumer/fullgame/platform gates"
+  ]
+}

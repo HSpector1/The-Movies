@@ -1,0 +1,1 @@
+Initial preparation ran from the home directory and could not read relative manifest paths; no runner or receipt existed and no lane launched. Repeated preparation from the exact owned checkout before the first valid preflight. No game assertion was executed in that preparation failure.

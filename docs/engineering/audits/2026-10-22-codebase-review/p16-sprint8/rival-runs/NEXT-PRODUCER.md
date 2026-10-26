@@ -1,0 +1,31 @@
+# Next bounded Sprint8 producer
+
+Preserves the completed read-only assessment; no further source investigation, code or runtime. The rival-run source was subsequently published at checkpoint `1710b432`. References below describe the inspected source boundaries; line numbers may shift with integration.
+
+The smallest next actionable producer is **rival employment retention**, reusing the genuine R02 buying R01 at actual week170. The completed rival-run leaf already proved stable/no-loan parties, paid diligence, affordable consideration/reserve, six actual R01 employment intervals, real title/run transfer, overlapping buyer-native and acquired income, and save/replay. Its empty-retention close passed; nonempty retention and its actual person/capacity verdict remain unrun. Select only an existing genuinely available contract in authoritative order, assert the native quote result and preserve any refusal. Do not manufacture a preferred selection or alter cash/history.
+
+## Adopted law and concrete owner
+
+Adopted contract: `docs/engineering/playability-launch-review/evidence/p14b4-20260919/1367-stage/p16-prep/P16-RIGHTS-ESTATE-CONTRACT.md`, §5, lines81–83. Retention preserves person-choice/relationship refusals, usable capacity, affordability, remaining term, salary and commitments. It ends the target interval and mints a linked buyer-employer contract with the identical remaining bargain, no duplicate signing payment and original signing provenance. Nonretained staff receive the lawful capped exit once. Required production participants/capacity must continue together or take an explicit producer-supported cancellation; no silent work disposal to bypass the owner.
+
+`src/core/acquisition.ts:absorptionProducerRefusal` (inspected line422) refuses rival nonempty/default retention. `closeAbsorption` repeats the retained-contract restriction around460. Its actual retained contract producer around478–491 copies `state.contracts`, pushes retained terms there unconditionally and uses a player-style employer identity suffix. This cannot simply be enabled for a rival: native rival employment/payroll and current49 historical joins must receive the real buyer interval, preserving linked source/signing provenance without contaminating player contracts, free-agent membership or player action ownership. Retention preview and resulting aggregate reserve law must remain authoritative.
+
+Existing reusable evidence:
+
+- `tests/p16-rival-buyer-absorption163-baseline.test.ts`: actual symmetric rival close with explicit nonretention, native rival money, stopped paid work, reader/replay/rollback laws. It does not prove retained employment.
+- `tests/p16-absorption-active-run.test.ts`: new actual170 R02←R01 leaf proves the recipient/finance route and provides the same genuine existing staff; its nonempty retention variant is unrun.
+- `tests/p16-absorption-clean-target.test.ts`: existing player linked-retention law/control, reusable as an invariant reference rather than authority to place rival contracts in the player root.
+
+## Remaining dependencies stay explicit
+
+This proposed employment slice does not enable rival continued production or screenplay operation. Their guards and player-only selectors remain necessary until native rival work/capacity/action ownership exists. It also does not complete rival retention with open bound promises: `src/core/absorbedObligations.ts` around187/339/484 restricts current operational authority to the player buyer. The existing rival open-promise/market guards remain explicit dependencies; a person with such obligations cannot be retained by deleting those guards or treating source history as discharged. The proved empty-retention170 route reached close without blocking open target promises/market, but no nonempty-selection acceptance is claimed.
+
+Setup, selected Set and sound/technology continuation is a separate real gap. `src/core/continuedWork.ts:continuedWorkRefusal` around48–64 refuses setup, early selected-Set/technology state, non-silent initial/completed takes and non-silent locks. `bindContinuedWork` around88–106 rebuilds the actual buyer allocation and specifically preserves only its supported ordinary silent workflow boundary. Existing `p16-continued-work-silent-early`, `p16-continued-work-silent-phases76`, `p16-continued-work-shooting4` and `p16-continued-work-shooting5-baseline` controls do not prove setup/sound ownership. No authentic nonempty setup/sound witness was established in this bounded pass.
+
+## Due physical/adoption guards are not demonstrated bugs
+
+`acquisition.ts:unfinishedAbsorptionPlan` around383–407 requires actual laboratory/instrument operational receipts and retained body/tombstone, not dates alone. Its due-but-unproduced guard remains protective. The actual owner already exists: `src/core/rivalResearch.ts:completeRivalPlans` around287–325 completes eligible live rival laboratory/instrument work at the arrived boundary, recording actual bodies/operational receipts; `src/core/hollywoodTick.ts:finishHollywoodWeek` around652 invokes it. Existing `tests/p16-absorption-physical.test.ts` covers pre-due stopped-paid and authentic completed dispositions, not a demonstrated missing live completion producer.
+
+Likewise `src/core/technology.ts:finishTechnologyWeek` around601–622 stamps eligible live rival adoption clocks and appends actual `technologyAdopted` receipts; `src/core/tick.ts` around1222 invokes it. `src/core/technologyAdoption.ts:adoptionChainOperational` around297–299 reads that rival operationalWeek as its native capability proof. Existing `tests/p16-absorption-knowledge.test.ts` covers pending-adoption stop and acquired knowledge/ordinary buyer adoption, not a genuine due-but-unproduced RED. The corresponding acquisition guard is not permission to assign operationalWeek merely because deployment time elapsed. No new missing producer is demonstrated for either guard.
+
+No source implementation, new tests, runtime or qualification is asserted by this note. Later acquired-stream recipient closure and complete remaining run settlement retain their existing separate evidence gaps; this next-producer assessment does not close them or the interrupted consumer/full-game gates.
