@@ -1,0 +1,11 @@
+# Static premise check
+
+Both unchanged captured Save37 snapshots (311 and 312) have the same 19 unbound R02-issued beneficiaries: authored-0000, all six R01 people, all six R03 people and all six R04 people. Bound promise 13 belongs to R02 writer0, 15 to R02 director1, and 23 to R02 craft5. All five actual nonretained employees are R02 people1–5. There is no overlap with any current R02 employee. Film34 also names only R02 people (writer0, director1, cast2/4/3; craftLeadId null).
+
+The old assertion compared trustDrivers, which has no studio-aggregate fallback, but it still tested more than the intended unbound law. The correction establishes the cohort disjointness and compares only promiseKept/promiseBroken driver rows while keeping original promise rows exactly unchanged and actual bound exit BROKEN/receipt assertions. It allows legitimate employment/cancellation drivers. Initial artifacts remain byte-identical under initial/.
+
+Quote source inspected: acquisition.ts253–373 first checks actual condition/bidder, whole consideration, held paid disclosure, real live contracts and person reservation; explicit retention then produces the consent ask, exit charges, at-par cash, 26-week reserve and cumulative work allocation. The promise/market producer refusal is separate at424–427 and reached by public close after makeSave; no fake reader or guard bypass is used. The test obtains both genuine dates from the public quote and invokes the public absorbStudio action.
+
+The fixed route retains writer0 on the real208–416 bargain, pays the five real exits, and asks for continued script0035 due313. The concurrent film34 has missing nonretained participants; its cancelled verdict leaves the second Development slot available beside own script0000 due314. That verdict, actual stable/no-loan evaluations, paid disclosure, writer consent, reserve and capacity are asserted before close, not treated as runtime-established facts. An earlier failure remains the exact blocker; do not retime or tune the price. No affected open market rows exist in either capture, so no nonempty market disposition claim is made.
+
+No engine/compiler/test/generator ran, and X was not changed. The new source boundary remains provisional; this patch uses existing public record fields only.

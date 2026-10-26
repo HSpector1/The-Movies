@@ -1,0 +1,26 @@
+--- a/tests/p14c2rm-writer-continuation.test.ts
++++ b/tests/p14c2rm-writer-continuation.test.ts
+@@ -141,6 +141,8 @@
+     const bound = openPromises.filter(row => row.contractId !== null)
+     expect(openPromises).toHaveLength(22); expect(unbound).toHaveLength(19)
+     expect(bound.map(row => row.promiseId)).toEqual(['promise-13', 'promise-15', 'promise-23'])
++    expect(unbound.filter(row => bound.some(other => other.beneficiaryPersonId === row.beneficiaryPersonId)),
++      'this genuine unbound cohort is disjoint from the bound obligations being continued or settled').toEqual([])
+     const retainedPromise = bound.find(row => row.promiseId === 'promise-13')!
+     expect(retainedPromise).toMatchObject({ contractId: keep.contractId, beneficiaryPersonId: writer,
+       windowStartWeek: 208, dueWeekExclusive: 416, predicate: { count: 1 }, progress: 0, evidenceRefs: [] })
+@@ -229,7 +231,13 @@
+     expect(closed.talentMarket.receipts.slice(paid.talentMarket.receipts.length).filter(row => row.kind === 'promiseOutcome')).toHaveLength(2)
+     for (const original of unbound) {
+       expect(closed.promises.find(row => row.promiseId === original.promiseId)).toEqual(original)
+-      expect(trustDrivers(closed, original.beneficiaryPersonId, target, 312)).toEqual(trustDrivers(paid, original.beneficiaryPersonId, target, 312))
++      // Other native causes may legitimately change professional memory. Only
++      // promise drivers belong to this no-outcome control; the genuine bound
++      // exit cohort above has its own positive BROKEN/receipt assertions.
++      expect(trustDrivers(closed, original.beneficiaryPersonId, target, 312)
++        .filter(row => row.kind === 'promiseKept' || row.kind === 'promiseBroken'))
++        .toEqual(trustDrivers(paid, original.beneficiaryPersonId, target, 312)
++          .filter(row => row.kind === 'promiseKept' || row.kind === 'promiseBroken'))
+     }
+     if (!('continuedScripts' in record)) throw new Error('actual acquired screenplay continuation required')
+     expect(record.continuedScripts).toHaveLength(1)
