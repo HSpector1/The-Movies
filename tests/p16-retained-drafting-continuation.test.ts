@@ -195,7 +195,7 @@ describe('P16 genuine171 retained drafting native completion',()=>{
   const atClose=structuredClone(j.c.result)
   scriptRecord(atClose,j.c.record.id).continuedScripts[0]!.reservationAtClose.facilityId='missing-buyer-facility'
   const before=JSON.stringify(atClose)
-  try{expect(()=>saves.makeSave(atClose)).toThrow(/continued script: native buyer project differs from original work\/earned completion/)}finally{expect(JSON.stringify(atClose)).toBe(before)}
+  try{expect(()=>saves.makeSave(atClose)).toThrow(`script development invariant: project "${j.c.carried.id}" reservation facility is unknown`)}finally{expect(JSON.stringify(atClose)).toBe(before)}
 
  })
  it('real fully joined retained draft publication fault leaves original paid writer work cash title and caller unchanged',()=>{

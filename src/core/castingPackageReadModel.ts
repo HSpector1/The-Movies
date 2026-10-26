@@ -215,6 +215,7 @@ const SCRIPT_BLOCKER_ROLE: Record<ScriptPlayerBlockerKind, PackageBlockerView['r
   'package-staffing': 'project',
   'casting-session': 'screenTest',
   'greenlight-queued': 'project',
+  'carried-action': 'project',
   'no-concepts': 'project',
   'no-writers': 'project',
 }

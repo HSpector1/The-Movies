@@ -1,0 +1,13 @@
+{
+  "sourceHead": "6fdbe96672e28049199f312fc59c95ebfda20c44",
+  "delta": "castingPackageReadModel carried-action->project; exact native diagnostic in original retained hostile case",
+  "steps": [
+    "root-types",
+    "bridge-types",
+    "complete retained file solo",
+    "complete writer-continuation/save-v38/casting-profession/casting-package-read-model"
+  ],
+  "reuse": "Accept3 and Rewrite3 functional results from prior unchanged source; timing failures retained; no duplicate rerun",
+  "budgets": "unchanged5000ms; no worker or setup changes",
+  "manifest": "SOURCE-MANIFEST.json"
+}

@@ -1,0 +1,81 @@
+{
+  "sourceHead": "6fdbe96672e28049199f312fc59c95ebfda20c44",
+  "delta": [
+    "castingPackageReadModel carried-action->project",
+    "retained hostile exact native refusal message"
+  ],
+  "rootTypesExit": 0,
+  "bridgeTypesExit": 0,
+  "retained": {
+    "passed": 4,
+    "failed": 0,
+    "maxMs": 4141.565226,
+    "budgetMs": 5000
+  },
+  "affected": {
+    "passed": 128,
+    "failed": 1,
+    "failure": "Exact predecessor wave3l-core.json (SHA25648d737049e4d8f473872acb6b9314420f83e2e9fc0dbaefabfe7d0b1efed5888), source332a742a, has the identical full test name, failure at133:49 and actual49-versus-expected38 error. Test SHA682934cf93b9e4599eef97f305144bc6fe307144e1cdfbd50aee687628dbf448 is identical on both. Strict38 checks before line133 reached; final input-purity check134 remains unreached. Classified inherited stale-era assertion; not a new retirement proof refusal.",
+    "overBudgetMs": [
+      14432.44,
+      9202.35,
+      8604.63,
+      8525.41
+    ]
+  },
+  "launchFreeKiB": 10813344,
+  "sampledFreeKiB": [
+    10819820,
+    10797536
+  ],
+  "postFreeKiB": 10822268,
+  "foreignEngineCompilerSamples": "none detected",
+  "limitation": "samples do not prove continuous host exclusivity",
+  "rawEvidence": [
+    {
+      "path": "green-checkpoint/run.log",
+      "bytes": 47,
+      "sha256": "3670bf747ea07615cf550f8c4211419708dad10a6e20c42ca00b4ee65a3aeea1"
+    },
+    {
+      "path": "green-checkpoint/run.log.meta",
+      "bytes": 233,
+      "sha256": "fb07ae4a5500c47c80350f14369f91f2865da51db162897c17fd1b0ca0446be3"
+    },
+    {
+      "path": "green-checkpoint/run-r2.log",
+      "bytes": 22509,
+      "sha256": "9f0f964e1c73a30fa47aeac3179dcd59e35b3c0592f5916ee1d1756ae658e162"
+    },
+    {
+      "path": "green-checkpoint/run-r2.log.meta",
+      "bytes": 231,
+      "sha256": "8af48cc8fe2512f02fba3a2d9cab2c38ce66745886da8215e66abf30ea8e6b1a"
+    },
+    {
+      "path": "green-checkpoint/retained-writing-complete.json",
+      "bytes": 7474,
+      "sha256": "7927d6c2d4aa85808733cfe4672597c5aaf1e331fe4dc9ad8b22b5f4f66e6901"
+    },
+    {
+      "path": "repair-checkpoint/run.log",
+      "bytes": 3422631,
+      "sha256": "1be12a46007e0ad47d2ea3a0af55b23ef223e36587444e5fea3257798e334404"
+    },
+    {
+      "path": "repair-checkpoint/run.log.meta",
+      "bytes": 233,
+      "sha256": "aa5f12235026bc84a6c59d98e3cf041c29795c8931ec48e2ab3ace691723067d"
+    },
+    {
+      "path": "repair-checkpoint/retained-complete.json",
+      "bytes": 2697,
+      "sha256": "71cf23f0161ad04136c0ec9435dacc6a8c5384cbabb2654a699e7bcd03b0aaaf"
+    },
+    {
+      "path": "repair-checkpoint/affected-history-consumer.json",
+      "bytes": 54539,
+      "sha256": "ffd0f2169a51e171d2933b5127d8f4f5d8b0d882972fea710f0c8eb9926a272b"
+    }
+  ]
+}

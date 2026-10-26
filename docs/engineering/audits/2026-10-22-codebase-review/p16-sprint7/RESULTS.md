@@ -1,3 +1,19 @@
+# Retained-writing checkpoint — 2026-10-26
+
+Primary candidate remains013c4edc; this experimental branch is not Sprint7-complete or integration-qualified. Retained drafting, actual due-week completion, public Accept and bounded Rewrite now reach their genuine transaction/save/replay assertions. No P17/P18 or gameplay main promotion.
+
+The first coherent run had9/10 assertions passing and root/Bridge types failing on a missing casting-package blocker mapping. Corrected `carried-action` to the existing `project` role. One hostile test expected a later validator despite mutating a shared reservation: corrected only its exact native unknown-facility diagnostic, preserving corruption and caller-purity assertions. Independent review agrees.
+
+Final root/Bridge types0; retained complete4/4, maximum4.142s within unchanged5s. Accept3/3 and Rewrite3/3 functional evidence reused from unchanged gameplay code; four of those six exceed5s, so they are not timing-qualified. Original broad retained timings/failure remain preserved, not erased by the corrected solo result.
+
+Affected complete files128/129: retired-writer64/64, casting-package11/11, profession7/7, Save38 46/47. Sole failure is the exact inherited live49-versus-strict38 equality, with final purity assertion unreached; see repair-checkpoint/CLASSIFICATION.md. Four passed historical bodies exceed5s (14.432,9.202,8.605,8.525s), preserved without budget changes.
+
+Fresh bound preflights passed at10,819,968 and10,813,344 KiB; observed runtime/postflight stayed over10GiB. No competing engine/compiler detected in samples. These observations do not prove continuous host exclusivity. Earlier resource-limited RED and one controlled interruption from coordinator launching before the final runner freeze remain explicit. All pins verified by independent audits, no active job/lock.
+
+Next: canonical schema generation/checks and actual Bridge/UI consumers on this experimental composition, plus genuine combined retirement/carried-history evidence and required greenlight/cancellation/release/broader-history paths. Full baseline still needs original three r3n1 inputs. No replay of unchanged successful suites solely for counts. No new tests or budgets introduced.
+
+## Earlier preparation and failure evidence (historical)
+
 # Independent retained-writing preparation — incomplete
 
 Experimental source preparation only. The primary P16 candidate remains 013c4edc; Sprint 5 is blocked by the original r3n1 inputs and resource stability. This is not a completed Sprint 7 or a qualified P16 technical checkpoint.

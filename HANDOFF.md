@@ -1,17 +1,16 @@
 # HANDOFF
 
-Last writer: Codex, 2026-10-25, sole coordinator for the authorized Sprints 5–16 program.
+Last writer: Codex, 2026-10-26, sole coordinator for the authorized Sprints 5–16 program.
 
 ## Experimental retained-writing slice — 2026-10-26 (current side tree)
 
-- This worktree is the coordinator-owned `p16-retained-writing-20261026` experimental branch based on `013c4edc90c0ce063fea00ebb187161ad6eb3414`. Primary P16 candidate stays unchanged. No P16 technical checkpoint, P17/P18 start or gameplay promotion follows.
-- Prepared source13/Accept/Rewrite plus reviewed four-file retirement-authority forwarding repair; ten original tests unchanged. No new policy, provenance or grant. Existing static review found no remaining concrete source issue, but actual retirement/carried coexistence remains unproved.
-- Predecessor first retained-positive leaf reached `absorption: retainedScriptProducerRequired` in 2.475 s. All 1,611 frozen hashes matched; independent postflight audit released freeze. Three other leaves were unselected. This is missing-producer evidence, not retirement-coexistence RED.
-- Resource limit: preflight passed with 3,805,316 KiB and zero detected heavy jobs; swap grew 7→8 GiB, postflight free 2,754,404 KiB below runtime floor 3,145,728 KiB. Withhold resource/timing qualification. No further runtime. Source is prepared but compilers, ten-test green run and consumers are UNRUN; generated schema is not updated/current for this experimental delta.
-- Next: stable headroom and exclusivity, then current preflight/lane for root/Bridge types and the three existing complete continuation files; inspect first failures before any test change. Reuse current retired-writing/history files for affected-law checks. Do not install the optional non-distinguishing control or claim coexistence. Canonical generation/consumer qualification and carried greenlight/broader history remain required.
-- Primary Sprint 5 still needs original three r3n1 fixture inputs; no synthetic replacement or full-gate waiver. Existing coordinator state/program view remains in the records worktree HANDOFF/LEDGER. Evidence: `docs/engineering/audits/2026-10-22-codebase-review/p16-sprint7/`; raw private preflight stays in scratch.
+- Coordinator-owned p16-retained-writing-20261026 descends from6fdbe966; primary candidate013c4edc unchanged. This checkpoint repairs the carried-action casting mapping and exact hostile first-owner expectation. No feature-complete/P16 technical/main promotion claim.
+- Root/Bridge types0; retained complete4/4 within5s (max4.142s). Prior unchanged Accept3/3 and Rewrite3/3 functional results reused, four over5s. Affected history/consumer128/129: sole failure exactly matches332a742a live49-versus-strict38 expectation; final purity assertion remains unreached. Four historical passed bodies exceed5s.
+- Independent audit confirms source/preflight pins and no remaining runner/lock. Original failed assertions, timing evidence, resource-limited RED and interrupted preflight-binding attempt preserved in p16-sprint7. Owner cleanup/session offload restored over10GiB observed headroom; no automatic waiver of fresh preflight or host exclusivity.
+- Next: qualify canonical schema generation/checks and actual Bridge/UI consumers on this experimental composition. Genuine combined retirement/acquired-history witness, carried greenlight/cancellation/release and broader screenplay-history support remain open. Do not infer them from ordinary writer controls.
+- Sprint5 full gate still needs three original r3n1 checkpoints; no fabricated substitute or P17/P18 predecessor waiver. Program remains incomplete. Existing records-worktree LEDGER holds program view. One writer/sole lane; safe cleanup only of verified archived/reproducible session files at idle boundaries.
 
-## Sprints 5–16 authorized program — active, 2026-10-25 (current)
+## Sprints 5–16 authorized program — 2026-10-25 (historical entry)
 
 - Owner authorization: `docs/engineering/audits/2026-10-22-codebase-review/p16-sprint5/OWNER-ASSIGNMENT.txt`. Continue eligible bounded packages without routine approvals; P17/P18 require qualified technical predecessors. No gameplay promotion to main. This supersedes historical stop-after-sprint and no-P17/P18 notes only within the new scope.
 - Entry candidate `p16-rebase-20261024` at `b3be2b78f821ca356158b63083eced051d20f3f7`; main/wip `0bf84f9252f34671849a3d3c4dc638b945f38c8e`, explicit remote refs verified. No gameplay source changed. Sole coordinator/integration writer; Sol external preparation only.
