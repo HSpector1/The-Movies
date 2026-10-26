@@ -4,16 +4,16 @@ import { assertStudioOperationsInvariants } from './operations.js'
 import { activeContract, busyTalentIds } from './employment.js'
 import { castingOccupiedFacilitySlots } from './castingSessions.js'
 import { resourceClaims } from './occupancy.js'
-import type { GameState, ScriptDevelopment, ScriptProject } from './types.js'
+import type { GameState, ScriptDevelopment, ScriptProject, Production, FilmConcept, LedgerEntry } from './types.js'
 import type { AbsorptionRecord, AbsorptionScriptCompletion, AbsorptionScriptDecision } from './rights.js'
 import { allocateRightsId } from './rights.js'
-import { allocateScriptReservation, completeDueScriptWork, assertScriptDevelopmentInvariants, assessFirstDraft, scriptRewriteDelta, acceptScriptProject, requestScriptRewrite } from './scriptDevelopment.js'
+import { allocateScriptReservation, completeDueScriptWork, assertScriptDevelopmentInvariants, assessFirstDraft, scriptRewriteDelta, acceptScriptProject, requestScriptRewrite, linkScriptProjectToProduction, returnScriptProjectToReady, markScriptProjectProduced } from './scriptDevelopment.js'
 import { buyerOperationsForAllWork, buyerOperatedProductions } from './continuedWork.js'
 import { closedWeekOf } from './operatingState.js'
-import { SCRIPT_DEVELOPMENT_OFFICE_TIER_2_EST_UPLIFT, SCRIPT_DEVELOPMENT_OFFICE_TIER_3_EST_UPLIFT, FACILITY_BLUEPRINTS } from './tuning.js'
+import { TUNING, SCRIPT_DEVELOPMENT_OFFICE_TIER_2_EST_UPLIFT, SCRIPT_DEVELOPMENT_OFFICE_TIER_3_EST_UPLIFT, FACILITY_BLUEPRINTS } from './tuning.js'
 import { developmentOfficeEstUplift } from './facilityEffects.js'
 
-type Owner=Extract<AbsorptionRecord,{producerVersion:'absorption-scripts/v3'|'absorption-scripts/v4'|'absorption-scripts/v5'}>
+type Owner=Extract<AbsorptionRecord,{producerVersion:'absorption-scripts/v3'|'absorption-scripts/v4'|'absorption-scripts/v5'|'absorption-scripts/v6'}>
 function fail(why:string):never{throw new Error(`continued script: ${why}`)}
 const exact=(x:object,keys:string[])=>Object.keys(x).sort().join()===keys.sort().join()
 function same(a:unknown,b:unknown):boolean{
@@ -24,7 +24,7 @@ function same(a:unknown,b:unknown):boolean{
  return keys.join()===Object.keys(y).sort().join()&&keys.every(k=>same(x[k],y[k]))
 }
 function owners(state:GameState):Owner[]{
- return (state.rights?.absorptions??[]).filter((a):a is Owner=>(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||a.producerVersion==='absorption-scripts/v5'))
+ return (state.rights?.absorptions??[]).filter((a):a is Owner=>(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6')))
 }
 export function continuedScriptOwner(state:GameState,id:string){
  for(const a of owners(state)){const row=a.continuedScripts.find(r=>r.project.id===id);if(row)return {a,row}}
@@ -39,6 +39,189 @@ export function buyerScriptConcepts(state:GameState){
  const ids=new Set(owners(state).filter(a=>a.buyerId===state.hollywood?.playerStudioId).flatMap(a=>a.continuedScripts.map(r=>r.originalScript.conceptId)))
  return [...state.concepts,...(state.hollywood?.concepts??[]).filter(c=>ids.has(c.id)&&!state.concepts.some(own=>own.id===c.id))]
 }
+
+/** Exact current49 authority for native buyer productions only. Derived afresh
+ * from independently replayed carried history; absent for every older record. */
+export type CarriedProductionAuthority = Readonly<{
+ concepts: readonly FilmConcept[];
+ productionScripts: ReadonlyMap<string,ScriptProject>;
+ /** Every actual native greenlight remains joined after cancellation clears the
+  * current project link, or after a later greenlight assigns a different ID. */
+ productionScriptHistory: ReadonlyMap<string,Readonly<{studioId:string;project:ScriptProject;firstTakeEarliestWeek:number;firstTakeLatestWeek:number|null}>>;
+ originalProductions: readonly Production[];
+}>
+export function carriedScriptForProduction(state:GameState,productionId:string){
+ return owners(state).flatMap(a=>a.continuedScripts).find(row=>row.project.productionId===productionId)?.project
+}
+function productionDecision(state:GameState,projectId:string,project:ScriptProject,decision:
+ | {projectId:string;kind:'greenlight';week:number;production:Production;paidRows:LedgerEntry[]}
+ | {projectId:string;kind:'cancelProduction';week:number;production:Production}
+ | {projectId:string;kind:'productionReleased';week:number;productionId:string}):GameState {
+ const owner=continuedScriptOwner(state,projectId)
+ if(!owner||owner.a.buyerId!==state.hollywood?.playerStudioId)fail('native production has no carried buyer screenplay')
+ const allocated=allocateRightsId(state.rights,'script-decision')
+ const event={...structuredClone(decision),id:allocated.id}
+ return {...state,rights:{...allocated.root,absorptions:allocated.root.absorptions.map(a=>a.id===owner.a.id?{
+  ...owner.a,producerVersion:'absorption-scripts/v6' as const,
+  continuedScripts:owner.a.continuedScripts.map(row=>row.project.id===projectId?{...row,project}:row),
+  scriptDecisions:[...(owner.a.producerVersion==='absorption-scripts/v3'?[]:owner.a.scriptDecisions),event],
+ }:a)}}
+}
+/** Called only after the ordinary native producer returned the paid production. */
+export function linkCarriedScriptToProduction(state:GameState,projectId:string,production:Production):GameState {
+ const owner=continuedScriptOwner(state,projectId)
+ if(!owner)fail('native greenlight has no carried screenplay')
+ const project=linkScriptProjectToProduction({mode:'managed',projects:[owner.row.project]},projectId,production.id).projects[0]!
+ const paidRows=state.ledger.filter(row=>row.productionId===production.id&&(row.kind==='production'||row.kind==='freelancerFee'))
+ return productionDecision(state,projectId,project,{projectId,kind:'greenlight',week:state.market.tick,production,paidRows})
+}
+/** Ordinary cancel has already removed the native production without a refund. */
+export function returnCarriedScriptToReady(state:GameState,production:Production):GameState {
+ const previous=carriedScriptForProduction(state,production.id)
+ if(!previous)return state
+ const project=returnScriptProjectToReady({mode:'managed',projects:[previous]},production.id).projects[0]!
+ return productionDecision(state,previous.id,project,{projectId:previous.id,kind:'cancelProduction',week:state.market.tick,production})
+}
+/** Ordinary release owns the film, cash, growth, standing and title; only its
+ * carried screenplay's durable lifecycle is joined here at the actual input week. */
+export function markCarriedScriptProduced(state:GameState,productionId:string,week:number):GameState {
+ const previous=carriedScriptForProduction(state,productionId)
+ if(!previous)return state
+ const project=markScriptProjectProduced({mode:'managed',projects:[previous]},productionId).projects[0]!
+ return productionDecision(state,previous.id,project,{projectId:previous.id,kind:'productionReleased',week,productionId})
+}
+/** Only the dereference shapes consumed by the early receipt replay. This is
+ * not a substitute for any frozen/full validator, all of which still run. */
+function assertCarriedHistoryInputShape(state:GameState):void {
+ type Row=Record<string,unknown>
+ const object=(value:unknown,path:string):Row=>{
+  if(value===null||typeof value!=='object'||Array.isArray(value))fail(`native production input ${path} must be an object`)
+  return value as Row
+ }
+ const rows=(value:unknown,path:string):Row[]=>{
+  if(!Array.isArray(value))fail(`native production input ${path} must be an array`)
+  return value.map((row,i)=>object(row,`${path}[${i}]`))
+ }
+ const text=(value:unknown,path:string):void=>{
+  if(typeof value!=='string'||value.length===0)fail(`native production input ${path} must be a string`)
+ }
+ const strings=(value:unknown,path:string):void=>{
+  if(!Array.isArray(value))fail(`native production input ${path} must be an array`)
+  value.forEach((item,i)=>text(item,`${path}[${i}]`))
+ }
+ const script=(value:unknown,path:string):void=>{
+  const p=object(value,path);text(p.id,`${path}.id`);strings(p.writerIds,`${path}.writerIds`)
+ }
+ const production=(value:unknown,path:string):void=>{
+  const p=object(value,path);text(p.id,`${path}.id`);object(p.budget,`${path}.budget`)
+  object(p.forecastSnapshot,`${path}.forecastSnapshot`)
+ }
+ const development=(value:unknown,path:string):void=>{
+  const d=object(value,path);rows(d.projects,`${path}.projects`).forEach((p,i)=>script(p,`${path}.projects[${i}]`))
+ }
+ const operations=(value:unknown,path:string):void=>{
+  const op=object(value,path)
+  rows(op.facilities,`${path}.facilities`).forEach(f=>{text(f.id,`${path}.facility.id`);text(f.name,`${path}.facility.name`)})
+  rows(op.workflows,`${path}.workflows`).forEach(w=>{
+   rows(w.reservations,`${path}.workflow.reservations`)
+   if(w.bindings!==undefined)object(w.bindings,`${path}.workflow.bindings`)
+   if(w.shootingTask!==null)object(w.shootingTask,`${path}.workflow.shootingTask`)
+   if(w.blocker!==null)object(w.blocker,`${path}.workflow.blocker`)
+  })
+ }
+ const observation=(value:unknown,path:string):void=>{
+  const o=object(value,path);rows(o.facilities,`${path}.facilities`);rows(o.placements,`${path}.placements`);rows(o.paidRows,`${path}.paidRows`)
+ }
+ const root=object(state,'state'),h=object(root.hollywood,'hollywood')
+ const market=object(root.market,'market')
+ if(!Number.isSafeInteger(market.tick))fail('native production input market.tick must be a whole week')
+ development(root.scriptDevelopment,'scriptDevelopment')
+ rows(root.ledger,'ledger')
+ const studio=object(root.studio,'studio')
+ rows(studio.activeProductions,'studio.activeProductions').forEach((p,i)=>production(p,`studio.activeProductions[${i}]`))
+ rows(studio.releasedFilms,'studio.releasedFilms')
+ rows(object(root.releaseAuthority,'releaseAuthority').commitments,'releaseAuthority.commitments')
+ rows(object(root.studioClosure,'studioClosure').closures,'studioClosure.closures')
+ rows(object(root.placement,'placement').facilities,'placement.facilities')
+ operations(root.operations,'operations')
+ rows(h.concepts,'hollywood.concepts').forEach((c,i)=>text(c.id,`hollywood.concepts[${i}].id`))
+ rows(h.employment,'hollywood.employment').forEach((e,i)=>object(e.terms,`hollywood.employment[${i}].terms`))
+ const businesses=rows(h.businesses,'hollywood.businesses')
+ const rights=object(root.rights,'rights')
+ if(!Number.isSafeInteger(rights.nextId))fail('native production input rights.nextId must be a whole number')
+ for(const a of rows(rights.absorptions,'rights.absorptions')){
+  text(a.id,'absorption.id')
+  rows(a.continuedProductions,'absorption.continuedProductions').forEach(r=>production(r.originalProduction,'continuedProduction.originalProduction'))
+  rows(a.workSteps,'absorption.workSteps');rows(a.workCancellations,'absorption.workCancellations');rows(a.workReleases,'absorption.workReleases')
+  if(!['absorption-scripts/v3','absorption-scripts/v4','absorption-scripts/v5','absorption-scripts/v6'].includes(a.producerVersion as string))continue
+  const source=businesses.find(b=>b.studioId===a.targetId)
+  if(!source)fail('native production input source business missing')
+  development(source.development,'source.development');rows(source.projects,'source.projects')
+  rows(a.contracts,'absorption.contracts');rows(a.stoppedScripts,'absorption.stoppedScripts')
+  rows(a.continuedScripts,'absorption.continuedScripts').forEach(r=>{
+   script(r.project,'continuedScript.project');script(r.originalScript,'continuedScript.originalScript')
+   object(r.originalCosts,'continuedScript.originalCosts');object(r.reservationAtClose,'continuedScript.reservationAtClose')
+  })
+  rows(a.scriptCompletions,'absorption.scriptCompletions').forEach(r=>observation(r.developmentContext,'completion.developmentContext'))
+  if(a.producerVersion==='absorption-scripts/v3')continue
+  for(const d of rows(a.scriptDecisions,'absorption.scriptDecisions')){
+   text(d.id,'decision.id');text(d.projectId,'decision.projectId')
+   if(d.kind==='greenlight'||d.kind==='cancelProduction')production(d.production,'decision.production')
+   if(d.kind==='greenlight')rows(d.paidRows,'decision.paidRows')
+   if(d.kind!=='rewrite')continue
+   const input=object(d.nativeInput,'rewrite.nativeInput'),authority=object(d.allocationAuthority,'rewrite.allocationAuthority')
+   development(input.development,'rewrite.development');operations(input.operations,'rewrite.operations')
+   rows(authority.productions,'rewrite.productions').forEach(p=>production(p,'rewrite.production'))
+   strings(authority.projectIds,'rewrite.projectIds');strings(authority.workflowIds,'rewrite.workflowIds')
+   observation(authority.developmentContext,'rewrite.developmentContext')
+  }
+ }
+}
+export function carriedProductionAuthority(state:GameState):CarriedProductionAuthority|undefined {
+ const raw=state.rights?.absorptions
+ // Older saves retain their existing validation traversal and refusal order.
+ if(!Array.isArray(raw)||!raw.some(a=>a&&typeof a==='object'&&a.producerVersion==='absorption-scripts/v6'))return undefined
+ assertCarriedHistoryInputShape(state)
+ const current=owners(state).filter(a=>a.producerVersion==='absorption-scripts/v6')
+ // This replays exact receipt IDs/order, source bargains/paid work, earned
+ // assessment and every native lifecycle transition BEFORE granting any lookup.
+ validateContinuedScriptHistory(state)
+ const ids=new Set(current.flatMap(a=>a.scriptDecisions.filter(d=>d.kind==='greenlight').map(d=>d.projectId)))
+ const projects=current.flatMap(a=>a.continuedScripts.map(row=>row.project)).filter(p=>ids.has(p.id))
+ const conceptIds=new Set(projects.map(p=>p.conceptId))
+ const concepts=state.hollywood!.concepts.filter(c=>conceptIds.has(c.id))
+ if(concepts.length!==conceptIds.size)fail('native production has no exact source concept')
+ const productionScripts=new Map(projects.filter(p=>p.productionId!==null).map(p=>[p.productionId!,p] as const))
+ const originalProductions=current.flatMap(a=>a.scriptDecisions.flatMap(d=>d.kind==='greenlight'?[d.production]:d.kind==='cancelProduction'?[d.production]:[]))
+ const productionScriptHistory=new Map<string,Readonly<{studioId:string;project:ScriptProject;firstTakeEarliestWeek:number;firstTakeLatestWeek:number|null}>>()
+ for(const a of current)for(const decision of a.scriptDecisions){
+  if(decision.kind!=='greenlight')continue
+  const project=a.continuedScripts.find(row=>row.project.id===decision.projectId)?.project
+  if(!project||productionScriptHistory.has(decision.production.id))fail('native production history has no unique screenplay')
+  // Greenlight's input week is skipped. Four later countdown advances
+  // reach the native 5→4 take, whose receipt names the produced week.
+  const firstTakeEarliestWeek=decision.week+(decision.production.remainingTicks-4)+1
+  const terminal=a.scriptDecisions.find(d=>(d.kind==='cancelProduction'&&d.production.id===decision.production.id)
+    ||(d.kind==='productionReleased'&&d.productionId===decision.production.id))
+  const live=state.studio.activeProductions.find(p=>p.id===decision.production.id)
+  // At a cancellation/current boundary B with remaining r, the take has
+  // already produced remaining=4; at least4-r later advances were needed.
+  // A release receipt instead names input R, with1→0 still ahead of its
+  // produced week: from4 it needs three prior advances, hence latest R-3.
+  const boundary=terminal?.week??state.market.tick
+  const remaining=terminal?.kind==='cancelProduction'?terminal.production.remainingTicks:live?.remainingTicks
+  const firstTakeLatestWeek=terminal?.kind==='productionReleased'?terminal.week-3
+    :remaining!==undefined&&remaining<=4?boundary-(4-remaining):null
+  productionScriptHistory.set(decision.production.id,{studioId:a.buyerId,project,firstTakeEarliestWeek,firstTakeLatestWeek})
+ }
+ return {concepts,productionScripts,productionScriptHistory,originalProductions}
+}
+export function carriedConceptForProduction(state:GameState,productionId:string):FilmConcept|undefined {
+ const authority=carriedProductionAuthority(state)
+ const original=authority?.originalProductions.find(p=>p.id===productionId)
+ return original===undefined?undefined:authority?.concepts.find(c=>c.id===original.conceptId)
+}
+
 /** Bind actual native reservations after production allocation, using the SAME buyer facility pool. */
 export function bindContinuedScripts(state:GameState,id:string,occupied:ReadonlySet<string>):GameState{
  let next=state
@@ -51,7 +234,7 @@ export function bindContinuedScripts(state:GameState,id:string,occupied:Readonly
   const pool={...boundPool,projects:boundPool.projects.filter(p=>!original.continuedScripts.some(r=>r.project.id===p.id&&r.project.id===r.sourceScriptProjectId))}
   const reservation=allocateScriptReservation(buyerOperationsForAllWork(next),pool,allocated.id,occupied)
   if(!reservation)fail('buyer native development capacity unavailable')
-  next={...next,rights:{...allocated.root,absorptions:allocated.root.absorptions.map(a=>a.id===id&&(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||a.producerVersion==='absorption-scripts/v5')?{...a,
+  next={...next,rights:{...allocated.root,absorptions:allocated.root.absorptions.map(a=>a.id===id&&(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'))?{...a,
    continuedScripts:a.continuedScripts.map(r=>r.sourceScriptProjectId===originalRow.sourceScriptProjectId?{...r,reservationAtClose:reservation,
     project:{...r.originalScript,id:allocated.id,reservation}}:r)}:a)}}
  }
@@ -75,7 +258,7 @@ export function advanceBuyerScriptWork(state:GameState,arrivalWeek:number,estUpl
   const writerRewriting=row.project.status==='rewriting'&&rewriting?{actual:rewriting.actual,perceived:rewriting.perceived}:null
   const allocated=allocateRightsId(rights,'script-completion')
   const receipt:AbsorptionScriptCompletion={id:allocated.id,projectId:project.id,week:arrivalWeek,inputWeek:state.market.tick,estUplift,writerRewriting,assessment:{...project.assessment},developmentContext:{facilities:structuredClone(state.operations.facilities),placements:structuredClone(state.placement.facilities),paidRows:state.ledger.filter(r=>r.kind==='constructionCapex'&&r.week<=state.market.tick&&state.placement.facilities.some(p=>p.projectId===r.constructionProjectId)).map(r=>({projectId:r.constructionProjectId!,week:r.week,amount:r.amount}))}}
-  rights={...allocated.root,absorptions:allocated.root.absorptions.map(r=>r.id===a.id&&(r.producerVersion==='absorption-scripts/v3'||r.producerVersion==='absorption-scripts/v4'||r.producerVersion==='absorption-scripts/v5')?{...r,
+  rights={...allocated.root,absorptions:allocated.root.absorptions.map(r=>r.id===a.id&&(r.producerVersion==='absorption-scripts/v3'||r.producerVersion==='absorption-scripts/v4'||(r.producerVersion==='absorption-scripts/v5'||r.producerVersion==='absorption-scripts/v6'))?{...r,
    continuedScripts:r.continuedScripts.map(s=>s.project.id===project.id?{...s,project}:s),scriptCompletions:[...r.scriptCompletions,receipt]}:r)}
  }
  const own=new Set(state.scriptDevelopment.projects.map(p=>p.id))
@@ -91,9 +274,9 @@ export function acceptContinuedScript(state:GameState,projectId:string,writingCo
  const allocated=allocateRightsId(state.rights,'script-decision')
  const decision={id:allocated.id,projectId,kind:'accept' as const,week:state.market.tick}
  const next={...state,rights:{...allocated.root,absorptions:allocated.root.absorptions.map((a):AbsorptionRecord=>{
-  if(a.id!==owner.a.id||!(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||a.producerVersion==='absorption-scripts/v5'))return a
+  if(a.id!==owner.a.id||!(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6')))return a
   const continuedScripts=a.continuedScripts.map(r=>r.project.id===projectId?{...r,project}:r)
-  if(a.producerVersion==='absorption-scripts/v5')return {...a,continuedScripts,scriptDecisions:[...a.scriptDecisions,decision]}
+  if((a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'))return {...a,continuedScripts,scriptDecisions:[...a.scriptDecisions,decision]}
   return {...a,producerVersion:'absorption-scripts/v4',continuedScripts,scriptDecisions:[...(a.producerVersion==='absorption-scripts/v4'?a.scriptDecisions:[]),decision]}
  })}}
  validateContinuedScripts(next,liveRetirementWritingAuthority(next,writingContext))
@@ -122,8 +305,8 @@ export function rewriteContinuedScript(state:GameState,projectId:string,writingC
  if(project.reservation===null)fail('native rewrite returned no reservation')
  const allocated=allocateRightsId(state.rights,'script-decision')
  const decision:AbsorptionScriptDecision={id:allocated.id,projectId,kind:'rewrite',week:state.market.tick,reservation:structuredClone(project.reservation),nativeInput,allocationAuthority}
- const next={...state,rights:{...allocated.root,absorptions:allocated.root.absorptions.map(a=>a.id===owner.a.id&&(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||a.producerVersion==='absorption-scripts/v5')?{...a,
-  producerVersion:'absorption-scripts/v5' as const,continuedScripts:a.continuedScripts.map(r=>r.project.id===projectId?{...r,project}:r),
+ const next={...state,rights:{...allocated.root,absorptions:allocated.root.absorptions.map(a=>a.id===owner.a.id&&(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'))?{...a,
+  producerVersion:(a.producerVersion==='absorption-scripts/v6'?'absorption-scripts/v6':'absorption-scripts/v5') as 'absorption-scripts/v5'|'absorption-scripts/v6',continuedScripts:a.continuedScripts.map(r=>r.project.id===projectId?{...r,project}:r),
   scriptDecisions:[...(a.producerVersion==='absorption-scripts/v3'?[]:a.scriptDecisions),decision]}:a)}}
  validateContinuedScripts(next,liveRetirementWritingAuthority(next,writingContext))
  return next
@@ -160,7 +343,7 @@ function validateCompletionContext(state:GameState,r:AbsorptionScriptCompletion)
 }
 /** Exact current owner proof. The caller forwards only its same-invocation native
  * retirement proof; exact task/week checks confer no new carried-task grant. */
-export function validateContinuedScripts(state:GameState,retirementWriting?:RetirementWritingAuthority):void{
+export function validateContinuedScriptHistory(state:GameState):void{
  const player=state.hollywood?.playerStudioId
  const current=owners(state)
  const nativeIds=state.scriptDevelopment.projects.map(p=>p.id)
@@ -174,15 +357,24 @@ export function validateContinuedScripts(state:GameState,retirementWriting?:Reti
   const decisions:AbsorptionScriptDecision[]=a.producerVersion==='absorption-scripts/v3'?[]:a.scriptDecisions
   if(a.producerVersion!=='absorption-scripts/v3'&&(!Array.isArray(decisions)||decisions.length===0))fail('missing buyer script decision')
   if(a.producerVersion==='absorption-scripts/v5'&&!decisions.some(d=>d.kind==='rewrite'))fail('rewrite producer has no actual request')
+  if(a.producerVersion==='absorption-scripts/v6'&&!decisions.some(d=>d.kind==='greenlight'))fail('native production producer has no actual greenlight')
   const decisionKeys=new Set<string>()
   let lastDecisionWeek=a.week
+  let lastDecisionOrder=Number(a.id.slice(a.id.lastIndexOf('-')+1))
   for(const decision of decisions){
+   if(!decision||typeof decision!=='object')fail('buyer script decision shape differs')
+   if(typeof decision.id!=='string')fail('buyer script decision id must be a string')
+   const receiptOrder=Number(decision.id.slice(decision.id.lastIndexOf('-')+1))
+   if(a.producerVersion==='absorption-scripts/v6'&&(!Number.isSafeInteger(receiptOrder)||receiptOrder<=lastDecisionOrder||receiptOrder>=state.rights.nextId))fail('native production receipt order differs')
+   lastDecisionOrder=receiptOrder
    const rewrite=decision.kind==='rewrite'
-   if(!decision||!exact(decision,rewrite?['id','projectId','kind','week','reservation','nativeInput','allocationAuthority']:['id','projectId','kind','week'])||!/^script-decision-[1-9][0-9]*$/.test(decision.id)
-    ||decision.kind!=='accept'&&!rewrite||rewrite&&a.producerVersion!=='absorption-scripts/v5'
+   const greenlight=decision.kind==='greenlight',cancel=decision.kind==='cancelProduction',released=decision.kind==='productionReleased'
+   const lifecycle=greenlight||cancel||released
+   if(!decision||!exact(decision,rewrite?['id','projectId','kind','week','reservation','nativeInput','allocationAuthority']:greenlight?['id','projectId','kind','week','production','paidRows']:cancel?['id','projectId','kind','week','production']:released?['id','projectId','kind','week','productionId']:['id','projectId','kind','week'])||!/^script-decision-[1-9][0-9]*$/.test(decision.id)
+    ||decision.kind!=='accept'&&!rewrite&&!lifecycle||lifecycle&&a.producerVersion!=='absorption-scripts/v6'||rewrite&&(a.producerVersion!=='absorption-scripts/v5'&&a.producerVersion!=='absorption-scripts/v6')
     ||!Number.isInteger(decision.week)||decision.week<lastDecisionWeek||decision.week>state.market.tick||decision.week>=(closedWeekOf(state).get(a.buyerId)??Infinity)
-    ||decisionKeys.has(`${decision.projectId}:${decision.kind}`)||!a.continuedScripts.some(r=>r.project.id===decision.projectId))fail('buyer script decision authority/order differs')
-   decisionKeys.add(`${decision.projectId}:${decision.kind}`);lastDecisionWeek=decision.week
+    ||decisionKeys.has(`${decision.projectId}:${decision.kind}:${lifecycle?(released?decision.productionId:decision.production.id):''}`)||!a.continuedScripts.some(r=>r.project.id===decision.projectId))fail('buyer script decision authority/order differs')
+   decisionKeys.add(`${decision.projectId}:${decision.kind}:${lifecycle?(released?decision.productionId:decision.production.id):''}`);lastDecisionWeek=decision.week
   }
   const expectedReceipts:{projectId:string;week:number}[]=[]
   for(const row of a.continuedScripts){
@@ -216,7 +408,8 @@ export function validateContinuedScripts(state:GameState,retirementWriting?:Reti
     if(!exact(r,['id','projectId','week','inputWeek','estUplift','developmentContext','writerRewriting','assessment'])||!/^script-completion-[1-9][0-9]*$/.test(r.id)
      ||r.week!==original.dueWeek||r.inputWeek!==r.week-1||r.inputWeek<a.week||![0,SCRIPT_DEVELOPMENT_OFFICE_TIER_2_EST_UPLIFT,SCRIPT_DEVELOPMENT_OFFICE_TIER_3_EST_UPLIFT].includes(r.estUplift))fail('completion observation differs')
     validateCompletionContext(state,r)
-    const concept=state.hollywood!.concepts.find(c=>c.id===original.conceptId)!
+    const concept=state.hollywood!.concepts.find(c=>c.id===original.conceptId)
+    if(!concept)fail('native completion source concept missing')
     let assessment
     if(original.status==='drafting'){
      if(r.writerRewriting!==null)fail('first draft invents rewrite context')
@@ -238,6 +431,44 @@ export function validateContinuedScripts(state:GameState,retirementWriting?:Reti
     if(!due||decision.week<latestCompletion)fail('buyer review decision precedes earned completion')
     if(decision.kind==='accept'){
      expected=acceptScriptProject({mode:'managed',projects:[expected]},project.id).projects[0]!
+     continue
+    }
+    if(decision.kind==='greenlight'){
+     const p=decision.production
+     if(!p||p.startTick!==decision.week||p.remainingTicks!==TUNING.PRODUCTION_TICKS||p.conceptId!==expected.conceptId||p.writerId!==expected.writerId
+      ||!same(p.shape,expected.shape)||!same(p.promise,expected.promise)||!Array.isArray(decision.paidRows))fail('native greenlight differs from earned Ready source')
+     const paid=state.ledger.filter(row=>row.productionId===p.id&&(row.kind==='production'||row.kind==='freelancerFee'))
+     const debit=paid.filter(row=>row.kind==='production')
+     if(!same(paid,decision.paidRows)||debit.length!==1||debit[0]!.week!==decision.week||debit[0]!.amount!==-(p.budget.negative+p.budget.marketing)
+      ||paid.some(row=>row.week!==decision.week||row.amount>=0))fail('native greenlight lacks exact actual paid source')
+     const live=state.studio.activeProductions.find(row=>row.id===p.id)
+     // Native operations change only the countdown. Sound/technology/shooting
+     // progress lives in its own independently validated roots, not this row.
+     if(live&&(!Number.isInteger(live.remainingTicks)||live.remainingTicks<1||live.remainingTicks>p.remainingTicks
+      ||state.market.tick-decision.week<p.remainingTicks-live.remainingTicks
+      ||!same({...live,remainingTicks:p.remainingTicks},p)))fail('native active production differs from paid greenlight')
+     expected=linkScriptProjectToProduction({mode:'managed',projects:[expected]},project.id,p.id).projects[0]!
+     continue
+    }
+    if(decision.kind==='cancelProduction'){
+     const p=decision.production
+     const original=decisions.find(d=>d.kind==='greenlight'&&d.production.id===p?.id)
+     if(!p||!original||original.kind!=='greenlight'||expected.productionId!==p.id||p.remainingTicks<1||p.remainingTicks>original.production.remainingTicks
+      ||decision.week-original.week<original.production.remainingTicks-p.remainingTicks
+      ||!same({...p,remainingTicks:original.production.remainingTicks},original.production)
+      ||state.studio.activeProductions.some(row=>row.id===p.id)||state.studio.releasedFilms.some(row=>row.productionId===p.id)
+      ||state.releaseAuthority.commitments.some(row=>row.productionId===p.id))fail('native cancellation has no exact uncommitted paid production')
+     expected=returnScriptProjectToReady({mode:'managed',projects:[expected]},p.id).projects[0]!
+     continue
+    }
+    if(decision.kind==='productionReleased'){
+     const film=state.studio.releasedFilms.find(f=>f.productionId===decision.productionId)
+     const original=decisions.find(d=>d.kind==='greenlight'&&d.production.id===decision.productionId)
+     if(!film||!original||original.kind!=='greenlight'||film.releaseTick!==decision.week||expected.productionId!==film.productionId||film.conceptId!==expected.conceptId
+      ||film.directorId!==original.production.directorId||!same(film.participants,original.production.participants)
+      ||!same(film.forecast,original.production.participants?{expectedOpening:original.production.forecastSnapshot.expectedOpening,expectedTotal:original.production.forecastSnapshot.expectedTotal,expectedCriticScore:original.production.forecastSnapshot.expectedCriticScore}:undefined)
+      ||state.studio.activeProductions.some(p=>p.id===film.productionId))fail('native carried release lacks actual buyer film')
+     expected=markScriptProjectProduced({mode:'managed',projects:[expected]},film.productionId).projects[0]!
      continue
     }
     const input=decision.nativeInput
@@ -327,9 +558,14 @@ export function validateContinuedScripts(state:GameState,retirementWriting?:Reti
   }
   if(!same(a.scriptCompletions.map(r=>[r.projectId,r.week]),expectedReceipts.sort((x,y)=>x.week-y.week).map(r=>[r.projectId,r.week])))fail('completion receipt order or unknown subject differs')
  }
+}
+export function validateContinuedScripts(state:GameState,retirementWriting?:RetirementWritingAuthority):void{
+ validateContinuedScriptHistory(state)
+ const player=state.hollywood?.playerStudioId,current=owners(state)
+ const nativeIds=[...state.scriptDevelopment.projects.map(p=>p.id),...current.flatMap(a=>a.continuedScripts.map(row=>row.project.id))]
  if(current.length===0)return
  const closed=closedWeekOf(state).get(player!)
- const productionScripts=new Map<string,ScriptProject>()
+ const productionScripts=new Map<string,ScriptProject>(current.filter(a=>a.producerVersion==='absorption-scripts/v6').flatMap(a=>a.continuedScripts.filter(row=>row.project.productionId!==null).map(row=>[row.project.productionId!,row.project] as const)))
  for(const a of state.rights.absorptions.filter(a=>a.buyerId===player)){
   const source=state.hollywood!.businesses.find(b=>b.studioId===a.targetId)!
   for(const row of a.continuedProductions){

@@ -1,3 +1,4 @@
+import { buyerScriptConcepts } from './continuedScripts.js'
 // ── Studio Calendar & Capacity Board V1 ────────────────────────────────────
 // One deterministic, read-only projection over authoritative studio state.
 // This module creates no schedule, reservation, command, or second clock.
@@ -277,7 +278,7 @@ function compareId(a: string, b: string): number {
 }
 
 function requireConceptTitle(state: GameState, conceptId: string, owner: string): string {
-  const concept = state.concepts.find((candidate) => candidate.id === conceptId)
+  const concept = buyerScriptConcepts(state).find((candidate) => candidate.id === conceptId)
   if (concept === undefined) {
     throw new Error(`studioCalendar: ${owner} references unknown concept "${conceptId}"`)
   }

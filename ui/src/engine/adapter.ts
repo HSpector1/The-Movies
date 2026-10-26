@@ -1,3 +1,4 @@
+import { buyerScriptConcepts } from '../../../src/core/index.ts'
 // ── Engine adapter — the ONE boundary crossing ───────────────────────────────
 // This is the ONLY module in the UI that imports the simulation core, and it does
 // so ONLY through the public surface `src/core/index.ts`. No UI component imports
@@ -1562,7 +1563,7 @@ export function findTalent(state: GameState, id: string): Talent | undefined {
   return state.talent.find((t) => t.id === id)
 }
 export function findConcept(state: GameState, id: string): FilmConcept | undefined {
-  return state.concepts.find((c) => c.id === id)
+  return buyerScriptConcepts(state).find((c) => c.id === id)
 }
 
 // ── Eligibility helpers — mirror applyActions legality (M16 / B3) ─────────────

@@ -1,3 +1,4 @@
+import { carriedProductionAuthority, type CarriedProductionAuthority } from './continuedScripts.js'
 import { buyerScriptDevelopment } from './continuedScripts.js'
 import { buyerOperationsForAllWork, buyerOperatedProductions } from './continuedWork.js'
 import { facilityOffline } from './officeConversion.js'
@@ -2642,7 +2643,7 @@ function v8Publicity(value: unknown, label: string): void {
 function checkV8LiveState(
   state: Record<string, unknown>,
   policy: LiveStateValidationPolicy = "historical",
-): void {
+  carriedProduction?: CarriedProductionAuthority): void {
   const label = "state";
   v8ExactKeys(state, V8_STATE_KEYS, [], label);
   v8AssertPlainJson(state, label);
@@ -2672,6 +2673,9 @@ function checkV8LiveState(
     conceptIds.add(id);
   }
 
+  const ownConceptIds=new Set(conceptIds);
+  for(const concept of carriedProduction?.concepts??[])conceptIds.add(v8Concept(concept,"current49.carriedConcept"));
+  for(const production of carriedProduction?.originalProductions??[])v8Production(production,"current49.carriedProduction",talentIds,conceptIds);
   const studio = v8Record(state.studio, "state.studio");
   v8ExactKeys(
     studio,
@@ -2691,6 +2695,13 @@ function checkV8LiveState(
   );
   const activeIds = new Set<string>();
   for (let i = 0; i < active.length; i++) {
+    if(carriedProduction){
+      const row=v8Record(active[i],"current49.nativeProduction");
+      if(!ownConceptIds.has(row.conceptId as string)){
+        const project=carriedProduction.productionScripts.get(row.id as string);
+        if(!project||project.conceptId!==row.conceptId||project.status!=="inProduction")v8Error("current49.nativeProduction","lacks exact carried production receipt");
+      }
+    }
     const id = v8Production(
       active[i],
       `state.studio.activeProductions[${i}]`,
@@ -2705,6 +2716,13 @@ function checkV8LiveState(
   const released = v8Array(studio.releasedFilms, "state.studio.releasedFilms");
   const releasedIds = new Set<string>();
   for (let i = 0; i < released.length; i++) {
+    if(carriedProduction){
+      const row=v8Record(released[i],"current49.nativeProduction");
+      if(!ownConceptIds.has(row.conceptId as string)){
+        const project=carriedProduction.productionScripts.get(row.productionId as string);
+        if(!project||project.conceptId!==row.conceptId||project.status!=="produced")v8Error("current49.nativeProduction","lacks exact carried production receipt");
+      }
+    }
     const id = v8FilmResult(
       released[i],
       `state.studio.releasedFilms[${i}]`,
@@ -3412,7 +3430,7 @@ function checkOperationsState(state: Record<string, unknown>, label: string, pol
 function validateSaveV8WithPolicy(
   save: unknown,
   policy: LiveStateValidationPolicy,
-): SaveFileV8 {
+  carriedProduction?: CarriedProductionAuthority): SaveFileV8 {
   if (!isRecord(save))
     throw new Error("validateSaveV8: save is not a plain object");
   const s = save;
@@ -3431,7 +3449,7 @@ function validateSaveV8WithPolicy(
   if (!isRecord(state))
     throw new Error("validateSaveV8: state is not a plain object");
   checkV7State(state, "validateSaveV8");
-  checkV8LiveState(state, policy);
+  checkV8LiveState(state, policy, carriedProduction);
   checkOperationsState(state, "validateSaveV8", policy);
   v8AssertPlainJson(s.broadcastCache, "broadcastCache");
   return save as SaveFileV8;
@@ -3708,7 +3726,7 @@ function validateSaveV9WithPolicy(
   save: unknown,
   policy: LiveStateValidationPolicy,
   retirementWriting?: RetirementWritingAuthority,
-): SaveFileV9 {
+  carriedProduction?: CarriedProductionAuthority): SaveFileV9 {
   if (!isRecord(save))
     throw new Error("validateSaveV9: save is not a plain object");
   v9ExactKeys(
@@ -3734,7 +3752,7 @@ function validateSaveV9WithPolicy(
       seed: save.seed,
       state: v8State,
       broadcastCache: save.broadcastCache,
-    }, policy);
+    }, policy, carriedProduction);
   } catch (error) {
     throw new Error(
       `validateSaveV9: frozen V8 state is invalid — ${(error as Error).message}`,
@@ -3751,7 +3769,8 @@ function validateSaveV9WithPolicy(
       studioId: retirementWriting?.playerStudioId,
       retirementWriting,
       currentWeek: typedState.market.tick,
-      concepts: typedState.concepts,
+      concepts: [...typedState.concepts,...(carriedProduction?.concepts??[])],
+      ...(carriedProduction===undefined?{}:{current49ProductionScripts:carriedProduction.productionScripts}),
       talent: typedState.talent,
       contracts: typedState.contracts,
       operations: typedState.operations,
@@ -3943,7 +3962,7 @@ function validateSaveV10WithPolicy(
   // era like `retirementWriting`, so the casting slate law can date a candidate's role.
   // Genuine V10–V37 files carry none and keep the strict law.
   professionContext?: ProfessionValidationContext,
-): SaveFileV10 {
+  carriedProduction?: CarriedProductionAuthority): SaveFileV10 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV10: save is not a plain object");
   }
@@ -3970,7 +3989,7 @@ function validateSaveV10WithPolicy(
       seed: save.seed,
       state: v9State,
       broadcastCache: save.broadcastCache,
-    }, policy, retirementWriting);
+    }, policy, retirementWriting, carriedProduction);
   } catch (error) {
     throw new Error(
       `validateSaveV10: frozen V9 state is invalid — ${(error as Error).message}`,
@@ -4181,7 +4200,7 @@ function validateSaveV11WithPolicy(
   policy: LiveStateValidationPolicy,
   retirementWriting?: RetirementWritingAuthority,
   professionContext?: ProfessionValidationContext,
-): SaveFileV11 {
+  carriedProduction?: CarriedProductionAuthority): SaveFileV11 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV11: save is not a plain object");
   }
@@ -4225,7 +4244,7 @@ function validateSaveV11WithPolicy(
         state: v10State,
         broadcastCache: save.broadcastCache,
       },
-      placementAwarePolicy(policy) ? policy : "annex-v1", retirementWriting, professionContext,
+      placementAwarePolicy(policy) ? policy : "annex-v1", retirementWriting, professionContext, carriedProduction,
     );
   } catch (error) {
     throw new Error(
@@ -4246,7 +4265,7 @@ function validateSaveV11WithPolicy(
   if (!placementAwarePolicy(policy)) {
     try {
       // The checker reads no V12 root, so a frozen V11 fragment is a valid input.
-      assertStudioConstructionInvariants(state as unknown as GameState, { retirementWriting, professionAtWeek: professionContext === undefined ? undefined : (personId: string, week: number) => professionContext.professionAtWeek(personId, week) });
+      assertStudioConstructionInvariants(state as unknown as GameState, { retirementWriting, carriedProduction, professionAtWeek: professionContext === undefined ? undefined : (personId: string, week: number) => professionContext.professionAtWeek(personId, week) });
     } catch (error) {
       throw new Error(`validateSaveV11: ${(error as Error).message}`);
     }
@@ -4407,7 +4426,7 @@ function validateSaveV12WithPolicy(
   policy: "placement-v12" | "property-v13" | "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "loans-p15b" | "rights-p16",
   retirementWriting?: RetirementWritingAuthority,
   professionContext?: ProfessionValidationContext,
-): SaveFileV12 {
+  carriedProduction?: CarriedProductionAuthority): SaveFileV12 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV12: save is not a plain object");
   }
@@ -4443,7 +4462,7 @@ function validateSaveV12WithPolicy(
       // rows survive the frozen-V12 projection, while a genuine V12 file is still
       // validated under "placement-v12" and still refuses them. C2a-M1 threads
       // "sets-v14" the same way, one version on.
-      propertyAwarePolicy(policy) ? policy : "placement-v12", retirementWriting, professionContext,
+      propertyAwarePolicy(policy) ? policy : "placement-v12", retirementWriting, professionContext, carriedProduction,
     );
   } catch (error) {
     throw new Error(
@@ -4457,7 +4476,7 @@ function validateSaveV12WithPolicy(
       // A frozen V12 state carries no property root, so the authority reads the
       // initial authored property — which IS the property every V12 file was
       // written against. See `propertyOf`.
-      assertStudioPlacementInvariants(state as unknown as GameState, { retirementWriting, professionAtWeek: professionContext === undefined ? undefined : (personId: string, week: number) => professionContext.professionAtWeek(personId, week) });
+      assertStudioPlacementInvariants(state as unknown as GameState, { retirementWriting, carriedProduction, professionAtWeek: professionContext === undefined ? undefined : (personId: string, week: number) => professionContext.professionAtWeek(personId, week) });
     } catch (error) {
       throw new Error(`validateSaveV12: ${(error as Error).message}`);
     }
@@ -4594,7 +4613,7 @@ function validateSaveV13WithPolicy(
   policy: "property-v13" | "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "loans-p15b" | "rights-p16",
   retirementWriting?: RetirementWritingAuthority,
   professionContext?: ProfessionValidationContext,
-): SaveFileV13 {
+  carriedProduction?: CarriedProductionAuthority): SaveFileV13 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV13: save is not a plain object");
   }
@@ -4623,7 +4642,7 @@ function validateSaveV13WithPolicy(
         state: v12State,
         broadcastCache: save.broadcastCache,
       },
-      policy, retirementWriting, professionContext,
+      policy, retirementWriting, professionContext, carriedProduction,
     );
   } catch (error) {
     throw new Error(
@@ -4633,7 +4652,7 @@ function validateSaveV13WithPolicy(
 
   checkPropertyShape(rawProperty);
   try {
-    assertStudioPlacementInvariants(state as unknown as GameState, { retirementWriting, professionAtWeek: professionContext === undefined ? undefined : (personId: string, week: number) => professionContext.professionAtWeek(personId, week) });
+    assertStudioPlacementInvariants(state as unknown as GameState, { retirementWriting, carriedProduction, professionAtWeek: professionContext === undefined ? undefined : (personId: string, week: number) => professionContext.professionAtWeek(personId, week) });
   } catch (error) {
     throw new Error(`validateSaveV13: ${(error as Error).message}`);
   }
@@ -5053,7 +5072,8 @@ export function validateSaveV14(save: unknown): SaveFileV14 {
   return validateSaveV14WithPolicy(save, "sets-v14");
 }
 
-function validateSaveV14WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "loans-p15b" | "rights-p16", retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext): SaveFileV14 {
+function validateSaveV14WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "loans-p15b" | "rights-p16", retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext,
+  carriedProduction?: CarriedProductionAuthority): SaveFileV14 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV14: save is not a plain object");
   }
@@ -5082,7 +5102,7 @@ function validateSaveV14WithPolicy(save: unknown, policy: "sets-v14" | "technolo
         state: v13State,
         broadcastCache: save.broadcastCache,
       },
-      policy, retirementWriting, professionContext,
+      policy, retirementWriting, professionContext, carriedProduction,
     );
   } catch (error) {
     throw new Error(
@@ -5177,7 +5197,8 @@ export function validateSaveV15(save: unknown): SaveFileV15 {
   return validateSaveV15WithPolicy(save, "sets-v14");
 }
 
-function validateSaveV15WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "loans-p15b" | "rights-p16", retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext): SaveFileV15 {
+function validateSaveV15WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "loans-p15b" | "rights-p16", retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext,
+  carriedProduction?: CarriedProductionAuthority): SaveFileV15 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV15: save is not a plain object");
   }
@@ -5215,7 +5236,7 @@ function validateSaveV15WithPolicy(save: unknown, policy: "sets-v14" | "technolo
         studioEvents: { ...rawStudioEvents, rows: strippedRows },
       },
       broadcastCache: save.broadcastCache,
-    }, policy, retirementWriting, professionContext);
+    }, policy, retirementWriting, professionContext, carriedProduction);
   } catch (error) {
     throw new Error(
       `validateSaveV15: frozen V14 state is invalid — ${(error as Error).message}`,
@@ -5250,7 +5271,8 @@ export function validateSaveV16(save: unknown): SaveFileV16 {
   return validateSaveV16WithPolicy(save, "sets-v14");
 }
 
-function validateSaveV16WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "loans-p15b" | "rights-p16", retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext): SaveFileV16 {
+function validateSaveV16WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "loans-p15b" | "rights-p16", retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext,
+  carriedProduction?: CarriedProductionAuthority): SaveFileV16 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV16: save is not a plain object");
   }
@@ -5290,7 +5312,7 @@ function validateSaveV16WithPolicy(save: unknown, policy: "sets-v14" | "technolo
         studioEvents: { ...rawStudioEventsV16, rows: nonCommitmentRows },
       },
       broadcastCache: save.broadcastCache,
-    }, policy, retirementWriting, professionContext);
+    }, policy, retirementWriting, professionContext, carriedProduction);
   } catch (error) {
     throw new Error(
       `validateSaveV16: frozen V15 state is invalid — ${(error as Error).message}`,
@@ -5349,7 +5371,8 @@ export function validateSaveV17(save: unknown): SaveFileV17 {
   return validateSaveV17WithPolicy(save, "sets-v14");
 }
 
-function validateSaveV17WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "loans-p15b" | "rights-p16", retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext): SaveFileV17 {
+function validateSaveV17WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "loans-p15b" | "rights-p16", retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext,
+  carriedProduction?: CarriedProductionAuthority): SaveFileV17 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV17: save is not a plain object");
   }
@@ -5370,7 +5393,7 @@ function validateSaveV17WithPolicy(save: unknown, policy: "sets-v14" | "technolo
       seed: save.seed,
       state: v16State,
       broadcastCache: save.broadcastCache,
-    }, policy, retirementWriting, professionContext);
+    }, policy, retirementWriting, professionContext, carriedProduction);
   } catch (error) {
     throw new Error(
       `validateSaveV17: frozen V16 state is invalid — ${(error as Error).message}`,
@@ -5452,7 +5475,8 @@ export function validateSaveV18(save: unknown): SaveFileV18 {
   return validateSaveV18WithPolicy(save, "sets-v14");
 }
 
-function validateSaveV18WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "loans-p15b" | "rights-p16", retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext): SaveFileV18 {
+function validateSaveV18WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "loans-p15b" | "rights-p16", retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext,
+  carriedProduction?: CarriedProductionAuthority): SaveFileV18 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV18: save is not a plain object");
   }
@@ -5473,7 +5497,7 @@ function validateSaveV18WithPolicy(save: unknown, policy: "sets-v14" | "technolo
       seed: save.seed,
       state: v17State,
       broadcastCache: save.broadcastCache,
-    }, policy, retirementWriting, professionContext);
+    }, policy, retirementWriting, professionContext, carriedProduction);
   } catch (error) {
     throw new Error(
       `validateSaveV18: frozen V17 state is invalid — ${(error as Error).message}`,
@@ -8308,7 +8332,7 @@ function validateSaveV19WithPolicy(
   const raw = v14Record(checkEnvelope(save, 'validateSaveV19'), 'state');
   if (!Object.hasOwn(raw, 'hollywood')) throw new Error('validateSaveV19: Hollywood root missing');
   const { hollywood, ...legacy } = raw;
-  const frozen = validateSaveV18WithPolicy({ saveVersion: 18, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, policy, retirementWriting, professionContext);
+  const frozen = validateSaveV18WithPolicy({ saveVersion: 18, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, policy, retirementWriting, professionContext, era.carriedProduction);
   const people = new Set(frozen.state.talent.map(t => t.id));
   // Only the actual current49 owner can transfer native workflow authority. Source
   // productions remain fully validated as paid historical/current projects below;
@@ -9544,7 +9568,7 @@ function validateSaveV30WithWriting(save: unknown, retirementWriting?: Retiremen
   const raw = v14Record(checkEnvelope(save, 'validateSaveV30'), 'state');
   if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSaveV30: firstTakes root missing');
   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV30: promises root missing');
-  if (directingPromises === 40) validatePromiseRootsV40(raw, era.rights ? era.absorptions : undefined);
+  if (directingPromises === 40) validatePromiseRootsV40(raw, era.rights ? era.absorptions : undefined, era.carriedProduction);
   else if (directingPromises === 39) validatePromiseRootsV39(raw);
   else validatePromiseRootsV30(raw);
   try {
@@ -11359,8 +11383,8 @@ function validateSaveV45Era(save: unknown, rivalCostCutting = false, rivalFacili
   }
   validateSaveV44Era({ ...save, saveVersion: 44, state: stripP15Roots(raw) }, rivalCostCutting, rivalFacilityDisposal, foundingFunding, era, onValidatedWriting);
   validatePowerRankingArchive(raw, era.closure, era.rights, new Map([...(era.absorptions?.values() ?? [])].map(a => [a.targetId, a.week])));
-  validateSharedMarketRoot(raw, 'validateSaveV45', era.rights, era.rights ? era.absorptions : undefined);
-  validateCampaignLegacy(raw, 'validateSaveV45', era.studioLoans, era.rights);
+  validateSharedMarketRoot(raw, 'validateSaveV45', era.rights, era.rights ? era.absorptions : undefined, era.carriedProduction);
+  validateCampaignLegacy(raw, 'validateSaveV45', era.studioLoans, era.rights, era.carriedProduction);
   if (allocator) validateP15Allocator(raw, 'validateSaveV45');
   return save as SaveFileV45;
 }
@@ -11646,7 +11670,7 @@ function p15bEraOf(raw: Record<string, unknown>, rights = false, titleState?: Ga
   const rows = rights && Array.isArray(current.rights?.absorptions) ? current.rights.absorptions : [];
   // P16 rebase round 5 (review O6): only records enter the era map, so a malformed (null) absorption claims nothing in
   // the predecessor proof and validateContinuedWorkShapes refuses it by name after it, never a TypeError here.
-  return { studioLoans: true, closure: closureStops(raw), rights, absorptions: new Map(rows.filter((a) => isRecord(a)).map(a => [a.targetId, a])) };
+  return { studioLoans: true, closure: closureStops(raw), rights, carriedProduction:rights?carriedProductionAuthority(current):undefined, absorptions: new Map(rows.filter((a) => isRecord(a)).map(a => [a.targetId, a])) };
 }
 
 /**

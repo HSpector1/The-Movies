@@ -1,3 +1,4 @@
+import { buyerScriptConcepts } from './continuedScripts.js'
 import { continuedReleaseOwner, buyerOperatedProductions } from './continuedWork.js'
 // ── P06A Release Authority (charter W1; frozen design = P06A recon r2 §6) ────
 //
@@ -107,7 +108,7 @@ export function releaseCommitmentRefusal(
 export function commitPictureToReleaseRefusal(state: GameState, productionId: string): string | null {
   const continued=continuedReleaseOwner(state,productionId)
   if(continued)return releaseCommitmentRefusal(continued.owner,productionId)
-  return releaseCommitmentRefusal({productions:state.studio.activeProductions, concepts:state.concepts,
+  return releaseCommitmentRefusal({productions:state.studio.activeProductions, concepts:buyerScriptConcepts(state),
     operations:state.operations, releaseAuthority:state.releaseAuthority}, productionId)
 }
 

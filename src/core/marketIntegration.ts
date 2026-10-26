@@ -1,3 +1,4 @@
+import { carriedProductionAuthority, type CarriedProductionAuthority } from './continuedScripts.js'
 // ── P15A.1 Wave 2: the shared market in the live release pipeline ─────────────
 // Authority (docs/engineering/playability-launch-review/evidence/p14b4-20260919/): 1355-A §3 as
 // adopted by 1355-F, 1355-F2, 1355-F3 and 1355-F5; 1361-F rulings 3 to 6. The law is Wave 1's
@@ -58,7 +59,11 @@ function activeExposures(root: SharedMarketRoot, week: number): MarketExposure[]
  * once against the root's active exposures. It writes nothing; the root appends at finalize. With
  * no industry there is no batch, so the M0A corpus keeps today's path.
  */
-export function runMarketBatch(state: GameState, playerReleasing: readonly Production[], week: number, continuedReleasing: readonly Production[] = []): MarketBatchResult | null {
+export function runMarketBatch(state: GameState, playerReleasing: readonly Production[], week: number, continuedReleasing: readonly Production[] = [],
+  // Tick may forward only fresh authority from its same-operation pre-advance
+  // state, before witnessed releases temporarily reach zero. Other callers
+  // retain the ordinary live-state derivation below.
+  carriedReleaseAuthority?:CarriedProductionAuthority): MarketBatchResult | null {
   const hollywood = state.hollywood
   if (hollywood === null) return null
   const root = requireSharedMarket(state)
@@ -67,8 +72,13 @@ export function runMarketBatch(state: GameState, playerReleasing: readonly Produ
     if (concept === undefined) throw new Error(`shared market: release ${production.id} has no concept`)
     return concept.genre
   }
-  const player: MarketBatchMember[] = playerReleasing.map((production) =>
-    ({ releaseId: production.id, studioId: hollywood.playerStudioId, genre: genreOf(state.concepts, production) }))
+  const carried=playerReleasing.some(p=>!state.concepts.some(c=>c.id===p.conceptId))?(carriedReleaseAuthority??carriedProductionAuthority(state)):undefined
+  const player: MarketBatchMember[] = playerReleasing.map((production) => {
+    const project=carried?.productionScripts.get(production.id)
+    const acquired=project?.conceptId===production.conceptId&&project.status==='inProduction'
+      ?carried?.concepts.find(c=>c.id===production.conceptId):undefined
+    return { releaseId: production.id, studioId: hollywood.playerStudioId, genre: genreOf(acquired?[...state.concepts,acquired]:state.concepts, production) }
+  })
   // P15B closure/v1 (r3; Wave-4 contract §4): an actually closed business's retained production never releases.
   const closed = terminalWeekOf(state)
   const rivals: MarketBatchMember[] = hollywood.businesses.filter((business) => !closed.has(business.studioId)).flatMap((business) => business.productions
@@ -138,7 +148,7 @@ const isWeek = (value: unknown): value is number => Number.isSafeInteger(value) 
  * own `phaseOrderVersion`; `recordedFromWeek <= week < market.tick`; strict (week, releaseId) and
  * p15DomainSequence ascent; no row without an industry; the film bijection; the law reconciled.
  */
-export function validateSharedMarketRoot(raw: Record<string, unknown>, label: string, rightsEstate = false, absorptions?:ReadonlyMap<string,import('./rights.js').AbsorptionRecord>): void {
+export function validateSharedMarketRoot(raw: Record<string, unknown>, label: string, rightsEstate = false, absorptions?:ReadonlyMap<string,import('./rights.js').AbsorptionRecord>, carriedProduction?:CarriedProductionAuthority): void {
   const fail = (message: string): never => { throw new Error(`${label}: sharedMarket ${message}`) }
   const root = raw.sharedMarket
   if (!isRecord(root)) return fail('root must be an object')
@@ -197,19 +207,22 @@ export function validateSharedMarketRoot(raw: Record<string, unknown>, label: st
     }
     rows.push(row)
   }
-  if (state.hollywood !== null) validateFilmBijection(state, state.hollywood, rows, recordedFromWeek, fail, rightsEstate?absorptions:undefined)
+  if (state.hollywood !== null) validateFilmBijection(state, state.hollywood, rows, recordedFromWeek, fail, rightsEstate?absorptions:undefined, carriedProduction)
   reconcileLaw(rows, fail)
 }
 
 /** 1355-A §3.4 item 3: from max(recordedFromWeek, originWeek), every simulated release has exactly
  * one assessment with its id, week, studio and genre, and every assessment has its film. */
 function validateFilmBijection(state: GameState, hollywood: HollywoodState, rows: readonly PersistedMarketAssessment[],
-  recordedFromWeek: number, fail: (message: string) => never, absorptions?:ReadonlyMap<string,import('./rights.js').AbsorptionRecord>): void {
+  recordedFromWeek: number, fail: (message: string) => never, absorptions?:ReadonlyMap<string,import('./rights.js').AbsorptionRecord>, carriedProduction?:CarriedProductionAuthority): void {
   const from = Math.max(recordedFromWeek, hollywood.originWeek)
   const genres = new Map(state.concepts.map((concept) => [concept.id, concept.genre]))
   const films = new Map<string, { week: number; studioId: string; genre: Genre | undefined }>()
   for (const film of state.studio.releasedFilms) {
-    if (film.releaseTick >= from) films.set(film.productionId, { week: film.releaseTick, studioId: hollywood.playerStudioId, genre: genres.get(film.conceptId) })
+    const project=carriedProduction?.productionScripts.get(film.productionId)
+    const acquired=project?.conceptId===film.conceptId&&project.status==='produced'
+      ?carriedProduction?.concepts.find(c=>c.id===film.conceptId):undefined
+    if (film.releaseTick >= from) films.set(film.productionId, { week: film.releaseTick, studioId: hollywood.playerStudioId, genre: genres.get(film.conceptId)??acquired?.genre })
   }
   for (const film of hollywood.films) {
     if (film.provenance === 'simulation/v1' && film.result.releaseTick >= from) {

@@ -251,7 +251,7 @@ function continuedBuyerScripts(state:GameState) {
   if(!state.rights || !state.hollywood)return []
   const productions=new Set(buyerContinuedProductions(state).map(p=>p.id))
   return [...state.hollywood.businesses.flatMap(b=>b.development.projects.filter(p=>p.productionId!==null && productions.has(p.productionId))),
-    ...state.rights.absorptions.flatMap(a=>(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||a.producerVersion==='absorption-scripts/v5')&&a.buyerId===state.hollywood!.playerStudioId?a.continuedScripts.map(r=>r.project):[])]
+    ...state.rights.absorptions.flatMap(a=>(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'))&&a.buyerId===state.hollywood!.playerStudioId?a.continuedScripts.map(r=>r.project):[])]
 }
 
 function prepareStudioClosure(state: GameState, studioId: string, causeEventId: string): GameState {

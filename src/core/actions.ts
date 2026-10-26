@@ -1,4 +1,4 @@
-import { continuedScriptOwner, buyerScriptDevelopment, acceptContinuedScript, rewriteContinuedScript } from './continuedScripts.js'
+import { continuedScriptOwner, buyerScriptDevelopment, buyerScriptConcepts, acceptContinuedScript, rewriteContinuedScript, linkCarriedScriptToProduction, returnCarriedScriptToReady, carriedScriptForProduction, carriedProductionAuthority } from './continuedScripts.js'
 import { continuedReleaseOwner, cancelContinuedProduction, buyerOperatedProductions, buyerOperationsForAllWork, withBuyerOperations, publishBuyerOperationsAction } from './continuedWork.js'
 import { buildFilmParticipants } from './filmParticipants.js'
 import { liveRetirementWritingAuthority, prepareLiveWritingContext, type LiveWritingContext } from './liveRetirementWriting.js'
@@ -312,8 +312,8 @@ function applyGreenlight(
 
   const { concept, scriptProject } = requireGreenlightHeader({
     foundingOpen: state.founding !== null,
-    concepts: state.concepts,
-    development: state.scriptDevelopment,
+    concepts: buyerScriptConcepts(state),
+    development: buyerScriptDevelopment(state),
     casting: state.castingSessions,
   }, p, scriptProjectId)
 
@@ -601,6 +601,8 @@ function applyGreenlight(
       : next
   const linked = scriptProject === undefined
     ? withOperations
+    : continuedScriptOwner(state,scriptProject.id)
+      ? linkCarriedScriptToProduction(withOperations,scriptProject.id,production)
     : {
         ...withOperations,
         scriptDevelopment: linkScriptProjectToProduction(
@@ -648,7 +650,7 @@ function applyCancel(state: GameState, action: Action & { kind: 'cancel' }): Gam
   }
   const scriptDevelopment =
     state.scriptDevelopment.mode === 'managed'
-      ? returnScriptProjectToReady(state.scriptDevelopment, action.productionId)
+      ? (carriedScriptForProduction(state,action.productionId)?state.scriptDevelopment:returnScriptProjectToReady(state.scriptDevelopment, action.productionId))
       : state.scriptDevelopment
   const withoutProduction: GameState = {
     ...state,
@@ -670,10 +672,11 @@ function applyCancel(state: GameState, action: Action & { kind: 'cancel' }): Gam
   // P14B.5 (2c): the relationship driver fires on exactly the COMPLEMENTARY
   // condition — a first take EXISTS for the picture — beside the promise seam,
   // which is untouched; a picture without a take mints nothing here.
+  const returned = returnCarriedScriptToReady(withoutProduction,cancelled)
   const playerStudioId = state.hollywood?.playerStudioId
   return playerStudioId === undefined
-    ? withoutProduction
-    : recordCancelledAfterFirstTake(breakPromisesOnCancel(withoutProduction, playerStudioId, cancelled), playerStudioId, cancelled)
+    ? returned
+    : recordCancelledAfterFirstTake(breakPromisesOnCancel(returned, playerStudioId, cancelled), playerStudioId, cancelled)
 }
 
 // ── createTalent (§10 / D-9.14 creation budget) ──────────────────────────────
@@ -1949,11 +1952,13 @@ function applyScheduleShootingTake(
 
 // ── Script Projects V1 actions ───────────────────────────────────────────────
 function assertCurrentScriptState(state: GameState, writingContext: LiveWritingContext): GameState {
+  const carried=carriedProductionAuthority(state)
   assertScriptDevelopmentInvariants(state.scriptDevelopment, {
     studioId: state.hollywood?.playerStudioId,
     retirementWriting: liveRetirementWritingAuthority(state, writingContext),
     currentWeek: state.market.tick,
-    concepts: state.concepts,
+    concepts: [...state.concepts,...(carried?.concepts??[])],
+    ...(carried===undefined?{}:{current49ProductionScripts:carried.productionScripts}),
     talent: state.talent,
     contracts: state.contracts,
     operations: state.operations,
@@ -2433,8 +2438,7 @@ function applyGreenlightScriptProject(
   allowQueue = true,
   injectedEvents?: StudioEventSink,
 ): GameState {
-  if(continuedScriptOwner(state,action.production.projectId))throw new Error('applyActions: continuedScriptGreenlightProducerRequired')
-  const project = state.scriptDevelopment.projects.find(
+  const project = buyerScriptDevelopment(state).projects.find(
     (candidate) => candidate.id === action.production.projectId,
   )
   if (project === undefined) {

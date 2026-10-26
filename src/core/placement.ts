@@ -1,3 +1,4 @@
+import type { CarriedProductionAuthority } from './continuedScripts.js'
 import type { RetirementWritingAuthority } from './retirementWriting.js'
 import { liveRetirementWritingAuthority, type LiveWritingContext } from './liveRetirementWriting.js'
 // ── Placement Core V12 (+ C1-M1a property state) ─────────────────────────────
@@ -1867,7 +1868,7 @@ export function assertStudioPlacementInvariants(
   // capacity, so it keeps its explicit `configured` escape hatch: every placement
   // law below still runs, only the exact operational facility SET is delegated to
   // the generic capacity check. Every live surface uses the default.
-  options?: { facilityPolicy?: 'placement-v12' | 'configured'; retirementWriting?: RetirementWritingAuthority | undefined; professionAtWeek?: ((personId: string, week: number) => CreativeRole | undefined) | undefined },
+  options?: { carriedProduction?: CarriedProductionAuthority | undefined; facilityPolicy?: 'placement-v12' | 'configured'; retirementWriting?: RetirementWritingAuthority | undefined; professionAtWeek?: ((personId: string, week: number) => CreativeRole | undefined) | undefined },
 ): void {
   const configured = (options?.facilityPolicy ?? 'placement-v12') === 'configured'
   const { placement, operations } = state
@@ -1904,6 +1905,7 @@ export function assertStudioPlacementInvariants(
     invariant(opexRows.length === 0, 'legacy mode cannot have facility operating cost')
     assertStudioConstructionInvariants(state, {
       retirementWriting: options?.retirementWriting,
+    carriedProduction: options?.carriedProduction,
       professionAtWeek: options?.professionAtWeek,
       facilityPolicy: 'placement-v12',
       ...(configured ? {} : { expectedFacilities: [], foundingFacilities: foundingFacilitiesOf(property) }),
@@ -2327,6 +2329,7 @@ export function assertStudioPlacementInvariants(
 
   assertStudioConstructionInvariants(state, {
     retirementWriting: options?.retirementWriting,
+    carriedProduction: options?.carriedProduction,
     professionAtWeek: options?.professionAtWeek,
     facilityPolicy: 'placement-v12',
     // P13B-S4: the bodies a conversion has CLOSED. The registry law stays exact —

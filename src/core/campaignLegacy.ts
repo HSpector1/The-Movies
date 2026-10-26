@@ -1,3 +1,4 @@
+import { carriedProductionAuthority, type CarriedProductionAuthority } from './continuedScripts.js'
 // ── P15C Wave 1: the pure Legacy law `campaign-legacy/v2` ─────────────────────
 // Authority (docs/engineering/playability-launch-review/evidence/p14b4-20260919/):
 // Owner rulings 2, 3, 5 and 6 of 1342-O; charter 1353-A §5 as amended by 1353-F (the
@@ -1036,7 +1037,7 @@ function largestSequence(rows: readonly Row[], below = Number.POSITIVE_INFINITY)
  * makes every cut. It reads no cash, cost, revenue, loan amount, in-run payment or career money or skill field. A
  * player film's genre is its concept's; a missing concept refuses by name.
  */
-export function legacyFactsFromState(state: GameState, boundaryWeek: number, definition: LegacyDefinitionId = CAMPAIGN_LEGACY_DEFINITION): LegacyFacts {
+export function legacyFactsFromState(state: GameState, boundaryWeek: number, definition: LegacyDefinitionId = CAMPAIGN_LEGACY_DEFINITION, carriedProduction:CarriedProductionAuthority|null = carriedProductionAuthority(state)??null): LegacyFacts {
   if (state.hollywood === null) fail('state.hollywood', 'must hold the living industry the Legacy reads')
   const h = state.hollywood
   const genreOf = new Map(state.concepts.map((concept) => [concept.id, concept.genre]))
@@ -1048,7 +1049,10 @@ export function legacyFactsFromState(state: GameState, boundaryWeek: number, def
 
   const films: LegacyFilmFact[] = []
   for (const film of state.studio.releasedFilms) {
-    const genre = genreOf.get(film.conceptId)
+    const project=carriedProduction?.productionScripts.get(film.productionId)
+    const acquired=project?.conceptId===film.conceptId&&project.status==='produced'
+      ?carriedProduction?.concepts.find(c=>c.id===film.conceptId):undefined
+    const genre = genreOf.get(film.conceptId)??acquired?.genre
     if (genre === undefined) {
       fail('state.concepts', `must hold concept ${film.conceptId}, the genre of player film ${film.productionId}`)
     }
@@ -1244,12 +1248,12 @@ export function freezeCampaignLegacyWeek(state: GameState): GameState {
  * the frozen entry its definition names, then replays with the catalogue and archetype evaluators
  * frozen by 1361-F6 ruling 2. It never reads TUNING and refuses malformed state by name.
  */
-export function validateCampaignLegacy(raw: Record<string, unknown>, label: string, modern = false, rightsEstate = false): void {
-  validateLegacyManifest(raw, label, modern, false, rightsEstate)
-  if (modern) validateLegacyManifest(raw, label, true, true, rightsEstate)
+export function validateCampaignLegacy(raw: Record<string, unknown>, label: string, modern = false, rightsEstate = false, carriedProduction?:CarriedProductionAuthority): void {
+  validateLegacyManifest(raw, label, modern, false, rightsEstate, carriedProduction)
+  if (modern) validateLegacyManifest(raw, label, true, true, rightsEstate, carriedProduction)
 }
 
-function validateLegacyManifest(raw: Record<string, unknown>, label: string, modern: boolean, ended: boolean, rightsEstate: boolean): void {
+function validateLegacyManifest(raw: Record<string, unknown>, label: string, modern: boolean, ended: boolean, rightsEstate: boolean, carriedProduction?:CarriedProductionAuthority): void {
   // An explicit type on the binding makes every call a never-returning call for narrowing.
   const refuse: (path: string, rule: string) => never = (path, rule) => {
     throw new Error(`${label}: campaignLegacy${path === '' ? '' : `.${ended ? path.replace(/^official/, 'endOfRun') : path}`} ${rule}`)
@@ -1420,7 +1424,7 @@ function validateLegacyManifest(raw: Record<string, unknown>, label: string, mod
   // recorded from B or later; notRecorded exactly when the domain records nothing before B. A P15 watermark is
   // the largest sequence in its root below the official's, exact because the allocator is append order; an
   // array watermark lies within its root's length, which grows after the freeze.
-  const facts = legacyFactsFromState(state, cutoff, official.definition)
+  const facts = legacyFactsFromState(state, cutoff, official.definition, carriedProduction??null)
   const derived = new Map(facts.domains.map((domain) => [domain.domainId, domain]))
   const lengthOf: Readonly<Record<string, number>> = {
     playerFilms: state.studio.releasedFilms.length, industryFilms: h.films.length, playerRuns: state.theatricalRuns.length,

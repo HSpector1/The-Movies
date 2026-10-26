@@ -1,3 +1,4 @@
+import { carriedProductionAuthority, type CarriedProductionAuthority } from './continuedScripts.js'
 // Development & Casting Annex V1 — one fixed parcel, one fixed capital project,
 // one monotonic completion. This module is pure: no RNG, wall clock, I/O, or
 // caller-owned mutation. The constants below are the sole production authority
@@ -95,6 +96,7 @@ function isExactAnnexFacility(operations: StudioOperations): boolean {
 }
 
 export type ConstructionInvariantOptions = {
+  carriedProduction?: CarriedProductionAuthority | undefined
   retirementWriting?: import('./retirementWriting.js').RetirementWritingAuthority | undefined
   /** The recorded profession history for the casting slate law (stabilization 2026-10-22, L-02).
    * The frozen save eras pass `professionHistory`'s validation context here, because the state
@@ -401,11 +403,13 @@ export function assertStudioConstructionInvariants(
       a.id < b.id ? -1 : a.id > b.id ? 1 : 0,
     ),
   }
+  const carried=options?.carriedProduction??carriedProductionAuthority(state)
   assertScriptDevelopmentInvariants(orderedScriptDevelopment, {
     studioId: options?.retirementWriting?.playerStudioId,
     retirementWriting: options?.retirementWriting,
     currentWeek: state.market.tick,
-    concepts: state.concepts,
+    concepts: [...state.concepts,...(carried?.concepts??[])],
+    ...(carried===undefined?{}:{current49ProductionScripts:carried.productionScripts}),
     talent: state.talent,
     contracts: state.contracts,
     operations: state.operations,

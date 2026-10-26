@@ -1,4 +1,4 @@
-import { advanceBuyerScriptWork, buyerScriptDevelopment } from './continuedScripts.js'
+import { advanceBuyerScriptWork, buyerScriptDevelopment, carriedScriptForProduction, carriedConceptForProduction, carriedProductionAuthority, markCarriedScriptProduced } from './continuedScripts.js'
 import { prepareContinuedReleases } from './hollywoodTick.js'
 import { buyerOperationsForAllWork, buyerOperatedProductions, buyerContinuedProductions, publishOperatedAdvance, recordContinuedWorkSteps, continuedCommittedReleaseIds } from './continuedWork.js'
 import { prepareLiveWritingContext } from './liveRetirementWriting.js'
@@ -550,7 +550,12 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // player's releasing pictures and every rival picture at remainingTicks 1, assessed once
   // against the root's active exposures. It writes nothing; the root appends at finalize.
   // No industry, no batch: the M0A corpus keeps today's path.
-  const marketBatch = runMarketBatch(admitted, releasing, currentTick, continuedReleasing)
+  // `admitted` temporarily contains the witnessed 1→0 release rows. Prove
+  // carried ownership against the same tick's immutable pre-advance state;
+  // zero is a pipeline result, never an admissible live production to validate.
+  const carriedReleaseAuthority=releasing.some(p=>!workInput.concepts.some(c=>c.id===p.conceptId))
+    ?carriedProductionAuthority(workInput):undefined
+  const marketBatch = runMarketBatch(admitted, releasing, currentTick, continuedReleasing, carriedReleaseAuthority)
 
   // ── 3. RECEPTION ───────────────────────────────────────────────────────────
   // For each releasing production IN ascending-id order: resolve reception (the
@@ -583,7 +588,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   const theatricalRuns: TheatricalRun[] = state.theatricalRuns.map((r) => ({ ...r }))
 
   for (const prod of releasing) {
-    const concept = state.concepts.find((c) => c.id === prod.conceptId)
+    const concept = state.concepts.find((c) => c.id === prod.conceptId) ?? carriedConceptForProduction(state,prod.id)
     if (concept === undefined) {
       throw new Error(`tick: release references unknown conceptId "${prod.conceptId}"`)
     }
@@ -813,6 +818,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // the screenplay's exact production link as append-only Produced history.
   if (scriptDevelopment.mode === 'managed') {
     for (const production of releasing) {
+      if(carriedScriptForProduction(admitted,production.id))continue
       scriptDevelopment = markScriptProjectProduced(
         scriptDevelopment,
         production.id,
@@ -1190,6 +1196,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     // assessments. The batch takes the tick's first P15 numbers, before the ranking record.
     ...(marketBatch === null ? {} : appendMarketBatch(admitted, marketBatch)),
   }
+  for(const production of releasing)finalized=markCarriedScriptProduced(finalized,production.id,currentTick)
   for(const identity of finalized.hollywood?.identities ?? []) {
     if(identity.role==='rival' && identity.enteredWeek===null && identity.eligibleWeek<=finalized.market.tick) {
       finalized=enterRival(finalized,identity.studioId,'scheduled')

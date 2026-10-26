@@ -1,3 +1,4 @@
+import { buyerScriptConcepts } from './continuedScripts.js'
 // ── Casting Package V1 — the role-first package-assembly projection ─────────
 // Pure projection over GameState for a Ready screenplay's package assembly: one
 // candidate pool per role (director / lead / antagonist / support / craftLead),
@@ -225,7 +226,7 @@ function compareId(a: string, b: string): number {
 }
 
 function requireConcept(state: GameState, conceptId: string): FilmConcept {
-  const concept = state.concepts.find((candidate) => candidate.id === conceptId)
+  const concept = buyerScriptConcepts(state).find((candidate) => candidate.id === conceptId)
   if (concept === undefined) {
     throw new Error(`castingPackageReadModel: unknown concept "${conceptId}"`)
   }
@@ -295,7 +296,7 @@ function currentWorkLabel(state: GameState, talentId: string): string | null {
       p.craftIds.includes(talentId),
   )
   if (production !== undefined) {
-    const concept = state.concepts.find((c) => c.id === production.conceptId)
+    const concept = buyerScriptConcepts(state).find((c) => c.id === production.conceptId)
     return concept === undefined ? 'Working on an active production' : `Working on ${concept.title}`
   }
   const writing = activeScriptWriterAssignments(state.scriptDevelopment, state.concepts).find(

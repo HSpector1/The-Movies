@@ -1,3 +1,4 @@
+import { buyerScriptConcepts } from '../src/core/continuedScripts.ts'
 import {paidReportsPage} from './paidReports.ts'
 import {filmScoreTenths} from '../src/core/powerRanking.js'
 /** Public, bounded Industry reads. Authoritative IDs and facts only; no private business inputs. */
@@ -70,7 +71,7 @@ function indexFor(state:GameState):Index {
       runStatus:authored||f.settledWeek!==null?'settled':'inRun',
       businessNotice:authored?'Authored starting record; its run and historical effects were already settled before 1920.':f.settledWeek!==null?'Completed theatrical run. Public gross is distinct from studio revenue.':'The theatrical run is active. Total shows gross earned so far; future receipts, costs and studio revenue remain private.'}
   })
-  const concepts=new Map(state.concepts.map(c=>[c.id,c]))
+  const concepts=new Map(buyerScriptConcepts(state).map(c=>[c.id,c]))
   for(const f of state.studio.releasedFilms) {
     const concept=concepts.get(f.conceptId),run=state.theatricalRuns.find(r=>r.productionId===f.productionId)
     credits.set(f.productionId,f.participants?flattenParticipants(f.participants).map(toCredit):[])

@@ -1,3 +1,4 @@
+import { carriedConceptForProduction } from './continuedScripts.js'
 import type { RivalProjectCosts } from './hollywoodTypes.js'
 import type { FacilityCapability, ProductionPhase, Production, ProductionWorkflow, Standing, ReleaseCommitment, ScriptProject, ScriptAssessment, ScriptReservation, StudioFacility, PlacedFacility, StudioOperations, ScriptDevelopment } from './types.js'
 import type { TechnologyId } from './technologyTypes.js'
@@ -226,6 +227,9 @@ export type AbsorptionContinuedScript = {
   reservationAtClose: ScriptReservation; project: ScriptProject
 }
 export type AbsorptionScriptDecision =
+  | { id:string; projectId:string; kind:'greenlight'; week:number; production:Production; paidRows:import('./types.js').LedgerEntry[] }
+  | { id:string; projectId:string; kind:'cancelProduction'; week:number; production:Production }
+  | { id:string; projectId:string; kind:'productionReleased'; week:number; productionId:string }
   | { id:string; projectId:string; kind:'accept'; week:number }
   | { id:string; projectId:string; kind:'rewrite'; week:number; reservation:ScriptReservation;
       nativeInput:{operations:StudioOperations;development:ScriptDevelopment;occupiedSlots:string[]};
@@ -263,6 +267,7 @@ export type AbsorptionRecord = AbsorptionRecordBase & (
   | { producerVersion: 'absorption-scripts/v3'; stoppedScripts: AbsorptionStoppedScript[]; continuedScripts: AbsorptionContinuedScript[]; scriptCompletions: AbsorptionScriptCompletion[] }
   | { producerVersion: 'absorption-scripts/v4'; stoppedScripts: AbsorptionStoppedScript[]; continuedScripts: AbsorptionContinuedScript[]; scriptCompletions: AbsorptionScriptCompletion[]; scriptDecisions: { id:string; projectId:string; kind:'accept'; week:number }[] }
   | { producerVersion: 'absorption-scripts/v5'; stoppedScripts: AbsorptionStoppedScript[]; continuedScripts: AbsorptionContinuedScript[]; scriptCompletions: AbsorptionScriptCompletion[]; scriptDecisions: AbsorptionScriptDecision[] }
+  | { producerVersion: 'absorption-scripts/v6'; stoppedScripts: AbsorptionStoppedScript[]; continuedScripts: AbsorptionContinuedScript[]; scriptCompletions: AbsorptionScriptCompletion[]; scriptDecisions: AbsorptionScriptDecision[] }
 )
 
 type BoundarySourceKind = 'player-ledger' | 'player-active' | 'player-release' | 'rival-announcement' | 'rival-active' | 'rival-release'
@@ -838,7 +843,7 @@ export function mintStoryPropertyAtGreenlight(state: GameState, input: { studioI
   const existing = resolveTitles(state).properties.find((p) => p.propertyId === propertyId)
   const ownFactOnly = existing !== undefined && existing.virtual && existing.workLinks.every((link) => link === input.production.id)
   if (existing !== undefined && !ownFactOnly) return linkWork(state, propertyId, input.production.id)
-  const concept = (input.studioId === h.playerStudioId ? state.concepts : h.concepts).find((c) => c.id === input.production.conceptId)
+  const concept = (input.studioId === h.playerStudioId ? state.concepts : h.concepts).find((c) => c.id === input.production.conceptId) ?? (input.studioId===h.playerStudioId?carriedConceptForProduction(state,input.production.id):undefined)
   const title = concept?.title ?? null
   const property: StoryProperty = { propertyId, conceptId: input.production.conceptId, creatorStudioId: input.studioId, createdAt: { kind: 'campaign', week: input.week },
     title, titleSource: title === null ? 'unavailable' : 'greenlight', origin: 'original', parentPropertyId: null, workLinks: [input.production.id] }
@@ -1089,10 +1094,10 @@ export function validateRightsRoot(raw: Record<string, unknown>, label: string):
     for(const receipt of record.runReceipts) idNumber(receipt.id,'absorptions.runReceipts.id')
     for(const step of record.workSteps) idNumber(step.id,'absorptions.workSteps.id')
     for(const cancellation of record.workCancellations) idNumber(cancellation.id,'absorptions.workCancellations.id')
-    if((record.producerVersion==='absorption-scripts/v3'||record.producerVersion==='absorption-scripts/v4'||record.producerVersion==='absorption-scripts/v5')){
+    if((record.producerVersion==='absorption-scripts/v3'||record.producerVersion==='absorption-scripts/v4'||(record.producerVersion==='absorption-scripts/v5'||record.producerVersion==='absorption-scripts/v6'))){
       for(const row of record.continuedScripts)idNumber(row.project.id,'absorptions.continuedScripts.project.id')
       for(const row of record.scriptCompletions)idNumber(row.id,'absorptions.scriptCompletions.id')
-      if(record.producerVersion==='absorption-scripts/v4'||record.producerVersion==='absorption-scripts/v5')for(const row of record.scriptDecisions)idNumber(row.id,'absorptions.scriptDecisions.id')
+      if(record.producerVersion==='absorption-scripts/v4'||(record.producerVersion==='absorption-scripts/v5'||record.producerVersion==='absorption-scripts/v6'))for(const row of record.scriptDecisions)idNumber(row.id,'absorptions.scriptDecisions.id')
     }
   }
   const bySubject = new Map<string, TitleEvent[]>()

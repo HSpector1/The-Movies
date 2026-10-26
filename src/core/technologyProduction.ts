@@ -1,3 +1,4 @@
+import { carriedConceptForProduction } from './continuedScripts.js'
 import { hasOperationalFacilityInstallation } from './facilityEffects.js'
 import { occupiedResourceSlots } from './occupancy.js'
 import { retargetUnfilmedProduction, type ProductionAllocationPolicy, type ProductionClockView } from './operations.js'
@@ -110,7 +111,7 @@ export function retargetProductionTechnologyChoice(state: GameState, productionI
   const occupied = new Set(occupiedResourceSlots(state, { excludeOwner: 'production', excludeOwnerId: productionId }).keys())
   const result = retargetUnfilmedProduction(state.operations, productionId, adoption.stageFacilityId, occupied, events, {
     sets: state.sets,
-    genreOf: () => state.concepts.find((concept) => concept.id === production.conceptId)?.genre ?? null,
+    genreOf: () => (state.concepts.find((concept) => concept.id === production.conceptId) ?? carriedConceptForProduction(state,production.id))?.genre ?? null,
   }, state.market.tick)
   if (!result.ok) throw new Error(result.reason)
   if (result.operations === state.operations) return state

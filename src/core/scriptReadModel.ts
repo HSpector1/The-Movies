@@ -760,13 +760,6 @@ function packageAvailability(
   project: ScriptProject,
   capacity: ScriptCapacityView,
 ): ScriptPackageAvailabilityView {
-  if(continuedScriptOwner(state,project.id))return {
-    knownGatesClear:false,canSubmitGreenlightIntent:false,willQueueGreenlightIntent:false,
-    writerAvailable:false,staffingAvailable:false,productionSlotAvailable:false,developmentCastingSlotAvailable:false,
-    blockers:[{kind:'carried-action',headline:'Acquired screenplay packaging unavailable',
-      detail:'This acquired screenplay can be accepted, but cannot yet start a new buyer production.',
-      remedy:'Keep the accepted screenplay in Ready until buyer packaging is available.'}],
-  }
   const blockers = writerBlockers(state, project, 'package')
   const greenlightQueued = hasQueuedGreenlightScriptProject(
     state.productionQueue,
@@ -980,7 +973,7 @@ function projectCard(
     if (
       state.castingSessions.mode === 'managed' &&
       castingSession === undefined &&
-      canPlanAuditions(state, project)
+      !carried&&canPlanAuditions(state, project)
     ) {
       legalActions.push({
         kind: 'planAuditions',
