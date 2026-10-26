@@ -1,4 +1,4 @@
-import { continuedScriptOwner, buyerScriptDevelopment, buyerScriptConcepts, acceptContinuedScript, rewriteContinuedScript, linkCarriedScriptToProduction, returnCarriedScriptToReady, carriedScriptForProduction, carriedProductionAuthority } from './continuedScripts.js'
+import { continuedScriptOwner, buyerScriptDevelopment, buyerScriptConcepts, acceptContinuedScript, rewriteContinuedScript, linkCarriedScriptToProduction, returnCarriedScriptToReady, carriedScriptForProduction, carriedProductionAuthority, type QueuedCarriedValidation } from './continuedScripts.js'
 import { continuedReleaseOwner, cancelContinuedProduction, buyerOperatedProductions, buyerOperationsForAllWork, withBuyerOperations, publishBuyerOperationsAction } from './continuedWork.js'
 import { buildFilmParticipants } from './filmParticipants.js'
 import { liveRetirementWritingAuthority, prepareLiveWritingContext, type LiveWritingContext } from './liveRetirementWriting.js'
@@ -306,6 +306,7 @@ function applyGreenlight(
   // own sink would stamp its rows into the log before the advance that freed the
   // slot had recorded a thing.
   injectedEvents?: StudioEventSink,
+  queuedCarriedValidation?:QueuedCarriedValidation,
 ): GameState {
   const p = prod.production
   const currentTick = state.market.tick
@@ -624,7 +625,8 @@ function applyGreenlight(
   // property when its remake authority greenlights it again (refused above, before any write, otherwise).
   return playerStudioId === undefined
     ? competed
-    : mintStoryPropertyAtGreenlight(competed, { studioId: playerStudioId, production, week: state.market.tick })
+    : mintStoryPropertyAtGreenlight(competed, { studioId: playerStudioId, production, week: state.market.tick },
+      scriptProject!==undefined&&continuedScriptOwner(competed,scriptProject.id)?queuedCarriedValidation?.(competed):undefined)
 }
 
 // ── cancel (M15) ─────────────────────────────────────────────────────────────
@@ -1810,6 +1812,7 @@ export function commitQueuedIntent(
   week: number,
   events: StudioEventSink,
   writingContext: LiveWritingContext = prepareLiveWritingContext(state),
+  queuedCarriedValidation?:QueuedCarriedValidation,
 ): QueuedIntentOutcome {
   try {
     switch (entry.kind) {
@@ -1821,6 +1824,7 @@ export function commitQueuedIntent(
             { kind: 'commissionScript', project: entry.payload }, writingContext,
             week,
             false,
+            queuedCarriedValidation,
           ),
         }
       case 'commissionOriginalScreenplay':
@@ -1831,6 +1835,7 @@ export function commitQueuedIntent(
             { kind: 'commissionOriginalScreenplay', screenplay: entry.payload }, writingContext,
             week,
             false,
+            queuedCarriedValidation,
           ),
         }
       case 'startCastingSession':
@@ -1841,6 +1846,7 @@ export function commitQueuedIntent(
             { kind: 'startCastingSession', session: entry.payload }, writingContext,
             week,
             false,
+            queuedCarriedValidation,
           ),
         }
       case 'greenlightScriptProject':
@@ -1852,6 +1858,7 @@ export function commitQueuedIntent(
             week,
             false,
             events,
+            queuedCarriedValidation,
           ),
         }
     }
@@ -1951,8 +1958,8 @@ function applyScheduleShootingTake(
 }
 
 // ── Script Projects V1 actions ───────────────────────────────────────────────
-function assertCurrentScriptState(state: GameState, writingContext: LiveWritingContext): GameState {
-  const carried=carriedProductionAuthority(state)
+function assertCurrentScriptState(state: GameState, writingContext: LiveWritingContext, queuedCarriedValidation?:QueuedCarriedValidation): GameState {
+  const carried=queuedCarriedValidation?queuedCarriedValidation(state):carriedProductionAuthority(state)
   assertScriptDevelopmentInvariants(state.scriptDevelopment, {
     studioId: state.hollywood?.playerStudioId,
     retirementWriting: liveRetirementWritingAuthority(state, writingContext),
@@ -2101,6 +2108,7 @@ function applyCommissionScript(
   writingContext: LiveWritingContext,
   week: number = state.market.tick,
   allowQueue = true,
+  queuedCarriedValidation?:QueuedCarriedValidation,
 ): GameState {
   requireCommissionableWriter(state, action.project.writerId, 'commissionScript')
   // Adapting a premise the market already owns is the fast path, and it is the
@@ -2156,7 +2164,7 @@ function applyCommissionScript(
             }),
             state.originalScreenplays.nextOrdinal,
           ),
-        }, writingContext),
+        }, writingContext, queuedCarriedValidation),
       )
     },
     (queue) => queueCommissionScript(queue, action.project, week),
@@ -2186,6 +2194,7 @@ function applyCommissionOriginalScreenplay(
   writingContext: LiveWritingContext,
   week: number = state.market.tick,
   allowQueue = true,
+  queuedCarriedValidation?:QueuedCarriedValidation,
 ): GameState {
   const payload = action.screenplay
   requireCommissionableWriter(state, payload.writerId, 'commissionOriginalScreenplay')
@@ -2275,7 +2284,7 @@ function applyCommissionOriginalScreenplay(
         }),
         ordinal + 1,
       ),
-    }, writingContext),
+    }, writingContext, queuedCarriedValidation),
   )
 }
 
@@ -2437,6 +2446,7 @@ function applyGreenlightScriptProject(
   week: number = state.market.tick,
   allowQueue = true,
   injectedEvents?: StudioEventSink,
+  queuedCarriedValidation?:QueuedCarriedValidation,
 ): GameState {
   const project = buyerScriptDevelopment(state).projects.find(
     (candidate) => candidate.id === action.production.projectId,
@@ -2476,7 +2486,7 @@ function applyGreenlightScriptProject(
   }
   return admitOrQueue(
     state,
-    () => applyGreenlightScriptProjectNow(state, action, writingContext, project, injectedEvents),
+    () => applyGreenlightScriptProjectNow(state, action, writingContext, project, injectedEvents, queuedCarriedValidation),
     (queue) =>
       queueGreenlightScriptProject(queue, action.production.projectId, action.production, week),
     allowQueue,
@@ -2495,6 +2505,7 @@ function applyGreenlightScriptProjectNow(
   writingContext: LiveWritingContext,
   project: ScriptProject,
   injectedEvents?: StudioEventSink,
+  queuedCarriedValidation?:QueuedCarriedValidation,
 ): GameState {
   const next = applyGreenlight(
     state,
@@ -2523,8 +2534,9 @@ function applyGreenlightScriptProjectNow(
     },
     project.id,
     injectedEvents,
+    queuedCarriedValidation,
   )
-  return assertCurrentScriptState(next, writingContext)
+  return assertCurrentScriptState(next, writingContext, queuedCarriedValidation)
 }
 
 // ── Casting Sessions V1 actions ─────────────────────────────────────────────
@@ -2565,6 +2577,7 @@ function applyStartCastingSession(
   writingContext: LiveWritingContext,
   week: number = state.market.tick,
   allowQueue = true,
+  queuedCarriedValidation?:QueuedCarriedValidation,
 ): GameState {
   if (state.founding !== null) {
     throw new Error(
@@ -2600,7 +2613,7 @@ function applyStartCastingSession(
             busyTalentIds: busyTalentIds(state),
           },
         ),
-      }, writingContext),
+      }, writingContext, queuedCarriedValidation),
     (queue) => queueStartCastingSession(queue, action.session, week),
     allowQueue,
   )

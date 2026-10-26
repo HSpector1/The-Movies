@@ -1,0 +1,171 @@
+{
+  "status": "STATIC-UNRUN-AUTHENTIC-QUEUE-WITNESS-DRAFT",
+  "baseHead": "e0d4c23939bcb4caf35957896959c32afef82c6b",
+  "files": [
+    {
+      "path": "tests/p16-carried-script-accept.test.ts",
+      "preimageSha256": "26d81c9ecbae6d81c2c32c1b82141e24bc7ae99acb6f92496b582f3873f5ce26",
+      "postimageSha256": "7b1d156dcc3f1f653926bca76ce33a6571b7583713a11dfe5386ea0b53ace4c0",
+      "postimage": "postimages/tests/p16-carried-script-accept.test.ts",
+      "bytes": 43366
+    }
+  ],
+  "patch": {
+    "path": "QUEUE-WITNESS.patch",
+    "sha256": "a5a5669a021ebd5c7f16640bf442c8066f5705c76acc1f8030d98abdf8b4c063",
+    "bytes": 7983
+  },
+  "sourcePins": [
+    {
+      "path": "src/core/actions.ts",
+      "sha256": "b84257f7b35aac67676a1724482df23966f98776a08b402dd0411bdc869561cc"
+    },
+    {
+      "path": "src/core/tick.ts",
+      "sha256": "7ad9c4e0831d679c45e8cb088294f819a947e3e96aeae5d035580d3b2486b7da"
+    },
+    {
+      "path": "src/core/queueAdmission.ts",
+      "sha256": "ad74544f539f1d383839cbbe8b19d6324b5c5fffd3e7249ae6a2cc1b330b1047"
+    },
+    {
+      "path": "src/core/productionQueue.ts",
+      "sha256": "29eae958fef0759a43d30160bf8f4f322b59eeb8e1662be50f8ce6585fd76a9b"
+    },
+    {
+      "path": "src/core/scriptDevelopment.ts",
+      "sha256": "3f65e7d0f2c6e6e3a1f8816c64ca233749213842b85746f65fcb693f87d68bfa"
+    },
+    {
+      "path": "src/core/screenplay.ts",
+      "sha256": "1cb32a9ccd23dd7dc51d11cf080370feeb985de66fd36d4670c936ca6d1f929f"
+    },
+    {
+      "path": "src/core/employment.ts",
+      "sha256": "3d00df38ba28adbb75024e270b715c8ea2b72deee110fff4be8c6571fb61bbbe"
+    },
+    {
+      "path": "src/core/productionAdmission.ts",
+      "sha256": "fba9441b361920491e430ca87306912e7e54b40ee9bb0ce25a05c3da3d9ecd6e"
+    },
+    {
+      "path": "src/core/continuedScripts.ts",
+      "sha256": "8217b43843bdb1f077a164ea468e5287d76bcc06dc53d4125bea0fe38991cbd7"
+    },
+    {
+      "path": "src/core/hollywoodTick.ts",
+      "sha256": "12611c7c78db0b49b92d6213a0f67c92e89d7b3e86c8d375e18ed3ee5cca37c8"
+    },
+    {
+      "path": "tests/_m4Fixtures.ts",
+      "sha256": "a79c681ee4adf95e15be10fceb6adba125a5e0f6459fb44b0376bee078eaf852"
+    },
+    {
+      "path": "tests/contracts/_contractFixtures.ts",
+      "sha256": "7554a6b11f0756c7cd286a7732ab888757a129fe0d9f10657c93c4d214f10de2"
+    },
+    {
+      "path": "tests/_p04a2WriterCreditFixtures.ts",
+      "sha256": "99ca26159c8b7044230c8ca76797a1c2e8fad41cf6253ba7fddf41c402b961c2"
+    }
+  ],
+  "priorPremiseNotes": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint7-native-greenlight-20261026/v6/QUEUE-PREMISE.md",
+      "sha256": "66d01fb9483cb59daf36a5014820f9a97db6b613f0118e09cebc425da032ba88"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint7-native-greenlight-20261026/v6/QUEUE-NOTE.md",
+      "sha256": "d9ab1a575d1d57895c43bb7c8ab20d2a1c4483780b6e5b12ba1580d0db47ee00"
+    }
+  ],
+  "capture": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-original48-closure-capture-r2-run/r04-actual163.save48.json",
+    "env": "P16_ORIGINAL48_CAPTURE_ROOT",
+    "sha256": "c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad",
+    "week": 163,
+    "ownCashAtCapture": 17555000,
+    "ownContractsAtCapture": 0,
+    "ownConceptCountAtCapture": 30,
+    "fixedConcepts": [
+      {
+        "id": "c-00",
+        "genre": "comedy",
+        "baseNegativeCost": 4164354.4863039134
+      },
+      {
+        "id": "c-01",
+        "genre": "crime",
+        "baseNegativeCost": 3073856.1530380873
+      },
+      {
+        "id": "c-02",
+        "genre": "adventure",
+        "baseNegativeCost": 4298479.1395500265
+      }
+    ],
+    "developmentCastingCapacityAtCapture": 2,
+    "spareCrew": [
+      {
+        "id": "person-studio-aca408ec-r04-0",
+        "role": "writer",
+        "recordedEmploymentEndedWeek": 163,
+        "freeAgentInOriginal163": true
+      },
+      {
+        "id": "person-studio-aca408ec-r04-1",
+        "role": "director",
+        "recordedEmploymentEndedWeek": 163,
+        "freeAgentInOriginal163": true
+      },
+      {
+        "id": "person-studio-aca408ec-r04-2",
+        "role": "actor",
+        "recordedEmploymentEndedWeek": 163,
+        "freeAgentInOriginal163": true
+      },
+      {
+        "id": "person-studio-aca408ec-r04-3",
+        "role": "actor",
+        "recordedEmploymentEndedWeek": 163,
+        "freeAgentInOriginal163": true
+      },
+      {
+        "id": "person-studio-aca408ec-r04-4",
+        "role": "actor",
+        "recordedEmploymentEndedWeek": 163,
+        "freeAgentInOriginal163": true
+      },
+      {
+        "id": "person-studio-aca408ec-r04-5",
+        "role": "craft",
+        "recordedEmploymentEndedWeek": 163,
+        "freeAgentInOriginal163": true
+      }
+    ]
+  },
+  "reusedHelperScope": "Only commissionFor and freePackage payload builders; no contendedStudio, managedStudio, withCash, fixture constructors or state transplants",
+  "branch": "Fork existing genuine held state after all unchanged direct lifecycle assertions; two extra ticks and public actions remain inside original positive leaf",
+  "originalCaseCount": 3,
+  "draftCaseCount": 3,
+  "newTestLeaves": 0,
+  "budgetMs": 5000,
+  "unprovedRuntimePremises": [
+    "Fixed R04 free agents still available and idle at actual held week",
+    "All six actual 52-week signing offers affordable and admitted",
+    "Retained writer term and actual own commission accepted",
+    "Own pool draft earns Review through positive payroll and public Accept",
+    "Two further real pool drafts occupy the two actual gates with due week next advance",
+    "Fixed c-00 base budget affordable with free R04 contracted crew",
+    "Same-advance queued greenlight and carried release law reached; defect reproduction not claimed before execution"
+  ],
+  "verification": {
+    "engine": false,
+    "tests": false,
+    "compiler": false,
+    "generator": false,
+    "repositoryWrites": false,
+    "staticHashAndTextChecks": true,
+    "gitRead": "rev-parse HEAD with disabled automatic maintenance and optional locks"
+  }
+}

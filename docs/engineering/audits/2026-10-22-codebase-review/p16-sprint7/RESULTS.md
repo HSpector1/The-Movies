@@ -1,3 +1,13 @@
+## Queued-release repair focused verification complete — 2026-10-26, 15:48 CDT
+
+The reviewed c1e79adf correction now has genuine RED/GREEN evidence plus root types exit0 and both complete dependent files: queue admission13/13 (maximum162.350ms), release authority14/14 (maximum2,439.344ms), all27 below5s. Complete Accept3/3 includes grant/money/save and strict persisted-zero refusal, but its positive8.960s and hostile5.078s exceed5s. No assertions, budgets or historical transactions changed. Independent review finds no consequential defect in the scoped correction and confirms the requested focused checks functionally fulfilled.
+
+All three runs have independent1,645-pin audits and released freezes. Foreign Godot overlapped Accept and the final dependent-test interval; the intermediate dependent attempt was stopped with143 before a result. Normal final child/wrapper0 is not exclusive-resource or broad qualification. Root compilation finished before the inferred final foreign launch, without claiming continuously observed exclusivity. Earlier source-scoped evidence remains labeled; remaining35 Bridge consumer files and the complete current-tree gate are not waived.
+
+Combined retirement/acquired history remains OPEN. The bounded existing historicalWriterPair route is blocked by R02's22 unresolved promises,19 permanently unbound. Current producers cannot settle/waive those unbound records and acquisition explicitly refuses them. See native-greenlight/retirement-route/FEASIBILITY.md for exact capture/source hashes, provenance and unproved quote/condition premises. No new test was built for an invalid setup, no source bug inferred from an intentional refusal, and no claim that every possible same-world route is unavailable.
+
+This source checkpoint stays on experimental p16-retained-writing-20261026; primary013c4edc and main remain unchanged. Sprint7 and the continuous program remain incomplete. Next eligible runtime is the remaining consumer milestone in a coordinated quiet window; full-game additionally lacks three original r3n1 inputs. Timing, historical failures, concurrent queued-carried-work proof and browser/native/Owner acceptance stay visible.
+
 ## Native lifecycle verification checkpoint — 2026-10-26, 14:49 CDT
 
 Final root, Bridge and UI typechecks pass on reviewed v2+v4+v5+v6 source. Complete screenplay10/10 functional results are reused; all exceed their original five-second budgets. Actual paid greenlight, cancellation/replay, first take, hold/save, issuer/date refusals, release/replay, market/Legacy, rights and conservation are reached. Concurrent queued work is not established.

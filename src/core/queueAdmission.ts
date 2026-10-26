@@ -1,3 +1,4 @@
+import type { QueuedCarriedValidation } from './continuedScripts.js'
 // ── The inserted admission step (charter §3.3) ───────────────────────────────
 //
 // C2a-M4, tick step 1.05. INSERTION, NOT A REORDERING — D-12 §9's ratified rule,
@@ -55,6 +56,7 @@ export function admitQueuedIntents(
   week: number,
   events: StudioEventSink,
   writingContext: LiveWritingContext = prepareLiveWritingContext(state),
+  queuedCarriedValidation?:QueuedCarriedValidation,
 ): QueueAdmissionResult {
   const granted: number[] = []
   const expired: number[] = []
@@ -67,7 +69,7 @@ export function admitQueuedIntents(
     // The gate, asked of the state as it stands after every grant so far: two
     // intents can be admitted in one week if two slots came free in one week.
     if (!gateSlotAvailable(next)) break
-    const result = commitQueuedIntent(next, entry, week, events, writingContext)
+    const result = commitQueuedIntent(next, entry, week, events, writingContext, queuedCarriedValidation)
     if (result.outcome === 'granted') {
       next = {
         ...result.state,

@@ -1,4 +1,4 @@
-import { carriedConceptForProduction } from './continuedScripts.js'
+import { carriedConceptForProduction, type CarriedProductionAuthority } from './continuedScripts.js'
 import type { RivalProjectCosts } from './hollywoodTypes.js'
 import type { FacilityCapability, ProductionPhase, Production, ProductionWorkflow, Standing, ReleaseCommitment, ScriptProject, ScriptAssessment, ScriptReservation, StudioFacility, PlacedFacility, StudioOperations, ScriptDevelopment } from './types.js'
 import type { TechnologyId } from './technologyTypes.js'
@@ -834,7 +834,7 @@ function linkWork(state: GameState, propertyId: string, workId: string): GameSta
  * again under it (`greenlightRightsRefusal`): the authorised studio's production is linked, anyone else is refused and
  * the action that called this refuses with it. Never a second property for one founding concept.
  */
-export function mintStoryPropertyAtGreenlight(state: GameState, input: { studioId: string; production: Production; week: number }): GameState {
+export function mintStoryPropertyAtGreenlight(state: GameState, input: { studioId: string; production: Production; week: number }, carriedProduction?:CarriedProductionAuthority): GameState {
   const h = state.hollywood
   if (!h) return state
   const propertyId = storyPropertyId(input.production.conceptId)
@@ -843,7 +843,7 @@ export function mintStoryPropertyAtGreenlight(state: GameState, input: { studioI
   const existing = resolveTitles(state).properties.find((p) => p.propertyId === propertyId)
   const ownFactOnly = existing !== undefined && existing.virtual && existing.workLinks.every((link) => link === input.production.id)
   if (existing !== undefined && !ownFactOnly) return linkWork(state, propertyId, input.production.id)
-  const concept = (input.studioId === h.playerStudioId ? state.concepts : h.concepts).find((c) => c.id === input.production.conceptId) ?? (input.studioId===h.playerStudioId?carriedConceptForProduction(state,input.production.id):undefined)
+  const concept = (input.studioId === h.playerStudioId ? state.concepts : h.concepts).find((c) => c.id === input.production.conceptId) ?? (input.studioId===h.playerStudioId?carriedConceptForProduction(state,input.production.id,carriedProduction):undefined)
   const title = concept?.title ?? null
   const property: StoryProperty = { propertyId, conceptId: input.production.conceptId, creatorStudioId: input.studioId, createdAt: { kind: 'campaign', week: input.week },
     title, titleSource: title === null ? 'unavailable' : 'greenlight', origin: 'original', parentPropertyId: null, workLinks: [input.production.id] }

@@ -177,6 +177,42 @@ function assertCarriedHistoryInputShape(state:GameState):void {
   }
  }
 }
+/** Invocation-local validation only; each call proves the CURRENT queued
+ * action's history, including newly minted carried greenlights. */
+export type QueuedCarriedValidation = (state:GameState)=>CarriedProductionAuthority|undefined
+
+/** Only tick supplies the actual native admission witness. The producer state
+ * retains zero rows until reception/finalize; only this proof view reads their
+ * byte-matching committed pre-release counter. Never a persisted-state policy. */
+export function prepareQueuedCarriedValidation(input:GameState,admittedReleaseIds:readonly string[]):QueuedCarriedValidation|undefined {
+ if(admittedReleaseIds.length===0)return undefined
+ const authority=carriedProductionAuthority(input)
+ if(!authority)return undefined
+ const ids=new Set(admittedReleaseIds)
+ const releases=input.studio.activeProductions.filter(p=>ids.has(p.id)&&authority.productionScripts.has(p.id)).map(p=>structuredClone(p))
+ if(releases.length===0)return undefined
+ const commitments=new Map(releases.map(p=>{
+  const commitment=input.releaseAuthority.commitments.find(row=>row.productionId===p.id)
+  if(p.remainingTicks!==1||!commitment)fail('queued release witness is not committed Ready work')
+  return [p.id,structuredClone(commitment)] as const
+ }))
+ const originals=new Map(releases.map(p=>[p.id,p] as const))
+ const arrivedWeek=input.market.tick+1
+ return state=>{
+  if(state.market.tick!==arrivedWeek)fail('queued release proof belongs to another arrival week')
+  for(const original of releases){
+   const current=state.studio.activeProductions.find(p=>p.id===original.id)
+   if(!current||current.remainingTicks!==0||!same({...current,remainingTicks:1},original)
+    ||state.studio.releasedFilms.some(f=>f.productionId===original.id)
+    ||!same(state.releaseAuthority.commitments.find(row=>row.productionId===original.id),commitments.get(original.id)))fail('queued release differs from its actual admission witness')
+  }
+  // Derive afresh after EACH action. No pre-action authority is reused for
+  // newly paid productions or decisions; the live validator remains strict.
+  const proofState={...state,studio:{...state.studio,activeProductions:state.studio.activeProductions.map(p=>originals.has(p.id)?{...p,remainingTicks:1}:p)}}
+  return carriedProductionAuthority(proofState)
+ }
+}
+
 export function carriedProductionAuthority(state:GameState):CarriedProductionAuthority|undefined {
  const raw=state.rights?.absorptions
  // Older saves retain their existing validation traversal and refusal order.
@@ -216,8 +252,8 @@ export function carriedProductionAuthority(state:GameState):CarriedProductionAut
  }
  return {concepts,productionScripts,productionScriptHistory,originalProductions}
 }
-export function carriedConceptForProduction(state:GameState,productionId:string):FilmConcept|undefined {
- const authority=carriedProductionAuthority(state)
+export function carriedConceptForProduction(state:GameState,productionId:string,prepared?:CarriedProductionAuthority):FilmConcept|undefined {
+ const authority=prepared??carriedProductionAuthority(state)
  const original=authority?.originalProductions.find(p=>p.id===productionId)
  return original===undefined?undefined:authority?.concepts.find(c=>c.id===original.conceptId)
 }

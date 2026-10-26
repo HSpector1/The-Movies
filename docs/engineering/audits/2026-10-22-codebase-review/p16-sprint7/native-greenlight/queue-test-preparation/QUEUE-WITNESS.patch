@@ -1,0 +1,92 @@
+--- a/tests/p16-carried-script-accept.test.ts
++++ b/tests/p16-carried-script-accept.test.ts
+@@ -14,11 +14,13 @@
+ import {productionPhaseForRemainingTicks} from '../src/core/productionPhases.js'
+ import {absorptionProducerRefusal,quoteAbsorption,closeAbsorption,absorptionAsk} from '../src/core/acquisition.js'
+ import {requestDiligence} from '../src/core/dueDiligence.js'
+-import {activeProductionCompanyTalentIds,busyTalentIds,canAfford,hiringMarketIds,terminationCost} from '../src/core/employment.js'
++import {activeProductionCompanyTalentIds,busyTalentIds,canAfford,hiringMarketIds,terminationCost,weeklyPayroll} from '../src/core/employment.js'
+ import {playerOffer} from '../src/core/talentMarket.js'
+ import {currentHolder} from '../src/core/rights.js'
+ import {legacyFactsFromState} from '../src/core/campaignLegacy.js'
+ import {runUntil} from './_p04a2WriterCreditFixtures.js'
++import {commissionFor,freePackage} from './_m4Fixtures.js'
++import {gateSlotAvailable} from '../src/core/productionQueue.js'
+ import {libraryValuationV1} from '../src/core/propertyValuation.js'
+ import {permittedBidderRefusal,spendableCash} from '../src/core/rightsFinance.js'
+ const TARGET='studio-aca408ec-r01'
+@@ -343,6 +345,74 @@
+  expect(nativeRecord(final,a.record.id).scriptCompletions).toEqual(a.record.scriptCompletions)
+  expect(nativeRecord(final,a.record.id).continuedScripts[0]!.originalScript).toEqual(a.record.continuedScripts[0]!.originalScript)
+  pureOriginal(a.j.p)
++ // Separate lawful fork: the direct lifecycle and its empty-own-project assertions above stay intact.
++ const queueForkBytes=JSON.stringify(held)
++ let queueState=held
++ const spareIds=Array.from({length:6},(_,i)=>`person-studio-aca408ec-r04-${i}`)
++ for(const talentId of spareIds){
++  expect(a.j.p.initial.freeAgents,'fixed R04 employee must be genuinely free in original163').toContain(talentId)
++  expect(hiringMarketIds(queueState),'fixed R04 employee must still be available; no replacement search').toContain(talentId)
++  expect(busyTalentIds(queueState).has(talentId)).toBe(false)
++  const prior=queueState,priorBytes=JSON.stringify(prior),offer=playerOffer(prior,talentId,52,prior.market.tick)
++  expect(canAfford(prior,offer.signingBonus).ok,'actual R04 hiring bonus affordability').toBe(true)
++  queueState=applyActions(prior,[{kind:'signContract',talentId,termWeeks:52}])
++  expect(JSON.stringify(prior)).toBe(priorBytes)
++  expect(queueState.studio.cash).toBe(prior.studio.cash-offer.signingBonus)
++  expect(queueState.ledger.slice(prior.ledger.length)).toMatchObject([{kind:'signingBonus',talentId,amount:-offer.signingBonus}])
++ }
++ const commission=commissionFor(queueState,0,0),commissionWeek=queueState.market.tick
++ expect(commission).toMatchObject({conceptId:'c-00',writerId:a.j.project.writerId})
++ expect(busyTalentIds(queueState).has(commission.writerId)).toBe(false)
++ expect(queueState.contracts.find(c=>c.talentId===commission.writerId)!.endWeekExclusive).toBeGreaterThanOrEqual(commissionWeek+2)
++ const beforeCommission=queueState,commissionBytes=JSON.stringify(beforeCommission)
++ const drafted=applyActions(beforeCommission,[{kind:'commissionScript',project:commission}])
++ expect(JSON.stringify(beforeCommission)).toBe(commissionBytes)
++ expect(drafted.productionQueue).toEqual([]);expect(drafted.studio.cash).toBe(beforeCommission.studio.cash)
++ const own=drafted.scriptDevelopment.projects[0]!
++ expect(own).toMatchObject({conceptId:'c-00',writerId:commission.writerId,status:'drafting',commissionedWeek:commissionWeek,dueWeek:commissionWeek+1})
++ const reviewed=step(drafted)
++ expect(reviewed.scriptDevelopment.projects.find(p=>p.id===own.id)).toMatchObject({status:'review',dueWeek:null})
++ expect(reviewed.ledger.slice(drafted.ledger.length).filter(row=>row.kind==='payroll')).toMatchObject([{week:commissionWeek,amount:-weeklyPayroll(drafted,commissionWeek)}])
++ expect(reviewed.studio.activeProductions.find(p=>p.id===picture.id)?.remainingTicks).toBe(1)
++ const reviewBytes=JSON.stringify(reviewed)
++ queueState=applyActions(reviewed,[{kind:'acceptScript',projectId:own.id}])
++ expect(JSON.stringify(reviewed)).toBe(reviewBytes)
++ expect(queueState.scriptDevelopment.projects.find(p=>p.id===own.id)).toMatchObject({status:'ready',assessment:reviewed.scriptDevelopment.projects[0]!.assessment})
++ // Two real one-week drafts occupy both slots until the committed release's next advance.
++ const blockers=[commissionFor(queueState,1,0),commissionFor(queueState,2,1)]
++ expect(blockers.map(p=>p.conceptId)).toEqual(['c-01','c-02'])
++ expect(blockers.map(p=>p.writerId)).toEqual([commission.writerId,spareIds[0]])
++ const readyBytes=JSON.stringify(queueState)
++ const blocked=applyActions(queueState,blockers.map(project=>({kind:'commissionScript' as const,project})))
++ expect(JSON.stringify(queueState)).toBe(readyBytes)
++ expect(blocked.productionQueue).toEqual([]);expect(gateSlotAvailable(blocked)).toBe(false)
++ const drafts=blocked.scriptDevelopment.projects.filter(p=>p.status==='drafting')
++ expect(drafts).toHaveLength(2)
++ for(const draft of drafts){expect(draft.dueWeek).toBe(blocked.market.tick+1);expect(draft.reservation).not.toBeNull()}
++ const payload=freePackage(blocked,own.id)
++ expect(payload).toMatchObject({directorId:spareIds[1],cast:{lead:spareIds[2],antagonist:spareIds[3],support:spareIds[4]},craftIds:[spareIds[5]]})
++ expect(payload.budget).toEqual({negative:held.concepts[0]!.baseNegativeCost,marketing:0})
++ expect(canAfford(blocked,payload.budget.negative).ok,'fixed c-00 base budget must be affordable; no cheaper substitute').toBe(true)
++ const blockedBytes=JSON.stringify(blocked)
++ const queued=applyActions(blocked,[{kind:'greenlightScriptProject',production:payload}])
++ expect(JSON.stringify(blocked)).toBe(blockedBytes)
++ expect(queued.productionQueue).toEqual([{kind:'greenlightScriptProject',ordinal:0,queuedWeek:blocked.market.tick,scriptProjectId:own.id,payload}])
++ expect(queued.studio.cash).toBe(blocked.studio.cash);expect(queued.ledger).toEqual(blocked.ledger)
++ expect(queued.studio.activeProductions).toEqual(blocked.studio.activeProductions)
++ const queuedBytes=JSON.stringify(queued),releaseInput=applyActions(queued,[commit])
++ expect(JSON.stringify(queued)).toBe(queuedBytes);saves.makeSave(releaseInput)
++ const arrived=step(releaseInput)
++ expect(arrived.studio.releasedFilms.find(f=>f.productionId===picture.id)).toMatchObject({releaseTick:releaseInput.market.tick})
++ expect(arrived.studioEvents.rows.filter(row=>row.kind==='queueIntentExpired'&&row.subjectId===own.id),'lawful queued own greenlight must not expire during carried release').toEqual([])
++ const granted=arrived.studio.activeProductions.find(p=>p.conceptId===commission.conceptId)!
++ expect(granted,'queue grant must coexist with the carried release').toMatchObject({startTick:releaseInput.market.tick+1,remainingTicks:8,budget:payload.budget})
++ expect(arrived.productionQueue).toEqual([])
++ expect(arrived.scriptDevelopment.projects.find(p=>p.id===own.id)).toMatchObject({status:'inProduction',productionId:granted.id})
++ for(const draft of drafts)expect(arrived.scriptDevelopment.projects.find(p=>p.id===draft.id)).toMatchObject({status:'review',reservation:null})
++ expect(arrived.ledger.filter(row=>row.kind==='production'&&row.productionId===granted.id)).toMatchObject([{week:releaseInput.market.tick+1,amount:-payload.budget.negative}])
++ expect(nativeRecord(arrived,a.record.id).continuedScripts[0]!.project).toMatchObject({status:'produced',productionId:picture.id})
++ expect(arrived.ledger.slice(held.ledger.length).reduce((cash,row)=>cash+row.amount,held.studio.cash)).toBe(arrived.studio.cash)
++ saves.makeSave(arrived);expect(JSON.stringify(held)).toBe(queueForkBytes);pureOriginal(a.j.p)
+ }
+ describe('P16 genuine carried draft public acceptance',()=>{
+  it('public173 Review to Ready records one durable decision and offers only supported management actions while source employment titles and earned assessment remain unchanged',()=>{

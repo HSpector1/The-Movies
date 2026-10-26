@@ -1,0 +1,10 @@
+{
+  "head": "e0d4c23939bcb4caf35957896959c32afef82c6b",
+  "purpose": "Reviewed queue correction: changed signatures and complete ordinary queue/release consumers",
+  "files": [
+    "tests/c2a-m4-queue-admission.test.ts",
+    "tests/p06a-w1-release-authority.test.ts"
+  ],
+  "originalBudgets": true,
+  "sourceManifestEntries": 1645
+}

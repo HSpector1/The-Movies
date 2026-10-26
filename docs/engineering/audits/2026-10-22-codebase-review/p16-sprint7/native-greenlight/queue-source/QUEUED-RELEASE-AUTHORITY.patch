@@ -1,0 +1,286 @@
+--- a/src/core/actions.ts
++++ b/src/core/actions.ts
+@@ -1,4 +1,4 @@
+-import { continuedScriptOwner, buyerScriptDevelopment, buyerScriptConcepts, acceptContinuedScript, rewriteContinuedScript, linkCarriedScriptToProduction, returnCarriedScriptToReady, carriedScriptForProduction, carriedProductionAuthority } from './continuedScripts.js'
++import { continuedScriptOwner, buyerScriptDevelopment, buyerScriptConcepts, acceptContinuedScript, rewriteContinuedScript, linkCarriedScriptToProduction, returnCarriedScriptToReady, carriedScriptForProduction, carriedProductionAuthority, type QueuedCarriedValidation } from './continuedScripts.js'
+ import { continuedReleaseOwner, cancelContinuedProduction, buyerOperatedProductions, buyerOperationsForAllWork, withBuyerOperations, publishBuyerOperationsAction } from './continuedWork.js'
+ import { buildFilmParticipants } from './filmParticipants.js'
+ import { liveRetirementWritingAuthority, prepareLiveWritingContext, type LiveWritingContext } from './liveRetirementWriting.js'
+@@ -306,6 +306,7 @@
+   // own sink would stamp its rows into the log before the advance that freed the
+   // slot had recorded a thing.
+   injectedEvents?: StudioEventSink,
++  queuedCarriedValidation?:QueuedCarriedValidation,
+ ): GameState {
+   const p = prod.production
+   const currentTick = state.market.tick
+@@ -624,7 +625,8 @@
+   // property when its remake authority greenlights it again (refused above, before any write, otherwise).
+   return playerStudioId === undefined
+     ? competed
+-    : mintStoryPropertyAtGreenlight(competed, { studioId: playerStudioId, production, week: state.market.tick })
++    : mintStoryPropertyAtGreenlight(competed, { studioId: playerStudioId, production, week: state.market.tick },
++      scriptProject!==undefined&&continuedScriptOwner(competed,scriptProject.id)?queuedCarriedValidation?.(competed):undefined)
+ }
+ 
+ // ── cancel (M15) ─────────────────────────────────────────────────────────────
+@@ -1810,6 +1812,7 @@
+   week: number,
+   events: StudioEventSink,
+   writingContext: LiveWritingContext = prepareLiveWritingContext(state),
++  queuedCarriedValidation?:QueuedCarriedValidation,
+ ): QueuedIntentOutcome {
+   try {
+     switch (entry.kind) {
+@@ -1821,6 +1824,7 @@
+             { kind: 'commissionScript', project: entry.payload }, writingContext,
+             week,
+             false,
++            queuedCarriedValidation,
+           ),
+         }
+       case 'commissionOriginalScreenplay':
+@@ -1831,6 +1835,7 @@
+             { kind: 'commissionOriginalScreenplay', screenplay: entry.payload }, writingContext,
+             week,
+             false,
++            queuedCarriedValidation,
+           ),
+         }
+       case 'startCastingSession':
+@@ -1841,6 +1846,7 @@
+             { kind: 'startCastingSession', session: entry.payload }, writingContext,
+             week,
+             false,
++            queuedCarriedValidation,
+           ),
+         }
+       case 'greenlightScriptProject':
+@@ -1852,6 +1858,7 @@
+             week,
+             false,
+             events,
++            queuedCarriedValidation,
+           ),
+         }
+     }
+@@ -1951,8 +1958,8 @@
+ }
+ 
+ // ── Script Projects V1 actions ───────────────────────────────────────────────
+-function assertCurrentScriptState(state: GameState, writingContext: LiveWritingContext): GameState {
+-  const carried=carriedProductionAuthority(state)
++function assertCurrentScriptState(state: GameState, writingContext: LiveWritingContext, queuedCarriedValidation?:QueuedCarriedValidation): GameState {
++  const carried=queuedCarriedValidation?queuedCarriedValidation(state):carriedProductionAuthority(state)
+   assertScriptDevelopmentInvariants(state.scriptDevelopment, {
+     studioId: state.hollywood?.playerStudioId,
+     retirementWriting: liveRetirementWritingAuthority(state, writingContext),
+@@ -2101,6 +2108,7 @@
+   writingContext: LiveWritingContext,
+   week: number = state.market.tick,
+   allowQueue = true,
++  queuedCarriedValidation?:QueuedCarriedValidation,
+ ): GameState {
+   requireCommissionableWriter(state, action.project.writerId, 'commissionScript')
+   // Adapting a premise the market already owns is the fast path, and it is the
+@@ -2156,7 +2164,7 @@
+             }),
+             state.originalScreenplays.nextOrdinal,
+           ),
+-        }, writingContext),
++        }, writingContext, queuedCarriedValidation),
+       )
+     },
+     (queue) => queueCommissionScript(queue, action.project, week),
+@@ -2186,6 +2194,7 @@
+   writingContext: LiveWritingContext,
+   week: number = state.market.tick,
+   allowQueue = true,
++  queuedCarriedValidation?:QueuedCarriedValidation,
+ ): GameState {
+   const payload = action.screenplay
+   requireCommissionableWriter(state, payload.writerId, 'commissionOriginalScreenplay')
+@@ -2275,7 +2284,7 @@
+         }),
+         ordinal + 1,
+       ),
+-    }, writingContext),
++    }, writingContext, queuedCarriedValidation),
+   )
+ }
+ 
+@@ -2437,6 +2446,7 @@
+   week: number = state.market.tick,
+   allowQueue = true,
+   injectedEvents?: StudioEventSink,
++  queuedCarriedValidation?:QueuedCarriedValidation,
+ ): GameState {
+   const project = buyerScriptDevelopment(state).projects.find(
+     (candidate) => candidate.id === action.production.projectId,
+@@ -2476,7 +2486,7 @@
+   }
+   return admitOrQueue(
+     state,
+-    () => applyGreenlightScriptProjectNow(state, action, writingContext, project, injectedEvents),
++    () => applyGreenlightScriptProjectNow(state, action, writingContext, project, injectedEvents, queuedCarriedValidation),
+     (queue) =>
+       queueGreenlightScriptProject(queue, action.production.projectId, action.production, week),
+     allowQueue,
+@@ -2495,6 +2505,7 @@
+   writingContext: LiveWritingContext,
+   project: ScriptProject,
+   injectedEvents?: StudioEventSink,
++  queuedCarriedValidation?:QueuedCarriedValidation,
+ ): GameState {
+   const next = applyGreenlight(
+     state,
+@@ -2523,8 +2534,9 @@
+     },
+     project.id,
+     injectedEvents,
++    queuedCarriedValidation,
+   )
+-  return assertCurrentScriptState(next, writingContext)
++  return assertCurrentScriptState(next, writingContext, queuedCarriedValidation)
+ }
+ 
+ // ── Casting Sessions V1 actions ─────────────────────────────────────────────
+@@ -2565,6 +2577,7 @@
+   writingContext: LiveWritingContext,
+   week: number = state.market.tick,
+   allowQueue = true,
++  queuedCarriedValidation?:QueuedCarriedValidation,
+ ): GameState {
+   if (state.founding !== null) {
+     throw new Error(
+@@ -2600,7 +2613,7 @@
+             busyTalentIds: busyTalentIds(state),
+           },
+         ),
+-      }, writingContext),
++      }, writingContext, queuedCarriedValidation),
+     (queue) => queueStartCastingSession(queue, action.session, week),
+     allowQueue,
+   )
+--- a/src/core/continuedScripts.ts
++++ b/src/core/continuedScripts.ts
+@@ -177,6 +177,42 @@
+   }
+  }
+ }
++/** Invocation-local validation only; each call proves the CURRENT queued
++ * action's history, including newly minted carried greenlights. */
++export type QueuedCarriedValidation = (state:GameState)=>CarriedProductionAuthority|undefined
++
++/** Only tick supplies the actual native admission witness. The producer state
++ * retains zero rows until reception/finalize; only this proof view reads their
++ * byte-matching committed pre-release counter. Never a persisted-state policy. */
++export function prepareQueuedCarriedValidation(input:GameState,admittedReleaseIds:readonly string[]):QueuedCarriedValidation|undefined {
++ if(admittedReleaseIds.length===0)return undefined
++ const authority=carriedProductionAuthority(input)
++ if(!authority)return undefined
++ const ids=new Set(admittedReleaseIds)
++ const releases=input.studio.activeProductions.filter(p=>ids.has(p.id)&&authority.productionScripts.has(p.id)).map(p=>structuredClone(p))
++ if(releases.length===0)return undefined
++ const commitments=new Map(releases.map(p=>{
++  const commitment=input.releaseAuthority.commitments.find(row=>row.productionId===p.id)
++  if(p.remainingTicks!==1||!commitment)fail('queued release witness is not committed Ready work')
++  return [p.id,structuredClone(commitment)] as const
++ }))
++ const originals=new Map(releases.map(p=>[p.id,p] as const))
++ const arrivedWeek=input.market.tick+1
++ return state=>{
++  if(state.market.tick!==arrivedWeek)fail('queued release proof belongs to another arrival week')
++  for(const original of releases){
++   const current=state.studio.activeProductions.find(p=>p.id===original.id)
++   if(!current||current.remainingTicks!==0||!same({...current,remainingTicks:1},original)
++    ||state.studio.releasedFilms.some(f=>f.productionId===original.id)
++    ||!same(state.releaseAuthority.commitments.find(row=>row.productionId===original.id),commitments.get(original.id)))fail('queued release differs from its actual admission witness')
++  }
++  // Derive afresh after EACH action. No pre-action authority is reused for
++  // newly paid productions or decisions; the live validator remains strict.
++  const proofState={...state,studio:{...state.studio,activeProductions:state.studio.activeProductions.map(p=>originals.has(p.id)?{...p,remainingTicks:1}:p)}}
++  return carriedProductionAuthority(proofState)
++ }
++}
++
+ export function carriedProductionAuthority(state:GameState):CarriedProductionAuthority|undefined {
+  const raw=state.rights?.absorptions
+  // Older saves retain their existing validation traversal and refusal order.
+@@ -216,8 +252,8 @@
+  }
+  return {concepts,productionScripts,productionScriptHistory,originalProductions}
+ }
+-export function carriedConceptForProduction(state:GameState,productionId:string):FilmConcept|undefined {
+- const authority=carriedProductionAuthority(state)
++export function carriedConceptForProduction(state:GameState,productionId:string,prepared?:CarriedProductionAuthority):FilmConcept|undefined {
++ const authority=prepared??carriedProductionAuthority(state)
+  const original=authority?.originalProductions.find(p=>p.id===productionId)
+  return original===undefined?undefined:authority?.concepts.find(c=>c.id===original.conceptId)
+ }
+--- a/src/core/queueAdmission.ts
++++ b/src/core/queueAdmission.ts
+@@ -1,3 +1,4 @@
++import type { QueuedCarriedValidation } from './continuedScripts.js'
+ // ── The inserted admission step (charter §3.3) ───────────────────────────────
+ //
+ // C2a-M4, tick step 1.05. INSERTION, NOT A REORDERING — D-12 §9's ratified rule,
+@@ -55,6 +56,7 @@
+   week: number,
+   events: StudioEventSink,
+   writingContext: LiveWritingContext = prepareLiveWritingContext(state),
++  queuedCarriedValidation?:QueuedCarriedValidation,
+ ): QueueAdmissionResult {
+   const granted: number[] = []
+   const expired: number[] = []
+@@ -67,7 +69,7 @@
+     // The gate, asked of the state as it stands after every grant so far: two
+     // intents can be admitted in one week if two slots came free in one week.
+     if (!gateSlotAvailable(next)) break
+-    const result = commitQueuedIntent(next, entry, week, events, writingContext)
++    const result = commitQueuedIntent(next, entry, week, events, writingContext, queuedCarriedValidation)
+     if (result.outcome === 'granted') {
+       next = {
+         ...result.state,
+--- a/src/core/rights.ts
++++ b/src/core/rights.ts
+@@ -1,4 +1,4 @@
+-import { carriedConceptForProduction } from './continuedScripts.js'
++import { carriedConceptForProduction, type CarriedProductionAuthority } from './continuedScripts.js'
+ import type { RivalProjectCosts } from './hollywoodTypes.js'
+ import type { FacilityCapability, ProductionPhase, Production, ProductionWorkflow, Standing, ReleaseCommitment, ScriptProject, ScriptAssessment, ScriptReservation, StudioFacility, PlacedFacility, StudioOperations, ScriptDevelopment } from './types.js'
+ import type { TechnologyId } from './technologyTypes.js'
+@@ -834,7 +834,7 @@
+  * again under it (`greenlightRightsRefusal`): the authorised studio's production is linked, anyone else is refused and
+  * the action that called this refuses with it. Never a second property for one founding concept.
+  */
+-export function mintStoryPropertyAtGreenlight(state: GameState, input: { studioId: string; production: Production; week: number }): GameState {
++export function mintStoryPropertyAtGreenlight(state: GameState, input: { studioId: string; production: Production; week: number }, carriedProduction?:CarriedProductionAuthority): GameState {
+   const h = state.hollywood
+   if (!h) return state
+   const propertyId = storyPropertyId(input.production.conceptId)
+@@ -843,7 +843,7 @@
+   const existing = resolveTitles(state).properties.find((p) => p.propertyId === propertyId)
+   const ownFactOnly = existing !== undefined && existing.virtual && existing.workLinks.every((link) => link === input.production.id)
+   if (existing !== undefined && !ownFactOnly) return linkWork(state, propertyId, input.production.id)
+-  const concept = (input.studioId === h.playerStudioId ? state.concepts : h.concepts).find((c) => c.id === input.production.conceptId) ?? (input.studioId===h.playerStudioId?carriedConceptForProduction(state,input.production.id):undefined)
++  const concept = (input.studioId === h.playerStudioId ? state.concepts : h.concepts).find((c) => c.id === input.production.conceptId) ?? (input.studioId===h.playerStudioId?carriedConceptForProduction(state,input.production.id,carriedProduction):undefined)
+   const title = concept?.title ?? null
+   const property: StoryProperty = { propertyId, conceptId: input.production.conceptId, creatorStudioId: input.studioId, createdAt: { kind: 'campaign', week: input.week },
+     title, titleSource: title === null ? 'unavailable' : 'greenlight', origin: 'original', parentPropertyId: null, workLinks: [input.production.id] }
+--- a/src/core/tick.ts
++++ b/src/core/tick.ts
+@@ -1,4 +1,4 @@
+-import { advanceBuyerScriptWork, buyerScriptDevelopment, carriedScriptForProduction, carriedConceptForProduction, carriedProductionAuthority, markCarriedScriptProduced } from './continuedScripts.js'
++import { advanceBuyerScriptWork, buyerScriptDevelopment, carriedScriptForProduction, carriedConceptForProduction, carriedProductionAuthority, markCarriedScriptProduced, prepareQueuedCarriedValidation } from './continuedScripts.js'
+ import { prepareContinuedReleases } from './hollywoodTick.js'
+ import { buyerOperationsForAllWork, buyerOperatedProductions, buyerContinuedProductions, publishOperatedAdvance, recordContinuedWorkSteps, continuedCommittedReleaseIds } from './continuedWork.js'
+ import { prepareLiveWritingContext } from './liveRetirementWriting.js'
+@@ -442,6 +442,7 @@
+     currentTick + 1,
+     events.at(currentTick + 1),
+     writingContext,
++    workInput.productionQueue.length===0?undefined:prepareQueuedCarriedValidation(workInput,productionAdvance.admittedReleaseIds),
+   )
+   const queueAdmitted: GameState = { ...admission.state, technology: technologyProduction.technology(), market: state.market }
+ 

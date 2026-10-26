@@ -1,4 +1,4 @@
-import { advanceBuyerScriptWork, buyerScriptDevelopment, carriedScriptForProduction, carriedConceptForProduction, carriedProductionAuthority, markCarriedScriptProduced } from './continuedScripts.js'
+import { advanceBuyerScriptWork, buyerScriptDevelopment, carriedScriptForProduction, carriedConceptForProduction, carriedProductionAuthority, markCarriedScriptProduced, prepareQueuedCarriedValidation } from './continuedScripts.js'
 import { prepareContinuedReleases } from './hollywoodTick.js'
 import { buyerOperationsForAllWork, buyerOperatedProductions, buyerContinuedProductions, publishOperatedAdvance, recordContinuedWorkSteps, continuedCommittedReleaseIds } from './continuedWork.js'
 import { prepareLiveWritingContext } from './liveRetirementWriting.js'
@@ -442,6 +442,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     currentTick + 1,
     events.at(currentTick + 1),
     writingContext,
+    workInput.productionQueue.length===0?undefined:prepareQueuedCarriedValidation(workInput,productionAdvance.admittedReleaseIds),
   )
   const queueAdmitted: GameState = { ...admission.state, technology: technologyProduction.technology(), market: state.market }
 
