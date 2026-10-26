@@ -1,0 +1,42 @@
+--- a/tests/p14c2rm-writer-continuation.test.ts
++++ b/tests/p14c2rm-writer-continuation.test.ts
+@@ -7,7 +7,11 @@
+ import { retirementRecordFor } from '../src/core/careerLifecycle.js'
+ import { activeContract } from '../src/core/employment.js'
+ import { studioConstructionView } from '../src/core/placement.js'
+-import { availableDevelopmentCastingSlots } from '../src/core/scriptDevelopment.js'
++import { buyerScriptDevelopment, buyerScriptConcepts } from '../src/core/continuedScripts.js'
++import { buyerOperationsForAllWork, buyerOperatedProductions } from '../src/core/continuedWork.js'
++import { liveRetirementWritingAuthority, prepareLiveWritingContext } from '../src/core/liveRetirementWriting.js'
++import type { RetirementWritingAuthority } from '../src/core/retirementWriting.js'
++import { assertScriptDevelopmentInvariants, availableDevelopmentCastingSlots } from '../src/core/scriptDevelopment.js'
+ import { studioCalendar } from '../src/core/studioCalendar.js'
+ import { tick } from '../src/core/tick.js'
+ import { convertV36ToV35, convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, convertV47ToV46, convertV49ToV48, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify,
+@@ -88,6 +92,26 @@
+     expect(activeContract(f.finishing, f.writerId)).toBeUndefined()
+     expect(retirementRecordFor(f.finishing, f.writerId)).toMatchObject({ status: 'finishing_commitments', effectiveWeek: 312 })
+     expect(writeProject(f.finishing, f.writerId)).toEqual(writeProject(f.commissioned, f.writerId))
++    // Direct authority-boundary control on a genuinely produced retirement task.
++    // This fixture has no acquired owner: it is NOT an acquisition-coexistence RED.
++    const authority = liveRetirementWritingAuthority(f.finishing, prepareLiveWritingContext(f.finishing))
++    expect(authority).toBeDefined()
++    const combinedInvariant = (retirementWriting?: RetirementWritingAuthority) =>
++      assertScriptDevelopmentInvariants(buyerScriptDevelopment(f.finishing), {
++        current49ProjectIds: f.finishing.scriptDevelopment.projects.map(p => p.id),
++        current49ProductionScripts: new Map(), studioId: owner(f.finishing),
++        currentWeek: f.finishing.market.tick, concepts: buyerScriptConcepts(f.finishing),
++        talent: f.finishing.talent, contracts: f.finishing.contracts,
++        operations: buyerOperationsForAllWork(f.finishing),
++        activeProductions: buyerOperatedProductions(f.finishing),
++        releasedFilms: f.finishing.studio.releasedFilms, retirementWriting,
++      })
++    expect(() => combinedInvariant()).toThrow(/writer is not contracted/)
++    expect(() => combinedInvariant(authority)).not.toThrow()
++    expect(() => combinedInvariant(liveRetirementWritingAuthority(f.finishing, { kind: 'rejected' })))
++      .toThrow(/writer is not contracted/)
++    expect(() => combinedInvariant({ ...authority!, week: f.finishing.market.tick - 1 }))
++      .toThrow(/writer is not contracted/)
+     const reopened = readBack(f.finishing)
+     // Persistence has always canonicalized JSON -0 to 0. Validate the actual
+     // reopened object and compare authoritative canonical bytes across storage.

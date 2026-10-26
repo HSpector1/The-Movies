@@ -412,13 +412,13 @@ Final Sprint4 candidate `b3be2b78f821ca356158b63083eced051d20f3f7` pushed and ex
 
 ## Authorized Sprints 5–16 program — 2026-10-25
 
-Governing [Owner assignment](p16-sprint5/OWNER-ASSIGNMENT.txt) supersedes routine stop-after-sprint instructions. Entry candidate for every row is `b3be2b78f821ca356158b63083eced051d20f3f7`; no later gameplay candidate exists at this checkpoint. Continue eligible packages without another routine approval, but no gameplay promotion to main or predecessor waiver. Sprint 4 results retain their resource/exclusivity limitations.
+Governing [Owner assignment](p16-sprint5/OWNER-ASSIGNMENT.txt) supersedes routine stop-after-sprint instructions. Primary candidate is `013c4edc90c0ce063fea00ebb187161ad6eb3414`, gameplay unchanged from entry `b3be2b78f821ca356158b63083eced051d20f3f7`. Experimental retained-writing branch `6fdbe96672e28049199f312fc59c95ebfda20c44` is separately published and runtime-unqualified. Continue eligible packages without another routine approval, but no gameplay promotion to main or predecessor waiver. Sprint 4 results retain their resource/exclusivity limitations.
 
 | Sprint | Status at entry candidate | Remaining dependency / exact next action |
 | --- | --- | --- |
 | 5 — full baseline | BLOCKED | Recover three original r3n1 inputs/reports; sufficient disk and exclusive window; bind and pass current preflight, run prepared full core-including-Bridge/UI once. One tracked input restored and hash-verified. |
 | 6 — regression/browser | NOT RUN | Classify actual Sprint 5 outcomes; existing ui/e2e/smoke.spec.ts supplies real production/release/save route under original 120 s budget. Browser launch also resource-blocked. |
-| 7 — screenplay continuation | DRAFT PREPARED; INSTALLATION BLOCKED | Thirteen-path adaptation and exact final ten tests preserved outside baseline. Review identifies omitted retirement-writing authority; resolve and qualify before installation. Carried greenlight and broader screenplay-history support remain required. |
+| 7 — screenplay continuation | EXPERIMENTAL SOURCE PUBLISHED; RUNTIME UNQUALIFIED | Side branch 6fdbe966 repairs authority forwarding by static review; one predecessor retained-producer RED reached with resource limit. Green/types/consumers and genuine coexistence remain unrun. Carried greenlight and broader screenplay-history support remain required. |
 | 8 — other acquisition producers | NOT STARTED | Implement only adopted remaining producers against coherent P16 source; no guard removal ahead of producer. Natural C-08 remains genuinely unavailable under current inspected routes. |
 | 9 — technical P16 checkpoint | DEPENDENCY BLOCKED | Coherent Sprints 6–8, historical/consumer gates and actual browser transactions; no immutable qualified checkpoint yet. |
 | 10 — P17 continuation | PREDECESSOR BLOCKED | Actual qualified P16 technical checkpoint before adapting preserved P17 source. |
@@ -432,3 +432,7 @@ Governing [Owner assignment](p16-sprint5/OWNER-ASSIGNMENT.txt) supersedes routin
 Sprint 5 entry preflight refused at 2,261,252 KiB, below 3,670,016 KiB launch and 3,145,728 KiB runtime floors. No heavy command ran. Private process inventories remain local; [sanitized receipt](p16-sprint5/ENTRY.json) and [input recovery](p16-sprint5/INPUT-RECOVERY.md) preserve the exact limitation. The three missing fixture families are historical ENOENT gaps, not newly demonstrated gameplay defects. No threshold change, invented fixture, cleanup or repeating preflight against unchanged conditions.
 
 Publication: candidate `013c4edc90c0ce063fea00ebb187161ad6eb3414` on `p16-rebase-20261024` pushed and explicit GitHub ref verified. This checkpoint changes only HANDOFF/docs; executable gameplay remains the b3be2b78 baseline. Sprint 5 is blocked, draft installation is blocked, and the authorized program remains incomplete.
+
+## Independent retained-writing slice — 2026-10-26
+
+Primary candidate 013c4edc stays unchanged. Experimental `p16-retained-writing-20261026` at `6fdbe96672e28049199f312fc59c95ebfda20c44` is pushed/remote-verified: prepared source13 plus Accept/Rewrite and focused reviewed retirement-authority threading. Ten original tests unchanged, no new acceptance leaf. One predecessor positive reaches retainedScriptProducerRequired in 2.475 s; three unselected. Preflight passed, but swap grew 7→8 GiB and postflight disk fell below runtime floor; resource/timing qualification withheld, no further launch. Genuine coexistence remains missing. Root/Bridge compilation, green runtime, canonical generation and consumers remain UNRUN; no qualified P16 checkpoint, primary integration or main gameplay promotion. See p16-sprint7/RESULTS.md and REVIEW.md.

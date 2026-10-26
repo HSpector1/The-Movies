@@ -1,0 +1,27 @@
+[
+  {
+    "path": "REPAIR.patch",
+    "bytes": 20877,
+    "sha256": "9b28858fa4b0791c48b6ce278cad49e204e7605c79ba3a8f512fa682631e77c8"
+  },
+  {
+    "path": "AUTHORITY-CONTROL.patch",
+    "bytes": 3291,
+    "sha256": "b083e0e64b24d3192606a88fc3793ea124adcbdd87a655218387ef98cff6abcb"
+  },
+  {
+    "path": "SOURCE.patch",
+    "bytes": 89225,
+    "sha256": "f974d6196dd9788c6d07383ff8fd271474040644473c08cfeca618766a80f6fc"
+  },
+  {
+    "path": "TESTS.patch",
+    "bytes": 69784,
+    "sha256": "6d27450d70a323f981391e4657bf27ff2f61bdd03a23e7ededb4521de966d532"
+  },
+  {
+    "path": "COMBINED.patch",
+    "bytes": 159009,
+    "sha256": "d0629977d72fe4367cabca251a87f1f1e6d4edf216b413c94109b08eb24df92d"
+  }
+]

@@ -1,0 +1,38 @@
+=== BEGIN retained-writing-predecessor-red
+2026-10-26T09:27:19-05:00
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/p16-retained-writing-20261026-wt
+
+stdout | tests/p16-retained-drafting-continuation.test.ts > P16 genuine171 retained drafting native completion > default actual writer retention carries one namespaced live buyer draft through actual due173 with creator paid history save and replay
+P16_FIXED_DRAFT171_OBSERVATION {"week":171,"studioId":"studio-aca408ec-r01","condition":{"stage":"stable","since":131,"week":171,"lowRun":0,"negativeRun":0,"clearRun":41,"distressWeeks":0},"cash":8721431.484490331,"decisionWeek":171,"activeProductions":[{"id":"studio-aca408ec-r01:film:12","remainingTicks":8,"phase":"development"}],"activeScripts":[{"id":"script-0012","status":"inProduction","commissionedWeek":155,"dueWeek":null,"productionId":"studio-aca408ec-r01:film:12","reservation":null},{"id":"script-0014","status":"drafting","commissionedWeek":170,"dueWeek":173,"productionId":null,"reservation":{"projectId":"script-0014","facilityId":"studio-aca408ec-r01:development","capability":"development-casting","slot":1}}],"newScriptIds":["script-0014"]}
+P16_FIXED_FUNDED_DRAFT171 {"week":171,"buyerId":"studio-aca408ec-player","targetId":"studio-aca408ec-r01","scriptId":"script-0014","fee":50000,"consideration":8365640,"exitCharges":1305330,"postExitCash":7416101.484490331,"outlay":949538.5155096687,"reserve":390000,"affordable":true,"productionVerdicts":[{"productionId":"studio-aca408ec-r01:film:12","remainingTicks":8,"phase":"development","missingParticipants":["person-studio-aca408ec-r01-0","person-studio-aca408ec-r01-1","person-studio-aca408ec-r01-5","person-studio-aca408ec-r01-4","person-studio-aca408ec-r01-3","person-studio-aca408ec-r01-2"],"disposition":"cancelRequired","reason":"missingParticipants","blockedCapability":null}]}
+
+ ❯ |core| tests/p16-retained-drafting-continuation.test.ts (4 tests | 1 failed | 3 skipped) 2481ms
+   × P16 genuine171 retained drafting native completion > default actual writer retention carries one namespaced live buyer draft through actual due173 with creator paid history save and replay 2475ms
+     → absorption: retainedScriptProducerRequired
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p16-retained-drafting-continuation.test.ts > P16 genuine171 retained drafting native completion > default actual writer retention carries one namespaced live buyer draft through actual due173 with creator paid history save and replay
+Error: absorption: retainedScriptProducerRequired
+ ❯ Module.closeAbsorption src/core/acquisition.ts:426:26
+    424|   if (age !== null) throw new Error(`absorption closing refused: ${age…
+    425|   const unsupported = absorptionProducerRefusal(state,input)
+    426|   if (unsupported) throw new Error(`absorption: ${unsupported}`)
+       |                          ^
+    427|   const q = quoteAbsorption(state,input,week)
+    428|   if (q.kind !== 'quote') throw new Error(`absorption: ${q.refusal}`)
+ ❯ retained tests/p16-retained-drafting-continuation.test.ts:121:15
+ ❯ completion tests/p16-retained-drafting-continuation.test.ts:150:23
+ ❯ tests/p16-retained-drafting-continuation.test.ts:179:148
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 skipped (4)
+   Start at  09:27:21
+   Duration  10.07s (transform 3.98s, setup 0ms, collect 6.36s, tests 2.48s, environment 0ms, prepare 358ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/p16-sprint7-verification-20261026/baseline-red.json
+=== END retained-writing-predecessor-red exit=1
+2026-10-26T09:27:32-05:00

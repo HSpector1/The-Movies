@@ -1,0 +1,220 @@
+{
+  "at": "2026-10-26T09:40:51.816397-05:00",
+  "authorization": "Owner requested GitHub-preserved session artifacts removed locally; continue checking unneeded files",
+  "freeBeforeKiB": 10701408,
+  "freeAfterKiB": 10833824,
+  "netFreeIncreaseKiB": 132416,
+  "accountedAllocatedKiB": 128356,
+  "removedEntries": [
+    {
+      "local": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3j-core-recovery.log",
+      "bytes": 15585303,
+      "sha256": "0d6ba24bdecf16c056621b14c56274ebc2da440fc3328ecab582144727705583",
+      "publishedGzip": "docs/engineering/audits/2026-10-22-codebase-review/wave3-final/lane-logs/wave3j-core-recovery.log.gz",
+      "publishedCommit": "77931028ca27782aa32a5eb5b0af7f18944187c4",
+      "restore": "gzip-decompress Git blob",
+      "allocatedKiBBefore": 15224
+    },
+    {
+      "local": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3j.log",
+      "bytes": 12026695,
+      "sha256": "3b5271d4264e7a66ca9f41bc53ab56f47dd56ce4d0d8f628be09c1c6c3310c11",
+      "publishedGzip": "docs/engineering/audits/2026-10-22-codebase-review/wave3-final/lane-logs/wave3j.log.gz",
+      "publishedCommit": "77931028ca27782aa32a5eb5b0af7f18944187c4",
+      "restore": "gzip-decompress Git blob",
+      "allocatedKiBBefore": 11748
+    },
+    {
+      "local": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3l.log",
+      "bytes": 8637606,
+      "sha256": "58d43a6122490bbaefef6eff6abe95a1b5aff89b5e6f30b8e71651163a4cb9a6",
+      "publishedGzip": "docs/engineering/audits/2026-10-22-codebase-review/wave3-final/lane-logs/wave3l.log.gz",
+      "publishedCommit": "77931028ca27782aa32a5eb5b0af7f18944187c4",
+      "restore": "gzip-decompress Git blob",
+      "allocatedKiBBefore": 8436
+    },
+    {
+      "local": "/Users/zacheryspector/studio-scratch/p16-c03-sprint2-20261025/profile/CPU.20261025.173033.82704.0.001.cpuprofile",
+      "bytes": 3209900,
+      "sha256": "11a3b3b47b4935cb9ba0d3adea51f6e7eed5b222f3b61ac91d829dd2df1fd65a",
+      "publishedGzip": "docs/engineering/audits/2026-10-22-codebase-review/c03-sprint2/profile/CPU.20261025.173033.82704.0.001.cpuprofile.gz",
+      "publishedCommit": "77931028ca27782aa32a5eb5b0af7f18944187c4",
+      "restore": "gzip-decompress Git blob",
+      "allocatedKiBBefore": 3136
+    },
+    {
+      "local": "/Users/zacheryspector/studio-scratch/p16-sprint4-20261025/profile/CPU.20261025.205615.92979.0.001.cpuprofile",
+      "bytes": 2315231,
+      "sha256": "5cb04dccbb0163a74f06938292ba95aa4090236a8944dbca612d71d0bf7358fe",
+      "publishedGzip": "docs/engineering/audits/2026-10-22-codebase-review/p16-sprint4/profile/CPU.20261025.205615.92979.0.001.cpuprofile.gz",
+      "publishedCommit": "77931028ca27782aa32a5eb5b0af7f18944187c4",
+      "restore": "gzip-decompress Git blob",
+      "allocatedKiBBefore": 2264
+    },
+    {
+      "local": "/Users/zacheryspector/studio-scratch/p16-c03-sprint2-20261025/profile/CPU.20261025.173031.82699.0.001.cpuprofile",
+      "bytes": 1211602,
+      "sha256": "779e09bbee86d4bce6432e227e53931296e059f03f6b92bf0ded65f083a1ceba",
+      "publishedGzip": "docs/engineering/audits/2026-10-22-codebase-review/c03-sprint2/profile/CPU.20261025.173031.82699.0.001.cpuprofile.gz",
+      "publishedCommit": "77931028ca27782aa32a5eb5b0af7f18944187c4",
+      "restore": "gzip-decompress Git blob",
+      "allocatedKiBBefore": 1184
+    },
+    {
+      "local": "/Users/zacheryspector/studio-scratch/p16-sprint4-20261025/profile/CPU.20261025.205614.92976.0.001.cpuprofile",
+      "bytes": 1047635,
+      "sha256": "b25e934e387ad50fa0571ce35a1a5bc2ab723e74fe77650c6f3de8189b438af6",
+      "publishedGzip": "docs/engineering/audits/2026-10-22-codebase-review/p16-sprint4/profile/CPU.20261025.205614.92976.0.001.cpuprofile.gz",
+      "publishedCommit": "77931028ca27782aa32a5eb5b0af7f18944187c4",
+      "restore": "gzip-decompress Git blob",
+      "allocatedKiBBefore": 1024
+    },
+    {
+      "local": "/Users/zacheryspector/studio-scratch/p16-c03-sprint2-20261025/profile/CPU.20261025.173033.82705.0.001.cpuprofile",
+      "bytes": 551730,
+      "sha256": "3953940c33f827654b72d505e7a075d082427f44efe8cc57018737529fa9c029",
+      "publishedGzip": "docs/engineering/audits/2026-10-22-codebase-review/c03-sprint2/profile/CPU.20261025.173033.82705.0.001.cpuprofile.gz",
+      "publishedCommit": "77931028ca27782aa32a5eb5b0af7f18944187c4",
+      "restore": "gzip-decompress Git blob",
+      "allocatedKiBBefore": 540
+    },
+    {
+      "local": "/Users/zacheryspector/studio-scratch/p16-c03-sprint2-20261025/profile/CPU.20261025.173033.82706.0.001.cpuprofile",
+      "bytes": 548202,
+      "sha256": "30534be3352eb13a5cd927acb68da9cb1043294d34fa2f9a0bcc1397bd008e05",
+      "publishedGzip": "docs/engineering/audits/2026-10-22-codebase-review/c03-sprint2/profile/CPU.20261025.173033.82706.0.001.cpuprofile.gz",
+      "publishedCommit": "77931028ca27782aa32a5eb5b0af7f18944187c4",
+      "restore": "gzip-decompress Git blob",
+      "allocatedKiBBefore": 536
+    },
+    {
+      "local": "/Users/zacheryspector/studio-scratch/p16-sprint4-20261025/profile/CPU.20261025.205615.92981.0.001.cpuprofile",
+      "bytes": 406761,
+      "sha256": "cd3db7ddaf06dfb204a8a5763dd7d1f4936f941b07589ec1d99a6408e12c0f2c",
+      "publishedGzip": "docs/engineering/audits/2026-10-22-codebase-review/p16-sprint4/profile/CPU.20261025.205615.92981.0.001.cpuprofile.gz",
+      "publishedCommit": "77931028ca27782aa32a5eb5b0af7f18944187c4",
+      "restore": "gzip-decompress Git blob",
+      "allocatedKiBBefore": 400
+    },
+    {
+      "local": "/Users/zacheryspector/studio-scratch/p16-sprint4-20261025/profile/CPU.20261025.205615.92980.0.001.cpuprofile",
+      "bytes": 404077,
+      "sha256": "285ba683e3671040dedd38021bec120cc2c99c10665667aca31ce879d2621e17",
+      "publishedGzip": "docs/engineering/audits/2026-10-22-codebase-review/p16-sprint4/profile/CPU.20261025.205615.92980.0.001.cpuprofile.gz",
+      "publishedCommit": "77931028ca27782aa32a5eb5b0af7f18944187c4",
+      "restore": "gzip-decompress Git blob",
+      "allocatedKiBBefore": 396
+    },
+    {
+      "local": "/Users/zacheryspector/studio-scratch/p16-c03-sprint2-20261025/final-e.log",
+      "bytes": 96408,
+      "sha256": "5a07e438ed0094a63efe8a6e5768a469b56d7a973de25da76e3bd0f4a4923db4",
+      "publishedGzip": "docs/engineering/audits/2026-10-22-codebase-review/c03-sprint2/final-e.log.gz",
+      "publishedCommit": "77931028ca27782aa32a5eb5b0af7f18944187c4",
+      "restore": "gzip-decompress Git blob",
+      "allocatedKiBBefore": 96
+    },
+    {
+      "local": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3m.log",
+      "bytes": 94492,
+      "sha256": "579db02c37a88ef67bdcf62639e9e58d5a06a480592e13b684f96e4c82e0fa0c",
+      "publishedGzip": "docs/engineering/audits/2026-10-22-codebase-review/wave3-final/lane-logs/wave3m.log.gz",
+      "publishedCommit": "77931028ca27782aa32a5eb5b0af7f18944187c4",
+      "restore": "gzip-decompress Git blob",
+      "allocatedKiBBefore": 96
+    },
+    {
+      "local": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3.log.gz",
+      "bytes": 2860687,
+      "sha256": "55e740c4b9c0b6fa81cb4c76c4e1cc96d378cef8607355a49803a010a04405f4",
+      "published": "docs/engineering/audits/2026-10-22-codebase-review/wave3-final/lane-logs/wave3.log.gz",
+      "publishedCommit": "77931028ca27782aa32a5eb5b0af7f18944187c4",
+      "restore": "exact Git blob",
+      "allocatedKiBBefore": 2796
+    },
+    {
+      "local": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3f.log.gz",
+      "bytes": 1965289,
+      "sha256": "742f2b404213a38c351f2b7cb71f8f7874ad043198d21eda36fb949bcdfa6411",
+      "published": "docs/engineering/audits/2026-10-22-codebase-review/wave3-final/lane-logs/wave3f.log.gz",
+      "publishedCommit": "77931028ca27782aa32a5eb5b0af7f18944187c4",
+      "restore": "exact Git blob",
+      "allocatedKiBBefore": 1920
+    },
+    {
+      "local": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/final-gates.log.gz",
+      "bytes": 1771851,
+      "sha256": "7cc83119b138cf5b21d13690f476bead330b27074487884766a08ff12f24ddd8",
+      "published": "docs/engineering/audits/2026-10-22-codebase-review/wave3-final/lane-logs/final-gates.log.gz",
+      "publishedCommit": "77931028ca27782aa32a5eb5b0af7f18944187c4",
+      "restore": "exact Git blob",
+      "allocatedKiBBefore": 1732
+    },
+    {
+      "local": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3b.log.gz",
+      "bytes": 1117251,
+      "sha256": "eaa1da31ee1beb8e93e7bd23dd7b66928ac7d7887872d46f3e9e27f4bc736349",
+      "published": "docs/engineering/audits/2026-10-22-codebase-review/wave3-final/lane-logs/wave3b.log.gz",
+      "publishedCommit": "77931028ca27782aa32a5eb5b0af7f18944187c4",
+      "restore": "exact Git blob",
+      "allocatedKiBBefore": 1092
+    },
+    {
+      "local": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/final-fixups-r1.log.gz",
+      "bytes": 392475,
+      "sha256": "ec4e27065067c4ca1b4dd172c4b1225cc5373a8fbc99af47c6000cf2b517ffee",
+      "published": "docs/engineering/audits/2026-10-22-codebase-review/wave3-final/lane-logs/final-fixups-r1.log.gz",
+      "publishedCommit": "77931028ca27782aa32a5eb5b0af7f18944187c4",
+      "restore": "exact Git blob",
+      "allocatedKiBBefore": 384
+    },
+    {
+      "local": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3i.log.gz",
+      "bytes": 195973,
+      "sha256": "c95bb35668e3b0a94e4c31261bc5fbb0da1fb4bc62c79bc44027b57f49696045",
+      "published": "docs/engineering/audits/2026-10-22-codebase-review/wave3-final/lane-logs/wave3i.log.gz",
+      "publishedCommit": "77931028ca27782aa32a5eb5b0af7f18944187c4",
+      "restore": "exact Git blob",
+      "allocatedKiBBefore": 192
+    },
+    {
+      "local": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3e.log.gz",
+      "bytes": 36858,
+      "sha256": "49fae18188b1510e37f291f3f39dd09dfdfc22aadb087cebfbf521a52dd50934",
+      "published": "docs/engineering/audits/2026-10-22-codebase-review/wave3-final/lane-logs/wave3e.log.gz",
+      "publishedCommit": "77931028ca27782aa32a5eb5b0af7f18944187c4",
+      "restore": "exact Git blob",
+      "allocatedKiBBefore": 36
+    },
+    {
+      "local": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3g.log.gz",
+      "bytes": 33834,
+      "sha256": "7303624a7ce940d45f71a82a0f04a5a7d5adc9d1b4dbd2e8bd18fa63d94af009",
+      "published": "docs/engineering/audits/2026-10-22-codebase-review/wave3-final/lane-logs/wave3g.log.gz",
+      "publishedCommit": "77931028ca27782aa32a5eb5b0af7f18944187c4",
+      "restore": "exact Git blob",
+      "allocatedKiBBefore": 36
+    },
+    {
+      "local": "/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/dist",
+      "kind": "ignored generated build output",
+      "allocatedKiBBefore": 11560,
+      "restore": "existing npm run build at appropriate candidate through sole lane"
+    },
+    {
+      "local": "/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/ui/dist",
+      "kind": "ignored generated build output",
+      "allocatedKiBBefore": 12912,
+      "restore": "existing npm run build at appropriate candidate through sole lane"
+    },
+    {
+      "local": "/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/docs/campaigns",
+      "kind": "clean tracked historical documentation sparse exclusion",
+      "allocatedKiBBefore": 50616,
+      "publishedCommit": "013c4edc90c0ce063fea00ebb187161ad6eb3414",
+      "restore": "remove added !/docs/campaigns/ sparse pattern at idle boundary; original patterns recorded"
+    }
+  ],
+  "kept": "full-gate comparison JSON, source, active worktrees, node_modules, private inputs and receipts, original current200, all Git history",
+  "restoreCaution": "Restore only individual needed archived bytes from exact pinned Git blob; verify SHA256. Do not regenerate historical evidence."
+}
