@@ -437,7 +437,8 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
     for(const kind of ['development','production','marketing'] as const) requireFact(close(movements[kind]!, -b.projects.reduce((sum,p)=>sum+p[kind],0)), `${kind} commitments do not reconcile`)
     const ownedFilms = h.films.filter(f=>f.studioId===b.studioId && f.provenance==='simulation/v1')
     const ownedFilmById=new Map(ownedFilms.map(f=>[f.filmId,f]))
-    requireFact(close(movements.studioRevenue!, ownedFilms.reduce((sum,f)=>sum+(f.provenance==='simulation/v1'?f.studioRevenueReceived:0),0) - (absorptionOf(b.studioId)?.runReceipts.reduce((sum,r)=>sum+r.revenue,0) ?? 0)), 'studio revenue does not reconcile')
+    requireFact(close(movements.studioRevenue!, ownedFilms.reduce((sum,f)=>sum+(f.provenance==='simulation/v1'?f.studioRevenueReceived:0),0) - (absorptionOf(b.studioId)?.runReceipts.reduce((sum,r)=>sum+r.revenue,0) ?? 0)
+      + (era.rights ? [...(era.absorptions?.values() ?? [])].filter(a=>a.buyerId===b.studioId).reduce((sum,a)=>sum+a.runReceipts.reduce((paid,r)=>paid+r.revenue,0),0) : 0)), 'studio revenue does not reconcile')
     list(b.productions); list(b.runs); list(b.projects)
     for (const p of b.productions) {
       shared.production(p,concepts); requireFact(!productionIds.has(p.id),'production identity collision'); productionIds.add(p.id)

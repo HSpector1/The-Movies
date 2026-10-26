@@ -768,6 +768,45 @@ describe('P04A REOPEN — enumerated prior protocol-4 checkpoint import', () => 
   it.each(Array.from(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.entries()))(
     'accepts and migrates the enumerated %s (%s) identity',
     (schemaId, era) => {
+      if (era === 'projection-v63') {
+        // Actual source9c public save command; no edited header/journal or save slots.
+        const compressed = readFileSync(new URL('./fixtures/p16/genuine-projection63-runtime/outgoing63.checkpoint.json.gz', import.meta.url))
+        expect(createHash('sha256').update(compressed).digest('hex')).toBe('f24ac06cc84661015383792be732551e1647543106cd91483a3efac2fb892c26')
+        const raw = gunzipSync(compressed).toString('utf8')
+        expect(sha256(raw)).toBe('e699c9b066da20ca4c46498215bca841afa5ddc9e9e571d6c3586520d0e0df65')
+        const original = JSON.parse(raw) as BridgeRuntimeCheckpointV1, before = canonicalJson(original)
+        expect(schemaId).toBe('sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1')
+        expect(original).toMatchObject({ schemaId, protocolVersion: 4, stateRevision: 0,
+          sessionId: 'p16-authentic-outgoing63-session' })
+        expect(original.journal).toHaveLength(1)
+        expect(original.journal[0]).toMatchObject({ route: 'save', commandId: 'outgoing63-real-save' })
+        expect(JSON.parse(original.journal[0]!.responseJson)).toMatchObject({ accepted: true, schemaId })
+        expect(original.savedSaveJson).not.toBeNull()
+        for (const slot of [original.currentSaveJson, original.savedSaveJson!]) {
+          expect(sha256(slot)).toBe('e62846b41b09e95fe1e6d139a0d8e7af3b1f3179606dbf61446746dbdd0f64ba')
+          expect(JSON.parse(slot)).toMatchObject({ saveVersion: 49, state: { market: { tick: 0 } } })
+        }
+        let sessions = 0
+        const loaded = loadBridgeRuntimeCheckpoint(raw, undefined, () => { sessions += 1; return 'fresh-session-projection-v63' })
+        expect(sessions).toBe(1)
+        expect(loaded.migratedFromProtocolVersion).toBe(PROTOCOL_VERSION)
+        expect(loaded.hydrated.checkpoint).toMatchObject({ schemaId: SCHEMA_ID, protocolVersion: PROTOCOL_VERSION,
+          sessionId: 'fresh-session-projection-v63', stateRevision: 0, journal: [], journalDigest: sha256('[]') })
+        expect(loaded.hydrated.journal).toEqual([])
+        // Both actual Save49 slots are already live; preserve their whole bytes.
+        expect(loaded.hydrated.checkpoint.currentSaveJson).toBe(original.currentSaveJson)
+        expect(loaded.hydrated.checkpoint.savedSaveJson).toBe(original.savedSaveJson)
+        expect(loaded.hydrated.currentSave).toEqual(JSON.parse(original.currentSaveJson))
+        expect(loaded.hydrated.savedSave).toEqual(JSON.parse(original.savedSaveJson!))
+        expect(loaded.hydrated.checkpoint.currentStateDigest).toBe(original.currentStateDigest)
+        expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(original.savedStateDigest)
+        const encoded = encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint)
+        const reopened = loadBridgeRuntimeCheckpoint(encoded, undefined, () => { throw new Error('current64 must not migrate again') })
+        expect(reopened.migratedFromProtocolVersion).toBeNull()
+        expect(encodeBridgeRuntimeCheckpoint(reopened.hydrated.checkpoint)).toBe(encoded)
+        expect(canonicalJson(original)).toBe(before)
+        return
+      }
       const seedState = createManagedBridgeState(`prior-p4-each-${era}`)
       const currentSaveJson = exportSave(makeSaveV14(seedState))
       const priorBytes = priorProtocol4Bytes({

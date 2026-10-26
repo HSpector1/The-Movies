@@ -507,6 +507,7 @@ export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<str
   let physicalPlans=state.physicalPlans
   let rights=state.rights
   const absorbedRunRevenue:LedgerEntry[]=[]
+  const rivalRunRevenue:ReturnType<typeof advanceAbsorbedRuns>['rivalRevenue']=[]
   const growth:ReleaseGrowthRecord[]=[]
   const firstTakes:{studioId:string;production:Production}[]=[]
   const greenlights:{studioId:string;production:Production}[]=[]
@@ -524,6 +525,7 @@ export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<str
       validateAbsorbedScripts(state,b,transaction)
       const runAdvance=advanceAbsorbedRuns({...state,rights},h,b,transaction,week)
       rights=runAdvance.rights;absorbedRunRevenue.push(...runAdvance.ledger)
+      rivalRunRevenue.push(...runAdvance.rivalRevenue)
       continue
     }
     if(closed.has(b.studioId)){payRuns(h,b,week);continue}
@@ -592,6 +594,16 @@ export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<str
     let complete=completeDueScriptWork(hot,week+1,{concepts,talent,estUplift:0})
     for(const project of complete.projects)if(project.status==='review')complete=acceptScriptProject(complete,project.id)
     storeHotDevelopment(b,complete)
+  }
+  // Assigned income, like native payRuns, is unavailable to this week's policy. Flush
+  // after every business so source array order cannot advance a buyer's spending power.
+  // A closed recipient retains its actual terminal account; the closure phase journals
+  // and distributes this same due installment through its canonical estate run owner.
+  for(const payment of rivalRunRevenue) {
+    const buyer=h.businesses.find(b=>b.studioId===payment.buyerId)
+    const owners=rights.absorptions.filter(a=>a.buyerId===payment.buyerId).flatMap(a=>a.runReceipts.filter(r=>r.id===payment.receiptId))
+    if(!buyer || payment.week!==week || owners.length!==1 || owners[0]!.week!==week || owners[0]!.revenue!==payment.amount)throw new Error('absorption run: missing actual rival cash instruction owner')
+    moveRivalMoney(buyer.account,'studioRevenue',payment.amount,week)
   }
   return {hollywood:h,talent,growth,technology,physicalPlans,firstTakes,greenlights,suppliedTalent,rights,absorbedRunRevenue}
 }

@@ -1,3 +1,4 @@
+import { acquiredActiveRunFilms } from './absorbedRuns.js'
 import { absorbedPromiseAuthority, type AbsorptionWithdrawalAuthority } from './absorbedObligations.js'
 import { buyerOperatedProductions, buyerContinuedProductions } from './continuedWork.js'
 // ── P15B Wave 4 (record 1370-ar): the actual closure, `closure/v1` ──────────────────────────────
@@ -335,6 +336,7 @@ function prepareStudioClosure(state: GameState, studioId: string, causeEventId: 
     for (const run of [...state.theatricalRuns,...continuedBuyerRuns(state)]) if (run.status === 'active') row('theatricalRun', run.productionId, `weekIndex ${run.weekIndex} of ${run.totalWeeks}`, 'remaining scheduled receipts pending in this saved world', 'pending')
   } else {
     for (const run of business!.runs) row('theatricalRun', run.productionId, `weekIndex ${run.weekIndex} of ${run.totalWeeks}`, 'the estate collects the genuinely scheduled remaining receipts', 'applied')
+    if(Object.hasOwn(state,'rights'))for(const film of acquiredActiveRunFilms(state,studioId,week))row('theatricalRun',film.filmId,`assigned run from ${film.studioId}`, 'the estate collects the genuinely assigned remaining receipts', 'applied')
   }
   for (const project of next.technology.projects) {
     if (project.studioId !== studioId || (project.status !== 'active' && project.status !== 'paused')) continue
@@ -770,11 +772,12 @@ export function validateStudioClosureRoot(raw: Record<string, unknown>, label: s
     // its due week, for every run the closure found live; none accelerated, none lost, none paid twice.
     if (!Array.isArray(c.dispositions)) return fail(`closure ${c.closureId} dispositions must be an array`)
     const expectedReceipts = new Map<string, { week: number; amount: number }>()
+    const acquiredRuns=policy.rightsEstate && !player ? acquiredActiveRunFilms(titleState!,c.studioId,C) : []
     if (!player) {
       for (const d of c.dispositions) {
         if (!isRecord(d) || d.subjectKind !== 'theatricalRun') continue
         const film = films.get(d.subjectId)
-        if (film === undefined || film.studioId !== c.studioId) return fail(`closure ${c.closureId} run ${String(d.subjectId)} has no live film of its studio`)
+        if (film === undefined || (film.studioId !== c.studioId && !acquiredRuns.some(f=>f.filmId===film.filmId))) return fail(`closure ${c.closureId} run ${String(d.subjectId)} has no live film of its studio/assigned stream`)
         for (let due = C; due < tick; due++) {
           const amount = estateRunInstallment(film, due)
           if (amount !== null) expectedReceipts.set(`${film.filmId}:due:${due}`, { week: due + 1, amount })
@@ -922,6 +925,7 @@ export function validateStudioClosureRoot(raw: Record<string, unknown>, label: s
     if (player) for (const run of [...state.theatricalRuns,...(policy.rightsEstate?continuedBuyerRuns(titleState!):[])]) { if (run.status === 'active') expect('theatricalRun', run.productionId, 'pending') }
     else {
       for (const run of business!.runs) expect('theatricalRun', run.productionId, 'applied')
+      for(const film of acquiredRuns)expect('theatricalRun',film.filmId,'applied')
       // A run the estate settled since C settles at its final due week, at or after C (hollywoodTick.payRuns).
       for (const f of films.values()) if (f.studioId === c.studioId && f.settledWeek !== null && f.settledWeek >= C) expect('theatricalRun', f.filmId, 'applied')
     }

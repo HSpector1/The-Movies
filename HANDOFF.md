@@ -2,6 +2,14 @@
 
 Last writer: Codex, 2026-10-26, sole coordinator for the authorized Sprints 5–16 program.
 
+## Current verification boundary — 2026-10-26, 18:18 CDT
+
+- Experimental branch p16-retained-writing-20261026 carries the reviewed rival receipt producer and independently authored consumer tests atop published b5c11b5a. Resolve this checkpoint HEAD from Git; primary 013c4edc and main ab65eb20 remain unchanged. No qualified technical-predecessor claim.
+- Genuine original-b5 rival RED reaches rivalBuyerRunProducerRequired in 1.504s. Corrected actual R02 receipt/account/save-replay passes 1.677s and original player run passes 3.032s. Earlier hostile expectation failure is preserved; exact earlier accounting-refusal assertion now reaches all later controls.
+- coherent-focused: four selected leaves reach assertions; retained obligations/Accept/replay 12.773s and hostile reader 6.544s exceed original 5s. Proposal/consumer 1.563s and authentic63 migration 1.937s are within budget. Complete generator 31/31; root and Bridge types exit 0. Independent audit verifies 1,658 source/six preflight pins and releases freeze; no job/lock remains. No foreign Godot observed in samples, not proof of continuous exclusivity.
+- Next: publish this scoped source/evidence checkpoint, then affected closure/history verification and authentic later-recipient/full-run evidence before expanding rival employment retention. Complete consumer/history/full-game and platform gates remain open. Do not rerun original REDs or used runners; long gate still needs a reliable exclusive window.
+- Browser component installation approval remains pending. Missing original full-game captures, native toolchain and Owner playtest remain separate blockers. Keep all original failures and budgets; no P17/P18 predecessor waiver or gameplay main promotion.
+
 ## Active Sprint 8 obligation and Bridge checkpoint — 2026-10-26
 
 - Sole coordinator continues authorized Sprints 5–16. Experimental branch is p16-retained-writing-20261026; primary candidate remains 013c4edc. Resolve exact checkpoint HEAD from Git. No main gameplay promotion or qualified downstream predecessor.

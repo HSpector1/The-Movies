@@ -745,8 +745,8 @@ describe('CF-08 sound union-to-C# generation', () => {
         // F04, F09, F12) unchanged; both current bodies are 473437 bytes / 2667c096…. Evidence:
         // lane-logs/p62-declaration-measurement.json; never a failure message.
         // Projection63: all8 measured twice,6fixed unchanged; current bodies473809bytes.
-        F10_CURRENT_QUOTE_UNIONS: 'df9a088d4edd52652fc4eab583a83b36c667a50d3fd14d0be4715eadeb2a6f74', // P16 + 18A projection62: independently measured all8 twice; six fixed bodies unchanged
-        F11_CURRENT_COMMAND_UNION: 'df9a088d4edd52652fc4eab583a83b36c667a50d3fd14d0be4715eadeb2a6f74', // P16 + 18A projection62: independently measured 473437-byte body, same as F10
+        F10_CURRENT_QUOTE_UNIONS: '97ddfba0428d3e0b1368e22e8ef04b509bdf003536abb25cdf8a2b4e4082d004', // P16 obligation projection64: independently measured all8 twice; six fixed bodies unchanged
+        F11_CURRENT_COMMAND_UNION: '97ddfba0428d3e0b1368e22e8ef04b509bdf003536abb25cdf8a2b4e4082d004', // P16 obligation projection64: independently measured 475215-byte body, same as F10
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {

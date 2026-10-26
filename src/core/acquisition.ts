@@ -56,7 +56,7 @@ import { QueueableCapacityRefusal } from './productionQueue.js'
 import { libraryValuationV1 } from './propertyValuation.js'
 import { conditionFactsFor, corporateConditionReaders, moveStudioCash, permittedBidderRefusal, spendableCash, weeklyFixedCost, type CorporateConditionReaders } from './rightsFinance.js'
 import { allocateRightsId, appendTitleEvent, resolveTitles, subjectsHeldBy, type AbsorptionRecord, type DiligenceScopeItem, type RightSubject } from './rights.js'
-import { validateAbsorbedRuns, validateAbsorbedRunMoney } from './absorbedRuns.js'
+import { acquiredActiveRunFilms, validateAbsorbedRuns, validateAbsorbedRunMoney, validateRivalAbsorbedRunMoney } from './absorbedRuns.js'
 import { bindContinuedWork, continuedWorkRefusal, buyerOperationsForAllWork } from './continuedWork.js'
 import { validateContinuedWork } from './continuedWorkValidation.js'
 import { validateAbsorbedProductionStops } from './absorbedWork.js'
@@ -419,7 +419,7 @@ export function absorptionProducerRefusal(state: GameState, input: AbsorptionInp
   const h = state.hollywood
   if (!h) return 'noIndustry'
   if (input.buyerId !== h.playerStudioId && (input.retention.kind !== 'explicit' || input.retention.contractIds.length !== 0)) return 'rivalBuyerRetentionProducerRequired'
-  if (input.buyerId !== h.playerStudioId && h.businesses.find(b => b.studioId === input.targetId)?.runs.length) return 'rivalBuyerRunProducerRequired'
+  if (acquiredActiveRunFilms(state,input.targetId,state.market.tick).length!==0) return 'acquiredRunReassignmentProducerRequired'
   const b = h.businesses.find(b => b.studioId === input.targetId)
   if (!b) return 'unknownTarget'
   // Active source runs use their real linked buyer-beneficiary producer after closing.
@@ -455,12 +455,10 @@ export function closeAbsorption(state: GameState, input: AbsorptionInput, week: 
   if (!q.affordable) throw new Error('absorption: insufficientCashAfterReserve')
   const unsupportedScript=q.scripts.find(script=>script.disposition==='continuationRequired')
   if(unsupportedScript)throw new Error(`absorption: ${unsupportedScript.reason==='partialWriterTeamProducerRequired'?'partialWriterTeamProducerRequired':unsupportedScript.reason==='writerCapacityUnavailable'?'retainedScriptCapacityProducerRequired':'retainedScriptProducerRequired'}`)
-  // This real rival-owner slice has no new employer contracts, buyer workflows or future
-  // run service. Never turn a quoted continuation into a convenient terminal write-off.
+  // This real rival-owner slice has no new employer contracts or buyer workflows. Never turn a quoted continuation into a convenient terminal write-off.
   if(input.buyerId!==state.hollywood!.playerStudioId){
     if(q.contracts.some(c=>c.retained))throw new Error('absorption: rivalBuyerRetentionProducerRequired')
     if(q.productions.some(p=>p.disposition==='continues'))throw new Error('absorption: rivalBuyerContinuedWorkProducerRequired')
-    if(q.runs.length!==0)throw new Error('absorption: rivalBuyerRunProducerRequired')
     if(q.scripts.some(s=>s.disposition==='continues'))throw new Error('absorption: rivalBuyerScriptProducerRequired')
   }
 
@@ -618,9 +616,10 @@ export function validateAbsorptionRoot(state: GameState, label: string, retireme
     if (![a.contracts,a.research,a.facilities,a.titleEventIds,a.knowledge,a.physicalPlans,a.adoptions,a.stoppedProductions,a.continuedProductions,a.buyerWorkflows,a.workSteps,a.workReleases,a.workCancellations,a.runs,a.runReceipts].every(Array.isArray)) fail('dispositions must be arrays')
     if(a.buyerId!==h!.playerStudioId && (a.contracts.some(c=>c.buyerContractId!==null)
       || a.continuedProductions.length!==0 || a.buyerWorkflows.length!==0 || a.workSteps.length!==0
-      || a.workReleases.length!==0 || a.workCancellations.length!==0 || a.runs.length!==0 || a.runReceipts.length!==0)) {
-      fail('rival buyer retained employment/work/run producer is not admitted')
+      || a.workReleases.length!==0 || a.workCancellations.length!==0)) {
+      fail('rival buyer retained employment/work producer is not admitted')
     }
+    if(acquiredActiveRunFilms(state,a.targetId,a.week).length!==0)fail('acquired run reassignment producer is not admitted')
     const originals = h!.employment.filter(e => e.studioId === a.targetId && e.endedWeek === a.week && e.terms.endWeekExclusive > a.week
       && h!.receipts.some(r => r.kind === 'employment' && r.contractId === e.contractId && r.toStudioId === null && (r.reason === 'absorptionExit' || r.reason === 'absorptionContinuation')))
     if (a.contracts.map(c => c.sourceContractId).join() !== originals.map(c => c.contractId).join()) fail('employment dispositions differ from authoritative original order')
@@ -718,4 +717,5 @@ export function validateAbsorptionRoot(state: GameState, label: string, retireme
     for (const e of events) if (!exact(e.source,['kind','absorptionId']) || e.priorHolder !== a.targetId || e.newHolder !== a.buyerId || e.date.kind !== 'campaign' || e.date.week !== a.week) fail('title transition differs')
   }
   validateContinuedScripts(state, retirementWriting)
+  validateRivalAbsorbedRunMoney(state)
 }

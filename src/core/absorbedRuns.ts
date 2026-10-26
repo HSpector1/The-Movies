@@ -9,18 +9,34 @@ function canonical(film:LiveIndustryFilm) {
   return openTheatricalRun(film.result,film.result.boxOffice.opening,film.result.boxOffice.opening>0?film.result.boxOffice.total/film.result.boxOffice.opening:1,film.result.releaseTick)
 }
 
+/** Canonical foreign films whose future stream this buyer actually acquired before `week`.
+ * Derive the set from original source releases and the close boundary, never from a supplied
+ * handoff/receipt list. The full acquisition validator still proves every close and handoff.
+ * Historical readers call this only with their current49 original title-state context. */
+export function acquiredActiveRunFilms(state:GameState,buyerId:string,week:number):LiveIndustryFilm[] {
+  if(!state.hollywood || !Array.isArray(state.rights?.absorptions))fail('missing acquired run ownership context')
+  const result:LiveIndustryFilm[]=[]
+  for(const a of state.rights.absorptions) {
+    if(!a || typeof a.buyerId!=='string' || typeof a.targetId!=='string' || !Number.isSafeInteger(a.week))fail('malformed acquired run ownership context')
+    if(a.buyerId!==buyerId || a.week>week)continue
+    for(const film of state.hollywood.films) {
+      if(film.provenance!=='simulation/v1' || film.studioId!==a.targetId)continue
+      const run=canonical(film),release=film.result.releaseTick
+      if(release<=a.week && a.week<release+run.totalWeeks && week<release+run.totalWeeks)result.push(film)
+    }
+  }
+  return result
+}
+
+type RivalRunRevenue={buyerId:string;week:number;amount:number;receiptId:string}
+
 /** Real ordinary input-week servicing. Original creator/film/run and locked theatrical schedule stay
  * with their source; the actual absorption owns only the future cash beneficiary and new receipts. */
-export function advanceAbsorbedRuns(state:GameState,h:HollywoodState,b:RivalBusiness,a:AbsorptionRecord,week:number):{rights:GameState['rights'];ledger:LedgerEntry[]} {
+export function advanceAbsorbedRuns(state:GameState,h:HollywoodState,b:RivalBusiness,a:AbsorptionRecord,week:number):{rights:GameState['rights'];ledger:LedgerEntry[];rivalRevenue:RivalRunRevenue[]} {
   if(week!==state.market.tick || a.targetId!==b.studioId || week<a.week)fail('not the actual servicing boundary/beneficiary')
-  if(a.buyerId!==h.playerStudioId){
-    // A runless terminal target still visits the ordinary absorbed-business branch. Prove
-    // the absent run owner against authentic films; never credit a rival receipt to the player.
-    validateAbsorbedRuns({...state,hollywood:h},b,a)
-    return {rights:state.rights,ledger:[]}
-  }
+  if(a.buyerId!==h.playerStudioId && !h.businesses.some(buyer=>buyer.studioId===a.buyerId))fail('missing actual rival beneficiary')
   let rights=state.rights
-  const ledger:LedgerEntry[]=[];const runs:typeof b.runs=[];const ordinals:number[]=[]
+  const ledger:LedgerEntry[]=[];const rivalRevenue:RivalRunRevenue[]=[];const runs:typeof b.runs=[];const ordinals:number[]=[]
   if(b.runs.length)h.films=[...h.films]
   for(const [i,old] of b.runs.entries()) {
     if(!a.runs.some(r=>r.productionId===old.productionId))fail('active source run lacks actual handoff')
@@ -32,7 +48,10 @@ export function advanceAbsorbedRuns(state:GameState,h:HollywoodState,b:RivalBusi
     const allocated=allocateRightsId(rights,'absorption-run')
     const receipt={id:allocated.id,week,productionId:old.productionId,weekIndex:old.weekIndex,gross,revenue}
     rights={...allocated.root,absorptions:allocated.root.absorptions.map(r=>r.id===a.id?{...r,runReceipts:[...r.runReceipts,receipt]}:r)}
-    if(revenue>0)ledger.push({week,kind:'absorbedRunRevenue',amount:revenue,note:receipt.id})
+    if(revenue>0) {
+      if(a.buyerId===h.playerStudioId)ledger.push({week,kind:'absorbedRunRevenue',amount:revenue,note:receipt.id})
+      else rivalRevenue.push({buyerId:a.buyerId,week,amount:revenue,receiptId:receipt.id})
+    }
     const run={...old,weekIndex:old.weekIndex+1,cumulativeGrossPaid:old.cumulativeGrossPaid+gross,cumulativeStudioRevenuePaid:old.cumulativeStudioRevenuePaid+revenue}
     const settled=run.weekIndex>=run.totalWeeks
     h.films[ordinal]={...film,studioRevenueReceived:run.cumulativeStudioRevenuePaid,settledWeek:settled?week:null}
@@ -40,7 +59,7 @@ export function advanceAbsorbedRuns(state:GameState,h:HollywoodState,b:RivalBusi
     else {runs.push(run);ordinals.push(ordinal)}
   }
   b.runs=runs;b.activeRunFilmOrdinals=ordinals
-  return {rights,ledger}
+  return {rights,ledger,rivalRevenue}
 }
 
 /** Unconditional current49 cash orphan guard, including when there are no absorption records. */
@@ -48,6 +67,47 @@ export function validateAbsorbedRunMoney(state:GameState):void {
   for(const row of state.ledger.filter(r=>r.kind==='absorbedRunRevenue')) {
     const owners=state.rights.absorptions.flatMap(a=>Array.isArray(a.runReceipts)?a.runReceipts.filter(r=>r.id===row.note).map(r=>({a,r})):[])
     if(owners.length!==1 || owners[0]!.a.buyerId!==state.hollywood?.playerStudioId || owners[0]!.r.revenue!==row.amount || owners[0]!.r.week!==row.week)fail('orphan/wrong-beneficiary run revenue')
+  }
+}
+
+/** Called only after all absorption records and installments have their complete joined proof. */
+export function validateRivalAbsorbedRunMoney(state:GameState):void {
+  const h=state.hollywood
+  if(!h)return
+  // Real rival books aggregate theatrical income by their existing account periods. Prove
+  // both overlapping native income and assigned installments; no fictional cash rows.
+  for(const buyer of h.businesses) {
+    const incoming=state.rights.absorptions.filter(a=>a.buyerId===buyer.studioId).flatMap(a=>a.runReceipts)
+    if(incoming.length===0)continue
+    const outgoing=new Map(state.rights.absorptions.filter(a=>a.targetId===buyer.studioId).flatMap(a=>a.runReceipts)
+      .map(r=>[`${r.productionId}|${r.weekIndex}`,r]))
+    const films=h.films.filter((f):f is LiveIndustryFilm=>f.provenance==='simulation/v1' && f.studioId===buyer.studioId)
+    const byWeek=new Map<number,number>()
+    const book=(week:number,amount:number)=>byWeek.set(week,(byWeek.get(week)??0)+amount)
+    for(const film of films) {
+      const run=canonical(film),end=Math.min(run.totalWeeks,state.market.tick-run.releaseTick)
+      for(let i=0;i<end;i++) {
+        // Full installment proof has joined each outgoing amount to this exact
+        // canonical component. Cancel it before summing so fractional sold income
+        // does not leave a rounding residue in its original creator's books.
+        const sold=outgoing.get(`${film.filmId}|${i}`)
+        book(run.releaseTick+i,run.weeklyGross[i]!*run.studioShare-(sold?.revenue??0))
+      }
+    }
+    for(const receipt of incoming)book(receipt.week,receipt.revenue)
+    // Allocate signed net booked money, not its gross components. Native periods
+    // can overlap at an endpoint: the LAST matching window owns each week's net.
+    const expected=buyer.account.periods.map(()=>0)
+    for(const [week,amount] of byWeek) {
+      let index=-1
+      for(const [i,period] of buyer.account.periods.entries())if(period.fromWeek<=week && week<=period.throughWeek)index=i
+      if(index<0) {if(amount!==0)fail('rival earned installment has no actual account period')}
+      else expected[index]=expected[index]!+amount
+    }
+    for(const [index,period] of buyer.account.periods.entries()) {
+      const want=expected[index]!
+      if(!Number.isFinite(want) || !Number.isFinite(period.movements.studioRevenue) || Math.abs(period.movements.studioRevenue-want)>1e-7*Math.max(1,Math.abs(want),Math.abs(period.movements.studioRevenue)))fail('rival earned revenue period differs from actual installments')
+    }
   }
 }
 
@@ -60,8 +120,7 @@ export function validateAbsorbedRuns(state:GameState,b:RivalBusiness,a:Absorptio
   const afterClose=a.workReleases.map(release=>{const film=films.find(f=>f.filmId===release.productionId && f.result.releaseTick===release.week);if(!film)fail('continued release lacks actual original film');return film})
   const owned=[...atClose,...afterClose.filter(f=>!atClose.some(old=>old.filmId===f.filmId))]
   if(a.buyerId!==state.hollywood.playerStudioId && (!state.hollywood.businesses.some(b=>b.studioId===a.buyerId)
-    || owned.length!==0 || a.runs.length!==0 || a.runReceipts.length!==0 || b.runs.length!==0
-    || a.workReleases.length!==0 || films.some(f=>f.result.releaseTick>a.week)))fail('rival buyer run producer is not admitted')
+    || a.workReleases.length!==0 || films.some(f=>f.result.releaseTick>a.week)))fail('rival buyer continued release producer is not admitted')
 
   if(new Set(a.runs.map(r=>r.productionId)).size!==a.runs.length || a.runs.map(r=>r.productionId).sort().join()!==owned.map(f=>f.filmId).sort().join())fail('original active-run handoff incomplete')
   const expected=new Map<string,{week:number;productionId:string;weekIndex:number;gross:number;revenue:number}>()
@@ -84,7 +143,9 @@ export function validateAbsorbedRuns(state:GameState,b:RivalBusiness,a:Absorptio
     if(!want || seen.has(key) || ids.has(receipt.id) || receipt.week!==want.week || receipt.gross!==want.gross || receipt.revenue!==want.revenue)fail('invented/replayed/altered theatrical installment')
     seen.add(key);ids.add(receipt.id)
     const rows=state.ledger.filter(r=>r.kind==='absorbedRunRevenue' && r.note===receipt.id)
-    if(receipt.revenue===0 ? rows.length!==0 : rows.length!==1 || rows[0]!.amount!==receipt.revenue || rows[0]!.week!==receipt.week)fail('buyer receipt lacks exact earned cash row')
+    if(a.buyerId!==state.hollywood.playerStudioId || receipt.revenue===0) {
+      if(rows.length!==0)fail('rival/zero receipt credited to player')
+    } else if(rows.length!==1 || rows[0]!.amount!==receipt.revenue || rows[0]!.week!==receipt.week)fail('buyer receipt lacks exact earned cash row')
   }
   if(seen.size!==expected.size)fail('ordinary due installment omitted')
   for(const row of state.ledger.filter(r=>r.kind==='absorbedRunRevenue')) {

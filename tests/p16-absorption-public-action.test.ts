@@ -14,10 +14,6 @@ import { resolveTitles, subjectsHeldBy } from '../src/core/rights.js'
 import { applyActions } from '../src/core/actions.js'
 import { tick } from '../src/core/tick.js'
 import type { Action } from '../src/core/types.js'
-import { c2LiveFixture } from './helpers/p14c2a-fixtures.js'
-import { caseForTalent, marketEligibility, proposalDraft, submitProposal } from '../src/core/talentMarket.js'
-import { rivalWeeklyOperatingCost } from '../src/core/hollywood.js'
-import { spendableCash } from '../src/core/rightsFinance.js'
 const TARGET='studio-aca408ec-r03'
 const PIN='cd11f369558e09f1d65d8e848374ea028f4c5f666c168b5527e48c098cfdfb19'
 
@@ -182,116 +178,5 @@ describe('P16 public absorbStudio dispatch on retained original48 R03',()=>{
 
 })
 
-describe('P16 absorption of a genuine current proposal', () => {
- it('withdraws the absorbed rival proposal while preserving the actual player case and competing offer', () => {
-  // Record775's unchanged, strictly validated Save33 capture already contains
-  // the real player director expiry case and paid proposal. Its original fund()
-  // bootstrap remains disclosed in the capture provenance; no new cash/history.
-  const initial=c2LiveFixture('genuine-v33-c2-contract-and-case'),initialBefore=saves.stableStringify(initial)
-  const target='studio-cf7914ad-r01',talentId='authored-0001',buyer=initial.hollywood!.playerStudioId
-  expect(initial.market.tick).toBe(48);expect(initial.studio.cash).toBe(28_981_127)
-  expect(caseForTalent(initial,talentId)).toMatchObject({subjectStudioId:buyer,openedWeek:40,decisionWeek:52,status:'proposals_open'})
-  const initialCase=initial.talentMarket.cases.find(c=>c.talentId===talentId&&c.closedWeek===null)!
-  const competing=initial.talentMarket.proposals.find(p=>p.talentId===talentId&&p.issuerStudioId===buyer)!
-  expect(competing).toMatchObject({submittedWeek:44,startWeek:52,termWeeks:52,premiumTier:1.25,promises:['promise-0']})
-  expect(initial.promises.filter(p=>p.issuerStudioId===target)).toEqual([])
-  const initialTarget=initial.hollywood!.businesses.find(b=>b.studioId===target)!
-  expect(initialTarget.account.cash).toBe(19_158_967)
-  expect(marketEligibility(initial,talentId).proposers).toContain(target)
-  const draft=proposalDraft(initial,target,talentId,52,1,48)
-  expect(initialTarget.account.cash-draft.signingBonus)
-   .toBeGreaterThanOrEqual(rivalWeeklyOperatingCost(initialTarget,initial.hollywood!,48)*initialTarget.policy.reserveWeeks)
-  // Public market producer already used by p14a1-proposals; fixed floor tier,
-  // never a copied proposal or early call to the weekly discovery seam.
-  const proposed=submitProposal(initial,{talentId,issuerStudioId:target,termWeeks:52,premiumTier:1})
-  expect(saves.stableStringify(initial)).toBe(initialBefore)
-  const proposal=proposed.talentMarket.proposals.find(p=>p.issuerStudioId===target&&p.talentId===talentId)!
-  expect(proposal).toEqual({talentId,issuerStudioId:target,termWeeks:draft.termWeeks,premiumTier:draft.premiumTier,
-   startWeek:draft.startWeek,annualSalary:draft.annualSalary,signingBonus:draft.signingBonus,digest:draft.digest,
-   submittedWeek:48,promises:[],representation:null})
-  expect(proposed.hollywood!.businesses.find(b=>b.studioId===target)!.account).toEqual(initialTarget.account)
-  expect(proposed.talentMarket.receipts.slice(initial.talentMarket.receipts.length))
-   .toMatchObject([{kind:'proposalSubmitted',week:48,talentId,studioId:target,reasons:[],dropped:[]}])
-  saves.makeSave(proposed)
-  const proposedBefore=saves.stableStringify(proposed),state=tick(proposed),stateBefore=saves.stableStringify(state)
-  expect(state.market.tick).toBe(49);expect(saves.stableStringify(proposed)).toBe(proposedBefore)
-  expect(state.talentMarket.proposals.find(p=>p.issuerStudioId===target&&p.talentId===talentId)).toEqual(proposal)
-  expect(state.talentMarket.proposals.find(p=>p.issuerStudioId===buyer&&p.talentId===talentId)).toEqual(competing)
-  expect(state.talentMarket.cases.find(c=>c.contractId===initialCase.contractId)).toEqual(initialCase)
-  // This route proves proposal withdrawal only. It has no target-subject case
-  // and does not substitute for the separate case-invalidation acceptance.
-  expect(state.talentMarket.cases.filter(c=>c.subjectStudioId===target&&c.closedWeek===null)).toEqual([])
-  expect(state.talentMarket.proposals.filter(p=>p.issuerStudioId===target)).toEqual([proposal])
-  expect(state.promises.filter(p=>p.issuerStudioId===target)).toEqual([])
-  for(const studioId of [buyer,target]) {
-   expect(conditionRecord(state,studioId)?.condition).toMatchObject({stage:'stable',week:49})
-   expect(outstandingLoan(state,studioId,49)).toBeUndefined()
-  }
-  saves.makeSave(state)
-  const paid=applyActions(state,[{kind:'requestDueDiligence',target:{kind:'studio',studioId:target},scope:['rights','employment','liabilities']}])
-  expect(saves.stableStringify(state)).toBe(stateBefore)
-  const report=paid.rights.diligence.at(-1)!
-  expect(report).toMatchObject({recipientId:buyer,target:{kind:'studio',studioId:target},week:49})
-  expect(report.fee).toBeGreaterThan(0);expect(paid.studio.cash).toBe(state.studio.cash-report.fee)
-  const source=paid.hollywood!.businesses.find(b=>b.studioId===target)!
-  const employees=paid.hollywood!.activeEmploymentOrdinals.map(i=>paid.hollywood!.employment[i]!)
-   .filter(e=>e.studioId===target&&e.endedWeek===null&&e.terms.startWeek<=49&&49<e.terms.endWeekExclusive)
-  expect(employees).toHaveLength(6)
-  const retention={kind:'explicit' as const,contractIds:[]},exits=employees.reduce((sum,e)=>sum+terminationCost(e.terms,49),0)
-  const library=libraryValuationV1(paid,target,49);expect(library.kind).toBe('available')
-  if(library.kind!=='available')throw new Error('fixed market R01 library premise unavailable')
-  const consideration=acquisition.absorptionAsk(library.total,source.account.cash-exits)
-  const preview={buyerId:buyer,targetId:target,consideration,retention,disclosureId:report.id}
-  const paidBefore=saves.stableStringify(paid),quote=acquisition.quoteAbsorption(paid,preview,49)
-  expect(saves.stableStringify(paid)).toBe(paidBefore)
-  expect(quote.kind,'actual condition, disclosure and consent; no replacement price or target').toBe('quote')
-  if(quote.kind!=='quote')throw new Error(quote.refusal)
-  expect(quote.affordable).toBe(true);expect(quote.contracts.filter(c=>c.retained)).toEqual([])
-  expect(quote.exitCharges).toBe(exits);expect(quote.postExitCash).toBe(source.account.cash-exits)
-  expect(quote.outlay).toBe(consideration-quote.postExitCash)
-  expect(quote.reserveAfter).toBeGreaterThan(0)
-  expect(spendableCash(paid,buyer)-quote.outlay).toBeGreaterThanOrEqual(quote.reserveAfter)
-  expect(quote.productions.every(p=>p.disposition==='cancelRequired')).toBe(true)
-  expect(quote.scripts.every(p=>p.disposition==='writeOff')).toBe(true)
-  console.info('S8 actual proposal-only premises',JSON.stringify({week:49,target,talentId,digest:proposal.digest,
-   consideration,exits,outlay:quote.outlay,reserve:quote.reserveAfter,producerRefusal:acquisition.absorptionProducerRefusal(paid,preview)}))
-  const action:Action={kind:'absorbStudio',absorption:{targetId:target,consideration,retention,disclosureId:report.id,
-   quotedAtWeek:quote.quotedAtWeek,quoteAgePolicyVersion:quote.quoteAgePolicyVersion}}
-  let closed:ReturnType<typeof applyActions>
-  try {closed=applyActions(paid,[action])}
-  finally {
-   expect(saves.stableStringify(paid)).toBe(paidBefore);expect(saves.stableStringify(state)).toBe(stateBefore)
-   expect(saves.stableStringify(proposed)).toBe(proposedBefore);expect(saves.stableStringify(initial)).toBe(initialBefore)
-  }
-  const record=closed.rights.absorptions.find(a=>a.targetId===target)!
-  expect(record).toMatchObject({producerVersion:'absorption-obligations/v7',buyerId:buyer,targetId:target,week:49})
-  expect(closed.talentMarket.proposals).toEqual(paid.talentMarket.proposals.filter(p=>p.issuerStudioId!==target))
-  expect(closed.talentMarket.cases).toEqual(paid.talentMarket.cases)
-  expect(closed.talentMarket.receipts.slice(paid.talentMarket.receipts.length)).toEqual([{
-   eventId:`talent-market-event-${paid.talentMarket.receipts.length}`,kind:'proposalWithdrawn',week:49,talentId,
-   studioId:target,reasons:['the issuing studio was absorbed'],dropped:[],
-  }])
-  expect(closed.promises).toEqual(paid.promises)
-  expect(closed.studio.cash).toBe(paid.studio.cash-quote.outlay)
-  expect(closed.ledger.slice(paid.ledger.length)).toEqual([{kind:'acquisitionOutlay',week:49,amount:-quote.outlay,note:record.id}])
-  expect(closed.ledger.filter(e=>e.kind==='signingBonus')).toEqual(paid.ledger.filter(e=>e.kind==='signingBonus'))
-  const text=saves.exportCurrentState(closed),reload=saves.migrateToLive(saves.importSave(text)).state
-  expect(saves.exportCurrentState(reload)).toBe(text)
-  expect(reload.talentMarket).toEqual(closed.talentMarket)
-  expect(saves.stableStringify(paid)).toBe(paidBefore)
-  // Review item3: the genuine positive v7 activates pre-descent authority.
-  // These are explicitly invalid JSON clones, never admitted campaign history.
-  for(const defect of ['null absorption sibling','null close event'] as const) {
-   const hostile=JSON.parse(text)
-   if(defect==='null absorption sibling')hostile.state.rights.absorptions.push(null)
-   else {
-    const owner=hostile.state.rights.absorptions.find((a:{id:string})=>a.id===record.id)
-    expect(owner.obligations.closeEvents.length,'actual nonempty native withdrawal event prerequisite').toBeGreaterThan(0)
-    owner.obligations.closeEvents[0]=null
-   }
-   const before=saves.stableStringify(hostile)
-   expect(()=>saves.validateSaveV49(hostile),defect).toThrow(/^absorption obligations:/)
-   expect(saves.stableStringify(hostile),defect+' caller purity').toBe(before)
-  }
- })
-})
+// S8 genuine-proposal scenario moved intact to bridge-p16-rights-parity.test.ts
+// with its original describe/it names and 5s budget; that compiler owns its Bridge consumers.
