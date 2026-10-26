@@ -389,8 +389,9 @@ export type ForecastContext = {
 // `saturateFame` = §7 fame Hill on opening reach; `engaged` = D-12 economy calibration (P2 gross
 // scale + awareness marketing). Distinct concerns, both true together in engaged play; separated so
 // fame-isolation tests can vary fame without the economy scale. Both default false (M0A byte-identical).
-export function computeForecast(inp: ForecastInputs, ctx: ForecastContext, saturateFame = false, engaged = false): Forecast {
-  const centers = forecastCenters(inp, saturateFame, engaged)
+// Internal reuse requires fresh centers for the same inputs and flags; only budget.marketing may differ.
+export function computeForecast(inp: ForecastInputs, ctx: ForecastContext, saturateFame = false, engaged = false, preparedCenters?: ForecastCenters): Forecast {
+  const centers = preparedCenters ?? forecastCenters(inp, saturateFame, engaged)
 
   // Confidence (film-level) — computed BEFORE the offset because sigma depends on it.
   const predicates = computeConfidencePredicates(

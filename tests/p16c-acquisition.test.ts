@@ -21,11 +21,14 @@ import { guaranteedComp, terminationCost } from '../src/core/employment.js'
 import { productionPhaseForRemainingTicks } from '../src/core/productionPhases.js'
 import * as finance from '../src/core/rightsFinance.js'
 import { libraryValuationV1 } from '../src/core/propertyValuation.js'
-import { stableStringify } from '../src/core/save.js'
+import { stableStringify, importSave, migrateToLive, makeSave, exportCurrentState } from '../src/core/save.js'
+import { createHash } from 'node:crypto'
+import { tick } from '../src/core/tick.js'
+import { conditionRecord, outstandingLoan } from '../src/core/corporateConditionLive.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
 import * as dd from '../src/core/dueDiligence.js'
-import { detached, liveFromGenuine, readersWith, STABLE } from './helpers/p16-fixtures.js'
+import { detached, genuineV45Raw, liveFromGenuine, readersWith, STABLE } from './helpers/p16-fixtures.js'
 
 const FULL_SCOPE = ['rights', 'employment', 'liabilities'] as const
 /** The buyer's own fresh, full-scope, paid disclosure about the target (review F7). */
@@ -72,13 +75,17 @@ describe('P16C healthy absorption: eligibility matrix', () => {
     const value = libraryValuationV1(state, r03, week)
     expect(value.kind).toBe('available')
     const total = value.kind === 'available' ? value.total : 0
-    const postExitCash = Math.floor(cash(r03))
-    const ask = Math.ceil((total * (100 + TUNING.RIGHTS_WILLINGNESS_PREMIUM_PERCENT)) / 100) + postExitCash
+    const postExitCash = cash(r03)
+    const ask = Math.max(0, Math.ceil((total * (100 + TUNING.RIGHTS_WILLINGNESS_PREMIUM_PERCENT)) / 100 + postExitCash))
     expect(acq.absorptionAsk(total, postExitCash)).toBe(ask)
     expect(acq.rivalAbsorptionWillingness(state, r03, ask, postExitCash, week)).toEqual({ willing: true, reason: 'willing', value: total, ask })
     expect(acq.rivalAbsorptionWillingness(state, r03, ask - 1, postExitCash, week)).toEqual({ willing: false, reason: `notWilling:considerationBelowAsk:${ask}`, value: total, ask })
     // A target with negative cash after exits asks no less than zero.
     expect(acq.absorptionAsk(total, -10 * total - 1)).toBe(0)
+    // Whole-dollar consent rounds the complete sum, including positive and negative fractional cash.
+    expect(acq.absorptionAsk(1, 0.25)).toBe(Math.max(0, Math.ceil(1 * (100 + TUNING.RIGHTS_WILLINGNESS_PREMIUM_PERCENT) / 100 + 0.25)))
+    expect(acq.absorptionAsk(10, -1.25)).toBe(Math.max(0, Math.ceil(10 * (100 + TUNING.RIGHTS_WILLINGNESS_PREMIUM_PERCENT) / 100 - 1.25)))
+    expect(acq.absorptionAsk(0, -0.25)).toBe(0)
   })
 })
 
@@ -100,8 +107,8 @@ describe('P16C healthy absorption: the quote separates consideration, at-par cas
       expect(c.guarantee).toBe(guaranteedComp(e.terms, week))
     }
     expect(quote.exitCharges).toBe(exits)
-    expect(quote.targetCashBeforeExits).toBe(Math.floor(cash(r03)))
-    expect(quote.postExitCash).toBe(Math.floor(cash(r03)) - exits)
+    expect(quote.targetCashBeforeExits).toBe(cash(r03))
+    expect(quote.postExitCash).toBe(cash(r03) - exits)
     expect(quote.outlay).toBe(consideration - quote.postExitCash)
     expect(quote.consideration).toBe(consideration)
     // Guarantees are DISCLOSED beside the price and never subtracted from it.
@@ -109,7 +116,7 @@ describe('P16C healthy absorption: the quote separates consideration, at-par cas
     expect(quote.guarantees).toBeGreaterThan(0)
     expect(quote.outlay).not.toBe(Math.max(0, consideration - quote.guarantees))
     // The reserve is computed on the buyer's RESULTING obligations, retained contracts included.
-    const retainedWeekly = quote.contracts.filter((c) => c.retained).reduce((s, c) => s + Math.round(c.annualSalary / TUNING.TICKS_PER_YEAR), 0)
+    const retainedWeekly = quote.contracts.filter((c) => c.retained).reduce((s, c) => s + c.annualSalary / TUNING.TICKS_PER_YEAR, 0)
     expect(quote.resultingWeeklyFixedCost).toBe(Math.ceil(finance.weeklyFixedCost(state, player) + retainedWeekly + TUNING.OVERHEAD_PER_EMPLOYEE * quote.contracts.filter((c) => c.retained).length))
     expect(quote.reserveAfter).toBe(TUNING.RIGHTS_RESERVE_WEEKS * quote.resultingWeeklyFixedCost)
     expect(quote.affordable).toBe(finance.spendableCash(state, player) - quote.outlay >= quote.reserveAfter)
@@ -124,24 +131,66 @@ describe('P16C healthy absorption: the quote separates consideration, at-par cas
   })
 
   it('negative post-exit cash transfers at par: the outlay exceeds the consideration by exactly the shortfall', () => {
-    const { state, player, r03, week } = world()
-    const squeezed = detached(state)
-    const business = squeezed.hollywood!.businesses.find((b) => b.studioId === r03)!
-    const delta = business.account.cash - 100_000
-    business.account.cash = 100_000
-    const last = business.account.periods[business.account.periods.length - 1]!
-    last.closing -= delta
-    last.movements.overhead -= delta
-    const { state: seen, disclosureId } = disclosed(squeezed as GameState, player, r03)
-    const quote = acq.quoteAbsorption(seen, { buyerId: player, targetId: r03, consideration: 1_000_000, retention: { kind: 'explicit', contractIds: [] }, disclosureId }, week, STABLE)
+    // Untouched genuine Save45 R04 already has fractional negative cash at247. One ordinary current
+    // tick evaluates the first stable condition; no injected reader, balance or historical row.
+    const raw = genuineV45Raw('week247')
+    expect(createHash('sha256').update(raw).digest('hex')).toBe('54938083c4d088fad71ca1c5088dd67427c316d9fee81fdaba1ea66161ca954c')
+    const prior = migrateToLive(importSave(raw)).state, priorBefore = stableStringify(prior)
+    let state = tick(prior)
+    expect(state.market.tick).toBe(248)
+    const week = state.market.tick, player = state.hollywood!.playerStudioId, target = 'studio-aca408ec-r04'
+    const business = state.hollywood!.businesses.find(b => b.studioId === target)!
+    expect(conditionRecord(state, target)?.condition.stage).toBe('stable')
+    expect(outstandingLoan(state, target, week)).toBeUndefined()
+    expect(business.account.cash).toBeLessThan(0)
+    expect(Number.isInteger(business.account.cash)).toBe(false)
+    const rows = state.hollywood!.activeEmploymentOrdinals.map(i => state.hollywood!.employment[i]!)
+      .filter(e => e.studioId === target && e.endedWeek === null && e.terms.startWeek <= week && week < e.terms.endWeekExclusive)
+    // R04 has no live employment left; zero lawful exits must not erase its existing negative cash.
+    expect(rows).toEqual([])
+    const exits = rows.reduce((sum, e) => sum + terminationCost(e.terms, week), 0)
+    const paid = dd.requestDiligence(state, { recipientId: player, target: { kind: 'studio', studioId: target }, scope: [...FULL_SCOPE] }, week)
+    state = paid.state
+    const value = libraryValuationV1(state, target, week)
+    expect(value.kind).toBe('available')
+    if (value.kind !== 'available') throw new Error(value.reason)
+    const postExitCash = business.account.cash - exits
+    const consideration = Math.max(0, Math.ceil(value.total * (100 + TUNING.RIGHTS_WILLINGNESS_PREMIUM_PERCENT) / 100 + postExitCash))
+    const input = { buyerId: player, targetId: target, consideration, retention: { kind: 'explicit' as const, contractIds: [] as string[] }, disclosureId: paid.record.id }
+    const quote = acq.quoteAbsorption(state, input, week)
     expect(quote.kind).toBe('quote')
-    if (quote.kind !== 'quote') return
-    expect(quote.contracts.every((c) => !c.retained)).toBe(true)
-    expect(quote.postExitCash).toBe(100_000 - quote.exitCharges)
+    if (quote.kind !== 'quote') throw new Error(quote.refusal)
+    expect(quote.contracts.every(c => !c.retained)).toBe(true)
+    expect(quote.exitCharges).toBe(exits)
+    expect(quote.postExitCash).toBe(postExitCash)
     expect(quote.postExitCash).toBeLessThan(0)
-    expect(quote.outlay).toBe(1_000_000 - quote.postExitCash)
-    expect(quote.outlay).toBeGreaterThan(1_000_000)
+    expect(Number.isInteger(quote.postExitCash)).toBe(false)
+    expect(quote.outlay).toBe(consideration - postExitCash)
+    expect(quote.outlay).toBeGreaterThan(consideration)
     expect(quote.guarantees).toBe(0)
+    expect(acq.absorptionProducerRefusal(state, input)).toBeNull()
+    const before = stableStringify(state)
+    const closed = acq.closeAbsorption(state, { ...input, quotedAtWeek: quote.quotedAtWeek, quoteAgePolicyVersion: quote.quoteAgePolicyVersion }, week)
+    expect(stableStringify(state)).toBe(before)
+    const record = closed.rights.absorptions.find(a => a.targetId === target)!
+    expect(record).toMatchObject({ consideration, cashBeforeExits: business.account.cash, exitCharges: exits, postExitCash, outlay: consideration - postExitCash })
+    expect(closed.studio.cash).toBe(state.studio.cash - record.outlay)
+    expect(closed.ledger.filter(e => e.kind === 'acquisitionOutlay' && e.note === record.id)).toEqual([
+      expect.objectContaining({ week, amount: -record.outlay }),
+    ])
+    const finalBusiness = closed.hollywood!.businesses.find(b => b.studioId === target)!
+    expect(finalBusiness.account.cash).toBe(0)
+    expect(finalBusiness.account.periods.reduce((sum, p) => sum + p.movements.acquisitionOutlay, 0))
+      .toBe(business.account.periods.reduce((sum, p) => sum + p.movements.acquisitionOutlay, 0) - postExitCash)
+    makeSave(closed)
+    const saved = exportCurrentState(closed)
+    const reloaded = migrateToLive(importSave(saved)).state
+    expect(exportCurrentState(reloaded)).toBe(saved)
+    const closedBefore = stableStringify(closed), reloadBefore = stableStringify(reloaded)
+    expect(exportCurrentState(tick(reloaded))).toBe(exportCurrentState(tick(closed)))
+    expect(stableStringify(closed)).toBe(closedBefore)
+    expect(stableStringify(reloaded)).toBe(reloadBefore)
+    expect(stableStringify(prior)).toBe(priorBefore)
   })
 
   it('explicit retention retains exactly the chosen contracts; retained work cannot outlive its participants, so a production with a dropped participant is marked for explicit cancellation', () => {

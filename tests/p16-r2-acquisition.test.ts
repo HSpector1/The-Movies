@@ -34,7 +34,7 @@ function world() {
   const ask = (state: GameState, target: string, postExitCash: number) => {
     const v = libraryValuationV1(state, target, week)
     if (v.kind !== 'available') throw new Error(v.reason)
-    return Math.max(0, Math.ceil((v.total * (100 + TUNING.RIGHTS_WILLINGNESS_PREMIUM_PERCENT)) / 100) + postExitCash)
+    return Math.max(0, Math.ceil((v.total * (100 + TUNING.RIGHTS_WILLINGNESS_PREMIUM_PERCENT)) / 100 + postExitCash))
   }
   return { base, h, player, r01, r02, r03, r04, week, disclosed, contracts, ask }
 }
@@ -60,8 +60,8 @@ describe('r2 F7: no quote without the buyer\'s own fresh, full-scope, paid discl
   })
 })
 
-describe('r2 F6/F8/F33: the target consents at quote; its ask prices the cash that moves at par; money is whole dollars', () => {
-  it('a consideration below the ask refuses by name; at the ask the buyer\'s outlay is exactly the premium-adjusted library value, never a windfall', () => {
+describe('r2 F6/F8/F33: the target consents at quote; its ask is whole dollars and actual cash moves at par', () => {
+  it('a consideration below the ask refuses by name; at the ask the buyer\'s outlay covers the premium-adjusted library value with less than one dollar of rounding', () => {
     const { base, player, r03, week, disclosed, ask } = world()
     const { state, record } = disclosed(base, player, r03)
     const input = (consideration: number) => ({ buyerId: player, targetId: r03, consideration, retention: { kind: 'explicit' as const, contractIds: [] }, disclosureId: record.id })
@@ -77,11 +77,17 @@ describe('r2 F6/F8/F33: the target consents at quote; its ask prices the cash th
     expect(theAsk).toBe(ask(state, r03, q.postExitCash))
     expect(q.postExitCash).toBeGreaterThan(1_000_000) // a cash-rich target: the r1 ask (library only) was a windfall
     const v = libraryValuationV1(state, r03, week)
-    const valueAsk = Math.ceil(((v.kind === 'available' ? v.total : 0) * (100 + TUNING.RIGHTS_WILLINGNESS_PREMIUM_PERCENT)) / 100)
-    expect(q.outlay).toBe(valueAsk)
+    const premiumValue = ((v.kind === 'available' ? v.total : 0) * (100 + TUNING.RIGHTS_WILLINGNESS_PREMIUM_PERCENT)) / 100
+    expect(q.targetCashBeforeExits).toBe(state.hollywood!.businesses.find(b => b.studioId === r03)!.account.cash)
+    expect(Number.isInteger(q.targetCashBeforeExits)).toBe(false)
+    expect(q.postExitCash).toBe(q.targetCashBeforeExits - q.exitCharges)
+    expect(q.outlay).toBe(theAsk - q.postExitCash)
+    expect(q.outlay - premiumValue).toBeGreaterThanOrEqual(0)
+    expect(q.outlay - premiumValue).toBeLessThan(1)
     expect(q.outlay).toBeGreaterThanOrEqual(0)
     expect(acq.quoteAbsorption(state, input(theAsk - 1), week, STABLE)).toEqual({ kind: 'refusal', refusal: `targetNotWilling:considerationBelowAsk:${theAsk}` })
-    for (const n of [q.targetCashBeforeExits, q.exitCharges, q.postExitCash, q.outlay, q.guarantees, q.resultingWeeklyFixedCost, q.reserveAfter]) expect(Number.isSafeInteger(n), String(n)).toBe(true)
+    for (const n of [q.targetCashBeforeExits, q.postExitCash, q.outlay]) expect(Number.isFinite(n), String(n)).toBe(true)
+    for (const n of [q.consideration, q.ask, q.exitCharges, q.guarantees, q.resultingWeeklyFixedCost, q.reserveAfter]) expect(Number.isSafeInteger(n), String(n)).toBe(true)
     expect(acq.rivalAbsorptionWillingness(state, r03, theAsk, q.postExitCash, week)).toMatchObject({ willing: true })
     expect(acq.rivalAbsorptionWillingness(state, r03, theAsk - 1, q.postExitCash, week)).toMatchObject({ willing: false })
   })

@@ -1,0 +1,178 @@
+[
+  {
+    "test": "P14B4 final seating preference \u2014 no-preference path and viability gates (plan :223-225) default seed: the first screenplay-planning call and first film decision are byte-identical to the accepted values; the transcribed ordinary score reproduces the real no-preference choice",
+    "before": "passed",
+    "after": "passed",
+    "sameCause": true,
+    "beforeMs": 10499.549210000001,
+    "afterMs": 15616.503721000001
+  },
+  {
+    "test": "P14B4 final seating preference \u2014 no-preference path and viability gates (plan :223-225) p13a-core-causal-01: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable",
+    "before": "failed",
+    "after": "failed",
+    "sameCause": true,
+    "beforeMs": 74.92717900000025,
+    "afterMs": 114.37523499999952
+  },
+  {
+    "test": "P14B4 final seating preference \u2014 no-preference path and viability gates (plan :223-225) seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable",
+    "before": "failed",
+    "after": "failed",
+    "sameCause": true,
+    "beforeMs": 14163.535569999998,
+    "afterMs": 10390.600945999999
+  },
+  {
+    "test": "P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) search table: the first seed-b decision whose seating matters holds two tagged leadOrAntagonist beneficiaries and one P1 beneficiary in a three-actor pool",
+    "before": "failed",
+    "after": "failed",
+    "sameCause": true,
+    "beforeMs": 1.55310499999905,
+    "afterMs": 4.837757000001147
+  },
+  {
+    "test": "P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) RED: the real seating serves the maximal DISTINCT-beneficiary count (plan :215-218), the picture is viable and affordable (:223-225), and the real first take then satisfies all three through advancePromisesWeek/qualifyingTakes",
+    "before": "failed",
+    "after": "failed",
+    "sameCause": true,
+    "beforeMs": 0.7297739999994519,
+    "afterMs": 1.185100999999122
+  },
+  {
+    "test": "P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) RED: every real film decision on seed-b with members seats the law pick (benefit, then ordinary score, then BILLINGS); the violation table names each miss",
+    "before": "passed",
+    "after": "passed",
+    "sameCause": true,
+    "beforeMs": 7.425848999999289,
+    "afterMs": 8.970156999999745
+  },
+  {
+    "test": "P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) CONFLICT: the ordinary economic score prefers a two-beneficiary permutation; benefit count wins over score (:216-217) and the real take proves it",
+    "before": "failed",
+    "after": "failed",
+    "sameCause": true,
+    "beforeMs": 0.9032330000009097,
+    "afterMs": 0.8994729999976698
+  },
+  {
+    "test": "P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) EQUAL BENEFIT: with every member generic (seed-b w211 studio-bc14baf6-r02, all P1) the ordinary score orders the permutations exactly as before",
+    "before": "passed",
+    "after": "passed",
+    "sameCause": true,
+    "beforeMs": 1.6044069999989006,
+    "afterMs": 1.3782199999986915
+  },
+  {
+    "test": "P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) TIE FALLBACK (labeled reception-input variant): two reception-identical tagged beneficiaries tie on score; the first strict-greater winner in the inherited BILLINGS order is seated \u2014 inherited tie behaviour, not fairness (:218-221)",
+    "before": "failed",
+    "after": "failed",
+    "sameCause": true,
+    "beforeMs": 1.2282749999976659,
+    "afterMs": 1.0528420000009646
+  },
+  {
+    "test": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) CURRENT unaccepted offers never count: seed-b w202, three rivals decide while their own retention offers carry promises with contractId null; re-authored offers make the negative discriminating",
+    "before": "failed",
+    "after": "failed",
+    "sameCause": true,
+    "beforeMs": 2.373853000000963,
+    "afterMs": 2.2606760000016948
+  },
+  {
+    "test": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) another issuer's promise never counts: r02's offers to r01's three actors are present at w202 and at the witness and never enter r01's member set; re-authored r02 offers make the negative discriminating",
+    "before": "failed",
+    "after": "failed",
+    "sameCause": true,
+    "beforeMs": 1.1052079999972193,
+    "afterMs": 0.8600200000000768
+  },
+  {
+    "test": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) a met promise never counts (control, r02 chain): after r02's w211 picture satisfies its three P1 roots at w216, its next real decision has no member and takes the ordinary pick",
+    "before": "failed",
+    "after": "failed",
+    "sameCause": true,
+    "beforeMs": 16.42420100000163,
+    "afterMs": 31.439241000000038
+  },
+  {
+    "test": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) a met promise never counts (r01 chain, RED today only through the witness defect): after the witness take the SATISFIED roots leave r01's member set at its next real decision",
+    "before": "failed",
+    "after": "failed",
+    "sameCause": true,
+    "beforeMs": 0.6837630000009085,
+    "afterMs": 0.6937140000009094
+  },
+  {
+    "test": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) a promise whose window excludes the prospective take never counts \u2014 'window starts after every plausible t\u2026'",
+    "before": "failed",
+    "after": "failed",
+    "sameCause": true,
+    "beforeMs": 0.7456739999979618,
+    "afterMs": 0.7468699999990349
+  },
+  {
+    "test": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) a promise whose window excludes the prospective take never counts \u2014 'window ends before any take can land \u2026'",
+    "before": "failed",
+    "after": "failed",
+    "sameCause": true,
+    "beforeMs": 0.40140400000018417,
+    "afterMs": 0.412477999998373
+  },
+  {
+    "test": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) mask derivation through the shared reader \u2014 'tagged lead stays exact: r01-2 counts\u2026'",
+    "before": "failed",
+    "after": "failed",
+    "sameCause": true,
+    "beforeMs": 0.6659040000013192,
+    "afterMs": 0.709194999999454
+  },
+  {
+    "test": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) mask derivation through the shared reader \u2014 'legacy count-only LEAD_OR_SIGNIFICANT\u2026'",
+    "before": "failed",
+    "after": "failed",
+    "sameCause": true,
+    "beforeMs": 0.4017200000016601,
+    "afterMs": 0.4130010000008042
+  },
+  {
+    "test": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) mask derivation through the shared reader \u2014 'APPEARANCE_COUNT is generic cast'",
+    "before": "failed",
+    "after": "failed",
+    "sameCause": true,
+    "beforeMs": 0.43839500000103726,
+    "afterMs": 0.4672629999986384
+  },
+  {
+    "test": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) UNEXECUTED (no lawful construction): one beneficiary with a tagged lead AND a legacy count-only bound OPEN promise from the same rival counts ONCE with the INTERSECTION mask (lead) \u2014 attachPromise binds at most one promise per proposal, rival contracts run 208 weeks, so a second bound root for one person lies beyond the 350-tick bound; never a synthesized root",
+    "before": "todo",
+    "after": "todo",
+    "sameCause": true,
+    "beforeMs": null,
+    "afterMs": null
+  },
+  {
+    "test": "P14B4 final seating preference \u2014 the initial cast seam (plan :225-232) promised non-primary-actor beneficiaries (the witness rival's writer, director and craft, each bound OPEN P1) are never seated: one person cannot double, and the sole holder of a role is a capacity constraint, not a forged package",
+    "before": "failed",
+    "after": "failed",
+    "sameCause": true,
+    "beforeMs": 0.6296390000024985,
+    "afterMs": 0.6730779999998049
+  },
+  {
+    "test": "P14B4 final seating preference \u2014 the initial cast seam (plan :225-232) capacity constraint: a rival with a ready screenplay and no lawful complementary staffing decides nothing (natural weeks logged; zero is a fixture finding)",
+    "before": "passed",
+    "after": "passed",
+    "sameCause": true,
+    "beforeMs": 5.354515999999421,
+    "afterMs": 5.214905000000726
+  },
+  {
+    "test": "P14B4 final seating preference \u2014 the initial cast seam (plan :225-232) the positive seam witness (plan :225-227, :233; record 621 R2 / G10-b): the first default-seed picture whose pool seats a promised person outside the historical first three admits r01's sole WRITER \u2014 a non-primary-actor beneficiary \u2014 and the real package and first take serve his promise",
+    "before": "failed",
+    "after": "failed",
+    "sameCause": true,
+    "beforeMs": 0.9317620000001625,
+    "afterMs": 1.0108090000030643
+  }
+]

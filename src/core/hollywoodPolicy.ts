@@ -63,14 +63,15 @@ export function searchIndustryPackages(input:ReceptionInputs,policy:RivalBusines
     for(const scale of TUNING.HOLLYWOOD_NEGATIVE_CHOICES) {
       const negative=Math.round(required*scale*policy.negativeScale)
       const base={...inp,budget:{negative,marketing:0}}
-      for(const marketing of marketingMenuFromCapacity(marketingCapacityForInputs(base,true))) {
+      const centers=forecastCenters(base,true,true)
+      for(const marketing of marketingMenuFromCapacity(marketingCapacityForInputs(base,true,centers))) {
         const exceedsCash=negative+marketing>options.cashAvailable
         if(exceedsCash) {
           unaffordable++
           if(!diagnoseUnaffordableViability)continue
         } else affordable++
         const candidate={...base,budget:{negative,marketing}}
-        const forecast=computeForecast(candidate,{seed:options.seed,productionId:options.key,directorId:inp.director.id,releasedFilms:[],concepts:[inp.concept]},true,true)
+        const forecast=computeForecast(candidate,{seed:options.seed,productionId:options.key,directorId:inp.director.id,releasedFilms:[],concepts:[inp.concept]},true,true,centers)
         const expectedIncrementalContribution=forecast.expectedTotal*TUNING.STUDIO_RENTAL_BLENDED-negative-marketing
         // First payment follows eight production advances; the full six-week
         // run receives its last payment after fourteen operating charges.
