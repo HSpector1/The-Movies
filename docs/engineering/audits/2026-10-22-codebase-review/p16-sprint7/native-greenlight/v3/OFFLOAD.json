@@ -1,0 +1,33 @@
+{
+  "at": "2026-10-26T13:29:10.779395-05:00",
+  "verifiedRemoteCommit": "6694aa0bfd4b11b813115b76e7d3c3d6a3e6781e",
+  "archiveGitPath": "docs/engineering/audits/2026-10-22-codebase-review/p16-sprint7/native-greenlight/v3/postimages.tar.gz",
+  "archiveSha256": "89300b7a1d9479375bc60b54f7bcc01d508849ad1859fafe879e4c9fa9ca3096",
+  "removed": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint7-native-greenlight-20261026/v3/working/src/core/continuedScripts.ts",
+      "sha256": "f0afcf31bbccea6bad3cb813c7a62ad524e92d084796271c9e69a9764e8f17e6",
+      "bytes": 50866,
+      "allocated": 53248
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint7-native-greenlight-20261026/v3/working/src/core/firstTakeSubjects.ts",
+      "sha256": "96608da7b160e824b3c8299d437d9bbf1a8114f62a9d45fa6e52ef6100cb6c56",
+      "bytes": 8947,
+      "allocated": 12288
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint7-native-greenlight-20261026/v3/working/src/core/promises.ts",
+      "sha256": "9d35534e93cc1de843f47318927508681e4d948e088d24349aa20fad6b257f7a",
+      "bytes": 111967,
+      "allocated": 114688
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint7-native-greenlight-20261026/v3/working/src/core/save.ts",
+      "sha256": "dd7a05d7ddce0f9ec78eff3dea5dd0cf34c37254d3af3209a9d72692e5a6fe31",
+      "bytes": 593305,
+      "allocated": 593920
+    }
+  ],
+  "allocatedBytesReclaimed": 774144
+}

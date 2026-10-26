@@ -1,0 +1,37 @@
+{
+  "status": "STATIC-UNRUN-RELEASE-PHASE-CORRECTION",
+  "gitHead": "5a730f42d5a66d22cba4808b5c642510c2f068bb",
+  "baseDescription": "Exact installed v2+v4+v5 source with independent tests; per-file preimages govern application",
+  "files": [
+    {
+      "path": "src/core/marketIntegration.ts",
+      "installedV5PreimageSha256": "3cfd3c5ad3086489033271c69957b1dfa96b16b67ba4076d0ac25cddbe82e3dd",
+      "v6PostimageSha256": "3ff7a347ad559cb0e591ccc5fddf704b2c232f52f16a4852020128ae8280cd34",
+      "postimage": "working/src/core/marketIntegration.ts"
+    },
+    {
+      "path": "src/core/tick.ts",
+      "installedV5PreimageSha256": "e65702143a1365f9df4eff3f5fa6335e598084301b3822fce39b9f38e8da30b4",
+      "v6PostimageSha256": "7ad9c4e0831d679c45e8cb088294f819a947e3e96aeae5d035580d3b2486b7da",
+      "postimage": "working/src/core/tick.ts"
+    }
+  ],
+  "patch": {
+    "path": "PRE-ADVANCE-RELEASE-AUTHORITY.patch",
+    "sha256": "d5ad0dc634affaea65502ae8a5f3b368e0b5380332c3adc6e3713cf9e13e2b00",
+    "bytes": 3619
+  },
+  "retainedFailure": {
+    "path": "/Users/zacheryspector/studio-scratch/p16-sprint7-verification-20261026/native-first-take-v5/run.log",
+    "sha256": "18055b16c855b5d8f368a6c6a97ca485f9be8bfdc9704cdf1a4f2b51ba3b9ecc",
+    "cause": "runMarketBatch derived live authority from transient admitted zero-countdown release row",
+    "positiveLeafMs": 13073
+  },
+  "verification": {
+    "runtime": false,
+    "compiler": false,
+    "tests": false,
+    "repositoryEdits": false
+  },
+  "testEdits": false
+}

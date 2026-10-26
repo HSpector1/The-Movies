@@ -1,0 +1,13 @@
+--- a/src/core/firstTakeSubjects.ts
++++ b/src/core/firstTakeSubjects.ts
+@@ -1,7 +1,9 @@
+ import { carriedProductionAuthority, type CarriedProductionAuthority } from './continuedScripts.js'
+ import type { AbsorptionRecord } from './rights.js'
+-import { GENRE_ORDER, CAST_SLOTS } from './tuning.js'
++import { GENRE_ORDER } from './tuning.js'
+ import type { FilmConcept, FirstTakeReceipt, FirstTakeSubject, GameState, Production, ScriptDevelopment } from './types.js'
++
++const CAST_SLOTS = ['lead', 'antagonist', 'support'] as const
+ 
+ type SubjectState = Pick<GameState, 'hollywood' | 'studio' | 'concepts' | 'scriptDevelopment' | 'firstTakes' | 'firstTakeSubjects'> & Partial<Pick<GameState,'rights'>>
+ 

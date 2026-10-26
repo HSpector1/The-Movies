@@ -1,0 +1,49 @@
+{
+  "status": "STATIC-UNRUN-CONCRETE-SOURCE-REPAIR",
+  "gitHead": "5a730f42d5a66d22cba4808b5c642510c2f068bb",
+  "baseDescription": "Installed v2+v4+independent tests; exact preimage governs application",
+  "files": [
+    {
+      "path": "src/core/firstTakeSubjects.ts",
+      "installedV4PreimageSha256": "985398260cc46357214d13a07e8439ec9a496d0bb590d20dc96faf48242ff92c",
+      "v5PostimageSha256": "43b65ba8356d86f87c87dd4eb5e80e59c44057b88753a8d2428f52dfea22dc25",
+      "postimage": "working/src/core/firstTakeSubjects.ts"
+    }
+  ],
+  "patch": {
+    "path": "FIRST-TAKE-CAST-SLOTS.patch",
+    "sha256": "c046af7810ba97e718e45ee8b69c0812a58d416f6776890d3985743f6529fd2e",
+    "bytes": 703
+  },
+  "sourceEvidence": [
+    {
+      "path": "src/core/tuning.ts",
+      "sha256": "2ca372df40dd150cdd50f650eb0e0f9cfc601551e6f29f231e3646773957d3f2"
+    },
+    {
+      "path": "src/core/promises.ts",
+      "sha256": "9d35534e93cc1de843f47318927508681e4d948e088d24349aa20fad6b257f7a"
+    },
+    {
+      "path": "src/core/save.ts",
+      "sha256": "dd7a05d7ddce0f9ec78eff3dea5dd0cf34c37254d3af3209a9d72692e5a6fe31"
+    }
+  ],
+  "failureEvidence": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint7-verification-20261026/native-first-take-v4-resume/run.log",
+      "sha256": "071354ed2be1b3a8474e2d3b3f99632e8794b013d74bc1eea51eba49b754cd6d"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint7-verification-20261026/native-first-take-v4-resume/lifecycle-v4.json",
+      "sha256": "1692a969ec1b636d0192e6a6712b02a2f7e72dd54c96036685d44a943e86133c"
+    }
+  ],
+  "verification": {
+    "runtime": false,
+    "compiler": false,
+    "tests": false,
+    "repositoryEdits": false
+  },
+  "testEdits": false
+}

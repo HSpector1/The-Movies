@@ -1,0 +1,26 @@
+{
+  "head": "5a730f42d5a66d22cba4808b5c642510c2f068bb",
+  "delta": "Reviewed native lifecyclev2+v4+v5+v6 and independenttestv2",
+  "coreCompleteFiles": [
+    "tests/p16-retained-drafting-continuation.test.ts",
+    "tests/p16-carried-script-accept.test.ts",
+    "tests/p16-carried-script-rewrite.test.ts",
+    "tests/p14b1-first-take.test.ts",
+    "tests/p14c2rm-writer-continuation.test.ts",
+    "tests/p14c3-save-v38.test.ts",
+    "tests/stabilization-l02-casting-profession.test.ts",
+    "tests/casting-package-read-model.test.ts",
+    "tests/p15a1-shared-market.test.ts",
+    "tests/p15c1-campaign-legacy.test.ts",
+    "tests/p15c2-campaign-legacy-integration.test.ts",
+    "tests/p14p4p5-opportunities.test.ts"
+  ],
+  "types": [
+    "root",
+    "bridge",
+    "ui"
+  ],
+  "budgets": "Unchanged originals; no worker overrides; setup stays timed",
+  "purpose": "Coherent changed-interface and affected-file qualification after selected functional lifecycle pass; broad Bridge consumer milestone remains separate",
+  "sourceManifestEntries": 1642
+}

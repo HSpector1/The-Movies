@@ -1,0 +1,46 @@
+--- a/src/core/marketIntegration.ts
++++ b/src/core/marketIntegration.ts
+@@ -59,7 +59,11 @@
+  * once against the root's active exposures. It writes nothing; the root appends at finalize. With
+  * no industry there is no batch, so the M0A corpus keeps today's path.
+  */
+-export function runMarketBatch(state: GameState, playerReleasing: readonly Production[], week: number, continuedReleasing: readonly Production[] = []): MarketBatchResult | null {
++export function runMarketBatch(state: GameState, playerReleasing: readonly Production[], week: number, continuedReleasing: readonly Production[] = [],
++  // Tick may forward only fresh authority from its same-operation pre-advance
++  // state, before witnessed releases temporarily reach zero. Other callers
++  // retain the ordinary live-state derivation below.
++  carriedReleaseAuthority?:CarriedProductionAuthority): MarketBatchResult | null {
+   const hollywood = state.hollywood
+   if (hollywood === null) return null
+   const root = requireSharedMarket(state)
+@@ -68,7 +72,7 @@
+     if (concept === undefined) throw new Error(`shared market: release ${production.id} has no concept`)
+     return concept.genre
+   }
+-  const carried=playerReleasing.some(p=>!state.concepts.some(c=>c.id===p.conceptId))?carriedProductionAuthority(state):undefined
++  const carried=playerReleasing.some(p=>!state.concepts.some(c=>c.id===p.conceptId))?(carriedReleaseAuthority??carriedProductionAuthority(state)):undefined
+   const player: MarketBatchMember[] = playerReleasing.map((production) => {
+     const project=carried?.productionScripts.get(production.id)
+     const acquired=project?.conceptId===production.conceptId&&project.status==='inProduction'
+--- a/src/core/tick.ts
++++ b/src/core/tick.ts
+@@ -1,4 +1,4 @@
+-import { advanceBuyerScriptWork, buyerScriptDevelopment, carriedScriptForProduction, carriedConceptForProduction, markCarriedScriptProduced } from './continuedScripts.js'
++import { advanceBuyerScriptWork, buyerScriptDevelopment, carriedScriptForProduction, carriedConceptForProduction, carriedProductionAuthority, markCarriedScriptProduced } from './continuedScripts.js'
+ import { prepareContinuedReleases } from './hollywoodTick.js'
+ import { buyerOperationsForAllWork, buyerOperatedProductions, buyerContinuedProductions, publishOperatedAdvance, recordContinuedWorkSteps, continuedCommittedReleaseIds } from './continuedWork.js'
+ import { prepareLiveWritingContext } from './liveRetirementWriting.js'
+@@ -550,7 +550,12 @@
+   // player's releasing pictures and every rival picture at remainingTicks 1, assessed once
+   // against the root's active exposures. It writes nothing; the root appends at finalize.
+   // No industry, no batch: the M0A corpus keeps today's path.
+-  const marketBatch = runMarketBatch(admitted, releasing, currentTick, continuedReleasing)
++  // `admitted` temporarily contains the witnessed 1→0 release rows. Prove
++  // carried ownership against the same tick's immutable pre-advance state;
++  // zero is a pipeline result, never an admissible live production to validate.
++  const carriedReleaseAuthority=releasing.some(p=>!workInput.concepts.some(c=>c.id===p.conceptId))
++    ?carriedProductionAuthority(workInput):undefined
++  const marketBatch = runMarketBatch(admitted, releasing, currentTick, continuedReleasing, carriedReleaseAuthority)
+ 
+   // ── 3. RECEPTION ───────────────────────────────────────────────────────────
+   // For each releasing production IN ascending-id order: resolve reception (the
