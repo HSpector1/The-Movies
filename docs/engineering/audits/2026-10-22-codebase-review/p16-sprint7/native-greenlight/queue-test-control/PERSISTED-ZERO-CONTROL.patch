@@ -1,0 +1,10 @@
+--- a/tests/p16-carried-script-accept.test.ts
++++ b/tests/p16-carried-script-accept.test.ts
+@@ -448,6 +448,7 @@
+    {label:'numeric v6 decision ID',expected:/^continued script: native production input decision\.id must be a string$/,change:x=>{Reflect.set(nativeRecord(x,a.record.id).scriptDecisions[1]!,'id',7)}},
+    {label:'null actual paid ledger row',expected:/^continued script: native production input ledger\[\d+\] must be an object$/,change:x=>{Reflect.set(x.ledger,x.ledger.findIndex(row=>row.productionId===n.picture.id&&row.kind==='production'),null)}},
+    {label:'missing consumed employment root',expected:/^continued script: native production input hollywood\.employment must be an array$/,change:x=>{Reflect.deleteProperty(x.hollywood!,'employment')}},
++   {label:'persisted native production at zero remaining ticks',expected:/^continued script: native active production differs from paid greenlight$/,change:x=>{x.studio.activeProductions.find(p=>p.id===n.picture.id)!.remainingTicks=0}},
+    {label:'active budget differs from unchanged paid snapshot',expected:/^continued script: native active production differs from paid greenlight$/,change:x=>{x.studio.activeProductions.find(p=>p.id===n.picture.id)!.budget.negative+=1}},
+    {label:'active cast differs from unchanged paid snapshot',expected:/^continued script: native active production differs from paid greenlight$/,change:x=>{const p=x.studio.activeProductions.find(p=>p.id===n.picture.id)!;[p.cast.lead,p.cast.support]=[p.cast.support,p.cast.lead]}}
+   ]

@@ -1,0 +1,9 @@
+{
+  "head": "e0d4c23939bcb4caf35957896959c32afef82c6b",
+  "purpose": "Complete existing Accept file: genuine queued release correction, strict persisted zero refusal and original lifecycle/rollback",
+  "file": "tests/p16-carried-script-accept.test.ts",
+  "sourceManifestEntries": 1645,
+  "budgetMs": 5000,
+  "sourcePatchSha256": "c1e79adf3fba0f69fb54502ef073f3717f7d9bcdcb7e340eecceaebfb389e542",
+  "testControlPatchSha256": "5120dbdf72500f3239e3fcc0389bdb264526cad90c2869b8ec0c981776ac690b"
+}

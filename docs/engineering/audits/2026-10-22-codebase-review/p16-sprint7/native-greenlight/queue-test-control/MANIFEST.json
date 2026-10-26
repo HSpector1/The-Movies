@@ -1,0 +1,52 @@
+{
+  "status": "STATIC-UNRUN-ONE-ROW-TEST-CONTROL",
+  "sourceBaseHead": "e0d4c23939bcb4caf35957896959c32afef82c6b",
+  "sourceDraft": {
+    "manifest": "/Users/zacheryspector/studio-scratch/p16-sprint7-native-greenlight-20261026/queue-source/DRAFT-MANIFEST.json",
+    "manifestSha256": "d9e55a6cd1f74c3c331edb2e9725934c0e6a38cf26bdd638132c498bb66b61fd",
+    "patch": "/Users/zacheryspector/studio-scratch/p16-sprint7-native-greenlight-20261026/queue-source/QUEUED-RELEASE-AUTHORITY.patch",
+    "patchSha256": "c1e79adf3fba0f69fb54502ef073f3717f7d9bcdcb7e340eecceaebfb389e542",
+    "review": "/Users/zacheryspector/studio-scratch/p16-sprint7-native-greenlight-20261026/queue-source/REVIEW.md",
+    "reviewSha256": "5d122310aa63ac33404e1f0c0af772ea6e4cd47234b71841742477b5630a846c"
+  },
+  "files": [
+    {
+      "path": "tests/p16-carried-script-accept.test.ts",
+      "preimageSha256": "7b1d156dcc3f1f653926bca76ce33a6571b7583713a11dfe5386ea0b53ace4c0",
+      "postimageSha256": "ad076d9e0a01c94597d098a94720bdc7abb8a8fa7f6f08f2544622fa65c5f110",
+      "postimage": "postimages/tests/p16-carried-script-accept.test.ts",
+      "bytes": 43603
+    }
+  ],
+  "patch": {
+    "path": "PERSISTED-ZERO-CONTROL.patch",
+    "sha256": "5120dbdf72500f3239e3fcc0389bdb264526cad90c2869b8ec0c981776ac690b",
+    "bytes": 1535,
+    "addedLines": 1,
+    "removedLines": 0
+  },
+  "purpose": "Persisted remainingTicks=0 remains refused by full makeSave despite the private same-tick queued-release proof view.",
+  "producer": "Existing nativeGreenlight(a) paid production, unchanged ledger/history; only the selected detached active production countdown is mutated.",
+  "expectedFirstGuard": {
+    "message": "continued script: native active production differs from paid greenlight",
+    "source": "queue-source/working/src/core/continuedScripts.ts:483",
+    "condition": "live.remainingTicks < 1",
+    "entry": "src/core/save.ts:11673 current49 authority uses strict carriedProductionAuthority"
+  },
+  "purity": "Existing nativeCases loop wraps full saves.makeSave in try/finally with JSON equality of the whole mutated caller.",
+  "originalCaseCount": 3,
+  "draftCaseCount": 3,
+  "nativeHostileRowsBefore": 5,
+  "nativeHostileRowsAfter": 6,
+  "newTestLeaves": 0,
+  "budgetMs": 5000,
+  "preserved": "All original direct lifecycle and queued-release assertions, setup, producers and budgets unchanged.",
+  "verification": {
+    "runtime": false,
+    "engine": false,
+    "compiler": false,
+    "tests": false,
+    "repositoryWrites": false,
+    "staticHashAndTextChecks": true
+  }
+}
