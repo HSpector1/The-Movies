@@ -1,0 +1,11 @@
+{
+  "status": "STATIC_UNRUN",
+  "source": "ui/e2e/smoke.spec.ts",
+  "preimageSha256": "76c0c182c5f97ad44eb34c4bce81bef72fce23fd3b04afdbfe22df66bafe2868",
+  "postimageSha256": "3e7464901eb2c4f12e08ca89cc4dbffee01cd0e2c306b95885092176790a24a8",
+  "patchSha256": "9106daaa9d003ea6bedeff8a98ef0f8e3fdda43ebe994b41ea738cd30d09d436",
+  "purpose": "Extend existing real browser smoke save/import to actual next-week continuation and restored seed, with destination polling and screenshot.",
+  "budgetMs": 120000,
+  "newLeaves": 0,
+  "runtime": "UNRUN; browser unavailable, no download attempted"
+}

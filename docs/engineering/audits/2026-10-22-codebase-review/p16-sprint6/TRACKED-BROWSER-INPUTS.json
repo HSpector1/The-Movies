@@ -1,0 +1,34 @@
+{
+  "head": "9c91232dd980cbe05399b6fd77ed55454e671f86",
+  "files": [
+    {
+      "path": "ui/e2e/smoke.spec.ts",
+      "gitBlob": "b63b17960ca1f36ea4bbcecc4bafe4693b65cd85",
+      "sha256": "76c0c182c5f97ad44eb34c4bce81bef72fce23fd3b04afdbfe22df66bafe2868",
+      "bytes": 12014,
+      "restored": true
+    },
+    {
+      "path": "ui/e2e/helpers/managed-production.ts",
+      "gitBlob": "4b736073d6650638008845a5bd10c8478a5d7f97",
+      "sha256": "55f4a8ab5d7733375e220f4ca6ade5b2040debf5205a047b07a1169f3dc88faa",
+      "bytes": 2534,
+      "restored": true
+    },
+    {
+      "path": "ui/playwright.config.ts",
+      "gitBlob": "7e3b0c198b30df98111eb524c38ef20cc9afe2c2",
+      "sha256": "97b2b5d7ea5d4d78b35697f2479a6689f81fdb81f04f7a9580960f935046fdfa",
+      "bytes": 9648,
+      "restored": true
+    },
+    {
+      "path": "ui/vite.config.ts",
+      "gitBlob": "0a590acd64b22cc5137ee8f6990ee43e6e9b6496",
+      "sha256": "13f335b521b233f8ea20f0079575f0645e8f4a4051de0151f2b79cb5f19e499b",
+      "bytes": 1204,
+      "restored": false
+    }
+  ],
+  "runtime": "UNRUN"
+}

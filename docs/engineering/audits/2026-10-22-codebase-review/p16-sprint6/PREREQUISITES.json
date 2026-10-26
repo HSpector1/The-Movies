@@ -1,0 +1,32 @@
+{
+  "candidate": "9c91232dd980cbe05399b6fd77ed55454e671f86",
+  "playwright": "1.62.0",
+  "project": "chromium",
+  "existingBudgetMs": 120000,
+  "expectedFullExecutable": "/Users/zacheryspector/Library/Caches/ms-playwright/chromium-1234/chrome-mac-x64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+  "expectedFullExecutableExists": false,
+  "browserPathOverride": null,
+  "dryRunExit": 0,
+  "proposedInstall": [
+    "/usr/local/bin/node",
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/playwright/cli.js",
+    "install",
+    "--only-shell",
+    "chromium"
+  ],
+  "dryRunPrerequisites": [
+    {
+      "name": "Chrome Headless Shell",
+      "version": "151.0.7922.34",
+      "revision": "1234"
+    },
+    {
+      "name": "FFmpeg",
+      "revision": "1011"
+    }
+  ],
+  "approval": "PENDING",
+  "browserRun": "UNRUN",
+  "testGap": "Existing full playable loop needs real advance after save import",
+  "resource": "Foreign Godot observed16:17:23; no browser/runtime launch"
+}

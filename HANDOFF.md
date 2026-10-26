@@ -2,6 +2,14 @@
 
 Last writer: Codex, 2026-10-26, sole coordinator for the authorized Sprints 5–16 program.
 
+## Active program continuation — 2026-10-26, independent authorized work
+
+- Goal remains finish through Sprint16; no completed-program claim. Source X stays published9c91232d, primary013c4edc unchanged. No active Studio runtime/lock; recurring foreign Godot still blocks a reliable long gate. Read the queued-release checkpoint below for all actual results/limits.
+- Sprint8: Sol prepares full promise/market producer in scratch p16-sprint8-obligations-20261026/source; independent test author prepares one genuine R02/retirement conjunction leaf under tests. Root sole X writer. No source installed yet; keep old producer guard until actual close/assignment/history validation exists. Scope includes retained bound obligations, nonretained settlement and immutable unbound history, not a guard-only shortcut.
+- Sprint6: exact tracked smoke/helper/config restored to X without content changes. Small existing smoke continuation patch is STATIC/UNRUN in p16-sprint6-browser-20261026, original120s budget. Playwright1.62.0 lacks pinned Chromium1234; Owner approval for only headless-shell1234+FFmpeg1011 was asked and remains PENDING. Do not interpret the Owner asking what the question was as approval.
+- Sprint15: authorized Unity source is refs/heads/wip/playability-interaction-01-client@08c32c47, explicitly remote-verified/fetched without ref/checkout edits. Projection32 is unpaired with engine63. Unity6000.3.22f1 absent; local older P04A2 checkout remains untouched. Native/build/combined qualification unrun. Exact prerequisite artifact in p16-sprint15/CURRENT-COUNTERPART.json.
+- Next: review Sol's bounded interface/boundary note, preserve independent genuine RED premises and run the focused witness only under fresh readiness/lane. Continue authorized source preparation if runtime remains blocked. Long consumer runner is USED; no blind restart. All actual predecessor, full-game-input, timing/platform/Owner limits remain.
+
 ## Immediate continuation — 2026-10-26, queued-release focused checkpoint
 
 - Sole coordinator/one intensive tree; Owner Sprints5–16 authorization continues. Primary p16-rebase-20261024 stays013c4edc. Experimental p16-retained-writing-20261026 is published/remote-verified at9c91232dd980cbe05399b6fd77ed55454e671f86, with reviewed queued-release correction and genuine witness/control. No main gameplay promotion.

@@ -1,0 +1,42 @@
+{
+  "status": "PREREQUISITES-INSPECTED-NATIVE-UNRUN",
+  "engine": {
+    "ref": "p16-retained-writing-20261026",
+    "commit": "9c91232dd980cbe05399b6fd77ed55454e671f86",
+    "protocol": 4,
+    "projection": 63,
+    "schema": "sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1",
+    "dtoSha256": "50a7663ed9b90cb95f937dedfbb94f2f843dab6bea50f14e512ec2ba1dffc1b9"
+  },
+  "authorizedCounterpart": {
+    "repository": "HSpector1/project-studio-unity-visual-spike",
+    "ref": "refs/heads/wip/playability-interaction-01-client",
+    "remoteCommit": "08c32c47f6faf223068d0999ec4a7a6c90649948",
+    "protocol": 4,
+    "projection": 32,
+    "schema": "sha256:b3a76d197481175c3a4a615f634cf227ae00b95981625df3f67784b307fc9e5c",
+    "dtoSha256": "c749729a56419eeb154392e7a503a5a7f4ea34aaded2fda3f0657258aa26c33f"
+  },
+  "existingLocalCheckout": {
+    "path": "/Users/zacheryspector/Project Studio - Unity Production Convergence 80H",
+    "branch": "wip/p04a2-final-convergence-client-secondary-20260828",
+    "commit": "9bcd7be6c4133b22a0d6457a0cf85d7e90bfc549",
+    "clean": true,
+    "branchRemoteCommit": "3ed7510ac6917eaa3376690a2fe72703d6e944ee",
+    "ownershipTransfer": false
+  },
+  "sourceRecovery": "Exact authorized branch objects fetched with no-tags/no-write-fetch-head; checkout and refs unchanged",
+  "editorRequired": "6000.3.22f1 (1c726e1fb402)",
+  "editorAvailable": false,
+  "editorObservation": "Known system/user Unity/Hub locations, Hub metadata and Unity preferences absent; no editor process, project lock, Library or Builds",
+  "hostMacOS": "12.7.6",
+  "nativeHarnessRelocation": "Current source Tools/playability-native-preview.mjs hardcodes /Users/bruce/The Movies - Playability Interaction {TS,Unity}; preserve pair/storage/input guards when adapting",
+  "remaining": [
+    "qualified engine technical predecessor",
+    "owned current counterpart checkout and actual consumer reconciliation",
+    "authorized compatible Unity toolchain",
+    "actual EditMode/PlayMode/build/input/save evidence"
+  ],
+  "runtime": "UNRUN",
+  "installOrLicenseOperation": false
+}
