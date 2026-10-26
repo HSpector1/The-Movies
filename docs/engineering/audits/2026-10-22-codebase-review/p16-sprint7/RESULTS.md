@@ -1,3 +1,9 @@
+## Repeated foreign execution — 2026-10-26, 13:52 CDT
+
+The fresh native-coherent-resume attempt ran the three complete screenplay files first to preserve useful child outcomes if interrupted. It passed preflight but foreign runner 23759/Godot 24591 restarted during collection; wrapper 143, no test results. Only verified Studio descendants were terminated. Audit verifies all 1,642 pins and releases the freeze. The unchanged final candidate still needs all final type/complete-file qualification. Five-minute availability checks continue, but repeated brief idle snapshots are insufficient reason to repeat identical interrupted attempts; wait for actual foreign activity to settle or the requested pause.
+
+A bounded source-only queue inspection is retained in native-greenlight/v6/QUEUE-NOTE.md. A supported queued managed greenlight may be incorrectly expired if dequeued during carried release: its validator sees the same transient zero-countdown state. The inspected capture has an empty queue, and existing queue/release tests do not establish this coexistence. Preconditions, consumer path and likely correction boundary are documented; no runtime proof, speculative fix or acceptance claim.
+
 ## Native lifecycle functional checkpoint — 2026-10-26
 
 The existing positive journey now passes all assertions on installed v2+v4+v5+v6 source and test-v2: genuine hiring, paid greenlight, cancellation/replay without refund, second distinct paid production, first take, Release Ready hold, save/reload, exact issuer/date refusals with caller purity, committed-cancel refusal, release/replay, market assessment, Legacy consumption, rights and conservation. The selected leaf took 9.192 seconds, exceeding the original five-second budget. Foreign Godot overlap was detected after the short run had already completed; no exclusive timing qualification is claimed. Two other leaves were selected out. Audit verified all 1,642 pins.
