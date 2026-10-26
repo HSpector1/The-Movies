@@ -1,5 +1,5 @@
 import { terminationCost, weeklySalary } from './employment.js'
-import { computeForecast, forecastCenters } from './forecast.js'
+import { computeForecast, forecastCenters, forecastSkills } from './forecast.js'
 import { marketingCapacityForInputs, marketingMenuFromCapacity } from './marketingMenu.js'
 import { resolveShape } from './shape.js'
 import { clamp } from './math.js'
@@ -59,11 +59,12 @@ export function searchIndustryPackages(input:ReceptionInputs,policy:RivalBusines
       const range=(n:number):[number,number]=>[clamp(n-TUNING.HOLLYWOOD_PROMISE_HALF_WIDTH,-1,1),clamp(n+TUNING.HOLLYWOOD_PROMISE_HALF_WIDTH,-1,1)]
       inp={...inp,promise:{...inp.promise,ranges:{intimacy:range(center.intimacy),tonalWeight:range(center.tonalWeight),kineticEnergy:range(center.kineticEnergy)}}}
     }
+    const skills=forecastSkills(inp)
     const required=inp.concept.baseNegativeCost*inp.shapeEffects.budgetDemandMultiplier*inp.era.costScale
     for(const scale of TUNING.HOLLYWOOD_NEGATIVE_CHOICES) {
       const negative=Math.round(required*scale*policy.negativeScale)
       const base={...inp,budget:{negative,marketing:0}}
-      const centers=forecastCenters(base,true,true)
+      const centers=forecastCenters(base,true,true,skills)
       for(const marketing of marketingMenuFromCapacity(marketingCapacityForInputs(base,true,centers))) {
         const exceedsCash=negative+marketing>options.cashAvailable
         if(exceedsCash) {

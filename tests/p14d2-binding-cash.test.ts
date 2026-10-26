@@ -143,8 +143,12 @@ describe('1363 Part A — binding cash', () => {
         diagnoseUnaffordableViability: true }
       const reused = search(viable[0], viable[1], comparisonOptions)
       expect(reused.choice).not.toBeNull()
-      const forecastSpy = vi.spyOn(forecasts, 'computeForecast').mockImplementation((input, context, saturateFame, engaged) =>
-        freshForecast(input, context, saturateFame, engaged))
+      const forecastSpy = vi.spyOn(forecasts, 'computeForecast').mockImplementation((input, context, saturateFame, engaged, preparedCenters) => {
+        const fresh = freshForecast(input, context, saturateFame, engaged)
+        // Compare every negative/marketing candidate, including candidates that do not win the search.
+        expect(freshForecast(input, context, saturateFame, engaged, preparedCenters)).toEqual(fresh)
+        return fresh
+      })
       const capacitySpy = vi.spyOn(marketing, 'marketingCapacityForInputs').mockImplementation((input, engaged) =>
         freshCapacity(input, engaged))
       try {

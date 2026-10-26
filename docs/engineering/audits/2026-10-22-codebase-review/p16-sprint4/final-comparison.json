@@ -1,0 +1,409 @@
+{
+  "baseline": "Sprint3 p16-integration.json; its three failed policy pins corrected and qualified before Sprint4 entry",
+  "changedStatus": [
+    {
+      "file": "p16-rival-buyer-absorption163-baseline.test.ts",
+      "fullName": "P16 genuine actual163 rival buyer explicit nonretention acquisition real R02 funded close owns exact money and titles without player pollution then preserves paid target work through ordinary ticks save reload and replay",
+      "before": {
+        "ancestorTitles": [
+          "P16 genuine actual163 rival buyer explicit nonretention acquisition"
+        ],
+        "fullName": "P16 genuine actual163 rival buyer explicit nonretention acquisition real R02 funded close owns exact money and titles without player pollution then preserves paid target work through ordinary ticks save reload and replay",
+        "status": "failed",
+        "title": "real R02 funded close owns exact money and titles without player pollution then preserves paid target work through ordinary ticks save reload and replay",
+        "duration": 1495.7378559999997,
+        "failureMessages": [
+          "AssertionError: expected 862165.7370649315 to be 862166.7370649315 // Object.is equality\n    at completed (/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-rival-buyer-absorption163-baseline.test.ts:82:67)\n    at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-rival-buyer-absorption163-baseline.test.ts:106:24\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+        ],
+        "meta": {}
+      },
+      "after": {
+        "ancestorTitles": [
+          "P16 genuine actual163 rival buyer explicit nonretention acquisition"
+        ],
+        "fullName": "P16 genuine actual163 rival buyer explicit nonretention acquisition real R02 funded close owns exact money and titles without player pollution then preserves paid target work through ordinary ticks save reload and replay",
+        "status": "passed",
+        "title": "real R02 funded close owns exact money and titles without player pollution then preserves paid target work through ordinary ticks save reload and replay",
+        "duration": 5827.743494,
+        "failureMessages": [],
+        "meta": {}
+      }
+    },
+    {
+      "file": "p16-rival-buyer-absorption163-baseline.test.ts",
+      "fullName": "P16 genuine actual163 rival buyer explicit nonretention acquisition actual rival close full reader refuses wrong buyer cash and missing paid work disposition without modifying hostile callers",
+      "before": {
+        "ancestorTitles": [
+          "P16 genuine actual163 rival buyer explicit nonretention acquisition"
+        ],
+        "fullName": "P16 genuine actual163 rival buyer explicit nonretention acquisition actual rival close full reader refuses wrong buyer cash and missing paid work disposition without modifying hostile callers",
+        "status": "failed",
+        "title": "actual rival close full reader refuses wrong buyer cash and missing paid work disposition without modifying hostile callers",
+        "duration": 925.1078060000004,
+        "failureMessages": [
+          "AssertionError: expected 862165.7370649315 to be 862166.7370649315 // Object.is equality\n    at completed (/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-rival-buyer-absorption163-baseline.test.ts:82:67)\n    at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-rival-buyer-absorption163-baseline.test.ts:122:24\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+        ],
+        "meta": {}
+      },
+      "after": {
+        "ancestorTitles": [
+          "P16 genuine actual163 rival buyer explicit nonretention acquisition"
+        ],
+        "fullName": "P16 genuine actual163 rival buyer explicit nonretention acquisition actual rival close full reader refuses wrong buyer cash and missing paid work disposition without modifying hostile callers",
+        "status": "passed",
+        "title": "actual rival close full reader refuses wrong buyer cash and missing paid work disposition without modifying hostile callers",
+        "duration": 2433.6562730000005,
+        "failureMessages": [],
+        "meta": {}
+      }
+    },
+    {
+      "file": "p16-rival-buyer-absorption163-baseline.test.ts",
+      "fullName": "P16 genuine actual163 rival buyer explicit nonretention acquisition real full joined rival publication fault after all actual effects validates then rolls back the original caller",
+      "before": {
+        "ancestorTitles": [
+          "P16 genuine actual163 rival buyer explicit nonretention acquisition"
+        ],
+        "fullName": "P16 genuine actual163 rival buyer explicit nonretention acquisition real full joined rival publication fault after all actual effects validates then rolls back the original caller",
+        "status": "failed",
+        "title": "real full joined rival publication fault after all actual effects validates then rolls back the original caller",
+        "duration": 717.5054750000008,
+        "failureMessages": [
+          "AssertionError: expected 862165.7370649315 to be 862166.7370649315 // Object.is equality\n    at completed (/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-rival-buyer-absorption163-baseline.test.ts:82:67)\n    at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-rival-buyer-absorption163-baseline.test.ts:137:22\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+        ],
+        "meta": {}
+      },
+      "after": {
+        "ancestorTitles": [
+          "P16 genuine actual163 rival buyer explicit nonretention acquisition"
+        ],
+        "fullName": "P16 genuine actual163 rival buyer explicit nonretention acquisition real full joined rival publication fault after all actual effects validates then rolls back the original caller",
+        "status": "passed",
+        "title": "real full joined rival publication fault after all actual effects validates then rolls back the original caller",
+        "duration": 2252.888428,
+        "failureMessages": [],
+        "meta": {}
+      }
+    }
+  ],
+  "over5000ScreenNotBudgetCount": [
+    {
+      "file": "bridge-p16-absorption-finance.test.ts",
+      "fullName": "P16 actual fractional R03 acquisition financial presentation real Bridge snapshot finance publishes the same fractional acquisition categories and cash without target private disclosure or changing save authority",
+      "previousMs": 7865.096962999999,
+      "currentMs": 8702.853179999998,
+      "status": "passed"
+    },
+    {
+      "file": "bridge-p16-rights-parity.test.ts",
+      "fullName": "P16 real Bridge paid due diligence and healthy absorption opaque families paid preview reveals no body or held report and real commit charges exactly once with public-action equality and same-command replay",
+      "previousMs": 7866.8869970000005,
+      "currentMs": 8512.777957,
+      "status": "passed"
+    },
+    {
+      "file": "bridge-p16-rights-parity.test.ts",
+      "fullName": "P16 real Bridge paid due diligence and healthy absorption opaque families held real report prices and commits exact fractional acquisition once with original quote pair linked titles and public direct action parity",
+      "previousMs": 9473.863103,
+      "currentMs": 9981.975723,
+      "status": "passed"
+    },
+    {
+      "file": "bridge-p16-rights-parity.test.ts",
+      "fullName": "P16 real Bridge paid due diligence and healthy absorption opaque families closed canonical drafts refuse supplied buyer and quote dates while private nested retention remains detached from later caller mutation",
+      "previousMs": 5452.670094000001,
+      "currentMs": 6757.9986229999995,
+      "status": "passed"
+    },
+    {
+      "file": "bridge-p16-rights-parity.test.ts",
+      "fullName": "P16 real Bridge paid due diligence and healthy absorption opaque families captured actual paid and absorption apply closures refuse a different fully admitted real state and public revision guards retain authority",
+      "previousMs": 6550.802978,
+      "currentMs": 8583.522735000002,
+      "status": "passed"
+    },
+    {
+      "file": "bridge-p16-rights-parity.test.ts",
+      "fullName": "P16 real Bridge paid due diligence and healthy absorption opaque families seventeen fixed legal quotes share cap16 across families and evict the first absorption without preview fees or authority changes",
+      "previousMs": 4693.788965,
+      "currentMs": 5414.7064919999975,
+      "status": "passed"
+    },
+    {
+      "file": "p16-absorption-active-run.test.ts",
+      "fullName": "P16 fixed real R01 paid production completes before healthy active-run absorption actual eight ordinary ticks produce the named run and healthy absorption pays future locked installments only to buyer with original creator and settlement history",
+      "previousMs": 8090.606719,
+      "currentMs": 7880.221353999999,
+      "status": "passed"
+    },
+    {
+      "file": "p16-absorption-active-run.test.ts",
+      "fullName": "P16 fixed real R01 paid production completes before healthy active-run absorption real admitted active-run history refuses missing handoff omitted installment wrong beneficiary and altered gross or earned cash through full current reader",
+      "previousMs": 6252.4069660000005,
+      "currentMs": 5583.466195000001,
+      "status": "passed"
+    },
+    {
+      "file": "p16-absorption-clean-target.test.ts",
+      "fullName": "P16 actual clean-target absorption from retained original48 R03 retains one linked bargain, pays five capped exits and exact fractional cash at par, preserves titles/history and ordinary replay",
+      "previousMs": 5106.172201,
+      "currentMs": 6064.579069,
+      "status": "passed"
+    },
+    {
+      "file": "p16-absorption-clean-target.test.ts",
+      "fullName": "P16 actual clean-target absorption from retained original48 R03 full current reader refuses independent cent drift and missing employment/title links, and named downgrade preserves its caller",
+      "previousMs": 4807.722815000001,
+      "currentMs": 5306.520819000001,
+      "status": "passed"
+    },
+    {
+      "file": "p16-absorption-continued-production.test.ts",
+      "fullName": "P16 genuine163 R02 paid post-production explicit healthy continuation actual buyer allocation holds ready work without commitment then public commit166 releases with original creator buyer R2 Standing future cash and replay",
+      "previousMs": 5914.7605490000005,
+      "currentMs": 6698.39534,
+      "status": "passed"
+    },
+    {
+      "file": "p16-absorption-continued-production.test.ts",
+      "fullName": "P16 genuine163 R02 paid post-production explicit healthy continuation actual admitted release refuses omitted or invented work counter commitment title and Standing authority with full-reader caller purity",
+      "previousMs": 5030.745121999999,
+      "currentMs": 6241.332348,
+      "status": "passed"
+    },
+    {
+      "file": "p16-absorption-knowledge.test.ts",
+      "fullName": "P16 actual completed-source knowledge from retained original45 baseline280 public absorption grants linked knowledge, preserves source invention and performs one ordinary paid noninventor adoption with roundtrip",
+      "previousMs": 6216.912422,
+      "currentMs": 6720.5260149999995,
+      "status": "passed"
+    },
+    {
+      "file": "p16-absorption-paid-production.test.ts",
+      "fullName": "P16 genuine pre162 paid R01 production cancellation-required transaction public priced quote cancels only its actual required production and ordinary ticks retain paid screenplay footage and commitment without release refund or run income",
+      "previousMs": 5796.245503,
+      "currentMs": 5639.475107,
+      "status": "passed"
+    },
+    {
+      "file": "p16-absorption-physical.test.ts",
+      "fullName": "P16 absorbed physical paid-work authority from fixed genuine267 ordinary ticks through original278 deadline retain completed instruments and never materialize or refund stopped paid laboratory",
+      "previousMs": 6040.126057,
+      "currentMs": 6604.137086,
+      "status": "passed"
+    },
+    {
+      "file": "p16-absorption-public-action.test.ts",
+      "fullName": "P16 public absorbStudio dispatch on retained original48 R03 public dispatch forces the actual player and refuses missing or unheld report and stale invalid carried quote after a real positive",
+      "previousMs": 6462.994035,
+      "currentMs": 5557.893502000001,
+      "status": "passed"
+    },
+    {
+      "file": "p16-absorption-research-cancellation.test.ts",
+      "fullName": "P16 real absorbed research marker from fixed accepted267 input actual public close retains all earned work and paid physical history with one source-owned cancellation and roundtrip",
+      "previousMs": 5229.430531,
+      "currentMs": 5053.888137,
+      "status": "passed"
+    },
+    {
+      "file": "p16-continued-work-cancel.test.ts",
+      "fullName": "P16 actual buyer public cancellation of acquired paid R02 work real public cancel frees buyer work and capacity without erasing source paid history employment first take or retained rights and replays ordinary stop",
+      "previousMs": 7212.732104,
+      "currentMs": 7018.4614679999995,
+      "status": "passed"
+    },
+    {
+      "file": "p16-continued-work-cancel.test.ts",
+      "fullName": "P16 actual buyer public cancellation of acquired paid R02 work actual cancellation authority is complete once-only and full joined readers refuse missing foreign counter date or repeated receipts while committed work stays irreversible",
+      "previousMs": 4911.280353,
+      "currentMs": 5236.863837999999,
+      "status": "passed"
+    },
+    {
+      "file": "p16-continued-work-shooting4.test.ts",
+      "fullName": "P16 genuine completed-take shooting4 handoff public funded acquisition preserves the actual take silent lock and paid creator work through buyer wrap explicit release and save replay",
+      "previousMs": 5462.488762999999,
+      "currentMs": 5379.485288,
+      "status": "passed"
+    },
+    {
+      "file": "p16-continued-work-shooting5-baseline.test.ts",
+      "fullName": "P16 genuine initial shooting5 continuation actual positive first take refuses missing or foreign operator lock and creator subject without mutating any refused caller",
+      "previousMs": 6137.8657539999995,
+      "currentMs": 6466.533533,
+      "status": "passed"
+    },
+    {
+      "file": "p16-continued-work-shooting5-baseline.test.ts",
+      "fullName": "P16 genuine initial shooting5 continuation native wrap preserves production identity then explicit release publishes creator film buyer rights and a replayable current save",
+      "previousMs": 5584.937593999999,
+      "currentMs": 5990.341521000002,
+      "status": "passed"
+    },
+    {
+      "file": "p16-continued-work-silent-early.test.ts",
+      "fullName": "P16 genuine early SILENT buyer-operated production public funded acquisition and native director scenery scheduling produce one actual buyer first take with creator screenplay and paid history",
+      "previousMs": 6412.872534,
+      "currentMs": 6981.965065,
+      "status": "passed"
+    },
+    {
+      "file": "p16-continued-work-silent-early.test.ts",
+      "fullName": "P16 genuine early SILENT buyer-operated production native wrap preserves production identity then explicit release publishes creator film buyer rights and a replayable current save",
+      "previousMs": 6483.632615,
+      "currentMs": 5759.800168000002,
+      "status": "passed"
+    },
+    {
+      "file": "p16-continued-work-silent-phases76.test.ts",
+      "fullName": "P16 genuine initial early SILENT boundary 163 actual positive first take refuses missing or foreign operator lock and creator subject without mutating any refused caller",
+      "previousMs": 5294.819135000001,
+      "currentMs": 5905.573117,
+      "status": "passed"
+    },
+    {
+      "file": "p16-continued-work-silent-phases76.test.ts",
+      "fullName": "P16 genuine initial early SILENT boundary 163 native wrap preserves production identity then explicit release publishes creator film buyer rights and a replayable current save",
+      "previousMs": 6224.038444,
+      "currentMs": 6178.541345,
+      "status": "passed"
+    },
+    {
+      "file": "p16-estate-claim-boundaries.test.ts",
+      "fullName": "P16 real estate cash and claim-payment boundaries on fixed R04 lot negative cash after a real sale pays zero claims and never invents a negative-cash creditor",
+      "previousMs": 4681.713096,
+      "currentMs": 5195.821964000001,
+      "status": "passed"
+    },
+    {
+      "file": "p16-estate-d-ceremony.test.ts",
+      "fullName": "P16 D ceremony actual13M sale intake pays partial claims once before one archival and replays",
+      "previousMs": 7507.606769,
+      "currentMs": 6793.972793000001,
+      "status": "passed"
+    },
+    {
+      "file": "p16-estate-d-join-negative.test.ts",
+      "fullName": "P16 joinedD strict-save corruption and actual publication rollback refuses missing duplicate amount and foreign saleReceipt without mutating the admitted source",
+      "previousMs": 8512.002035000001,
+      "currentMs": 7019.915554000001,
+      "status": "passed"
+    },
+    {
+      "file": "p16-estate-observed-migration.test.ts",
+      "fullName": "P16 observed original48 migration retains terminal authority without new history C163 and archivedD176 retain complete closure claim loan run archive roots and same-boundary lossless roundtrip",
+      "previousMs": 4763.019200999999,
+      "currentMs": 5432.152599,
+      "status": "passed"
+    },
+    {
+      "file": "p16-finance-presentation.test.ts",
+      "fullName": "actual13M estate buyer debit has one signed finance category and unchanged ledger-order net without exposing rival estate accounting",
+      "previousMs": 4061.7633039999996,
+      "currentMs": 5028.500129,
+      "status": "passed"
+    },
+    {
+      "file": "p16-healthy-drafting171-funded-baseline.test.ts",
+      "fullName": "P16 real funded171 stopped drafting writeoff real explicit writer exits preserve original draft costs due reservation and concurrent paid film beyond due with no buyer credit progress refund and save replay",
+      "previousMs": 6495.694507,
+      "currentMs": 7517.755719,
+      "status": "passed"
+    },
+    {
+      "file": "p16-held-title-buyer-public.test.ts",
+      "fullName": "real purchased R04film0 survives four fixed public campaigns and joins actual buyer closure without changing creator history",
+      "previousMs": 16078.090083000001,
+      "currentMs": 17077.547234,
+      "status": "passed"
+    },
+    {
+      "file": "p16-held-title-seller.test.ts",
+      "fullName": "real public film0 sale before R04 C excludes the sold title from current closure and handoff while retaining creator history",
+      "previousMs": 7117.487722000001,
+      "currentMs": 6275.207945,
+      "status": "passed"
+    },
+    {
+      "file": "p16-initial-shooting5-writeoff.test.ts",
+      "fullName": "P16 genuine initial shooting5 explicit nonretention writeoff fixed empty retention pays actual capped exits and preserves stopped paid source work and silent lock without buyer work refund take or release through ordinary deadline",
+      "previousMs": 6909.501676000001,
+      "currentMs": 5604.550275,
+      "status": "passed"
+    },
+    {
+      "file": "p16-r03-observed-migration.test.ts",
+      "fullName": "observed original48 R03 settled134 and archived144 preserve earned payments and one original archival without inventing past49 history",
+      "previousMs": 4318.685565,
+      "currentMs": 5319.666021,
+      "status": "passed"
+    },
+    {
+      "file": "p16-r2-authority.test.ts",
+      "fullName": "r2 F1/F27/F41: a live licence survives its grantor's closure, an estate sale and archival the licensee keeps exclusive authority while the grantor's estate holds, archives, or sells the title; only the title's own default authority changes",
+      "previousMs": 6730.579398999999,
+      "currentMs": 8572.263349,
+      "status": "passed"
+    },
+    {
+      "file": "p16-r2-authority.test.ts",
+      "fullName": "r2 F1/F27/F41: a live licence survives its grantor's closure, an estate sale and archival a paid sequel licence survives actual player closure while its original owner\u2019s unscheduled remake makes the title pending",
+      "previousMs": 4114.116598999999,
+      "currentMs": 5042.747806000001,
+      "status": "passed"
+    },
+    {
+      "file": "p16-r2-estate.test.ts",
+      "fullName": "r2 F4/F29: the estate path refuses the bilateral path's encumbrances a lot encumbered after the handoff (a production started on its concept) cannot sell at D: its bids are disqualified by name and the lot archives",
+      "previousMs": 10182.526528999999,
+      "currentMs": 9606.728743,
+      "status": "passed"
+    },
+    {
+      "file": "p16-rebase-estate-licence-survival.test.ts",
+      "fullName": "actual closure and unsold archival preserve the existing paid exclusive licence, scope and expiry",
+      "previousMs": 6197.083755,
+      "currentMs": 9281.525928000001,
+      "status": "passed"
+    },
+    {
+      "file": "p16-rival-buyer-absorption163-baseline.test.ts",
+      "fullName": "P16 genuine actual163 rival buyer explicit nonretention acquisition real R02 funded close owns exact money and titles without player pollution then preserves paid target work through ordinary ticks save reload and replay",
+      "previousMs": 1495.7378559999997,
+      "currentMs": 5827.743494,
+      "status": "passed"
+    },
+    {
+      "file": "p16b-live-condition-readers.test.ts",
+      "fullName": "P16 default readers consume real P15B evaluated condition and loan authority fails closed before evaluation and permits the genuinely evaluated stable borrower without a loan",
+      "previousMs": 6400.732396,
+      "currentMs": 8097.058702,
+      "status": "passed"
+    },
+    {
+      "file": "p16b-live-condition-readers.test.ts",
+      "fullName": "P16 default readers consume real P15B evaluated condition and loan authority refuses a real public loan even after ordinary evaluated recovery returns the bidder to stable",
+      "previousMs": 6351.999459,
+      "currentMs": 9173.953702,
+      "status": "passed"
+    },
+    {
+      "file": "p16c-acquisition.test.ts",
+      "fullName": "P16C healthy absorption: the quote separates consideration, at-par cash, exits and disclosed guarantees negative post-exit cash transfers at par: the outlay exceeds the consideration by exactly the shortfall",
+      "previousMs": 4004.8230550000007,
+      "currentMs": 5653.128601,
+      "status": "passed"
+    },
+    {
+      "file": "p16c-estate.test.ts",
+      "fullName": "P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival the ordinary route: ticks carry the estate to D; explicit unbound readers refuse, while actual bound readers sell, archive, save and reload byte-for-byte",
+      "previousMs": 6883.391116000001,
+      "currentMs": 7005.241777000001,
+      "status": "passed"
+    }
+  ],
+  "newFailures": [],
+  "addedIdentities": [],
+  "missingIdentities": []
+}

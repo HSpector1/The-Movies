@@ -1,0 +1,19 @@
+--- a/tests/p16-absorption-clean-target.test.ts
++++ b/tests/p16-absorption-clean-target.test.ts
+@@ -139,12 +139,14 @@
+  it('full current reader refuses independent cent drift and missing employment/title links, and named downgrade preserves its caller',()=>{
+   const p=prepared(),{result,record}=complete(p),save=saves.makeSave(result)
+   const baseline=saves.stableStringify(save)
+-  const mutate=(change:(state:GameState)=>void)=>{
++  const mutate=(change:(state:GameState)=>void,expected=/absorption|rights|employment|contract/i)=>{
+    const envelope=JSON.parse(baseline) as typeof save;change(envelope.state)
+    const before=saves.stableStringify(envelope)
+-   try {expect(()=>saves.validateSaveV49(envelope)).toThrow(/absorption|rights|employment|contract/i)}
++   try {expect(()=>saves.validateSaveV49(envelope)).toThrow(expected)}
+    finally {expect(saves.stableStringify(envelope)).toBe(before)}
+   }
++  expect(save.state.rights.absorptions).toHaveLength(1)
++  mutate(state=>{state.rights.absorptions.push(null as never)},/^validateSaveV49: rights absorptions\[1\] must be an object$/)
+   for(const field of ['cashBeforeExits','exitCharges','postExitCash','outlay'] as const)
+    mutate(state=>{state.rights.absorptions.find(a=>a.id===record.id)![field]+=0.01})
+   mutate(state=>{state.rights.absorptions.find(a=>a.id===record.id)!.contracts.find(c=>c.buyerContractId===null)!.exitCost+=0.01})

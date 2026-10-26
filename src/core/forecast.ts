@@ -75,7 +75,9 @@ export type DeterministicCore = {
   budgetAdequacy: number
 }
 
-function computeDeterministicCore(inp: ForecastInputs, engaged = false): DeterministicCore {
+/** Fresh budget-independent scalar reads for this exact concept, talent, shape and final promise.
+ * Internal reuse may vary only budget; no value is retained across search packages or calls. */
+export function forecastSkills(inp: ForecastInputs) {
   // §5.1 craft — D-9.5: the identical FOUR reads, but use = 'perceived' (forecast
   // reads perceived; reception reads actual). Structure downstream unchanged.
   // RULING C (2026-07-26): the shape being greenlit (`inp.shape`, the raw FilmShape)
@@ -139,6 +141,12 @@ function computeDeterministicCore(inp: ForecastInputs, engaged = false): Determi
           ),
         )
       : 40
+
+  return { scriptStrength, directorExecution, castExecution, castWeightedRoleFit, technical }
+}
+
+function computeDeterministicCore(inp: ForecastInputs, engaged = false, preparedSkills?: ReturnType<typeof forecastSkills>): DeterministicCore {
+  const { scriptStrength, directorExecution, castExecution, castWeightedRoleFit, technical } = preparedSkills ?? forecastSkills(inp)
 
   const requiredNegative =
     inp.concept.baseNegativeCost * inp.shapeEffects.budgetDemandMultiplier * inp.era.costScale
@@ -266,8 +274,8 @@ export type ForecastCenters = {
   starDraw: number
 }
 
-export function forecastCenters(inp: ForecastInputs, saturateFame = false, engaged = false): ForecastCenters {
-  const core = computeDeterministicCore(inp, engaged)
+export function forecastCenters(inp: ForecastInputs, saturateFame = false, engaged = false, preparedSkills?: ReturnType<typeof forecastSkills>): ForecastCenters {
+  const core = computeDeterministicCore(inp, engaged, preparedSkills)
   const appeal = computeSegmentAppeal(inp, core.delivered, core.craft, core.timelinessContribution, saturateFame)
   return {
     centers: appeal.segmentAppeal,

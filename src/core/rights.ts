@@ -1065,7 +1065,8 @@ export function validateRightsRoot(raw: Record<string, unknown>, label: string):
     ids.add(id)
     return n
   }
-  for (const record of rights.absorptions) {
+  for (const [i, record] of rights.absorptions.entries()) {
+    if (!isRow(record)) refuse(`absorptions[${i}]`, 'must be an object')
     idNumber(record.id, 'absorptions.id')
     for(const receipt of record.runReceipts) idNumber(receipt.id,'absorptions.runReceipts.id')
     for(const step of record.workSteps) idNumber(step.id,'absorptions.workSteps.id')

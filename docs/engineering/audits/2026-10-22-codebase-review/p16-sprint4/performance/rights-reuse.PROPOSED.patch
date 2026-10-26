@@ -1,0 +1,54 @@
+--- a/src/core/rights.ts
++++ b/src/core/rights.ts
+@@ -577,19 +577,21 @@
+     filmTitles.set(t.filmId, { ...t, virtual: false, source: genesis.source })
+   }
+   for (const [id, v] of virtual.filmTitles) if (!filmTitles.has(id) && !unavailable.some((u) => u.subject.right === 'R2' && u.subject.filmId === id)) filmTitles.set(id, v)
++  const sortedProperties = [...properties.values()].sort((a, b) => (a.propertyId < b.propertyId ? -1 : a.propertyId > b.propertyId ? 1 : 0))
++  const sortedFilmTitles = [...filmTitles.values()].sort((a, b) => (a.filmId < b.filmId ? -1 : a.filmId > b.filmId ? 1 : 0))
+   const events: TitleEvent[] = []
+-  for (const p of [...properties.values()].sort((a, b) => (a.propertyId < b.propertyId ? -1 : 1))) {
++  for (const p of sortedProperties) {
+     const subject: RightSubject = { right: 'R1', propertyId: p.propertyId }
+     events.push(...(p.virtual ? [virtualGenesis(subject, p.createdAt, p.creatorStudioId, p.source)] : eventsBySubject.get(subjectKey(subject)) ?? []))
+   }
+-  for (const t of [...filmTitles.values()].sort((a, b) => (a.filmId < b.filmId ? -1 : 1))) {
++  for (const t of sortedFilmTitles) {
+     const subject: RightSubject = { right: 'R2', filmId: t.filmId }
+     events.push(...(t.virtual ? [virtualGenesis(subject, t.releasedAt, t.creatorStudioId, t.source)] : eventsBySubject.get(subjectKey(subject)) ?? []))
+   }
+   events.sort(compareEvents)
+   return {
+-    properties: [...properties.values()].sort((a, b) => (a.propertyId < b.propertyId ? -1 : a.propertyId > b.propertyId ? 1 : 0)),
+-    filmTitles: [...filmTitles.values()].sort((a, b) => (a.filmId < b.filmId ? -1 : a.filmId > b.filmId ? 1 : 0)),
++    properties: sortedProperties,
++    filmTitles: sortedFilmTitles,
+     events,
+     unavailable,
+   }
+@@ -793,7 +795,13 @@
+   if (!state.hollywood) return null
+   const propertyId = storyPropertyId(conceptId)
+   const existing = resolveTitles(state).properties.find((p) => p.propertyId === propertyId)
++  return greenlightPropertyRefusal(state, studioId, existing, week, productionId)
++}
++
++/** Reuse only the freshly resolved property within this synchronous greenlight read. */
++function greenlightPropertyRefusal(state: GameState, studioId: string, existing: ResolvedProperty | undefined, week: number, productionId: string | null): string | null {
+   if (existing === undefined) return null
++  const propertyId = existing.propertyId
+   if (existing.virtual && productionId !== null && existing.workLinks.every((link) => link === productionId)) return null
+   const permission = permissionFor(state, studioId, { right: 'R1', propertyId }, 'R3', { use: SAME_CONCEPT_GREENLIGHT_USE }, week)
+   return permission.kind === 'permitted' ? null : `rights: ${studioId} has no continuation authority over ${propertyId} (${permission.reason})`
+@@ -815,9 +823,9 @@
+   const h = state.hollywood
+   if (!h) return state
+   const propertyId = storyPropertyId(input.production.conceptId)
+-  const refusal = greenlightRightsRefusal(state, input.studioId, input.production.conceptId, input.week, input.production.id)
++  const existing = resolveTitles(state).properties.find((p) => p.propertyId === propertyId)
++  const refusal = greenlightPropertyRefusal(state, input.studioId, existing, input.week, input.production.id)
+   if (refusal !== null) throw new Error(refusal)
+-  const existing = resolveTitles(state).properties.find((p) => p.propertyId === propertyId)
+   const ownFactOnly = existing !== undefined && existing.virtual && existing.workLinks.every((link) => link === input.production.id)
+   if (existing !== undefined && !ownFactOnly) return linkWork(state, propertyId, input.production.id)
+   const concept = (input.studioId === h.playerStudioId ? state.concepts : h.concepts).find((c) => c.id === input.production.conceptId)

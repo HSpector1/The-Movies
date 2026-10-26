@@ -1,0 +1,60 @@
+--- a/src/core/forecast.ts
++++ b/src/core/forecast.ts
+@@ -75,7 +75,9 @@
+   budgetAdequacy: number
+ }
+ 
+-function computeDeterministicCore(inp: ForecastInputs, engaged = false): DeterministicCore {
++/** Fresh budget-independent scalar reads for this exact concept, talent, shape and final promise.
++ * Internal reuse may vary only budget; no value is retained across search packages or calls. */
++export function forecastSkills(inp: ForecastInputs) {
+   // §5.1 craft — D-9.5: the identical FOUR reads, but use = 'perceived' (forecast
+   // reads perceived; reception reads actual). Structure downstream unchanged.
+   // RULING C (2026-07-26): the shape being greenlit (`inp.shape`, the raw FilmShape)
+@@ -140,6 +142,12 @@
+         )
+       : 40
+ 
++  return { scriptStrength, directorExecution, castExecution, castWeightedRoleFit, technical }
++}
++
++function computeDeterministicCore(inp: ForecastInputs, engaged = false, preparedSkills?: ReturnType<typeof forecastSkills>): DeterministicCore {
++  const { scriptStrength, directorExecution, castExecution, castWeightedRoleFit, technical } = preparedSkills ?? forecastSkills(inp)
++
+   const requiredNegative =
+     inp.concept.baseNegativeCost * inp.shapeEffects.budgetDemandMultiplier * inp.era.costScale
+   const budgetAdequacy =
+@@ -266,8 +274,8 @@
+   starDraw: number
+ }
+ 
+-export function forecastCenters(inp: ForecastInputs, saturateFame = false, engaged = false): ForecastCenters {
+-  const core = computeDeterministicCore(inp, engaged)
++export function forecastCenters(inp: ForecastInputs, saturateFame = false, engaged = false, preparedSkills?: ReturnType<typeof forecastSkills>): ForecastCenters {
++  const core = computeDeterministicCore(inp, engaged, preparedSkills)
+   const appeal = computeSegmentAppeal(inp, core.delivered, core.craft, core.timelinessContribution, saturateFame)
+   return {
+     centers: appeal.segmentAppeal,
+--- a/src/core/hollywoodPolicy.ts
++++ b/src/core/hollywoodPolicy.ts
+@@ -1,5 +1,5 @@
+ import { terminationCost, weeklySalary } from './employment.js'
+-import { computeForecast, forecastCenters } from './forecast.js'
++import { computeForecast, forecastCenters, forecastSkills } from './forecast.js'
+ import { marketingCapacityForInputs, marketingMenuFromCapacity } from './marketingMenu.js'
+ import { resolveShape } from './shape.js'
+ import { clamp } from './math.js'
+@@ -59,11 +59,12 @@
+       const range=(n:number):[number,number]=>[clamp(n-TUNING.HOLLYWOOD_PROMISE_HALF_WIDTH,-1,1),clamp(n+TUNING.HOLLYWOOD_PROMISE_HALF_WIDTH,-1,1)]
+       inp={...inp,promise:{...inp.promise,ranges:{intimacy:range(center.intimacy),tonalWeight:range(center.tonalWeight),kineticEnergy:range(center.kineticEnergy)}}}
+     }
++    const skills=forecastSkills(inp)
+     const required=inp.concept.baseNegativeCost*inp.shapeEffects.budgetDemandMultiplier*inp.era.costScale
+     for(const scale of TUNING.HOLLYWOOD_NEGATIVE_CHOICES) {
+       const negative=Math.round(required*scale*policy.negativeScale)
+       const base={...inp,budget:{negative,marketing:0}}
+-      const centers=forecastCenters(base,true,true)
++      const centers=forecastCenters(base,true,true,skills)
+       for(const marketing of marketingMenuFromCapacity(marketingCapacityForInputs(base,true,centers))) {
+         const exceedsCash=negative+marketing>options.cashAvailable
+         if(exceedsCash) {
