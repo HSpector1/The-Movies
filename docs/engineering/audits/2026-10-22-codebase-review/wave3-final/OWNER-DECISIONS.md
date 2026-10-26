@@ -13,6 +13,12 @@ These explicit Owner decisions supersede the pending recommendations below for P
 
 The P16 candidate remains separate from main. Routine technical repairs below do not require a gameplay ruling. The existing ledger retains unrelated deferred issues.
 
+## Sprint 3 implementation outcome
+
+A/B are implemented and independently reviewed; all five original failures now pass. C/D retain existing strict refusal and genuine structural admission. E retains the approved existing source-ref representation and derived payload. No new policy decision is requested. Timing, historical controls and full-game/platform/player acceptance remain engineering work; P16 promotion requires a separate Owner authorization. See [Sprint 3 results](../p16-sprint3/RESULTS.md).
+
+## Historical Wave 3 brief — superseded where A–F govern
+
 | Decision | Existing rule and conflicting evidence | Options | Recommendation and consequence |
 | --- | --- | --- | --- |
 | Fractional absorption asks | `acquisition.ts:166-168` ceilings the premium-adjusted library value, then adds post-exit cash. Consideration is whole dollars, while actual cash transfers at par including negative/fractional balances. Five cases stop at an integer-only ask parser. Unreached assertions also floor target cash (`p16c-acquisition:102-103`) and round weekly salaries, conflicting with the producer’s at-par cash and aggregate ceiling. | Keep fractional cash and a fractional threshold; keep fractional cash but ceil the final consent ask; or explicitly version a whole-dollar cash/exit policy including negative balances. | Ratify a whole-dollar consent ask by ceiling the complete sum, clamped at zero, while transferring actual cash unchanged. This changes the displayed threshold by less than one dollar and requires explicit positive/negative fractional controls. Ratify at-par cash and aggregate reserve rounding before updating the older floor/per-person-round assertions; fixing the parser alone will not reach agreement. Do not rewrite historical transactions. |

@@ -1,0 +1,85 @@
+--- a/tests/p16-r2-acquisition.test.ts
++++ b/tests/p16-r2-acquisition.test.ts
+@@ -34,7 +34,7 @@
+   const ask = (state: GameState, target: string, postExitCash: number) => {
+     const v = libraryValuationV1(state, target, week)
+     if (v.kind !== 'available') throw new Error(v.reason)
+-    return Math.max(0, Math.ceil((v.total * (100 + TUNING.RIGHTS_WILLINGNESS_PREMIUM_PERCENT)) / 100) + postExitCash)
++    return Math.max(0, Math.ceil((v.total * (100 + TUNING.RIGHTS_WILLINGNESS_PREMIUM_PERCENT)) / 100 + postExitCash))
+   }
+   return { base, h, player, r01, r02, r03, r04, week, disclosed, contracts, ask }
+ }
+@@ -60,8 +60,8 @@
+   })
+ })
+ 
+-describe('r2 F6/F8/F33: the target consents at quote; its ask prices the cash that moves at par; money is whole dollars', () => {
+-  it('a consideration below the ask refuses by name; at the ask the buyer\'s outlay is exactly the premium-adjusted library value, never a windfall', () => {
++describe('r2 F6/F8/F33: the target consents at quote; its ask is whole dollars and actual cash moves at par', () => {
++  it('a consideration below the ask refuses by name; at the ask the buyer\'s outlay covers the premium-adjusted library value with less than one dollar of rounding', () => {
+     const { base, player, r03, week, disclosed, ask } = world()
+     const { state, record } = disclosed(base, player, r03)
+     const input = (consideration: number) => ({ buyerId: player, targetId: r03, consideration, retention: { kind: 'explicit' as const, contractIds: [] }, disclosureId: record.id })
+@@ -77,11 +77,17 @@
+     expect(theAsk).toBe(ask(state, r03, q.postExitCash))
+     expect(q.postExitCash).toBeGreaterThan(1_000_000) // a cash-rich target: the r1 ask (library only) was a windfall
+     const v = libraryValuationV1(state, r03, week)
+-    const valueAsk = Math.ceil(((v.kind === 'available' ? v.total : 0) * (100 + TUNING.RIGHTS_WILLINGNESS_PREMIUM_PERCENT)) / 100)
+-    expect(q.outlay).toBe(valueAsk)
++    const premiumValue = ((v.kind === 'available' ? v.total : 0) * (100 + TUNING.RIGHTS_WILLINGNESS_PREMIUM_PERCENT)) / 100
++    expect(q.targetCashBeforeExits).toBe(state.hollywood!.businesses.find(b => b.studioId === r03)!.account.cash)
++    expect(Number.isInteger(q.targetCashBeforeExits)).toBe(false)
++    expect(q.postExitCash).toBe(q.targetCashBeforeExits - q.exitCharges)
++    expect(q.outlay).toBe(theAsk - q.postExitCash)
++    expect(q.outlay - premiumValue).toBeGreaterThanOrEqual(0)
++    expect(q.outlay - premiumValue).toBeLessThan(1)
+     expect(q.outlay).toBeGreaterThanOrEqual(0)
+     expect(acq.quoteAbsorption(state, input(theAsk - 1), week, STABLE)).toEqual({ kind: 'refusal', refusal: `targetNotWilling:considerationBelowAsk:${theAsk}` })
+-    for (const n of [q.targetCashBeforeExits, q.exitCharges, q.postExitCash, q.outlay, q.guarantees, q.resultingWeeklyFixedCost, q.reserveAfter]) expect(Number.isSafeInteger(n), String(n)).toBe(true)
++    for (const n of [q.targetCashBeforeExits, q.postExitCash, q.outlay]) expect(Number.isFinite(n), String(n)).toBe(true)
++    for (const n of [q.consideration, q.ask, q.exitCharges, q.guarantees, q.resultingWeeklyFixedCost, q.reserveAfter]) expect(Number.isSafeInteger(n), String(n)).toBe(true)
+     expect(acq.rivalAbsorptionWillingness(state, r03, theAsk, q.postExitCash, week)).toMatchObject({ willing: true })
+     expect(acq.rivalAbsorptionWillingness(state, r03, theAsk - 1, q.postExitCash, week)).toMatchObject({ willing: false })
+   })
+--- a/tests/p16c-acquisition.test.ts
++++ b/tests/p16c-acquisition.test.ts
+@@ -72,13 +72,17 @@
+     const value = libraryValuationV1(state, r03, week)
+     expect(value.kind).toBe('available')
+     const total = value.kind === 'available' ? value.total : 0
+-    const postExitCash = Math.floor(cash(r03))
+-    const ask = Math.ceil((total * (100 + TUNING.RIGHTS_WILLINGNESS_PREMIUM_PERCENT)) / 100) + postExitCash
++    const postExitCash = cash(r03)
++    const ask = Math.max(0, Math.ceil((total * (100 + TUNING.RIGHTS_WILLINGNESS_PREMIUM_PERCENT)) / 100 + postExitCash))
+     expect(acq.absorptionAsk(total, postExitCash)).toBe(ask)
+     expect(acq.rivalAbsorptionWillingness(state, r03, ask, postExitCash, week)).toEqual({ willing: true, reason: 'willing', value: total, ask })
+     expect(acq.rivalAbsorptionWillingness(state, r03, ask - 1, postExitCash, week)).toEqual({ willing: false, reason: `notWilling:considerationBelowAsk:${ask}`, value: total, ask })
+     // A target with negative cash after exits asks no less than zero.
+     expect(acq.absorptionAsk(total, -10 * total - 1)).toBe(0)
++    // Whole-dollar consent rounds the complete sum, including positive and negative fractional cash.
++    expect(acq.absorptionAsk(1, 0.25)).toBe(Math.max(0, Math.ceil(1 * (100 + TUNING.RIGHTS_WILLINGNESS_PREMIUM_PERCENT) / 100 + 0.25)))
++    expect(acq.absorptionAsk(10, -1.25)).toBe(Math.max(0, Math.ceil(10 * (100 + TUNING.RIGHTS_WILLINGNESS_PREMIUM_PERCENT) / 100 - 1.25)))
++    expect(acq.absorptionAsk(0, -0.25)).toBe(0)
+   })
+ })
+ 
+@@ -100,8 +104,8 @@
+       expect(c.guarantee).toBe(guaranteedComp(e.terms, week))
+     }
+     expect(quote.exitCharges).toBe(exits)
+-    expect(quote.targetCashBeforeExits).toBe(Math.floor(cash(r03)))
+-    expect(quote.postExitCash).toBe(Math.floor(cash(r03)) - exits)
++    expect(quote.targetCashBeforeExits).toBe(cash(r03))
++    expect(quote.postExitCash).toBe(cash(r03) - exits)
+     expect(quote.outlay).toBe(consideration - quote.postExitCash)
+     expect(quote.consideration).toBe(consideration)
+     // Guarantees are DISCLOSED beside the price and never subtracted from it.
+@@ -109,7 +113,7 @@
+     expect(quote.guarantees).toBeGreaterThan(0)
+     expect(quote.outlay).not.toBe(Math.max(0, consideration - quote.guarantees))
+     // The reserve is computed on the buyer's RESULTING obligations, retained contracts included.
+-    const retainedWeekly = quote.contracts.filter((c) => c.retained).reduce((s, c) => s + Math.round(c.annualSalary / TUNING.TICKS_PER_YEAR), 0)
++    const retainedWeekly = quote.contracts.filter((c) => c.retained).reduce((s, c) => s + c.annualSalary / TUNING.TICKS_PER_YEAR, 0)
+     expect(quote.resultingWeeklyFixedCost).toBe(Math.ceil(finance.weeklyFixedCost(state, player) + retainedWeekly + TUNING.OVERHEAD_PER_EMPLOYEE * quote.contracts.filter((c) => c.retained).length))
+     expect(quote.reserveAfter).toBe(TUNING.RIGHTS_RESERVE_WEEKS * quote.resultingWeeklyFixedCost)
+     expect(quote.affordable).toBe(finance.spendableCash(state, player) - quote.outlay >= quote.reserveAfter)

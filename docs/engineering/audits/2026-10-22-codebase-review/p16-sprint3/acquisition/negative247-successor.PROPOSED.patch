@@ -1,0 +1,38 @@
+--- a/tests/p16c-acquisition.test.ts
++++ b/tests/p16c-acquisition.test.ts
+@@ -22,13 +22,13 @@
+ import * as finance from '../src/core/rightsFinance.js'
+ import { libraryValuationV1 } from '../src/core/propertyValuation.js'
+ import { stableStringify, importSave, migrateToLive, makeSave, exportCurrentState } from '../src/core/save.js'
+-import { manifestPin, week130Raw } from './p14d1-rival-shelving-fixtures.js'
++import { createHash } from 'node:crypto'
+ import { tick } from '../src/core/tick.js'
+ import { conditionRecord, outstandingLoan } from '../src/core/corporateConditionLive.js'
+ import { TUNING } from '../src/core/tuning.js'
+ import type { GameState } from '../src/core/types.js'
+ import * as dd from '../src/core/dueDiligence.js'
+-import { detached, liveFromGenuine, readersWith, STABLE } from './helpers/p16-fixtures.js'
++import { detached, genuineV45Raw, liveFromGenuine, readersWith, STABLE } from './helpers/p16-fixtures.js'
+ 
+ const FULL_SCOPE = ['rights', 'employment', 'liabilities'] as const
+ /** The buyer's own fresh, full-scope, paid disclosure about the target (review F7). */
+@@ -131,13 +131,14 @@
+   })
+ 
+   it('negative post-exit cash transfers at par: the outlay exceeds the consideration by exactly the shortfall', () => {
+-    // Untouched genuine Save42 R04 already has fractional negative cash at130. One ordinary current
++    // Untouched genuine Save45 R03 already has fractional negative cash at247. One ordinary current
+     // tick evaluates the first stable condition; no injected reader, balance or historical row.
+-    manifestPin()
+-    const prior = migrateToLive(importSave(week130Raw())).state, priorBefore = stableStringify(prior)
++    const raw = genuineV45Raw('week247')
++    expect(createHash('sha256').update(raw).digest('hex')).toBe('54938083c4d088fad71ca1c5088dd67427c316d9fee81fdaba1ea66161ca954c')
++    const prior = migrateToLive(importSave(raw)).state, priorBefore = stableStringify(prior)
+     let state = tick(prior)
+-    expect(state.market.tick).toBe(131)
+-    const week = state.market.tick, player = state.hollywood!.playerStudioId, target = 'studio-aca408ec-r04'
++    expect(state.market.tick).toBe(248)
++    const week = state.market.tick, player = state.hollywood!.playerStudioId, target = 'studio-aca408ec-r03'
+     const business = state.hollywood!.businesses.find(b => b.studioId === target)!
+     expect(conditionRecord(state, target)?.condition.stage).toBe('stable')
+     expect(outstandingLoan(state, target, week)).toBeUndefined()

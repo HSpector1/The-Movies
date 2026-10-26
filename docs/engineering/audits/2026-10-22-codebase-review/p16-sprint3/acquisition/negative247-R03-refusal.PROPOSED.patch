@@ -1,0 +1,37 @@
+--- a/tests/p16c-acquisition.test.ts
++++ b/tests/p16c-acquisition.test.ts
+@@ -167,28 +167,14 @@
+     expect(quote.outlay).toBe(consideration - postExitCash)
+     expect(quote.outlay).toBeGreaterThan(consideration)
+     expect(quote.guarantees).toBe(0)
+-    expect(acq.absorptionProducerRefusal(state, input)).toBeNull()
++    expect(acq.absorptionProducerRefusal(state, input)).toBe('absorbedPromiseDispositionProducerRequired')
+     const before = stableStringify(state)
+-    const closed = acq.closeAbsorption(state, { ...input, quotedAtWeek: quote.quotedAtWeek, quoteAgePolicyVersion: quote.quoteAgePolicyVersion }, week)
++    const carried = { ...input, quotedAtWeek: quote.quotedAtWeek, quoteAgePolicyVersion: quote.quoteAgePolicyVersion }
++    expect(() => acq.closeAbsorption(state, carried, week)).toThrow('absorption: absorbedPromiseDispositionProducerRequired')
+     expect(stableStringify(state)).toBe(before)
+-    const record = closed.rights.absorptions.find(a => a.targetId === target)!
+-    expect(record).toMatchObject({ consideration, cashBeforeExits: business.account.cash, exitCharges: exits, postExitCash, outlay: consideration - postExitCash })
+-    expect(closed.studio.cash).toBe(state.studio.cash - record.outlay)
+-    expect(closed.ledger.filter(e => e.kind === 'acquisitionOutlay' && e.note === record.id)).toEqual([
+-      expect.objectContaining({ week, amount: -record.outlay }),
+-    ])
+-    const finalBusiness = closed.hollywood!.businesses.find(b => b.studioId === target)!
+-    expect(finalBusiness.account.cash).toBe(0)
+-    expect(finalBusiness.account.periods.reduce((sum, p) => sum + p.movements.acquisitionOutlay, 0))
+-      .toBe(business.account.periods.reduce((sum, p) => sum + p.movements.acquisitionOutlay, 0) - postExitCash)
+-    makeSave(closed)
+-    const saved = exportCurrentState(closed)
+-    const reloaded = migrateToLive(importSave(saved)).state
+-    expect(exportCurrentState(reloaded)).toBe(saved)
+-    const closedBefore = stableStringify(closed), reloadBefore = stableStringify(reloaded)
+-    expect(exportCurrentState(tick(reloaded))).toBe(exportCurrentState(tick(closed)))
+-    expect(stableStringify(closed)).toBe(closedBefore)
+-    expect(stableStringify(reloaded)).toBe(reloadBefore)
++    makeSave(state)
++    const saved = exportCurrentState(state)
++    expect(exportCurrentState(migrateToLive(importSave(saved)).state)).toBe(saved)
+     expect(stableStringify(prior)).toBe(priorBefore)
+   })
+ 

@@ -36,3 +36,23 @@ Reviewed the bounded R04 successor delta and actual negative-g child/report. The
 negative-g.log explicitly records negative-final child exit0, and negative-final.json records the target leaf passed at3071.281ms within the unchanged5000ms budget (eight other leaves filtered, not a whole-file pass). corrected-f.log records root/UI types exit0 and Bridge types exit0; reusing those after only target literal/comment and exact-empty-row expectation changes is reasonable. The earlier complete-file failures and binding-cash A6 timing overrun are not erased.
 
 **No remaining actionable review blocker in the integrated delta. Independent frozen-review boundary is released to the coordinator for checkpoint/publication and the planned combined final gate.** This releases reviewer ownership only; any separate runtime lane freeze remains governed by actual job completion. Source approval stands unchanged. Final combined-gate outcome classification remains coordinator work; no further source audit requested.
+
+
+## Final-h changed-policy pin audit
+
+Read actual rival-buyer163 test and final-h child failure. Its prepared() currently derives consideration by applying Math.ceil to absorptionAsk; previously that helper returned ceil(premium library)+fractional cash, so the caller applied a second ceiling. Owner A now requires ceil(premium library+actual cash) once. A one-dollar decrease in this newly quoted consideration/outlay is a legitimate current-policy consequence, not altered actual cash or a conservation bug. All three new failures occur at the shared old outlay pin862166.7370649315 before the close/reader/rollback laws; those assertions remain unreached in final-h and require the affected complete-file rerun.
+
+Approved narrow correction: import TUNING, independently calculate premiumAdjustedLibrary and max(0,ceil(premiumAdjustedLibrary+postExitCash)) in prepared(); assert public absorptionAsk and quote ask/consideration match it, preserve outlay===consideration−postExitCash, and update the declared approved-policy outlay pin to862165.7370649315. Retain unchanged exits/reserve, actual buyer/target accounting, retained history/ownership, save/reload/replay, hostile full-reader refusals and publication rollback assertions. No source change or fixture/cash/history coercion is warranted. The old capture remains historical; only the newly executed transaction's consent policy changes.
+
+Final-h actual child classification: contracts0, S7 child0 with22 assertions, P16 integration child1 with260/263 and the three shared stale-pin failures. A completed wrapper does not pass the gate. Frozen review boundary released for this bounded test correction and its full affected-file verification; no repeat full integration needed absent a new source change or unexpected result. Original final-h report remains evidence.
+
+
+## Final rival-policy corrective verification
+
+Actual uncommitted test diff exactly implements the approved narrow proposal: TUNING import, independent complete-sum ceiling/floor formula, equality checks for public ask and quote consideration, exact outlay conservation, and the one-dollar updated pin/comment. No downstream acceptance assertion was removed or changed. rival-i.log records child0; rival-policy-pin.json records all three complete-file tests passed at2939.246ms,1039.652ms and1034.722ms, each below the original5000ms. Actual close/ownership and save/replay, hostile full-reader refusal/purity, and joined publication-fault rollback are now reached successfully. Combined test-body time5.02s is not an individual-budget failure.
+
+Keep final-h260/263 as the original full-gate result and rival-i3/3 as its focused test-policy correction. There was no full final-tree gate rerun; with production source unchanged and the complete affected test file verified, one is not warranted solely for this expectation update. Final root compilation is running (types-j.log has BEGIN only at last inspection); coordinator must append actual child result. Prior unchanged UI/Bridge type results may be reused with that scope explicit. Independent source/test review is complete; no additional review campaign requested.
+
+## Coordinator final postflight
+
+Final root typecheck after the test-only price-pin correction passed (types-j child exit 0). UI and Bridge types from corrected-f remain valid on unchanged production/interfaces. Final source manifest matches the tested files; sole lane released. Full-gate 260/263 and corrective complete-file 3/3 are retained separately.

@@ -1,0 +1,2375 @@
+[
+  {
+    "file": "bridge-p16-absorption-finance.test.ts",
+    "test": "P16 actual fractional R03 acquisition financial presentation real paid diligence and signed fractional net acquisition remain separate recorded categories and reconcile exact period and cash totals",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3045.2412550000004,
+    "afterMs": 2793.9302730000004,
+    "failureMessages": []
+  },
+  {
+    "file": "bridge-p16-absorption-finance.test.ts",
+    "test": "P16 actual fractional R03 acquisition financial presentation real Bridge snapshot finance publishes the same fractional acquisition categories and cash without target private disclosure or changing save authority",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 7500.486017000001,
+    "afterMs": 7865.096962999999,
+    "failureMessages": []
+  },
+  {
+    "file": "bridge-p16-paid-reports.test.ts",
+    "test": "P16 real recipient-bound paid-report Bridge readback no unpaid body then real player report only; foreign R01 paid report and missing selection stay private with detached responses and guarded revisions",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3249.1889440000004,
+    "afterMs": 3235.590917,
+    "failureMessages": []
+  },
+  {
+    "file": "bridge-p16-paid-reports.test.ts",
+    "test": "P16 real recipient-bound paid-report Bridge readback real rights-only paid scope remains exact dated history after13 ordinary ticks and stale readback grants no extra employment or liability fields",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 4306.93332,
+    "afterMs": 3867.655584,
+    "failureMessages": []
+  },
+  {
+    "file": "bridge-p16-rights-parity.test.ts",
+    "test": "P16 real Bridge paid due diligence and healthy absorption opaque families paid preview reveals no body or held report and real commit charges exactly once with public-action equality and same-command replay",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 7715.499735,
+    "afterMs": 7866.8869970000005,
+    "failureMessages": []
+  },
+  {
+    "file": "bridge-p16-rights-parity.test.ts",
+    "test": "P16 real Bridge paid due diligence and healthy absorption opaque families held real report prices and commits exact fractional acquisition once with original quote pair linked titles and public direct action parity",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 8535.115759999999,
+    "afterMs": 9473.863103,
+    "failureMessages": []
+  },
+  {
+    "file": "bridge-p16-rights-parity.test.ts",
+    "test": "P16 real Bridge paid due diligence and healthy absorption opaque families unheld and genuinely paid partial-scope reports refuse before private absorption terms and never register an executable intent",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 2419.536049000002,
+    "afterMs": 2050.999036000001,
+    "failureMessages": []
+  },
+  {
+    "file": "bridge-p16-rights-parity.test.ts",
+    "test": "P16 real Bridge paid due diligence and healthy absorption opaque families closed canonical drafts refuse supplied buyer and quote dates while private nested retention remains detached from later caller mutation",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 6042.584642000002,
+    "afterMs": 5452.670094000001,
+    "failureMessages": []
+  },
+  {
+    "file": "bridge-p16-rights-parity.test.ts",
+    "test": "P16 real Bridge paid due diligence and healthy absorption opaque families captured actual paid and absorption apply closures refuse a different fully admitted real state and public revision guards retain authority",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 7627.533221999998,
+    "afterMs": 6550.802978,
+    "failureMessages": []
+  },
+  {
+    "file": "bridge-p16-rights-parity.test.ts",
+    "test": "P16 real Bridge paid due diligence and healthy absorption opaque families seventeen fixed legal quotes share cap16 across families and evict the first absorption without preview fees or authority changes",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 4522.1819749999995,
+    "afterMs": 4693.788965,
+    "failureMessages": []
+  },
+  {
+    "file": "bridge-p16-rights-parity.test.ts",
+    "test": "P16 real Bridge paid due diligence and healthy absorption opaque families actual full-writer publication failure after legal preview rolls back paid fee and acquisition with no successful validator stub",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3055.3069719999985,
+    "afterMs": 2745.0537630000035,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-absorption-active-run.test.ts",
+    "test": "P16 fixed real R01 paid production completes before healthy active-run absorption actual eight ordinary ticks produce the named run and healthy absorption pays future locked installments only to buyer with original creator and settlement history",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 8964.977615,
+    "afterMs": 8090.606719,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-absorption-active-run.test.ts",
+    "test": "P16 fixed real R01 paid production completes before healthy active-run absorption real admitted active-run history refuses missing handoff omitted installment wrong beneficiary and altered gross or earned cash through full current reader",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 6501.209885999999,
+    "afterMs": 6252.4069660000005,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-absorption-clean-target.test.ts",
+    "test": "P16 actual clean-target absorption from retained original48 R03 retains one linked bargain, pays five capped exits and exact fractional cash at par, preserves titles/history and ordinary replay",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 5198.805849,
+    "afterMs": 5106.172201,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-absorption-clean-target.test.ts",
+    "test": "P16 actual clean-target absorption from retained original48 R03 full current reader refuses independent cent drift and missing employment/title links, and named downgrade preserves its caller",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 4547.954311,
+    "afterMs": 4807.722815000001,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-absorption-clean-target.test.ts",
+    "test": "P16 actual clean-target absorption from retained original48 R03 real current49 publication refusal rolls back the fully admitted clean-target caller after actual joined validation",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 2497.7941470000005,
+    "afterMs": 2112.4002550000005,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-absorption-clean-target.test.ts",
+    "test": "P16 actual clean-target absorption from retained original48 R03 recorded original preview pair survives real close and reload; missing unknown future and age13 records refuse full readers purely",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 4517.595859000001,
+    "afterMs": 3778.109726999999,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-absorption-clean-target.test.ts",
+    "test": "P16 actual clean-target absorption from retained original48 R03 carried close refuses missing partial unknown future and age13 preview pairs on a real positive current input without refreshing or mutation",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 4411.8293730000005,
+    "afterMs": 3970.673841,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-absorption-continued-production.test.ts",
+    "test": "P16 genuine163 R02 paid post-production explicit healthy continuation actual buyer allocation holds ready work without commitment then public commit166 releases with original creator buyer R2 Standing future cash and replay",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 5977.905479,
+    "afterMs": 5914.7605490000005,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-absorption-continued-production.test.ts",
+    "test": "P16 genuine163 R02 paid post-production explicit healthy continuation actual admitted release refuses omitted or invented work counter commitment title and Standing authority with full-reader caller purity",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 5724.317086999999,
+    "afterMs": 5030.745121999999,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-absorption-continued-production.test.ts",
+    "test": "P16 genuine163 R02 paid post-production explicit healthy continuation real complete current49 publication fault rolls back the original public163 caller after all native snapshot and title employment joins validate",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 2311.0664340000003,
+    "afterMs": 1960.0834410000007,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-absorption-knowledge.test.ts",
+    "test": "P16 actual completed-source knowledge from retained original45 baseline280 public absorption grants linked knowledge, preserves source invention and performs one ordinary paid noninventor adoption with roundtrip",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 5827.12798,
+    "afterMs": 6216.912422,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-absorption-knowledge.test.ts",
+    "test": "P16 actual completed-source knowledge from retained original45 baseline280 full current reader refuses either omitted knowledge authority, foreign source and false completed history while frozen45 rejects the new access field",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 4153.068926,
+    "afterMs": 5347.653285999999,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-absorption-knowledge.test.ts",
+    "test": "P16 actual completed-source knowledge from retained original45 baseline280 full reader rejects a source-project prototype and a money-conserved later-inventor discount on actual acquired adoption",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3225.0942240000004,
+    "afterMs": 2910.9831999999988,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-absorption-paid-production.test.ts",
+    "test": "P16 genuine pre162 paid R01 production cancellation-required transaction public priced quote cancels only its actual required production and ordinary ticks retain paid screenplay footage and commitment without release refund or run income",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 5849.2315739999995,
+    "afterMs": 5796.245503,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-absorption-paid-production.test.ts",
+    "test": "P16 genuine pre162 paid R01 production cancellation-required transaction strict joined reader rejects omitted disposition wrong screenplay remaining footage and invented missing participant after actual cancellation positive",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3107.539736999999,
+    "afterMs": 3355.430964,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-absorption-physical.test.ts",
+    "test": "P16 absorbed physical paid-work authority from fixed genuine267 ordinary ticks through original278 deadline retain completed instruments and never materialize or refund stopped paid laboratory",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 6410.244425999999,
+    "afterMs": 6040.126057,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-absorption-physical.test.ts",
+    "test": "P16 absorbed physical paid-work authority from fixed genuine267 full joined reader rejects missing either owner, altered real paid cost, foreign authority and duplicate disposition while frozen physical admission stays exact",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 4143.103179,
+    "afterMs": 3907.2977920000003,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-absorption-public-action.test.ts",
+    "test": "P16 public absorbStudio dispatch on retained original48 R03 public action equals the real direct owner with original quote pair, one outlay, no second fee or bonus and byte roundtrip",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 5622.640315000001,
+    "afterMs": 4642.917093,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-absorption-public-action.test.ts",
+    "test": "P16 public absorbStudio dispatch on retained original48 R03 public dispatch forces the actual player and refuses missing or unheld report and stale invalid carried quote after a real positive",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 5326.160836,
+    "afterMs": 6462.994035,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-absorption-public-action.test.ts",
+    "test": "P16 public absorbStudio dispatch on retained original48 R03 real full publication fault rolls back public caller after the transaction owner builds and validates its joined output",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3010.748597,
+    "afterMs": 2409.385751,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-absorption-public-action.test.ts",
+    "test": "P16 public absorbStudio dispatch on retained original48 R03 actual R01 paid foreign-recipient report never authorizes player absorption or reveals its body to the player",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 2414.5473410000013,
+    "afterMs": 2319.911390000001,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-absorption-public-action.test.ts",
+    "test": "P16 public absorbStudio dispatch on retained original48 R03 actual held paid report expires after exactly13 ordinary ticks while a genuine fresh quote pair cannot rescue its old report authority",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 6153.4210889999995,
+    "afterMs": 4488.7866109999995,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-absorption-research-cancellation.test.ts",
+    "test": "P16 real absorbed research marker from fixed accepted267 input actual public close retains all earned work and paid physical history with one source-owned cancellation and roundtrip",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 5286.74063,
+    "afterMs": 5229.430531,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-absorption-research-cancellation.test.ts",
+    "test": "P16 real absorbed research marker from fixed accepted267 input full joined reader refuses either omitted authority or malformed marker and frozen own-era project readers reject its new field",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3732.8518599999998,
+    "afterMs": 4141.989406,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-continued-work-cancel.test.ts",
+    "test": "P16 actual buyer public cancellation of acquired paid R02 work real public cancel frees buyer work and capacity without erasing source paid history employment first take or retained rights and replays ordinary stop",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 7172.232177,
+    "afterMs": 7212.732104,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-continued-work-cancel.test.ts",
+    "test": "P16 actual buyer public cancellation of acquired paid R02 work real cancelled-publication failure preserves the admitted buyer source after successful manual cancellation positive",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3070.9970219999996,
+    "afterMs": 3314.9347770000004,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-continued-work-cancel.test.ts",
+    "test": "P16 actual buyer public cancellation of acquired paid R02 work actual cancellation authority is complete once-only and full joined readers refuse missing foreign counter date or repeated receipts while committed work stays irreversible",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 4962.133874000001,
+    "afterMs": 4911.280353,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-continued-work-shooting4.test.ts",
+    "test": "P16 genuine completed-take shooting4 handoff public funded acquisition preserves the actual take silent lock and paid creator work through buyer wrap explicit release and save replay",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 7060.075605,
+    "afterMs": 5462.488762999999,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-continued-work-shooting4.test.ts",
+    "test": "P16 genuine completed-take shooting4 handoff actual positive shooting handoff refuses invented buyer take lock or altered source paid snapshot with full caller purity",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3216.9491450000005,
+    "afterMs": 2822.428473000001,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-continued-work-shooting4.test.ts",
+    "test": "P16 genuine completed-take shooting4 handoff real fully admitted shooting acquisition publication fault rolls back original input without cancelling paid work",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 2073.960717,
+    "afterMs": 1780.6406750000006,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-continued-work-shooting5-baseline.test.ts",
+    "test": "P16 genuine initial shooting5 continuation actual positive first take refuses missing or foreign operator lock and creator subject without mutating any refused caller",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 6192.037802,
+    "afterMs": 6137.8657539999995,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-continued-work-shooting5-baseline.test.ts",
+    "test": "P16 genuine initial shooting5 continuation real joined public acquisition publication fault leaves the admitted earlier paid work caller untouched",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 2396.747392,
+    "afterMs": 2189.46019,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-continued-work-shooting5-baseline.test.ts",
+    "test": "P16 genuine initial shooting5 continuation native wrap preserves production identity then explicit release publishes creator film buyer rights and a replayable current save",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 6413.529690000001,
+    "afterMs": 5584.937593999999,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-continued-work-silent-early.test.ts",
+    "test": "P16 genuine early SILENT buyer-operated production public funded acquisition and native director scenery scheduling produce one actual buyer first take with creator screenplay and paid history",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 6632.594643,
+    "afterMs": 6412.872534,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-continued-work-silent-early.test.ts",
+    "test": "P16 genuine early SILENT buyer-operated production actual positive first take refuses missing or foreign operator lock and creator subject without mutating any refused caller",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 4354.187312,
+    "afterMs": 4111.738554999999,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-continued-work-silent-early.test.ts",
+    "test": "P16 genuine early SILENT buyer-operated production real joined public acquisition publication fault leaves the admitted earlier paid work caller untouched",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1906.679529000001,
+    "afterMs": 1442.7838049999991,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-continued-work-silent-early.test.ts",
+    "test": "P16 genuine early SILENT buyer-operated production native wrap preserves production identity then explicit release publishes creator film buyer rights and a replayable current save",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 7663.451504000002,
+    "afterMs": 6483.632615,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-continued-work-silent-phases76.test.ts",
+    "test": "P16 genuine initial early SILENT boundary 163 actual positive first take refuses missing or foreign operator lock and creator subject without mutating any refused caller",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 5710.413412,
+    "afterMs": 5294.819135000001,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-continued-work-silent-phases76.test.ts",
+    "test": "P16 genuine initial early SILENT boundary 163 real joined public acquisition publication fault leaves the admitted earlier paid work caller untouched",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3493.522164,
+    "afterMs": 2239.130241,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-continued-work-silent-phases76.test.ts",
+    "test": "P16 genuine initial early SILENT boundary 163 native wrap preserves production identity then explicit release publishes creator film buyer rights and a replayable current save",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 7587.717597999999,
+    "afterMs": 6224.038444,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-continued-work-silent-phases76.test.ts",
+    "test": "P16 genuine initial early SILENT boundary 164 actual positive first take refuses missing or foreign operator lock and creator subject without mutating any refused caller",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 4202.604605,
+    "afterMs": 4932.585005000001,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-continued-work-silent-phases76.test.ts",
+    "test": "P16 genuine initial early SILENT boundary 164 real joined public acquisition publication fault leaves the admitted earlier paid work caller untouched",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1752.4358780000002,
+    "afterMs": 2059.372765,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-continued-work-silent-phases76.test.ts",
+    "test": "P16 genuine initial early SILENT boundary 164 native wrap preserves production identity then explicit release publishes creator film buyer rights and a replayable current save",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 6355.134094999998,
+    "afterMs": 6126.726450999999,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-estate-claim-boundaries.test.ts",
+    "test": "P16 real estate cash and claim-payment boundaries on fixed R04 lot negative cash after a real sale pays zero claims and never invents a negative-cash creditor",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 4677.7100199999995,
+    "afterMs": 4681.713096,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-estate-claim-boundaries.test.ts",
+    "test": "P16 real estate cash and claim-payment boundaries on fixed R04 lot whole distributable cash equal to retained claims pays exactly all claims and retains fractional residual",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3702.3026370000007,
+    "afterMs": 3075.2538920000006,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-estate-claim-boundaries.test.ts",
+    "test": "P16 real estate cash and claim-payment boundaries on fixed R04 lot actual excess sale cash caps every claim at original and leaves the excess in the retained estate account",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3604.56199,
+    "afterMs": 3587.905112999999,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-estate-current49-rollback.test.ts",
+    "test": "actual49 closure publication refusal rolls back the fully admitted pre-C caller",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3044.108446,
+    "afterMs": 2659.0338859999997,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-estate-d-ceremony.test.ts",
+    "test": "P16 D ceremony actual13M sale intake pays partial claims once before one archival and replays",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 7502.329158999999,
+    "afterMs": 7507.606769,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-estate-d-join-negative.test.ts",
+    "test": "P16 joinedD strict-save corruption and actual publication rollback refuses missing duplicate amount and foreign saleReceipt without mutating the admitted source",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 6984.245665999999,
+    "afterMs": 8512.002035000001,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-estate-d-join-negative.test.ts",
+    "test": "P16 joinedD strict-save corruption and actual publication rollback refuses extra estateSaleProceeds and an extra buyer rights debit even with their matching cash changes",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1180.7466750000003,
+    "afterMs": 1414.7020000000011,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-estate-d-join-negative.test.ts",
+    "test": "P16 joinedD strict-save corruption and actual publication rollback a real strict49 D publication refusal cannot publish partial sale cash claims or archival",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1309.4605790000005,
+    "afterMs": 1319.040069999999,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-estate-join.test.ts",
+    "test": "P16 joined estate actual-source boundaries actual49 closure atomically publishes matching handoff once without changing the caller",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3864.39163,
+    "afterMs": 4181.728924,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-estate-join.test.ts",
+    "test": "P16 joined estate actual-source boundaries genuine normal48 migration admits without manufacturing actual closure or estate history",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1199.9655480000001,
+    "afterMs": 1361.0494959999996,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-estate-join.test.ts",
+    "test": "P16 joined estate actual-source boundaries genuine public48 liveclosure migration observes authentic provenance without retroactive49 events",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1028.28993,
+    "afterMs": 1111.9335770000007,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-estate-join.test.ts",
+    "test": "P16 joined estate actual-source boundaries current49 handoff cannot masquerade as observed48 or borrow foreign claim authority",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 936.228642,
+    "afterMs": 1297.7870829999993,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-estate-join.test.ts",
+    "test": "P16 joined estate actual-source boundaries actual terminal bidder refuses with retained business and even a labelled stale-stable reader",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 583.6420400000006,
+    "afterMs": 553.5424050000001,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-estate-observed-migration.test.ts",
+    "test": "P16 observed original48 migration retains terminal authority without new history C163 and archivedD176 retain complete closure claim loan run archive roots and same-boundary lossless roundtrip",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 4882.761006,
+    "afterMs": 4763.019200999999,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-estate-observed-migration.test.ts",
+    "test": "P16 observed original48 migration retains terminal authority without new history archived176 observes one original archival, never reopens bidding, and retains nontradeable film ownership",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1164.596829,
+    "afterMs": 1278.6365520000008,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-estate-observed-migration.test.ts",
+    "test": "P16 observed original48 migration retains terminal authority without new history a real new public bid is admitted current authority and blocks discard of an otherwise reconstructable live observation",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1804.3547099999987,
+    "afterMs": 1453.6237229999997,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-estate-observed-migration.test.ts",
+    "test": "P16 observed original48 migration retains terminal authority without new history frozen48 reader refuses the added current rights root without retagging a49 envelope",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 966.1619759999994,
+    "afterMs": 923.9087529999997,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-estate-run-continuation.test.ts",
+    "test": "P16 retained original48 active estate run continues under current49 actual132 active run settles133 with estate beneficiary, contract-priority payments and fractional cash conservation through134 replay",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 4055.5995199999998,
+    "afterMs": 4358.87301,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-estate-run-continuation.test.ts",
+    "test": "P16 retained original48 active estate run continues under current49 actual134 continuation reaches one144 archival without duplicate run money and full reader rejects changed beneficiary receipt and claim payment",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3951.5324020000007,
+    "afterMs": 3692.2195280000005,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-finance-presentation.test.ts",
+    "test": "actual13M estate buyer debit has one signed finance category and unchanged ledger-order net without exposing rival estate accounting",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 5561.2515619999995,
+    "afterMs": 4061.7633039999996,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-finance-presentation.test.ts",
+    "test": "NONCAMPAIGN isolated signed reporting keeps ordinary rights fractional acquisition and diligence separate without inventing cash authority",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 836.7907950000008,
+    "afterMs": 1533.265875,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-healthy-drafting171-funded-baseline.test.ts",
+    "test": "P16 real funded171 stopped drafting writeoff real explicit writer exits preserve original draft costs due reservation and concurrent paid film beyond due with no buyer credit progress refund and save replay",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 7484.0834589999995,
+    "afterMs": 6495.694507,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-healthy-drafting171-funded-baseline.test.ts",
+    "test": "P16 real funded171 stopped drafting writeoff actual scripts v2 publication rejects missing dispositions wrong writer cost or original body with whole hostile caller purity",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 4579.950465,
+    "afterMs": 4130.67206,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-healthy-drafting171-funded-baseline.test.ts",
+    "test": "P16 real funded171 stopped drafting writeoff actual joined scripts v2 final publication validation fault cannot expose writer exits cash titles or partial stopped work",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3407.6221800000003,
+    "afterMs": 3072.89135,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-healthy-new-drafting171.test.ts",
+    "test": "P16 fixed genuine actual163 new healthy drafting premise observes exactly eight ordinary ticks then requires a genuinely new active drafting project before diagnosing the current absorption owner",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3808.230125,
+    "afterMs": 3201.9408859999994,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-held-title-buyer-public.test.ts",
+    "test": "real purchased R04film0 survives four fixed public campaigns and joins actual buyer closure without changing creator history",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 17935.061300999998,
+    "afterMs": 16078.090083000001,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-held-title-seller.test.ts",
+    "test": "real public film0 sale before R04 C excludes the sold title from current closure and handoff while retaining creator history",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 5517.627862,
+    "afterMs": 7117.487722000001,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-initial-shooting5-writeoff.test.ts",
+    "test": "P16 genuine initial shooting5 explicit nonretention writeoff fixed empty retention pays actual capped exits and preserves stopped paid source work and silent lock without buyer work refund take or release through ordinary deadline",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 6918.251001,
+    "afterMs": 6909.501676000001,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-initial-shooting5-writeoff.test.ts",
+    "test": "P16 genuine initial shooting5 explicit nonretention writeoff actual stopped shooting5 positive refuses missing disposition or altered paid remaining work without modifying rejected caller",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 2446.309239,
+    "afterMs": 2965.28427,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-initial-shooting5-writeoff.test.ts",
+    "test": "P16 genuine initial shooting5 explicit nonretention writeoff real joined publication failure rolls back public empty-retention acquisition after valid capped exits and paid-work disposition",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 2673.5054180000006,
+    "afterMs": 2532.6142530000016,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-quote-age.test.ts",
+    "test": "F17 public bilateral quote-age boundaries from genuine pre162 accepts age0 with real title/cash/transaction once and caller purity",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1911.6686009999999,
+    "afterMs": 1823.9193820000003,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-quote-age.test.ts",
+    "test": "F17 public bilateral quote-age boundaries from genuine pre162 accepts age3 after ordinary advancement while the player-addressed sell offer stays open",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 2167.369155,
+    "afterMs": 1836.7850019999996,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-quote-age.test.ts",
+    "test": "F17 public bilateral quote-age boundaries from genuine pre162 expires at age4 after ordinary advancement and refuses without any sale/payment",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1449.2740169999997,
+    "afterMs": 1638.2005399999998,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-quote-age.test.ts",
+    "test": "F17 public bilateral quote-age boundaries from genuine pre162 refuses unknown stamps, future quotes and accepted-age4 mutations after a real positive control",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 2655.0899560000007,
+    "afterMs": 3397.8358980000003,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-quote-age.test.ts",
+    "test": "F17 public bilateral quote-age boundaries from genuine pre162 accepts real disclosure age12 but refuses fresh offer age1 when that same disclosure becomes13",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 5146.4092329999985,
+    "afterMs": 4132.587578000001,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-quote-age.test.ts",
+    "test": "F17 public bilateral quote-age boundaries from genuine pre162 admits explicitly constructed unstamped/zero legacy-shape rows without claiming historical capture",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 2088.242634000002,
+    "afterMs": 2102.390606000001,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-quote-age.test.ts",
+    "test": "F17 finite policy pure-unit boundaries (not campaign or absorption execution) pins versioned minima/maxima and refuses invalid/future ages without subject-age substitution",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1.1564910000015516,
+    "afterMs": 36.65391300000192,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r03-observed-migration.test.ts",
+    "test": "observed original48 R03 week132 preserves nonzero claimPayment and the authentic active run through public49 migration and same-boundary downgrade",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3083.5584000000003,
+    "afterMs": 2585.7187870000007,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r03-observed-migration.test.ts",
+    "test": "observed original48 R03 settled134 and archived144 preserve earned payments and one original archival without inventing past49 history",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 4427.571919,
+    "afterMs": 4318.685565,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-acquisition.test.ts",
+    "test": "r2 F7: no quote without the buyer's own fresh, full-scope, paid disclosure about this target refuses a missing, foreign, narrow, other-target or stale disclosure by name, and reveals nothing",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1383.6365750000002,
+    "afterMs": 1252.308372,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-acquisition.test.ts",
+    "test": "r2 F6/F8/F33: the target consents at quote; its ask is whole dollars and actual cash moves at par a consideration below the ask refuses by name; at the ask the buyer's outlay covers the premium-adjusted library value with less than one dollar of rounding",
+    "before": "failed",
+    "after": "passed",
+    "beforeMs": 996.9780260000002,
+    "afterMs": 543.5796220000002,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-acquisition.test.ts",
+    "test": "r2 F2/F24/F59: capacity is the buyer's real usable capacity, cumulative over the target's productions and every remaining phase two target productions competing for the buyer's one free stage: the first continues, the second cannot be seated and its people are not kept by default",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 870.9827999999998,
+    "afterMs": 832.0958610000002,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-acquisition.test.ts",
+    "test": "r2 F2/F24/F59: capacity is the buyer's real usable capacity, cumulative over the target's productions and every remaining phase a development-phase production needs a stage later: a buyer with no stage at all cannot continue it, and the default keeps none of its people",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 561.767261,
+    "afterMs": 806.1546760000001,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-acquisition.test.ts",
+    "test": "r2 F2/F24/F59: capacity is the buyer's real usable capacity, cumulative over the target's productions and every remaining phase a stage that exists but can seat nobody is not usable capacity: the shooting picture cannot be seated and its people are not kept by default",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 546.8460539999996,
+    "afterMs": 745.3294509999996,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-acquisition.test.ts",
+    "test": "r2 F46: the default never keeps a film while dropping its busy cast when nobody can be afforded, every contract is dropped as unaffordable and the production is marked for explicit cancellation naming each missing participant",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 561.5690439999998,
+    "afterMs": 636.5459959999998,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-acquisition.test.ts",
+    "test": "r2 F13: person-choice and relationship refusals bind the retention preview a target employee with a Nemesis on the buyer's roster refuses to join it, by name, under the default and an explicit choice alike",
+    "before": "failed",
+    "after": "passed",
+    "beforeMs": 590.8385179999996,
+    "afterMs": 650.8129859999999,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-acquisition.test.ts",
+    "test": "r2 F47/F21: in-flight research is quoted as cancelled with its verified progress kept at its source, and nothing moves the target's active project is listed with its verified work and expenditure; a quote changes no state",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 942.0205590000005,
+    "afterMs": 729.4074500000006,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-authority.test.ts",
+    "test": "r2 F1/F27/F41: a live licence survives its grantor's closure, an estate sale and archival the licensee keeps exclusive authority while the grantor's estate holds, archives, or sells the title; only the title's own default authority changes",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 6856.821321999999,
+    "afterMs": 6730.579398999999,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-authority.test.ts",
+    "test": "r2 F1/F27/F41: a live licence survives its grantor's closure, an estate sale and archival a paid sequel licence survives actual player closure while its original owner\u2019s unscheduled remake makes the title pending",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 5581.994386,
+    "afterMs": 4114.116598999999,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-authority.test.ts",
+    "test": "r2 F5/F28/F42: an exclusive R3 licence limits the greenlight continuation hook and branch authority a same-concept greenlight is a remake: an exclusive remake licensee holds that authority, so the R1 holder is refused; other licensed uses leave it with the holder",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 995.6439810000011,
+    "afterMs": 807.3765060000005,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-authority.test.ts",
+    "test": "r2 F5/F28/F42: an exclusive R3 licence limits the greenlight continuation hook and branch authority branch authority is the parent's spin-off authority: an exclusive spin-off licensee holds it during the term; the title holder again after it",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 901.5164750000004,
+    "afterMs": 1033.758124,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-authority.test.ts",
+    "test": "r2 F11: a continuation with its own concept links to the parent property and mints no R1 the holder and an exclusive licensee each link under permissionFor; the excluded holder is refused; the link mints nothing for the new concept; the release titles the film under the parent",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1487.3792529999992,
+    "afterMs": 1893.1176610000002,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-authority.test.ts",
+    "test": "r2 F10/F35: the R4 surface works for television and merchandise, exclusive or not, once its consumer is live the gate refuses every R4 grant by default; lifted, R4 grants follow their own law and permissionFor answers nonexclusive and exclusive grantees",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 582.2460890000002,
+    "afterMs": 662.3343319999985,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-authority.test.ts",
+    "test": "r2 F62/F23: a rights refusal at greenlight is pure \u2014 at the front door and at a queued greenlight's dequeue after the player sells a concept's R1, its re-greenlight through applyActions refuses by name and the state is byte-identical",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1154.9222059999993,
+    "afterMs": 931.2638640000005,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-authority.test.ts",
+    "test": "r2 F62/F23: a rights refusal at greenlight is pure \u2014 at the front door and at a queued greenlight's dequeue a queued greenlight whose concept's R1 is sold while it waits expires at dequeue with the rights reason and leaves no event naming a production that never existed",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 692.2115809999996,
+    "afterMs": 566.2010310000005,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-authority.test.ts",
+    "test": "r2: the continuation hook and the R1 holder agree with permissionFor at every week of a licence term the holder regains remake authority the week an exclusive remake licence lapses",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 710.0059029999975,
+    "afterMs": 601.6745139999985,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-estate.test.ts",
+    "test": "r2 F4/F29: the estate path refuses the bilateral path's encumbrances premise: the closing studio (r02) at week 53 holds a film in an active run and a property with an active production, and the bilateral path refuses both",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1181.280617,
+    "afterMs": 1109.945063,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-estate.test.ts",
+    "test": "r2 F4/F29: the estate path refuses the bilateral path's encumbrances a lot holding an active-run film or an active-production property refuses the handoff by name; the same subjects pending are admitted and never sold",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 5183.733869,
+    "afterMs": 3748.9365749999997,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-estate.test.ts",
+    "test": "r2 F4/F29: the estate path refuses the bilateral path's encumbrances a lot encumbered after the handoff (a production started on its concept) cannot sell at D: its bids are disqualified by name and the lot archives",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 11396.695039,
+    "afterMs": 10182.526528999999,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-estate.test.ts",
+    "test": "r2 F4/F29: the estate path refuses the bilateral path's encumbrances every right the closed studio held is disposed exactly once: an omitted, a duplicated, a foreign or an undisclosed-licence subject refuses the handoff",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1769.2349600000016,
+    "afterMs": 1608.7800270000007,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-estate.test.ts",
+    "test": "r2 F18/F37/F60: the window opens at the closure week, closes exactly at D, and needs certifiable bidders openEstate refuses outside the closure week and while the P15B readers are unbound; the validator refuses an estate still open at or after D",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1762.6806050000014,
+    "afterMs": 1832.195162,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-estate.test.ts",
+    "test": "r2 F38: an as-of read inside the window reports the lot as it stood that week a subject that archives at D reads unarchived at every earlier week of the window",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3574.7471750000004,
+    "afterMs": 2299.1524800000007,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-estate.test.ts",
+    "test": "r2 F48: the deterministic tie-break is ascending reserved identity order, not submission order equal sealed bids resolve to the lower identity row even when the higher row bid first",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3758.8893669999998,
+    "afterMs": 3730.8584760000012,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-rename.test.ts",
+    "test": "r2 F3/F26: rename between greenlight and release the property keeps its greenlight title, the film carries the release title, and the campaign saves, reloads byte-for-byte, ticks and saves again",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 2828.1524320000003,
+    "afterMs": 2301.7800419999994,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-rename.test.ts",
+    "test": "r2 F3/F26: rename between greenlight and release without a lawful rename the greenlight snapshot must equal the concept's title: a forged property title refuses as ambiguous provenance",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 686.7534169999999,
+    "afterMs": 650.6258319999997,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-sale.test.ts",
+    "test": "r2 F49: affordability is rechecked at closing a buy offer made while affordable refuses at acceptance once the buyer's cash no longer covers the reserve",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1304.13494,
+    "afterMs": 1525.379615,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-sale.test.ts",
+    "test": "r2 F50: an exclusive R3 grant on a property with an active production refuses, like its title sale the producer and the offer path both name activeProductionEncumbrance for a licence on the in-flight concept",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 706.6994339999997,
+    "afterMs": 1013.1262669999996,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-sale.test.ts",
+    "test": "r2 F56: the weekly tick expires open offers an offer the player never answers expires at its expiry week through tick, not only through a direct call",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1083.4558630000001,
+    "afterMs": 1011.1478909999996,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-sale.test.ts",
+    "test": "r2 F57: a rival buys at or below its bid and rejects one dollar above it a sell offer to a rival at its bid closes; one dollar over is rejected naming the bid",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 944.8844479999998,
+    "afterMs": 902.3731170000001,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-sale.test.ts",
+    "test": "r2 F36: rivals answer open offers in allocation order with cash for one of two sell offers, the earlier-allocated offer (rights-offer-9) closes before rights-offer-10",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1023.8181999999997,
+    "afterMs": 810.8618150000002,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-validator.test.ts",
+    "test": "r2 F9/F31: no P16 money without the transaction that carries its effect the control: a lawful closed title sale validates",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1386.294801,
+    "afterMs": 1697.1058890000002,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-validator.test.ts",
+    "test": "r2 F9/F31: no P16 money without the transaction that carries its effect refuses an absorption transaction (no producer exists in this checkpoint) even with consistent cash",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1047.9699950000004,
+    "afterMs": 1286.9193639999999,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-validator.test.ts",
+    "test": "r2 F9/F31: no P16 money without the transaction that carries its effect refuses an unknown transaction kind",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 852.7592059999997,
+    "afterMs": 853.1043639999998,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-validator.test.ts",
+    "test": "r2 F9/F31: no P16 money without the transaction that carries its effect refuses a title sale that moved no title and names no accepted offer, though its cash reconciles",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 952.6664530000007,
+    "afterMs": 889.2865920000004,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-validator.test.ts",
+    "test": "r2 F9/F31: no P16 money without the transaction that carries its effect refuses a real title sale whose payee was erased and whose seller credit was removed",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1060.1352370000004,
+    "afterMs": 928.632353,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-validator.test.ts",
+    "test": "r2 F9/F31: no P16 money without the transaction that carries its effect refuses a licence grant transaction with no licence, and a diligence fee with no disclosure record",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 856.994815,
+    "afterMs": 1123.7239740000005,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-validator.test.ts",
+    "test": "r2 F43/F15: a persisted property's date is its own greenlight evidence, never earlier a property and its genesis backdated together (to before the campaign, or to week 0) refuse as ambiguous provenance",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1787.044712,
+    "afterMs": 1573.0904310000005,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-validator.test.ts",
+    "test": "r2 F43/F15: a persisted property's date is its own greenlight evidence, never earlier the lawful earlier date survives: a property first greenlit by a production later cancelled keeps that week",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 2657.6518110000015,
+    "afterMs": 1218.2789669999984,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-validator.test.ts",
+    "test": "r2 F45/F16: chain continuity is refused on its own, with every holder a known identity a sale event whose priorHolder is a real studio but not the previous holder breaks continuity",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1022.5663480000003,
+    "afterMs": 1139.9011600000013,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-validator.test.ts",
+    "test": "r2 F58: the licence-overlap, bid-window and estate-proceeds rules each refuse a forged save two exclusive sequel licences whose terms are edited to overlap refuse",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1028.986089,
+    "afterMs": 962.645332,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-validator.test.ts",
+    "test": "r2 F58: the licence-overlap, bid-window and estate-proceeds rules each refuse a forged save a sealed bid dated before its window, and estate proceeds that differ from the estate sales, refuse",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3739.611580999999,
+    "afterMs": 3341.052842000001,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-validator.test.ts",
+    "test": "r2 F12: valuation is explicit unavailable when any subject the holder holds or created is unavailable \u2014 never a partial total a holder whose persisted property contradicts its source cannot be valued at all",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 732.066058999997,
+    "afterMs": 647.6183640000017,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-validator.test.ts",
+    "test": "r2 F51: an unsafe sum refuses only valuation when per-item values overflow the safe integer range the read is unavailable(unsafeSum) and nothing changes",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1333.5798880000002,
+    "afterMs": 850.8893199999984,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-validator.test.ts",
+    "test": "r2 F53/F65: the boundary week is legacy; a missing title is null a fact dated exactly at recordedFromWeek is legacy, the next week is not",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 0.5134550000002491,
+    "afterMs": 0.5642450000013923,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-r2-validator.test.ts",
+    "test": "r2 F53/F65: the boundary week is legacy; a missing title is null a release with no attested title mints title null with source unavailable, never an empty string",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1132.6112060000014,
+    "afterMs": 533.007147999997,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-rebase-c01-absorbed-claims.test.ts",
+    "test": "C-01: an absorbed business's written-off work claims nobody at validation premise: r01 is absorbed at 162, its released actor is out of the busy set and in the hiring market, and the world saves",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 132.0528860000013,
+    "afterMs": 163.72564299999976,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-rebase-c01-absorbed-claims.test.ts",
+    "test": "C-01: an absorbed business's written-off work claims nobody at validation the player seats the released participant; the written-off picture still names them; the save admits",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 85.26604600000064,
+    "afterMs": 166.29025000000001,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-rebase-c01-absorbed-claims.test.ts",
+    "test": "C-01: an absorbed business's written-off work claims nobody at validation the promise occupancy reader ignores the written-off picture: a directing draft answers as the world without it",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1.212043999999878,
+    "afterMs": 5.840711999999257,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-rebase-c01-absorbed-claims.test.ts",
+    "test": "C-01: an absorbed business's written-off work claims nobody at validation the opportunity owners reader ignores the written-off picture: a genre-opportunity draft answers as the world without it",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 18.355177999997977,
+    "afterMs": 27.887469000001147,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-rebase-c01-absorbed-claims.test.ts",
+    "test": "C-01: an absorbed business's written-off work claims nobody at validation every weekly save of the 52-week natural soak admits",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1.4943060000005062,
+    "afterMs": 3.3983010000010836,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-rebase-c01-absorbed-claims.test.ts",
+    "test": "C-01 follow-up: a malformed absorption record is refused by name, never as a TypeError validateTechnology names a continuedProductions that is not an array",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 12.621859999999288,
+    "afterMs": 24.314902000000075,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-rebase-c01-absorbed-claims.test.ts",
+    "test": "C-01 follow-up: a malformed absorption record is refused by name, never as a TypeError a null absorption record reaches a named validateSaveV49 refusal, not a TypeError in the era map",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 105.52995599999849,
+    "afterMs": 68.30649400000038,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-rebase-estate-licence-survival.test.ts",
+    "test": "actual closure and unsold archival preserve the existing paid exclusive licence, scope and expiry",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 8521.934997,
+    "afterMs": 6197.083755,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-rival-buyer-absorption163-baseline.test.ts",
+    "test": "P16 genuine actual163 rival buyer explicit nonretention acquisition real R02 funded close owns exact money and titles without player pollution then preserves paid target work through ordinary ticks save reload and replay",
+    "before": "passed",
+    "after": "failed",
+    "beforeMs": 6172.329693000001,
+    "afterMs": 1495.7378559999997,
+    "failureMessages": [
+      "AssertionError: expected 862165.7370649315 to be 862166.7370649315 // Object.is equality\n    at completed (/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-rival-buyer-absorption163-baseline.test.ts:82:67)\n    at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-rival-buyer-absorption163-baseline.test.ts:106:24\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+    ]
+  },
+  {
+    "file": "p16-rival-buyer-absorption163-baseline.test.ts",
+    "test": "P16 genuine actual163 rival buyer explicit nonretention acquisition actual rival close full reader refuses wrong buyer cash and missing paid work disposition without modifying hostile callers",
+    "before": "passed",
+    "after": "failed",
+    "beforeMs": 2769.270098000001,
+    "afterMs": 925.1078060000004,
+    "failureMessages": [
+      "AssertionError: expected 862165.7370649315 to be 862166.7370649315 // Object.is equality\n    at completed (/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-rival-buyer-absorption163-baseline.test.ts:82:67)\n    at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-rival-buyer-absorption163-baseline.test.ts:122:24\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+    ]
+  },
+  {
+    "file": "p16-rival-buyer-absorption163-baseline.test.ts",
+    "test": "P16 genuine actual163 rival buyer explicit nonretention acquisition real full joined rival publication fault after all actual effects validates then rolls back the original caller",
+    "before": "passed",
+    "after": "failed",
+    "beforeMs": 2510.376420999999,
+    "afterMs": 717.5054750000008,
+    "failureMessages": [
+      "AssertionError: expected 862165.7370649315 to be 862166.7370649315 // Object.is equality\n    at completed (/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-rival-buyer-absorption163-baseline.test.ts:82:67)\n    at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-rival-buyer-absorption163-baseline.test.ts:137:22\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+    ]
+  },
+  {
+    "file": "p16-rival-buyer-rights.test.ts",
+    "test": "P16 genuine rival buyer bilateral rights parity real paid R03 diligence and funded R01 seller offer close once through direct and ordinary rival answer owners with exact rival cash title and save parity",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3510.4181700000004,
+    "afterMs": 3938.8128039999997,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-rival-buyer-rights.test.ts",
+    "test": "P16 genuine rival buyer bilateral rights parity positive rival close does not grant foreign acceptance or seller use of buyer-held private report authority",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1109.3561829999999,
+    "afterMs": 1736.9810180000004,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-rival-buyer-rights.test.ts",
+    "test": "P16 genuine rival buyer bilateral rights parity real second cash owner refusal cannot expose a partial title payment or accepted rival offer to the original caller",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1512.7684760000002,
+    "afterMs": 1629.733201,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-stopped-drafting171-refusals.test.ts",
+    "test": "P16 real171 drafting continuation remains explicitly unsupported default writer choice exposes continuation required and refuses the actual funded close without converting drafting to writeoff",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 4448.097433,
+    "afterMs": 4500.02773,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-stopped-drafting171-refusals.test.ts",
+    "test": "P16 real171 drafting continuation remains explicitly unsupported explicit writer retention in a partial company selection requires a real continuation owner and preserves all original input",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 2550.916245999999,
+    "afterMs": 2959.9669160000003,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-tuning.test.ts",
+    "test": "P16 TUNING: exact provisional values RIGHTS_R2_CATALOGUE_VALUE_AT_100 === 100000",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 4.128978000000188,
+    "afterMs": 7.155408999999963,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-tuning.test.ts",
+    "test": "P16 TUNING: exact provisional values RIGHTS_R1_OPTION_VALUE_AT_100 === 25000",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 0.5951800000000276,
+    "afterMs": 0.4459989999999152,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-tuning.test.ts",
+    "test": "P16 TUNING: exact provisional values RIGHTS_RESERVE_WEEKS === 26",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 0.27295299999991585,
+    "afterMs": 0.24500699999998687,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-tuning.test.ts",
+    "test": "P16 TUNING: exact provisional values RIGHTS_DUE_DILIGENCE_FEE === 50000",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 0.696922000000086,
+    "afterMs": 1.3372349999999642,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-tuning.test.ts",
+    "test": "P16 TUNING: exact provisional values RIGHTS_DISCLOSURE_STALE_WEEKS === 13",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 0.481516000000056,
+    "afterMs": 0.44771700000001147,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-tuning.test.ts",
+    "test": "P16 TUNING: exact provisional values RIGHTS_OFFER_DURATION_WEEKS === 4",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 0.2121679999997923,
+    "afterMs": 0.18742099999997208,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-tuning.test.ts",
+    "test": "P16 TUNING: exact provisional values RIGHTS_OFFER_COOLDOWN_WEEKS === 4",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 0.19374199999992925,
+    "afterMs": 0.17642399999999725,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-tuning.test.ts",
+    "test": "P16 TUNING: exact provisional values RIGHTS_WILLINGNESS_PREMIUM_PERCENT === 20",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 0.22107000000005428,
+    "afterMs": 0.16848300000003746,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-tuning.test.ts",
+    "test": "P16 TUNING: exact provisional values RIGHTS_RESALE_HOLDBACK_WEEKS === 52",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 0.5071539999999004,
+    "afterMs": 0.308084000000008,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-tuning.test.ts",
+    "test": "P16 TUNING: exact provisional values ESTATE_WINDOW_WEEKS === 13",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 0.4075460000001385,
+    "afterMs": 0.21670099999994363,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-tuning.test.ts",
+    "test": "P16 TUNING: stated ranges coefficients are positive whole dollars and the option premium is below the catalogue coefficient",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 0.5998230000000149,
+    "afterMs": 0.4697390000000041,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-tuning.test.ts",
+    "test": "P16 TUNING: stated ranges durations are whole weeks in [1, 104]; the estate window is 13 by adoption; the holdback exceeds the offer duration",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1.2463350000000446,
+    "afterMs": 0.7270750000000135,
+    "failureMessages": []
+  },
+  {
+    "file": "p16-tuning.test.ts",
+    "test": "P16 TUNING: stated ranges the diligence fee is a positive whole-dollar amount and the willingness premium is a whole percent in (0, 100)",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 0.6688669999998638,
+    "afterMs": 0.5500650000000178,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-mint-hooks.test.ts",
+    "test": "P16A mint: player greenlight an accepted greenlight mints exactly one property with one R1 genesis, titled from the greenlight concept, linked to the production",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1708.11224,
+    "afterMs": 1000.1817800000001,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-mint-hooks.test.ts",
+    "test": "P16A mint: player greenlight a refused greenlight leaves the root, the slate, the wallet, the RNG and the queue unchanged",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 152.71126400000003,
+    "afterMs": 125.82119499999999,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-mint-hooks.test.ts",
+    "test": "P16A mint: player greenlight a second greenlight of the same concept by its R1 holder links the new production to the one property; a non-holder is refused and changes nothing",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 859.1811859999998,
+    "afterMs": 509.6908590000003,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-mint-hooks.test.ts",
+    "test": "P16A mint: player release the releasing tick appends exactly one R2 FilmTitle with the release week, release title, creator and work link; the committed state has none",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 671.5089680000001,
+    "afterMs": 414.5761889999999,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-mint-hooks.test.ts",
+    "test": "P16A mint: player release cancellation preserves the genuine R1 history and never invents an R2 title",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1374.3223099999996,
+    "afterMs": 476.1541669999997,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-mint-hooks.test.ts",
+    "test": "P16A mint: player release tick is deterministic and reload/replay never duplicates a mint",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1534.6181700000006,
+    "afterMs": 1531.477355,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-mint-hooks.test.ts",
+    "test": "P16A mint: rival greenlight and release each rival greenlight mints one property with the rival as creator at its decision week, and each rival release mints one R2 title",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 499.53149499999927,
+    "afterMs": 393.350469,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-mint-hooks.test.ts",
+    "test": "P16A recording boundary: a world that greenlights before its industry opens records rights from the week the industry opens: pre-industry work is legacy (derived, never persisted), the save validates, and the holder resolves to the player",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 178.2251150000011,
+    "afterMs": 217.92478200000005,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-mint-hooks.test.ts",
+    "test": "F15 boundary mint integrity rejects deletion of a newly hooked boundary property and genesis, without mutating the save",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 710.1208740000002,
+    "afterMs": 517.8896800000002,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-mint-hooks.test.ts",
+    "test": "F15 boundary mint integrity retains an actual pre-opening greenlight at the same boundary week as derived legacy",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 640.5355550000004,
+    "afterMs": 605.1025219999992,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-mint-hooks.test.ts",
+    "test": "F15 actual cancel/save/reload/regreenlight retains cutover identity and original creation week",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 378.22199400000136,
+    "afterMs": 491.2894499999993,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-mint-hooks.test.ts",
+    "test": "F15 observed active fallback without a greenlight ledger survives disappearance without inventing a debit",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 990.28917,
+    "afterMs": 750.2476000000006,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-rights-identity.test.ts",
+    "test": "P16A identity: story property id grammar propertyId is the prefix plus the complete founding conceptId, injective and invertible",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 6.593152999999802,
+    "afterMs": 5.1756860000000415,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-rights-identity.test.ts",
+    "test": "P16A legacy resolver: authored-start films resolve from the manifest, not a FilmConcept each authored film yields a virtual R2 title and R1 property dated beforeCampaign(year) with manifest title and creator",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1912.9162549999999,
+    "afterMs": 1346.0337020000002,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-rights-identity.test.ts",
+    "test": "P16A legacy resolver: authored-start films resolve from the manifest, not a FilmConcept simulated rival films resolve R2 at the release week and R1 at the earliest attested event (the announcement), creator permanent",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 834.2948760000004,
+    "afterMs": 769.142452,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-rights-identity.test.ts",
+    "test": "P16A legacy resolver: authored-start films resolve from the manifest, not a FilmConcept a migration-origin player library resolves from released FilmResults with the player identity as creator; a film with no release-frozen title row has title null, never a fabricated one",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1180.4743010000002,
+    "afterMs": 1064.1797980000001,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-rights-identity.test.ts",
+    "test": "P16A legacy resolver: authored-start films resolve from the manifest, not a FilmConcept resolution is a pure read: the state bytes are unchanged and two reads agree",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 860.4365329999991,
+    "afterMs": 959.1677609999997,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-rights-identity.test.ts",
+    "test": "P16A holders and as-of reads currentHolder resolves the creator for every legacy subject, tradeable, with no estate authority involved",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 823.4747989999996,
+    "afterMs": 833.3899490000003,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-rights-identity.test.ts",
+    "test": "P16A holders and as-of reads an as-of read before a simulated film existed sees no holder for it, while authored (beforeCampaign) titles are held at week 0",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 790.4673750000011,
+    "afterMs": 820.0078649999996,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-rights-identity.test.ts",
+    "test": "P16A holders and as-of reads asOfWeek must be a whole week in [0, market.tick]",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1108.4413330000007,
+    "afterMs": 597.9544649999989,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-rights-identity.test.ts",
+    "test": "P16A holders and as-of reads a world without an industry has no rights: every read is unavailable (noIndustry) and nothing is minted",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 846.3578379999999,
+    "afterMs": 920.4749899999988,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-rights-identity.test.ts",
+    "test": "P16A default R3/R4 authority (A4) and parent-bound branches with an empty licence set, R3 continuation authority is the current R1 holder and R4 derives from the relevant R1/R2 holder",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 839.997421,
+    "afterMs": 1152.2029739999998,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-rights-identity.test.ts",
+    "test": "P16A default R3/R4 authority (A4) and parent-bound branches a spin-off character or branch has no rights of its own: branch authority resolves to the parent property until an explicit promotion exists",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1236.3298670000004,
+    "afterMs": 621.1308470000004,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-rights-identity.test.ts",
+    "test": "P16A live route: identities of a real player greenlight and release the released player film resolves with the player identity as creator, the greenlight week as property creation and the release week as the title date",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1818.4957999999988,
+    "afterMs": 936.370449,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-save-v46.test.ts",
+    "test": "Save49 era surface LIVE_SAVE_VERSION is P16_SAVE_VERSION (49 at this base) with predecessor48, and the V49 functions exist",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 4.712242999999944,
+    "afterMs": 2.921620999999959,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-save-v46.test.ts",
+    "test": "Save49 era surface validateSave dispatches49 and names the handled range \"1 through 49\"",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1703.137272,
+    "afterMs": 1498.6723000000002,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-save-v46.test.ts",
+    "test": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 convertV48ToV49 adds exactly the empty rights root at the save week and zero P16 movements on every rival period; nothing else moves",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1096.1266839999998,
+    "afterMs": 1308.099014,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-save-v46.test.ts",
+    "test": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 migrateToLive lifts the genuine raw capture to 46 through importSave, and a second migration is a no-op",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1110.978035,
+    "afterMs": 1330.6626400000005,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-save-v46.test.ts",
+    "test": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 convertV49ToV48 is lossless while the root is empty and every P16 movement is zero, round-tripping to the genuine bytes",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3835.004217999999,
+    "afterMs": 3273.802607999999,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-save-v46.test.ts",
+    "test": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 the downgrade refuses by name once a rights record exists; a P16 movement or ledger row without its transaction is refused by the validator first",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1002.909377,
+    "afterMs": 986.5053649999991,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-save-v46.test.ts",
+    "test": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 a Save45 envelope is refused the P16 kinds below their era: a rightsConsideration movement or ledger row cannot be written under version 45",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 278.44938100000036,
+    "afterMs": 302.53614000000016,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-save-v46.test.ts",
+    "test": "the actual migrated Save48 predecessor refuses rights authority below Save49 without retagging a modern envelope",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 793.3786409999993,
+    "afterMs": 1295.773956000001,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-save-v46.test.ts",
+    "test": "Save49 rights root validator: shape, title events, holders, estates the control: a materialized genesis pair validates",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1029.5430890000007,
+    "afterMs": 776.700605,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-save-v46.test.ts",
+    "test": "Save49 rights root validator: shape, title events, holders, estates refuses a missing root, a wrong version, a recordedFromWeek outside [0, tick], or unknown keys",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1251.8251419999997,
+    "afterMs": 1139.5061540000006,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-save-v46.test.ts",
+    "test": "Save49 rights root validator: shape, title events, holders, estates refuses a duplicate genesis, a broken priorHolder chain, a future-dated event, bad ordinals, duplicate ids, a mismatched subject and an unknown holder",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1331.1215190000003,
+    "afterMs": 1482.5035619999999,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-save-v46.test.ts",
+    "test": "Save49 rights root validator: shape, title events, holders, estates refuses a persisted record that contradicts the authentic source (creator, date or title) as ambiguous provenance",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1484.045267999998,
+    "afterMs": 1229.7591549999997,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-save-v46.test.ts",
+    "test": "Save49 rights root validator: shape, title events, holders, estates an archive event needs its estate record, and an estate record must name a reserved identity",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1631.6495020000002,
+    "afterMs": 870.7580309999976,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-save-v46.test.ts",
+    "test": "Save49 rights root validator: shape, title events, holders, estates every authored-start manifest film stays resolvable after migration: the root invents none of them",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 684.8574719999997,
+    "afterMs": 984.598997000001,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-save-v46.test.ts",
+    "test": "F15 genuine predecessor migration keeps observational frontier and lossless empty-era roundtrip",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1546.0561629999975,
+    "afterMs": 1406.5367389999992,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-valuation.test.ts",
+    "test": "P16A valuation: the charter fold over genuine predecessor films values every rival library at the save week exactly as the per-item rounded formula sums",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1591.1867719999998,
+    "afterMs": 1764.4750099999999,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-valuation.test.ts",
+    "test": "P16A valuation: the charter fold over genuine predecessor films an as-of read at week 0 sees only authored-start (beforeCampaign) titles; later weeks fold only films released through that week",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1066.8549700000003,
+    "afterMs": 843.4547969999999,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-valuation.test.ts",
+    "test": "P16A valuation: the charter fold over genuine predecessor films a property whose film is announced but not yet released contributes a zero R1 item and no R2 item",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 797.0107550000002,
+    "afterMs": 1007.1218180000005,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-valuation.test.ts",
+    "test": "P16A valuation: the charter fold over genuine predecessor films refuses a future, negative or fractional asOfWeek, an unknown holder and a world without an industry, each with its typed reason",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 806.6351139999997,
+    "afterMs": 749.0148369999997,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-valuation.test.ts",
+    "test": "P16A valuation: the charter fold over genuine predecessor films values a migration-origin player library (routeL6240: twelve pre-origin films) from its released results",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 952.6150950000001,
+    "afterMs": 704.5613360000007,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-valuation.test.ts",
+    "test": "P16A valuation: rounding and the consumer-only score boundary rounds each item once: scores 0, 100, 12.3456 and 0.0005 value exactly 0, 100000, 12346 and 1",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 945.8395199999995,
+    "afterMs": 1134.4726609999998,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-valuation.test.ts",
+    "test": "P16A valuation: rounding and the consumer-only score boundary a finite score outside [0,100] returns typed unavailable naming the FilmId, with no clamp, skip, partial total, or state mutation, and title resolution still works",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1500.0739670000003,
+    "afterMs": 1149.8763529999997,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-valuation.test.ts",
+    "test": "P16A valuation: rounding and the consumer-only score boundary the same refusal applies when the film would enter an R1 maxQualityThroughDate for a property whose R2 holder differs",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 950.6712919999991,
+    "afterMs": 774.7130409999991,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-valuation.test.ts",
+    "test": "P16A valuation: rounding and the consumer-only score boundary a film a recorded quarter ranks cannot carry an out-of-range score even at Save45 (the ranking law refuses it); the P16 era adds no new admission gate, and the valuation boundary is proven on the lifted state",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 907.0966000000008,
+    "afterMs": 1142.5181330000014,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-valuation.test.ts",
+    "test": "r2 (review F14): RED A1 on a predecessor-valid save that carries a finite out-of-range score the genuine route-L week-6239 Save44 capture with a pre-origin player film at score 101 validates, migrates to Save45 and the live era; valuation refuses by name and the holder still resolves",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1336.7524110000013,
+    "afterMs": 1671.3777469999986,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-valuation.test.ts",
+    "test": "P16A valuation: pure, cashless, and identical before/after materialization and reload valuation changes no cash, ledger, RNG or root, and an exact materialization of virtual titles changes no result",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1361.1797370000004,
+    "afterMs": 1120.0401559999991,
+    "failureMessages": []
+  },
+  {
+    "file": "p16a-valuation.test.ts",
+    "test": "P16A valuation: pure, cashless, and identical before/after materialization and reload a later structurally valid title-sale event moves the R2 value to the new holder from its date, while R1 stays with the creator",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 972.3857900000003,
+    "afterMs": 559.9373780000005,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-asset-sale.test.ts",
+    "test": "P16B permitted bidder and cash law a stable, operating, founded studio with no distress loan is a permitted bidder; every other stage, a loan, founding, or an un-entered identity refuses by name",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1240.8710950000004,
+    "afterMs": 1321.7303009999996,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-asset-sale.test.ts",
+    "test": "P16B permitted bidder and cash law the post-purchase reserve is RIGHTS_RESERVE_WEEKS of the buyer's resulting weekly fixed cost, and spendable cash is cash minus open reservations",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 546.9468080000006,
+    "afterMs": 767.0479729999997,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-asset-sale.test.ts",
+    "test": "P16B permitted bidder and cash law the explicit UNBOUND negative fixture refuses a bidder without evaluated condition authority",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 734.116634,
+    "afterMs": 776.3841740000007,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-asset-sale.test.ts",
+    "test": "P16B bilateral title sale: player buys a rival film through a binding offer the rival answers at the next tick reserves the price while the offer is open, closes atomically with exact receipts on both sides, moves the R2 title and its value, and saves/reloads",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1470.0280439999997,
+    "afterMs": 1335.9473579999994,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-asset-sale.test.ts",
+    "test": "P16B bilateral title sale: player buys a rival film through a binding offer the rival answers at the next tick an offer below the rival's willingness is rejected at the next tick, the reservation is released, and a re-offer inside the cooldown refuses",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 884.5689549999988,
+    "afterMs": 727.2514380000011,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-asset-sale.test.ts",
+    "test": "P16B bilateral title sale: player buys a rival film through a binding offer the rival answers at the next tick refusals are pure and named: non-holder seller, unknown subject, active run (R2), active production (R1), ineligible buyer, unaffordable price, double-spent reservation, duplicate open offer, self-dealing",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 693.6270459999996,
+    "afterMs": 839.1068520000008,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-asset-sale.test.ts",
+    "test": "P16B symmetric law: rival <-> rival sale, withdrawal, expiry, holdback a rival sells a film to a rival at acceptance with exact movements on both accounts; withdrawal releases; expiry releases",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 791.7838699999993,
+    "afterMs": 938.0505790000007,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-asset-sale.test.ts",
+    "test": "P16B symmetric law: rival <-> rival sale, withdrawal, expiry, holdback a bought title cannot be resold inside the holdback; a sale is refused by the seller side when the buyer's facts changed at acceptance (revalidation)",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 573.0591939999995,
+    "afterMs": 432.4792410000009,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-asset-sale.test.ts",
+    "test": "P16B licences: R3 exclusive term grants, overlap, scope, survival through a title sale, reversion grants an exclusive sequel licence with consideration; authority for that scope moves to the grantee while the title stays with the grantor",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1417.589355,
+    "afterMs": 1351.394006999999,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-asset-sale.test.ts",
+    "test": "P16B licences: R3 exclusive term grants, overlap, scope, survival through a title sale, reversion a whole-title sale of the property preserves the live licence and the grantee; an expired licence reverts authority to the holder",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 871.4816809999993,
+    "afterMs": 720.7079119999999,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-asset-sale.test.ts",
+    "test": "P16B actions: the player's verbs route through applyActions with refusal purity makeRightsOffer / withdrawRightsOffer / acceptRightsOffer / rejectRightsOffer dispatch; a refused verb throws and changes nothing; the buyer-side verbs refuse by name while the P15B readers are unbound",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 740.5238790000003,
+    "afterMs": 1025.48128,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-condition-readers.test.ts",
+    "test": "P16B permitted bidders read P15B condition and loan records through one bound reader pair the explicit UNBOUND negative fixture fails closed: no record for anyone, every bidder refused by name, the loan reader throws if consulted",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1310.102401,
+    "afterMs": 1500.13041,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-condition-readers.test.ts",
+    "test": "P16B permitted bidders read P15B condition and loan records through one bound reader pair bound to P15B-shaped records, the first-slice matrix holds: exactly stable and no outstanding loan, the stage refusal first",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 793.0011160000004,
+    "afterMs": 938.6245670000003,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-condition-readers.test.ts",
+    "test": "P16B permitted bidders read P15B condition and loan records through one bound reader pair default entries refuse a genuinely migrated studio without an evaluated record; explicit UNBOUND revalidation rejects the weekly phase",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 836.194117,
+    "afterMs": 1013.6048049999999,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-condition-readers.test.ts",
+    "test": "P16B permitted bidders read P15B condition and loan records through one bound reader pair the readers also answer for the OTHER party: a liabilities disclosure and an absorption target need the target's record",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 567.4151320000001,
+    "afterMs": 1081.7726620000003,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-due-diligence.test.ts",
+    "test": "P16B due diligence: one costed, dated, scoped disclosure event charges the fee exactly once, records recipient/target/week/scope/stale policy, and discloses only the target's relevant facts",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 2369.072288,
+    "afterMs": 2065.098907,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-due-diligence.test.ts",
+    "test": "P16B due diligence: one costed, dated, scoped disclosure event a narrower scope discloses only that scope; the fee is the same real fee",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 971.3560779999998,
+    "afterMs": 720.4179199999999,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-due-diligence.test.ts",
+    "test": "P16B due diligence: one costed, dated, scoped disclosure event only the recipient can read the private body; everyone else gets null; public reads see no body",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 906.0517659999996,
+    "afterMs": 816.6108180000001,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-due-diligence.test.ts",
+    "test": "P16B due diligence: one costed, dated, scoped disclosure event refuses by name: an ineligible recipient, an unknown or self target, an empty scope, or a fee that would break the current reserve; a refusal changes nothing",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 930.1485210000001,
+    "afterMs": 1218.169011,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-due-diligence.test.ts",
+    "test": "P16B due diligence: one costed, dated, scoped disclosure event a rival receives the same lawful event with the fee moved on its own account; a stale disclosure cannot back a binding offer",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 901.4246779999994,
+    "afterMs": 1022.150858,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-due-diligence.test.ts",
+    "test": "P16B due diligence: one costed, dated, scoped disclosure event the player's requestDueDiligence verb dispatches through applyActions and, while the P15B readers are unbound, refuses by name with no fee charged",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 967.4230359999992,
+    "afterMs": 837.8818379999993,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-licence.test.ts",
+    "test": "P16B licence producer: the four-right instrument boundaries R1/R2 move only by whole-title sale; R3 is an exclusive term licence on a property with an enumerated continuation use; R4 has no executable grant before P18",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1270.155847,
+    "afterMs": 1178.832222,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-licence.test.ts",
+    "test": "P16B licence producer: the four-right instrument boundaries only the current R1 holder grants: a non-holder, a grantee sub-licensing and an overlapping exclusive use are refused; a different use or an adjacent term is not",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 826.4196960000004,
+    "afterMs": 762.8039679999997,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-licence.test.ts",
+    "test": "P16B licence producer: the four-right instrument boundaries mintLicence is the one writer: the exact allocated id, every field, the allocator advanced once, nothing else touched, refusals thrown by name",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 936.4949569999999,
+    "afterMs": 1394.8815479999998,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-licence.test.ts",
+    "test": "P16B licence producer: the four-right instrument boundaries permissionFor is the live check a consumer makes at every boundary: scoped exclusive authority moves to the grantee for the term and reverts to the holder at expiry",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 731.849612,
+    "afterMs": 784.1061300000001,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-licence.test.ts",
+    "test": "P16B licence producer: the four-right instrument boundaries the bilateral sale closes through the producer: the licence a closed R3 offer records is exactly mintLicence's, and the refusal names are the producer's",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1019.661314,
+    "afterMs": 756.1465710000002,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-live-condition-readers.test.ts",
+    "test": "P16 default readers consume real P15B evaluated condition and loan authority fails closed before evaluation and permits the genuinely evaluated stable borrower without a loan",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 7761.724480000001,
+    "afterMs": 6400.732396,
+    "failureMessages": []
+  },
+  {
+    "file": "p16b-live-condition-readers.test.ts",
+    "test": "P16 default readers consume real P15B evaluated condition and loan authority refuses a real public loan even after ordinary evaluated recovery returns the bidder to stable",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 7862.498978000001,
+    "afterMs": 6351.999459,
+    "failureMessages": []
+  },
+  {
+    "file": "p16c-acquisition.test.ts",
+    "test": "P16C healthy absorption: eligibility matrix a stable buyer may quote a willing stable rival; the operating player is NotForSale; stage, loan and identity refusals are named",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1233.0602520000002,
+    "afterMs": 1274.6233219999995,
+    "failureMessages": []
+  },
+  {
+    "file": "p16c-acquisition.test.ts",
+    "test": "P16C healthy absorption: eligibility matrix the rival's willingness is a disclosed policy over its rights value plus the cash it hands over at par; it may reject the offer",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 629.4043040000006,
+    "afterMs": 815.7809550000002,
+    "failureMessages": []
+  },
+  {
+    "file": "p16c-acquisition.test.ts",
+    "test": "P16C healthy absorption: the quote separates consideration, at-par cash, exits and disclosed guarantees default retention walks the target's contracts in order, retains what is lawful and affordable, charges each non-retained exit once to the target, and transfers post-exit cash at par",
+    "before": "failed",
+    "after": "passed",
+    "beforeMs": 876.9158720000005,
+    "afterMs": 1014.3850050000001,
+    "failureMessages": []
+  },
+  {
+    "file": "p16c-acquisition.test.ts",
+    "test": "P16C healthy absorption: the quote separates consideration, at-par cash, exits and disclosed guarantees negative post-exit cash transfers at par: the outlay exceeds the consideration by exactly the shortfall",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 693.8975270000001,
+    "afterMs": 4004.8230550000007,
+    "failureMessages": []
+  },
+  {
+    "file": "p16c-acquisition.test.ts",
+    "test": "P16C healthy absorption: the quote separates consideration, at-par cash, exits and disclosed guarantees explicit retention retains exactly the chosen contracts; retained work cannot outlive its participants, so a production with a dropped participant is marked for explicit cancellation",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 868.6802210000005,
+    "afterMs": 640.5722709999991,
+    "failureMessages": []
+  },
+  {
+    "file": "p16c-acquisition.test.ts",
+    "test": "P16C healthy absorption: the quote separates consideration, at-par cash, exits and disclosed guarantees an ineligible pair returns a refusal, and closing refuses an undated preview and any other week by name, changing nothing",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 997.0920330000008,
+    "afterMs": 1017.7470379999995,
+    "failureMessages": []
+  },
+  {
+    "file": "p16c-acquisition.test.ts",
+    "test": "P16C healthy absorption: work continues only where the buyer's operations admit it (the real allocator) the target's in-flight production is admitted into the buyer's managed operations by the shared allocator; without the capability, or with a stage that can seat nobody, it is marked for cancellation and the default drops the people whose work cannot continue",
+    "before": "failed",
+    "after": "passed",
+    "beforeMs": 805.1526840000006,
+    "afterMs": 730.9898330000015,
+    "failureMessages": []
+  },
+  {
+    "file": "p16c-acquisition.test.ts",
+    "test": "P16C healthy absorption: work continues only where the buyer's operations admit it (the real allocator) a buyer whose operations are not managed cannot host managed work, and a production id already present in the buyer's operations is a named collision, not a merge",
+    "before": "failed",
+    "after": "passed",
+    "beforeMs": 685.4264629999998,
+    "afterMs": 811.4975209999993,
+    "failureMessages": []
+  },
+  {
+    "file": "p16c-acquisition.test.ts",
+    "test": "C-08 shared credited writer quote-boundary diagnostic a first unhostable production must not drop a writer required by a later hostable production",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 628.5107659999994,
+    "afterMs": 907.065324000001,
+    "failureMessages": []
+  },
+  {
+    "file": "p16c-estate.test.ts",
+    "test": "P16C estate handoff: the typed adapter point opens an estate; it never declares a studio terminal opens from a valid handoff, materializes the lot titles, and from the closure week the studio's rights are estate-only",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3141.225228,
+    "afterMs": 3427.246766,
+    "failureMessages": []
+  },
+  {
+    "file": "p16c-estate.test.ts",
+    "test": "P16C estate handoff: the typed adapter point opens an estate; it never declares a studio terminal refuses a malformed handoff by name: overlapping lots, a subject the studio does not hold, a wrong window, an unknown studio, a duplicate estate",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 2530.8513539999994,
+    "afterMs": 2405.214231,
+    "failureMessages": []
+  },
+  {
+    "file": "p16c-estate.test.ts",
+    "test": "P16C sealed bids: admission only before D, reservations, refusals admits one sealed bid per bidder per lot before D, reserves the amount, and refuses by name otherwise",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 1542.6096070000012,
+    "afterMs": 1729.103647,
+    "failureMessages": []
+  },
+  {
+    "file": "p16c-estate.test.ts",
+    "test": "P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival resolves exactly once at D with exact debits, proceeds to the estate once, title to the winners, archival of the unsold lot, and no person moved",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 4540.858736,
+    "afterMs": 3778.6498260000008,
+    "failureMessages": []
+  },
+  {
+    "file": "p16c-estate.test.ts",
+    "test": "P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival the ordinary route: ticks carry the estate to D; explicit unbound readers refuse, while actual bound readers sell, archive, save and reload byte-for-byte",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 6777.269610000001,
+    "afterMs": 6883.391116000001,
+    "failureMessages": []
+  },
+  {
+    "file": "p16c-estate.test.ts",
+    "test": "P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival a winner who can no longer afford a later lot after winning an earlier one falls back to the next valid bid",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3093.375677,
+    "afterMs": 2558.513906,
+    "failureMessages": []
+  },
+  {
+    "file": "p16c-estate.test.ts",
+    "test": "P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival a genuinely paid-down bidder enters warning before D and its higher bid falls back to a stable rival",
+    "before": "passed",
+    "after": "passed",
+    "beforeMs": 3496.8305899999978,
+    "afterMs": 3136.9627379999984,
+    "failureMessages": []
+  }
+]

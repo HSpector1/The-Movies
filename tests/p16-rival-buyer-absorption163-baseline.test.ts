@@ -7,6 +7,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { readFileSync } from 'node:fs'
 import { createHash } from 'node:crypto'
 import {tick} from '../src/core/tick.js'
+import { TUNING } from '../src/core/tuning.js'
 import type {GameState} from '../src/core/types.js'
 import {currentHolder,actualP16Money} from '../src/core/rights.js'
 import * as saves from '../src/core/save.js'
@@ -55,11 +56,15 @@ function prepared() {
  const library=libraryValuationV1(diligence.state,TARGET,week);expect(library.kind).toBe('available')
  if(library.kind!=='available')throw new Error('fixed R01 library valuation premise absent')
  // The single lawful whole consideration at the public ask; not an amount sweep or edited account.
- const consideration=Math.ceil(acquisition.absorptionAsk(library.total,postExitCash))
+ const premiumAdjustedLibrary=library.total*(100+TUNING.RIGHTS_WILLINGNESS_PREMIUM_PERCENT)/100
+ const consideration=Math.max(0,Math.ceil(premiumAdjustedLibrary+postExitCash))
+ expect(acquisition.absorptionAsk(library.total,postExitCash)).toBe(consideration)
  const previewInput={buyerId:player,targetId:TARGET,consideration,retention,disclosureId:diligence.record.id}
  const quote=acquisition.quoteAbsorption(diligence.state,previewInput,week)
  expect(quote.kind,'actual person/willingness/reserve/retention premise, no fallback').toBe('quote')
  if(quote.kind!=='quote')throw new Error(quote.refusal)
+ expect(quote.ask).toBe(consideration);expect(quote.consideration).toBe(consideration)
+ expect(quote.outlay).toBe(consideration-postExitCash)
  expect(quote.affordable).toBe(true)
  expect(quote.contracts.filter(c=>c.retained).map(c=>c.contractId)).toEqual(retention.contractIds)
  expect(quote.contracts.filter(c=>!c.retained)).toHaveLength(6);expect(quote.productions).toHaveLength(1);expect(quote.productions[0]).toMatchObject({productionId:FILM,remainingTicks:170-week,phase:'preProduction',disposition:'cancelRequired'})
@@ -79,7 +84,8 @@ function originalUnchanged(p:ReturnType<typeof prepared>) {
  expect(JSON.stringify(p.raw)).toBe(p.rawBefore)
 }
 function completed(p:ReturnType<typeof prepared>){
- expect(p.quote.exitCharges).toBe(1305330);expect(p.quote.outlay).toBe(862166.7370649315);expect(p.quote.reserveAfter).toBe(2385032)
+ // Owner A complete-sum ceiling lowers this new transaction by one dollar; captured cash and exits are unchanged.
+ expect(p.quote.exitCharges).toBe(1305330);expect(p.quote.outlay).toBe(862165.7370649315);expect(p.quote.reserveAfter).toBe(2385032)
  expect(p.quote.productions[0]).toMatchObject({productionId:FILM,remainingTicks:7,phase:'preProduction',disposition:'cancelRequired',reason:'missingParticipants',blockedCapability:null})
  const result=acquisition.closeAbsorption(p.state,p.input,163);originalUnchanged(p)
  const record=result.rights.absorptions.find(a=>a.targetId===TARGET)!

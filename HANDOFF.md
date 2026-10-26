@@ -2,14 +2,14 @@
 
 Last writer: Codex, 2026-10-25, sole coordinator for the stabilization order below.
 
-## Astra engineering Sprint 3 — verified repair checkpoint, 2026-10-25 (current)
+## Astra engineering Sprint 3 — verification complete, 2026-10-25 (current)
 
-- Authorized branch `p16-rebase-20261024`, checkpoint descends from `481fd444befc8c4743fedad0a842aff98ed8dddb`. Main/wip remain at `30a4d0bfd7f610f69bcff86b6162bb79bac7ea24`; no P16 promotion. Owner A–F are binding in the existing Wave 3 Owner decision brief.
-- Implemented complete-sum consent ceiling and aggregate reserve rounding, preserving actual cash and historical transactions. Separate A/B red witnesses and focused original five cases pass after correction. Genuine negative-cash R04 quote/close/save/replay passes in 3.071s with zero lawful exits.
-- Fresh per-package forecast-center reuse reduces post-opening estate 10.784s to 5.246s and S7 adoptions 20.134s to 10.465s; both remain over their original 5s budgets. No cache, validation skip or budget change. Fresh-versus-reused locked/unlocked search parity passes.
-- Root/UI and Bridge types pass. Independent source/integration review cleared; failed setup attempts preserved. All 17 P14 seating failures reproduce exact predecessor causes; broader timing and historical failures remain open.
-- Evidence: `docs/engineering/audits/2026-10-22-codebase-review/p16-sprint3/`, external `~/studio-scratch/p16-sprint3-20261025/`. One coordinator writer/lane; Sol prepares patches, coordinator integrates and makes final decisions.
-- Next: push/verify this checkpoint, then run prepared `final-h.sh` through the sole lane: both Bridge contracts, complete S7 and one 54-file P16/P16 Bridge integration gate. Preserve actual child codes, timing and predecessor comparison. Final gate is not yet run; Sprint 3 is not complete. No Sprint 4.
+- Candidate branch `p16-rebase-20261024`; reviewed production source `7bafd12309f21faa15d5735c53d209976557a839` explicitly remote-verified. Final test/records publication is next; main/wip entry `30a4d0bfd7f610f69bcff86b6162bb79bac7ea24`. No P16 source merge, history rewrite or Sprint 4.
+- Owner A–F are binding in the existing Wave 3 decision brief. All five original fractional-policy cases pass; actual signed cash, exits and history remain at par. Genuine negative R04 close/save/replay passes in 3.071s solo and 4.005s broad, with zero lawful exits.
+- Fresh forecast centers reduce post-opening 10.784→5.246s and adoptions 20.134→10.465s; both remain over 5s. Full S7 22/22 assertions, Save As 14.349s within 30s. Joined-D/replay and other timing failures remain open.
+- One 54-file gate: 260/263, with all original five and 11 P16 Bridge assertions passing. Three obsolete rival price pins corrected under Owner A; complete affected file 3/3 within 5s. Production source unchanged after gate. Final root/UI/Bridge types and contracts pass; source/integration review clear. All 17 P14 seating failures match predecessor causes.
+- Evidence: `docs/engineering/audits/2026-10-22-codebase-review/p16-sprint3/RESULTS.md`, review, source manifests and retained failures; [lesson GS follow-up](docs/LESSONS-LEARNED.md#gs-follow-up--p16-sprint-3-2026-10-25). No runtime or lane lock remains. Sole coordinator integration; Sol implementation preparation and independent focused review.
+- Next: commit/push final candidate test/records, verify its explicit remote SHA, then publish records-only main/wip synchronization and update this current identity. Return Sprint 3 results; no automatic Sprint 4. Main promotion remains unauthorized; full-game/platform/player and historical acceptance remain open.
 
 ## Astra engineering Sprint 2 — completed 2026-10-25 (historical)
 
