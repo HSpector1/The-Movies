@@ -1,0 +1,22 @@
+{
+  "remote": "https://github.com/HSpector1/The-Movies.git",
+  "verifiedRemoteCommit": "47dd3f2886a528a7ecd3054ea3ea4b72d4ddf34c",
+  "archive": "docs/engineering/audits/2026-10-22-codebase-review/p16-sprint7/native-greenlight/v6/postimages.tar.gz",
+  "archiveSha256": "72d11501e149a69881b8237840578c959a1defb3b204d113d4968fa24178c616",
+  "reason": "Duplicate intermediate postimages; reviewed source now integrated/published; archive and exact patches retained",
+  "files": [
+    {
+      "path": "src/core/tick.ts",
+      "bytes": 71764,
+      "sha256": "7ad9c4e0831d679c45e8cb088294f819a947e3e96aeae5d035580d3b2486b7da",
+      "allocatedBytes": 73728
+    },
+    {
+      "path": "src/core/marketIntegration.ts",
+      "bytes": 18977,
+      "sha256": "3ff7a347ad559cb0e591ccc5fddf704b2c232f52f16a4852020128ae8280cd34",
+      "allocatedBytes": 20480
+    }
+  ],
+  "reclaimedAllocatedBytes": 94208
+}

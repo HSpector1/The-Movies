@@ -1,3 +1,9 @@
+## Genuine queued-release defect reproduced — 2026-10-26, 15:18 CDT
+
+The existing positive leaf with independent queue extension now reaches every authentic premise: fixed R04 hiring and actual affordability; paid own c-00 drafting/Review/Accept; two real drafting reservations; full gate; queued intent without spending; committed carried release and valid pre-tick save. At arrival184 the carried film releases, but queued script-0000 expires with reason `continued script: native active production differs from paid greenlight`. This is a reached gameplay defect, not failed setup. Grant, post-grant money and final-save assertions remain unreached. The direct original lifecycle assertions before the fork still pass.
+
+Selected leaf7,028ms exceeds unchanged5,000ms; two leaves skipped. Child/wrapper1 completed normally; independent audit verified1,645pins and released freeze. No foreign Godot observed during this short run. Source-only narrow repair preparation is assigned to the existing Sol worker in scratch; X production source remains e0d4c239, only the test extension is dirty. Preserve this RED when applying any repair. Broader35, historical timing and all platform/full-game limitations remain.
+
 ## Authentic queue witness prepared, unrun — 2026-10-26, 15:13 CDT
 
 Independent test preparation reuses the actual held state after every original direct-lifecycle assertion. A separate fork publicly hires the six real R04 former employees, commissions and earns own c-00, Accepts it, then commissions two real one-week drafts to occupy both Development & Casting slots. Their next completion should free capacity on the same input week as the committed carried release. Current hiring, term, cash, draft and queue premises are explicit assertions, not claimed results. No transplanted cash/roster, cheaper substitute, changed budget, new test leaf or removed assertion.

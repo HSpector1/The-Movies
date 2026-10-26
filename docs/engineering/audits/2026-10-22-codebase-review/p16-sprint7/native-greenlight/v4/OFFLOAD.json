@@ -1,0 +1,34 @@
+{
+  "remote": "https://github.com/HSpector1/The-Movies.git",
+  "verifiedRemoteCommit": "47dd3f2886a528a7ecd3054ea3ea4b72d4ddf34c",
+  "archive": "docs/engineering/audits/2026-10-22-codebase-review/p16-sprint7/native-greenlight/v4/postimages.tar.gz",
+  "archiveSha256": "6a61a913b2d1104e2b8dce79aa04489824b9eb4f212c9e188d078b308e7b0785",
+  "reason": "Duplicate intermediate postimages; reviewed source now integrated/published; archive and exact patches retained",
+  "files": [
+    {
+      "path": "src/core/firstTakeSubjects.ts",
+      "bytes": 9216,
+      "sha256": "985398260cc46357214d13a07e8439ec9a496d0bb590d20dc96faf48242ff92c",
+      "allocatedBytes": 12288
+    },
+    {
+      "path": "src/core/continuedScripts.ts",
+      "bytes": 52147,
+      "sha256": "8217b43843bdb1f077a164ea468e5287d76bcc06dc53d4125bea0fe38991cbd7",
+      "allocatedBytes": 53248
+    },
+    {
+      "path": "src/core/promises.ts",
+      "bytes": 111967,
+      "sha256": "9d35534e93cc1de843f47318927508681e4d948e088d24349aa20fad6b257f7a",
+      "allocatedBytes": 114688
+    },
+    {
+      "path": "src/core/save.ts",
+      "bytes": 593305,
+      "sha256": "dd7a05d7ddce0f9ec78eff3dea5dd0cf34c37254d3af3209a9d72692e5a6fe31",
+      "allocatedBytes": 593920
+    }
+  ],
+  "reclaimedAllocatedBytes": 774144
+}

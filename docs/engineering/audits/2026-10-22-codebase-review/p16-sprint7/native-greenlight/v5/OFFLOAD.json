@@ -1,0 +1,16 @@
+{
+  "remote": "https://github.com/HSpector1/The-Movies.git",
+  "verifiedRemoteCommit": "47dd3f2886a528a7ecd3054ea3ea4b72d4ddf34c",
+  "archive": "docs/engineering/audits/2026-10-22-codebase-review/p16-sprint7/native-greenlight/v5/postimages.tar.gz",
+  "archiveSha256": "fc70e9939571ede29fba368ab4e20bdaac05183b4323c326545d9de5e4ea89e9",
+  "reason": "Duplicate intermediate postimages; reviewed source now integrated/published; archive and exact patches retained",
+  "files": [
+    {
+      "path": "src/core/firstTakeSubjects.ts",
+      "bytes": 9267,
+      "sha256": "43b65ba8356d86f87c87dd4eb5e80e59c44057b88753a8d2428f52dfea22dc25",
+      "allocatedBytes": 12288
+    }
+  ],
+  "reclaimedAllocatedBytes": 12288
+}
