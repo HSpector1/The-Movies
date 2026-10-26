@@ -1,0 +1,57 @@
+{
+  "status": "FROZEN-STATIC-UNRUN",
+  "cause": "Coordinator consumer-focused roottypes exited2 on TS5097 before runtime: core-test Bridge imports enter root compiler lacking allowImportingTsExtensions. No compiler policy changed.",
+  "patch": {
+    "path": "COMPILER-OWNER.patch",
+    "sha256": "dd0a0f0edde19b2b7268cd93e4096479994a40fb89ff39f9db4f32b4c7e6e361",
+    "bytes": 75084
+  },
+  "files": [
+    {
+      "path": "tests/p14c2rm-writer-continuation.test.ts",
+      "preimageSHA256": "d7b545657fc6b78ab5f4cbacdbc9ea8c998d15a92f3b7e061a996817189a2914",
+      "postimageSHA256": "e1d235747248913951a4095f8d18f9bef0324fae023f5548af0ab6b9e7686b25",
+      "preimageBytes": 57381,
+      "postimageBytes": 32517
+    },
+    {
+      "path": "tests/p16-absorption-public-action.test.ts",
+      "preimageSHA256": "9a567917045b2d9931b08cf7a3d5e9dcc0680516d81e18171d1b05b97e8c3871",
+      "postimageSHA256": "1f5d4a3a88fcbfa404cc831ee70de893a3192722a5f6c5d8fd28975a5827eb07",
+      "preimageBytes": 24648,
+      "postimageBytes": 14650
+    },
+    {
+      "path": "tests/bridge-p16-rights-parity.test.ts",
+      "preimageSHA256": "ee78ae74f6448ed8d1a3eb74c06cd6bde54edf3d0373c080625d7339a39d4644",
+      "postimageSHA256": "00330ae07b2f881ff8eda3758afbaae363c9f407bb41e54df3e7951ddf1acba7",
+      "preimageBytes": 18817,
+      "postimageBytes": 54823
+    }
+  ],
+  "identityMapping": [
+    {
+      "fromFile": "tests/p14c2rm-writer-continuation.test.ts",
+      "toFile": "tests/bridge-p16-rights-parity.test.ts",
+      "describe": "880-B natural retired-writer continuation",
+      "it": "continues genuine acquired obligations beside an own expired-contract retirement draft through Accept and save/replay",
+      "body": "Byte-identical original leaf, with exact existing writeProject/readBack helpers inserted inside leaf for lexical isolation."
+    },
+    {
+      "fromFile": "tests/p16-absorption-public-action.test.ts",
+      "toFile": "tests/bridge-p16-rights-parity.test.ts",
+      "describe": "P16 absorption of a genuine current proposal",
+      "it": "withdraws the absorbed rival proposal while preserving the actual player case and competing offer",
+      "body": "Entire original describe group byte-identical."
+    }
+  ],
+  "staticChecks": [
+    "Both original scenario bodies retained; full describe/it names unchanged.",
+    "Each moved leaf exists exactly once across postimages.",
+    "All existing Bridge expectation lines retained.",
+    "Both core files have no remaining Bridge imports; removed import names have no remaining identifier occurrence.",
+    "No scenario, setup or assertion moved outside its original5s timed leaf; no configuration changes."
+  ],
+  "unchangedArtifact": "../test-draft/CONSUMER-ASSERTIONS.patch SHA25610ae986f0402b2083ce380f0b5b0b2145f5bf4c35d7a2f4ed252573df335ad01; runtime63 test delta remains installed/unchanged.",
+  "runtime": "No compiler/engine/tests/generator executed by author; root owns actual type and runtime qualification."
+}

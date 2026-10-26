@@ -1,0 +1,18 @@
+{
+  "head": "b5c11b5a570820b4c8e8ded6830294b84d57d5a2",
+  "purpose": "Correct compiler ownership; same three genuine leaves, complete generator, both affected compilers",
+  "sourceManifestEntries": 1654,
+  "budget": "Original per-leaf budgets unchanged; synchronous overrun not qualified",
+  "checks": [
+    "root types",
+    "Bridge types",
+    "three relocated/existing leaves",
+    "complete generator file"
+  ],
+  "unrun": [
+    "complete writer and runtime files",
+    "remaining40-file consumer milestone",
+    "broader historical/game gates"
+  ],
+  "relocation": "same describe/it names now in existing Bridge parity file, original core tests preserved"
+}
