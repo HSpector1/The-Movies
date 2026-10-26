@@ -2,6 +2,15 @@
 
 Last writer: Codex, 2026-10-25, sole coordinator for the authorized Sprints 5–16 program.
 
+## Experimental retained-writing slice — 2026-10-26 (current side tree)
+
+- This worktree is the coordinator-owned `p16-retained-writing-20261026` experimental branch based on `013c4edc90c0ce063fea00ebb187161ad6eb3414`. Primary P16 candidate stays unchanged. No P16 technical checkpoint, P17/P18 start or gameplay promotion follows.
+- Prepared source13/Accept/Rewrite plus reviewed four-file retirement-authority forwarding repair; ten original tests unchanged. No new policy, provenance or grant. Existing static review found no remaining concrete source issue, but actual retirement/carried coexistence remains unproved.
+- Predecessor first retained-positive leaf reached `absorption: retainedScriptProducerRequired` in 2.475 s. All 1,611 frozen hashes matched; independent postflight audit released freeze. Three other leaves were unselected. This is missing-producer evidence, not retirement-coexistence RED.
+- Resource limit: preflight passed with 3,805,316 KiB and zero detected heavy jobs; swap grew 7→8 GiB, postflight free 2,754,404 KiB below runtime floor 3,145,728 KiB. Withhold resource/timing qualification. No further runtime. Source is prepared but compilers, ten-test green run and consumers are UNRUN; generated schema is not updated/current for this experimental delta.
+- Next: stable headroom and exclusivity, then current preflight/lane for root/Bridge types and the three existing complete continuation files; inspect first failures before any test change. Reuse current retired-writing/history files for affected-law checks. Do not install the optional non-distinguishing control or claim coexistence. Canonical generation/consumer qualification and carried greenlight/broader history remain required.
+- Primary Sprint 5 still needs original three r3n1 fixture inputs; no synthetic replacement or full-gate waiver. Existing coordinator state/program view remains in the records worktree HANDOFF/LEDGER. Evidence: `docs/engineering/audits/2026-10-22-codebase-review/p16-sprint7/`; raw private preflight stays in scratch.
+
 ## Sprints 5–16 authorized program — active, 2026-10-25 (current)
 
 - Owner authorization: `docs/engineering/audits/2026-10-22-codebase-review/p16-sprint5/OWNER-ASSIGNMENT.txt`. Continue eligible bounded packages without routine approvals; P17/P18 require qualified technical predecessors. No gameplay promotion to main. This supersedes historical stop-after-sprint and no-P17/P18 notes only within the new scope.

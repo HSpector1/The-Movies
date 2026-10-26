@@ -1,0 +1,21 @@
+{
+  "preflightLaunchAllowed": true,
+  "launchFreeKiB": 3805316,
+  "postflightFreeKiB": 2754404,
+  "launchMinimumKiB": 3670016,
+  "runtimeFloorKiB": 3145728,
+  "swapBeforeMiB": 7168,
+  "swapAfterMiB": 8192,
+  "selectedTests": 1,
+  "failed": 1,
+  "unselected": 3,
+  "firstCause": "absorption: retainedScriptProducerRequired",
+  "durationMs": 2474.897253,
+  "runtimeSeconds": 10.07,
+  "wrapperExit": 1,
+  "childExit": 1,
+  "sourceManifestMatches": 1611,
+  "claim": "Reached retained-producer refusal only; no retirement coexistence RED; resource/timing qualification withheld",
+  "greenRun": "UNRUN_RESOURCE_BLOCKED",
+  "optionalAuthorityControl": "preserved but not installed; does not distinguish original defect"
+}

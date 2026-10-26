@@ -1,3 +1,4 @@
+import { advanceBuyerScriptWork, buyerScriptDevelopment } from './continuedScripts.js'
 import { prepareContinuedReleases } from './hollywoodTick.js'
 import { buyerOperationsForAllWork, buyerOperatedProductions, buyerContinuedProductions, publishOperatedAdvance, recordContinuedWorkSteps, continuedCommittedReleaseIds } from './continuedWork.js'
 import { prepareLiveWritingContext } from './liveRetirementWriting.js'
@@ -108,7 +109,6 @@ import {
 } from './studioEvents.js'
 import { developmentOfficeEstUplift } from './facilityEffects.js'
 import {
-  completeDueScriptWork,
   markScriptProjectProduced,
   scriptOccupiedFacilitySlots,
   scriptProjectForProduction,
@@ -283,19 +283,9 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // A commission/rewrite made in week t is due at t+1 and completes during the
   // single visible advance from t to t+1. Completed work releases its shared
   // Development & Casting slot before productions allocate their next phase.
-  let scriptDevelopment = completeDueScriptWork(
-    state.scriptDevelopment,
-    currentTick + 1,
-    {
-      concepts: state.concepts,
-      talent: state.talent,
-      // C1-M4: read from the estate STANDING NOW. Step 1.6 completes construction
-      // later in this same advance, so an office finishing this week does not
-      // uplift a draft finishing this week — the same "contributes nothing until
-      // it flips" law capacity has followed since V11.
-      estUplift: developmentOfficeEstUplift(state),
-    },
-  )
+  const writingAdvance=advanceBuyerScriptWork(state,currentTick+1,developmentOfficeEstUplift(state))
+  state=writingAdvance.state // private aggregate: actual continued work, not a published intermediate save
+  let scriptDevelopment=writingAdvance.development
 
   // ── 0.6 CASTING SESSIONS ─────────────────────────────────────────────────
   // Due camera tests resolve after screenplay work and before production
@@ -376,7 +366,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     new Set([...committedReleaseIds,...continuedCommittedReleaseIds(workInput)]),
     new Set([
       ...resourceClaims(state).filter(c => c.owner === 'installation' && c.facilitySlotKey !== null).map(c => c.facilitySlotKey!),
-      ...scriptOccupiedFacilitySlots(scriptDevelopment),
+      ...scriptOccupiedFacilitySlots({...scriptDevelopment,projects:[...scriptDevelopment.projects,...buyerScriptDevelopment(state).projects.filter(p=>!state.scriptDevelopment.projects.some(own=>own.id===p.id))]}),
       ...castingOccupiedFacilitySlots(castingSessions),
       ...setOccupiedFacilitySlots(
         state.sets,

@@ -1,0 +1,98 @@
+[
+  {
+    "path": "bridge/schema/bridge-schema.ts",
+    "candidatePreimageSHA256": "3c89a188690aa6421caedede0f899d6fb9c4a6fdad11047b656aade19ed4569f",
+    "postimageSHA256": "72983ad3315375d175e8978f0f706b79db029f9acf94323b7306e3d5c9ab3c5d",
+    "originalDraftUnchanged": true
+  },
+  {
+    "path": "src/core/absorbedScripts.ts",
+    "candidatePreimageSHA256": "0310bd54d964226413fc1ae3a2cad08d58cc6320717a045d4e7f374deb5d4767",
+    "postimageSHA256": "160bcad29aa90ac79e6fde23df300767bca1b2c33171726c49076bee320f3289",
+    "originalDraftUnchanged": true
+  },
+  {
+    "path": "src/core/acquisition.ts",
+    "candidatePreimageSHA256": "221e7c63f412d686a99c4ae997ab4d4ae5f39ffcc651593e66e75dfe013bee92",
+    "postimageSHA256": "e165fa7c3432bd17fd406f0541c2ae972797333766b713293d2d227b98ae1a9e",
+    "originalDraftUnchanged": false
+  },
+  {
+    "path": "src/core/actions.ts",
+    "candidatePreimageSHA256": "37eb1d2a644fc455b7b9c05beeb47251637591a4a634bd0f4388c98abdee7e07",
+    "postimageSHA256": "86aa087289234063d658991162207edc6579431d026e53eb88f659b9aa744564",
+    "originalDraftUnchanged": false
+  },
+  {
+    "path": "src/core/continuedScripts.ts",
+    "candidatePreimageSHA256": null,
+    "postimageSHA256": "0f104e522f6274d12cc702ba471837d90f6d64f05abe5e7f08c3d194e67f0c1b",
+    "originalDraftUnchanged": false
+  },
+  {
+    "path": "src/core/employment.ts",
+    "candidatePreimageSHA256": "6513fb36570a6f74dc12eba1674bad8527713d839bd8f294abd481fd9800e5ee",
+    "postimageSHA256": "3d00df38ba28adbb75024e270b715c8ea2b72deee110fff4be8c6571fb61bbbe",
+    "originalDraftUnchanged": true
+  },
+  {
+    "path": "src/core/occupancy.ts",
+    "candidatePreimageSHA256": "35131b9778c59bf0d5e12d871ac23c2e6d2141a1320fc1c92c5138a3608b295c",
+    "postimageSHA256": "5ab4894a99a213e9ea4be109418e1f4a5b892b9ab992e72284c673dc45383786",
+    "originalDraftUnchanged": true
+  },
+  {
+    "path": "src/core/rights.ts",
+    "candidatePreimageSHA256": "7e52c3dfdb267e43a64bcbb086796136f0cf55659a3becfaf6b0632ddd2e9d2f",
+    "postimageSHA256": "310741413e5dde8e8077fb585b3f5cde380d7735c426825defd42dffbd44a580",
+    "originalDraftUnchanged": true
+  },
+  {
+    "path": "src/core/save.ts",
+    "candidatePreimageSHA256": "0132ddaa87e9a23f5f2db35326f8c33dd6d907309d8ea2c32cb37489d08f5f7f",
+    "postimageSHA256": "1c0a6edbc339844e7c169fbe6fa01da2d2db8587a0dd12824326167684ca0d48",
+    "originalDraftUnchanged": false
+  },
+  {
+    "path": "src/core/scriptDevelopment.ts",
+    "candidatePreimageSHA256": "88ab848828a7eadad1a818a61d37cf0ab7d962ef06858c58d923ab50a56181b0",
+    "postimageSHA256": "3f65e7d0f2c6e6e3a1f8816c64ca233749213842b85746f65fcb693f87d68bfa",
+    "originalDraftUnchanged": true
+  },
+  {
+    "path": "src/core/scriptReadModel.ts",
+    "candidatePreimageSHA256": "93b3c99876c0c252a63388f5fd8c3df97d8a704f81ce22666f068f4a010875ef",
+    "postimageSHA256": "30973f9bf29f08e217de97dc024472acd0890dd54cffa2a3f27f10a7eca29b3b",
+    "originalDraftUnchanged": true
+  },
+  {
+    "path": "src/core/studioClosure.ts",
+    "candidatePreimageSHA256": "a1a08d3c2944e92100000f67810877e1f9ca8466f6a6402ca57f5eaf77c67ad7",
+    "postimageSHA256": "c0bdaa3fae213ec39324dd391af8f0c8730bff6e8049cb0944cbf498bba06767",
+    "originalDraftUnchanged": true
+  },
+  {
+    "path": "src/core/tick.ts",
+    "candidatePreimageSHA256": "8eac44e272f154e3af1e185536b8a891debe2dbf1e9a2f04b7fb6d0ce3891dd6",
+    "postimageSHA256": "11aace322a6c6b4db7ea7fb5129db94463581044440a98b99a62cda54ea0c45a",
+    "originalDraftUnchanged": true
+  },
+  {
+    "path": "tests/p16-carried-script-accept.test.ts",
+    "candidatePreimageSHA256": null,
+    "postimageSHA256": "a7bd894bd802569aa52455a57483b5d46c9111bdb59d4e525027e2c5751603e0",
+    "originalDraftUnchanged": true
+  },
+  {
+    "path": "tests/p16-carried-script-rewrite.test.ts",
+    "candidatePreimageSHA256": null,
+    "postimageSHA256": "2fd0f1a06cb6656b5c97320137a71ddae537b3b0cf534e9d0e15d6b18bb14d85",
+    "originalDraftUnchanged": true
+  },
+  {
+    "path": "tests/p16-retained-drafting-continuation.test.ts",
+    "candidatePreimageSHA256": null,
+    "postimageSHA256": "c26900d8ddf8f95f501d7ed6d6b41d67fea903027809c68157fb4821677cbec0",
+    "originalDraftUnchanged": true
+  }
+]

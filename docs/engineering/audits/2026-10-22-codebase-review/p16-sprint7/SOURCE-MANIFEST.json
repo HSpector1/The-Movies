@@ -1,0 +1,22 @@
+[
+  {
+    "path": "src/core/continuedScripts.ts",
+    "originalDraftSHA256": "40657e5d9c7eca1ff944927de48516189f6bdf75ca0a748767ba3f80f911c6c7",
+    "postimageSHA256": "0f104e522f6274d12cc702ba471837d90f6d64f05abe5e7f08c3d194e67f0c1b"
+  },
+  {
+    "path": "src/core/acquisition.ts",
+    "originalDraftSHA256": "7cdd7ada7d4605a51146820fa568405351bfa2580ae66535927c5cce71334a9d",
+    "postimageSHA256": "e165fa7c3432bd17fd406f0541c2ae972797333766b713293d2d227b98ae1a9e"
+  },
+  {
+    "path": "src/core/actions.ts",
+    "originalDraftSHA256": "9a2ffc9d41691db1281abbaae40765324d743c304978035ed471487889e3c7b1",
+    "postimageSHA256": "86aa087289234063d658991162207edc6579431d026e53eb88f659b9aa744564"
+  },
+  {
+    "path": "src/core/save.ts",
+    "originalDraftSHA256": "f942f1b1303d1d3c36e626838bfc684c0e9092484d5ceeca6442334520e8450b",
+    "postimageSHA256": "1c0a6edbc339844e7c169fbe6fa01da2d2db8587a0dd12824326167684ca0d48"
+  }
+]

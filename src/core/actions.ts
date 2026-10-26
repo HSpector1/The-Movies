@@ -1,3 +1,4 @@
+import { continuedScriptOwner, buyerScriptDevelopment, acceptContinuedScript, rewriteContinuedScript } from './continuedScripts.js'
 import { continuedReleaseOwner, cancelContinuedProduction, buyerOperatedProductions, buyerOperationsForAllWork, withBuyerOperations, publishBuyerOperationsAction } from './continuedWork.js'
 import { buildFilmParticipants } from './filmParticipants.js'
 import { liveRetirementWritingAuthority, prepareLiveWritingContext, type LiveWritingContext } from './liveRetirementWriting.js'
@@ -554,7 +555,7 @@ function applyGreenlight(
             state.operations,
             production,
             new Set([
-              ...scriptOccupiedFacilitySlots(state.scriptDevelopment),
+              ...scriptOccupiedFacilitySlots(buyerScriptDevelopment(state)),
               ...castingOccupiedFacilitySlots(state.castingSessions),
               // C2a-M2: the scenery crews the sets root is holding. A greenlight
               // opens in Development and takes no scenery slot, so this changes
@@ -2129,7 +2130,7 @@ function applyCommissionScript(
         state.operations,
         action.project,
         week,
-        castingOccupiedFacilitySlots(state.castingSessions),
+        new Set([...castingOccupiedFacilitySlots(state.castingSessions),...scriptOccupiedFacilitySlots({...state.scriptDevelopment,projects:buyerScriptDevelopment(state).projects.filter(p=>!state.scriptDevelopment.projects.some(own=>own.id===p.id))})]),
         poolDraftWeeks,
       )
       return assertCurrentScreenplayState(
@@ -2244,7 +2245,7 @@ function applyCommissionOriginalScreenplay(
       promise: payload.promise,
     },
     week,
-    castingOccupiedFacilitySlots(state.castingSessions),
+    new Set([...castingOccupiedFacilitySlots(state.castingSessions),...scriptOccupiedFacilitySlots({...state.scriptDevelopment,projects:buyerScriptDevelopment(state).projects.filter(p=>!state.scriptDevelopment.projects.some(own=>own.id===p.id))})]),
     draftWeeks,
   )
 
@@ -2378,6 +2379,7 @@ function applyRequestScriptRewrite(
   action: Action & { kind: 'requestScriptRewrite' },
   writingContext: LiveWritingContext,
 ): GameState {
+  if(continuedScriptOwner(state,action.projectId))return rewriteContinuedScript(state,action.projectId,writingContext)
   const project = state.scriptDevelopment.projects.find(
     (candidate) => candidate.id === action.projectId,
   )
@@ -2403,7 +2405,7 @@ function applyRequestScriptRewrite(
       state.operations,
       action.projectId,
       state.market.tick,
-      castingOccupiedFacilitySlots(state.castingSessions),
+      new Set([...castingOccupiedFacilitySlots(state.castingSessions),...scriptOccupiedFacilitySlots({...state.scriptDevelopment,projects:buyerScriptDevelopment(state).projects.filter(p=>!state.scriptDevelopment.projects.some(own=>own.id===p.id))})]),
     ),
   }, writingContext)
 }
@@ -2413,6 +2415,7 @@ function applyAcceptScript(
   action: Action & { kind: 'acceptScript' },
   writingContext: LiveWritingContext,
 ): GameState {
+  if(continuedScriptOwner(state,action.projectId))return acceptContinuedScript(state,action.projectId,writingContext)
   return assertCurrentScriptState({
     ...state,
     scriptDevelopment: acceptScriptProject(
@@ -2430,6 +2433,7 @@ function applyGreenlightScriptProject(
   allowQueue = true,
   injectedEvents?: StudioEventSink,
 ): GameState {
+  if(continuedScriptOwner(state,action.production.projectId))throw new Error('applyActions: continuedScriptGreenlightProducerRequired')
   const project = state.scriptDevelopment.projects.find(
     (candidate) => candidate.id === action.production.projectId,
   )

@@ -1,3 +1,4 @@
+import { buyerScriptDevelopment, buyerScriptConcepts } from './continuedScripts.js'
 import { productionCompanyTalentIds } from './productionPeople.js'
 import { initializeHollywood, industryBusyTalentIds, rivalEmployment } from './hollywood.js'
 import { buyerOperatedProductions } from './continuedWork.js'
@@ -148,8 +149,8 @@ export function seatingProduction(state: GameState, talentId: string): Productio
 export function activeWritingAssignmentIds(state: GameState): Set<string> {
   const ids = new Set<string>()
   for (const assignment of activeScriptWriterAssignments(
-    state.scriptDevelopment,
-    state.concepts,
+    buyerScriptDevelopment(state),
+    buyerScriptConcepts(state),
   )) {
     ids.add(assignment.talentId)
   }

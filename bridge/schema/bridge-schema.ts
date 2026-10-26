@@ -1148,6 +1148,7 @@ const developmentBlockerKind = () =>
     'package-staffing',
     'casting-session',
     'greenlight-queued',
+    'carried-action',
     'no-concepts',
     'no-writers',
   ])
@@ -2297,7 +2298,7 @@ const StudioDiligenceQuoteSnapshot = object('StudioDiligenceQuoteSnapshot',{
 const StudioAbsorptionProductionVerdict = object('StudioAbsorptionProductionVerdict',{productionId:nonEmptyText(),disposition:enumeration(['continues','cancelRequired'] as const),reason:nullable(text())})
 const StudioAbsorptionScriptVerdict = object('StudioAbsorptionScriptVerdict',{
  scriptProjectId:nonEmptyText(),status:enumeration(['drafting','rewriting'] as const),writerIds:array(nonEmptyText()),
- disposition:enumeration(['writeOff','continuationRequired'] as const),reason:enumeration(['writersNotRetained','writerContinuationProducerRequired'] as const),
+ disposition:enumeration(['writeOff','continues','continuationRequired'] as const),reason:enumeration(['writersNotRetained','writerTeamRetained','writerContinuationProducerRequired','partialWriterTeamProducerRequired','writerCapacityUnavailable'] as const),
 })
 const StudioAbsorptionQuoteTerms = object('StudioAbsorptionQuoteTerms',{
  consideration:number(),targetCashBeforeExits:number(),exitCharges:number(),postExitCash:number(),guarantees:number(),outlay:number(),ask:number(),

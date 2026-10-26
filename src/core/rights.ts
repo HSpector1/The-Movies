@@ -1,5 +1,5 @@
 import type { RivalProjectCosts } from './hollywoodTypes.js'
-import type { FacilityCapability, ProductionPhase, Production, ProductionWorkflow, Standing, ReleaseCommitment, ScriptProject } from './types.js'
+import type { FacilityCapability, ProductionPhase, Production, ProductionWorkflow, Standing, ReleaseCommitment, ScriptProject, ScriptAssessment, ScriptReservation, StudioFacility, PlacedFacility, StudioOperations, ScriptDevelopment } from './types.js'
 import type { TechnologyId } from './technologyTypes.js'
 import type { StandingContext, ReleaseBenchmarks } from './standing.js'
 // ── P16A: story properties, four separate rights, title history and the rights root ──
@@ -220,6 +220,21 @@ export type AbsorptionStoppedScript = {
   scriptProjectId: string; reason: 'writersNotRetained'; sourceContractIds: string[]
   originalScript: ScriptProject; originalCosts: RivalProjectCosts
 }
+export type AbsorptionContinuedScript = {
+  sourceScriptProjectId: string; sourceContractIds: string[]; buyerContractIds: string[]
+  originalScript: ScriptProject; originalCosts: RivalProjectCosts
+  reservationAtClose: ScriptReservation; project: ScriptProject
+}
+export type AbsorptionScriptDecision =
+  | { id:string; projectId:string; kind:'accept'; week:number }
+  | { id:string; projectId:string; kind:'rewrite'; week:number; reservation:ScriptReservation;
+      nativeInput:{operations:StudioOperations;development:ScriptDevelopment;occupiedSlots:string[]};
+      allocationAuthority:{projectIds:string[];workflowIds:string[];productions:Production[];occupiedSlots:string[];developmentContext:AbsorptionScriptCompletion['developmentContext'];estUplift:number} }
+export type AbsorptionScriptCompletion = {
+  id: string; projectId: string; week: number; inputWeek: number; estUplift: number
+  developmentContext: { facilities: StudioFacility[]; placements: PlacedFacility[]; paidRows: { projectId: string; week: number; amount: number }[] }
+  writerRewriting: { actual: number; perceived: number } | null; assessment: ScriptAssessment
+}
 type AbsorptionRecordBase = {
   id: string; week: number; buyerId: string; targetId: string; disclosureId: string
   quotedAtWeek: number; quoteAgePolicyVersion: QuoteAgePolicyVersion
@@ -245,6 +260,9 @@ type AbsorptionRecordBase = {
 export type AbsorptionRecord = AbsorptionRecordBase & (
   | { producerVersion: 'absorption-clean/v1'; stoppedScripts?: never }
   | { producerVersion: 'absorption-scripts/v2'; stoppedScripts: AbsorptionStoppedScript[] }
+  | { producerVersion: 'absorption-scripts/v3'; stoppedScripts: AbsorptionStoppedScript[]; continuedScripts: AbsorptionContinuedScript[]; scriptCompletions: AbsorptionScriptCompletion[] }
+  | { producerVersion: 'absorption-scripts/v4'; stoppedScripts: AbsorptionStoppedScript[]; continuedScripts: AbsorptionContinuedScript[]; scriptCompletions: AbsorptionScriptCompletion[]; scriptDecisions: { id:string; projectId:string; kind:'accept'; week:number }[] }
+  | { producerVersion: 'absorption-scripts/v5'; stoppedScripts: AbsorptionStoppedScript[]; continuedScripts: AbsorptionContinuedScript[]; scriptCompletions: AbsorptionScriptCompletion[]; scriptDecisions: AbsorptionScriptDecision[] }
 )
 
 type BoundarySourceKind = 'player-ledger' | 'player-active' | 'player-release' | 'rival-announcement' | 'rival-active' | 'rival-release'
@@ -1071,6 +1089,11 @@ export function validateRightsRoot(raw: Record<string, unknown>, label: string):
     for(const receipt of record.runReceipts) idNumber(receipt.id,'absorptions.runReceipts.id')
     for(const step of record.workSteps) idNumber(step.id,'absorptions.workSteps.id')
     for(const cancellation of record.workCancellations) idNumber(cancellation.id,'absorptions.workCancellations.id')
+    if((record.producerVersion==='absorption-scripts/v3'||record.producerVersion==='absorption-scripts/v4'||record.producerVersion==='absorption-scripts/v5')){
+      for(const row of record.continuedScripts)idNumber(row.project.id,'absorptions.continuedScripts.project.id')
+      for(const row of record.scriptCompletions)idNumber(row.id,'absorptions.scriptCompletions.id')
+      if(record.producerVersion==='absorption-scripts/v4'||record.producerVersion==='absorption-scripts/v5')for(const row of record.scriptDecisions)idNumber(row.id,'absorptions.scriptDecisions.id')
+    }
   }
   const bySubject = new Map<string, TitleEvent[]>()
   for (const [i, e] of rights.titleEvents.entries()) {

@@ -442,7 +442,8 @@ export function resourceClaims(sources: OccupancySources): ResourceClaim[] {
   }
 
   // 3. Screenplays. Tested on the reservation, never the status.
-  for (const project of sources.scriptDevelopment?.projects ?? []) {
+  const continuedScripts=(sources.rights?.absorptions??[]).flatMap(a=>(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||a.producerVersion==='absorption-scripts/v5')&&a.buyerId===sources.hollywood?.playerStudioId?a.continuedScripts.map(r=>r.project).filter(p=>!sources.scriptDevelopment?.projects.some(own=>own.id===p.id)):[])
+  for (const project of [...(sources.scriptDevelopment?.projects??[]),...continuedScripts]) {
     if (project.reservation === null) continue
     claims.push({
       key: resourceSlotKey('facility', project.reservation.facilityId, project.reservation.slot),

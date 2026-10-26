@@ -1,0 +1,17 @@
+{
+  "phase": "baseline missing-producer RED only, not retirement coexistence",
+  "sourceHead": "013c4edc90c0ce063fea00ebb187161ad6eb3414",
+  "worktree": "/Users/zacheryspector/studio-scratch/p16-retained-writing-20261026-wt",
+  "testFile": "tests/p16-retained-drafting-continuation.test.ts",
+  "testName": "default actual writer retention carries one namespaced live buyer draft through actual due173 with creator paid history save and replay",
+  "testSHA256": "c26900d8ddf8f95f501d7ed6d6b41d67fea903027809c68157fb4821677cbec0",
+  "budgets": "unchanged 5000ms default; setup inside original leaf",
+  "preservedPredecessorWorktree": {
+    "retiredPath": "/Users/zacheryspector/studio-scratch/p16-sprint3-predecessor-481fd444",
+    "sourceCommit": "481fd444befc8c4743fedad0a842aff98ed8dddb",
+    "trackedAndUntrackedClean": true,
+    "onlyIgnoredEntry": "node_modules symlink to shared dependency root",
+    "allocatedKiB": 129456,
+    "commitPreservedInCandidateAncestry": true
+  }
+}
