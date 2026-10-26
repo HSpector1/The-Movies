@@ -1,0 +1,18 @@
+{
+  "head": "b5c11b5a570820b4c8e8ded6830294b84d57d5a2",
+  "purpose": "Complete existing active-run file after reviewed rivalaccount/estate producer; compare original genuineRED and retain both player cases",
+  "sourceManifestEntries": 1657,
+  "budgetMs": 5000,
+  "sourceChain": [
+    "91f92fa2f88e2a391e303b57c993c10461870dc3ed267e730f9f736b2d76dc89",
+    "96f5afcf314dd4739bc27f8d8ee930bd7f338808ac9b9d846b6dbc64e4e93841",
+    "13252722dd9a1e91bcdbe21e26281667bd820d231f73f8bab2dc7eeb380c5212"
+  ],
+  "unrun": [
+    "typechecks on new rival source",
+    "affected closure/history files",
+    "genuine later recipient closure",
+    "whole remaining run settlement",
+    "broader P16 consumer milestone"
+  ]
+}

@@ -1,0 +1,11 @@
+--- a/tests/p16-absorption-active-run.test.ts
++++ b/tests/p16-absorption-active-run.test.ts
+@@ -155,7 +155,7 @@
+   }
+   reject(state=>{state.rights.absorptions.find(a=>a.id===c.record.id)!.runs=[]})
+   reject(state=>{state.rights.absorptions.find(a=>a.id===c.record.id)!.runReceipts=state.rights.absorptions.find(a=>a.id===c.record.id)!.runReceipts.slice(1)},/studio revenue does not reconcile/)
+-  reject(state=>{state.rights.absorptions.find(a=>a.id===c.record.id)!.buyerId=TARGET})
++  reject(state=>{state.rights.absorptions.find(a=>a.id===c.record.id)!.buyerId=TARGET},/Hollywood save: studio revenue does not reconcile$/)
+   reject(state=>{state.rights.absorptions.find(a=>a.id===c.record.id)!.runReceipts[0]!.gross+=0.01})
+   reject(state=>{const receipt=state.rights.absorptions.find(a=>a.id===c.record.id)!.runReceipts[0]!;state.ledger.find(e=>e.kind==='absorbedRunRevenue'&&e.note===receipt.id)!.amount+=0.01})
+   originalUnchanged(p)

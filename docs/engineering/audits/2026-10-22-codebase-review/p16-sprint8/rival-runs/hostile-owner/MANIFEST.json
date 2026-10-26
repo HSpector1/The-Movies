@@ -1,0 +1,23 @@
+{
+  "status": "FROZEN-STATIC-UNRUN-CORRECTION",
+  "patch": {
+    "path": "HOSTILE-OWNER.patch",
+    "sha256": "1341242b65cb962f82284749bf84e1eea560315065294679f8b1337954dac4c5",
+    "bytes": 944
+  },
+  "file": {
+    "path": "tests/p16-absorption-active-run.test.ts",
+    "preimageSHA256": "577f9f7bd9fe136a23dea89bd3fd793887c0fa3576dda947c66214c94696a17d",
+    "postimageSHA256": "9b48e240f004c7ec5c104bfac7126129310a33545b8ea31ff862866c47321207"
+  },
+  "onlyChange": "Same buyerId=TARGET mutation gets exact terminal first-owner pattern /Hollywood save: studio revenue does not reconcile$/; no helper-wide regex change.",
+  "actualEvidence": {
+    "firstGreenJSON": "../first-green/focused.json",
+    "sha256": "1c44b4b5636ec07f1657dada2e102ee95f7987a25a29b8b002b85e5774b716f5",
+    "firstGreenMessage": "../first-green/run.log:24",
+    "predecessorOriginalRED": "../original-red-ready/focused.json",
+    "predecessorSHA256": "9c8bb4dac6a31b54a0644fbdf9fb02c6d063f11e821f2dbda632747dab6e3fa4"
+  },
+  "preserved": "Original hostile input and all other tests, later altered-gross/player-earned-cash controls, caller-purity finally and default5000 budget. Original failed reports remain untouched.",
+  "execution": "No runtime, compiler, generator or checkout edits by author. Amendment remains unrun."
+}

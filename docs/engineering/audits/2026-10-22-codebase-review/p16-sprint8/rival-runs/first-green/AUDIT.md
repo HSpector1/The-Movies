@@ -1,0 +1,9 @@
+# Independent rival-run first-green postflight
+
+Freeze released. All1,657 source-manifest hashes and six preflight pins match; actual HEADb5c11b5a570820b4c8e8ded6830294b84d57d5a2 matches selection. Installed four owner postimages match the original reviewed source; absorbedRuns.ts matches final NET-PERIOD postimage6c5cc695… after the selected91f92fa2→96f5afcf→13252722 chain.
+
+Actual complete active-run file child1 and wrapper1 at18:06:59. JSON2 passed,1 failed, zero skips. Existing player full run/settlement leaf3031.765ms passes; new genuine rival next-installment/account/save-replay leaf1676.766ms passes. Both remain below unchanged5000ms. New rival whole remaining settlement and later recipient closure are not covered by this next-installment leaf.
+
+Hostile leaf1573.613ms fails at line158: changing buyerId to TARGET is refused earlier by `Hollywood save: studio revenue does not reconcile`, wrapped by the frozen save chain, but the expected generic regex does not match that named refusal. Missing handoff and omitted-installment controls already reached. The failing invocation's finally caller-purity assertion reached. Later altered-gross/earned-player-ledger controls and final originalUnchanged are unreached. Preserve failed report; this is an assertion-message mismatch with actual refusal, not evidence malformed cash was admitted. A precise expected accounting message for this specific hostile mutation preserves the law; do not broaden all refusal expectations.
+
+No matching owned runner/Vitest or heavy-lane lock remains. No foreign job reported in launch/post samples; no continuous exclusivity inferred. New-source typechecks, other closure/history consumers and broader producer qualification remain unrun. No source review repeated or runtime/repository changes by reviewer.
