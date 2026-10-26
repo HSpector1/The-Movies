@@ -1,3 +1,13 @@
+## Native lifecycle runtime checkpoint — 2026-10-26
+
+The short original-source RED completed with one failed and two selected-out cases: packaging writerAvailable was false where the new supported route requires true (2.700 seconds). Genuine public Accept and prior preservation assertions were reached. This proves the old packaging refusal, not downstream lifecycle behavior.
+
+The exact reviewed v2 source and independent test patches are now installed on experimental 5a730f42, uncommitted. Root, Bridge and UI typechecks all exited 0. The complete three-case file has two functional passes and one failure: native first-take subject creation cannot resolve the acquired concept. Genuine hiring, native paid greenlight, save/reload, cancellation/replay, no refund and second paid greenlight with a distinct ID all reached before the failure. Release and subsequent assertions remain unreached. All five new malformed-history/paid-production controls passed with named refusals and caller purity.
+
+Measured bodies: positive 13.606 seconds, hostile 10.242 seconds, rollback 9.281 seconds. Every body exceeds its original 5-second budget; passing assertions are not timing qualification. Both runs passed fresh equipment preflight. No foreign engine was observed during the green run's repeated host checks. Independent audits verified all 1,642 pins/preflight hashes and released both freezes. Detailed reports, original failures and audits are retained in native-lifecycle-red and native-lifecycle-green.
+
+The next correction is the demonstrated firstTakeSubjects ownership consumer, using exact carried production provenance while preserving historical reader rules. Source remains experimental and unqualified; primary 013c4edc is unchanged. Reuse these type results unless the correction invalidates them. Do not rerun obsolete consumer selection before the coherent source checkpoint. Full-game missing inputs and separate platform/player acceptance remain open.
+
 ## Native screenplay production preparation — 2026-10-26
 
 A 24-file source draft and independent one-file test extension are preserved under `p16-sprint7/native-greenlight`, based on experimental commit `5a730f42`. The corrected source patch is `v2/NATIVE-LIFECYCLE-v2.patch` (SHA-256 `678c3a06e0ad1b6a0c7d974280d4c187ae70c36ea65e9d4d7db2716fa1d59bca`). It reuses native buyer production and release storage while retaining acquired screenplay and concept history at their source. Actual lifecycle decisions use a versioned v6 record and narrowly scoped current49 validation context. Nothing has been installed, compiled or run.

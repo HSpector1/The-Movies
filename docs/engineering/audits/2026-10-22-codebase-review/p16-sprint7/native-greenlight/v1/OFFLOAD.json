@@ -1,0 +1,10 @@
+{
+  "at": "2026-10-26T12:47:59.845269-05:00",
+  "remoteCommit": "74ee28a60c91121cb509ce791a54d6e145270f9a",
+  "archive": "docs/engineering/audits/2026-10-22-codebase-review/p16-sprint7/native-greenlight/v1/postimages.tar.gz",
+  "archiveSha256": "13b7fee77315b6ccb1792b504736154a2b6723a7bba234b44b370aef18e8944b",
+  "removedFiles": 22,
+  "logicalBytes": 1986780,
+  "allocatedBytes": 2027520,
+  "preserved": "All v1 source postimages in verified GitHub archive; v1 patch/manifests/review retained; active v2/test drafts untouched."
+}
