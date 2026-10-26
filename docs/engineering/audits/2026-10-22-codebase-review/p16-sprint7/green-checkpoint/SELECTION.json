@@ -1,0 +1,48 @@
+{
+  "status": "PREPARED_NOT_RUN",
+  "worktree": "/Users/zacheryspector/studio-scratch/p16-retained-writing-20261026-wt",
+  "sourceHead": "6fdbe96672e28049199f312fc59c95ebfda20c44",
+  "steps": [
+    {
+      "label": "root-types",
+      "argv": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ]
+    },
+    {
+      "label": "bridge-types",
+      "argv": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.bridge.json"
+      ]
+    },
+    {
+      "label": "retained-writing-complete",
+      "argv": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "tests/p16-retained-drafting-continuation.test.ts",
+        "tests/p16-carried-script-accept.test.ts",
+        "tests/p16-carried-script-rewrite.test.ts",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile=/Users/zacheryspector/studio-scratch/p16-sprint7-verification-20261026/green-checkpoint/retained-writing-complete.json"
+      ]
+    }
+  ],
+  "expectedTests": 10,
+  "budgets": "Unmodified core default 5000ms; complete original files and per-leaf setup; no timeout or worker overrides.",
+  "environment": "Node v20.20.2; source p16-env.sh. Original capture hash c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad.",
+  "launchMinimumKiB": 3670016,
+  "runtimeFloorKiB": 3145728,
+  "preflight": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/equipment-run-preflight-r3.py",
+  "lane": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+  "excluded": "No UI typecheck, contract generator, full-tree gate, full coexistence claim or retirement/history follow-up in this first checkpoint."
+}

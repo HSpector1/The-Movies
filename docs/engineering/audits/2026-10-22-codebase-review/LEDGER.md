@@ -412,13 +412,13 @@ Final Sprint4 candidate `b3be2b78f821ca356158b63083eced051d20f3f7` pushed and ex
 
 ## Authorized Sprints 5–16 program — 2026-10-25
 
-Governing [Owner assignment](p16-sprint5/OWNER-ASSIGNMENT.txt) supersedes routine stop-after-sprint instructions. Primary candidate is `013c4edc90c0ce063fea00ebb187161ad6eb3414`, gameplay unchanged from entry `b3be2b78f821ca356158b63083eced051d20f3f7`. Experimental retained-writing branch `6fdbe96672e28049199f312fc59c95ebfda20c44` is separately published and runtime-unqualified. Continue eligible packages without another routine approval, but no gameplay promotion to main or predecessor waiver. Sprint 4 results retain their resource/exclusivity limitations.
+Governing [Owner assignment](p16-sprint5/OWNER-ASSIGNMENT.txt) supersedes routine stop-after-sprint instructions. Primary candidate is `013c4edc90c0ce063fea00ebb187161ad6eb3414`, gameplay unchanged from entry `b3be2b78f821ca356158b63083eced051d20f3f7`. Experimental retained-writing branch `9ff330b4a2de131037c4dbcfc03de9676a558b61` is separately published with partial runtime qualification. Continue eligible packages without another routine approval, but no gameplay promotion to main or predecessor waiver. Sprint 4 results retain their resource/exclusivity limitations.
 
 | Sprint | Status at entry candidate | Remaining dependency / exact next action |
 | --- | --- | --- |
 | 5 — full baseline | BLOCKED | Recover three original r3n1 inputs/reports; sufficient disk and exclusive window; bind and pass current preflight, run prepared full core-including-Bridge/UI once. One tracked input restored and hash-verified. |
 | 6 — regression/browser | NOT RUN | Classify actual Sprint 5 outcomes; existing ui/e2e/smoke.spec.ts supplies real production/release/save route under original 120 s budget. Browser launch also resource-blocked. |
-| 7 — screenplay continuation | EXPERIMENTAL SOURCE PUBLISHED; RUNTIME UNQUALIFIED | Side branch 6fdbe966 repairs authority forwarding by static review; one predecessor retained-producer RED reached with resource limit. Green/types/consumers and genuine coexistence remain unrun. Carried greenlight and broader screenplay-history support remain required. |
+| 7 — screenplay continuation | EXPERIMENTAL SOURCE PUBLISHED; RUNTIME UNQUALIFIED | Side branch9ff330b4: types0, retained4/4 within5s, Accept/Rewrite6 functional passes with four timing gaps. Affected128/129, exact inherited era expectation; genuine coexistence/canonical/Bridge journey remain unrun. Carried greenlight and broader screenplay-history support remain required. |
 | 8 — other acquisition producers | NOT STARTED | Implement only adopted remaining producers against coherent P16 source; no guard removal ahead of producer. Natural C-08 remains genuinely unavailable under current inspected routes. |
 | 9 — technical P16 checkpoint | DEPENDENCY BLOCKED | Coherent Sprints 6–8, historical/consumer gates and actual browser transactions; no immutable qualified checkpoint yet. |
 | 10 — P17 continuation | PREDECESSOR BLOCKED | Actual qualified P16 technical checkpoint before adapting preserved P17 source. |

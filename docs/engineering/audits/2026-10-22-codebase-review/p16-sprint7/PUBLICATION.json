@@ -1,11 +1,8 @@
 {
   "experimentalBranch": "p16-retained-writing-20261026",
-  "experimentalCommit": "6fdbe96672e28049199f312fc59c95ebfda20c44",
-  "primaryCandidate": "013c4edc90c0ce063fea00ebb187161ad6eb3414",
+  "commit": "9ff330b4a2de131037c4dbcfc03de9676a558b61",
+  "remote": "https://github.com/HSpector1/The-Movies.git",
   "explicitRemoteVerified": true,
-  "status": "SOURCE_PREPARED_STATIC_REVIEWED_RUNTIME_UNQUALIFIED",
-  "runtime": "one predecessor expected refusal; resource limit; green/types/consumers UNRUN",
-  "sprint5": "BLOCKED_ORIGINAL_INPUTS_AND_RESOURCE_STABILITY",
-  "sprint7": "INCOMPLETE",
-  "mainGameplayPromotion": false
+  "primaryCandidateUnchanged": "013c4edc90c0ce063fea00ebb187161ad6eb3414",
+  "status": "partial qualification; Sprint7 incomplete; no main gameplay promotion"
 }
