@@ -1,0 +1,99 @@
+{
+  "status": "FROZEN-STATIC-UNRUN",
+  "sourceBaseHead": "1710b432d9f7ba7fa1afac0ce4d74aa6ee72ef54",
+  "testBaseHeadReportedByCoordinator": "e1cd19ed7f59472fdf3f7bb8bb0647387070d955",
+  "patch": {
+    "path": "RIVAL-RETENTION-RED.patch",
+    "sha256": "e683633ccb6a79189fc4e2f8a9ceb7f444f7b1274385b9eb97f0ecec9d97d4ae",
+    "bytes": 13266
+  },
+  "file": {
+    "path": "tests/p16-absorption-active-run.test.ts",
+    "preimagePath": "preimage.ts",
+    "preimageSHA256": "ec7bf900543ef4e78d366fe0befe121c1b59825c769403cc3fe4329745cce205",
+    "preimageBytes": 30840,
+    "postimagePath": "postimage.ts",
+    "postimageSHA256": "f4f087e4924c5d2b5af38cb1d32826b54c796b2a048d3ff67fa80a265f4e7ff5",
+    "postimageBytes": 43197
+  },
+  "selector": {
+    "file": "tests/p16-absorption-active-run.test.ts",
+    "describe": "P16 genuine rival employment retention at the original170 acquisition",
+    "it": "retains the actual remaining bargain without another bonus then pays its native surplus termination before payroll with save replay"
+  },
+  "budget": {
+    "milliseconds": 5000,
+    "timeoutOverride": false,
+    "setupInsideLeaf": true,
+    "newLeafTicks": 9
+  },
+  "expectedOriginalSourceFailure": "absorption: rivalBuyerRetentionProducerRequired, after S8_RIVAL_RETENTION_REAL170_PREMISES",
+  "sourceDraftPatch": {
+    "path": "../source/RIVAL-RETENTION.patch",
+    "sha256": "fa54f5bfb352b965bebd340906089c6e50a27eb330835b8c38273f2bdc5080c1"
+  },
+  "sourceReview": {
+    "path": "../source/SOURCE-REVIEW.md",
+    "sha256": "1528139aae9345b60657ee69df239116bc05fb4e8a5beb8cddd8466c7988a318"
+  },
+  "sourcePins": [
+    {
+      "path": "src/core/acquisition.ts",
+      "sha256": "a05f1e5acbc01471a9aa906bf171d4b1a632eac2f09e6b817db18da7402411e5",
+      "bytes": 62637
+    },
+    {
+      "path": "src/core/hollywoodValidation.ts",
+      "sha256": "11e188621ec80eb2ed6a318a9d06099abfed52e8052ef571b1092d3995e5c668",
+      "bytes": 70984
+    },
+    {
+      "path": "src/core/hollywoodTick.ts",
+      "sha256": "106c81b7d255d34e6aee9863f3d060bd6b5d91bae63a5c8d5b3d5cb8e8e41324",
+      "bytes": 50020
+    },
+    {
+      "path": "src/core/hollywood.ts",
+      "sha256": "cc1acf3ede8dfab4e3aae8073bed4f4b220558ef4d34c24320cfed22d670f13c",
+      "bytes": 19766
+    },
+    {
+      "path": "src/core/corporateConditionLive.ts",
+      "sha256": "5514b4d58e394941417dc992fb57e8bbc5d6168cac1c27570f9d1b1d184c9a92",
+      "bytes": 41770
+    },
+    {
+      "path": "src/core/employment.ts",
+      "sha256": "3d00df38ba28adbb75024e270b715c8ea2b72deee110fff4be8c6571fb61bbbe",
+      "bytes": 30584
+    },
+    {
+      "path": "src/core/tuning.ts",
+      "sha256": "2ca372df40dd150cdd50f650eb0e0f9cfc601551e6f29f231e3646773957d3f2",
+      "bytes": 146558
+    }
+  ],
+  "capture": {
+    "environment": "P16_ORIGINAL48_CAPTURE_ROOT",
+    "file": "r04-actual163.save48.json",
+    "sha256": "c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad"
+  },
+  "notes": {
+    "path": "NOTES.md",
+    "sha256": "af41cf2e77d52fa6c7a74bdf9ad0a6e5dfbd54bc53ece609d64fd49de843320d",
+    "bytes": 5313
+  },
+  "staticChecks": [
+    "Checkout preimage unchanged",
+    "Exact patch regenerated from retained pre/post",
+    "Diff adds lines only",
+    "All original3 leaves retained, exactly1 added",
+    "No timeout or setup-hook additions"
+  ],
+  "limits": [
+    "Continuous retained payroll is not proved: native same-input surplus termination precedes payroll",
+    "No retained work/script/open-obligation producer",
+    "No runtime or compiler qualification"
+  ],
+  "execution": "No engine, test, compiler, generator, checkout writes, Git mutations or nested agents."
+}

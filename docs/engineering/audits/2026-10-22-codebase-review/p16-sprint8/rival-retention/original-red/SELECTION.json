@@ -1,0 +1,17 @@
+{
+  "head": "e1cd19ed7f59472fdf3f7bb8bb0647387070d955",
+  "purpose": "Authentic fixed170 nonempty retention original-source refusal before reviewed producer integration",
+  "selector": {
+    "file": "tests/p16-absorption-active-run.test.ts",
+    "describe": "P16 genuine rival employment retention at the original170 acquisition",
+    "it": "retains the actual remaining bargain without another bonus then pays its native surplus termination before payroll with save replay"
+  },
+  "sourceManifestEntries": 1658,
+  "budget": {
+    "milliseconds": 5000,
+    "timeoutOverride": false,
+    "setupInsideLeaf": true,
+    "newLeafTicks": 9
+  },
+  "expectedFailure": "absorption: rivalBuyerRetentionProducerRequired, after S8_RIVAL_RETENTION_REAL170_PREMISES"
+}

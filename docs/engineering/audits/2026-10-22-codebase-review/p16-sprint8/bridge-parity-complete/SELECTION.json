@@ -1,0 +1,9 @@
+{
+  "head": "9b4bd81ac0a3cc57142f59a1ea62562d72ee0841",
+  "purpose": "Complete affected existing Bridge parity file after relocated nonempty consumer assertions and rival producer integration",
+  "sourceManifestEntries": 1658,
+  "file": "tests/bridge-p16-rights-parity.test.ts",
+  "budget": "Original per-leaf budgets unchanged",
+  "reuse": "Current root/Bridge types, unchanged generator/canonical outputs; do not duplicate those checks",
+  "limits": "Not broad consumer/runtime81/fullgame/platform qualification"
+}

@@ -6,3 +6,10 @@ Scoped source checkpoint; full technical qualification incomplete.
 
 Settlement test checkpoint explicit remote verified:
 e1cd19ed7f59472fdf3f7bb8bb0647387070d955	refs/heads/p16-retained-writing-20261026
+
+Native rival retention explicit remote verified:
+9b4bd81ac0a3cc57142f59a1ea62562d72ee0841	refs/heads/p16-retained-writing-20261026
+
+Final source-identical handoff checkpoint explicit remote verified:
+d7d4bacf1b3ac82663a6ea72ee5b48d4a514985b	refs/heads/p16-retained-writing-20261026
+Gameplay source remains9b4bd81a; no main promotion.

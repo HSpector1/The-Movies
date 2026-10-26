@@ -1,0 +1,12 @@
+{
+  "head": "e1cd19ed7f59472fdf3f7bb8bb0647387070d955",
+  "purpose": "Reviewed rival retention producer: complete affected active-run/retention file then existing player/rival nonretention consumers and root/Bridge types",
+  "sourceManifestEntries": 1658,
+  "budget": "All original budgets unchanged; synchronous overruns separate",
+  "sourcePatch": {
+    "path": "RIVAL-RETENTION.patch",
+    "sha256": "fa54f5bfb352b965bebd340906089c6e50a27eb330835b8c38273f2bdc5080c1",
+    "bytes": 6846
+  },
+  "reuse": "Original retention RED preserved; unrelated prior generator/schema output unchanged"
+}
