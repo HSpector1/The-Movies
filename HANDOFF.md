@@ -2,6 +2,16 @@
 
 Last writer: Codex, 2026-10-26, sole coordinator for the authorized Sprints 5–16 program.
 
+## Immediate continuation — 2026-10-26, verified native lifecycle checkpoint
+
+- Owner Sprints5–16 program continues. Sole coordinator writer/one intensive tree. No active job or lane lock after audits. Primary p16-rebase-20261024 stays013c4edc; experimental p16-retained-writing-20261026 source checkpoint is 2ba1ecfbf9bcced33f12708eaeb88f416a800f1d, with reviewed v2+v4+v5+v6 source/test-v2. Published experimental HEAD e0d4c23939bcb4caf35957896959c32afef82c6b is explicitly verified on GitHub.
+- Final root/Bridge/UI types pass. Complete screenplay10/10 functional results reused, all over5s. Seven affected files176/179; exact fixture restoration plus focused Q04 pass15.899s/60s yields177/179 successful identities across scoped runs. Paid native greenlight/cancel/take/hold/release/replay and conservation reached. No complete gate claim.
+- Preserve inherited Save38 live49/strict38 failure and unreached final purity. Legacy downgrade semantic body completed but142.193s exceeds120s; comparable predecessor timing unavailable. Fifteen other historical passing bodies exceed5s. Legacy import solo4.286s passes; earlier broad5.010s timeout remains. No new functional cause found in this selection.
+- Next: source-bound broader Bridge/UI consumer milestone on this coherent experimental checkpoint. Reuse unchanged completed results. Old consumer-core-remainder runner is obsolete/unrun; bind a fresh selection to actual HEAD/source/restored inputs. Fresh preflight/host scan/sole lane; freeze through independent audit. Do not repeat completed screenplay/affected files without invalidation.
+- Evidence/audits: p16-sprint7/native-{final-remainder,root-types-only,client-types,affected-final,q04-restored}. Restored authority-6240 and two Q04 captures match exact tracked blobs. Three original missing r3n1 full-game fixtures remain separately blocked. Runtime samples clear of foreign Godot, not continuous exclusivity proof.
+- Owner declined pausing foreign work. Godot belongs to another Codex terminal, not Claude; mistaken inquiry withdrawn, no ETA. Check about every5min when blocked, never stop foreign jobs. Free space about8.1GiB; preserve active inputs/unique evidence, remove only proven archived duplicates.
+- Remaining: queued-release seam lacks genuine coexistence; combined retirement/acquired-history and broader consumers; timing; full-game/platform/Owner acceptance. Sprint7/program incomplete. No P17/P18 predecessor waiver or gameplay-main promotion. Lesson: records-worktree docs/LESSONS-LEARNED.md native release authority follow-up.
+
 ## Immediate continuation — 2026-10-26, complete screenplay assertions / resource blocker
 
 - Owner authorizes five-minute checks and automatic continuation. No Studio job or lock remains after audited interruption. Primary stays 013c4edc; experimental HEAD stays 5a730f42 with v2+v4+v5+v6 source and test-draft+test-v2 installed, uncommitted. All patches/postimages/reviews are preserved. Root is sole integration writer; specialists finished.

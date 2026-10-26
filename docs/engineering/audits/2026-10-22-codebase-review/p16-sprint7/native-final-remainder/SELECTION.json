@@ -1,0 +1,21 @@
+{
+  "head": "5a730f42d5a66d22cba4808b5c642510c2f068bb",
+  "coreCompleteFiles": [
+    "tests/p14b1-first-take.test.ts",
+    "tests/p14c2rm-writer-continuation.test.ts",
+    "tests/p14c3-save-v38.test.ts",
+    "tests/stabilization-l02-casting-profession.test.ts",
+    "tests/casting-package-read-model.test.ts",
+    "tests/p14p4p5-opportunities.test.ts",
+    "tests/p15c2-campaign-legacy-integration.test.ts"
+  ],
+  "focused": "p15c1 campaign-legacy-definition-version-export timeout classification solo",
+  "types": [
+    "root",
+    "bridge",
+    "ui"
+  ],
+  "reuse": "screenplay10/10 assertions (allover5s); sharedmarket33/33; Legacy71passed; sourceunchanged exceptexacttrackedfixture restored. Nooverallqualification",
+  "budgets": "Originalunchanged; no worker/setup overrides",
+  "sourceManifestEntries": 1643
+}
