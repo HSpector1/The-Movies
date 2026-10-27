@@ -101,6 +101,7 @@ function continued(p:ReturnType<typeof prepared>,retention:{kind:'default'}|{kin
  if(quote.kind!=='quote')throw new Error(quote.refusal)
  expect(quote.affordable).toBe(true)
  expect(quote.scripts).toHaveLength(p.quote.scripts.length)
+ console.info('S9_DRAFT171_QUOTE_SCRIPTS '+JSON.stringify({retention,scripts:quote.scripts,contracts:quote.contracts.map(c=>({contractId:c.contractId,retained:c.retained}))}))
  expect(quote.scripts.every(q=>q.disposition==='continues'&&q.reason==='writerTeamRetained')).toBe(true)
  const input={...preview,quotedAtWeek:quote.quotedAtWeek,quoteAgePolicyVersion:quote.quoteAgePolicyVersion}
  expect(absorptionProducerRefusal(p.paid.state,input)).toBeNull()
