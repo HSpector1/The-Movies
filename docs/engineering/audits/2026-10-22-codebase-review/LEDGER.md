@@ -1,3 +1,12 @@
+## Measured execution-window blocker and prepared remainder — 2026-10-27, 08:10 CDT
+
+No source, runtime or compiler change. Published gameplay 63a63abe, the interrupted coherent-consumers and bridge-types evidence, and the rival Set/setup precursor remain exactly as recorded. Explicit remote refs verified: records 83efdeef, experimental 0803dbd3 (handoff-only above 63a63abe), primary 013c4edc, main ab65eb20.
+
+The foreign Godot blocker is now measured: a Codex session (PID 73762) runs headless Godot test batches from the-movies-rea-research-20261014 every two to five minutes (twelve launches 07:26–07:59 CDT). The coherent gate needed about 15 minutes exclusive for eight files, so no sufficient window exists while that session runs. The equipment preflight does not classify Godot as heavy; the explicit host scan stays mandatory. Nothing was signalled.
+
+Prepared, not bound, not launched: rival-obligations/consumers-remainder (five incomplete files then Bridge types) with a check-mode binding script that confirmed the unchanged 1,658-entry source manifest. Next: Owner pauses or finishes the foreign batches, then bind, preflight, scan, lane launch, independent postflight. Rival Set/setup policy, three original full-gate captures, browser-install approval, native toolchain and Owner acceptance remain open. Sprint 8 and the program remain incomplete; no predecessor qualification or gameplay promotion.
+
+
 ## Rival continuation implementation checkpoint — 2026-10-26, 19:56 CDT
 
 ## Rival setup authority clarified — 2026-10-26
