@@ -1,5 +1,14 @@
 ## Rival continuation implementation checkpoint — 2026-10-26, 19:56 CDT
 
+## Rival setup authority clarified — 2026-10-26
+
+No source or runtime changes. Published gameplay63a63abe and the interrupted consumer evidence remain authoritative. Bounded adopted-contract reading confirms rival setup symmetry is mandatory (P13B plan979/998), while native Set acquisition/payment and optional recipe-selection policy is not supplied by the inspected R07/S8 rules. NEXT-DEPENDENCY.md now distinguishes the authorized shared mechanics from the missing policy.
+
+Owner question pending: identify any existing approved rival Set acquisition/recipe-selection policy. Recommendation is to retain the precursor as blocked pending a bounded decision, without inventing spending/strategy or waiving required continuation. Sustained exclusive execution window is still required for the five incomplete consumer files and unfinished Bridge types. A clear momentary host sample is not such a window; no retry was launched. Browser installation approval, original full-gate inputs, native toolchain and Owner acceptance remain separate. No downstream technical predecessor is qualified.
+
+Next: apply any supplied adopted policy within its actual scope, or retain this exact dependency; resume the named runtime checks only after a sustained qualified window. Preserve all existing source and failed/interrupted evidence. Program remains active and incomplete.
+
+
 ## Rival obligation consumer interruption and exact next dependency — 2026-10-26
 
 Published gameplay remains63a63abe63e62825916f3a69b4b4589ae3a7baed on experimental p16-retained-writing-20261026; primary013c4edc and mainab65eb20 are unchanged. Root types0 and focused genuine v9 lifecycle functional pass9275.610403 ms remain the scoped result, with original5000 ms timing failure. No new source repair in this checkpoint.
