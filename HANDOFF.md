@@ -14,8 +14,8 @@ Last writer: Claude Fable 5.1 coordinator. Sprint 9 gates have run on gameplay 6
 - Sprint 8: Owner ruling closed the rival Set/setup row (OWNER-RULING-20261027.md); natural C-08 stays OPEN.
 
 ### Exact next action
-1. Sprint 9 browser transactions on the existing client (ui/e2e, playwright.config.ts): Playwright 1.62 is installed but no browser is downloaded and macOS 12 has no supported download. Try the installed Google Chrome 150 via `channel: 'chrome'` on the chromium project (harness-only change, review it), run the existing smoke through the lane, then author the minimal rights purchase/licensing, healthy acquisition and estate journeys with save/reload. If Chrome cannot launch, record the exact blocker and ask the Owner once about the pinned download.
-2. Then decide the immutable non-main P16 technical checkpoint (annotated tag on the experimental commit) only if its prerequisites qualify; otherwise list the exact blocking obligations. Keep timing failures, inherited failures and C-08 explicit.
+1. DONE 13:55: real browser smoke passes in installed Chrome (channel 'chrome', commits 78ba3ce0/e13399b4, p16-sprint9/browser-r9). The existing browser client has no P16 transaction surface; Sprint 9 transaction proof is the Bridge/core fixtures, labelled (RESULTS.md).
+2. Decide the immutable non-main P16 technical checkpoint (annotated tag on the experimental HEAD) with an explicit limits record: inherited baseline failures, 613 over-budget passes, six unrecoverable r3n1 rows, natural C-08 OPEN, no browser P16 surface, native unrun. If tagged, Sprint 10 (P17 continuation) becomes eligible on that predecessor; branch a clearly owned descendant integration branch from the tag.
 3. Do not relaunch the full gate for test-only changes; rerun only invalidated files. Keep the foreign session paused during lane runs; scan for Godot before every launch.
 
 

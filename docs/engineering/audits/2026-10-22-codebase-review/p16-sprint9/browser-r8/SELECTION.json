@@ -1,0 +1,18 @@
+{
+  "head": "78ba3ce0c702bdd080285818cdd9da23704e8a69",
+  "gameplaySource": "63a63abe63e62825916f3a69b4b4589ae3a7baed",
+  "sourceManifestEntries": 1658,
+  "sourceBinding": "gameplay 63a63abe plus handoff-only commits, the Sprint 9 test-only repair commits, the Sprint 6 smoke continue-after-import extension and the chrome-channel harness change",
+  "purpose": "Sprint 6/9 real browser journey: ui/e2e/smoke.spec.ts (new studio, legal film, greenlight, release, autopsy, export, new game, import, continue after import) in the installed Google Chrome 150 via Playwright channel 'chrome' on macOS 12 (no browser download; Playwright 1.62.0)",
+  "budgets": {
+    "smokeTestTimeoutMilliseconds": 120000,
+    "timeoutOverride": false
+  },
+  "children": [
+    {
+      "label": "browser-smoke",
+      "command": "node node_modules/@playwright/test/cli.js test --config ui/playwright.config.ts smoke.spec.ts --reporter=list,json"
+    }
+  ],
+  "limits": "Prepared, NOT bound, NOT launched. Real rendered feedback in a real browser; not a unit pass. Rights purchase/licensing, acquisition and estate journeys are separate specs not yet authored."
+}
