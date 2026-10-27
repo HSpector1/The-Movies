@@ -156,3 +156,72 @@ Sweep (Save49 to Save50, static):
    The asserted refusal `/cannot discard changed estate observation or bid authority/` is unchanged. The era read at :48 (`convertV48ToV49` output) stays at 49.
 4. `p16-r2-validator.test.ts:115-121`: `materialized()` returns its own Save49 envelope type (`typeof base`) instead of the live `Save`.
    The file feeds it to the Save49 reader `validateSaveV49` (:129, kept as an era read), so neither the validator nor its assertions change.
+
+## Fix 2
+
+`FIX-2.patch` holds source and test changes against 5a6fc0bb, 7 files. It passes `git apply --check` there (read-only).
+Every other post-image in `postimages/` is byte-identical to 5a6fc0bb.
+
+**G1, `tests/bridge-runtime-checkpoint.test.ts`, projection-v63.**
+- :788 restores the fixture's own `saveVersion: 49`. The sha pin at :786 and the fixture bytes are unchanged.
+- :797-806: after loading, the case now asserts that each slot is the canonical-chain lift `exportSaveJson(migrateToLive(importSave(slot)).state)`.
+- It also asserts that the hydrated saves equal the fixture's with `saveVersion: LIVE_SAVE_VERSION`. P17 changes the version only.
+- The digests are `sha256` of the new slot bytes and differ from the fixture's.
+
+**G2 and G3, `tests/p17-p16-rights.test.ts:49-75`.**
+- `propertyIds` and `homesOf` (:30-33) replace the single-property expectation.
+- Across each continuation greenlight the property set is unchanged and never holds `story-property:<own concept>`. Each installment sits under exactly `[P]`.
+- After the sequel's release, rival films may add their own properties, so only the sequel's absence and its home are pinned there.
+- At the parent the set grows by the sequel's own mint, so the case stays RED by assertion.
+
+**G4, `tests/helpers/p17-route.ts:29-33`.**
+- `greenlightAs` adds every talent engaged on a live player production to `used`, so a second concurrent greenlight seats idle people (M16).
+- `freshConcept` (:21-27) also skips concepts already produced. Otherwise a linked sequel's concept, which founds nothing, would be picked again.
+
+**B1, blocking: same-tick release read.**
+- `continuationGreenlight.ts:24-41` and `:107-114`: `publicFilmById`, `continuationWorldOf` and `continuationReleaseInput` take `sameWeek`, the films this tick already released.
+- `tick.ts:637` passes the player loop's `releasedFilms`. `tick.ts:893` and `:1014` pass it on to `prepareContinuedReleases` and `advanceHollywoodWeek`, which forward it through `publishCreatorRelease` (`hollywoodTick.ts:472/478`, `:505-518`, `:531/631`). Rival films published earlier in the loop were already visible through `h.films`.
+- The same world view repairs talent associations: `continuation.ts:670-672` reads `world.releasedFilm`.
+- The state seen by other hollywood logic is untouched. `hollywoodTick.ts:708` counts `state.studio.releasedFilms` for the chart, which is why the films travel as a parameter and are not written into the state.
+- RED-first case: `p17-p16-rights.test.ts:192-228`. A directSequel and a reboot of the same property are greenlit the same week (`prod-NNNN` < `prod-NNNN-1`, so the sequel releases first), committed together, and released in one tick.
+- The case asserts both edges' `releasedWeek`, the two branches, a byte-identical replay of that tick, and a save round trip.
+- Expected RED: at 5a6fc0bb the `beforeAll` tick throws "released installment ... has no public result" (`continuation.ts:290-292`). At a5a66c27 the root assertion fails, because no root exists.
+
+**S2: a linked continuation's concept founded no title; a later plain greenlight of it minted a clean R1.**
+- Choice: LINK to the parent under the parent's remake authority.
+- Why: P16's own same-concept rule (`rights.ts` `SAME_CONCEPT_GREENLIGHT_USE`: "producing the same story again is a remake", and "never a second property for one founding concept"). Also P16 contract §3: "a licensed continuation links to the existing parent and does not mint an unencumbered R1".
+- Refusing outright would also forbid the title holder's lawful remake.
+- Source:
+  - `rights.ts:835-845`: `linkedContinuationParent` reads the player's live works of the concept and the persisted property linking one of them.
+  - `rights.ts:823-829`: `greenlightRightsRefusal` requires remake authority on that parent.
+  - `rights.ts:868-870`: `mintStoryPropertyAtGreenlight` links the new production there.
+  - Ceiling, marked `ponytail:`: a linked production that was later cancelled is not matched. That needs ledger ids if it matters.
+- RED-first cases:
+  - `p17-p16-rights.test.ts:77-84`, title holder: no new property, the work sits under `[P]`.
+  - `:130-141`, licensee: refused with "has no continuation authority over P ... is a linked continuation work of it", state unchanged.
+
+**S3: P17-04 through `publishCreatorRelease`. NO TEST, no cheap lawful route.**
+- The shared path updates R/M/F only for a rival or buyer-continued release whose production is a lineage edge.
+- Edges come only from player greenlights. A rival production becomes an edge only as the origin film a player DirectSequel cites while that production is locked.
+- That cite needs the player's sequel authority over a property whose production is in flight. P16 refuses both the title sale and the R3 licence during production (`activeProductionEncumbrance`, `p16-r2-sale.test.ts:50`).
+- The one lawful route is absorption: the player absorbs the rival, the title moves to the buyer, and the production is released by `prepareContinuedReleases` → `publishCreatorRelease`.
+- Every end-to-end absorption-with-continued-release fixture in T needs the external capture `P16_ORIGINAL48_CAPTURE_ROOT` and is marked UNRUN (`p16-absorption-continued-production.test.ts:1-3,25`). The self-contained `p16c-acquisition.test.ts` never releases continued work.
+- Composing that route blind would be guesswork. The pure once-only release law stays covered by `p17-continuation-law.test.ts` ("a second release ... no double credit").
+- Recorded for the lane run that has the capture.
+
+**Deferred, not implemented.**
+- S1: a P16-build current-schema Bridge checkpoint carrying Save49 is refused by `validateCanonicalCurrentSave` ("must be a current V50 save", `bridge/runtime-checkpoint.ts:540-541`). This belongs to the Sprint 11 Bridge projection bump.
+- The rights-hold path (`p17RightsHolds`, `tick.ts:368/408`) stays untested.
+
+**New or changed test cases (run RED at a5a66c27; the first three are also RED at 5a6fc0bb):**
+
+| Case | Location |
+|---|---|
+| P17 same-week release: "both release that week, the sequel first; each continuity records its own release once" | `p17-p16-rights.test.ts` |
+| P17 same-week release: "the release week replays byte for byte, and its save validates and round-trips" | `p17-p16-rights.test.ts` |
+| "a plain greenlight of the linked sequel's concept founds no clean title: the title holder's remake links to the parent" | `p17-p16-rights.test.ts` |
+| "a plain greenlight of the licensed sequel's concept needs the parent's remake authority, and refuses without it" | `p17-p16-rights.test.ts` |
+| "the player's own sequel is a work of the parent property; its own concept founds no property and no R1 genesis" (rewritten) | `p17-p16-rights.test.ts` |
+| "the sequel's release is titled under the parent; the third installment resolves through it to the same property" (rewritten) | `p17-p16-rights.test.ts` |
+| "the validator refuses an empty root, ..." (unchanged text; helper fix only) | `p17-save-step.test.ts` |
+| "accepts and migrates the enumerated sha256:23a3092f… (projection-v63) identity" (changed; at the parent only the new-digest assertion `not.toBe(original.currentStateDigest)` fails, because nothing lifts there) | `bridge-runtime-checkpoint.test.ts` |

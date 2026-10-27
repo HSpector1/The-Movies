@@ -1,0 +1,374 @@
+--- a/src/core/continuationGreenlight.ts
++++ b/src/core/continuationGreenlight.ts
+@@ -21,10 +21,11 @@
+ import { linkContinuationAtGreenlight, storyPropertyId } from './rights.js'
+ import type { Action, FilmResult, GameState } from './types.js'
+ 
+-/** Every public FilmResult in the world (player library and living-industry simulation films). */
+-export function publicFilmById(state: GameState): (id: string) => FilmResult | null {
++/** Every public FilmResult in the world (player library and living-industry simulation films), plus `sameWeek`: films
++ * this tick already released that the state it reads does not carry yet (review B1: the root marks them released). */
++export function publicFilmById(state: GameState, sameWeek: readonly FilmResult[] = []): (id: string) => FilmResult | null {
+   return (id) => {
+-    const own = state.studio.releasedFilms.find((f) => f.productionId === id)
++    const own = state.studio.releasedFilms.find((f) => f.productionId === id) ?? sameWeek.find((f) => f.productionId === id)
+     if (own) return own
+     for (const film of state.hollywood?.films ?? []) {
+       if (film.provenance === 'simulation/v1' && film.filmId === id) return film.result
+@@ -33,9 +34,9 @@
+   }
+ }
+ 
+-/** The world a quote or a release read sees: this state, at its own week. */
+-export function continuationWorldOf(state: GameState): ContinuationWorld {
+-  const film = publicFilmById(state)
++/** The world a quote or a release read sees: this state, at its own week, with this tick's earlier releases. */
++export function continuationWorldOf(state: GameState, sameWeek: readonly FilmResult[] = []): ContinuationWorld {
++  const film = publicFilmById(state, sameWeek)
+   return {
+     state,
+     week: state.market.tick,
+@@ -105,10 +106,11 @@
+ }
+ 
+ /** The live continuation read for a releasing picture, through the SAME composing function the quote ran, over
+- * `state` before this film's own result. Undefined for a film with no continuation edge (the predecessor path). */
+-export function continuationReleaseInput(state: GameState, productionId: string, principals: ProposedPrincipals): number | undefined {
++ * `state` before this film's own result. `sameWeek` carries the films this tick released before it, which the root
++ * already records as released (review B1). Undefined for a film with no continuation edge (the predecessor path). */
++export function continuationReleaseInput(state: GameState, productionId: string, principals: ProposedPrincipals, sameWeek: readonly FilmResult[] = []): number | undefined {
+   if (state.franchises === undefined) return undefined
+-  return continuationInputsAtRelease(continuationWorldOf(state), productionId, principals) ?? undefined
++  return continuationInputsAtRelease(continuationWorldOf(state, sameWeek), productionId, principals) ?? undefined
+ }
+ 
+ /** The `mintSubProperty` action: the player's hook on an exact released or locked film, under the parent's live
+--- a/src/core/hollywoodTick.ts
++++ b/src/core/hollywoodTick.ts
+@@ -43,7 +43,7 @@
+ import { GENRE_ORDER, TUNING } from './tuning.js'
+ import { clamp } from './math.js'
+ import type { ReleaseGrowthRecord } from './releaseCareers.js'
+-import type { GameState, Talent, FilmShape, Production, ScriptDevelopment, ScriptProject, LedgerEntry, Standing } from './types.js'
++import type { FilmResult, GameState, Talent, FilmShape, Production, ScriptDevelopment, ScriptProject, LedgerEntry, Standing } from './types.js'
+ import type { HollywoodState, IndustryReceipt, LiveIndustryFilm, RivalBusiness } from './hollywoodTypes.js'
+ 
+ /** Shared arithmetic receives the world generator's fixed force order after
+@@ -469,13 +469,13 @@
+  * P17 (review P17-04): the ONE continuation seam of every non-player release — the live continuation read before this
+  * film's own result, then exactly one R/M/F update — so a rival or buyer-continued release of an installment (a locked
+  * predecessor a player sequel cited) records its release like the player's own. */
+-function publishCreatorRelease(state:GameState,h:HollywoodState,b:RivalBusiness,p:Production,talent:Talent[],week:number,receptionStanding:Standing,factorById?:ReadonlyMap<string,number>) {
++function publishCreatorRelease(state:GameState,h:HollywoodState,b:RivalBusiness,p:Production,talent:Talent[],week:number,receptionStanding:Standing,factorById?:ReadonlyMap<string,number>,sameWeek:readonly FilmResult[]=[]) {
+   const people=new Map(talent.map(t=>[t.id,t]))
+   const project=hotDevelopment(b).projects.find(s=>s.productionId===p.id)??carriedScriptForProduction({...state,hollywood:h},p.id)!
+   const inp=inputsFor(state,h,{...b,standing:receptionStanding},p,project,people)
+   // P15A.1 Wave 2 (1355-A §3.2): the rival release site of the seam.
+   const factor=factorById?.get(p.id)
+-  const live=continuationReleaseInput({...state,hollywood:h},p.id,{writerId:p.writerId,directorId:p.directorId,cast:{...p.cast}})
++  const live=continuationReleaseInput({...state,hollywood:h},p.id,{writerId:p.writerId,directorId:p.directorId,cast:{...p.cast}},sameWeek)
+   const seamed:ReceptionInputs=live===undefined?inp:{...inp,inheritedAwareness01:live}
+   const result=resolveReception(factor===undefined?seamed:{...seamed,competitionFactor:factor},stream(state.seed,'hollywood-v1',`${p.id}:reception`),true,true,stream(state.seed,'discovery-v1',p.id).gaussian(0,1))
+   const base=buildFilmResult(result,{productionId:p.id,releaseTick:week,conceptId:p.conceptId,directorId:p.directorId})
+@@ -502,7 +502,8 @@
+ 
+ /** Actual continued receptions at the reception boundary. Standing is applied by the ONE
+  * buyer ordered Standing loop; no public state is published between reception and that update. */
+-export function prepareContinuedReleases(state:GameState,productions:readonly Production[],receptionStanding:Standing,factors?:ReadonlyMap<string,number>) {
++// `sameWeek` (review B1): the player's films released earlier this tick, which the franchise root already records.
++export function prepareContinuedReleases(state:GameState,productions:readonly Production[],receptionStanding:Standing,factors?:ReadonlyMap<string,number>,sameWeek:readonly FilmResult[]=[]) {
+   const source=state.hollywood
+   const growth:ReleaseGrowthRecord[]=[]
+   const records:{filmResult:ReturnType<typeof publishCreatorRelease>['filmResult'];benchmarks:import('./standing.js').ReleaseBenchmarks;ctx:StandingContext}[]=[]
+@@ -514,7 +515,7 @@
+     const owner=rights.absorptions.find(a=>a.buyerId===h.playerStudioId && a.continuedProductions.some(r=>r.productionId===p.id))
+     if(!owner || p.remainingTicks!==0 || owner.workReleases.some(r=>r.productionId===p.id))throw new Error('continued work: unknown/unready/replayed reception')
+     const b=h.businesses.find(b=>b.studioId===owner.targetId)!
+-    const released=publishCreatorRelease(withFranchises(state,franchises),h,b,p,state.talent,state.market.tick,receptionStanding,factors)
++    const released=publishCreatorRelease(withFranchises(state,franchises),h,b,p,state.talent,state.market.tick,receptionStanding,factors,sameWeek)
+     franchises=released.franchises
+     const benchmarks={expectedOpening:p.forecastSnapshot.expectedOpening,expectedTotal:p.forecastSnapshot.expectedTotal,expectedCriticScore:p.forecastSnapshot.expectedCriticScore}
+     const observation={productionId:p.id,week:state.market.tick,titleEventId:null,standingBefore:cloneStanding(receptionStanding),standingAfter:cloneStanding(receptionStanding),standingContext:structuredClone(released.ctx),benchmarks}
+@@ -527,7 +528,7 @@
+   return {hollywood:h,rights,growth,records,franchises}
+ }
+ 
+-export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<string,number>):{hollywood:HollywoodState|null;talent:Talent[];growth:ReleaseGrowthRecord[];technology:GameState['technology'];physicalPlans:GameState['physicalPlans'];
++export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<string,number>,sameWeek:readonly FilmResult[]=[]):{hollywood:HollywoodState|null;talent:Talent[];growth:ReleaseGrowthRecord[];technology:GameState['technology'];physicalPlans:GameState['physicalPlans'];
+   /** P14B.1 (1): this week's rival first takes (the 5 -> 4 advance), handed to
+    * the outer tick so the ONE first-take root is appended in one place. */
+   firstTakes:{studioId:string;production:Production}[];
+@@ -627,7 +628,7 @@
+     for(const p of releasing) {
+       const transaction=rights.absorptions.find(a=>a.buyerId===b.studioId && a.continuedProductions.some(row=>row.productionId===p.id))
+       const creator=transaction?h.businesses.find(row=>row.studioId===transaction.targetId)!:b
+-      const released=publishCreatorRelease(working(),h,creator,p,talent,week,startStanding,factorById)
++      const released=publishCreatorRelease(working(),h,creator,p,talent,week,startStanding,factorById,sameWeek)
+       rights=released.rights
+       franchises=released.franchises
+       const before=b.standing
+--- a/src/core/rights.ts
++++ b/src/core/rights.ts
+@@ -819,12 +819,31 @@
+   if (!state.hollywood) return null
+   const propertyId = storyPropertyId(conceptId)
+   const existing = resolveTitles(state).properties.find((p) => p.propertyId === propertyId)
+-  if (existing === undefined) return null
++  if (existing === undefined) {
++    // P17 review S2: a concept linked as a continuation work of another property founded nothing of its own; producing
++    // it again is a remake of that parent's story, under the parent's remake authority (never a clean R1).
++    const parent = linkedContinuationParent(state, conceptId)
++    if (parent === null) return null
++    const linked = permissionFor(state, studioId, { right: 'R1', propertyId: parent }, 'R3', { use: SAME_CONCEPT_GREENLIGHT_USE }, week)
++    return linked.kind === 'permitted' ? null : `rights: ${studioId} has no continuation authority over ${parent} (${linked.reason}); ${conceptId} is a linked continuation work of it`
++  }
+   if (existing.virtual && productionId !== null && existing.workLinks.every((link) => link === productionId)) return null
+   const permission = permissionFor(state, studioId, { right: 'R1', propertyId }, 'R3', { use: SAME_CONCEPT_GREENLIGHT_USE }, week)
+   return permission.kind === 'permitted' ? null : `rights: ${studioId} has no continuation authority over ${propertyId} (${permission.reason})`
+ }
+ 
++/** P17 review S2: the property a player concept's earlier production was linked under as a continuation
++ * (`linkContinuationAtGreenlight`), or null. Only persisted links count: the link writer always materializes. */
++function linkedContinuationParent(state: GameState, conceptId: string): string | null {
++  const own = storyPropertyId(conceptId)
++  // ponytail: reads the live player works only; a linked production later cancelled leaves no concept to match, so its
++  // concept may found a property again. Add the cancelled ledger ids here if that route needs closing.
++  const works = new Set([...state.studio.releasedFilms.filter((f) => f.conceptId === conceptId).map((f) => f.productionId),
++    ...state.studio.activeProductions.filter((p) => p.conceptId === conceptId).map((p) => p.id)])
++  if (works.size === 0) return null
++  return state.rights.properties.find((p) => p.propertyId !== own && p.workLinks.some((w) => works.has(w)))?.propertyId ?? null
++}
++
+ /** Append `workId` to a property's links, materializing a virtual property first; a present link is a no-op. */
+ function linkWork(state: GameState, propertyId: string, workId: string): GameState {
+   const materialized = state.rights.properties.some((p) => p.propertyId === propertyId) ? state : materializeLegacyTitles(state, { right: 'R1', propertyId })
+@@ -846,6 +865,9 @@
+   const existing = resolveTitles(state).properties.find((p) => p.propertyId === propertyId)
+   const ownFactOnly = existing !== undefined && existing.virtual && existing.workLinks.every((link) => link === input.production.id)
+   if (existing !== undefined && !ownFactOnly) return linkWork(state, propertyId, input.production.id)
++  // P17 review S2: the remake of a linked continuation work links to that work's parent (authority checked above).
++  const parent = existing === undefined ? linkedContinuationParent(state, input.production.conceptId) : null
++  if (parent !== null) return linkWork(state, parent, input.production.id)
+   const concept = (input.studioId === h.playerStudioId ? state.concepts : h.concepts).find((c) => c.id === input.production.conceptId) ?? (input.studioId===h.playerStudioId?carriedConceptForProduction(state,input.production.id,carriedProduction):undefined)
+   const title = concept?.title ?? null
+   const property: StoryProperty = { propertyId, conceptId: input.production.conceptId, creatorStudioId: input.studioId, createdAt: { kind: 'campaign', week: input.week },
+--- a/src/core/tick.ts
++++ b/src/core/tick.ts
+@@ -633,7 +633,8 @@
+     )?.bindings
+     const boundSetId = releasedBindings?.setId ?? null
+     // P17 (rev02 §5.3): the live continuation read, from then-current state BEFORE this film's own result.
+-    const inheritedAwareness01 = continuationReleaseInput(withFranchises(state, franchises), prod.id, { writerId: prod.writerId, directorId: prod.directorId, cast: { ...prod.cast } })
++    // Review B1: `releasedFilms` carries this tick's earlier releases, which `franchises` already marks released.
++    const inheritedAwareness01 = continuationReleaseInput(withFranchises(state, franchises), prod.id, { writerId: prod.writerId, directorId: prod.directorId, cast: { ...prod.cast } }, releasedFilms)
+ 
+     const inp: ReceptionInputs = {
+       concept,
+@@ -889,7 +890,7 @@
+   // ── 4. STANDING ────────────────────────────────────────────────────────────
+   // Accumulate the three channels sequentially, IN ascending-id order (records is
+   // already in release order). Start from start-of-tick standing.
+-  const continuedReception=prepareContinuedReleases(withFranchises({...admitted,technology:researchAdvance.technology},franchises),continuedReleasing,startOfTickStanding,marketBatch?.factorById)
++  const continuedReception=prepareContinuedReleases(withFranchises({...admitted,technology:researchAdvance.technology},franchises),continuedReleasing,startOfTickStanding,marketBatch?.factorById,releasedFilms)
+   franchises=continuedReception.franchises
+   let continuedRights=continuedReception.rights
+   const continuedStandingRecords: Pick<ReleaseRecord,'filmResult'|'benchmarks'|'ctx'>[] = continuedReception.records
+@@ -1010,7 +1011,7 @@
+   // develops once per release, in release order, over the evolving talent list.
+   // P15A.1 Wave 2 (1355-A §3.1 item 5, §3.2): the rival release site, witnessed against the batch.
+   // P17 (review P17-05): the rival releases read and update the same root; the market factor argument is unchanged.
+-  const industry = advanceHollywoodWeek(withFranchises({...admitted,hollywood:continuedReception.hollywood,rights:continuedRights,technology:researchAdvance.technology},franchises), marketBatch?.rivalFactorById)
++  const industry = advanceHollywoodWeek(withFranchises({...admitted,hollywood:continuedReception.hollywood,rights:continuedRights,technology:researchAdvance.technology},franchises), marketBatch?.rivalFactorById, releasedFilms)
+   franchises = industry.franchises
+   for(const receipt of industry.absorbedRunRevenue) {cash+=receipt.amount;ledger.push(receipt)}
+   // The develop switch belongs to the frozen player corpus. A living industry's
+--- a/tests/bridge-runtime-checkpoint.test.ts
++++ b/tests/bridge-runtime-checkpoint.test.ts
+@@ -784,7 +784,8 @@
+         expect(original.savedSaveJson).not.toBeNull()
+         for (const slot of [original.currentSaveJson, original.savedSaveJson!]) {
+           expect(sha256(slot)).toBe('e62846b41b09e95fe1e6d139a0d8e7af3b1f3179606dbf61446746dbdd0f64ba')
+-          expect(JSON.parse(slot)).toMatchObject({ saveVersion: 50, state: { market: { tick: 0 } } })
++          // The genuine fixture's own bytes: P16 Save49 (it predates P17). Its pin is the fixture's and does not move.
++          expect(JSON.parse(slot)).toMatchObject({ saveVersion: 49, state: { market: { tick: 0 } } })
+         }
+         let sessions = 0
+         const loaded = loadBridgeRuntimeCheckpoint(raw, undefined, () => { sessions += 1; return 'fresh-session-projection-v63' })
+@@ -793,13 +794,16 @@
+         expect(loaded.hydrated.checkpoint).toMatchObject({ schemaId: SCHEMA_ID, protocolVersion: PROTOCOL_VERSION,
+           sessionId: 'fresh-session-projection-v63', stateRevision: 0, journal: [], journalDigest: sha256('[]') })
+         expect(loaded.hydrated.journal).toEqual([])
+-        // Both actual Save49 slots are already live; preserve their whole bytes.
+-        expect(loaded.hydrated.checkpoint.currentSaveJson).toBe(original.currentSaveJson)
+-        expect(loaded.hydrated.checkpoint.savedSaveJson).toBe(original.savedSaveJson)
+-        expect(loaded.hydrated.currentSave).toEqual(JSON.parse(original.currentSaveJson))
+-        expect(loaded.hydrated.savedSave).toEqual(JSON.parse(original.savedSaveJson!))
+-        expect(loaded.hydrated.checkpoint.currentStateDigest).toBe(original.currentStateDigest)
+-        expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(original.savedStateDigest)
++        // P17 (Save50): the actual Save49 slots are no longer live. The canonical chain lifts each through the P17 step,
++        // which changes the version alone (no franchise exists), so the state is the fixture's and the digests are new.
++        const lifted = (slot: string) => exportSaveJson(shipped47Save.migrateToLive(shipped47Save.importSave(slot)).state)
++        expect(loaded.hydrated.checkpoint.currentSaveJson).toBe(lifted(original.currentSaveJson))
++        expect(loaded.hydrated.checkpoint.savedSaveJson).toBe(lifted(original.savedSaveJson!))
++        expect(loaded.hydrated.currentSave).toEqual({ ...JSON.parse(original.currentSaveJson), saveVersion: LIVE_SAVE_VERSION })
++        expect(loaded.hydrated.savedSave).toEqual({ ...JSON.parse(original.savedSaveJson!), saveVersion: LIVE_SAVE_VERSION })
++        expect(loaded.hydrated.checkpoint.currentStateDigest).toBe(sha256(loaded.hydrated.checkpoint.currentSaveJson))
++        expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(sha256(loaded.hydrated.checkpoint.savedSaveJson ?? ''))
++        expect(loaded.hydrated.checkpoint.currentStateDigest).not.toBe(original.currentStateDigest)
+         const encoded = encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint)
+         const reopened = loadBridgeRuntimeCheckpoint(encoded, undefined, () => { throw new Error('current64 must not migrate again') })
+         expect(reopened.migratedFromProtocolVersion).toBeNull()
+--- a/tests/helpers/p17-route.ts
++++ b/tests/helpers/p17-route.ts
+@@ -17,16 +17,19 @@
+  * imports nothing the predecessor lacks. */
+ export type ContinuationAsk = { type: 'directSequel' | 'prequel' | 'remake' | 'reboot' | 'spinOff'; predecessorProductionId: string; subPropertyId?: string; branchId?: string }
+ 
+-/** The first player concept that founded no P16 property yet (a new screenplay for a continuation). */
++/** The first player concept never produced and founding no P16 property (a new screenplay for a continuation). */
+ export function freshConcept(state: GameState, skip: ReadonlySet<string> = new Set()): FilmConcept {
+   const founded = new Set(resolveTitles(state).properties.map((p) => p.propertyId))
+-  const concept = state.concepts.find((c) => !skip.has(c.id) && !founded.has(storyPropertyId(c.id)))
++  const produced = new Set([...state.studio.releasedFilms.map((f) => f.conceptId), ...state.studio.activeProductions.map((p) => p.conceptId)])
++  const concept = state.concepts.find((c) => !skip.has(c.id) && !produced.has(c.id) && !founded.has(storyPropertyId(c.id)))
+   if (concept === undefined) throw new Error('premise: no unfounded player concept left')
+   return concept
+ }
+ 
+-/** The player's legacy greenlight of `concept`, carrying `continuation` when given. */
++/** The player's legacy greenlight of `concept`, carrying `continuation` when given. Talent engaged on a live production
++ * is never picked (M16 exclusivity), so a second concurrent greenlight seats idle people. */
+ export function greenlightAs(state: GameState, concept: FilmConcept, continuation?: ContinuationAsk, used: Set<string> = new Set()): { state: GameState; productionId: string } {
++  for (const p of state.studio.activeProductions) for (const id of [p.writerId, p.directorId, ...p.craftIds, ...Object.values(p.cast)]) used.add(id)
+   const action = { kind: 'greenlight', production: greenlightPayload(state, concept, used), ...(continuation === undefined ? {} : { continuation }) } as Action
+   const next = applyActions(state, [action])
+   return { state: next, productionId: next.studio.activeProductions[next.studio.activeProductions.length - 1]!.id }
+--- a/tests/p17-p16-rights.test.ts
++++ b/tests/p17-p16-rights.test.ts
+@@ -27,6 +27,10 @@
+ const rootOf = (s: GameState): Root | undefined => (s as GameState & { franchises?: Root }).franchises
+ const worksOf = (s: GameState, propertyId: string): string[] => resolveTitles(s).properties.find((p) => p.propertyId === propertyId)?.workLinks ?? []
+ const lineage = (s: GameState) => rootOf(s)?.properties.map((p) => ({ property: p.storyPropertyId, edges: p.installments.map((e) => [e.childProductionId, e.type, e.parentProductionId]) }))
++/** Every P16 property id; the route's other films (mintRoute's world, rival releases) found their own lawfully. */
++const propertyIds = (s: GameState): string[] => s.rights.properties.map((p) => p.propertyId).sort()
++/** The properties whose works include `workId`: a linked continuation sits under exactly its parent. */
++const homesOf = (s: GameState, workId: string): string[] => resolveTitles(s).properties.filter((p) => p.workLinks.includes(workId)).map((p) => p.propertyId)
+ 
+ describe('P17-01 link versus mint: a continuation joins its parent property and never founds a clean title', () => {
+   let A: string, P: string, released: GameState, b: { state: GameState; productionId: string }, bConcept: string
+@@ -40,26 +44,45 @@
+     b = greenlightAs(released, concept, { type: 'directSequel', predecessorProductionId: A })
+   })
+ 
++  // Lane GREEN r4 (fix 2, G2): the route's other films found their own properties lawfully, so the law is pinned as the
++  // property set across the continuation greenlight (the predecessor grows it by exactly the sequel's own mint).
+   it('the player\'s own sequel is a work of the parent property; its own concept founds no property and no R1 genesis', () => {
+-    expect(b.state.rights.properties.map((p) => p.propertyId)).toEqual([P])
++    expect(propertyIds(b.state)).toEqual(propertyIds(released))
++    expect(propertyIds(b.state)).not.toContain(storyPropertyId(bConcept))
+     expect(b.state.rights.titleEvents.filter((e) => e.subject.right === 'R1' && e.subject.propertyId === storyPropertyId(bConcept))).toEqual([])
+-    expect(worksOf(b.state, P)).toContain(b.productionId)
++    expect(homesOf(b.state, b.productionId)).toEqual([P])
+     expect(lineage(b.state)).toEqual([{ property: P, edges: [[A, 'origin', null], [b.productionId, 'directSequel', A]] }])
+   })
+ 
+   describe('released, then continued again', () => {
+-    let bReleased: GameState, c: { state: GameState; productionId: string }
++    let bReleased: GameState, c: { state: GameState; productionId: string }, cConcept: string
+     beforeAll(() => {
+       bReleased = releaseNow(b.state, b.productionId)
+-      c = greenlightAs(bReleased, freshConcept(bReleased), { type: 'directSequel', predecessorProductionId: b.productionId })
++      const concept = freshConcept(bReleased)
++      cConcept = concept.id
++      c = greenlightAs(bReleased, concept, { type: 'directSequel', predecessorProductionId: b.productionId })
+     })
+ 
++    // Fix 2, G3: rival releases during the sequel's production may found their own properties; none is the sequel's.
+     it('the sequel\'s release is titled under the parent; the third installment resolves through it to the same property', () => {
++      expect(propertyIds(bReleased)).not.toContain(storyPropertyId(bConcept))
++      expect(homesOf(bReleased, b.productionId)).toEqual([P])
+       expect(bReleased.rights.filmTitles.find((t) => t.filmId === b.productionId)!.propertyId).toBe(P)
+-      expect(c.state.rights.properties.map((p) => p.propertyId)).toEqual([P])
++      expect(propertyIds(c.state)).toEqual(propertyIds(bReleased))
++      expect(propertyIds(c.state)).not.toContain(storyPropertyId(cConcept))
++      expect(homesOf(c.state, c.productionId)).toEqual([P])
+       expect(lineage(c.state)).toEqual([{ property: P, edges: [[A, 'origin', null], [b.productionId, 'directSequel', A], [c.productionId, 'directSequel', b.productionId]] }])
+     })
+ 
++    // Review S2 (P16 contract §3; P16's same-concept rule "producing the same story again is a remake"): the sequel's
++    // concept founded nothing, so a later PLAIN greenlight of it is a remake of the parent's story, linked to the parent.
++    it('a plain greenlight of the linked sequel\'s concept founds no clean title: the title holder\'s remake links to the parent', () => {
++      const again = greenlightAs(bReleased, bReleased.concepts.find((x) => x.id === bConcept)!)
++      expect(propertyIds(again.state)).toEqual(propertyIds(bReleased))
++      expect(again.state.rights.titleEvents.filter((e) => e.subject.right === 'R1' && e.subject.propertyId === storyPropertyId(bConcept))).toEqual([])
++      expect(homesOf(again.state, again.productionId)).toEqual([P])
++    })
++
+     it('the live save carries the franchise root at Save50 and round-trips byte for byte', () => {
+       expect(LIVE_SAVE_VERSION).toBe(50)
+       const save = makeSave(c.state)
+@@ -104,6 +127,19 @@
+     expect(stableStringify(short)).toBe(before)
+   })
+ 
++  // Review S2: the remake of a licensed sequel's concept is a remake of the licensor's story. Without the parent's remake
++  // authority it refuses before any write; it never founds an unencumbered title for the licensee.
++  it('a plain greenlight of the licensed sequel\'s concept needs the parent\'s remake authority, and refuses without it', () => {
++    const licensed = buyLicence(sold, r01, P, 'sequel', 26)
++    const concept = freshConcept(licensed)
++    const b = greenlightAs(licensed, concept, { type: 'directSequel', predecessorProductionId: A })
++    const out = releaseNow(b.state, b.productionId)
++    const before = stableStringify(out)
++    expect(() => greenlightAs(out, concept)).toThrow(new RegExp(`has no continuation authority over ${P} .*; ${concept.id} is a linked continuation work of it`))
++    expect(stableStringify(out)).toBe(before)
++    expect(propertyIds(out)).not.toContain(storyPropertyId(concept.id))
++  })
++
+   describe('a licence that lapses while the picture waits at Release Ready', () => {
+     let waiting: GameState, productionId: string
+     beforeAll(() => {
+@@ -153,6 +189,44 @@
+   })
+ })
+ 
++// Review B1 (blocking): the tick's release read must see the films this same tick already released, because the root
++// records them as released the moment they do. A sequel (greenlit first, so released first: ascending ids) and a reboot of
++// the same property releasing in one week made the reboot's prior-continuity comparison cite the sequel, whose result the
++// read could not see, and the tick threw on every replay.
++describe('P17 same-week release: a sequel and a reboot of one property release in the same tick', () => {
++  let committed: GameState, after: GameState, A: string, seqId: string, rebootId: string
++  beforeAll(() => {
++    const route = mintRoute('p17-p16-same-week-01')
++    A = route.productionId
++    const used = new Set<string>()
++    const seq = greenlightAs(route.released, freshConcept(route.released), { type: 'directSequel', predecessorProductionId: A }, used)
++    const reboot = greenlightAs(seq.state, freshConcept(seq.state), { type: 'reboot', predecessorProductionId: A }, used)
++    seqId = seq.productionId
++    rebootId = reboot.productionId
++    let s = reboot.state
++    for (let i = 0; i < TUNING.PRODUCTION_TICKS; i++) s = tick(s)
++    committed = applyActions(s, [{ kind: 'commitPictureToRelease', productionId: seqId }, { kind: 'commitPictureToRelease', productionId: rebootId }])
++    after = tick(committed)
++  })
++
++  it('both release that week, the sequel first; each continuity records its own release once', () => {
++    expect(seqId < rebootId).toBe(true)
++    const weeks = after.studio.releasedFilms.filter((f) => f.productionId === seqId || f.productionId === rebootId).map((f) => [f.productionId, f.releaseTick])
++    expect(weeks.map(([id]) => id)).toEqual([seqId, rebootId])
++    expect(weeks[0]![1]).toBe(weeks[1]![1])
++    const property = rootOf(after)?.properties[0]
++    expect(property?.installments.map((e) => [e.childProductionId, e.type, (e as Edge & { releasedWeek: number | null }).releasedWeek]))
++      .toEqual([[A, 'origin', expect.any(Number)], [seqId, 'directSequel', weeks[0]![1]], [rebootId, 'reboot', weeks[1]![1]]])
++    expect(property?.branches.map((x) => x.kind)).toEqual(['main', 'reboot'])
++  })
++
++  it('the release week replays byte for byte, and its save validates and round-trips', () => {
++    expect(stableStringify(tick(committed))).toBe(stableStringify(after))
++    const bytes = exportSave(makeSave(after))
++    expect(exportSave(migrateToLive(importSave(bytes)))).toBe(bytes)
++  })
++})
++
+ describe('P17 reboot legality and atomic refusal on the live route', () => {
+   let A: string, released: GameState
+   beforeAll(() => {
