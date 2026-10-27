@@ -1,5 +1,13 @@
 ## Rival continuation implementation checkpoint — 2026-10-26, 19:56 CDT
 
+## Complete market consumers — 2026-10-26, 20:17 CDT
+
+Published experimental source bef0a40c7aae1721db5cee75eb1ffa81b03471e5 passes all four existing market integration, atomicity, phases and retune files: 67/67 assertions, child/wrapper 0. All original budgets pass; maximum body 4836.593 ms. Phases retains its original explicit 600000 ms exception; other files use 5000 ms. No test, timeout or source edit was made.
+
+Independent postflight verifies 1658 source/input and six preflight pins, confirms no remaining owned job/lane lock and releases the freeze. Launch/post samples observed no Godot; continuous exclusivity is not inferred. Evidence: p16-sprint8/rival-continuation/market-consumers/AUDIT.md and publication manifest. Prior seven continuation timing overruns remain open; this does not qualify the whole P16 composition.
+
+Reused the prior six complete continuation/estate files and root/Bridge types without rerunning them. Next: current-source disposition of remaining adopted rival early-work/script producers using existing authentic inputs, then the necessary coherent broader gate. Full-game original inputs, browser installation approval, native tooling and Owner acceptance remain open. Program remains active; main and primary candidate unchanged.
+
 ## Rival completed-take continuation published — 2026-10-26
 
 Experimental source `bef0a40c7aae1721db5cee75eb1ffa81b03471e5` is pushed and verified against the explicit GitHub ref `p16-retained-writing-20261026`. Primary candidate and main are unchanged. The reviewed producer preserves creator history while the actual rival buyer operates retained work, pays active crew, releases natively, receives title and collects original run installments exactly once. The genuine C166 route reaches save169, release/replay170 and final171 reload.

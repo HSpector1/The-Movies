@@ -1,0 +1,30 @@
+{
+  "head": "bef0a40c7aae1721db5cee75eb1ffa81b03471e5",
+  "expectedSourceCheckpoint": "bef0a40c7aae1721db5cee75eb1ffa81b03471e5",
+  "sourceManifestEntries": 1658,
+  "sourceBinding": "Fresh actual bytes bound by coordinator before preflight",
+  "files": [
+    "tests/p15a1-market-integration.test.ts",
+    "tests/p15a1-market-integration-phases.test.ts",
+    "tests/p15a1-market-integration-atomicity.test.ts",
+    "tests/p15a1-market-retune.test.ts"
+  ],
+  "testPostimages": {
+    "tests/p15a1-market-integration.test.ts": "42f5aca75f4e44d0057e2f950efacaf7ec06dd782f16bdffd604daf7c99fced8",
+    "tests/p15a1-market-integration-phases.test.ts": "4592c0beec1b85a1e35263c409c567292da53587a56aede6ea7aacddaee373f8",
+    "tests/p15a1-market-integration-atomicity.test.ts": "0207f9bb60605cd549eeb0e7f206a4225819c8f9e745667d6e5016a416fac3f5",
+    "tests/p15a1-market-retune.test.ts": "778aa0dd3de331bde60eeab5b26508cdf868e9cfcf3245d84947e12136644ba9"
+  },
+  "budget": "Original complete-file budgets, no override/setup movement",
+  "children": [
+    {
+      "label": "market-consumers",
+      "completeFiles": 4,
+      "project": "core",
+      "result": "focused.json",
+      "oneInvocation": true
+    }
+  ],
+  "excluded": "No repeat of qualified six continued-work/estate files or root/Bridge types",
+  "launch": "Prepared only; fresh resource preflight and existing exclusive heavy lane required"
+}
