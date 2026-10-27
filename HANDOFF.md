@@ -1,5 +1,15 @@
 # HANDOFF
 
+## Rival obligations functional checkpoint — 2026-10-26, 22:31 CDT
+
+Experimental source 63a63abe63e62825916f3a69b4b4589ae3a7baed contains eleven reviewed source owners and the independent same-leaf lifecycle. Explicit remote publication is checked at checkpoint. Root types exit 0; genuine R01 C312 native obligation close, financial/receipt/source-history dispositions, writing completion/Accept313, replay, unrelated film33 first take314 with no false promise13 credit, and final314 save all pass. Exact 9275.610403 ms exceeds unchanged5000 ms. One pass,64 skipped; affected complete files and broader consumers are NOT qualified.
+
+Independent audit verifies all1658 source/input and six preflight pins, terminal child/wrapper0 and absent owned jobs/lock; freeze released. Launch/mid/post samples found no Godot, without a continuous-exclusivity claim. Earlier first-green was not launched when foreign Godot appeared; preserve that evidence. Source, two reviewed corrections, independent test and actual results are under rival-obligations. Main and primary P16 stay unchanged.
+
+Next: complete coherent affected-file/consumer qualification through the sole lane only with a fresh valid window; retain timing failure, original RED and all historical failures. Reuse this exact root compiler/focused result where source remains unchanged. Own unbound promise12 masks delegated-only retention; acquired first take, termination, nonempty market and prior v8 production branches remain unproved. Missing full-gate originals, browser installation, native tooling and Owner acceptance remain open. Sprint8/program are incomplete; no downstream predecessor qualification.
+
+
+
 ## Rival obligations reviewed candidate; launch blocked — 2026-10-26
 
 Eleven source owners and one independent existing-leaf extension are installed uncommitted on experimental HEAD53f821499b838bb701dedb74f5f49ef06f3796bf, based on published gameplay cf8def37. The original patch plus two reviewed corrections are recoverable under p16-sprint8/rival-obligations. No gameplay promotion or qualification is claimed. Main and primary P16 remain unchanged.

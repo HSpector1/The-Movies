@@ -1,5 +1,15 @@
 ## Rival continuation implementation checkpoint — 2026-10-26, 19:56 CDT
 
+## Rival obligations functional checkpoint — 2026-10-26, 22:31 CDT
+
+Experimental source 63a63abe63e62825916f3a69b4b4589ae3a7baed contains eleven reviewed source owners and the independent same-leaf lifecycle. Explicit remote publication is checked at checkpoint. Root types exit 0; genuine R01 C312 native obligation close, financial/receipt/source-history dispositions, writing completion/Accept313, replay, unrelated film33 first take314 with no false promise13 credit, and final314 save all pass. Exact 9275.610403 ms exceeds unchanged5000 ms. One pass,64 skipped; affected complete files and broader consumers are NOT qualified.
+
+Independent audit verifies all1658 source/input and six preflight pins, terminal child/wrapper0 and absent owned jobs/lock; freeze released. Launch/mid/post samples found no Godot, without a continuous-exclusivity claim. Earlier first-green was not launched when foreign Godot appeared; preserve that evidence. Source, two reviewed corrections, independent test and actual results are under rival-obligations. Main and primary P16 stay unchanged.
+
+Next: complete coherent affected-file/consumer qualification through the sole lane only with a fresh valid window; retain timing failure, original RED and all historical failures. Reuse this exact root compiler/focused result where source remains unchanged. Own unbound promise12 masks delegated-only retention; acquired first take, termination, nonempty market and prior v8 production branches remain unproved. Missing full-gate originals, browser installation, native tooling and Owner acceptance remain open. Sprint8/program are incomplete; no downstream predecessor qualification.
+
+
+
 ## Rival obligations reviewed candidate; launch blocked — 2026-10-26
 
 Eleven source owners and one independent existing-leaf extension are installed uncommitted on experimental HEAD53f821499b838bb701dedb74f5f49ef06f3796bf, based on published gameplay cf8def37. The original patch plus two reviewed corrections are recoverable under p16-sprint8/rival-obligations. No gameplay promotion or qualification is claimed. Main and primary P16 remain unchanged.
@@ -634,7 +644,7 @@ Governing [Owner assignment](p16-sprint5/OWNER-ASSIGNMENT.txt) supersedes routin
 | 5 — full baseline | BLOCKED | Recover three original r3n1 inputs/reports; sufficient disk and exclusive window; bind and pass current preflight, run prepared full core-including-Bridge/UI once. One tracked input restored and hash-verified. |
 | 6 — regression/browser | BROWSER PREPARED, UNRUN | Existing smoke extension preserves120s and adds real continue-after-import. Exact tracked inputs restored. Playwright1.62.0 browser revision1234 absent; minimum headless-shell/FFmpeg download awaits explicit Owner approval. Real browser/exclusive lane still required. |
 | 7 — screenplay continuation | SOURCE PUBLISHED; QUALIFICATION INCOMPLETE | Experimental9c91232d: genuine paid native lifecycle and queued release repair, root types0, Accept3/3 and queue/release27/27 functional. Accept overruns/foreign overlap retained. Remaining35 consumers and genuine retirement/acquired conjunction open. |
-| 8 — other acquisition producers | SOURCE PUBLISHED; NEXT REPAIR STATIC-UNRUN | Published cf8def37 remains scoped and timing-limited. Combined native obligations draft plus two reviewed corrections and same-leaf lifecycle are installed/recoverable; compiler launch withheld after foreign Godot appeared in explicit host scan. Original RED5.387s and all unqualified production/full/platform paths remain open. |
+| 8 — other acquisition producers | SOURCE CHECKPOINT; QUALIFICATION INCOMPLETE | Experimental63a63abe adds reviewed native obligations. Root types0; genuine C312 close/completion/replay/finalsave1pass64skip,9275.610ms exceeds5000. Independent audit releases freeze. Affected complete files/broader consumers pending; delegated-only retention, acquired take/termination and existing full/platform gaps remain open. |
 | 9 — technical P16 checkpoint | DEPENDENCY BLOCKED | Coherent Sprints 6–8, historical/consumer gates and actual browser transactions; no immutable qualified checkpoint yet. |
 | 10 — P17 continuation | PREDECESSOR BLOCKED | Actual qualified P16 technical checkpoint before adapting preserved P17 source. |
 | 11 — P17 appearances/UI | PREDECESSOR BLOCKED | Real P17 continuation/rights owners, then bounded adopted cameo and player journey. |
