@@ -22,3 +22,7 @@ P13B-HEADLESS-PLAN.md at docs/engineering/playability-launch-review/plans, lines
 Therefore the precursor is not wholly unspecified: same mechanical laws are mandatory. The unresolved Owner choice is when a rival acquires a Set, which actual native asset/payment owner supplies it, and when/how its optional recipe is selected under a deterministic affordability/choice rule. No free spawn, actor swap, automatic recipe, new surcharge or historical rewrite is authorized by this finding. Asked the Owner whether an existing approved acquisition/selection policy exists. Recommendation: keep this precursor explicitly blocked pending that bounded policy decision while continuing independent eligible work. This is not an acceptance waiver or completion disposition.
 
 Source63a63abe remains unchanged. The clean host sample at this checkpoint does not resolve the repeated foreign-job/exclusive-window blocker; no gate was relaunched.
+
+## Owner ruling — 2026-10-27
+
+Answered: no rival Set acquisition/payment or recipe-selection policy is adopted for this candidate (option 1). Acquired rival productions continue on their abstract source stage without Set or setup and the buyer owns the finished film. The guards stay as consistency guards. Dependency CLOSED by ruling, not implemented; see OWNER-RULING-20261027.md. A rival Set policy is a later backlog feature.

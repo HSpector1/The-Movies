@@ -14,9 +14,8 @@ Last writer: Claude Fable 5.1 coordinator. The Owner paused the foreign Godot se
 - Static source disposition added to p16-sprint8/REMAINING-PRODUCERS.md: due physical and due adoption completion at close already have native producers (completeRivalPlans; finishTechnologyWeek); the acquisition refusals are consistency guards. No runtime was run for that reading.
 
 ### Exact next action
-1. Owner decision pending: rival Set acquisition/payment and optional recipe-selection policy (rival-obligations/NEXT-DEPENDENCY.md). Do not invent it. Natural C-08 close proof stays open without a genuine premise.
-2. If the Owner supplies the policy: independent RED premise first, then source through the actual setup/Set owners, focused review, then a fresh bound lane attempt (pattern of rival-obligations). Keep the foreign session paused during any run; re-scan for Godot before every launch.
-3. Otherwise Sprint 9 cannot start (no qualified P16 technical predecessor). Separate prerequisites unchanged: three original full-gate captures, pinned Playwright Chrome 1234/FFmpeg 1011 install approval, Unity toolchain.
+1. Owner ruling 11:05 CDT (p16-sprint8/rival-obligations/OWNER-RULING-20261027.md): no rival Set/setup policy in this candidate; acquired rival productions finish on their abstract stage and the buyer owns the film. Sprint 8 producer rows are closed except natural C-08 (OPEN, no premise). Sprint 9 is eligible.
+2. Sprint 9: read the P16 checkpoint contract and the remaining-requirements table, select the required checkpoint gates on the coherent 63a63abe source, run them through fresh preflight, no-Godot scan and the lane (Owner keeps the Codex session paused during runs), then publish an immutable non-main technical checkpoint only if its prerequisites qualify. Browser transactions need the pending Playwright Chrome 1234/FFmpeg 1011 install approval; the three original full-gate captures remain missing.
 4. Inherited p14c2c R1–R3 (rival retirement promise cutoff: outcome SATISFIED/progress 1 where null/0 expected) keep their baseline disposition; a repair is a separate bounded slice only if the adopted retirement law requires it.
 
 

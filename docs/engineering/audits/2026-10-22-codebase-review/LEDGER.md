@@ -1,3 +1,10 @@
+## Owner ruling closes the rival Set/setup dependency — 2026-10-27, 11:05 CDT
+
+The Owner chose option 1: no rival Set acquisition/payment or recipe-selection policy in this candidate; acquired rival productions finish on their abstract source stage without Set or setup, and the buyer owns the finished film (the existing continuation design, witnessed by p16-continued-work-silent-phases76). Guards retained as consistency guards. Record: p16-sprint8/rival-obligations/OWNER-RULING-20261027.md; REMAINING-PRODUCERS.md and NEXT-DEPENDENCY.md carry the closure. A rival Set policy is backlog outside Sprints 5–16.
+
+Sprint 8 producer dispositions are now complete except natural C-08 close proof (OPEN, no genuine premise). Sprint 9 (P16 technical checkpoint and player transactions) is eligible. No source change in this entry; gameplay 63a63abe unchanged.
+
+
 ## Consumer remainder completed; Bridge types pass — 2026-10-27, 10:40 CDT
 
 The Owner paused the foreign Godot session; consumers-remainder ran 10:16:31–10:18:41 CDT on gameplay 63a63abe (HEAD 16aa35da, handoff-only above it) after bind, fresh preflight (free 7,659,576 KiB, no heavy process) and an explicit no-Godot scan. 26 tests: 23 passed, 3 failed; Bridge typecheck exit 0. Failures are p14c2c-rival-promises R1–R3 with the baseline's byte-identical first assertion line (recorded Oct 25 baseline lines 136–138): inherited, not introduced. Twelve leaves exceed the unchanged 5,000 ms budget, nine passing. Independent postflight verified all 1,658 source pins and six preflight pins, owned PID absent, lock absent; freeze released. Exclusivity is sampled, not proven continuous. Record: p16-sprint8/rival-obligations/consumers-remainder/AUDIT.md.
