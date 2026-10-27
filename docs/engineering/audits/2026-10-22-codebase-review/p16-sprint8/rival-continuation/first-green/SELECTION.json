@@ -1,0 +1,36 @@
+{
+  "head": "8639c2368e5a89844fac2aadbc64da10853dbf74",
+  "purpose": "Compiler-first coherent rival completed-take continuation lifecycle first GREEN",
+  "selector": {
+    "file": "tests/p16-absorption-active-run.test.ts",
+    "describe": "P16 genuine rival completed-take continuation admission",
+    "it": "quotes the actual166 completed silent take with all required staff into idle R02 before reaching the continued-work producer"
+  },
+  "sourceManifestEntries": 1658,
+  "sourceBinding": "Actual reviewed eleven-owner source and independent lifecycle test installed; frozen through audit.",
+  "testPostimageSHA256": "bacc7df3b06b294b5e09394a8c25d11a738da12e9c37a5c628f541b8bd5804d5",
+  "budget": {
+    "milliseconds": 5000,
+    "timeoutOverride": false,
+    "setupInsideLeaf": true,
+    "ticks": 9
+  },
+  "expectedFailure": null,
+  "capture": {
+    "environment": "P16_ORIGINAL48_CAPTURE_ROOT",
+    "file": "r04-actual163.save48.json",
+    "sha256": "c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad"
+  },
+  "limits": "Root types first; focused same existing-file lifecycle leaf only if types exit0. No Bridge compiler or complete-file qualification.",
+  "children": [
+    {
+      "label": "root-types",
+      "command": "node node_modules/typescript/bin/tsc --noEmit",
+      "requiredBeforeRuntime": true
+    },
+    {
+      "label": "rival-continuation-lifecycle",
+      "originalBudgetMilliseconds": 5000
+    }
+  ]
+}

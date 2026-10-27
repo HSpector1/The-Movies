@@ -1,0 +1,7 @@
+# Targeted writer-admission correction review
+
+Approved statically: exact patch `bfe80891b3d9e94332d647c5a2943b2ba0ba75cf62cfd140c04a8dba29643e93` changes only the non-company coverage boundary from C to C−1. This corrects the reproduced week169 reader failure without requiring an unseated credited writer to remain employed for the whole inputC. A writer who is also a director/cast/craft company member still takes the unchanged stricter company branch.
+
+Admission is not removed: validateAbsorptionRoot still requires the original authoritative source contract, exact buyer-linked absorptionContinuation identity/reason and exact remaining terms including startC and original exclusive end. validateContinuedWork still requires linked talent, buyer and startC, and rejects an end beforeC. Ordinary Hollywood employment validation continues to prove any actual termination receipt/payment. The work validator's single caller is current rights-root validation; no frozen reader is given a new authority context or relaxed structural law. Existing player/non-company behavior receives the same legitimate admission-only correction; sameC cancellation handling is unchanged.
+
+No actionable remaining issue found in this one-line correction. Original first-green failure remains evidence; compiler/lifecycle/save-replay after this patch are unrun. No checkout edit or runtime performed by this review.

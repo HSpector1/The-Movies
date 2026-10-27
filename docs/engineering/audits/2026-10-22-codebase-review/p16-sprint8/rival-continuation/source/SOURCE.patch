@@ -1,0 +1,728 @@
+--- a/src/core/acquisition.ts
++++ b/src/core/acquisition.ts
+@@ -57,7 +57,7 @@
+ import { conditionFactsFor, corporateConditionReaders, moveStudioCash, permittedBidderRefusal, spendableCash, weeklyFixedCost, type CorporateConditionReaders } from './rightsFinance.js'
+ import { allocateRightsId, appendTitleEvent, resolveTitles, subjectsHeldBy, type AbsorptionRecord, type DiligenceScopeItem, type RightSubject } from './rights.js'
+ import { acquiredActiveRunFilms, validateAbsorbedRuns, validateAbsorbedRunMoney, validateRivalAbsorbedRunMoney } from './absorbedRuns.js'
+-import { bindContinuedWork, continuedWorkRefusal, buyerOperationsForAllWork } from './continuedWork.js'
++import { bindContinuedWork, continuedWorkRefusal, buyerOperationsForAllWork, buyerContinuedProductions, buyerOperatedProductions } from './continuedWork.js'
+ import { validateContinuedWork } from './continuedWorkValidation.js'
+ import { validateAbsorbedProductionStops } from './absorbedWork.js'
+ import { validateAbsorbedScripts } from './absorbedScripts.js'
+@@ -419,6 +419,7 @@
+   const h = state.hollywood
+   if (!h) return 'noIndustry'
+   if (acquiredActiveRunFilms(state,input.targetId,state.market.tick).length!==0) return 'acquiredRunReassignmentProducerRequired'
++  if (buyerContinuedProductions(state,input.targetId).length!==0) return 'acquiredWorkReassignmentProducerRequired'
+   const b = h.businesses.find(b => b.studioId === input.targetId)
+   if (!b) return 'unknownTarget'
+   // Active source runs use their real linked buyer-beneficiary producer after closing.
+@@ -460,7 +461,9 @@
+     // Cost-cutting has no native new-employment producer; do not clear its mode
+     // or use an acquisition to evade the existing commitment/market law.
+     if(q.contracts.some(c=>c.retained) && state.hollywood!.businesses.find(b=>b.studioId===input.buyerId)!.costCutting.since!==null)throw new Error('absorption: rivalBuyerCostCuttingRetentionProducerRequired')
+-    if(q.productions.some(p=>p.disposition==='continues'))throw new Error('absorption: rivalBuyerContinuedWorkProducerRequired')
++    const continued=q.productions.filter(p=>p.disposition==='continues')
++    if(continued.some(p=>p.remainingTicks>4))throw new Error('absorption: rivalBuyerEarlierWorkProducerRequired')
++    if(continued.length>0 && (continued.length!==1 || buyerOperatedProductions(state,input.buyerId).length!==0))throw new Error('absorption: rivalBuyerProductionOccupied')
+     if(q.scripts.some(s=>s.disposition==='continues'))throw new Error('absorption: rivalBuyerScriptProducerRequired')
+   }
+ 
+@@ -619,11 +622,12 @@
+     if (!d || d.recipientId !== a.buyerId || d.target.kind !== 'studio' || d.target.studioId !== a.targetId
+       || !ABSORPTION_DISCLOSURE_SCOPE.every(s => d.scope.includes(s)) || d.week > a.week || d.staleFromWeek <= a.week) fail('missing genuine fresh full disclosure')
+     if (![a.contracts,a.research,a.facilities,a.titleEventIds,a.knowledge,a.physicalPlans,a.adoptions,a.stoppedProductions,a.continuedProductions,a.buyerWorkflows,a.workSteps,a.workReleases,a.workCancellations,a.runs,a.runReceipts].every(Array.isArray)) fail('dispositions must be arrays')
+-    if(a.buyerId!==h!.playerStudioId && (a.continuedProductions.length!==0 || a.buyerWorkflows.length!==0 || a.workSteps.length!==0
+-      || a.workReleases.length!==0 || a.workCancellations.length!==0)) {
+-      fail('rival buyer continued work producer is not admitted')
+-    }
++    if(a.buyerId!==h!.playerStudioId && (a.continuedProductions.length>1 || a.continuedProductions.some(row=>!row || !row.originalProduction || row.originalProduction.remainingTicks>4) || a.workCancellations.length!==0))fail('rival buyer earlier/manual work producer is not admitted')
+     if(acquiredActiveRunFilms(state,a.targetId,a.week).length!==0)fail('acquired run reassignment producer is not admitted')
++    // Earlier records have already passed their complete joined proof in this loop.
++    if(state.rights.absorptions.slice(0,state.rights.absorptions.indexOf(a)).some(prior=>prior.buyerId===a.targetId && prior.continuedProductions.some(row=>
++      !prior.workReleases.some(r=>r.productionId===row.productionId && r.week<a.week)
++      && !prior.workCancellations.some(c=>c.productionId===row.productionId && c.week<=a.week))))fail('acquired work reassignment producer is not admitted')
+     const originals = h!.employment.filter(e => e.studioId === a.targetId && e.endedWeek === a.week && e.terms.endWeekExclusive > a.week
+       && h!.receipts.some(r => r.kind === 'employment' && r.contractId === e.contractId && r.toStudioId === null && (r.reason === 'absorptionExit' || r.reason === 'absorptionContinuation')))
+     if (a.contracts.map(c => c.sourceContractId).join() !== originals.map(c => c.contractId).join()) fail('employment dispositions differ from authoritative original order')
+--- a/src/core/continuedWork.ts
++++ b/src/core/continuedWork.ts
+@@ -10,22 +10,24 @@
+ 
+ /** A creator's production stays with its genuine paid project. This selector is the actual
+  * buyer work/capacity inventory; it is not a second playable lot or a cloned player picture. */
+-export function buyerContinuedProductions(state: GameState): Production[] {
+-  const buyer=state.hollywood?.playerStudioId
++export function buyerContinuedProductions(state: GameState,buyer=state.hollywood?.playerStudioId): Production[] {
+   return (state.rights?.absorptions ?? []).filter(a=>a.buyerId===buyer).flatMap(a=>{
+     const source=state.hollywood!.businesses.find(b=>b.studioId===a.targetId)
+     if(!source)throw new Error('continued work: original business missing')
+     return source.productions.filter(p=>a.continuedProductions.some(row=>row.productionId===p.id) && !a.workCancellations.some(row=>row.productionId===p.id))
+   })
+ }
+-export function buyerContinuationWorkflows(state:GameState):ProductionWorkflow[] {
+-  return (state.rights?.absorptions ?? []).flatMap(a=>a.buyerId===state.hollywood?.playerStudioId ? a.buyerWorkflows : [])
++export function buyerContinuationWorkflows(state:GameState,buyer=state.hollywood?.playerStudioId):ProductionWorkflow[] {
++  return (state.rights?.absorptions ?? []).flatMap(a=>a.buyerId===buyer ? a.buyerWorkflows : [])
+ }
+-export function buyerOperationsForAllWork(state:GameState):StudioOperations {
+-  return {...state.operations,workflows:[...state.operations.workflows,...buyerContinuationWorkflows(state)]}
++export function buyerOperationsForAllWork(state:GameState,buyer=state.hollywood?.playerStudioId):StudioOperations {
++  const operations=buyer===undefined || buyer===state.hollywood?.playerStudioId?state.operations:state.hollywood?.businesses.find(b=>b.studioId===buyer)?.operations
++  if(!operations)throw new Error('continued work: actual buyer operations missing')
++  return {...operations,workflows:[...operations.workflows,...buyerContinuationWorkflows(state,buyer)]}
+ }
+-export function buyerOperatedProductions(state:GameState):Production[] {
+-  return [...state.studio.activeProductions,...buyerContinuedProductions(state)]
++export function buyerOperatedProductions(state:GameState,buyer=state.hollywood?.playerStudioId):Production[] {
++  const own=buyer===undefined || buyer===state.hollywood?.playerStudioId?state.studio.activeProductions:state.hollywood?.businesses.find(b=>b.studioId===buyer)?.productions??[]
++  return [...own,...buyerContinuedProductions(state,buyer)]
+ }
+ export function buyerContinuedTalentIds(state:GameState):string[] {
+   return [...productionCompanyTalentIds(buyerContinuedProductions(state))]
+@@ -69,16 +71,9 @@
+  * real returned allocation per continued production and carries it into the next admission. */
+ export function bindContinuedWork(state:GameState,transaction:AbsorptionRecord,occupied:ReadonlySet<string>):GameState {
+   const h=state.hollywood!,source=h.businesses.find(b=>b.studioId===transaction.targetId)!
+-  if(transaction.buyerId!==h.playerStudioId){
+-    if(transaction.continuedProductions.length!==0 || transaction.buyerWorkflows.length!==0
+-      || transaction.workSteps.length!==0 || transaction.workReleases.length!==0 || transaction.workCancellations.length!==0) {
+-      throw new Error('absorption: rivalBuyerContinuedWorkProducerRequired')
+-    }
+-    // Nothing enters the player's allocator. Stopped paid work remains with its source owner.
+-    return state
+-  }
+-
+-  let operations=buyerOperationsForAllWork(state)
++  if(transaction.buyerId!==h.playerStudioId && transaction.continuedProductions.some(row=>row.originalProduction.remainingTicks>4))throw new Error('absorption: rivalBuyerEarlierWorkProducerRequired')
++  if(transaction.continuedProductions.length===0)return state
++  let operations=buyerOperationsForAllWork(state,transaction.buyerId)
+   let sourceOperations=source.operations
+   const postFacilities=new Map<string,string|null>()
+   for(const row of transaction.continuedProductions) {
+@@ -110,14 +105,17 @@
+ 
+ /** Actual split of the ONE native buyer allocation/advance, before queue admission or publication.
+  * No production or screenplay changes creator, cost owner, identity or original participant history. */
+-export function publishOperatedAdvance(state:GameState,advanced:readonly Production[],operations:StudioOperations):GameState {
+-  const own=new Set(state.studio.activeProductions.map(p=>p.id))
+-  const h=state.hollywood
+-  const foreign=new Map((state.rights?.absorptions ?? []).flatMap(a=>a.continuedProductions.map(p=>[p.productionId,a.targetId] as const)))
+-  const expected=buyerOperatedProductions(state).map(p=>p.id)
++export function publishOperatedAdvance(state:GameState,advanced:readonly Production[],operations:StudioOperations,buyer=state.hollywood?.playerStudioId):GameState {
++  const h=state.hollywood,player=buyer===undefined || buyer===h?.playerStudioId
++  const own=new Set((player?state.studio.activeProductions:h?.businesses.find(b=>b.studioId===buyer)?.productions??[]).map(p=>p.id))
++  const foreign=new Map((state.rights?.absorptions ?? []).filter(a=>a.buyerId===buyer).flatMap(a=>a.continuedProductions.map(p=>[p.productionId,a.targetId] as const)))
++  const expected=buyerOperatedProductions(state,buyer).map(p=>p.id)
+   if(new Set(advanced.map(p=>p.id)).size!==advanced.length || advanced.length!==expected.length || advanced.some(p=>!expected.includes(p.id)))throw new Error('continued work: advance lacks exact actual owner pool')
+-  return {...state,operations:{...operations,workflows:operations.workflows.filter(w=>own.has(w.productionId))},rights:{...state.rights,absorptions:state.rights.absorptions.map(a=>({...a,buyerWorkflows:operations.workflows.filter(w=>a.continuedProductions.some(p=>p.productionId===w.productionId))}))},studio:{...state.studio,activeProductions:advanced.filter(p=>own.has(p.id))},
++  const nativeOperations={...operations,workflows:operations.workflows.filter(w=>own.has(w.productionId))}
++  return {...state,...(player?{operations:nativeOperations,studio:{...state.studio,activeProductions:advanced.filter(p=>own.has(p.id))}}:{}),
++    rights:{...state.rights,absorptions:state.rights.absorptions.map(a=>a.buyerId!==buyer?a:{...a,buyerWorkflows:operations.workflows.filter(w=>a.continuedProductions.some(p=>p.productionId===w.productionId))})},
+     hollywood:h?{...h,businesses:h.businesses.map(b=>{
++      if(!player && b.studioId===buyer)return {...b,operations:nativeOperations,productions:advanced.filter(p=>own.has(p.id))}
+       const ids=new Set(b.productions.filter(p=>foreign.get(p.id)===b.studioId).map(p=>p.id))
+       if(ids.size===0)return b
+       return {...b,productions:b.productions.map(p=>ids.has(p.id)?advanced.find(row=>row.id===p.id)??p:p)}
+@@ -125,12 +123,11 @@
+ }
+ 
+ /** Actual returned native counters, captured once under the global rights allocator. */
+-export function recordContinuedWorkSteps(before:GameState,after:GameState,week:number):GameState {
++export function recordContinuedWorkSteps(before:GameState,after:GameState,week:number,buyer=before.hollywood?.playerStudioId):GameState {
+   if(week!==before.market.tick)throw new Error('continued work: not the actual input boundary')
+-  const buyer=before.hollywood?.playerStudioId
+   if(buyer && closedWeekOf(before).has(buyer))throw new Error('continued work: closed buyer cannot advance retained work')
+   let rights=after.rights
+-  for(const original of buyerContinuedProductions(before)) {
++  for(const original of buyerContinuedProductions(before,buyer)) {
+     const source=before.rights.absorptions.find(a=>a.continuedProductions.some(p=>p.productionId===original.id))!
+     const advanced=after.hollywood!.businesses.find(b=>b.studioId===source.targetId)!.productions.find(p=>p.id===original.id)!
+     if(!advanced || advanced.remainingTicks>original.remainingTicks || advanced.remainingTicks<original.remainingTicks-1)throw new Error('continued work: native counter lost or invented work')
+@@ -149,8 +146,8 @@
+   const business=state.hollywood!.businesses.find(b=>b.studioId===transaction.targetId)!
+   return {business,owner:{productions:buyerContinuedProductions(state).filter(p=>transaction.continuedProductions.some(row=>row.productionId===p.id)),concepts:state.hollywood!.concepts,operations:buyerOperationsForAllWork(state),releaseAuthority:business.releaseAuthority}}
+ }
+-export function continuedCommittedReleaseIds(state:GameState):string[] {
+-  const ids=new Set(buyerContinuedProductions(state).map(p=>p.id))
++export function continuedCommittedReleaseIds(state:GameState,buyer=state.hollywood?.playerStudioId):string[] {
++  const ids=new Set(buyerContinuedProductions(state,buyer).map(p=>p.id))
+   return state.hollywood?.businesses.flatMap(b=>b.releaseAuthority.commitments.filter(row=>ids.has(row.productionId)).map(row=>row.productionId)) ?? []
+ }
+ 
+--- a/src/core/continuedWorkValidation.ts
++++ b/src/core/continuedWorkValidation.ts
+@@ -35,15 +35,11 @@
+   const h = state.hollywood
+   if (!h || a.targetId !== business.studioId) fail('wrong actual work owner')
+   if (![a.continuedProductions, a.buyerWorkflows, a.workSteps, a.workReleases, a.workCancellations].every(Array.isArray)) fail('missing work arrays')
+-  if(a.buyerId!==h.playerStudioId){
+-    if(!h.businesses.some(b=>b.studioId===a.buyerId)
+-      || [a.continuedProductions,a.buyerWorkflows,a.workSteps,a.workReleases,a.workCancellations].some(rows=>rows.length!==0)) {
+-      fail('rival buyer continued work is not admitted')
+-    }
+-    // The separate stopped-production owner proves every original paid subject and disposition.
+-    // This owner proves there is no buyer work at all, rather than projecting it into player work.
+-    return
+-  }
++  const player=a.buyerId===h.playerStudioId
++  const buyer=player?undefined:h.businesses.find(b=>b.studioId===a.buyerId)
++  if(!player && !buyer)fail('actual rival operator missing')
++  if(!player && (a.continuedProductions.length>1 || a.continuedProductions.some(row=>row.originalProduction.remainingTicks>4) || a.workCancellations.length!==0))fail('rival earlier/manual work producer is not admitted')
++  const buyerOperations=player?state.operations:buyer!.operations
+ 
+   const links = a.continuedProductions
+   const ids = new Set(links.map(row => row.productionId))
+@@ -67,6 +63,7 @@
+   if (a.buyerWorkflows.length !== liveIds.size || new Set(a.buyerWorkflows.map(w => w.productionId)).size !== a.buyerWorkflows.length
+     || a.buyerWorkflows.some(w => !liveIds.has(w.productionId))) fail('canonical buyer workflow bijection differs')
+   if (business.operations.workflows.some(w => ids.has(w.productionId))
++    || h.businesses.some(b=>b!==business && b.operations.workflows.some(w=>ids.has(w.productionId)))
+     || state.operations.workflows.some(w => ids.has(w.productionId))
+     || state.studio.activeProductions.some(p => ids.has(p.id))) fail('continued work claims a second production or allocation owner')
+ 
+@@ -133,9 +130,16 @@
+         || locks[0]!.lockedWeek===null || locks[0]!.lockedWeek>a.week)fail('completed take lost original silent source authority')
+     }
+     if (row.buyerPostFacilityId !== null && (typeof row.buyerPostFacilityId !== 'string'
+-      || !state.operations.facilities.some(f => f.id === row.buyerPostFacilityId && f.capability === 'post'))) fail('original buyer post facility missing')
++      || !buyerOperations.facilities.some(f => f.id === row.buyerPostFacilityId && f.capability === 'post'))) fail('original buyer post facility missing')
+     const end = Math.min(state.market.tick, buyerEnd, cancellation?.week ?? Infinity, release ? release.week + 1 : Infinity)
+     const steps = a.workSteps.filter(s => s.productionId === original.id)
++    if(!player)for(const own of buyer!.projects) {
++      if(own.productionId===null || own.announcedWeek===null)continue
++      const released=h.films.find(f=>f.provenance==='simulation/v1' && f.studioId===a.buyerId && f.filmId===own.productionId)
++      const body=buyer!.productions.find(p=>p.id===own.productionId)
++      const until=released?.provenance==='simulation/v1'?released.result.releaseTick+1:body?(closure?.closureWeek??state.market.tick+1):Infinity
++      if(own.announcedWeek<Math.max(a.week+1,end) && until>a.week)fail('rival native production overlaps actual continued operation')
++    }
+     if (steps.length !== end - a.week) fail('complete actual input-week work sequence missing')
+     let remaining = original.remainingTicks
+     for (let i = 0; i < steps.length; i++) {
+@@ -167,8 +171,7 @@
+     if (buyerFirstTake || completedTake) {
+       const wrapStep = steps.find(s => s.beforeRemaining === 4 && s.afterRemaining === 3)
+       const wraps = state.studioEvents.rows.filter(e => e.kind === 'wrapped' && e.productionId === original.id)
+-      if (wrapStep ? wraps.length !== 1 || wraps[0]!.week !== wrapStep.week
+-        : wraps.length !== 0) fail('buyer native wrap differs from actual shooting completion')
++      if(player ? (wrapStep ? wraps.length!==1 || wraps[0]!.week!==wrapStep.week : wraps.length!==0) : wraps.length!==0)fail('buyer native wrap differs from actual shooting completion')
+     }
+     if (release ? remaining !== 0 || !film || current !== undefined : remaining < 1 || !current || film !== undefined) fail('actual counter/release/source production partition differs')
+     if (current && (!same(current, { ...original, remainingTicks: remaining }) || script.status !== 'inProduction')) fail('retained paid production mutated outside its real counter')
+@@ -192,6 +195,16 @@
+         || !Number.isSafeInteger(inherited.committedAtWeek) || inherited.committedAtWeek < original.startTick
+         || inherited.committedAtWeek > a.week || original.remainingTicks !== 1 || commitEvents.length !== 0) fail('carried release commitment differs from actual original ready work')
+       committedAt = inherited.committedAtWeek
++    } else if(!player) {
++      // The native rival commits and publishes in the same input pass. Its
++      // canonical 1→0 step, actual creator film and releaseCommitmentId retain
++      // that decision without minting a player-only action/history row.
++      if(commitEvents.length!==0)fail('rival commitment polluted player events')
++      const committed=steps.find(step=>step.beforeRemaining===1 && step.afterRemaining===0)
++      if(committed) {
++        if(!release || release.week!==committed.week || film?.provenance!=='simulation/v1' || film.releaseCommitmentId!==`release-commitment-${original.id}`)fail('rival automatic commitment lacks actual release')
++        committedAt=committed.week
++      }
+     } else {
+       if (commitEvents.length > 1) fail('buyer release commitment duplicated')
+       const event = commitEvents[0]
+@@ -222,7 +235,7 @@
+     }
+     if (closure && !release && !cancellation) {
+       const production = closure.dispositions.filter(d => d.subjectKind === 'production' && d.subjectId === original.id)
+-      const screenplay = closure.dispositions.filter(d => d.subjectKind === 'screenplay' && d.subjectId === row.scriptProjectId)
++      const screenplay = closure.dispositions.filter(d => d.subjectKind === 'screenplay' && d.subjectId === (player?row.scriptProjectId:`${a.targetId}:${row.scriptProjectId}`))
+       if (production.length !== 1 || screenplay.length !== 1 || production[0]!.status !== 'applied' || screenplay[0]!.status !== 'applied'
+         || production[0]!.prior !== `remainingTicks ${remaining}` || screenplay[0]!.prior !== 'inProduction'
+         || production[0]!.result !== `cancelled terminally at week ${closure.closureWeek}; footage, participants and spend frozen in place; no release`
+@@ -248,8 +261,8 @@
+       || !same(sourceReceipt.before, sourceReceipt.after) || !same(sourceReceipt.after, business.standing)) fail('creator received buyer operating Standing or lacks exact release receipt')
+     const history = state.studioHistory.rows.filter(r => r.kind === 'standingChanged' && r.source.kind === 'releaseResult' && r.source.productionId === original.id)
+     const changed = standingChanged(release.standingBefore, release.standingAfter)
+-    if (history.length !== (changed ? 1 : 0)) fail('buyer Standing receipt missing, duplicated or invented')
+-    if (changed) {
++    if (history.length !== (player && changed ? 1 : 0)) fail('buyer Standing receipt missing, duplicated or invented')
++    if (player && changed) {
+       const receipt = history[0]!
+       if (receipt.kind !== 'standingChanged' || receipt.week !== release.week
+         || !same(receipt.before, release.standingBefore) || !same(receipt.after, release.standingAfter)
+--- a/src/core/hollywoodTick.ts
++++ b/src/core/hollywoodTick.ts
+@@ -1,3 +1,4 @@
++import { buyerContinuedProductions, buyerOperationsForAllWork, buyerOperatedProductions, publishOperatedAdvance, recordContinuedWorkSteps, continuedCommittedReleaseIds } from './continuedWork.js'
+ import { advanceAbsorbedRuns } from './absorbedRuns.js'
+ import { validateAbsorbedProductionStops } from './absorbedWork.js'
+ import { validateAbsorbedScripts } from './absorbedScripts.js'
+@@ -229,6 +230,7 @@
+   greenlights:{studioId:string;production:Production}[],cashFacts:StaffingCashFacts) {
+   if(week<b.nextDecisionWeek)return
+   b.nextDecisionWeek=week+TUNING.HOLLYWOOD_DECISION_WEEKS
++  const operatedCount=()=>buyerOperatedProductions({...state,hollywood:h},b.studioId).length
+   let greenlit=false,commissioned=false
+   let commissionStop:RivalCostCuttingEntryFacts['commissionStop']='none'
+   const indexedOutcomes=new Map<number,RivalCostCuttingEntryFacts['indexedOutcomes'][number]>()
+@@ -292,7 +294,7 @@
+     appendReceipt(h,{week,studioId:b.studioId,kind:'filmAnnounced',productionId:id,conceptId:concept.id})
+   }
+   for(const ready of hotDevelopment(b).projects.filter(p=>p.status==='ready')) {
+-    if(b.productions.length!==0)break
++    if(operatedCount()!==0)break
+     const ordinal=Number(ready.id.slice(7))
+     const result=evaluate(ready)
+     if(result.outcome!=='viable')indexedOutcomes.set(ordinal,result.outcome)
+@@ -319,7 +321,7 @@
+   // P14D.1 (1344-A §3.4, 1344-F Amendment 1): with no production and a free slot, retry the oldest due
+   // shelved screenplay, read directly (a shelved ordinal is outside the hot view). It re-enters the
+   // index only together with its greenlight; an economic rejection waits another retry interval.
+-  const due=b.productions.length===0&&b.activeScriptOrdinals.length<2
++  const due=operatedCount()===0&&b.activeScriptOrdinals.length<2
+     ?b.screenplayShelving.shelved.find(s=>s.retryWeek<=week):undefined
+   if(due) {
+     const ready=b.development.projects[due.ordinal]!
+@@ -381,7 +383,7 @@
+   // All ordinary early returns converge here. No scheduled decision means no entry.
+   // A full index is proved by real retained ordinals and their evaluations this week.
+   const outcomes=b.activeScriptOrdinals.map(i=>indexedOutcomes.get(i))
+-  const enters=rivalCostCuttingEntry({decisionRan:true,productionCount:b.productions.length,runCount:b.runs.length,
++  const enters=rivalCostCuttingEntry({decisionRan:true,productionCount:operatedCount(),runCount:b.runs.length,
+     greenlit,commissioned,hasScriptWork:hotDevelopment(b).projects.some(p=>p.status==='drafting'||p.status==='rewriting'),
+     cash:b.account.cash,reserve:operatingReserve(b,h,week),commissionStop,...cashFacts,
+     indexedOutcomes:outcomes.every((outcome):outcome is RivalCostCuttingEntryFacts['indexedOutcomes'][number]=>outcome!==undefined)?outcomes:[]})
+@@ -413,11 +415,11 @@
+ /** P15A.1 Wave 2 (1355-A §3.1 item 5): the frozen batch's rival members must be exactly the rival
+  * pictures at remainingTicks 1 when the week starts (fact 8). Returns each studio's due ids in
+  * release order. A missing or unknown member throws before any work, so the input is untouched. */
+-function frozenRivalMembers(source:HollywoodState|null,factorById:ReadonlyMap<string,number>,closed:ReadonlyMap<string,number>):Map<string,string[]> {
++function frozenRivalMembers(state:GameState,factorById:ReadonlyMap<string,number>,closed:ReadonlyMap<string,number>):Map<string,string[]> {
+   const due=new Map<string,string[]>()
+-  for(const b of source?.businesses??[]) {
++  for(const b of state.hollywood?.businesses??[]) {
+     if(closed.has(b.studioId))continue // P15B closure/v1 (r3): a closed business releases nothing (marketIntegration.runMarketBatch)
+-    const ids=b.productions.filter(p=>p.remainingTicks===1).map(p=>p.id).sort()
++    const ids=buyerOperatedProductions(state,b.studioId).filter(p=>p.remainingTicks===1).map(p=>p.id).sort()
+     if(ids.length>0)due.set(b.studioId,ids)
+   }
+   const all=new Set([...due.values()].flat())
+@@ -497,7 +499,7 @@
+   // P15B Wave 4 (closure/v1): an actually closed business is terminal history (operatingState.closedWeekOf).
+   const closed=closedWeekOf(state)
+   const absorbed=absorbedWeekOf(state)
+-  const frozen=factorById===undefined?null:frozenRivalMembers(source,factorById,terminalWeekOf(state))
++  const frozen=factorById===undefined?null:frozenRivalMembers(state,factorById,terminalWeekOf(state))
+   if(!source)return {hollywood:null,talent:state.talent,growth:[],technology:state.technology,physicalPlans:state.physicalPlans,firstTakes:[],greenlights:[],suppliedTalent:[],rights:state.rights,absorbedRunRevenue:[]}
+   const week=state.market.tick
+   const h:HollywoodState={...source,businesses:source.businesses.map(b=>({...b,account:{...b.account,
+@@ -512,33 +514,27 @@
+   const firstTakes:{studioId:string;production:Production}[]=[]
+   const greenlights:{studioId:string;production:Production}[]=[]
+   const suppliedTalent:{id:string;age:number}[]=[]
++  const working=():GameState=>({...state,hollywood:h,rights,technology,physicalPlans,talent})
++  // Validate input bodies before any buyer can advance/release their source. Actual
++  // run service waits until every native policy/release has completed below.
++  for(const sourceBusiness of source.businesses)if(absorbed.has(sourceBusiness.studioId)) {
++    const transaction=state.rights.absorptions.find(a=>a.targetId===sourceBusiness.studioId)!
++    validateAbsorbedProductionStops(state,sourceBusiness,transaction)
++    validateAbsorbedScripts(state,sourceBusiness,transaction)
++  }
+   for(const b of h.businesses) {
+-    // P15B Wave 4 (closure/v1 §4 "active theatrical run"; r3): a closed business staffs, decides, films, pays and
+-    // researches nothing. Its estate-run adapter is the ordinary run loop alone, at the ordinary week: each retained
+-    // run collects exactly its installment due at this input week (money, settledWeek and the filmSettled receipt
+-    // at T−1, the canonical schedule), and the closure phase records it as an estate event and distributes it.
+-    if(absorbed.has(b.studioId)) {
+-      const transaction=state.rights.absorptions.find(a=>a.targetId===b.studioId)!
+-      // Actual terminal work owner: write-off stays with its original paid screenplay/production.
+-      // Stopped work remains terminal; already-prepared continued releases have their real buyer owner.
+-      validateAbsorbedProductionStops(state,b,transaction)
+-      validateAbsorbedScripts(state,b,transaction)
+-      const runAdvance=advanceAbsorbedRuns({...state,rights},h,b,transaction,week)
+-      rights=runAdvance.rights;absorbedRunRevenue.push(...runAdvance.ledger)
+-      rivalRunRevenue.push(...runAdvance.rivalRevenue)
+-      continue
+-    }
++    if(absorbed.has(b.studioId))continue
+     if(closed.has(b.studioId)){payRuns(h,b,week);continue}
+     const cashFacts:StaffingCashFacts={unfilledFilmSlotForCash:false,renewalRefusedForCash:false,unrelatedScientistSlotRefusedForCash:false}
+-    technology=considerRivalSoundPurchase({...state,technology,hollywood:h},h,b)
+-    if(week>=b.nextDecisionWeek)talent=staff(state,h,b,talent,week,
++    technology=considerRivalSoundPurchase(working(),h,{...b,operations:buyerOperationsForAllWork(working(),b.studioId)})
++    if(week>=b.nextDecisionWeek)talent=staff(working(),h,b,talent,week,
+       Array.from({length:rivalScientistDemand({...state,technology,physicalPlans,hollywood:h},h,b,talent,week)},()=>'scientist' as const),suppliedTalent,cashFacts)
+     // P13B-S8 (audit item 7): this studio's own physical admission and research
+     // week, after its hiring and before it commissions a film — its capital and
+     // its research bill are spent from the same account the film draws on.
+     physicalPlans=admitRivalPlansInWeek({...state,technology,physicalPlans,hollywood:h,talent},h,b,physicalPlans,week)
+     technology=advanceRivalResearch({...state,technology,physicalPlans,hollywood:h,talent},h,b,talent,week)
+-    decide(state,h,b,talent,week,greenlights,cashFacts)
++    decide(working(),h,b,talent,week,greenlights,cashFacts)
+     // Shared disposal law returns an atomic copy; adopt only its four changed
+     // fields into this tick's owned clones. No second staff/decision pass spends
+     // the refund, and the removed body pays no opex for the current week.
+@@ -549,33 +545,60 @@
+       b.account=owner.account;b.operations=owner.operations
+       h.receipts=result.receipts;h.nextReceipt=result.nextReceipt
+     }
+-    operateStage(b)
+-    for(const p of b.productions) if(releaseCommitmentRefusal({productions:b.productions,operations:b.operations,releaseAuthority:b.releaseAuthority,concepts:[]},p.id)===null) {
+-      b.releaseAuthority=withReleaseCommitment(b.releaseAuthority,p.id,week)
++    // Work is allocated once against this actual rival registry. Foreign paid
++    // productions stay in their creator bodies; only their buyer workflows join.
++    const beforeWork:GameState={...working(),hollywood:{...h,businesses:h.businesses.map(row=>({...row}))}}
++    const operated=buyerOperatedProductions(beforeWork,b.studioId)
++    const operations=buyerOperationsForAllWork(beforeWork,b.studioId)
++    if(buyerContinuedProductions(beforeWork,b.studioId).length>0 && operated.length>1)throw new Error('continued work: rival one-production operation violated')
++    const stageView={...b,productions:operated,operations}
++    operateStage(stageView)
++    for(const p of operated) {
++      const transaction=rights.absorptions.find(a=>a.buyerId===b.studioId && a.continuedProductions.some(row=>row.productionId===p.id))
++      const authority=transaction?h.businesses.find(row=>row.studioId===transaction.targetId)!:b
++      if(releaseCommitmentRefusal({productions:operated,operations:stageView.operations,releaseAuthority:authority.releaseAuthority,concepts:[]},p.id)===null)
++        authority.releaseAuthority=withReleaseCommitment(authority.releaseAuthority,p.id,week)
+     }
+     technology=selectRivalSoundProduction(technology,b)
+-    const productionTechnology=createProductionTechnologyPolicy({...state,hollywood:h,technology},b.studioId)
+-    const advanced=advanceManagedProductions(b.operations,b.productions,week,committedReleaseIds(b.releaseAuthority),new Set([...scriptOccupiedFacilitySlots(hotDevelopment(b)),...rivalInstallationSlots(technology,b)]),undefined,undefined,productionTechnology.policy)
++    const productionTechnology=createProductionTechnologyPolicy({...working(),technology},b.studioId)
++    const committed=new Set([...committedReleaseIds(b.releaseAuthority),...continuedCommittedReleaseIds(working(),b.studioId)])
++    const advanced=advanceManagedProductions(stageView.operations,operated,week,committed,new Set([...scriptOccupiedFacilitySlots(hotDevelopment(b)),...rivalInstallationSlots(technology,b)]),undefined,undefined,productionTechnology.policy)
+     technology=productionTechnology.technology()
+     for(const production of advanced.firstTakes)firstTakes.push({studioId:b.studioId,production})
+     const releasing=advanced.productions.filter(p=>p.remainingTicks===0).sort((a,b)=>a.id<b.id?-1:a.id>b.id?1:0)
+     const ids=new Set(releasing.map(p=>p.id))
+     if(ids.size!==advanced.admittedReleaseIds.length||advanced.admittedReleaseIds.some(id=>!ids.has(id)))throw new Error('Industry release admission mismatch')
+-    // P15A.1 Wave 2 (1355-A §3.1 item 5): this studio releases exactly its frozen members, checked
+-    // before its first reception. With the due-set check above, the studios sum to the batch.
+     const members=frozen?.get(b.studioId)??[]
+-    if(frozen!==null&&(members.length!==releasing.length||releasing.some((p,i)=>p.id!==members[i]))) {
+-      throw new Error(`shared market: ${b.studioId} releases [${releasing.map(p=>p.id).join(', ')}] but its frozen batch members are [${members.join(', ')}]`)
+-    }
+-    b.operations=advanced.operations;b.productions=advanced.productions.filter(p=>p.remainingTicks>0)
++    if(frozen!==null&&(members.length!==releasing.length||releasing.some((p,i)=>p.id!==members[i])))throw new Error(`shared market: ${b.studioId} releases [${releasing.map(p=>p.id).join(', ')}] but its frozen batch members are [${members.join(', ')}]`)
++    const published=publishOperatedAdvance(beforeWork,advanced.productions,advanced.operations,b.studioId)
++    rights=recordContinuedWorkSteps(beforeWork,published,week,b.studioId).rights
++    // Adopt only the split native/source work fields into the existing owned
++    // business objects, preserving the loop's actual object identities.
++    for(const update of published.hollywood!.businesses) {
++      const actual=h.businesses.find(row=>row.studioId===update.studioId)!
++      actual.operations=update.operations;actual.productions=update.productions
++    }
+     const startStanding=b.standing
+     for(const p of releasing) {
+-      const released=publishCreatorRelease(state,h,b,p,talent,week,startStanding,factorById)
++      const transaction=rights.absorptions.find(a=>a.buyerId===b.studioId && a.continuedProductions.some(row=>row.productionId===p.id))
++      const creator=transaction?h.businesses.find(row=>row.studioId===transaction.targetId)!:b
++      const released=publishCreatorRelease(working(),h,creator,p,talent,week,startStanding,factorById)
+       const before=b.standing
+       b.standing=updateStanding(before,released.filmResult,p.forecastSnapshot,released.ctx)
+-      appendReceipt(h,{week,studioId:b.studioId,kind:'filmReleased',productionId:p.id,conceptId:p.conceptId,before,after:b.standing})
++      if(transaction) {
++        const observation={productionId:p.id,week,titleEventId:null,standingBefore:cloneStanding(before),standingAfter:cloneStanding(b.standing),standingContext:structuredClone(released.ctx),
++          benchmarks:{expectedOpening:p.forecastSnapshot.expectedOpening,expectedTotal:p.forecastSnapshot.expectedTotal,expectedCriticScore:p.forecastSnapshot.expectedCriticScore}}
++        rights={...rights,absorptions:rights.absorptions.map(a=>a.id!==transaction.id?a:{...a,workReleases:[...a.workReleases,observation],
++          runs:[...a.runs,{productionId:p.id,beneficiaryFromWeek:week,startingWeekIndex:0,grossPaidBeforeClose:0,revenuePaidBeforeClose:0}],buyerWorkflows:a.buyerWorkflows.filter(w=>w.productionId!==p.id)})}
++        // One creator event; the buyer's actual Standing proof lives in the
++        // joined workRelease, never a fabricated player history/second film row.
++        appendReceipt(h,{week,studioId:creator.studioId,kind:'filmReleased',productionId:p.id,conceptId:p.conceptId,before:cloneStanding(creator.standing),after:cloneStanding(creator.standing)})
++        creator.productions=creator.productions.filter(row=>row.id!==p.id)
++        creator.releaseAuthority=pruneReleasedCommitments(creator.releaseAuthority,new Set([p.id]))
++      } else appendReceipt(h,{week,studioId:b.studioId,kind:'filmReleased',productionId:p.id,conceptId:p.conceptId,before,after:b.standing})
+       growth.push(released.growth)
+     }
++    b.productions=b.productions.filter(p=>p.remainingTicks>0)
+     b.releaseAuthority=pruneReleasedCommitments(b.releaseAuthority,ids)
+     payRuns(h,b,week)
+     const excess=Math.max(0,b.standing.audienceAwareness-TUNING.AWARENESS_DRIFT_ANCHOR)
+@@ -595,6 +618,14 @@
+     for(const project of complete.projects)if(project.status==='review')complete=acceptScriptProject(complete,project.id)
+     storeHotDevelopment(b,complete)
+   }
++  // Every source (including one that precedes its buyer in array order) now
++  // sees the fresh actual workRelease and new week-zero run. Service exactly
++  // once, after all policies; recipient cash is flushed only after this pass.
++  for(const sourceBusiness of h.businesses)if(absorbed.has(sourceBusiness.studioId)) {
++    const transaction=rights.absorptions.find(a=>a.targetId===sourceBusiness.studioId)!
++    const runAdvance=advanceAbsorbedRuns(working(),h,sourceBusiness,transaction,week)
++    rights=runAdvance.rights;absorbedRunRevenue.push(...runAdvance.ledger);rivalRunRevenue.push(...runAdvance.rivalRevenue)
++  }
+   // Assigned income, like native payRuns, is unavailable to this week's policy. Flush
+   // after every business so source array order cannot advance a buyer's spending power.
+   // A closed recipient retains its actual terminal account; the closure phase journals
+--- a/src/core/save.ts
++++ b/src/core/save.ts
+@@ -174,6 +174,7 @@
+ } from "./types.js";
+ import { legacyTheatricalRun } from "./economy.js";
+ import { assertNoDoubleBookedResourceSlots } from "./occupancy.js";
++import { rivalInstallationSlots } from "./technologyRival.js";
+ import {
+   assertStudioOperationsInvariants,
+   emptyStudioOperations,
+@@ -11902,19 +11903,28 @@
+     if (absorption.buyerWorkflows.length > 0) hasContinuedWork = true;
+   }
+   if (!hasContinuedWork) return;
+-  const operations = buyerOperationsForAllWork(state);
+-  const productions = buyerOperatedProductions(state);
+-  checkOperationsContext({ operations: { ...operations,
+-    workflows: v25StrippedWorkflows({ ...operations }, 'continuedWork.buyerOperations', true) },
+-    activeProductions: productions, engaged: state.economyEngagedEver, founding: state.founding },
+-    'validateSaveV49.combinedBuyerWork', 'rights-p16');
+-  // The already-validated player registry is the only facility catalogue. Check
+-  // own and acquired native work together against every actual other slot holder.
+-  assertStudioOperationsInvariants(operations, productions, { facilityPolicy: 'configured',
+-    offlineFacilityIds: new Set(operations.facilities.filter(f => facilityOffline(state, f.id)).map(f => f.id)),
+-    sharedOccupancy: { placement: state.placement, technology: state.technology,
+-      scriptDevelopment: buyerScriptDevelopment(state), castingSessions: state.castingSessions,
+-      construction: state.construction, sets: state.sets } });
++  const buyers=new Set(rows.filter(a=>a.continuedProductions.length>0 || a.buyerWorkflows.length>0).map(a=>a.buyerId));
++  for(const buyer of buyers) {
++    const player=buyer===state.hollywood?.playerStudioId;
++    const business=player?undefined:state.hollywood?.businesses.find(b=>b.studioId===buyer);
++    if(!player && !business)throw new Error('validateSaveV49: continued work actual buyer is missing');
++    const operations=buyerOperationsForAllWork(state,buyer),productions=buyerOperatedProductions(state,buyer);
++    checkOperationsContext({operations:{...operations,workflows:v25StrippedWorkflows({...operations},'continuedWork.buyerOperations',true)},
++      activeProductions:productions,engaged:player?state.economyEngagedEver:true,founding:player?state.founding:null},
++      'validateSaveV49.combinedBuyerWork','rights-p16');
++    if(player) {
++      assertStudioOperationsInvariants(operations,productions,{facilityPolicy:'configured',
++        offlineFacilityIds:new Set(operations.facilities.filter(f=>facilityOffline(state,f.id)).map(f=>f.id)),
++        sharedOccupancy:{placement:state.placement,technology:state.technology,
++          scriptDevelopment:buyerScriptDevelopment(state),castingSessions:state.castingSessions,construction:state.construction,sets:state.sets}});
++    } else {
++      assertStudioOperationsInvariants(operations,productions,{facilityPolicy:'configured',sharedOccupancy:{scriptDevelopment:business!.development}});
++      const installing=new Set(rivalInstallationSlots(state.technology,business!));
++      for(const workflow of operations.workflows)for(const held of workflow.reservations)
++        if(installing.has(`${held.facilityId}:${held.slot}`))throw new Error('validateSaveV49: rival continued work collides with actual installation');
++      if(productions.length>1)throw new Error('validateSaveV49: rival continued work violates native one-production operation');
++    }
++  }
+ }
+ 
+ /** The rights root is present and validates at era 49; the actual Save48 chain proves the state without
+--- a/src/core/hollywoodValidation.ts
++++ b/src/core/hollywoodValidation.ts
+@@ -95,6 +95,12 @@
+   const closedWeekOf = (studioId: string): number | null => era.closure?.get(studioId) ?? null
+   const absorptionOf = (studioId: string) => era.rights ? era.absorptions?.get(studioId) : undefined
+   const continuationOf = (contractId: string) => era.rights ? [...(era.absorptions?.values() ?? [])].flatMap(a => a.contracts.map(c => ({ a, c }))).find(x => x.c.buyerContractId === contractId) : undefined
++  const continuedForBuyer=(studioId:string)=>{
++    const rows=era.rights?[...(era.absorptions?.values()??[])].filter(a=>a.buyerId===studioId):[]
++    for(const a of rows)requireFact([a.continuedProductions,a.buyerWorkflows,a.workReleases,a.workCancellations].every(Array.isArray)
++      && [...a.continuedProductions,...a.buyerWorkflows,...a.workReleases,...a.workCancellations].every(row=>typeof row==='object' && row!==null),'continued operator dispositions must be arrays of records')
++    return rows
++  }
+   const absorptionEnd = (studioId: string, contractId: string, week: number, reason: string) => {
+     const a = absorptionOf(studioId), c = a?.contracts.find(c => c.sourceContractId === contractId)
+     return a?.week === week && c !== undefined && reason === (c.buyerContractId === null ? 'absorptionExit' : 'absorptionContinuation')
+@@ -333,7 +339,7 @@
+     requireFact(absorbed===undefined||Array.isArray(absorbed.continuedProductions)&&Array.isArray(absorbed.workCancellations)
+       &&[...absorbed.continuedProductions,...absorbed.workCancellations].every(row=>typeof row==='object'&&row!==null),'absorption work dispositions must be arrays')
+     const claimsLiveWork=(p:Production)=>closedWeekOf(b.studioId)===null&&(absorbed===undefined||
+-      (absorbed.continuedProductions.some(c=>c.productionId===p.id)&&!absorbed.workCancellations.some(c=>c.productionId===p.id)))
++      (closedWeekOf(absorbed.buyerId)===null && absorbed.continuedProductions.some(c=>c.productionId===p.id)&&!absorbed.workCancellations.some(c=>c.productionId===p.id)))
+     const chargedThrough=terminalWeek===null?state.market.tick:Math.min(state.market.tick,terminalWeek)
+     if(terminalWeek===null)requireFact(b.nextDecisionWeek>=state.market.tick && b.nextDecisionWeek<=Math.max(state.market.tick,studios.get(b.studioId)!.enteredWeek!)+TUNING.HOLLYWOOD_DECISION_WEEKS,'decision boundary differs from actual cadence')
+     exact(b.policy,['version','affinities','negativeScale','marketingRatio','reserveWeeks'])
+@@ -508,7 +514,19 @@
+     }
+     const continuedIds=new Set(absorptionOf(b.studioId)?.continuedProductions.map(p=>p.productionId)??[])
+     const sourceOperatedProductions=b.productions.filter(p=>!continuedIds.has(p.id))
+-    assertStudioOperationsInvariants(b.operations,sourceOperatedProductions,{facilityPolicy:'configured'})
++    const assignments=continuedForBuyer(b.studioId)
++    const foreign=assignments.flatMap(a=>{
++      const source=h.businesses.find(row=>row.studioId===a.targetId)
++      requireFact(source,'continued operator source business missing')
++      return source.productions.filter(p=>a.continuedProductions.some(row=>row.productionId===p.id) && !a.workCancellations.some(row=>row.productionId===p.id))
++    })
++    const operatingProductions=[...sourceOperatedProductions,...foreign]
++    const operatingOperations={...b.operations,workflows:[...b.operations.workflows,...assignments.flatMap(a=>a.buyerWorkflows)]}
++    if(foreign.length>0) {
++      requireFact(operatingProductions.length===1,'rival continued work violates native one-production operation')
++      requireFact(!rivalCostCutting || b.costCutting.since===null,'cost cutting has actual continued production')
++    }
++    assertStudioOperationsInvariants(operatingOperations,operatingProductions,{facilityPolicy:'configured'})
+     const ownedConcepts = b.development.projects.map(p=>{const c=hollywoodConcepts.get(p.conceptId);requireFact(c,'screenplay concept owner missing');return c})
+     // P15B Wave 4: a closed business's screenplays are judged as they stood at its closure week.
+     assertScriptDevelopmentInvariants(b.development,{currentWeek:chargedThrough,concepts:ownedConcepts,talent:state.talent,
+@@ -757,6 +775,34 @@
+       requireFact(r.output===output,'chart output differs from actual released films at observation')
+     }
+   }
++  for(const b of h.businesses) {
++    const assignments=continuedForBuyer(b.studioId)
++    const releases=assignments.flatMap(a=>a.workReleases)
++    if(releases.length===0)continue
++    const end=Math.min(state.market.tick,closedWeekOf(b.studioId)??Infinity,absorptionOf(b.studioId)?.week??Infinity)
++    const observations=[
++      ...h.receipts.flatMap(r=>r.kind==='filmReleased' && r.studioId===b.studioId && r.week<end
++        ?[{week:r.week,productionId:r.productionId,before:r.before,after:r.after}]:[]),
++      ...releases.filter(r=>r.week<end).map(r=>({week:r.week,productionId:r.productionId,before:r.standingBefore,after:r.standingAfter})),
++    ].sort((left,right)=>left.week-right.week || (left.productionId<right.productionId?-1:left.productionId>right.productionId?1:0))
++    requireFact(observations.length>0,'continued rival Standing has no actual observation')
++    for(const row of observations){integer(row.week);standing(row.before);standing(row.after)}
++    // Native prehistory is observational, especially across migration. Anchor at
++    // the earliest retained actual release observation, never invent fresh-entry
++    // Standing. If the first observation is itself a workRelease, its initial
++    // before snapshot is producer-attested, not independent pre-acquisition proof.
++    let replay={...observations[0]!.before},index=0
++    for(let week=observations[0]!.week;week<end;week++) {
++      while(index<observations.length && observations[index]!.week===week) {
++        const row=observations[index++]!
++        requireFact(Object.keys(replay).every(key=>close(replay[key as keyof typeof replay],row.before[key as keyof typeof replay])),'continued rival Standing observation breaks native release order')
++        replay={...row.after}
++      }
++      const excess=Math.max(0,replay.audienceAwareness-TUNING.AWARENESS_DRIFT_ANCHOR)
++      if(excess>0)replay={...replay,audienceAwareness:Math.max(0,Math.min(100,replay.audienceAwareness-TUNING.AWARENESS_DRIFT_RATE*excess))}
++    }
++    requireFact(index===observations.length && Object.keys(replay).every(key=>close(replay[key as keyof typeof replay],b.standing[key as keyof typeof replay])),'continued rival Standing differs from actual observations and native drift')
++  }
+   const playerFilms=new Map(state.studio.releasedFilms.map(f=>[f.productionId,f]))
+   if(era.rights)for(const a of era.absorptions?.values()??[])if(a.buyerId===h.playerStudioId)for(const release of a.workReleases){const film=h.films.find(f=>f.provenance==='simulation/v1' && f.filmId===release.productionId);requireFact(film&&film.provenance==='simulation/v1','operated release has no authentic creator film');playerFilms.set(film.filmId,film.result)}
+   const playerCareers=new Map(state.careerEvents.map(e=>[e.eventId,e]))
+--- a/src/core/marketIntegration.ts
++++ b/src/core/marketIntegration.ts
+@@ -1,3 +1,4 @@
++import { buyerOperatedProductions } from './continuedWork.js'
+ import { carriedProductionAuthority, type CarriedProductionAuthority } from './continuedScripts.js'
+ // ── P15A.1 Wave 2: the shared market in the live release pipeline ─────────────
+ // Authority (docs/engineering/playability-launch-review/evidence/p14b4-20260919/): 1355-A §3 as
+@@ -81,7 +82,7 @@
+   })
+   // P15B closure/v1 (r3; Wave-4 contract §4): an actually closed business's retained production never releases.
+   const closed = terminalWeekOf(state)
+-  const rivals: MarketBatchMember[] = hollywood.businesses.filter((business) => !closed.has(business.studioId)).flatMap((business) => business.productions
++  const rivals: MarketBatchMember[] = hollywood.businesses.filter((business) => !closed.has(business.studioId)).flatMap((business) => buyerOperatedProductions(state,business.studioId)
+     .filter((production) => production.remainingTicks === 1)
+     .map((production) => ({ releaseId: production.id, studioId: business.studioId, genre: genreOf(hollywood.concepts, production) })))
+   const assessments = assessBatch(activeExposures(root, week), { week, members: [...player,...continuedReleasing.map(production=>({releaseId:production.id,studioId:hollywood.playerStudioId,genre:genreOf(hollywood.concepts,production)})), ...rivals] })
+--- a/src/core/employment.ts
++++ b/src/core/employment.ts
+@@ -1,7 +1,7 @@
+ import { buyerScriptDevelopment, buyerScriptConcepts } from './continuedScripts.js'
+ import { productionCompanyTalentIds } from './productionPeople.js'
+ import { initializeHollywood, industryBusyTalentIds, rivalEmployment } from './hollywood.js'
+-import { buyerOperatedProductions } from './continuedWork.js'
++import { buyerContinuedProductions, buyerOperatedProductions } from './continuedWork.js'
+ import { terminalWeekOf } from './operatingState.js'
+ import { campaignHasFounded, campaignRecordsFounding, ENGAGED_FOUNDING_REFUSAL, recordFoundingFund, recordsFoundingFund, SECOND_FOUNDING_REFUSAL } from './foundingFunding.js'
+ // ── D-11 Studio Employment, Contracts, Roster, Freelancer Market ──────────────
+@@ -137,8 +137,8 @@
+  * seat holds from greenlight through release; research seats and writer credits
+  * are not production seats. Engine release and the Bridge ask this one question.
+  */
+-export function seatingProduction(state: GameState, talentId: string): Production | undefined {
+-  return buyerOperatedProductions(state).find((p) => productionCompanyTalentIds([p]).has(talentId))
++export function seatingProduction(state: GameState, talentId: string,studioId=state.hollywood?.playerStudioId): Production | undefined {
++  return buyerOperatedProductions(state,studioId).find((p) => productionCompanyTalentIds([p]).has(talentId))
+ }
+ 
+ /**
+@@ -176,6 +176,10 @@
+   const busy = activeProductionCompanyTalentIds(state)
+   for (const id of activeWritingAssignmentIds(state)) busy.add(id)
+   for (const id of industryBusyTalentIds(state.hollywood, terminalWeekOf(state))) busy.add(id)
++  for(const buyer of new Set((state.rights?.absorptions??[]).map(a=>a.buyerId))) {
++    if(terminalWeekOf(state).has(buyer))continue
++    for(const id of productionCompanyTalentIds(buyerContinuedProductions(state,buyer)))busy.add(id)
++  }
+   for (const project of state.technology?.projects ?? []) {
+     if (project.status !== 'active') continue
+     for (const seat of project.seats) {
+--- a/src/core/corporateConditionLive.ts
++++ b/src/core/corporateConditionLive.ts
+@@ -18,7 +18,6 @@
+ import { moveRivalMoney } from './hollywood.js'
+ import { P15_PHASE_TABLES, p15PhaseTriple } from './p15Phases.js'
+ import { studioWeeklyFixedCost } from './powerRankingArchive.js'
+-import { productionCompanyTalentIds } from './productionPeople.js'
+ import { activeScriptWriterAssignments } from './scriptDevelopment.js'
+ import { contractLoan, loanEligible, loanInstallmentDue, loanMaxPrincipal, STUDIO_LOAN_VERSION } from './studioLoan.js'
+ import { closedWeekOf } from './operatingState.js'
+@@ -247,7 +246,7 @@
+     return null
+   }
+   const business = businessOf(h, studioId)
+-  const seated = business.productions.find((p) => productionCompanyTalentIds([p]).has(talentId))
++  const seated = seatingProduction(state,talentId,studioId)
+   if (seated !== undefined) return `talent "${talentId}" is seated on active production "${seated.id}" until it is released (R2)`
+   const writing = activeScriptWriterAssignments(hotDevelopment(business), h.concepts).find((a) => a.talentId === talentId)
+   if (writing !== undefined) return `talent "${talentId}" is ${writing.label} and must finish that screenplay task first`
+--- a/src/core/absorbedRuns.ts
++++ b/src/core/absorbedRuns.ts
+@@ -22,7 +22,12 @@
+     for(const film of state.hollywood.films) {
+       if(film.provenance!=='simulation/v1' || film.studioId!==a.targetId)continue
+       const run=canonical(film),release=film.result.releaseTick
+-      if(release<=a.week && a.week<release+run.totalWeeks && week<release+run.totalWeeks)result.push(film)
++      if(!Array.isArray(a.workReleases) || !Array.isArray(a.continuedProductions))fail('missing acquired continuation ownership context')
++      const continued=a.workReleases.find(r=>r && r.productionId===film.filmId && r.week===release)
++      const link=a.continuedProductions.find(r=>r && r.productionId===film.filmId && r.scriptProjectId===film.scriptProjectId)
++      const assignedAtClose=release<=a.week && a.week<release+run.totalWeeks
++      const assignedAtRelease=release>=a.week && continued!==undefined && link?.originalProduction?.id===film.filmId
++      if((assignedAtClose || assignedAtRelease) && release<=week && week<release+run.totalWeeks)result.push(film)
+     }
+   }
+   return result
+@@ -119,8 +124,8 @@
+   const atClose=films.filter(f=>{const r=canonical(f);return f.result.releaseTick<=a.week && a.week<f.result.releaseTick+r.totalWeeks})
+   const afterClose=a.workReleases.map(release=>{const film=films.find(f=>f.filmId===release.productionId && f.result.releaseTick===release.week);if(!film)fail('continued release lacks actual original film');return film})
+   const owned=[...atClose,...afterClose.filter(f=>!atClose.some(old=>old.filmId===f.filmId))]
+-  if(a.buyerId!==state.hollywood.playerStudioId && (!state.hollywood.businesses.some(b=>b.studioId===a.buyerId)
+-    || a.workReleases.length!==0 || films.some(f=>f.result.releaseTick>a.week)))fail('rival buyer continued release producer is not admitted')
++  if(a.buyerId!==state.hollywood.playerStudioId && !state.hollywood.businesses.some(b=>b.studioId===a.buyerId))fail('missing actual rival run beneficiary')
++  if(films.some(f=>f.result.releaseTick>a.week && !afterClose.includes(f)))fail('post-close creator film lacks actual continued release')
+ 
+   if(new Set(a.runs.map(r=>r.productionId)).size!==a.runs.length || a.runs.map(r=>r.productionId).sort().join()!==owned.map(f=>f.filmId).sort().join())fail('original active-run handoff incomplete')
+   const expected=new Map<string,{week:number;productionId:string;weekIndex:number;gross:number;revenue:number}>()
+--- a/src/core/studioClosure.ts
++++ b/src/core/studioClosure.ts
+@@ -252,11 +252,17 @@
+   if(!state.rights || !state.hollywood)return []
+   return state.rights.absorptions.filter(a=>a.buyerId===state.hollywood!.playerStudioId).flatMap(a=>state.hollywood!.businesses.find(b=>b.studioId===a.targetId)?.runs.filter(r=>a.runs.some(row=>row.productionId===r.productionId))??[])
+ }
+-function continuedBuyerScripts(state:GameState) {
++function continuedBuyerScripts(state:GameState,buyerId=state.hollywood?.playerStudioId) {
+   if(!state.rights || !state.hollywood)return []
+-  const productions=new Set(buyerContinuedProductions(state).map(p=>p.id))
+-  return [...state.hollywood.businesses.flatMap(b=>b.development.projects.filter(p=>p.productionId!==null && productions.has(p.productionId))),
+-    ...state.rights.absorptions.flatMap(a=>(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7'))&&a.buyerId===state.hollywood!.playerStudioId?a.continuedScripts.map(r=>r.project):[])]
++  const player=buyerId===state.hollywood.playerStudioId
++  const productions=new Set(buyerContinuedProductions(state,buyerId).map(p=>p.id))
++  // Rival script IDs are local to their creator. Qualify only the new foreign rival
++  // disposition subject; never rename a paid script or change historical player subjects.
++  return [...state.hollywood.businesses.flatMap(b=>b.development.projects
++    .filter(p=>p.productionId!==null && productions.has(p.productionId))
++    .map(project=>({project,subjectId:player?project.id:`${b.studioId}:${project.id}`}))),
++    ...state.rights.absorptions.flatMap(a=>(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7'))&&player&&a.buyerId===buyerId
++      ?a.continuedScripts.map(r=>({project:r.project,subjectId:r.project.id})):[])]
+ }
+ 
+ function prepareStudioClosure(state: GameState, studioId: string, causeEventId: string): GameState {
+@@ -325,9 +331,10 @@
+   // operating state stops them. Promises on cancelled pictures settle under the promise producer's own law.
+   const business: RivalBusiness | undefined = player ? undefined : hollywood.businesses.find((b) => b.studioId === studioId)
+   if (!player && business === undefined) throw new Error(`closure/v1: ${studioId} has no business`)
+-  const scripts = player ? [...state.scriptDevelopment.projects,...continuedBuyerScripts(state)] : business!.activeScriptOrdinals.map((i) => business!.development.projects[i]!)
+-  for (const project of scripts) if (project.status !== 'produced') row('screenplay', project.id, project.status, `work stopped at week ${week}; authored material, progress and spend retained; no completion`, 'applied')
+-  const productions = player && state.rights ? buyerOperatedProductions(state) : player ? state.studio.activeProductions : business!.productions
++  const ownScripts = player ? state.scriptDevelopment.projects : business!.activeScriptOrdinals.map((i) => business!.development.projects[i]!)
++  const scripts = [...ownScripts.map(project=>({project,subjectId:project.id})),...continuedBuyerScripts(state,studioId)]
++  for (const {project,subjectId} of scripts) if (project.status !== 'produced') row('screenplay', subjectId, project.status, `work stopped at week ${week}; authored material, progress and spend retained; no completion`, 'applied')
++  const productions = state.rights ? buyerOperatedProductions(state,studioId) : player ? state.studio.activeProductions : business!.productions
+   for (const production of productions) {
+     row('production', production.id, `remainingTicks ${production.remainingTicks}`, `cancelled terminally at week ${week}; footage, participants and spend frozen in place; no release`, 'applied')
+     next = breakPromisesOnCancel(next, studioId, production)
+@@ -919,9 +926,10 @@
+     const expected = new Map<string, { status: ClosureDisposition['status']; claimId?: string; lotId?: string }>()
+     const expect = (kind: Kind, id: string, status: ClosureDisposition['status'], extra: { claimId?: string; lotId?: string } = {}): void => { expected.set(`${kind}:${id}`, { status, ...extra }) }
+     for (const e of endedByClosure) expect('employment', e.contractId, 'applied', { claimId: own.find((cl) => cl.sourceContractId === e.contractId)?.claimId ?? '' })
+-    const scripts = player ? [...state.scriptDevelopment.projects,...(policy.rightsEstate?continuedBuyerScripts(titleState!):[])] : business!.activeScriptOrdinals.map((k) => business!.development.projects[k]!)
+-    for (const p of scripts) if (p.status !== 'produced') expect('screenplay', p.id, 'applied')
+-    for (const p of player && policy.rightsEstate ? buyerOperatedProductions(titleState!) : player ? state.studio.activeProductions : business!.productions) expect('production', p.id, 'applied')
++    const ownScripts = player ? state.scriptDevelopment.projects : business!.activeScriptOrdinals.map((k) => business!.development.projects[k]!)
++    const scripts = [...ownScripts.map(project=>({project,subjectId:project.id})),...(policy.rightsEstate?continuedBuyerScripts(titleState!,c.studioId):[])]
++    for (const {project,subjectId} of scripts) if (project.status !== 'produced') expect('screenplay', subjectId, 'applied')
++    for (const p of policy.rightsEstate ? buyerOperatedProductions(titleState!,c.studioId) : player ? state.studio.activeProductions : business!.productions) expect('production', p.id, 'applied')
+     if (player) for (const run of [...state.theatricalRuns,...(policy.rightsEstate?continuedBuyerRuns(titleState!):[])]) { if (run.status === 'active') expect('theatricalRun', run.productionId, 'pending') }
+     else {
+       for (const run of business!.runs) expect('theatricalRun', run.productionId, 'applied')

@@ -1,0 +1,69 @@
+{
+  "status": "STATIC-UNRUN; test artifact frozen independently of source",
+  "baseHead": "8639c2368e5a89844fac2aadbc64da10853dbf74",
+  "target": "tests/p16-absorption-active-run.test.ts",
+  "selector": "quotes the actual166 completed silent take with all required staff into idle R02 before reaching the continued-work producer",
+  "budgetMs": 5000,
+  "totalTicks": 9,
+  "addedTicks": 6,
+  "originalLeavesPreserved": 5,
+  "originalAdmissionAssertionLinesPreserved": 45,
+  "sourceInterface": {
+    "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-continuation/source/OWNERS.md",
+    "sha256": "ea8ac3ae2bbd70dedf2fef18a5f11226663bc54880b5be6f8bb313e823dab946",
+    "bytes": 6204
+  },
+  "sourcePackageBinding": "Source author is still preparing implementation; no frozen source patch claimed. Uses existing persisted shapes only.",
+  "capture": {
+    "file": "r04-actual163.save48.json",
+    "sha256": "c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad",
+    "bootstrap": "Original admitted drained-R04 transaction fixture; R01/R02 unchanged."
+  },
+  "artifacts": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-continuation/lifecycle-test/preimage.ts",
+      "sha256": "0980eb2015cc37f129d2ac5cfa4838db16bbb8e95375a98a7169dcf0fe269bb7",
+      "bytes": 50877
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-continuation/lifecycle-test/postimage.ts",
+      "sha256": "bacc7df3b06b294b5e09394a8c25d11a738da12e9c37a5c628f541b8bd5804d5",
+      "bytes": 63373
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-continuation/lifecycle-test/LIFECYCLE.patch",
+      "sha256": "a89bf3fa1a5c37c007af67d87238c46dc2468363d887bfa4b95bfbaba07a04dc",
+      "bytes": 14693
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-continuation/lifecycle-test/extension.txt",
+      "sha256": "63f1738090689b38df78251021519fd6656fc21a892adc7380b195ceedc5ab2b",
+      "bytes": 12360
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-continuation/lifecycle-test/NOTES.md",
+      "sha256": "829a0d4a378de3faf87333e5ec45b753d233288c27804815574fe540130228aa",
+      "bytes": 3317
+    }
+  ],
+  "sourcePins": {
+    "rights.ts": "d62321a8d15724046cf3acdea1aa63fdb0b1a576cb6c5588678ac2412d34fdaa",
+    "hollywoodTypes.ts": "76f1b86bacc5c046d6de5fb2fa10fe11606d06c04b87551206e7cf53902ec629",
+    "types.ts": "d6b4d382e8c6e5b4763f2dbd4f68ea170bbebd0ae075aac2bf8d6b430643baa4",
+    "standing.ts": "5e1ec7279553014099077a8e5cbe02c1b78454256bf3f400634accc2209c6893",
+    "productionPeople.ts": "2c6ea9affd6811d25cd36d85808d9470441f579153a7f0a2fb5b6a2c8a118d58",
+    "employment.ts": "3d00df38ba28adbb75024e270b715c8ea2b72deee110fff4be8c6571fb61bbbe",
+    "corporateConditionLive.ts": "5514b4d58e394941417dc992fb57e8bbc5d6168cac1c27570f9d1b1d184c9a92",
+    "continuedWork.ts": "74aa3c51e82119fac5f33871ee8aa374423f4a1a8453f1b72e3be94f91b8df17",
+    "hollywoodTick.ts": "106c81b7d255d34e6aee9863f3d060bd6b5d91bae63a5c8d5b3d5cb8e8e41324",
+    "rightsTick.ts": "a83b24400faf2819008030157ef3feff8c6b8cd47c93e570d62d08afb4d49860",
+    "economy.ts": "caa6f20444be1544d64e2226f8eb89823c8d787c1460473169e0954ef15d0e10",
+    "save.ts": "7860bc537691afb1b1186e608e2ea478a2acfc982e4282ea5c23c55095c372a1"
+  },
+  "checks": {
+    "priorFourLeavesByteIdenticalExceptTwoImports": true,
+    "allOriginalAdmissionExpectLinesInOrder": true,
+    "leafCountUnchanged": 5,
+    "noRuntimeOrCheckoutWrites": true
+  }
+}

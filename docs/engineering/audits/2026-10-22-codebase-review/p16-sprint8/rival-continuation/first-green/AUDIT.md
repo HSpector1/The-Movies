@@ -1,0 +1,9 @@
+# Independent first-green postflight
+
+All1,658 source/input and six preflight hashes match. HEAD `8639c2368e5a89844fac2aadbc64da10853dbf74` matches the selection, with the installed reviewed eleven-owner source and lifecycle test pinned by the manifest. Root typecheck actually exited0. Selected lifecycle child exited1 and wrapper exited1 normally at19:56:20; this was not an interrupted143 run. No owned runner/compiler/Vitest or heavy-lane lock remains. Source freeze released.
+
+JSON: one failed, four skipped; selected body 1348.439 ms against unchanged5,000 ms. First failure is `continued work: actual retained employment does not cover operated work` at continuedWorkValidation.ts234, through validateAbsorptionRoot→makeSave/exportCurrentState, test649.
+
+Genuine166 premise marker, absorption close and native retained-contract/signing/player-isolation assertions reached. Inputs166–168 advanced to the actual169 ready boundary: work steps, caller purity, no competing native announcement, unchanged five company contracts and actual buyer busy/release-refusal checks passed before export. The first169 export fails; reload, input169 automatic release, release-week0 service, later receipts/Standing/final save-replay assertions remain unreached. This is a post-close reader defect, not the original producer refusal or a setup failure. Do not claim final whole-journey purity assertions after the failing export ran.
+
+Foreign Godot14622 was observed during the root compiler. Coordinator rechecked the owned compiler14583 for stopping, found it absent and sent no signals; the runner had progressed and completed normally. Preserve private overlap/OWN-STOP evidence. Functional child results stand, but continuous exclusivity/resource timing qualification is withheld. Audit performed no new runtime or source edits.

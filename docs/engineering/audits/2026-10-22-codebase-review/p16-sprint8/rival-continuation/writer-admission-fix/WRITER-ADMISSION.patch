@@ -1,0 +1,11 @@
+--- a/src/core/continuedWorkValidation.ts
++++ b/src/core/continuedWorkValidation.ts
+@@ -229,7 +229,7 @@
+     for (const talentId of new Set([original.writerId, ...company])) {
+       const retained = a.contracts.find(c => c.talentId === talentId && c.buyerContractId !== null)
+       const contract = h.employment.find(e => e.contractId === retained?.buyerContractId)
+-      const through = cancellation?.week === a.week ? a.week - 1 : company.has(talentId) ? Math.max(a.week, end - 1) : a.week
++      const through = cancellation?.week === a.week ? a.week - 1 : company.has(talentId) ? Math.max(a.week, end - 1) : a.week - 1
+       if (!retained || !contract || contract.studioId !== a.buyerId || contract.terms.talentId !== talentId
+         || contract.terms.startWeek !== a.week || Math.min(contract.endedWeek ?? Infinity, contract.terms.endWeekExclusive) <= through) fail('actual retained employment does not cover operated work')
+     }

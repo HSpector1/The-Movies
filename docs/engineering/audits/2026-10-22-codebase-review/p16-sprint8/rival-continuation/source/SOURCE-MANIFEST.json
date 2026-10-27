@@ -1,0 +1,62 @@
+{
+  "status": "STATIC-UNRUN, frozen for independent review",
+  "baseHead": "8639c2368e5a89844fac2aadbc64da10853dbf74",
+  "patchSHA256": "5ca73a60e0da6c4f56ce16403d73215df7e488001856ab920f6b39f94b148f31",
+  "files": [
+    {
+      "path": "src/core/acquisition.ts",
+      "preSHA256": "65545a63f2d9710d1179fb245cf61a48057affd0f4cf91230f7cae91f528d3a8",
+      "postSHA256": "2cbb70958acfa77352d1c771a2bd46cacbf701bfeab9ad07349dae8c4c8bc0e0"
+    },
+    {
+      "path": "src/core/continuedWork.ts",
+      "preSHA256": "74aa3c51e82119fac5f33871ee8aa374423f4a1a8453f1b72e3be94f91b8df17",
+      "postSHA256": "a24aaaeb772199d82146c8aa1b51b97ef1c36e3d0a9d2c2a66cc3088281f2868"
+    },
+    {
+      "path": "src/core/continuedWorkValidation.ts",
+      "preSHA256": "9d247da650337af644ce964ef62c4ac0110916774e0e52c22621a23c1057d027",
+      "postSHA256": "8c94500143ca23d9dbab77834baf8c405696146c3ccf9e84066f2abe2fbed535"
+    },
+    {
+      "path": "src/core/hollywoodTick.ts",
+      "preSHA256": "106c81b7d255d34e6aee9863f3d060bd6b5d91bae63a5c8d5b3d5cb8e8e41324",
+      "postSHA256": "9f9c206ef28f529d2d801752f5dd4445342ebb42fd3add2f33f28545900a01a7"
+    },
+    {
+      "path": "src/core/save.ts",
+      "preSHA256": "7860bc537691afb1b1186e608e2ea478a2acfc982e4282ea5c23c55095c372a1",
+      "postSHA256": "8c98aad788980de0148b4998119fb2e4d628c48b3dd87b3d7e53e52c5bd0637e"
+    },
+    {
+      "path": "src/core/hollywoodValidation.ts",
+      "preSHA256": "92185129ee20ef5acd9d5804806be5d6de02f48e04b420c2623955743daddf3c",
+      "postSHA256": "0ca1580a8128a7896fb0f506d5581ece73c60c9c93e2c6b7516f061866e52101"
+    },
+    {
+      "path": "src/core/marketIntegration.ts",
+      "preSHA256": "3ff7a347ad559cb0e591ccc5fddf704b2c232f52f16a4852020128ae8280cd34",
+      "postSHA256": "7541fac217fe59944bb48ed89e6ea9dc62202b8ef81a4b5f2e55e7c9469d4b33"
+    },
+    {
+      "path": "src/core/employment.ts",
+      "preSHA256": "3d00df38ba28adbb75024e270b715c8ea2b72deee110fff4be8c6571fb61bbbe",
+      "postSHA256": "86152f872e45630fb908cfbeba41d65329efce8680b1938674b50f1c0a3a34ca"
+    },
+    {
+      "path": "src/core/corporateConditionLive.ts",
+      "preSHA256": "5514b4d58e394941417dc992fb57e8bbc5d6168cac1c27570f9d1b1d184c9a92",
+      "postSHA256": "8062cb9d0557f28592084b07ee878450a287bd06c2c8b22f1ed12f408cf30fe8"
+    },
+    {
+      "path": "src/core/absorbedRuns.ts",
+      "preSHA256": "6c5cc695b8f317fbffadef4404aae359c421162f7f1f7b9f5a215b09d648813e",
+      "postSHA256": "242b7ffa6738fa2beac8f595d0026d9f8ae0da752112ba5fa8a9a39db67c80f5"
+    },
+    {
+      "path": "src/core/studioClosure.ts",
+      "preSHA256": "3e4761fd77ab1da67b77144c4e60cdcf8bd211f53223fde70b685b8e19d53d7e",
+      "postSHA256": "70749466c7f3f11c40e683040714679d552809e1a235ba2f10252c92c2c1fe3d"
+    }
+  ]
+}

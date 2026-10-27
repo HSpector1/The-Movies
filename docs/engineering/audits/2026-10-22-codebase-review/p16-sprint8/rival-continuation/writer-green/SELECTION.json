@@ -1,0 +1,37 @@
+{
+  "head": "PENDING",
+  "purpose": "Verify one-line credit-only writer admission correction through the same actual C166 lifecycle",
+  "selector": {
+    "file": "tests/p16-absorption-active-run.test.ts",
+    "describe": "P16 genuine rival completed-take continuation admission",
+    "it": "quotes the actual166 completed silent take with all required staff into idle R02 before reaching the continued-work producer"
+  },
+  "sourceManifestEntries": 0,
+  "sourceBinding": "PENDING final safe handoff/source binding before fresh preflight when no foreign intensive process is active",
+  "testPostimageSHA256": "bacc7df3b06b294b5e09394a8c25d11a738da12e9c37a5c628f541b8bd5804d5",
+  "budget": {
+    "milliseconds": 5000,
+    "timeoutOverride": false,
+    "setupInsideLeaf": true,
+    "ticks": 9
+  },
+  "expectedFailure": null,
+  "capture": {
+    "environment": "P16_ORIGINAL48_CAPTURE_ROOT",
+    "file": "r04-actual163.save48.json",
+    "sha256": "c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad"
+  },
+  "limits": "Root types first; focused same existing-file lifecycle leaf only if types exit0. No Bridge compiler or complete-file qualification.",
+  "children": [
+    {
+      "label": "root-types",
+      "command": "node node_modules/typescript/bin/tsc --noEmit",
+      "requiredBeforeRuntime": true
+    },
+    {
+      "label": "rival-continuation-lifecycle",
+      "originalBudgetMilliseconds": 5000
+    }
+  ],
+  "reuse": "First-green root types0 before numeric boundary-only correction; final coherent compilers still required. Original lifecycle and current169 failure retained."
+}

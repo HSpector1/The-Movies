@@ -1,0 +1,61 @@
+{
+  "status": "IN-PROGRESS-STATIC-UNRUN",
+  "baseHead": "8639c2368e5a89844fac2aadbc64da10853dbf74",
+  "files": [
+    {
+      "path": "src/core/acquisition.ts",
+      "baseSha256": "65545a63f2d9710d1179fb245cf61a48057affd0f4cf91230f7cae91f528d3a8",
+      "baseBytes": 62994
+    },
+    {
+      "path": "src/core/continuedWork.ts",
+      "baseSha256": "74aa3c51e82119fac5f33871ee8aa374423f4a1a8453f1b72e3be94f91b8df17",
+      "baseBytes": 14703
+    },
+    {
+      "path": "src/core/continuedWorkValidation.ts",
+      "baseSha256": "9d247da650337af644ce964ef62c4ac0110916774e0e52c22621a23c1057d027",
+      "baseBytes": 23112
+    },
+    {
+      "path": "src/core/hollywoodTick.ts",
+      "baseSha256": "106c81b7d255d34e6aee9863f3d060bd6b5d91bae63a5c8d5b3d5cb8e8e41324",
+      "baseBytes": 50020
+    },
+    {
+      "path": "src/core/save.ts",
+      "baseSha256": "7860bc537691afb1b1186e608e2ea478a2acfc982e4282ea5c23c55095c372a1",
+      "baseBytes": 593599
+    },
+    {
+      "path": "src/core/hollywoodValidation.ts",
+      "baseSha256": "92185129ee20ef5acd9d5804806be5d6de02f48e04b420c2623955743daddf3c",
+      "baseBytes": 71198
+    },
+    {
+      "path": "src/core/marketIntegration.ts",
+      "baseSha256": "3ff7a347ad559cb0e591ccc5fddf704b2c232f52f16a4852020128ae8280cd34",
+      "baseBytes": 18977
+    },
+    {
+      "path": "src/core/employment.ts",
+      "baseSha256": "3d00df38ba28adbb75024e270b715c8ea2b72deee110fff4be8c6571fb61bbbe",
+      "baseBytes": 30584
+    },
+    {
+      "path": "src/core/corporateConditionLive.ts",
+      "baseSha256": "5514b4d58e394941417dc992fb57e8bbc5d6168cac1c27570f9d1b1d184c9a92",
+      "baseBytes": 41770
+    },
+    {
+      "path": "src/core/absorbedRuns.ts",
+      "baseSha256": "6c5cc695b8f317fbffadef4404aae359c421162f7f1f7b9f5a215b09d648813e",
+      "baseBytes": 11950
+    },
+    {
+      "path": "src/core/studioClosure.ts",
+      "baseSha256": "3e4761fd77ab1da67b77144c4e60cdcf8bd211f53223fde70b685b8e19d53d7e",
+      "baseBytes": 83253
+    }
+  ]
+}

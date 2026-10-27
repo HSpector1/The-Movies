@@ -1,0 +1,76 @@
+{
+  "status": "STATIC-UNRUN; source-only, nine delegated owners frozen",
+  "base": "8639c236",
+  "patch": "NINE-OWNERS.patch",
+  "patchSha256": "b9acc4bfa74a6d256f90489f1d3849e18f5c58973be9f32abe62c85acb86de66",
+  "files": [
+    {
+      "path": "src/core/acquisition.ts",
+      "preSha256": "65545a63f2d9710d1179fb245cf61a48057affd0f4cf91230f7cae91f528d3a8",
+      "postSha256": "2cbb70958acfa77352d1c771a2bd46cacbf701bfeab9ad07349dae8c4c8bc0e0",
+      "preBytes": 62994,
+      "postBytes": 63886
+    },
+    {
+      "path": "src/core/continuedWork.ts",
+      "preSha256": "74aa3c51e82119fac5f33871ee8aa374423f4a1a8453f1b72e3be94f91b8df17",
+      "postSha256": "a24aaaeb772199d82146c8aa1b51b97ef1c36e3d0a9d2c2a66cc3088281f2868",
+      "preBytes": 14703,
+      "postBytes": 15444
+    },
+    {
+      "path": "src/core/continuedWorkValidation.ts",
+      "preSha256": "9d247da650337af644ce964ef62c4ac0110916774e0e52c22621a23c1057d027",
+      "postSha256": "8c94500143ca23d9dbab77834baf8c405696146c3ccf9e84066f2abe2fbed535",
+      "preBytes": 23112,
+      "postBytes": 24576
+    },
+    {
+      "path": "src/core/hollywoodTick.ts",
+      "preSha256": "106c81b7d255d34e6aee9863f3d060bd6b5d91bae63a5c8d5b3d5cb8e8e41324",
+      "postSha256": "9f9c206ef28f529d2d801752f5dd4445342ebb42fd3add2f33f28545900a01a7",
+      "preBytes": 50020,
+      "postBytes": 53300
+    },
+    {
+      "path": "src/core/save.ts",
+      "preSha256": "7860bc537691afb1b1186e608e2ea478a2acfc982e4282ea5c23c55095c372a1",
+      "postSha256": "8c98aad788980de0148b4998119fb2e4d628c48b3dd87b3d7e53e52c5bd0637e",
+      "preBytes": 593599,
+      "postBytes": 594548
+    },
+    {
+      "path": "src/core/marketIntegration.ts",
+      "preSha256": "3ff7a347ad559cb0e591ccc5fddf704b2c232f52f16a4852020128ae8280cd34",
+      "postSha256": "7541fac217fe59944bb48ed89e6ea9dc62202b8ef81a4b5f2e55e7c9469d4b33",
+      "preBytes": 18977,
+      "postBytes": 19068
+    },
+    {
+      "path": "src/core/employment.ts",
+      "preSha256": "3d00df38ba28adbb75024e270b715c8ea2b72deee110fff4be8c6571fb61bbbe",
+      "postSha256": "86152f872e45630fb908cfbeba41d65329efce8680b1938674b50f1c0a3a34ca",
+      "preBytes": 30584,
+      "postBytes": 30897
+    },
+    {
+      "path": "src/core/corporateConditionLive.ts",
+      "preSha256": "5514b4d58e394941417dc992fb57e8bbc5d6168cac1c27570f9d1b1d184c9a92",
+      "postSha256": "8062cb9d0557f28592084b07ee878450a287bd06c2c8b22f1ed12f408cf30fe8",
+      "preBytes": 41770,
+      "postBytes": 41666
+    },
+    {
+      "path": "src/core/hollywoodValidation.ts",
+      "preSha256": "92185129ee20ef5acd9d5804806be5d6de02f48e04b420c2623955743daddf3c",
+      "postSha256": "0ca1580a8128a7896fb0f506d5581ece73c60c9c93e2c6b7516f061866e52101",
+      "preBytes": 71198,
+      "postBytes": 74848
+    }
+  ],
+  "coordinatorOwnedExcluded": [
+    "src/core/absorbedRuns.ts",
+    "src/core/studioClosure.ts"
+  ],
+  "tests": "Independent lifecycle test installed by coordinator; not part of this source patch."
+}
