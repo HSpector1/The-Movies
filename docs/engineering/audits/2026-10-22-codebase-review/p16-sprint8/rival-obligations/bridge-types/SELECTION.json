@@ -1,0 +1,12 @@
+{
+  "head": "63a63abe63e62825916f3a69b4b4589ae3a7baed",
+  "sourceManifestEntries": 1658,
+  "purpose": "Complete previously unrun Bridge compiler after interrupted consumer checkpoint",
+  "children": [
+    {
+      "label": "bridge-types",
+      "command": "node node_modules/typescript/bin/tsc -p tsconfig.bridge.json --noEmit"
+    }
+  ],
+  "limits": "Compiler only; no runtime rerun, broader gate or continuous exclusivity claim"
+}

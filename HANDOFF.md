@@ -1,5 +1,20 @@
 # HANDOFF
 
+## Rival obligation consumer interruption and exact next dependency — 2026-10-26
+
+Published gameplay remains63a63abe63e62825916f3a69b4b4589ae3a7baed on experimental p16-retained-writing-20261026; primary013c4edc and mainab65eb20 are unchanged. Root types0 and focused genuine v9 lifecycle functional pass9275.610403 ms remain the scoped result, with original5000 ms timing failure. No new source repair in this checkpoint.
+
+The coherent13-file consumer attempt ended143 after foreign Godot appeared. Eight complete file summaries report124 passing tests, no observed assertion failure; five files lack complete results and no final JSON exists. Thirty-nine printed passing leaves exceed5000 ms. Native v9 broad leaf33784 ms is not a controlled speed comparison. Independent postflight verified1658 source/input and six preflight pins, exact owned-tree-only termination, absent jobs/lock and released freeze. Foreign overlap start is unknown, so no exclusive or completed-gate qualification.
+
+A separate previously unrun Bridge typecheck also ended143 after another foreign Godot job appeared. It produced no compiler result. Its pins and safe interruption were independently audited. No foreign job was interrupted. Repeated foreign launches establish a sustained execution-window blocker; do not retry either unchanged batch or compiler on another brief idle sample. Private process inventories stay local; public audit/interruption/log evidence is in rival-obligations/{coherent-consumers,bridge-types}.
+
+Next runtime requires an actual exclusive window. Five incomplete files are retained-drafting-continuation, continued-work-cancel, p14c2c-rival-promises, p14c3-promise-digest-continuity and p15b4-studio-closure-save; Bridge types remain unfinished. Preserve complete partial observations without combining them into a fully qualified gate. The remaining full-game original inputs, browser installation approval, native tooling and Owner acceptance are separate blockers.
+
+Read-only source reconciliation found no current lawful rival setup/selected-Set premise. Native greenlight uses requiresSetBinding:false and setup:null; native advance supplies no Set context; public setup/Set producers use player inventory/cash; RivalBusiness has no Set inventory and player targets are not for sale. NEXT-DEPENDENCY.md pins exact source locations and limits. Native rival ownership/payment/binding/setup admission is a real precursor, not something guard removal or actor-swapped fixtures can create. No new rival strategy/finance rules were invented. Existing historical archives were not searched again.
+
+Exact next action: obtain a sustained qualified execution window before finishing the named consumers/compiler; reconcile adopted authority for the native rival Set/setup precursor before implementing it. Reuse existing focused/root evidence on unchanged source. No P16 technical predecessor or downstream P17/P18 eligibility is claimed; Sprint8 and the authorized program remain incomplete.
+
+
 ## Rival obligations functional checkpoint — 2026-10-26, 22:31 CDT
 
 Experimental source 63a63abe63e62825916f3a69b4b4589ae3a7baed contains eleven reviewed source owners and the independent same-leaf lifecycle. Explicit remote publication is checked at checkpoint. Root types exit 0; genuine R01 C312 native obligation close, financial/receipt/source-history dispositions, writing completion/Accept313, replay, unrelated film33 first take314 with no false promise13 credit, and final314 save all pass. Exact 9275.610403 ms exceeds unchanged5000 ms. One pass,64 skipped; affected complete files and broader consumers are NOT qualified.

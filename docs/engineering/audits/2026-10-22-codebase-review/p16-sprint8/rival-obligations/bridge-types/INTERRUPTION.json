@@ -1,0 +1,15 @@
+{
+  "at": "2026-10-26T22:43:00.057123-05:00",
+  "reason": "Foreign Godot observed during compiler; controlled owned-tree interruption only. No foreign signal.",
+  "ownedRoot": 28134,
+  "verifiedOwnedPids": [
+    28134,
+    28149
+  ],
+  "termSent": [
+    28149,
+    28134
+  ],
+  "foreignObservedPid": 29200,
+  "limits": "Inspect actual log/terminal; overlap start unknown, no exclusive qualification."
+}

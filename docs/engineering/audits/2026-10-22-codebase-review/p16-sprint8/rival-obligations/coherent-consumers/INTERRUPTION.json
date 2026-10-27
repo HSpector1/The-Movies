@@ -1,0 +1,23 @@
+{
+  "at": "2026-10-26T22:39:46.310299-05:00",
+  "reason": "Foreign Godot observed; controlled owned-tree interruption. Overlap start unknown. No foreign signal.",
+  "ownedRoot": 24957,
+  "verifiedOwnedPids": [
+    24957,
+    24976,
+    24980,
+    26824,
+    27122,
+    27126
+  ],
+  "termSent": [
+    27126,
+    27122,
+    26824,
+    24980,
+    24976,
+    24957
+  ],
+  "foreignObservedPid": 26815,
+  "limits": "Incomplete gate; partial assertions and timings preserved; no exclusive qualification. Bridge compiler may be unrun; inspect actual child log."
+}
