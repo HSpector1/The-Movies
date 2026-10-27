@@ -21,9 +21,9 @@ export function validateAbsorbedScripts(state:GameState,b:RivalBusiness,a:Absorp
     if(Object.hasOwn(a,'stoppedScripts')||expected.length!==0)fail('legacy producer cannot carry stopped drafting history')
     return
   }
-  if((a.producerVersion!=='absorption-scripts/v2'&&a.producerVersion!=='absorption-scripts/v3'&&a.producerVersion!=='absorption-scripts/v4'&&(a.producerVersion!=='absorption-scripts/v5'&&a.producerVersion!=='absorption-scripts/v6'&&a.producerVersion!=='absorption-obligations/v7'))||!Array.isArray(a.stoppedScripts)
+  if((a.producerVersion!=='absorption-scripts/v2'&&a.producerVersion!=='absorption-scripts/v3'&&a.producerVersion!=='absorption-scripts/v4'&&(a.producerVersion!=='absorption-scripts/v5'&&a.producerVersion!=='absorption-scripts/v6'&&(a.producerVersion!=='absorption-obligations/v7'&&a.producerVersion!=='absorption-rival-scripts/v8')))||!Array.isArray(a.stoppedScripts)
     ||a.producerVersion==='absorption-scripts/v2'&&a.stoppedScripts.length===0)fail('missing versioned script write-off')
-  const continued=new Set((a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7'))?a.continuedScripts.map(r=>r.sourceScriptProjectId):[])
+  const continued=new Set((a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'||(a.producerVersion==='absorption-obligations/v7'||a.producerVersion==='absorption-rival-scripts/v8')))?a.continuedScripts.map(r=>r.sourceScriptProjectId):[])
   const stopped=expected.filter(p=>!continued.has(p.id))
   if(a.stoppedScripts.map(r=>r.scriptProjectId).join()!==stopped.map(p=>p.id).join())fail('in-flight script write-off bijection/order differs')
   for(const row of a.stoppedScripts){

@@ -1,5 +1,16 @@
 # HANDOFF
 
+## Rival screenplay candidate publication — 2026-10-26, 21:40 CDT
+
+The reviewed eleven-owner implementation and independent lifecycle test are being committed on experimental p16-retained-writing-20261026. Resolve exact commit from Git; primary p16-rebase-20261024 and main remain unchanged. This is a recoverable candidate, not the P16 qualified technical checkpoint.
+
+The previously unrun Bridge typecheck now exits 0. Complete Bridge parity passes 9/9; retained obligations remains over its original 5000 ms at 10909.782 ms (exact prior 11480.027 ms), other eight pass budgets. Both checks are independently audited with exact pins and no remaining jobs/lock. No Godot was observed in launch/post samples; continuous exclusivity is not inferred. Root types and focused rival completion/Accept/save replay 3198.445 ms are reused on identical source.
+
+The interrupted ten-file observations, nineteen timing overruns and foreign-overlap uncertainty remain open. Native policy rejected the acquired script, so its greenlight/take/release/chart/shelving threshold are untested. Source review fixes are static where those paths were unreached. No broad, platform, Owner or downstream-predecessor qualification follows from publication.
+
+Next: close remaining required rival producer evidence and obligations using existing actual routes; NEXT-DEPENDENCY.md identifies the versioned native-obligation boundary. Do not copy v8 records into v7 or assume a genuine rival buyer at C312. Finish resource-qualified consumer/full milestones when an actual exclusive window is available. No unchanged interrupted full-gate retry on a brief idle scan; no P17/P18 activation or main gameplay promotion.
+
+
 ## Rival screenplay implementation and interrupted consumer checkpoint — 2026-10-26, 21:31 CDT
 
 Records and complete recovery patch chain are published and explicitly remote verified at wip 7460475742ab2687db670597a49b6ba2c71b3a21. Published gameplay remains 0108d51cc71943ac47bd7257ca2ff3c371fa1d31. Eleven reviewed source owners and the independent lifecycle test are installed but uncommitted on experimental p16-retained-writing-20261026. Exact source, review correction, literal type correction, premise/lifecycle and expectation patches are preserved under p16-sprint8/rival-script; apply them in the recorded order. Primary candidate 013c4edc and main ab65eb20 are unchanged. This records checkpoint does not promote unqualified source.

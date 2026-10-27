@@ -1,3 +1,4 @@
+import { buyerScriptDevelopment, buyerScriptConcepts } from './continuedScripts.js'
 import { absorbedWeekOf } from './operatingState.js'
 // ── P15B Wave 2 and Wave 3 (record 1370-ar): the condition in the live game ───────────────────────
 // Authority (docs/engineering/playability-launch-review/evidence/p14b4-20260919/): 1357-A §3 (the fact
@@ -23,7 +24,7 @@ import { contractLoan, loanEligible, loanInstallmentDue, loanMaxPrincipal, STUDI
 import { closedWeekOf } from './operatingState.js'
 import { LOAN_PRINCIPAL_LEDGER_NOTE, TUNING } from './tuning.js'
 import type { HollywoodState, RivalBusiness } from './hollywoodTypes.js'
-import type { ConditionEvent, CorporateConditionRoot, GameState, LedgerEntry, ScriptDevelopment, StudioConditionRecord, StudioLoanRecord } from './types.js'
+import type { ConditionEvent, CorporateConditionRoot, GameState, LedgerEntry, StudioConditionRecord, StudioLoanRecord } from './types.js'
 
 export const CONDITION_PHASE_ID = 'p15b.condition'
 
@@ -228,10 +229,6 @@ export function applyTakeLoan(state: GameState, principal: number): GameState {
 // hollywoodTick.ts; the player's own choice) decides among legal releases; the law decides legality.
 // A research seat is not in the law: tests/p13a-research-employment.test.ts pins that the player's
 // release of a seated Scientist pauses the project (employment.ts:340).
-function hotDevelopment(business: RivalBusiness): ScriptDevelopment {
-  return { mode: 'managed', projects: business.activeScriptOrdinals.map((i) => business.development.projects[i]!) }
-}
-
 /** The refusal of releasing `talentId` from `studioId` now, or null when the release is legal. The
  * sentences are the player's own (actions.ts applyReleaseTalent), so refusals read identically. */
 export function releaseRefusal(state: GameState, studioId: string, talentId: string): string | null {
@@ -245,10 +242,10 @@ export function releaseRefusal(state: GameState, studioId: string, talentId: str
     if (writing !== undefined) return `talent "${talentId}" is ${writing.label} and must finish that screenplay task first`
     return null
   }
-  const business = businessOf(h, studioId)
+  businessOf(h, studioId)
   const seated = seatingProduction(state,talentId,studioId)
   if (seated !== undefined) return `talent "${talentId}" is seated on active production "${seated.id}" until it is released (R2)`
-  const writing = activeScriptWriterAssignments(hotDevelopment(business), h.concepts).find((a) => a.talentId === talentId)
+  const writing = activeScriptWriterAssignments(buyerScriptDevelopment(state,studioId), buyerScriptConcepts(state,studioId)).find((a) => a.talentId === talentId)
   if (writing !== undefined) return `talent "${talentId}" is ${writing.label} and must finish that screenplay task first`
   return null
 }

@@ -1,3 +1,4 @@
+import { buyerScriptDevelopment, continuedScriptOwner, rivalScriptOwners, rivalCarriedSource, carriedScriptForProduction, linkCarriedScriptToProduction, markCarriedScriptProduced, advanceBuyerScriptWork, acceptRivalContinuedReviews, recordRivalScriptRejection } from './continuedScripts.js'
 import { buyerContinuedProductions, buyerOperationsForAllWork, buyerOperatedProductions, publishOperatedAdvance, recordContinuedWorkSteps, continuedCommittedReleaseIds } from './continuedWork.js'
 import { advanceAbsorbedRuns } from './absorbedRuns.js'
 import { validateAbsorbedProductionStops } from './absorbedWork.js'
@@ -22,7 +23,7 @@ import { buildFilmParticipants } from './filmParticipants.js'
 import { computeForecast } from './forecast.js'
 import { forecastHistoryForOwner } from './industryCareer.js'
 import { mintOriginalConcept, scriptDraftWeeks, writingPaceExperience } from './screenplay.js'
-import { acceptScriptProject, canonicalScriptProjectId, commissionScriptProject, completeDueScriptWork,
+import { acceptScriptProject, canonicalScriptProjectId, commissionScriptProject,
   linkScriptProjectToProduction, markScriptProjectProduced, scriptOccupiedFacilitySlots } from './scriptDevelopment.js'
 import { addManagedProductionWorkflow, advanceManagedProductions, assignShootingDirector,
   clearSceneryLoadIn, scheduleShootingTake } from './operations.js'
@@ -73,8 +74,9 @@ function partsFor(p:Pick<Production,'writerId'|'directorId'|'cast'|'craftIds'>, 
   return {writer:person(p.writerId),director:person(p.directorId),cast:{lead:person(p.cast.lead),antagonist:person(p.cast.antagonist),support:person(p.cast.support)},craftHires:p.craftIds.map(person)}
 }
 function inputsFor(state:GameState,h:HollywoodState,b:RivalBusiness,p:Production|{conceptId:string;shape:FilmShape;promise:ScriptProject['promise'];budget:Production['budget'];writerId:string;directorId:string;cast:Production['cast'];craftIds:string[]}, project:ScriptProject,talent:ReadonlyMap<string,Talent>):ReceptionInputs {
-  const cost=b.projects[Number(project.id.slice(7))]!
-  const concept=h.concepts[cost.conceptOrdinal]!
+  const carried=rivalCarriedSource({...state,hollywood:h},b.studioId,project)
+  const cost=carried?.cost??b.projects[Number(project.id.slice(7))]!
+  const concept=carried?.concept??h.concepts[cost.conceptOrdinal]!
   if(concept.id!==p.conceptId)throw new Error('Industry concept index lost identity')
   return {concept,shape:p.shape,shapeEffects:resolveShape(p.shape),promise:p.promise,budget:p.budget,
     ...partsFor(p,talent),market:industryMarket(state.market),standing:b.standing,era:state.era,
@@ -228,12 +230,14 @@ function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],
 
 function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],week:number,
   greenlights:{studioId:string;production:Production}[],cashFacts:StaffingCashFacts) {
-  if(week<b.nextDecisionWeek)return
+  if(week<b.nextDecisionWeek)return state.rights
   b.nextDecisionWeek=week+TUNING.HOLLYWOOD_DECISION_WEEKS
   const operatedCount=()=>buyerOperatedProductions({...state,hollywood:h},b.studioId).length
+  let rights=state.rights
+  const decisionState=()=>({...state,hollywood:h,rights})
   let greenlit=false,commissioned=false
   let commissionStop:RivalCostCuttingEntryFacts['commissionStop']='none'
-  const indexedOutcomes=new Map<number,RivalCostCuttingEntryFacts['indexedOutcomes'][number]>()
+  const indexedOutcomes=new Map<number|string,RivalCostCuttingEntryFacts['indexedOutcomes'][number]>()
   const runDecision=()=>{
   const busy=busyTalentIds({...state,hollywood:h,talent})
   const people=new Map(talent.map(t=>[t.id,t]))
@@ -249,18 +253,19 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
     // P14B.4 seating preference (plan :215-236): eligible PROMISED people enter the triple first, in employment
     // order; the writer of this screenplay and the chosen director/craft cannot double as cast; with no member
     // the expression below is the historical first-three rule unchanged.
-    const projectConcept=h.concepts[b.projects[Number(ready.id.slice(7))]!.conceptOrdinal]!
+    const carried=rivalCarriedSource(decisionState(),b.studioId,ready)
+    const projectConcept=carried?.concept??h.concepts[b.projects[Number(ready.id.slice(7))]!.conceptOrdinal]!
     const masks=promisedCastMasks(state,b.studioId,week+WEEKS_TO_FIRST_TAKE,
       {genre:projectConcept.genre,scriptProjectId:ready.id})
     const taken=new Set([ready.writerId,director?.id,craft?.id])
     const promised=employees.filter(t=>masks.has(t.id)&&seatable(t)&&!taken.has(t.id)&&t.skills.acting!==undefined)
     const actors=[...promised,...employees.filter(t=>t.role==='actor'&&seatable(t)&&!promised.includes(t))].slice(0,3)
     if(!director||actors.length!==3||!craft)return {outcome:'staffingBlocked'} as const
-    const cost=b.projects[Number(ready.id.slice(7))]!
-    const concept=h.concepts[cost.conceptOrdinal]!
+    const cost=carried?.cost??b.projects[Number(ready.id.slice(7))]!
+    const concept=carried?.concept??h.concepts[cost.conceptOrdinal]!
     const provisional={conceptId:concept.id,shape:ready.shape,promise:ready.promise,budget:{negative:concept.baseNegativeCost,marketing:0},writerId:ready.writerId,
       directorId:director.id,cast:{lead:actors[0]!.id,antagonist:actors[1]!.id,support:actors[2]!.id},craftIds:[craft.id]}
-    const args=[inputsFor(state,h,b,provisional,ready,people),b.policy,{seed:state.seed,key:`${b.studioId}:package:${ready.id}`,
+    const args=[inputsFor(decisionState(),h,b,provisional,ready,people),b.policy,{seed:state.seed,key:`${b.studioId}:package:${ready.id}`,
       cashAvailable:b.account.cash-operatingReserve(b,h,week),weeklyCost:rivalWeeklyOperatingCost(b,h,week),lockScreenplay:true,
       ...(masks.size>0?{promisedMasks:masks}:{})}] as const
     const candidate=chooseIndustryPackage(...args)
@@ -273,16 +278,17 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
   type Viable=Extract<ReturnType<typeof evaluate>,{outcome:'viable'}>
   const greenlight=(ready:ScriptProject,{candidate,provisional,director,cost,concept}:Viable)=>{
     const {negative,marketing}=candidate.budget
-    const id=uniqueIdentity(`${b.studioId}:film:${Number(ready.id.slice(7))}`,persistedProductionIds({...state,hollywood:h}))
+    const carried=continuedScriptOwner(decisionState(),ready.id)
+    const id=uniqueIdentity(carried?`${b.studioId}:film:${ready.id}`:`${b.studioId}:film:${Number(ready.id.slice(7))}`,persistedProductionIds(decisionState()))
     const choices={...provisional,budget:candidate.budget,cast:candidate.cast}
-    const inp=inputsFor(state,h,b,choices,ready,people)
+    const inp=inputsFor(decisionState(),h,b,choices,ready,people)
     const forecastSnapshot=computeForecast(inp,{seed:state.seed,productionId:id,directorId:director.id,
       ...forecastHistoryForOwner({...state,hollywood:h},b.studioId)},true,true)
     const production:Production={...choices,id,startTick:week,remainingTicks:TUNING.PRODUCTION_TICKS,forecastSnapshot,
       participants:buildFilmParticipants(id=>employees.some(t=>t.id===id),inp,concept,inp.shapeEffects,ready.promise,ready.shape)}
-    const operations=addManagedProductionWorkflow(b.operations,production,scriptOccupiedFacilitySlots(hotDevelopment(b)))
-    const development=linkScriptProjectToProduction(hotDevelopment(b),ready.id,id)
-    b.operations=operations;b.productions=[...b.productions,production];storeHotDevelopment(b,development)
+    const operations=addManagedProductionWorkflow(b.operations,production,scriptOccupiedFacilitySlots(buyerScriptDevelopment(decisionState(),b.studioId)))
+    b.operations=operations;b.productions=[...b.productions,production]
+    if(!carried)storeHotDevelopment(b,linkScriptProjectToProduction(hotDevelopment(b),ready.id,id))
     greenlights.push({studioId:b.studioId,production})
     greenlit=true
     b.costCutting={version:1,since:null}
@@ -290,13 +296,27 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
     // Permanent screenplay credit alone does not occupy a production seat.
     for(const personId of productionCompanyTalentIds([production]))busy.add(personId)
     moveRivalMoney(b.account,'production',-negative,week);moveRivalMoney(b.account,'marketing',-marketing,week)
-    b.projects=[...b.projects];b.projects[Number(ready.id.slice(7))]={...cost,productionId:id,production:negative,marketing,announcedWeek:week}
+    const paidCost={...cost,productionId:id,production:negative,marketing,announcedWeek:week}
+    if(carried)rights=linkCarriedScriptToProduction(decisionState(),ready.id,production,paidCost).rights
+    else {b.projects=[...b.projects];b.projects[Number(ready.id.slice(7))]=paidCost}
     appendReceipt(h,{week,studioId:b.studioId,kind:'filmAnnounced',productionId:id,conceptId:concept.id})
   }
-  for(const ready of hotDevelopment(b).projects.filter(p=>p.status==='ready')) {
+  for(const ready of buyerScriptDevelopment(decisionState(),b.studioId).projects.filter(p=>p.status==='ready')) {
     if(operatedCount()!==0)break
+    const acquired=continuedScriptOwner(decisionState(),ready.id)
     const ordinal=Number(ready.id.slice(7))
     const result=evaluate(ready)
+    if(result.outcome!=='viable')indexedOutcomes.set(acquired?ready.id:ordinal,result.outcome)
+    if(acquired&&acquired.a.producerVersion==='absorption-rival-scripts/v8'){
+      if(result.outcome==='viable'){rights=recordRivalScriptRejection(decisionState(),b.studioId,ready.id,0,week,false).rights;greenlight(ready,result);continue}
+      if(result.outcome!=='economicRejection')continue
+      const count=Math.min(TUNING.HOLLYWOOD_SHELVE_AFTER_REJECTIONS,(acquired.a.scriptShelving.rejections.find(r=>r.projectId===ready.id)?.count??0)+1)
+      const named=state.promises.some(p=>p.outcome===null&&p.issuerStudioId===b.studioId&&isOpportunityPredicate(p.predicate)&&p.predicate.kind==='projectOpportunity'&&p.predicate.scriptProjectId===ready.id)
+      const shelve=count===TUNING.HOLLYWOOD_SHELVE_AFTER_REJECTIONS&&!named
+      rights=recordRivalScriptRejection(decisionState(),b.studioId,ready.id,count,week,shelve).rights
+      if(shelve){b.screenplayShelving={...b.screenplayShelving,commissionHoldUntilWeek:week+TUNING.HOLLYWOOD_SHELVE_COMMISSION_HOLD_WEEKS};appendReceipt(h,{week,studioId:b.studioId,kind:'screenplayShelved',scriptProjectId:ready.id,conceptId:ready.conceptId,rejections:count})}
+      continue
+    }
     if(result.outcome!=='viable')indexedOutcomes.set(ordinal,result.outcome)
     const shelving=b.screenplayShelving
     // A greenlit screenplay is no longer ready, so its count leaves with it.
@@ -321,7 +341,7 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
   // P14D.1 (1344-A §3.4, 1344-F Amendment 1): with no production and a free slot, retry the oldest due
   // shelved screenplay, read directly (a shelved ordinal is outside the hot view). It re-enters the
   // index only together with its greenlight; an economic rejection waits another retry interval.
-  const due=operatedCount()===0&&b.activeScriptOrdinals.length<2
+  const due=operatedCount()===0&&buyerScriptDevelopment(decisionState(),b.studioId).projects.length<2
     ?b.screenplayShelving.shelved.find(s=>s.retryWeek<=week):undefined
   if(due) {
     const ready=b.development.projects[due.ordinal]!
@@ -335,9 +355,16 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
       b.screenplayShelving={...shelving,shelved:shelving.shelved.map(s=>s===due?{...s,retryWeek:week+TUNING.HOLLYWOOD_SHELVED_RETRY_WEEKS}:s)}
     }
   }
+  if(operatedCount()===0&&buyerScriptDevelopment(decisionState(),b.studioId).projects.length<2){
+    const due=rivalScriptOwners(decisionState(),b.studioId).flatMap(a=>a.scriptShelving.shelved.map(s=>({a,s}))).filter(({s})=>s.retryWeek<=week).sort((x,y)=>x.s.week-y.s.week)[0]
+    if(due){const ready=due.a.continuedScripts.find(r=>r.project.id===due.s.projectId)!.project,result=evaluate(ready)
+      if(result.outcome==='viable'){rights=recordRivalScriptRejection(decisionState(),b.studioId,ready.id,0,week,false).rights;greenlight(ready,result)}
+      else if(result.outcome==='economicRejection')rights=recordRivalScriptRejection(decisionState(),b.studioId,ready.id,0,week,true,true).rights
+    }
+  }
   // A bounded ready inventory, paid writers and enough actual runway precede a commission.
   if(b.costCutting.since!==null)return
-  if(b.activeScriptOrdinals.length>=2){commissionStop='fullIndex';return}
+  if(buyerScriptDevelopment(decisionState(),b.studioId).projects.length>=2){commissionStop='fullIndex';return}
   if(b.account.cash<operatingReserve(b,h,week))return
   if(week<b.screenplayShelving.commissionHoldUntilWeek){commissionStop='hold';return}
   const writer=employees.find(t=>t.role==='writer'&&!busy.has(t.id))
@@ -370,8 +397,8 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
     {seed:state.seed,key:`${b.studioId}:screenplay:${ordinal}`,cashAvailable:b.account.cash-reserve,weeklyCost,lockScreenplay:false})
   if(!candidate){commissionStop='unaffordablePackage';return}
   shape=candidate.shape;promise=candidate.promise
-  const hot=hotDevelopment(b)
-  const next=commissionScriptProject(hot,b.operations,{conceptId,writerId:writer.id,shape,promise},week,new Set(),draftWeeks,canonicalScriptProjectId(ordinal))
+  const hot=buyerScriptDevelopment(decisionState(),b.studioId)
+  const next=commissionScriptProject(hot,buyerOperationsForAllWork(decisionState(),b.studioId),{conceptId,writerId:writer.id,shape,promise},week,new Set(),draftWeeks,canonicalScriptProjectId(ordinal))
   const project=next.projects[next.projects.length-1]!
   b.development={mode:'managed',projects:[...b.development.projects,project]}
   b.activeScriptOrdinals=[...b.activeScriptOrdinals,ordinal]
@@ -382,12 +409,13 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
   runDecision()
   // All ordinary early returns converge here. No scheduled decision means no entry.
   // A full index is proved by real retained ordinals and their evaluations this week.
-  const outcomes=b.activeScriptOrdinals.map(i=>indexedOutcomes.get(i))
+  const outcomes=buyerScriptDevelopment(decisionState(),b.studioId).projects.map(p=>indexedOutcomes.get(continuedScriptOwner(decisionState(),p.id)?p.id:Number(p.id.slice(7))))
   const enters=rivalCostCuttingEntry({decisionRan:true,productionCount:operatedCount(),runCount:b.runs.length,
-    greenlit,commissioned,hasScriptWork:hotDevelopment(b).projects.some(p=>p.status==='drafting'||p.status==='rewriting'),
+    greenlit,commissioned,hasScriptWork:buyerScriptDevelopment(decisionState(),b.studioId).projects.some(p=>p.status==='drafting'||p.status==='rewriting'),
     cash:b.account.cash,reserve:operatingReserve(b,h,week),commissionStop,...cashFacts,
     indexedOutcomes:outcomes.every((outcome):outcome is RivalCostCuttingEntryFacts['indexedOutcomes'][number]=>outcome!==undefined)?outcomes:[]})
   if(b.costCutting.since===null&&enters)b.costCutting={version:1,since:week}
+  return rights
 }
 
 /** Each active run pays its installment due at input week `week` at its locked share; a final payment settles the
@@ -436,14 +464,14 @@ function frozenRivalMembers(state:GameState,factorById:ReadonlyMap<string,number
 /** One actual creator-paid reception/release producer, shared by normal rivals and buyer-operated work. */
 function publishCreatorRelease(state:GameState,h:HollywoodState,b:RivalBusiness,p:Production,talent:Talent[],week:number,receptionStanding:Standing,factorById?:ReadonlyMap<string,number>) {
   const people=new Map(talent.map(t=>[t.id,t]))
-  const project=hotDevelopment(b).projects.find(s=>s.productionId===p.id)!
+  const project=hotDevelopment(b).projects.find(s=>s.productionId===p.id)??carriedScriptForProduction({...state,hollywood:h},p.id)!
   const inp=inputsFor(state,h,{...b,standing:receptionStanding},p,project,people)
   // P15A.1 Wave 2 (1355-A §3.2): the rival release site of the seam.
   const factor=factorById?.get(p.id)
   const result=resolveReception(factor===undefined?inp:{...inp,competitionFactor:factor},stream(state.seed,'hollywood-v1',`${p.id}:reception`),true,true,stream(state.seed,'discovery-v1',p.id).gaussian(0,1))
   const base=buildFilmResult(result,{productionId:p.id,releaseTick:week,conceptId:p.conceptId,directorId:p.directorId})
   const filmResult={...base,participants:p.participants!,forecast:{expectedCriticScore:p.forecastSnapshot.expectedCriticScore,expectedTotal:p.forecastSnapshot.expectedTotal,expectedOpening:p.forecastSnapshot.expectedOpening}}
-  const cost=b.projects[Number(project.id.slice(7))]!
+  const cost=rivalCarriedSource({...state,hollywood:h},b.studioId,project)?.cost??b.projects[Number(project.id.slice(7))]!
   const film:LiveIndustryFilm={filmId:p.id,studioId:b.studioId,conceptId:p.conceptId,title:inp.concept.title,genre:inp.concept.genre,
     credits:flattenParticipants(p.participants!).map(c=>({talentId:c.talentId,name:c.name,role:c.role})),provenance:'simulation/v1',
     scriptProjectId:project.id,result:filmResult,directCommitment:cost.development+cost.production+cost.marketing,
@@ -456,8 +484,10 @@ function publishCreatorRelease(state:GameState,h:HollywoodState,b:RivalBusiness,
     actualNegative:p.budget.negative,requiredNegative:result.requiredNegative,baseMarketValue:state.market.baseMarketValue,marketing:p.budget.marketing,
     salaries:inp.writer.salary+inp.director.salary+inp.cast.lead.salary+inp.cast.antagonist.salary+inp.cast.support.salary,engaged:true}
   const growth:ReleaseGrowthRecord={filmResult,develop:{productionId:p.id,performers:flattenParticipants(p.participants!).map(c=>({talentId:c.talentId,discipline:c.discipline})),ctx:{concept:inp.concept,shape:p.shape,shapeEffects:inp.shapeEffects,promise:p.promise,requiredNegative:result.requiredNegative,criticScore:result.criticScore}},broadcast:{weightedAudienceScore:result.weightedAudienceScore}}
-  storeHotDevelopment(b,markScriptProjectProduced(hotDevelopment(b),p.id))
-  return {filmResult,ctx,growth}
+  const carried=continuedScriptOwner(state,project.id)
+  if(!carried)storeHotDevelopment(b,markScriptProjectProduced(hotDevelopment(b),p.id))
+  const rights=carried?markCarriedScriptProduced({...state,hollywood:h},p.id,week).rights:state.rights
+  return {filmResult,ctx,growth,rights}
 }
 
 /** Actual continued receptions at the reception boundary. Standing is applied by the ONE
@@ -534,7 +564,7 @@ export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<str
     // its research bill are spent from the same account the film draws on.
     physicalPlans=admitRivalPlansInWeek({...state,technology,physicalPlans,hollywood:h,talent},h,b,physicalPlans,week)
     technology=advanceRivalResearch({...state,technology,physicalPlans,hollywood:h,talent},h,b,talent,week)
-    decide(working(),h,b,talent,week,greenlights,cashFacts)
+    rights=decide(working(),h,b,talent,week,greenlights,cashFacts)
     // Shared disposal law returns an atomic copy; adopt only its four changed
     // fields into this tick's owned clones. No second staff/decision pass spends
     // the refund, and the removed body pays no opex for the current week.
@@ -562,7 +592,7 @@ export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<str
     technology=selectRivalSoundProduction(technology,b)
     const productionTechnology=createProductionTechnologyPolicy({...working(),technology},b.studioId)
     const committed=new Set([...committedReleaseIds(b.releaseAuthority),...continuedCommittedReleaseIds(working(),b.studioId)])
-    const advanced=advanceManagedProductions(stageView.operations,operated,week,committed,new Set([...scriptOccupiedFacilitySlots(hotDevelopment(b)),...rivalInstallationSlots(technology,b)]),undefined,undefined,productionTechnology.policy)
+    const advanced=advanceManagedProductions(stageView.operations,operated,week,committed,new Set([...scriptOccupiedFacilitySlots(buyerScriptDevelopment(working(),b.studioId)),...rivalInstallationSlots(technology,b)]),undefined,undefined,productionTechnology.policy)
     technology=productionTechnology.technology()
     for(const production of advanced.firstTakes)firstTakes.push({studioId:b.studioId,production})
     const releasing=advanced.productions.filter(p=>p.remainingTicks===0).sort((a,b)=>a.id<b.id?-1:a.id>b.id?1:0)
@@ -583,6 +613,7 @@ export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<str
       const transaction=rights.absorptions.find(a=>a.buyerId===b.studioId && a.continuedProductions.some(row=>row.productionId===p.id))
       const creator=transaction?h.businesses.find(row=>row.studioId===transaction.targetId)!:b
       const released=publishCreatorRelease(working(),h,creator,p,talent,week,startStanding,factorById)
+      rights=released.rights
       const before=b.standing
       b.standing=updateStanding(before,released.filmResult,p.forecastSnapshot,released.ctx)
       if(transaction) {
@@ -612,11 +643,12 @@ export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<str
     // writes it runs after this one.
     const installment=loanInstallmentDueFor(state,b.studioId,week)
     if(installment>0)moveRivalMoney(b.account,'loanInstallment',-installment,week)
-    const hot=hotDevelopment(b)
-    const concepts=b.activeScriptOrdinals.map(i=>h.concepts[b.projects[i]!.conceptOrdinal]!)
-    let complete=completeDueScriptWork(hot,week+1,{concepts,talent,estUplift:0})
+    const advancedWriting=advanceBuyerScriptWork(working(),week+1,0,b.studioId)
+    rights=advancedWriting.state.rights
+    let complete=advancedWriting.development
     for(const project of complete.projects)if(project.status==='review')complete=acceptScriptProject(complete,project.id)
     storeHotDevelopment(b,complete)
+    rights=acceptRivalContinuedReviews(working(),b.studioId,week+1).rights
   }
   // Every source (including one that precedes its buyer in array order) now
   // sees the fresh actual workRelease and new week-zero run. Service exactly
@@ -657,7 +689,7 @@ export function finishHollywoodWeek(state:GameState):GameState {
     const rows=h.identities.filter(s=>s.enteredWeek!==null).map(s=>{
       const b=h.businesses.find(b=>b.studioId===s.studioId)
       return {studioId:s.studioId,standing:{...(b?.standing??state.studio.standing)},
-        output:b?b.development.projects.filter(p=>p.status==='produced').length+(h.origin==='fresh'&&s.row<=4?2:0):state.studio.releasedFilms.length}
+        output:b?h.films.filter(f=>f.studioId===s.studioId&&(f.provenance==='authored-start/v1'||f.result.releaseTick<week)).length:state.studio.releasedFilms.length}
     })
     h={...h,previousChart:h.chart,chart:{week,rows}}
   }

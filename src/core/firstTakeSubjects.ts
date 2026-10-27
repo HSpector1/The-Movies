@@ -15,7 +15,7 @@ export function takeSubjectOwner(state: Pick<SubjectState, 'hollywood' | 'studio
   // visibility while the buyer remains the film's issuing/creator studio.
   const native=productionId===undefined?undefined:carriedProduction?.productionScriptHistory.get(productionId)
   if(native){
-    if(native.studioId!==studioId||state.hollywood?.playerStudioId!==studioId)return undefined
+    if(native.studioId!==studioId)return undefined
     const concept=carriedProduction?.concepts.find(row=>row.id===native.project.conceptId)
     const original=carriedProduction?.originalProductions.find(row=>row.id===productionId)
     if(!concept||!original||original.conceptId!==concept.id)return undefined

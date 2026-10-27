@@ -261,7 +261,7 @@ function continuedBuyerScripts(state:GameState,buyerId=state.hollywood?.playerSt
   return [...state.hollywood.businesses.flatMap(b=>b.development.projects
     .filter(p=>p.productionId!==null && productions.has(p.productionId))
     .map(project=>({project,subjectId:player?project.id:`${b.studioId}:${project.id}`}))),
-    ...state.rights.absorptions.flatMap(a=>(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7'))&&player&&a.buyerId===buyerId
+    ...state.rights.absorptions.flatMap(a=>((player&&(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7'))||(!player&&a.producerVersion==='absorption-rival-scripts/v8'))&&a.buyerId===buyerId
       ?a.continuedScripts.map(r=>({project:r.project,subjectId:r.project.id})):[])]
 }
 
