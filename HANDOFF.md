@@ -1,6 +1,29 @@
 # HANDOFF
 
-## Claude: current resume — 2026-10-27, 07:50 CDT
+## Claude: current resume — 2026-10-27, 08:10 CDT
+
+Last writer: Claude Fable 5.1 coordinator. Sprint 8 remains unfinished and the Sprints 5–16 program remains BLOCKED on the same two prerequisites. This checkpoint adds a measured description of the execution blocker and a prepared, unbound remainder runner. No source, test, runtime or compiler work ran; nothing was signalled.
+
+### Branches and ownership
+- Gameplay source stays 63a63abe63e62825916f3a69b4b4589ae3a7baed on experimental branch p16-retained-writing-20261026 at /Users/zacheryspector/studio-scratch/p16-retained-writing-20261026-wt. HEAD before this checkpoint was 0803dbd36bc280da9e949421413c36a90983ee07; a git diff confirmed only HANDOFF.md differs from the gameplay source. Resolve the new HEAD from Git.
+- Records checkout /Users/zacheryspector/The-Movies-headless-program on wip/headless-program-20260916-ts; HEAD before this checkpoint was 83efdeef41cc3db83ebdee4d610e77ea9c9f3ad0, equal to the explicit remote ref. Primary P16 013c4edc and main ab65eb20 are unchanged (ls-remote verified 08:00 CDT). Both owned trees were clean.
+- One coordinator writer and one execution tree. No owned job, lane lock or freeze exists. All prior specialists are terminal. Governing order, required reading and the audit records are unchanged from the 07:50 section below.
+
+### Measured blocker
+- The foreign Godot work belongs to a Codex session (PID 73762, 12 days old, cwd the home directory) that runs headless Godot test batches from /Users/zacheryspector/the-movies-rea-research-20261014. Its evidence directories record twelve launches between 07:26 and 07:59 CDT, one every two to five minutes; none was observed between 07:59 and 08:04. The interrupted coherent gate needed about 15 minutes of exclusive time for eight files; the remainder plus Bridge types needs several more. No gap of that length exists while that session runs. These PIDs are observations only; never signal them.
+- The equipment preflight classifies only node vitest/tsc and native compilers as heavy; it does not see Godot. The explicit separate host scan for Godot remains mandatory before any launch.
+- Host at 08:00 CDT: free disk 8,603,900 KiB, above the 3,670,016 KiB launch floor; swap 8,676 of 9,216 MB used; load average 9.2 while a batch ran, 2.8 between batches.
+
+### Prepared, not launched
+- /Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-obligations/consumers-remainder/ holds SELECTION.json, bind.py and run.sh: the five incomplete files, then Bridge types, with original budgets and p16-env. bind.py in check mode confirmed the same 1,658-entry manifest as coherent-consumers with only HANDOFF.md changed. Bind with `python3 -I bind.py --bind` only inside the window, then fresh preflight, explicit no-Godot scan and lane-run-r8.sh. Never rerun a USED runner.
+
+### Exact next action
+1. Owner action required once: pause or finish the Codex REA session's Godot batches, or name a window. Then bind, preflight, no-Godot scan, lane launch of consumers-remainder; freeze source/index/HANDOFF through independent postflight; record results beside coherent-consumers. A completed remainder plus the eight earlier summaries is functional coverage of the thirteen files; timing and exclusive qualification for the earlier eight is not established by it.
+2. Owner decision pending: rival Set acquisition/payment and optional recipe-selection policy (rival-obligations/NEXT-DEPENDENCY.md). Do not invent it; the precursor stays blocked.
+3. Unchanged separate prerequisites: three original full-gate captures, pinned Playwright Chrome 1234/FFmpeg 1011 install approval, Unity toolchain. No P16 technical predecessor is qualified; P17/P18 remain ineligible. Historical failures and Owner playtesting stay separate.
+
+
+## Historical handoff — 2026-10-27, 07:50 CDT
 
 Last writer: Codex coordinator. Owner requested this handoff for Claude. Goal “finish through Sprint 16” is BLOCKED and incomplete after three consecutive resumed checks confirmed the same execution blocker. Sprint 8 is unfinished; do not restart earlier sprints or treat handoff as gameplay acceptance.
 
