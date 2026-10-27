@@ -232,7 +232,7 @@ it('terminal6240-composed-downward-refusal-preserves-all-authority', budgeted(RO
   // p15b-legacy-v3.test.ts, and the condition-record reason with R8's appended in p15b2-corporate-condition-save.
   expect(final.rights.estates.map(e => e.origin.kind), 'premise: the player closure opened its estate').toContain('closure49')
   // P17 (Save50): the P16 step's own downgrade is entered from the live envelope through the P17 step.
-  for (const convert of [(s: never) => save.convertV49ToV48(save.convertV50ToV49(s)), save.migrateToV47, save.migrateToV46, save.migrateToV45]) {
+  for (const convert of [(s: typeof current) => save.convertV49ToV48(save.convertV50ToV49(s)), save.migrateToV47, save.migrateToV46, save.migrateToV45]) {
     expect(() => convert(current)).toThrow(/^migrateToV48: cannot discard unique estate observation or current closure provenance$/)
     expect(canon(current)).toBe(currentBytes)
   }

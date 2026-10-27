@@ -39,7 +39,7 @@ type Envelope = ReturnType<typeof validateSaveV31>
 // envelope (every record's `extensionUsed`/`extendedFromWeek`, every case's `variant`).
 // 975: only this live carrier reaches38. The independent frozen31 carrier below
 // retains its original reader, assertions and immutable fixture bytes.
-type EnvelopeV33 = ReturnType<typeof validateSaveV49>
+type EnvelopeV33 = ReturnType<typeof validateSaveV50> // the live carrier's envelope (P17: Save50)
 const SLOTS = ['lead', 'antagonist', 'support'] as const
 const CLASSES = ['lead', 'leadOrAntagonist'] as const
 type SeatClass = typeof CLASSES[number]

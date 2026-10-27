@@ -112,12 +112,13 @@ describe('r2 F9/F31: no P16 money without the transaction that carries its effec
 })
 
 describe('r2 F43/F15: a persisted property\'s date is its own greenlight evidence, never earlier', () => {
-  function materialized(): Save {
+  // The era Save49 envelope (a lifted genuine predecessor), read by the Save49 reader below; not the live Save.
+  function materialized() {
     const base = convertV48ToV49(genuinePredecessorEnvelope('week53'))
     const f = base.state.hollywood!.films.find((x) => x.provenance === 'simulation/v1')!
     let state = rights.materializeLegacyTitles(base.state as GameState, { right: 'R2', filmId: f.filmId })
     state = rights.materializeLegacyTitles(state, { right: 'R1', propertyId: rights.storyPropertyId(f.conceptId) })
-    return { ...base, state } as Save
+    return { ...base, state } as typeof base
   }
 
   it('a property and its genesis backdated together (to before the campaign, or to week 0) refuse as ambiguous provenance', () => {
