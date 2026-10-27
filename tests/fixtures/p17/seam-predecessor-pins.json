@@ -1,0 +1,21 @@
+{
+  "base": "6510c971bed8079f7ca02e528b224988de092c87",
+  "seed": "p17-seam-pins",
+  "reception": {
+    "opening": 6988765.691315604,
+    "total": 20708995.477265384,
+    "criticScore": 48.91383509071051,
+    "legs": 2.9631835422668185,
+    "awarenessFactor": 0.44
+  },
+  "receptionEngaged": {
+    "opening": 3545192.4461616203,
+    "total": 8321600.567416088,
+    "legs": 2.347291633328928
+  },
+  "forecast": {
+    "expectedOpening": 13972202.353996102,
+    "expectedTotal": 49034193.02328678,
+    "expectedCriticScore": 40.26467391304348
+  }
+}
