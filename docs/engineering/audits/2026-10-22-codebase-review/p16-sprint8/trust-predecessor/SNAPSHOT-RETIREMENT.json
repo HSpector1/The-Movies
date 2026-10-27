@@ -1,0 +1,8 @@
+{
+  "sourceCommit": "9c91232dd980cbe05399b6fd77ed55454e671f86",
+  "publishedRecordsCommit": "14ad630bddffc99ce74c1f74e27156c3c8ba908a",
+  "verifiedFiles": 650,
+  "regularBytesRemoved": 15500983,
+  "action": "Removed exact unused comparison snapshot and only its node_modules symlink; dependency target untouched. Every regular byte verified against immutable published Git source and retained snapshot manifest. No test ran; evidence retained.",
+  "restore": "Use MATERIALIZATION.json paths with git archive sourceCommit, verify SNAPSHOT-MANIFEST; never rerun stale preflight without new binding."
+}
