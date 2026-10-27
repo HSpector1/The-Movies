@@ -2,6 +2,16 @@
 
 Last writer: Codex, 2026-10-26, sole coordinator for the authorized Sprints 5–16 program.
 
+
+## Complete market consumers — 2026-10-26, 20:17 CDT
+
+Published experimental source bef0a40c7aae1721db5cee75eb1ffa81b03471e5 passes all four existing market integration, atomicity, phases and retune files: 67/67 assertions, child/wrapper 0. All original budgets pass; maximum body 4836.593 ms. Phases retains its original explicit 600000 ms exception; other files use 5000 ms. No test, timeout or source edit was made.
+
+Independent postflight verifies 1658 source/input and six preflight pins, confirms no remaining owned job/lane lock and releases the freeze. Launch/post samples observed no Godot; continuous exclusivity is not inferred. Evidence: p16-sprint8/rival-continuation/market-consumers/AUDIT.md and publication manifest. Prior seven continuation timing overruns remain open; this does not qualify the whole P16 composition.
+
+Reused the prior six complete continuation/estate files and root/Bridge types without rerunning them. Next: current-source disposition of remaining adopted rival early-work/script producers using existing authentic inputs, then the necessary coherent broader gate. Full-game original inputs, browser installation approval, native tooling and Owner acceptance remain open. Program remains active; main and primary candidate unchanged.
+
+
 ## Current rival continuation source checkpoint — 2026-10-26, 20:07 CDT
 
 - This checkpoint lands the independently reviewed eleven-owner rival completed-take continuation and same-leaf lifecycle witness on p16-retained-writing-20261026. Resolve exact source HEAD from Git/publication receipt. Primary013c4edc and main remain unchanged; no qualified P16/P17 predecessor or completed-program claim.
