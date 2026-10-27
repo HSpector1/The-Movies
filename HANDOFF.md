@@ -1,6 +1,33 @@
 # HANDOFF
 
-## Current cold resume — 2026-10-27, 07:27 CDT
+## Claude: current resume — 2026-10-27, 07:50 CDT
+
+Last writer: Codex coordinator. Owner requested this handoff for Claude. Goal “finish through Sprint 16” is BLOCKED and incomplete after three consecutive resumed checks confirmed the same execution blocker. Sprint 8 is unfinished; do not restart earlier sprints or treat handoff as gameplay acceptance.
+
+### Branches and ownership
+- Gameplay source: 63a63abe63e62825916f3a69b4b4589ae3a7baed. Experimental checkout: /Users/zacheryspector/studio-scratch/p16-retained-writing-20261026-wt, branch p16-retained-writing-20261026. Pre-handoff remote HEAD: 6cda9fe5c94ebd0119715751cf9285ff6b6bf311; this checkpoint adds only HANDOFF.md. Resolve its resulting HEAD from Git.
+- Records checkout: /Users/zacheryspector/The-Movies-headless-program, branch wip/headless-program-20260916-ts. Pre-handoff remote HEAD: f4436a11ff88327a35fbb3ea558063c91abfc052. Primary P16 remains 013c4edc90c0ce063fea00ebb187161ad6eb3414; main remains ab65eb20c73c35ac3530f59181332cc9a313b604. Both owned trees were clean before this handoff.
+- One coordinator/integration writer and one intensive execution tree. Use Sol as implementation workhorse when available; independent test/review ownership remains disjoint. Previous specialists are terminal. No owned runtime, source freeze or lane lock remains. Never signal a foreign process or clear a foreign lock.
+
+### Read only what is needed
+- Start with AGENTS.md and the relevant WORKFLOW/LESSON_MAP route. Governing order: docs/engineering/audits/2026-10-22-codebase-review/p16-sprint5/OWNER-ASSIGNMENT.txt. It authorizes continuous Sprints 5–16, but no gameplay merge to main and no downstream work before its technical predecessors qualify.
+- In that audit directory, read LEDGER.md, STABILIZATION-REPORT.md and p16-sprint8/rival-obligations/{next-consumers.md,NEXT-DEPENDENCY.md,reviewed-green/AUDIT.md,coherent-consumers/AUDIT.md,bridge-types/AUDIT.md}. Review findings and correction patches are preserved beside them. Detailed lessons and older chronology remain below this section.
+- Local runnable/evidence packages: /Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-obligations. Preserve private inventories locally. Never rerun a USED runner; create a freshly bound attempt only when execution is actually permitted.
+
+### Verified result and limits
+- Native rival obligation v9 producer is committed and reviewed. Root typecheck exited 0; genuine C312 close, accounting/receipt/history dispositions, completion/Accept, save/replay and unrelated-film credit refusal passed. Exact 9,275.610403 ms exceeds the unchanged 5,000 ms budget. Prior v7/v8 history and Bridge projection 64 remain supported by the source design, not a broad acceptance claim.
+- Consumer gate ended 143 after foreign Godot appeared: eight complete file summaries reported 124 passing tests; five files incomplete, 39 printed budget overruns, no final JSON. Separate Bridge compilation also ended 143 without a result. Both interruptions were independently audited; only verified owned process trees were terminated. No completed or exclusive gate qualification follows.
+- No new game tests or source changes were made during the final handoff checks. At 07:50, foreign Godot PID 46264 under parent 45192 was live. This is an observation, not a future signal target. It belongs to the other Godot terminal, NOT Claude. Recheck live ownership; a momentary idle sample previously failed to provide a sustained window.
+
+### Exact next action
+1. Establish a sustained exclusive window. Use the existing equipment preflight and sole lane, preserving launch floor 3,670,016 KiB and runtime floor 3,145,728 KiB. Finish the missing consumers and Bridge types without repeating unchanged completed work unnecessarily or weakening the mandatory milestone. Freeze source/index/HANDOFF through independent postflight.
+2. Incomplete files: tests/p16-retained-drafting-continuation.test.ts; tests/p16-continued-work-cancel.test.ts; tests/p14c2c-rival-promises.test.ts; tests/p14c3-promise-digest-continuity.test.ts; tests/p15b4-studio-closure-save.test.ts. Exact coherent scope is in next-consumers.md. Reuse the unchanged-source root typecheck and focused result only within their recorded scope.
+3. Owner question pending: is there an approved rival Set acquisition/payment and optional setup-recipe selection policy? P13B plan lines 979/998 require shared mechanics, but the inspected rules supply no autonomous precursor policy. Current rivals have no Set inventory/emitter; public Set/setup actions are player-only and the player is not for sale. Do not fabricate a target, invent spending/strategy or remove guards. Preserve NEXT-DEPENDENCY.md's exact distinction.
+4. Separate prerequisites remain: original full-gate captures dense-02, dense-02p31 and dense-02p32 are unavailable; pinned Playwright Headless Chrome 1234/FFmpeg 1011 installation approval is pending; authorized Unity counterpart/toolchain is unqualified. Existing preparation is preserved; no repeated archive search or unapproved install.
+5. No qualified P16 technical predecessor yet: P17/P18 remain ineligible. Delegated-only retention is masked by own promise 12; acquired first take/termination/later closure and prior v8 production branches remain unproved. Keep historical failures and Owner playtesting separate. Continue independent authorized work when possible; otherwise report the precise blockers without a background-execution promise.
+
+
+## Historical handoff — 2026-10-27, 07:27 CDT
 
 Last writer: Codex coordinator. Weekly-usage HANDOFF TRIGGER reached100%; stopped at an idle safe boundary. Owner resumed goal “finish through sprint16”; it remains active/incomplete. This is the first blocker check after resume, not grounds to immediately mark it blocked again. No game checks, source edits or foreign signals this turn.
 
