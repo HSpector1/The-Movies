@@ -15,7 +15,7 @@ Last writer: Claude Fable 5.1 coordinator. Sprint 9 gates have run on gameplay 6
 
 ### Exact next action
 1. DONE 13:55: real browser smoke passes in installed Chrome (channel 'chrome', commits 78ba3ce0/e13399b4, p16-sprint9/browser-r9). The existing browser client has no P16 transaction surface; Sprint 9 transaction proof is the Bridge/core fixtures, labelled (RESULTS.md).
-2. Decide the immutable non-main P16 technical checkpoint (annotated tag on the experimental HEAD) with an explicit limits record: inherited baseline failures, 613 over-budget passes, six unrecoverable r3n1 rows, natural C-08 OPEN, no browser P16 surface, native unrun. If tagged, Sprint 10 (P17 continuation) becomes eligible on that predecessor; branch a clearly owned descendant integration branch from the tag.
+2. DONE 14:05: tag p16-technical-checkpoint-20261027 (object 0af3c188) at a5a66c27 with the limits record; descendant branch p17-continuation-20261027 pushed. Sprint 10 (P17 continuations and franchise state) is eligible on that branch: adapt the preserved P17 draft (P17-RECOVERED-SPECIFICATION-STATE.md, 1370-AE p17 design adoption, p17-continuation-prep-r2) to real P16 title/licence readers and the adopted greenlight link-versus-mint design; no mock rights adapters. Work only on p17-continuation-20261027 with a sparse worktree; keep the tag immutable.
 3. Do not relaunch the full gate for test-only changes; rerun only invalidated files. Keep the foreign session paused during lane runs; scan for Godot before every launch.
 
 
