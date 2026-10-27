@@ -1,5 +1,16 @@
 # HANDOFF
 
+## Rival screenplay candidate published — 2026-10-26, 21:40 CDT
+
+Source cf8def37a931b0e2bf01b3340e9b42586b187fe8 is pushed and explicitly remote verified on experimental p16-retained-writing-20261026. Eleven reviewed source owners implement native acquired writing/acceptance/scheduling, immutable creator history and versioned native cost proofs. The independent lifecycle preserves original assertions and budgets. Primary p16-rebase-20261024 remains 013c4edc; main remains ab65eb20. This is a recoverable candidate, not a qualified P16 technical checkpoint.
+
+Root and Bridge types exit 0. Complete Bridge parity now passes 9/9: eight bodies within 5000 ms, retained obligations 10909.782 ms above its original budget (exact prior 11480.027 ms). Fresh standalone runs are independently audited; source/input/preflight pins match and no owned job/lock remains. No Godot appeared in launch/post samples, not a continuous-exclusivity guarantee. Genuine rival close/writing/completion/Accept/save replay remains 3198.445 ms solo. Reused root types and did not repeat the interrupted ten completed files.
+
+The prior interrupted eleven-file gate remains incomplete as a gate: ten completed summaries89 assertions, nineteen printed timing overruns and uncertain foreign overlap. Separate Bridge completion does not erase those limitations. Native policy rejected acquired production, so greenlight/take/release/chart/shelving-threshold and nonzero original-development paths remain untested. Original source/test/harness failures, independent review corrections and restore patches are retained; see rival-script/SOURCE-PUBLISHED.json and run audits.
+
+Next: independent test author prepares a fixed genuine rival bound-promise premise from the existing historical311→312 R02 script0035/promise13 route. Do not assume a buyer is admissible, splice C171 identities or relabel native v8 as v7. Source preparation is not a qualified downstream predecessor. Complete exclusive consumer/full milestones when resources allow; browser installation, three missing originals, native tooling and Owner acceptance remain open. Sprint8/program incomplete; no main gameplay promotion or P17/P18 activation.
+
+
 ## Rival screenplay implementation and interrupted consumer checkpoint — 2026-10-26, 21:31 CDT
 
 Published gameplay remains 0108d51cc71943ac47bd7257ca2ff3c371fa1d31. Eleven reviewed source owners and the independent lifecycle test are installed but uncommitted on experimental p16-retained-writing-20261026. Exact source, review correction, literal type correction, premise/lifecycle and expectation patches are preserved under p16-sprint8/rival-script; apply them in the recorded order. Primary candidate 013c4edc and main ab65eb20 are unchanged. This records checkpoint does not promote unqualified source.

@@ -1,0 +1,40 @@
+{
+  "head": "7f26f432b3090e54653c224f5ece76c2fd032767",
+  "sourceManifestEntries": 1658,
+  "sourceBinding": "Reviewed original source plus three-finding correction and independently frozen lifecycle plus literal-only TS2322 correction plus independent one-line quote expectation correction",
+  "purpose": "Only unfinished complete Bridge parity file from interrupted gate",
+  "selector": {
+    "file": "tests/p16-carried-script-accept.test.ts",
+    "describe": "P16 genuine rival carried screenplay admission",
+    "it": "quotes actual171 R01 drafting with only its real writer retained into idle R02 before reaching the script producer"
+  },
+  "testPostimageSHA256": "b0f33a898b1b6badb4ce1e7126e52b6f529c8501d1dffbe0347d956fe82f07db",
+  "budget": {
+    "milliseconds": 5000,
+    "timeoutOverride": false,
+    "setupInsideLeaf": true,
+    "ticks": {
+      "withoutNativeGreenlight": 12,
+      "withActualNativeGreenlight": 22
+    }
+  },
+  "expectedFailure": null,
+  "capture": {
+    "environment": "P16_ORIGINAL48_CAPTURE_ROOT",
+    "file": "r04-actual163.save48.json",
+    "sha256": "c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad"
+  },
+  "limits": "One complete Bridge parity file; original budgets. Reuses root/Bridge compiler passes. Does not turn interrupted other files into exclusive qualification.",
+  "premiseMarker": "S8_RIVAL_SCRIPT_REAL171_PREMISES",
+  "children": [
+    {
+      "label": "bridge-parity",
+      "completeFiles": [
+        "tests/bridge-p16-rights-parity.test.ts"
+      ]
+    }
+  ],
+  "files": [
+    "tests/bridge-p16-rights-parity.test.ts"
+  ]
+}

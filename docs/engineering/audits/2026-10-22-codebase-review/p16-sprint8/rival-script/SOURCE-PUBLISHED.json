@@ -1,0 +1,25 @@
+{
+  "sourceCommit": "cf8def37a931b0e2bf01b3340e9b42586b187fe8",
+  "remote": "https://github.com/HSpector1/The-Movies.git",
+  "ref": "refs/heads/p16-retained-writing-20261026",
+  "explicitRemoteVerified": true,
+  "status": "CANDIDATE; not qualified P16 checkpoint",
+  "qualification": "Root and Bridge types0; focused genuine completion/Accept/save replay3198.445ms; complete Bridge9/9, one10909.782ms overrun. Prior ten-file observations and overlap/timing limits remain. Native acquired production branch not exercised.",
+  "files": {
+    "bridge-types/SOURCE-MANIFEST.json": "e28489c60c881ff7b976c4eb9f26fa42a7e239f34880bf123cdf480591b2a9ba",
+    "bridge-types/run.sh": "e265c9d544a78601222e0997ce8a594cbb5375486693411df126100978ea3076",
+    "bridge-types/AUDIT.md": "88ebe3499a29c54195d83fa316d6a88ceff70d44179390601636b50161348ae7",
+    "bridge-types/lane.log.meta": "ff9ab66db7e2e15aba75196cc5d07ff67c15ecf43166fbb4537678bf32cdb1bb",
+    "bridge-types/SELECTION.json": "423b27faa454544703e7fa5f3c9803021ccd6eee65aeeaa6b6d799495645f396",
+    "bridge-types/lane.log.gz": "ff577948a80cfab2e1cf05fa8a62e96fd948131108dee32c00d0de00b9498ffa",
+    "bridge-types/USED": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bridge-parity/SOURCE-MANIFEST.json": "e28489c60c881ff7b976c4eb9f26fa42a7e239f34880bf123cdf480591b2a9ba",
+    "bridge-parity/focused.json": "72b3be7b19cff011712224e78922d804ed517f1be3ea6687bce92c8b6f3dcfba",
+    "bridge-parity/run.sh": "7b8aae3aa4ca8fda6e916ecab8c2daa2b59843c23aa6874d789148c57bd4f50d",
+    "bridge-parity/AUDIT.md": "a985a83f605dfa6773a978858d172aa6c45a6060d234b5f1d691c185d76c6135",
+    "bridge-parity/lane.log.meta": "267d8da4f759bf8272f8c2e98f15f2ec50490c7325d66cf92d60a3351e223bf7",
+    "bridge-parity/SELECTION.json": "2d8a6861421dcbd9c2d5a9ea3f44a1d68653f8f7debc7bb35f5a616d8879b0a6",
+    "bridge-parity/lane.log.gz": "fb69847c8b530284453cd93d5e05313dae93156625e4351d9e3535e7377bcfea",
+    "bridge-parity/USED": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
