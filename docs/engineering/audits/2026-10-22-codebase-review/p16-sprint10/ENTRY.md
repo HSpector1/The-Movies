@@ -1,0 +1,15 @@
+# Sprint 10 entry — P17 continuations and franchise state, 2026-10-27, 14:15 CDT
+
+Predecessor: tag p16-technical-checkpoint-20261027 (object 0af3c188) at a5a66c27, gameplay 63a63abe. Owned descendant branch: p17-continuation-20261027 (pushed at a5a66c27). No source change yet.
+
+## Inputs located (read-only)
+- Adopted product decisions: docs/engineering/playability-launch-review/P17-RECOVERED-SPECIFICATION-STATE.md (healthy-franchise reboots legal; lasting 35% recognition floor of the quality-qualified peak; dormant return within Direct Sequel; no sixth type; optional hype/cast/crossover unselected).
+- Charter and RED design r2 (ACCEPT_DESIGN_ONLY): evidence/p14b4-20260919/1370-ae-restart-checkpoint/p17-continuation-prep-r2-5020e56e-20261008/ (five typed lineages, Recognition/Momentum/Fatigue, one reception seam, Shape A source seams, save/RED design).
+- Preserved implementation draft: /Users/zacheryspector/studio-specialists/p17 (detached base 6510c971; modules cameo.ts, continuation.ts, continuationGreenlight.ts, continuationSave.ts, continuationSignals.ts, continuationValidate.ts; 13 p17 test files, 3,147 lines) and the package studio-scratch/1370-ar-p17-continuation-cameo-implementation-20261010-r1 (PATCH.diff r1/r2, MANIFEST, REPORT, RED-FIRST-EVIDENCE, review findings).
+- Independent draft review (2026-10-22, read-only): studio-scratch/1370-codebase-review-20261022-r1/domain-reports/P17-P18.md. Verdict: the draft cannot be rebased mechanically. Named P17 defects to resolve during adaptation: P17-01 link-versus-mint (P16 applyGreenlight mints a story property for every player greenlight; a sequel under an R3 licence must link to the parent, not mint a clean title); P17-02 spin-off branch authority (continuationUseOf asks sequel/remake where P16 branchAuthority is the parent's spinoff); P17-03 save numbering (draft 46 → must become Save50 on P16's 49, with guards in migrateToV46/V47/P15BSave/V49); P17-04 reception seam moved into the shared publishCreatorRelease (P16 hollywoodTick.ts); P17-05 advanceHollywoodWeek argument merge hazard (market factor). Restack recipe lines are in that report.
+
+## Plan (bounded, no new research)
+1. Adapt the preserved draft externally to a5a66c27 (one implementation workhorse, disjoint from the coordinator), resolving P17-01..05 against the real P16 readers (rights.ts resolveTitles/subjectsHeldBy/rightsAuthority/branchAuthority, licence.ts, estate.ts) and the landed Save49 era; keep the five adopted lineage types, property-wide fatigue, reboot legality and the 35% floor; no mock rights adapters, no sixth type, no optional features.
+2. Independent test author re-pins the draft's REDs to the actual predecessor (RED first at a5a66c27 for the link-versus-mint law and the save step), then the adapted GREEN.
+3. Coordinator installs on p17-continuation-20261027, focused review, then lane runs: root/Bridge/UI types, contract checks, the p17 files, the P16 rights/licence/estate consumers and the affected Bridge files; broader gate at the Sprint 11 checkpoint.
+4. Budgets unchanged (core 5,000 ms); timing recorded, not qualified. Keep the foreign session paused during lane runs.
