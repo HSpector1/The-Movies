@@ -71,7 +71,6 @@ export function continuedWorkRefusal(state:GameState,targetId:string,production:
  * real returned allocation per continued production and carries it into the next admission. */
 export function bindContinuedWork(state:GameState,transaction:AbsorptionRecord,occupied:ReadonlySet<string>):GameState {
   const h=state.hollywood!,source=h.businesses.find(b=>b.studioId===transaction.targetId)!
-  if(transaction.buyerId!==h.playerStudioId && transaction.continuedProductions.some(row=>row.originalProduction.remainingTicks>4))throw new Error('absorption: rivalBuyerEarlierWorkProducerRequired')
   if(transaction.continuedProductions.length===0)return state
   let operations=buyerOperationsForAllWork(state,transaction.buyerId)
   let sourceOperations=source.operations

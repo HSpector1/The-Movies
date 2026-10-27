@@ -5,6 +5,20 @@ Last writer: Codex, 2026-10-26, sole coordinator for the authorized Sprints 5–
 
 
 
+
+## Earlier silent rival work checkpoint — 2026-10-26, 20:38 CDT
+
+- Four reviewed source owners now admit native earlier silent rival operation and recognize its exact acquired-production technology membership. Existing capacity, phase/setup/sound, company, creator-history and frozen-reader laws remain. Resolve exact new source HEAD from Git; primary candidate and main are unchanged.
+- Genuine R03 C163 original RED reaches the missing producer in 671.883 ms. Corrected same-leaf journey passes in 2668.810 ms solo and 3558.018 ms across complete files: buyer silent lock164, buyer first take166 with original screenplay subject, save165/replay166, native release169, title and installments0/1, final171 reload and wrong-owner refusal/purity.
+- Root types0; four complete affected files23/23. Seven existing player bodies exceed original5000 ms; nearest predecessor timing unavailable in this checkpoint, so neither inherited nor source-caused is established. Independent review/audits verify1658 source/six preflight pins; freezes released, no owned lane remains. Sampled noGodot is not continuous exclusivity.
+- Scope: genuine rival phase7 only. Newly admitted phases8/6/initial5 have static owner analysis, not independent rival runtime witnesses. Reuse earlier completed market67 and later-stage19 only within unchanged source scope. No broader P16/platform qualification or completed-program claim.
+- Next: publish and explicitly verify this source/evidence, then the next required producer from Sol's bounded residual disposition. Remaining rival screenplay/bound obligations, setup/selected Set/sound and historical compositions remain open. Full-game original inputs, browser approval, native tooling and Owner acceptance still block their own milestones. Evidence: audit p16-sprint8/rival-earlier.
+
+### Lesson: acquired operation membership keeps creator ownership
+
+The native earlier-phase engine already produces the buyer's silent lock and first take. Its technology reader recognized acquired production only for the player, despite computing an exact buyer/source membership join. Apply that existing join to the rival reader while retaining the complete current work proof; do not move the original paid production or invent a source take. The genuine failing admission and corrected lock/replay witness preserve this distinction.
+
+
 ## Genuine earlier rival admission RED — 2026-10-26, 20:27 CDT
 
 After the observed foreign Godot job ended, a fresh allowed preflight and clear launch/post host samples supported the short sole-lane witness. Source HEAD 58ea5d7146f36b287b98b656339f2eea1b6dece5 plus the preserved independent test patch reaches all actual R03 C163 paid diligence, person-choice, capacity, quote and reserve premises. Six original people retained; consideration 11097774, outlay 862165.7370649315, reserve 4125342, guarantees 2259225. No cash/history/timing fixture change.

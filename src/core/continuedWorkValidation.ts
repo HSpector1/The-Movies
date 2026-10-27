@@ -38,7 +38,7 @@ export function validateContinuedWork(state: GameState, business: RivalBusiness,
   const player=a.buyerId===h.playerStudioId
   const buyer=player?undefined:h.businesses.find(b=>b.studioId===a.buyerId)
   if(!player && !buyer)fail('actual rival operator missing')
-  if(!player && (a.continuedProductions.length>1 || a.continuedProductions.some(row=>row.originalProduction.remainingTicks>4) || a.workCancellations.length!==0))fail('rival earlier/manual work producer is not admitted')
+  if(!player && (a.continuedProductions.length>1 || a.workCancellations.length!==0))fail('rival multiple/manual work producer is not admitted')
   const buyerOperations=player?state.operations:buyer!.operations
 
   const links = a.continuedProductions

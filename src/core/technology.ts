@@ -900,7 +900,7 @@ function validateSharedTechnology(state: TechnologyBearingState, v: Validator, p
     const acquiredExists=acquiredOwner!==undefined && (acquiredSource?.productions.some(f=>f.id===p.productionId) || historicalFilmsByStudio.get(acquiredOwner.targetId)?.has(p.productionId))
     const exists = p.studioId === own
       ? acquiredExists || state.studio.activeProductions.some(f => f.id === p.productionId) || state.studio.releasedFilms.some(f => f.productionId === p.productionId) || p.lockedWeek !== null && state.ledger.some(e => e.productionId === p.productionId)
-      : business?.productions.some(f => f.id === p.productionId) || historicalFilmsByStudio.get(p.studioId)?.has(p.productionId)
+      : acquiredExists || business?.productions.some(f => f.id === p.productionId) || historicalFilmsByStudio.get(p.studioId)?.has(p.productionId)
     if (!exists) fail('unknown production loadout')
     if (p.lockedWeek !== null) week(p.lockedWeek)
     if (p.method === 'silent') {if (p.adoptionId !== null) fail('silent film has sound adoption')}
