@@ -1,5 +1,16 @@
 # HANDOFF
 
+## Genuine rival bound-obligation RED — 2026-10-26, 21:54 CDT
+
+Published experimental gameplay remains cf8def37a931b0e2bf01b3340e9b42586b187fe8. One independent test-only premise is installed but uncommitted in tests/p14c2rm-writer-continuation.test.ts; original 64 leaves, original Bridge witness and 5000 ms budget remain unchanged. Exact patch/source/capture pins are under p16-sprint8/rival-obligations. The preserved historical311 capture advances once to current312; no buyer/date/seed substitution, invented funding or rewritten history.
+
+Actual R01 buying R02 proves stable/no-loan conditions, writer consent, spare native writing slot beside its running film, paid diligence and whole-transaction affordability. Buyer cash223195905.1827533, ask86955202, exits1717352, outlay2607470.8833495975, reserve4363866. Promise13 continues,15/23 exit,19 unbound rows remain history, settled17/19/21 are untouched. Six historical closed cases and zero current target market matters remain explicit. All premises and finally-purity reach before exact absorbedPromiseDispositionProducerRequired at acquisition.ts460.
+
+One failed/64 skipped; body5387.399 ms exceeds5000. Child/wrapper1; no successful close or downstream lifecycle claim. Independent audit verifies1658 source/input and six preflight pins and releases freeze; no owned job/lock remains. NoGodot observed launch/post samples, not continuous exclusivity. The failed selection retains a stale descriptive expectedSourceCheckpoint field; actual checked HEAD/source pins are cf8def37, as the audit records. Do not rewrite original evidence.
+
+Next: Sol prepares the cohesive combined native-script/obligation source externally at p16-sprint8-obligations-20261026/rival-obligations/source; independent author extends this same leaf under lifecycle-test. Proposed v9 retains actual native v8 facts plus obligations without reinterpreting older versions. Neither author writes the checkout or runs tests; root alone integrates after focused review. Existing own R01 unbound promise12 may retain the writer after Ready, so do not force termination or claim delegated-only retention coverage. Source draft remains in progress/uninstalled; no new runtime or source qualification yet. All previous P16/full/platform/timing limitations remain; main unchanged.
+
+
 ## Rival screenplay candidate published — 2026-10-26, 21:40 CDT
 
 Source cf8def37a931b0e2bf01b3340e9b42586b187fe8 is pushed and explicitly remote verified on experimental p16-retained-writing-20261026. Eleven reviewed source owners implement native acquired writing/acceptance/scheduling, immutable creator history and versioned native cost proofs. The independent lifecycle preserves original assertions and budgets. Primary p16-rebase-20261024 remains 013c4edc; main remains ab65eb20. This is a recoverable candidate, not a qualified P16 technical checkpoint.

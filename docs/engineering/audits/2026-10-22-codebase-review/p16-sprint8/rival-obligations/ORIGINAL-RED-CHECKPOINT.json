@@ -1,0 +1,23 @@
+{
+  "sourceCommit": "cf8def37a931b0e2bf01b3340e9b42586b187fe8",
+  "sourceChanged": false,
+  "testFile": "tests/p14c2rm-writer-continuation.test.ts",
+  "testInstalledUncommitted": true,
+  "outcome": "All genuine premises reached; absorbedPromiseDispositionProducerRequired; downstream close unrun",
+  "bodyMilliseconds": 5387.399,
+  "budgetMilliseconds": 5000,
+  "budgetPassed": false,
+  "files": {
+    "premise-test/PREMISE-RED.patch": "4f0b4dbf3e7381022bd5286d5b356d189028ee6f0bb9dcd9a10acfda66e58ad1",
+    "premise-test/MANIFEST.json": "099a8840ba4c15a77334ae3b579a9925fd6f8a0919d800ec0056cf9a468c1181",
+    "premise-test/NOTES.md": "0a98aaf2141cd53d28002834b9cf657c8ed9e2d94ca02109ec4d0564f5fd8efb",
+    "original-red/SOURCE-MANIFEST.json": "485d2337a7290dcd03293ef62cdac224e9eeaa0e38880ecdf3f505fc73ed0d67",
+    "original-red/focused.json": "99dd4f162f8a0a6bad705ddc01590505a9971daa5526a7eaf623474500663a62",
+    "original-red/run.sh": "0332b14c9b9c186cd7a66f354f26667b83ad261ecb0820da37b7e995d7fa6f87",
+    "original-red/AUDIT.md": "15e8194d04fa622551deb1b47a3b8289f7199379e2866ddcc16bcb12edbbea83",
+    "original-red/lane.log.meta": "ee481930a3c49b14b8f2706b617ac4af29f874e5e323bb3a45777dba9793094a",
+    "original-red/SELECTION.json": "4d87946b8938457156bf5c500348a1712324cfebc4b54e7da61927b34fcf890e",
+    "original-red/lane.log.gz": "de244dd00d3150aeb35fc8705a99b29e59079519ee522090289ffaf7da56d54f",
+    "original-red/USED": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

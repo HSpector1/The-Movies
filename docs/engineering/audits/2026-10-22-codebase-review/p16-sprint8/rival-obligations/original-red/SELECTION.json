@@ -1,0 +1,31 @@
+{
+  "head": "cf8def37a931b0e2bf01b3340e9b42586b187fe8",
+  "sourceManifestEntries": 1658,
+  "expectedSourceCheckpoint": "0108d51c",
+  "sourceBinding": "Published cf8def37 plus exact independently frozen premise only",
+  "purpose": "Actual fixed C312 R01 buyer and R02 bound writer promise original source refusal",
+  "selector": {
+    "file": "tests/p14c2rm-writer-continuation.test.ts",
+    "describe": "P16 genuine rival retained obligations at original312",
+    "it": "quotes actual R01 buying R02 with its retained writer and four promise histories before the obligations producer"
+  },
+  "testPostimageSHA256": "679531d982100dec14ae711c4635cf7ee260e1194986cf5e6354eada9e77f1ae",
+  "budget": {
+    "milliseconds": 5000,
+    "timeoutOverride": false,
+    "setupInsideLeaf": true,
+    "ticks": 1
+  },
+  "expectedFailure": "absorption: absorbedPromiseDispositionProducerRequired only if actual current premises admit",
+  "limits": "One existing-file independent premise only; no source repair before authentic admission, no later lifecycle claim.",
+  "capture": {
+    "path": "tests/fixtures/p14/genuine-pre38-validation-controls/reproduced-v37-writer-commissioned311-finishing312.json.gz",
+    "compressedSha256": "db162c4a2576a2b828bae198a57f56ed20cf05bfd431d6896d53894a18588b1d",
+    "uncompressedSha256": "fc4eb5b323efc5d068751f7c130cc369428de61bfea91713cd8f96c46e486fc2",
+    "commissionedSaveJsonSha256": "87932ea3eb21050c3ac73e2c3eed65b32f88d0d51a665b69b281b1074e294a0c",
+    "finishingSaveJsonSha256": "cfc650ad7733bc9d023eac22e591ccaa4a2b297d038871f1e35b1906cba7d051",
+    "producerSourceSha": "c000479d6e888d3a02f5c2ff534f5dfcbb32af3f",
+    "producerSha256": "5de47c19d3c665e79590126c3c7155d517ef65fc3285a69a751a539cc355e161"
+  },
+  "premiseMarker": "S8_RIVAL_OBLIGATIONS_REAL312_PREMISES"
+}
