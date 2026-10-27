@@ -1,4 +1,5 @@
-// UNRUN one fixed eight-tick diagnostic; not healthy drafting feature acceptance.
+// One fixed eight-tick diagnostic; not healthy drafting feature acceptance. Sprint 7 (P16 retained drafting) supplied the
+// buyer-side continuation producer, so the current absorption owner no longer refuses this premise (Sprint 9 full gate, 2026-10-27).
 import {describe,it,expect} from 'vitest'
 import {readFileSync} from 'node:fs'
 import {createHash} from 'node:crypto'
@@ -9,7 +10,7 @@ import {productionPhaseForRemainingTicks} from '../src/core/productionPhases.js'
 import {absorptionProducerRefusal} from '../src/core/acquisition.js'
 const TARGET='studio-aca408ec-r01'
 describe('P16 fixed genuine actual163 new healthy drafting premise',()=>{
- it('observes exactly eight ordinary ticks then requires a genuinely new active drafting project before diagnosing the current absorption owner',()=>{
+ it('observes exactly eight ordinary ticks then finds no absorption producer refusal for the genuinely new active drafting project (continuation producer present since Sprint 7)',()=>{
   const root=process.env.P16_ORIGINAL48_CAPTURE_ROOT;expect(root).toBeTruthy()
   const bytes=readFileSync(root+'/r04-actual163.save48.json')
   expect(createHash('sha256').update(bytes).digest('hex')).toBe('c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad')
@@ -52,8 +53,8 @@ describe('P16 fixed genuine actual163 new healthy drafting premise',()=>{
   expect(conditionRecord(state,TARGET)?.condition).toMatchObject({stage:'stable',week:171})
   expect(outstandingLoan(state,TARGET,171)).toBeUndefined()
   const refusal=absorptionProducerRefusal(state,{buyerId:state.hollywood!.playerStudioId,targetId:TARGET,consideration:1,retention:{kind:'default'},disclosureId:null})
-  expect(refusal).toBe('retainedScriptProducerRequired')
-  console.info('P16_FIXED_DRAFT171_REFUSAL '+JSON.stringify({week:171,refusal,featureAcceptance:false}))
+  expect(refusal).toBeNull()
+  console.info('P16_FIXED_DRAFT171_REFUSAL '+JSON.stringify({week:171,refusal,featureAcceptance:false,producerPresentSince:'Sprint 7'}))
   expect(JSON.stringify(state)).toBe(beforeAdmission)
   expect(JSON.stringify(initial)).toBe(initialBefore)
   expect(JSON.stringify(raw)).toBe(rawBefore);expect(JSON.stringify(old)).toBe(oldBefore)

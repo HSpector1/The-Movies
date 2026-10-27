@@ -110,8 +110,10 @@ const OUTGOING_58 = 'sha256:13b7933fdd1e3dc9851dd08630e46efd43e70227f5e0c6f6cf13
 const OUTGOING_59 = 'sha256:6347433150a8ed3988573840bfa22621d5f5aa35b3d053b25ff5e6700ad02dcd'
 const OUTGOING_60 = 'sha256:8bf350135c7a8b69b4fc2258d1082f452047d37964d0d58b6cc8ceefc87153e4'
 const OUTGOING_61 = 'sha256:7d23fdb9a710175afb88208170cfe5692510febe06fb898a3ccd95edc9c53306'
+const OUTGOING_62 = 'sha256:2b94e6df66cd5b45e398861c8130085434d4bb9c4d0cf9bdcb97607699799604' // P16 Sprint 7: outgoing62 registered beneath 63 (bridge/runtime-checkpoint.ts)
+const OUTGOING_63 = 'sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1' // P16 Sprint 8: outgoing63 registered beneath current64 (contract64)
 const OUTGOING_PROJECTION = 48
-const INCOMING_PROJECTION = 62
+const INCOMING_PROJECTION = 64
 // The 36 accepted prior literals as they stand today (tests/bridge-p14b4-runtime47-compatibility.test.ts
 // :40-80, exact-count pin at :162). B.6 took this roster to 37 by adding OUTGOING_48;
 // B.8 takes it to 38 by adding OUTGOING_49.
@@ -797,17 +799,17 @@ describe('family 8 — the WIRE (RED BY VALUE: version literals and a registry c
     expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-4:projection-${String(INCOMING_PROJECTION)}`)
   })
 
-  it('the outgoing 00c0075b… stays registered as projection-v48 and the prior roster contains40 identities through projection51', () => {
+  it('the outgoing 00c0075b… stays registered as projection-v48 and the prior roster contains 52 identities through projection63', () => {
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_48)).toBe('projection-v48')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_57)).toBe('projection-v57')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     expect(EXPECTED_36_PRIOR_IDS).toHaveLength(36)
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_36_PRIOR_IDS, OUTGOING_48, OUTGOING_49, OUTGOING_50, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_36_PRIOR_IDS, OUTGOING_48, OUTGOING_49, OUTGOING_50, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61, OUTGOING_62, OUTGOING_63].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
-    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size).toBe(50) // P16: + outgoing58-61
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size).toBe(52) // P16: + outgoing58-63
   })
 
   it('the checked-in generator artifacts equal the running identity (`--check` clean), and priorityOrder keeps its seven members and its line', () => {

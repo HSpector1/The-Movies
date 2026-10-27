@@ -1,4 +1,5 @@
-// UNRUN one fixed eight-tick diagnostic; not healthy drafting feature acceptance.
+// One fixed eight-tick diagnostic; not healthy drafting feature acceptance. Originally a refusal witness; since Sprint 7's
+// buyer-side continuation producer the same premise quotes lawful continuation (positive route: p16-retained-drafting-continuation).
 import {describe,it,expect} from 'vitest'
 import {readFileSync} from 'node:fs'
 import {createHash} from 'node:crypto'
@@ -6,7 +7,7 @@ import * as saves from '../src/core/save.js'
 import {tick} from '../src/core/tick.js'
 import {conditionRecord,outstandingLoan} from '../src/core/corporateConditionLive.js'
 import {productionPhaseForRemainingTicks} from '../src/core/productionPhases.js'
-import {absorptionProducerRefusal,quoteAbsorption,closeAbsorption,absorptionAsk} from '../src/core/acquisition.js'
+import {absorptionProducerRefusal,quoteAbsorption,absorptionAsk} from '../src/core/acquisition.js'
 import {requestDiligence} from '../src/core/dueDiligence.js'
 import {terminationCost} from '../src/core/employment.js'
 import {libraryValuationV1} from '../src/core/propertyValuation.js'
@@ -89,7 +90,7 @@ function pureOriginal(p:ReturnType<typeof prepared>){
  expect(JSON.stringify(p.paid.state)).toBe(p.paidBefore);expect(JSON.stringify(p.state)).toBe(p.beforeAdmission)
  expect(JSON.stringify(p.initial)).toBe(p.initialBefore);expect(JSON.stringify(p.raw)).toBe(p.rawBefore);expect(JSON.stringify(p.old)).toBe(p.oldBefore)
 }
-function refused(p:ReturnType<typeof prepared>,retention:{kind:'default'}|{kind:'explicit';contractIds:string[]}){
+function continued(p:ReturnType<typeof prepared>,retention:{kind:'default'}|{kind:'explicit';contractIds:string[]}){
  const library=libraryValuationV1(p.paid.state,TARGET,171);expect(library.kind).toBe('available')
  if(library.kind!=='available')throw new Error('actual171 fixed library premise absent')
  // One public whole ask using all actual source cash before exits; never retry another amount.
@@ -100,23 +101,23 @@ function refused(p:ReturnType<typeof prepared>,retention:{kind:'default'}|{kind:
  if(quote.kind!=='quote')throw new Error(quote.refusal)
  expect(quote.affordable).toBe(true)
  expect(quote.scripts).toHaveLength(p.quote.scripts.length)
- expect(quote.scripts.every(q=>q.disposition==='continuationRequired'&&q.reason==='writerContinuationProducerRequired')).toBe(true)
+ expect(quote.scripts.every(q=>q.disposition==='continues'&&q.reason==='writerTeamRetained')).toBe(true)
  const input={...preview,quotedAtWeek:quote.quotedAtWeek,quoteAgePolicyVersion:quote.quoteAgePolicyVersion}
- expect(absorptionProducerRefusal(p.paid.state,input)).toBe('retainedScriptProducerRequired')
- try{expect(()=>closeAbsorption(p.paid.state,input,171)).toThrow(/retainedScriptProducerRequired/)}finally{pureOriginal(p)}
+ expect(absorptionProducerRefusal(p.paid.state,input)).toBeNull()
+ pureOriginal(p)
  saves.makeSave(p.paid.state)
 }
-describe('P16 real171 drafting continuation remains explicitly unsupported',()=>{
- it('default writer choice exposes continuation required and refuses the actual funded close without converting drafting to writeoff',()=>{
+describe('P16 real171 drafting continuation quotes lawful continuation (producer present since Sprint 7)',()=>{
+ it('default writer choice quotes continuing drafting with no producer refusal and never converts drafting to writeoff',()=>{
   const p=prepared()
   expect(p.quote.scripts.every(q=>q.disposition==='writeOff')).toBe(true)
-  refused(p,{kind:'default'})
+  continued(p,{kind:'default'})
  })
- it('explicit writer retention in a partial company selection requires a real continuation owner and preserves all original input',()=>{
+ it('explicit retention of all drafting writers in a partial company selection quotes continuation and preserves all original input',()=>{
   const p=prepared(),writers=[...new Set(p.source.development.projects.filter(s=>s.status==='drafting'||s.status==='rewriting').flatMap(s=>s.writerIds))]
   expect(writers.length).toBeGreaterThan(0)
   const contractIds=writers.map(id=>{const row=p.state.hollywood!.activeEmploymentOrdinals.map(i=>p.state.hollywood!.employment[i]!).find(e=>e.studioId===TARGET&&e.terms.talentId===id&&e.endedWeek===null&&e.terms.startWeek<=171&&171<e.terms.endWeekExclusive);expect(row).toBeDefined();return row!.contractId})
   expect(contractIds.length).toBeLessThan(p.quote.contracts.length)
-  refused(p,{kind:'explicit',contractIds})
+  continued(p,{kind:'explicit',contractIds})
  })
 })
