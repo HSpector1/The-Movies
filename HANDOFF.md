@@ -6,6 +6,20 @@ Last writer: Codex, 2026-10-26, sole coordinator for the authorized Sprints 5–
 
 
 
+
+## Genuine rival carried-screenplay RED — 2026-10-26, 20:47 CDT
+
+Published gameplay source remains 0108d51cc71943ac47bd7257ca2ff3c371fa1d31. One independent premise leaf is installed but uncommitted in tests/p16-carried-script-accept.test.ts; exact patch and original failed evidence are preserved in p16-sprint8/rival-script. All three original cases and original5000 ms budget remain unchanged.
+
+The existing actual163→171 route proves real R02 stability/no loan, idle operations, native development slot0, retained original writer, paid diligence, coupled film12 cancellation quote, empty target obligations and whole-transaction affordability. Consideration8563422, exits1107548, outlay949538.5155096687, reserve2621814, guarantees281459. No player activation or diligence is imported into the rival fork; the existing helper's prior unactivated state is preserved.
+
+Quote nonetheless reports continuationRequired/writerCapacityUnavailable because its code excludes every rival. Actual close reaches retainedScriptCapacityProducerRequired at acquisition.ts457 before the later rival-script guard. One failed/three skipped,1828.496 ms within5000; caller purity reaches. This is a genuine missing quote/operation owner, not a demonstrated capacity shortage. Downstream lifecycle remains unreached.
+
+Independent postflight verifies1658 source/input and six preflight pins, terminal child/wrapper1 and absence of owned jobs/lock; freeze released. NoGodot observed launch/post samples, without continuous-exclusivity guarantee. Root retains integration/lane ownership. Sol prepares one cohesive source package externally under rival-script/source; independent author prepares the same-leaf lifecycle extension under lifecycle-test. Neither writes X or runs runtime. No new source draft installed yet.
+
+Next: finish native rival capacity, remaining writing, automatic acceptance, actual native ready/greenlight/release and truthful versioned rival cost/history proof. Existing player ledger/placement receipts cannot attest rival native costs. Review coherent source before install; retain native policy and all original tests/budgets. Do not stop at Ready-only behavior, fabricate a greenlight or copy creator history. Preserve actual policy refusal/unreached branches. Earlier player timing failures, full-game missing originals, browser approval, native tooling/Owner acceptance and the overall program remain open; main unchanged.
+
+
 ## Earlier silent rival work checkpoint — 2026-10-26, 20:38 CDT
 
 - Four reviewed source owners now admit native earlier silent rival operation and recognize its exact acquired-production technology membership. Existing capacity, phase/setup/sound, company, creator-history and frozen-reader laws remain. Resolve exact new source HEAD from Git; primary candidate and main are unchanged.
