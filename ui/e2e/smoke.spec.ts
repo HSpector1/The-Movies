@@ -136,6 +136,12 @@ test('full playable loop: assemble → greenlight → release → autopsy → sa
     // A managed production cannot progress through a visible phase decision by repeatedly
     // advancing time. Exercise the authoritative command before advancing the next week.
     await resolveProductionCommands(page)
+    // P06A release-commit affordance: a Release Ready picture holds until the player commits it;
+    // advancing alone never releases it. Commit when the dashboard offers it, then advance.
+    const commit = page.getByTestId('release-commit')
+    if (await commit.isVisible().catch(() => false)) {
+      await commit.click()
+    }
     const advance = page.getByTestId('advance-week')
     if (await advance.isVisible().catch(() => false)) {
       await advance.click()
