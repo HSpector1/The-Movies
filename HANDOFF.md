@@ -1,5 +1,14 @@
 # HANDOFF
 
+## Rival obligations reviewed source installed — 2026-10-26
+
+Eleven source owners plus the independent same-leaf lifecycle test are installed, uncommitted and STATIC-UNRUN on experimental HEAD 53f821499b838bb701dedb74f5f49ef06f3796bf. Original source remains published at cf8def37. Restore rival-obligations/source/RIVAL-OBLIGATIONS.patch, review-fix/OWNER-CHECK.patch, review-fix-same-week/SAME-WEEK.patch and lifecycle-test/LIFECYCLE.patch after the preserved premise patch. Primary P16 and main remain unchanged.
+
+Independent review found and statically closed two blockers: malformed native owner check and same-week delegated-duty reassignment bypass. Original patches and findings remain preserved. Historical v7/v8 formats and Bridge projection 64 are retained; proposed v9 combines native writing and obligation facts. No compilation or runtime claim yet.
+
+First-green was NOT LAUNCHED: equipment preflight allowed 8146212 KiB, but explicit host scan found foreign Godot PID19565. No USED, compiler, runtime or lane was created; no foreign process was signaled. Preserve first-green/LAUNCH-BLOCKED.json and private host evidence. Next: verify foreign completion and a qualified window, bind a fresh compiler-first attempt after all HANDOFF edits, then one genuine C312 lifecycle only if compilation succeeds. Freeze source/index/HANDOFF through independent postflight. Original 5000 ms budget, all 64 prior leaves and premise assertions remain. Original RED 5387.399 ms overrun stays open. Own unbound promise12 prevents delegated-only retention proof; unrelated native film33 first take must not credit acquired promise13. All broader, platform, missing-input and Owner acceptance limitations remain.
+
+
 ## Genuine rival bound-obligation RED — 2026-10-26, 21:54 CDT
 
 Published experimental gameplay remains cf8def37a931b0e2bf01b3340e9b42586b187fe8. One independent test-only premise is installed but uncommitted in tests/p14c2rm-writer-continuation.test.ts; original 64 leaves, original Bridge witness and 5000 ms budget remain unchanged. Exact patch/source/capture pins are under p16-sprint8/rival-obligations. The preserved historical311 capture advances once to current312; no buyer/date/seed substitution, invented funding or rewritten history.
