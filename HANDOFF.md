@@ -1,5 +1,25 @@
 # HANDOFF
 
+## Genuine rival bound-obligation RED — 2026-10-26, 21:54 CDT
+
+Published experimental gameplay remains cf8def37a931b0e2bf01b3340e9b42586b187fe8. One independent test-only premise is installed but uncommitted in tests/p14c2rm-writer-continuation.test.ts; original 64 leaves, original Bridge witness and 5000 ms budget remain unchanged. Exact patch/source/capture pins are under p16-sprint8/rival-obligations. The preserved historical311 capture advances once to current312; no buyer/date/seed substitution, invented funding or rewritten history.
+
+Actual R01 buying R02 proves stable/no-loan conditions, writer consent, spare native writing slot beside its running film, paid diligence and whole-transaction affordability. Buyer cash223195905.1827533, ask86955202, exits1717352, outlay2607470.8833495975, reserve4363866. Promise13 continues,15/23 exit,19 unbound rows remain history, settled17/19/21 are untouched. Six historical closed cases and zero current target market matters remain explicit. All premises and finally-purity reach before exact absorbedPromiseDispositionProducerRequired at acquisition.ts460.
+
+One failed/64 skipped; body5387.399 ms exceeds5000. Child/wrapper1; no successful close or downstream lifecycle claim. Independent audit verifies1658 source/input and six preflight pins and releases freeze; no owned job/lock remains. NoGodot observed launch/post samples, not continuous exclusivity. The failed selection retains a stale descriptive expectedSourceCheckpoint field; actual checked HEAD/source pins are cf8def37, as the audit records. Do not rewrite original evidence.
+
+Next: Sol prepares the cohesive combined native-script/obligation source externally at p16-sprint8-obligations-20261026/rival-obligations/source; independent author extends this same leaf under lifecycle-test. Proposed v9 retains actual native v8 facts plus obligations without reinterpreting older versions. Neither author writes the checkout or runs tests; root alone integrates after focused review. Existing own R01 unbound promise12 may retain the writer after Ready, so do not force termination or claim delegated-only retention coverage. Source draft remains in progress/uninstalled; no new runtime or source qualification yet. All previous P16/full/platform/timing limitations remain; main unchanged.
+
+
+## Rival bound-obligation premise installed — 2026-10-26
+
+Published experimental gameplay is cf8def37a931b0e2bf01b3340e9b42586b187fe8; records a86a567b23e665d551c0680cb58346d3371e0389. One independent test-only premise is installed, uncommitted, in tests/p14c2rm-writer-continuation.test.ts. All original leaves/Bridge test and 5000 ms budget are preserved. Patch/manifest: p16-sprint8-obligations-20261026/rival-obligations/premise-test. No obligation source repair yet.
+
+The fixed existing historical311 input advances once to actual312. R01 buyer must prove current stable/no-loan status, person consent, writing capacity beside its own real production, paid diligence and whole-quote affordability for R02 writer/script0035. All target promise classes and historical market cases remain intact. Expected missing producer is absorbedPromiseDispositionProducerRequired only after every actual premise admits; setup failure is not acceptance evidence.
+
+Next: original-red exact one-leaf runner through fresh preflight/sole lane, then independent postflight before edits. Freeze source/index/HANDOFF during execution/audit. Preserve original fixture funding provenance and all failed attempts; no alternate buyer/date/seed or fabricated finances. Prior candidate, timing, resource and untested native production limitations remain open. Main and primary P16 unchanged.
+
+
 ## Rival screenplay candidate publication — 2026-10-26, 21:40 CDT
 
 The reviewed eleven-owner implementation and independent lifecycle test are being committed on experimental p16-retained-writing-20261026. Resolve exact commit from Git; primary p16-rebase-20261024 and main remain unchanged. This is a recoverable candidate, not the P16 qualified technical checkpoint.
