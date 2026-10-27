@@ -1,6 +1,26 @@
 # HANDOFF
 
-## Claude: current resume — 2026-10-27, 08:10 CDT
+## Claude: current resume — 2026-10-27, 10:40 CDT
+
+Last writer: Claude Fable 5.1 coordinator. The Owner paused the foreign Godot session at about 10:15 CDT and the consumer remainder ran. Sprint 8's consumer checkpoint is now functionally complete on gameplay 63a63abe; Sprint 8 itself stays incomplete on the rival Set/setup policy and natural C-08. Gameplay source is unchanged.
+
+### Branches and ownership
+- Experimental p16-retained-writing-20261026 at /Users/zacheryspector/studio-scratch/p16-retained-writing-20261026-wt: gameplay 63a63abe63e62825916f3a69b4b4589ae3a7baed; HEAD before this checkpoint 16aa35da7286c55cedbc52a83ddb605dc58b30ec (handoff-only above gameplay). Records wip/headless-program-20260916-ts HEAD before this checkpoint 38798cb49b72264df6891b1ce381e8e6eec684ef. Primary 013c4edc and main ab65eb20 unchanged. Resolve new HEADs from Git; verify explicit remote refs.
+- One coordinator writer, one execution tree. No owned job, lane lock or freeze remains (independent postflight released it). No specialist is live.
+
+### Verified this session
+- consumers-remainder (five files then Bridge types) ran through bind, fresh preflight, explicit no-Godot scan and the lane, 10:16:31–10:18:41 CDT. 26 tests: 23 passed, 3 failed. Bridge types exit 0. The three failures are p14c2c-rival-promises R1–R3, byte-identical first line to the recorded Oct 25 baseline: inherited, not v9. Twelve leaves exceed the unchanged 5,000 ms budget (nine pass). Record: p16-sprint8/rival-obligations/consumers-remainder/AUDIT.md.
+- Exclusivity is sampled (launch scan, post scan, no foreign launch directory in the window, 10-second poll with no sighting), not proven continuous. With coherent-consumers' eight complete summaries this is functional coverage of all thirteen selected files, not an exclusive gate for the earlier eight and not timing qualification.
+- Static source disposition added to p16-sprint8/REMAINING-PRODUCERS.md: due physical and due adoption completion at close already have native producers (completeRivalPlans; finishTechnologyWeek); the acquisition refusals are consistency guards. No runtime was run for that reading.
+
+### Exact next action
+1. Owner decision pending: rival Set acquisition/payment and optional recipe-selection policy (rival-obligations/NEXT-DEPENDENCY.md). Do not invent it. Natural C-08 close proof stays open without a genuine premise.
+2. If the Owner supplies the policy: independent RED premise first, then source through the actual setup/Set owners, focused review, then a fresh bound lane attempt (pattern of rival-obligations). Keep the foreign session paused during any run; re-scan for Godot before every launch.
+3. Otherwise Sprint 9 cannot start (no qualified P16 technical predecessor). Separate prerequisites unchanged: three original full-gate captures, pinned Playwright Chrome 1234/FFmpeg 1011 install approval, Unity toolchain.
+4. Inherited p14c2c R1–R3 (rival retirement promise cutoff: outcome SATISFIED/progress 1 where null/0 expected) keep their baseline disposition; a repair is a separate bounded slice only if the adopted retirement law requires it.
+
+
+## Historical handoff — 2026-10-27, 08:10 CDT
 
 Last writer: Claude Fable 5.1 coordinator. Sprint 8 remains unfinished and the Sprints 5–16 program remains BLOCKED on the same two prerequisites. This checkpoint adds a measured description of the execution blocker and a prepared, unbound remainder runner. No source, test, runtime or compiler work ran; nothing was signalled.
 
