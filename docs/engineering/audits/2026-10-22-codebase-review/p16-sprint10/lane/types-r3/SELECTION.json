@@ -1,0 +1,17 @@
+{
+  "head": "5a6fc0bb938f8b36deb3c185843f96bccc61c84f",
+  "predecessor": "a5a66c27e8b07b029d196850f8133cccfa3d26ef (tag p16-technical-checkpoint-20261027)",
+  "sourceManifestEntries": 2069,
+  "purpose": "Sprint 10 compiler-first r3: root and Bridge typecheck after FIX-1",
+  "children": [
+    {
+      "label": "root-types",
+      "command": "node node_modules/typescript/bin/tsc --noEmit"
+    },
+    {
+      "label": "bridge-types",
+      "command": "node node_modules/typescript/bin/tsc -p tsconfig.bridge.json --noEmit"
+    }
+  ],
+  "limits": "Compiler only; no runtime claim."
+}

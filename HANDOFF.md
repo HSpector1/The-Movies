@@ -16,7 +16,7 @@ Last writer: Claude Fable 5.1 coordinator. Sprint 9 gates have run on gameplay 6
 ### Exact next action
 1. DONE 13:55: real browser smoke passes in installed Chrome (channel 'chrome', commits 78ba3ce0/e13399b4, p16-sprint9/browser-r9). The existing browser client has no P16 transaction surface; Sprint 9 transaction proof is the Bridge/core fixtures, labelled (RESULTS.md).
 2. DONE 14:05: tag p16-technical-checkpoint-20261027 (object 0af3c188) at a5a66c27 with the limits record; descendant branch p17-continuation-20261027 pushed. Sprint 10 (P17 continuations and franchise state) is eligible on that branch: adapt the preserved P17 draft (P17-RECOVERED-SPECIFICATION-STATE.md, 1370-AE p17 design adoption, p17-continuation-prep-r2) to real P16 title/licence readers and the adopted greenlight link-versus-mint design; no mock rights adapters. Work only on p17-continuation-20261027 with a sparse worktree; keep the tag immutable.
-3. Sprint 10 entry recorded (p16-sprint10/ENTRY.md): preserved draft at studio-specialists/p17 plus package 1370-ar-p17-continuation-cameo-implementation-20261010-r1; domain review P17-P18.md names rebase defects P17-01..05 (link-versus-mint, spin-off authority, Save50 on 49, publishCreatorRelease seam, advanceHollywoodWeek args). Next: external adaptation to a5a66c27 by one workhorse, RED-first re-pin by an independent author, install on p17-continuation-20261027, review, lane runs. Do not relaunch the full gate for test-only changes. Keep the foreign session paused during lane runs; scan for Godot before every launch.
+3. Sprint 10 state 14:55: candidate 5a6fc0bb on p17-continuation-20261027 (worktree studio-scratch/p17-continuation-20261027-wt; RED worktree studio-scratch/p17-red-20261027-wt on local branch p17-red-20261027 at the parent). Types 0; GREEN 245/249; review NEEDS CHANGES (p16-sprint10/REVIEW.md); FIX-2 pending from the workhorse, then types + focused + RED-at-parent for the new cases, re-review, then the full core at the Sprint 10 checkpoint. Entry record: preserved draft at studio-specialists/p17 plus package 1370-ar-p17-continuation-cameo-implementation-20261010-r1; domain review P17-P18.md names rebase defects P17-01..05 (link-versus-mint, spin-off authority, Save50 on 49, publishCreatorRelease seam, advanceHollywoodWeek args). Next: external adaptation to a5a66c27 by one workhorse, RED-first re-pin by an independent author, install on p17-continuation-20261027, review, lane runs. Do not relaunch the full gate for test-only changes. Keep the foreign session paused during lane runs; scan for Godot before every launch.
 
 
 ## Historical handoff — 2026-10-27, 10:40 CDT
@@ -556,14 +556,14 @@ headings above retain their established names. History carries evidence, not cur
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-25 09:12 CDT by **claude** on SessionEnd (session 9cc1c978-4c1c-4700-a984-2931170871a6)
-- Branch: `wip/headless-program-20260916-ts` @ `99e3af62b7333b65c5bad5e10b78173f6a2ae370`
+- Stamped: 2026-10-27 14:17 CDT by **claude** on PreCompact (session 6b978654-36fe-4261-9a46-e7091da520c3)
+- Branch: `wip/headless-program-20260916-ts` @ `12bf1e829f6e80a6aabe54acb5974b2ee596cb06`
 - Upstream: `none`, unpushed commits: ?
 - Uncommitted files: 0
 - Last commits:
-  - 99e3af62 Records: the fifteen audit domain reports beside the ledger
-  - 12e05bdc Records: wave 3 checkpoint (rounds 4–7, third review, full gate wave3f) and the takeover handoff
-  - d7f2be0a Records: wave 3 (P16 rebase) rounds 1-3 recorded; 18A folded into projection 62 on the candidate branch
-  - 9f36dd23 TycoonScene: the key-capture comment states the 17A rule
-  - 8792de52 Records: waves 1 and 2 landed, PR 19 merged, handoff current
+  - 12bf1e82 docs: record the Sprint 10 entry inputs and plan
+  - c2e2d354 docs: publish the P16 technical checkpoint tag record and open Sprint 10
+  - 91896a40 docs: record the real browser loop in installed Chrome and the absent browser P16 transaction surface
+  - 9f2ec837 docs: publish Sprint 9 full-tree gate, classified results, reviewed test repair and audits
+  - 75211e92 docs: record Owner ruling closing the rival Set/setup dependency
 <!-- AUTO:END -->

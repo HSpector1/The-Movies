@@ -1,0 +1,26 @@
+#!/bin/bash
+set -u
+export PATH="/usr/local/bin:$PATH"
+X=/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt
+S=/Users/zacheryspector/studio-scratch/p16-sprint10-20261027/green-r4
+cd "$X" || exit 9
+. /Users/zacheryspector/studio-scratch/p16-c03-sprint1-20261025/p16-env.sh
+[ "$(node --version)" = v20.20.2 ] || exit 9
+python3 -I - "$S/SOURCE-MANIFEST.json" "$S/SELECTION.json" <<'VERIFY'
+import hashlib,json,subprocess,sys
+from pathlib import Path
+sel=json.loads(Path(sys.argv[2]).read_text()); head=sel['head']
+assert isinstance(head,str) and len(head)==40, 'binding pending'
+G=['git','-c','gc.auto=0','-c','maintenance.auto=0','--no-optional-locks']
+assert subprocess.check_output(G+['rev-parse','HEAD'],text=True).strip()==head, 'HEAD differs'
+assert subprocess.check_output(G+['status','--porcelain'],text=True)=='', 'tree dirty'
+m=json.loads(Path(sys.argv[1]).read_text()); assert len(m)==sel['sourceManifestEntries'] and len(m)>0
+for name,expected in m.items(): assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==expected, name
+VERIFY
+[ "$?" = 0 ] || exit 9
+[ ! -e "$S/USED" ] || exit 9
+touch "$S/USED"
+fail=0
+run() { local label="$1"; shift; [ "$(df -Pk . | awk 'NR==2 {print $4}')" -ge 3145728 ] || { echo "=== STOP runtime floor"; exit 9; }; local s; s=$(date +%s); echo "=== BEGIN $label"; date -Iseconds; "$@"; local rc=$?; echo "=== END $label exit=$rc elapsed=$(( $(date +%s) - s ))s"; date -Iseconds; [ "$rc" = 0 ] || fail=1; }
+run focused node node_modules/vitest/vitest.mjs run --project core tests/p17-continuation-law.test.ts tests/p17-continuation-seam.test.ts tests/p17-continuation-signals.test.ts tests/p17-p16-rights.test.ts tests/p17-save-step.test.ts tests/bridge-runtime-checkpoint.test.ts tests/p14d2-rival-facility-disposal.test.ts tests/p15b-legacy-terminal-regression.test.ts tests/p15b2-corporate-condition-save.test.ts tests/p16-estate-current49-rollback.test.ts tests/p16-estate-d-join-negative.test.ts tests/p16-held-title-seller.test.ts tests/p16a-save-v46.test.ts tests/p16a-valuation.test.ts tests/p16-estate-observed-migration.test.ts tests/p14b4-material-evidence-core.test.ts tests/p16-r2-validator.test.ts --reporter=default --reporter=json --outputFile="$S/focused.json"
+echo "=== CHECKPOINT exit=$fail"; exit "$fail"

@@ -1,0 +1,35 @@
+{
+  "head": "5a6fc0bb938f8b36deb3c185843f96bccc61c84f",
+  "predecessor": "a5a66c27 (tag p16-technical-checkpoint-20261027)",
+  "sourceManifestEntries": 2069,
+  "purpose": "Sprint 10 GREEN focused run on the P17 candidate (5a6fc0bb): the five new p17 files, the hand re-pinned and FIX-1 files and the save-era consumers; root/Bridge types already 0 (types-r3)",
+  "children": [
+    {
+      "label": "focused",
+      "completeFiles": [
+        "tests/p17-continuation-law.test.ts",
+        "tests/p17-continuation-seam.test.ts",
+        "tests/p17-continuation-signals.test.ts",
+        "tests/p17-p16-rights.test.ts",
+        "tests/p17-save-step.test.ts",
+        "tests/bridge-runtime-checkpoint.test.ts",
+        "tests/p14d2-rival-facility-disposal.test.ts",
+        "tests/p15b-legacy-terminal-regression.test.ts",
+        "tests/p15b2-corporate-condition-save.test.ts",
+        "tests/p16-estate-current49-rollback.test.ts",
+        "tests/p16-estate-d-join-negative.test.ts",
+        "tests/p16-held-title-seller.test.ts",
+        "tests/p16a-save-v46.test.ts",
+        "tests/p16a-valuation.test.ts",
+        "tests/p16-estate-observed-migration.test.ts",
+        "tests/p14b4-material-evidence-core.test.ts",
+        "tests/p16-r2-validator.test.ts"
+      ]
+    }
+  ],
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "timeoutOverride": false
+  },
+  "limits": "Functional focused run; the Save49->Save50 sweep across 76 files and the broad consumers need the full core at the next checkpoint."
+}

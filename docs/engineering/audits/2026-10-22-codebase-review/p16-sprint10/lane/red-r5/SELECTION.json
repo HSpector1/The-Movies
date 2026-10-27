@@ -1,0 +1,15 @@
+{
+  "head": "180b35568ce0e862661ecfb0f85f9a2469d0043a",
+  "worktree": "/Users/zacheryspector/studio-scratch/p17-red-20261027-wt (detached a5a66c27 plus only the new test file and its route helper on local branch p17-red-20261027)",
+  "sourceManifestEntries": 1334,
+  "purpose": "RED premise for the Sprint 10 link-versus-mint / rights laws: tests/p17-p16-rights.test.ts at the P16 checkpoint without any P17 source; every case must fail by assertion, not by import",
+  "children": [
+    {
+      "label": "red",
+      "completeFiles": [
+        "tests/p17-p16-rights.test.ts"
+      ]
+    }
+  ],
+  "limits": "RED evidence only."
+}

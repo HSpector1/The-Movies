@@ -1,0 +1,17 @@
+{
+  "head": "506d6c84f28d7fc593877196554df9b43e3fa7c3",
+  "predecessor": "a5a66c27e8b07b029d196850f8133cccfa3d26ef (tag p16-technical-checkpoint-20261027)",
+  "sourceManifestEntries": 1344,
+  "purpose": "Sprint 10 compiler-first: root and Bridge typecheck of the P17 continuation candidate on p17-continuation-20261027",
+  "children": [
+    {
+      "label": "root-types",
+      "command": "node node_modules/typescript/bin/tsc --noEmit"
+    },
+    {
+      "label": "bridge-types",
+      "command": "node node_modules/typescript/bin/tsc -p tsconfig.bridge.json --noEmit"
+    }
+  ],
+  "limits": "Compiler only; no runtime claim."
+}

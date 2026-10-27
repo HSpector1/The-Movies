@@ -1,0 +1,1503 @@
+--- a/tests/bridge-runtime-checkpoint.test.ts
++++ b/tests/bridge-runtime-checkpoint.test.ts
+@@ -784,7 +784,7 @@
+         expect(original.savedSaveJson).not.toBeNull()
+         for (const slot of [original.currentSaveJson, original.savedSaveJson!]) {
+           expect(sha256(slot)).toBe('e62846b41b09e95fe1e6d139a0d8e7af3b1f3179606dbf61446746dbdd0f64ba')
+-          expect(JSON.parse(slot)).toMatchObject({ saveVersion: 49, state: { market: { tick: 0 } } })
++          expect(JSON.parse(slot)).toMatchObject({ saveVersion: 50, state: { market: { tick: 0 } } })
+         }
+         let sessions = 0
+         const loaded = loadBridgeRuntimeCheckpoint(raw, undefined, () => { sessions += 1; return 'fresh-session-projection-v63' })
+--- /dev/null
++++ b/tests/fixtures/p17/seam-predecessor-pins.json
+@@ -0,0 +1,21 @@
++{
++  "base": "6510c971bed8079f7ca02e528b224988de092c87",
++  "seed": "p17-seam-pins",
++  "reception": {
++    "opening": 6988765.691315604,
++    "total": 20708995.477265384,
++    "criticScore": 48.91383509071051,
++    "legs": 2.9631835422668185,
++    "awarenessFactor": 0.44
++  },
++  "receptionEngaged": {
++    "opening": 3545192.4461616203,
++    "total": 8321600.567416088,
++    "legs": 2.347291633328928
++  },
++  "forecast": {
++    "expectedOpening": 13972202.353996102,
++    "expectedTotal": 49034193.02328678,
++    "expectedCriticScore": 40.26467391304348
++  }
++}
+--- /dev/null
++++ b/tests/fixtures/p17/seam-predecessor-pins.producer.ts
+@@ -0,0 +1,41 @@
++// ── P17 seam predecessor pins — producer ─────────────────────────────────────
++//
++// Run ONCE on the UNMODIFIED reception/forecast (base 6510c971bed8079f7ca02e528b224988de092c87):
++//   nice -n 10 npx vite-node tests/fixtures/p17/seam-predecessor-pins.producer.ts
++// It writes seam-predecessor-pins.json beside itself. tests/p17-continuation-seam.test.ts asserts that
++// the ABSENT continuation input reproduces these bytes after the seam lands. Not a test (no `.test.`).
++
++import { writeFileSync } from 'node:fs'
++import { computeForecast, type ForecastContext } from '../../../src/core/forecast.js'
++import { resolveReception } from '../../../src/core/reception.js'
++import { stream } from '../../../src/core/rng.js'
++import { makeReceptionInputs, makeTalent } from '../../_fixtures.js'
++
++const SEED = 'p17-seam-pins'
++
++function fixture() {
++  return makeReceptionInputs({
++    cast: {
++      lead: makeTalent({ id: 'lead', role: 'actor', skill: 60, fame: 70 }),
++      antagonist: makeTalent({ id: 'ant', role: 'actor', skill: 55, fame: 30 }),
++      support: makeTalent({ id: 'sup', role: 'actor', skill: 50, fame: 10 }),
++    },
++    writer: makeTalent({ id: 'writer', role: 'writer', skill: 60 }),
++    director: makeTalent({ id: 'director', role: 'director', skill: 65 }),
++    standing: { audienceAwareness: 40, industryPrestige: 40, commercialConfidence: 50 },
++  })
++}
++
++const ctx: ForecastContext = { seed: 'p17-seam', productionId: 'prod-1', directorId: 'director', releasedFilms: [], concepts: [] }
++const r = resolveReception(fixture(), stream(SEED, 'hollywood-v1', 'pin:reception'))
++const e = resolveReception(fixture(), stream(SEED, 'hollywood-v1', 'pin:reception'), true, true, 0.25)
++const f = computeForecast(fixture(), ctx)
++const pins = {
++  base: '6510c971bed8079f7ca02e528b224988de092c87',
++  seed: SEED,
++  reception: { opening: r.opening, total: r.total, criticScore: r.criticScore, legs: r.legs, awarenessFactor: r.awarenessFactor },
++  receptionEngaged: { opening: e.opening, total: e.total, legs: e.legs },
++  forecast: { expectedOpening: f.expectedOpening, expectedTotal: f.expectedTotal, expectedCriticScore: f.expectedCriticScore },
++}
++writeFileSync(new URL('./seam-predecessor-pins.json', import.meta.url), JSON.stringify(pins, null, 2) + '\n')
++console.log(JSON.stringify(pins))
+--- a/tests/helpers/live-era.ts
++++ b/tests/helpers/live-era.ts
+@@ -8,6 +8,8 @@
+ // returns the all-eras union), so it cannot stand in for the live reader; the live reader is the
+ // strict validator of the envelope `makeSave` writes, named here.
+ //
++// P17 Save50 (the franchise root over P16's Save49) uses its strict reader; its downgrade (`convertV50ToV49`, alias of
++// `convertP17ToPredecessor`) refuses any recorded franchise by name and is otherwise the version alone.
+ // P16 Save49 uses its strict reader; rightsStripped in predecessorSave admits the unchanged Save48 operand before the established P15B projection.
+ // P15B (record 1370-ar, Save48 over founding's Save47): the live reader is the P15B step's. Its public
+ // downgrade (`convertFromP15BSave`, alias `convertV48ToV47`) refuses any evaluated condition record, and
+@@ -15,14 +17,15 @@
+ // predecessor envelope `predecessorSave` builds (tests/helpers/p15-roots.ts): the two P15B roots and the
+ // zero loan movements leave deliberately and visibly, anything a predecessor cannot carry refuses by
+ // name, and every public step below it (Save47 fund, Save46 recovery) still runs with its refusal kept.
+-import { convertV46ToV45, convertV47ToV46, validateSaveV49, type LiveSaveFile, type SaveFileV45 } from '../../src/core/save.js'
++import { convertV46ToV45, convertV47ToV46, convertV50ToV49, validateSaveP17, type LiveSaveFile, type SaveFileV45 } from '../../src/core/save.js'
+ import { predecessorSave } from './p15-roots.js'
+ 
+ /** What `LIVE_SAVE_VERSION` must equal; `expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)` guards pin it here. */
+-export const EXPECTED_LIVE_SAVE_VERSION = 49
++export const EXPECTED_LIVE_SAVE_VERSION = 50
+ 
+ /** The live reader: the strict validator of the envelope `makeSave` writes. */
+-export const validateLiveSave: (input: unknown) => LiveSaveFile = validateSaveV49
++// The function the producers call (studioClosure/campaignLegacy publish through it), so a spy by `validateLiveSave.name` intercepts them.
++export const validateLiveSave: (input: unknown) => LiveSaveFile = validateSaveP17
+ 
+ /** The live envelope down to the Save45 era: the predecessor envelope first (see the header), then every public step, each refusal preserved. */
+-export const downgradeLiveTo45 = (save: LiveSaveFile): SaveFileV45 => convertV46ToV45(convertV47ToV46(predecessorSave(save.state)))
++export const downgradeLiveTo45 = (save: LiveSaveFile): SaveFileV45 => convertV46ToV45(convertV47ToV46(predecessorSave(convertV50ToV49(save).state)))
+--- a/tests/helpers/p16-era.ts
++++ b/tests/helpers/p16-era.ts
+@@ -11,7 +11,7 @@
+ // predecessor-era save WITHOUT the rights root. It refuses when any rights instrument or rights money exists: only
+ // titles the predecessor era derives anyway (from the greenlights and releases the state still holds) may be dropped.
+ 
+-import { P16_PREDECESSOR_SAVE_VERSION, P16_SAVE_VERSION, convertV49ToV48, validateSaveV48, type SaveFileV48 } from '../../src/core/save.js'
++import { P16_PREDECESSOR_SAVE_VERSION, P16_SAVE_VERSION, P17_SAVE_VERSION, convertV49ToV48, convertV50ToV49, validateSaveV48, type SaveFileV48 } from '../../src/core/save.js'
+ import { validateSharedMarketRoot } from '../../src/core/marketIntegration.js'
+ import { cutoverRightsRoot } from '../../src/core/rights.js'
+ import type { GameState } from '../../src/core/types.js'
+@@ -32,6 +32,8 @@
+ }
+ 
+ export function rightsStripped(save: { saveVersion: number; seed: string; state: GameState; broadcastCache: unknown }): SaveFileV48 {
++  // P17 (Save50): a live envelope steps down through the P17 step first; any recorded franchise refuses there, by name.
++  if (save.saveVersion === P17_SAVE_VERSION) save = convertV50ToV49(save as never) as unknown as typeof save
+   if (save.saveVersion !== P16_SAVE_VERSION) throw new Error(`rightsStripped: expects a Save${P16_SAVE_VERSION} envelope, got ${save.saveVersion}`)
+   // Every deep historical guard retains proof of the real public P16 first boundary.
+   const originalRoot = save.state.rights
+--- /dev/null
++++ b/tests/helpers/p17-law-fixtures.ts
+@@ -0,0 +1,67 @@
++// ── P17 pure-law fixtures: hand-built public FilmResults over a REAL P16 rights state ─────────────────
++//
++// Not a test file. The legality matrix reads public film facts, the franchise root and the live P16 rights read. Here
++// the rights read is always P16's own (`continuationWorldOf(state)` on a real route state; there is no rights stand-in),
++// while later installments are hand-built public results so a lineage of any shape is cheap. `week` may sit after the
++// state's week: the matrix and the R/M/F read take the world's week, the rights read takes the state's own week (P16
++// answers no future week), which is the only coupling these cases need.
++// Paper convention (rev02 §5.4): expectedTotal $150M; a film "(c/a, k×)" has critic c, audience a, total k × $150M.
++
++import { emptyFranchiseRoot, type ContinuationWorld } from '../../src/core/continuation.js'
++import { continuationWorldOf } from '../../src/core/continuationGreenlight.js'
++import type { FilmParticipants, FilmResult, FranchiseRoot, GameState } from '../../src/core/types.js'
++
++export const EXPECTED = 150_000_000
++
++export type Cast = { writer: string; director: string; lead: string; antagonist: string; support: string }
++
++export function participantsOf(p: Cast): FilmParticipants {
++  const one = (talentId: string, role: FilmParticipants['writer']['role'], discipline: FilmParticipants['writer']['discipline']) => ({
++    talentId, name: talentId, role, discipline, greenlightOVR: 50, greenlightFit: 50, greenlightEP: { low: 40, high: 60, expected: 50 }, freelancer: false,
++  })
++  return {
++    writer: one(p.writer, 'writer', 'writing'),
++    director: one(p.director, 'director', 'directing'),
++    cast: { lead: one(p.lead, 'lead', 'acting'), antagonist: one(p.antagonist, 'antagonist', 'acting'), support: one(p.support, 'support', 'acting') },
++    craft: [one('craft-1', 'craft', 'craft')],
++  }
++}
++
++export function film(productionId: string, releaseTick: number, critic: number, audience: number, mult: number, cast?: Cast): FilmResult {
++  const participants = cast ? participantsOf(cast) : undefined
++  return {
++    productionId,
++    releaseTick,
++    delivered: { intimacy: 0, tonalWeight: 0, kineticEnergy: 0 },
++    cohesion: 0.5,
++    craft: 60,
++    criticMean: critic,
++    criticSigma: 4,
++    criticScore: critic,
++    reviewVariance: 0,
++    segmentScores: { youngAdult: audience, family: audience, adult: audience, prestige: audience },
++    boxOffice: { opening: (mult * EXPECTED) / 3, total: mult * EXPECTED },
++    conceptId: `concept-${productionId}`,
++    directorId: participants?.director.talentId ?? 'dir-1',
++    ...(participants ? { participants } : {}),
++    forecast: { expectedCriticScore: 60, expectedTotal: EXPECTED, expectedOpening: EXPECTED / 3 },
++  }
++}
++
++export type LawSpec = { week?: number; root?: FranchiseRoot; released?: readonly FilmResult[]; locked?: readonly string[] }
++
++/** The real world of `state` (its P16 rights, its own released films) plus hand-built later films, at `week`. */
++export function lawWorld(state: GameState, spec: LawSpec = {}): ContinuationWorld {
++  const base = continuationWorldOf(state)
++  const released = new Map((spec.released ?? []).map((r) => [r.productionId, r]))
++  return {
++    ...base,
++    week: spec.week ?? base.week,
++    franchises: spec.root ?? emptyFranchiseRoot(),
++    releasedFilm: (id) => {
++      const r = released.get(id)
++      return r ? { result: r, audience01: r.segmentScores.adult / 100 } : base.releasedFilm(id)
++    },
++    isLocked: (id) => (spec.locked ?? []).includes(id) || base.isLocked(id),
++  }
++}
+--- /dev/null
++++ b/tests/helpers/p17-route.ts
+@@ -0,0 +1,69 @@
++// ── P17 routes on real P16 rights (no rights stand-in) ─────────────────────────────────────────────
++//
++// Not a test file. Every right here is a P16 record written by P16's own producers: the greenlight and release mint
++// hooks (`mintRoute`), the bilateral sale and licence path (`makeOffer` + the counterparty's `acceptOffer`, under the
++// STABLE condition readers and the nominal prices P16's own authority tests use, p16-r2-authority.test.ts `licensed`). Imports only modules that exist at the
++// predecessor a5a66c27, so the laws pinned on these routes run RED there by assertion, not by a missing import.
++
++import { applyActions } from '../../src/core/actions.js'
++import * as sale from '../../src/core/assetSale.js'
++import { resolveTitles, storyPropertyId } from '../../src/core/rights.js'
++import { tick } from '../../src/core/tick.js'
++import { TUNING } from '../../src/core/tuning.js'
++import type { Action, FilmConcept, GameState } from '../../src/core/types.js'
++import { greenlightPayload, STABLE } from './p16-fixtures.js'
++
++/** The request shape `greenlight` carries (src/core/continuation.ts ContinuationRequest), spelled here so this helper
++ * imports nothing the predecessor lacks. */
++export type ContinuationAsk = { type: 'directSequel' | 'prequel' | 'remake' | 'reboot' | 'spinOff'; predecessorProductionId: string; subPropertyId?: string; branchId?: string }
++
++/** The first player concept that founded no P16 property yet (a new screenplay for a continuation). */
++export function freshConcept(state: GameState, skip: ReadonlySet<string> = new Set()): FilmConcept {
++  const founded = new Set(resolveTitles(state).properties.map((p) => p.propertyId))
++  const concept = state.concepts.find((c) => !skip.has(c.id) && !founded.has(storyPropertyId(c.id)))
++  if (concept === undefined) throw new Error('premise: no unfounded player concept left')
++  return concept
++}
++
++/** The player's legacy greenlight of `concept`, carrying `continuation` when given. */
++export function greenlightAs(state: GameState, concept: FilmConcept, continuation?: ContinuationAsk, used: Set<string> = new Set()): { state: GameState; productionId: string } {
++  const action = { kind: 'greenlight', production: greenlightPayload(state, concept, used), ...(continuation === undefined ? {} : { continuation }) } as Action
++  const next = applyActions(state, [action])
++  return { state: next, productionId: next.studio.activeProductions[next.studio.activeProductions.length - 1]!.id }
++}
++
++/** `mintRoute`'s schedule for a picture greenlit this week: PRODUCTION_TICKS ticks to Release Ready, commit, release. */
++export function releaseNow(state: GameState, productionId: string): GameState {
++  let s = state
++  for (let i = 0; i < TUNING.PRODUCTION_TICKS; i++) s = tick(s)
++  if (s.studio.activeProductions.find((p) => p.id === productionId)?.remainingTicks !== 1) throw new Error(`premise: ${productionId} is not Release Ready`)
++  s = applyActions(s, [{ kind: 'commitPictureToRelease', productionId }])
++  s = tick(s)
++  if (!s.studio.releasedFilms.some((f) => f.productionId === productionId)) throw new Error(`premise: ${productionId} did not release`)
++  return s
++}
++
++function answered(state: GameState, input: sale.OfferInput): GameState {
++  const week = state.market.tick
++  const offered = sale.makeOffer(state, input, week, STABLE)
++  return sale.acceptOffer(offered.state, offered.offer.id, input.counterpartyId, week, STABLE)
++}
++
++/** The player sells the R1 title of `propertyId` to the rival `buyer`, who accepts. */
++export function sellTitle(state: GameState, propertyId: string, buyer: string): GameState {
++  return answered(state, { offerorId: state.hollywood!.playerStudioId, counterpartyId: buyer, direction: 'sell', instrument: { kind: 'title', subject: { right: 'R1', propertyId } }, price: 1_000 })
++}
++
++/** The player buys an exclusive R3 licence for `use` on `propertyId` from the rival holder `grantor`, for [week, week + weeks). */
++export function buyLicence(state: GameState, grantor: string, propertyId: string, use: 'sequel' | 'remake' | 'spinoff', weeks: number): GameState {
++  const week = state.market.tick
++  return answered(state, { offerorId: state.hollywood!.playerStudioId, counterpartyId: grantor, direction: 'buy', price: 1_000,
++    instrument: { kind: 'licence', right: 'R3', subject: { right: 'R1', propertyId }, scope: { use }, exclusive: true, startWeek: week, endWeekExclusive: week + weeks } })
++}
++
++/** The player, as title holder, licenses `use` on `propertyId` exclusively to the rival `grantee` for [week, week + weeks). */
++export function grantLicence(state: GameState, grantee: string, propertyId: string, use: 'sequel' | 'remake' | 'spinoff', weeks: number): GameState {
++  const week = state.market.tick
++  return answered(state, { offerorId: state.hollywood!.playerStudioId, counterpartyId: grantee, direction: 'sell', price: 1_000,
++    instrument: { kind: 'licence', right: 'R3', subject: { right: 'R1', propertyId }, scope: { use }, exclusive: true, startWeek: week, endWeekExclusive: week + weeks } })
++}
+--- a/tests/p14d2-rival-facility-disposal.test.ts
++++ b/tests/p14d2-rival-facility-disposal.test.ts
+@@ -55,7 +55,7 @@
+ function admitted(s: GameState): GameState {
+   const envelope = save.makeSave(s)
+   expect(envelope.saveVersion).toBe(save.LIVE_SAVE_VERSION) // Save47 (1364, 1370-AR r2): the live writer is one step above this era
+-  expect(save.validateSaveV49(envelope)).toBe(envelope)
++  expect(save.validateSaveV50(envelope)).toBe(envelope)
+   return s
+ }
+ const worlds = new Map<number, GameState>()
+@@ -323,7 +323,7 @@
+     // These objects intentionally are invalid. They are never described as natural controls.
+     const expected = new Error(`rival facility disposal invariant: ${reason}`)
+     expect(() => api().validateRivalFacilityDisposal(mutant)).toThrow(expected)
+-    expect(() => save.validateSaveV49({ saveVersion: save.LIVE_SAVE_VERSION, seed: mutant.seed, // Save48 (1370-ar): the live reader reaches this era's invariant
++    expect(() => save.validateSaveV50({ saveVersion: save.LIVE_SAVE_VERSION, seed: mutant.seed, // Save48 (1370-ar): the live reader reaches this era's invariant
+       state: mutant, broadcastCache: mutant.broadcastItems })).toThrow(expected)
+     expect(bytes(mutant)).toBe(before)
+   }, 120_000)
+@@ -340,7 +340,7 @@
+       const before = bytes(mutant)
+       const expected = new Error(`rival facility disposal invariant: ${reason}`)
+       expect(() => api().validateRivalFacilityDisposal(mutant)).toThrow(expected)
+-      expect(() => save.validateSaveV49({ saveVersion: save.LIVE_SAVE_VERSION, seed: mutant.seed, // Save48 (1370-ar): the live reader reaches this era's invariant
++      expect(() => save.validateSaveV50({ saveVersion: save.LIVE_SAVE_VERSION, seed: mutant.seed, // Save48 (1370-ar): the live reader reaches this era's invariant
+         state: mutant, broadcastCache: mutant.broadcastItems })).toThrow(expected)
+       expect(bytes(mutant)).toBe(before)
+     }
+@@ -370,9 +370,9 @@
+ 
+   it('S5 empty live-46 down/up control is lossless; it is not the required genuine pre-amendment capture', () => {
+     const state = generatedAt(0), before = bytes(save.makeSave(state))
+-    const old = era().convertV46ToV45(save.convertV47ToV46(save.convertV48ToV47(save.convertV49ToV48(save.makeSave(state))))) // Save48 (1370-ar): down through the live step first
++    const old = era().convertV46ToV45(save.convertV47ToV46(save.convertV48ToV47(save.convertV49ToV48(save.convertV50ToV49(save.makeSave(state)))))) // Save48 (1370-ar): down through the live step first
+     expect(save.validateSaveV45(old)).toBe(old)
+-    expect(bytes(save.convertV48ToV49(save.convertV47ToV48(save.convertV46ToV47(era().convertV45ToV46(old) as never))))).toBe(before) // P16: back up through the live step too
++    expect(bytes(save.convertV49ToV50(save.convertV48ToV49(save.convertV47ToV48(save.convertV46ToV47(era().convertV45ToV46(old) as never)))))).toBe(before) // P16/P17: back up through the live steps too
+     expect(bytes(save.makeSave(state))).toBe(before)
+   }, 120_000)
+ })
+--- a/tests/p15b-legacy-terminal-regression.test.ts
++++ b/tests/p15b-legacy-terminal-regression.test.ts
+@@ -183,7 +183,7 @@
+   const realReader = validateLiveSave
+   // Always run REAL admission first; only a detached completed candidate is damaged for actual allocator refusal.
+   // This never returns a successful validation stub and cannot publish the detached hostile state.
+-  const spy = vi.spyOn(save, validateLiveSave.name as 'validateSaveV49').mockImplementation(envelope => {
++  const spy = vi.spyOn(save, validateLiveSave.name as 'validateSaveV50').mockImplementation(envelope => {
+     const admitted = realReader(envelope)
+     expect(admitted.state.studioClosure.closures.filter(c => c.closureWeek === 163)).toHaveLength(2)
+     expect(admitted.state.campaignLegacy.endOfRun).not.toBeNull()
+@@ -198,7 +198,7 @@
+ 
+ it('ended-links-cutoffs-refs-phase-and-allocator-mutants-refuse-with-input-purity', budgeted(ROUTE_MS, () => {
+   const final = terminalCase(6240).final; const baseline = save.makeSave(final)
+-  expect(() => save.validateSaveV49(baseline)).not.toThrow()
++  expect(() => save.validateSaveV50(baseline)).not.toThrow()
+   const mutants: [string, (s: GameState) => void, RegExp][] = [
+     ['orphan ended link', s => { s.campaignLegacy.endOfRun!.closureId = 'absent-closure' }, /endOfRun.closureId/],
+     ['reverse closure link', s => { closureOf(s, s.hollywood!.playerStudioId)!.endOfRun = 'absent-manifest' }, /endOfRun.closureId/],
+@@ -216,13 +216,13 @@
+   ]
+   for (const [name, edit, refusal] of mutants) {
+     const bad = structuredClone(baseline); edit(bad.state)
+-    const bytes = canon(bad); expect(() => save.validateSaveV49(bad), name).toThrow(refusal); expect(canon(bad), name).toBe(bytes)
++    const bytes = canon(bad); expect(() => save.validateSaveV50(bad), name).toThrow(refusal); expect(canon(bad), name).toBe(bytes)
+   }
+ }), ROUTE_MS)
+ 
+ it('terminal6240-composed-downward-refusal-preserves-all-authority', budgeted(ROUTE_MS, () => {
+   const final = terminalCase(6240).final; const current = save.makeSave(final); const currentBytes = canon(current)
+-  expect(save.validateSaveV49(current)).toBe(current)
++  expect(save.validateSaveV50(current)).toBe(current)
+   // P16 rebase: every Save49 closure opens its estate in the closure week (studioClosure.ts `openEstate` when the state
+   // carries `rights`), so this terminal world holds a closure49 estate, a rights instrument `rightsStripped` refuses to
+   // drop, and no Save48 operand exists. The public first refusal is the live step's, by name, at every older reader,
+@@ -231,7 +231,8 @@
+   // reasons (round 4); the v3-official reason with the frozen-2040 reason appended has its Save48 control in
+   // p15b-legacy-v3.test.ts, and the condition-record reason with R8's appended in p15b2-corporate-condition-save.
+   expect(final.rights.estates.map(e => e.origin.kind), 'premise: the player closure opened its estate').toContain('closure49')
+-  for (const convert of [save.convertV49ToV48, save.migrateToV47, save.migrateToV46, save.migrateToV45]) {
++  // P17 (Save50): the P16 step's own downgrade is entered from the live envelope through the P17 step.
++  for (const convert of [(s: never) => save.convertV49ToV48(save.convertV50ToV49(s)), save.migrateToV47, save.migrateToV46, save.migrateToV45]) {
+     expect(() => convert(current)).toThrow(/^migrateToV48: cannot discard unique estate observation or current closure provenance$/)
+     expect(canon(current)).toBe(currentBytes)
+   }
+@@ -240,7 +241,7 @@
+ // Isolated real allocator-owner proof; full-reader earlier closure-order refusals cannot substitute.
+ it('real-global-allocator-rejects-duplicate-stamps-on-admitted-two-closure-input', budgeted(FIXTURE_MS, () => {
+   const baseline = save.makeSave(multiCase().final)
+-  expect(() => save.validateSaveV49(baseline)).not.toThrow()
++  expect(() => save.validateSaveV50(baseline)).not.toThrow()
+   const roots = ['sharedMarket', 'powerRanking', 'campaignLegacy', 'corporateCondition', 'studioClosure']
+   expect(() => save.validateP15Allocator(baseline.state as unknown as Record<string, unknown>, 'allocator-owner-control', roots)).not.toThrow()
+   const bad = structuredClone(baseline); const rows = bad.state.studioClosure.closures.filter(c => c.closureWeek === 163)
+--- a/tests/p15b2-corporate-condition-save.test.ts
++++ b/tests/p15b2-corporate-condition-save.test.ts
+@@ -13,7 +13,7 @@
+ // steps' own reasons rather than masking them.
+ import { describe, expect, it } from 'vitest'
+ import { applyActions } from '../src/core/actions.js'
+-import { convertV48ToV49, convertV49ToV48, exportSave, FOUNDING_FUNDING_SAVE_VERSION, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV45, migrateToV46, migrateToV47, P15B_SAVE_VERSION, validateSaveV47 } from '../src/core/save.js'
++import { convertV48ToV49, convertV49ToV48, convertV50ToV49, convertV49ToV50, exportSave, FOUNDING_FUNDING_SAVE_VERSION, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV45, migrateToV46, migrateToV47, P15B_SAVE_VERSION, validateSaveV47 } from '../src/core/save.js'
+ import { tick } from '../src/core/tick.js'
+ import { TUNING } from '../src/core/tuning.js'
+ import type { Action, GameState } from '../src/core/types.js'
+@@ -94,7 +94,7 @@
+     const down = convertFromStep(p15b)
+     expect(down.saveVersion).toBe(P15B_SAVE_VERSION - 1) // the predecessor, renumbered with P15B_SAVE_VERSION
+     expect(canon(convertToStep(down))).toBe(canon(p15b))
+-    expect(canon(convertV48ToV49(convertToStep(down) as never))).toBe(canon(live)) // and the live step lifts it back
++    expect(canon(convertV49ToV50(convertV48ToV49(convertToStep(down) as never)))).toBe(canon(live)) // and the live steps lift it back
+     // The first tick evaluates its own week and nothing earlier (1352-F2 ruling 1).
+     const ticked = tick(state)
+     expect(conditionRoot(ticked).studios.every((r) => r.firstEvaluatedWeek === BASE_WEEK + 1)).toBe(true)
+@@ -115,7 +115,7 @@
+     expect(conditionRoot(recorded()).events, 'premise: no condition event before 134').toEqual([])
+     const ticked = makeSave(recorded())
+     // Round 5 (review O1): the exact composed message, not a substring the live step's own phase-history reason shares.
+-    expect(() => convertFromStep(convertV49ToV48(ticked))).toThrow(recordedRefusal(recorded()))
++    expect(() => convertFromStep(convertV49ToV48(convertV50ToV49(ticked)))).toThrow(recordedRefusal(recorded()))
+     expect(() => migrateToV47(ticked)).toThrow(recordedRefusal(recorded()))
+     // ACCEPTANCE OPEN (P16 rebase rounds 4-5): the condition-event and loan refusals ('a corporateCondition event',
+     // 'a studio loan', 'a loan or claim ledger row', 'the <kind> movement of <studio>'), and any control combining two or
+@@ -125,7 +125,7 @@
+     // row. The writers stamp `Object.hasOwn(state, 'rights') ? 3 : 2`, so a rights-era world's condition event is
+     // table 3, and a loan needs warning or distress (studioLoan.ts loanEligible after CORPORATE_WARN_SUSTAIN_WEEKS low
+     // weeks), so an event always precedes it. The borrowed world's public downgrade refuses at the live step first.
+-    expect(() => convertV49ToV48(makeSave(borrowed()))).toThrow(LIVE_DOWNGRADE_REFUSAL)
++    expect(() => convertV49ToV48(convertV50ToV49(makeSave(borrowed())))).toThrow(LIVE_DOWNGRADE_REFUSAL)
+     // The loan kinds are refused below the era: a predecessor envelope carrying one fails the frozen chain.
+     const forgedLedger = clone(down)
+     ;(forgedLedger.state.ledger as Record<string, unknown>[]).push({ week: BASE_WEEK, kind: 'loanPrincipal', amount: 1000, note: 'forged' })
+@@ -173,7 +173,7 @@
+     expect(state133.hollywood!.receipts.some((r) => r.kind === 'facilityDisposed'), 'premise: R8 disposal').toBe(true)
+     const live = makeSave(state133)
+     const composed = recordedRefusal(state133)
+-    expect(() => convertFromStep(convertV49ToV48(live))).toThrow(composed)
++    expect(() => convertFromStep(convertV49ToV48(convertV50ToV49(live)))).toThrow(composed)
+     for (const older of [migrateToV47, migrateToV46, migrateToV45]) expect(() => older(live)).toThrow(composed)
+     expect(canon(makeSave(recorded()))).toBe(canon(live))
+     // The borrowed world (table-3 events and loans) refuses at the live Save49 step first.
+--- a/tests/p16-estate-current49-rollback.test.ts
++++ b/tests/p16-estate-current49-rollback.test.ts
+@@ -21,8 +21,8 @@
+  expect(positive.rights.estates.filter(e=>e.closureId===closure.closureId)).toHaveLength(1)
+  saves.makeSave(positive)
+  expect(saves.stableStringify(input)).toBe(before);expect(saves.stableStringify(raw)).toBe(original)
+- const realReader=saves.validateSaveV49,marker='P16_REAL_CURRENT49_PUBLICATION_REFUSAL'
+- const spy=vi.spyOn(saves,'validateSaveV49').mockImplementation(envelope=>{
++ const realReader=saves.validateSaveP17,marker='P16_REAL_CURRENT49_PUBLICATION_REFUSAL' // P17: the live publication reader
++ const spy=vi.spyOn(saves,'validateSaveP17').mockImplementation(envelope=>{
+   // REAL admission precedes fault; no permissive replacement can publish a candidate.
+   const admitted=realReader(envelope)
+   expect(admitted.state.market.tick).toBe(163)
+--- a/tests/p16-estate-d-join-negative.test.ts
++++ b/tests/p16-estate-d-join-negative.test.ts
+@@ -14,7 +14,7 @@
+ let cached:{beforeD:GameState;final:GameState;closureId:string;txId:string}|undefined
+ function admitted(state:GameState) {
+  const before=JSON.stringify(state),saved=saves.makeSave(state)
+- expect(saved.saveVersion).toBe(saves.P16_SAVE_VERSION)
++ expect(saved.saveVersion).toBe(saves.LIVE_SAVE_VERSION)
+  expect(JSON.stringify(saved.state)).toBe(before)
+  expect(JSON.stringify(state)).toBe(before)
+ }
+@@ -100,8 +100,8 @@
+  })
+  it('a real strict49 D publication refusal cannot publish partial sale cash claims or archival',()=>{
+   const {beforeD,final,closureId,txId}=route();admitted(beforeD);admitted(final)
+-  const before=JSON.stringify(beforeD),real=saves.validateSaveV49,marker='P16_REAL_D_PUBLICATION_REFUSAL'
+-  const spy=vi.spyOn(saves,'validateSaveV49').mockImplementation(envelope=>{
++  const before=JSON.stringify(beforeD),real=saves.validateSaveP17,marker='P16_REAL_D_PUBLICATION_REFUSAL' // P17: the live publication reader
++  const spy=vi.spyOn(saves,'validateSaveP17').mockImplementation(envelope=>{
+    const admitted=real(envelope)
+    expect(admitted.state.market.tick).toBe(176)
+    expect(admitted.state.studioClosure.estateEvents.some(e=>e.closureId===closureId&&String(e.kind)==='saleReceipt'&&e.reference===txId)).toBe(true)
+--- a/tests/p16-held-title-seller.test.ts
++++ b/tests/p16-held-title-seller.test.ts
+@@ -2,7 +2,7 @@
+ import { expect,it } from 'vitest'
+ import { readFileSync } from 'node:fs'
+ import { createHash } from 'node:crypto'
+-import { convertV48ToV49,validateSaveP15B,validateSaveV49,makeSave,stableStringify } from '../src/core/save.js'
++import { convertV48ToV49,validateSaveP15B,validateSaveV50,makeSave,stableStringify } from '../src/core/save.js'
+ import { applyActions } from '../src/core/actions.js'
+ import { tick } from '../src/core/tick.js'
+ import { offerRefusal,rivalWillingness } from '../src/core/assetSale.js'
+@@ -92,8 +92,8 @@
+  record.estate.lots=structuredClone(originalC.estate.lots)
+  record.dispositions=record.dispositions.filter(x=>x.subjectKind!=='title').concat(structuredClone(originalC.dispositions.filter(x=>x.subjectKind==='title'))).sort((a,b)=>a.subjectKind<b.subjectKind?-1:a.subjectKind>b.subjectKind?1:a.subjectId<b.subjectId?-1:a.subjectId>b.subjectId?1:0)
+  record.counts.title=10;record.digest=closureDigest(record.closureId,record.dispositions)
+- const mutantBefore=stableStringify(mutant),envelope={saveVersion:49 as const,seed:mutant.seed,state:mutant,broadcastCache:mutant.broadcastItems}
+- expect(()=>validateSaveV49(envelope)).toThrow(/estate lots|title handoff|titles|dispositions/)
++ const mutantBefore=stableStringify(mutant),envelope={saveVersion:50 as const,seed:mutant.seed,state:mutant,broadcastCache:mutant.broadcastItems}
++ expect(()=>validateSaveV50(envelope)).toThrow(/estate lots|title handoff|titles|dispositions/)
+  expect(()=>makeSave(mutant)).toThrow(/estate lots|title handoff|titles|dispositions/)
+  expect(stableStringify(mutant)).toBe(mutantBefore);expect(stableStringify(offered)).toBe(input);expect(stableStringify(state)).toBe(before)
+ })
+--- a/tests/p16a-save-v46.test.ts
++++ b/tests/p16a-save-v46.test.ts
+@@ -36,16 +36,17 @@
+   it('LIVE_SAVE_VERSION is P16_SAVE_VERSION (49 at this base) with predecessor48, and the V49 functions exist', () => {
+     expect(saveModule.P16_SAVE_VERSION).toBe(49)
+     expect(saveModule.P16_PREDECESSOR_SAVE_VERSION).toBe(48)
+-    expect(saveModule.LIVE_SAVE_VERSION).toBe(saveModule.P16_SAVE_VERSION)
++    // P17 (Save50) is live one step above the P16 step.
++    expect(saveModule.LIVE_SAVE_VERSION).toBe(saveModule.P16_SAVE_VERSION + 1)
+     for (const name of ['validateSaveV49', 'convertV48ToV49', 'convertV49ToV48', 'migrateToV49'] as const) {
+       expect(typeof (saveModule as unknown as Record<string, unknown>)[name], name).toBe('function')
+     }
+   })
+ 
+-  it('validateSave dispatches49 and names the handled range "1 through 49"', () => {
++  it('validateSave dispatches49 and names the handled range up to the live version (P17: "1 through 50")', () => {
+     const envelope = v49()
+     expect(saveModule.validateSave(envelope as never).saveVersion).toBe(49)
+-    expect(() => saveModule.validateSave({ ...envelope, saveVersion: 50 } as never)).toThrow(/unknown saveVersion 50.*versions 1 through 49 only/)
++    expect(() => saveModule.validateSave({ ...envelope, saveVersion: 51 } as never)).toThrow(/unknown saveVersion 51.*versions 1 through 50 only/)
+   })
+ })
+ 
+@@ -69,10 +70,12 @@
+   })
+ 
+   it('migrateToLive lifts the genuine raw capture to 46 through importSave, and a second migration is a no-op', () => {
+-    const live = saveModule.migrateToLive(saveModule.importSave(genuineV45Raw('week53')))
++    // P17: the era read is migrateToV49 (the live chain now continues one step to Save50, which adds nothing here).
++    const live = saveModule.migrateToV49(saveModule.importSave(genuineV45Raw('week53')))
+     expect(live.saveVersion).toBe(49)
+     expect(saveModule.stableStringify(saveModule.migrateToV49(live))).toBe(saveModule.stableStringify(live))
+-    expect(saveModule.stableStringify(saveModule.makeSave(live.state as GameState))).toBe(saveModule.stableStringify(live))
++    expect(saveModule.stableStringify(saveModule.convertV50ToV49(saveModule.makeSave(live.state as GameState)))).toBe(saveModule.stableStringify(live))
++    expect(saveModule.stableStringify(saveModule.migrateToLive(saveModule.importSave(genuineV45Raw('week53'))).state)).toBe(saveModule.stableStringify(live.state))
+   })
+ 
+   it('convertV49ToV48 is lossless while the root is empty and every P16 movement is zero, round-tripping to the genuine bytes', () => {
+--- a/tests/p16a-valuation.test.ts
++++ b/tests/p16a-valuation.test.ts
+@@ -232,7 +232,7 @@
+     // the lifted in-range state saves and reloads at 46.
+     const other = h.identities.slice(1, 5).map((i) => i.studioId).find((id) => id !== film.studioId)!
+     expect(valuation.libraryValuationV1(altered, other, altered.market.tick).kind).toBe('available')
+-    expect(migrateToLive(importSave(stableStringify(makeSave(state)))).saveVersion).toBe(49)
++    expect(migrateToLive(importSave(stableStringify(makeSave(state)))).saveVersion).toBe(50)
+   })
+ })
+ 
+@@ -249,7 +249,7 @@
+     expect(() => validateSave(JSON.parse(raw))).not.toThrow()
+     expect(migrateToV45(importSave(raw)).saveVersion).toBe(45)
+     const live = migrateToLive(importSave(raw))
+-    expect(live.saveVersion).toBe(49)
++    expect(live.saveVersion).toBe(50)
+     const state = live.state as GameState
+     const before = stableStringify(state)
+     expect(valuation.libraryValuationV1(state, h.playerStudioId, state.market.tick)).toEqual({ kind: 'unavailable', reason: 'criticScoreOutsideValuationRange', filmId: target.productionId })
+--- /dev/null
++++ b/tests/p17-continuation-law.test.ts
+@@ -0,0 +1,162 @@
++// ── P17 legality matrix and release law on the REAL P16 rights read ───────────────────────────────────
++//
++// Authority: canonical rev02 f2eff635 §5.2/§5.3/§8/§10; charter r2 (1370-ae) RED items (1)–(3); Owner choices in
++// P17-RECOVERED-SPECIFICATION-STATE.md (healthy reboot legal; dormant return is a DirectSequel, never a sixth type).
++// World: `mintRoute` (one real player film A, its P16 property P held by the player); later installments are hand-built
++// public results (tests/helpers/p17-law-fixtures.ts). Every rights answer is P16's own `permissionFor`/`branchAuthority`
++// over the route state — there is no rights stand-in. The route-level laws (link versus mint, parent-bound spin-off
++// authority, licence terms) run end to end in tests/p17-p16-rights.test.ts.
++
++import { beforeAll, describe, expect, it } from 'vitest'
++import {
++  applyContinuationRelease,
++  commitContinuationGreenlight,
++  continuationInputsAtRelease,
++  continuationQuote,
++  emptyFranchiseRoot,
++  type ContinuationRequest,
++  type ProposedPrincipals,
++} from '../src/core/continuation.js'
++import { fatigueAt, momentumAt } from '../src/core/continuationSignals.js'
++import { storyPropertyId } from '../src/core/rights.js'
++import { TUNING } from '../src/core/tuning.js'
++import type { FilmResult, FranchiseRoot, GameState } from '../src/core/types.js'
++import { mintRoute } from './helpers/p16-fixtures.js'
++import { film, lawWorld, type LawSpec } from './helpers/p17-law-fixtures.js'
++import { sellTitle } from './helpers/p17-route.js'
++
++let state: GameState
++let A: string
++let P: string
++let player: string
++beforeAll(() => {
++  const route = mintRoute('p17-law-01')
++  state = route.released
++  A = route.productionId
++  P = storyPropertyId(route.conceptId)
++  player = state.hollywood!.playerStudioId
++})
++
++const PROPOSED: ProposedPrincipals = { writerId: 'w-1', directorId: 'd-1', cast: { lead: 'l-1', antagonist: 'a-1', support: 's-1' } }
++
++function quote(spec: LawSpec, productionId: string, request: ContinuationRequest, on: GameState = state) {
++  return continuationQuote(lawWorld(on, spec), { studioId: player, productionId, request, proposed: PROPOSED })
++}
++
++/** Quote, commit and (optionally) release one installment through the public law; a refused quote is a premise failure. */
++function step(root: FranchiseRoot, spec: LawSpec, productionId: string, request: ContinuationRequest, released?: FilmResult): FranchiseRoot {
++  const world = lawWorld(state, { ...spec, root })
++  const q = continuationQuote(world, { studioId: player, productionId, request, proposed: PROPOSED })
++  if (!q.ok) throw new Error(`premise: ${q.reason}`)
++  const next = commitContinuationGreenlight(world, q, { studioId: player, productionId })
++  return released === undefined ? next : applyContinuationRelease(next, { productionId, week: released.releaseTick, result: released, audience01: released.segmentScores.adult / 100 })
++}
++
++describe('P17 legality — the live P16 read, predecessor state and branches; never R/M/F', () => {
++  it('a DirectSequel on the player-held property is lawful: P16 names the property, the main continuity takes it at 0.90', () => {
++    const q = quote({}, 'q-1', { type: 'directSequel', predecessorProductionId: A })
++    if (!q.ok) throw new Error(q.reason)
++    expect(q.storyPropertyId).toBe(P)
++    expect(q.branchKind).toBe('main')
++    expect(q.similarity).toBe(0.9)
++    expect(q.use).toBe('sequel')
++  })
++
++  it('the same request on a title the player sold refuses with P16\'s own answer, naming the holder', () => {
++    const r01 = state.hollywood!.identities[1]!.studioId
++    const sold = sellTitle(state, P, r01)
++    const q = quote({}, 'q-1', { type: 'directSequel', predecessorProductionId: A }, sold)
++    expect(q).toEqual({ ok: false, reason: expect.stringMatching(new RegExp(`holds no lawful sequel right in ${P} .*noAuthority:${r01}`)) })
++  })
++
++  it('otherwise-identical DirectSequel and Prequel quotes have equal legality, 0.90 similarity and identical numbers', () => {
++    const seq = quote({}, 'q-1', { type: 'directSequel', predecessorProductionId: A })
++    const pre = quote({}, 'q-1', { type: 'prequel', predecessorProductionId: A })
++    expect(seq.ok && pre.ok).toBe(true)
++    expect({ ...seq, type: 'same' }).toEqual({ ...pre, type: 'same' })
++  })
++
++  it('a missing, stale or cross-branch prequel reference refuses, and a refused quote can never be committed', () => {
++    expect(quote({}, 'q-1', { type: 'prequel', predecessorProductionId: 'prod-nobody' })).toEqual({ ok: false, reason: 'no P16 StoryProperty links prod-nobody' })
++    const withReboot = step(emptyFranchiseRoot(), {}, 'f-reboot', { type: 'reboot', predecessorProductionId: A })
++    const rebootBranch = withReboot.properties[0]!.branches[1]!.branchId
++    expect(quote({ root: withReboot }, 'q-1', { type: 'prequel', predecessorProductionId: A, branchId: rebootBranch }))
++      .toEqual({ ok: false, reason: expect.stringMatching(/cross-branch reference/) })
++    // 'f-reboot' is neither released nor a live locked production (no Production carries it)
++    const stale = quote({ root: withReboot }, 'q-1', { type: 'prequel', predecessorProductionId: 'f-reboot' })
++    expect(stale).toEqual({ ok: false, reason: 'predecessor f-reboot is neither released nor a locked-committed production' })
++    expect(() => commitContinuationGreenlight(lawWorld(state, { root: withReboot }), stale, { studioId: player, productionId: 'q-1' })).toThrow(/cannot commit a refused quote/)
++  })
++
++  it('a Remake cites exactly one RELEASED film and files in its continuity; a locked film cannot be remade', () => {
++    const locked = step(emptyFranchiseRoot(), { locked: ['f-lock'] }, 'f-lock', { type: 'directSequel', predecessorProductionId: A })
++    expect(quote({ root: locked, locked: ['f-lock'] }, 'q-1', { type: 'remake', predecessorProductionId: 'f-lock' }))
++      .toEqual({ ok: false, reason: 'a remake cites exactly one RELEASED film; f-lock is not released' })
++    const remake = quote({ root: locked, locked: ['f-lock'] }, 'q-1', { type: 'remake', predecessorProductionId: A })
++    if (!remake.ok) throw new Error(remake.reason)
++    expect(remake.branchId).toBe(locked.properties[0]!.branches[0]!.branchId)
++    expect(remake.similarity).toBe(0.7)
++    expect(remake.use).toBe('remake')
++    expect(remake.comparison01).toBeGreaterThan(0)
++  })
++
++  it('a Reboot of a HEALTHY property is lawful (Owner choice); a fourth open continuity refuses, and opens again once one is no longer live', () => {
++    const healthy = quote({}, 'q-1', { type: 'reboot', predecessorProductionId: A })
++    if (!healthy.ok) throw new Error(healthy.reason)
++    expect(healthy.branchKind).toBe('reboot')
++    expect(healthy.branchId).toBeNull()
++    const L = { locked: ['r-1', 'r-2'] }
++    const two = step(step(emptyFranchiseRoot(), L, 'r-1', { type: 'reboot', predecessorProductionId: A }), L, 'r-2', { type: 'reboot', predecessorProductionId: A })
++    expect(quote({ ...L, root: two }, 'r-3', { type: 'reboot', predecessorProductionId: A }))
++      .toEqual({ ok: false, reason: `3 continuities are open (cap ${TUNING.P17_MAX_OPEN_CONTINUITIES}); a continuity must go quiet for ${TUNING.P17_DORMANT_WEEKS} weeks before a new one opens` })
++    // the two reboots stop being live productions (cancelled): the cap is derived, never a stored switch
++    expect(quote({ root: two }, 'r-3', { type: 'reboot', predecessorProductionId: A }).ok).toBe(true)
++  })
++
++  it('a dormant return is a DirectSequel on the same continuity, never a sixth type; its release mints ONE activeAgain milestone', () => {
++    const week = 8 + TUNING.P17_DORMANT_WEEKS + 250
++    const back = film('f-back', week + 8, 80, 80, 1.5)
++    const root = step(emptyFranchiseRoot(), { week, released: [back] }, 'f-back', { type: 'directSequel', predecessorProductionId: A }, back)
++    const property = root.properties[0]!
++    expect(property.installments.map((e) => e.type)).toEqual(['origin', 'directSequel'])
++    expect(property.milestones).toEqual([{ milestoneId: 'activeAgain', productionId: 'f-back', week: week + 8 }])
++    const ordinary = film('f-next', week + 30, 80, 80, 1.5)
++    const after = applyContinuationRelease(step(root, { week: week + 20, released: [back, ordinary] }, 'f-next', { type: 'directSequel', predecessorProductionId: 'f-back' }),
++      { productionId: 'f-next', week: week + 30, result: ordinary, audience01: 0.8 })
++    expect(after.properties[0]!.milestones).toHaveLength(1)
++  })
++})
++
++describe('P17 R/M/F at the seam — one composed read, property-wide Fatigue, per-continuity Momentum', () => {
++  it('with nothing intervening the release read equals the locked greenlight read', () => {
++    const world = lawWorld(state, {})
++    const q = continuationQuote(world, { studioId: player, productionId: 'f-x', request: { type: 'directSequel', predecessorProductionId: A }, proposed: PROPOSED })
++    if (!q.ok) throw new Error(q.reason)
++    const root = commitContinuationGreenlight(world, q, { studioId: player, productionId: 'f-x' })
++    expect(continuationInputsAtRelease(lawWorld(state, { root }), 'f-x', PROPOSED)).toBe(q.inheritedAwareness01)
++  })
++
++  it('a mediocre sequel builds property Fatigue; a reboot reads that same scalar in full and starts its own Momentum at zero', () => {
++    const meh = film('f-meh', 30, 45, 45, 0.8)
++    const root = step(emptyFranchiseRoot(), { week: 22, released: [meh] }, 'f-meh', { type: 'directSequel', predecessorProductionId: A }, meh)
++    const property = root.properties[0]!
++    expect(property.meter.fatigue).toBeGreaterThan(0)
++    const q = quote({ root, week: 40, released: [meh] }, 'f-re', { type: 'reboot', predecessorProductionId: A })
++    if (!q.ok) throw new Error(q.reason)
++    expect(q.fatigue).toBe(fatigueAt(property.meter, 40))
++    expect(q.momentum).toBe(0)
++    const reboot = film('f-re', 48, 70, 70, 1.2)
++    const rebooted = step(root, { week: 40, released: [meh, reboot] }, 'f-re', { type: 'reboot', predecessorProductionId: A }, reboot)
++    const next = rebooted.properties[0]!
++    expect(next.branches).toHaveLength(2)
++    expect(momentumAt(next.branches[0]!, 48)).toBe(momentumAt(property.branches[0]!, 48)) // the main continuity's Momentum is untouched
++    expect(next.branches[1]!.lastReleaseWeek).toBe(48)
++    expect(next.meter.releaseCount).toBe(property.meter.releaseCount + 1) // one meter for the whole property
++  })
++
++  it('a second release of the same installment is refused: no double credit', () => {
++    const f = film('f-once', 20, 70, 70, 1)
++    const root = step(emptyFranchiseRoot(), { week: 12, released: [f] }, 'f-once', { type: 'directSequel', predecessorProductionId: A }, f)
++    expect(() => applyContinuationRelease(root, { productionId: 'f-once', week: 20, result: f, audience01: 0.7 })).toThrow(/already released at week 20 \(no double credit\)/)
++  })
++})
+--- /dev/null
++++ b/tests/p17-continuation-seam.test.ts
+@@ -0,0 +1,133 @@
++// ── P17 — the ONE optional continuation input on ReceptionInputs/ForecastInputs ──
++//
++// Authority: canonical rev02 §5.3 (one optional field read at lock and at release), §7 (expectations
++// live in the locked forecast; no second multiplier; legs/critic untouched), §17 (P07 keeps the formula;
++// P17 supplies a value); charter r2 §"Recognition, Momentum, Fatigue and the one reception seam" and
++// RED item (3): same field at forecast lock and actual release; later intervening release changes the
++// live input without rewriting the forecast; no future result; no double expectation/legs/quality/
++// Standing effect; absent input is bit-identical to the predecessor path.
++//
++// Predecessor pins: `tests/fixtures/p17/seam-predecessor-pins.json` was produced by
++// scripts-free `vite-node` evaluation of the UNMODIFIED reception/forecast at base
++// 6510c971bed8079f7ca02e528b224988de092c87 (see the package RED-FIRST-EVIDENCE.md). The absent-input
++// leaves assert equality to those bytes.
++
++import { readFileSync } from 'node:fs'
++import { describe, expect, it } from 'vitest'
++import { computeForecast, forecastCenters, type ForecastContext } from '../src/core/forecast.js'
++import { computeBoxOffice, resolveReception, type ReceptionInputs } from '../src/core/reception.js'
++import { stream } from '../src/core/rng.js'
++import { updateStanding, type StandingContext } from '../src/core/standing.js'
++import { makeReceptionInputs, makeTalent } from './_fixtures.js'
++
++const PINS = JSON.parse(readFileSync(new URL('./fixtures/p17/seam-predecessor-pins.json', import.meta.url), 'utf8')) as {
++  seed: string
++  reception: { opening: number; total: number; criticScore: number; legs: number; awarenessFactor: number }
++  receptionEngaged: { opening: number; total: number; legs: number }
++  forecast: { expectedOpening: number; expectedTotal: number; expectedCriticScore: number }
++}
++
++function fixture(): ReceptionInputs {
++  return makeReceptionInputs({
++    cast: {
++      lead: makeTalent({ id: 'lead', role: 'actor', skill: 60, fame: 70 }),
++      antagonist: makeTalent({ id: 'ant', role: 'actor', skill: 55, fame: 30 }),
++      support: makeTalent({ id: 'sup', role: 'actor', skill: 50, fame: 10 }),
++    },
++    writer: makeTalent({ id: 'writer', role: 'writer', skill: 60 }),
++    director: makeTalent({ id: 'director', role: 'director', skill: 65 }),
++    standing: { audienceAwareness: 40, industryPrestige: 40, commercialConfidence: 50 },
++  })
++}
++
++const ctx: ForecastContext = { seed: 'p17-seam', productionId: 'prod-1', directorId: 'director', releasedFilms: [], concepts: [] }
++
++describe('P17 seam — absent input is the predecessor path, bit for bit', () => {
++  it('resolveReception without the field reproduces the predecessor pins (M0A and engaged)', () => {
++    const r = resolveReception(fixture(), stream(PINS.seed, 'hollywood-v1', 'pin:reception'))
++    expect(r.opening).toBe(PINS.reception.opening)
++    expect(r.total).toBe(PINS.reception.total)
++    expect(r.criticScore).toBe(PINS.reception.criticScore)
++    expect(r.legs).toBe(PINS.reception.legs)
++    expect(r.awarenessFactor).toBe(PINS.reception.awarenessFactor)
++    const e = resolveReception(fixture(), stream(PINS.seed, 'hollywood-v1', 'pin:reception'), true, true, 0.25)
++    expect(e.opening).toBe(PINS.receptionEngaged.opening)
++    expect(e.total).toBe(PINS.receptionEngaged.total)
++    expect(e.legs).toBe(PINS.receptionEngaged.legs)
++  })
++
++  it('computeForecast without the field reproduces the predecessor pins', () => {
++    const f = computeForecast(fixture(), ctx)
++    expect(f.expectedOpening).toBe(PINS.forecast.expectedOpening)
++    expect(f.expectedTotal).toBe(PINS.forecast.expectedTotal)
++    expect(f.expectedCriticScore).toBe(PINS.forecast.expectedCriticScore)
++  })
++
++  it('an explicitly undefined field is the absent path too', () => {
++    const a = resolveReception(fixture(), stream('x', 'hollywood-v1', 'a'))
++    const b = resolveReception({ ...fixture(), inheritedAwareness01: undefined } as unknown as ReceptionInputs, stream('x', 'hollywood-v1', 'a'))
++    expect(JSON.stringify(b)).toBe(JSON.stringify(a))
++  })
++})
++
++describe('P17 seam — the field enters exactly once, through awareness, at opening', () => {
++  it('a known property opens higher and grosses more; legs, critic, craft, cohesion and audience score are untouched', () => {
++    const plain = resolveReception(fixture(), stream('x', 'hollywood-v1', 'b'))
++    const known = resolveReception({ ...fixture(), inheritedAwareness01: 0.8 }, stream('x', 'hollywood-v1', 'b'))
++    expect(known.opening).toBeGreaterThan(plain.opening)
++    expect(known.total).toBeGreaterThan(plain.total)
++    expect(known.awarenessFactor).toBeGreaterThan(plain.awarenessFactor)
++    expect(known.legs).toBe(plain.legs)
++    expect(known.criticScore).toBe(plain.criticScore)
++    expect(known.criticMean).toBe(plain.criticMean)
++    expect(known.craft).toBe(plain.craft)
++    expect(known.cohesion).toBe(plain.cohesion)
++    expect(known.weightedAudienceScore).toBe(plain.weightedAudienceScore)
++    expect(known.starDraw).toBe(plain.starDraw)
++    expect(JSON.stringify(known.segmentScores)).toBe(JSON.stringify(plain.segmentScores))
++    // monotone in the input, saturating at the awareness ceiling
++    const more = resolveReception({ ...fixture(), inheritedAwareness01: 1 }, stream('x', 'hollywood-v1', 'b'))
++    expect(more.opening).toBeGreaterThanOrEqual(known.opening)
++    expect(more.awarenessFactor).toBeLessThanOrEqual(1)
++  })
++
++  it('computeBoxOffice applies the input once: zero is a no-op in value, absent is a no-op in bytes', () => {
++    const inp = fixture()
++    const appeal = { youngAdult: 60, family: 55, adult: 65, prestige: 50 }
++    const base = computeBoxOffice(appeal, inp.market.segments, inp.market.baseMarketValue, inp.standing, inp.promise, inp.budget, inp.shapeEffects)
++    const zero = computeBoxOffice(appeal, inp.market.segments, inp.market.baseMarketValue, inp.standing, inp.promise, inp.budget, inp.shapeEffects, appeal, false, 0, 0, 1, 1, 0)
++    expect(zero.opening).toBeCloseTo(base.opening, 6)
++    const absent = computeBoxOffice(appeal, inp.market.segments, inp.market.baseMarketValue, inp.standing, inp.promise, inp.budget, inp.shapeEffects, appeal, false, 0, 0, 1, 1, undefined)
++    expect(absent.opening).toBe(base.opening)
++    const full = computeBoxOffice(appeal, inp.market.segments, inp.market.baseMarketValue, inp.standing, inp.promise, inp.budget, inp.shapeEffects, appeal, false, 0, 0, 1, 1, 1)
++    expect(full.preMarketingAwareness).toBeGreaterThan(base.preMarketingAwareness)
++    expect(full.baseAwareness).toBeGreaterThan(base.baseAwareness)
++  })
++
++  it('the forecast reads the same field with the same formula: a continuation\'s locked bar is higher, its band width unchanged', () => {
++    const plain = computeForecast(fixture(), ctx)
++    const known = computeForecast({ ...fixture(), inheritedAwareness01: 0.8 }, ctx)
++    expect(known.expectedOpening).toBeGreaterThan(plain.expectedOpening)
++    expect(known.expectedTotal).toBeGreaterThan(plain.expectedTotal)
++    expect(known.expectedCriticScore).toBe(plain.expectedCriticScore) // no quality gift
++    for (let i = 0; i < plain.segments.length; i++) {
++      expect(known.segments[i]!.estimate).toBe(plain.segments[i]!.estimate) // appeal untouched
++      expect(known.segments[i]!.high - known.segments[i]!.low).toBe(plain.segments[i]!.high - plain.segments[i]!.low)
++    }
++    // deterministic centers never read the field: the same centers either way
++    expect(JSON.stringify(forecastCenters({ ...fixture(), inheritedAwareness01: 0.8 }).centers)).toBe(JSON.stringify(forecastCenters(fixture()).centers))
++  })
++
++  it('lock then live: an intervening change moves the live read; Standing reacts to realized reach only (the locked forecast\'s carry to the released film: p17-r2-managed T04)', () => {
++    // the property flopped between greenlight and release: the live input is lower
++    const live = resolveReception({ ...fixture(), inheritedAwareness01: 0.4 }, stream('x', 'hollywood-v1', 'c'))
++    const liveHigh = resolveReception({ ...fixture(), inheritedAwareness01: 0.8 }, stream('x', 'hollywood-v1', 'c'))
++    expect(live.total).toBeLessThan(liveHigh.total)
++    expect(live.criticScore).toBe(liveHigh.criticScore) // the field moves awareness, never quality
++    // Standing has no continuation source: identical FilmResults move Standing identically regardless of the field
++    const standing = { audienceAwareness: 40, industryPrestige: 40, commercialConfidence: 50 }
++    const sctx: StandingContext = { castFames: { lead: 70, antagonist: 30, support: 10 }, actualNegative: 4_000_000, requiredNegative: 4_000_000, baseMarketValue: 20_000_000, marketing: 400_000, salaries: 300_000, engaged: false }
++    const film = { productionId: 'p', releaseTick: 1, delivered: live.delivered, cohesion: live.cohesion, craft: live.craft, criticMean: live.criticMean, criticSigma: live.criticSigma, criticScore: live.criticScore, reviewVariance: live.reviewVariance, segmentScores: live.segmentScores, boxOffice: { opening: live.opening, total: live.total }, conceptId: 'c', directorId: 'd' }
++    expect(JSON.stringify(updateStanding(standing, film, { expectedOpening: 1, expectedTotal: 1, expectedCriticScore: 1 }, sctx))).toBe(JSON.stringify(updateStanding(standing, film, { expectedOpening: 9, expectedTotal: 9, expectedCriticScore: 9 }, sctx)))
++  })
++})
+--- /dev/null
++++ b/tests/p17-continuation-signals.test.ts
+@@ -0,0 +1,375 @@
++// ── P17 Recognition / Momentum / Fatigue — canonical rev02 §5.2/§5.3/§8/§9/§11 calculator REDs ──
++//
++// Authority: canonical revision 02 at f2eff6356fca3e6d5287e690bf2404867d638906
++// (docs/research/p17-independent-verification-01/P17-INDEPENDENT-VERIFICATION-REPORT.md) §5.2 (kernel),
++// §5.3 (awareness input, remake/reboot comparison, continuity credit), §5.4 (paper Cases A–G, R, R2),
++// §5.5 (spam probe), §9 (SubProperty seed), §11 (continuity multiplier); the P17 continuation charter r2
++// (1370-ae-restart-checkpoint/p17-continuation-prep-r2-5020e56e-20261008) RED item (2); Owner choices in
++// P17-RECOVERED-SPECIFICATION-STATE.md (0.35 quality-qualified floor; healthy reboot legal; dormant
++// DirectSequel is not a sixth type). Expected numbers are the report's §5.4 table values (one decimal), so
++// every assertion carries a ±0.06 band for the report's own rounding; nothing is copied from src/core.
++//
++// Paper convention (§5.4): expectedTotal $150M flat; a film "(c/a, k×)" has critic c, audience a and a
++// realized total of k × $150M. Momentum is unclamped.
++
++import { describe, expect, it } from 'vitest'
++import {
++  awarenessInput,
++  branchBand,
++  composeInheritedAwareness,
++  continuationAwareness,
++  continuityMultiplier,
++  emptyMeter,
++  emptyMomentum,
++  fatigueAt,
++  hookTransferFraction,
++  isContinuityOpen,
++  momentumAt,
++  P17_CONTINUATION_TYPES,
++  qualityOf,
++  reach01,
++  rebootComparison,
++  recognitionAt,
++  recognitionReported,
++  registerBranchRelease,
++  registerRelease,
++  remakeComparison,
++  seedSubPropertyMeter,
++  similarityOf,
++  surpriseOf,
++  type BranchMomentum,
++  type PropertyMeter,
++  type ReleaseFacts,
++} from '../src/core/continuationSignals.js'
++import { TUNING } from '../src/core/tuning.js'
++
++const EXPECTED = 150_000_000
++
++function film(id: string, week: number, critic: number, audience: number, mult: number): ReleaseFacts {
++  return { installmentId: id, week, critic01: critic / 100, audience01: audience / 100, total: mult * EXPECTED, expectedTotal: EXPECTED }
++}
++
++/** One property release: R/F on the meter, M on the branch, in the canonical order. */
++function release(meter: PropertyMeter, branch: BranchMomentum, facts: ReleaseFacts, similarity: number) {
++  return {
++    meter: registerRelease(meter, facts, { similarity }),
++    branch: registerBranchRelease(branch, facts),
++  }
++}
++
++describe('P17 continuation signals — canonical inputs (§5.2)', () => {
++  it('five continuation types and their similarity buckets', () => {
++    expect([...P17_CONTINUATION_TYPES]).toEqual(['directSequel', 'prequel', 'remake', 'reboot', 'spinOff'])
++    expect(similarityOf('directSequel')).toBe(0.9)
++    expect(similarityOf('prequel')).toBe(0.9)
++    expect(similarityOf('remake')).toBe(0.7)
++    expect(similarityOf('reboot')).toBe(0.6)
++    expect(similarityOf('spinOff')).toBe(0.5)
++  })
++
++  it('quality blend, reach and surprise are the §5.2 definitions', () => {
++    expect(qualityOf(0.85, 0.8)).toBeCloseTo(0.825, 12)
++    expect(reach01(2.2 * EXPECTED)).toBeCloseTo(330 / 340, 12)
++    expect(reach01(0)).toBe(0)
++    // the same half-saturation helper starPower.ts uses — reused, not duplicated
++    expect(reach01(TUNING.STAR_POWER_REACH_HALF)).toBeCloseTo(0.5, 12)
++    expect(surpriseOf(2.2 * EXPECTED, EXPECTED, 0.825)).toBeCloseTo(0.925, 12)
++    // clamped to [-1, 1]
++    expect(surpriseOf(2.5 * EXPECTED, EXPECTED, 0.89)).toBe(1)
++    expect(surpriseOf(0, EXPECTED, 0)).toBe(-1)
++    // no locked forecast ⇒ comparator 1 (the computeStarPowerDelta precedent): surprise is quality alone
++    expect(surpriseOf(5 * EXPECTED, null, 0.5)).toBe(0)
++  })
++})
++
++describe('P17 paper histories (§5.4) — the seven cases reproduce', () => {
++  it('Case A breakout: R 80.1 → 79.7 → 75.1, M 92.5 → 82.4 → 16.4, F 0', () => {
++    const { meter, branch } = release(emptyMeter(0), emptyMomentum(0), film('f1', 0, 85, 80, 2.2), 0.9)
++    expect(recognitionAt(meter, 0)).toBeCloseTo(80.1, 1)
++    expect(momentumAt(branch, 0)).toBeCloseTo(92.5, 1)
++    expect(fatigueAt(meter, 0)).toBe(0)
++    expect(Math.abs(recognitionAt(meter, 4) - 79.7)).toBeLessThan(0.06)
++    expect(Math.abs(momentumAt(branch, 4) - 82.4)).toBeLessThan(0.06)
++    expect(Math.abs(recognitionAt(meter, 60) - 75.1)).toBeLessThan(0.06)
++    expect(Math.abs(momentumAt(branch, 60) - 16.4)).toBeLessThan(0.06)
++    expect(fatigueAt(meter, 60)).toBe(0)
++  })
++
++  it('Case C hit then flop: the flop adds no Recognition, swings Momentum negative, builds real Fatigue', () => {
++    const a = release(emptyMeter(0), emptyMomentum(0), film('f1', 0, 90, 88, 2.5), 0.9)
++    expect(Math.abs(recognitionAt(a.meter, 0) - 86.7)).toBeLessThan(0.06)
++    expect(momentumAt(a.branch, 0)).toBeCloseTo(100, 6)
++    const b = release(a.meter, a.branch, film('f2', 78, 45, 40, 0.6), 0.9)
++    expect(Math.abs(recognitionAt(b.meter, 78) - 79.8)).toBeLessThan(0.06) // passive decay only
++    expect(Math.abs(momentumAt(b.branch, 78) - -17.0)).toBeLessThan(0.06)
++    expect(Math.abs(fatigueAt(b.meter, 78) - 51.8)).toBeLessThan(0.06)
++    expect(branchBand(b.branch, b.meter, 78)).toBe('cooling')
++    // rest to week 130: F pays down on the 104-week clock (last quality 0.425 ⇒ base rate)
++    expect(Math.abs(recognitionAt(b.meter, 130) - 75.5)).toBeLessThan(0.06)
++    expect(Math.abs(momentumAt(b.branch, 130) - -3.8)).toBeLessThan(0.06)
++    expect(Math.abs(fatigueAt(b.meter, 130) - 36.6)).toBeLessThan(0.06)
++    expect(branchBand(b.branch, b.meter, 130)).toBe('active')
++    // the peak is anchored: the flop never pulls rPeak down
++    expect(b.meter.peakInstallmentId).toBe('f1')
++    expect(Math.abs(b.meter.rPeak - 86.7)).toBeLessThan(0.06)
++  })
++
++  it('Case D rapid mediocrity: band flips to COOLING on Fatigue alone with Momentum flat', () => {
++    let s = release(emptyMeter(0), emptyMomentum(0), film('f1', 0, 57, 55, 0.9), 0.9)
++    expect(Math.abs(recognitionAt(s.meter, 0) - 12.5)).toBeLessThan(0.06)
++    expect(Math.abs(momentumAt(s.branch, 0) - 1.0)).toBeLessThan(0.06)
++    expect(fatigueAt(s.meter, 0)).toBe(0) // the property's first-ever film is exempt
++    expect(branchBand(s.branch, s.meter, 0)).toBe('active')
++    s = release(s.meter, s.branch, film('f2', 40, 57, 55, 0.9), 0.9)
++    expect(Math.abs(recognitionAt(s.meter, 40) - 14.3)).toBeLessThan(0.06)
++    expect(Math.abs(momentumAt(s.branch, 40) - 1.3)).toBeLessThan(0.06)
++    expect(Math.abs(fatigueAt(s.meter, 40) - 39.6)).toBeLessThan(0.06)
++    expect(branchBand(s.branch, s.meter, 40)).toBe('active')
++    s = release(s.meter, s.branch, film('f3', 80, 57, 55, 0.9), 0.9)
++    expect(Math.abs(recognitionAt(s.meter, 80) - 16.0)).toBeLessThan(0.06)
++    expect(Math.abs(momentumAt(s.branch, 80) - 1.4)).toBeLessThan(0.06)
++    expect(Math.abs(fatigueAt(s.meter, 80) - 68.5)).toBeLessThan(0.06)
++    expect(branchBand(s.branch, s.meter, 80)).toBe('cooling')
++    s = release(s.meter, s.branch, film('f4', 120, 57, 55, 0.9), 0.9)
++    expect(Math.abs(recognitionAt(s.meter, 120) - 17.7)).toBeLessThan(0.06)
++    expect(momentumAt(s.branch, 120)).toBeGreaterThan(1.4)
++    expect(momentumAt(s.branch, 120)).toBeLessThan(1.5)
++    expect(Math.abs(fatigueAt(s.meter, 120) - 89.6)).toBeLessThan(0.06)
++    expect(branchBand(s.branch, s.meter, 120)).toBe('cooling')
++  })
++
++  it('Case E 20-year dormancy: R 83.7 → 63.4 → 48.1 → 29.3 (the 0.35 floor binds); M and F recover', () => {
++    const { meter, branch } = release(emptyMeter(0), emptyMomentum(0), film('f1', 0, 88, 85, 2.0), 0.9)
++    expect(Math.abs(recognitionAt(meter, 0) - 83.7)).toBeLessThan(0.06)
++    expect(Math.abs(momentumAt(branch, 0) - 86.5)).toBeLessThan(0.06)
++    expect(Math.abs(recognitionReported(meter, 260) - 63.4)).toBeLessThan(0.06)
++    expect(Math.abs(recognitionReported(meter, 520) - 48.1)).toBeLessThan(0.06)
++    expect(recognitionAt(meter, 1040)).toBeLessThan(29)
++    expect(Math.abs(recognitionReported(meter, 1040) - 29.3)).toBeLessThan(0.06)
++    expect(momentumAt(branch, 1040)).toBeLessThan(0.000001)
++    expect(fatigueAt(meter, 1040)).toBe(0)
++    expect(branchBand(branch, meter, 1040)).toBe('revivalCandidate')
++  })
++
++  it('Case F successful reboot after E: R 29.3 → 83.3 on the SAME property; new continuity M 0 → 62.5; F 0', () => {
++    const e = release(emptyMeter(0), emptyMomentum(0), film('f1', 0, 88, 85, 2.0), 0.9)
++    const rebootBranch = emptyMomentum(1040)
++    const f = release(e.meter, rebootBranch, film('f2', 1040, 85, 80, 1.6), 0.6)
++    expect(Math.abs(recognitionReported(f.meter, 1040) - 83.3)).toBeLessThan(0.06)
++    expect(f.meter.peakInstallmentId).toBe('f2')
++    expect(Math.abs(momentumAt(f.branch, 1040) - 62.5)).toBeLessThan(0.06)
++    expect(momentumAt(e.branch, 1040)).toBeLessThan(0.000001) // the old continuity's Momentum is its own
++    expect(fatigueAt(f.meter, 1040)).toBe(0) // q ≥ 0.75 ⇒ satiation gate 0
++    expect(branchBand(f.branch, f.meter, 1040)).toBe('active') // never ACTIVE AGAIN on a brand-new branch
++    expect(branchBand(e.branch, f.meter, 1040)).toBe('revivalCandidate')
++  })
++
++  it('Case G failed reboot: identical pre-release read to F; R unchanged 29.3, M −36.0, property F 36.6', () => {
++    const e = release(emptyMeter(0), emptyMomentum(0), film('f1', 0, 88, 85, 2.0), 0.9)
++    const before = {
++      r: recognitionReported(e.meter, 1040),
++      f: fatigueAt(e.meter, 1040),
++      aware: awarenessInput({ recognition: recognitionReported(e.meter, 1040), momentum: 0, fatigue: fatigueAt(e.meter, 1040) }),
++    }
++    const g = release(e.meter, emptyMomentum(1040), film('f2', 1040, 40, 38, 0.5), 0.6)
++    expect(Math.abs(before.r - 29.3)).toBeLessThan(0.06)
++    expect(Math.abs(recognitionReported(g.meter, 1040) - 29.3)).toBeLessThan(0.06) // a failure adds nothing
++    expect(g.meter.peakInstallmentId).toBe('f1')
++    expect(Math.abs(momentumAt(g.branch, 1040) - -36.0)).toBeLessThan(0.06)
++    expect(Math.abs(fatigueAt(g.meter, 1040) - 36.6)).toBeLessThan(0.06)
++    expect(branchBand(g.branch, g.meter, 1040)).toBe('cooling')
++    // property-wide Fatigue: the OLD continuity reads it too — awareness 0.234 → 0.191
++    expect(Math.abs(before.aware - 0.234)).toBeLessThan(0.002)
++    const after = awarenessInput({ recognition: recognitionReported(g.meter, 1040), momentum: 0, fatigue: fatigueAt(g.meter, 1040) })
++    expect(Math.abs(after - 0.191)).toBeLessThan(0.002)
++  })
++
++  it('Case R remake comparison: ×0.67 at 2 years, ×0.89 at 10, ×0.99 at 30 — a continuous fade, no 20-year lock', () => {
++    const qRef = qualityOf(0.88, 0.85)
++    expect(Math.abs(1 - remakeComparison(qRef, 104) - 0.67)).toBeLessThan(0.006)
++    expect(Math.abs(1 - remakeComparison(qRef, 520) - 0.89)).toBeLessThan(0.006)
++    expect(Math.abs(1 - remakeComparison(qRef, 1560) - 0.99)).toBeLessThan(0.006)
++    expect(remakeComparison(qRef, 1040)).toBeGreaterThan(remakeComparison(qRef, 1041))
++  })
++
++  it('Case R2 reboot partial comparison: fires only for a strong (q ≥ 0.65) AND recent (< 416 wk) prior film', () => {
++    expect(rebootComparison(0.62, 260)).toBe(0) // TASM-like: not strong
++    expect(Math.abs(1 - rebootComparison(0.8, 260) - 0.92)).toBeLessThan(0.006) // fires
++    expect(rebootComparison(0.4, 208)).toBe(0) // Casino-Royale-like
++    expect(rebootComparison(0.8, 468)).toBe(0) // not recent
++    expect(rebootComparison(0.8, 416)).toBe(0) // boundary: 416 is not < 416
++    expect(rebootComparison(0.8, 415)).toBeGreaterThan(0)
++  })
++
++  it('spam probe (§5.5): twenty mediocre releases at 15-week cadence — R gated well below 100, F unbounded, awareness no better than a fresh mediocre original', () => {
++    let meter = emptyMeter(0)
++    let branch = emptyMomentum(0)
++    for (let i = 0; i < 20; i++) {
++      const s = release(meter, branch, film(`m${i}`, i * 15, 57, 55, 0.9), 0.9)
++      meter = s.meter
++      branch = s.branch
++    }
++    const week = 19 * 15
++    // rev02 §5.5 R3 probe 1, to the report's rounding: Recognition 43 (gated), its durable floor 15, Fatigue 318
++    expect(Math.round(recognitionReported(meter, week))).toBe(43)
++    expect(Math.round(TUNING.P17_RECOGNITION_FLOOR_FRACTION * meter.rPeak)).toBe(15)
++    expect(Math.round(fatigueAt(meter, week))).toBe(318) // no per-count cap anywhere
++    const aware = awarenessInput({ recognition: recognitionReported(meter, week), momentum: momentumAt(branch, week), fatigue: fatigueAt(meter, week) })
++    expect(aware).toBeGreaterThanOrEqual(0.1) // the report's 0.10–0.18 band
++    expect(aware).toBeLessThanOrEqual(0.18)
++    // twenty GOOD releases build a franchise with zero Fatigue
++    let good = emptyMeter(0)
++    for (let i = 0; i < 20; i++) good = registerRelease(good, film(`g${i}`, i * 15, 80, 78, 1.3), { similarity: 0.9 })
++    expect(recognitionReported(good, week)).toBeGreaterThan(95)
++    expect(fatigueAt(good, week)).toBe(0)
++  })
++
++  it('founding exemption applies only to the StoryProperty\'s first-ever film (C5): a spin-off\'s founding film accrues', () => {
++    // Case B: the spin-off SubProperty's 74.5-quality film sits 0.005 under the satiation gate → 0.6375
++    const parent = registerRelease(registerRelease(emptyMeter(0), film('f1', 0, 90, 88, 2.4), { similarity: 0.9 }), film('f2', 52, 90, 88, 2.4), { similarity: 0.9 })
++    expect(fatigueAt(parent, 92)).toBe(0) // both smash films clear the 0.75 gate
++    const sub = seedSubPropertyMeter(parent, 1.0, 91)
++    expect(sub.releaseCount).toBe(0)
++    const afterSpin = registerRelease(sub, film('f3', 92, 75, 74, 1.4), { similarity: 0.5 })
++    expect(Math.abs(fatigueAt(afterSpin, 92) - 0.6375)).toBeLessThan(0.0005)
++    // the parent property's own Fatigue is NOT touched by the spin-off's accrual
++    expect(fatigueAt(parent, 92)).toBe(0)
++  })
++})
++
++describe('P17 SubProperty seed (§9)', () => {
++  it('transfer fraction 0.38 + 0.27·hookWeight; R_sp = fraction·R_parent; F_sp = 0.5·F_parent; M_sp = 0; parent never consumed', () => {
++    expect(hookTransferFraction(1.0)).toBeCloseTo(0.65, 12)
++    expect(hookTransferFraction(0)).toBeCloseTo(0.38, 12)
++    expect(hookTransferFraction(0.5)).toBeCloseTo(0.515, 12)
++    let parent = registerRelease(emptyMeter(0), film('f1', 0, 85, 80, 2.2), { similarity: 0.9 })
++    parent = registerRelease(parent, film('f2', 60, 45, 40, 0.6), { similarity: 0.9 })
++    const rParent = recognitionReported(parent, 100)
++    const fParent = fatigueAt(parent, 100)
++    expect(fParent).toBeGreaterThan(0)
++    const sub = seedSubPropertyMeter(parent, 0.6, 100)
++    expect(recognitionReported(sub, 100)).toBeCloseTo((0.38 + 0.27 * 0.6) * rParent, 6)
++    expect(fatigueAt(sub, 100)).toBeCloseTo(0.5 * fParent, 6)
++    expect(recognitionReported(parent, 100)).toBe(rParent) // not consumed
++    // the seeded recognition decays and floors like any other
++    expect(recognitionReported(sub, 100 + 650)).toBeLessThan(recognitionReported(sub, 100))
++    expect(recognitionReported(sub, 100 + 6500)).toBeCloseTo(0.35 * recognitionReported(sub, 100), 6)
++  })
++})
++
++describe('P17 awareness input (§5.3) and the one P07 entry', () => {
++  it('awarenessInput = clamp(0.8·R/100 + 0.2·max(M,0)/100, 0, 1) × (1 − 0.5·min(F,100)/100)', () => {
++    expect(awarenessInput({ recognition: 100, momentum: 100, fatigue: 0 })).toBe(1)
++    expect(awarenessInput({ recognition: 80, momentum: -50, fatigue: 0 })).toBeCloseTo(0.64, 12) // negative M removes only the tailwind
++    expect(awarenessInput({ recognition: 80, momentum: 20, fatigue: 100 })).toBeCloseTo(0.68 * 0.5, 12)
++    expect(awarenessInput({ recognition: 80, momentum: 20, fatigue: 300 })).toBeCloseTo(0.68 * 0.5, 12) // F discount saturates at 100
++    expect(awarenessInput({ recognition: 0, momentum: 0, fatigue: 0 })).toBe(0)
++  })
++
++  it('composeInheritedAwareness applies the comparison discount and the continuity multiplier once each, clamped to [0,1]', () => {
++    const base = awarenessInput({ recognition: 80, momentum: 20, fatigue: 0 })
++    expect(composeInheritedAwareness({ recognition: 80, momentum: 20, fatigue: 0, comparison01: 0, continuityCredit: null })).toBeCloseTo(base, 12)
++    expect(composeInheritedAwareness({ recognition: 80, momentum: 20, fatigue: 0, comparison01: 0.33, continuityCredit: null })).toBeCloseTo(base * 0.67, 12)
++    expect(composeInheritedAwareness({ recognition: 80, momentum: 20, fatigue: 0, comparison01: 0, continuityCredit: 0.467 })).toBeCloseTo(base * (0.75 + 0.25 * 0.467), 12)
++    for (const r of [0, 50, 100]) for (const m of [-100, 0, 100]) for (const f of [0, 60, 400]) for (const c of [0, 0.5, 1]) {
++      const v = composeInheritedAwareness({ recognition: r, momentum: m, fatigue: f, comparison01: c, continuityCredit: 0 })
++      expect(v).toBeGreaterThanOrEqual(0)
++      expect(v).toBeLessThanOrEqual(1)
++    }
++  })
++
++  it('continuity multiplier 0.75 + 0.25·credit; no association ⇒ exactly 1', () => {
++    expect(continuityMultiplier(null)).toBe(1)
++    expect(continuityMultiplier(1)).toBe(1)
++    expect(continuityMultiplier(0)).toBe(0.75)
++    expect(continuityMultiplier(0.467)).toBeCloseTo(0.867, 3)
++  })
++
++  it('continuationAwareness: absent input is the caller\'s own branch; present input raises studio awareness by probabilistic OR, never above 100', () => {
++    expect(continuationAwareness(40, 0)).toBe(40)
++    expect(continuationAwareness(40, 1)).toBe(100)
++    expect(continuationAwareness(100, 0.5)).toBe(100)
++    expect(continuationAwareness(40, 0.5)).toBeCloseTo(70, 12)
++    for (const a of [0, 13, 40, 77, 100]) for (const i of [0, 0.25, 0.8, 1]) {
++      const v = continuationAwareness(a, i)
++      expect(v).toBeGreaterThanOrEqual(a)
++      expect(v).toBeLessThanOrEqual(100)
++    }
++  })
++})
++
++describe('P17 bands and open continuities (§5.2, §10) — derived, never stored', () => {
++  it('NEW / ACTIVE / ACTIVE AGAIN / COOLING / DORMANT / REVIVAL CANDIDATE from (M, F, release gaps) only', () => {
++    const meter = registerRelease(emptyMeter(0), film('f1', 0, 85, 80, 2.0), { similarity: 0.9 })
++    expect(branchBand(emptyMomentum(0), meter, 0)).toBe('new')
++    const b1 = registerBranchRelease(emptyMomentum(0), film('f1', 0, 85, 80, 2.0))
++    expect(branchBand(b1, meter, 10)).toBe('active')
++    expect(branchBand(b1, meter, 160)).toBe('revivalCandidate') // ≥150 weeks, R_reported ≥ 25
++    const faded = registerRelease(emptyMeter(0), film('w', 0, 57, 55, 0.9), { similarity: 0.9 })
++    const bw = registerBranchRelease(emptyMomentum(0), film('w', 0, 57, 55, 0.9))
++    expect(branchBand(bw, faded, 160)).toBe('dormant') // R_reported < 25
++    // a dormant DirectSequel returning: prior gap ≥ 150, release < 26 weeks old, M ≥ 0 ⇒ ACTIVE AGAIN, then plain ACTIVE
++    const b2 = registerBranchRelease(b1, film('f2', 300, 80, 78, 1.3))
++    expect(b2.priorGapWeeks).toBe(300)
++    expect(branchBand(b2, meter, 310)).toBe('activeAgain')
++    expect(branchBand(b2, meter, 330)).toBe('active')
++    // a brand-new reboot branch has a null prior gap and reads plain ACTIVE, never ACTIVE AGAIN
++    const rb = registerBranchRelease(emptyMomentum(300), film('r1', 300, 80, 78, 1.3))
++    expect(rb.priorGapWeeks).toBeNull()
++    expect(branchBand(rb, meter, 310)).toBe('active')
++  })
++
++  it('a continuity is open while NEW or fewer than 150 weeks past its last release', () => {
++    const b = registerBranchRelease(emptyMomentum(0), film('f1', 0, 85, 80, 2.0))
++    expect(isContinuityOpen(b, false, 149)).toBe(true)
++    expect(isContinuityOpen(b, false, 150)).toBe(false)
++    expect(isContinuityOpen(b, true, 1000)).toBe(true) // a greenlit, unreleased installment keeps it open
++    expect(isContinuityOpen(emptyMomentum(0), false, 5)).toBe(false) // never released, nothing in flight: not open
++  })
++})
++
++describe('P17 tuning — every bounded term is a named TUNING entry inside its stated range', () => {
++  it('ranges', () => {
++    const t = TUNING
++    expect(t.P17_RECOGNITION_HALF_LIFE_WEEKS).toBe(650)
++    expect(t.P17_RECOGNITION_RESIDUAL_WEIGHT).toBeGreaterThan(0)
++    expect(t.P17_RECOGNITION_RESIDUAL_WEIGHT).toBeLessThan(1)
++    expect(t.P17_RECOGNITION_FLOOR_FRACTION).toBe(0.35) // Owner choice
++    expect(t.P17_RECOGNITION_GATE_LO).toBe(0.5)
++    expect(t.P17_RECOGNITION_GATE_SPAN).toBe(0.25)
++    expect(t.P17_MOMENTUM_HALF_LIFE_WEEKS).toBe(24)
++    expect(t.P17_FATIGUE_SATIATION_Q).toBe(0.75)
++    expect(t.P17_FATIGUE_SATIATION_SPAN).toBe(0.1)
++    expect(t.P17_FATIGUE_HALF_LIFE_BASE_WEEKS).toBe(104)
++    expect(t.P17_FATIGUE_PAYDOWN_COEF).toBe(1.5)
++    expect(t.P17_SIMILARITY.directSequel).toBe(0.9)
++    expect(t.P17_SIMILARITY.prequel).toBe(0.9)
++    expect(t.P17_AWARENESS_RECOGNITION_WEIGHT + t.P17_AWARENESS_MOMENTUM_WEIGHT).toBeCloseTo(1, 12)
++    expect(t.P17_FATIGUE_AWARENESS_WEIGHT).toBe(0.5)
++    expect(t.P17_REMAKE_COMPARISON_WEIGHT).toBe(0.5)
++    expect(t.P17_REMAKE_HALF_LIFE_WEEKS).toBe(260)
++    expect(t.P17_REBOOT_PARTIAL_WEIGHT).toBe(0.4)
++    expect(t.P17_REBOOT_REF_RECENT_WEEKS).toBe(416)
++    expect(t.P17_REBOOT_REF_STRONG_Q).toBe(0.65)
++    expect(t.P17_CONTINUITY_CREDIT_FLOOR).toBe(0.75)
++    expect(t.P17_RECAST_RETENTION).toBe(0.35)
++    expect(t.P17_ASSOCIATION_CAP).toBe(4)
++    expect(t.P17_MIN_APPEARANCES_FOR_MAJOR).toBe(2)
++    expect(t.P17_MAX_OPEN_CONTINUITIES).toBe(3)
++    expect(t.P17_DORMANT_WEEKS).toBe(150)
++    expect(t.P17_REVIVAL_R_BAR).toBe(25)
++    expect(t.P17_MOMENTUM_COOL).toBe(-5)
++    expect(t.P17_FATIGUE_HOT).toBe(60)
++    expect(t.P17_REACT_WINDOW_WEEKS).toBe(26)
++    expect(t.P17_MAX_LIVE_SUBPROPERTIES).toBe(3)
++    expect(t.P17_SPINOFF_TRANSFER_BASE).toBe(0.38)
++    expect(t.P17_SPINOFF_TRANSFER_HOOK_COEF).toBe(0.27)
++    expect(t.P17_SPINOFF_FATIGUE_INHERIT).toBe(0.5)
++    expect(t.P17_HOOK_WEIGHT_DEFAULT).toBe(0.5)
++    for (const w of Object.values(t.P17_ROLE_IMPORTANCE)) {
++      expect(w).toBeGreaterThan(0)
++      expect(w).toBeLessThanOrEqual(1)
++    }
++    expect((t.P17_ROLE_IMPORTANCE as Record<string, number>).craft).toBeUndefined() // craft excluded
++  })
++})
+--- /dev/null
++++ b/tests/p17-p16-rights.test.ts
+@@ -0,0 +1,181 @@
++// ── P17 on the landed P16 rights: link versus mint, parent-bound spin-offs, licence terms, reboot legality ──
++//
++// RED-first against the predecessor a5a66c27 (tag p16-technical-checkpoint-20261027). Independent draft review
++// (1370-codebase-review-20261022 P17-P18.md): P17-01 — P16's greenlight tail minted `story-property:<concept>` for every
++// player greenlight, so a sequel greenlit under a licence handed its producer a clean, unencumbered title and the
++// third installment could not resolve; P17-02 — a sequel on a spin-off continuity asked the `sequel` use while P16's
++// `branchAuthority` is the parent's `spinoff` use. P16 contract §3: "A licensed continuation links to the existing
++// parent and does not mint an unencumbered R1"; 1367-O: a branch stays with its parent until P16 promotes it.
++// Charter r2 RED item (1): healthy reboot legal, branch cap on opening only, refused greenlight leaves state unchanged.
++//
++// Every route is real: P16's own mint hooks, bilateral sales and licences (tests/helpers/p17-route.ts); no rights
++// stand-in. This file imports only modules the predecessor has, so each law fails there by assertion: the predecessor
++// ignores `continuation`, mints the clean title, refuses nothing and keeps no franchise root.
++
++import { beforeAll, describe, expect, it } from 'vitest'
++import { applyActions } from '../src/core/actions.js'
++import { resolveTitles, storyPropertyId } from '../src/core/rights.js'
++import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
++import { tick } from '../src/core/tick.js'
++import { TUNING } from '../src/core/tuning.js'
++import type { GameState } from '../src/core/types.js'
++import { mintRoute } from './helpers/p16-fixtures.js'
++import { buyLicence, freshConcept, grantLicence, greenlightAs, releaseNow, sellTitle } from './helpers/p17-route.js'
++
++type Edge = { childProductionId: string; parentProductionId: string | null; type: string; branchId: string }
++type Root = { properties: { storyPropertyId: string; installments: Edge[]; branches: { branchId: string; kind: string }[]; subProperties: { subPropertyId: string }[] }[] }
++const rootOf = (s: GameState): Root | undefined => (s as GameState & { franchises?: Root }).franchises
++const worksOf = (s: GameState, propertyId: string): string[] => resolveTitles(s).properties.find((p) => p.propertyId === propertyId)?.workLinks ?? []
++const lineage = (s: GameState) => rootOf(s)?.properties.map((p) => ({ property: p.storyPropertyId, edges: p.installments.map((e) => [e.childProductionId, e.type, e.parentProductionId]) }))
++
++describe('P17-01 link versus mint: a continuation joins its parent property and never founds a clean title', () => {
++  let A: string, P: string, released: GameState, b: { state: GameState; productionId: string }, bConcept: string
++  beforeAll(() => {
++    const route = mintRoute('p17-p16-link-01')
++    A = route.productionId
++    P = storyPropertyId(route.conceptId)
++    released = route.released
++    const concept = freshConcept(released)
++    bConcept = concept.id
++    b = greenlightAs(released, concept, { type: 'directSequel', predecessorProductionId: A })
++  })
++
++  it('the player\'s own sequel is a work of the parent property; its own concept founds no property and no R1 genesis', () => {
++    expect(b.state.rights.properties.map((p) => p.propertyId)).toEqual([P])
++    expect(b.state.rights.titleEvents.filter((e) => e.subject.right === 'R1' && e.subject.propertyId === storyPropertyId(bConcept))).toEqual([])
++    expect(worksOf(b.state, P)).toContain(b.productionId)
++    expect(lineage(b.state)).toEqual([{ property: P, edges: [[A, 'origin', null], [b.productionId, 'directSequel', A]] }])
++  })
++
++  describe('released, then continued again', () => {
++    let bReleased: GameState, c: { state: GameState; productionId: string }
++    beforeAll(() => {
++      bReleased = releaseNow(b.state, b.productionId)
++      c = greenlightAs(bReleased, freshConcept(bReleased), { type: 'directSequel', predecessorProductionId: b.productionId })
++    })
++
++    it('the sequel\'s release is titled under the parent; the third installment resolves through it to the same property', () => {
++      expect(bReleased.rights.filmTitles.find((t) => t.filmId === b.productionId)!.propertyId).toBe(P)
++      expect(c.state.rights.properties.map((p) => p.propertyId)).toEqual([P])
++      expect(lineage(c.state)).toEqual([{ property: P, edges: [[A, 'origin', null], [b.productionId, 'directSequel', A], [c.productionId, 'directSequel', b.productionId]] }])
++    })
++
++    it('the live save carries the franchise root at Save50 and round-trips byte for byte', () => {
++      expect(LIVE_SAVE_VERSION).toBe(50)
++      const save = makeSave(c.state)
++      expect(save.saveVersion).toBe(50)
++      const bytes = exportSave(save)
++      expect(exportSave(migrateToLive(importSave(bytes)))).toBe(bytes)
++      expect(lineage(importSave(bytes).state as GameState)).toEqual(lineage(c.state))
++    })
++  })
++})
++
++describe('P17-01 under a licence: the licensee links to the licensor\'s property; the licence term covers the release', () => {
++  let A: string, P: string, sold: GameState, r01: string
++  beforeAll(() => {
++    const route = mintRoute('p17-p16-licence-01')
++    A = route.productionId
++    P = storyPropertyId(route.conceptId)
++    r01 = route.released.hollywood!.identities[1]!.studioId
++    sold = sellTitle(route.released, P, r01)
++  })
++
++  it('an exclusive sequel licensee\'s sequel links to the rival\'s property and gains no title of its own', () => {
++    const licensed = buyLicence(sold, r01, P, 'sequel', 26)
++    const concept = freshConcept(licensed)
++    const b = greenlightAs(licensed, concept, { type: 'directSequel', predecessorProductionId: A })
++    expect(b.state.rights.properties.some((p) => p.propertyId === storyPropertyId(concept.id))).toBe(false)
++    expect(worksOf(b.state, P)).toContain(b.productionId)
++    expect(lineage(b.state)).toEqual([{ property: P, edges: [[A, 'origin', null], [b.productionId, 'directSequel', A]] }])
++  })
++
++  it('without the licence the player holds no sequel right in the rival\'s property: refused by name, nothing written', () => {
++    const before = stableStringify(sold)
++    expect(() => greenlightAs(sold, freshConcept(sold), { type: 'directSequel', predecessorProductionId: A })).toThrow(new RegExp(`noAuthority:${r01}`))
++    expect(stableStringify(sold)).toBe(before)
++  })
++
++  it('a licence that ends before the picture\'s earliest release week refuses at the greenlight, and the state is unchanged', () => {
++    const short = buyLicence(sold, r01, P, 'sequel', TUNING.PRODUCTION_TICKS)
++    const before = stableStringify(short)
++    expect(() => greenlightAs(short, freshConcept(short), { type: 'directSequel', predecessorProductionId: A }))
++      .toThrow(new RegExp(`only until week ${short.market.tick + TUNING.PRODUCTION_TICKS}; the grant must cover the picture's earliest release week ${short.market.tick + TUNING.PRODUCTION_TICKS}`))
++    expect(stableStringify(short)).toBe(before)
++  })
++
++  describe('a licence that lapses while the picture waits at Release Ready', () => {
++    let waiting: GameState, productionId: string
++    beforeAll(() => {
++      const licensed = buyLicence(sold, r01, P, 'sequel', TUNING.PRODUCTION_TICKS + 1)
++      const b = greenlightAs(licensed, freshConcept(licensed), { type: 'directSequel', predecessorProductionId: A })
++      productionId = b.productionId
++      waiting = b.state
++      for (let i = 0; i <= TUNING.PRODUCTION_TICKS; i++) waiting = tick(waiting) // one week past Release Ready, uncommitted
++    })
++
++    it('committing it to release reads the grant again and refuses with P16\'s expiry; the tick never throws and the picture waits', () => {
++      expect(waiting.studio.activeProductions.find((p) => p.id === productionId)!.remainingTicks).toBe(1)
++      const before = stableStringify(waiting)
++      expect(() => applyActions(waiting, [{ kind: 'commitPictureToRelease', productionId }])).toThrow(/commitPictureToRelease rejected — .*expired:rights-licence-/)
++      expect(stableStringify(waiting)).toBe(before)
++      const later = tick(waiting)
++      expect(later.studio.activeProductions.find((p) => p.id === productionId)!.remainingTicks).toBe(1)
++    })
++  })
++})
++
++describe('P17-02 parent-bound spin-off authority: a spin-off continuity answers to the parent\'s spin-off use', () => {
++  let A: string, P: string, S: string, granted: GameState, r01: string
++  beforeAll(() => {
++    const route = mintRoute('p17-p16-branch-01')
++    A = route.productionId
++    P = storyPropertyId(route.conceptId)
++    r01 = route.released.hollywood!.identities[1]!.studioId
++    const hooked = applyActions(route.released, [{ kind: 'mintSubProperty', productionId: A, hookKind: 'location', citedTalentIds: [] } as never])
++    const sub = rootOf(hooked)!.properties[0]!.subProperties[0]!.subPropertyId
++    const spin = greenlightAs(hooked, freshConcept(hooked), { type: 'spinOff', predecessorProductionId: A, subPropertyId: sub })
++    S = spin.productionId
++    granted = grantLicence(releaseNow(spin.state, S), r01, P, 'spinoff', 52)
++  })
++
++  it('once the parent\'s spin-off use is licensed away, a sequel to the spin-off film refuses naming the licensee', () => {
++    const before = stableStringify(granted)
++    expect(() => greenlightAs(granted, freshConcept(granted), { type: 'directSequel', predecessorProductionId: S })).toThrow(new RegExp(`holds no lawful spinoff right in ${P} .*noAuthority:${r01}`))
++    expect(stableStringify(granted)).toBe(before)
++  })
++
++  it('the main continuity is the title holder\'s sequel use and stays lawful for the player', () => {
++    const main = greenlightAs(granted, freshConcept(granted), { type: 'directSequel', predecessorProductionId: A })
++    const property = rootOf(main.state)!.properties[0]!
++    const edge = property.installments.find((e) => e.childProductionId === main.productionId)!
++    expect(property.branches.find((x) => x.branchId === edge.branchId)!.kind).toBe('main')
++  })
++})
++
++describe('P17 reboot legality and atomic refusal on the live route', () => {
++  let A: string, released: GameState
++  beforeAll(() => {
++    const route = mintRoute('p17-p16-reboot-01')
++    A = route.productionId
++    released = route.released
++  })
++
++  it('a healthy property may be rebooted (Owner choice); a fourth concurrent continuity refuses at three open and writes nothing', () => {
++    const used = new Set<string>(), skip = new Set<string>()
++    const next = (s: GameState) => { const c = freshConcept(s, skip); skip.add(c.id); return c }
++    const r1 = greenlightAs(released, next(released), { type: 'reboot', predecessorProductionId: A }, used)
++    const r2 = greenlightAs(r1.state, next(r1.state), { type: 'reboot', predecessorProductionId: A }, used)
++    expect(rootOf(r2.state)!.properties[0]!.branches.map((b) => b.kind)).toEqual(['main', 'reboot', 'reboot'])
++    const before = stableStringify(r2.state)
++    expect(() => greenlightAs(r2.state, next(r2.state), { type: 'reboot', predecessorProductionId: A }, used)).toThrow(/3 continuities are open/)
++    expect(stableStringify(r2.state)).toBe(before)
++  })
++
++  it('a continuation citing an unknown film refuses before any write; a greenlight without a request writes no franchise root', () => {
++    const before = stableStringify(released)
++    expect(() => greenlightAs(released, freshConcept(released), { type: 'directSequel', predecessorProductionId: 'prod-nobody' })).toThrow(/no P16 StoryProperty links prod-nobody/)
++    expect(stableStringify(released)).toBe(before)
++    expect(Object.hasOwn(greenlightAs(released, freshConcept(released)).state, 'franchises')).toBe(false)
++  })
++})
+--- /dev/null
++++ b/tests/p17-save-step.test.ts
+@@ -0,0 +1,107 @@
++// ── P17 save step: Save50 over P16's Save49, the lazy `franchises` root ──────────────────────────────
++//
++// Rev02 §10 save law and charter r2 §save: the next governed version after the accepted predecessor, forward-only and
++// root-additive; migration infers no franchise, edge or meter from old films; a downgrade refuses recorded authority
++// once, by name. The root is absent until its first property exists and never empties again, so migration from
++// Save49 is the version alone and a downgrade is lossless exactly while the root is absent (src/core/continuationSave.ts).
++// Era-neutral step names (validateSaveP17, convertPredecessorToP17, convertP17ToPredecessor, migrateToP17) carry the
++// conventional V50 aliases the version-composing tests read (P15B convention, save.ts).
++// Every franchise here is written by the real greenlight on real P16 rights (tests/helpers/p17-route.ts).
++
++import { beforeAll, describe, expect, it } from 'vitest'
++import * as saves from '../src/core/save.js'
++import type { GameState } from '../src/core/types.js'
++import { detached, genuineV45Raw, mintRoute } from './helpers/p16-fixtures.js'
++import { freshConcept, greenlightAs } from './helpers/p17-route.js'
++
++type Forged = { state: GameState & { franchises: { properties: { installments: { childProductionId: string; studioId: string | null }[] }[] } & Record<string, unknown> } }
++const DOWNGRADE = /^migrateToV49: cannot downgrade or discard 1 recorded franchise root\(s\)$/
++
++let route: ReturnType<typeof mintRoute>
++let franchised: GameState
++let sequelId: string
++beforeAll(() => {
++  route = mintRoute('p17-save-step-01')
++  const b = greenlightAs(route.released, freshConcept(route.released), { type: 'directSequel', predecessorProductionId: route.productionId })
++  franchised = b.state
++  sequelId = b.productionId
++})
++
++describe('P17 save step — version, aliases, dispatcher', () => {
++  it('Save50 is live one step above P16\'s Save49; the V50 names are the P17 step', () => {
++    expect(saves.LIVE_SAVE_VERSION).toBe(50)
++    expect(saves.P17_SAVE_VERSION).toBe(saves.LIVE_SAVE_VERSION)
++    expect(saves.P17_PREDECESSOR_SAVE_VERSION).toBe(saves.P16_SAVE_VERSION)
++    const save = saves.makeSave(route.released)
++    expect(saves.stableStringify(saves.validateSaveV50(save))).toBe(saves.stableStringify(saves.validateSaveP17(save)))
++    expect(() => saves.validateSave({ ...save, saveVersion: 51 } as never)).toThrow(/unknown saveVersion 51.*versions 1 through 50 only/)
++  })
++})
++
++describe('P17 save step — no franchise: absence, version-only migration, lossless downgrade', () => {
++  it('a fresh world and a released P16 world write no franchises key', () => {
++    for (const state of [route.start, route.released]) {
++      expect(Object.hasOwn(state, 'franchises')).toBe(false)
++      const save = saves.makeSave(state)
++      expect(save.saveVersion).toBe(50)
++      expect(Object.hasOwn(save.state, 'franchises')).toBe(false)
++    }
++  })
++
++  it('down to Save49 and back is the version alone, byte for byte', () => {
++    const save = saves.makeSave(route.released), before = saves.stableStringify(save)
++    const down = saves.convertV50ToV49(save)
++    expect(down.saveVersion).toBe(49)
++    expect(saves.stableStringify({ ...down, saveVersion: 50 })).toBe(before)
++    expect(saves.stableStringify(saves.convertV49ToV50(down))).toBe(before)
++    expect(saves.stableStringify(save)).toBe(before)
++  })
++
++  it('a genuine week-53 Save45 migrates to Save50 with exactly the state migrateToV49 gives it; no franchise is inferred', () => {
++    const raw = genuineV45Raw('week53')
++    const era = saves.migrateToV49(saves.importSave(raw))
++    const live = saves.migrateToLive(saves.importSave(raw))
++    expect(live.saveVersion).toBe(50)
++    expect(saves.stableStringify(live.state)).toBe(saves.stableStringify(era.state))
++    expect(saves.stableStringify(saves.migrateToV50(era))).toBe(saves.stableStringify(live))
++  })
++})
++
++describe('P17 save step — a recorded franchise', () => {
++  it('round-trips through export and import byte for byte', () => {
++    const save = saves.makeSave(franchised)
++    expect(Object.hasOwn(save.state, 'franchises')).toBe(true)
++    const bytes = saves.exportSave(save)
++    expect(saves.exportSave(saves.migrateToLive(saves.importSave(bytes)))).toBe(bytes)
++  })
++
++  it('refuses every downgrade and every frozen builder by name, and leaves the input unchanged', () => {
++    const save = saves.makeSave(franchised), before = saves.stableStringify(save)
++    expect(() => saves.convertV50ToV49(save)).toThrow(DOWNGRADE)
++    expect(() => saves.migrateToV49(save)).toThrow(DOWNGRADE)
++    expect(() => saves.migrateToV45(save)).toThrow(DOWNGRADE)
++    expect(() => saves.makeSaveV1(franchised)).toThrow(/^makeSaveV1: cannot downgrade or discard 1 recorded franchise root\(s\)$/)
++    expect(saves.stableStringify(save)).toBe(before)
++  })
++
++  it('the validator refuses an empty root, an unknown root key, a forged exercising studio and a forged P16 work link', () => {
++    const save = saves.makeSave(franchised)
++    const refuse = (edit: (f: Forged) => void, pattern: RegExp) => {
++      const forged = detached(save) as unknown as Forged
++      edit(forged)
++      expect(() => saves.validateSaveP17(forged)).toThrow(pattern)
++      expect(() => saves.makeSave(forged.state)).toThrow(pattern)
++    }
++    refuse((f) => { f.state.franchises.properties = [] }, /an empty franchise root is written as absence/)
++    refuse((f) => { f.state.franchises.extra = 1 }, /expected exactly keys/)
++    const r01 = franchised.hollywood!.identities[1]!.studioId
++    refuse((f) => { f.state.franchises.properties[0]!.installments[1]!.studioId = r01 }, new RegExp(`records the player studio that greenlit it; found ${r01}`))
++    // a plain greenlight founds its own property: re-pointing the sequel edge at it breaks the join to P16's work links
++    const plain = greenlightAs(franchised, freshConcept(franchised))
++    const withPlain = saves.makeSave(plain.state)
++    const forged = detached(withPlain) as unknown as Forged
++    const edge = forged.state.franchises.properties[0]!.installments.find((e) => e.childProductionId === sequelId)!
++    edge.childProductionId = plain.productionId
++    expect(() => saves.validateSaveP17(forged)).toThrow(new RegExp(`${plain.productionId} is not a P16 work of story-property:`))
++  })
++})

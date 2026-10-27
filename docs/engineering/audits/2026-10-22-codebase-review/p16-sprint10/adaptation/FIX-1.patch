@@ -1,0 +1,61 @@
+--- a/tests/p14b4-material-evidence-core.test.ts
++++ b/tests/p14b4-material-evidence-core.test.ts
+@@ -39,7 +39,7 @@
+ // envelope (every record's `extensionUsed`/`extendedFromWeek`, every case's `variant`).
+ // 975: only this live carrier reaches38. The independent frozen31 carrier below
+ // retains its original reader, assertions and immutable fixture bytes.
+-type EnvelopeV33 = ReturnType<typeof validateSaveV49>
++type EnvelopeV33 = ReturnType<typeof validateSaveV50> // the live carrier's envelope (P17: Save50)
+ const SLOTS = ['lead', 'antagonist', 'support'] as const
+ const CLASSES = ['lead', 'leadOrAntagonist'] as const
+ type SeatClass = typeof CLASSES[number]
+--- a/tests/p15b-legacy-terminal-regression.test.ts
++++ b/tests/p15b-legacy-terminal-regression.test.ts
+@@ -232,7 +232,7 @@
+   // p15b-legacy-v3.test.ts, and the condition-record reason with R8's appended in p15b2-corporate-condition-save.
+   expect(final.rights.estates.map(e => e.origin.kind), 'premise: the player closure opened its estate').toContain('closure49')
+   // P17 (Save50): the P16 step's own downgrade is entered from the live envelope through the P17 step.
+-  for (const convert of [(s: never) => save.convertV49ToV48(save.convertV50ToV49(s)), save.migrateToV47, save.migrateToV46, save.migrateToV45]) {
++  for (const convert of [(s: typeof current) => save.convertV49ToV48(save.convertV50ToV49(s)), save.migrateToV47, save.migrateToV46, save.migrateToV45]) {
+     expect(() => convert(current)).toThrow(/^migrateToV48: cannot discard unique estate observation or current closure provenance$/)
+     expect(canon(current)).toBe(currentBytes)
+   }
+--- a/tests/p16-estate-observed-migration.test.ts
++++ b/tests/p16-estate-observed-migration.test.ts
+@@ -2,7 +2,7 @@
+ import { describe, expect, it } from 'vitest'
+ import { readFileSync } from 'node:fs'
+ import { createHash } from 'node:crypto'
+-import { convertV48ToV49, convertV49ToV48, exportSave, makeSave, stableStringify, validateSaveP15B } from '../src/core/save.js'
++import { convertV48ToV49, convertV49ToV48, convertV50ToV49, exportSave, makeSave, stableStringify, validateSaveP15B } from '../src/core/save.js'
+ import { estateBidRefusal, submitEstateBid } from '../src/core/estate.js'
+ import { currentHolder } from '../src/core/rights.js'
+ import { permittedBidderRefusal } from '../src/core/rightsFinance.js'
+@@ -74,7 +74,8 @@
+   const result=submitEstateBid(state,input,163);expect(result.bid.status).toBe('sealed')
+   expect(stableStringify(state)).toBe(before)
+   const saved=makeSave(result.state),savedBefore=stableStringify(saved)
+-  expect(()=>convertV49ToV48(saved)).toThrow(/cannot discard changed estate observation or bid authority/)
++  // P17 (Save50): `saved` is live; the P16 step's downgrade is entered through the P17 step (no franchise: version only)
++  expect(()=>convertV49ToV48(convertV50ToV49(saved))).toThrow(/cannot discard changed estate observation or bid authority/)
+   expect(stableStringify(saved)).toBe(savedBefore)
+  })
+  it('frozen48 reader refuses the added current rights root without retagging a49 envelope',()=>{
+--- a/tests/p16-r2-validator.test.ts
++++ b/tests/p16-r2-validator.test.ts
+@@ -112,12 +112,13 @@
+ })
+ 
+ describe('r2 F43/F15: a persisted property\'s date is its own greenlight evidence, never earlier', () => {
+-  function materialized(): Save {
++  // The era Save49 envelope (a lifted genuine predecessor), read by the Save49 reader below; not the live Save.
++  function materialized() {
+     const base = convertV48ToV49(genuinePredecessorEnvelope('week53'))
+     const f = base.state.hollywood!.films.find((x) => x.provenance === 'simulation/v1')!
+     let state = rights.materializeLegacyTitles(base.state as GameState, { right: 'R2', filmId: f.filmId })
+     state = rights.materializeLegacyTitles(state, { right: 'R1', propertyId: rights.storyPropertyId(f.conceptId) })
+-    return { ...base, state } as Save
++    return { ...base, state } as typeof base
+   }
+ 
+   it('a property and its genesis backdated together (to before the campaign, or to week 0) refuse as ambiguous provenance', () => {
