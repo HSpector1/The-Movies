@@ -1,5 +1,30 @@
 # HANDOFF
 
+## Current cold resume — 2026-10-27, 07:27 CDT
+
+Last writer: Codex coordinator. Weekly-usage HANDOFF TRIGGER reached100%; stopped at an idle safe boundary. Owner resumed goal “finish through sprint16”; it remains active/incomplete. This is the first blocker check after resume, not grounds to immediately mark it blocked again. No game checks, source edits or foreign signals this turn.
+
+### Where the work is
+- Experimental checkout: /Users/zacheryspector/studio-scratch/p16-retained-writing-20261026-wt, branch p16-retained-writing-20261026. Published gameplay63a63abe63e62825916f3a69b4b4589ae3a7baed; last verified records-only HEAD463f05ea637093d8d035d187e328f814d3c969fd. Resolve the newer handoff-only commit from Git after this checkpoint.
+- Records checkout: /Users/zacheryspector/The-Movies-headless-program, branch wip/headless-program-20260916-ts; last explicit remote bbeee7eb714f4d83792250aceb67b2a463e48066. Primary P16 remains013c4edc90c0ce063fea00ebb187161ad6eb3414; main remainsab65eb20c73c35ac3530f59181332cc9a313b604. No gameplay promotion.
+- Governing order: docs/engineering/audits/2026-10-22-codebase-review/p16-sprint5/OWNER-ASSIGNMENT.txt. Read AGENTS/current workflow route; do not restart previous sprints or setup. Audit records are under the same directory's p16-sprint8/rival-obligations; local execution packages are /Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-obligations.
+
+### Actual state and evidence
+- Sprint8 native rival obligations v9 source is published, independently reviewed, with root types0 and genuine close/completion/Accept/save-replay functional pass. Exact9275.610403 ms exceeds original5000 ms. Prior v7/v8 history and Bridge64 shape retained. reviewed-green/AUDIT.md supplies exact pins and claims.
+- coherent-consumers was interrupted143 for foreign Godot:8 complete summaries124 passing assertions,5 incomplete files,39 printed budget overruns, no finalJSON. Separate bridge-types was also interrupted143 before any compiler result. Both independently audited; all source/input pins matched, freezes released. Do not combine partial summaries into a qualified gate or retry unchanged batches on brief idle samples.
+- No owned job or lane lock is active. At07:26–07:27, foreign GodotPID22259 under Python21993 was confirmed live; these are observations, never future signal targets. Free space9823912KiB exceeds launch floor3670016KiB, but host exclusivity is unavailable. Foreign work belongs to the separate Godot terminal, not Claude. No supported peer communication channel was established; do not interrupt it.
+- All specialists were terminal at the prior boundary. Root alone owns integration/lane; Sol is source workhorse, independent test author and one reviewer have disjoint roles. Resume only a specific necessary task, not a swarm. No source freeze now; preserve every candidate, patch, failed attempt and private inventory.
+
+### Exact next actions and blockers
+1. Establish a sustained exclusive execution window, then fresh preflight/sole lane for unfinished consumers and Bridge types. Five incomplete files: tests/p16-retained-drafting-continuation.test.ts, tests/p16-continued-work-cancel.test.ts, tests/p14c2c-rival-promises.test.ts, tests/p14c3-promise-digest-continuity.test.ts, tests/p15b4-studio-closure-save.test.ts. next-consumers.md holds the coherent selection; preserve mandatory full-gate scope and prior interruptions. Do not relaunch USED runners. Keep original budgets and freeze source/index/HANDOFF through independent postflight.
+2. NEXT-DEPENDENCY.md proves current rivals cannot produce an authentic setup/selected-Set target. Adopted P13B plan979/998 requires shared setup mechanics, but inspected rules do not specify autonomous rival Set acquisition/payment or optional recipe choice. Owner question pending for any existing approved policy. Do not invent spending/strategy, actor-swap player fixtures or remove guards. This is an unfinished required precursor, not an acceptance waiver.
+3. Other prerequisites remain: three original full-gate r3n1 captures dense-02/dense-02p31/dense-02p32 unavailable; pinned Playwright HeadlessChrome1234/FFmpeg1011 installation approval pending; authorized Unity counterpart/toolchain not qualified. Existing browser/native preparation is preserved. Do not repeat archive searches or install without authority.
+4. No P16 technical checkpoint is qualified, so dependent P17/P18 work remains ineligible. Owner playtesting is separate. Own unbound promise12 masks delegated-only retention; acquired first take/termination/later closure, nonempty market and prior v8 native production branches remain unproved. Preserve historical failures and source-bound scope; no new research campaign.
+
+### Handoff continuation
+All source and previous evidence are already pushed. This checkpoint changes HANDOFF only in both owned checkouts. Verify explicit remote refs after publication. No background execution is promised. Continue the authorized program only when actual prerequisites permit; otherwise report precise remaining blockers. Existing detailed lessons and chronological evidence follow below; AUTO remains untouched.
+
+
 ## Rival setup authority clarified — 2026-10-26
 
 No source or runtime changes. Published gameplay63a63abe and the interrupted consumer evidence remain authoritative. Bounded adopted-contract reading confirms rival setup symmetry is mandatory (P13B plan979/998), while native Set acquisition/payment and optional recipe-selection policy is not supplied by the inspected R07/S8 rules. NEXT-DEPENDENCY.md now distinguishes the authorized shared mechanics from the missing policy.
