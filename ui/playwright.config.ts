@@ -42,7 +42,9 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      // macOS 12 has no supported Playwright browser download; run in the installed Google Chrome
+      // (channel 'chrome'). Same project name, so existing commands and pins are unchanged.
+      use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     },
   ],
   webServer: [{

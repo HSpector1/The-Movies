@@ -2,7 +2,8 @@
 // Deterministic seed. Drives the app through: start → assemble a legal film
 // (concept, shape, promise, writer, director, 3 distinct cast, budgets) → greenlight
 // → advance weeks until release → open the autopsy → export the save → start a new
-// game and import it → assert the visible state matches. Captures 7 screenshots.
+// game and import it → assert the visible state matches → advance the restored studio.
+// Screenshots include the restored studio after its next real week.
 //
 // Selectors are stable roles/labels/testids, never fragile CSS.
 
@@ -243,4 +244,31 @@ test('full playable loop: assemble → greenlight → release → autopsy → sa
   )
   // The seed label reflects the RESTORED studio seed, not the throwaway seed typed.
   await expect(page.getByTestId('seed-label')).toContainText(SEED)
+
+  // Continue the restored studio through its real weekly UI transition.
+  expect(weekBefore).toMatch(/^\d+$/)
+  const restoredWeek = Number(weekBefore)
+  expect(Number.isSafeInteger(restoredWeek) && restoredWeek >= 0).toBe(true)
+  const continuedWeek = String(restoredWeek + 1)
+  await resolveProductionCommands(page)
+  await expect(page.getByTestId('advance-week')).toBeEnabled()
+  await page.getByTestId('advance-week').click()
+  // Wait for each destination before deciding which continuation is required;
+  // the old dashboard can remain visible while the advance is being processed.
+  for (let transition = 0; transition < 3; transition++) {
+    let destination = 'pending'
+    await expect.poll(async () => {
+      if (await page.getByTestId('newspaper-reveal').isVisible()) destination = 'newspaper'
+      else if (await page.getByTestId('release-list').isVisible()) destination = 'release'
+      else if (await page.getByTestId('dash-week').isVisible()
+        && (await page.getByTestId('dash-week').textContent()) === continuedWeek) destination = 'dashboard'
+      else destination = 'pending'
+      return destination
+    }).not.toBe('pending')
+    if (destination === 'dashboard') break
+    await page.getByTestId(destination === 'newspaper' ? 'newspaper-continue' : 'release-continue').click()
+  }
+  await expect(page.getByTestId('dash-week')).toHaveText(continuedWeek)
+  await expect(page.getByTestId('seed-label')).toContainText(SEED)
+  await shot(page, '11-restored-studio-continued')
 })
