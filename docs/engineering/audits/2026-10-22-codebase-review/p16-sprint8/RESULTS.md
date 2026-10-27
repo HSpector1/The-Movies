@@ -1,5 +1,8 @@
 # Sprint 8 obligation producer checkpoint
 
+## Consumer remainder and Bridge types — 2026-10-27, 10:40 CDT
+
+Five previously incomplete files (p16-retained-drafting-continuation 4/4, p15b4-studio-closure-save 8/8, p14c3-promise-digest-continuity 8/8, p16-continued-work-cancel 3/3, p14c2c-rival-promises 0/3 inherited baseline) and Bridge types exit 0 on gameplay 63a63abe, through the sole lane after the Owner paused the foreign Godot session. Twelve leaves over 5,000 ms (nine passing). Sampled exclusivity. Evidence: rival-obligations/consumers-remainder/. Thirteen-file functional consumer coverage is now complete; exclusive gate for the earlier eight files and timing qualification are not claimed.
 ## Genuine rival bound-obligation RED — 2026-10-26, 21:54 CDT
 
 Published experimental gameplay remains cf8def37a931b0e2bf01b3340e9b42586b187fe8. One independent test-only premise is installed but uncommitted in tests/p14c2rm-writer-continuation.test.ts; original 64 leaves, original Bridge witness and 5000 ms budget remain unchanged. Exact patch/source/capture pins are under p16-sprint8/rival-obligations. The preserved historical311 capture advances once to current312; no buyer/date/seed substitution, invented funding or rewritten history.

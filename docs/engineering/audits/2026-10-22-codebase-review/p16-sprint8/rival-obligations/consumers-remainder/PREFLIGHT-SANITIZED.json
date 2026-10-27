@@ -1,0 +1,17 @@
+{
+  "at": "2026-10-27T10:16:31.237088-05:00",
+  "freeKiB": 7659576,
+  "launchMinimumKiB": 3670016,
+  "runtimeFloorKiB": 3145728,
+  "pins": {
+    "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-obligations/consumers-remainder/run.sh": "68c8f337ea0f60c6f2d1847df5235fe078aa099f036092797f343ae8c02d2396",
+    "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-obligations/consumers-remainder/SELECTION.json": "11d12be74181e25db7dea151d48225c1473e2f89973b78b04846bddff3b772c6",
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-auto-recorder-r4r2-draft/auto_freeze.py": "9bc9b89c0ae5dd6bc3e558ee1b823414d86cb5134170326f74779350b34d3e00",
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-d16-ui-r5-draft/RUNTIME-INPUTS.json": "2fceb39464fe13985c12d7d7503ed700696fbffcd1b9abea84fb2fec099c8d35",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e",
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/equipment-run-preflight-r3.py": "f10fae24452aaec2c032e582f16053f7df7549b72a2e835a5d07e6d45eceaf94"
+  },
+  "laneAbsent": true,
+  "launchAllowed": true,
+  "heavyCount": 0
+}

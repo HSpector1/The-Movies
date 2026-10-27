@@ -1,0 +1,37 @@
+{
+  "head": "16aa35da7286c55cedbc52a83ddb605dc58b30ec",
+  "gameplaySource": "63a63abe63e62825916f3a69b4b4589ae3a7baed",
+  "sourceManifestEntries": 1658,
+  "sourceBinding": "published gameplay 63a63abe plus handoff-only commits (HANDOFF.md is the only allowed difference from 63a63abe); same 1658-entry tracked-source manifest key set as coherent-consumers, rehashed at bind time",
+  "purpose": "Remainder of the coherent v9 consumer checkpoint: the five files that lacked a complete summary in the interrupted coherent-consumers attempt, then the unrun Bridge typecheck",
+  "selector": {
+    "file": "tests/p14c2rm-writer-continuation.test.ts",
+    "describe": "P16 genuine rival retained obligations at original312",
+    "it": "quotes actual R01 buying R02 with its retained writer and four promise histories before the obligations producer"
+  },
+  "testPostimageSHA256": "b4a11d49f702d0e998106c728abc16b5e2e6bdccd584fc55bee8690825ee296e",
+  "budget": {
+    "milliseconds": 5000,
+    "timeoutOverride": false,
+    "setupInsideLeaf": true,
+    "ticks": 4
+  },
+  "reused": "coherent-consumers eight complete file summaries (124 passing, overlap start unknown, not exclusive) and reviewed-green root types 0 plus focused C312 lifecycle 9275.610403 ms on the same source",
+  "children": [
+    {
+      "label": "consumers-remainder",
+      "completeFiles": [
+        "tests/p16-retained-drafting-continuation.test.ts",
+        "tests/p16-continued-work-cancel.test.ts",
+        "tests/p14c2c-rival-promises.test.ts",
+        "tests/p14c3-promise-digest-continuity.test.ts",
+        "tests/p15b4-studio-closure-save.test.ts"
+      ]
+    },
+    {
+      "label": "bridge-types",
+      "command": "node node_modules/typescript/bin/tsc -p tsconfig.bridge.json --noEmit"
+    }
+  ],
+  "limits": "Prepared, NOT bound, NOT launched. Bind only inside a sustained exclusive window after fresh equipment preflight AND an explicit host scan showing no Godot (the preflight does not classify Godot as heavy). Timing qualification for the eight earlier files is not established by this remainder; a completed remainder plus the earlier summaries is functional consumer coverage of the thirteen files, not an exclusive-gate claim for the earlier eight."
+}

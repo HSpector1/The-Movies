@@ -1,3 +1,12 @@
+## Consumer remainder completed; Bridge types pass — 2026-10-27, 10:40 CDT
+
+The Owner paused the foreign Godot session; consumers-remainder ran 10:16:31–10:18:41 CDT on gameplay 63a63abe (HEAD 16aa35da, handoff-only above it) after bind, fresh preflight (free 7,659,576 KiB, no heavy process) and an explicit no-Godot scan. 26 tests: 23 passed, 3 failed; Bridge typecheck exit 0. Failures are p14c2c-rival-promises R1–R3 with the baseline's byte-identical first assertion line (recorded Oct 25 baseline lines 136–138): inherited, not introduced. Twelve leaves exceed the unchanged 5,000 ms budget, nine passing. Independent postflight verified all 1,658 source pins and six preflight pins, owned PID absent, lock absent; freeze released. Exclusivity is sampled, not proven continuous. Record: p16-sprint8/rival-obligations/consumers-remainder/AUDIT.md.
+
+With coherent-consumers' eight complete summaries (124 passing, overlap start unknown) this is functional consumer coverage of all thirteen selected files on the v9 obligations source. It is not an exclusive-gate claim for the earlier eight files, not timing qualification and not a P16 technical predecessor.
+
+Static disposition (REMAINING-PRODUCERS.md addendum): due physical and due adoption completion at close have native producers already (completeRivalPlans at the end of advanceHollywoodWeek; finishTechnologyWeek deployment clock); the acquisition refusals are consistency guards. Sprint 8 remains open on the rival Set/setup policy (Owner) and natural C-08 proof. No P17/P18 eligibility, no gameplay promotion.
+
+
 ## Measured execution-window blocker and prepared remainder — 2026-10-27, 08:10 CDT
 
 No source, runtime or compiler change. Published gameplay 63a63abe, the interrupted coherent-consumers and bridge-types evidence, and the rival Set/setup precursor remain exactly as recorded. Explicit remote refs verified: records 83efdeef, experimental 0803dbd3 (handoff-only above 63a63abe), primary 013c4edc, main ab65eb20.
