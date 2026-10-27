@@ -1,0 +1,14 @@
+{'numTotalTestSuites': 32, 'numPassedTestSuites': 30, 'numFailedTestSuites': 2, 'numPendingTestSuites': 0, 'numTotalTests': 68, 'numPassedTests': 66, 'numFailedTests': 2, 'numPendingTests': 0, 'numTodoTests': 0}
+{'NEW': 2, 'INHERITED-SAME': 0, 'INHERITED-CHANGED': 0, 'MISSING-INPUT': 0, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 3, 'OVER-BUDGET-PASS': 23} report tests 68 baseline tests 5949 in both 57
+
+## NEW (2)
+  - tests/p16-stopped-drafting171-refusals.test.ts :: P16 real171 drafting continuation quotes lawful continuation (producer present since Sprint 7) default writer 
+      AssertionError: expected false to be true // Object.is equality
+  - tests/p16-stopped-drafting171-refusals.test.ts :: P16 real171 drafting continuation quotes lawful continuation (producer present since Sprint 7) explicit retent
+      AssertionError: expected false to be true // Object.is equality
+
+## OVER-BUDGET-PASS (23) max 409042.44
+## BASELINE-NOT-REPRODUCED (3)
+  - tests/p14c3-force-order.test.ts :: C3 genuine accepted1300 to release1311 — two reconstructed bounded branches actual canonical import 
+  - tests/p14c3-force-order.test.ts :: C3 genuine accepted1300 to release1311 — two reconstructed bounded branches both admitted branches a
+  - tests/p14c3-force-order.test.ts :: C3 genuine accepted1300 to release1311 — two reconstructed bounded branches canonical insertion reco

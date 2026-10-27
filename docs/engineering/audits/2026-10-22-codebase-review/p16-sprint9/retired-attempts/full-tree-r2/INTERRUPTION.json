@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-27T11:06:54.125667-05:00",
+  "reason": "Coordinator-owned interruption: an owned orphan full-core from the interrupted first attempt was discovered running concurrently (two vitest roots, load average above 60, about 1.6x slower than baseline). r2 results so far are functional only, not exclusive; r2 is retired and a clean attempt r3 follows after materializing the sparse-excluded UI files. No foreign process involved.",
+  "ownedLane": 30176,
+  "termSent": [
+    30186,
+    30820,
+    31689,
+    31858,
+    31953,
+    30176
+  ]
+}

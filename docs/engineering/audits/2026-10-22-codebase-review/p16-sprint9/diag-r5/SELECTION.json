@@ -1,0 +1,21 @@
+{
+  "head": "ac9e0cf0aa027c85bee93149d5341371f1772664",
+  "gameplaySource": "63a63abe63e62825916f3a69b4b4589ae3a7baed",
+  "sourceManifestEntries": 1658,
+  "sourceBinding": "gameplay 63a63abe plus handoff-only commits plus the Sprint 9 test-only repair commit; bind.py allows differences from 63a63abe only in HANDOFF.md and the seven repaired test files",
+  "purpose": "Diagnostic one-file run: log the actual quote script dispositions at the drafting171 premise before correcting the converted witness expectation",
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "timeoutOverride": false
+  },
+  "children": [
+    {
+      "label": "diag",
+      "completeFiles": [
+        "tests/p16-stopped-drafting171-refusals.test.ts"
+      ]
+    }
+  ],
+  "reused": "full-tree-r3 results for every other file on the same gameplay source; Bridge contract checks and build unchanged by a test-only delta",
+  "limits": "Prepared, NOT bound, NOT launched. Functional and per-leaf timing on a quiet host; not a replacement for the broad gate."
+}

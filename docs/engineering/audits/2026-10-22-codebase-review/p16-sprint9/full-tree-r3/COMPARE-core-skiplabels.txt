@@ -1,0 +1,94 @@
+{'numTotalTestSuites': 2050, 'numPassedTestSuites': 1969, 'numFailedTestSuites': 81, 'numPendingTestSuites': 0, 'numTotalTests': 5991, 'numPassedTests': 5859, 'numFailedTests': 118, 'numPendingTests': 3, 'numTodoTests': 11}
+{'NEW': 9, 'INHERITED-SAME': 94, 'INHERITED-CHANGED': 2, 'MISSING-INPUT': 13, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 20, 'OVER-BUDGET-PASS': 613} report tests 5989 baseline tests 5949 in both 5946
+
+## NEW (9)
+  - tests/bridge-p14b4-runtime47-compatibility.test.ts :: P14B4 genuine outgoing46 runtime compatibility — current Save39/projection54 requires literal projection54/Sav
+      AssertionError: expected [ …(52) ] to deeply equal [ …(50) ]
+  - tests/bridge-p14b6-relationship-read-models.test.ts :: family 8 — the WIRE (RED BY VALUE: version literals and a registry count; no absent module is imported here) p
+      AssertionError: expected 64 to be 62 // Object.is equality
+  - tests/bridge-p14b6-relationship-read-models.test.ts :: family 8 — the WIRE (RED BY VALUE: version literals and a registry count; no absent module is imported here) t
+      AssertionError: expected 64 to be 62 // Object.is equality
+  - tests/bridge-p14b6-relationship-read-models.test.ts :: family 8 — the WIRE (RED BY VALUE: version literals and a registry count; no absent module is imported here) t
+      AssertionError: expected [ …(52) ] to deeply equal [ …(50) ]
+  - tests/bridge-stabilization-l22-retired-projections.test.ts :: L-22: projections 32–44 are retired by name, and the registered range still resolves the highest registered pr
+      AssertionError: expected 63 to be 61 // Object.is equality
+  - tests/bridge.test.ts :: Current-game Unity adoption bridge pins protocol v4/projection v32 and fingerprints named projections and exac
+      AssertionError: expected 64 to be 62 // Object.is equality
+  - tests/p16-healthy-new-drafting171.test.ts :: P16 fixed genuine actual163 new healthy drafting premise observes exactly eight ordinary ticks then requires a
+      AssertionError: expected null to be 'retainedScriptProducerRequired' // Object.is equality
+  - tests/p16-stopped-drafting171-refusals.test.ts :: P16 real171 drafting continuation remains explicitly unsupported default writer choice exposes continuation re
+      AssertionError: expected false to be true // Object.is equality
+  - tests/p16-stopped-drafting171-refusals.test.ts :: P16 real171 drafting continuation remains explicitly unsupported explicit writer retention in a partial compan
+      AssertionError: expected false to be true // Object.is equality
+
+## INHERITED-CHANGED (2)
+  - tests/bridge-owner-ux-projection20-migration.test.ts :: Owner UX outgoing projection20 migration pins genuine prior bytes, source identity, actual journal, and constr
+      AssertionError: expected 64 to be 53 // Object.is equality
+      baseline: AssertionError: expected 62 to be 53 // Object.is equality
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) legacy-root-downgrade
+      AssertionError: elapsed 189762 ms against the 120000 ms budget: expected 189762.290514 to be less than or equal to 120000
+      baseline: AssertionError: elapsed 224302 ms against the 120000 ms budget: expected 224302.162358 to be less than or equal to 120000
+
+## MISSING-INPUT (13)
+  - tests/p14c3-force-order.test.ts :: C3 genuine accepted1300 to release1311 — two reconstructed bounded branches actual canonical import produces e
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/commands.jsonl'
+      SPARSE-EXCLUDED-TRACKED (recoverable from HEAD)
+  - tests/p14c3-force-order.test.ts :: C3 genuine accepted1300 to release1311 — two reconstructed bounded branches both admitted branches agree at ev
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/commands.jsonl'
+      SPARSE-EXCLUDED-TRACKED (recoverable from HEAD)
+  - tests/p14c3-force-order.test.ts :: C3 genuine accepted1300 to release1311 — two reconstructed bounded branches canonical insertion reconstruction
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/commands.jsonl'
+      SPARSE-EXCLUDED-TRACKED (recoverable from HEAD)
+  - tests/p14p4p5-finishing-material.test.ts :: P4/P5 existing finishing commitments and material work Q18 distinguishes held finishing cast work from forbidd
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/978-c3-historical-controls.json'
+      SPARSE-EXCLUDED-TRACKED (recoverable from HEAD)
+  - tests/p14p4p5-post-capacity.test.ts :: P4/P5 actual post capacity after two completed shooting phases Q25 isolates post occupancy and preserves actua
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/978-c3-historical-controls.json'
+      SPARSE-EXCLUDED-TRACKED (recoverable from HEAD)
+  - tests/p14p4p5-screenplay-status.test.ts :: P4/P5 screenplay and casting status clocks Q11 uses actual writing and audition boundaries and retains fact-on
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1230-legacy46-baseline.txt'
+      SPARSE-EXCLUDED-TRACKED (recoverable from HEAD)
+  - tests/p14p4p5-soundstage-capacity.test.ts :: P4/P5 actual existing soundstage capacity Q22 releases the actual soundstage owner before repeating the unchan
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/978-c3-historical-controls.json'
+      SPARSE-EXCLUDED-TRACKED (recoverable from HEAD)
+  - tests/r3n1-stale-schedule-take-02.test.ts :: R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge SERVER REFUSAL
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02.test.ts :: R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge SERVER REFUSAL
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p31.test.ts :: R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p31.test.ts :: R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p32.test.ts :: R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p32.test.ts :: R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'
+      UNTRACKED (not recoverable here)
+
+## OVER-BUDGET-PASS (613) max 569813.009
+## BASELINE-NOT-REPRODUCED (20)
+  - tests/bridge-p13b-s7-disclosure.test.ts :: P13B-S7-T3 item 5: Industry announcement row — derived, nullable studioId, excluded from per-studio 
+  - tests/bridge-p14r2r3-prior55.test.ts :: P14 1308-C: the outgoing projection55 runtime checkpoint migrates to current56, and each Save40 slot
+  - tests/p16-healthy-drafting171-funded-baseline.test.ts :: P16 real funded171 stopped drafting writeoff real explicit writer exits preserve original draft cost
+  - tests/p16-r2-acquisition.test.ts :: r2 F13: person-choice and relationship refusals bind the retention preview a target employee with a 
+  - tests/p16-r2-authority.test.ts :: r2 F1/F27/F41: a live licence survives its grantor's closure, an estate sale and archival the licens
+  - tests/p16-r2-estate.test.ts :: r2 F18/F37/F60: the window opens at the closure week, closes exactly at D, and needs certifiable bid
+  - tests/p16-r2-estate.test.ts :: r2 F38: an as-of read inside the window reports the lot as it stood that week a subject that archive
+  - tests/p16-r2-estate.test.ts :: r2 F4/F29: the estate path refuses the bilateral path's encumbrances a lot encumbered after the hand
+  - tests/p16-r2-estate.test.ts :: r2 F4/F29: the estate path refuses the bilateral path's encumbrances a lot holding an active-run fil
+  - tests/p16-r2-estate.test.ts :: r2 F4/F29: the estate path refuses the bilateral path's encumbrances every right the closed studio h
+  - tests/p16-r2-estate.test.ts :: r2 F48: the deterministic tie-break is ascending reserved identity order, not submission order equal
+  - tests/p16-r2-validator.test.ts :: r2 F58: the licence-overlap, bid-window and estate-proceeds rules each refuse a forged save a sealed
+  - tests/p16c-acquisition.test.ts :: P16C healthy absorption: the quote separates consideration, at-par cash, exits and disclosed guarant
+  - tests/p16c-acquisition.test.ts :: P16C healthy absorption: work continues only where the buyer's operations admit it (the real allocat
+  - tests/p16c-acquisition.test.ts :: P16C healthy absorption: work continues only where the buyer's operations admit it (the real allocat
+  - tests/p16c-estate.test.ts :: P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, procee
+  - tests/p16c-estate.test.ts :: P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, procee
+  - tests/p16c-estate.test.ts :: P16C estate handoff: the typed adapter point opens an estate; it never declares a studio terminal op
+  - tests/p16c-estate.test.ts :: P16C estate handoff: the typed adapter point opens an estate; it never declares a studio terminal re
+  - tests/p16c-estate.test.ts :: P16C sealed bids: admission only before D, reservations, refusals admits one sealed bid per bidder p

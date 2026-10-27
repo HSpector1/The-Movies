@@ -1,6 +1,25 @@
 # HANDOFF
 
-## Claude: current resume — 2026-10-27, 10:40 CDT
+## Claude: current resume — 2026-10-27, 13:35 CDT
+
+Last writer: Claude Fable 5.1 coordinator. Sprint 9 gates have run on gameplay 63a63abe with the foreign session paused; nine new test pins were repaired under review. The P16 technical checkpoint is not yet published: browser transactions are pending. Program continues.
+
+### Branches and ownership
+- Experimental p16-retained-writing-20261026 at /Users/zacheryspector/studio-scratch/p16-retained-writing-20261026-wt: gameplay 63a63abe63e62825916f3a69b4b4589ae3a7baed unchanged; HEAD before this checkpoint 71ddea72be58036f3a4741738dd71baf0c2f731d = 63a63abe + handoff-only commits + four test-only repair commits (129c3343, ac9e0cf0, 1f39bd89, 71ddea72), pushed and remote-verified. Records wip/headless-program-20260916-ts HEAD before this checkpoint 75211e921ebc56238ea6390fb4740626ece69965. Primary 013c4edc and main ab65eb20 unchanged.
+- One coordinator writer, one execution tree. No owned job, lane lock or freeze remains. The worktree now has 374 formerly sparse-excluded tracked files materialized from HEAD (ui/ incl. index.html, public, e2e; art/hollywood; named docs evidence inputs); tree is clean. The Owner's Codex/Godot session is paused; ask before assuming it stays paused.
+
+### Verified this session (p16-sprint9/)
+- full-tree-r3: static gates/contracts/build/integrity 0; core 5,859/5,991; UI 2,727/2,734; classified (9 NEW, 94 inherited-same, 2 inherited-changed, 13 missing-input of which 6 unrecoverable r3n1, 20 baseline-not-reproduced, 613 over-budget passes). Independent postflight PASS, sampled exclusivity. Retired attempts preserved.
+- Repair (test-only, reviewed): Bridge pins to projection 64/63/52; drafting171 witnesses converted (one now proves the close-time writer-capacity refusal). focused-r4, witness-r6/r7 pass; five recovered-input files pass.
+- Sprint 8: Owner ruling closed the rival Set/setup row (OWNER-RULING-20261027.md); natural C-08 stays OPEN.
+
+### Exact next action
+1. Sprint 9 browser transactions on the existing client (ui/e2e, playwright.config.ts): Playwright 1.62 is installed but no browser is downloaded and macOS 12 has no supported download. Try the installed Google Chrome 150 via `channel: 'chrome'` on the chromium project (harness-only change, review it), run the existing smoke through the lane, then author the minimal rights purchase/licensing, healthy acquisition and estate journeys with save/reload. If Chrome cannot launch, record the exact blocker and ask the Owner once about the pinned download.
+2. Then decide the immutable non-main P16 technical checkpoint (annotated tag on the experimental commit) only if its prerequisites qualify; otherwise list the exact blocking obligations. Keep timing failures, inherited failures and C-08 explicit.
+3. Do not relaunch the full gate for test-only changes; rerun only invalidated files. Keep the foreign session paused during lane runs; scan for Godot before every launch.
+
+
+## Historical handoff — 2026-10-27, 10:40 CDT
 
 Last writer: Claude Fable 5.1 coordinator. The Owner paused the foreign Godot session at about 10:15 CDT and the consumer remainder ran. Sprint 8's consumer checkpoint is now functionally complete on gameplay 63a63abe; Sprint 8 itself stays incomplete on the rival Set/setup policy and natural C-08. Gameplay source is unchanged.
 

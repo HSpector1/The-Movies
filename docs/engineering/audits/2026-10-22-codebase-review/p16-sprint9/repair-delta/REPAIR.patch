@@ -1,0 +1,191 @@
+diff -ruN a/tests/bridge-p14b4-runtime47-compatibility.test.ts b/tests/bridge-p14b4-runtime47-compatibility.test.ts
+--- a/tests/bridge-p14b4-runtime47-compatibility.test.ts	2026-10-27 12:55:50.000000000 -0500
++++ b/tests/bridge-p14b4-runtime47-compatibility.test.ts	2026-10-27 13:00:08.000000000 -0500
+@@ -71,6 +71,8 @@
+ const OUTGOING_59 = 'sha256:6347433150a8ed3988573840bfa22621d5f5aa35b3d053b25ff5e6700ad02dcd'
+ const OUTGOING_60 = 'sha256:8bf350135c7a8b69b4fc2258d1082f452047d37964d0d58b6cc8ceefc87153e4'
+ const OUTGOING_61 = 'sha256:7d23fdb9a710175afb88208170cfe5692510febe06fb898a3ccd95edc9c53306'
++const OUTGOING_62 = 'sha256:2b94e6df66cd5b45e398861c8130085434d4bb9c4d0cf9bdcb97607699799604' // P16 Sprint 7: outgoing62 registered beneath 63 (bridge/runtime-checkpoint.ts)
++const OUTGOING_63 = 'sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1' // P16 Sprint 8: outgoing63 registered beneath current64 (contract64)
+ const PINS = {
+   gzip: '3db0599c6e183140b79c83880eb967dde37aecc0d178a85d192283893ea0cc34',
+   raw: 'e344be06db6794e9d1523c036befb4180595564ef8a3fb6e6062328e477e7699',
+@@ -164,7 +166,7 @@
+   expect(canonicalJson(prior) + '\n').toBe(raw)
+ })
+ 
+-describe('P14B4 genuine outgoing46 runtime compatibility — current Save39/projection54', () => {
++describe('P14B4 genuine outgoing46 runtime compatibility — current Save49/projection64', () => {
+   it('pins genuine original46 artifact, producer authority, and two SAME-week DIFFERENT slots', () => {
+     const provenance = JSON.parse(readFileSync(artifact('genuine-projection46-runtime.provenance.json'), 'utf8'))
+     const manifest = JSON.parse(readFileSync(artifact('MANIFEST.json'), 'utf8'))
+@@ -224,13 +226,13 @@
+     expect(current.state.talentMarket.proposals.filter((p) => p.promises.includes('promise-0'))).toEqual([])
+   })
+ 
+-  it('requires literal projection54/Save39 and exact 42 prior IDs, excluding the running identity', () => {
++  it('requires literal projection64/Save49 and the exact prior roster through outgoing63, excluding the running identity', () => {
+     expect(PROTOCOL_VERSION).toBe(4)
+     expect(PROJECTION_VERSION).toBe(64)
+     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
+     expect(SCHEMA_ID).not.toBe(OUTGOING_46)
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_PRIOR_IDS, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61].sort())
++    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_PRIOR_IDS, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61, OUTGOING_62, OUTGOING_63].sort())
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_53)).toBe('projection-v53')
+diff -ruN a/tests/bridge-p14b6-relationship-read-models.test.ts b/tests/bridge-p14b6-relationship-read-models.test.ts
+--- a/tests/bridge-p14b6-relationship-read-models.test.ts	2026-10-27 12:55:50.000000000 -0500
++++ b/tests/bridge-p14b6-relationship-read-models.test.ts	2026-10-27 13:00:08.000000000 -0500
+@@ -110,8 +110,10 @@
+ const OUTGOING_59 = 'sha256:6347433150a8ed3988573840bfa22621d5f5aa35b3d053b25ff5e6700ad02dcd'
+ const OUTGOING_60 = 'sha256:8bf350135c7a8b69b4fc2258d1082f452047d37964d0d58b6cc8ceefc87153e4'
+ const OUTGOING_61 = 'sha256:7d23fdb9a710175afb88208170cfe5692510febe06fb898a3ccd95edc9c53306'
++const OUTGOING_62 = 'sha256:2b94e6df66cd5b45e398861c8130085434d4bb9c4d0cf9bdcb97607699799604' // P16 Sprint 7: outgoing62 registered beneath 63 (bridge/runtime-checkpoint.ts)
++const OUTGOING_63 = 'sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1' // P16 Sprint 8: outgoing63 registered beneath current64 (contract64)
+ const OUTGOING_PROJECTION = 48
+-const INCOMING_PROJECTION = 62
++const INCOMING_PROJECTION = 64
+ // The 36 accepted prior literals as they stand today (tests/bridge-p14b4-runtime47-compatibility.test.ts
+ // :40-80, exact-count pin at :162). B.6 took this roster to 37 by adding OUTGOING_48;
+ // B.8 takes it to 38 by adding OUTGOING_49.
+@@ -797,17 +799,17 @@
+     expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-4:projection-${String(INCOMING_PROJECTION)}`)
+   })
+ 
+-  it('the outgoing 00c0075b… stays registered as projection-v48 and the prior roster contains40 identities through projection51', () => {
++  it('the outgoing 00c0075b… stays registered as projection-v48 and the prior roster contains 52 identities through projection63', () => {
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_48)).toBe('projection-v48')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_57)).toBe('projection-v57')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+     expect(EXPECTED_36_PRIOR_IDS).toHaveLength(36)
+-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_36_PRIOR_IDS, OUTGOING_48, OUTGOING_49, OUTGOING_50, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61].sort())
++    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_36_PRIOR_IDS, OUTGOING_48, OUTGOING_49, OUTGOING_50, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61, OUTGOING_62, OUTGOING_63].sort())
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
+-    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size).toBe(50) // P16: + outgoing58-61
++    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size).toBe(52) // P16: + outgoing58-63
+   })
+ 
+   it('the checked-in generator artifacts equal the running identity (`--check` clean), and priorityOrder keeps its seven members and its line', () => {
+diff -ruN a/tests/bridge-stabilization-l22-retired-projections.test.ts b/tests/bridge-stabilization-l22-retired-projections.test.ts
+--- a/tests/bridge-stabilization-l22-retired-projections.test.ts	2026-10-27 12:55:50.000000000 -0500
++++ b/tests/bridge-stabilization-l22-retired-projections.test.ts	2026-10-27 12:55:50.000000000 -0500
+@@ -28,7 +28,7 @@
+ // "Schema identity" header, never derived from the registry under test.
+ const PROJECTION_38 = 'sha256:baecd21e5fbfd4f13bd08b7af132d4b05fe24a40f1b38cd19d2782d9e2d0851e' // 06f05cf5
+ const LOWEST_REGISTERED = 'sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f' // projection-v4-early, 720826bd
+-const HIGHEST_REGISTERED = 'sha256:7d23fdb9a710175afb88208170cfe5692510febe06fb898a3ccd95edc9c53306' // projection-v61, the P16 candidate current200's generated header (PATCH.diff d59d331b)
++const HIGHEST_REGISTERED = 'sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1' // projection-v63, the P16 Sprint 8 outgoing identity registered beneath current64 (contract64)
+ const RETIRED_LABELS = Array.from({ length: 13 }, (_, i) => `projection-v${String(32 + i)}`)
+ 
+ const sha256 = (value: string): string => createHash('sha256').update(value, 'utf8').digest('hex')
+@@ -109,7 +109,7 @@
+     resolves(LOWEST_REGISTERED, 'projection-v4-early', Math.min)
+   })
+ 
+-  it('the highest registered projection (61) still resolves and takes the governed prior path', () => {
+-    resolves(HIGHEST_REGISTERED, 'projection-v61', Math.max)
++  it('the highest registered projection (63) still resolves and takes the governed prior path', () => {
++    resolves(HIGHEST_REGISTERED, 'projection-v63', Math.max)
+   })
+ })
+diff -ruN a/tests/bridge.test.ts b/tests/bridge.test.ts
+--- a/tests/bridge.test.ts	2026-10-27 12:55:50.000000000 -0500
++++ b/tests/bridge.test.ts	2026-10-27 12:55:50.000000000 -0500
+@@ -164,7 +164,7 @@
+ describe('Current-game Unity adoption bridge', () => {
+   it('pins protocol v4/projection v32 and fingerprints named projections and exact intent fields', () => {
+     expect(PROTOCOL_VERSION).toBe(4)
+-    expect(SNAPSHOT_VERSION).toBe(62)
++    expect(SNAPSHOT_VERSION).toBe(64)
+     expect(SCHEMA_ID).toMatch(/^sha256:[0-9a-f]{64}$/)
+     expect(Object.keys(
+       BRIDGE_CONTRACT.$defs.StudioBridgeIntentOption.properties as Record<string, unknown>,
+diff -ruN a/tests/p16-healthy-new-drafting171.test.ts b/tests/p16-healthy-new-drafting171.test.ts
+--- a/tests/p16-healthy-new-drafting171.test.ts	2026-10-27 12:55:50.000000000 -0500
++++ b/tests/p16-healthy-new-drafting171.test.ts	2026-10-27 12:55:50.000000000 -0500
+@@ -1,4 +1,5 @@
+-// UNRUN one fixed eight-tick diagnostic; not healthy drafting feature acceptance.
++// One fixed eight-tick diagnostic; not healthy drafting feature acceptance. Sprint 7 (P16 retained drafting) supplied the
++// buyer-side continuation producer, so the current absorption owner no longer refuses this premise (Sprint 9 full gate, 2026-10-27).
+ import {describe,it,expect} from 'vitest'
+ import {readFileSync} from 'node:fs'
+ import {createHash} from 'node:crypto'
+@@ -9,7 +10,7 @@
+ import {absorptionProducerRefusal} from '../src/core/acquisition.js'
+ const TARGET='studio-aca408ec-r01'
+ describe('P16 fixed genuine actual163 new healthy drafting premise',()=>{
+- it('observes exactly eight ordinary ticks then requires a genuinely new active drafting project before diagnosing the current absorption owner',()=>{
++ it('observes exactly eight ordinary ticks then finds no absorption producer refusal for the genuinely new active drafting project (continuation producer present since Sprint 7)',()=>{
+   const root=process.env.P16_ORIGINAL48_CAPTURE_ROOT;expect(root).toBeTruthy()
+   const bytes=readFileSync(root+'/r04-actual163.save48.json')
+   expect(createHash('sha256').update(bytes).digest('hex')).toBe('c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad')
+@@ -52,8 +53,8 @@
+   expect(conditionRecord(state,TARGET)?.condition).toMatchObject({stage:'stable',week:171})
+   expect(outstandingLoan(state,TARGET,171)).toBeUndefined()
+   const refusal=absorptionProducerRefusal(state,{buyerId:state.hollywood!.playerStudioId,targetId:TARGET,consideration:1,retention:{kind:'default'},disclosureId:null})
+-  expect(refusal).toBe('retainedScriptProducerRequired')
+-  console.info('P16_FIXED_DRAFT171_REFUSAL '+JSON.stringify({week:171,refusal,featureAcceptance:false}))
++  expect(refusal).toBeNull()
++  console.info('P16_FIXED_DRAFT171_REFUSAL '+JSON.stringify({week:171,refusal,featureAcceptance:false,producerPresentSince:'Sprint 7'}))
+   expect(JSON.stringify(state)).toBe(beforeAdmission)
+   expect(JSON.stringify(initial)).toBe(initialBefore)
+   expect(JSON.stringify(raw)).toBe(rawBefore);expect(JSON.stringify(old)).toBe(oldBefore)
+diff -ruN a/tests/p16-stopped-drafting171-refusals.test.ts b/tests/p16-stopped-drafting171-refusals.test.ts
+--- a/tests/p16-stopped-drafting171-refusals.test.ts	2026-10-27 12:55:50.000000000 -0500
++++ b/tests/p16-stopped-drafting171-refusals.test.ts	2026-10-27 13:28:58.000000000 -0500
+@@ -1,4 +1,8 @@
+-// UNRUN one fixed eight-tick diagnostic; not healthy drafting feature acceptance.
++// One fixed eight-tick diagnostic; not healthy drafting feature acceptance. Originally a missing-producer refusal witness; since
++// Sprint 7's buyer-side continuation producer the same premise is governed by buyer writing capacity: this buyer has not
++// activated managed script development (scriptDevelopment mode 'legacy'), so the quote reports the retained script as
++// continuationRequired/writerCapacityUnavailable and the close refuses with retainedScriptCapacityProducerRequired
++// (acquisition.ts close guard). Positive route after activateScriptDevelopment: p16-retained-drafting-continuation.
+ import {describe,it,expect} from 'vitest'
+ import {readFileSync} from 'node:fs'
+ import {createHash} from 'node:crypto'
+@@ -89,7 +93,7 @@
+  expect(JSON.stringify(p.paid.state)).toBe(p.paidBefore);expect(JSON.stringify(p.state)).toBe(p.beforeAdmission)
+  expect(JSON.stringify(p.initial)).toBe(p.initialBefore);expect(JSON.stringify(p.raw)).toBe(p.rawBefore);expect(JSON.stringify(p.old)).toBe(p.oldBefore)
+ }
+-function refused(p:ReturnType<typeof prepared>,retention:{kind:'default'}|{kind:'explicit';contractIds:string[]}){
++function capacityRefused(p:ReturnType<typeof prepared>,retention:{kind:'default'}|{kind:'explicit';contractIds:string[]}){
+  const library=libraryValuationV1(p.paid.state,TARGET,171);expect(library.kind).toBe('available')
+  if(library.kind!=='available')throw new Error('actual171 fixed library premise absent')
+  // One public whole ask using all actual source cash before exits; never retry another amount.
+@@ -100,23 +104,23 @@
+  if(quote.kind!=='quote')throw new Error(quote.refusal)
+  expect(quote.affordable).toBe(true)
+  expect(quote.scripts).toHaveLength(p.quote.scripts.length)
+- expect(quote.scripts.every(q=>q.disposition==='continuationRequired'&&q.reason==='writerContinuationProducerRequired')).toBe(true)
++ expect(quote.scripts.every(q=>q.disposition==='continuationRequired'&&q.reason==='writerCapacityUnavailable')).toBe(true)
+  const input={...preview,quotedAtWeek:quote.quotedAtWeek,quoteAgePolicyVersion:quote.quoteAgePolicyVersion}
+- expect(absorptionProducerRefusal(p.paid.state,input)).toBe('retainedScriptProducerRequired')
+- try{expect(()=>closeAbsorption(p.paid.state,input,171)).toThrow(/retainedScriptProducerRequired/)}finally{pureOriginal(p)}
++ expect(absorptionProducerRefusal(p.paid.state,input)).toBeNull()
++ try{expect(()=>closeAbsorption(p.paid.state,input,171)).toThrow(/retainedScriptCapacityProducerRequired/)}finally{pureOriginal(p)}
+  saves.makeSave(p.paid.state)
+ }
+-describe('P16 real171 drafting continuation remains explicitly unsupported',()=>{
+- it('default writer choice exposes continuation required and refuses the actual funded close without converting drafting to writeoff',()=>{
++describe('P16 real171 drafting continuation at the buyer writing capacity limit (continuation producer present since Sprint 7)',()=>{
++ it('default writer choice quotes continuation required for writer capacity and the close refuses with the capacity producer, never converting drafting to writeoff',()=>{
+   const p=prepared()
+   expect(p.quote.scripts.every(q=>q.disposition==='writeOff')).toBe(true)
+-  refused(p,{kind:'default'})
++  capacityRefused(p,{kind:'default'})
+  })
+- it('explicit writer retention in a partial company selection requires a real continuation owner and preserves all original input',()=>{
++ it('explicit retention of all drafting writers in a partial company selection quotes the same capacity requirement and preserves all original input',()=>{
+   const p=prepared(),writers=[...new Set(p.source.development.projects.filter(s=>s.status==='drafting'||s.status==='rewriting').flatMap(s=>s.writerIds))]
+   expect(writers.length).toBeGreaterThan(0)
+   const contractIds=writers.map(id=>{const row=p.state.hollywood!.activeEmploymentOrdinals.map(i=>p.state.hollywood!.employment[i]!).find(e=>e.studioId===TARGET&&e.terms.talentId===id&&e.endedWeek===null&&e.terms.startWeek<=171&&171<e.terms.endWeekExclusive);expect(row).toBeDefined();return row!.contractId})
+   expect(contractIds.length).toBeLessThan(p.quote.contracts.length)
+-  refused(p,{kind:'explicit',contractIds})
++  capacityRefused(p,{kind:'explicit',contractIds})
+  })
+ })

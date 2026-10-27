@@ -1,0 +1,30 @@
+{
+  "head": "d2cfef0d33e139d9247b5d0d8518ee3e913803f5",
+  "gameplaySource": "63a63abe63e62825916f3a69b4b4589ae3a7baed",
+  "sourceManifestEntries": 1658,
+  "sourceBinding": "published gameplay 63a63abe plus handoff-only commits (HANDOFF.md is the only allowed difference); same 1658-entry tracked-source manifest key set as p16-sprint8 coherent-consumers, rehashed at bind time",
+  "purpose": "Sprint 9 required checkpoint gates on the coherent Sprint 6-8 source: root and UI types, Bridge types, both Bridge contract checks, UI build, full core including Bridge, full UI, final tracked-source integrity",
+  "adaptedFrom": "p16-sprint4/final-gate/full-tree-next.PREPARED.sh; difference: the three unrecoverable r3n1 inputs are recorded as known-missing (MISSING-INPUTS.txt) instead of refusing launch, per p16-sprint5/INPUT-RECOVERY.md",
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "uiTestTimeoutMilliseconds": 30000,
+    "timeoutOverride": false
+  },
+  "baselines": {
+    "core": "studio-scratch/1370-codebase-review-20261022-r1/lane-logs/p16-gate2-core-recovery.json (5951 tests, 128 failed, source 5a700af3)",
+    "ui": "studio-scratch/1370-codebase-review-20261022-r1/lane-logs/p16-gate2-ui.json (2734 tests, 3 failed)",
+    "names": "wave3-scripts/baseline-core-failures.txt (162) and baseline-ui-parent.txt (13)",
+    "comparison": "full relative file path + fullName, complete failure message with worktree-prefix normalization only; collection/load failures kept separately; missing-input ENOENT families classified as missing input, not functionality"
+  },
+  "children": [
+    "root-ui-types",
+    "bridge-types",
+    "bridge-contract",
+    "bridge-fixture-contract",
+    "build",
+    "full-core-including-bridge",
+    "full-ui",
+    "final-source-integrity"
+  ],
+  "limits": "Prepared, NOT bound, NOT launched until launch.sh. Historical envelope about 2h20 (full core about 122 min, UI about 16 min). Exclusivity requires the Owner to keep the foreign Codex/Godot session paused for the whole run; a foreign restart triggers the controlled interruption procedure, not a signal to the foreign job. Passing assertions over budget are not timing-qualified."
+}

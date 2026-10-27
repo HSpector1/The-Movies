@@ -1,0 +1,35 @@
+{
+  "head": "129c3343a564e96534d42955c8fa3ef53440d69e",
+  "gameplaySource": "63a63abe63e62825916f3a69b4b4589ae3a7baed",
+  "sourceManifestEntries": 1658,
+  "sourceBinding": "gameplay 63a63abe plus handoff-only commits plus the Sprint 9 test-only repair commit; bind.py allows differences from 63a63abe only in HANDOFF.md and the seven repaired test files",
+  "purpose": "Sprint 9 focused rerun after the full-tree r3 gate: root typecheck, the six repaired test files (Bridge registry pins 62/61/50 -> 64/63/52; two drafting171 refusal witnesses converted to lawful continuation), and the five files whose only failures were sparse-excluded tracked inputs now materialized",
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "timeoutOverride": false
+  },
+  "children": [
+    {
+      "label": "root-types",
+      "command": "node node_modules/typescript/bin/tsc --noEmit"
+    },
+    {
+      "label": "focused",
+      "completeFiles": [
+        "tests/bridge.test.ts",
+        "tests/bridge-stabilization-l22-retired-projections.test.ts",
+        "tests/bridge-p14b6-relationship-read-models.test.ts",
+        "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+        "tests/p16-healthy-new-drafting171.test.ts",
+        "tests/p16-stopped-drafting171-refusals.test.ts",
+        "tests/p14c3-force-order.test.ts",
+        "tests/p14p4p5-finishing-material.test.ts",
+        "tests/p14p4p5-post-capacity.test.ts",
+        "tests/p14p4p5-screenplay-status.test.ts",
+        "tests/p14p4p5-soundstage-capacity.test.ts"
+      ]
+    }
+  ],
+  "reused": "full-tree-r3 results for every other file on the same gameplay source; Bridge contract checks and build unchanged by a test-only delta",
+  "limits": "Prepared, NOT bound, NOT launched. Functional and per-leaf timing on a quiet host; not a replacement for the broad gate."
+}

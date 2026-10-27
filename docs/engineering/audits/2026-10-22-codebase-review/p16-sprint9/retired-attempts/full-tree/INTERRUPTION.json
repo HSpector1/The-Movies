@@ -1,0 +1,20 @@
+{
+  "at": "2026-10-27T10:34:14.599781-05:00",
+  "reason": "Coordinator-owned interruption seconds after launch: the tracked input authority-failure.json had not been materialized (sparse-excluded; checkout failed) so the gate would have carried an avoidable missing input. No foreign process involved.",
+  "ownedLane": 29927,
+  "termSent": [
+    29937,
+    29978,
+    29978,
+    29978,
+    29978,
+    29978,
+    29927
+  ],
+  "relaunch": "full-tree-r2 after restoring the tracked blob 762fdec7 from HEAD",
+  "lockHandling": "Lane did not exit on TERM within 5 s and was KILLed, so its EXIT trap did not remove HEAVY-LANE-LOCK. The marker was verified to name this attempt's lane.log and the coordinator removed the owned lock before r2. No foreign lock was touched.",
+  "orphanFound": {
+    "at": "2026-10-27T11:06:54.125667-05:00",
+    "detail": "The run.sh subshell (PID 29944) survived the 10:34 lane kill (reparented to launchd), continued through later stages and launched a full core at about 10:35, overlapping attempt r2 until terminated now. Owned tree terminated: 30339 31563 31994 32028 29944."
+  }
+}
