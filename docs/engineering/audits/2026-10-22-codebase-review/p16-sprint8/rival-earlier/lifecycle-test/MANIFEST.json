@@ -1,0 +1,79 @@
+{
+  "status": "FROZEN STATIC-UNRUN",
+  "target": "tests/p16-continued-work-silent-phases76.test.ts",
+  "baseHead": "ed48398adc9e7d1be1443429e717549ad6767c06",
+  "sourceCheckpoint": "bef0a40c7aae1721db5cee75eb1ffa81b03471e5",
+  "sourcePackage": {
+    "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-earlier/source/EARLIER-SILENT.patch",
+    "sha256": "8c09c1026ce898bbcc48cc846f28a247f5dfb759a871c482a4b2d925ed3e4eaf",
+    "bytes": 4924
+  },
+  "sourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-earlier/source/MANIFEST.json",
+    "sha256": "229a209de74c1d88c040f89ff7ffcb5b250da21a56311622b42a5e5f1e0f18a6",
+    "bytes": 1405
+  },
+  "sourcePostimagesMatchedAtFreeze": true,
+  "selector": "quotes actual163 unshot silent phase7 with all six original people into idle R03 before reaching the earlier-work producer",
+  "budgetMs": 5000,
+  "ticks": {
+    "ordinary": 8,
+    "replay": 1,
+    "total": 9
+  },
+  "originalAdmissionAssertionLinesPreserved": 46,
+  "originalPlayerLeavesPreserved": 6,
+  "newLeaves": 0,
+  "hostileControlsAdded": 1,
+  "expectedHostileRefusal": "continued work: silent lock belongs to wrong actual operator/boundary",
+  "artifacts": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-earlier/lifecycle-test/preimage.ts",
+      "sha256": "3b46ce8b76a6267463480e2e2e932da2eb93f5a98641fd9546442a6128377fdf",
+      "bytes": 22241
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-earlier/lifecycle-test/postimage.ts",
+      "sha256": "20f35b596839e3c8cfc37bca43a00681850b6a6e2547af60a384e8bacf692642",
+      "bytes": 34344
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-earlier/lifecycle-test/EARLIER-LIFECYCLE.patch",
+      "sha256": "f8a05cd0031c97c1c2d8553a7997c9a8f54255f63400fd6ed203d6409950165e",
+      "bytes": 13786
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-earlier/lifecycle-test/extension.txt",
+      "sha256": "fb73d7faeeecf1700ddd303b0c26bbf63f933a4bc80653d946bf8735a84ce2cb",
+      "bytes": 11769
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-earlier/lifecycle-test/NOTES.md",
+      "sha256": "26181f7eaef93d2756f342811a08ef622844e1ca3b2efc424ff727b4af0ff6bb",
+      "bytes": 4313
+    }
+  ],
+  "originalRed": {
+    "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-earlier/original-red/AUDIT.md",
+    "sha256": "df73ee1789a2d082b5c3204c375912be9bd1f53c1d072f8528d3a14ac6352e23",
+    "bytes": 1696
+  },
+  "capture": {
+    "environment": "P16_ORIGINAL48_CAPTURE_ROOT",
+    "file": "r04-actual163.save48.json",
+    "sha256": "c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad",
+    "provenance": "Original admitted drained-R04 transaction fixture; R01/R03 unchanged."
+  },
+  "staticChecks": {
+    "allOriginalAdmissionExpectLinesPreservedInOrder": true,
+    "priorPlayerCasesByteIdenticalExceptAdditiveImports": true,
+    "checkoutTestStillExactPreimage": true,
+    "runtimeExecuted": false,
+    "checkoutWrites": false
+  },
+  "limits": [
+    "One actual phase7 absorption only; no initial8/6/5 rival route claimed.",
+    "Source implementation and test runtime are unqualified until sole-lane execution.",
+    "No timeout or fixture edits; all setup remains inside default5000ms."
+  ]
+}

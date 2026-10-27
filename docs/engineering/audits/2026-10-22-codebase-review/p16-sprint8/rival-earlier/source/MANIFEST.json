@@ -1,0 +1,31 @@
+{
+  "status": "FROZEN STATIC-UNRUN",
+  "baseHead": "ed48398adc9e7d1be1443429e717549ad6767c06",
+  "sourceCheckpoint": "bef0a40c7aae1721db5cee75eb1ffa81b03471e5",
+  "patchSha256": "8c09c1026ce898bbcc48cc846f28a247f5dfb759a871c482a4b2d925ed3e4eaf",
+  "patchBytes": 4924,
+  "files": [
+    {
+      "path": "src/core/acquisition.ts",
+      "preSha256": "2cbb70958acfa77352d1c771a2bd46cacbf701bfeab9ad07349dae8c4c8bc0e0",
+      "postSha256": "ab35fe296f3c3bf86d5e571addd305fa58ea6ce580b2b2759e9271e8da4665b3"
+    },
+    {
+      "path": "src/core/continuedWork.ts",
+      "preSha256": "a24aaaeb772199d82146c8aa1b51b97ef1c36e3d0a9d2c2a66cc3088281f2868",
+      "postSha256": "09f6c902172a8bc667e3d7be667eff2ee5935746c4a88ab2606ed6df28cac1a8"
+    },
+    {
+      "path": "src/core/continuedWorkValidation.ts",
+      "preSha256": "d4b68966e64cb50b11644c5bd50ab5e8dd562e6bbb8762ff78e3d0ad085f599d",
+      "postSha256": "bb5e4dfa01b94e75fb2ee5c7f44e2236485d9dac93e8d41d64d2e233183f87c2"
+    },
+    {
+      "path": "src/core/technology.ts",
+      "preSha256": "8a7ac3341ae61f8db82dee5ab15bf936a5707c3e2fcb3918a326302d129e40a4",
+      "postSha256": "d03c900ca14bd3387dd82a9962d8c7ea4b313d296ce179b42ec3ead5a8a1c4ed"
+    }
+  ],
+  "tests": "Independent author owns lifecycle extension; no tests included",
+  "red": "../original-red/lane.log genuine R03 C163 six-person quote reaches rivalBuyerEarlierWorkProducerRequired"
+}

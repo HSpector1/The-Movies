@@ -1,0 +1,38 @@
+{
+  "head": "ed48398adc9e7d1be1443429e717549ad6767c06",
+  "sourceManifestEntries": 1658,
+  "sourceBinding": "Reviewed four-owner patch and independent frozen lifecycle installed; actual bytes bound before preflight",
+  "purpose": "Compiler-first fixed R03 C163 earlier silent continuation full lifecycle first GREEN",
+  "selector": {
+    "file": "tests/p16-continued-work-silent-phases76.test.ts",
+    "describe": "P16 genuine rival earlier silent continuation admission",
+    "it": "quotes actual163 unshot silent phase7 with all six original people into idle R03 before reaching the earlier-work producer"
+  },
+  "testPostimageSHA256": "20f35b596839e3c8cfc37bca43a00681850b6a6e2547af60a384e8bacf692642",
+  "budget": {
+    "milliseconds": 5000,
+    "timeoutOverride": false,
+    "setupInsideLeaf": true,
+    "ticks": 9
+  },
+  "expectedFailure": null,
+  "capture": {
+    "environment": "P16_ORIGINAL48_CAPTURE_ROOT",
+    "file": "r04-actual163.save48.json",
+    "sha256": "c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad"
+  },
+  "limits": "Root types first; same exact existing-file leaf only if compiler exit0; final lifecycle test pin pending author/root; no Bridge compiler or full files",
+  "premiseMarker": "S8_RIVAL_EARLIER_REAL163_PREMISES",
+  "children": [
+    {
+      "label": "root-types",
+      "command": "node node_modules/typescript/bin/tsc --noEmit",
+      "requiredBeforeRuntime": true
+    },
+    {
+      "label": "rival-earlier-lifecycle",
+      "oneExactLeaf": true,
+      "originalBudgetMilliseconds": 5000
+    }
+  ]
+}

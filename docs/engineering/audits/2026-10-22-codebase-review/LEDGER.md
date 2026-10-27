@@ -1,5 +1,17 @@
 ## Rival continuation implementation checkpoint — 2026-10-26, 19:56 CDT
 
+## Earlier silent rival operation published — 2026-10-26, 20:38 CDT
+
+Source 0108d51cc71943ac47bd7257ca2ff3c371fa1d31 is pushed and explicitly verified on experimental p16-retained-writing-20261026. Four reviewed owners reuse native buyer operation and add the exact acquired-production technology membership join. Existing capacity, company coverage, source history, phase/setup/sound refusal and frozen-reader laws remain; no persisted shape or Bridge schema change. Primary candidate and main unchanged.
+
+Genuine R03 C163 original RED671.883 ms now reaches complete native lock164, buyer first take166/original screenplay subject, save165/replay166, crew payroll, creator release169, title and installments0/1, final171 reload and wrong-owner refusal/purity. Same-leaf solo2668.810 ms and complete-file3558.018 ms both pass original5000 ms. Root types exit0; four complete affected files23/23 assertions. Seven existing player bodies exceed5000 ms; exact timing table is in rival-earlier/coherent-affected/AUDIT.md. Nearest predecessor timings are unavailable in that comparison, so no inherited/source-regression classification is invented.
+
+Focused independent review found no confirmed actionable defect. Both postflight audits verify1658 source/input and six preflight pins, terminal children/wrappers and no remaining jobs/lock. Freeze released. NoGodot observed in launch/during/post samples, without continuous-exclusivity claim. Reused root compiler for unchanged complete-file source; no duplicate market67/later-stage19 or broad technology suite. Source patches, independent test chain, original RED and actual completed evidence are preserved in rival-earlier/COMPLETED-CHECKPOINT.json and its named artifacts.
+
+Scope is genuine rival phase7. Phases8/6/initial5 are statically supported but not independently rival-runtime-qualified by the player controls. Broader P16/Bridge/full-game/platform milestones remain open. Next is the existing C171 R02←R01 carried-screenplay admission route; a bounded independent witness is being prepared externally under rival-script/premise-test. No source change until authentic admission/RED. Setup/selected Set/sound lack a nonempty transfer witness in the inspected evidence; capability alone is insufficient. Existing missing original full-game inputs, browser approval, native tooling and Owner acceptance remain. Sprint8 and program incomplete.
+
+Lesson: a foreign paid production retains creator identity while its buyer owns the new operational lock/take. Reuse the exact acquired membership join and mandatory complete work proof; do not copy creator bodies or fabricate source takes. The original RED and changed-source replay/refusal demonstrate this boundary without weakening history validation.
+
 ## Genuine earlier rival admission RED — 2026-10-26, 20:27 CDT
 
 After the observed foreign Godot job ended, a fresh allowed preflight and clear launch/post host samples supported the short sole-lane witness. Source HEAD 58ea5d7146f36b287b98b656339f2eea1b6dece5 plus the preserved independent test patch reaches all actual R03 C163 paid diligence, person-choice, capacity, quote and reserve premises. Six original people retained; consideration 11097774, outlay 862165.7370649315, reserve 4125342, guarantees 2259225. No cash/history/timing fixture change.

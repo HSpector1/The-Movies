@@ -1,0 +1,51 @@
+--- a/src/core/acquisition.ts
++++ b/src/core/acquisition.ts
+@@ -462,7 +462,6 @@
+     // or use an acquisition to evade the existing commitment/market law.
+     if(q.contracts.some(c=>c.retained) && state.hollywood!.businesses.find(b=>b.studioId===input.buyerId)!.costCutting.since!==null)throw new Error('absorption: rivalBuyerCostCuttingRetentionProducerRequired')
+     const continued=q.productions.filter(p=>p.disposition==='continues')
+-    if(continued.some(p=>p.remainingTicks>4))throw new Error('absorption: rivalBuyerEarlierWorkProducerRequired')
+     if(continued.length>0 && (continued.length!==1 || buyerOperatedProductions(state,input.buyerId).length!==0))throw new Error('absorption: rivalBuyerProductionOccupied')
+     if(q.scripts.some(s=>s.disposition==='continues'))throw new Error('absorption: rivalBuyerScriptProducerRequired')
+   }
+@@ -622,7 +621,7 @@
+     if (!d || d.recipientId !== a.buyerId || d.target.kind !== 'studio' || d.target.studioId !== a.targetId
+       || !ABSORPTION_DISCLOSURE_SCOPE.every(s => d.scope.includes(s)) || d.week > a.week || d.staleFromWeek <= a.week) fail('missing genuine fresh full disclosure')
+     if (![a.contracts,a.research,a.facilities,a.titleEventIds,a.knowledge,a.physicalPlans,a.adoptions,a.stoppedProductions,a.continuedProductions,a.buyerWorkflows,a.workSteps,a.workReleases,a.workCancellations,a.runs,a.runReceipts].every(Array.isArray)) fail('dispositions must be arrays')
+-    if(a.buyerId!==h!.playerStudioId && (a.continuedProductions.length>1 || a.continuedProductions.some(row=>!row || !row.originalProduction || row.originalProduction.remainingTicks>4) || a.workCancellations.length!==0))fail('rival buyer earlier/manual work producer is not admitted')
++    if(a.buyerId!==h!.playerStudioId && (a.continuedProductions.length>1 || a.continuedProductions.some(row=>!row || !row.originalProduction) || a.workCancellations.length!==0))fail('rival buyer malformed/multiple/manual work producer is not admitted')
+     if(acquiredActiveRunFilms(state,a.targetId,a.week).length!==0)fail('acquired run reassignment producer is not admitted')
+     // Earlier records have already passed their complete joined proof in this loop.
+     if(state.rights.absorptions.slice(0,state.rights.absorptions.indexOf(a)).some(prior=>prior.buyerId===a.targetId && prior.continuedProductions.some(row=>
+--- a/src/core/continuedWork.ts
++++ b/src/core/continuedWork.ts
+@@ -71,7 +71,6 @@
+  * real returned allocation per continued production and carries it into the next admission. */
+ export function bindContinuedWork(state:GameState,transaction:AbsorptionRecord,occupied:ReadonlySet<string>):GameState {
+   const h=state.hollywood!,source=h.businesses.find(b=>b.studioId===transaction.targetId)!
+-  if(transaction.buyerId!==h.playerStudioId && transaction.continuedProductions.some(row=>row.originalProduction.remainingTicks>4))throw new Error('absorption: rivalBuyerEarlierWorkProducerRequired')
+   if(transaction.continuedProductions.length===0)return state
+   let operations=buyerOperationsForAllWork(state,transaction.buyerId)
+   let sourceOperations=source.operations
+--- a/src/core/continuedWorkValidation.ts
++++ b/src/core/continuedWorkValidation.ts
+@@ -38,7 +38,7 @@
+   const player=a.buyerId===h.playerStudioId
+   const buyer=player?undefined:h.businesses.find(b=>b.studioId===a.buyerId)
+   if(!player && !buyer)fail('actual rival operator missing')
+-  if(!player && (a.continuedProductions.length>1 || a.continuedProductions.some(row=>row.originalProduction.remainingTicks>4) || a.workCancellations.length!==0))fail('rival earlier/manual work producer is not admitted')
++  if(!player && (a.continuedProductions.length>1 || a.workCancellations.length!==0))fail('rival multiple/manual work producer is not admitted')
+   const buyerOperations=player?state.operations:buyer!.operations
+ 
+   const links = a.continuedProductions
+--- a/src/core/technology.ts
++++ b/src/core/technology.ts
+@@ -900,7 +900,7 @@
+     const acquiredExists=acquiredOwner!==undefined && (acquiredSource?.productions.some(f=>f.id===p.productionId) || historicalFilmsByStudio.get(acquiredOwner.targetId)?.has(p.productionId))
+     const exists = p.studioId === own
+       ? acquiredExists || state.studio.activeProductions.some(f => f.id === p.productionId) || state.studio.releasedFilms.some(f => f.productionId === p.productionId) || p.lockedWeek !== null && state.ledger.some(e => e.productionId === p.productionId)
+-      : business?.productions.some(f => f.id === p.productionId) || historicalFilmsByStudio.get(p.studioId)?.has(p.productionId)
++      : acquiredExists || business?.productions.some(f => f.id === p.productionId) || historicalFilmsByStudio.get(p.studioId)?.has(p.productionId)
+     if (!exists) fail('unknown production loadout')
+     if (p.lockedWeek !== null) week(p.lockedWeek)
+     if (p.method === 'silent') {if (p.adoptionId !== null) fail('silent film has sound adoption')}

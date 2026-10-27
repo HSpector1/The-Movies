@@ -1,0 +1,30 @@
+{
+  "head": "ed48398adc9e7d1be1443429e717549ad6767c06",
+  "sourceManifestEntries": 1658,
+  "sourceBinding": "Actual bytes match completed compiler/lifecycle source; independent postflight required before launch",
+  "files": [
+    "tests/p16-continued-work-silent-early.test.ts",
+    "tests/p16-continued-work-silent-phases76.test.ts",
+    "tests/p16-continued-work-shooting5-baseline.test.ts",
+    "tests/p13a-technology-membership.test.ts"
+  ],
+  "testPostimages": {
+    "tests/p16-continued-work-silent-early.test.ts": "fbde92931af9c5451626cca9f3c267b220f1a880073206cc536e7473648eae69",
+    "tests/p16-continued-work-silent-phases76.test.ts": "20f35b596839e3c8cfc37bca43a00681850b6a6e2547af60a384e8bacf692642",
+    "tests/p16-continued-work-shooting5-baseline.test.ts": "8c14b31fbb70c68b20a0df8e1497c64d77d1509e7d17052aecacefc34af68511",
+    "tests/p13a-technology-membership.test.ts": "5dc024e6ec78c594eb5a0185099a8fa7921165e4419918cc72d699b2b69733ac"
+  },
+  "budgets": "Original complete-file budgets; no override/setup move",
+  "children": [
+    {
+      "label": "earlier-coherent-affected",
+      "project": "core",
+      "completeFiles": 4,
+      "oneInvocation": true,
+      "result": "focused.json"
+    }
+  ],
+  "reuse": "Reuse first-green roottypes0 only if completed and no further source edits; no Bridge types because no interface/wire delta",
+  "limits": "Phase7 genuine rival route only. Existing player phase8/6/initial5 controls are not rival proof. No repeat of qualified19 continued/estate assertions or67 market assertions.",
+  "launch": "Preparation only; fresh preflight and sole lane required"
+}

@@ -1,0 +1,32 @@
+{
+  "sourceCommit": "0108d51cc71943ac47bd7257ca2ff3c371fa1d31",
+  "remote": "https://github.com/HSpector1/The-Movies.git",
+  "ref": "refs/heads/p16-retained-writing-20261026",
+  "explicitRemoteVerified": true,
+  "files": {
+    "source/EARLIER-SILENT.patch": "8c09c1026ce898bbcc48cc846f28a247f5dfb759a871c482a4b2d925ed3e4eaf",
+    "source/MANIFEST.json": "229a209de74c1d88c040f89ff7ffcb5b250da21a56311622b42a5e5f1e0f18a6",
+    "source/SOURCE.md": "3f8fa9f59a527481ff732e033f81189a2b34c40ea8ae482c8d7221b19aa57a09",
+    "source/REVIEW.md": "385e9f729e1fab263ab94fb971d5895748e7b08b4828c086d489583b3c51510d",
+    "lifecycle-test/EARLIER-LIFECYCLE.patch": "f8a05cd0031c97c1c2d8553a7997c9a8f54255f63400fd6ed203d6409950165e",
+    "lifecycle-test/MANIFEST.json": "cb12b36918b85c9940d422848894760da7f72d73fe1fbee5006f8857a99a2fcf",
+    "lifecycle-test/NOTES.md": "26181f7eaef93d2756f342811a08ef622844e1ca3b2efc424ff727b4af0ff6bb",
+    "first-green/SOURCE-MANIFEST.json": "30b33c38fb9516a9a5e7e11da5fbb31c3f661074f7152150b367b4ee8158b8f1",
+    "first-green/focused.json": "bd5f7518cd883222d9845b196a5e44d8329195fdc9092bb0091da0b02e565bca",
+    "first-green/run.sh": "91e5aa9ce976d606d05816a00393c9fcd5a6e716bc2754e3b64cedebacacc813",
+    "first-green/AUDIT.md": "e0cb7b30d61c6844fdb6d8a712913ae5c0ea1d3d8d1aea9a1b604d2a44bdb1bf",
+    "first-green/lane.log.meta": "fa7358f9b237f7734daf80057de2c9e3d8f9d67e7fb465121bebf7ccb2e2e4fa",
+    "first-green/SELECTION.json": "5eb36fd2fd2beb0b693fccd5eda5371a5410c58cb77f79ddf3a302c59f52533f",
+    "first-green/lane.log.gz": "0201156a0ac3d30f78e6f285dffee78ba303a90430e2acc0d67be62f523076c5",
+    "first-green/USED": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "coherent-affected/SOURCE-MANIFEST.json": "30b33c38fb9516a9a5e7e11da5fbb31c3f661074f7152150b367b4ee8158b8f1",
+    "coherent-affected/focused.json": "479c3a6736d7f925257c32015fa14ef143a1df8609510b1cc0c0b0e0b441f5d1",
+    "coherent-affected/SELECTION.md": "8983c0846fb04cf30ce98daf4d42e2c114ec8e25a2286af70dab0c6fb47ec190",
+    "coherent-affected/run.sh": "baf8f9931abd4aea90ee489d4921a1309330c2bd115eee5c37ea3410b075b42a",
+    "coherent-affected/AUDIT.md": "081204326a75491db5caf0e1fc1e39a8cc42ed96508393a383b8b96b1d283cbd",
+    "coherent-affected/lane.log.meta": "caec3174a13ba1541ad4598049c1cc648644325757beb9eec2cf54e7b722f249",
+    "coherent-affected/SELECTION.json": "4e1e10de98f8ea3776a1389bd33a4e016365f0ff00867c9d272d05f3b6ef0f03",
+    "coherent-affected/lane.log.gz": "ab8b7cc4d79eb5df0e5c40102cce5e3c8feefce9e36f14fb7026aee5c0d1ca14",
+    "coherent-affected/USED": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
