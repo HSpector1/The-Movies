@@ -17,16 +17,19 @@ import { greenlightPayload, STABLE } from './p16-fixtures.js'
  * imports nothing the predecessor lacks. */
 export type ContinuationAsk = { type: 'directSequel' | 'prequel' | 'remake' | 'reboot' | 'spinOff'; predecessorProductionId: string; subPropertyId?: string; branchId?: string }
 
-/** The first player concept that founded no P16 property yet (a new screenplay for a continuation). */
+/** The first player concept never produced and founding no P16 property (a new screenplay for a continuation). */
 export function freshConcept(state: GameState, skip: ReadonlySet<string> = new Set()): FilmConcept {
   const founded = new Set(resolveTitles(state).properties.map((p) => p.propertyId))
-  const concept = state.concepts.find((c) => !skip.has(c.id) && !founded.has(storyPropertyId(c.id)))
+  const produced = new Set([...state.studio.releasedFilms.map((f) => f.conceptId), ...state.studio.activeProductions.map((p) => p.conceptId)])
+  const concept = state.concepts.find((c) => !skip.has(c.id) && !produced.has(c.id) && !founded.has(storyPropertyId(c.id)))
   if (concept === undefined) throw new Error('premise: no unfounded player concept left')
   return concept
 }
 
-/** The player's legacy greenlight of `concept`, carrying `continuation` when given. */
+/** The player's legacy greenlight of `concept`, carrying `continuation` when given. Talent engaged on a live production
+ * is never picked (M16 exclusivity), so a second concurrent greenlight seats idle people. */
 export function greenlightAs(state: GameState, concept: FilmConcept, continuation?: ContinuationAsk, used: Set<string> = new Set()): { state: GameState; productionId: string } {
+  for (const p of state.studio.activeProductions) for (const id of [p.writerId, p.directorId, ...p.craftIds, ...Object.values(p.cast)]) used.add(id)
   const action = { kind: 'greenlight', production: greenlightPayload(state, concept, used), ...(continuation === undefined ? {} : { continuation }) } as Action
   const next = applyActions(state, [action])
   return { state: next, productionId: next.studio.activeProductions[next.studio.activeProductions.length - 1]!.id }
