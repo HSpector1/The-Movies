@@ -1,5 +1,36 @@
 # HANDOFF
 
+## Rival screenplay implementation and interrupted consumer checkpoint — 2026-10-26, 21:31 CDT
+
+Records and complete recovery patch chain are published and explicitly remote verified at wip 7460475742ab2687db670597a49b6ba2c71b3a21. Published gameplay remains 0108d51cc71943ac47bd7257ca2ff3c371fa1d31. Eleven reviewed source owners and the independent lifecycle test are installed but uncommitted on experimental p16-retained-writing-20261026. Exact source, review correction, literal type correction, premise/lifecycle and expectation patches are preserved under p16-sprint8/rival-script; apply them in the recorded order. Primary candidate 013c4edc and main ab65eb20 are unchanged. This records checkpoint does not promote unqualified source.
+
+The native v8 producer implements rival remaining writing, automatic acceptance, scheduling, cost/receipt/history joins and release. Independent review found three defects: shelved Ready work refused on advancement, produced acquired history consumed hot slots, and chart output omitted acquired-screenplay films. A two-owner correction resolves those findings statically. Original v1–v7 laws and Bridge projection64 remain unchanged.
+
+Root types pass. Genuine R02 C171 close, retained writing/payroll, completion/automatic Accept173 and save172/replay173/save174 pass in 3198.445 ms within the original 5000 ms. Native policy rejects production once; acquired greenlight/take/release/chart/shelving threshold remain untested. No forced scheduling or nonzero original-development claim. Preserve the initial compiler TS2322, prelaunch manifest-alias refusal and independently corrected quote-reason expectation failure as distinct implementation/harness/test results.
+
+The 11-file consumer gate was interrupted at 21:31:40 after foreign Godot appeared. Only the immediately verified owned runner tree received TERM. Ten completed file summaries show 89 passing assertions, but no final JSON exists; Bridge parity is incomplete and Bridge types never ran. Nineteen printed passing bodies exceed their original 5000 ms budgets, including the new rival leaf at 5413 ms; the market-phase exception remains within 600000 ms. Exact overlap and timing causation are unknown. Do not turn partial output into a complete or exclusive qualification. All runs independently audited; source freeze released, no owned job/lane lock remains.
+
+Next: retain the installed source and evidence; finish the affected consumer/Bridge milestone only in an established exclusive window, without immediately repeating the unchanged interrupted gate. Continue bounded read-only preparation for the existing rival bound-promise dependency meanwhile. Source publication/primary integration remains pending qualification. Original full-game inputs, browser-install approval, native tooling and Owner acceptance remain open; Sprint 8 and the authorized program are incomplete.
+
+Lesson: separate durable acquired history from native hot inventory. Shelved Ready and produced scripts must remain provable without being advanced or counted as active capacity. Published film output must come from actual film history, including acquired screenplay productions. Keep resource interruption, assertion success and timing qualification separate.
+
+
+## Rival screenplay focused result — 2026-10-26, 21:27 CDT
+
+Quote-green passes one lifecycle leaf in 3198.445 ms within the original 5000 ms. Genuine close, retained writing/payroll, completion and automatic Accept173, save172/replay173 and save174 are reached. Native policy rejects production once; Ready remains and writer exits lawfully at173. Greenlight, first take, release, chart and shelving threshold remain untested. Root types pass on unchanged source. Prior compiler, binding and mistaken test-expectation failures are preserved; all runs independently audited and freezes released.
+
+Next: coherent-affected complete writing/retention/first-take/starting-world/market/Bridge-parity consumers and Bridge types through fresh preflight/sole lane. Original budgets unchanged; reused root types only. Source/index/HANDOFF freeze through independent postflight. No publication or full qualification yet; original source/review-fix/type-fix and independent test patches are recoverable externally. Main and primary candidate unchanged.
+
+
+## Rival screenplay reviewed source installed — 2026-10-26
+
+Eleven source owners and the independent same-leaf lifecycle test are installed, uncommitted and STATIC-UNRUN on experimental cf0e1cd47ba9974d540d3690f322c7192cc0037a. Restore original rival-script/source/RIVAL-SCRIPTS.patch, then review-fix/REVIEW-FIX.patch; test restores premise then lifecycle patch. Primary candidate and main remain unchanged.
+
+Independent review found and statically closed three defects: shelved Ready work caused writing refusal, produced acquired scripts occupied hot inventory forever, and chart output omitted acquired-script films. Exact original and corrective patches/reviews are preserved externally under p16-sprint8-obligations-20261026/rival-script. The reviewer approves compiler/focused execution, not runtime qualification. Bridge DTO remains projection64 unchanged.
+
+First-green root types exited 2 on widened automatic-accept discriminant; runtime was unrun. Independent postflight released the freeze. The literal-only type-fix is installed, unrun. Typed-green refused a stale relative HANDOFF manifest alias before compiler/runtime; audit released freeze, failed manifest preserved. Typed-ready root types passed; genuine close succeeded, then new test expected null instead of existing writerTeamRetained. Audit released freeze; independent one-line expectation correction installed. Next: quote-green lifecycle only, reusing unchanged-source root types, fresh preflight and sole lane; preserve source/index/HANDOFF through independent postflight. Same genuine R02 C171 lifecycle retains every original premise and 5000 ms budget. Actual native choice alone enables production/release/chart assertions; a not-selected result leaves those branches open. No forced scheduling or nonzero source-development claim. Original RED and prior failed evidence remain preserved. Root alone integrates/schedules; all external drafts are frozen.
+
+
 Last writer: Codex, 2026-10-26, sole coordinator for the authorized Sprints 5–16 program.
 
 
