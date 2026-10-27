@@ -1,0 +1,10 @@
+{
+  "head": "d7d4bacf1b3ac82663a6ea72ee5b48d4a514985b",
+  "testedSource": "9c91232dd980cbe05399b6fd77ed55454e671f86",
+  "purpose": "Exact prior source/full test identity/cause comparison for current eight trust failures; no changed expectations",
+  "pattern": "does not publish another studio|raises due at minus8|raises the poaching winner|does not require any case entry|ignores real withdrawn unbound drafts|keeps open rival proposal terms|publishes the real rival kept outcome|is semantically unchanged when only hidden terminal terms",
+  "expectedSelectedCount": 8,
+  "sourceManifestEntries": 2309,
+  "budget": "Original per-leaf budgets unchanged: explicit 60000 ms exceptions where declared, otherwise core default5000 ms",
+  "limits": "Earlier source rather than identical conditions; compare first causes/reachability separately from timing"
+}

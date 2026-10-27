@@ -1,0 +1,16 @@
+{
+  "head": "d7d4bacf1b3ac82663a6ea72ee5b48d4a514985b",
+  "purpose": "Six complete directly affected promise/history/waiver consumers, exact existing CONSUMERS.md scope",
+  "sourceManifestEntries": 1658,
+  "files": [
+    "tests/bridge-p14b1-promises.test.ts",
+    "tests/bridge-p14b2-trust.test.ts",
+    "tests/bridge-p14p3-directing-promises.test.ts",
+    "tests/bridge-p14p4p5-opportunities.test.ts",
+    "tests/bridge-p14b7-promise-waiver.test.ts",
+    "tests/bridge-p14b8-waiver-surface.test.ts"
+  ],
+  "budget": "Original per-leaf budgets unchanged",
+  "reuse": "Completed current parity/runtime-checkpoint/compiler/generator evidence not repeated",
+  "limits": "Not remaining35/fullgame/platform qualification"
+}

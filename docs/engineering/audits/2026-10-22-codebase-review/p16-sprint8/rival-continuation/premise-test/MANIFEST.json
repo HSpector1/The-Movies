@@ -1,0 +1,79 @@
+{
+  "status": "FROZEN-STATIC-UNRUN",
+  "observedHead": "d7d4bacf1b3ac82663a6ea72ee5b48d4a514985b",
+  "sourcePredecessor": "9b4bd81ac0a3cc57142f59a1ea62562d72ee0841",
+  "patch": {
+    "path": "CONTINUATION-PREMISE-RED.patch",
+    "sha256": "1b139f6359a2929882ccf6c027b49e9fad03df98f57023c8d2a086e8bc1c7e69",
+    "bytes": 8432
+  },
+  "file": {
+    "path": "tests/p16-absorption-active-run.test.ts",
+    "preimagePath": "preimage.ts",
+    "preimageSHA256": "f4f087e4924c5d2b5af38cb1d32826b54c796b2a048d3ff67fa80a265f4e7ff5",
+    "preimageBytes": 43197,
+    "postimagePath": "postimage.ts",
+    "postimageSHA256": "0980eb2015cc37f129d2ac5cfa4838db16bbb8e95375a98a7169dcf0fe269bb7",
+    "postimageBytes": 50877
+  },
+  "selector": {
+    "file": "tests/p16-absorption-active-run.test.ts",
+    "describe": "P16 genuine rival completed-take continuation admission",
+    "it": "quotes the actual166 completed silent take with all required staff into idle R02 before reaching the continued-work producer"
+  },
+  "budget": {
+    "milliseconds": 5000,
+    "timeoutOverride": false,
+    "setupInsideLeaf": true,
+    "ticks": 3
+  },
+  "expectedCurrentSourceFailure": "absorption: rivalBuyerContinuedWorkProducerRequired after S8_RIVAL_CONTINUATION_REAL166_PREMISES",
+  "capture": {
+    "environment": "P16_ORIGINAL48_CAPTURE_ROOT",
+    "file": "r04-actual163.save48.json",
+    "sha256": "c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad"
+  },
+  "sourcePins": [
+    {
+      "path": "src/core/acquisition.ts",
+      "sha256": "65545a63f2d9710d1179fb245cf61a48057affd0f4cf91230f7cae91f528d3a8",
+      "bytes": 62994
+    },
+    {
+      "path": "src/core/continuedWork.ts",
+      "sha256": "74aa3c51e82119fac5f33871ee8aa374423f4a1a8453f1b72e3be94f91b8df17",
+      "bytes": 14703
+    },
+    {
+      "path": "src/core/hollywoodTick.ts",
+      "sha256": "106c81b7d255d34e6aee9863f3d060bd6b5d91bae63a5c8d5b3d5cb8e8e41324",
+      "bytes": 50020
+    },
+    {
+      "path": "src/core/operations.ts",
+      "sha256": "9935b09495df1d11f39bf3b1a37b244c3d7bf7d0994cd4c8ce286571b3be3411",
+      "bytes": 81366
+    },
+    {
+      "path": "src/core/tick.ts",
+      "sha256": "f21a55dcae3e4d6a49b0385fc54d63c527d5a90c565aef1c568fe46929ca7e21",
+      "bytes": 71927
+    },
+    {
+      "path": "src/core/promises.ts",
+      "sha256": "7bedd9e6e1210cb58f8950a2f2ed708802c1d8ed206a81af041830914c42c04b",
+      "bytes": 116342
+    }
+  ],
+  "feasibility": {
+    "path": "../FEASIBILITY.md",
+    "sha256": "cc97e3cc9cd32d3669004f4891fdea2521245c559f2ade5b1dc8ba7e28f67859"
+  },
+  "notes": {
+    "path": "NOTES.md",
+    "sha256": "f9ddf2bb1ad02f507622f5305a16505bfdfbdbe06b5f5cd2112dee2ef240bd52",
+    "bytes": 3705
+  },
+  "preservation": "Add-only diff; all4 existing cases and their budgets/assertions preserved; exactly1 admission-only case added.",
+  "execution": "No runtime, tests, compiler, generator, checkout edits, Git mutations or nested agents. Actual admission/RED and timing remain unproved."
+}

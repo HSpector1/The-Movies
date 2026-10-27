@@ -1,0 +1,27 @@
+{
+  "commit": "9c91232dd980cbe05399b6fd77ed55454e671f86",
+  "paths": [
+    "src",
+    "bridge",
+    "ui/src",
+    "ui/public/lot/hollywood/role-atlas-v1.json",
+    "generated",
+    "package.json",
+    "package-lock.json",
+    "tsconfig.json",
+    "tsconfig.src.json",
+    "tsconfig.bridge.json",
+    "vitest.config.ts",
+    "vitest.workspace.ts",
+    "tests/bridge-p14b2-trust.test.ts",
+    "tests/helpers/p14b2-fixtures.ts",
+    "tests/helpers/live-era.ts",
+    "tests/helpers/p15-roots.ts",
+    "tests/helpers/p16-era.ts"
+  ],
+  "regularFiles": 650,
+  "bytes": 15500983,
+  "purpose": "Exact earlier source comparison for eight failing trust cases; no test or engine executed",
+  "dependencies": "Existing locked node_modules symlink; no installation",
+  "exclusions": "No unrelated tests, private archives or missing r3n1 inputs hydrated"
+}

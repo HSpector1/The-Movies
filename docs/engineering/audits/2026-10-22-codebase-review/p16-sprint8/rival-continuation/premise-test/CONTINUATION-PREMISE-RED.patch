@@ -1,0 +1,100 @@
+--- a/tests/p16-absorption-active-run.test.ts
++++ b/tests/p16-absorption-active-run.test.ts
+@@ -17,6 +17,7 @@
+ import { permittedBidderRefusal, spendableCash, weeklyFixedCost } from '../src/core/rightsFinance.js'
+ import { TUNING } from '../src/core/tuning.js'
+ import { openTheatricalRun } from '../src/core/economy.js'
++import { continuedWorkRefusal } from '../src/core/continuedWork.js'
+ import { tick } from '../src/core/tick.js'
+ import type { GameState } from '../src/core/types.js'
+ import {financeTotals,periodSummary} from '../src/core/economyView.js'
+@@ -513,3 +514,89 @@
+   expect(JSON.stringify(initial)).toBe(initialBefore);expect(JSON.stringify(old)).toBe(oldBefore);expect(JSON.stringify(raw)).toBe(rawBefore)
+  })
+ })
++
++// Admission-only C166 control; downstream rival continuation awaits its real producer.
++describe('P16 genuine rival completed-take continuation admission',()=>{
++ it('quotes the actual166 completed silent take with all required staff into idle R02 before reaching the continued-work producer',()=>{
++  const root=process.env.P16_ORIGINAL48_CAPTURE_ROOT;expect(root).toBeTruthy()
++  const bytes=readFileSync(root+'/r04-actual163.save48.json')
++  expect(createHash('sha256').update(bytes).digest('hex')).toBe('c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad')
++  // Original admitted drained-R04 transaction fixture; unchanged R01/R02, no new constructor.
++  const raw=JSON.parse(bytes.toString()),rawBefore=JSON.stringify(raw),old=saves.validateSaveP15B(raw),oldBefore=JSON.stringify(old)
++  const initial=saves.convertV48ToV49(old).state,initialBefore=JSON.stringify(initial)
++  expect(old.saveVersion).toBe(48);expect(initial.market.tick).toBe(163)
++  let state=initial
++  for(let boundary=164;boundary<=166;boundary++) {
++   const prior=state,before=JSON.stringify(prior);state=tick(prior)
++   expect(state.market.tick).toBe(boundary);expect(JSON.stringify(prior)).toBe(before)
++  }
++  saves.makeSave(state)
++  const buyerId='studio-aca408ec-r02',ownFilmId=buyerId+':film:14'
++  const source=state.hollywood!.businesses.find(b=>b.studioId===TARGET)!,buyer=state.hollywood!.businesses.find(b=>b.studioId===buyerId)!
++  expect(source.productions).toHaveLength(1);expect(source.runs).toEqual([])
++  const production=source.productions[0]!
++  expect(production).toMatchObject({id:FILM,startTick:161,remainingTicks:4})
++  expect(source.development.projects.filter(p=>p.status==='drafting'||p.status==='rewriting')).toEqual([])
++  const script=source.development.projects.find(p=>p.productionId===FILM)!
++  expect(script).toMatchObject({id:'script-0013',status:'inProduction',conceptId:production.conceptId})
++  const takes=state.firstTakes.filter(t=>t.productionId===FILM)
++  expect(takes).toHaveLength(1)
++  expect(takes[0]).toEqual({eventId:'first-take-event-46',week:166,productionId:FILM,studioId:TARGET,directorId:production.directorId,cast:production.cast})
++  expect(state.firstTakeSubjects.facts.find(f=>f.eventId===takes[0]!.eventId)).toMatchObject({conceptId:production.conceptId,scriptProjectId:script.id})
++  expect(state.technology.productions.filter(p=>p.productionId===FILM))
++   .toEqual([{studioId:TARGET,productionId:FILM,method:'silent',adoptionId:null,lockedWeek:164}])
++  expect(source.operations.workflows.find(w=>w.productionId===FILM))
++   .toMatchObject({phase:'shooting',setup:null,blocker:null,shootingTask:{status:'completed',directorId:production.directorId},bindings:{requiresSetBinding:false,setId:null}})
++  expect(continuedWorkRefusal(state,TARGET,production)).toBeNull()
++  expect(buyer.productions).toEqual([]);expect(buyer.costCutting.since).toBeNull()
++  expect(buyer.runs).toMatchObject([{productionId:ownFilmId,releaseTick:165,weekIndex:1}])
++  expect(state.hollywood!.receipts.filter(r=>r.kind==='filmReleased'&&r.productionId===ownFilmId))
++   .toMatchObject([{week:165,studioId:buyerId,productionId:ownFilmId}])
++  for(const id of [buyerId,TARGET]) {
++   expect(conditionRecord(state,id)?.condition).toMatchObject({stage:'stable',week:166})
++   expect(outstandingLoan(state,id,166)).toBeUndefined()
++  }
++  const employees=state.hollywood!.activeEmploymentOrdinals.map(i=>state.hollywood!.employment[i]!)
++   .filter(e=>e.studioId===TARGET&&e.endedWeek===null&&e.terms.startWeek<=166&&166<e.terms.endWeekExclusive)
++  expect(employees).toHaveLength(6);expect(employees.every(e=>e.terms.endWeekExclusive===208)).toBe(true)
++  const required=[production.writerId,production.directorId,...production.craftIds,...Object.values(production.cast)]
++  expect(employees.map(e=>e.terms.talentId).sort()).toEqual([...new Set(required)].sort())
++  expect(state.promises.filter(p=>p.issuerStudioId===TARGET&&p.outcome===null)).toEqual([])
++  expect(state.talentMarket.proposals.filter(p=>p.issuerStudioId===TARGET)).toEqual([])
++  expect(state.talentMarket.cases.filter(c=>c.subjectStudioId===TARGET&&c.closedWeek===null)).toEqual([])
++  const before=JSON.stringify(state)
++  const paid=requestDiligence(state,{recipientId:buyerId,target:{kind:'studio',studioId:TARGET},scope:['rights','employment','liabilities']},166)
++  expect(JSON.stringify(state)).toBe(before)
++  expect(paid.record).toMatchObject({week:166,recipientId:buyerId,target:{kind:'studio',studioId:TARGET},fee:TUNING.RIGHTS_DUE_DILIGENCE_FEE})
++  expect(paid.state.hollywood!.businesses.find(b=>b.studioId===buyerId)!.account.cash).toBe(buyer.account.cash-paid.record.fee)
++  expect(paid.state.studio).toEqual(state.studio);expect(paid.state.ledger).toEqual(state.ledger)
++  const paidBefore=JSON.stringify(paid.state),value=libraryValuationV1(paid.state,TARGET,166)
++  expect(value.kind).toBe('available');if(value.kind!=='available')throw new Error('fixed166 continuation needs actual library valuation')
++  const consideration=acquisition.absorptionAsk(value.total,source.account.cash)
++  const preview={buyerId,targetId:TARGET,consideration,retention:{kind:'explicit' as const,contractIds:employees.map(e=>e.contractId)},disclosureId:paid.record.id}
++  const quote=acquisition.quoteAbsorption(paid.state,preview,166)
++  expect(quote.kind,'all actual required people, capacity and the complete reserve must admit this fixed route').toBe('quote')
++  if(quote.kind!=='quote')throw new Error(quote.refusal)
++  expect(quote.contracts.filter(c=>c.retained).map(c=>c.contractId)).toEqual(preview.retention.contractIds)
++  expect(quote.contracts.every(c=>c.reason===null)).toBe(true)
++  expect(quote.productions).toEqual([{productionId:FILM,remainingTicks:4,phase:'shooting',missingParticipants:[],disposition:'continues',reason:null,blockedCapability:null}])
++  expect(quote.scripts).toEqual([]);expect(quote.runs).toEqual([])
++  expect(quote.exitCharges).toBe(0);expect(quote.postExitCash).toBe(source.account.cash)
++  expect(quote.guarantees).toBe(employees.reduce((sum,e)=>sum+guaranteedComp(e.terms,166),0))
++  expect(quote.affordable).toBe(true);expect(quote.ask).toBe(consideration)
++  expect(quote.outlay).toBe(consideration-source.account.cash)
++  expect(quote.resultingWeeklyFixedCost).toBe(Math.ceil(weeklyFixedCost(paid.state,buyerId)+employees.reduce((sum,e)=>sum+e.terms.annualSalary/TUNING.TICKS_PER_YEAR,0)+TUNING.OVERHEAD_PER_EMPLOYEE*employees.length))
++  expect(quote.reserveAfter).toBe(TUNING.RIGHTS_RESERVE_WEEKS*quote.resultingWeeklyFixedCost)
++  expect(spendableCash(paid.state,buyerId)-quote.outlay).toBeGreaterThanOrEqual(quote.reserveAfter)
++  const input={...preview,quotedAtWeek:quote.quotedAtWeek,quoteAgePolicyVersion:quote.quoteAgePolicyVersion}
++  expect(input).toMatchObject({quotedAtWeek:166,quoteAgePolicyVersion:1})
++  expect(acquisition.absorptionProducerRefusal(paid.state,input)).toBeNull()
++  console.info('S8_RIVAL_CONTINUATION_REAL166_PREMISES '+JSON.stringify({week:166,buyerId,targetId:TARGET,productionId:FILM,remainingTicks:production.remainingTicks,takeEventId:takes[0]!.eventId,retained:preview.retention.contractIds,consideration,outlay:quote.outlay,reserve:quote.reserveAfter,guarantees:quote.guarantees}))
++  // Current source RED: rivalBuyerContinuedWorkProducerRequired. No downstream production claim yet.
++  try {acquisition.closeAbsorption(paid.state,input,166)}
++  finally {
++   expect(JSON.stringify(paid.state)).toBe(paidBefore);expect(JSON.stringify(state)).toBe(before)
++   expect(JSON.stringify(initial)).toBe(initialBefore);expect(JSON.stringify(old)).toBe(oldBefore);expect(JSON.stringify(raw)).toBe(rawBefore)
++  }
++ })
++})

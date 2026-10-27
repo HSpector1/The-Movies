@@ -2,6 +2,15 @@
 
 Last writer: Codex, 2026-10-26, sole coordinator for the authorized Sprints 5–16 program.
 
+## Current consumer evidence checkpoint — 2026-10-26
+
+- Sole coordinator continues authorized Sprints 5–16. Latest gameplay source is 9b4bd81ac0a3cc57142f59a1ea62562d72ee0841 on experimental p16-retained-writing-20261026; this checkpoint changes records only. Primary 013c4edc and main ab65eb20 remain unchanged. Resolve exact records HEAD from Git.
+- Complete runtime checkpoint: 81/81 assertions; 14 exceed original 5s budgets, maximum 15.713s. Six complete promise consumers: 69/77, eight trust failures; 14 actual budget overruns, including B55-2 at 454.682s versus 60s. All runs independently audited; source freeze released, no owned job or lane lock remains.
+- Retained full Wave3j recovery independently matches all eight trust identities and first errors, plus B55-2 historical 584.250s overrun. Later assertions remain unreached. The prepared immutable9c comparison was not launched because its question is answered. See p16-sprint8/promise-consumers-complete/WAVE3J-BASELINE.md and BASELINE-AUDIT.md.
+- A delayed postscan saw transient foreign Godot; start time and overlap are unknown. No signal, continuous exclusivity claim or environmental timing waiver. Do not restart interrupted long gates on a brief idle snapshot. About 7 GiB free; no current cleanup need.
+- Next: integrate the independently prepared rival-continuation/premise-test patch into the existing active-run file after exact preimage checks; bind its fresh original-red runner, preflight and explicit host scan, then sole-lane execution. Three real ticks must establish week166, actual silent take, six retained contracts and legal quote before producer refusal. No fabricated history or presumed premise success.
+- Remaining: rival continued work/scripts and bound promises, setup/sound continuity, active acquired-recipient closure, historical compositions, affected consumers and broad qualification. Three original full-game captures remain missing; browser installation approval, native toolchain and Owner playtesting remain pending. No qualified P17/P18 predecessor, main gameplay promotion or completed-program claim.
+
 ## Current verification boundary — 2026-10-26, 18:51 CDT
 
 - Last published gameplay source is 9b4bd81ac0a3cc57142f59a1ea62562d72ee0841 on p16-retained-writing-20261026, explicitly remote verified. Source-identical handoff checkpoint d7d4bacf1b3ac82663a6ea72ee5b48d4a514985b is also remote verified. Primary 013c4edc and main ab65eb20 remain unchanged. No qualified P16/P17 predecessor or completed-program claim.

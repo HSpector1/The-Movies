@@ -1,0 +1,9 @@
+{
+  "head": "d7d4bacf1b3ac82663a6ea72ee5b48d4a514985b",
+  "purpose": "Complete affected existing checkpoint import/journal/history consumer after actual projection64 and authentic outgoing63 integration",
+  "sourceManifestEntries": 1658,
+  "file": "tests/bridge-runtime-checkpoint.test.ts",
+  "budget": "Original per-leaf budgets unchanged",
+  "reuse": "Current compiler/parity/generator evidence not repeated",
+  "limits": "Not full consumer/fullgame/platform qualification"
+}

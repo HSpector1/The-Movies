@@ -1,0 +1,9 @@
+# Independent retained-baseline audit
+
+Verified the published gzip SHA256 `7773719d333714b10f85a2eed7707d7ae15c6264097ed60a5fe572e082aaa00e` and decoded SHA256 `24b5b91a87b6738fa9f7e49e5b44c994a8caaeba0d405059cd0b0f03dddcfb54` (2,832,412 bytes). The evidence manifest records both; the publication manifest binds the gzip only. WAVE3J-BASELINE.md should express this chain precisely rather than implying both manifests separately contain the decoded hash.
+
+The actual retained report has 5,951 tests / 541 file results. Its retained source log identifies Node v20.20.2, HEAD5a700af3, dirty0, October25 09:14:02. Comparing parsed JSON, all22 trust full identities match the current report; the exact same eight identities fail. All eight first error lines match verbatim: five missing natural rival-only outcomes by240, three expected52/actual208. The prior/current durations in WAVE3J-BASELINE.md match actual JSON rounded to three decimals. This establishes these observed first failures predate Sprint8; intended downstream assertions remain unreached, and the current file remains failing. It does not prove equivalence of hypothetical downstream behavior.
+
+B55-2 has the exact same full identity and passing status with empty failureMessages in both reports:584,249.922 ms prior,454,681.613 ms current, each over its60,000 ms budget. Historical overbudget behavior is established; current timing remains unqualified. Differing selections and sources prevent attributing a speedup or environmental cause.
+
+The earlier audit remains an accurate record of then-unavailable comparison evidence; this supplement resolves that limitation. No new predecessor runtime is necessary solely to establish these eight observed failures predate Sprint8. No source edits, runtime or broad archive search were performed.
