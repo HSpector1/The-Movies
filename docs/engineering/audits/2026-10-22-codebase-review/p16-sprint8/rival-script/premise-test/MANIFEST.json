@@ -1,0 +1,66 @@
+{
+  "status": "FROZEN STATIC-UNRUN",
+  "baseHead": "0108d51cc71943ac47bd7257ca2ff3c371fa1d31",
+  "target": "tests/p16-carried-script-accept.test.ts",
+  "describe": "P16 genuine rival carried screenplay admission",
+  "selector": "quotes actual171 R01 drafting with only its real writer retained into idle R02 before reaching the script producer",
+  "budgetMs": 5000,
+  "setupInsideLeaf": true,
+  "ticks": 8,
+  "newLeaves": 1,
+  "originalLeavesPreserved": 3,
+  "expectedOriginalSourceError": "absorption: retainedScriptCapacityProducerRequired",
+  "unreachableLaterGuard": "absorption: rivalBuyerScriptProducerRequired",
+  "marker": "S8_RIVAL_SCRIPT_REAL171_PREMISES",
+  "artifacts": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-script/premise-test/preimage.ts",
+      "sha256": "ad076d9e0a01c94597d098a94720bdc7abb8a8fa7f6f08f2544622fa65c5f110",
+      "bytes": 43603
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-script/premise-test/postimage.ts",
+      "sha256": "27ca4becced8ac69e0220ab56cc55c17bc1ef54b3f20971ae5a068f1e92de771",
+      "bytes": 51536
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-script/premise-test/SCRIPT-PREMISE-RED.patch",
+      "sha256": "16aa9d7a01a03294f0fe95a8a7a1a5a25c4a26aa3a72e030ba9cda398b89ba32",
+      "bytes": 8544
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-script/premise-test/extension.txt",
+      "sha256": "86774aa4b61d3a8bacb76ae7c006be1395797dcb765a2e64fd6fc1aed75e4d9f",
+      "bytes": 7647
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-script/premise-test/NOTES.md",
+      "sha256": "ceee6bdf439ad11bb254b0767899f97d7c08ea039e7b4a123bd00f20c51705a8",
+      "bytes": 4099
+    }
+  ],
+  "routeNote": {
+    "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-earlier/NEXT-PRODUCER.md",
+    "sha256": "25f99af408236bc3b8d564e83aff801bedad093b7bc80be21144a6335f334dfa",
+    "bytes": 4907
+  },
+  "sourcePins": {
+    "acquisition.ts": "ab35fe296f3c3bf86d5e571addd305fa58ea6ce580b2b2759e9271e8da4665b3",
+    "continuedScripts.ts": "cec1f34588754c1c0093eedd6ff73179af7f1288793dca3043886b9fc1cd8c4f",
+    "scriptDevelopment.ts": "3f65e7d0f2c6e6e3a1f8816c64ca233749213842b85746f65fcb693f87d68bfa",
+    "technologyRival.ts": "fd9764c20f5a649be3b51e23533cd4208fd59c049b1b2a166d89a9bbb35c0336",
+    "dueDiligence.ts": "0b8045fd578553e9051658f2a7055879ca5a5b93754aacb19f04ca3543ee1bb6",
+    "rightsFinance.ts": "29d0b594a7101711dafc9cf09d94762bff302f7efcd686f90d832bafa0d305d8",
+    "corporateConditionLive.ts": "8062cb9d0557f28592084b07ee878450a287bd06c2c8b22f1ed12f408cf30fe8",
+    "save.ts": "8c98aad788980de0148b4998119fb2e4d628c48b3dd87b3d7e53e52c5bd0637e",
+    "tick.ts": "f21a55dcae3e4d6a49b0385fc54d63c527d5a90c565aef1c568fe46929ca7e21",
+    "hollywoodTick.ts": "9f9c206ef28f529d2d801752f5dd4445342ebb42fd3add2f33f28545900a01a7"
+  },
+  "staticChecks": {
+    "originalFileTextPreservedApartFromAdditiveImports": true,
+    "checkoutTestStillExactPreimage": true,
+    "noRuntime": true,
+    "noCheckoutWrites": true
+  },
+  "unproved": "R02 actual171 eligibility, pure capacity, public writer/coupled-film/finance quote and first close refusal await coordinator runtime. No downstream lifecycle assertion."
+}

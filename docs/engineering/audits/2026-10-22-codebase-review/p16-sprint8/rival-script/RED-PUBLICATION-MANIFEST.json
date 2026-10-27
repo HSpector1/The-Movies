@@ -1,0 +1,13 @@
+{
+  "premise-test/SCRIPT-PREMISE-RED.patch": "16aa9d7a01a03294f0fe95a8a7a1a5a25c4a26aa3a72e030ba9cda398b89ba32",
+  "premise-test/MANIFEST.json": "f33741b9e48705b49afe0d248593acedca1c00b37eac170f21cf6d9211c886f5",
+  "premise-test/NOTES.md": "ceee6bdf439ad11bb254b0767899f97d7c08ea039e7b4a123bd00f20c51705a8",
+  "original-red/SOURCE-MANIFEST.json": "448cc0c3084922b01104538b7cec43e196079cbc72b9517851b3a828b20d5bf3",
+  "original-red/focused.json": "f82f890f159abffa18451688599216fb7d6bfe04e6d52f3effe3b80d5e9b3a0a",
+  "original-red/run.sh": "ccf7e4dea56b33070ad37d3302129ec400741c4482239068b5effbfa8cf63055",
+  "original-red/AUDIT.md": "bfe10d87a478a808882b162dd3ad968bf6a3475353b59cb34366c62489143e2d",
+  "original-red/lane.log.meta": "22d80950818dc737777cc42e319adbbca2c915980d6eb8defb39553d784d6ddf",
+  "original-red/SELECTION.json": "31ae689160550946fb2804e4fac2ad9eef0df5b6f3355f0ecf5772cc15554769",
+  "original-red/lane.log.gz": "007cf205eef58815340b197738c344929fed395281d19df9e5f00d978e04fcdf",
+  "original-red/USED": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

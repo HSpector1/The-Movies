@@ -1,0 +1,100 @@
+--- a/tests/p16-carried-script-accept.test.ts
++++ b/tests/p16-carried-script-accept.test.ts
+@@ -23,6 +23,11 @@
+ import {gateSlotAvailable} from '../src/core/productionQueue.js'
+ import {libraryValuationV1} from '../src/core/propertyValuation.js'
+ import {permittedBidderRefusal,spendableCash} from '../src/core/rightsFinance.js'
++import {weeklyFixedCost} from '../src/core/rightsFinance.js'
++import {guaranteedComp} from '../src/core/employment.js'
++import {actualP16Money} from '../src/core/rights.js'
++import {rivalInstallationSlots} from '../src/core/technologyRival.js'
++import {TUNING} from '../src/core/tuning.js'
+ const TARGET='studio-aca408ec-r01'
+ function prepared(){
+   const root=process.env.P16_ORIGINAL48_CAPTURE_ROOT;expect(root).toBeTruthy()
+@@ -461,3 +466,85 @@
+   saves.makeSave(j.final)
+  })
+ })
++
++// Reuse the existing actual171 source world before its separate player-only action branch.
++describe('P16 genuine rival carried screenplay admission',()=>{
++ it('quotes actual171 R01 drafting with only its real writer retained into idle R02 before reaching the script producer',()=>{
++  const p=prepared(),state=p.unactivated,before=JSON.stringify(state),buyerId='studio-aca408ec-r02'
++  expect(before).toBe(p.unactivatedBefore);expect(state.market.tick).toBe(171)
++  expect(state.scriptDevelopment).toMatchObject({mode:'legacy',projects:[]})
++  const source=state.hollywood!.businesses.find(b=>b.studioId===TARGET)!,buyer=state.hollywood!.businesses.find(b=>b.studioId===buyerId)!
++  expect(source).toEqual(p.source);expect(state.hollywood!.playerStudioId).not.toBe(buyerId)
++  for(const id of [buyerId,TARGET]) {
++   expect(conditionRecord(state,id)?.condition).toMatchObject({stage:'stable',week:171})
++   expect(outstandingLoan(state,id,171)).toBeUndefined()
++  }
++  expect(permittedBidderRefusal(state,buyerId,171)).toBeNull()
++  expect(buyer.productions).toEqual([]);expect(buyer.operations).toMatchObject({mode:'managed',workflows:[]})
++  expect(buyer.costCutting.since).toBeNull()
++  const development={...buyer.development,projects:buyer.activeScriptOrdinals.map(i=>buyer.development.projects[i]!)}
++  expect(development.mode).toBe('managed')
++  expect(development.projects.filter(s=>s.status==='drafting'||s.status==='rewriting'||s.status==='review')).toEqual([])
++  const script=source.development.projects.find(s=>s.id==='script-0014')!
++  expect(script).toEqual(p.fresh[0])
++  expect(script).toMatchObject({status:'drafting',commissionedWeek:170,dueWeek:173,productionId:null,assessment:null})
++  expect(source.productions).toHaveLength(1)
++  const concurrent=source.productions[0]!
++  expect(concurrent).toMatchObject({id:TARGET+':film:12',startTick:170,remainingTicks:8})
++  const employees=state.hollywood!.activeEmploymentOrdinals.map(i=>state.hollywood!.employment[i]!)
++   .filter(e=>e.studioId===TARGET&&e.endedWeek===null&&e.terms.startWeek<=171&&171<e.terms.endWeekExclusive)
++  expect(employees).toHaveLength(6)
++  const writers=new Set(script.writerIds),retained=employees.filter(e=>writers.has(e.terms.talentId))
++  expect(retained).toHaveLength(writers.size);expect(retained).toHaveLength(1)
++  expect(retained.every(e=>e.terms.endWeekExclusive>=script.dueWeek!)).toBe(true)
++  expect(writers.has(concurrent.writerId)).toBe(true)
++  const retention={kind:'explicit' as const,contractIds:retained.map(e=>e.contractId)}
++  // A pure native-capacity read, using real R02 occupied slots; nothing is inserted into either studio.
++  const occupied=new Set([...nativeScript.scriptOccupiedFacilitySlots(development),...rivalInstallationSlots(state.technology,buyer)])
++  const reservation=nativeScript.allocateScriptReservation(buyer.operations,development,`prospective-script:${TARGET}:${script.id}`,occupied)
++  expect(reservation,'actual R02 development capacity must exist independently of the unsupported rival quote owner').not.toBeNull()
++  expect(buyer.operations.facilities.some(f=>f.id===reservation!.facilityId&&f.capability===reservation!.capability&&f.capacity>reservation!.slot)).toBe(true)
++  expect(JSON.stringify(state)).toBe(before)
++  expect(state.promises.filter(p=>p.issuerStudioId===TARGET&&p.outcome===null)).toEqual([])
++  expect(state.talentMarket.proposals.filter(p=>p.issuerStudioId===TARGET)).toEqual([])
++  expect(state.talentMarket.cases.filter(c=>c.subjectStudioId===TARGET&&c.closedWeek===null)).toEqual([])
++  const paid=requestDiligence(state,{recipientId:buyerId,target:{kind:'studio',studioId:TARGET},scope:['rights','employment','liabilities']},171)
++  expect(JSON.stringify(state)).toBe(before)
++  expect(paid.record).toMatchObject({week:171,recipientId:buyerId,target:{kind:'studio',studioId:TARGET},fee:TUNING.RIGHTS_DUE_DILIGENCE_FEE})
++  expect(paid.record.fee).toBeGreaterThan(0)
++  expect(paid.state.hollywood!.businesses.find(b=>b.studioId===buyerId)!.account.cash).toBe(buyer.account.cash-paid.record.fee)
++  expect(actualP16Money(paid.state,buyerId).dueDiligenceFee-actualP16Money(state,buyerId).dueDiligenceFee).toBe(-paid.record.fee)
++  expect(paid.state.studio).toEqual(state.studio);expect(paid.state.ledger).toEqual(state.ledger)
++  const paidBefore=JSON.stringify(paid.state),exits=employees.filter(e=>!writers.has(e.terms.talentId)).reduce((sum,e)=>sum+terminationCost(e.terms,171),0)
++  const postExitCash=source.account.cash-exits,library=libraryValuationV1(paid.state,TARGET,171)
++  expect(library.kind).toBe('available');if(library.kind!=='available')throw new Error('fixed rival171 library valuation prerequisite absent')
++  const consideration=absorptionAsk(library.total,postExitCash)
++  const preview={buyerId,targetId:TARGET,consideration,retention,disclosureId:paid.record.id}
++  const quote=quoteAbsorption(paid.state,preview,171)
++  expect(quote.kind,'actual writer willingness and complete rival transaction, no fallback').toBe('quote')
++  if(quote.kind!=='quote')throw new Error(quote.refusal)
++  expect(quote.contracts.filter(c=>c.retained).map(c=>c.contractId)).toEqual(retention.contractIds)
++  expect(quote.contracts.filter(c=>c.retained).every(c=>c.reason===null)).toBe(true)
++  expect(quote.contracts.filter(c=>!c.retained)).toHaveLength(5)
++  const missing=[concurrent.directorId,...concurrent.craftIds,...Object.values(concurrent.cast)]
++  expect(quote.productions).toEqual([{productionId:concurrent.id,remainingTicks:8,phase:'development',disposition:'cancelRequired',reason:'missingParticipants',blockedCapability:null,missingParticipants:[...new Set(missing)]}])
++  expect(quote.scripts).toHaveLength(1)
++  expect(quote.scripts[0]).toMatchObject({scriptProjectId:script.id,status:'drafting',writerIds:script.writerIds,sourceContractIds:retention.contractIds})
++  expect(quote.scripts[0]!.disposition).not.toBe('writeOff')
++  expect(quote.promiseObligations).toEqual([]);expect(quote.marketObligations).toEqual({proposalCount:0,caseCount:0})
++  expect(quote.exitCharges).toBe(exits);expect(exits).toBeGreaterThan(0)
++  expect(quote.targetCashBeforeExits).toBe(source.account.cash);expect(quote.postExitCash).toBe(postExitCash)
++  expect(quote.guarantees).toBe(retained.reduce((sum,e)=>sum+guaranteedComp(e.terms,171),0))
++  expect(quote.ask).toBe(consideration);expect(quote.outlay).toBe(consideration-postExitCash);expect(quote.affordable).toBe(true)
++  expect(quote.resultingWeeklyFixedCost).toBe(Math.ceil(weeklyFixedCost(paid.state,buyerId)+retained.reduce((sum,e)=>sum+e.terms.annualSalary/TUNING.TICKS_PER_YEAR,0)+TUNING.OVERHEAD_PER_EMPLOYEE*retained.length))
++  expect(quote.reserveAfter).toBe(TUNING.RIGHTS_RESERVE_WEEKS*quote.resultingWeeklyFixedCost)
++  expect(spendableCash(paid.state,buyerId)-quote.outlay).toBeGreaterThanOrEqual(quote.reserveAfter)
++  const input={...preview,quotedAtWeek:quote.quotedAtWeek,quoteAgePolicyVersion:quote.quoteAgePolicyVersion}
++  expect(input).toMatchObject({quotedAtWeek:171,quoteAgePolicyVersion:1})
++  expect(absorptionProducerRefusal(paid.state,input)).toBeNull()
++  console.info('S8_RIVAL_SCRIPT_REAL171_PREMISES '+JSON.stringify({week:171,buyerId,targetId:TARGET,scriptId:script.id,retained:retention.contractIds,capacity:reservation,consideration,exits,outlay:quote.outlay,reserve:quote.reserveAfter,guarantees:quote.guarantees,scripts:quote.scripts,productions:quote.productions}))
++  // Current quote routes rivals to retainedScriptCapacityProducerRequired before its later rival script guard.
++  try {closeAbsorption(paid.state,input,171)}
++  finally {expect(JSON.stringify(paid.state)).toBe(paidBefore);expect(JSON.stringify(state)).toBe(before);pureOriginal(p)}
++ })
++})
