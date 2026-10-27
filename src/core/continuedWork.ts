@@ -10,22 +10,24 @@ import { isUnshotContinuationPhase, productionPhaseForRemainingTicks } from './p
 
 /** A creator's production stays with its genuine paid project. This selector is the actual
  * buyer work/capacity inventory; it is not a second playable lot or a cloned player picture. */
-export function buyerContinuedProductions(state: GameState): Production[] {
-  const buyer=state.hollywood?.playerStudioId
+export function buyerContinuedProductions(state: GameState,buyer=state.hollywood?.playerStudioId): Production[] {
   return (state.rights?.absorptions ?? []).filter(a=>a.buyerId===buyer).flatMap(a=>{
     const source=state.hollywood!.businesses.find(b=>b.studioId===a.targetId)
     if(!source)throw new Error('continued work: original business missing')
     return source.productions.filter(p=>a.continuedProductions.some(row=>row.productionId===p.id) && !a.workCancellations.some(row=>row.productionId===p.id))
   })
 }
-export function buyerContinuationWorkflows(state:GameState):ProductionWorkflow[] {
-  return (state.rights?.absorptions ?? []).flatMap(a=>a.buyerId===state.hollywood?.playerStudioId ? a.buyerWorkflows : [])
+export function buyerContinuationWorkflows(state:GameState,buyer=state.hollywood?.playerStudioId):ProductionWorkflow[] {
+  return (state.rights?.absorptions ?? []).flatMap(a=>a.buyerId===buyer ? a.buyerWorkflows : [])
 }
-export function buyerOperationsForAllWork(state:GameState):StudioOperations {
-  return {...state.operations,workflows:[...state.operations.workflows,...buyerContinuationWorkflows(state)]}
+export function buyerOperationsForAllWork(state:GameState,buyer=state.hollywood?.playerStudioId):StudioOperations {
+  const operations=buyer===undefined || buyer===state.hollywood?.playerStudioId?state.operations:state.hollywood?.businesses.find(b=>b.studioId===buyer)?.operations
+  if(!operations)throw new Error('continued work: actual buyer operations missing')
+  return {...operations,workflows:[...operations.workflows,...buyerContinuationWorkflows(state,buyer)]}
 }
-export function buyerOperatedProductions(state:GameState):Production[] {
-  return [...state.studio.activeProductions,...buyerContinuedProductions(state)]
+export function buyerOperatedProductions(state:GameState,buyer=state.hollywood?.playerStudioId):Production[] {
+  const own=buyer===undefined || buyer===state.hollywood?.playerStudioId?state.studio.activeProductions:state.hollywood?.businesses.find(b=>b.studioId===buyer)?.productions??[]
+  return [...own,...buyerContinuedProductions(state,buyer)]
 }
 export function buyerContinuedTalentIds(state:GameState):string[] {
   return [...productionCompanyTalentIds(buyerContinuedProductions(state))]
@@ -69,16 +71,9 @@ export function continuedWorkRefusal(state:GameState,targetId:string,production:
  * real returned allocation per continued production and carries it into the next admission. */
 export function bindContinuedWork(state:GameState,transaction:AbsorptionRecord,occupied:ReadonlySet<string>):GameState {
   const h=state.hollywood!,source=h.businesses.find(b=>b.studioId===transaction.targetId)!
-  if(transaction.buyerId!==h.playerStudioId){
-    if(transaction.continuedProductions.length!==0 || transaction.buyerWorkflows.length!==0
-      || transaction.workSteps.length!==0 || transaction.workReleases.length!==0 || transaction.workCancellations.length!==0) {
-      throw new Error('absorption: rivalBuyerContinuedWorkProducerRequired')
-    }
-    // Nothing enters the player's allocator. Stopped paid work remains with its source owner.
-    return state
-  }
-
-  let operations=buyerOperationsForAllWork(state)
+  if(transaction.buyerId!==h.playerStudioId && transaction.continuedProductions.some(row=>row.originalProduction.remainingTicks>4))throw new Error('absorption: rivalBuyerEarlierWorkProducerRequired')
+  if(transaction.continuedProductions.length===0)return state
+  let operations=buyerOperationsForAllWork(state,transaction.buyerId)
   let sourceOperations=source.operations
   const postFacilities=new Map<string,string|null>()
   for(const row of transaction.continuedProductions) {
@@ -110,14 +105,17 @@ export function bindContinuedWork(state:GameState,transaction:AbsorptionRecord,o
 
 /** Actual split of the ONE native buyer allocation/advance, before queue admission or publication.
  * No production or screenplay changes creator, cost owner, identity or original participant history. */
-export function publishOperatedAdvance(state:GameState,advanced:readonly Production[],operations:StudioOperations):GameState {
-  const own=new Set(state.studio.activeProductions.map(p=>p.id))
-  const h=state.hollywood
-  const foreign=new Map((state.rights?.absorptions ?? []).flatMap(a=>a.continuedProductions.map(p=>[p.productionId,a.targetId] as const)))
-  const expected=buyerOperatedProductions(state).map(p=>p.id)
+export function publishOperatedAdvance(state:GameState,advanced:readonly Production[],operations:StudioOperations,buyer=state.hollywood?.playerStudioId):GameState {
+  const h=state.hollywood,player=buyer===undefined || buyer===h?.playerStudioId
+  const own=new Set((player?state.studio.activeProductions:h?.businesses.find(b=>b.studioId===buyer)?.productions??[]).map(p=>p.id))
+  const foreign=new Map((state.rights?.absorptions ?? []).filter(a=>a.buyerId===buyer).flatMap(a=>a.continuedProductions.map(p=>[p.productionId,a.targetId] as const)))
+  const expected=buyerOperatedProductions(state,buyer).map(p=>p.id)
   if(new Set(advanced.map(p=>p.id)).size!==advanced.length || advanced.length!==expected.length || advanced.some(p=>!expected.includes(p.id)))throw new Error('continued work: advance lacks exact actual owner pool')
-  return {...state,operations:{...operations,workflows:operations.workflows.filter(w=>own.has(w.productionId))},rights:{...state.rights,absorptions:state.rights.absorptions.map(a=>({...a,buyerWorkflows:operations.workflows.filter(w=>a.continuedProductions.some(p=>p.productionId===w.productionId))}))},studio:{...state.studio,activeProductions:advanced.filter(p=>own.has(p.id))},
+  const nativeOperations={...operations,workflows:operations.workflows.filter(w=>own.has(w.productionId))}
+  return {...state,...(player?{operations:nativeOperations,studio:{...state.studio,activeProductions:advanced.filter(p=>own.has(p.id))}}:{}),
+    rights:{...state.rights,absorptions:state.rights.absorptions.map(a=>a.buyerId!==buyer?a:{...a,buyerWorkflows:operations.workflows.filter(w=>a.continuedProductions.some(p=>p.productionId===w.productionId))})},
     hollywood:h?{...h,businesses:h.businesses.map(b=>{
+      if(!player && b.studioId===buyer)return {...b,operations:nativeOperations,productions:advanced.filter(p=>own.has(p.id))}
       const ids=new Set(b.productions.filter(p=>foreign.get(p.id)===b.studioId).map(p=>p.id))
       if(ids.size===0)return b
       return {...b,productions:b.productions.map(p=>ids.has(p.id)?advanced.find(row=>row.id===p.id)??p:p)}
@@ -125,12 +123,11 @@ export function publishOperatedAdvance(state:GameState,advanced:readonly Product
 }
 
 /** Actual returned native counters, captured once under the global rights allocator. */
-export function recordContinuedWorkSteps(before:GameState,after:GameState,week:number):GameState {
+export function recordContinuedWorkSteps(before:GameState,after:GameState,week:number,buyer=before.hollywood?.playerStudioId):GameState {
   if(week!==before.market.tick)throw new Error('continued work: not the actual input boundary')
-  const buyer=before.hollywood?.playerStudioId
   if(buyer && closedWeekOf(before).has(buyer))throw new Error('continued work: closed buyer cannot advance retained work')
   let rights=after.rights
-  for(const original of buyerContinuedProductions(before)) {
+  for(const original of buyerContinuedProductions(before,buyer)) {
     const source=before.rights.absorptions.find(a=>a.continuedProductions.some(p=>p.productionId===original.id))!
     const advanced=after.hollywood!.businesses.find(b=>b.studioId===source.targetId)!.productions.find(p=>p.id===original.id)!
     if(!advanced || advanced.remainingTicks>original.remainingTicks || advanced.remainingTicks<original.remainingTicks-1)throw new Error('continued work: native counter lost or invented work')
@@ -149,8 +146,8 @@ export function continuedReleaseOwner(state:GameState,productionId:string) {
   const business=state.hollywood!.businesses.find(b=>b.studioId===transaction.targetId)!
   return {business,owner:{productions:buyerContinuedProductions(state).filter(p=>transaction.continuedProductions.some(row=>row.productionId===p.id)),concepts:state.hollywood!.concepts,operations:buyerOperationsForAllWork(state),releaseAuthority:business.releaseAuthority}}
 }
-export function continuedCommittedReleaseIds(state:GameState):string[] {
-  const ids=new Set(buyerContinuedProductions(state).map(p=>p.id))
+export function continuedCommittedReleaseIds(state:GameState,buyer=state.hollywood?.playerStudioId):string[] {
+  const ids=new Set(buyerContinuedProductions(state,buyer).map(p=>p.id))
   return state.hollywood?.businesses.flatMap(b=>b.releaseAuthority.commitments.filter(row=>ids.has(row.productionId)).map(row=>row.productionId)) ?? []
 }
 

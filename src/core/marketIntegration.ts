@@ -1,3 +1,4 @@
+import { buyerOperatedProductions } from './continuedWork.js'
 import { carriedProductionAuthority, type CarriedProductionAuthority } from './continuedScripts.js'
 // ── P15A.1 Wave 2: the shared market in the live release pipeline ─────────────
 // Authority (docs/engineering/playability-launch-review/evidence/p14b4-20260919/): 1355-A §3 as
@@ -81,7 +82,7 @@ export function runMarketBatch(state: GameState, playerReleasing: readonly Produ
   })
   // P15B closure/v1 (r3; Wave-4 contract §4): an actually closed business's retained production never releases.
   const closed = terminalWeekOf(state)
-  const rivals: MarketBatchMember[] = hollywood.businesses.filter((business) => !closed.has(business.studioId)).flatMap((business) => business.productions
+  const rivals: MarketBatchMember[] = hollywood.businesses.filter((business) => !closed.has(business.studioId)).flatMap((business) => buyerOperatedProductions(state,business.studioId)
     .filter((production) => production.remainingTicks === 1)
     .map((production) => ({ releaseId: production.id, studioId: business.studioId, genre: genreOf(hollywood.concepts, production) })))
   const assessments = assessBatch(activeExposures(root, week), { week, members: [...player,...continuedReleasing.map(production=>({releaseId:production.id,studioId:hollywood.playerStudioId,genre:genreOf(hollywood.concepts,production)})), ...rivals] })

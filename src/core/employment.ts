@@ -1,7 +1,7 @@
 import { buyerScriptDevelopment, buyerScriptConcepts } from './continuedScripts.js'
 import { productionCompanyTalentIds } from './productionPeople.js'
 import { initializeHollywood, industryBusyTalentIds, rivalEmployment } from './hollywood.js'
-import { buyerOperatedProductions } from './continuedWork.js'
+import { buyerContinuedProductions, buyerOperatedProductions } from './continuedWork.js'
 import { terminalWeekOf } from './operatingState.js'
 import { campaignHasFounded, campaignRecordsFounding, ENGAGED_FOUNDING_REFUSAL, recordFoundingFund, recordsFoundingFund, SECOND_FOUNDING_REFUSAL } from './foundingFunding.js'
 // ── D-11 Studio Employment, Contracts, Roster, Freelancer Market ──────────────
@@ -137,8 +137,8 @@ export function activeProductionCompanyTalentIds(state: GameState): Set<string> 
  * seat holds from greenlight through release; research seats and writer credits
  * are not production seats. Engine release and the Bridge ask this one question.
  */
-export function seatingProduction(state: GameState, talentId: string): Production | undefined {
-  return buyerOperatedProductions(state).find((p) => productionCompanyTalentIds([p]).has(talentId))
+export function seatingProduction(state: GameState, talentId: string,studioId=state.hollywood?.playerStudioId): Production | undefined {
+  return buyerOperatedProductions(state,studioId).find((p) => productionCompanyTalentIds([p]).has(talentId))
 }
 
 /**
@@ -176,6 +176,10 @@ export function busyTalentIds(state: GameState): Set<string> {
   const busy = activeProductionCompanyTalentIds(state)
   for (const id of activeWritingAssignmentIds(state)) busy.add(id)
   for (const id of industryBusyTalentIds(state.hollywood, terminalWeekOf(state))) busy.add(id)
+  for(const buyer of new Set((state.rights?.absorptions??[]).map(a=>a.buyerId))) {
+    if(terminalWeekOf(state).has(buyer))continue
+    for(const id of productionCompanyTalentIds(buyerContinuedProductions(state,buyer)))busy.add(id)
+  }
   for (const project of state.technology?.projects ?? []) {
     if (project.status !== 'active') continue
     for (const seat of project.seats) {

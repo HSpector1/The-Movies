@@ -1,3 +1,4 @@
+import { buyerContinuedProductions, buyerOperationsForAllWork, buyerOperatedProductions, publishOperatedAdvance, recordContinuedWorkSteps, continuedCommittedReleaseIds } from './continuedWork.js'
 import { advanceAbsorbedRuns } from './absorbedRuns.js'
 import { validateAbsorbedProductionStops } from './absorbedWork.js'
 import { validateAbsorbedScripts } from './absorbedScripts.js'
@@ -229,6 +230,7 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
   greenlights:{studioId:string;production:Production}[],cashFacts:StaffingCashFacts) {
   if(week<b.nextDecisionWeek)return
   b.nextDecisionWeek=week+TUNING.HOLLYWOOD_DECISION_WEEKS
+  const operatedCount=()=>buyerOperatedProductions({...state,hollywood:h},b.studioId).length
   let greenlit=false,commissioned=false
   let commissionStop:RivalCostCuttingEntryFacts['commissionStop']='none'
   const indexedOutcomes=new Map<number,RivalCostCuttingEntryFacts['indexedOutcomes'][number]>()
@@ -292,7 +294,7 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
     appendReceipt(h,{week,studioId:b.studioId,kind:'filmAnnounced',productionId:id,conceptId:concept.id})
   }
   for(const ready of hotDevelopment(b).projects.filter(p=>p.status==='ready')) {
-    if(b.productions.length!==0)break
+    if(operatedCount()!==0)break
     const ordinal=Number(ready.id.slice(7))
     const result=evaluate(ready)
     if(result.outcome!=='viable')indexedOutcomes.set(ordinal,result.outcome)
@@ -319,7 +321,7 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
   // P14D.1 (1344-A §3.4, 1344-F Amendment 1): with no production and a free slot, retry the oldest due
   // shelved screenplay, read directly (a shelved ordinal is outside the hot view). It re-enters the
   // index only together with its greenlight; an economic rejection waits another retry interval.
-  const due=b.productions.length===0&&b.activeScriptOrdinals.length<2
+  const due=operatedCount()===0&&b.activeScriptOrdinals.length<2
     ?b.screenplayShelving.shelved.find(s=>s.retryWeek<=week):undefined
   if(due) {
     const ready=b.development.projects[due.ordinal]!
@@ -381,7 +383,7 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
   // All ordinary early returns converge here. No scheduled decision means no entry.
   // A full index is proved by real retained ordinals and their evaluations this week.
   const outcomes=b.activeScriptOrdinals.map(i=>indexedOutcomes.get(i))
-  const enters=rivalCostCuttingEntry({decisionRan:true,productionCount:b.productions.length,runCount:b.runs.length,
+  const enters=rivalCostCuttingEntry({decisionRan:true,productionCount:operatedCount(),runCount:b.runs.length,
     greenlit,commissioned,hasScriptWork:hotDevelopment(b).projects.some(p=>p.status==='drafting'||p.status==='rewriting'),
     cash:b.account.cash,reserve:operatingReserve(b,h,week),commissionStop,...cashFacts,
     indexedOutcomes:outcomes.every((outcome):outcome is RivalCostCuttingEntryFacts['indexedOutcomes'][number]=>outcome!==undefined)?outcomes:[]})
@@ -413,11 +415,11 @@ function payRuns(h:HollywoodState,b:RivalBusiness,week:number) {
 /** P15A.1 Wave 2 (1355-A §3.1 item 5): the frozen batch's rival members must be exactly the rival
  * pictures at remainingTicks 1 when the week starts (fact 8). Returns each studio's due ids in
  * release order. A missing or unknown member throws before any work, so the input is untouched. */
-function frozenRivalMembers(source:HollywoodState|null,factorById:ReadonlyMap<string,number>,closed:ReadonlyMap<string,number>):Map<string,string[]> {
+function frozenRivalMembers(state:GameState,factorById:ReadonlyMap<string,number>,closed:ReadonlyMap<string,number>):Map<string,string[]> {
   const due=new Map<string,string[]>()
-  for(const b of source?.businesses??[]) {
+  for(const b of state.hollywood?.businesses??[]) {
     if(closed.has(b.studioId))continue // P15B closure/v1 (r3): a closed business releases nothing (marketIntegration.runMarketBatch)
-    const ids=b.productions.filter(p=>p.remainingTicks===1).map(p=>p.id).sort()
+    const ids=buyerOperatedProductions(state,b.studioId).filter(p=>p.remainingTicks===1).map(p=>p.id).sort()
     if(ids.length>0)due.set(b.studioId,ids)
   }
   const all=new Set([...due.values()].flat())
@@ -497,7 +499,7 @@ export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<str
   // P15B Wave 4 (closure/v1): an actually closed business is terminal history (operatingState.closedWeekOf).
   const closed=closedWeekOf(state)
   const absorbed=absorbedWeekOf(state)
-  const frozen=factorById===undefined?null:frozenRivalMembers(source,factorById,terminalWeekOf(state))
+  const frozen=factorById===undefined?null:frozenRivalMembers(state,factorById,terminalWeekOf(state))
   if(!source)return {hollywood:null,talent:state.talent,growth:[],technology:state.technology,physicalPlans:state.physicalPlans,firstTakes:[],greenlights:[],suppliedTalent:[],rights:state.rights,absorbedRunRevenue:[]}
   const week=state.market.tick
   const h:HollywoodState={...source,businesses:source.businesses.map(b=>({...b,account:{...b.account,
@@ -512,33 +514,27 @@ export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<str
   const firstTakes:{studioId:string;production:Production}[]=[]
   const greenlights:{studioId:string;production:Production}[]=[]
   const suppliedTalent:{id:string;age:number}[]=[]
+  const working=():GameState=>({...state,hollywood:h,rights,technology,physicalPlans,talent})
+  // Validate input bodies before any buyer can advance/release their source. Actual
+  // run service waits until every native policy/release has completed below.
+  for(const sourceBusiness of source.businesses)if(absorbed.has(sourceBusiness.studioId)) {
+    const transaction=state.rights.absorptions.find(a=>a.targetId===sourceBusiness.studioId)!
+    validateAbsorbedProductionStops(state,sourceBusiness,transaction)
+    validateAbsorbedScripts(state,sourceBusiness,transaction)
+  }
   for(const b of h.businesses) {
-    // P15B Wave 4 (closure/v1 §4 "active theatrical run"; r3): a closed business staffs, decides, films, pays and
-    // researches nothing. Its estate-run adapter is the ordinary run loop alone, at the ordinary week: each retained
-    // run collects exactly its installment due at this input week (money, settledWeek and the filmSettled receipt
-    // at T−1, the canonical schedule), and the closure phase records it as an estate event and distributes it.
-    if(absorbed.has(b.studioId)) {
-      const transaction=state.rights.absorptions.find(a=>a.targetId===b.studioId)!
-      // Actual terminal work owner: write-off stays with its original paid screenplay/production.
-      // Stopped work remains terminal; already-prepared continued releases have their real buyer owner.
-      validateAbsorbedProductionStops(state,b,transaction)
-      validateAbsorbedScripts(state,b,transaction)
-      const runAdvance=advanceAbsorbedRuns({...state,rights},h,b,transaction,week)
-      rights=runAdvance.rights;absorbedRunRevenue.push(...runAdvance.ledger)
-      rivalRunRevenue.push(...runAdvance.rivalRevenue)
-      continue
-    }
+    if(absorbed.has(b.studioId))continue
     if(closed.has(b.studioId)){payRuns(h,b,week);continue}
     const cashFacts:StaffingCashFacts={unfilledFilmSlotForCash:false,renewalRefusedForCash:false,unrelatedScientistSlotRefusedForCash:false}
-    technology=considerRivalSoundPurchase({...state,technology,hollywood:h},h,b)
-    if(week>=b.nextDecisionWeek)talent=staff(state,h,b,talent,week,
+    technology=considerRivalSoundPurchase(working(),h,{...b,operations:buyerOperationsForAllWork(working(),b.studioId)})
+    if(week>=b.nextDecisionWeek)talent=staff(working(),h,b,talent,week,
       Array.from({length:rivalScientistDemand({...state,technology,physicalPlans,hollywood:h},h,b,talent,week)},()=>'scientist' as const),suppliedTalent,cashFacts)
     // P13B-S8 (audit item 7): this studio's own physical admission and research
     // week, after its hiring and before it commissions a film — its capital and
     // its research bill are spent from the same account the film draws on.
     physicalPlans=admitRivalPlansInWeek({...state,technology,physicalPlans,hollywood:h,talent},h,b,physicalPlans,week)
     technology=advanceRivalResearch({...state,technology,physicalPlans,hollywood:h,talent},h,b,talent,week)
-    decide(state,h,b,talent,week,greenlights,cashFacts)
+    decide(working(),h,b,talent,week,greenlights,cashFacts)
     // Shared disposal law returns an atomic copy; adopt only its four changed
     // fields into this tick's owned clones. No second staff/decision pass spends
     // the refund, and the removed body pays no opex for the current week.
@@ -549,33 +545,60 @@ export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<str
       b.account=owner.account;b.operations=owner.operations
       h.receipts=result.receipts;h.nextReceipt=result.nextReceipt
     }
-    operateStage(b)
-    for(const p of b.productions) if(releaseCommitmentRefusal({productions:b.productions,operations:b.operations,releaseAuthority:b.releaseAuthority,concepts:[]},p.id)===null) {
-      b.releaseAuthority=withReleaseCommitment(b.releaseAuthority,p.id,week)
+    // Work is allocated once against this actual rival registry. Foreign paid
+    // productions stay in their creator bodies; only their buyer workflows join.
+    const beforeWork:GameState={...working(),hollywood:{...h,businesses:h.businesses.map(row=>({...row}))}}
+    const operated=buyerOperatedProductions(beforeWork,b.studioId)
+    const operations=buyerOperationsForAllWork(beforeWork,b.studioId)
+    if(buyerContinuedProductions(beforeWork,b.studioId).length>0 && operated.length>1)throw new Error('continued work: rival one-production operation violated')
+    const stageView={...b,productions:operated,operations}
+    operateStage(stageView)
+    for(const p of operated) {
+      const transaction=rights.absorptions.find(a=>a.buyerId===b.studioId && a.continuedProductions.some(row=>row.productionId===p.id))
+      const authority=transaction?h.businesses.find(row=>row.studioId===transaction.targetId)!:b
+      if(releaseCommitmentRefusal({productions:operated,operations:stageView.operations,releaseAuthority:authority.releaseAuthority,concepts:[]},p.id)===null)
+        authority.releaseAuthority=withReleaseCommitment(authority.releaseAuthority,p.id,week)
     }
     technology=selectRivalSoundProduction(technology,b)
-    const productionTechnology=createProductionTechnologyPolicy({...state,hollywood:h,technology},b.studioId)
-    const advanced=advanceManagedProductions(b.operations,b.productions,week,committedReleaseIds(b.releaseAuthority),new Set([...scriptOccupiedFacilitySlots(hotDevelopment(b)),...rivalInstallationSlots(technology,b)]),undefined,undefined,productionTechnology.policy)
+    const productionTechnology=createProductionTechnologyPolicy({...working(),technology},b.studioId)
+    const committed=new Set([...committedReleaseIds(b.releaseAuthority),...continuedCommittedReleaseIds(working(),b.studioId)])
+    const advanced=advanceManagedProductions(stageView.operations,operated,week,committed,new Set([...scriptOccupiedFacilitySlots(hotDevelopment(b)),...rivalInstallationSlots(technology,b)]),undefined,undefined,productionTechnology.policy)
     technology=productionTechnology.technology()
     for(const production of advanced.firstTakes)firstTakes.push({studioId:b.studioId,production})
     const releasing=advanced.productions.filter(p=>p.remainingTicks===0).sort((a,b)=>a.id<b.id?-1:a.id>b.id?1:0)
     const ids=new Set(releasing.map(p=>p.id))
     if(ids.size!==advanced.admittedReleaseIds.length||advanced.admittedReleaseIds.some(id=>!ids.has(id)))throw new Error('Industry release admission mismatch')
-    // P15A.1 Wave 2 (1355-A §3.1 item 5): this studio releases exactly its frozen members, checked
-    // before its first reception. With the due-set check above, the studios sum to the batch.
     const members=frozen?.get(b.studioId)??[]
-    if(frozen!==null&&(members.length!==releasing.length||releasing.some((p,i)=>p.id!==members[i]))) {
-      throw new Error(`shared market: ${b.studioId} releases [${releasing.map(p=>p.id).join(', ')}] but its frozen batch members are [${members.join(', ')}]`)
+    if(frozen!==null&&(members.length!==releasing.length||releasing.some((p,i)=>p.id!==members[i])))throw new Error(`shared market: ${b.studioId} releases [${releasing.map(p=>p.id).join(', ')}] but its frozen batch members are [${members.join(', ')}]`)
+    const published=publishOperatedAdvance(beforeWork,advanced.productions,advanced.operations,b.studioId)
+    rights=recordContinuedWorkSteps(beforeWork,published,week,b.studioId).rights
+    // Adopt only the split native/source work fields into the existing owned
+    // business objects, preserving the loop's actual object identities.
+    for(const update of published.hollywood!.businesses) {
+      const actual=h.businesses.find(row=>row.studioId===update.studioId)!
+      actual.operations=update.operations;actual.productions=update.productions
     }
-    b.operations=advanced.operations;b.productions=advanced.productions.filter(p=>p.remainingTicks>0)
     const startStanding=b.standing
     for(const p of releasing) {
-      const released=publishCreatorRelease(state,h,b,p,talent,week,startStanding,factorById)
+      const transaction=rights.absorptions.find(a=>a.buyerId===b.studioId && a.continuedProductions.some(row=>row.productionId===p.id))
+      const creator=transaction?h.businesses.find(row=>row.studioId===transaction.targetId)!:b
+      const released=publishCreatorRelease(working(),h,creator,p,talent,week,startStanding,factorById)
       const before=b.standing
       b.standing=updateStanding(before,released.filmResult,p.forecastSnapshot,released.ctx)
-      appendReceipt(h,{week,studioId:b.studioId,kind:'filmReleased',productionId:p.id,conceptId:p.conceptId,before,after:b.standing})
+      if(transaction) {
+        const observation={productionId:p.id,week,titleEventId:null,standingBefore:cloneStanding(before),standingAfter:cloneStanding(b.standing),standingContext:structuredClone(released.ctx),
+          benchmarks:{expectedOpening:p.forecastSnapshot.expectedOpening,expectedTotal:p.forecastSnapshot.expectedTotal,expectedCriticScore:p.forecastSnapshot.expectedCriticScore}}
+        rights={...rights,absorptions:rights.absorptions.map(a=>a.id!==transaction.id?a:{...a,workReleases:[...a.workReleases,observation],
+          runs:[...a.runs,{productionId:p.id,beneficiaryFromWeek:week,startingWeekIndex:0,grossPaidBeforeClose:0,revenuePaidBeforeClose:0}],buyerWorkflows:a.buyerWorkflows.filter(w=>w.productionId!==p.id)})}
+        // One creator event; the buyer's actual Standing proof lives in the
+        // joined workRelease, never a fabricated player history/second film row.
+        appendReceipt(h,{week,studioId:creator.studioId,kind:'filmReleased',productionId:p.id,conceptId:p.conceptId,before:cloneStanding(creator.standing),after:cloneStanding(creator.standing)})
+        creator.productions=creator.productions.filter(row=>row.id!==p.id)
+        creator.releaseAuthority=pruneReleasedCommitments(creator.releaseAuthority,new Set([p.id]))
+      } else appendReceipt(h,{week,studioId:b.studioId,kind:'filmReleased',productionId:p.id,conceptId:p.conceptId,before,after:b.standing})
       growth.push(released.growth)
     }
+    b.productions=b.productions.filter(p=>p.remainingTicks>0)
     b.releaseAuthority=pruneReleasedCommitments(b.releaseAuthority,ids)
     payRuns(h,b,week)
     const excess=Math.max(0,b.standing.audienceAwareness-TUNING.AWARENESS_DRIFT_ANCHOR)
@@ -594,6 +617,14 @@ export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<str
     let complete=completeDueScriptWork(hot,week+1,{concepts,talent,estUplift:0})
     for(const project of complete.projects)if(project.status==='review')complete=acceptScriptProject(complete,project.id)
     storeHotDevelopment(b,complete)
+  }
+  // Every source (including one that precedes its buyer in array order) now
+  // sees the fresh actual workRelease and new week-zero run. Service exactly
+  // once, after all policies; recipient cash is flushed only after this pass.
+  for(const sourceBusiness of h.businesses)if(absorbed.has(sourceBusiness.studioId)) {
+    const transaction=rights.absorptions.find(a=>a.targetId===sourceBusiness.studioId)!
+    const runAdvance=advanceAbsorbedRuns(working(),h,sourceBusiness,transaction,week)
+    rights=runAdvance.rights;absorbedRunRevenue.push(...runAdvance.ledger);rivalRunRevenue.push(...runAdvance.rivalRevenue)
   }
   // Assigned income, like native payRuns, is unavailable to this week's policy. Flush
   // after every business so source array order cannot advance a buyer's spending power.

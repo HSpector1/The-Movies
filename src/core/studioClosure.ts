@@ -252,11 +252,17 @@ function continuedBuyerRuns(state:GameState) {
   if(!state.rights || !state.hollywood)return []
   return state.rights.absorptions.filter(a=>a.buyerId===state.hollywood!.playerStudioId).flatMap(a=>state.hollywood!.businesses.find(b=>b.studioId===a.targetId)?.runs.filter(r=>a.runs.some(row=>row.productionId===r.productionId))??[])
 }
-function continuedBuyerScripts(state:GameState) {
+function continuedBuyerScripts(state:GameState,buyerId=state.hollywood?.playerStudioId) {
   if(!state.rights || !state.hollywood)return []
-  const productions=new Set(buyerContinuedProductions(state).map(p=>p.id))
-  return [...state.hollywood.businesses.flatMap(b=>b.development.projects.filter(p=>p.productionId!==null && productions.has(p.productionId))),
-    ...state.rights.absorptions.flatMap(a=>(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7'))&&a.buyerId===state.hollywood!.playerStudioId?a.continuedScripts.map(r=>r.project):[])]
+  const player=buyerId===state.hollywood.playerStudioId
+  const productions=new Set(buyerContinuedProductions(state,buyerId).map(p=>p.id))
+  // Rival script IDs are local to their creator. Qualify only the new foreign rival
+  // disposition subject; never rename a paid script or change historical player subjects.
+  return [...state.hollywood.businesses.flatMap(b=>b.development.projects
+    .filter(p=>p.productionId!==null && productions.has(p.productionId))
+    .map(project=>({project,subjectId:player?project.id:`${b.studioId}:${project.id}`}))),
+    ...state.rights.absorptions.flatMap(a=>(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7'))&&player&&a.buyerId===buyerId
+      ?a.continuedScripts.map(r=>({project:r.project,subjectId:r.project.id})):[])]
 }
 
 function prepareStudioClosure(state: GameState, studioId: string, causeEventId: string): GameState {
@@ -325,9 +331,10 @@ function prepareStudioClosure(state: GameState, studioId: string, causeEventId: 
   // operating state stops them. Promises on cancelled pictures settle under the promise producer's own law.
   const business: RivalBusiness | undefined = player ? undefined : hollywood.businesses.find((b) => b.studioId === studioId)
   if (!player && business === undefined) throw new Error(`closure/v1: ${studioId} has no business`)
-  const scripts = player ? [...state.scriptDevelopment.projects,...continuedBuyerScripts(state)] : business!.activeScriptOrdinals.map((i) => business!.development.projects[i]!)
-  for (const project of scripts) if (project.status !== 'produced') row('screenplay', project.id, project.status, `work stopped at week ${week}; authored material, progress and spend retained; no completion`, 'applied')
-  const productions = player && state.rights ? buyerOperatedProductions(state) : player ? state.studio.activeProductions : business!.productions
+  const ownScripts = player ? state.scriptDevelopment.projects : business!.activeScriptOrdinals.map((i) => business!.development.projects[i]!)
+  const scripts = [...ownScripts.map(project=>({project,subjectId:project.id})),...continuedBuyerScripts(state,studioId)]
+  for (const {project,subjectId} of scripts) if (project.status !== 'produced') row('screenplay', subjectId, project.status, `work stopped at week ${week}; authored material, progress and spend retained; no completion`, 'applied')
+  const productions = state.rights ? buyerOperatedProductions(state,studioId) : player ? state.studio.activeProductions : business!.productions
   for (const production of productions) {
     row('production', production.id, `remainingTicks ${production.remainingTicks}`, `cancelled terminally at week ${week}; footage, participants and spend frozen in place; no release`, 'applied')
     next = breakPromisesOnCancel(next, studioId, production)
@@ -919,9 +926,10 @@ export function validateStudioClosureRoot(raw: Record<string, unknown>, label: s
     const expected = new Map<string, { status: ClosureDisposition['status']; claimId?: string; lotId?: string }>()
     const expect = (kind: Kind, id: string, status: ClosureDisposition['status'], extra: { claimId?: string; lotId?: string } = {}): void => { expected.set(`${kind}:${id}`, { status, ...extra }) }
     for (const e of endedByClosure) expect('employment', e.contractId, 'applied', { claimId: own.find((cl) => cl.sourceContractId === e.contractId)?.claimId ?? '' })
-    const scripts = player ? [...state.scriptDevelopment.projects,...(policy.rightsEstate?continuedBuyerScripts(titleState!):[])] : business!.activeScriptOrdinals.map((k) => business!.development.projects[k]!)
-    for (const p of scripts) if (p.status !== 'produced') expect('screenplay', p.id, 'applied')
-    for (const p of player && policy.rightsEstate ? buyerOperatedProductions(titleState!) : player ? state.studio.activeProductions : business!.productions) expect('production', p.id, 'applied')
+    const ownScripts = player ? state.scriptDevelopment.projects : business!.activeScriptOrdinals.map((k) => business!.development.projects[k]!)
+    const scripts = [...ownScripts.map(project=>({project,subjectId:project.id})),...(policy.rightsEstate?continuedBuyerScripts(titleState!,c.studioId):[])]
+    for (const {project,subjectId} of scripts) if (project.status !== 'produced') expect('screenplay', subjectId, 'applied')
+    for (const p of policy.rightsEstate ? buyerOperatedProductions(titleState!,c.studioId) : player ? state.studio.activeProductions : business!.productions) expect('production', p.id, 'applied')
     if (player) for (const run of [...state.theatricalRuns,...(policy.rightsEstate?continuedBuyerRuns(titleState!):[])]) { if (run.status === 'active') expect('theatricalRun', run.productionId, 'pending') }
     else {
       for (const run of business!.runs) expect('theatricalRun', run.productionId, 'applied')

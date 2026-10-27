@@ -2,6 +2,15 @@
 
 Last writer: Codex, 2026-10-26, sole coordinator for the authorized Sprints 5–16 program.
 
+## Current rival continuation source checkpoint — 2026-10-26, 20:07 CDT
+
+- This checkpoint lands the independently reviewed eleven-owner rival completed-take continuation and same-leaf lifecycle witness on p16-retained-writing-20261026. Resolve exact source HEAD from Git/publication receipt. Primary013c4edc and main remain unchanged; no qualified P16/P17 predecessor or completed-program claim.
+- Genuine C166 acquisition now retains actual buyer workflow/capacity and crew payroll, preserves original creator/take/paid history, releases natively, assigns title and pays source-run installments0/1 exactly once. Save169/replay170/final171 reload pass. Original missing-producer RED0.932s and first implementation's credit-writer save failure1.348s remain preserved.
+- Credit-only writer admission fix permits lawful same-C native termination while preserving exact retained terms and active crew coverage. Final lifecycle2.862s solo/3.398s complete-file, both within original5s. Complete affected six files19/19; root/Bridge types0. Seven other passing bodies exceed5s; exact prior comparisons and unknowns in coherent-affected/AUDIT.md. No budget waiver.
+- Source and correction have focused independent review; all runs independently audited, no owned job/lock remains. First-green overlapped foreign Godot; NO SIGNAL sent because compiler had already ended. Final scoped runs observed no Godot in samples, not continuous exclusivity. Preserve source-bound reports under audit p16-sprint8/rival-continuation.
+- Next: publish/verify this source and records checkpoint, then complete the affected market/remaining consumer checks on this coherent source through fresh preflight/sole lane. Do not repeat original REDs or unchanged successful files. Broader checkpoint still requires remaining adopted producer/composition dispositions; do not infer full qualification from these six files.
+- Remaining: rival early/setup/sound/active writing and bound promise/market paths, natural buyer closure before release and historical compositions, broad/full-game evidence with three original captures missing, browser approval, native tooling and Owner acceptance. No P17/P18 predecessor waiver or gameplay main promotion. Preserve all candidates/failed attempts; use existing ledger program rows.
+
 ## Current rival continuation repair — 2026-10-26
 
 - Sole coordinator continues Sprints 5–16; primary013c4edc/main remain unchanged. Experimental published source is9b4bd81a, records HEAD resolves from Git. Eleven reviewed source owners plus independent same-leaf test are installed but uncommitted and not yet runtime-qualified. Restore source/SOURCE.patch then writer-admission-fix patch; restore premise then lifecycle test patches. Exact evidence is audit p16-sprint8/rival-continuation.

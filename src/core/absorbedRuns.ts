@@ -22,7 +22,12 @@ export function acquiredActiveRunFilms(state:GameState,buyerId:string,week:numbe
     for(const film of state.hollywood.films) {
       if(film.provenance!=='simulation/v1' || film.studioId!==a.targetId)continue
       const run=canonical(film),release=film.result.releaseTick
-      if(release<=a.week && a.week<release+run.totalWeeks && week<release+run.totalWeeks)result.push(film)
+      if(!Array.isArray(a.workReleases) || !Array.isArray(a.continuedProductions))fail('missing acquired continuation ownership context')
+      const continued=a.workReleases.find(r=>r && r.productionId===film.filmId && r.week===release)
+      const link=a.continuedProductions.find(r=>r && r.productionId===film.filmId && r.scriptProjectId===film.scriptProjectId)
+      const assignedAtClose=release<=a.week && a.week<release+run.totalWeeks
+      const assignedAtRelease=release>=a.week && continued!==undefined && link?.originalProduction?.id===film.filmId
+      if((assignedAtClose || assignedAtRelease) && release<=week && week<release+run.totalWeeks)result.push(film)
     }
   }
   return result
@@ -119,8 +124,8 @@ export function validateAbsorbedRuns(state:GameState,b:RivalBusiness,a:Absorptio
   const atClose=films.filter(f=>{const r=canonical(f);return f.result.releaseTick<=a.week && a.week<f.result.releaseTick+r.totalWeeks})
   const afterClose=a.workReleases.map(release=>{const film=films.find(f=>f.filmId===release.productionId && f.result.releaseTick===release.week);if(!film)fail('continued release lacks actual original film');return film})
   const owned=[...atClose,...afterClose.filter(f=>!atClose.some(old=>old.filmId===f.filmId))]
-  if(a.buyerId!==state.hollywood.playerStudioId && (!state.hollywood.businesses.some(b=>b.studioId===a.buyerId)
-    || a.workReleases.length!==0 || films.some(f=>f.result.releaseTick>a.week)))fail('rival buyer continued release producer is not admitted')
+  if(a.buyerId!==state.hollywood.playerStudioId && !state.hollywood.businesses.some(b=>b.studioId===a.buyerId))fail('missing actual rival run beneficiary')
+  if(films.some(f=>f.result.releaseTick>a.week && !afterClose.includes(f)))fail('post-close creator film lacks actual continued release')
 
   if(new Set(a.runs.map(r=>r.productionId)).size!==a.runs.length || a.runs.map(r=>r.productionId).sort().join()!==owned.map(f=>f.filmId).sort().join())fail('original active-run handoff incomplete')
   const expected=new Map<string,{week:number;productionId:string;weekIndex:number;gross:number;revenue:number}>()

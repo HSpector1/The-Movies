@@ -35,15 +35,11 @@ export function validateContinuedWork(state: GameState, business: RivalBusiness,
   const h = state.hollywood
   if (!h || a.targetId !== business.studioId) fail('wrong actual work owner')
   if (![a.continuedProductions, a.buyerWorkflows, a.workSteps, a.workReleases, a.workCancellations].every(Array.isArray)) fail('missing work arrays')
-  if(a.buyerId!==h.playerStudioId){
-    if(!h.businesses.some(b=>b.studioId===a.buyerId)
-      || [a.continuedProductions,a.buyerWorkflows,a.workSteps,a.workReleases,a.workCancellations].some(rows=>rows.length!==0)) {
-      fail('rival buyer continued work is not admitted')
-    }
-    // The separate stopped-production owner proves every original paid subject and disposition.
-    // This owner proves there is no buyer work at all, rather than projecting it into player work.
-    return
-  }
+  const player=a.buyerId===h.playerStudioId
+  const buyer=player?undefined:h.businesses.find(b=>b.studioId===a.buyerId)
+  if(!player && !buyer)fail('actual rival operator missing')
+  if(!player && (a.continuedProductions.length>1 || a.continuedProductions.some(row=>row.originalProduction.remainingTicks>4) || a.workCancellations.length!==0))fail('rival earlier/manual work producer is not admitted')
+  const buyerOperations=player?state.operations:buyer!.operations
 
   const links = a.continuedProductions
   const ids = new Set(links.map(row => row.productionId))
@@ -67,6 +63,7 @@ export function validateContinuedWork(state: GameState, business: RivalBusiness,
   if (a.buyerWorkflows.length !== liveIds.size || new Set(a.buyerWorkflows.map(w => w.productionId)).size !== a.buyerWorkflows.length
     || a.buyerWorkflows.some(w => !liveIds.has(w.productionId))) fail('canonical buyer workflow bijection differs')
   if (business.operations.workflows.some(w => ids.has(w.productionId))
+    || h.businesses.some(b=>b!==business && b.operations.workflows.some(w=>ids.has(w.productionId)))
     || state.operations.workflows.some(w => ids.has(w.productionId))
     || state.studio.activeProductions.some(p => ids.has(p.id))) fail('continued work claims a second production or allocation owner')
 
@@ -133,9 +130,16 @@ export function validateContinuedWork(state: GameState, business: RivalBusiness,
         || locks[0]!.lockedWeek===null || locks[0]!.lockedWeek>a.week)fail('completed take lost original silent source authority')
     }
     if (row.buyerPostFacilityId !== null && (typeof row.buyerPostFacilityId !== 'string'
-      || !state.operations.facilities.some(f => f.id === row.buyerPostFacilityId && f.capability === 'post'))) fail('original buyer post facility missing')
+      || !buyerOperations.facilities.some(f => f.id === row.buyerPostFacilityId && f.capability === 'post'))) fail('original buyer post facility missing')
     const end = Math.min(state.market.tick, buyerEnd, cancellation?.week ?? Infinity, release ? release.week + 1 : Infinity)
     const steps = a.workSteps.filter(s => s.productionId === original.id)
+    if(!player)for(const own of buyer!.projects) {
+      if(own.productionId===null || own.announcedWeek===null)continue
+      const released=h.films.find(f=>f.provenance==='simulation/v1' && f.studioId===a.buyerId && f.filmId===own.productionId)
+      const body=buyer!.productions.find(p=>p.id===own.productionId)
+      const until=released?.provenance==='simulation/v1'?released.result.releaseTick+1:body?(closure?.closureWeek??state.market.tick+1):Infinity
+      if(own.announcedWeek<Math.max(a.week+1,end) && until>a.week)fail('rival native production overlaps actual continued operation')
+    }
     if (steps.length !== end - a.week) fail('complete actual input-week work sequence missing')
     let remaining = original.remainingTicks
     for (let i = 0; i < steps.length; i++) {
@@ -167,8 +171,7 @@ export function validateContinuedWork(state: GameState, business: RivalBusiness,
     if (buyerFirstTake || completedTake) {
       const wrapStep = steps.find(s => s.beforeRemaining === 4 && s.afterRemaining === 3)
       const wraps = state.studioEvents.rows.filter(e => e.kind === 'wrapped' && e.productionId === original.id)
-      if (wrapStep ? wraps.length !== 1 || wraps[0]!.week !== wrapStep.week
-        : wraps.length !== 0) fail('buyer native wrap differs from actual shooting completion')
+      if(player ? (wrapStep ? wraps.length!==1 || wraps[0]!.week!==wrapStep.week : wraps.length!==0) : wraps.length!==0)fail('buyer native wrap differs from actual shooting completion')
     }
     if (release ? remaining !== 0 || !film || current !== undefined : remaining < 1 || !current || film !== undefined) fail('actual counter/release/source production partition differs')
     if (current && (!same(current, { ...original, remainingTicks: remaining }) || script.status !== 'inProduction')) fail('retained paid production mutated outside its real counter')
@@ -192,6 +195,16 @@ export function validateContinuedWork(state: GameState, business: RivalBusiness,
         || !Number.isSafeInteger(inherited.committedAtWeek) || inherited.committedAtWeek < original.startTick
         || inherited.committedAtWeek > a.week || original.remainingTicks !== 1 || commitEvents.length !== 0) fail('carried release commitment differs from actual original ready work')
       committedAt = inherited.committedAtWeek
+    } else if(!player) {
+      // The native rival commits and publishes in the same input pass. Its
+      // canonical 1→0 step, actual creator film and releaseCommitmentId retain
+      // that decision without minting a player-only action/history row.
+      if(commitEvents.length!==0)fail('rival commitment polluted player events')
+      const committed=steps.find(step=>step.beforeRemaining===1 && step.afterRemaining===0)
+      if(committed) {
+        if(!release || release.week!==committed.week || film?.provenance!=='simulation/v1' || film.releaseCommitmentId!==`release-commitment-${original.id}`)fail('rival automatic commitment lacks actual release')
+        committedAt=committed.week
+      }
     } else {
       if (commitEvents.length > 1) fail('buyer release commitment duplicated')
       const event = commitEvents[0]
@@ -216,13 +229,13 @@ export function validateContinuedWork(state: GameState, business: RivalBusiness,
     for (const talentId of new Set([original.writerId, ...company])) {
       const retained = a.contracts.find(c => c.talentId === talentId && c.buyerContractId !== null)
       const contract = h.employment.find(e => e.contractId === retained?.buyerContractId)
-      const through = cancellation?.week === a.week ? a.week - 1 : company.has(talentId) ? Math.max(a.week, end - 1) : a.week
+      const through = cancellation?.week === a.week ? a.week - 1 : company.has(talentId) ? Math.max(a.week, end - 1) : a.week - 1
       if (!retained || !contract || contract.studioId !== a.buyerId || contract.terms.talentId !== talentId
         || contract.terms.startWeek !== a.week || Math.min(contract.endedWeek ?? Infinity, contract.terms.endWeekExclusive) <= through) fail('actual retained employment does not cover operated work')
     }
     if (closure && !release && !cancellation) {
       const production = closure.dispositions.filter(d => d.subjectKind === 'production' && d.subjectId === original.id)
-      const screenplay = closure.dispositions.filter(d => d.subjectKind === 'screenplay' && d.subjectId === row.scriptProjectId)
+      const screenplay = closure.dispositions.filter(d => d.subjectKind === 'screenplay' && d.subjectId === (player?row.scriptProjectId:`${a.targetId}:${row.scriptProjectId}`))
       if (production.length !== 1 || screenplay.length !== 1 || production[0]!.status !== 'applied' || screenplay[0]!.status !== 'applied'
         || production[0]!.prior !== `remainingTicks ${remaining}` || screenplay[0]!.prior !== 'inProduction'
         || production[0]!.result !== `cancelled terminally at week ${closure.closureWeek}; footage, participants and spend frozen in place; no release`
@@ -248,8 +261,8 @@ export function validateContinuedWork(state: GameState, business: RivalBusiness,
       || !same(sourceReceipt.before, sourceReceipt.after) || !same(sourceReceipt.after, business.standing)) fail('creator received buyer operating Standing or lacks exact release receipt')
     const history = state.studioHistory.rows.filter(r => r.kind === 'standingChanged' && r.source.kind === 'releaseResult' && r.source.productionId === original.id)
     const changed = standingChanged(release.standingBefore, release.standingAfter)
-    if (history.length !== (changed ? 1 : 0)) fail('buyer Standing receipt missing, duplicated or invented')
-    if (changed) {
+    if (history.length !== (player && changed ? 1 : 0)) fail('buyer Standing receipt missing, duplicated or invented')
+    if (player && changed) {
       const receipt = history[0]!
       if (receipt.kind !== 'standingChanged' || receipt.week !== release.week
         || !same(receipt.before, release.standingBefore) || !same(receipt.after, release.standingAfter)

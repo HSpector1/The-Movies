@@ -18,7 +18,6 @@ import { seatingProduction } from './employment.js'
 import { moveRivalMoney } from './hollywood.js'
 import { P15_PHASE_TABLES, p15PhaseTriple } from './p15Phases.js'
 import { studioWeeklyFixedCost } from './powerRankingArchive.js'
-import { productionCompanyTalentIds } from './productionPeople.js'
 import { activeScriptWriterAssignments } from './scriptDevelopment.js'
 import { contractLoan, loanEligible, loanInstallmentDue, loanMaxPrincipal, STUDIO_LOAN_VERSION } from './studioLoan.js'
 import { closedWeekOf } from './operatingState.js'
@@ -247,7 +246,7 @@ export function releaseRefusal(state: GameState, studioId: string, talentId: str
     return null
   }
   const business = businessOf(h, studioId)
-  const seated = business.productions.find((p) => productionCompanyTalentIds([p]).has(talentId))
+  const seated = seatingProduction(state,talentId,studioId)
   if (seated !== undefined) return `talent "${talentId}" is seated on active production "${seated.id}" until it is released (R2)`
   const writing = activeScriptWriterAssignments(hotDevelopment(business), h.concepts).find((a) => a.talentId === talentId)
   if (writing !== undefined) return `talent "${talentId}" is ${writing.label} and must finish that screenplay task first`

@@ -57,7 +57,7 @@ import { libraryValuationV1 } from './propertyValuation.js'
 import { conditionFactsFor, corporateConditionReaders, moveStudioCash, permittedBidderRefusal, spendableCash, weeklyFixedCost, type CorporateConditionReaders } from './rightsFinance.js'
 import { allocateRightsId, appendTitleEvent, resolveTitles, subjectsHeldBy, type AbsorptionRecord, type DiligenceScopeItem, type RightSubject } from './rights.js'
 import { acquiredActiveRunFilms, validateAbsorbedRuns, validateAbsorbedRunMoney, validateRivalAbsorbedRunMoney } from './absorbedRuns.js'
-import { bindContinuedWork, continuedWorkRefusal, buyerOperationsForAllWork } from './continuedWork.js'
+import { bindContinuedWork, continuedWorkRefusal, buyerOperationsForAllWork, buyerContinuedProductions, buyerOperatedProductions } from './continuedWork.js'
 import { validateContinuedWork } from './continuedWorkValidation.js'
 import { validateAbsorbedProductionStops } from './absorbedWork.js'
 import { validateAbsorbedScripts } from './absorbedScripts.js'
@@ -419,6 +419,7 @@ export function absorptionProducerRefusal(state: GameState, input: AbsorptionInp
   const h = state.hollywood
   if (!h) return 'noIndustry'
   if (acquiredActiveRunFilms(state,input.targetId,state.market.tick).length!==0) return 'acquiredRunReassignmentProducerRequired'
+  if (buyerContinuedProductions(state,input.targetId).length!==0) return 'acquiredWorkReassignmentProducerRequired'
   const b = h.businesses.find(b => b.studioId === input.targetId)
   if (!b) return 'unknownTarget'
   // Active source runs use their real linked buyer-beneficiary producer after closing.
@@ -460,7 +461,9 @@ export function closeAbsorption(state: GameState, input: AbsorptionInput, week: 
     // Cost-cutting has no native new-employment producer; do not clear its mode
     // or use an acquisition to evade the existing commitment/market law.
     if(q.contracts.some(c=>c.retained) && state.hollywood!.businesses.find(b=>b.studioId===input.buyerId)!.costCutting.since!==null)throw new Error('absorption: rivalBuyerCostCuttingRetentionProducerRequired')
-    if(q.productions.some(p=>p.disposition==='continues'))throw new Error('absorption: rivalBuyerContinuedWorkProducerRequired')
+    const continued=q.productions.filter(p=>p.disposition==='continues')
+    if(continued.some(p=>p.remainingTicks>4))throw new Error('absorption: rivalBuyerEarlierWorkProducerRequired')
+    if(continued.length>0 && (continued.length!==1 || buyerOperatedProductions(state,input.buyerId).length!==0))throw new Error('absorption: rivalBuyerProductionOccupied')
     if(q.scripts.some(s=>s.disposition==='continues'))throw new Error('absorption: rivalBuyerScriptProducerRequired')
   }
 
@@ -619,11 +622,12 @@ export function validateAbsorptionRoot(state: GameState, label: string, retireme
     if (!d || d.recipientId !== a.buyerId || d.target.kind !== 'studio' || d.target.studioId !== a.targetId
       || !ABSORPTION_DISCLOSURE_SCOPE.every(s => d.scope.includes(s)) || d.week > a.week || d.staleFromWeek <= a.week) fail('missing genuine fresh full disclosure')
     if (![a.contracts,a.research,a.facilities,a.titleEventIds,a.knowledge,a.physicalPlans,a.adoptions,a.stoppedProductions,a.continuedProductions,a.buyerWorkflows,a.workSteps,a.workReleases,a.workCancellations,a.runs,a.runReceipts].every(Array.isArray)) fail('dispositions must be arrays')
-    if(a.buyerId!==h!.playerStudioId && (a.continuedProductions.length!==0 || a.buyerWorkflows.length!==0 || a.workSteps.length!==0
-      || a.workReleases.length!==0 || a.workCancellations.length!==0)) {
-      fail('rival buyer continued work producer is not admitted')
-    }
+    if(a.buyerId!==h!.playerStudioId && (a.continuedProductions.length>1 || a.continuedProductions.some(row=>!row || !row.originalProduction || row.originalProduction.remainingTicks>4) || a.workCancellations.length!==0))fail('rival buyer earlier/manual work producer is not admitted')
     if(acquiredActiveRunFilms(state,a.targetId,a.week).length!==0)fail('acquired run reassignment producer is not admitted')
+    // Earlier records have already passed their complete joined proof in this loop.
+    if(state.rights.absorptions.slice(0,state.rights.absorptions.indexOf(a)).some(prior=>prior.buyerId===a.targetId && prior.continuedProductions.some(row=>
+      !prior.workReleases.some(r=>r.productionId===row.productionId && r.week<a.week)
+      && !prior.workCancellations.some(c=>c.productionId===row.productionId && c.week<=a.week))))fail('acquired work reassignment producer is not admitted')
     const originals = h!.employment.filter(e => e.studioId === a.targetId && e.endedWeek === a.week && e.terms.endWeekExclusive > a.week
       && h!.receipts.some(r => r.kind === 'employment' && r.contractId === e.contractId && r.toStudioId === null && (r.reason === 'absorptionExit' || r.reason === 'absorptionContinuation')))
     if (a.contracts.map(c => c.sourceContractId).join() !== originals.map(c => c.contractId).join()) fail('employment dispositions differ from authoritative original order')

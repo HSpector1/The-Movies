@@ -17,6 +17,9 @@ import { resolveTitles, subjectsHeldBy, currentHolder, actualP16Money } from '..
 import { permittedBidderRefusal, spendableCash, weeklyFixedCost } from '../src/core/rightsFinance.js'
 import { TUNING } from '../src/core/tuning.js'
 import { openTheatricalRun } from '../src/core/economy.js'
+import { continuedWorkRefusal } from '../src/core/continuedWork.js'
+import { busyTalentIds } from '../src/core/employment.js'
+import { updateStanding } from '../src/core/standing.js'
 import { tick } from '../src/core/tick.js'
 import type { GameState } from '../src/core/types.js'
 import {financeTotals,periodSummary} from '../src/core/economyView.js'
@@ -509,6 +512,231 @@ describe('P16 genuine rival employment retention at the original170 acquisition'
   expect(saves.exportCurrentState(finalReload)).toBe(finalText)
   try {expect(()=>acquisition.closeAbsorption(closed,input,170)).toThrow(/^absorption: targetTerminal$/)}
   finally {expect(JSON.stringify(closed)).toBe(closedBefore)}
+  expect(JSON.stringify(paid.state)).toBe(paidBefore);expect(JSON.stringify(state)).toBe(before)
+  expect(JSON.stringify(initial)).toBe(initialBefore);expect(JSON.stringify(old)).toBe(oldBefore);expect(JSON.stringify(raw)).toBe(rawBefore)
+ })
+})
+
+// Same genuine C166 admission, extended through native rival release and its next installment.
+describe('P16 genuine rival completed-take continuation admission',()=>{
+ it('quotes the actual166 completed silent take with all required staff into idle R02 before reaching the continued-work producer',()=>{
+  const root=process.env.P16_ORIGINAL48_CAPTURE_ROOT;expect(root).toBeTruthy()
+  const bytes=readFileSync(root+'/r04-actual163.save48.json')
+  expect(createHash('sha256').update(bytes).digest('hex')).toBe('c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad')
+  // Original admitted drained-R04 transaction fixture; unchanged R01/R02, no new constructor.
+  const raw=JSON.parse(bytes.toString()),rawBefore=JSON.stringify(raw),old=saves.validateSaveP15B(raw),oldBefore=JSON.stringify(old)
+  const initial=saves.convertV48ToV49(old).state,initialBefore=JSON.stringify(initial)
+  expect(old.saveVersion).toBe(48);expect(initial.market.tick).toBe(163)
+  let state=initial
+  for(let boundary=164;boundary<=166;boundary++) {
+   const prior=state,before=JSON.stringify(prior);state=tick(prior)
+   expect(state.market.tick).toBe(boundary);expect(JSON.stringify(prior)).toBe(before)
+  }
+  saves.makeSave(state)
+  const buyerId='studio-aca408ec-r02',ownFilmId=buyerId+':film:14'
+  const source=state.hollywood!.businesses.find(b=>b.studioId===TARGET)!,buyer=state.hollywood!.businesses.find(b=>b.studioId===buyerId)!
+  expect(source.productions).toHaveLength(1);expect(source.runs).toEqual([])
+  const production=source.productions[0]!
+  expect(production).toMatchObject({id:FILM,startTick:161,remainingTicks:4})
+  expect(source.development.projects.filter(p=>p.status==='drafting'||p.status==='rewriting')).toEqual([])
+  const script=source.development.projects.find(p=>p.productionId===FILM)!
+  expect(script).toMatchObject({id:'script-0013',status:'inProduction',conceptId:production.conceptId})
+  const takes=state.firstTakes.filter(t=>t.productionId===FILM)
+  expect(takes).toHaveLength(1)
+  expect(takes[0]).toEqual({eventId:'first-take-event-46',week:166,productionId:FILM,studioId:TARGET,directorId:production.directorId,cast:production.cast})
+  expect(state.firstTakeSubjects.facts.find(f=>f.eventId===takes[0]!.eventId)).toMatchObject({conceptId:production.conceptId,scriptProjectId:script.id})
+  expect(state.technology.productions.filter(p=>p.productionId===FILM))
+   .toEqual([{studioId:TARGET,productionId:FILM,method:'silent',adoptionId:null,lockedWeek:164}])
+  expect(source.operations.workflows.find(w=>w.productionId===FILM))
+   .toMatchObject({phase:'shooting',setup:null,blocker:null,shootingTask:{status:'completed',directorId:production.directorId},bindings:{requiresSetBinding:false,setId:null}})
+  expect(continuedWorkRefusal(state,TARGET,production)).toBeNull()
+  expect(buyer.productions).toEqual([]);expect(buyer.costCutting.since).toBeNull()
+  expect(buyer.runs).toMatchObject([{productionId:ownFilmId,releaseTick:165,weekIndex:1}])
+  expect(state.hollywood!.receipts.filter(r=>r.kind==='filmReleased'&&r.productionId===ownFilmId))
+   .toMatchObject([{week:165,studioId:buyerId,productionId:ownFilmId}])
+  for(const id of [buyerId,TARGET]) {
+   expect(conditionRecord(state,id)?.condition).toMatchObject({stage:'stable',week:166})
+   expect(outstandingLoan(state,id,166)).toBeUndefined()
+  }
+  const employees=state.hollywood!.activeEmploymentOrdinals.map(i=>state.hollywood!.employment[i]!)
+   .filter(e=>e.studioId===TARGET&&e.endedWeek===null&&e.terms.startWeek<=166&&166<e.terms.endWeekExclusive)
+  expect(employees).toHaveLength(6);expect(employees.every(e=>e.terms.endWeekExclusive===208)).toBe(true)
+  const required=[production.writerId,production.directorId,...production.craftIds,...Object.values(production.cast)]
+  expect(employees.map(e=>e.terms.talentId).sort()).toEqual([...new Set(required)].sort())
+  expect(state.promises.filter(p=>p.issuerStudioId===TARGET&&p.outcome===null)).toEqual([])
+  expect(state.talentMarket.proposals.filter(p=>p.issuerStudioId===TARGET)).toEqual([])
+  expect(state.talentMarket.cases.filter(c=>c.subjectStudioId===TARGET&&c.closedWeek===null)).toEqual([])
+  const before=JSON.stringify(state)
+  const paid=requestDiligence(state,{recipientId:buyerId,target:{kind:'studio',studioId:TARGET},scope:['rights','employment','liabilities']},166)
+  expect(JSON.stringify(state)).toBe(before)
+  expect(paid.record).toMatchObject({week:166,recipientId:buyerId,target:{kind:'studio',studioId:TARGET},fee:TUNING.RIGHTS_DUE_DILIGENCE_FEE})
+  expect(paid.state.hollywood!.businesses.find(b=>b.studioId===buyerId)!.account.cash).toBe(buyer.account.cash-paid.record.fee)
+  expect(paid.state.studio).toEqual(state.studio);expect(paid.state.ledger).toEqual(state.ledger)
+  const paidBefore=JSON.stringify(paid.state),value=libraryValuationV1(paid.state,TARGET,166)
+  expect(value.kind).toBe('available');if(value.kind!=='available')throw new Error('fixed166 continuation needs actual library valuation')
+  const consideration=acquisition.absorptionAsk(value.total,source.account.cash)
+  const preview={buyerId,targetId:TARGET,consideration,retention:{kind:'explicit' as const,contractIds:employees.map(e=>e.contractId)},disclosureId:paid.record.id}
+  const quote=acquisition.quoteAbsorption(paid.state,preview,166)
+  expect(quote.kind,'all actual required people, capacity and the complete reserve must admit this fixed route').toBe('quote')
+  if(quote.kind!=='quote')throw new Error(quote.refusal)
+  expect(quote.contracts.filter(c=>c.retained).map(c=>c.contractId)).toEqual(preview.retention.contractIds)
+  expect(quote.contracts.every(c=>c.reason===null)).toBe(true)
+  expect(quote.productions).toEqual([{productionId:FILM,remainingTicks:4,phase:'shooting',missingParticipants:[],disposition:'continues',reason:null,blockedCapability:null}])
+  expect(quote.scripts).toEqual([]);expect(quote.runs).toEqual([])
+  expect(quote.exitCharges).toBe(0);expect(quote.postExitCash).toBe(source.account.cash)
+  expect(quote.guarantees).toBe(employees.reduce((sum,e)=>sum+guaranteedComp(e.terms,166),0))
+  expect(quote.affordable).toBe(true);expect(quote.ask).toBe(consideration)
+  expect(quote.outlay).toBe(consideration-source.account.cash)
+  expect(quote.resultingWeeklyFixedCost).toBe(Math.ceil(weeklyFixedCost(paid.state,buyerId)+employees.reduce((sum,e)=>sum+e.terms.annualSalary/TUNING.TICKS_PER_YEAR,0)+TUNING.OVERHEAD_PER_EMPLOYEE*employees.length))
+  expect(quote.reserveAfter).toBe(TUNING.RIGHTS_RESERVE_WEEKS*quote.resultingWeeklyFixedCost)
+  expect(spendableCash(paid.state,buyerId)-quote.outlay).toBeGreaterThanOrEqual(quote.reserveAfter)
+  const input={...preview,quotedAtWeek:quote.quotedAtWeek,quoteAgePolicyVersion:quote.quoteAgePolicyVersion}
+  expect(input).toMatchObject({quotedAtWeek:166,quoteAgePolicyVersion:1})
+  expect(acquisition.absorptionProducerRefusal(paid.state,input)).toBeNull()
+  console.info('S8_RIVAL_CONTINUATION_REAL166_PREMISES '+JSON.stringify({week:166,buyerId,targetId:TARGET,productionId:FILM,remainingTicks:production.remainingTicks,takeEventId:takes[0]!.eventId,retained:preview.retention.contractIds,consideration,outlay:quote.outlay,reserve:quote.reserveAfter,guarantees:quote.guarantees}))
+  // The published predecessor reaches rivalBuyerContinuedWorkProducerRequired here.
+  let closed:GameState
+  try {closed=acquisition.closeAbsorption(paid.state,input,166)}
+  finally {
+   expect(JSON.stringify(paid.state)).toBe(paidBefore);expect(JSON.stringify(state)).toBe(before)
+   expect(JSON.stringify(initial)).toBe(initialBefore);expect(JSON.stringify(old)).toBe(oldBefore);expect(JSON.stringify(raw)).toBe(rawBefore)
+  }
+  const record=closed.rights.absorptions.find(a=>a.targetId===TARGET)!
+  expect(record).toMatchObject({buyerId,targetId:TARGET,week:166,exitCharges:0,outlay:quote.outlay})
+  expect(record.continuedProductions).toHaveLength(1)
+  expect(record.continuedProductions[0]).toMatchObject({productionId:FILM,scriptProjectId:script.id,
+   originalProduction:production,originalWorkflow:source.operations.workflows.find(w=>w.productionId===FILM)})
+  expect(record.workSteps).toEqual([]);expect(record.workReleases).toEqual([]);expect(record.runReceipts).toEqual([])
+  const closedSource=closed.hollywood!.businesses.find(b=>b.studioId===TARGET)!,closedBuyer=closed.hollywood!.businesses.find(b=>b.studioId===buyerId)!
+  expect(closedSource.productions).toEqual(source.productions);expect(closedSource.projects).toEqual(source.projects)
+  expect(closedSource.development).toEqual(source.development)
+  expect(closedSource.operations.workflows.some(w=>w.productionId===FILM)).toBe(false)
+  expect(closedBuyer.productions).toEqual([]);expect(closedBuyer.runs).toEqual(buyer.runs)
+  expect(closedSource.account.cash).toBe(0)
+  expect(closedBuyer.account.cash).toBe(buyer.account.cash-paid.record.fee-quote.outlay)
+  expect(actualP16Money(closed,buyerId).acquisitionOutlay-actualP16Money(paid.state,buyerId).acquisitionOutlay).toBe(-quote.outlay)
+  expect(closed.contracts).toEqual(paid.state.contracts);expect(closed.studio).toEqual(paid.state.studio)
+  expect(closed.operations).toEqual(paid.state.operations);expect(closed.ledger).toEqual(paid.state.ledger)
+  for(const original of employees) {
+   const buyerContractId=buyerId+':contract:'+original.terms.talentId+':166'
+   expect(record.contracts.find(c=>c.sourceContractId===original.contractId)).toEqual({sourceContractId:original.contractId,buyerContractId,talentId:original.terms.talentId,exitCost:0})
+   expect(closed.hollywood!.employment.find(e=>e.contractId===original.contractId)).toEqual({...original,endedWeek:166})
+   expect(closed.hollywood!.employment.find(e=>e.contractId===buyerContractId))
+    .toEqual({contractId:buyerContractId,studioId:buyerId,endedWeek:null,reason:'absorptionContinuation',terms:{...original.terms,startWeek:166,termWeeks:42}})
+  }
+  const booked=(s:GameState,id:string,kind:'signing'|'payroll'|'studioRevenue')=>s.hollywood!.businesses.find(b=>b.studioId===id)!.account.periods.reduce((sum,p)=>sum+p.movements[kind],0)
+  for(const id of [TARGET,buyerId])expect(booked(closed,id,'signing')).toBe(booked(paid.state,id,'signing'))
+  // The writer remains a permanent credit, not a production seat or an artificial staffing hold.
+  const company=[production.directorId,...Object.values(production.cast),...production.craftIds]
+  expect(new Set(company).size).toBe(5);expect(company).not.toContain(production.writerId)
+  let journey=closed
+  for(let week=166;week<=170;week++) {
+   const prior=journey,priorBefore=JSON.stringify(prior),priorRecord=prior.rights.absorptions.find(a=>a.id===record.id)!
+   const priorBuyer=prior.hollywood!.businesses.find(b=>b.studioId===buyerId)!
+   if(week<170) {
+    expect(prior.hollywood!.businesses.find(b=>b.studioId===TARGET)!.productions).toMatchObject([{id:FILM,remainingTicks:170-week}])
+    expect(priorBuyer.productions).toEqual([])
+    const workflow=priorRecord.buyerWorkflows.find(w=>w.productionId===FILM)!
+    expect(priorRecord.buyerWorkflows).toHaveLength(1);expect(workflow.blocker).toBeNull()
+    for(const reservation of workflow.reservations)expect(priorBuyer.operations.facilities.some(f=>f.id===reservation.facilityId&&f.capability===reservation.capability)).toBe(true)
+    const busy=busyTalentIds(prior)
+    for(const id of company) {
+     expect(busy.has(id)).toBe(true)
+     expect(releaseRefusal(prior,buyerId,id)).toBe(`talent "${id}" is seated on active production "${FILM}" until it is released (R2)`)
+    }
+   }
+   // Persist the actual uncommitted ready boundary; replay the native automatic release.
+   const text=week===169?saves.exportCurrentState(prior):null
+   const reload=text===null?null:saves.migrateToLive(saves.importSave(text)).state
+   const reloadBefore=reload===null?null:JSON.stringify(reload)
+   if(reload!==null) {
+    expect(reload.market.tick).toBe(169)
+    expect(reload.hollywood!.businesses.find(b=>b.studioId===TARGET)!.releaseAuthority.commitments.some(c=>c.productionId===FILM)).toBe(false)
+    expect(saves.exportCurrentState(reload)).toBe(text)
+   }
+   journey=tick(prior)
+   expect(JSON.stringify(prior)).toBe(priorBefore);expect(journey.market.tick).toBe(week+1)
+   const current=journey.rights.absorptions.find(a=>a.id===record.id)!
+   const currentBuyer=journey.hollywood!.businesses.find(b=>b.studioId===buyerId)!,currentSource=journey.hollywood!.businesses.find(b=>b.studioId===TARGET)!
+   if(week<170) {
+    expect(current.workSteps.slice(0,-1)).toEqual(priorRecord.workSteps)
+    expect(current.workSteps.at(-1)).toMatchObject({productionId:FILM,week,beforeRemaining:170-week,afterRemaining:169-week})
+    expect(current.workSteps).toHaveLength(week-165)
+    expect(currentBuyer.productions).toEqual([])
+    expect(journey.hollywood!.receipts.slice(closed.hollywood!.receipts.length).filter(r=>r.kind==='filmAnnounced'&&r.studioId===buyerId)).toEqual([])
+    for(const id of company)expect(journey.hollywood!.employment.find(e=>e.contractId===buyerId+':contract:'+id+':166'))
+     .toEqual(closed.hollywood!.employment.find(e=>e.contractId===buyerId+':contract:'+id+':166'))
+   } else expect(current.workSteps).toEqual(priorRecord.workSteps)
+   const paidPeople=journey.hollywood!.employment.filter(e=>e.studioId===buyerId&&e.terms.startWeek<=week&&week<e.terms.endWeekExclusive&&(e.endedWeek===null||e.endedWeek>week))
+   if(week<170)for(const id of company)expect(paidPeople.some(e=>e.terms.talentId===id)).toBe(true)
+   expect(booked(journey,buyerId,'payroll')-booked(prior,buyerId,'payroll')).toBe(-paidPeople.reduce((sum,e)=>sum+weeklySalary(e.terms.annualSalary),0))
+   const moneyBefore=priorBuyer.account.periods.reduce((sum,p)=>sum+Object.values(p.movements).reduce((n,m)=>n+m,0),0)
+   const moneyAfter=currentBuyer.account.periods.reduce((sum,p)=>sum+Object.values(p.movements).reduce((n,m)=>n+m,0),0)
+   expect(currentBuyer.account.cash-priorBuyer.account.cash).toBeCloseTo(moneyAfter-moneyBefore,6)
+   expect(currentBuyer.account.cash).toBeCloseTo(currentBuyer.account.openingBalance+moneyAfter,6)
+   expect(currentSource.account).toEqual(closedSource.account);expect(currentSource.projects).toEqual(source.projects)
+   expect(currentSource.standing).toEqual(source.standing)
+   expect(journey.firstTakes.filter(t=>t.productionId===FILM)).toEqual(takes)
+   expect(journey.firstTakeSubjects.facts.filter(f=>f.eventId===takes[0]!.eventId)).toEqual(state.firstTakeSubjects.facts.filter(f=>f.eventId===takes[0]!.eventId))
+   expect(journey.technology.productions.filter(p=>p.productionId===FILM)).toEqual(state.technology.productions.filter(p=>p.productionId===FILM))
+   expect(journey.ledger.filter(e=>e.kind==='absorbedRunRevenue')).toEqual(closed.ledger.filter(e=>e.kind==='absorbedRunRevenue'))
+   expect(journey.studio.cash).toBeCloseTo(prior.studio.cash+journey.ledger.slice(prior.ledger.length).reduce((sum,e)=>sum+e.amount,0),6)
+   expect(journey.studioEvents.rows.filter(e=>(e.kind==='wrapped'||e.kind==='releaseCommitted')&&e.productionId===FILM)).toEqual([])
+   const ownRun=buyer.runs[0]!,ownRevenue=ownRun.weeklyGross[week-ownRun.releaseTick]!*ownRun.studioShare
+   let acquiredRevenue=0
+   if(week<169) {
+    expect(current.runReceipts).toEqual([]);expect(current.workReleases).toEqual([])
+    expect(currentSource.productions).toMatchObject([{id:FILM,remainingTicks:169-week}])
+   } else {
+    const film=journey.hollywood!.films.find(f=>f.filmId===FILM)!
+    if(film.provenance!=='simulation/v1')throw new Error('continued release must retain actual source film')
+    const opening=film.result.boxOffice.opening
+    const schedule=openTheatricalRun(film.result,opening,opening>0?film.result.boxOffice.total/opening:1,film.result.releaseTick)
+    const index=week-169,gross=schedule.weeklyGross[index]!
+    acquiredRevenue=gross*schedule.studioShare
+    expect(current.runReceipts.slice(0,-1)).toEqual(priorRecord.runReceipts)
+    expect(current.runReceipts).toHaveLength(index+1)
+    expect(current.runReceipts.at(-1)).toMatchObject({week,productionId:FILM,weekIndex:index,gross,revenue:acquiredRevenue})
+    expect(current.runReceipts.filter(r=>r.productionId===FILM&&r.weekIndex===index)).toHaveLength(1)
+    expect(current.runs).toEqual([{productionId:FILM,beneficiaryFromWeek:169,startingWeekIndex:0,grossPaidBeforeClose:0,revenuePaidBeforeClose:0}])
+    expect(currentSource.runs).toEqual([{...schedule,weekIndex:index+1,cumulativeGrossPaid:current.runReceipts.reduce((sum,r)=>sum+r.gross,0),cumulativeStudioRevenuePaid:current.runReceipts.reduce((sum,r)=>sum+r.revenue,0)}])
+    expect(film.studioRevenueReceived).toBe(current.runReceipts.reduce((sum,r)=>sum+r.revenue,0))
+    expect(film).toMatchObject({filmId:FILM,studioId:TARGET,conceptId:production.conceptId,scriptProjectId:script.id,result:{releaseTick:169,participants:production.participants}})
+    expect(film.credits.some(c=>c.talentId===production.writerId&&c.role==='writer')).toBe(true)
+    const cost=source.projects[Number(script.id.slice(7))]!
+    expect(film.directCommitment).toBe(cost.development+cost.production+cost.marketing)
+    expect(currentSource.productions).toEqual([])
+    expect(currentSource.development.projects.find(p=>p.id===script.id)).toEqual({...script,status:'produced'})
+    expect(current.buyerWorkflows).toEqual([]);expect(current.workReleases).toHaveLength(1)
+    const release=current.workReleases[0]!
+    expect(release).toMatchObject({productionId:FILM,week:169})
+    expect(release.benchmarks).toEqual({expectedOpening:production.forecastSnapshot.expectedOpening,expectedTotal:production.forecastSnapshot.expectedTotal,expectedCriticScore:production.forecastSnapshot.expectedCriticScore})
+    expect(release.standingAfter).toEqual(updateStanding(release.standingBefore,film.result,release.benchmarks,release.standingContext))
+    if(week===169) {
+     expect(release.standingBefore).toEqual(priorBuyer.standing)
+     const excess=Math.max(0,release.standingAfter.audienceAwareness-TUNING.AWARENESS_DRIFT_ANCHOR)
+     expect(currentBuyer.standing).toEqual({...release.standingAfter,audienceAwareness:Math.max(0,Math.min(100,release.standingAfter.audienceAwareness-TUNING.AWARENESS_DRIFT_RATE*excess))})
+    } else expect(current.workReleases).toEqual(priorRecord.workReleases)
+    const titles=journey.rights.titleEvents.filter(e=>e.subject.right==='R2'&&e.subject.filmId===FILM)
+    expect(titles).toHaveLength(2)
+    expect(titles.find(e=>e.cause==='genesis')).toMatchObject({newHolder:TARGET,date:{kind:'campaign',week:169}})
+    expect(titles.find(e=>e.id===release.titleEventId)).toMatchObject({cause:'absorbedWorkRelease',priorHolder:TARGET,newHolder:buyerId,date:{kind:'campaign',week:169}})
+    expect(currentHolder(journey,{right:'R2',filmId:FILM},week)).toMatchObject({kind:'holder',holderId:buyerId})
+    const creatorRelease=journey.hollywood!.receipts.filter(r=>r.kind==='filmReleased'&&r.productionId===FILM)
+    expect(creatorRelease).toHaveLength(1)
+    expect(creatorRelease[0]).toMatchObject({week:169,studioId:TARGET,productionId:FILM,before:source.standing,after:source.standing})
+   }
+   // R01 is visited before R02: the newly created release must still pay installment0 at input169.
+   expect(booked(journey,buyerId,'studioRevenue')-booked(prior,buyerId,'studioRevenue')).toBeCloseTo(ownRevenue+acquiredRevenue,6)
+   if(reload!==null) {
+    const replay=tick(reload)
+    expect(JSON.stringify(reload)).toBe(reloadBefore)
+    expect(saves.exportCurrentState(replay)).toBe(saves.exportCurrentState(journey))
+   }
+  }
+  const finalText=saves.exportCurrentState(journey),finalReload=saves.migrateToLive(saves.importSave(finalText)).state
+  expect(saves.exportCurrentState(finalReload)).toBe(finalText)
+  expect(finalReload.rights.absorptions.find(a=>a.id===record.id)!.runReceipts).toHaveLength(2)
   expect(JSON.stringify(paid.state)).toBe(paidBefore);expect(JSON.stringify(state)).toBe(before)
   expect(JSON.stringify(initial)).toBe(initialBefore);expect(JSON.stringify(old)).toBe(oldBefore);expect(JSON.stringify(raw)).toBe(rawBefore)
  })
