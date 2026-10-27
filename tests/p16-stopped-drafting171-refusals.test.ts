@@ -1,5 +1,7 @@
-// One fixed eight-tick diagnostic; not healthy drafting feature acceptance. Originally a refusal witness; since Sprint 7's
-// buyer-side continuation producer the same premise quotes lawful continuation (positive route: p16-retained-drafting-continuation).
+// One fixed eight-tick diagnostic; not healthy drafting feature acceptance. Originally a missing-producer refusal witness; since
+// Sprint 7's buyer-side continuation producer the same premise is governed by buyer writing capacity: this buyer has no free
+// writing slot, so the retained script quotes continuationRequired/writerCapacityUnavailable and the close refuses with
+// retainedScriptCapacityProducerRequired (acquisition.ts close guard). Positive route with capacity: p16-retained-drafting-continuation.
 import {describe,it,expect} from 'vitest'
 import {readFileSync} from 'node:fs'
 import {createHash} from 'node:crypto'
@@ -7,7 +9,7 @@ import * as saves from '../src/core/save.js'
 import {tick} from '../src/core/tick.js'
 import {conditionRecord,outstandingLoan} from '../src/core/corporateConditionLive.js'
 import {productionPhaseForRemainingTicks} from '../src/core/productionPhases.js'
-import {absorptionProducerRefusal,quoteAbsorption,absorptionAsk} from '../src/core/acquisition.js'
+import {absorptionProducerRefusal,quoteAbsorption,closeAbsorption,absorptionAsk} from '../src/core/acquisition.js'
 import {requestDiligence} from '../src/core/dueDiligence.js'
 import {terminationCost} from '../src/core/employment.js'
 import {libraryValuationV1} from '../src/core/propertyValuation.js'
@@ -90,7 +92,7 @@ function pureOriginal(p:ReturnType<typeof prepared>){
  expect(JSON.stringify(p.paid.state)).toBe(p.paidBefore);expect(JSON.stringify(p.state)).toBe(p.beforeAdmission)
  expect(JSON.stringify(p.initial)).toBe(p.initialBefore);expect(JSON.stringify(p.raw)).toBe(p.rawBefore);expect(JSON.stringify(p.old)).toBe(p.oldBefore)
 }
-function continued(p:ReturnType<typeof prepared>,retention:{kind:'default'}|{kind:'explicit';contractIds:string[]}){
+function capacityRefused(p:ReturnType<typeof prepared>,retention:{kind:'default'}|{kind:'explicit';contractIds:string[]}){
  const library=libraryValuationV1(p.paid.state,TARGET,171);expect(library.kind).toBe('available')
  if(library.kind!=='available')throw new Error('actual171 fixed library premise absent')
  // One public whole ask using all actual source cash before exits; never retry another amount.
@@ -102,23 +104,23 @@ function continued(p:ReturnType<typeof prepared>,retention:{kind:'default'}|{kin
  expect(quote.affordable).toBe(true)
  expect(quote.scripts).toHaveLength(p.quote.scripts.length)
  console.info('S9_DRAFT171_QUOTE_SCRIPTS '+JSON.stringify({retention,scripts:quote.scripts,contracts:quote.contracts.map(c=>({contractId:c.contractId,retained:c.retained}))}))
- expect(quote.scripts.every(q=>q.disposition==='continues'&&q.reason==='writerTeamRetained')).toBe(true)
+ expect(quote.scripts.every(q=>q.disposition==='continuationRequired'&&q.reason==='writerCapacityUnavailable')).toBe(true)
  const input={...preview,quotedAtWeek:quote.quotedAtWeek,quoteAgePolicyVersion:quote.quoteAgePolicyVersion}
  expect(absorptionProducerRefusal(p.paid.state,input)).toBeNull()
- pureOriginal(p)
+ try{expect(()=>closeAbsorption(p.paid.state,input,171)).toThrow(/retainedScriptCapacityProducerRequired/)}finally{pureOriginal(p)}
  saves.makeSave(p.paid.state)
 }
-describe('P16 real171 drafting continuation quotes lawful continuation (producer present since Sprint 7)',()=>{
- it('default writer choice quotes continuing drafting with no producer refusal and never converts drafting to writeoff',()=>{
+describe('P16 real171 drafting continuation at the buyer writing capacity limit (continuation producer present since Sprint 7)',()=>{
+ it('default writer choice quotes continuation required for writer capacity and the close refuses with the capacity producer, never converting drafting to writeoff',()=>{
   const p=prepared()
   expect(p.quote.scripts.every(q=>q.disposition==='writeOff')).toBe(true)
-  continued(p,{kind:'default'})
+  capacityRefused(p,{kind:'default'})
  })
- it('explicit retention of all drafting writers in a partial company selection quotes continuation and preserves all original input',()=>{
+ it('explicit retention of all drafting writers in a partial company selection quotes the same capacity requirement and preserves all original input',()=>{
   const p=prepared(),writers=[...new Set(p.source.development.projects.filter(s=>s.status==='drafting'||s.status==='rewriting').flatMap(s=>s.writerIds))]
   expect(writers.length).toBeGreaterThan(0)
   const contractIds=writers.map(id=>{const row=p.state.hollywood!.activeEmploymentOrdinals.map(i=>p.state.hollywood!.employment[i]!).find(e=>e.studioId===TARGET&&e.terms.talentId===id&&e.endedWeek===null&&e.terms.startWeek<=171&&171<e.terms.endWeekExclusive);expect(row).toBeDefined();return row!.contractId})
   expect(contractIds.length).toBeLessThan(p.quote.contracts.length)
-  continued(p,{kind:'explicit',contractIds})
+  capacityRefused(p,{kind:'explicit',contractIds})
  })
 })
