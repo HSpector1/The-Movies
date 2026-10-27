@@ -1,0 +1,37 @@
+--- a/src/core/continuedScripts.ts
++++ b/src/core/continuedScripts.ts
+@@ -43,7 +43,7 @@
+   if(!b)fail('native rival development owner missing')
+   return {mode:'managed' as const,projects:b.activeScriptOrdinals.map(i=>b.development.projects[i]!)}
+  })()
+- const projects=owners(state).filter(a=>a.buyerId===buyer).flatMap(a=>a.continuedScripts.filter(row=>a.producerVersion!=='absorption-rival-scripts/v8'||!a.scriptShelving.shelved.some(s=>s.projectId===row.project.id)).map(r=>r.project))
++ const projects=owners(state).filter(a=>a.buyerId===buyer).flatMap(a=>a.continuedScripts.filter(row=>a.producerVersion!=='absorption-rival-scripts/v8'||row.project.status!=='produced'&&!a.scriptShelving.shelved.some(s=>s.projectId===row.project.id)).map(r=>r.project))
+  return projects.length===0?native:{...native,projects:[...native.projects,...projects]}
+ }
+ export function buyerScriptConcepts(state:GameState,buyer=state.hollywood?.playerStudioId){
+@@ -333,7 +333,13 @@
+  const completed=completeDueScriptWork(before,arrivalWeek,{concepts:buyerScriptConcepts(state,buyer),talent:state.talent,estUplift})
+  let rights=state.rights
+  for(const {a,row} of foreign){
+-  const project=completed.projects.find(p=>p.id===row.project.id)!
++  const project=completed.projects.find(p=>p.id===row.project.id)
++  if(!project){
++   // Native hot inventory excludes terminal history and explicitly shelved
++   // Ready work. Missing actual writing/review/production is never normalized.
++   if(a.producerVersion==='absorption-rival-scripts/v8'&&(row.project.status==='produced'||row.project.status==='ready'&&a.scriptShelving.shelved.some(s=>s.projectId===row.project.id)))continue
++   fail('actual native script work member missing')
++  }
+   if(project===row.project)continue
+   if((row.project.status!=='drafting'&&row.project.status!=='rewriting')||project.status!=='review'||project.assessment===null)fail('unexpected native script transition')
+   if(a.scriptCompletions.some(r=>r.projectId===project.id&&r.week===arrivalWeek)||a.scriptCompletions.filter(r=>r.projectId===project.id).length>=(row.project.rewriteCount===1?2:1))fail('completion replay')
+--- a/src/core/hollywoodTick.ts
++++ b/src/core/hollywoodTick.ts
+@@ -689,7 +689,7 @@
+     const rows=h.identities.filter(s=>s.enteredWeek!==null).map(s=>{
+       const b=h.businesses.find(b=>b.studioId===s.studioId)
+       return {studioId:s.studioId,standing:{...(b?.standing??state.studio.standing)},
+-        output:b?b.development.projects.filter(p=>p.status==='produced').length+(h.origin==='fresh'&&s.row<=4?2:0):state.studio.releasedFilms.length}
++        output:b?h.films.filter(f=>f.studioId===s.studioId&&(f.provenance==='authored-start/v1'||f.result.releaseTick<week)).length:state.studio.releasedFilms.length}
+     })
+     h={...h,previousChart:h.chart,chart:{week,rows}}
+   }

@@ -1,0 +1,94 @@
+{
+  "status": "FROZEN STATIC-UNRUN; coherent source draft awaiting compiler/runtime/review",
+  "baseHead": "0108d51cc71943ac47bd7257ca2ff3c371fa1d31",
+  "patch": "RIVAL-SCRIPTS.patch",
+  "patchSha256": "f30c63bb4d6f52114a24b5a4129a59989d032a0ddf656f9077ff5398a2973eee",
+  "patchBytes": 104700,
+  "files": [
+    {
+      "path": "src/core/absorbedScripts.ts",
+      "preSha256": "4dbe50caef4198ca89171cffa8fd2cb180561740e9ec68efc5207aa9ece13270",
+      "postSha256": "4273c31b91d53a8be3bddcf35e1cfc6e4dddfc2ff6c0cc2b2665e613798c6b2d",
+      "preBytes": 4293,
+      "postBytes": 4399
+    },
+    {
+      "path": "src/core/acquisition.ts",
+      "preSha256": "ab35fe296f3c3bf86d5e571addd305fa58ea6ce580b2b2759e9271e8da4665b3",
+      "postSha256": "aa74027964048326f45929beecda0cd642a3d9644a6f0af3d5af28acfbcab21d",
+      "preBytes": 63740,
+      "postBytes": 65300
+    },
+    {
+      "path": "src/core/continuedScripts.ts",
+      "preSha256": "cec1f34588754c1c0093eedd6ff73179af7f1288793dca3043886b9fc1cd8c4f",
+      "postSha256": "ea626c35484018b5ee6608152dd8d7c87e6b5f798d4405f6e2cb638bf3f7670c",
+      "preBytes": 55743,
+      "postBytes": 70005
+    },
+    {
+      "path": "src/core/corporateConditionLive.ts",
+      "preSha256": "8062cb9d0557f28592084b07ee878450a287bd06c2c8b22f1ed12f408cf30fe8",
+      "postSha256": "04d796147752b4220b0e30986668d6be72228811c8ee13529de56f7e2246fa41",
+      "preBytes": 41666,
+      "postBytes": 41564
+    },
+    {
+      "path": "src/core/employment.ts",
+      "preSha256": "86152f872e45630fb908cfbeba41d65329efce8680b1938674b50f1c0a3a34ca",
+      "postSha256": "624d3075edd2c283399830f65748c9b32c1799e294af42482600bad7dd3d4286",
+      "preBytes": 30897,
+      "postBytes": 31233
+    },
+    {
+      "path": "src/core/firstTakeSubjects.ts",
+      "preSha256": "43b65ba8356d86f87c87dd4eb5e80e59c44057b88753a8d2428f52dfea22dc25",
+      "postSha256": "0384dba80d48bae2cd04388cdf0ce9aeeef7322cb7db838cec1fc254cf80868b",
+      "preBytes": 9267,
+      "postBytes": 9223
+    },
+    {
+      "path": "src/core/hollywoodTick.ts",
+      "preSha256": "9f9c206ef28f529d2d801752f5dd4445342ebb42fd3add2f33f28545900a01a7",
+      "postSha256": "cdf8baaa67f496627bf007d0ed24a143662dc26a65f43f41482f0390360aa940",
+      "preBytes": 53300,
+      "postBytes": 56911
+    },
+    {
+      "path": "src/core/hollywoodValidation.ts",
+      "preSha256": "0ca1580a8128a7896fb0f506d5581ece73c60c9c93e2c6b7516f061866e52101",
+      "postSha256": "5f0942c168f76baaa079ca9c7fe516aee4a525b322ee80461e01a895c6dbed38",
+      "preBytes": 74848,
+      "postBytes": 77739
+    },
+    {
+      "path": "src/core/productionIdentity.ts",
+      "preSha256": "e1fd0511603fb6b2ebe8d1b5f62d9ba368afa9e408cd5b3a1e0f73cfc2cd5396",
+      "postSha256": "fc5732c2a3e17a4399bab379f102ac002646225f47b2377cc59f7af79cf595c0",
+      "preBytes": 12647,
+      "postBytes": 12698
+    },
+    {
+      "path": "src/core/rights.ts",
+      "preSha256": "d62321a8d15724046cf3acdea1aa63fdb0b1a576cb6c5588678ac2412d34fdaa",
+      "postSha256": "79ba438565f18c8c7ba116a19386d5440abb133c7865c3a241d772958874f837",
+      "preBytes": 106574,
+      "postBytes": 107085
+    },
+    {
+      "path": "src/core/studioClosure.ts",
+      "preSha256": "70749466c7f3f11c40e683040714679d552809e1a235ba2f10252c92c2c1fe3d",
+      "postSha256": "62ea9b57cd6067552652ca45c2706a9d46888b1ddeea1ee55a85d07510659b40",
+      "preBytes": 83873,
+      "postBytes": 83937
+    }
+  ],
+  "preimagesVerifiedAgainstBaseAndCurrentX": true,
+  "inspectedUnchanged": [
+    "src/core/save.ts",
+    "src/core/marketIntegration.ts",
+    "src/core/occupancy.ts"
+  ],
+  "tests": "Independent author; not included or changed",
+  "wire": "Internal current49 producer v8 only; emitted Bridge DTO/commands unchanged, projection64 retained; no generated artifacts"
+}

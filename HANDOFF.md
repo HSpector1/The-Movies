@@ -1,5 +1,20 @@
 # HANDOFF
 
+## Rival screenplay implementation and interrupted consumer checkpoint — 2026-10-26, 21:31 CDT
+
+Published gameplay remains 0108d51cc71943ac47bd7257ca2ff3c371fa1d31. Eleven reviewed source owners and the independent lifecycle test are installed but uncommitted on experimental p16-retained-writing-20261026. Exact source, review correction, literal type correction, premise/lifecycle and expectation patches are preserved under p16-sprint8/rival-script; apply them in the recorded order. Primary candidate 013c4edc and main ab65eb20 are unchanged. This records checkpoint does not promote unqualified source.
+
+The native v8 producer implements rival remaining writing, automatic acceptance, scheduling, cost/receipt/history joins and release. Independent review found three defects: shelved Ready work refused on advancement, produced acquired history consumed hot slots, and chart output omitted acquired-screenplay films. A two-owner correction resolves those findings statically. Original v1–v7 laws and Bridge projection64 remain unchanged.
+
+Root types pass. Genuine R02 C171 close, retained writing/payroll, completion/automatic Accept173 and save172/replay173/save174 pass in 3198.445 ms within the original 5000 ms. Native policy rejects production once; acquired greenlight/take/release/chart/shelving threshold remain untested. No forced scheduling or nonzero original-development claim. Preserve the initial compiler TS2322, prelaunch manifest-alias refusal and independently corrected quote-reason expectation failure as distinct implementation/harness/test results.
+
+The 11-file consumer gate was interrupted at 21:31:40 after foreign Godot appeared. Only the immediately verified owned runner tree received TERM. Ten completed file summaries show 89 passing assertions, but no final JSON exists; Bridge parity is incomplete and Bridge types never ran. Nineteen printed passing bodies exceed their original 5000 ms budgets, including the new rival leaf at 5413 ms; the market-phase exception remains within 600000 ms. Exact overlap and timing causation are unknown. Do not turn partial output into a complete or exclusive qualification. All runs independently audited; source freeze released, no owned job/lane lock remains.
+
+Next: retain the installed source and evidence; finish the affected consumer/Bridge milestone only in an established exclusive window, without immediately repeating the unchanged interrupted gate. Continue bounded read-only preparation for the existing rival bound-promise dependency meanwhile. Source publication/primary integration remains pending qualification. Original full-game inputs, browser-install approval, native tooling and Owner acceptance remain open; Sprint 8 and the authorized program are incomplete.
+
+Lesson: separate durable acquired history from native hot inventory. Shelved Ready and produced scripts must remain provable without being advanced or counted as active capacity. Published film output must come from actual film history, including acquired screenplay productions. Keep resource interruption, assertion success and timing qualification separate.
+
+
 Last writer: Codex, 2026-10-26, sole coordinator for the authorized Sprints 5–16 program.
 
 

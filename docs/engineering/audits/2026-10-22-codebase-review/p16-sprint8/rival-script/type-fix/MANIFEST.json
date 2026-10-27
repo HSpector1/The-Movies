@@ -1,0 +1,11 @@
+{
+  "status": "FROZEN STATIC-UNRUN",
+  "file": "src/core/continuedScripts.ts",
+  "preSha256": "908dbf339a0c9252bada4c4499f04a47cf29d7e59ba9833e43281be896f44c7c",
+  "postSha256": "72d67e4acc43d4f517325a526e29f9c804a7c708594d1da0a52002b074edd77a",
+  "patchSha256": "77111b9f0aa09e2e9849a98fca57783c4811b31d8c4e8d3d7b24ce7e28fa47fd",
+  "patchBytes": 1169,
+  "diagnostic": "../first-green/lane.log continuedScripts.ts368 TS2322; runtime UNRUN",
+  "change": "Preserve actual accept discriminant literal using as const; no runtime/value/validation change",
+  "base": "Installed original source plus reviewed REVIEW-FIX.patch; previous artifacts untouched"
+}

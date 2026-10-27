@@ -1,0 +1,25 @@
+{
+  "status": "FROZEN STATIC-UNRUN",
+  "basePatchSha256": "f30c63bb4d6f52114a24b5a4129a59989d032a0ddf656f9077ff5398a2973eee",
+  "patchSha256": "01bad5ffa492b5aaccee00872cfcc211330532177a5564e4cb039d21234b68e6",
+  "patchBytes": 2829,
+  "files": [
+    {
+      "path": "src/core/continuedScripts.ts",
+      "preSha256": "ea626c35484018b5ee6608152dd8d7c87e6b5f798d4405f6e2cb638bf3f7670c",
+      "postSha256": "908dbf339a0c9252bada4c4499f04a47cf29d7e59ba9833e43281be896f44c7c",
+      "preBytes": 70005,
+      "postBytes": 70459
+    },
+    {
+      "path": "src/core/hollywoodTick.ts",
+      "preSha256": "cdf8baaa67f496627bf007d0ed24a143662dc26a65f43f41482f0390360aa940",
+      "postSha256": "5c9db263a4b8ac16eef92e5b77ae05a6d158f88c967917b5c4fd63bf1619db40",
+      "preBytes": 56911,
+      "postBytes": 56928
+    }
+  ],
+  "scope": "SOURCE-REVIEW findings1\u20133 only; original package unchanged",
+  "interface": "No receipt/nativeCost/shelving field shape change; tests unchanged",
+  "runtime": "None; source-inferred fixes only"
+}

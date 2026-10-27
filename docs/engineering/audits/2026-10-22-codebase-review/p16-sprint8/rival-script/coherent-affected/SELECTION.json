@@ -1,0 +1,64 @@
+{
+  "head": "cf0e1cd47ba9974d540d3690f322c7192cc0037a",
+  "sourceManifestEntries": 1658,
+  "sourceBinding": "Reviewed original source plus three-finding correction and independently frozen lifecycle plus literal-only TS2322 correction plus independent one-line quote expectation correction",
+  "purpose": "Complete affected writing and native consumers after coherent v8 source",
+  "selector": {
+    "file": "tests/p16-carried-script-accept.test.ts",
+    "describe": "P16 genuine rival carried screenplay admission",
+    "it": "quotes actual171 R01 drafting with only its real writer retained into idle R02 before reaching the script producer"
+  },
+  "testPostimageSHA256": "b0f33a898b1b6badb4ce1e7126e52b6f529c8501d1dffbe0347d956fe82f07db",
+  "budget": {
+    "milliseconds": 5000,
+    "timeoutOverride": false,
+    "setupInsideLeaf": true,
+    "ticks": {
+      "withoutNativeGreenlight": 12,
+      "withActualNativeGreenlight": 22
+    }
+  },
+  "expectedFailure": null,
+  "capture": {
+    "environment": "P16_ORIGINAL48_CAPTURE_ROOT",
+    "file": "r04-actual163.save48.json",
+    "sha256": "c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad"
+  },
+  "limits": "Complete 11 affected files plus Bridge types; root types reused from typed-ready unchanged source. Original budgets including exceptions preserved; no full-game/browser/native claim.",
+  "premiseMarker": "S8_RIVAL_SCRIPT_REAL171_PREMISES",
+  "children": [
+    {
+      "label": "coherent-affected",
+      "completeFiles": [
+        "tests/p16-retained-drafting-continuation.test.ts",
+        "tests/p16-carried-script-accept.test.ts",
+        "tests/p16-carried-script-rewrite.test.ts",
+        "tests/p16-absorption-active-run.test.ts",
+        "tests/p14b1-first-take.test.ts",
+        "tests/p12-starting-world.test.ts",
+        "tests/bridge-p16-rights-parity.test.ts",
+        "tests/p15a1-market-integration.test.ts",
+        "tests/p15a1-market-integration-phases.test.ts",
+        "tests/p15a1-market-integration-atomicity.test.ts",
+        "tests/p15a1-market-retune.test.ts"
+      ]
+    },
+    {
+      "label": "bridge-types",
+      "command": "node node_modules/typescript/bin/tsc -p tsconfig.bridge.json --noEmit"
+    }
+  ],
+  "files": [
+    "tests/p16-retained-drafting-continuation.test.ts",
+    "tests/p16-carried-script-accept.test.ts",
+    "tests/p16-carried-script-rewrite.test.ts",
+    "tests/p16-absorption-active-run.test.ts",
+    "tests/p14b1-first-take.test.ts",
+    "tests/p12-starting-world.test.ts",
+    "tests/bridge-p16-rights-parity.test.ts",
+    "tests/p15a1-market-integration.test.ts",
+    "tests/p15a1-market-integration-phases.test.ts",
+    "tests/p15a1-market-integration-atomicity.test.ts",
+    "tests/p15a1-market-retune.test.ts"
+  ]
+}

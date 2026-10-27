@@ -1,0 +1,11 @@
+--- a/tests/p16-carried-script-accept.test.ts
++++ b/tests/p16-carried-script-accept.test.ts
+@@ -556,7 +556,7 @@
+   const totalMoney=(s:GameState)=>business(s).account.periods.reduce((sum,p)=>sum+Object.values(p.movements).reduce((n,m)=>n+m,0),0)
+   const row=carried(closed),projectId=row.project.id,original=retained[0]!,personId=original.terms.talentId
+   const buyerContractId=buyerId+':contract:'+personId+':171',concept=state.hollywood!.concepts.find(c=>c.id===script.conceptId)!
+-  expect(quote.scripts[0]).toMatchObject({disposition:'continues',reason:null})
++  expect(quote.scripts[0]).toMatchObject({disposition:'continues',reason:'writerTeamRetained'})
+   expect(record).toMatchObject({buyerId,targetId:TARGET,week:171,exitCharges:exits,postExitCash,outlay:quote.outlay})
+   expect(record.continuedProductions).toEqual([]);expect(record.buyerWorkflows).toEqual([])
+   expect(record.stoppedProductions).toEqual([{productionId:concurrent.id,scriptProjectId:'script-0012',remainingTicks:8,phase:'development',reason:'missingParticipants',blockedCapability:null,missingParticipants:[...new Set(missing)]}])

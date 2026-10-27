@@ -1,0 +1,7 @@
+# One-line quote expectation correction
+
+FROZEN STATIC-UNRUN correction only. The new lifecycle assertion at tests/p16-carried-script-accept.test.ts:559 incorrectly expected a null screenplay reason. Current acquisition.ts:99–101 excludes null from AbsorptionScriptQuote.reason; acquisition.ts:344–354 returns continues/writerTeamRetained when all genuine source writers retain terms through the due week. This exact rule also exists in the preserved original0108 acquisition preimage (rival-script/source/preimages/src/core/acquisition.ts:338–348). The existing Bridge acceptance assertion at tests/bridge-p16-rights-parity.test.ts:321 expects continues/writerTeamRetained. A null reason belongs to a supported production disposition (acquisition.ts:343), not the screenplay quote.
+
+The correction changes only that newly added expectation to writerTeamRetained. It retains the same actual writer retention/term, capacity, quote, reserve, close and purity requirements; no source policy changes, mutation, alternative fixture or weakened law. All later assertions and the original5000ms budget remain byte-identical.
+
+The coordinator reports typed-ready roottypes0 and the real close succeeding before this assertion failed; later lifecycle assertions were unreached. The exact failed focused.json is hashed in MANIFEST.json and is neither altered nor replaced. Original lifecycle patches/manifests remain untouched. This agent read static source/report and prepared external bytes only: no engine, compiler, checkout write or passing correction claim.

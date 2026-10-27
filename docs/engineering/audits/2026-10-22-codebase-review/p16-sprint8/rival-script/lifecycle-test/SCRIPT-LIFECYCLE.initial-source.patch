@@ -1,0 +1,212 @@
+--- a/tests/p16-carried-script-accept.test.ts
++++ b/tests/p16-carried-script-accept.test.ts
+@@ -10,11 +10,11 @@
+ import {assessFirstDraft} from '../src/core/scriptDevelopment.js'
+ import {developmentOfficeEstUplift} from '../src/core/facilityEffects.js'
+ import {tick} from '../src/core/tick.js'
+-import {conditionRecord,outstandingLoan} from '../src/core/corporateConditionLive.js'
++import {conditionRecord,outstandingLoan,releaseRefusal} from '../src/core/corporateConditionLive.js'
+ import {productionPhaseForRemainingTicks} from '../src/core/productionPhases.js'
+ import {absorptionProducerRefusal,quoteAbsorption,closeAbsorption,absorptionAsk} from '../src/core/acquisition.js'
+ import {requestDiligence} from '../src/core/dueDiligence.js'
+-import {activeProductionCompanyTalentIds,busyTalentIds,canAfford,hiringMarketIds,terminationCost,weeklyPayroll} from '../src/core/employment.js'
++import {activeProductionCompanyTalentIds,busyTalentIds,canAfford,hiringMarketIds,terminationCost,weeklyPayroll,weeklySalary} from '../src/core/employment.js'
+ import {playerOffer} from '../src/core/talentMarket.js'
+ import {currentHolder} from '../src/core/rights.js'
+ import {legacyFactsFromState} from '../src/core/campaignLegacy.js'
+@@ -28,6 +28,7 @@
+ import {actualP16Money} from '../src/core/rights.js'
+ import {rivalInstallationSlots} from '../src/core/technologyRival.js'
+ import {TUNING} from '../src/core/tuning.js'
++import {openTheatricalRun} from '../src/core/economy.js'
+ const TARGET='studio-aca408ec-r01'
+ function prepared(){
+   const root=process.env.P16_ORIGINAL48_CAPTURE_ROOT;expect(root).toBeTruthy()
+@@ -543,8 +544,185 @@
+   expect(input).toMatchObject({quotedAtWeek:171,quoteAgePolicyVersion:1})
+   expect(absorptionProducerRefusal(paid.state,input)).toBeNull()
+   console.info('S8_RIVAL_SCRIPT_REAL171_PREMISES '+JSON.stringify({week:171,buyerId,targetId:TARGET,scriptId:script.id,retained:retention.contractIds,capacity:reservation,consideration,exits,outlay:quote.outlay,reserve:quote.reserveAfter,guarantees:quote.guarantees,scripts:quote.scripts,productions:quote.productions}))
+-  // Current quote routes rivals to retainedScriptCapacityProducerRequired before its later rival script guard.
+-  try {closeAbsorption(paid.state,input,171)}
++  // Same original RED boundary; successful close must now own the native rival writing lifecycle.
++  let closed:GameState
++  try {closed=closeAbsorption(paid.state,input,171)}
+   finally {expect(JSON.stringify(paid.state)).toBe(paidBefore);expect(JSON.stringify(state)).toBe(before);pureOriginal(p)}
++  const record=closed.rights.absorptions.find(a=>a.targetId===TARGET)!
++  const owner=(s:GameState)=>{const a=s.rights.absorptions.find(a=>a.id===record.id)!;if(a?.producerVersion!=='absorption-rival-scripts/v8')throw new Error('actual rival scripts/v8 producer required');return a}
++  const business=(s:GameState,id=buyerId)=>s.hollywood!.businesses.find(b=>b.studioId===id)!
++  const carried=(s:GameState)=>owner(s).continuedScripts.find(r=>r.sourceScriptProjectId===script.id)!
++  const booked=(s:GameState,id:string,kind:'signing'|'termination'|'payroll'|'production'|'marketing'|'studioRevenue')=>business(s,id).account.periods.reduce((sum,p)=>sum+p.movements[kind],0)
++  const totalMoney=(s:GameState)=>business(s).account.periods.reduce((sum,p)=>sum+Object.values(p.movements).reduce((n,m)=>n+m,0),0)
++  const row=carried(closed),projectId=row.project.id,original=retained[0]!,personId=original.terms.talentId
++  const buyerContractId=buyerId+':contract:'+personId+':171',concept=state.hollywood!.concepts.find(c=>c.id===script.conceptId)!
++  expect(quote.scripts[0]).toMatchObject({disposition:'continues',reason:null})
++  expect(record).toMatchObject({buyerId,targetId:TARGET,week:171,exitCharges:exits,postExitCash,outlay:quote.outlay})
++  expect(record.continuedProductions).toEqual([]);expect(record.buyerWorkflows).toEqual([])
++  expect(record.stoppedProductions).toEqual([{productionId:concurrent.id,scriptProjectId:'script-0012',remainingTicks:8,phase:'development',reason:'missingParticipants',blockedCapability:null,missingParticipants:[...new Set(missing)]}])
++  expect(owner(closed).continuedScripts).toHaveLength(1);expect(owner(closed).stoppedScripts).toEqual([])
++  expect(row.originalScript).toEqual(script);expect(row.originalCosts).toEqual(source.projects.find(c=>c.scriptProjectId===script.id))
++  expect(row.originalCosts.development).toBe(0) // Actual native commission170; nonzero source development is not exercised.
++  expect(row.sourceContractIds).toEqual(retention.contractIds);expect(row.buyerContractIds).toEqual([buyerContractId])
++  expect(projectId).toMatch(/^absorbed-script-[1-9][0-9]*$/);expect(projectId).not.toBe(script.id)
++  expect(row.project).toEqual({...script,id:projectId,reservation:{...reservation!,projectId}})
++  expect(row.reservationAtClose).toEqual(row.project.reservation)
++  expect(record.contracts.filter(c=>c.buyerContractId!==null)).toEqual([{sourceContractId:original.contractId,buyerContractId,talentId:personId,exitCost:0}])
++  expect(closed.hollywood!.employment.find(e=>e.contractId===original.contractId)).toEqual({...original,endedWeek:171})
++  const kept=closed.hollywood!.employment.find(e=>e.contractId===buyerContractId)!
++  expect(kept).toEqual({contractId:buyerContractId,studioId:buyerId,endedWeek:null,reason:'absorptionContinuation',terms:{...original.terms,startWeek:171,termWeeks:original.terms.endWeekExclusive-171}})
++  expect(closed.freeAgents).not.toContain(personId)
++  for(const e of employees.filter(e=>!writers.has(e.terms.talentId))) {
++   expect(closed.freeAgents).toContain(e.terms.talentId)
++   expect(record.contracts.find(c=>c.sourceContractId===e.contractId)).toEqual({sourceContractId:e.contractId,buyerContractId:null,talentId:e.terms.talentId,exitCost:terminationCost(e.terms,171)})
++  }
++  expect(closed.hollywood!.receipts.slice(0,paid.state.hollywood!.receipts.length)).toEqual(paid.state.hollywood!.receipts)
++  const closeEmployment=closed.hollywood!.receipts.slice(paid.state.hollywood!.receipts.length).filter(r=>r.kind==='employment')
++  expect(closeEmployment).toHaveLength(7)
++  expect(closeEmployment.filter(r=>r.talentId===personId)).toMatchObject([
++   {week:171,studioId:TARGET,contractId:original.contractId,fromStudioId:TARGET,toStudioId:null,reason:'absorptionContinuation'},
++   {week:171,studioId:buyerId,contractId:buyerContractId,fromStudioId:TARGET,toStudioId:buyerId,reason:'absorptionContinuation'},
++  ])
++  for(const id of [TARGET,buyerId])expect(booked(closed,id,'signing')).toBe(booked(paid.state,id,'signing'))
++  expect(booked(closed,TARGET,'termination')-booked(paid.state,TARGET,'termination')).toBe(-exits)
++  expect(booked(closed,buyerId,'termination')).toBe(booked(paid.state,buyerId,'termination'))
++  expect(business(closed).account.cash).toBe(buyer.account.cash-paid.record.fee-quote.outlay)
++  expect(business(closed,TARGET).account.cash).toBe(0)
++  expect(business(closed).development).toEqual(buyer.development);expect(business(closed).projects).toEqual(buyer.projects)
++  expect(business(closed,TARGET).development).toEqual(source.development);expect(business(closed,TARGET).projects).toEqual(source.projects)
++  expect(business(closed,TARGET).productions).toEqual(source.productions);expect(business(closed,TARGET).operations).toEqual(source.operations)
++  expect(closed.scriptDevelopment).toEqual(paid.state.scriptDevelopment);expect(closed.contracts).toEqual(paid.state.contracts)
++  expect(closed.studio).toEqual(paid.state.studio);expect(closed.operations).toEqual(paid.state.operations);expect(closed.ledger).toEqual(paid.state.ledger)
++  expect(owner(closed).scriptCompletions).toEqual([]);expect(owner(closed).scriptDecisions).toEqual([])
++  expect(owner(closed).scriptShelving).toEqual({rejections:[],shelved:[]})
++  const writingRefusal=`talent "${personId}" is Drafting ${concept.title} and must finish that screenplay task first`
++  expect(releaseRefusal(closed,buyerId,personId)).toBe(writingRefusal);expect(busyTalentIds(closed).has(personId)).toBe(true)
++  const closedBefore=JSON.stringify(closed)
++  expect(()=>closeAbsorption(closed,input,171)).toThrow('absorption: targetTerminal')
++  expect(JSON.stringify(closed)).toBe(closedBefore)
++
++  const second=step(closed)
++  expect(second.market.tick).toBe(172);expect(carried(second).project).toEqual(row.project)
++  expect(owner(second).scriptCompletions).toEqual([]);expect(owner(second).scriptDecisions).toEqual([])
++  expect(releaseRefusal(second,buyerId,personId)).toBe(writingRefusal);expect(busyTalentIds(second).has(personId)).toBe(true)
++  const text172=saves.exportCurrentState(second),reload172=saves.migrateToLive(saves.importSave(text172)).state
++  expect(saves.exportCurrentState(reload172)).toBe(text172)
++  const ready=step(second),replay173=step(reload172)
++  expect(ready.market.tick).toBe(173);expect(saves.exportCurrentState(replay173)).toBe(saves.exportCurrentState(ready))
++  const assessment=assessFirstDraft(concept,0),readyProject=carried(ready).project
++  expect(readyProject).toEqual({...row.project,status:'ready',dueWeek:null,reservation:null,assessment})
++  expect(owner(ready).scriptCompletions).toHaveLength(1)
++  const completed=owner(ready).scriptCompletions[0]!
++  expect(completed).toMatchObject({projectId,week:173,inputWeek:172,estUplift:0,writerRewriting:null,assessment})
++  expect(completed.id).toMatch(/^script-completion-[1-9][0-9]*$/)
++  // Completion observes input172 after policy/disposal, before the actual arrival173 plant completions.
++  const arrivedFacilityIds=new Set(ready.hollywood!.receipts.flatMap(r=>r.kind==='laboratoryOperational'&&r.studioId===buyerId&&r.week===173?[r.facilityId]:[]))
++  expect(completed.developmentContext).toEqual({facilities:business(ready).operations.facilities.filter(f=>!arrivedFacilityIds.has(f.id)),placements:[],paidRows:[]})
++  expect(owner(ready).scriptDecisions).toHaveLength(1)
++  expect(owner(ready).scriptDecisions[0]).toMatchObject({projectId,kind:'accept',week:173})
++  expect(owner(ready).scriptDecisions[0]!.id).toMatch(/^script-decision-[1-9][0-9]*$/)
++  for(const [prior,next] of [[closed,second],[second,ready]] as const) {
++   const inputWeek=prior.market.tick
++   expect(next.hollywood!.employment.find(e=>e.contractId===buyerContractId)).toEqual(kept)
++   const paidPeople=next.hollywood!.employment.filter(e=>e.studioId===buyerId&&e.terms.startWeek<=inputWeek&&inputWeek<e.terms.endWeekExclusive&&(e.endedWeek===null||inputWeek<e.endedWeek))
++   expect(paidPeople.some(e=>e.contractId===buyerContractId)).toBe(true)
++   expect(booked(next,buyerId,'payroll')-booked(prior,buyerId,'payroll')).toBe(-paidPeople.reduce((sum,e)=>sum+weeklySalary(e.terms.annualSalary),0))
++   expect(business(next).account.cash-business(prior).account.cash).toBeCloseTo(totalMoney(next)-totalMoney(prior),6)
++   expect(business(next).account.cash).toBeCloseTo(business(next).account.openingBalance+totalMoney(next),6)
++   expect(business(next,TARGET).account).toEqual(business(closed,TARGET).account)
++   expect(business(next,TARGET).development).toEqual(source.development);expect(business(next,TARGET).projects).toEqual(source.projects)
++   expect(business(next,TARGET).productions).toEqual(source.productions)
++   expect(carried(next).originalScript).toEqual(script);expect(carried(next).originalCosts).toEqual(row.originalCosts)
++   expect(next.scriptDevelopment.projects).toEqual(state.scriptDevelopment.projects)
++   expect(next.studio.cash).toBeCloseTo(prior.studio.cash+next.ledger.slice(prior.ledger.length).reduce((sum,r)=>sum+r.amount,0),6)
++  }
++  // Ready work releases its writing seat. Only the next native policy may select it.
++  expect(releaseRefusal(ready,buyerId,personId)).toBeNull();expect(busyTalentIds(ready).has(personId)).toBe(false)
++  const opportunity=step(ready)
++  expect(opportunity.market.tick).toBe(174)
++  const choice=carried(opportunity).project,decisions=owner(opportunity).scriptDecisions.filter(d=>d.projectId===projectId)
++  console.info('S8_RIVAL_SCRIPT_NATIVE173_CHOICE '+JSON.stringify({inputWeek:173,buyerId,projectId,
++   ownReadyBefore:business(ready).activeScriptOrdinals.map(i=>business(ready).development.projects[i]!).filter(p=>p.status==='ready').map(p=>p.id),
++   project:choice,decisions,shelving:owner(opportunity).scriptShelving,newAnnouncements:opportunity.hollywood!.receipts.slice(ready.hollywood!.receipts.length).filter(r=>r.kind==='filmAnnounced'&&r.studioId===buyerId),
++   writerInterval:opportunity.hollywood!.employment.find(e=>e.contractId===buyerContractId)}))
++  expect(owner(opportunity).scriptCompletions).toEqual(owner(ready).scriptCompletions)
++  expect(decisions.filter(d=>d.kind==='accept')).toEqual(owner(ready).scriptDecisions)
++  expect(carried(opportunity).originalScript).toEqual(script);expect(carried(opportunity).originalCosts).toEqual(row.originalCosts)
++  const text174=saves.exportCurrentState(opportunity),reload174=saves.migrateToLive(saves.importSave(text174)).state
++  expect(saves.exportCurrentState(reload174)).toBe(text174)
++  if(choice.productionId===null) {
++   expect(choice).toEqual(readyProject);expect(decisions).toEqual(owner(ready).scriptDecisions)
++   console.info('S8_RIVAL_SCRIPT_PRODUCTION_BOUNDARY '+JSON.stringify({projectId,inputWeek:173,reached:false,qualification:'greenlight/first-take/release remain open; no later-date or policy search'}))
++  } else {
++   const greenlights=decisions.filter(d=>d.kind==='greenlight')
++   expect(greenlights).toHaveLength(1)
++   const greenlight=greenlights[0]!
++   if(greenlight.kind!=='greenlight')throw new Error('actual native carried greenlight required')
++   const picture=greenlight.production,crew=[picture.directorId,...picture.craftIds,...Object.values(picture.cast)]
++   expect(greenlight).toMatchObject({projectId,week:173,paidRows:[]})
++   expect(greenlight.nativeCost).toEqual({...row.originalCosts,scriptProjectId:projectId,productionId:picture.id,production:picture.budget.negative,marketing:picture.budget.marketing,announcedWeek:173})
++   expect(picture).toMatchObject({id:choice.productionId,conceptId:script.conceptId,writerId:script.writerId,startTick:173,remainingTicks:8})
++   expect(choice).toEqual({...readyProject,status:'inProduction',productionId:picture.id})
++   expect(business(opportunity).productions).toEqual([picture])
++   expect(business(opportunity).development.projects.some(p=>p.id===projectId)).toBe(false)
++   expect(business(opportunity).projects.some(c=>c.scriptProjectId===projectId)).toBe(false)
++   expect(booked(opportunity,buyerId,'production')-booked(ready,buyerId,'production')).toBe(-picture.budget.negative)
++   expect(booked(opportunity,buyerId,'marketing')-booked(ready,buyerId,'marketing')).toBe(-picture.budget.marketing)
++   expect(opportunity.hollywood!.receipts.filter(r=>r.kind==='filmAnnounced'&&r.productionId===picture.id)).toMatchObject([{week:173,studioId:buyerId,conceptId:script.conceptId}])
++   expect(opportunity.hollywood!.receipts.filter(r=>r.kind==='filmAnnounced'&&r.productionId===picture.id)).toHaveLength(1)
++   const nativeDue=(s:GameState,week:number)=>s.hollywood!.films.reduce((sum,f)=>{
++    if(f.provenance!=='simulation/v1'||f.studioId!==buyerId)return sum
++    const opening=f.result.boxOffice.opening,schedule=openTheatricalRun(f.result,opening,opening>0?f.result.boxOffice.total/opening:1,f.result.releaseTick),index=week-f.result.releaseTick
++    return sum+(index>=0&&index<schedule.totalWeeks?schedule.weeklyGross[index]!*schedule.studioShare:0)
++   },0)
++   let journey=opportunity
++   for(let inputWeek=174;inputWeek<=181;inputWeek++) {
++    const prior=journey,active=business(prior).productions.find(p=>p.id===picture.id)!
++    expect(prior.market.tick).toBe(inputWeek);expect(active.remainingTicks).toBe(182-inputWeek)
++    for(const person of crew) {
++     expect(busyTalentIds(prior).has(person)).toBe(true)
++     expect(releaseRefusal(prior,buyerId,person)).toBe(`talent "${person}" is seated on active production "${picture.id}" until it is released (R2)`)
++    }
++    const preRelease=inputWeek===181?saves.migrateToLive(saves.importSave(saves.exportCurrentState(prior))).state:null
++    journey=step(prior)
++    if(inputWeek<181)expect(business(journey).productions.find(p=>p.id===picture.id)?.remainingTicks).toBe(181-inputWeek)
++    const paidPeople=journey.hollywood!.employment.filter(e=>e.studioId===buyerId&&e.terms.startWeek<=inputWeek&&inputWeek<e.terms.endWeekExclusive&&(e.endedWeek===null||inputWeek<e.endedWeek))
++    for(const person of crew)expect(paidPeople.some(e=>e.terms.talentId===person)).toBe(true)
++    expect(booked(journey,buyerId,'payroll')-booked(prior,buyerId,'payroll')).toBe(-paidPeople.reduce((sum,e)=>sum+weeklySalary(e.terms.annualSalary),0))
++    expect(business(journey).account.cash-business(prior).account.cash).toBeCloseTo(totalMoney(journey)-totalMoney(prior),6)
++    if(inputWeek===181)expect(booked(journey,buyerId,'studioRevenue')-booked(prior,buyerId,'studioRevenue')).toBeCloseTo(nativeDue(journey,181),6)
++    if(preRelease!==null)expect(saves.exportCurrentState(step(preRelease))).toBe(saves.exportCurrentState(journey))
++   }
++   const takes=journey.firstTakes.filter(t=>t.productionId===picture.id)
++   expect(takes).toHaveLength(1);expect(takes[0]).toMatchObject({studioId:buyerId,week:178,directorId:picture.directorId,cast:picture.cast})
++   expect(journey.firstTakeSubjects.facts.find(f=>f.eventId===takes[0]!.eventId)).toMatchObject({conceptId:script.conceptId,scriptProjectId:projectId,genre:concept.genre})
++   const film=journey.hollywood!.films.find(f=>f.filmId===picture.id)!
++   if(film?.provenance!=='simulation/v1')throw new Error('actual native buyer film required')
++   expect(film).toMatchObject({studioId:buyerId,conceptId:script.conceptId,result:{productionId:picture.id,releaseTick:181,directorId:picture.directorId,participants:picture.participants}})
++   expect(business(journey).productions.some(p=>p.id===picture.id)).toBe(false)
++   expect(carried(journey).project).toEqual({...choice,status:'produced'})
++   expect(owner(journey).scriptDecisions.filter(d=>d.projectId===projectId).map(d=>d.kind)).toEqual(['accept','greenlight','productionReleased'])
++   expect(owner(journey).scriptDecisions.find(d=>d.kind==='productionReleased'&&d.productionId===picture.id)).toMatchObject({projectId,week:181})
++   expect(journey.hollywood!.receipts.filter(r=>r.kind==='filmReleased'&&r.productionId===picture.id)).toMatchObject([{week:181,studioId:buyerId,conceptId:script.conceptId}])
++   expect(journey.hollywood!.receipts.filter(r=>r.kind==='filmReleased'&&r.productionId===picture.id)).toHaveLength(1)
++   expect(journey.sharedMarket.assessments.filter(a=>a.releaseId===picture.id)).toMatchObject([{week:181,studioId:buyerId,genre:concept.genre}])
++   expect(legacyFactsFromState(journey,182).films.find(f=>f.filmId===picture.id)).toMatchObject({studioId:buyerId,genre:concept.genre,releaseWeek:181})
++   expect(currentHolder(journey,{right:'R2',filmId:picture.id},182)).toMatchObject({kind:'holder',holderId:buyerId})
++   const opening=film.result.boxOffice.opening,schedule=openTheatricalRun(film.result,opening,opening>0?film.result.boxOffice.total/opening:1,181)
++   const run=business(journey).runs.find(r=>r.productionId===picture.id)!
++   expect(run).toEqual({...schedule,weekIndex:1,cumulativeGrossPaid:schedule.weeklyGross[0]!,cumulativeStudioRevenuePaid:schedule.weeklyGross[0]!*schedule.studioShare})
++   expect(film.studioRevenueReceived).toBe(run.cumulativeStudioRevenuePaid)
++   const nextInstallment=step(journey),run2=business(nextInstallment).runs.find(r=>r.productionId===picture.id)!
++   expect(run2).toEqual({...run,weekIndex:2,cumulativeGrossPaid:run.cumulativeGrossPaid+run.weeklyGross[1]!,cumulativeStudioRevenuePaid:run.cumulativeStudioRevenuePaid+run.weeklyGross[1]!*run.studioShare})
++   expect(booked(nextInstallment,buyerId,'studioRevenue')-booked(journey,buyerId,'studioRevenue')).toBeCloseTo(nativeDue(nextInstallment,182),6)
++   expect(business(nextInstallment).account.cash).toBeCloseTo(business(nextInstallment).account.openingBalance+totalMoney(nextInstallment),6)
++   expect(nextInstallment.ledger.filter(r=>r.productionId===picture.id)).toEqual([])
++   expect(business(nextInstallment,TARGET).development).toEqual(source.development);expect(business(nextInstallment,TARGET).projects).toEqual(source.projects)
++   expect(carried(nextInstallment).originalScript).toEqual(script);expect(carried(nextInstallment).originalCosts).toEqual(row.originalCosts)
++   const text183=saves.exportCurrentState(nextInstallment)
++   expect(saves.exportCurrentState(saves.migrateToLive(saves.importSave(text183)).state)).toBe(text183)
++   console.info('S8_RIVAL_SCRIPT_PRODUCTION_BOUNDARY '+JSON.stringify({projectId,inputWeek:173,reached:true,productionId:picture.id,firstTakeWeek:178,releaseWeek:181,paidInstallments:2}))
++  }
++  expect(JSON.stringify(closed)).toBe(closedBefore);pureOriginal(p)
+  })
+ })

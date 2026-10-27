@@ -1,0 +1,11 @@
+--- a/src/core/continuedScripts.ts
++++ b/src/core/continuedScripts.ts
+@@ -365,7 +365,7 @@
+   if(!owner.scriptCompletions.some(r=>r.projectId===row.project.id&&r.week===arrivalWeek))fail('native automatic review has no actual completion')
+   const project=acceptScriptProject({mode:'managed',projects:[row.project]},row.project.id).projects[0]!
+   const allocated=allocateRightsId(next.rights,'script-decision')
+-  next={...next,rights:{...allocated.root,absorptions:allocated.root.absorptions.map(a=>a.id===owner.id&&a.producerVersion==='absorption-rival-scripts/v8'?{...a,continuedScripts:a.continuedScripts.map(r=>r.project.id===project.id?{...r,project}:r),scriptDecisions:[...a.scriptDecisions,{id:allocated.id,projectId:project.id,kind:'accept',week:arrivalWeek}]}:a)}}
++  next={...next,rights:{...allocated.root,absorptions:allocated.root.absorptions.map(a=>a.id===owner.id&&a.producerVersion==='absorption-rival-scripts/v8'?{...a,continuedScripts:a.continuedScripts.map(r=>r.project.id===project.id?{...r,project}:r),scriptDecisions:[...a.scriptDecisions,{id:allocated.id,projectId:project.id,kind:'accept' as const,week:arrivalWeek}]}:a)}}
+  }
+  return next
+ }
