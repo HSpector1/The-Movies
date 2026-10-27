@@ -1,0 +1,27 @@
+{
+  "head": "PENDING",
+  "sourceManifestEntries": 0,
+  "sourceBinding": "PENDING root actual exact test installation/pinning before preflight",
+  "purpose": "Fixed genuine R03 buying R01 at C163 earlier silent production premise investigation",
+  "selector": {
+    "file": "tests/p16-continued-work-silent-phases76.test.ts",
+    "describe": "P16 genuine rival earlier silent continuation admission",
+    "it": "quotes actual163 unshot silent phase7 with all six original people into idle R03 before reaching the earlier-work producer"
+  },
+  "testPostimageSHA256": "3b46ce8b76a6267463480e2e2e932da2eb93f5a98641fd9546442a6128377fdf",
+  "budget": {
+    "milliseconds": 5000,
+    "timeoutOverride": false,
+    "setupInsideLeaf": true,
+    "ticks": 0
+  },
+  "expectedFailure": "absorption: rivalBuyerEarlierWorkProducerRequired",
+  "capture": {
+    "environment": "P16_ORIGINAL48_CAPTURE_ROOT",
+    "file": "r04-actual163.save48.json",
+    "sha256": "c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad"
+  },
+  "limits": "One author-specified leaf only; no compiler/fullfile repetition; no launch/binding by preparer",
+  "premiseMarker": "S8_RIVAL_EARLIER_REAL163_PREMISES",
+  "testPatchSHA256": "51a2a9927992053ee51945c2667f4bccd0123b2c179cb9043045d6971071ef56"
+}

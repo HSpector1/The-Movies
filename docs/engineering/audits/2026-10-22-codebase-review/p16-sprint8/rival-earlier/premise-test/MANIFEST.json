@@ -1,0 +1,73 @@
+{
+  "status": "FROZEN STATIC-UNRUN",
+  "target": "tests/p16-continued-work-silent-phases76.test.ts",
+  "baseHead": "3f672a24fe9a2ac59a3b58cb854211763a2f0204",
+  "sourceHead": "bef0a40c7aae1721db5cee75eb1ffa81b03471e5",
+  "describe": "P16 genuine rival earlier silent continuation admission",
+  "selector": "quotes actual163 unshot silent phase7 with all six original people into idle R03 before reaching the earlier-work producer",
+  "expectedOriginalSourceError": "absorption: rivalBuyerEarlierWorkProducerRequired",
+  "marker": "S8_RIVAL_EARLIER_REAL163_PREMISES",
+  "budgetMs": 5000,
+  "setupInsideLeaf": true,
+  "ticks": 0,
+  "newLeaves": 1,
+  "originalParameterizedLeavesPreserved": 6,
+  "capture": {
+    "environment": "P16_ORIGINAL48_CAPTURE_ROOT",
+    "file": "r04-actual163.save48.json",
+    "sha256": "c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad",
+    "provenance": "Original disclosed drained-R04 transaction fixture; unchanged R01/R03."
+  },
+  "artifacts": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-earlier/premise-test/preimage.ts",
+      "sha256": "5e27b42c4e59da20a00f2f5febe29838ceb04e0077576c04ef6c7b8bb899dc30",
+      "bytes": 14783
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-earlier/premise-test/postimage.ts",
+      "sha256": "3b46ce8b76a6267463480e2e2e932da2eb93f5a98641fd9546442a6128377fdf",
+      "bytes": 22241
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-earlier/premise-test/EARLIER-PREMISE-RED.patch",
+      "sha256": "51a2a9927992053ee51945c2667f4bccd0123b2c179cb9043045d6971071ef56",
+      "bytes": 8062
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-earlier/premise-test/extension.txt",
+      "sha256": "8be2a6aa3373d8669df45342d97ae23c4d8d238c76aae992ef07cf97d9df61d8",
+      "bytes": 7101
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-earlier/premise-test/NOTES.md",
+      "sha256": "f7860ff14e058141c513aa2d9da617a80f13581e40fdcddb4bf28546ede0d718",
+      "bytes": 3583
+    }
+  ],
+  "routeNote": {
+    "path": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-continuation/NEXT-PRODUCER.md",
+    "sha256": "c02212df43692baae4b399cadfed7274e6d7c8454d6421cda9406ec9df4c4ff6",
+    "bytes": 4529
+  },
+  "sourcePins": {
+    "acquisition.ts": "2cbb70958acfa77352d1c771a2bd46cacbf701bfeab9ad07349dae8c4c8bc0e0",
+    "continuedWork.ts": "a24aaaeb772199d82146c8aa1b51b97ef1c36e3d0a9d2c2a66cc3088281f2868",
+    "corporateConditionLive.ts": "8062cb9d0557f28592084b07ee878450a287bd06c2c8b22f1ed12f408cf30fe8",
+    "talentMarket.ts": "9c81a5e39c8c3fa64419f080918e6cca95872a371aa96a4416f9293790cf3094",
+    "promises.ts": "7bedd9e6e1210cb58f8950a2f2ed708802c1d8ed206a81af041830914c42c04b",
+    "careerLifecycle.ts": "338510e570d2ace8bdeaa24b989fe7783c2d4e4250e1929eb56fc8f149c5d1f6",
+    "propertyValuation.ts": "1a538f9b3992f03efee8c15eb106f6885d0610964a4ac7787ee5a4d341664821",
+    "rightsFinance.ts": "29d0b594a7101711dafc9cf09d94762bff302f7efcd686f90d832bafa0d305d8",
+    "dueDiligence.ts": "0b8045fd578553e9051658f2a7055879ca5a5b93754aacb19f04ca3543ee1bb6",
+    "save.ts": "8c98aad788980de0148b4998119fb2e4d628c48b3dd87b3d7e53e52c5bd0637e",
+    "tuning.ts": "2ca372df40dd150cdd50f650eb0e0f9cfc601551e6f29f231e3646773957d3f2"
+  },
+  "staticChecks": {
+    "allOriginalTextPreservedApartFromAdditiveImports": true,
+    "currentCheckoutTestMatchesPreimage": true,
+    "runtimeExecuted": false,
+    "checkoutWrites": false
+  },
+  "unproved": "Actual full quote/person choice/reserve and reaching close guard await coordinator runtime; no lifecycle assertion added."
+}

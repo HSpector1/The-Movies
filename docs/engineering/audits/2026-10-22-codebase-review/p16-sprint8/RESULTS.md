@@ -1,5 +1,13 @@
 # Sprint 8 obligation producer checkpoint
 
+## Earlier rival production admission prepared — 2026-10-26
+
+Current experimental checkpoint is 3f672a24fe9a2ac59a3b58cb854211763a2f0204, gameplay bef0a40c; records checkpoint 33f191e388c551e35d1bbdf8c1cefcc10771846b. One independent premise leaf is installed but uncommitted in tests/p16-continued-work-silent-phases76.test.ts. Exact patch, manifest and notes are preserved in p16-sprint8/rival-earlier/premise-test. Original six cases and 5000 ms budget remain unchanged.
+
+The fixed original163 input has idle stable R03 with no loan; R01 has genuine unshot phase7 work. The test must establish actual paid diligence, six-person retention, willingness/capacity and whole-transaction reserve before close. Static evidence is not admitted runtime proof. R02 remains occupied until R01 has already taken its first shot, so no concurrency or altered history is used. Expected original error is rivalBuyerEarlierWorkProducerRequired; it has NOT yet been reached by this witness.
+
+Foreign Godot was authoritatively observed during readiness inspection. No preflight or lane was launched; no foreign process was signaled. The exact original-red runner is prepared with selector/postimage pins but HEAD/source manifest remains pending. No source implementation yet. Next: when the host is actually available, bind actual source/HANDOFF, fresh preflight and sole-lane single leaf, then independent postflight before any source change. Preserve a failed admission as unreached later behavior. Browser approval and other existing program blockers remain; main unchanged.
+
 ## Complete market consumers — 2026-10-26, 20:17 CDT
 
 Published experimental source bef0a40c7aae1721db5cee75eb1ffa81b03471e5 passes all four existing market integration, atomicity, phases and retune files: 67/67 assertions, child/wrapper 0. All original budgets pass; maximum body 4836.593 ms. Phases retains its original explicit 600000 ms exception; other files use 5000 ms. No test, timeout or source edit was made.

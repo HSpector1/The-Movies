@@ -1,0 +1,97 @@
+--- a/tests/p16-continued-work-silent-phases76.test.ts
++++ b/tests/p16-continued-work-silent-phases76.test.ts
+@@ -17,6 +17,11 @@
+ import {buyerContinuedProductions,buyerContinuationWorkflows} from '../src/core/continuedWork.js'
+ import { tick } from '../src/core/tick.js'
+ import type { GameState } from '../src/core/types.js'
++import { guaranteedComp } from '../src/core/employment.js'
++import { actualP16Money } from '../src/core/rights.js'
++import { permittedBidderRefusal, spendableCash, weeklyFixedCost } from '../src/core/rightsFinance.js'
++import { TUNING } from '../src/core/tuning.js'
++import { continuedWorkRefusal, buyerOperatedProductions } from '../src/core/continuedWork.js'
+ const TARGET='studio-aca408ec-r01',FILM=TARGET+':film:13'
+ const PIN='c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad'
+ 
+@@ -179,3 +184,82 @@
+   originalUnchanged(p)
+  })
+ })
++
++// Fixed actual163 candidate only: R02 is still filming; use the capture's already idle R03.
++describe('P16 genuine rival earlier silent continuation admission',()=>{
++ it('quotes actual163 unshot silent phase7 with all six original people into idle R03 before reaching the earlier-work producer',()=>{
++  const root=process.env.P16_ORIGINAL48_CAPTURE_ROOT;expect(root).toBeTruthy()
++  const bytes=readFileSync(root+'/r04-actual163.save48.json')
++  expect(createHash('sha256').update(bytes).digest('hex')).toBe(PIN)
++  // Preserve the original disclosed drained-R04 fixture; R01/R03 are unchanged.
++  const raw=JSON.parse(bytes.toString()),rawBefore=JSON.stringify(raw)
++  const old=saves.validateSaveP15B(raw),oldBefore=JSON.stringify(old)
++  const current=saves.convertV48ToV49(old),state=current.state,before=JSON.stringify(state)
++  expect(old.saveVersion).toBe(48);expect(current.saveVersion).toBe(49);expect(state.market.tick).toBe(163)
++  saves.makeSave(state)
++  const buyerId='studio-aca408ec-r03',source=state.hollywood!.businesses.find(b=>b.studioId===TARGET)!
++  const buyer=state.hollywood!.businesses.find(b=>b.studioId===buyerId)!
++  expect(state.hollywood!.playerStudioId).not.toBe(buyerId)
++  expect(source.productions).toHaveLength(1);expect(source.runs).toEqual([])
++  const production=source.productions[0]!,script=source.development.projects.find(p=>p.productionId===FILM)!
++  expect(production).toMatchObject({id:FILM,startTick:161,remainingTicks:7})
++  expect(script).toMatchObject({id:'script-0013',status:'inProduction',conceptId:production.conceptId})
++  expect(source.development.projects.filter(p=>p.status==='drafting'||p.status==='rewriting')).toEqual([])
++  expect(state.firstTakes.filter(t=>t.productionId===FILM)).toEqual([])
++  expect(state.technology.productions.filter(p=>p.productionId===FILM)).toEqual([])
++  expect(source.operations.workflows.find(w=>w.productionId===FILM))
++   .toMatchObject({phase:'preProduction',setup:null,blocker:null,shootingTask:null,bindings:{requiresSetBinding:false,setId:null}})
++  expect(continuedWorkRefusal(state,TARGET,production)).toBeNull()
++  expect(buyerOperatedProductions(state,buyerId)).toEqual([]);expect(buyer.costCutting.since).toBeNull()
++  expect(buyer.operations).toMatchObject({mode:'managed',workflows:[]})
++  expect(buyer.development.projects.filter(p=>p.status==='drafting'||p.status==='rewriting'||p.status==='review')).toEqual([])
++  for(const id of [buyerId,TARGET]) {
++   expect(conditionRecord(state,id)?.condition).toMatchObject({stage:'stable',week:163})
++   expect(outstandingLoan(state,id,163)).toBeUndefined()
++  }
++  expect(permittedBidderRefusal(state,buyerId,163)).toBeNull()
++  const employees=state.hollywood!.activeEmploymentOrdinals.map(i=>state.hollywood!.employment[i]!)
++   .filter(e=>e.studioId===TARGET&&e.endedWeek===null&&e.terms.startWeek<=163&&163<e.terms.endWeekExclusive)
++  expect(employees).toHaveLength(6);expect(employees.every(e=>e.terms.endWeekExclusive===208)).toBe(true)
++  const required=[production.writerId,production.directorId,...production.craftIds,...Object.values(production.cast)]
++  expect(employees.map(e=>e.terms.talentId).sort()).toEqual([...new Set(required)].sort())
++  expect(state.promises.filter(p=>p.issuerStudioId===TARGET&&p.outcome===null)).toEqual([])
++  expect(state.talentMarket.proposals.filter(p=>p.issuerStudioId===TARGET)).toEqual([])
++  expect(state.talentMarket.cases.filter(c=>c.subjectStudioId===TARGET&&c.closedWeek===null)).toEqual([])
++  const paid=requestDiligence(state,{recipientId:buyerId,target:{kind:'studio',studioId:TARGET},scope:['rights','employment','liabilities']},163)
++  expect(JSON.stringify(state)).toBe(before)
++  expect(paid.record).toMatchObject({week:163,recipientId:buyerId,target:{kind:'studio',studioId:TARGET},fee:TUNING.RIGHTS_DUE_DILIGENCE_FEE})
++  expect(paid.record.fee).toBeGreaterThan(0)
++  expect(paid.state.hollywood!.businesses.find(b=>b.studioId===buyerId)!.account.cash).toBe(buyer.account.cash-paid.record.fee)
++  expect(actualP16Money(paid.state,buyerId).dueDiligenceFee-actualP16Money(state,buyerId).dueDiligenceFee).toBe(-paid.record.fee)
++  expect(paid.state.studio).toEqual(state.studio);expect(paid.state.ledger).toEqual(state.ledger)
++  const paidBefore=JSON.stringify(paid.state),value=libraryValuationV1(paid.state,TARGET,163)
++  expect(value.kind).toBe('available');if(value.kind!=='available')throw new Error('fixed163 earlier continuation needs actual library valuation')
++  const consideration=acquisition.absorptionAsk(value.total,source.account.cash)
++  const preview={buyerId,targetId:TARGET,consideration,retention:{kind:'explicit' as const,contractIds:employees.map(e=>e.contractId)},disclosureId:paid.record.id}
++  const quote=acquisition.quoteAbsorption(paid.state,preview,163)
++  expect(quote.kind,'actual R03 person choice, capacity and complete reserve must admit this fixed route').toBe('quote')
++  if(quote.kind!=='quote')throw new Error(quote.refusal)
++  expect(quote.contracts.filter(c=>c.retained).map(c=>c.contractId)).toEqual(preview.retention.contractIds)
++  expect(quote.contracts.every(c=>c.reason===null&&c.busyOn===FILM)).toBe(true)
++  expect(quote.productions).toEqual([{productionId:FILM,remainingTicks:7,phase:'preProduction',missingParticipants:[],disposition:'continues',reason:null,blockedCapability:null}])
++  expect(quote.scripts).toEqual([]);expect(quote.runs).toEqual([])
++  expect(quote.exitCharges).toBe(0);expect(quote.targetCashBeforeExits).toBe(source.account.cash);expect(quote.postExitCash).toBe(source.account.cash)
++  expect(quote.guarantees).toBe(employees.reduce((sum,e)=>sum+guaranteedComp(e.terms,163),0))
++  expect(quote.affordable).toBe(true);expect(quote.ask).toBe(consideration)
++  expect(quote.outlay).toBe(consideration-source.account.cash)
++  expect(quote.resultingWeeklyFixedCost).toBe(Math.ceil(weeklyFixedCost(paid.state,buyerId)+employees.reduce((sum,e)=>sum+e.terms.annualSalary/TUNING.TICKS_PER_YEAR,0)+TUNING.OVERHEAD_PER_EMPLOYEE*employees.length))
++  expect(quote.reserveAfter).toBe(TUNING.RIGHTS_RESERVE_WEEKS*quote.resultingWeeklyFixedCost)
++  expect(spendableCash(paid.state,buyerId)-quote.outlay).toBeGreaterThanOrEqual(quote.reserveAfter)
++  const input={...preview,quotedAtWeek:quote.quotedAtWeek,quoteAgePolicyVersion:quote.quoteAgePolicyVersion}
++  expect(input).toMatchObject({quotedAtWeek:163,quoteAgePolicyVersion:1})
++  expect(acquisition.absorptionProducerRefusal(paid.state,input)).toBeNull()
++  console.info('S8_RIVAL_EARLIER_REAL163_PREMISES '+JSON.stringify({week:163,buyerId,targetId:TARGET,productionId:FILM,remainingTicks:production.remainingTicks,retained:preview.retention.contractIds,buyerCash:buyer.account.cash,consideration,outlay:quote.outlay,reserve:quote.reserveAfter,guarantees:quote.guarantees}))
++  // Original source RED must reach rivalBuyerEarlierWorkProducerRequired; no downstream claim yet.
++  try {acquisition.closeAbsorption(paid.state,input,163)}
++  finally {
++   expect(JSON.stringify(paid.state)).toBe(paidBefore);expect(JSON.stringify(state)).toBe(before)
++   expect(JSON.stringify(old)).toBe(oldBefore);expect(JSON.stringify(raw)).toBe(rawBefore)
++  }
++ })
++})
