@@ -43,7 +43,7 @@ import { generateIndustryTalent, FORCE_ORDER } from './worldgen.js'
 import { GENRE_ORDER, TUNING } from './tuning.js'
 import { clamp } from './math.js'
 import type { ReleaseGrowthRecord } from './releaseCareers.js'
-import type { GameState, Talent, FilmShape, Production, ScriptDevelopment, ScriptProject, LedgerEntry, Standing } from './types.js'
+import type { FilmResult, GameState, Talent, FilmShape, Production, ScriptDevelopment, ScriptProject, LedgerEntry, Standing } from './types.js'
 import type { HollywoodState, IndustryReceipt, LiveIndustryFilm, RivalBusiness } from './hollywoodTypes.js'
 
 /** Shared arithmetic receives the world generator's fixed force order after
@@ -469,13 +469,13 @@ function frozenRivalMembers(state:GameState,factorById:ReadonlyMap<string,number
  * P17 (review P17-04): the ONE continuation seam of every non-player release — the live continuation read before this
  * film's own result, then exactly one R/M/F update — so a rival or buyer-continued release of an installment (a locked
  * predecessor a player sequel cited) records its release like the player's own. */
-function publishCreatorRelease(state:GameState,h:HollywoodState,b:RivalBusiness,p:Production,talent:Talent[],week:number,receptionStanding:Standing,factorById?:ReadonlyMap<string,number>) {
+function publishCreatorRelease(state:GameState,h:HollywoodState,b:RivalBusiness,p:Production,talent:Talent[],week:number,receptionStanding:Standing,factorById?:ReadonlyMap<string,number>,sameWeek:readonly FilmResult[]=[]) {
   const people=new Map(talent.map(t=>[t.id,t]))
   const project=hotDevelopment(b).projects.find(s=>s.productionId===p.id)??carriedScriptForProduction({...state,hollywood:h},p.id)!
   const inp=inputsFor(state,h,{...b,standing:receptionStanding},p,project,people)
   // P15A.1 Wave 2 (1355-A §3.2): the rival release site of the seam.
   const factor=factorById?.get(p.id)
-  const live=continuationReleaseInput({...state,hollywood:h},p.id,{writerId:p.writerId,directorId:p.directorId,cast:{...p.cast}})
+  const live=continuationReleaseInput({...state,hollywood:h},p.id,{writerId:p.writerId,directorId:p.directorId,cast:{...p.cast}},sameWeek)
   const seamed:ReceptionInputs=live===undefined?inp:{...inp,inheritedAwareness01:live}
   const result=resolveReception(factor===undefined?seamed:{...seamed,competitionFactor:factor},stream(state.seed,'hollywood-v1',`${p.id}:reception`),true,true,stream(state.seed,'discovery-v1',p.id).gaussian(0,1))
   const base=buildFilmResult(result,{productionId:p.id,releaseTick:week,conceptId:p.conceptId,directorId:p.directorId})
@@ -502,7 +502,8 @@ function publishCreatorRelease(state:GameState,h:HollywoodState,b:RivalBusiness,
 
 /** Actual continued receptions at the reception boundary. Standing is applied by the ONE
  * buyer ordered Standing loop; no public state is published between reception and that update. */
-export function prepareContinuedReleases(state:GameState,productions:readonly Production[],receptionStanding:Standing,factors?:ReadonlyMap<string,number>) {
+// `sameWeek` (review B1): the player's films released earlier this tick, which the franchise root already records.
+export function prepareContinuedReleases(state:GameState,productions:readonly Production[],receptionStanding:Standing,factors?:ReadonlyMap<string,number>,sameWeek:readonly FilmResult[]=[]) {
   const source=state.hollywood
   const growth:ReleaseGrowthRecord[]=[]
   const records:{filmResult:ReturnType<typeof publishCreatorRelease>['filmResult'];benchmarks:import('./standing.js').ReleaseBenchmarks;ctx:StandingContext}[]=[]
@@ -514,7 +515,7 @@ export function prepareContinuedReleases(state:GameState,productions:readonly Pr
     const owner=rights.absorptions.find(a=>a.buyerId===h.playerStudioId && a.continuedProductions.some(r=>r.productionId===p.id))
     if(!owner || p.remainingTicks!==0 || owner.workReleases.some(r=>r.productionId===p.id))throw new Error('continued work: unknown/unready/replayed reception')
     const b=h.businesses.find(b=>b.studioId===owner.targetId)!
-    const released=publishCreatorRelease(withFranchises(state,franchises),h,b,p,state.talent,state.market.tick,receptionStanding,factors)
+    const released=publishCreatorRelease(withFranchises(state,franchises),h,b,p,state.talent,state.market.tick,receptionStanding,factors,sameWeek)
     franchises=released.franchises
     const benchmarks={expectedOpening:p.forecastSnapshot.expectedOpening,expectedTotal:p.forecastSnapshot.expectedTotal,expectedCriticScore:p.forecastSnapshot.expectedCriticScore}
     const observation={productionId:p.id,week:state.market.tick,titleEventId:null,standingBefore:cloneStanding(receptionStanding),standingAfter:cloneStanding(receptionStanding),standingContext:structuredClone(released.ctx),benchmarks}
@@ -527,7 +528,7 @@ export function prepareContinuedReleases(state:GameState,productions:readonly Pr
   return {hollywood:h,rights,growth,records,franchises}
 }
 
-export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<string,number>):{hollywood:HollywoodState|null;talent:Talent[];growth:ReleaseGrowthRecord[];technology:GameState['technology'];physicalPlans:GameState['physicalPlans'];
+export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<string,number>,sameWeek:readonly FilmResult[]=[]):{hollywood:HollywoodState|null;talent:Talent[];growth:ReleaseGrowthRecord[];technology:GameState['technology'];physicalPlans:GameState['physicalPlans'];
   /** P14B.1 (1): this week's rival first takes (the 5 -> 4 advance), handed to
    * the outer tick so the ONE first-take root is appended in one place. */
   firstTakes:{studioId:string;production:Production}[];
@@ -627,7 +628,7 @@ export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<str
     for(const p of releasing) {
       const transaction=rights.absorptions.find(a=>a.buyerId===b.studioId && a.continuedProductions.some(row=>row.productionId===p.id))
       const creator=transaction?h.businesses.find(row=>row.studioId===transaction.targetId)!:b
-      const released=publishCreatorRelease(working(),h,creator,p,talent,week,startStanding,factorById)
+      const released=publishCreatorRelease(working(),h,creator,p,talent,week,startStanding,factorById,sameWeek)
       rights=released.rights
       franchises=released.franchises
       const before=b.standing

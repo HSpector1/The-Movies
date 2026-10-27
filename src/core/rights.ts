@@ -819,10 +819,29 @@ export function greenlightRightsRefusal(state: GameState, studioId: string, conc
   if (!state.hollywood) return null
   const propertyId = storyPropertyId(conceptId)
   const existing = resolveTitles(state).properties.find((p) => p.propertyId === propertyId)
-  if (existing === undefined) return null
+  if (existing === undefined) {
+    // P17 review S2: a concept linked as a continuation work of another property founded nothing of its own; producing
+    // it again is a remake of that parent's story, under the parent's remake authority (never a clean R1).
+    const parent = linkedContinuationParent(state, conceptId)
+    if (parent === null) return null
+    const linked = permissionFor(state, studioId, { right: 'R1', propertyId: parent }, 'R3', { use: SAME_CONCEPT_GREENLIGHT_USE }, week)
+    return linked.kind === 'permitted' ? null : `rights: ${studioId} has no continuation authority over ${parent} (${linked.reason}); ${conceptId} is a linked continuation work of it`
+  }
   if (existing.virtual && productionId !== null && existing.workLinks.every((link) => link === productionId)) return null
   const permission = permissionFor(state, studioId, { right: 'R1', propertyId }, 'R3', { use: SAME_CONCEPT_GREENLIGHT_USE }, week)
   return permission.kind === 'permitted' ? null : `rights: ${studioId} has no continuation authority over ${propertyId} (${permission.reason})`
+}
+
+/** P17 review S2: the property a player concept's earlier production was linked under as a continuation
+ * (`linkContinuationAtGreenlight`), or null. Only persisted links count: the link writer always materializes. */
+function linkedContinuationParent(state: GameState, conceptId: string): string | null {
+  const own = storyPropertyId(conceptId)
+  // ponytail: reads the live player works only; a linked production later cancelled leaves no concept to match, so its
+  // concept may found a property again. Add the cancelled ledger ids here if that route needs closing.
+  const works = new Set([...state.studio.releasedFilms.filter((f) => f.conceptId === conceptId).map((f) => f.productionId),
+    ...state.studio.activeProductions.filter((p) => p.conceptId === conceptId).map((p) => p.id)])
+  if (works.size === 0) return null
+  return state.rights.properties.find((p) => p.propertyId !== own && p.workLinks.some((w) => works.has(w)))?.propertyId ?? null
 }
 
 /** Append `workId` to a property's links, materializing a virtual property first; a present link is a no-op. */
@@ -846,6 +865,9 @@ export function mintStoryPropertyAtGreenlight(state: GameState, input: { studioI
   const existing = resolveTitles(state).properties.find((p) => p.propertyId === propertyId)
   const ownFactOnly = existing !== undefined && existing.virtual && existing.workLinks.every((link) => link === input.production.id)
   if (existing !== undefined && !ownFactOnly) return linkWork(state, propertyId, input.production.id)
+  // P17 review S2: the remake of a linked continuation work links to that work's parent (authority checked above).
+  const parent = existing === undefined ? linkedContinuationParent(state, input.production.conceptId) : null
+  if (parent !== null) return linkWork(state, parent, input.production.id)
   const concept = (input.studioId === h.playerStudioId ? state.concepts : h.concepts).find((c) => c.id === input.production.conceptId) ?? (input.studioId===h.playerStudioId?carriedConceptForProduction(state,input.production.id,carriedProduction):undefined)
   const title = concept?.title ?? null
   const property: StoryProperty = { propertyId, conceptId: input.production.conceptId, creatorStudioId: input.studioId, createdAt: { kind: 'campaign', week: input.week },

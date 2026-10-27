@@ -633,7 +633,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     )?.bindings
     const boundSetId = releasedBindings?.setId ?? null
     // P17 (rev02 §5.3): the live continuation read, from then-current state BEFORE this film's own result.
-    const inheritedAwareness01 = continuationReleaseInput(withFranchises(state, franchises), prod.id, { writerId: prod.writerId, directorId: prod.directorId, cast: { ...prod.cast } })
+    // Review B1: `releasedFilms` carries this tick's earlier releases, which `franchises` already marks released.
+    const inheritedAwareness01 = continuationReleaseInput(withFranchises(state, franchises), prod.id, { writerId: prod.writerId, directorId: prod.directorId, cast: { ...prod.cast } }, releasedFilms)
 
     const inp: ReceptionInputs = {
       concept,
@@ -889,7 +890,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // ── 4. STANDING ────────────────────────────────────────────────────────────
   // Accumulate the three channels sequentially, IN ascending-id order (records is
   // already in release order). Start from start-of-tick standing.
-  const continuedReception=prepareContinuedReleases(withFranchises({...admitted,technology:researchAdvance.technology},franchises),continuedReleasing,startOfTickStanding,marketBatch?.factorById)
+  const continuedReception=prepareContinuedReleases(withFranchises({...admitted,technology:researchAdvance.technology},franchises),continuedReleasing,startOfTickStanding,marketBatch?.factorById,releasedFilms)
   franchises=continuedReception.franchises
   let continuedRights=continuedReception.rights
   const continuedStandingRecords: Pick<ReleaseRecord,'filmResult'|'benchmarks'|'ctx'>[] = continuedReception.records
@@ -1010,7 +1011,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // develops once per release, in release order, over the evolving talent list.
   // P15A.1 Wave 2 (1355-A §3.1 item 5, §3.2): the rival release site, witnessed against the batch.
   // P17 (review P17-05): the rival releases read and update the same root; the market factor argument is unchanged.
-  const industry = advanceHollywoodWeek(withFranchises({...admitted,hollywood:continuedReception.hollywood,rights:continuedRights,technology:researchAdvance.technology},franchises), marketBatch?.rivalFactorById)
+  const industry = advanceHollywoodWeek(withFranchises({...admitted,hollywood:continuedReception.hollywood,rights:continuedRights,technology:researchAdvance.technology},franchises), marketBatch?.rivalFactorById, releasedFilms)
   franchises = industry.franchises
   for(const receipt of industry.absorbedRunRevenue) {cash+=receipt.amount;ledger.push(receipt)}
   // The develop switch belongs to the frozen player corpus. A living industry's

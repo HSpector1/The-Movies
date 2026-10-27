@@ -27,6 +27,10 @@ type Root = { properties: { storyPropertyId: string; installments: Edge[]; branc
 const rootOf = (s: GameState): Root | undefined => (s as GameState & { franchises?: Root }).franchises
 const worksOf = (s: GameState, propertyId: string): string[] => resolveTitles(s).properties.find((p) => p.propertyId === propertyId)?.workLinks ?? []
 const lineage = (s: GameState) => rootOf(s)?.properties.map((p) => ({ property: p.storyPropertyId, edges: p.installments.map((e) => [e.childProductionId, e.type, e.parentProductionId]) }))
+/** Every P16 property id; the route's other films (mintRoute's world, rival releases) found their own lawfully. */
+const propertyIds = (s: GameState): string[] => s.rights.properties.map((p) => p.propertyId).sort()
+/** The properties whose works include `workId`: a linked continuation sits under exactly its parent. */
+const homesOf = (s: GameState, workId: string): string[] => resolveTitles(s).properties.filter((p) => p.workLinks.includes(workId)).map((p) => p.propertyId)
 
 describe('P17-01 link versus mint: a continuation joins its parent property and never founds a clean title', () => {
   let A: string, P: string, released: GameState, b: { state: GameState; productionId: string }, bConcept: string
@@ -40,24 +44,43 @@ describe('P17-01 link versus mint: a continuation joins its parent property and 
     b = greenlightAs(released, concept, { type: 'directSequel', predecessorProductionId: A })
   })
 
+  // Lane GREEN r4 (fix 2, G2): the route's other films found their own properties lawfully, so the law is pinned as the
+  // property set across the continuation greenlight (the predecessor grows it by exactly the sequel's own mint).
   it('the player\'s own sequel is a work of the parent property; its own concept founds no property and no R1 genesis', () => {
-    expect(b.state.rights.properties.map((p) => p.propertyId)).toEqual([P])
+    expect(propertyIds(b.state)).toEqual(propertyIds(released))
+    expect(propertyIds(b.state)).not.toContain(storyPropertyId(bConcept))
     expect(b.state.rights.titleEvents.filter((e) => e.subject.right === 'R1' && e.subject.propertyId === storyPropertyId(bConcept))).toEqual([])
-    expect(worksOf(b.state, P)).toContain(b.productionId)
+    expect(homesOf(b.state, b.productionId)).toEqual([P])
     expect(lineage(b.state)).toEqual([{ property: P, edges: [[A, 'origin', null], [b.productionId, 'directSequel', A]] }])
   })
 
   describe('released, then continued again', () => {
-    let bReleased: GameState, c: { state: GameState; productionId: string }
+    let bReleased: GameState, c: { state: GameState; productionId: string }, cConcept: string
     beforeAll(() => {
       bReleased = releaseNow(b.state, b.productionId)
-      c = greenlightAs(bReleased, freshConcept(bReleased), { type: 'directSequel', predecessorProductionId: b.productionId })
+      const concept = freshConcept(bReleased)
+      cConcept = concept.id
+      c = greenlightAs(bReleased, concept, { type: 'directSequel', predecessorProductionId: b.productionId })
     })
 
+    // Fix 2, G3: rival releases during the sequel's production may found their own properties; none is the sequel's.
     it('the sequel\'s release is titled under the parent; the third installment resolves through it to the same property', () => {
+      expect(propertyIds(bReleased)).not.toContain(storyPropertyId(bConcept))
+      expect(homesOf(bReleased, b.productionId)).toEqual([P])
       expect(bReleased.rights.filmTitles.find((t) => t.filmId === b.productionId)!.propertyId).toBe(P)
-      expect(c.state.rights.properties.map((p) => p.propertyId)).toEqual([P])
+      expect(propertyIds(c.state)).toEqual(propertyIds(bReleased))
+      expect(propertyIds(c.state)).not.toContain(storyPropertyId(cConcept))
+      expect(homesOf(c.state, c.productionId)).toEqual([P])
       expect(lineage(c.state)).toEqual([{ property: P, edges: [[A, 'origin', null], [b.productionId, 'directSequel', A], [c.productionId, 'directSequel', b.productionId]] }])
+    })
+
+    // Review S2 (P16 contract §3; P16's same-concept rule "producing the same story again is a remake"): the sequel's
+    // concept founded nothing, so a later PLAIN greenlight of it is a remake of the parent's story, linked to the parent.
+    it('a plain greenlight of the linked sequel\'s concept founds no clean title: the title holder\'s remake links to the parent', () => {
+      const again = greenlightAs(bReleased, bReleased.concepts.find((x) => x.id === bConcept)!)
+      expect(propertyIds(again.state)).toEqual(propertyIds(bReleased))
+      expect(again.state.rights.titleEvents.filter((e) => e.subject.right === 'R1' && e.subject.propertyId === storyPropertyId(bConcept))).toEqual([])
+      expect(homesOf(again.state, again.productionId)).toEqual([P])
     })
 
     it('the live save carries the franchise root at Save50 and round-trips byte for byte', () => {
@@ -102,6 +125,19 @@ describe('P17-01 under a licence: the licensee links to the licensor\'s property
     expect(() => greenlightAs(short, freshConcept(short), { type: 'directSequel', predecessorProductionId: A }))
       .toThrow(new RegExp(`only until week ${short.market.tick + TUNING.PRODUCTION_TICKS}; the grant must cover the picture's earliest release week ${short.market.tick + TUNING.PRODUCTION_TICKS}`))
     expect(stableStringify(short)).toBe(before)
+  })
+
+  // Review S2: the remake of a licensed sequel's concept is a remake of the licensor's story. Without the parent's remake
+  // authority it refuses before any write; it never founds an unencumbered title for the licensee.
+  it('a plain greenlight of the licensed sequel\'s concept needs the parent\'s remake authority, and refuses without it', () => {
+    const licensed = buyLicence(sold, r01, P, 'sequel', 26)
+    const concept = freshConcept(licensed)
+    const b = greenlightAs(licensed, concept, { type: 'directSequel', predecessorProductionId: A })
+    const out = releaseNow(b.state, b.productionId)
+    const before = stableStringify(out)
+    expect(() => greenlightAs(out, concept)).toThrow(new RegExp(`has no continuation authority over ${P} .*; ${concept.id} is a linked continuation work of it`))
+    expect(stableStringify(out)).toBe(before)
+    expect(propertyIds(out)).not.toContain(storyPropertyId(concept.id))
   })
 
   describe('a licence that lapses while the picture waits at Release Ready', () => {
@@ -150,6 +186,44 @@ describe('P17-02 parent-bound spin-off authority: a spin-off continuity answers 
     const property = rootOf(main.state)!.properties[0]!
     const edge = property.installments.find((e) => e.childProductionId === main.productionId)!
     expect(property.branches.find((x) => x.branchId === edge.branchId)!.kind).toBe('main')
+  })
+})
+
+// Review B1 (blocking): the tick's release read must see the films this same tick already released, because the root
+// records them as released the moment they do. A sequel (greenlit first, so released first: ascending ids) and a reboot of
+// the same property releasing in one week made the reboot's prior-continuity comparison cite the sequel, whose result the
+// read could not see, and the tick threw on every replay.
+describe('P17 same-week release: a sequel and a reboot of one property release in the same tick', () => {
+  let committed: GameState, after: GameState, A: string, seqId: string, rebootId: string
+  beforeAll(() => {
+    const route = mintRoute('p17-p16-same-week-01')
+    A = route.productionId
+    const used = new Set<string>()
+    const seq = greenlightAs(route.released, freshConcept(route.released), { type: 'directSequel', predecessorProductionId: A }, used)
+    const reboot = greenlightAs(seq.state, freshConcept(seq.state), { type: 'reboot', predecessorProductionId: A }, used)
+    seqId = seq.productionId
+    rebootId = reboot.productionId
+    let s = reboot.state
+    for (let i = 0; i < TUNING.PRODUCTION_TICKS; i++) s = tick(s)
+    committed = applyActions(s, [{ kind: 'commitPictureToRelease', productionId: seqId }, { kind: 'commitPictureToRelease', productionId: rebootId }])
+    after = tick(committed)
+  })
+
+  it('both release that week, the sequel first; each continuity records its own release once', () => {
+    expect(seqId < rebootId).toBe(true)
+    const weeks = after.studio.releasedFilms.filter((f) => f.productionId === seqId || f.productionId === rebootId).map((f) => [f.productionId, f.releaseTick])
+    expect(weeks.map(([id]) => id)).toEqual([seqId, rebootId])
+    expect(weeks[0]![1]).toBe(weeks[1]![1])
+    const property = rootOf(after)?.properties[0]
+    expect(property?.installments.map((e) => [e.childProductionId, e.type, (e as Edge & { releasedWeek: number | null }).releasedWeek]))
+      .toEqual([[A, 'origin', expect.any(Number)], [seqId, 'directSequel', weeks[0]![1]], [rebootId, 'reboot', weeks[1]![1]]])
+    expect(property?.branches.map((x) => x.kind)).toEqual(['main', 'reboot'])
+  })
+
+  it('the release week replays byte for byte, and its save validates and round-trips', () => {
+    expect(stableStringify(tick(committed))).toBe(stableStringify(after))
+    const bytes = exportSave(makeSave(after))
+    expect(exportSave(migrateToLive(importSave(bytes)))).toBe(bytes)
   })
 })
 

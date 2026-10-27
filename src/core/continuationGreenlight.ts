@@ -21,10 +21,11 @@ import {
 import { linkContinuationAtGreenlight, storyPropertyId } from './rights.js'
 import type { Action, FilmResult, GameState } from './types.js'
 
-/** Every public FilmResult in the world (player library and living-industry simulation films). */
-export function publicFilmById(state: GameState): (id: string) => FilmResult | null {
+/** Every public FilmResult in the world (player library and living-industry simulation films), plus `sameWeek`: films
+ * this tick already released that the state it reads does not carry yet (review B1: the root marks them released). */
+export function publicFilmById(state: GameState, sameWeek: readonly FilmResult[] = []): (id: string) => FilmResult | null {
   return (id) => {
-    const own = state.studio.releasedFilms.find((f) => f.productionId === id)
+    const own = state.studio.releasedFilms.find((f) => f.productionId === id) ?? sameWeek.find((f) => f.productionId === id)
     if (own) return own
     for (const film of state.hollywood?.films ?? []) {
       if (film.provenance === 'simulation/v1' && film.filmId === id) return film.result
@@ -33,9 +34,9 @@ export function publicFilmById(state: GameState): (id: string) => FilmResult | n
   }
 }
 
-/** The world a quote or a release read sees: this state, at its own week. */
-export function continuationWorldOf(state: GameState): ContinuationWorld {
-  const film = publicFilmById(state)
+/** The world a quote or a release read sees: this state, at its own week, with this tick's earlier releases. */
+export function continuationWorldOf(state: GameState, sameWeek: readonly FilmResult[] = []): ContinuationWorld {
+  const film = publicFilmById(state, sameWeek)
   return {
     state,
     week: state.market.tick,
@@ -105,10 +106,11 @@ export function p17RightsHolds(state: GameState, productionIds: readonly string[
 }
 
 /** The live continuation read for a releasing picture, through the SAME composing function the quote ran, over
- * `state` before this film's own result. Undefined for a film with no continuation edge (the predecessor path). */
-export function continuationReleaseInput(state: GameState, productionId: string, principals: ProposedPrincipals): number | undefined {
+ * `state` before this film's own result. `sameWeek` carries the films this tick released before it, which the root
+ * already records as released (review B1). Undefined for a film with no continuation edge (the predecessor path). */
+export function continuationReleaseInput(state: GameState, productionId: string, principals: ProposedPrincipals, sameWeek: readonly FilmResult[] = []): number | undefined {
   if (state.franchises === undefined) return undefined
-  return continuationInputsAtRelease(continuationWorldOf(state), productionId, principals) ?? undefined
+  return continuationInputsAtRelease(continuationWorldOf(state, sameWeek), productionId, principals) ?? undefined
 }
 
 /** The `mintSubProperty` action: the player's hook on an exact released or locked film, under the parent's live

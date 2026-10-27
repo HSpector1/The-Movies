@@ -784,7 +784,8 @@ describe('P04A REOPEN — enumerated prior protocol-4 checkpoint import', () => 
         expect(original.savedSaveJson).not.toBeNull()
         for (const slot of [original.currentSaveJson, original.savedSaveJson!]) {
           expect(sha256(slot)).toBe('e62846b41b09e95fe1e6d139a0d8e7af3b1f3179606dbf61446746dbdd0f64ba')
-          expect(JSON.parse(slot)).toMatchObject({ saveVersion: 50, state: { market: { tick: 0 } } })
+          // The genuine fixture's own bytes: P16 Save49 (it predates P17). Its pin is the fixture's and does not move.
+          expect(JSON.parse(slot)).toMatchObject({ saveVersion: 49, state: { market: { tick: 0 } } })
         }
         let sessions = 0
         const loaded = loadBridgeRuntimeCheckpoint(raw, undefined, () => { sessions += 1; return 'fresh-session-projection-v63' })
@@ -793,13 +794,16 @@ describe('P04A REOPEN — enumerated prior protocol-4 checkpoint import', () => 
         expect(loaded.hydrated.checkpoint).toMatchObject({ schemaId: SCHEMA_ID, protocolVersion: PROTOCOL_VERSION,
           sessionId: 'fresh-session-projection-v63', stateRevision: 0, journal: [], journalDigest: sha256('[]') })
         expect(loaded.hydrated.journal).toEqual([])
-        // Both actual Save49 slots are already live; preserve their whole bytes.
-        expect(loaded.hydrated.checkpoint.currentSaveJson).toBe(original.currentSaveJson)
-        expect(loaded.hydrated.checkpoint.savedSaveJson).toBe(original.savedSaveJson)
-        expect(loaded.hydrated.currentSave).toEqual(JSON.parse(original.currentSaveJson))
-        expect(loaded.hydrated.savedSave).toEqual(JSON.parse(original.savedSaveJson!))
-        expect(loaded.hydrated.checkpoint.currentStateDigest).toBe(original.currentStateDigest)
-        expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(original.savedStateDigest)
+        // P17 (Save50): the actual Save49 slots are no longer live. The canonical chain lifts each through the P17 step,
+        // which changes the version alone (no franchise exists), so the state is the fixture's and the digests are new.
+        const lifted = (slot: string) => exportSaveJson(shipped47Save.migrateToLive(shipped47Save.importSave(slot)).state)
+        expect(loaded.hydrated.checkpoint.currentSaveJson).toBe(lifted(original.currentSaveJson))
+        expect(loaded.hydrated.checkpoint.savedSaveJson).toBe(lifted(original.savedSaveJson!))
+        expect(loaded.hydrated.currentSave).toEqual({ ...JSON.parse(original.currentSaveJson), saveVersion: LIVE_SAVE_VERSION })
+        expect(loaded.hydrated.savedSave).toEqual({ ...JSON.parse(original.savedSaveJson!), saveVersion: LIVE_SAVE_VERSION })
+        expect(loaded.hydrated.checkpoint.currentStateDigest).toBe(sha256(loaded.hydrated.checkpoint.currentSaveJson))
+        expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(sha256(loaded.hydrated.checkpoint.savedSaveJson ?? ''))
+        expect(loaded.hydrated.checkpoint.currentStateDigest).not.toBe(original.currentStateDigest)
         const encoded = encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint)
         const reopened = loadBridgeRuntimeCheckpoint(encoded, undefined, () => { throw new Error('current64 must not migrate again') })
         expect(reopened.migratedFromProtocolVersion).toBeNull()
