@@ -1,7 +1,8 @@
 // One fixed eight-tick diagnostic; not healthy drafting feature acceptance. Originally a missing-producer refusal witness; since
-// Sprint 7's buyer-side continuation producer the same premise is governed by buyer writing capacity: this buyer has no free
-// writing slot, so the retained script quotes continuationRequired/writerCapacityUnavailable and the close refuses with
-// retainedScriptCapacityProducerRequired (acquisition.ts close guard). Positive route with capacity: p16-retained-drafting-continuation.
+// Sprint 7's buyer-side continuation producer the same premise is governed by buyer writing capacity: this buyer has not
+// activated managed script development (scriptDevelopment mode 'legacy'), so the quote reports the retained script as
+// continuationRequired/writerCapacityUnavailable and the close refuses with retainedScriptCapacityProducerRequired
+// (acquisition.ts close guard). Positive route after activateScriptDevelopment: p16-retained-drafting-continuation.
 import {describe,it,expect} from 'vitest'
 import {readFileSync} from 'node:fs'
 import {createHash} from 'node:crypto'
@@ -103,7 +104,6 @@ function capacityRefused(p:ReturnType<typeof prepared>,retention:{kind:'default'
  if(quote.kind!=='quote')throw new Error(quote.refusal)
  expect(quote.affordable).toBe(true)
  expect(quote.scripts).toHaveLength(p.quote.scripts.length)
- console.info('S9_DRAFT171_QUOTE_SCRIPTS '+JSON.stringify({retention,scripts:quote.scripts,contracts:quote.contracts.map(c=>({contractId:c.contractId,retained:c.retained}))}))
  expect(quote.scripts.every(q=>q.disposition==='continuationRequired'&&q.reason==='writerCapacityUnavailable')).toBe(true)
  const input={...preview,quotedAtWeek:quote.quotedAtWeek,quoteAgePolicyVersion:quote.quoteAgePolicyVersion}
  expect(absorptionProducerRefusal(p.paid.state,input)).toBeNull()
