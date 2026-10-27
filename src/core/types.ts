@@ -2373,7 +2373,8 @@ export type GameStateV31 = GameStateV30 & {
 // V45 is the shared P15 step: slice 2a adds the Power Ranking archive and the one P15 allocator,
 // P15A.1 Wave 2 adds the shared-market root, and P15C Wave 2 adds the Campaign Legacy root.
 // V46 is the P16 rights step: the `rights` root (rights.ts) and the three rights money kinds.
-export type GameState = GameStateV49
+// P17 (save.ts P17_SAVE_VERSION) adds the `franchises` root, present once a continuation exists.
+export type GameState = GameStateP17
 
 // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
 
@@ -2809,6 +2810,87 @@ export type GameStateV48 = GameStateP15B
  */
 export type GameStateV49 = GameStateP15B & { rights: import('./rights.js').RightsRoot }
 
+// ── P17 continuations (save step P17_SAVE_VERSION in save.ts; src/core/continuationSave.ts) ──────────────────────
+// Canonical rev02 f2eff635 §5.2/§9/§10; charter r2 (1370-ae). The franchise root carries NO owner/studio field
+// and NO status switch: rights are a live P16 read (rights.ts permissionFor / branchAuthority), bands and "open"
+// derive from release weeks and meters. The root is absent until the first accepted continuation greenlight or
+// SubProperty hook writes a property, and never empties again (append-only), so absence is the one encoding of
+// "no franchise": a predecessor-era state reads unchanged and a save never carries an empty root.
+/** The five continuation types (rev02 Direction A); a dormant return is a DirectSequel, never a sixth. */
+export type ContinuationType = 'directSequel' | 'prequel' | 'remake' | 'reboot' | 'spinOff'
+/** A lineage edge's type: a continuation, or the property's founding installment. */
+export type LineageEdgeType = ContinuationType | 'origin'
+/** The §5.2 running scalars of one StoryProperty (or one SubProperty): Recognition and Fatigue. */
+export type PropertyMeter = {
+  bestScore: number
+  residualScoreSum: number
+  peakInstallmentId: string | null
+  rPeak: number
+  fatigue: number
+  fatigueUpdateWeek: number
+  fatigueLastQuality: number | null
+  releaseCount: number
+  /** True only for a property meter that may still exempt its first-ever film from Fatigue (C5). */
+  firstFilmExempt: boolean
+}
+export type FranchiseBranchKind = 'main' | 'reboot' | 'spinoff'
+/** One continuity: its Momentum scalars and release gaps. A spin-off branch points at its SubProperty. */
+export type FranchiseBranch = {
+  branchId: string
+  kind: FranchiseBranchKind
+  subPropertyId: string | null
+  openedAtWeek: number
+  momentum: number
+  momentumUpdateWeek: number
+  lastReleaseWeek: number | null
+  priorGapWeeks: number | null
+}
+/** Append-only lineage: child → parent, typed, on a branch, with its similarity bucket. `studioId` and `greenlitWeek`
+ * are the greenlighting studio and week of a continuation; the founding (origin) film's are existing history, so both
+ * are null there (no fabricated provenance). */
+export type LineageEdge = {
+  childProductionId: string
+  parentProductionId: string | null
+  type: LineageEdgeType
+  branchId: string
+  similarity: number
+  greenlitWeek: number | null
+  studioId: string | null
+  releasedWeek: number | null
+}
+/** rev02 §10 closed, versioned milestone enum, v1: `activeAgain` (a continuity whose prior gap was ≥ DORMANT_WEEKS lands
+ * a release with non-negative Momentum). `legacyCameo` is an optional display feature outside this slice. */
+export type FranchiseMilestoneId = 'activeAgain'
+export type FranchiseMilestone = { milestoneId: FranchiseMilestoneId; productionId: string; week: number }
+export type SubPropertyKind = 'character' | 'organization' | 'location' | 'concept'
+export type SubProperty = {
+  subPropertyId: string
+  kind: SubPropertyKind
+  mintedAtProductionId: string
+  citedTalentIds: string[]
+  hookWeight: number
+  mintedWeek: number
+  meter: PropertyMeter
+  /** The P16-minted StoryProperty this hook was promoted into; always null while P16 has no promotion producer. */
+  promotedToStoryPropertyId: string | null
+}
+export type FranchiseProperty = {
+  storyPropertyId: string
+  franchiseId: string
+  mintedWeek: number
+  meter: PropertyMeter
+  branches: FranchiseBranch[]
+  installments: LineageEdge[]
+  subProperties: SubProperty[]
+  /** Append-only, at most one per installment release. */
+  milestones: FranchiseMilestone[]
+}
+export type FranchiseRoot = { version: 1; nextOrdinal: number; properties: FranchiseProperty[] }
+export type P17StepRoots = { franchises?: FranchiseRoot }
+export type GameStateP17 = GameStateV49 & P17StepRoots
+/** The conventional name (save.ts's alias rule). */
+export type GameStateV50 = GameStateP17
+
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.
 // Autopsy (film-centric) and Talent Profile (talent-centric) BOTH render from this —
@@ -2861,6 +2943,9 @@ export type Action =
   | {
       kind: 'greenlight'
       production: Omit<Production, 'id' | 'startTick' | 'remainingTicks' | 'forecastSnapshot'>
+      // P17: an optional continuation request, read against the live P16 rights and committed atomically with the
+      // production. Absent ⇒ the predecessor path, byte for byte.
+      continuation?: import('./continuation.js').ContinuationRequest
     }
   | { kind: 'cancel'; productionId: string }
   | { kind: 'createTalent'; talent: AuthoredTalentInput } // §10 (legacy budget creator)
@@ -2900,7 +2985,9 @@ export type Action =
   | { kind: 'renameScreenplay'; conceptId: string; title: string }
   | { kind: 'requestScriptRewrite'; projectId: string }
   | { kind: 'acceptScript'; projectId: string }
-  | { kind: 'greenlightScriptProject'; production: GreenlightScriptProjectPayload }
+  // P17: the same optional continuation request. It rides the ACTION, never the queued payload: a continuation is
+  // quoted against this week's grant, so it starts now or refuses; the frozen queue leaf is never widened.
+  | { kind: 'greenlightScriptProject'; production: GreenlightScriptProjectPayload; continuation?: import('./continuation.js').ContinuationRequest }
   // ── Casting Sessions V1 ──
   | { kind: 'activateCastingSessions' }
   | { kind: 'startCastingSession'; session: StartCastingSessionPayload }
@@ -2926,6 +3013,8 @@ export type Action =
   | { kind: 'strikeSet'; setId: string }
   // ── P06A release authority (charter W1) — the ONE explicit release commitment ──
   | { kind: 'commitPictureToRelease'; productionId: string }
+  // ── P17: mint an authored SubProperty hook on an exact film of a property the studio may spin off (rev02 §9.1-2) ──
+  | { kind: 'mintSubProperty'; productionId: string; hookKind: SubPropertyKind; citedTalentIds: string[] }
   // ── P13B-S5-R07 — the reviewed setup-plan verb ──
   // It names a production, a catalogue recipe and the plan revision it was
   // reviewed against, and nothing else: a setup plan cannot reach a stage, a

@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest'
 import { extensionIssuer, retirementRecordFor } from '../src/core/careerLifecycle.js'
 import { activeContract } from '../src/core/employment.js'
 import { professionAtWeek } from '../src/core/index.js'
-import { exportSave, importSave, makeSave, migrateToLive, migrateToV44, stableStringify, validateSaveV49 } from '../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToLive, migrateToV44, stableStringify, validateSaveV50 } from '../src/core/save.js'
 import { marketEligibility, openMarketCaseFor, playerOffer, submitProposal } from '../src/core/talentMarket.js'
 import { careerIdentity } from '../src/core/talentSummary.js'
 import { TUNING } from '../src/core/tuning.js'
@@ -180,7 +180,7 @@ describe.each(DUAL_TARGETS)('C.3 actor→%s two genuine profession extensions', 
     // Own-era romance remains in p14b10-save-v44.test.ts; V39 remains in
     // p13b-s3-save-v23.test.ts; shelving remains in p14d1-rival-shelving-save-v43.test.ts.
     const savedBytes = stableStringify(saved)
-    expect(validateSaveV49(saved)).toBe(saved)
+    expect(validateSaveV50(saved)).toBe(saved)
     expect(stableStringify(saved)).toBe(savedBytes)
     expect(saved.state.hollywood!.businesses.some(b => b.costCutting.since !== null)).toBe(true)
     expect(saved.state.hollywood!.businesses.every(b => b.account.periods.every(p => p.movements.facilityDemolitionRefund === 0))).toBe(true)
@@ -192,7 +192,7 @@ describe.each(DUAL_TARGETS)('C.3 actor→%s two genuine profession extensions', 
     // on the week-133 Save48 control in p15b2-corporate-condition-save and p15a2-power-ranking-archive.
     expect(() => migrateToV44(saved as never)).toThrow(RIGHTS_ROOT_REFUSAL)
     expect(stableStringify(saved)).toBe(savedBytes)
-    expect(validateSaveV49(saved)).toBe(saved)
+    expect(validateSaveV50(saved)).toBe(saved)
     expect(stableStringify(saved)).toBe(savedBytes)
     accepted(loaded)
   })

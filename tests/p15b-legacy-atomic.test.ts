@@ -69,7 +69,7 @@ describe('p15b early complete aggregate transaction controls', () => {
     // Proposed inter-module seam: aggregate finishes through the real exported full reader. A rights-era input finishes
     // through the live reader (studioClosure.ts picks validateSaveV49 when the state carries `rights`), named by the helper.
     expect(Object.hasOwn(input, 'rights'), 'premise: a live-era input').toBe(true)
-    const spy = vi.spyOn(save, validateLiveSave.name as 'validateSaveV49').mockImplementation(() => { throw new Error('fault: final joined reader') })
+    const spy = vi.spyOn(save, validateLiveSave.name as 'validateSaveV50').mockImplementation(() => { throw new Error('fault: final joined reader') })
     try {
       expect(() => closure.advanceStudioClosureWeek(input)).toThrow('fault: final joined reader')
       expect(spy).toHaveBeenCalled(); expect(canon(input)).toBe(bytes)

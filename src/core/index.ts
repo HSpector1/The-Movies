@@ -1825,3 +1825,19 @@ export { absorptionRefusal, absorptionDisclosureRefusal, absorptionAsk, rivalAbs
 export type { AbsorptionInput, AbsorptionQuote, AbsorptionRefusal, AbsorptionContractQuote, AbsorptionProductionQuote, RetentionChoice, ContractRetentionReason, ProductionDisposition, ProductionDispositionReason } from './acquisition.js'
 
 export { buyerScriptConcepts } from './continuedScripts.js'
+
+// ── P17 (Save50): continuations — five typed lineages, Recognition/Momentum/Fatigue, the franchise root ──
+// Rights are P16's live readers (`permissionFor` for a main/reboot continuity, `branchAuthority` for a spin-off one).
+export { P17_CONTINUATION_TYPES, qualityOf, reach01, surpriseOf, similarityOf, recognitionAt, recognitionReported, fatigueAt, momentumAt,
+  awarenessInput, composeInheritedAwareness, continuationAwareness, branchBand } from './continuationSignals.js'
+export type { BranchMomentum, ContinuationBand, ReleaseFacts } from './continuationSignals.js'
+export { continuationUseOf, continuationRightsRefusal, continuationQuote, franchisesOf, installmentEdgeFor, openContinuityCount, promotionEligible,
+  talentAssociations, continuityCredit } from './continuation.js'
+export type { ContinuationRequest, ContinuationQuote, ContinuationUse, ContinuationWorld, ProposedPrincipals, PromotionDecision, TalentAssociation, AssociationBand } from './continuation.js'
+export { continuationWorldOf, p17RightsHolds } from './continuationGreenlight.js'
+export { P17_ROOT_KEYS } from './continuationSave.js'
+export { P17_SAVE_VERSION, P17_PREDECESSOR_SAVE_VERSION, validateSaveP17, convertPredecessorToP17, convertP17ToPredecessor, migrateToP17,
+  validateSaveV50, convertV49ToV50, convertV50ToV49, migrateToV50 } from './save.js'
+export type { SaveFileP17, SaveFileV50 } from './save.js'
+export type { ContinuationType, LineageEdge, LineageEdgeType, PropertyMeter, FranchiseBranch, FranchiseBranchKind, FranchiseMilestone, FranchiseMilestoneId,
+  FranchiseProperty, FranchiseRoot, SubProperty, SubPropertyKind, P17StepRoots, GameStateP17, GameStateV50 } from './types.js'

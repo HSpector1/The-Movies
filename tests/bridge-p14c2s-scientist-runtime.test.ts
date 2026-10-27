@@ -12,7 +12,7 @@ import { canonicalJson } from '../bridge/schema/canonical.ts'
 import { decodeBridgeRuntimeCheckpoint, encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint,
   SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS } from '../bridge/runtime-checkpoint.ts'
 import { BridgeSession } from '../bridge/session.ts'
-import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV36, validateSaveV49, initialP15BRoots } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV36, validateSaveV50, initialP15BRoots } from '../src/core/save.js'
 import type { GameStateV36 } from '../src/core/types.js'
 import { EXPECTED_LIVE_SAVE_VERSION } from './helpers/live-era.js'
 
@@ -151,7 +151,7 @@ describe('C.2 Scientist S11: genuine outgoing50 runtime compatibility', () => {
       const old = validateSaveV36(JSON.parse(prior[slot]))
       const actualJson = loaded.hydrated.checkpoint[slot]
       expect(typeof actualJson).toBe('string')
-      const actual = validateSaveV49(importSave(actualJson!))
+      const actual = validateSaveV50(importSave(actualJson!))
       expect(actual.saveVersion).toBe(LIVE_SAVE_VERSION)
       expect(actual.state.market.tick).toBe(week)
       // C.3 adds only six dated profession-authority fields; every old root,

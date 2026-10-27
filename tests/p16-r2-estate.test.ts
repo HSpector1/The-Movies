@@ -16,7 +16,7 @@ import { assertActualR03Pending } from './helpers/p16-authentic-pending.js'
 import * as estate from '../src/core/estate.js'
 import * as finance from '../src/core/rightsFinance.js'
 import * as rights from '../src/core/rights.js'
-import { makeSave, validateSaveV49, importSave, migrateToLive, stableStringify, exportCurrentState } from '../src/core/save.js'
+import { makeSave, validateSaveV50, importSave, migrateToLive, stableStringify, exportCurrentState } from '../src/core/save.js'
 import type { GameState, Action, FilmShape } from '../src/core/types.js'
 import { blockingEncumbranceFromFacts, detached, heldSubjectsFromFacts, liveFromGenuine } from './helpers/p16-fixtures.js'
 
@@ -183,9 +183,9 @@ describe('r2 F18/F37/F60: the window opens at the closure week, closes exactly a
     const save=detached(makeSave(actual.state));save.state.market.tick=handoff.closesWeek
     const hostileBefore=JSON.stringify(save)
     expect(()=>rights.validateRightsRoot(save.state as unknown as Record<string,unknown>,'r2')).toThrow(/still open at or after its close boundary/)
-    expect(()=>validateSaveV49(save)).toThrow()
+    expect(()=>validateSaveV50(save)).toThrow()
     expect(JSON.stringify(save)).toBe(hostileBefore);expect(JSON.stringify(state)).toBe(before)
-    expect(()=>validateSaveV49(makeSave(actual.state))).not.toThrow()
+    expect(()=>validateSaveV50(makeSave(actual.state))).not.toThrow()
 
   })
 })

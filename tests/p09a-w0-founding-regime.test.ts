@@ -55,7 +55,7 @@ import {
   nextStudioDecision,
   queryPlacement,
   tick,
-  validateSaveV49,
+  validateSaveV50,
 } from '../src/core/index.js'
 import type { CreativeRole, GameState, LotCell } from '../src/core/index.js'
 import { FACILITY_BLUEPRINTS, TUNING } from '../src/core/tuning.js'
@@ -143,13 +143,13 @@ describe('P09 R1 — the founding regime is persisted, exact, and immutable', ()
     }
     const save = makeSave(endowed('p09-r1-forge'))
     const raw = JSON.parse(exportSave(save)) as { state: Record<string, unknown> }
-    expect(() => validateSaveV49({ ...raw, state: { ...raw.state, foundingRegime: 'sandbox' } })).toThrow(/not a known founding regime/)
+    expect(() => validateSaveV50({ ...raw, state: { ...raw.state, foundingRegime: 'sandbox' } })).toThrow(/not a known founding regime/)
     const { foundingRegime: _r, ...missing } = raw.state
-    expect(() => validateSaveV49({ ...raw, state: missing })).toThrow(/foundingRegime is missing/)
+    expect(() => validateSaveV50({ ...raw, state: missing })).toThrow(/foundingRegime is missing/)
     // Laundering: an endowed property cannot claim the bare-lot regime, nor the reverse.
-    expect(() => validateSaveV49({ ...raw, state: { ...raw.state, foundingRegime: 'bare-lot' } })).toThrow(/cannot carry founding structures/)
+    expect(() => validateSaveV50({ ...raw, state: { ...raw.state, foundingRegime: 'bare-lot' } })).toThrow(/cannot carry founding structures/)
     const bare = JSON.parse(exportSave(makeSave(bareLot('p09-r1-forge-b')))) as { state: Record<string, unknown> }
-    expect(() => validateSaveV49({ ...bare, state: { ...bare.state, foundingRegime: 'endowed' } })).toThrow(/must carry its founding structures/)
+    expect(() => validateSaveV50({ ...bare, state: { ...bare.state, foundingRegime: 'endowed' } })).toThrow(/must carry its founding structures/)
   })
 
   it('every pre-P09 save migrates to endowed with no other change; downgrades are refused', () => {
@@ -212,7 +212,7 @@ describe('P09 R3 — bare-lot activation mints nothing', () => {
     // The history is honest: the founding landmark, nothing else.
     expect(state.studioHistory.rows.map((row) => row.kind)).toEqual(['studioFounded'])
     // The save boundary accepts the sparse studio as a first-class shape.
-    expect(() => validateSaveV49(makeSave(state))).not.toThrow()
+    expect(() => validateSaveV50(makeSave(state))).not.toThrow()
   })
 })
 

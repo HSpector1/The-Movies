@@ -5,7 +5,7 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { gunzipSync } from 'node:zlib'
-import { LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify, validateSaveV45, validateSaveV49 } from '../../src/core/save.js'
+import { LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify, validateSaveV45, validateSaveV50 } from '../../src/core/save.js'
 import type { GameState } from '../../src/core/types.js'
 import { ordinaryPath } from './1368-archived-route.js'
 
@@ -76,13 +76,13 @@ export function loadImportedTrust195(): GameState {
     && r.studioId !== null && r.studioId !== old.state.hollywood!.playerStudioId), [])
   const oldBefore = snap(old), current = migrateToLive(old)
   assert.equal(snap(old), oldBefore); assert.equal(current.saveVersion, LIVE_SAVE_VERSION) // the live step (1370-ar r2: Save48)
-  const currentBefore = snap(current), admitted = validateSaveV49(current)
+  const currentBefore = snap(current), admitted = validateSaveV50(current)
   assert.equal(snap(current), currentBefore)
   assert.equal(stableStringify(admitted), stableStringify(current))
   const state = admitted.state, before = snap(state), saved = makeSave(state)
   assert.equal(saved.saveVersion, LIVE_SAVE_VERSION)
   const readerInput = structuredClone(saved), readerBefore = snap(readerInput)
-  const read = validateSaveV49(readerInput)
+  const read = validateSaveV50(readerInput)
   assert.equal(snap(readerInput), readerBefore)
   assert.equal(stableStringify(read), stableStringify(saved))
   assert.equal(stableStringify(read.state), stableStringify(state))

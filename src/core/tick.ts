@@ -115,6 +115,8 @@ import {
 } from './scriptDevelopment.js'
 import { FACILITY_OPEX_LEDGER_NOTE, LOAN_INSTALLMENT_LEDGER_NOTE, TUNING } from './tuning.js'
 import { buildFilmResult, resolveReception, type ReceptionInputs } from './reception.js'
+import { applyContinuationRelease, withFranchises } from './continuation.js'
+import { continuationReleaseInput, p17RightsHolds } from './continuationGreenlight.js'
 import { RngStream, stream } from './rng.js'
 import { resolveShape } from './shape.js'
 import {
@@ -359,9 +361,15 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // authority for what a production is about.
   const technologyProduction = createProductionTechnologyPolicy(stateAfterLoadIn)
   const workInput = stateAfterLoadIn
-  const productionAdvance = advanceManagedProductions(
+  // P17 (charter r2 "rights loss stops unauthorized new work"): ONE live P16 read per in-flight continuation per week,
+  // for the producing studio. A picture whose grant is absent this week is HELD: it does no work and does not release;
+  // its commitment, seats and stage stay. The tick never throws on rights; the returning grant resumes the picture and
+  // disposition stays with the cancellation owner (`cancel`). No continuation, no read: the predecessor path.
+  const rightsHolds = p17RightsHolds(workInput, state.studio.activeProductions.map((p) => p.id))
+  const operatedProductions = buyerOperatedProductions(workInput)
+  const managedAdvance = advanceManagedProductions(
     buyerOperationsForAllWork(workInput),
-    buyerOperatedProductions(workInput),
+    rightsHolds.size === 0 ? operatedProductions : operatedProductions.filter((p) => !rightsHolds.has(p.id)),
     currentTick,
     new Set([...committedReleaseIds,...continuedCommittedReleaseIds(workInput)]),
     new Set([
@@ -396,6 +404,11 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     // advance found it — one authority, read once, at the admission visit.
     createProductionSetupRouteResolver(stateAfterLoadIn),
   )
+  // P17: a held picture rejoins the slate in its own place, untouched (no work this week, no release).
+  const productionAdvance = rightsHolds.size === 0 ? managedAdvance : (() => {
+    const moved = new Map(managedAdvance.productions.map((p) => [p.id, p]))
+    return { ...managedAdvance, productions: operatedProductions.map((p) => moved.get(p.id) ?? p) }
+  })()
   // ── 1.05 QUEUE ADMISSION (C2a-M4, charter §3.3) ─────────────────────────
   // INSERTION, NOT A REORDERING (D-12 §9, the rule steps 1.5/1.6/1.7 already
   // stand on). The front doors no longer refuse a picture because a room was
@@ -587,6 +600,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // recorded without mutating the input. Empty (and untouched) for the M0A corpus.
   const engaged = economyEngaged(state)
   const theatricalRuns: TheatricalRun[] = state.theatricalRuns.map((r) => ({ ...r }))
+  // P17: the franchise root, threaded through this week's player, continued and rival releases (one update each).
+  let franchises = state.franchises
 
   for (const prod of releasing) {
     const concept = state.concepts.find((c) => c.id === prod.conceptId) ?? carriedConceptForProduction(state,prod.id)
@@ -617,6 +632,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       (workflow) => workflow.productionId === prod.id,
     )?.bindings
     const boundSetId = releasedBindings?.setId ?? null
+    // P17 (rev02 §5.3): the live continuation read, from then-current state BEFORE this film's own result.
+    const inheritedAwareness01 = continuationReleaseInput(withFranchises(state, franchises), prod.id, { writerId: prod.writerId, directorId: prod.directorId, cast: { ...prod.cast } })
 
     const inp: ReceptionInputs = {
       concept,
@@ -658,6 +675,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
         : { setNovelty: releasedBindings.lockedNovelty }),
       // P15A.1 Wave 2 (1355-A §3.2): the player release site of the seam, the batch's frozen factor.
       ...(marketBatch === null ? {} : { competitionFactor: frozenFactor(marketBatch, prod.id) }),
+      // P17: absent on every non-continuation release.
+      ...(inheritedAwareness01 === undefined ? {} : { inheritedAwareness01 }),
     }
 
     // The single §5.3 critic draw for this release — the ONLY sim-stream advance. `engaged` drives
@@ -692,6 +711,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
           },
         }
       : baseFilmResult
+    // P17: exactly ONE R/M/F update per release, after the live read above. A film with no edge leaves the root as it is.
+    if (franchises !== undefined) franchises = applyContinuationRelease(franchises, { productionId: prod.id, week: currentTick, result: filmResult, audience01: result.weightedAudienceScore / 100 })
 
     releasedFilms.push(filmResult)
     // P08A: the release fact, frozen with its display title AT RELEASE (identity is
@@ -868,7 +889,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // ── 4. STANDING ────────────────────────────────────────────────────────────
   // Accumulate the three channels sequentially, IN ascending-id order (records is
   // already in release order). Start from start-of-tick standing.
-  const continuedReception=prepareContinuedReleases({...admitted,technology:researchAdvance.technology},continuedReleasing,startOfTickStanding,marketBatch?.factorById)
+  const continuedReception=prepareContinuedReleases(withFranchises({...admitted,technology:researchAdvance.technology},franchises),continuedReleasing,startOfTickStanding,marketBatch?.factorById)
+  franchises=continuedReception.franchises
   let continuedRights=continuedReception.rights
   const continuedStandingRecords: Pick<ReleaseRecord,'filmResult'|'benchmarks'|'ctx'>[] = continuedReception.records
   const standingRecords: Pick<ReleaseRecord,'filmResult'|'benchmarks'|'ctx'>[] = [...records,...continuedStandingRecords].sort((a,b)=>a.filmResult.productionId<b.filmResult.productionId?-1:a.filmResult.productionId>b.filmResult.productionId?1:0)
@@ -987,7 +1009,9 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // validated M0A/D-6 baseline. A single talent working on two same-tick releases
   // develops once per release, in release order, over the evolving talent list.
   // P15A.1 Wave 2 (1355-A §3.1 item 5, §3.2): the rival release site, witnessed against the batch.
-  const industry = advanceHollywoodWeek({...admitted,hollywood:continuedReception.hollywood,rights:continuedRights,technology:researchAdvance.technology}, marketBatch?.rivalFactorById)
+  // P17 (review P17-05): the rival releases read and update the same root; the market factor argument is unchanged.
+  const industry = advanceHollywoodWeek(withFranchises({...admitted,hollywood:continuedReception.hollywood,rights:continuedRights,technology:researchAdvance.technology},franchises), marketBatch?.rivalFactorById)
+  franchises = industry.franchises
   for(const receipt of industry.absorbedRunRevenue) {cash+=receipt.amount;ledger.push(receipt)}
   // The develop switch belongs to the frozen player corpus. A living industry's
   // real releases always write their shared career consequences.
@@ -1146,6 +1170,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     // (rows granted or expired are gone from it), the concepts an admitted
     // original commission minted, and the blueprint root that recorded them.
     ...admitted,
+    // P17: the root after this week's player, continued and rival releases (absent while no franchise exists).
+    ...(franchises === undefined ? {} : { franchises }),
     technology: industry.technology,
     rights: industry.rights,
     // P13B-S8: a rival's own admitted plans live on the shared plan root; the

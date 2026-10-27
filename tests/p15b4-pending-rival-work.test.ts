@@ -2,7 +2,7 @@
 import {expect,it} from 'vitest'
 import {accepted45} from './helpers/1368-recovery-witnesses.js'
 import {drainRival} from './helpers/p15b-live.js'
-import {makeSave,validateSaveV49,exportSave,importSave,stableStringify} from '../src/core/save.js'
+import {makeSave,validateSaveV50,exportSave,importSave,stableStringify} from '../src/core/save.js'
 import {tick} from '../src/core/tick.js'
 import {blueprintById,facilityDemolitionRefund} from '../src/core/index.js'
 import {validateRivalFacilityDisposal} from '../src/core/rivalResearch.js'
@@ -12,7 +12,7 @@ import {closureDigest,validateStudioClosureRoot} from '../src/core/studioClosure
 import type {GameState} from '../src/core/types.js'
 const R='studio-aca408ec-r01',LAB=R+':laboratory:1',PLAN=R+':plan:3',ADOPTION=R+':sound-adoption:0'
 const text=(x:unknown)=>stableStringify(x)
-function admitted(s:GameState){const before=text(s),saved=makeSave(s);validateSaveV49(saved);expect(text(s)).toBe(before);return s}
+function admitted(s:GameState){const before=text(s),saved=makeSave(s);validateSaveV50(saved);expect(text(s)).toBe(before);return s}
 function conditionPremise(s:GameState):GameState{
  // Only newly empty migrated condition root changes. Existing Ranking/shared history and sequences stay exact.
  expect(s.corporateCondition.studios).toEqual([]);expect(s.corporateCondition.events).toEqual([]);expect(s.corporateCondition.loans).toEqual([])

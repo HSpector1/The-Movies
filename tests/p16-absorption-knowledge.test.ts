@@ -155,7 +155,7 @@ describe('P16 actual completed-source knowledge from retained original45 baselin
 
   const mutate=(fn:(state:GameState)=>void,expectedRegex=/knowledge|Technology save|absorption/i)=>{
    const envelope=JSON.parse(text);fn(envelope.state);const before=JSON.stringify(envelope)
-   try {expect(()=>saves.validateSaveV49(envelope)).toThrow(expectedRegex)}
+   try {expect(()=>saves.validateSaveV50(envelope)).toThrow(expectedRegex)}
    finally {expect(JSON.stringify(envelope)).toBe(before)}
   }
   mutate(state=>{state.rights.absorptions.find(a=>a.id===p.record.id)!.knowledge=[]})
@@ -185,7 +185,7 @@ describe('P16 actual completed-source knowledge from retained original45 baselin
   const p=acquiredControl(),a=ordinaryAdoption(p),text=JSON.stringify(a.save)
   const prototype=JSON.parse(text),row=prototype.state.technology.adoptions.find((r:{id:string})=>r.id===a.row.id)
   row.prototypeProjectId=PROJECT;const prototypeBefore=JSON.stringify(prototype)
-  try {expect(()=>saves.validateSaveV49(prototype)).toThrow(/acquired knowledge cannot carry an inventor price or prototype entitlement/)}
+  try {expect(()=>saves.validateSaveV50(prototype)).toThrow(/acquired knowledge cannot carry an inventor price or prototype entitlement/)}
   finally {expect(JSON.stringify(prototype)).toBe(prototypeBefore)}
   const discount=JSON.parse(text),discountRow=discount.state.technology.adoptions.find((r:{id:string})=>r.id===a.row.id)
   const component=discountRow.components.find((c:{kind:string})=>c.kind==='equipment')
@@ -199,7 +199,7 @@ describe('P16 actual completed-source knowledge from retained original45 baselin
   ledger.amount=-a.entry.laterInventorEquipmentCost;discount.state.studio.cash=savedCash+difference
   expect(discount.state.studio.cash-ledger.amount).toBeCloseTo(savedCash+a.entry.commercialEquipmentCost,6)
   const discountBefore=JSON.stringify(discount)
-  try {expect(()=>saves.validateSaveV49(discount)).toThrow(/acquired knowledge cannot carry an inventor price or prototype entitlement/)}
+  try {expect(()=>saves.validateSaveV50(discount)).toThrow(/acquired knowledge cannot carry an inventor price or prototype entitlement/)}
   finally {expect(JSON.stringify(discount)).toBe(discountBefore)}
   originalUnchanged(p)
  })

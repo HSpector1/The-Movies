@@ -2,7 +2,7 @@
 import { expect,it } from 'vitest'
 import { readFileSync } from 'node:fs'
 import { createHash } from 'node:crypto'
-import { convertV48ToV49,validateSaveP15B,validateSaveV49,makeSave,stableStringify } from '../src/core/save.js'
+import { convertV48ToV49,validateSaveP15B,validateSaveV50,makeSave,stableStringify } from '../src/core/save.js'
 import { applyActions } from '../src/core/actions.js'
 import { tick } from '../src/core/tick.js'
 import { offerRefusal,rivalWillingness } from '../src/core/assetSale.js'
@@ -92,8 +92,8 @@ it('real public film0 sale before R04 C excludes the sold title from current clo
  record.estate.lots=structuredClone(originalC.estate.lots)
  record.dispositions=record.dispositions.filter(x=>x.subjectKind!=='title').concat(structuredClone(originalC.dispositions.filter(x=>x.subjectKind==='title'))).sort((a,b)=>a.subjectKind<b.subjectKind?-1:a.subjectKind>b.subjectKind?1:a.subjectId<b.subjectId?-1:a.subjectId>b.subjectId?1:0)
  record.counts.title=10;record.digest=closureDigest(record.closureId,record.dispositions)
- const mutantBefore=stableStringify(mutant),envelope={saveVersion:49 as const,seed:mutant.seed,state:mutant,broadcastCache:mutant.broadcastItems}
- expect(()=>validateSaveV49(envelope)).toThrow(/estate lots|title handoff|titles|dispositions/)
+ const mutantBefore=stableStringify(mutant),envelope={saveVersion:50 as const,seed:mutant.seed,state:mutant,broadcastCache:mutant.broadcastItems}
+ expect(()=>validateSaveV50(envelope)).toThrow(/estate lots|title handoff|titles|dispositions/)
  expect(()=>makeSave(mutant)).toThrow(/estate lots|title handoff|titles|dispositions/)
  expect(stableStringify(mutant)).toBe(mutantBefore);expect(stableStringify(offered)).toBe(input);expect(stableStringify(state)).toBe(before)
 })

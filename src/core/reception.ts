@@ -12,6 +12,7 @@
 // This module is pure: no React/DOM/async/IO. The RngStream is threaded in and
 // its single draw mutates only that stream's state (which the harness owns).
 
+import { continuationAwareness } from './continuationSignals.js'
 import { fameReach } from './economy.js'
 import { clamp, lerp, mean, remap, smoothstep } from './math.js'
 import type { RngStream } from './rng.js'
@@ -104,6 +105,12 @@ export type ReceptionInputs = {
   // release. Only the two release sites set it, the player's step 3 and the rival release;
   // greenlight, chooser, forecast and package inputs never carry it. Absent is exactly 1.
   competitionFactor?: number
+  // ── P17 (canonical rev02 §5.3, §7; charter 1370-ae) — the ONE continuation input ──────────
+  // The inherited-awareness factor the franchise read-model composes (R/M/F, remake/reboot comparison,
+  // continuity credit), read by the forecast at greenlight (then locked) and by reception at release
+  // (live, before this film's own result). It enters `computeBoxOffice` exactly once, through the
+  // studio-awareness term. ABSENT is the whole legacy world — a bit-exact no-op, the setUplift rule.
+  inheritedAwareness01?: number
 }
 
 // The rich breakdown §5.6 requires: every intermediate exposed alongside the
@@ -636,6 +643,10 @@ export function computeBoxOffice(
   // passes no factor is byte-identical. A factor outside [1 - SHARED_MARKET_FACTOR_MAX_PENALTY, 1]
   // throws, so a forged factor never moves a gross.
   competitionFactor = 1,
+  // P17 (rev02 §5.3/§7): the ONE continuation input. When present, the studio's audience awareness is
+  // raised by probabilistic OR with the inherited awareness (continuationSignals.continuationAwareness)
+  // and that one value feeds BOTH existing awareness reads below. ABSENT ⇒ the same variable, byte for byte.
+  inheritedAwareness01?: number,
 ): {
   marketingQuality: number
   preMarketingAwareness: number
@@ -655,8 +666,10 @@ export function computeBoxOffice(
   // reach (fame-saturated when engaged). It drives the awareness-conditioned marketing capacity so
   // a low-awareness film cannot efficiently absorb a maximum campaign.
   // D-17B §4: the same three expressions as before, now named (see the helpers above).
+  const studioAwareness =
+    inheritedAwareness01 === undefined ? standing.audienceAwareness : continuationAwareness(standing.audienceAwareness, inheritedAwareness01)
   const preMarketingAwareness = preMarketingAwarenessOf(
-    standing.audienceAwareness,
+    studioAwareness,
     appealReachSum(segments, openingSegmentAppeal),
   )
   // Efficient marketing capacity (the marketing spend at which reach half-saturates). Legacy fixed
@@ -673,7 +686,7 @@ export function computeBoxOffice(
     (TUNING.MARKETING_REACH_MAX - TUNING.MARKETING_REACH_MIN) * preMarketingAwareness
   const effectiveMarketing = engaged ? marketingReachCeiling * marketingQuality : marketingQuality
   const baseAwareness = clamp(
-    (engaged ? TUNING.ORGANIC_AWARENESS_FLOOR_WEIGHT : 0.6) * (standing.audienceAwareness / 100) +
+    (engaged ? TUNING.ORGANIC_AWARENESS_FLOOR_WEIGHT : 0.6) * (studioAwareness / 100) +
       (engaged ? effectiveMarketing : 0.4 * marketingQuality),
     0,
     1,
@@ -825,6 +838,8 @@ export function resolveReception(
     setNoveltyReceptionFactor(inp.setNovelty ?? null),
     // P15A.1 Wave 2: the frozen batch factor. Exactly 1 when the inputs carry none.
     inp.competitionFactor ?? 1,
+    // P17: the live continuation read; absent on every non-continuation release.
+    inp.inheritedAwareness01,
   )
 
   return {

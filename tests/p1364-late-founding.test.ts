@@ -1087,7 +1087,7 @@ describe('1364 persistence: the step, its downgrade and the frozen reader', () =
     // P16 rebase round 6: the chain runs through the live P16 step first, which converts this world losslessly: at week 0
     // no greenlight or release minted a title, no rights instrument, rights money or rights ledger row exists, the
     // cutover anchors are unchanged, and no P15 or P15B row carries phase table 3.
-    const atStep = saveFn(`convertV${saveModule.P15B_SAVE_VERSION}ToV${FOUNDING_STEP}`)(saveModule.convertV49ToV48(cutting as never) as unknown as Envelope)
+    const atStep = saveFn(`convertV${saveModule.P15B_SAVE_VERSION}ToV${FOUNDING_STEP}`)(saveModule.convertV49ToV48(saveModule.convertV50ToV49(cutting as never)) as unknown as Envelope)
     expect(atStep.saveVersion).toBe(FOUNDING_STEP)
     const r8 = /^migrateToV45: cannot downgrade or discard recovery authority: costCutting\.since$/
     const down46 = saveFn(`convertV${FOUNDING_STEP}ToV${FOUNDING_STEP - 1}`)(atStep) // 47 -> 46 keeps the fact

@@ -1,4 +1,4 @@
-import { convertV49ToV48 } from '../src/core/save.js'
+import { convertV49ToV48, convertV50ToV49 } from '../src/core/save.js'
 import { cutoverRightsRoot } from '../src/core/rights.js'
 // 1225-A/B/C, 1226-A initial four leaves; 1232-A/B adds two named cast-work routes.
 // This staged postimage is installed at tests/ before parent-owned execution.
@@ -34,7 +34,7 @@ type CurrentView = { saveVersion: number; state: Record<string, unknown> & {
   firstTakeSubjects: Sidecar; promises: Record<string, unknown>[]
 } }
 type FutureAPI = {
-  validateSaveV49(input: unknown): unknown
+  validateSaveV50(input: unknown): unknown
   // 1361-N S4: an extra live-to-one-below hop now precedes the
   // V44->V43 hop the 1358 sweep added.
   convertV47ToV46(input: unknown): unknown
@@ -128,7 +128,7 @@ function admitted(state: GameState): void {
 }
 function futureAPI(): FutureAPI {
   const api = core as unknown as Partial<FutureAPI>
-  assert.equal(typeof api.validateSaveV49, 'function', 'new public strict43 reader after actual version assertion')
+  assert.equal(typeof api.validateSaveV50, 'function', 'new public strict43 reader after actual version assertion')
   assert.equal(typeof api.convertV46ToV45, 'function', 'public guarded recovery 46 to 45 conversion')
   assert.equal(typeof api.convertV45ToV44, 'function', 'new public guarded live->44 conversion')
   assert.equal(typeof api.convertV44ToV43, 'function', 'new public guarded live→43 conversion')
@@ -370,7 +370,7 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
     // A generic entrant-loss failure cannot stand in for this new semantic guard.
     const valid: unknown = JSON.parse(bytes(admittedGenre))
     expect((valid as { saveVersion: number }).saveVersion).toBe(saves.LIVE_SAVE_VERSION)
-    const api = futureAPI(); expect(api.validateSaveV49(valid)).toBe(valid)
+    const api = futureAPI(); expect(api.validateSaveV50(valid)).toBe(valid)
     // 1309-X3 ruling 7: the live-to-one-below conversion now reaches V40, which
     // holds opportunity material, so it no longer refuses; the FIRST downgrade
     // that cannot hold the material is convertV40ToV39.
@@ -385,7 +385,7 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
     ]) {
       const bad = clone(valid) as CurrentView, row = bad.state.promises.find(p => p.promiseId === real.promiseId); assert.ok(row)
       mutate(row)
-      expect(() => api.validateSaveV49(bad)).toThrow(/predicate|family|genre|project|class|count|opportunit/i)
+      expect(() => api.validateSaveV50(bad)).toThrow(/predicate|family|genre|project|class|count|opportunit/i)
     }
   }, LEAF_TIMEOUT_MS)
 
@@ -412,7 +412,7 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
     for (const [filename, gzipHash, rawHash] of pins) {
       const { raw, save: old } = pinned39(filename, gzipHash, rawHash), before = stable(old)
       const current = saves.migrateToLive(old), valid = current as unknown as CurrentView
-      expect(current.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(api.validateSaveV49(current)).toBe(current)
+      expect(current.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(api.validateSaveV50(current)).toBe(current)
       expect(valid.state.firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: old.state.firstTakes.length, facts: [] })
       expect(Object.keys(valid.state.firstTakeSubjects).sort()).toEqual(['cutoverOrdinal', 'facts', 'version'])
       // Comparison-only exclusion of the sole additive root, never an admission path.
@@ -434,7 +434,7 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
       admitted(current.state)
     }
     const positive = JSON.parse(bytes(input45())) as CurrentView
-    expect(api.validateSaveV49(positive)).toBe(positive)
+    expect(api.validateSaveV50(positive)).toBe(positive)
     expect(positive.state.firstTakeSubjects.cutoverOrdinal).toBe(19)
     const mutations: ((s: CurrentView) => void)[] = [
       s => { delete (s.state as Partial<CurrentView['state']>).firstTakeSubjects },
@@ -448,7 +448,7 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
     ]
     for (const mutate of mutations) {
       const bad = clone(positive); mutate(bad)
-      expect(() => api.validateSaveV49(bad)).toThrow(/first.?take|subject|suffix|cutover/i)
+      expect(() => api.validateSaveV50(bad)).toThrow(/first.?take|subject|suffix|cutover/i)
       expect(() => api.convertV41ToV40(api.convertV42ToV41(api.convertV43ToV42(api.convertV44ToV43(api.convertV45ToV44(api.convertV46ToV45(api.convertV47ToV46(predecessorSave(bad.state as unknown as GameState))))))))).toThrow(/first.?take|subject|suffix|cutover/i)
     }
   }, LEAF_TIMEOUT_MS)
@@ -879,7 +879,7 @@ describe('P4/P5 retained subject and waiver authority controls', () => {
     // non-empty P15 root, in the ruled order sharedMarket, powerRanking, campaignLegacy) now names the
     // assessments first and the quarter second. The pre-1365 pin was
     // /^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/.
-    expect(() => convertV49ToV48(released as never)).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
+    expect(() => convertV49ToV48(convertV50ToV49(released as never))).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
     // MOVED (P16 rebase): the live step's refusal above is the first guard. This chain starts from the route's Save48
     // projection, which does not exist: its shared-market history is table 3 and nondefault, and `rightsStripped`
     // refuses to relabel it, so the V45 market guard pinned here before is unreachable from this route.

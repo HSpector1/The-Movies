@@ -104,7 +104,7 @@ describe('P16 genuine pre162 paid R01 production cancellation-required transacti
   const p=prepared(),c=completed(p),text=JSON.stringify(saves.makeSave(c.result))
   const reject=(change:(state:GameState)=>void)=>{
    const saved=JSON.parse(text);change(saved.state);const before=JSON.stringify(saved)
-   try {expect(()=>saves.validateSaveV49(saved)).toThrow(/absorption|paid|production|screenplay|work/i)}
+   try {expect(()=>saves.validateSaveV50(saved)).toThrow(/absorption|paid|production|screenplay|work/i)}
    finally {expect(JSON.stringify(saved)).toBe(before)}
   }
   reject(state=>{state.rights.absorptions.find(a=>a.id===c.record.id)!.stoppedProductions=[]})

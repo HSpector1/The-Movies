@@ -7,7 +7,7 @@ import { assignmentRefusal, contractEndRefusal, retirementRecordFor } from '../s
 import { activeContract, busyTalentIds } from '../src/core/employment.js'
 import { professionAtWeek, transitionInputsFor } from '../src/core/index.js'
 import { validateProfessionHistory } from '../src/core/professionHistory.js'
-import { exportSave, makeSave, migrateToV44, stableStringify, validateSaveV35, validateSaveV37, validateSaveV49 } from '../src/core/save.js'
+import { exportSave, makeSave, migrateToV44, stableStringify, validateSaveV35, validateSaveV37, validateSaveV50 } from '../src/core/save.js'
 import { caseForTalent, playerOffer, proposalDraft } from '../src/core/talentMarket.js'
 import { careerIdentity, expectedPotentialTier, roleTier } from '../src/core/talentSummary.js'
 import { TUNING } from '../src/core/tuning.js'
@@ -272,14 +272,14 @@ describe('C.3 genuine cohort-born Actor enters a new profession with origin auth
     expect(professionAtWeek(state, id, 3283)).toBe('director')
     preserveOrigin(state)
     const control = makeSave(state), controlBytes = stableStringify(control), malformed = clone(control)
-    expect(validateSaveV49(control)).toBe(control)
+    expect(validateSaveV50(control)).toBe(control)
     const amended = malformed.state.careerLifecycle.cohorts.map(row => row.week !== 832 ? row
       : { ...row, requested: { actor: 0, director: 1, writer: 0, craft: 0 } })
     Object.defineProperty(malformed.state.careerLifecycle, 'cohorts', { value: amended, enumerable: true, configurable: true, writable: true })
     expect(validateProfessionHistory({ ...malformed.state }).originalProfession(id)).toBe('actor')
-    expect(() => validateSaveV49(malformed)).toThrow(/cohort receipt.*week 832.*as a director entrant.*original profession disagrees/)
+    expect(() => validateSaveV50(malformed)).toThrow(/cohort receipt.*week 832.*as a director entrant.*original profession disagrees/)
     expect(stableStringify(control)).toBe(controlBytes)
-    expect(validateSaveV49(control)).toBe(control)
+    expect(validateSaveV50(control)).toBe(control)
     // 1363-N: admitted current recovery authority now refuses at 46->45 first.
     // Preserve the complete history; deeper rank/romance/shelving guards are masked here.
     // Separate rank controls remain in p15a2-power-ranking-archive.test.ts:
@@ -299,7 +299,7 @@ describe('C.3 genuine cohort-born Actor enters a new profession with origin auth
     // asserted on the week-133 Save48 control in p15b2-corporate-condition-save and p15a2-power-ranking-archive.
     expect(() => migrateToV44(control as never)).toThrow(ESTATE_OBSERVATION_REFUSAL)
     expect(stableStringify(control)).toBe(controlBytes)
-    expect(validateSaveV49(control)).toBe(control)
+    expect(validateSaveV50(control)).toBe(control)
     expect(stableStringify(control)).toBe(controlBytes)
     const origin = cohortSetup()
     expect(validateSaveV35(origin.old)).toBe(origin.old); expect(validateSaveV37(origin.old37)).toBe(origin.old37)

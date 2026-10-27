@@ -18,7 +18,7 @@ import * as sale from '../src/core/assetSale.js'
 import * as finance from '../src/core/rightsFinance.js'
 import * as rights from '../src/core/rights.js'
 import { libraryValuationV1, subjectValueV1 } from '../src/core/propertyValuation.js'
-import { convertV49ToV48, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
+import { convertV49ToV48, convertV50ToV49, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
 import { advanceRightsWeek } from '../src/core/rightsTick.js'
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
@@ -122,7 +122,7 @@ describe('P16B bilateral title sale: player buys a rival film through a binding 
     // The era boundary: saves, reloads, and refuses the downgrade by name (a real recorded sale).
     const reloaded = migrateToLive(importSave(stableStringify(makeSave(closed)))).state as GameState
     expect(stableStringify(reloaded.rights)).toBe(stableStringify(closed.rights))
-    expect(() => convertV49ToV48(makeSave(closed))).toThrow(/migrateToV48: cannot downgrade or discard a recorded rights root/)
+    expect(() => convertV49ToV48(convertV50ToV49(makeSave(closed)))).toThrow(/migrateToV48: cannot downgrade or discard a recorded rights root/)
     // Replay: the same step on the same state is byte-identical.
     expect(stableStringify(advanceRightsWeek(offered, week, STABLE))).toBe(stableStringify(closed))
   })

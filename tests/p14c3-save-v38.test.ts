@@ -141,7 +141,7 @@ type Negative = { name: string; mutate: (save: Save38) => void; firstGuard?: Reg
 const set = (object: object, key: string, value: unknown) => { (object as Record<string, unknown>)[key] = value }
 const drop = (object: object, key: string) => { Reflect.deleteProperty(object, key) }
 function rejectMutations(control: Save38, cases: Negative[]): void {
-  const validate = saveApi('validateSaveV49'), immutable = stableStringify(control)
+  const validate = saveApi('validateSaveV50'), immutable = stableStringify(control)
   expect(validate(control), 'required accepted38 positive before malformed-input assertions').toBe(control)
   for (const row of cases) {
     const mutated = clone(control)
@@ -356,7 +356,7 @@ describe('C.3 A11/A12 industry finality and frozen strict readers', () => {
   it('keeps the genuine public37 reader strict even when a caller adds current authority or strips its evidence', () => {
     const old = historical37(), oldBytes = exportSave(old), current = acceptedChosen()
     expect(saveModule.validateSaveV37(old)).toBe(old)
-    expect(saveApi('validateSaveV49')(current)).toBe(current)
+    expect(saveApi('validateSaveV50')(current)).toBe(current)
     const extraAuthority = clone(old)
     Object.assign(extraAuthority.state.careerLifecycle, current.state.careerLifecycle)
     expect(() => saveModule.validateSaveV37(extraAuthority)).toThrow()
@@ -371,7 +371,7 @@ describe('C.3 A11/A12 industry finality and frozen strict readers', () => {
     'makeSaveV%i validates current authority before stripping a malformed null-Hollywood root', version => {
       const current = envelope38(generateWorld(`967-frozen-builder-${version}`))
       expect(current.state.hollywood).toBeNull()
-      expect(saveApi('validateSaveV49')(current)).toBe(current)
+      expect(saveApi('validateSaveV50')(current)).toBe(current)
       const builder = (saveModule as unknown as Record<string, (state: unknown) => { saveVersion: number }>)[`makeSaveV${version}`]
       expect(typeof builder).toBe('function'); assert.ok(builder)
       expect(builder(current.state).saveVersion, 'valid empty current authority may still project to the frozen boundary').toBe(version)
@@ -391,7 +391,7 @@ describe('C.3 A11/A12 industry finality and frozen strict readers', () => {
 describe('C.3 979 retained dated obligations stay narrow', () => {
   it('admits actual post-change director work and ordinary new-role employment', () => {
     const f = obligationControls('production'), current = envelope38(f.laterProduction!)
-    expect(saveApi('validateSaveV49')(current)).toBe(current)
+    expect(saveApi('validateSaveV50')(current)).toBe(current)
     const production = current.state.studio.activeProductions.find(row => row.id === f.laterProductionId)!
     expect(production).toMatchObject({ startTick: 208, directorId: FOCUS.director })
     expect(current.state.contracts.find(row => row.talentId === FOCUS.director))
@@ -402,10 +402,10 @@ describe('C.3 979 retained dated obligations stay narrow', () => {
 
   it('refuses a detached player-production date that puts the actual company seat across its change', () => {
     const f = obligationControls('production'), current = envelope38(f.laterProduction!)
-    expect(saveApi('validateSaveV49')(current)).toBe(current)
+    expect(saveApi('validateSaveV50')(current)).toBe(current)
     const malformed = clone(current)
     malformed.state.studio.activeProductions.find(row => row.id === f.laterProductionId)!.startTick = 207
-    expect(() => saveApi('validateSaveV49')(malformed)).toThrow(/straddles a retained production obligation/)
+    expect(() => saveApi('validateSaveV50')(malformed)).toThrow(/straddles a retained production obligation/)
   })
 
   it('admits an actual later release but refuses a first-take date claiming completed work across the change', () => {
@@ -435,23 +435,23 @@ describe('C.3 979 retained dated obligations stay narrow', () => {
     expect(Object.values(takes[0]!.cast)).not.toContain(FOCUS.director)
     expect(Object.values(takes[0]!.cast)).not.toContain(FOCUS.writer)
     const current = envelope38(state)
-    expect(saveApi('validateSaveV49')(current)).toBe(current)
+    expect(saveApi('validateSaveV50')(current)).toBe(current)
     // Only this detached receipt date is malformed. The subject directed the
     // real new film, so neither subject's old acting/context evidence changes.
     const malformed = clone(current)
     set(malformed.state.firstTakes.find(row => row.productionId === productionId)!, 'week', 207)
-    expect(() => saveApi('validateSaveV49')(malformed)).toThrow(/straddles a retained completed production obligation/)
+    expect(() => saveApi('validateSaveV50')(malformed)).toThrow(/straddles a retained completed production obligation/)
   })
 
   it('refuses a detached rival company-seat substitution against an otherwise accepted actual world', () => {
     const current = acceptedChosen()
-    expect(saveApi('validateSaveV49')(current)).toBe(current)
+    expect(saveApi('validateSaveV50')(current)).toBe(current)
     const before = stableStringify(current), malformed = clone(current)
     const production = malformed.state.hollywood!.businesses.flatMap(row => row.productions).find(row => row.startTick < 208)
     assert.ok(production, 'genuine rival has an actual retained pre208 production')
     expect(production.directorId).not.toBe(FOCUS.director)
     production.directorId = FOCUS.director
-    expect(() => saveApi('validateSaveV49')(malformed)).toThrow(/straddles a retained production obligation/)
+    expect(() => saveApi('validateSaveV50')(malformed)).toThrow(/straddles a retained production obligation/)
     expect(stableStringify(current)).toBe(before)
     // This deliberately malformed snapshot tests the rival guard. It does not
     // claim the player subject was genuinely hired/worked by that rival.
@@ -459,17 +459,17 @@ describe('C.3 979 retained dated obligations stay narrow', () => {
 
   it('admits actual later original drafting but refuses a claimed pre-change original commission', () => {
     const f = obligationControls('draft'), current = envelope38(f.originalDraft!)
-    expect(saveApi('validateSaveV49')(current)).toBe(current)
+    expect(saveApi('validateSaveV50')(current)).toBe(current)
     const project = current.state.scriptDevelopment.projects.find(row => row.id === f.draftId)!
     expect(project).toMatchObject({ commissionedWeek: 208, status: 'drafting', writerId: FOCUS.writer })
     const malformed = clone(current)
     malformed.state.scriptDevelopment.projects.find(row => row.id === f.draftId)!.commissionedWeek = 207
-    expect(() => saveApi('validateSaveV49')(malformed)).toThrow(/straddles a retained original drafting obligation/)
+    expect(() => saveApi('validateSaveV50')(malformed)).toThrow(/straddles a retained original drafting obligation/)
   })
 
   it('admits actual secondary-writer pool joining after the change despite an earlier original commission', () => {
     const f = obligationControls('pool'), current = envelope38(f.pool!)
-    expect(saveApi('validateSaveV49')(current)).toBe(current)
+    expect(saveApi('validateSaveV50')(current)).toBe(current)
     const project = current.state.scriptDevelopment.projects.find(row => row.id === f.poolId)!
     expect(project.commissionedWeek).toBe(207)
     expect(project.status).toBe('drafting')
@@ -480,7 +480,7 @@ describe('C.3 979 retained dated obligations stay narrow', () => {
 
   it('admits a real post-change rewrite of a screenplay completed before acting retirement', () => {
     const f = obligationControls('rewrite'), current = envelope38(f.rewrite!)
-    expect(saveApi('validateSaveV49')(current)).toBe(current)
+    expect(saveApi('validateSaveV50')(current)).toBe(current)
     const project = current.state.scriptDevelopment.projects.find(row => row.id === f.rewriteId)!
     expect(project).toMatchObject({ commissionedWeek: 206, status: 'rewriting', writerId: FOCUS.writer })
     expect(project.dueWeek).toBeGreaterThan(current.state.market.tick)
@@ -489,7 +489,7 @@ describe('C.3 979 retained dated obligations stay narrow', () => {
 
   it('admits an actual pre-change production whose permanent credited writer occupies no company seat', () => {
     const f = obligationControls('past'), current = envelope38(f.creditedWriter!)
-    expect(saveApi('validateSaveV49')(current)).toBe(current)
+    expect(saveApi('validateSaveV50')(current)).toBe(current)
     const production = current.state.studio.activeProductions.find(row => row.id === f.creditedProductionId)!
     expect(production).toMatchObject({ startTick: 207, writerId: FOCUS.writer })
     expect([production.directorId, ...Object.values(production.cast), ...production.craftIds]).not.toContain(FOCUS.writer)

@@ -63,7 +63,9 @@ import { computeForecast, type ForecastContext } from './forecast.js'
 import { forecastHistoryForOwner } from './industryCareer.js'
 import { allocateFoundingSignature, closeFoundingFund } from './foundingFunding.js'
 import { recordPlayerEmployment } from './industryEmployment.js'
-import { greenlightRightsRefusal, mintStoryPropertyAtGreenlight } from './rights.js'
+import { greenlightRightsRefusal, linkContinuationAtGreenlight, mintStoryPropertyAtGreenlight } from './rights.js'
+import { continuationReleaseAuthority } from './continuation.js'
+import { applyMintSubProperty, commitContinuation, prepareContinuation } from './continuationGreenlight.js'
 import { acceptOffer, makeOffer, rejectOffer, withdrawOffer } from './assetSale.js'
 import { requestDiligence } from './dueDiligence.js'
 import { closeAbsorption } from './acquisition.js'
@@ -383,6 +385,14 @@ function applyGreenlight(
     const rightsRefusal = greenlightRightsRefusal(state, state.hollywood.playerStudioId, p.conceptId, currentTick, id)
     if (rightsRefusal !== null) throw new Error(`applyActions: greenlight rejected — ${rightsRefusal}`)
   }
+  // P17: the continuation quote (legality, the live P16 rights read, the locked read) and the P16 link law run here,
+  // BEFORE any write, beside the greenlight's own rights law; a refusal throws and leaves state untouched. Absent ⇒ the
+  // predecessor path, byte for byte.
+  const continuation = prod.continuation === undefined ? null : prepareContinuation(state, prod.continuation, {
+    productionId: id,
+    conceptId: p.conceptId,
+    proposed: { writerId: p.writerId, directorId: p.directorId, cast: { ...p.cast } },
+  })
 
   // Assemble the §5 ReceptionInputs the forecast reads at greenlight (M1/B16).
   const inp: ReceptionInputs = {
@@ -407,6 +417,8 @@ function applyGreenlight(
           },
         }
       : {}),
+    // P17 (rev02 §5.3): the one continuation input, read once here and locked with the forecast snapshot.
+    ...(continuation === null ? {} : { inheritedAwareness01: continuation.quote.inheritedAwareness01 }),
   }
 
   // forecastSnapshot — computed at greenlight (M1). computeForecast draws its ONE
@@ -538,7 +550,7 @@ function applyGreenlight(
     ...(participants ? { participants } : {}),
   }
 
-  const next: GameState = {
+  const withProduction: GameState = {
     ...state,
     studio: {
       ...state.studio,
@@ -547,6 +559,8 @@ function applyGreenlight(
     },
     ledger: [...state.ledger, ...ledgerAdds],
   }
+  // P17: the lineage edge commits atomically with the production.
+  const next = continuation === null ? withProduction : commitContinuation(withProduction, continuation, id)
   const greenlightEvents = injectedEvents ?? studioEventSinkFor(state)
   const withOperations =
     state.operations.mode === 'managed'
@@ -623,10 +637,15 @@ function applyGreenlight(
   // P16A (Save46): the accepted original greenlight is the story-property mint boundary, atomic
   // with the action — one property and one R1 genesis, or a work link onto the concept's existing
   // property when its remake authority greenlights it again (refused above, before any write, otherwise).
-  return playerStudioId === undefined
-    ? competed
-    : mintStoryPropertyAtGreenlight(competed, { studioId: playerStudioId, production, week: state.market.tick },
-      scriptProject!==undefined&&continuedScriptOwner(competed,scriptProject.id)?queuedCarriedValidation?.(competed):undefined)
+  if (playerStudioId === undefined) return competed
+  // P17 (review P17-01; P16 contract §3 "a licensed continuation links to the existing parent and does not mint an
+  // unencumbered R1"): a continuation under its own concept is LINKED to the parent property for the use it exercises,
+  // so its release is titled under that parent and its producer gains no clean title. P16's own writer, pre-checked above.
+  if (continuation !== null && continuation.link) {
+    return linkContinuationAtGreenlight(competed, { studioId: playerStudioId, production, parentPropertyId: continuation.quote.storyPropertyId, use: continuation.quote.use, week: state.market.tick })
+  }
+  return mintStoryPropertyAtGreenlight(competed, { studioId: playerStudioId, production, week: state.market.tick },
+    scriptProject!==undefined&&continuedScriptOwner(competed,scriptProject.id)?queuedCarriedValidation?.(competed):undefined)
 }
 
 // ── cancel (M15) ─────────────────────────────────────────────────────────────
@@ -2484,13 +2503,25 @@ function applyGreenlightScriptProject(
       `applyActions: greenlightScriptProject rejected — screenplay project "${action.production.projectId}" already has a greenlight waiting in the production queue`,
     )
   }
-  return admitOrQueue(
-    state,
-    () => applyGreenlightScriptProjectNow(state, action, writingContext, project, injectedEvents, queuedCarriedValidation),
-    (queue) =>
-      queueGreenlightScriptProject(queue, action.production.projectId, action.production, week),
-    allowQueue,
-  )
+  // P17: a continuation request is quoted against THIS week's grant, so it starts now or refuses; it never waits in the
+  // queue, whose frozen payload leaf carries no continuation field.
+  const continuationBearing = action.continuation !== undefined
+  try {
+    return admitOrQueue(
+      state,
+      () => applyGreenlightScriptProjectNow(state, action, writingContext, project, injectedEvents, queuedCarriedValidation),
+      (queue) =>
+        queueGreenlightScriptProject(queue, action.production.projectId, action.production, week),
+      allowQueue && !continuationBearing,
+    )
+  } catch (error) {
+    if (continuationBearing && allowQueue && error instanceof QueueableCapacityRefusal && queueingActive(state.operations)) {
+      throw new Error(
+        `applyActions: greenlightScriptProject rejected — ${error.message}; a continuation greenlight cannot wait in the queue (its quote is bound to week ${week}): greenlight it when capacity is free`,
+      )
+    }
+    throw error
+  }
 }
 
 /**
@@ -2531,6 +2562,8 @@ function applyGreenlightScriptProjectNow(
         cast: action.production.cast,
         budget: action.production.budget,
       },
+      // P17: the request rides the action into the one greenlight verb (absent ⇒ the predecessor path, byte for byte)
+      ...(action.continuation === undefined ? {} : { continuation: action.continuation }),
     },
     project.id,
     injectedEvents,
@@ -2977,6 +3010,13 @@ function applyCommitPictureToRelease(
   if (refusal !== null) {
     throw new Error(`applyActions: commitPictureToRelease rejected — ${refusal}`)
   }
+  // P17 (charter r2 "at ... release ... request P16's live rights"): committing a continuation to release exercises its
+  // R3 use, so the live grant is read again here for the producing studio.
+  const producer = state.hollywood?.playerStudioId
+  const rights = producer === undefined ? null : continuationReleaseAuthority(state, action.productionId, producer)
+  if (rights !== null && rights.refusal !== null) {
+    throw new Error(`applyActions: commitPictureToRelease rejected — ${rights.refusal}`)
+  }
   const week = state.market.tick
   const commitEvents = studioEventSinkFor(state)
   commitEvents.append({ kind: 'releaseCommitted', productionId: action.productionId }, week)
@@ -3182,6 +3222,10 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         break
       case 'commitPictureToRelease':
         next = applyCommitPictureToRelease(next, action)
+        break
+      // P17: the authored SubProperty hook under the parent's live spin-off authority.
+      case 'mintSubProperty':
+        next = applyMintSubProperty(next, action)
         break
       // P14B.7: the waiver is the engine's own verb; the dispatch adds no rule
       // of its own, so the action and the direct call agree exactly.

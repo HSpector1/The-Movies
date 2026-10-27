@@ -179,7 +179,7 @@ describe('P16 genuine163 R02 paid post-production explicit healthy continuation'
   const p=prepared(),j=journey(p),text=JSON.stringify(saves.makeSave(j.final))
   const reject=(change:(state:GameState)=>void,expectedPattern=/continued|work|release|Standing|rights|commitment|studio/i)=>{
    const saved=JSON.parse(text);change(saved.state);const before=JSON.stringify(saved)
-   try {expect(()=>saves.validateSaveV49(saved)).toThrow(expectedPattern)}
+   try {expect(()=>saves.validateSaveV50(saved)).toThrow(expectedPattern)}
    finally {expect(JSON.stringify(saved)).toBe(before)}
   }
   reject(state=>{const film=state.hollywood!.films.find(f=>f.filmId===FILM)!;expect(film).toBeDefined();state.hollywood={...state.hollywood!,films:[...state.hollywood!.films,structuredClone(film)]}},/duplicate film identity/)

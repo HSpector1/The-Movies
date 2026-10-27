@@ -157,7 +157,7 @@ describe('P16 fixed real R01 paid production completes before healthy active-run
   const p=prepared(),c=serviceToSettlement(p),text=JSON.stringify(saves.makeSave(c.state))
   const reject=(change:(state:GameState)=>void,expectedPattern=/absorption|run|cash|ledger|buyer/i)=>{
    const saved=JSON.parse(text);change(saved.state);const before=JSON.stringify(saved)
-   try {expect(()=>saves.validateSaveV49(saved)).toThrow(expectedPattern)}
+   try {expect(()=>saves.validateSaveV50(saved)).toThrow(expectedPattern)}
    finally {expect(JSON.stringify(saved)).toBe(before)}
   }
   reject(state=>{state.rights.absorptions.find(a=>a.id===c.record.id)!.runs=[]})

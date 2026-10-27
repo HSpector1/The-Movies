@@ -11,7 +11,7 @@ import { throws } from 'node:assert/strict'
 // predecessor-era save WITHOUT the rights root. It refuses when any rights instrument or rights money exists: only
 // titles the predecessor era derives anyway (from the greenlights and releases the state still holds) may be dropped.
 
-import { P16_PREDECESSOR_SAVE_VERSION, P16_SAVE_VERSION, convertV49ToV48, validateSaveV48, type SaveFileV48 } from '../../src/core/save.js'
+import { P16_PREDECESSOR_SAVE_VERSION, P16_SAVE_VERSION, P17_SAVE_VERSION, convertV49ToV48, convertV50ToV49, validateSaveV48, type SaveFileV48 } from '../../src/core/save.js'
 import { validateSharedMarketRoot } from '../../src/core/marketIntegration.js'
 import { cutoverRightsRoot } from '../../src/core/rights.js'
 import type { GameState } from '../../src/core/types.js'
@@ -32,6 +32,8 @@ export function withP16Era<T extends object>(state: T, week: number): T {
 }
 
 export function rightsStripped(save: { saveVersion: number; seed: string; state: GameState; broadcastCache: unknown }): SaveFileV48 {
+  // P17 (Save50): a live envelope steps down through the P17 step first; any recorded franchise refuses there, by name.
+  if (save.saveVersion === P17_SAVE_VERSION) save = convertV50ToV49(save as never) as unknown as typeof save
   if (save.saveVersion !== P16_SAVE_VERSION) throw new Error(`rightsStripped: expects a Save${P16_SAVE_VERSION} envelope, got ${save.saveVersion}`)
   // Every deep historical guard retains proof of the real public P16 first boundary.
   const originalRoot = save.state.rights

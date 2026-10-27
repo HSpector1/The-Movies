@@ -14,7 +14,7 @@ const R04='studio-aca408ec-r04',FILM='studio-aca408ec-r04:film:0',BID=13_000_000
 let cached:{beforeD:GameState;final:GameState;closureId:string;txId:string}|undefined
 function admitted(state:GameState) {
  const before=JSON.stringify(state),saved=saves.makeSave(state)
- expect(saved.saveVersion).toBe(saves.P16_SAVE_VERSION)
+ expect(saved.saveVersion).toBe(saves.LIVE_SAVE_VERSION)
  expect(JSON.stringify(saved.state)).toBe(before)
  expect(JSON.stringify(state)).toBe(before)
 }
@@ -100,8 +100,8 @@ describe('P16 joinedD strict-save corruption and actual publication rollback',()
  })
  it('a real strict49 D publication refusal cannot publish partial sale cash claims or archival',()=>{
   const {beforeD,final,closureId,txId}=route();admitted(beforeD);admitted(final)
-  const before=JSON.stringify(beforeD),real=saves.validateSaveV49,marker='P16_REAL_D_PUBLICATION_REFUSAL'
-  const spy=vi.spyOn(saves,'validateSaveV49').mockImplementation(envelope=>{
+  const before=JSON.stringify(beforeD),real=saves.validateSaveP17,marker='P16_REAL_D_PUBLICATION_REFUSAL' // P17: the live publication reader
+  const spy=vi.spyOn(saves,'validateSaveP17').mockImplementation(envelope=>{
    const admitted=real(envelope)
    expect(admitted.state.market.tick).toBe(176)
    expect(admitted.state.studioClosure.estateEvents.some(e=>e.closureId===closureId&&String(e.kind)==='saleReceipt'&&e.reference===txId)).toBe(true)

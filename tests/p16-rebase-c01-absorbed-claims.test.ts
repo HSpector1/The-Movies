@@ -191,7 +191,7 @@ describe('C-01 follow-up: a malformed absorption record is refused by name, neve
     const forged = JSON.parse(JSON.stringify(save)) as { state: { rights: { absorptions: unknown[] } } }
     forged.state.rights.absorptions = [null]
     let caught: unknown = null
-    try { saves.validateSaveV49(forged) } catch (error) { caught = error }
+    try { saves.validateSaveV50(forged) } catch (error) { caught = error }
     expect(caught, 'the forged save is refused').toBeInstanceOf(Error)
     expect(caught, 'by name, not a TypeError').not.toBeInstanceOf(TypeError)
     expect((caught as Error).message).toBe('validateSaveV49: rights cannot hold records without an industry')

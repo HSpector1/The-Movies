@@ -1,6 +1,6 @@
 // Only protected historical comparison operands use this real, refusal-preserving projection.
 import { deepStrictEqual } from 'node:assert/strict'
-import { convertV46ToV45, convertV47ToV46, makeSave, validateSaveV45, validateSaveV49 } from '../../src/core/save.js'
+import { convertV46ToV45, convertV47ToV46, makeSave, validateSaveV45, validateSaveV50 } from '../../src/core/save.js'
 import type { GameState, GameStateV45 } from '../../src/core/types.js'
 import { predecessorSave } from './p15-roots.js'
 
@@ -9,7 +9,7 @@ export function historicalSave45Comparison(state: GameState): GameStateV45 {
   try {
     const written = makeSave(state)
     const writtenBefore = structuredClone(written)
-    const current = validateSaveV49(written)
+    const current = validateSaveV50(written)
     deepStrictEqual(written, writtenBefore, 'current reader mutated its input')
     const currentBefore = structuredClone(current)
     // P15B (1370-ar): the live step's own converter refuses any evaluated condition record (every ticked

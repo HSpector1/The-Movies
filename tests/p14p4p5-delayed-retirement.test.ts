@@ -130,7 +130,7 @@ function admitted(state: GameState): void {
   // masked live validator call on the same line moves with it.
   // 1358-N S2+S1: Save44 moves the live stamp to 44, and both pins on the next line move with it.
   // 1361-N S2+S1: Save45 moves the live stamp to 45, and both pins on the next line move with it again.
-  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV49(save)).toBe(save)
+  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV50(save)).toBe(save)
   const raw = saves.exportSave(save)
   expect(saves.exportSave(saves.importSave(raw))).toBe(raw); expect(stable(state)).toBe(before)
 }

@@ -12,7 +12,7 @@
 import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import * as rights from '../src/core/rights.js'
-import { convertV48ToV49, convertV49ToV48, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
+import { convertV48ToV49, convertV49ToV48, convertV50ToV49, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import type { GameState } from '../src/core/types.js'
 import { initializeHollywood } from '../src/core/hollywood.js'
@@ -226,7 +226,7 @@ describe('F15 boundary mint integrity', () => {
     expect(opened.rights.titleEvents).toEqual([])
     // A public-converter-derived predecessor, not an original historical capture.
     const originalFrontier = stableStringify(opened.rights.legacyBoundary), originalOpened = stableStringify(opened)
-    const predecessor = convertV49ToV48(makeSave(opened))
+    const predecessor = convertV49ToV48(convertV50ToV49(makeSave(opened)))
     expect(predecessor.saveVersion).toBe(48)
     const predecessorBefore = stableStringify(predecessor), relifted = convertV48ToV49(predecessor)
     expect(relifted.saveVersion).toBe(49)
@@ -256,7 +256,7 @@ it('F15 actual cancel/save/reload/regreenlight retains cutover identity and orig
   const cancelled = applyActions(opened, [{ kind: 'cancel', productionId }])
   expect(stableStringify(opened)).toBe(before)
   expect(cancelled.studio.activeProductions.some(p => p.id === productionId)).toBe(false)
-  expect(() => convertV49ToV48(makeSave(cancelled))).toThrow(/unique cutover provenance/)
+  expect(() => convertV49ToV48(convertV50ToV49(makeSave(cancelled)))).toThrow(/unique cutover provenance/)
   const saved = stableStringify(makeSave(cancelled)), loaded = migrateToLive(importSave(saved)).state as GameState
   expect(stableStringify(loaded.rights.legacyBoundary)).toBe(anchor)
   expect(rights.currentHolder(loaded, { right: 'R1', propertyId: id }, 3)).toMatchObject({ kind: 'holder', holderId: loaded.hollywood!.playerStudioId })

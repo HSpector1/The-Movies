@@ -67,7 +67,7 @@ type SaveAPI = { validateSaveV38: (input: unknown) => Save38;
   // is live and validateSaveV44 (:10822) is frozen.
   // 1370-AR r2: 45 -> 46 (R8 recovery) -> 47 (the recruitment-fund root); validateSaveV49 is live.
   // 1370-ar r2 (P15B): 47 -> 48 (the condition and closure roots); validateSaveV49 is live.
-  validateSaveV49: (input: unknown) => Save38 }
+  validateSaveV50: (input: unknown) => Save38 }
 export function saveApi<K extends keyof SaveAPI>(name: K): SaveAPI[K] {
   const fn = (save as unknown as Partial<SaveAPI>)[name]
   expect(typeof fn, `946 versioned save export ${name}`).toBe('function')

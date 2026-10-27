@@ -114,7 +114,7 @@ describe('P16 absorbed physical paid-work authority from fixed genuine267',()=>{
   const p=physicalControl(),text=JSON.stringify(p.save)
   const mutate=(fn:(state:GameState)=>void)=>{
    const saved=JSON.parse(text);fn(saved.state);const before=JSON.stringify(saved)
-   try {expect(()=>saves.validateSaveV49(saved)).toThrow(/physical|absorption/i)}
+   try {expect(()=>saves.validateSaveV50(saved)).toThrow(/physical|absorption/i)}
    finally {expect(JSON.stringify(saved)).toBe(before)}
   }
   mutate(state=>{delete state.physicalPlans.plans.find(plan=>plan.id===PAID)!.absorptionDisposition})

@@ -14,7 +14,7 @@ import * as estate from '../src/core/estate.js'
 import * as sale from '../src/core/assetSale.js'
 import { libraryValuationV1 } from '../src/core/propertyValuation.js'
 import * as rights from '../src/core/rights.js'
-import { convertV48ToV49, makeSave, stableStringify, validateSaveV49 } from '../src/core/save.js'
+import { convertV48ToV49, makeSave, stableStringify, validateSaveV49, validateSaveV50 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
@@ -48,7 +48,7 @@ const blankTx = (id: string, week: number) => ({ id, week, payeeId: null, estate
 
 describe('r2 F9/F31: no P16 money without the transaction that carries its effect', () => {
   it('the control: a lawful closed title sale validates', () => {
-    expect(() => validateSaveV49(soldSave().save)).not.toThrow()
+    expect(() => validateSaveV50(soldSave().save)).not.toThrow()
   })
 
   it('refuses an absorption transaction (no producer exists in this checkpoint) even with consistent cash', () => {
@@ -59,7 +59,7 @@ describe('r2 F9/F31: no P16 money without the transaction that carries its effec
     forged.state.rights.transactions.push({ ...blankTx(id, week), kind: 'absorption' as never, payerId: player, amount: -1_000_000 })
     forged.state.ledger.push({ week, kind: 'acquisitionOutlay', amount: 1_000_000, note: id })
     forged.state.studio.cash += 1_000_000
-    expect(() => validateSaveV49(forged)).toThrow(/transactions\[\d+\].*kind/)
+    expect(() => validateSaveV50(forged)).toThrow(/transactions\[\d+\].*kind/)
   })
 
   it('refuses an unknown transaction kind', () => {
@@ -68,7 +68,7 @@ describe('r2 F9/F31: no P16 money without the transaction that carries its effec
     const id = `rights-tx-${forged.state.rights.nextId}`
     forged.state.rights.nextId += 1
     forged.state.rights.transactions.push({ ...blankTx(id, week), kind: 'gift' as never, payerId: player, amount: 0 })
-    expect(() => validateSaveV49(forged)).toThrow(/transactions\[\d+\].*kind/)
+    expect(() => validateSaveV50(forged)).toThrow(/transactions\[\d+\].*kind/)
   })
 
   it('refuses a title sale that moved no title and names no accepted offer, though its cash reconciles', () => {
@@ -82,7 +82,7 @@ describe('r2 F9/F31: no P16 money without the transaction that carries its effec
     forged.state.studio.cash -= 1_000_000
     const { account, period } = rivalPeriod(forged, r01)
     period.movements.rightsConsideration += 1_000_000; period.closing += 1_000_000; account.cash += 1_000_000
-    expect(() => validateSaveV49(forged)).toThrow(/transactions\[\d+\].*(offer|title event)/)
+    expect(() => validateSaveV50(forged)).toThrow(/transactions\[\d+\].*(offer|title event)/)
   })
 
   it('refuses a real title sale whose payee was erased and whose seller credit was removed', () => {
@@ -91,7 +91,7 @@ describe('r2 F9/F31: no P16 money without the transaction that carries its effec
     forged.state.rights.transactions[0]!.payeeId = null
     const { account, period } = rivalPeriod(forged, r01)
     period.movements.rightsConsideration -= price; period.closing -= price; account.cash -= price
-    expect(() => validateSaveV49(forged)).toThrow(/transactions\[0\].*payee/)
+    expect(() => validateSaveV50(forged)).toThrow(/transactions\[0\].*payee/)
   })
 
   it('refuses a licence grant transaction with no licence, and a diligence fee with no disclosure record', () => {
@@ -100,14 +100,14 @@ describe('r2 F9/F31: no P16 money without the transaction that carries its effec
     const id = `rights-tx-${licenceTx.state.rights.nextId}`
     licenceTx.state.rights.nextId += 1
     licenceTx.state.rights.transactions.push({ ...blankTx(id, week), kind: 'licenceGrant', payerId: player, payeeId: r01, amount: 0 })
-    expect(() => validateSaveV49(licenceTx)).toThrow(/transactions\[\d+\].*licence/)
+    expect(() => validateSaveV50(licenceTx)).toThrow(/transactions\[\d+\].*licence/)
     const feeTx = detached(save)
     const fee = `rights-tx-${feeTx.state.rights.nextId}`
     feeTx.state.rights.nextId += 1
     feeTx.state.rights.transactions.push({ ...blankTx(fee, week), kind: 'dueDiligence', payerId: player, amount: TUNING.RIGHTS_DUE_DILIGENCE_FEE })
     feeTx.state.ledger.push({ week, kind: 'dueDiligenceFee', amount: -TUNING.RIGHTS_DUE_DILIGENCE_FEE, note: fee })
     feeTx.state.studio.cash -= TUNING.RIGHTS_DUE_DILIGENCE_FEE
-    expect(() => validateSaveV49(feeTx)).toThrow(/transactions\[\d+\].*disclosure record/)
+    expect(() => validateSaveV50(feeTx)).toThrow(/transactions\[\d+\].*disclosure record/)
   })
 })
 
@@ -144,7 +144,7 @@ describe('r2 F43/F15: a persisted property\'s date is its own greenlight evidenc
     const forged = detached(makeSave(s))
     forged.state.rights.properties.find((p) => p.propertyId === property.propertyId)!.createdAt = { kind: 'campaign', week: 1 }
     forged.state.rights.titleEvents.find((e) => e.subject.right === 'R1' && e.subject.propertyId === property.propertyId)!.date = { kind: 'campaign', week: 1 }
-    expect(() => validateSaveV49(forged)).toThrow(/ambiguous provenance/)
+    expect(() => validateSaveV50(forged)).toThrow(/ambiguous provenance/)
   })
 })
 
@@ -155,7 +155,7 @@ describe('r2 F45/F16: chain continuity is refused on its own, with every holder 
     const sale = forged.state.rights.titleEvents.find((e) => e.cause === 'sale')!
     const other = forged.state.hollywood!.identities.find((i) => i.studioId !== r01 && i.studioId !== player)!.studioId
     sale.priorHolder = other
-    expect(() => validateSaveV49(forged)).toThrow(new RegExp(`priorHolder ${other} breaks continuity with ${r01}`))
+    expect(() => validateSaveV50(forged)).toThrow(new RegExp(`priorHolder ${other} breaks continuity with ${r01}`))
   })
 })
 
@@ -174,7 +174,7 @@ describe('r2 F58: the licence-overlap, bid-window and estate-proceeds rules each
     forged.state.rights.licences[1]!.startWeek = week + 5
     const offer = forged.state.rights.offers.find((o) => o.transactionId === forged.state.rights.licences[1]!.transactionId)!
     if (offer.instrument.kind === 'licence') offer.instrument.startWeek = week + 5
-    expect(() => validateSaveV49(forged)).toThrow(/licences\[1\] overlaps exclusive licence/)
+    expect(() => validateSaveV50(forged)).toThrow(/licences\[1\] overlaps exclusive licence/)
   })
 
   it('a sealed bid dated before its window, and estate proceeds that differ from the estate sales, refuse', () => {
@@ -190,10 +190,10 @@ describe('r2 F58: the licence-overlap, bid-window and estate-proceeds rules each
     expect(estate.estateBidRefusal(s, input, s.market.tick)).toBeNull()
     s = estate.submitEstateBid(s, input, s.market.tick).state
     const baseline = makeSave(s)
-    expect(() => validateSaveV49(baseline)).not.toThrow()
+    expect(() => validateSaveV50(baseline)).not.toThrow()
     const early = detached(baseline)
     early.state.rights.estates.find(e => e.estateId === opened.estateId)!.bids[0]!.week = opened.opensWeek - 1
-    expect(() => validateSaveV49(early)).toThrow(/bids\[0\] admitted only inside/)
+    expect(() => validateSaveV50(early)).toThrow(/bids\[0\] admitted only inside/)
     const before = stableStringify(s)
     const closed = estate.resolveEstate(s, opened.estateId, opened.closesWeek)
     expect(stableStringify(s)).toBe(before)

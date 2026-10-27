@@ -26,7 +26,7 @@
 //  - S4's `makeSave` case now migrates first (F1) — `makeSave` takes the live V36
 //    `GameState`, and a raw V35 fixture is a type error against it.
 import { describe, expect, it } from 'vitest'
-import { LIVE_SAVE_VERSION, convertV35ToV36, convertV36ToV35, convertV49ToV48, makeSave, validateSaveV49 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, convertV35ToV36, convertV36ToV35, convertV49ToV48, convertV50ToV49, makeSave, validateSaveV50 } from '../src/core/save.js'
 import type { GameState, GameStateV35, RetirementRecordV36, TalentMarketCaseV36 } from '../src/core/types.js'
 import { C2B_CORPUS, advanceTo, c2bFixture, c2bLiveFixture, liveEnvelope, liveEnvelopeV36 } from './helpers/p14c2b-fixtures.js'
 import { submitProposal } from '../src/core/talentMarket.js'
@@ -85,7 +85,7 @@ describe('P14C.2b S2: V36 -> V35 downgrade', () => {
     // MOVED (P16 rebase): the live step refuses first, by name (the world recorded titles). The V36 chain starts from
     // the world's Save48 projection, which does not exist here: its shared-market history is table 3 and nondefault,
     // and `rightsStripped` refuses to relabel it, so the V45 guard that already masked the V36 guard is unreachable too.
-    expect(() => convertV49ToV48(makeSave(settled))).toThrow(RIGHTS_ROOT_REFUSAL)
+    expect(() => convertV49ToV48(convertV50ToV49(makeSave(settled)))).toThrow(RIGHTS_ROOT_REFUSAL)
     expect(() => liveEnvelopeV36(settled)).toThrow(NONDEFAULT_MARKET_PROJECTION)
   })
 
@@ -106,7 +106,7 @@ describe('P14C.2b S2: V36 -> V35 downgrade', () => {
     // MOVED (P16 rebase): the live step refuses first, by name (the world recorded titles). The V36 chain starts from
     // the world's Save48 projection, which does not exist here: its shared-market history is table 3 and nondefault,
     // and `rightsStripped` refuses to relabel it, so the V45 guard that already masked the V36 guard is unreachable too.
-    expect(() => convertV49ToV48(makeSave(atWindow))).toThrow(RIGHTS_ROOT_REFUSAL)
+    expect(() => convertV49ToV48(convertV50ToV49(makeSave(atWindow)))).toThrow(RIGHTS_ROOT_REFUSAL)
     expect(() => liveEnvelopeV36(atWindow)).toThrow(NONDEFAULT_MARKET_PROJECTION)
   })
 })
@@ -138,7 +138,7 @@ function genuineSettledBaseline(): { state: GameState; personId: string; oldE: n
 describe('P14C.2b S3: the validator refuses each tampering, one per case, from a GENUINE settled V36 state (806 §8.2)', () => {
   it('the unmutated, genuinely-produced baseline must validate', () => {
     const { state } = genuineSettledBaseline()
-    expect(() => validateSaveV49(makeSave(state))).not.toThrow()
+    expect(() => validateSaveV50(makeSave(state))).not.toThrow()
   })
 
   it('a second extension case for the SAME person is refused (at most one per person, ever)', () => {
@@ -146,7 +146,7 @@ describe('P14C.2b S3: the validator refuses each tampering, one per case, from a
     const original = state.talentMarket.cases.find((c) => c.contractId === contractId && c.variant === 'retirementExtension')!
     const second: TalentMarketCaseV36 = { ...original, contractId: `${contractId}-second` }
     const tampered: GameState = { ...state, talentMarket: { ...state.talentMarket, cases: [...state.talentMarket.cases, second] } }
-    expect(() => validateSaveV49(makeSave(tampered))).toThrow(/at most one|second retirementExtension/i)
+    expect(() => validateSaveV50(makeSave(tampered))).toThrow(/at most one|second retirementExtension/i)
   })
 
   it('extensionUsed: true with no SETTLED extension case for that person is refused', () => {
@@ -155,7 +155,7 @@ describe('P14C.2b S3: the validator refuses each tampering, one per case, from a
       ...state,
       talentMarket: { ...state.talentMarket, cases: state.talentMarket.cases.filter((c) => !(c.talentId === personId && c.variant === 'retirementExtension')) },
     }
-    expect(() => validateSaveV49(makeSave(tampered))).toThrow(/settled retirementExtension case/i)
+    expect(() => validateSaveV50(makeSave(tampered))).toThrow(/settled retirementExtension case/i)
   })
 
   it('extendedFromWeek mismatched with effectiveWeek - 52 is refused', () => {
@@ -167,7 +167,7 @@ describe('P14C.2b S3: the validator refuses each tampering, one per case, from a
         records: state.careerLifecycle.records.map((r) => (r.personId === personId ? { ...r, extendedFromWeek: oldE - 1 } : r)),
       },
     }
-    expect(() => validateSaveV49(makeSave(tampered))).toThrow(/weeks before its effective week/i)
+    expect(() => validateSaveV50(makeSave(tampered))).toThrow(/weeks before its effective week/i)
   })
 
   it('no contract ending at the new E is found by TERMS (the new contract\'s endWeekExclusive is altered) — refused', () => {
@@ -180,7 +180,7 @@ describe('P14C.2b S3: the validator refuses each tampering, one per case, from a
           (e.terms.endWeekExclusive === newE ? { ...e, terms: { ...e.terms, endWeekExclusive: newE + 1 } } : e)),
       },
     }
-    expect(() => validateSaveV49(makeSave(tampered))).toThrow(/exactly one must/i)
+    expect(() => validateSaveV50(makeSave(tampered))).toThrow(/exactly one must/i)
   })
 })
 

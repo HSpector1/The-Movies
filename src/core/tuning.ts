@@ -1077,6 +1077,54 @@ export const TUNING = {
   RIGHTS_WILLINGNESS_PREMIUM_PERCENT: 20, // whole percent in (0,100); a rival sells at >= value * (100 + p) / 100 and buys at <= value * (100 - p) / 100
   RIGHTS_RESALE_HOLDBACK_WEEKS: 52, // whole weeks in [1,104], above the offer duration; a bought title cannot be resold sooner
   ESTATE_WINDOW_WEEKS: 13, // whole weeks; the half-open estate disposal window [opensWeek, closesWeek) adopted by 1367-G
+
+  // ── P17 continuations — canonical rev02 f2eff635 §5.7 symbol index, copied exactly ────────────
+  // PROVISIONAL starting points (rev02 §19.3) under the Owner's bounded P17 approval; the Owner choices
+  // (P17-RECOVERED-SPECIFICATION-STATE.md) are the 0.35 floor, healthy reboots legal, dormant return as
+  // DirectSequel. A change to any value is a tuning amendment with its own record.
+  P17_RECOGNITION_HALF_LIFE_WEEKS: 650, // HL_R (~12.5 years)
+  P17_RECOGNITION_RESIDUAL_WEIGHT: 0.15, // κ_R: every non-peak film's weight
+  P17_RECOGNITION_FLOOR_FRACTION: 0.35, // Owner choice 2026-09-27: durable floor of the quality-qualified peak
+  P17_RECOGNITION_GATE_LO: 0.5, // gateR(q) = clamp((q − 0.50)/0.25, 0, 1) (C1)
+  P17_RECOGNITION_GATE_SPAN: 0.25,
+  P17_MOMENTUM_HALF_LIFE_WEEKS: 24, // HL_M
+  P17_FATIGUE_SATIATION_Q: 0.75, // q ≥ 0.75 accrues nothing
+  P17_FATIGUE_SATIATION_SPAN: 0.1, // gate ramp width
+  P17_FATIGUE_HALF_LIFE_BASE_WEEKS: 104, // paydown half-life after a mediocre film
+  P17_FATIGUE_PAYDOWN_COEF: 1.5, // 104 / (1 + 1.5·clamp((lastQ − 0.5)/0.5)) → ~42 weeks after an excellent film
+  P17_FATIGUE_PAYDOWN_Q_FLOOR: 0.5, // (0, 1]: the last quality at which faster paydown begins (§5.2 "lastQuality − 0.5")
+  P17_FATIGUE_PAYDOWN_Q_SPAN: 0.5, // (0, 1]: the quality span over which paydown reaches its maximum (§5.2 "/0.5")
+  P17_QUALITY_CRITIC_WEIGHT: 0.5, // (0, 1]: quality = w·critic01 + (1 − w)·aud01, the §5.2 "starting blend"
+  P17_SURPRISE_COMPARATOR_WEIGHT: 0.5, // (0, 1]: surprise = clamp(w·(comparator − 1) + (quality − pivot), −1, 1) (§5.2)
+  P17_SURPRISE_QUALITY_PIVOT: 0.5, // (0, 1]: the quality that contributes zero surprise (§5.2 "quality − 0.5")
+  P17_SIMILARITY: { directSequel: 0.9, prequel: 0.9, remake: 0.7, reboot: 0.6, spinOff: 0.5 }, // derived from the type (C6)
+  P17_AWARENESS_RECOGNITION_WEIGHT: 0.8, // AWARE_WR
+  P17_AWARENESS_MOMENTUM_WEIGHT: 0.2, // AWARE_WM (positive Momentum only)
+  P17_FATIGUE_AWARENESS_WEIGHT: 0.5, // × (1 − 0.5·min(F,100)/100) (C2)
+  P17_REMAKE_COMPARISON_WEIGHT: 0.5, // REMAKE_W
+  P17_REMAKE_HALF_LIFE_WEEKS: 260, // HL_REMAKE
+  P17_REBOOT_PARTIAL_WEIGHT: 0.4, // W_PARTIAL (C4′)
+  P17_REBOOT_REF_RECENT_WEEKS: 416,
+  P17_REBOOT_REF_STRONG_Q: 0.65,
+  P17_CONTINUITY_CREDIT_FLOOR: 0.75, // 0.75 + 0.25·credit (§11)
+  P17_RECAST_RETENTION: 0.35,
+  P17_ASSOCIATION_CAP: 4,
+  P17_MIN_APPEARANCES_FOR_MAJOR: 2, // an explicit law: one blockbuster credit never makes anyone iconic
+  P17_ROLE_IMPORTANCE: { lead: 1.0, director: 0.9, antagonist: 0.7, support: 0.45, writer: 0.35 }, // craft excluded
+  P17_ASSOCIATION_ICONIC_LEAD_MIN: 1.6, // (0, CAP]: §11 ICONIC LEAD (lead-dominant, ≥2 appearances, weight ≥ 1.6)
+  P17_ASSOCIATION_SIGNATURE_DIRECTOR_MIN: 1.3, // (0, CAP]: §11 SIGNATURE DIRECTOR (≥ 1.3)
+  P17_ASSOCIATION_RECURRING_MIN: 0.3, // (0, CAP]: §11 RECURRING SUPPORT (≥ 0.3); also the CORE ENSEMBLE floor (contract gap)
+  P17_MAX_OPEN_CONTINUITIES: 3, // N_MAX_OPEN_CONTINUITIES; lifetime unbounded
+  P17_DORMANT_WEEKS: 150,
+  P17_REVIVAL_R_BAR: 25,
+  P17_MOMENTUM_COOL: -5,
+  P17_FATIGUE_HOT: 60,
+  P17_REACT_WINDOW_WEEKS: 26,
+  P17_MAX_LIVE_SUBPROPERTIES: 3,
+  P17_SPINOFF_TRANSFER_BASE: 0.38, // transferFraction = 0.38 + 0.27·hookWeight (§9)
+  P17_SPINOFF_TRANSFER_HOOK_COEF: 0.27,
+  P17_SPINOFF_FATIGUE_INHERIT: 0.5, // SPINOFF_F_INHERIT
+  P17_HOOK_WEIGHT_DEFAULT: 0.5, // location / major-concept hooks
 } as const
 
 // ── Placement Core V12 — the facility blueprint catalog ──────────────────────

@@ -25,7 +25,7 @@ import type { BridgeCheckpointStore } from '../bridge/runtime/checkpoint-store.t
 import type { CampaignLibrary } from '../bridge/runtime/campaign-library.ts'
 import { caseDisclosure } from '../src/core/talentMarket.js'
 import { activeContract } from '../src/core/employment.js'
-import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV38, validateSaveV39, validateSaveV49, initialP15BRoots } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV38, validateSaveV39, validateSaveV50, initialP15BRoots } from '../src/core/save.js'
 import type { GameState, ProfessionalPromise } from '../src/core/types.js'
 
 // 1333-I: D15/D16/D17 measured 139,426/116,959/118,597 ms in the full-suite gate; the old
@@ -100,7 +100,7 @@ const sha = (value: string | Uint8Array): string => createHash('sha256').update(
 const bytes = (state: GameState): string => exportSave(makeSave(state))
 function full(state: GameState): string {
   const before = stableStringify(state), save = makeSave(state)
-  expect(save.saveVersion).toBe(LIVE_SAVE_VERSION); expect(validateSaveV49(save)).toBe(save)
+  expect(save.saveVersion).toBe(LIVE_SAVE_VERSION); expect(validateSaveV50(save)).toBe(save)
   const raw = exportSave(save)
   expect(exportSave(importSave(raw))).toBe(raw)
   expect(stableStringify(state)).toBe(before)
@@ -393,7 +393,7 @@ function qualifyPrior53(): void {
     for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
       assert.ok(current[slot])
       const previous = validateSaveV38(JSON.parse(old.value[slot]))
-      const now = validateSaveV49(JSON.parse(current[slot]!))
+      const now = validateSaveV50(JSON.parse(current[slot]!))
       // 1344-N S5 (x2 at a318722, :361 D17 measured `+ "screenplayShelving"` on each of four rival businesses, nothing else).
       expect(now.state).toEqual(withEmptyRecovery({ ...withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(previous.state)))), previous.state.market.tick), firstTakeSubjects: { version: 1, cutoverOrdinal: previous.state.firstTakes.length, facts: [] } }))
       expect(current[slot]).toBe(exportSave(migrateToLive(previous)))

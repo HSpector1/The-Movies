@@ -16,7 +16,7 @@ import { terminationCost } from '../src/core/employment.js'
 import * as finance from '../src/core/rightsFinance.js'
 import * as rights from '../src/core/rights.js'
 import { subjectValueV1 } from '../src/core/propertyValuation.js'
-import { convertV49ToV48, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
+import { convertV49ToV48, convertV50ToV49, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
 import { detached, liveFromGenuine, readersWith, STABLE } from './helpers/p16-fixtures.js'
@@ -61,7 +61,7 @@ describe('P16B due diligence: one costed, dated, scoped disclosure event', () =>
     const otherIds = h.identities.map((i) => i.studioId).filter((id) => id !== r01)
     expect(JSON.stringify(record.body).split('"').some((s) => otherIds.includes(s))).toBe(false)
     expect(() => makeSave(next)).not.toThrow()
-    expect(() => convertV49ToV48(makeSave(next))).toThrow(/migrateToV48: cannot downgrade or discard a recorded rights root/)
+    expect(() => convertV49ToV48(convertV50ToV49(makeSave(next)))).toThrow(/migrateToV48: cannot downgrade or discard a recorded rights root/)
     const reloaded = migrateToLive(importSave(stableStringify(makeSave(next)))).state as GameState
     expect(reloaded.rights.diligence).toEqual(next.rights.diligence)
   })

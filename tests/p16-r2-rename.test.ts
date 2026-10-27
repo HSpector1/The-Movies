@@ -13,7 +13,7 @@ import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { libraryValuationV1 } from '../src/core/propertyValuation.js'
 import * as rights from '../src/core/rights.js'
-import { importSave, makeSave, migrateToLive, stableStringify, validateSaveV49 } from '../src/core/save.js'
+import { importSave, makeSave, migrateToLive, stableStringify, validateSaveV50 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import type { GameState } from '../src/core/types.js'
 import { freePackage } from './_m4Fixtures.js'
@@ -80,6 +80,6 @@ describe('r2 F3/F26: rename between greenlight and release', () => {
     const propertyId = rights.storyPropertyId(g.conceptId)
     const saved = detached(makeSave(g.state))
     saved.state.rights.properties.find((p) => p.propertyId === propertyId)!.title = 'A Title Nobody Greenlit'
-    expect(() => validateSaveV49(saved)).toThrow(/greenlight title .* ambiguous provenance/)
+    expect(() => validateSaveV50(saved)).toThrow(/greenlight title .* ambiguous provenance/)
   }, 240_000)
 })

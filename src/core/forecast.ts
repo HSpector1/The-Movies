@@ -483,6 +483,13 @@ export function computeForecast(inp: ForecastInputs, ctx: ForecastContext, satur
     inp.shapeEffects,
     noisyOpening,
     engaged, // D-12 P2: forecast applies the economy scale + awareness marketing when engaged (matches realized)
+    0, // discoverabilityZ: the forecast center (the existing default, passed explicitly)
+    0, // openingStarDraw: the existing default
+    1, // setNoveltyFactor: the existing default
+    1, // competitionFactor: the existing default
+    // P17 (rev02 §5.3): the SAME optional field reception reads live at release, read here at greenlight
+    // and then locked with the snapshot. Absent on every non-continuation forecast ⇒ byte-identical.
+    inp.inheritedAwareness01,
   )
 
   return {

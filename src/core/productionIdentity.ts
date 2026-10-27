@@ -42,6 +42,14 @@ function collectProductionIds(state: GameState, operatedReleaseWeeks?: ReadonlyM
       && operatedSilentLockWeeks.get(loadout.productionId) === loadout.lockedWeek
     if (!operatedSilent) add(loadout.productionId)
   }
+  // P17: a lineage edge names its production and parent for good, so an allocator never reuses either id. (The save
+  // validator joins the root against the walk of the state WITHOUT it, so this reservation cannot vouch for itself.)
+  for (const property of (state as Partial<GameState>).franchises?.properties ?? []) {
+    for (const edge of property.installments) {
+      add(edge.childProductionId)
+      add(edge.parentProductionId)
+    }
+  }
   for (const film of state.studio.releasedFilms) add(film.productionId)
   for (const run of state.theatricalRuns) add(run.productionId)
   for (const entry of state.ledger) add(entry.productionId)

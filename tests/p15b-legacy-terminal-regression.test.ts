@@ -183,7 +183,7 @@ it('two-closure-real-final-reader-allocator-failure-preserves-caller', budgeted(
   const realReader = validateLiveSave
   // Always run REAL admission first; only a detached completed candidate is damaged for actual allocator refusal.
   // This never returns a successful validation stub and cannot publish the detached hostile state.
-  const spy = vi.spyOn(save, validateLiveSave.name as 'validateSaveV49').mockImplementation(envelope => {
+  const spy = vi.spyOn(save, validateLiveSave.name as 'validateSaveV50').mockImplementation(envelope => {
     const admitted = realReader(envelope)
     expect(admitted.state.studioClosure.closures.filter(c => c.closureWeek === 163)).toHaveLength(2)
     expect(admitted.state.campaignLegacy.endOfRun).not.toBeNull()
@@ -198,7 +198,7 @@ it('two-closure-real-final-reader-allocator-failure-preserves-caller', budgeted(
 
 it('ended-links-cutoffs-refs-phase-and-allocator-mutants-refuse-with-input-purity', budgeted(ROUTE_MS, () => {
   const final = terminalCase(6240).final; const baseline = save.makeSave(final)
-  expect(() => save.validateSaveV49(baseline)).not.toThrow()
+  expect(() => save.validateSaveV50(baseline)).not.toThrow()
   const mutants: [string, (s: GameState) => void, RegExp][] = [
     ['orphan ended link', s => { s.campaignLegacy.endOfRun!.closureId = 'absent-closure' }, /endOfRun.closureId/],
     ['reverse closure link', s => { closureOf(s, s.hollywood!.playerStudioId)!.endOfRun = 'absent-manifest' }, /endOfRun.closureId/],
@@ -216,13 +216,13 @@ it('ended-links-cutoffs-refs-phase-and-allocator-mutants-refuse-with-input-purit
   ]
   for (const [name, edit, refusal] of mutants) {
     const bad = structuredClone(baseline); edit(bad.state)
-    const bytes = canon(bad); expect(() => save.validateSaveV49(bad), name).toThrow(refusal); expect(canon(bad), name).toBe(bytes)
+    const bytes = canon(bad); expect(() => save.validateSaveV50(bad), name).toThrow(refusal); expect(canon(bad), name).toBe(bytes)
   }
 }), ROUTE_MS)
 
 it('terminal6240-composed-downward-refusal-preserves-all-authority', budgeted(ROUTE_MS, () => {
   const final = terminalCase(6240).final; const current = save.makeSave(final); const currentBytes = canon(current)
-  expect(save.validateSaveV49(current)).toBe(current)
+  expect(save.validateSaveV50(current)).toBe(current)
   // P16 rebase: every Save49 closure opens its estate in the closure week (studioClosure.ts `openEstate` when the state
   // carries `rights`), so this terminal world holds a closure49 estate, a rights instrument `rightsStripped` refuses to
   // drop, and no Save48 operand exists. The public first refusal is the live step's, by name, at every older reader,
@@ -231,7 +231,8 @@ it('terminal6240-composed-downward-refusal-preserves-all-authority', budgeted(RO
   // reasons (round 4); the v3-official reason with the frozen-2040 reason appended has its Save48 control in
   // p15b-legacy-v3.test.ts, and the condition-record reason with R8's appended in p15b2-corporate-condition-save.
   expect(final.rights.estates.map(e => e.origin.kind), 'premise: the player closure opened its estate').toContain('closure49')
-  for (const convert of [save.convertV49ToV48, save.migrateToV47, save.migrateToV46, save.migrateToV45]) {
+  // P17 (Save50): the P16 step's own downgrade is entered from the live envelope through the P17 step.
+  for (const convert of [(s: never) => save.convertV49ToV48(save.convertV50ToV49(s)), save.migrateToV47, save.migrateToV46, save.migrateToV45]) {
     expect(() => convert(current)).toThrow(/^migrateToV48: cannot discard unique estate observation or current closure provenance$/)
     expect(canon(current)).toBe(currentBytes)
   }
@@ -240,7 +241,7 @@ it('terminal6240-composed-downward-refusal-preserves-all-authority', budgeted(RO
 // Isolated real allocator-owner proof; full-reader earlier closure-order refusals cannot substitute.
 it('real-global-allocator-rejects-duplicate-stamps-on-admitted-two-closure-input', budgeted(FIXTURE_MS, () => {
   const baseline = save.makeSave(multiCase().final)
-  expect(() => save.validateSaveV49(baseline)).not.toThrow()
+  expect(() => save.validateSaveV50(baseline)).not.toThrow()
   const roots = ['sharedMarket', 'powerRanking', 'campaignLegacy', 'corporateCondition', 'studioClosure']
   expect(() => save.validateP15Allocator(baseline.state as unknown as Record<string, unknown>, 'allocator-owner-control', roots)).not.toThrow()
   const bad = structuredClone(baseline); const rows = bad.state.studioClosure.closures.filter(c => c.closureWeek === 163)

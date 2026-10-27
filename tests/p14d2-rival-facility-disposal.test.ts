@@ -55,7 +55,7 @@ function era(): EraApi {
 function admitted(s: GameState): GameState {
   const envelope = save.makeSave(s)
   expect(envelope.saveVersion).toBe(save.LIVE_SAVE_VERSION) // Save47 (1364, 1370-AR r2): the live writer is one step above this era
-  expect(save.validateSaveV49(envelope)).toBe(envelope)
+  expect(save.validateSaveV50(envelope)).toBe(envelope)
   return s
 }
 const worlds = new Map<number, GameState>()
@@ -323,7 +323,7 @@ describe('1363-A2 Part C: admitted synthetic policy-state controls over genuine 
     // These objects intentionally are invalid. They are never described as natural controls.
     const expected = new Error(`rival facility disposal invariant: ${reason}`)
     expect(() => api().validateRivalFacilityDisposal(mutant)).toThrow(expected)
-    expect(() => save.validateSaveV49({ saveVersion: save.LIVE_SAVE_VERSION, seed: mutant.seed, // Save48 (1370-ar): the live reader reaches this era's invariant
+    expect(() => save.validateSaveV50({ saveVersion: save.LIVE_SAVE_VERSION, seed: mutant.seed, // Save48 (1370-ar): the live reader reaches this era's invariant
       state: mutant, broadcastCache: mutant.broadcastItems })).toThrow(expected)
     expect(bytes(mutant)).toBe(before)
   }, 120_000)
@@ -340,7 +340,7 @@ describe('1363-A2 Part C: admitted synthetic policy-state controls over genuine 
       const before = bytes(mutant)
       const expected = new Error(`rival facility disposal invariant: ${reason}`)
       expect(() => api().validateRivalFacilityDisposal(mutant)).toThrow(expected)
-      expect(() => save.validateSaveV49({ saveVersion: save.LIVE_SAVE_VERSION, seed: mutant.seed, // Save48 (1370-ar): the live reader reaches this era's invariant
+      expect(() => save.validateSaveV50({ saveVersion: save.LIVE_SAVE_VERSION, seed: mutant.seed, // Save48 (1370-ar): the live reader reaches this era's invariant
         state: mutant, broadcastCache: mutant.broadcastItems })).toThrow(expected)
       expect(bytes(mutant)).toBe(before)
     }
@@ -370,9 +370,9 @@ describe('1363-A2 Part C: admitted synthetic policy-state controls over genuine 
 
   it('S5 empty live-46 down/up control is lossless; it is not the required genuine pre-amendment capture', () => {
     const state = generatedAt(0), before = bytes(save.makeSave(state))
-    const old = era().convertV46ToV45(save.convertV47ToV46(save.convertV48ToV47(save.convertV49ToV48(save.makeSave(state))))) // Save48 (1370-ar): down through the live step first
+    const old = era().convertV46ToV45(save.convertV47ToV46(save.convertV48ToV47(save.convertV49ToV48(save.convertV50ToV49(save.makeSave(state)))))) // Save48 (1370-ar): down through the live step first
     expect(save.validateSaveV45(old)).toBe(old)
-    expect(bytes(save.convertV48ToV49(save.convertV47ToV48(save.convertV46ToV47(era().convertV45ToV46(old) as never))))).toBe(before) // P16: back up through the live step too
+    expect(bytes(save.convertV49ToV50(save.convertV48ToV49(save.convertV47ToV48(save.convertV46ToV47(era().convertV45ToV46(old) as never)))))).toBe(before) // P16/P17: back up through the live steps too
     expect(bytes(save.makeSave(state))).toBe(before)
   }, 120_000)
 })

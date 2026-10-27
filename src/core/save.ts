@@ -1,4 +1,5 @@
 import { absorbedPromiseAuthority } from './absorbedObligations.js'
+import { P17_ROOT_KEYS, p17DowngradeRefusal, stripP17Roots, validateP17Roots } from './continuationSave.js'
 import { carriedProductionAuthority, type CarriedProductionAuthority } from './continuedScripts.js'
 import { buyerScriptDevelopment } from './continuedScripts.js'
 import { buyerOperationsForAllWork, buyerOperatedProductions } from './continuedWork.js'
@@ -130,6 +131,7 @@ import type {
   GameStateP15B,
   P15BStepRoots,
   GameStateV49,
+  GameStateP17,
   P15StepRoots,
   RelationshipEdge,
   CohortReceipt,
@@ -689,7 +691,19 @@ export type SaveFileV49 = Omit<SaveFileV48, 'saveVersion' | 'state'> & {
   saveVersion: typeof P16_SAVE_VERSION;
   state: GameStateV49;
 };
-export type LiveSaveFile = SaveFileV49;
+// P17 (Save50; continuationSave.ts): the `franchises` root over P16's Save49. Era-neutral step names; the number is
+// the constant pair beside LIVE_SAVE_VERSION.
+export type SaveFileP17 = Omit<SaveFileV49, 'saveVersion' | 'state'> & {
+  saveVersion: typeof P17_SAVE_VERSION;
+  state: GameStateP17;
+};
+// The conventional names other suites derive from `LIVE_SAVE_VERSION` (the P15B rule above): aliases of the P17 names.
+export type SaveFileV50 = SaveFileP17;
+export const validateSaveV50 = (save: unknown): SaveFileP17 => validateSaveP17(save);
+export const convertV49ToV50 = (save: SaveFileV49): SaveFileP17 => convertPredecessorToP17(save);
+export const convertV50ToV49 = (save: SaveFileP17): SaveFileV49 => convertP17ToPredecessor(save);
+export const migrateToV50 = (save: SaveFile | { saveVersion: number }): SaveFileP17 => migrateToP17(save);
+export type LiveSaveFile = SaveFileP17;
 
 // Any envelope (the return of the version-dispatching validateSave/loadSave).
 export type SaveFile =
@@ -741,7 +755,8 @@ export type SaveFile =
   | SaveFileV46
   | SaveFileV47
   | SaveFileP15B
-  | SaveFileV49;
+  | SaveFileV49
+  | SaveFileP17;
 
 // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
 // Recursively serializes with object keys sorted lexicographically, so the same
@@ -5589,6 +5604,7 @@ export function validateSave(save: unknown): SaveFile {
   if (s.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return validateSaveV47(save);
   if (s.saveVersion === P15B_SAVE_VERSION) return validateSaveP15B(save);
   if (s.saveVersion === P16_SAVE_VERSION) return validateSaveV49(save);
+  if (s.saveVersion === P17_SAVE_VERSION) return validateSaveP17(save);
   throw new Error(
     `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through ${LIVE_SAVE_VERSION} only)`,
   );
@@ -6328,6 +6344,9 @@ function projectTalentPreV20(person: Talent): Talent {
 
 function assertFrozenBuilderRetainsHollywood(state: object, builder: string): void {
   const original = state as Record<string, unknown>;
+  // P17 (Save50): the root exists only once a franchise does, so its presence is recorded authority no frozen builder
+  // can carry; the outermost step refuses first, by name.
+  if (P17_ROOT_KEYS.some((key) => Object.hasOwn(original, key))) throw new Error(`${builder}: ${p17DowngradeRefusal(original)}`);
   // P16 (Save46): no frozen builder carries a recorded rights record or a rights money movement;
   // the empty root and zero kinds strip exactly as the P15 roots do.
   if (Object.hasOwn(original, 'rights')) {
@@ -6759,15 +6778,18 @@ export const FOUNDING_FUNDING_SAVE_VERSION = 47 as const;
 // here (see the P16 package REPORT, "save-version renumbering").
 export const P16_SAVE_VERSION = 49 as const;
 export const P16_PREDECESSOR_SAVE_VERSION: typeof P15B_SAVE_VERSION = 48;
-export const LIVE_SAVE_VERSION = P16_SAVE_VERSION;
+// P17 (Save50): the same ONE-constant rule; every `saveVersion === P17_SAVE_VERSION` dispatch line reads it.
+export const P17_SAVE_VERSION = 50 as const;
+export const P17_PREDECESSOR_SAVE_VERSION: typeof P16_SAVE_VERSION = 49;
+export const LIVE_SAVE_VERSION = P17_SAVE_VERSION;
 
-// makeSave: the live V49 boundary (P16). Frozen prior values migrate explicitly.
+// makeSave: the live boundary (P17_SAVE_VERSION). Frozen prior values migrate explicitly.
 // The plain-JSON state is detached once; only final serialization sorts it.
-export function makeSave(state: GameState): SaveFileV49 {
-  const save = validateSaveV49({ saveVersion: P16_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems });
+export function makeSave(state: GameState): SaveFileP17 {
+  const save = validateSaveP17({ saveVersion: P17_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems });
   // Validation precedes detachment, so undefined/non-JSON authority cannot be
   // silently repaired by stringify before the boundary sees it.
-  return JSON.parse(JSON.stringify(save)) as SaveFileV49;
+  return JSON.parse(JSON.stringify(save)) as SaveFileP17;
 }
 
 // ── Load / export / import ───────────────────────────────────────────────────
@@ -7626,6 +7648,7 @@ export function importLegacyV1ToV4(json: string): SaveFileV4 {
 export function migrateToV4(
   save: SaveFile,
 ): SaveFileV4 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV4(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV4(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV4(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV4(convertV47ToV46(save as SaveFileV47));
@@ -7660,6 +7683,7 @@ export function migrateToV4(
 export function migrateToV5(
   save: SaveFile,
 ): SaveFileV5 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV5(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV5(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV5(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV5(convertV47ToV46(save as SaveFileV47));
@@ -7689,6 +7713,7 @@ export function migrateToV5(
 export function migrateToV6(
   save: SaveFile,
 ): SaveFileV6 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV6(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV6(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV6(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV6(convertV47ToV46(save as SaveFileV47));
@@ -7719,6 +7744,7 @@ export function migrateToV6(
 export function migrateToV7(
   save: SaveFile,
 ): SaveFileV7 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV7(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV7(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV7(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV7(convertV47ToV46(save as SaveFileV47));
@@ -7745,6 +7771,7 @@ export function migrateToV7(
 // V1–V7 migrate deterministically. Newer files are rejected loudly: this function
 // may never silently discard authoritative screenplay or casting state.
 export function migrateToV8(save: SaveFile): SaveFileV8 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV8(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV8(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV8(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV8(convertV47ToV46(save as SaveFileV47));
@@ -7789,6 +7816,7 @@ export function migrateToV8(save: SaveFile): SaveFileV8 {
 // identity; V1–V8 migrate forward. V10 is rejected rather than silently losing
 // authoritative casting history.
 export function migrateToV9(save: SaveFile): SaveFileV9 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV9(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV9(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV9(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV9(convertV47ToV46(save as SaveFileV47));
@@ -7832,6 +7860,7 @@ export function migrateToV9(save: SaveFile): SaveFileV9 {
 // identity; V1–V9 cross every frozen boundary and receive exactly legacy-empty
 // casting state only at the final V9→V10 step. V11 is rejected, never downgraded.
 export function migrateToV10(save: SaveFile): SaveFileV10 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV10(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV10(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV10(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV10(convertV47ToV46(save as SaveFileV47));
@@ -7876,6 +7905,7 @@ export function migrateToV10(save: SaveFile): SaveFileV10 {
 // mode. V12 is rejected, never downgraded: a placed facility, its land, its
 // debit, and its operating history have no V11 home.
 export function migrateToV11(save: SaveFile): SaveFileV11 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV11(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV11(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV11(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV11(convertV47ToV46(save as SaveFileV47));
@@ -7918,6 +7948,7 @@ export function migrateToV11(save: SaveFile): SaveFileV11 {
 // their own validated construction history implies at the final V11→V12 step.
 // V13 is rejected, never downgraded: a property that has grown has no V12 home.
 export function migrateToV12(save: SaveFile): SaveFileV12 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV12(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV12(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV12(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV12(convertV47ToV46(save as SaveFileV47));
@@ -7963,6 +7994,7 @@ export function migrateToV12(save: SaveFile): SaveFileV12 {
 // one widened leaf — the honest, un-guessed `subjectId: null` on any
 // pre-existing `queueIntentExpired` row — at the final V14→V15 step.
 export function migrateToV15(save: SaveFile): SaveFileV15 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV15(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV15(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV15(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV15(convertV47ToV46(save as SaveFileV47));
@@ -8060,6 +8092,7 @@ export function convertV17ToV18(v17: SaveFileV17): SaveFileV18 {
 // identity (after validation at the call boundary); V1–V17 cross every frozen
 // boundary, then receive `endowed` at the final V17→V18 step.
 export function migrateToV18(save: SaveFile): SaveFileV18 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV18(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV18(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV18(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV18(convertV47ToV46(save as SaveFileV47));
@@ -8098,6 +8131,7 @@ export function migrateToV18(save: SaveFile): SaveFileV18 {
 // migrateToV17 — the frozen V17-target migration (P08A). A V18 save can never
 // be downgraded: discarding the founding regime would erase exact history.
 export function migrateToV17(save: SaveFile): SaveFileV17 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV17(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV17(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV17(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV17(convertV47ToV46(save as SaveFileV47));
@@ -8141,6 +8175,7 @@ export function migrateToV17(save: SaveFile): SaveFileV17 {
 // migrateToV16 — the frozen V16-target migration (P06A). A V17 save can never
 // be downgraded: discarding the recorded history would silently erase provenance.
 export function migrateToV16(save: SaveFile): SaveFileV16 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV16(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV16(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV16(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV16(convertV47ToV46(save as SaveFileV47));
@@ -8187,6 +8222,7 @@ export function migrateToV16(save: SaveFile): SaveFileV16 {
 }
 
 export function migrateToV14(save: SaveFile): SaveFileV14 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV14(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV14(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV14(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV14(convertV47ToV46(save as SaveFileV47));
@@ -8243,6 +8279,7 @@ export function migrateToV14(save: SaveFile): SaveFileV14 {
 }
 
 export function migrateToV13(save: SaveFile): SaveFileV13 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV13(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV13(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV13(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV13(convertV47ToV46(save as SaveFileV47));
@@ -8413,6 +8450,7 @@ export function convertV18ToV19(save: SaveFileV18): SaveFileV19 {
   return validateSaveV19({ saveVersion: 19, seed: save.seed, state, broadcastCache: state.broadcastItems });
 }
 export function migrateToV19(save: SaveFile): SaveFileV19 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV19(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV19(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV19(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV19(convertV47ToV46(save as SaveFileV47));
@@ -8513,6 +8551,7 @@ export function convertV20ToV21(save: SaveFileV20): SaveFileV21 {
 }
 
 export function migrateToV21(save: SaveFile): SaveFileV21 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV21(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV21(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV21(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV21(convertV47ToV46(save as SaveFileV47));
@@ -8559,6 +8598,7 @@ export function convertV21ToV22(save: SaveFileV21): SaveFileV22 {
 }
 
 export function migrateToV22(save: SaveFile): SaveFileV22 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV22(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV22(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV22(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV22(convertV47ToV46(save as SaveFileV47));
@@ -8630,6 +8670,7 @@ export function convertV22ToV23(save: SaveFileV22): SaveFileV23 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV23(save: SaveFile | { saveVersion: number }): SaveFileV23 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV23(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV23(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV23(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV23(convertV47ToV46(save as SaveFileV47));
@@ -8711,6 +8752,7 @@ export function convertV23ToV24(save: SaveFileV23): SaveFileV24 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV24(save: SaveFile | { saveVersion: number }): SaveFileV24 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV24(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV24(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV24(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV24(convertV47ToV46(save as SaveFileV47));
@@ -8953,6 +8995,7 @@ export function convertV24ToV25(save: SaveFileV24): SaveFileV25 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV25(save: SaveFile | { saveVersion: number }): SaveFileV25 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV25(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV25(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV25(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV25(convertV47ToV46(save as SaveFileV47));
@@ -9136,6 +9179,7 @@ export function convertV25ToV26(save: SaveFileV25): SaveFileV26 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV26(save: SaveFile | { saveVersion: number }): SaveFileV26 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV26(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV26(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV26(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV26(convertV47ToV46(save as SaveFileV47));
@@ -9309,6 +9353,7 @@ export function convertV27ToV26(save: SaveFileV27): SaveFileV26 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV27(save: SaveFile | { saveVersion: number }): SaveFileV27 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV27(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV27(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV27(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV27(convertV47ToV46(save as SaveFileV47));
@@ -9414,6 +9459,7 @@ export function convertV28ToV27(save: SaveFileV28): SaveFileV27 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV28(save: SaveFile | { saveVersion: number }): SaveFileV28 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV28(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV28(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV28(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV28(convertV47ToV46(save as SaveFileV47));
@@ -9531,6 +9577,7 @@ export function convertV29ToV28(save: SaveFileV29): SaveFileV28 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV29(save: SaveFile | { saveVersion: number }): SaveFileV29 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV29(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV29(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV29(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV29(convertV47ToV46(save as SaveFileV47));
@@ -9602,6 +9649,7 @@ export function convertV30ToV29(save: SaveFileV30): SaveFileV29 {
 /** The V30 boundary (P14B.4, record 600); since P14B.5 a frozen prior shape
  * reached from the live V31 by the ONE lossless-when-empty downgrade. */
 export function migrateToV30(save: SaveFile | { saveVersion: number }): SaveFileV30 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV30(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV30(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV30(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV30(convertV47ToV46(save as SaveFileV47));
@@ -9699,6 +9747,7 @@ export function convertV31ToV30(save: SaveFileV31): SaveFileV30 {
 /** The live load-to-play route (P14B.5): every prior envelope migrates to the
  * V31 boundary the live writer stamps. */
 export function migrateToV31(save: SaveFile | { saveVersion: number }): SaveFileV31 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV31(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV31(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV31(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV31(convertV47ToV46(save as SaveFileV47));
@@ -9806,6 +9855,7 @@ export function convertV32ToV31(save: SaveFileV32): SaveFileV31 {
 /** The live load-to-play route (P14B.7): every prior envelope migrates to the
  * V32 boundary the live writer stamps. */
 export function migrateToV32(save: SaveFile | { saveVersion: number }): SaveFileV32 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV32(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV32(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV32(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV32(convertV47ToV46(save as SaveFileV47));
@@ -10078,6 +10128,7 @@ export function convertV33ToV32(save: SaveFileV33): SaveFileV32 {
 /** The live load-to-play route (P14C.1): every prior envelope migrates to the
  * V33 boundary the live writer stamps. */
 export function migrateToV33(save: SaveFile | { saveVersion: number }): SaveFileV33 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV33(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV33(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV33(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV33(convertV47ToV46(save as SaveFileV47));
@@ -10335,6 +10386,7 @@ export function convertV34ToV33(save: SaveFileV34): SaveFileV33 {
 /** Every prior envelope migrates to the V34 boundary; a V35 one downgrades losslessly
  * only while it holds no cohort receipt. */
 export function migrateToV34(save: SaveFile | { saveVersion: number }): SaveFileV34 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV34(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV34(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV34(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV34(convertV47ToV46(save as SaveFileV47));
@@ -10545,6 +10597,7 @@ export function convertV35ToV34(save: SaveFileV35): SaveFileV34 {
 /** Every prior envelope migrates to the V35 boundary; a V36 one downgrades losslessly
  * only while it holds no retirement extension. */
 export function migrateToV35(save: SaveFile | { saveVersion: number }): SaveFileV35 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV35(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV35(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV35(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV35(convertV47ToV46(save as SaveFileV47));
@@ -10567,7 +10620,7 @@ export function migrateToV35(save: SaveFile | { saveVersion: number }): SaveFile
  * stamps. Callers whose meaning is "the live state" call this, never a numbered
  * step, so the next save bump moves this one definition. */
 export function migrateToLive(save: SaveFile | { saveVersion: number }): LiveSaveFile {
-  return migrateToV49(save);
+  return migrateToP17(save);
 }
 
 export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
@@ -10588,6 +10641,7 @@ export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
 }
 
 export function migrateToV20(save: SaveFile): SaveFileV20 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV20(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV20(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV20(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV20(convertV47ToV46(save as SaveFileV47));
@@ -10791,6 +10845,7 @@ export function convertV36ToV35(save: SaveFileV36): SaveFileV35 {
 
 /** Every prior envelope migrates to the V36 boundary. */
 export function migrateToV36(save: SaveFile | { saveVersion: number }): SaveFileV36 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV36(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV36(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV36(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV36(convertV47ToV46(save as SaveFileV47));
@@ -10862,6 +10917,7 @@ export function convertV37ToV36(save: SaveFileV37): SaveFileV36 {
 
 /** Every prior envelope migrates to the explicit amended-law boundary. */
 export function migrateToV37(save: SaveFile | { saveVersion: number }): SaveFileV37 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV37(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV37(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV37(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV37(convertV47ToV46(save as SaveFileV47));
@@ -10913,7 +10969,8 @@ export function validatedLiveProfessionContext(state: GameState): ProfessionVali
     businesses: state.hollywood.businesses.map(({ costCutting: _cutting, ...business }) => business) };
   return proveProfessionSave({ saveVersion: 41, seed: state.seed,
     // 1364: without the Save47 funding root, with its validated context (the live chain's own proof).
-    state: { ...stripP16Root(stripP15Roots(stripFoundingFunding(state))), hollywood, relationships: relationshipsAtV31(state.relationships) },
+    // P17: the franchise root carries no profession law; it strips with the other later roots.
+    state: { ...stripP17Roots(stripP16Root(stripP15Roots(stripFoundingFunding(state)))), hollywood, relationships: relationshipsAtV31(state.relationships) },
     // P15B (1370-ar): the live state is a P15B-era state, so the chain proves its rival money under that era.
     broadcastCache: state.broadcastItems }, 41, true, false, true, validateFoundingFunding(state as unknown as Record<string, unknown>, 'validatedLiveProfessionContext'),
     p15bEraOf(state as unknown as Record<string, unknown>, true)).professionContext;
@@ -10949,6 +11006,7 @@ export function convertV38ToV37(save: SaveFileV38): SaveFileV37 {
 }
 
 export function migrateToV38(save: SaveFile | { saveVersion: number }): SaveFileV38 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV38(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV38(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV38(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV38(convertV47ToV46(save as SaveFileV47));
@@ -10990,6 +11048,7 @@ export function convertV39ToV38(save: SaveFileV39): SaveFileV38 {
 }
 
 export function migrateToV39(save: SaveFile | { saveVersion: number }): SaveFileV39 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV39(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV39(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV39(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV39(convertV47ToV46(save as SaveFileV47));
@@ -11034,6 +11093,7 @@ export function convertV40ToV39(save: SaveFileV40): SaveFileV39 {
 }
 
 export function migrateToV40(save: SaveFile | { saveVersion: number }): SaveFileV40 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV40(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV40(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV40(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV40(convertV47ToV46(save as SaveFileV47));
@@ -11084,6 +11144,7 @@ export function convertV41ToV40(save: SaveFileV41): SaveFileV40 {
 }
 
 export function migrateToV41(save: SaveFile | { saveVersion: number }): SaveFileV41 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV41(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV41(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV41(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV41(convertV47ToV46(save as SaveFileV47));
@@ -11136,6 +11197,7 @@ export function convertV42ToV41(save: SaveFileV42): SaveFileV41 {
 }
 
 export function migrateToV42(save: SaveFile | { saveVersion: number }): SaveFileV42 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV42(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV42(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV42(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV42(convertV47ToV46(save as SaveFileV47));
@@ -11196,6 +11258,7 @@ export function convertV43ToV42(save: SaveFileV43): SaveFileV42 {
 }
 
 export function migrateToV43(save: SaveFile | { saveVersion: number }): SaveFileV43 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV43(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV43(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV43(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV43(convertV47ToV46(save as SaveFileV47));
@@ -11249,6 +11312,7 @@ export function convertV44ToV43(save: SaveFileV44): SaveFileV43 {
 }
 
 export function migrateToV44(save: SaveFile | { saveVersion: number }): SaveFileV44 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV44(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV44(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV44(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV44(convertV47ToV46(save as SaveFileV47));
@@ -11411,6 +11475,7 @@ export function convertV45ToV44(save: SaveFileV45): SaveFileV44 {
 }
 
 export function migrateToV45(save: SaveFile | { saveVersion: number }): SaveFileV45 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV45(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV45(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV45(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV45(convertV47ToV46(save as SaveFileV47));
@@ -11498,6 +11563,7 @@ export function convertV46ToV45(save: SaveFileV46): SaveFileV45 {
 }
 
 export function migrateToV46(save: SaveFile | { saveVersion: number }): SaveFileV46 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV46(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV46(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV46(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return convertV47ToV46(save as SaveFileV47);
@@ -11582,6 +11648,7 @@ export function convertV47ToV46(save: SaveFileV47): SaveFileV46 {
 }
 
 export function migrateToV47(save: SaveFile | { saveVersion: number }): SaveFileV47 {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToV47(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToV47(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return convertFromP15BSave(save as SaveFileP15B);
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return validateSaveV47(save);
@@ -11809,6 +11876,7 @@ export function convertFromP15BSave(save: SaveFileP15B): P15BPredecessorSave {
 }
 
 export function migrateToP15BSave(save: SaveFile | { saveVersion: number }): SaveFileP15B {
+  if (save.saveVersion === P17_SAVE_VERSION) return migrateToP15BSave(convertP17ToPredecessor(save as SaveFileP17));
   if (save.saveVersion === P16_SAVE_VERSION) return migrateToP15BSave(convertV49ToV48(save as SaveFileV49));
   if (save.saveVersion === P15B_SAVE_VERSION) return validateSaveP15B(save);
   return convertToP15BSave(migrateToP15BPredecessor(save));
@@ -11983,6 +12051,48 @@ export function convertV49ToV48(save: SaveFileV49): SaveFileV48 {
 }
 
 export function migrateToV49(save: SaveFile | { saveVersion: number }): SaveFileV49 {
+  if (save.saveVersion === P17_SAVE_VERSION) return convertP17ToPredecessor(save as SaveFileP17);
   if (save.saveVersion === P16_SAVE_VERSION) return validateSaveV49(save);
   return convertV48ToV49(migrateToV48(save));
+}
+
+// ── P17 (Save50): the `franchises` root (continuationSave.ts) ─────────────────────────────────
+// Rev02 §10 / charter r2 §save: forward-only and root-additive. The root is present only once a franchise property
+// exists (it never empties again), so migration from Save49 writes nothing but the version — no franchise, edge or
+// meter is inferred from old films — and a downgrade is lossless exactly while the root is absent.
+
+/** The predecessor chain proves the state without the root; then the root's own validator, joined to the rest. */
+export function validateSaveP17(save: unknown): SaveFileP17 {
+  if (!isRecord(save)) throw new Error('validateSaveP17: object required');
+  v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+  if (save.saveVersion !== P17_SAVE_VERSION) throw new Error(`validateSaveP17: expected version ${P17_SAVE_VERSION}`);
+  const raw = v14Record(checkEnvelope(save, 'validateSaveP17'), 'state');
+  // The era-independent laws over the WHOLE live state first, under the live label (as validateSaveV49 does for its
+  // own root): the predecessor proof below sees the state without the franchise root.
+  const nonFinite = nonFiniteNumberTail(raw);
+  if (nonFinite !== null) throw new Error(`validateSaveP17: state${nonFinite}`);
+  assertStudioEventSequenceLaw(raw, 'validateSaveP17');
+  validateSaveV49({ ...save, saveVersion: P17_PREDECESSOR_SAVE_VERSION, state: stripP17Roots(raw) });
+  validateP17Roots(raw, 'validateSaveP17');
+  return save as SaveFileP17;
+}
+
+/** Save49 → Save50: the version only (an absent root is the empty franchise authority). A second migration is a no-op. */
+export function convertPredecessorToP17(save: SaveFileV49): SaveFileP17 {
+  const detached = JSON.parse(JSON.stringify(validateSaveV49(save))) as SaveFileV49;
+  return validateSaveP17({ ...detached, saveVersion: P17_SAVE_VERSION });
+}
+
+/** Lossless only while no franchise exists; a recorded root refuses once, by name, after validation. */
+export function convertP17ToPredecessor(save: SaveFileP17): SaveFileV49 {
+  const validated = validateSaveP17(save);
+  const refusal = p17DowngradeRefusal(validated.state as unknown as Record<string, unknown>);
+  if (refusal !== null) throw new Error(`migrateToV${P17_PREDECESSOR_SAVE_VERSION}: ${refusal}`);
+  const detached = JSON.parse(JSON.stringify(validated)) as SaveFileP17;
+  return validateSaveV49({ ...detached, saveVersion: P17_PREDECESSOR_SAVE_VERSION });
+}
+
+export function migrateToP17(save: SaveFile | { saveVersion: number }): SaveFileP17 {
+  if (save.saveVersion === P17_SAVE_VERSION) return validateSaveP17(save);
+  return convertPredecessorToP17(migrateToV49(save));
 }
