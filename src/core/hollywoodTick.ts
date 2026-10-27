@@ -1,3 +1,4 @@
+import { absorbedPromiseAuthority, operatingPromiseIssuer } from './absorbedObligations.js'
 import { buyerScriptDevelopment, continuedScriptOwner, rivalScriptOwners, rivalCarriedSource, carriedScriptForProduction, linkCarriedScriptToProduction, markCarriedScriptProduced, advanceBuyerScriptWork, acceptRivalContinuedReviews, recordRivalScriptRejection } from './continuedScripts.js'
 import { buyerContinuedProductions, buyerOperationsForAllWork, buyerOperatedProductions, publishOperatedAdvance, recordContinuedWorkSteps, continuedCommittedReleaseIds } from './continuedWork.js'
 import { advanceAbsorbedRuns } from './absorbedRuns.js'
@@ -201,6 +202,7 @@ function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],
   const seated=industryBusyTalentIds(h,terminalWeekOf(state))
   for(const project of state.technology.projects) if(project.studioId===b.studioId)
     for(const seat of project.seats) if(seat.releasedWeek===null) seated.add(seat.talentId)
+  const promiseAuthority=state.rights.absorptions.some(a=>a.producerVersion==='absorption-rival-obligations/v9'&&a.buyerId===b.studioId)?absorbedPromiseAuthority({...state,hollywood:h}):undefined
   const surplus=h.activeEmploymentOrdinals.filter(i=>{const e=h.employment[i]!
     return e.studioId===b.studioId&&!filled.has(e.terms.talentId)&&(cutting||next.find(t=>t.id===e.terms.talentId)?.role!=='scientist')})
   for(const ordinal of surplus.sort((x,y)=>x-y)) {
@@ -209,7 +211,7 @@ function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],
     // seat, the cap, the promise and the reserve below remain this studio's policy.
     if(releaseRefusal({...state,hollywood:h},b.studioId,id)!==null)continue
     if(seated.has(id)||e.terms.endWeekExclusive-week<=TUNING.HIRING_TERMINATION_CAP_WEEKS)continue
-    if(state.promises.some(p=>p.issuerStudioId===b.studioId&&p.beneficiaryPersonId===id&&p.outcome===null))continue
+    if(state.promises.some(p=>(promiseAuthority?operatingPromiseIssuer(state,p,week,promiseAuthority):p.issuerStudioId)===b.studioId&&p.beneficiaryPersonId===id&&p.outcome===null))continue
     const charge=terminationCost(e.terms,week)
     const activeEmploymentOrdinals=h.activeEmploymentOrdinals.filter(i=>i!==ordinal)
     if(b.account.cash-charge<operatingReserve(b,{...h,activeEmploymentOrdinals},week))continue
@@ -307,7 +309,7 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
     const ordinal=Number(ready.id.slice(7))
     const result=evaluate(ready)
     if(result.outcome!=='viable')indexedOutcomes.set(acquired?ready.id:ordinal,result.outcome)
-    if(acquired&&acquired.a.producerVersion==='absorption-rival-scripts/v8'){
+    if(acquired&&(acquired.a.producerVersion==='absorption-rival-scripts/v8'||acquired.a.producerVersion==='absorption-rival-obligations/v9')){
       if(result.outcome==='viable'){rights=recordRivalScriptRejection(decisionState(),b.studioId,ready.id,0,week,false).rights;greenlight(ready,result);continue}
       if(result.outcome!=='economicRejection')continue
       const count=Math.min(TUNING.HOLLYWOOD_SHELVE_AFTER_REJECTIONS,(acquired.a.scriptShelving.rejections.find(r=>r.projectId===ready.id)?.count??0)+1)

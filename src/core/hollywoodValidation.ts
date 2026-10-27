@@ -104,7 +104,7 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
   // Only the same-call prevalidated current49 history grants these foreign
   // screenplay references; frozen readers have neither this version nor context.
   const rivalScripts=(studioId:string)=>era.rights&&era.carriedProduction!==undefined
-    ?[...(era.absorptions?.values()??[])].filter((a):a is Extract<AbsorptionRecord,{producerVersion:'absorption-rival-scripts/v8'}>=>a.producerVersion==='absorption-rival-scripts/v8'&&a.buyerId===studioId):[]
+    ?[...(era.absorptions?.values()??[])].filter((a):a is Extract<AbsorptionRecord,{producerVersion:'absorption-rival-scripts/v8'|'absorption-rival-obligations/v9'}>=>(a.producerVersion==='absorption-rival-scripts/v8'||a.producerVersion==='absorption-rival-obligations/v9')&&a.buyerId===studioId):[]
   const rivalCosts=(studioId:string)=>rivalScripts(studioId).flatMap(a=>a.scriptDecisions.flatMap(d=>d.kind==='greenlight'&&d.nativeCost?[d.nativeCost]:[]))
   const absorptionEnd = (studioId: string, contractId: string, week: number, reason: string) => {
     const a = absorptionOf(studioId), c = a?.contracts.find(c => c.sourceContractId === contractId)

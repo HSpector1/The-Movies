@@ -891,8 +891,15 @@ export function qualifyingTakes(
       || !(director ? take.directorId === promise.beneficiaryPersonId
         : slots.some((slot) => take.cast[slot] === promise.beneficiaryPersonId))) return false
     const assignment=authority?.assignments.get(promise.promiseId)
+    const namedProject=isOpportunityPredicate(promise.predicate)&&promise.predicate.kind==='projectOpportunity'?promise.predicate.scriptProjectId:undefined
+    const sourceProject=namedProject!==undefined&&assignment&&ordinal>=assignment.firstTakeCountBeforeClose
+      ?[...assignment.projectIds].find(([source,buyer])=>source===namedProject||buyer===namedProject)?.[0]:undefined
+    const paidProject=sourceProject===undefined?undefined:assignment?.projectProductionIds?.get(sourceProject)
+    if(paidProject!==undefined&&take.productionId!==paidProject)return false
+    // Native continued paid pictures retain their genuine source-local fact;
+    // the qualified ID is only a calculator reference, never a persisted fact.
     const predicate=isOpportunityPredicate(promise.predicate)&&promise.predicate.kind==='projectOpportunity'&&assignment&&ordinal>=assignment.firstTakeCountBeforeClose
-      ?{...promise.predicate,scriptProjectId:assignment.projectIds.get(promise.predicate.scriptProjectId)??promise.predicate.scriptProjectId}:promise.predicate
+      ?{...promise.predicate,scriptProjectId:paidProject!==undefined?(sourceProject??promise.predicate.scriptProjectId):assignment.projectIds.get(promise.predicate.scriptProjectId)??promise.predicate.scriptProjectId}:promise.predicate
     if (isOpportunityPredicate(predicate) && !opportunitySubjectMatches(predicate,
       state.firstTakeSubjects?.facts.find(subject => subject.eventId === take.eventId))) return false
     productions.add(take.productionId)

@@ -33,7 +33,7 @@ function collectProductionIds(state: GameState, operatedReleaseWeeks?: ReadonlyM
   }
 
   for (const active of state.studio.activeProductions) add(active.id)
-  for(const a of (state as Partial<GameState>).rights?.absorptions??[])if(a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7'||a.producerVersion==='absorption-rival-scripts/v8')for(const d of a.scriptDecisions){
+  for(const a of (state as Partial<GameState>).rights?.absorptions??[])if(a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7'||(a.producerVersion==='absorption-rival-scripts/v8'||a.producerVersion==='absorption-rival-obligations/v9'))for(const d of a.scriptDecisions){
     if(d.kind==='greenlight'||d.kind==='cancelProduction')add(d.production.id)
     if(d.kind==='productionReleased')add(d.productionId)
   }

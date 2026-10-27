@@ -257,7 +257,16 @@ function stoppedScriptContracts(state: GameState, targetId: string, script: Scri
 /** Acquired screenplay operation cannot silently disappear into another close.
  * Its original owner remains until actual buyer film release; reassignment is separate. */
 function acquiredWritingAt(state:GameState,buyer:string,week:number):boolean{
- return state.rights.absorptions.some(a=>a.producerVersion==='absorption-rival-scripts/v8'&&a.buyerId===buyer&&a.week<=week&&a.continuedScripts.some(row=>!a.scriptDecisions.some(d=>d.kind==='productionReleased'&&d.projectId===row.project.id&&d.week<week)))
+ return state.rights.absorptions.some(a=>(a.producerVersion==='absorption-rival-scripts/v8'||a.producerVersion==='absorption-rival-obligations/v9')&&a.buyerId===buyer&&a.week<=week&&a.continuedScripts.some(row=>!a.scriptDecisions.some(d=>d.kind==='productionReleased'&&d.projectId===row.project.id&&d.week<week)))
+}
+
+/** A second healthy close has no producer for forwarding an already delegated
+ * original promise. Ordinary termination/closure still use their existing owner. */
+function delegatedPromiseAt(state:GameState,buyer:string,week:number,prior:ReadonlyArray<GameState['rights']['absorptions'][number]>=state.rights.absorptions):boolean{
+ const ids=new Set(prior.filter(a=>a.producerVersion==='absorption-rival-obligations/v9'&&a.buyerId===buyer&&a.week<=week).map(a=>a.id))
+ if(ids.size===0)return false
+ const authority=absorbedPromiseAuthority(state)
+ return [...(authority?.assignments??[])].some(([id,a])=>ids.has(a.absorptionId)&&a.buyerStudioId===buyer&&a.week<=week&&state.promises.some(p=>p.promiseId===id&&(p.outcomeWeek===null||p.outcomeWeek>=week)))
 }
 
 export function quoteAbsorption(state: GameState, input: AbsorptionInput, week: number, readers: CorporateConditionReaders = corporateConditionReaders): AbsorptionQuote | AbsorptionRefusal {
@@ -266,6 +275,7 @@ export function quoteAbsorption(state: GameState, input: AbsorptionInput, week: 
   const refusal = absorptionRefusal(state, input.buyerId, input.targetId, week, readers)
   if (refusal !== null) return { kind: 'refusal', refusal }
   if(acquiredWritingAt(state,input.targetId,week))return {kind:'refusal',refusal:'acquiredScriptReassignmentProducerRequired'}
+  if(delegatedPromiseAt(state,input.targetId,week))return {kind:'refusal',refusal:'acquiredPromiseReassignmentProducerRequired'}
   if (!Number.isSafeInteger(input.consideration) || input.consideration < 0) return { kind: 'refusal', refusal: 'invalidConsideration' }
   const disclosure = absorptionDisclosureRefusal(state, input.buyerId, input.targetId, input.disclosureId, week)
   if (disclosure !== null) return { kind: 'refusal', refusal: disclosure }
@@ -428,6 +438,7 @@ export function absorptionProducerRefusal(state: GameState, input: AbsorptionInp
   if (acquiredActiveRunFilms(state,input.targetId,state.market.tick).length!==0) return 'acquiredRunReassignmentProducerRequired'
   if (buyerContinuedProductions(state,input.targetId).length!==0) return 'acquiredWorkReassignmentProducerRequired'
   if(acquiredWritingAt(state,input.targetId,state.market.tick))return 'acquiredScriptReassignmentProducerRequired'
+  if(delegatedPromiseAt(state,input.targetId,state.market.tick))return 'acquiredPromiseReassignmentProducerRequired'
   const b = h.businesses.find(b => b.studioId === input.targetId)
   if (!b) return 'unknownTarget'
   // Active source runs use their real linked buyer-beneficiary producer after closing.
@@ -435,9 +446,6 @@ export function absorptionProducerRefusal(state: GameState, input: AbsorptionInp
   if (state.physicalPlans.plans.some(p => p.studioId === input.targetId && p.status === 'started' && unfinishedAbsorptionPlan(state,p)
     && p.commitReceipt!.week + p.approvedQuote.buildWeeks <= state.market.tick)) return 'missingActualPhysicalCompletionProducer'
   if (state.technology.adoptions.some(a => a.studioId === input.targetId && a.operationalWeek === null && a.cancelledWeek === null && state.market.tick >= a.committedWeek+technologyEntry(a.technologyId).deploymentWeeks)) return 'missingActualAdoptionCompletionProducer'
-  if (input.buyerId!==h.playerStudioId&&state.promises.some(p => p.issuerStudioId === input.targetId && p.outcome === null)) return 'absorbedPromiseDispositionProducerRequired'
-  if (input.buyerId!==h.playerStudioId&&(state.talentMarket.cases.some(c => c.subjectStudioId === input.targetId && c.closedWeek === null)
-    || state.talentMarket.proposals.some(p => p.issuerStudioId === input.targetId))) return 'absorbedMarketDispositionProducerRequired'
   return null
 }
 
@@ -598,12 +606,16 @@ export function validateAbsorptionRoot(state: GameState, label: string, retireme
   const exact = (value: object, keys: readonly string[]) => Object.keys(value).sort().join() === [...keys].sort().join()
   const keys = ['id','week','buyerId','targetId','disclosureId','quotedAtWeek','quoteAgePolicyVersion','consideration','cashBeforeExits','exitCharges','postExitCash','outlay','evaluatedBuyerWeek','evaluatedTargetWeek','contracts','research','facilities','titleEventIds','knowledge','physicalPlans','adoptions','stoppedProductions','continuedProductions','buyerWorkflows','workSteps','workReleases','workCancellations','runs','runReceipts','producerVersion']
   for (const a of state.rights.absorptions) {
-    if (typeof a !== 'object' || a === null || !exact(a,a.producerVersion==='absorption-rival-scripts/v8'?[...keys,'stoppedScripts','continuedScripts','scriptCompletions','scriptDecisions','scriptShelving']:a.producerVersion==='absorption-obligations/v7'?[...keys,'stoppedScripts','continuedScripts','scriptCompletions','scriptDecisions','obligations']:(a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'))?[...keys,'stoppedScripts','continuedScripts','scriptCompletions','scriptDecisions']:a.producerVersion==='absorption-scripts/v3'?[...keys,'stoppedScripts','continuedScripts','scriptCompletions']:a.producerVersion==='absorption-scripts/v2'?[...keys,'stoppedScripts']:keys)) fail('record has unknown or missing fields')
+    if (typeof a !== 'object' || a === null || !exact(a,a.producerVersion==='absorption-rival-obligations/v9'?[...keys,'stoppedScripts','continuedScripts','scriptCompletions','scriptDecisions','scriptShelving','obligations']:a.producerVersion==='absorption-rival-scripts/v8'?[...keys,'stoppedScripts','continuedScripts','scriptCompletions','scriptDecisions','scriptShelving']:a.producerVersion==='absorption-obligations/v7'?[...keys,'stoppedScripts','continuedScripts','scriptCompletions','scriptDecisions','obligations']:(a.producerVersion==='absorption-scripts/v4'||(a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'))?[...keys,'stoppedScripts','continuedScripts','scriptCompletions','scriptDecisions']:a.producerVersion==='absorption-scripts/v3'?[...keys,'stoppedScripts','continuedScripts','scriptCompletions']:a.producerVersion==='absorption-scripts/v2'?[...keys,'stoppedScripts']:keys)) fail('record has unknown or missing fields')
     if (a.quoteAgePolicyVersion !== 0 && a.quoteAgePolicyVersion !== 1) fail('unknown quote age policy version')
     const quoteAge = quoteAgeRefusal('absorptionPreview', a.quotedAtWeek, a.week, a.quoteAgePolicyVersion)
     if (quoteAge !== null) fail(`recorded acceptance quote age ${quoteAge}`)
-    if (!h || (a.producerVersion !== 'absorption-clean/v1' && a.producerVersion !== 'absorption-scripts/v2' && a.producerVersion !== 'absorption-scripts/v3' && a.producerVersion !== 'absorption-scripts/v4' && (a.producerVersion!=='absorption-scripts/v5'&&a.producerVersion!=='absorption-scripts/v6'&&a.producerVersion!=='absorption-obligations/v7'&&a.producerVersion!=='absorption-rival-scripts/v8')) || !/^absorption-[1-9][0-9]*$/.test(a.id)) fail('unknown producer or id')
-    if(a.producerVersion==='absorption-rival-scripts/v8'&&(!Array.isArray(a.continuedScripts)||a.continuedScripts.length===0||a.buyerId===h!.playerStudioId))fail('native rival writing producer lacks actual continued work')
+    if (!h || (a.producerVersion !== 'absorption-clean/v1' && a.producerVersion !== 'absorption-scripts/v2' && a.producerVersion !== 'absorption-scripts/v3' && a.producerVersion !== 'absorption-scripts/v4' && (a.producerVersion!=='absorption-scripts/v5'&&a.producerVersion!=='absorption-scripts/v6'&&a.producerVersion!=='absorption-obligations/v7'&&(a.producerVersion!=='absorption-rival-scripts/v8'&&a.producerVersion!=='absorption-rival-obligations/v9'))) || !/^absorption-[1-9][0-9]*$/.test(a.id)) fail('unknown producer or id')
+    if((a.producerVersion==='absorption-rival-scripts/v8'||a.producerVersion==='absorption-rival-obligations/v9')&&(!Array.isArray(a.continuedScripts)||a.producerVersion==='absorption-rival-scripts/v8'&&a.continuedScripts.length===0||a.buyerId===h!.playerStudioId))fail('native rival writing producer lacks actual continued work')
+    if(a.producerVersion==='absorption-rival-obligations/v9'&&a.continuedScripts.length===0){
+      const shelving=a.scriptShelving
+      if(!Array.isArray(a.scriptCompletions)||a.scriptCompletions.length!==0||!Array.isArray(a.scriptDecisions)||a.scriptDecisions.length!==0||!shelving||typeof shelving!=='object'||!exact(shelving,['rejections','shelved'])||!Array.isArray(shelving.rejections)||shelving.rejections.length!==0||!Array.isArray(shelving.shelved)||shelving.shelved.length!==0)fail('native obligation-only owner invents writing history')
+    }
     const number = Number(a.id.slice('absorption-'.length))
     if (number <= priorNumber || a.week < priorWeek) fail('records do not retain producer order')
     priorNumber = number; priorWeek = a.week
@@ -631,7 +643,8 @@ export function validateAbsorptionRoot(state: GameState, label: string, retireme
     if (![a.contracts,a.research,a.facilities,a.titleEventIds,a.knowledge,a.physicalPlans,a.adoptions,a.stoppedProductions,a.continuedProductions,a.buyerWorkflows,a.workSteps,a.workReleases,a.workCancellations,a.runs,a.runReceipts].every(Array.isArray)) fail('dispositions must be arrays')
     if(a.buyerId!==h!.playerStudioId && (a.continuedProductions.length>1 || a.continuedProductions.some(row=>!row || !row.originalProduction) || a.workCancellations.length!==0))fail('rival buyer malformed/multiple/manual work producer is not admitted')
     if(acquiredActiveRunFilms(state,a.targetId,a.week).length!==0)fail('acquired run reassignment producer is not admitted')
-    if(state.rights.absorptions.slice(0,state.rights.absorptions.indexOf(a)).some(prior=>prior.producerVersion==='absorption-rival-scripts/v8'&&prior.buyerId===a.targetId&&prior.continuedScripts.some(row=>!prior.scriptDecisions.some(d=>d.kind==='productionReleased'&&d.projectId===row.project.id&&d.week<a.week))))fail('acquired script reassignment producer is not admitted')
+    if(delegatedPromiseAt(state,a.targetId,a.week,state.rights.absorptions.slice(0,state.rights.absorptions.indexOf(a))))fail('acquired promise reassignment producer is not admitted')
+    if(state.rights.absorptions.slice(0,state.rights.absorptions.indexOf(a)).some(prior=>(prior.producerVersion==='absorption-rival-scripts/v8'||prior.producerVersion==='absorption-rival-obligations/v9')&&prior.buyerId===a.targetId&&prior.continuedScripts.some(row=>!prior.scriptDecisions.some(d=>d.kind==='productionReleased'&&d.projectId===row.project.id&&d.week<a.week))))fail('acquired script reassignment producer is not admitted')
     // Earlier records have already passed their complete joined proof in this loop.
     if(state.rights.absorptions.slice(0,state.rights.absorptions.indexOf(a)).some(prior=>prior.buyerId===a.targetId && prior.continuedProductions.some(row=>
       !prior.workReleases.some(r=>r.productionId===row.productionId && r.week<a.week)
@@ -660,7 +673,7 @@ export function validateAbsorptionRoot(state: GameState, label: string, retireme
     validateAbsorbedProductionStops(state,b!,a)
     validateContinuedWork(state,b!,a)
     validateAbsorbedRuns(state,b!,a)
-    if(a.producerVersion==='absorption-obligations/v7')absorbedPromiseAuthority(state)
+    if(a.producerVersion==='absorption-obligations/v7'||a.producerVersion==='absorption-rival-obligations/v9')absorbedPromiseAuthority(state)
     else if (state.promises.some(p => p.issuerStudioId === a.targetId && p.outcome === null)
       || state.talentMarket.cases.some(c => c.subjectStudioId === a.targetId && c.closedWeek === null)
       || state.talentMarket.proposals.some(p => p.issuerStudioId === a.targetId)) fail('unsupported open promise/market obligation entered clean producer')

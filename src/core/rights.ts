@@ -270,6 +270,7 @@ export type AbsorptionRecord = AbsorptionRecordBase & (
   | { producerVersion: 'absorption-scripts/v6'; stoppedScripts: AbsorptionStoppedScript[]; continuedScripts: AbsorptionContinuedScript[]; scriptCompletions: AbsorptionScriptCompletion[]; scriptDecisions: AbsorptionScriptDecision[] }
   | { producerVersion: 'absorption-obligations/v7'; stoppedScripts: AbsorptionStoppedScript[]; continuedScripts: AbsorptionContinuedScript[]; scriptCompletions: AbsorptionScriptCompletion[]; scriptDecisions: AbsorptionScriptDecision[]; obligations: import('./absorbedObligations.js').AbsorptionObligations }
   | { producerVersion: 'absorption-rival-scripts/v8'; stoppedScripts: AbsorptionStoppedScript[]; continuedScripts: AbsorptionContinuedScript[]; scriptCompletions: AbsorptionScriptCompletion[]; scriptDecisions: AbsorptionScriptDecision[]; scriptShelving: { rejections:{projectId:string;count:number}[]; shelved:{projectId:string;week:number;retryWeek:number}[] } }
+  | { producerVersion: 'absorption-rival-obligations/v9'; stoppedScripts: AbsorptionStoppedScript[]; continuedScripts: AbsorptionContinuedScript[]; scriptCompletions: AbsorptionScriptCompletion[]; scriptDecisions: AbsorptionScriptDecision[]; scriptShelving: { rejections:{projectId:string;count:number}[]; shelved:{projectId:string;week:number;retryWeek:number}[] }; obligations: import('./absorbedObligations.js').AbsorptionObligations }
 )
 
 type BoundarySourceKind = 'player-ledger' | 'player-active' | 'player-release' | 'rival-announcement' | 'rival-active' | 'rival-release'
@@ -1096,10 +1097,10 @@ export function validateRightsRoot(raw: Record<string, unknown>, label: string):
     for(const receipt of record.runReceipts) idNumber(receipt.id,'absorptions.runReceipts.id')
     for(const step of record.workSteps) idNumber(step.id,'absorptions.workSteps.id')
     for(const cancellation of record.workCancellations) idNumber(cancellation.id,'absorptions.workCancellations.id')
-    if((record.producerVersion==='absorption-scripts/v3'||record.producerVersion==='absorption-scripts/v4'||(record.producerVersion==='absorption-scripts/v5'||record.producerVersion==='absorption-scripts/v6'||(record.producerVersion==='absorption-obligations/v7'||record.producerVersion==='absorption-rival-scripts/v8')))){
+    if((record.producerVersion==='absorption-scripts/v3'||record.producerVersion==='absorption-scripts/v4'||(record.producerVersion==='absorption-scripts/v5'||record.producerVersion==='absorption-scripts/v6'||(record.producerVersion==='absorption-obligations/v7'||(record.producerVersion==='absorption-rival-scripts/v8'||record.producerVersion==='absorption-rival-obligations/v9'))))){
       for(const row of record.continuedScripts)idNumber(row.project.id,'absorptions.continuedScripts.project.id')
       for(const row of record.scriptCompletions)idNumber(row.id,'absorptions.scriptCompletions.id')
-      if(record.producerVersion==='absorption-scripts/v4'||(record.producerVersion==='absorption-scripts/v5'||record.producerVersion==='absorption-scripts/v6'||(record.producerVersion==='absorption-obligations/v7'||record.producerVersion==='absorption-rival-scripts/v8')))for(const row of record.scriptDecisions)idNumber(row.id,'absorptions.scriptDecisions.id')
+      if(record.producerVersion==='absorption-scripts/v4'||(record.producerVersion==='absorption-scripts/v5'||record.producerVersion==='absorption-scripts/v6'||(record.producerVersion==='absorption-obligations/v7'||(record.producerVersion==='absorption-rival-scripts/v8'||record.producerVersion==='absorption-rival-obligations/v9'))))for(const row of record.scriptDecisions)idNumber(row.id,'absorptions.scriptDecisions.id')
     }
   }
   const bySubject = new Map<string, TitleEvent[]>()

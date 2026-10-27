@@ -1,5 +1,14 @@
 # HANDOFF
 
+## Rival obligations functional checkpoint — 2026-10-26, 22:31 CDT
+
+Eleven reviewed source owners and the independent same-leaf lifecycle are ready for a recoverable experimental commit. Resolve exact HEAD from Git. Root types exit 0; genuine R01 C312 native obligation close, financial/receipt/source-history dispositions, writing completion/Accept313, replay, unrelated film33 first take314 with no false promise13 credit, and final314 save all pass. Exact 9275.610403 ms exceeds unchanged5000 ms. One pass,64 skipped; affected complete files and broader consumers are NOT qualified.
+
+Independent audit verifies all1658 source/input and six preflight pins, terminal child/wrapper0 and absent owned jobs/lock; freeze released. Launch/mid/post samples found no Godot, without a continuous-exclusivity claim. Earlier first-green was not launched when foreign Godot appeared; preserve that evidence. Source, two reviewed corrections, independent test and actual results are under rival-obligations. Main and primary P16 stay unchanged.
+
+Next: complete coherent affected-file/consumer qualification through the sole lane only with a fresh valid window; retain timing failure, original RED and all historical failures. Reuse this exact root compiler/focused result where source remains unchanged. Own unbound promise12 masks delegated-only retention; acquired first take, termination, nonempty market and prior v8 production branches remain unproved. Missing full-gate originals, browser installation, native tooling and Owner acceptance remain open. Sprint8/program are incomplete; no downstream predecessor qualification.
+
+
 ## Rival obligations reviewed source installed — 2026-10-26
 
 Eleven source owners plus the independent same-leaf lifecycle test are installed, uncommitted and STATIC-UNRUN on experimental HEAD 53f821499b838bb701dedb74f5f49ef06f3796bf. Original source remains published at cf8def37. Restore rival-obligations/source/RIVAL-OBLIGATIONS.patch, review-fix/OWNER-CHECK.patch, review-fix-same-week/SAME-WEEK.patch and lifecycle-test/LIFECYCLE.patch after the preserved premise patch. Primary P16 and main remain unchanged.

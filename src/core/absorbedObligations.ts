@@ -29,6 +29,8 @@ export type AbsorbedPromiseAssignment = Readonly<{
  sourceContractId:string;buyerContractId:string;original:ProfessionalPromise
  firstTakeCountBeforeClose:number
  projectIds:ReadonlyMap<string,string>
+ /** Native-only paid pictures keep their source-local subject ID in receipts. */
+ projectProductionIds?:ReadonlyMap<string,string>
 }>
 export type AbsorptionWithdrawalAuthority=ReadonlyMap<string,Readonly<TalentMarketReceipt>>
 export type AbsorbedPromiseAuthority = Readonly<{
@@ -165,7 +167,7 @@ function openOriginal(value:unknown,C:number):asserts value is ProfessionalPromi
  * remain mandatory after descent; this does not validate a whole save. */
 export function absorbedPromiseAuthority(input:unknown):AbsorbedPromiseAuthority|undefined{
  if(!record(input)||!record(input.rights)||!Array.isArray(input.rights.absorptions))return undefined
- if(!input.rights.absorptions.some(a=>record(a)&&a.producerVersion==='absorption-obligations/v7'))return undefined
+ if(!input.rights.absorptions.some(a=>record(a)&&(a.producerVersion==='absorption-obligations/v7'||a.producerVersion==='absorption-rival-obligations/v9')))return undefined
  if(input.rights.absorptions.some(a=>!record(a)))fail('consumed absorption row must be an object')
  if(!record(input.market)||!Number.isSafeInteger(input.market.tick)||!Array.isArray(input.promises)||!Array.isArray(input.firstTakes)
   ||!record(input.talentMarket)||!Array.isArray(input.talentMarket.receipts)||!Array.isArray(input.talentMarket.proposals)||!Array.isArray(input.talentMarket.cases)
@@ -183,8 +185,8 @@ export function absorbedPromiseAuthority(input:unknown):AbsorbedPromiseAuthority
  if(state.talentMarket.cases.some(c=>!record(c))||state.talentMarket.proposals.some(p=>!record(p)))fail('consumed market subjects shape differs')
  if(h.receipts.some(r=>!record(r)))fail('consumed industry receipt shape differs')
  for(const a of state.rights.absorptions){
-  if(a.producerVersion!=='absorption-obligations/v7')continue
-  if(typeof a.id!=='string'||!Number.isSafeInteger(a.week)||a.week<0||a.week>state.market.tick||a.buyerId!==h.playerStudioId||typeof a.targetId!=='string'||a.buyerId===a.targetId
+  if((a.producerVersion!=='absorption-obligations/v7'&&a.producerVersion!=='absorption-rival-obligations/v9'))continue
+  if(typeof a.id!=='string'||!Number.isSafeInteger(a.week)||a.week<0||a.week>state.market.tick||(a.producerVersion==='absorption-obligations/v7'?a.buyerId!==h.playerStudioId:a.buyerId===h.playerStudioId||!h.businesses.some(b=>b.studioId===a.buyerId))||typeof a.targetId!=='string'||a.buyerId===a.targetId
    ||!Array.isArray(a.contracts)||a.contracts.some(link=>!record(link)||typeof link.sourceContractId!=='string'||typeof link.talentId!=='string'||(link.buyerContractId!==null&&typeof link.buyerContractId!=='string'))
    ||!Array.isArray(a.stoppedProductions)||a.stoppedProductions.some(p=>!record(p)||typeof p.productionId!=='string')
    ||!Array.isArray(a.stoppedScripts)||!Array.isArray(a.continuedScripts)||!Array.isArray(a.scriptCompletions)||!Array.isArray(a.scriptDecisions)||!record(a.obligations))fail('obligation absorption identity differs')
@@ -235,7 +237,7 @@ export function absorbedPromiseAuthority(input:unknown):AbsorbedPromiseAuthority
     &&r.fromStudioId===a.targetId&&r.toStudioId===a.buyerId&&r.reason==='absorptionContinuation')
    if(buyerEvents.length!==1||assignments.has(original.promiseId))fail('promise buyer employment event differs')
    assignments.set(original.promiseId,{absorptionId:a.id,week:a.week,sourceStudioId:a.targetId,buyerStudioId:a.buyerId,
-    sourceContractId:d.sourceContractId,buyerContractId:d.buyerContractId,original,firstTakeCountBeforeClose:o.firstTakeCountBeforeClose,projectIds:closingProjectIds(state,a)})
+    sourceContractId:d.sourceContractId,buyerContractId:d.buyerContractId,original,firstTakeCountBeforeClose:o.firstTakeCountBeforeClose,projectIds:closingProjectIds(state,a),...(a.producerVersion==='absorption-rival-obligations/v9'?{projectProductionIds:new Map(a.continuedProductions.map(row=>[row.scriptProjectId,row.productionId]))}:{})})
   }
   // A root already terminal before the receipt prefix, or already superseded
   // before the promise prefix, was not open at close and cannot be re-broken.
@@ -323,7 +325,7 @@ export function absorbedPromiseAuthority(input:unknown):AbsorbedPromiseAuthority
   assignments.set(successorId,assignment)
  }
  for(const a of state.rights.absorptions){
-  if(a.producerVersion!=='absorption-obligations/v7')continue
+  if((a.producerVersion!=='absorption-obligations/v7'&&a.producerVersion!=='absorption-rival-obligations/v9'))continue
   if(state.promises.slice(a.obligations.promiseCountBeforeClose).some(p=>p.issuerStudioId===a.targetId&&!assignments.has(p.promiseId)))fail('post-close source promise has no actual typed successor duty')
  }
  return {assignments,withdrawalEvents}
@@ -353,9 +355,42 @@ export function operationalPromiseView(state:GameState,authority:AbsorbedPromise
  // Terminal identities and every unmerged collection remain in the read view.
  const rights={...state.rights,absorptions:state.rights.absorptions.map(a=>a.buyerId===state.hollywood?.playerStudioId
   ?{...a,continuedProductions:[],buyerWorkflows:[]}:a)}
- return {...state,rights,concepts,scriptDevelopment:{...development,projects},
+ let view:GameState={...state,rights,concepts,scriptDevelopment:{...development,projects},
   studio:{...state.studio,activeProductions:productions},operations:buyerOperationsForAllWork(state),
   promises:state.promises.map(p=>operationalPromise(state,p,authority))}
+ const buyers=new Set([...authority.assignments.values()].map(a=>a.buyerStudioId).filter(id=>id!==state.hollywood?.playerStudioId))
+ if(buyers.size===0)return view
+ const h=state.hollywood!
+ view={...view,hollywood:{...h,businesses:h.businesses.map(b=>{
+  if(!buyers.has(b.studioId))return b
+  const productions=buyerOperatedProductions(state,b.studioId)
+  const projects=[...b.development.projects]
+  const foreign=state.rights.absorptions.filter(a=>a.buyerId===b.studioId)
+  for(const a of foreign){
+   if('continuedScripts' in a)for(const row of a.continuedScripts){if(projects.some(p=>p.id===row.project.id))fail('operational rival project identity collision');projects.push(row.project)}
+   for(const row of a.continuedProductions){
+    if(!productions.some(p=>p.id===row.productionId))continue
+    const source=h.businesses.find(b=>b.studioId===a.targetId),project=source?.development.projects.find(p=>p.id===row.scriptProjectId&&p.productionId===row.productionId)
+    if(!project||project.conceptId!==row.originalProduction.conceptId)fail('operational rival picture lacks its exact creator screenplay')
+    // A qualified reference exists only in this calculator view. The actual
+    // creator project/receipt IDs and every persisted collection are untouched.
+    const id=`${a.targetId}:${row.scriptProjectId}`
+    if(projects.some(p=>p.id===id))fail('operational rival paid project identity collision')
+    projects.push({...project,id})
+   }
+  }
+  const shelved=[...b.screenplayShelving.shelved]
+  for(const a of foreign)if(a.producerVersion==='absorption-rival-scripts/v8'||a.producerVersion==='absorption-rival-obligations/v9')for(const row of a.scriptShelving.shelved){
+   const ordinal=projects.findIndex(p=>p.id===row.projectId)
+   if(ordinal<0)fail('operational rival shelf has no actual project')
+   shelved.push({ordinal,week:row.week,retryWeek:row.retryWeek})
+  }
+  const shelfIds=new Set(shelved.map(row=>row.ordinal))
+  return {...b,productions,operations:buyerOperationsForAllWork(state,b.studioId),development:{mode:'managed' as const,projects},
+   activeScriptOrdinals:projects.flatMap((p,index)=>p.status!=='produced'&&!shelfIds.has(index)?[index]:[]),
+   screenplayShelving:{...b.screenplayShelving,shelved}}
+ })},rights:{...view.rights,absorptions:view.rights.absorptions.map(a=>buyers.has(a.buyerId)?{...a,continuedProductions:[],buyerWorkflows:[],...('continuedScripts' in a?{continuedScripts:[]}: {})}:a)}}
+ return view
 }
 export function operationalPromise<T extends {promiseId?:string;issuerStudioId:string;predicate:ProfessionalPromise['predicate']}>(_state:GameState,p:T,authority:AbsorbedPromiseAuthority|undefined):T{
  const assignment=p.promiseId===undefined?undefined:authority?.assignments.get(p.promiseId)
@@ -390,12 +425,12 @@ export function closeAbsorbedObligations(before:GameState,next:GameState,absorpt
   if(link.buyerContractId===null){o.promises.push({kind:'exit',original:structuredClone(original),sourceContractId:link.sourceContractId,outcomeEventId:''});continue}
   o.promises.push({kind:'continued',original:structuredClone(original),sourceContractId:link.sourceContractId,buyerContractId:link.buyerContractId})
   assignments.set(original.promiseId,{absorptionId:a.id,week:a.week,sourceStudioId:a.targetId,buyerStudioId:a.buyerId,
-   sourceContractId:link.sourceContractId,buyerContractId:link.buyerContractId,original,firstTakeCountBeforeClose:before.firstTakes.length,projectIds:closingProjectIds(next,a)})
+   sourceContractId:link.sourceContractId,buyerContractId:link.buyerContractId,original,firstTakeCountBeforeClose:before.firstTakes.length,projectIds:closingProjectIds(next,a),...(a.buyerId!==before.hollywood!.playerStudioId?{projectProductionIds:new Map(a.continuedProductions.map(row=>[row.scriptProjectId,row.productionId]))}:{})})
  }
  // Capture the next script subproducer only as the coherent v7 close. Empty
  // arrays grant no writing authority; actual future decisions retain this tag.
  next={...next,rights:{...next.rights,absorptions:next.rights.absorptions.map(row=>row.id!==a.id?row:{...row,
-  producerVersion:'absorption-obligations/v7',stoppedScripts:'stoppedScripts' in row?row.stoppedScripts??[]:[],
+  ...(a.buyerId===next.hollywood!.playerStudioId?{producerVersion:'absorption-obligations/v7' as const}:{producerVersion:'absorption-rival-obligations/v9' as const,scriptShelving:'scriptShelving' in row?row.scriptShelving:{rejections:[],shelved:[]}}),stoppedScripts:'stoppedScripts' in row?row.stoppedScripts??[]:[],
   continuedScripts:'continuedScripts' in row?row.continuedScripts:[],scriptCompletions:'scriptCompletions' in row?row.scriptCompletions:[],
   scriptDecisions:'scriptDecisions' in row?row.scriptDecisions:[],obligations:o})}}
  const authority={assignments,withdrawalEvents:priorAuthority?.withdrawalEvents??new Map()}
@@ -460,13 +495,14 @@ function closingProjectIds(state:GameState,a:AbsorptionRecord):ReadonlyMap<strin
   if(!record(row)||typeof row.scriptProjectId!=='string'||typeof row.productionId!=='string'||!record(row.originalProduction))fail('continued promise picture source shape differs')
   const project=source.development.projects.find(p=>p.id===row.scriptProjectId&&p.productionId===row.productionId)
   if(!project||project.conceptId!==row.originalProduction.conceptId||row.originalProduction.id!==row.productionId||out.has(row.scriptProjectId))fail('continued promise picture source differs')
-  out.set(row.scriptProjectId,row.scriptProjectId)
+  out.set(row.scriptProjectId,a.buyerId===state.hollywood!.playerStudioId?row.scriptProjectId:`${a.targetId}:${row.scriptProjectId}`)
  }
  return out
 }
 function assignedProjectGenre(state:GameState,a:AbsorbedPromiseAssignment,id:string):string|undefined{
- const own=state.scriptDevelopment.projects.find(p=>p.id===id)
- if(own)return state.concepts.find(c=>c.id===own.conceptId)?.genre
+ const player=a.buyerStudioId===state.hollywood?.playerStudioId
+ const own=(player?state.scriptDevelopment:state.hollywood?.businesses.find(b=>b.studioId===a.buyerStudioId)?.development)?.projects.find(p=>p.id===id)
+ if(own)return (player?state.concepts:state.hollywood!.concepts).find(c=>c.id===own.conceptId)?.genre
  const sourceId=[...a.projectIds].find(([source,buyer])=>source===id||buyer===id)?.[0]
  const source=state.hollywood!.businesses.find(b=>b.studioId===a.sourceStudioId)
  const project=source?.development.projects.find(p=>p.id===sourceId)

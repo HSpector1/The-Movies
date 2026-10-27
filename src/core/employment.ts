@@ -154,7 +154,7 @@ export function activeWritingAssignmentIds(state: GameState): Set<string> {
   )) {
     ids.add(assignment.talentId)
   }
-  for(const buyer of new Set((state.rights?.absorptions??[]).filter(a=>a.producerVersion==='absorption-rival-scripts/v8').map(a=>a.buyerId)))
+  for(const buyer of new Set((state.rights?.absorptions??[]).filter(a=>(a.producerVersion==='absorption-rival-scripts/v8'||a.producerVersion==='absorption-rival-obligations/v9')).map(a=>a.buyerId)))
     if(!terminalWeekOf(state).has(buyer))for(const assignment of activeScriptWriterAssignments(buyerScriptDevelopment(state,buyer),buyerScriptConcepts(state,buyer)))ids.add(assignment.talentId)
   return ids
 }

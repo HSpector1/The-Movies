@@ -261,7 +261,7 @@ function continuedBuyerScripts(state:GameState,buyerId=state.hollywood?.playerSt
   return [...state.hollywood.businesses.flatMap(b=>b.development.projects
     .filter(p=>p.productionId!==null && productions.has(p.productionId))
     .map(project=>({project,subjectId:player?project.id:`${b.studioId}:${project.id}`}))),
-    ...state.rights.absorptions.flatMap(a=>((player&&(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7'))||(!player&&a.producerVersion==='absorption-rival-scripts/v8'))&&a.buyerId===buyerId
+    ...state.rights.absorptions.flatMap(a=>((player&&(a.producerVersion==='absorption-scripts/v3'||a.producerVersion==='absorption-scripts/v4'||a.producerVersion==='absorption-scripts/v5'||a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7'))||(!player&&(a.producerVersion==='absorption-rival-scripts/v8'||a.producerVersion==='absorption-rival-obligations/v9')))&&a.buyerId===buyerId
       ?a.continuedScripts.map(r=>({project:r.project,subjectId:r.project.id})):[])]
 }
 
@@ -311,9 +311,10 @@ function prepareStudioClosure(state: GameState, studioId: string, causeEventId: 
   if (player) next = { ...next, contracts: next.contracts.filter((c) => !releasedSet.has(c.talentId)) }
   // §3 "People become ordinary free agents in week C", every studio alike (1362-O 5.1; the expiry path's order).
   next = { ...next, freeAgents: [...new Set([...next.freeAgents, ...released])] }
+  const promiseAuthority=absorbedPromiseAuthority(next)
   for (const talentId of released) {
     next = { ...next, technology: researchAfterEmploymentRelease(next, talentId, studioId) }
-    next = breakPromisesOnTermination(next, studioId, talentId)
+    next = breakPromisesOnTermination(next, studioId, talentId,promiseAuthority)
   }
 
   // 2. The market: the studio's own proposals are withdrawn with the producer's receipt, then every open case whose
@@ -337,7 +338,7 @@ function prepareStudioClosure(state: GameState, studioId: string, causeEventId: 
   const productions = state.rights ? buyerOperatedProductions(state,studioId) : player ? state.studio.activeProductions : business!.productions
   for (const production of productions) {
     row('production', production.id, `remainingTicks ${production.remainingTicks}`, `cancelled terminally at week ${week}; footage, participants and spend frozen in place; no release`, 'applied')
-    next = breakPromisesOnCancel(next, studioId, production)
+    next = breakPromisesOnCancel(next, studioId, production,promiseAuthority)
   }
   if (player) {
     for (const run of [...state.theatricalRuns,...continuedBuyerRuns(state)]) if (run.status === 'active') row('theatricalRun', run.productionId, `weekIndex ${run.weekIndex} of ${run.totalWeeks}`, 'remaining scheduled receipts pending in this saved world', 'pending')
