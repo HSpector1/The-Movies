@@ -13,3 +13,7 @@ Independent review (REVIEW.md): NEEDS CHANGES. B1 same-week sequel+reboot releas
 FIX-2 (adaptation/FIX-2.patch, sha256 c88c46b1…) answers B1 (release read receives the films already released in this tick on all three release paths), S2 (concept-reuse guard: remake authority on the parent, link not mint), G1 (truthful bridge checkpoint case keeping the Save49 fixture pins), G2/G3 (property-set expectation), G4 (idle-talent route). S3 has no cheap lawful route (recorded). Independent re-review: REVIEW-FIX2.md, ACCEPTABLE, no compile error by reading; records-only should-fix on the NOTES red table. RED worktree refreshed (local branch p17-red-20261027 at 9c9c8126: parent a5a66c27 plus only the new test file and route helper).
 
 The lane chain (types-r6, green-r7, red-r8; relaunch script studio-scratch/p16-sprint10-20261027/chain-fix2.sh) was refused by the preflight: the Mac is on battery ("Battery Power", 100%); the preflight requires AC power and is not bypassed. Waiting for the charger; nothing compiled or run for FIX-2 yet.
+
+## FIX-2 lane runs on AC power: types 0/0, focused GREEN 170/170, RED at the parent 12/15 by assertion — 17:33 CDT
+
+types-r6 (root 0, Bridge 0), green-r7 (8 files, 170/170 incl. p17-p16-rights 15/15, bridge-runtime-checkpoint 81/81), red-r8 (per-case list lane/red-r8/RED-CASES.md: 12 failed by assertion, 1 passed as predicted for the replay case, 2 skipped). Sprint 10 checkpoint full gate launched as full-tree-r9 on 2c50c9df (same stages as Sprint 9 full-tree-r3; classification against it).

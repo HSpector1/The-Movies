@@ -1,0 +1,24 @@
+{
+  "head": "2c50c9df2f51d2d1bd97948f7c6bfe4127337bc2",
+  "sourceManifestEntries": 2069,
+  "purpose": "Sprint 10 GREEN focused r7 after FIX-2: the five p17 files, bridge-runtime-checkpoint and two save-era consumers",
+  "children": [
+    {
+      "label": "focused",
+      "completeFiles": [
+        "tests/p17-continuation-law.test.ts",
+        "tests/p17-continuation-seam.test.ts",
+        "tests/p17-continuation-signals.test.ts",
+        "tests/p17-p16-rights.test.ts",
+        "tests/p17-save-step.test.ts",
+        "tests/bridge-runtime-checkpoint.test.ts",
+        "tests/p16-r2-validator.test.ts",
+        "tests/p16a-save-v46.test.ts"
+      ]
+    }
+  ],
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "timeoutOverride": false
+  }
+}
