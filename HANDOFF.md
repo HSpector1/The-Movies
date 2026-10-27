@@ -5,6 +5,16 @@ Last writer: Codex, 2026-10-26, sole coordinator for the authorized Sprints 5–
 
 
 
+
+## Genuine earlier rival admission RED — 2026-10-26, 20:27 CDT
+
+After the observed foreign Godot job ended, a fresh allowed preflight and clear launch/post host samples supported the short sole-lane witness. Source HEAD 58ea5d7146f36b287b98b656339f2eea1b6dece5 plus the preserved independent test patch reaches all actual R03 C163 paid diligence, person-choice, capacity, quote and reserve premises. Six original people retained; consideration 11097774, outlay 862165.7370649315, reserve 4125342, guarantees 2259225. No cash/history/timing fixture change.
+
+Close then refuses exactly absorption: rivalBuyerEarlierWorkProducerRequired at acquisition.ts465. One failed, six deliberately skipped; 671.883 ms within original 5000 ms. Caller purity finally reaches. This is the meaningful original-source RED, not completed lifecycle acceptance. Child/wrapper 1; original report is retained under p16-sprint8/rival-earlier/original-red.
+
+Independent audit verifies all 1658 source/input and six preflight pins, confirms no remaining owned process/lock, and releases freeze. No continuous host-exclusivity claim. Sol now prepares the minimal earlier-silent native producer externally in rival-earlier/source; the independent test author extends the same leaf under lifecycle-test. No draft is installed yet. Root alone integrates and schedules. Next: inspect and independently review the cohesive source/lifecycle patches, install exact reviewed bytes, then fresh focused compiler/lifecycle checks through the sole lane. Preserve original failed evidence and budgets; broader checkpoint remains required.
+
+
 ## Earlier rival production admission prepared — 2026-10-26
 
 Current experimental checkpoint is 3f672a24fe9a2ac59a3b58cb854211763a2f0204, gameplay bef0a40c; records checkpoint 33f191e388c551e35d1bbdf8c1cefcc10771846b. One independent premise leaf is installed but uncommitted in tests/p16-continued-work-silent-phases76.test.ts. Exact patch, manifest and notes are preserved in p16-sprint8/rival-earlier/premise-test. Original six cases and 5000 ms budget remain unchanged.

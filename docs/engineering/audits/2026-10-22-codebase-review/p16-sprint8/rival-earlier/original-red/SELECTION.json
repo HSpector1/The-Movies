@@ -1,7 +1,7 @@
 {
-  "head": "PENDING",
-  "sourceManifestEntries": 0,
-  "sourceBinding": "PENDING root actual exact test installation/pinning before preflight",
+  "head": "58ea5d7146f36b287b98b656339f2eea1b6dece5",
+  "sourceManifestEntries": 1658,
+  "sourceBinding": "Fresh current bytes bound by coordinator; preflight and launch pending host availability",
   "purpose": "Fixed genuine R03 buying R01 at C163 earlier silent production premise investigation",
   "selector": {
     "file": "tests/p16-continued-work-silent-phases76.test.ts",
