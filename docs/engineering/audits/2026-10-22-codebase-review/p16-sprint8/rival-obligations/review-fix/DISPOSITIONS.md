@@ -1,0 +1,1 @@
+The returned continuedScriptOwner object is inspected through owner.a. Absent owner remains non-refusing; existing legacy versions retain their former path; only native v8/v9 retain the actual-terminal-owner refusal. The frozen original package is unchanged. No runtime or compiler was run.

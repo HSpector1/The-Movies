@@ -1,0 +1,26 @@
+--- a/src/core/acquisition.ts
++++ b/src/core/acquisition.ts
+@@ -262,10 +262,11 @@
+ 
+ /** A second healthy close has no producer for forwarding an already delegated
+  * original promise. Ordinary termination/closure still use their existing owner. */
+-function delegatedPromiseAt(state:GameState,buyer:string,week:number):boolean{
+- if(!state.rights.absorptions.some(a=>a.producerVersion==='absorption-rival-obligations/v9'&&a.buyerId===buyer&&a.week<week))return false
++function delegatedPromiseAt(state:GameState,buyer:string,week:number,prior:ReadonlyArray<GameState['rights']['absorptions'][number]>=state.rights.absorptions):boolean{
++ const ids=new Set(prior.filter(a=>a.producerVersion==='absorption-rival-obligations/v9'&&a.buyerId===buyer&&a.week<=week).map(a=>a.id))
++ if(ids.size===0)return false
+  const authority=absorbedPromiseAuthority(state)
+- return [...(authority?.assignments??[])].some(([id,a])=>a.buyerStudioId===buyer&&a.week<week&&state.promises.some(p=>p.promiseId===id&&(p.outcomeWeek===null||p.outcomeWeek>=week)))
++ return [...(authority?.assignments??[])].some(([id,a])=>ids.has(a.absorptionId)&&a.buyerStudioId===buyer&&a.week<=week&&state.promises.some(p=>p.promiseId===id&&(p.outcomeWeek===null||p.outcomeWeek>=week)))
+ }
+ 
+ export function quoteAbsorption(state: GameState, input: AbsorptionInput, week: number, readers: CorporateConditionReaders = corporateConditionReaders): AbsorptionQuote | AbsorptionRefusal {
+@@ -642,7 +643,7 @@
+     if (![a.contracts,a.research,a.facilities,a.titleEventIds,a.knowledge,a.physicalPlans,a.adoptions,a.stoppedProductions,a.continuedProductions,a.buyerWorkflows,a.workSteps,a.workReleases,a.workCancellations,a.runs,a.runReceipts].every(Array.isArray)) fail('dispositions must be arrays')
+     if(a.buyerId!==h!.playerStudioId && (a.continuedProductions.length>1 || a.continuedProductions.some(row=>!row || !row.originalProduction) || a.workCancellations.length!==0))fail('rival buyer malformed/multiple/manual work producer is not admitted')
+     if(acquiredActiveRunFilms(state,a.targetId,a.week).length!==0)fail('acquired run reassignment producer is not admitted')
+-    if(delegatedPromiseAt(state,a.targetId,a.week))fail('acquired promise reassignment producer is not admitted')
++    if(delegatedPromiseAt(state,a.targetId,a.week,state.rights.absorptions.slice(0,state.rights.absorptions.indexOf(a))))fail('acquired promise reassignment producer is not admitted')
+     if(state.rights.absorptions.slice(0,state.rights.absorptions.indexOf(a)).some(prior=>(prior.producerVersion==='absorption-rival-scripts/v8'||prior.producerVersion==='absorption-rival-obligations/v9')&&prior.buyerId===a.targetId&&prior.continuedScripts.some(row=>!prior.scriptDecisions.some(d=>d.kind==='productionReleased'&&d.projectId===row.project.id&&d.week<a.week))))fail('acquired script reassignment producer is not admitted')
+     // Earlier records have already passed their complete joined proof in this loop.
+     if(state.rights.absorptions.slice(0,state.rights.absorptions.indexOf(a)).some(prior=>prior.buyerId===a.targetId && prior.continuedProductions.some(row=>

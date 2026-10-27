@@ -1,0 +1,13 @@
+{
+  "status": "STATIC-UNRUN-FROZEN",
+  "basePackagePatchSHA256": "2ea366a0e67f1f4425e766dd183525757e046bd5435605e2cf9f50fbd2140907",
+  "patch": "OWNER-CHECK.patch",
+  "patchSHA256": "ec91518bd0098929b3e20781c753ca83e9f32259cd3fa162d189b7f64c1e1c71",
+  "files": [
+    {
+      "path": "src/core/continuedScripts.ts",
+      "preimageSHA256": "91e80ab332cd0275045879fe4c9604dead635e042dc07e0ebe23b985ac96e9e2",
+      "postimageSHA256": "60e391ec8381ab4806a4a238a1227aa6bd6448538f6bc1bf23a9b0357b760846"
+    }
+  ]
+}

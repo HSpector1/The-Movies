@@ -1,0 +1,12 @@
+--- a/src/core/continuedScripts.ts
++++ b/src/core/continuedScripts.ts
+@@ -121,7 +121,8 @@
+ export function returnCarriedScriptToReady(state:GameState,production:Production):GameState {
+  const previous=carriedScriptForProduction(state,production.id)
+  if(!previous)return state
+- if(continuedScriptOwner(state,previous.id)?.(a.producerVersion==='absorption-rival-scripts/v8'||a.producerVersion==='absorption-rival-obligations/v9'))fail('native rival cancellation requires its actual terminal owner')
++ const owner=continuedScriptOwner(state,previous.id)
++ if(owner&&(owner.a.producerVersion==='absorption-rival-scripts/v8'||owner.a.producerVersion==='absorption-rival-obligations/v9'))fail('native rival cancellation requires its actual terminal owner')
+  const project=returnScriptProjectToReady({mode:'managed',projects:[previous]},production.id).projects[0]!
+  return productionDecision(state,previous.id,project,{projectId:previous.id,kind:'cancelProduction',week:state.market.tick,production})
+ }

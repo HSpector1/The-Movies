@@ -1,5 +1,18 @@
 ## Rival continuation implementation checkpoint — 2026-10-26, 19:56 CDT
 
+## Rival obligations reviewed candidate; launch blocked — 2026-10-26
+
+Eleven source owners and one independent existing-leaf extension are installed uncommitted on experimental HEAD53f821499b838bb701dedb74f5f49ef06f3796bf, based on published gameplay cf8def37. The original patch plus two reviewed corrections are recoverable under p16-sprint8/rival-obligations. No gameplay promotion or qualification is claimed. Main and primary P16 remain unchanged.
+
+The combined v9 producer retains native accounting and historical v7/v8 contracts. Focused independent review identified a malformed native owner check and same-week delegated-duty reassignment bypass; both are corrected and statically reviewed. Exact original patches, corrective patches, source/test manifests and findings are preserved. The test keeps all 64 prior leaves, original premises and 5000 ms budget, adding genuine native close/disposition/completion/replay and unrelated first-take attribution. Own unbound promise12 masks isolated delegated-retention behavior; no forced production or termination proof.
+
+Compiler/runtime UNRUN. Equipment preflight allowed 8146212 KiB with no detected competitor, but the additional launch host sample found foreign Godot. Root did not launch any compiler, test, USED marker or lane, and did not signal foreign work. Private inventory remains local; first-green/LAUNCH-BLOCKED.json records the limitation. Do not mistake preflight success for host exclusivity. Original RED 5387.399 ms and all inherited timing/acceptance failures remain.
+
+Next: verify foreign completion and an actual qualified window, then bind a fresh compiler-first attempt after HANDOFF edits. Preserve source/index/HANDOFF through independent postflight. Continue affected-file/consumer qualification only after coherent focused results; missing full-gate originals, browser-install approval, native tooling and Owner acceptance remain explicit. Sprint8 and the Sprints5–16 program are incomplete.
+
+Lesson: when extending versioned native producers, check actual returned owner discriminants and same-week transaction order. A strict earlier-week comparison cannot represent a preceding same-week acquisition; historical refusal must use the real record prefix while retaining complete authority validation.
+
+
 ## Genuine rival bound-obligation RED — 2026-10-26, 21:54 CDT
 
 Published experimental gameplay remains cf8def37a931b0e2bf01b3340e9b42586b187fe8. One independent test-only premise is installed but uncommitted in tests/p14c2rm-writer-continuation.test.ts; original 64 leaves, original Bridge witness and 5000 ms budget remain unchanged. Exact patch/source/capture pins are under p16-sprint8/rival-obligations. The preserved historical311 capture advances once to current312; no buyer/date/seed substitution, invented funding or rewritten history.

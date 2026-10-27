@@ -1,0 +1,38 @@
+{
+  "head": "53f821499b838bb701dedb74f5f49ef06f3796bf",
+  "sourceManifestEntries": 1658,
+  "sourceBinding": "cf8def37 source plus frozen rival obligations original and two reviewed corrections; independent source-bound lifecycle",
+  "purpose": "Compiler-first genuine R01 C312 rival bound-obligation lifecycle",
+  "selector": {
+    "file": "tests/p14c2rm-writer-continuation.test.ts",
+    "describe": "P16 genuine rival retained obligations at original312",
+    "it": "quotes actual R01 buying R02 with its retained writer and four promise histories before the obligations producer"
+  },
+  "testPostimageSHA256": "b4a11d49f702d0e998106c728abc16b5e2e6bdccd584fc55bee8690825ee296e",
+  "budget": {
+    "milliseconds": 5000,
+    "timeoutOverride": false,
+    "setupInsideLeaf": true,
+    "ticks": 4
+  },
+  "capture": "historicalWriterPair original commissioned311; exact original-red capture/dependency pins reused",
+  "children": [
+    {
+      "label": "root-types",
+      "command": "node node_modules/typescript/bin/tsc --noEmit",
+      "requiredBeforeRuntime": true
+    },
+    {
+      "label": "rival-obligations-lifecycle",
+      "oneExactLeaf": true,
+      "originalBudgetMilliseconds": 5000
+    }
+  ],
+  "limits": "Root typecheck then one same-leaf lifecycle only if compiler passes; no complete-file/Bridge/broad qualification.",
+  "patches": {
+    "source/RIVAL-OBLIGATIONS.patch": "2ea366a0e67f1f4425e766dd183525757e046bd5435605e2cf9f50fbd2140907",
+    "review-fix/OWNER-CHECK.patch": "ec91518bd0098929b3e20781c753ca83e9f32259cd3fa162d189b7f64c1e1c71",
+    "review-fix-same-week/SAME-WEEK.patch": "c1aeaba8297dcda38e91554a24c56a978b45f3f8114120549256eefa86a98911",
+    "lifecycle-test/LIFECYCLE.patch": "58c694d93f80e413985c4793bc091a4d63c59fcc26f2c8f126a5e304e74a90d7"
+  }
+}

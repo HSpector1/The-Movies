@@ -1,0 +1,7 @@
+{
+  "status": "NOT_LAUNCHED",
+  "observedAt": "2026-10-26T22:27:31.243996-05:00",
+  "reason": "Explicit launch host sample found foreign Godot PID19565 PPID19555 despite equipment preflight competingHeavy0. No compiler/runtime/USED/lane created. No foreign signal.",
+  "privateEvidence": "launch-host.PRIVATE.txt",
+  "next": "Wait for verified foreign process completion and a resource-qualified window; refresh preflight in a fresh run directory before any launch. Existing prepared attempt remains preserved."
+}

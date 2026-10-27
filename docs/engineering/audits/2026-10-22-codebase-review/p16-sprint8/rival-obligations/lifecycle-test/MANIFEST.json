@@ -1,0 +1,72 @@
+{
+  "status": "STATIC-UNRUN-FROZEN; exact source interface bound, runtime and timing unqualified",
+  "testFile": "tests/p14c2rm-writer-continuation.test.ts",
+  "baseTestSha256": "679531d982100dec14ae711c4635cf7ee260e1194986cf5e6354eada9e77f1ae",
+  "premiseBaseSourceHead": "cf8def37a931b0e2bf01b3340e9b42586b187fe8",
+  "interface": "absorption-rival-obligations/v9: exact native v8 writing fields plus unchanged AbsorptionObligations; verified against frozen rights.ts273, closeAbsorbedObligations, completion and automatic-accept owners",
+  "sourcePackage": {
+    "directory": "/Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-obligations/source",
+    "baseSource": "cf8def37a931b0e2bf01b3340e9b42586b187fe8",
+    "patch": "RIVAL-OBLIGATIONS.patch",
+    "patchSha256": "2ea366a0e67f1f4425e766dd183525757e046bd5435605e2cf9f50fbd2140907",
+    "manifestSha256": "bcf2ab1d2c927e051ae53707e142d0e5eb2c3ecf026986c0ca206c46d84e7811",
+    "interfaceSha256": "ede25eb1df350683eb5ae25dd12759c24ec16ecbc22a7779400855b9d77e995f",
+    "postimageSha256": {
+      "src/core/absorbedObligations.ts": "6562b8f9f85550472564645f81f2e21461b969777aedee67e056a003c3994de5",
+      "src/core/absorbedScripts.ts": "333279ce5bc0a1b9e02f3a549c786a8a7ae7599cc07c18067fd2906baa9ffe60",
+      "src/core/acquisition.ts": "442241058c6977695793a2b9268378d3bc9483ae7a68f2dbc8846350df56efae",
+      "src/core/continuedScripts.ts": "91e80ab332cd0275045879fe4c9604dead635e042dc07e0ebe23b985ac96e9e2",
+      "src/core/employment.ts": "9cdb23f1a970d4e5b688ebad57df63c311393a83f1afc368e3b91ac12d4e2fbc",
+      "src/core/hollywoodTick.ts": "b4011a8b59765db6e3ca8b3e21e00dd8a387e1c9700a3ed31f629a1b5d657279",
+      "src/core/hollywoodValidation.ts": "4742e1dbafc088c271a0805b8fc9aeffdb2e72310d8e8b9fa930a07662e9ac0c",
+      "src/core/productionIdentity.ts": "039fbf57e99378dd7661514fd3413aa902b9d79b0f9343a944a491c34eff831b",
+      "src/core/promises.ts": "18bedfc9456906ded1ce2ae7f9fe4005785ea90ecca2cfcb122f40000ea3ea20",
+      "src/core/rights.ts": "24614b25c656ee1acf537e544ee61b0569609ac49f90d6db5ef98f13442005eb",
+      "src/core/studioClosure.ts": "9fd8ae0e6442b8e1988ff111e5156f170e74a7148c3afa31ae35ad8d01958596"
+    }
+  },
+  "selector": {
+    "describe": "P16 genuine rival retained obligations at original312",
+    "leaf": "quotes actual R01 buying R02 with its retained writer and four promise histories before the obligations producer"
+  },
+  "budgetMs": 5000,
+  "originalRedElapsedMs": 5387.399,
+  "originalRedTiming": "Over original budget; all premises, named refusal and purity reached. No timing qualification claimed.",
+  "nativeTicksIncludingSetup": 4,
+  "artifacts": {
+    "preimage.ts": {
+      "sha256": "679531d982100dec14ae711c4635cf7ee260e1194986cf5e6354eada9e77f1ae",
+      "bytes": 44333
+    },
+    "postimage.ts": {
+      "sha256": "b4a11d49f702d0e998106c728abc16b5e2e6bdccd584fc55bee8690825ee296e",
+      "bytes": 61289
+    },
+    "LIFECYCLE.patch": {
+      "sha256": "58c694d93f80e413985c4793bc091a4d63c59fcc26f2c8f126a5e304e74a90d7",
+      "bytes": 20032
+    }
+  },
+  "preserved": {
+    "original64Leaves": true,
+    "allPremiseAssertions": true,
+    "originalBudgetAndInLeafSetup": true,
+    "originalHistoricalPairAndFundingProvenance": true
+  },
+  "scope": "same leaf close, four promise classes, native313 completion/replay, actual unrelated own film33 first take at314, real pending outcome/employment and final save",
+  "runtimeExecuted": false,
+  "checkoutOrSourceEdits": false,
+  "limitations": [
+    "Original RED already exceeds5s; extension runtime is unmeasured.",
+    "Own unbound R01 promise12 blocks surplus release independently; delegated-only retention and buyer termination/outcome remain unqualified.",
+    "Unrelated native R01 film33 take must not count for retained R02 writer promise13; no retained qualifying first take is created.",
+    "No acquired greenlight/production/release branch, forced staffing or nonempty market disposition."
+  ],
+  "fixtureProvenanceManifest": {
+    "path": "../premise-test/MANIFEST.json",
+    "sha256": "099a8840ba4c15a77334ae3b579a9925fd6f8a0919d800ec0056cf9a468c1181",
+    "unchangedHelper": "tests/helpers/p14c2rm-fixtures.ts:73",
+    "originalFundingDisclosure": "Original archived-engine P14B.2 player-only +10m fixture bootstrap; no new cash/history changes"
+  },
+  "notesSha256": "dec8596b8f521d88b10eb3ef6f2ddafaca4cb7752a20c73b0c76e5935864ba5c"
+}

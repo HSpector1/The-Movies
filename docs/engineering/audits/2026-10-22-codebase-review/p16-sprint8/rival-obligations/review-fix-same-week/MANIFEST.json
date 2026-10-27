@@ -1,0 +1,14 @@
+{
+  "status": "STATIC-UNRUN-FROZEN",
+  "basePackagePatchSHA256": "2ea366a0e67f1f4425e766dd183525757e046bd5435605e2cf9f50fbd2140907",
+  "independentOf": "review-fix/OWNER-CHECK.patch",
+  "patch": "SAME-WEEK.patch",
+  "patchSHA256": "c1aeaba8297dcda38e91554a24c56a978b45f3f8114120549256eefa86a98911",
+  "files": [
+    {
+      "path": "src/core/acquisition.ts",
+      "preimageSHA256": "442241058c6977695793a2b9268378d3bc9483ae7a68f2dbc8846350df56efae",
+      "postimageSHA256": "d81bd2bcaab0b8b7488ddf4642a237c9c7c4caa5bd40b1d8d1f9387b84994c68"
+    }
+  ]
+}
