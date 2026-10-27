@@ -1,5 +1,17 @@
 ## Rival continuation implementation checkpoint — 2026-10-26, 19:56 CDT
 
+## Rival completed-take continuation published — 2026-10-26
+
+Experimental source `bef0a40c7aae1721db5cee75eb1ffa81b03471e5` is pushed and verified against the explicit GitHub ref `p16-retained-writing-20261026`. Primary candidate and main are unchanged. The reviewed producer preserves creator history while the actual rival buyer operates retained work, pays active crew, releases natively, receives title and collects original run installments exactly once. The genuine C166 route reaches save169, release/replay170 and final171 reload.
+
+The first implementation exposed a real validation defect: credit-only writer admission incorrectly required employment after lawful same-close native termination. The reviewed one-line correction preserves exact acquisition terms and active company employment coverage. Original missing-producer RED and first implementation failure remain retained; no assertions or budgets were removed.
+
+Corrected lifecycle passes in 2861.787 ms solo and 3398.065 ms in six complete affected files. Those files pass 19/19 assertions; root and Bridge typechecks exit 0. Seven other bodies exceed the original 5000 ms budget. Three active-run overruns are newly observed against nearest retained measurements; cause is not established. Other predecessor gaps and all exact timings remain in `p16-sprint8/rival-continuation/coherent-affected/AUDIT.md`. Passing assertions are not timing qualification.
+
+Independent source review and postflight audits are complete. All 1658 source/input and six preflight pins match each run; freezes released and no owned lane job remains. Final run samples observed no foreign Godot, without continuous exclusivity proof. First-green foreign overlap remains separately recorded. Completed evidence and hashes are in `rival-continuation/completed-checkpoint-manifest.json`.
+
+Next: affected market and remaining consumer checks on this source, followed by remaining adopted producer/composition dispositions and the required coherent broader milestone. Reuse the original REDs and unchanged completed checks. Sprint 8 and the Sprints 5–16 program remain incomplete; original full-game inputs, browser approval, native tooling and Owner acceptance remain open. No gameplay main promotion or P17/P18 predecessor waiver.
+
 The coherent eleven-owner source draft and independent same-leaf lifecycle test are installed but uncommitted on experimental HEAD8639c236. Source chain: source/SOURCE.patch (5ca73a60), then writer-admission-fix/WRITER-ADMISSION.patch (bfe80891); test chain: original premise patch then lifecycle-test/LIFECYCLE.patch (a89bf3fa), final test SHA bacc7df3. All exact manifests, patches, focused independent reviews and original failures are preserved. Primary013c4edc and main remain untouched. This is a recoverable unqualified implementation, not a published gameplay success.
 
 The draft adds native rival operated capacity, staffing protection, automatic release, creator history and buyer Standing/title/receipts, cumulative save validation and eventual closure joins. Actual source-qualified rival screenplay disposition IDs prevent two creators' script-0013 subjects from collapsing; existing player/historical IDs stay unchanged. Native source runs service once after policy/release so a source earlier in array order still pays release-week installment0. No new persistence shape, gameplay concurrency or budget change.

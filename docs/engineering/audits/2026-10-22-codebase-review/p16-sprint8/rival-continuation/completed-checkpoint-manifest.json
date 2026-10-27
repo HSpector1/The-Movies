@@ -1,0 +1,88 @@
+{
+  "sourceCommit": "bef0a40c7aae1721db5cee75eb1ffa81b03471e5",
+  "remote": "https://github.com/HSpector1/The-Movies.git",
+  "ref": "refs/heads/p16-retained-writing-20261026",
+  "remoteVerified": true,
+  "files": [
+    {
+      "path": "writer-green/AUDIT.md",
+      "sha256": "0a65e2195be1d194963e5906b75374df0783563b601a0dab1e362bbdb6870314",
+      "bytes": 1692
+    },
+    {
+      "path": "writer-green/SELECTION.json",
+      "sha256": "acc9fd96e576b2c1f8be48124b7fffd16ff9385389dfa2dfce8ab799b4f76c7f",
+      "bytes": 1635
+    },
+    {
+      "path": "writer-green/SOURCE-MANIFEST.json",
+      "sha256": "99876690d2b98cb1e716cf933304eaebc4f8114e2bf99bee06aa05ce7871a194",
+      "bytes": 194456
+    },
+    {
+      "path": "writer-green/USED",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "writer-green/focused.json",
+      "sha256": "9e922c668e3064417b52ea3aa1f2fdeb94e576d97a120a558608d868e93c9b02",
+      "bytes": 3324
+    },
+    {
+      "path": "writer-green/lane.log.gz",
+      "sha256": "fe481a2ed724d3a6cc08581a9cc93ec45841740ef1977f1040f41f3145088cd3",
+      "bytes": 782
+    },
+    {
+      "path": "writer-green/lane.log.meta",
+      "sha256": "837e172cc7110a571099c47b17fbab64cb85ba11a98cdd046c2f0301d7b6fef6",
+      "bytes": 232
+    },
+    {
+      "path": "writer-green/run.sh",
+      "sha256": "5220be7929bc2f392dd0721f62b04635a66ce0350c85f6f1b393b72c1f6fa9b9",
+      "bytes": 2229
+    },
+    {
+      "path": "coherent-affected/AUDIT.md",
+      "sha256": "ba8493512934d50a8d94b2e7420fbf132dd44f661e04bc7d20a45bbae47bc6f8",
+      "bytes": 6839
+    },
+    {
+      "path": "coherent-affected/SELECTION.json",
+      "sha256": "8d11585d7c5b481db2ae1ade3918bdd54f1d8ece34ead3b009ae0b8b2176fd02",
+      "bytes": 2128
+    },
+    {
+      "path": "coherent-affected/SOURCE-MANIFEST.json",
+      "sha256": "99876690d2b98cb1e716cf933304eaebc4f8114e2bf99bee06aa05ce7871a194",
+      "bytes": 194456
+    },
+    {
+      "path": "coherent-affected/USED",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "coherent-affected/focused.json",
+      "sha256": "d52706289d18184a332759296b70a212a31479e1606f6ab722c3b6be4a571d1c",
+      "bytes": 11476
+    },
+    {
+      "path": "coherent-affected/lane.log.gz",
+      "sha256": "a3349696fd837c0db5072f1ca6d3ecc900d9b39f42d87f9a5a318e62b974982c",
+      "bytes": 2347
+    },
+    {
+      "path": "coherent-affected/lane.log.meta",
+      "sha256": "0f03cbb353d199e26d0648fb68eb8a68c683c9ec79adb69b138cd1931eba7ccc",
+      "bytes": 237
+    },
+    {
+      "path": "coherent-affected/run.sh",
+      "sha256": "b73131298003c2cafcd252b24036d14de213f054a59b86b833f4123ae6e13981",
+      "bytes": 2468
+    }
+  ]
+}

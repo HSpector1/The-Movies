@@ -1,0 +1,42 @@
+{
+  "head": "2f35fc49691bc9462b3a2ffa51dadb41d857f5e8",
+  "sourceManifestEntries": 1658,
+  "sourceBinding": "Actual reviewed and focused-passing source plus independent lifecycle; fixed through independent postflight.",
+  "purpose": "Complete shared continued-work and estate/history affected checkpoint; no original RED/single-leaf repetition",
+  "files": [
+    "tests/p16-absorption-active-run.test.ts",
+    "tests/p16-continued-work-shooting4.test.ts",
+    "tests/p16-continued-work-cancel.test.ts",
+    "tests/p16-estate-run-continuation.test.ts",
+    "tests/p16-estate-observed-migration.test.ts",
+    "tests/p16-r03-observed-migration.test.ts"
+  ],
+  "testPostimages": {
+    "tests/p16-absorption-active-run.test.ts": "bacc7df3b06b294b5e09394a8c25d11a738da12e9c37a5c628f541b8bd5804d5",
+    "tests/p16-continued-work-shooting4.test.ts": "27757ff9f54797a2bad964f0466bafb0afef673de053d17f4f26287f7bea0170",
+    "tests/p16-continued-work-cancel.test.ts": "14503e96a73b8492fb50c355eeca3ad301170f783259afd2ee4e672bb214956e",
+    "tests/p16-estate-run-continuation.test.ts": "f1b19793360539363e4e4b6b1e74f54c731209c9df73d33f1dd1956b5e9ce0e6",
+    "tests/p16-estate-observed-migration.test.ts": "bf57cdf652a1dc5d0899d3e38d0912eb525bb725d4cf7a2d7407fab61f6ac612",
+    "tests/p16-r03-observed-migration.test.ts": "ea958f488b775bdd66b367bfc1300006e7c56e2a6c243ee1a400c422dd76d150"
+  },
+  "children": [
+    {
+      "label": "coherent-affected",
+      "project": "core",
+      "oneInvocation": true,
+      "completeFiles": 6,
+      "result": "focused.json"
+    },
+    {
+      "label": "root-types",
+      "command": "node node_modules/typescript/bin/tsc --noEmit"
+    },
+    {
+      "label": "bridge-types",
+      "command": "node node_modules/typescript/bin/tsc -p tsconfig.bridge.json --noEmit"
+    }
+  ],
+  "budgets": "Original complete-file budgets; no timeout override or setup movement",
+  "failureHandling": "Each child BEGIN/END/date/exit logged; both typechecks run after nonzero tests; final failure retains every result",
+  "launch": "Preparation only; fresh resource preflight and exclusive existing heavy lane required"
+}

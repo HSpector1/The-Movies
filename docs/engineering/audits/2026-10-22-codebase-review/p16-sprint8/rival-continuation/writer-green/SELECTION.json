@@ -1,13 +1,13 @@
 {
-  "head": "PENDING",
+  "head": "2f35fc49691bc9462b3a2ffa51dadb41d857f5e8",
   "purpose": "Verify one-line credit-only writer admission correction through the same actual C166 lifecycle",
   "selector": {
     "file": "tests/p16-absorption-active-run.test.ts",
     "describe": "P16 genuine rival completed-take continuation admission",
     "it": "quotes the actual166 completed silent take with all required staff into idle R02 before reaching the continued-work producer"
   },
-  "sourceManifestEntries": 0,
-  "sourceBinding": "PENDING final safe handoff/source binding before fresh preflight when no foreign intensive process is active",
+  "sourceManifestEntries": 1658,
+  "sourceBinding": "Reviewed source plus one-line writer fix installed, actual metadata and inputs bound before fresh preflight.",
   "testPostimageSHA256": "bacc7df3b06b294b5e09394a8c25d11a738da12e9c37a5c628f541b8bd5804d5",
   "budget": {
     "milliseconds": 5000,

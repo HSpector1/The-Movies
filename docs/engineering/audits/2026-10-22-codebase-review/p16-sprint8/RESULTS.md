@@ -1,5 +1,17 @@
 # Sprint 8 obligation producer checkpoint
 
+## Rival completed-take continuation published — 2026-10-26
+
+Experimental source `bef0a40c7aae1721db5cee75eb1ffa81b03471e5` is pushed and verified against the explicit GitHub ref `p16-retained-writing-20261026`. Primary candidate and main are unchanged. The reviewed producer preserves creator history while the actual rival buyer operates retained work, pays active crew, releases natively, receives title and collects original run installments exactly once. The genuine C166 route reaches save169, release/replay170 and final171 reload.
+
+The first implementation exposed a real validation defect: credit-only writer admission incorrectly required employment after lawful same-close native termination. The reviewed one-line correction preserves exact acquisition terms and active company employment coverage. Original missing-producer RED and first implementation failure remain retained; no assertions or budgets were removed.
+
+Corrected lifecycle passes in 2861.787 ms solo and 3398.065 ms in six complete affected files. Those files pass 19/19 assertions; root and Bridge typechecks exit 0. Seven other bodies exceed the original 5000 ms budget. Three active-run overruns are newly observed against nearest retained measurements; cause is not established. Other predecessor gaps and all exact timings remain in `p16-sprint8/rival-continuation/coherent-affected/AUDIT.md`. Passing assertions are not timing qualification.
+
+Independent source review and postflight audits are complete. All 1658 source/input and six preflight pins match each run; freezes released and no owned lane job remains. Final run samples observed no foreign Godot, without continuous exclusivity proof. First-green foreign overlap remains separately recorded. Completed evidence and hashes are in `rival-continuation/completed-checkpoint-manifest.json`.
+
+Next: affected market and remaining consumer checks on this source, followed by remaining adopted producer/composition dispositions and the required coherent broader milestone. Reuse the original REDs and unchanged completed checks. Sprint 8 and the Sprints 5–16 program remain incomplete; original full-game inputs, browser approval, native tooling and Owner acceptance remain open. No gameplay main promotion or P17/P18 predecessor waiver.
+
 IN PROGRESS. Published gameplay source remains experimental9c91232d; primary013c4edc unchanged. Local X contains the reviewed source chain and independent tests, not yet a qualified published gameplay checkpoint. Reconstruct exactly from source/SOURCE.patch, source-types/TYPES.patch, source-review-fix/REVIEW-FIX.patch, then source-market-reader/MARKET-READER.patch; each manifest binds pre/postimage hashes. Tests and all original failures are preserved.
 
 The draft implements v7 obligation disposition, original promise attribution, retained buyer duties, native exit outcomes and market withdrawals/case invalidation; strict current/historical joins are retained. Independent review found and corrected incomplete case snapshots, duplicate/order admission, null-row dereferences and a real historical closure-reader failure. The latter now consumes exact fresh validated withdrawal snapshots, never a reason-only exemption. Native cases/competitors and actual retained-cancellation outcomes remain runtime-unproved.
