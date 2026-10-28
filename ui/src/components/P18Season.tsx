@@ -1,12 +1,14 @@
 // ── P18 surfaces: commission a limited-series season, follow it, cancel it, settle what it owes ──
 // Presentation only. Every figure and every refusal comes from engine/television.ts, which reads the core. The quote is
-// the admission the commit runs; a refusal is shown verbatim, by the core's own sentence, and the commit stays disabled.
+// the admission the commit runs; a refusal is voiced in the player's words with the core's own sentence one click away
+// (the P17 pattern), and the commit stays disabled.
 
 import { useState } from 'react'
 import type { ActionOutcome, GameState } from '../engine/adapter.ts'
 import {
   seasonChoices,
   seasonQuote,
+  seasonRefusalVoice,
   seasonRows,
   TV_BLOCK_LABEL,
   TV_CANCELLATION_LABEL,
@@ -16,10 +18,24 @@ import {
 } from '../engine/television.ts'
 import { moneyExact } from '../format.ts'
 
-/** The core's refusal, verbatim (a season refusal is never translated into a generic headline). */
-function SeasonRefusal({ message, testid }: { message: string; testid: string }) {
-  return <div className="errbox" role="alert" data-testid={testid}>Not available: {message}</div>
+/** The refusal voiced in the player's words, with the core's own sentence behind a disclosure (P17Continuation's Refusal). */
+function SeasonRefusal({ state, message, testid }: { state: GameState; message: string; testid: string }) {
+  const voiced = seasonRefusalVoice(state)(message)
+  return (
+    <div className="errbox stack" role="alert" data-testid={testid} style={{ gap: 2 }}>
+      <span data-testid={`${testid}-line`}>Not available: {voiced}</span>
+      {voiced !== message && (
+        <details data-testid={`${testid}-raw`}>
+          <summary>Show the studio&rsquo;s note</summary>
+          <span className="mono">{message}</span>
+        </details>
+      )}
+    </div>
+  )
 }
+
+/** A property with no recorded title: the disclosed dash, never its id (P17Continuation's `untitled`). */
+const untitled = (t: string | null) => t ?? '— (no recorded title)'
 
 type Picks = { propertyId: string; writerId: string; directorId: string; lead: string; antagonist: string; support: string; craftId: string; adoptionId: string }
 const ROLE_ROWS: { key: keyof Picks; label: string; pool: 'writer' | 'director' | 'actor' | 'craft' }[] = [
@@ -82,7 +98,7 @@ export function SeasonCommissionPanel({
           <option value="">Choose a property</option>
           {choices.properties.map((p) => (
             <option key={p.propertyId} value={p.propertyId} disabled={!p.permitted}>
-              {p.title ?? p.propertyId}{p.refusal === null ? '' : ` (not available: ${p.refusal})`}
+              {untitled(p.title)}{p.refusal === null ? '' : ` (not available: ${p.refusal})`}
             </option>
           ))}
         </select>
@@ -102,7 +118,7 @@ export function SeasonCommissionPanel({
           <option value="">Choose a synchronized-dialogue chain</option>
           {choices.adoptions.map((a) => (
             <option key={a.adoptionId} value={a.adoptionId} disabled={!a.operational}>
-              {a.adoptionId}{a.operational ? '' : ' (not operational)'}
+              {a.stageName} with {a.postName}{a.operational ? '' : ' (not operational)'}
             </option>
           ))}
         </select>
@@ -115,8 +131,8 @@ export function SeasonCommissionPanel({
         <strong data-testid="season-quote-required">Cash required {moneyExact(q.required)}; cash held {moneyExact(q.cash)}</strong>
         <span data-testid="season-quote-advance">The advance of {moneyExact(preview.terms.advance)} arrives on acceptance and is not counted.</span>
       </div>
-      {preview.refusal !== null && <SeasonRefusal message={preview.refusal} testid="season-refusal" />}
-      {commitRefusal !== null && <SeasonRefusal message={commitRefusal} testid="season-commit-refusal" />}
+      {preview.refusal !== null && <SeasonRefusal state={state} message={preview.refusal} testid="season-refusal" />}
+      {commitRefusal !== null && <SeasonRefusal state={state} message={commitRefusal} testid="season-commit-refusal" />}
       <button
         type="button"
         className="accent"
@@ -133,14 +149,27 @@ export function SeasonCommissionPanel({
   )
 }
 
+/** FIX-S13B-1 items 4, 6: one closed branch per status; a delivered season reads its P16-checked availability. */
+function seasonStatusText(row: TvSeasonView): string {
+  switch (row.status) {
+    case 'live': return 'In production'
+    case 'cancelled': {
+      if (row.cancellation === null) throw new Error(`season ${row.seasonId} is cancelled without its cancellation record`)
+      return `Cancelled at week ${row.cancellation.week} (${TV_CANCELLATION_LABEL[row.cancellation.cause]})`
+    }
+    case 'delivered': {
+      const until = row.distribution.availableUntilWeekExclusive
+      if (row.deliveredWeek === null || until === null) throw new Error(`season ${row.seasonId} is delivered without its delivered week`)
+      const service = row.distribution.available ? `on the commissioner\u2019s service through week ${until - 1}`
+        : row.distribution.expired ? `the commissioner\u2019s window ended at week ${until}`
+          : 'not on the commissioner\u2019s service: P16 no longer permits its distribution'
+      return `Delivered at week ${row.deliveredWeek}; ${service}`
+    }
+  }
+}
+
 function SeasonStatus({ row }: { row: TvSeasonView }) {
-  if (row.status === 'delivered') {
-    return <span data-testid={`season-state-${row.seasonId}`}>Delivered at week {row.deliveredWeek}; on the commissioner&rsquo;s service through week {(row.distribution.availableUntilWeekExclusive ?? 0) - 1}{row.distribution.expired ? ' (window ended)' : ''}</span>
-  }
-  if (row.status === 'cancelled') {
-    return <span data-testid={`season-state-${row.seasonId}`}>Cancelled at week {row.cancellation!.week} ({TV_CANCELLATION_LABEL[row.cancellation!.cause]})</span>
-  }
-  return <span data-testid={`season-state-${row.seasonId}`}>In production</span>
+  return <span data-testid={`season-state-${row.seasonId}`}>{seasonStatusText(row)}</span>
 }
 
 /** The Dashboard's season rows: live progress, the cancel with its settlement shown first, settle when owed, terminal state. */
@@ -165,7 +194,7 @@ export function SeasonCard({
   return (
     <div className="card stack" data-testid="season-card">
       <h2 style={{ margin: 0 }}>Television</h2>
-      {refusal !== null && <SeasonRefusal message={refusal} testid="season-action-refusal" />}
+      {refusal !== null && <SeasonRefusal state={state} message={refusal} testid="season-action-refusal" />}
       {rows.map((row) => (
         <div className="inset stack" key={row.seasonId} data-testid={`season-row-${row.seasonId}`} style={{ gap: 4 }}>
           <span><strong>{row.seriesTitle}</strong> · <SeasonStatus row={row} /></span>
@@ -207,11 +236,12 @@ export function SeasonCard({
               Cancel the season
             </button>
           ))}
-          {row.settlePreview !== null && (
+          {/* FIX-S13B-1 item 6: with no cash to pay, no settle verb (the Bridge offers none either); the owed figure stays above. */}
+          {row.settlePreview !== null && row.settlePreview.payableNow > 0 && (
             <button
               type="button"
               className="ghost"
-              disabled={!onSettle || row.settlePreview.payableNow === 0}
+              disabled={!onSettle}
               onClick={() => handle(onSettle?.(row.agreement.agreementId, row.settlePreview!.outstanding, row.settlePreview!.payableNow))}
               data-testid={`season-settle-${row.seasonId}`}
             >

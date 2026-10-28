@@ -108,6 +108,9 @@ export function tvDistributionPermission(state: GameState, propertyId: string, w
  * season without its delivered week is a broken record and throws by name.
  */
 export function tvDistributionAvailable(state: GameState, season: TvSeason, terms: TvAgreementTerms, week: number): boolean {
+  // FIX-S13B-1 (green-r6 A): P16 answers no future week (rights.ts currentHolder: `futureWeek`), so a question about a
+  // week after the state's own is unanswerable here; it throws by name instead of reading as "not available".
+  if (week > state.market.tick) throw new Error(`tv distribution: availability at week ${week} is asked of a state at week ${state.market.tick}; P16 answers no future week`)
   if (season.status !== 'delivered') return false
   if (season.deliveredWeek === undefined) throw new Error(`tv distribution: delivered season ${season.seasonId} carries no deliveredWeek`)
   if (week < season.deliveredWeek || week >= season.deliveredWeek + terms.distributionWeeks) return false

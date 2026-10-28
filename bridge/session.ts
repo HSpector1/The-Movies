@@ -1176,6 +1176,8 @@ function resolveCameoIntents(state: GameState): Array<IntentApplication & CameoI
 
 /** P18 Sprint 13 slice B (projection 68): cancel each live season, settle each owed agreement; the core actions decide. */
 function resolveTelevisionIntents(state: GameState): Array<IntentApplication & TvIntent> {
+  // FIX-S13B-1 item 5: the Industry page asks here directly, so the closed-player rule of resolveAvailableIntents holds here too.
+  if (state.hollywood !== null && !isOperatingStudio(state, state.hollywood.playerStudioId)) return []
   const stateDigest = authoritativeDigest(state)
   return tvIntentSpecs(state).map(spec => ({
     spec,

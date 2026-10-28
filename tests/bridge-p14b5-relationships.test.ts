@@ -422,9 +422,9 @@ describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, 
     // (the method reproduces d57642ad from the parent's file); the lane generator check must confirm it. Outgoing65 is prior.
     // Current67 (P18 Sprint 12): computed statically from the post-image schema JSON by the same canonical sha256 (the
     // method reproduces 58938086 from the parent's file); the lane generator check must confirm it. Outgoing66 is prior.
-    // Current68 (P18 Sprint 13 slice B): PLACEHOLDER until the lane regenerates the schema JSON and measures the identity
-    // (the client package ran no generator); outgoing67 is prior. Replace with the regenerated manifest's schemaId.
-    expect(SCHEMA_ID).toBe('sha256:PLACEHOLDER-CURRENT68-SCHEMA-ID')
+    // Current68 (P18 Sprint 13 slice B): measured by the lane generator run green-r6 (regenerated manifest schemaId,
+    // b7357aeb); outgoing67 is prior.
+    expect(SCHEMA_ID).toBe('sha256:b91efc9c632b2503a0f5ca0f33a243164e97775b2c13f566746ba004d7835851')
     expect(SCHEMA_ID).not.toBe(OUTGOING_67)
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)

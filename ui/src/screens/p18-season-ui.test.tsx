@@ -7,7 +7,7 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
-import { applyActions } from '../../../src/core/index.ts'
+import { applyActions, tvStallText } from '../../../src/core/index.ts'
 import type { GameState } from '../../../src/core/index.ts'
 import { FIGURES, agreement, attempt, request, season, seasonRoute, tickUntil, withCash, type CommissionLocal } from '../../../tests/helpers/p18-route.ts'
 import { moneyExact } from '../format.ts'
@@ -71,7 +71,7 @@ describe('P18 browser slice — the Assembly "Commission a season" panel', () =>
     expect(screen.queryByTestId('season-commit-refusal')).toBeNull()
   })
 
-  it('shows a refusal at commit by the core\'s own sentence, never a generic message', () => {
+  it('voices a refusal at commit in the player\'s words, with the core\'s own sentence behind the disclosure, never a generic message', () => {
     // The panel quoted on the pre-commission world; the commit lands on a world where a season is already live.
     const onCommission = vi.fn(commitAt(live))
     render(<Assembly state={route.state} onGreenlit={() => {}} onCancel={() => {}} {...{ onCommissionTvSeason: onCommission }} />)
@@ -84,7 +84,30 @@ describe('P18 browser slice — the Assembly "Commission a season" panel', () =>
     expect(outcome.error).toContain(`one active season per studio: "${seasonId}" is live`)
     const refusal = screen.getByTestId('season-commit-refusal')
     expect(refusal).toHaveAttribute('role', 'alert')
-    expect(refusal.textContent ?? '').toContain(`one active season per studio: "${seasonId}" is live`)
+    // FIX-S13B-1 item 2: the voiced line names the series, never the developer prefix or the season id.
+    const line = screen.getByTestId('season-commit-refusal-line')
+    expect(line).toHaveTextContent('Not available: one active season per studio: "The Long Night" is live')
+    expect(line.textContent ?? '').not.toContain('applyActions')
+    expect(line.textContent ?? '').not.toContain(seasonId)
+    // The core's own sentence stays one click away, verbatim.
+    expect(screen.getByTestId('season-commit-refusal-raw')).toHaveTextContent(outcome.error)
+  })
+})
+
+describe('P18 browser slice — labels and stall text in the player\'s words (FIX-S13B-1 item 3)', () => {
+  it('labels the sound chain by its stage and Post names, voices a rights stall, and never falls back to an id', () => {
+    render(<Assembly state={route.state} onGreenlit={() => {}} onCancel={() => {}} {...{ onCommissionTvSeason: vi.fn() }} />)
+    expect(screen.queryByTestId('season-open'), 'Assembly offers the season panel').not.toBeNull()
+    fireEvent.click(screen.getByTestId('season-open'))
+    const adoption = route.state.technology.adoptions.find((a) => a.id === route.adoptionId)!
+    const facility = (id: string) => route.state.operations.facilities.find((f) => f.id === id)!.name
+    const chain = screen.getByTestId('season-adoption') as HTMLSelectElement
+    expect(chain.selectedOptions[0]!.textContent).toBe(`${facility(adoption.stageFacilityId)} with ${facility(adoption.postFacilityId!)}`)
+    expect(chain.textContent ?? '').not.toContain(route.adoptionId)
+    const rival = firstUnit.hollywood!.identities.find((x) => x.studioId !== firstUnit.hollywood!.playerStudioId)!
+    expect(tvStallText(firstUnit, { kind: 'rights', reason: `production: noAuthority:${rival.studioId}` }))
+      .toBe(`the producer's production permission does not hold: the right is held by ${rival.name}`)
+    expect(() => tvStallText(firstUnit, { kind: 'participant', talentId: 'no-such-person' })).toThrow('tv view: no talent record for no-such-person')
   })
 })
 
@@ -116,6 +139,14 @@ describe('P18 browser slice — the Dashboard season row', () => {
     expect(screen.getByTestId(`season-state-${seasonId}`)).toHaveTextContent(`Cancelled at week ${firstUnit.market.tick} (cancelled by the studio)`)
     expect(screen.queryByTestId(`season-cancel-${seasonId}`)).toBeNull()
     expect(screen.queryByTestId(`season-settle-${seasonId}`)).toBeNull()
+  })
+
+  it('offers no Settle verb at zero cash, the owed figure still shown (FIX-S13B-1 item 6)', () => {
+    const broke = applyActions(withCash(firstUnit, 50_000), [{ kind: 'cancelTvSeason', seasonId }])
+    dashboard(broke, { onSettleTvObligations: vi.fn() })
+    expect(screen.queryByTestId(`season-row-${seasonId}`), 'the Dashboard lists the season').not.toBeNull()
+    expect(screen.queryByTestId(`season-settle-${seasonId}`)).toBeNull()
+    expect(screen.getByTestId(`season-money-${seasonId}`)).toHaveTextContent(`owed ${moneyExact(190_000)}`)
   })
 
   it('offers Settle when a cancellation left obligations owed and dispatches the payable amount against the balance shown', () => {

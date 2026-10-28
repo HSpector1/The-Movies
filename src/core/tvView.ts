@@ -8,6 +8,7 @@
 
 import { assignmentRefusal } from './careerLifecycle.js'
 import { activeContract, assignmentBlockedTalentIds } from './employment.js'
+import { isOperatingStudio } from './operatingState.js'
 import { adoptionChainOperational } from './technologyAdoption.js'
 import { tvDistributionAvailable, tvProductionPermission } from './tvCommission.js'
 import { TV_WORK_UNITS_TOTAL, tvOutstanding, tvUnitsThrough } from './tvReaders.js'
@@ -26,6 +27,50 @@ const CAPABILITY_LABEL: Record<FacilityCapability, string> = {
   'development-casting': 'Development & Casting', soundstage: 'sound stage', 'set-scenery': 'Scenery Shop', post: 'Post Building', laboratory: 'laboratory',
 }
 
+/** P16's permission reason codes in the studio's words (rights.ts HolderReason and the authority reasons). */
+const P16_REASON: Record<string, string> = {
+  noIndustry: 'the living industry is not running', invalidAsOfWeek: 'the week is not a valid one', futureWeek: 'the week has not happened yet',
+  unknownSubject: 'the property is not on record', noTitleAtDate: 'no one held the title at that week', ambiguousProvenance: 'the title history is ambiguous',
+  missingGenesis: 'the title history has no origin', unresolvedTerminalAuthority: 'the title passed through a closure that has not resolved',
+  archived: 'the property is archived', r3RequiresProperty: 'the right needs a property',
+  // licence.ts licenceGrantRefusal codes (the commissioner's grant at admission)
+  exclusiveOverlap: 'an exclusive licence already covers that term', grantorNotHolder: 'your studio does not hold the title',
+  notTradeable: 'the title cannot be licensed now', selfGrant: 'a studio cannot license itself', invalidTerm: 'the licence term is not valid',
+  r4ConsumerNotLive: 'television licensing is not open', activeProductionEncumbrance: 'a production on the property blocks the grant',
+}
+/** The voiced P16 codes (the browser's refusal voice reads the same table). */
+export const P16_REASON_TEXT: Readonly<Record<string, string>> = P16_REASON
+
+const nameOf = (state: GameState, talentId: string): string => {
+  const person = state.talent.find((t) => t.id === talentId)
+  if (person === undefined) throw new Error(`tv view: no talent record for ${talentId}`)
+  return person.name
+}
+
+/**
+ * A P16 permission reason voiced (FIX-S13B-1 item 3): the holding studio by name ("your studio" for the player), a lapsed
+ * licence, another licence answering, or the code's own sentence. A code with no sentence throws by name, never prints raw.
+ */
+export function voicePermissionReason(state: GameState, reason: string): string {
+  const studio = (id: string): string => (id === state.hollywood?.playerStudioId ? 'your studio'
+    : state.hollywood?.identities.find((x) => x.studioId === id)?.name ?? `the studio on record as ${id}`)
+  const held = /^noAuthority:(.+)$/.exec(reason)
+  if (held !== null) return `the right is held by ${studio(held[1]!)}`
+  if (reason.startsWith('expired:')) return 'the licence it relied on has expired'
+  if (reason.startsWith('answered by ')) return 'a licence other than this season\'s answers for the commissioner'
+  if (reason.startsWith('holderUnavailable:')) return voicePermissionReason(state, reason.slice('holderUnavailable:'.length))
+  const voiced = P16_REASON[reason]
+  if (voiced === undefined) throw new Error(`tv view: no voiced sentence for the P16 reason ${reason}`)
+  return voiced
+}
+
+/** A season rights stall (`production: <reason>` or `distribution: <reason>`, tvSeason.ts tvWorkGate) voiced. */
+function voiceRightsStall(state: GameState, reason: string): string {
+  const parts = /^(production|distribution): (.+)$/.exec(reason)
+  if (parts === null) throw new Error(`tv view: rights stall reason ${reason} names neither production nor distribution`)
+  return `the ${parts[1] === 'production' ? 'producer\'s production' : 'commissioner\'s distribution'} permission does not hold: ${voicePermissionReason(state, parts[2]!)}`
+}
+
 /** Why a live season did no paid work, in the studio's words (each kind its own sentence; no generic fallback). */
 export function tvStallText(state: GameState, stall: TvStall): string {
   switch (stall.kind) {
@@ -34,8 +79,8 @@ export function tvStallText(state: GameState, stall: TvStall): string {
     case 'scenery-load-in': return `the scenery is travelling to the stage (${stall.weeksRemaining} week${stall.weeksRemaining === 1 ? '' : 's'} left)`
     case 'scenery-load-in-withheld': return stall.reason === 'stage-has-no-body' ? 'the scenery trip cannot be derived: the stage has no building' : 'the scenery trip cannot be derived: the Scenery Shop has no building'
     case 'cash': return `cash ${stall.available} after this week's charges is below the ${stall.required} unit cost`
-    case 'participant': return `${state.talent.find((t) => t.id === stall.talentId)?.name ?? stall.talentId} is no longer available under contract`
-    case 'rights': return `the television rights do not hold (${stall.reason})`
+    case 'participant': return `${nameOf(state, stall.talentId)} is no longer available under contract`
+    case 'rights': return voiceRightsStall(state, stall.reason)
     case 'sound-chain': return 'the synchronized-dialogue chain is not operational'
     case 'final-boundary': return 'the final delivery boundary has passed'
   }
@@ -63,6 +108,7 @@ export function tvView(state: GameState): TvView {
   const root = state.television
   if (root === undefined) return { series: [], seasons: [] }
   const week = state.market.tick
+  const operating = state.hollywood !== null && isOperatingStudio(state, state.hollywood.playerStudioId)
   const seasons = root.seasons.map((s): TvSeasonView => {
     const a = root.agreements.find((row) => row.agreementId === s.agreementId)
     if (a === undefined) throw new Error(`tv view: season ${s.seasonId} names no agreement ${s.agreementId}`)
@@ -91,7 +137,8 @@ export function tvView(state: GameState): TvView {
       distribution: { licenceId: s.distributionLicenceId, availableFromWeek: from, availableUntilWeekExclusive: from === null ? null : from + a.terms.distributionWeeks,
         available: tvDistributionAvailable(state, s, a.terms, week), expired: from !== null && week >= from + a.terms.distributionWeeks },
       cancelPreview: live ? { refundDue, refundPaidNow, chargeDue: a.terms.cancellationCharge, chargePaidNow, owedAfter: refundDue + a.terms.cancellationCharge - refundPaidNow - chargePaidNow } : null,
-      settlePreview: outstanding > 0 && a.settlement?.closureId === null ? { outstanding, payableNow: Math.min(outstanding, cash) } : null,
+      // FIX-S13B-1 item 5: a closed player is read-only history; nothing is offered to settle.
+      settlePreview: operating && outstanding > 0 && a.settlement?.closureId === null ? { outstanding, payableNow: Math.min(outstanding, cash) } : null,
     }
   })
   return { series: root.series.map((s) => ({ seriesId: s.seriesId, title: s.title, propertyId: s.propertyId, createdWeek: s.createdWeek, seasonIds: [...s.seasonIds] })), seasons }
@@ -101,11 +148,17 @@ export type TvRosterRole = 'writer' | 'director' | 'actor' | 'craft'
 export type TvCommissionChoices = {
   week: number
   /** Each P16 story property the player could commission on, with the live production permission's verdict. */
-  properties: { propertyId: string; title: string | null; permitted: boolean; refusal: string | null }[]
+  properties: { propertyId: string; title: string | null; permitted: boolean; /** Voiced (never a raw P16 code); null when permitted. */ refusal: string | null }[]
   /** Idle, lifecycle-clear people on a player contract covering [C, C + 20), by profession (the admission still decides). */
   people: Record<TvRosterRole, { talentId: string; name: string }[]>
   /** The player's synchronized-dialogue adoptions with a Post chain, and whether the chain is operational now. */
-  adoptions: { adoptionId: string; stageFacilityId: string; postFacilityId: string; operational: boolean }[]
+  adoptions: { adoptionId: string; stageFacilityId: string; postFacilityId: string; stageName: string; postName: string; operational: boolean }[]
+}
+
+function facilityName(state: GameState, facilityId: string): string {
+  const facility = state.operations.facilities.find((f) => f.id === facilityId)
+  if (facility === undefined) throw new Error(`tv view: no facility record for ${facilityId}`)
+  return facility.name
 }
 
 export function tvCommissionChoices(state: GameState): TvCommissionChoices {
@@ -116,7 +169,7 @@ export function tvCommissionChoices(state: GameState): TvCommissionChoices {
   const final = week + TUNING.TV_FINAL_WEEKS
   const properties = state.rights.properties.map((p) => {
     const permission = tvProductionPermission(state, p.propertyId, week)
-    return { propertyId: p.propertyId, title: p.title, permitted: permission.kind === 'permitted', refusal: permission.kind === 'permitted' ? null : permission.reason }
+    return { propertyId: p.propertyId, title: p.title, permitted: permission.kind === 'permitted', refusal: permission.kind === 'permitted' ? null : voicePermissionReason(state, permission.reason) }
   }).filter((p) => p.permitted || state.rights.properties.find((x) => x.propertyId === p.propertyId)?.creatorStudioId === player)
   const blocked = assignmentBlockedTalentIds(state, week, final)
   for (const person of state.talent) {
@@ -128,6 +181,7 @@ export function tvCommissionChoices(state: GameState): TvCommissionChoices {
   }
   const adoptions = state.technology.adoptions
     .filter((a) => a.studioId === player && a.technologyId === 'synchronized-sound' && a.postFacilityId !== null)
-    .map((a) => ({ adoptionId: a.id, stageFacilityId: a.stageFacilityId, postFacilityId: a.postFacilityId!, operational: adoptionChainOperational(state, a) }))
+    .map((a) => ({ adoptionId: a.id, stageFacilityId: a.stageFacilityId, postFacilityId: a.postFacilityId!,
+      stageName: facilityName(state, a.stageFacilityId), postName: facilityName(state, a.postFacilityId!), operational: adoptionChainOperational(state, a) }))
   return { week, properties, people, adoptions }
 }

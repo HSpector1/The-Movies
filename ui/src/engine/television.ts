@@ -3,10 +3,11 @@
 // A module of the one engine boundary (like continuation.ts). Every value is a core read: the choices and the season
 // rows are `tvCommissionChoices` / `tvView` (src/core/tvView.ts, the same read model the Bridge publishes), the quote is
 // `tvCommissionPreview` (the admission the action runs), and the three verbs are the core actions. A refusal is the
-// core's own sentence, returned to the surface verbatim; nothing here decides legality.
+// core's own sentence: the surface voices it (`seasonRefusalVoice`) and keeps the raw note one click away.
 
 import {
   applyActions,
+  P16_REASON_TEXT,
   tvCommissionChoices,
   tvCommissionPreview,
   tvView,
@@ -17,9 +18,32 @@ import {
   type TvSeasonView,
 } from '../../../src/core/index.ts'
 import type { ActionOutcome } from './adapter.ts'
+import { refusalHumaniser } from './continuation.ts'
 
 export type { CommissionTvSeasonRequest, TvCommissionChoices, TvCommissionPreview, TvSeasonView }
 export { TV_BLOCK_LABEL, TV_CANCELLATION_LABEL, TV_MILESTONE_LABEL } from '../../../src/core/index.ts'
+
+const ENGINE_PREFIX = /^applyActions: \w+ rejected — /
+
+/**
+ * FIX-S13B-1 item 2: a season refusal in the player's words, the P17 pattern. The developer prefix goes; each season,
+ * series and agreement id becomes its series title, a sound-chain adoption its stage and Post names, a person their
+ * name and a P16 code its sentence; P17's humaniser then names properties, licences and studios. The caller keeps the
+ * raw sentence in a disclosure beside it.
+ */
+export function seasonRefusalVoice(state: GameState): (raw: string) => string {
+  const names = new Map<string, string>()
+  const root = state.television
+  for (const series of root?.series ?? []) names.set(series.seriesId, series.title)
+  for (const season of root?.seasons ?? []) {
+    const title = root!.series.find((x) => x.seriesId === season.seriesId)?.title
+    if (title !== undefined) { names.set(season.seasonId, title); names.set(season.agreementId, `for ${title}`) }
+  }
+  for (const a of tvCommissionChoices(state).adoptions) names.set(a.adoptionId, `the ${a.stageName} and ${a.postName} chain`)
+  for (const t of state.talent) names.set(t.id, t.name)
+  const humane = refusalHumaniser(state)
+  return (raw) => humane(raw.replace(ENGINE_PREFIX, '').replace(/\w[\w:.-]*\w|\w/g, (token) => names.get(token) ?? (/[A-Z]/.test(token) ? P16_REASON_TEXT[token] : undefined) ?? token))
+}
 
 export function seasonChoices(state: GameState): TvCommissionChoices {
   return tvCommissionChoices(state)

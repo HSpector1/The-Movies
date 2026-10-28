@@ -539,6 +539,8 @@ describe('CF-08 sound union-to-C# generation', () => {
         // P09 W1: the placement quote family joins the SAME union envelope.
         ['StudioQuotePlacementRequest', ['quotePlacement'], ['draft', 'type']],
         ['StudioQuoteSetCommissionRequest', ['quoteSetCommission'], ['draft', 'type']],
+        // P18 Sprint 13 slice B (projection 68): the season commission quote family joins the same envelope.
+        ['StudioQuoteTvCommissionRequest', ['quoteTvCommission'], ['draft', 'type']],
         // P14B.8: the waiver quote family joins the same envelope.
         ['StudioQuoteWaivePromiseRequest', ['quoteWaivePromise'], ['draft', 'type']],
       ])
@@ -581,14 +583,14 @@ describe('CF-08 sound union-to-C# generation', () => {
       // reproduces d57642ad from the parent's file); the lane generator check must confirm it.
       // Projection67 (P18 Sprint 12): the same static method over the post-image schema JSON (it reproduces 58938086 from
       // the parent's file); the projection number and the development occupant enum moved. The lane generator check must confirm it.
-      // Projection68 (P18 Sprint 13 slice B): PLACEHOLDER. The season quote/snapshot $defs, the television page and the three
-      // intent kinds move the checked-in schema JSON, which only the lane generator writes; the lane measures and pins it.
+      // Projection68 (P18 Sprint 13 slice B): the season quote/snapshot $defs, the television page and the three intent kinds
+      // moved the checked-in schema JSON; measured by the lane generator run green-r6 (regenerated manifest schemaId b91efc9c…, b7357aeb).
       const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 59 })
       expect(generated).toContain(
-        '// Schema identity: sha256:PLACEHOLDER-CURRENT68-SCHEMA-ID',
+        '// Schema identity: sha256:b91efc9c632b2503a0f5ca0f33a243164e97775b2c13f566746ba004d7835851',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:PLACEHOLDER-CURRENT68-SCHEMA-ID',
+        'sha256:b91efc9c632b2503a0f5ca0f33a243164e97775b2c13f566746ba004d7835851',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -762,9 +764,11 @@ describe('CF-08 sound union-to-C# generation', () => {
         // green-r5 (c1ee6e11): c107aca5…. F11 is the same input (BRIDGE_SCHEMA) through the same pure function, so it is the
         // same body by construction, not separately measured; F12 is a fixed fixture schema and does not read BRIDGE_SCHEMA.
         // Projection68 (P18 Sprint 13 slice B): the season quote request/snapshot, the television page $defs and the three intent
-        // kinds grow both bodies. PLACEHOLDER until the lane generator run measures them (one body for F10 and F11).
-        F10_CURRENT_QUOTE_UNIONS: 'PLACEHOLDER-F10-PROJECTION68', // was c107aca5… (projection67)
-        F11_CURRENT_COMMAND_UNION: 'PLACEHOLDER-F11-PROJECTION68', // was c107aca5… (projection67), same body as F10 by construction
+        // kinds grow both bodies. F10 measured by the lane run green-r6 (b7357aeb): b4156967…. F11 is the same input
+        // (BRIDGE_SCHEMA, tests/fixtures/bridge-contract-union-fixtures.ts) through the same pure function, so it is the same
+        // body by construction; the run stopped at F10, so F11 is not separately measured.
+        F10_CURRENT_QUOTE_UNIONS: 'b41569678a1327bee21a372317032527a1efe29b37795e89b80f7643530546d2', // was c107aca5… (projection67)
+        F11_CURRENT_COMMAND_UNION: 'b41569678a1327bee21a372317032527a1efe29b37795e89b80f7643530546d2', // was c107aca5… (projection67), same body as F10 by construction
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {

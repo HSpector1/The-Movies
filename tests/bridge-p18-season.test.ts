@@ -5,9 +5,13 @@
 // the core actions); the expected numbers are spelled from the adopted contract (tests/helpers/p18-route.ts FIGURES).
 //
 // The world is the P18 route (seasonRoute, about 440 real ticks), built ONCE at collection like the core's P18 suites;
-// the commissioned and first-unit worlds come from the core action and `tick`, never from state surgery.
+// the commissioned and first-unit worlds come from the core action and `tick`. The one disclosed device is `withCash`
+// (P14B.2's cash set, one ledger row so the money reconciles), which sets the cash a settle or closure case needs.
 import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
+import { tick } from '../src/core/tick.js'
+import type { GameState } from '../src/core/types.js'
+import { closuresOf } from './helpers/p17-cameo-route.js'
 import { BRIDGE_SCHEMA, PROTOCOL_VERSION, SCHEMA_ID, validateIndustry, validateQuote } from '../bridge/protocol.ts'
 import { BridgeSession } from '../bridge/session.ts'
 import type { IndustryQuery } from '../bridge/schema/industry-schema.ts'
@@ -21,6 +25,15 @@ if (accepted.error !== undefined) throw new Error(`premise: the lawful commissio
 const live = accepted.state
 const seasonId = season(live).seasonId
 const firstUnit = tickUntil(live, (s) => season(s).work.creditedUnits >= 1, 4, 'the first credited unit')
+// FIX-S13B-1 item 5: cancelled at 50,000 cash (190,000 owed, closureId null), then cash set to −1 (the disclosed device)
+// and ordinary ticks until the condition law actually closes the studio; the obligation stays recorded (ACCEPTANCE OPEN).
+// Built at collection like the route (about 35 ticks).
+const closedNow = (s: GameState): boolean => closuresOf(s).some((x) => x.studioId === s.hollywood!.playerStudioId)
+const closedWithOwed = (() => {
+  let state = withCash(applyActions(withCash(firstUnit, 50_000), [{ kind: 'cancelTvSeason', seasonId }]), -1)
+  for (let guard = 0; guard < 60 && !closedNow(state); guard++) state = tick(state)
+  return state
+})()
 
 function quoteSeason(session: BridgeSession, commandId: string, draft: CommissionLocal) {
   const parsed = validateQuote({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: session.sessionId, commandId,
@@ -131,5 +144,14 @@ describe('P18 Sprint 13 slice B — the season on the Bridge (projection 68)', (
     expect(agreement(rest.gameState).settlement).toMatchObject({ refundPaid: FIGURES.advance, chargePaid: 120_000 })
     expect(rest.gameState.studio.cash).toBe(1_000_000 - 90_000)
     expect(offered(rest, 'settleTvObligations')).toEqual([])
+  })
+
+  it('a closed player with obligations owed from before its closure gets no settle verb on the snapshot or the television page (FIX-S13B-1 item 5)', () => {
+    const state = closedWithOwed
+    expect(closedNow(state), 'premise: the condition law closes the drained studio').toBe(true)
+    expect(agreement(state).settlement).toMatchObject({ refundPaid: 50_000, chargePaid: 0, closureId: null })
+    const session = new BridgeSession(state, 'p18-closed')
+    expect(offered(session, 'settleTvObligations')).toEqual([])
+    expect(televisionPage(session).seasons[0]).toMatchObject({ status: 'cancelled', agreement: { outstanding: 190_000 }, settlePreview: null, settleIntent: null })
   })
 })

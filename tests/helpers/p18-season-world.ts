@@ -4,6 +4,9 @@
 // (ui/e2e/p18-season.spec.ts) can build the same world in the Playwright process, which must not load vitest. The
 // p18-route helper re-exports everything below; its narrative (two idle film crews, the minted P16 property, the
 // adopted synchronized-sound chain, six more idle people for the season, P14B.2's disclosed cash bootstrap) holds.
+// FIX-S13B-1: the journey builds this world IN THE PAGE (the engine that validates the import also produces it), so
+// this module imports only src/ (no node: built-in reaches it): `freshConcept` is p17-route's own, inlined, because
+// p17-route's p16-fixtures import reads node:fs.
 
 import { applyActions } from '../../src/core/actions.js'
 import { hiringMarketIds } from '../../src/core/employment.js'
@@ -13,7 +16,7 @@ import type { CreativeRole, FilmConcept, FilmShape, GameState } from '../../src/
 import { adoptExistingSoundChain, advanceTo, p13aGeneratedStudio } from '../../src/harness/p13a/fixtures.js'
 import { MARKETING_BUDGET_LEVELS } from '../../src/core/grid.js'
 import { resolveShape } from '../../src/core/shape.js'
-import { freshConcept } from './p17-route.js'
+import { resolveTitles, storyPropertyId } from '../../src/core/rights.js'
 
 export const SEED = 'p18-sprint12-season-01'
 
@@ -33,6 +36,15 @@ export type SeasonRoute = {
 }
 
 const player = (state: GameState): string => state.hollywood!.playerStudioId
+
+/** tests/helpers/p17-route.ts `freshConcept`, verbatim: the first concept no picture used and no title founded. */
+function freshConcept(state: GameState, skip: ReadonlySet<string> = new Set()): FilmConcept {
+  const founded = new Set(resolveTitles(state).properties.map((p) => p.propertyId))
+  const produced = new Set([...state.studio.releasedFilms.map((f) => f.conceptId), ...state.studio.activeProductions.map((p) => p.conceptId)])
+  const concept = state.concepts.find((c) => !skip.has(c.id) && !produced.has(c.id) && !founded.has(storyPropertyId(c.id)))
+  if (concept === undefined) throw new Error('premise: no unfounded player concept left')
+  return concept
+}
 
 /** P14B.2's disclosed cash bootstrap (tests/helpers/p14b2-fixtures.ts `fund`, byte for byte; that module loads vitest). */
 function fund(state: GameState): GameState {

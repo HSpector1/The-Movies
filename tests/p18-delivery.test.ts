@@ -2,9 +2,9 @@
 //
 // The Sprint 12 season route, then the engine's own verbs and `tick`. Disclosed shortcuts, each one ledger row so the
 // money still reconciles: `drain` (a publicity row, the P17 cameo route's drain) to make cash the stall cause, and
-// P14B.2's `fund` bootstrap to restore it. The closure handoff is called directly (natural closure needs 8 negative +
-// 26 distress weeks, longer than a season's 20; NOTES-S13A), and the 52-week expiry is asserted on the producer's own
-// function rather than a 52-tick walk.
+// P14B.2's `fund` bootstrap to restore it. The closure handoff runs both directly and on a natural route (FIX-S13A-1:
+// a distressed studio funded to the quote commissions, and the condition closes it inside the season's 20 weeks), and
+// the 52-week expiry runs both on the producer's own function and as a 52-tick walk.
 //
 // RED at 31fdb366 by assertion: the season stays live after its twelfth unit and at C + 20, the two new actions are
 // unknown kinds (caught and compared), the settlement module is absent (a dynamic import returns null) and the expiry
@@ -155,7 +155,11 @@ describe('P18 delivery — the twelfth unit\'s advance accepts the master', () =
     expect(after.receipts.slice(television(done)!.receipts.length).map((r) => [r.kind, r.week])).toEqual([['distributionExpired', end]])
     expect(expire!(after, end)).toBe(after)
     const terms = agreement(done).terms
-    expect([s.deliveredWeek! - 1, s.deliveredWeek!, end - 1, end].map((w) => available!(done, s, terms, w))).toEqual([false, true, true, false])
+    // The window's first edge on the delivery state itself; its far edge (end − 1, end) is asked of the states at those
+    // weeks in the 52-tick walk below. P16 answers no future week, so the reader refuses one by name (green-r6 A: asked
+    // at end − 1 from the delivery week, P16 refused with `futureWeek` and the reader read it as "not available").
+    expect([s.deliveredWeek! - 1, s.deliveredWeek!].map((w) => available!(done, s, terms, w))).toEqual([false, true])
+    expect(() => available!(done, s, terms, end - 1)).toThrow(`tv distribution: availability at week ${end - 1} is asked of a state at week ${done.market.tick}; P16 answers no future week`)
     // Inside the window, availability still asks P16: without the season's own licence the commissioner may not distribute.
     const unlicensed = { ...done, rights: { ...done.rights, licences: done.rights.licences.filter((l) => l.id !== s.distributionLicenceId) } }
     expect(available!(unlicensed, s, terms, s.deliveredWeek!)).toBe(false)
@@ -344,6 +348,12 @@ describe('P18 cancellation — producer action, partial repayment, settleTvOblig
     expect(after.error).toBe(`applyActions: commissionTvSeason rejected — P16 refuses the commissioner's exclusive television distribution licence over ${route.propertyId} for [${week}, ${week + FIGURES.finalWeeks + FIGURES.distributionWeeks}): exclusiveOverlap`)
     expect(() => saves.makeSave(clear.state!)).not.toThrow()
     roundTrips(clear.state!)
+    // FIX-S13B-1 item 8: a charge above K is refused at the receipt that crosses it.
+    refuses(clear.state!, (f) => {
+      const charged = f.state.television.receipts.filter((r) => r.kind === 'cancellationChargePaid').at(-1)!
+      charged.amount = (charged.amount as number) + 1
+      f.state.television.agreements[0]!.settlement!.chargePaid += 1
+    }, /pays more than the frozen cancellation charge K \(120000\)/)
     // Sequential seasons: a second property minted by the second crew's greenlight (cancelled the same week, the route's
     // own device) takes a second season; the root then holds one terminal and one live season and round-trips.
     const before = new Set(clear.state!.rights.properties.map((p) => p.propertyId))
@@ -363,6 +373,12 @@ describe('P18 cancellation — producer action, partial repayment, settleTvOblig
     refuses(c, (f) => { f.state.television.agreements[0]!.settlement!.refundDue += 1 }, /does not freeze U0/)
     refuses(c, (f) => { f.state.television.seasons[0]!.cancellation!.cause = 'closure' }, /closure id disagrees/)
     refuses(c, (f) => { f.state.television.seasons[0]!.status = 'live' }, /season must carry exactly/)
+    // FIX-S13B-1 item 8: the cancellation's 30,000 charge split into two cancellation-time payments.
+    refuses(c, (f) => {
+      const charged = f.state.television.receipts.find((r) => r.kind === 'cancellationChargePaid')!
+      charged.amount = 20_000
+      addReceipt(f.state.television, { kind: 'cancellationChargePaid', week: charged.week, seasonId: charged.seasonId, agreementId: charged.agreementId, amount: 10_000, source: 'cancellation' })
+    }, /records a second cancellation-time cancellationChargePaid payment/)
   })
 })
 
@@ -515,8 +531,12 @@ describe('P18 FIX-S13A-1 — the window\'s end through the tick and the validato
     expect(receipts(ended!, 'distributionExpired')).toEqual([expect.objectContaining({ week: end, seasonId: s.seasonId })])
     const available = (tvCommissionModule as Record<string, unknown>).tvDistributionAvailable as ((state: unknown, s: unknown, terms: unknown, week: number) => boolean) | undefined
     expect(typeof available).toBe('function')
+    // The window's far edge on the states at those weeks: available at end − 1, not at end; asked from the end state, the
+    // past week end − 1 still reads available (the commissioner's licence covers [C, C + 72)).
+    expect(open!.market.tick).toBe(end - 1)
     expect(available!(open!, season(open!), agreement(open!).terms, open!.market.tick)).toBe(true)
     expect(available!(ended!, s, agreement(ended!).terms, ended!.market.tick)).toBe(false)
+    expect(available!(ended!, s, agreement(ended!).terms, end - 1)).toBe(true)
     expect(() => saves.makeSave(open!)).not.toThrow()
     expect(() => saves.makeSave(ended!)).not.toThrow()
     roundTrips(ended!)
