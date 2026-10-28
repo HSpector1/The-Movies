@@ -1,0 +1,13 @@
+# Independent postflight audit — full-tree-r9 (P17 candidate 2c50c9df), 2026-10-27, 20:05 CDT
+
+Auditor: independent Sonnet auditor, read-only. Result: run complete and intact; findings concern coverage, not integrity.
+
+- Binding: SELECTION head = worktree HEAD 2c50c9df; tree clean; SOURCE-MANIFEST 2,069 entries, full re-hash 0 mismatches.
+- Lane: start 17:33:36, end 19:50:07 CDT, exit 1 (= CHECKPOINT exit 1); USED once; stages once each in order: root-ui-types 0 (109 s), bridge-types 0 (35 s), bridge-contract 0 (1 s), bridge-fixture-contract 0 (2 s), build 0 (23 s), full-core-including-bridge 1 (6,703 s), full-ui 1 (1,317 s), final-source-integrity 0. Node v20.20.2; HEAD line matches. No STOP or runtime-floor line; no second vitest root; no truncation; stage gaps 0–1 s.
+- Results: core 163 failed / 5,873 passed / 3 skipped / 11 todo of 6,050 (45 of 552 files); ui 4 failed / 2,725 passed / 5 skipped of 2,734. JSON totals agree.
+- Classification (against Sprint 9 full-tree-r3 on 63a63abe): core NEW 1 (bridge-p13b-s3-save-as timeout 20 s), INHERITED-SAME 87, INHERITED-CHANGED 6 (all differ only by the live save version literal 49 → 50: bridge-owner-ux-projection20-migration ×3, bridge-p06-checkpoint-recovery ×2, p14c3-save-v38 ×1), MISSING-INPUT 69 across 24 files (68 ENOENT plus one wrapped Python FileNotFoundError for art/hollywood/district-manifest.source.json), BASELINE-NOT-REPRODUCED 3 (the Sprint 9 repaired registry pins: bridge-p14b6 ×2, bridge.test ×1; six further baseline failures were renamed in Sprint 9 and pass now), OVER-BUDGET-PASS 701 (max 879,750 ms, bridge.test direct headless save bytes). ui NEW 2 (WorldFirstStudioHome 30 s timeout, livingTurn.scheduler 15 s timeout), INHERITED-SAME 2, OVER-BUDGET-PASS 108.
+- Host: preflight launchAllowed true, free 6,746,704 KiB, AC Power, heavy 0; no Godot at launch; load average 4.38 at start; 24 "Test timed out" strings across both projects.
+
+FINDINGS: (1) 53 of the 69 MISSING-INPUT rows pass at r3 and fail here only because docs/ and evidence/ inputs were absent in the sparse P17 worktree; they have no P17 result until a rerun with the inputs materialized (the other 16 also fail at r3). (2) The run.sh "known-missing inputs: 4" pre-check understates the 10 distinct missing paths. (3) The three NEW timeouts were recorded under load and are unmeasured alone. (4) Six renamed baseline rows are not listed as BASELINE-NOT-REPRODUCED (tool limitation; they pass).
+
+Disposition: findings 1 and 3 are addressed by recover-r10 (materialize-r10.list applied after the run; the 24 MISSING-INPUT files and the three timeout files rerun alone). Finding 2: the pre-check list is extended for the next gate. Finding 4: recorded.

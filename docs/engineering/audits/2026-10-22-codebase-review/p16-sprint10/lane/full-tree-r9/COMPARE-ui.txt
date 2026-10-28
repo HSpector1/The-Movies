@@ -1,0 +1,11 @@
+{'numTotalTestSuites': 763, 'numPassedTestSuites': 757, 'numFailedTestSuites': 6, 'numPendingTestSuites': 0, 'numTotalTests': 2734, 'numPassedTests': 2725, 'numFailedTests': 4, 'numPendingTests': 5, 'numTodoTests': 0}
+{'NEW': 2, 'INHERITED-SAME': 2, 'INHERITED-CHANGED': 0, 'MISSING-INPUT': 0, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 0, 'OVER-BUDGET-PASS': 108} report tests 2730 baseline tests 2730 in both 2730
+
+## NEW (2)
+  - ui/src/lot/WorldFirstStudioHome.test.tsx :: Studio Home V1 — App world-root navigation preserves topbar focus through a supporting-Dashboard Sim result
+      Error: Test timed out in 30000ms.
+  - ui/src/lot/livingTurn.scheduler.test.tsx :: Living Turn V1 — time flows while unpaused (the Owner s acceptance) runs 12 consecutive weeks with ZERO input 
+      Error: Test timed out in 15000ms.
+
+## OVER-BUDGET-PASS (108) max 39127.869
+## BASELINE-NOT-REPRODUCED (0)

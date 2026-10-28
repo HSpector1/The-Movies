@@ -1,0 +1,49 @@
+{
+  "head": "2c50c9df2f51d2d1bd97948f7c6bfe4127337bc2",
+  "sourceManifestEntries": 2104,
+  "purpose": "Sprint 10 recovery r10: rerun the 24 full-tree-r9 MISSING-INPUT files after materializing their tracked sparse-excluded inputs (materialize-r10.list), plus the single NEW timeout file bridge-p13b-s3-save-as alone (measured alone, budgets unchanged)",
+  "children": [
+    {
+      "label": "recover",
+      "completeFiles": [
+        "tests/bridge-p14p3-directing-promises.test.ts",
+        "tests/bridge-p14p4p5-opportunities.test.ts",
+        "tests/p14c3-canonical-rival-history.test.ts",
+        "tests/p14c3-force-order.test.ts",
+        "tests/p14p3-directing-promises.test.ts",
+        "tests/p14p4p5-casting-reservation.test.ts",
+        "tests/p14p4p5-cross-owner.test.ts",
+        "tests/p14p4p5-delayed-retirement.test.ts",
+        "tests/p14p4p5-finishing-material.test.ts",
+        "tests/p14p4p5-opportunities.test.ts",
+        "tests/p14p4p5-post-capacity.test.ts",
+        "tests/p14p4p5-queued-project-outcome.test.ts",
+        "tests/p14p4p5-receipt-freeze.test.ts",
+        "tests/p14p4p5-scenery-capacity.test.ts",
+        "tests/p14p4p5-screenplay-status.test.ts",
+        "tests/p14p4p5-soundstage-capacity.test.ts",
+        "tests/p14p4p5-writer-resources.test.ts",
+        "tests/p15b-legacy-v3.test.ts",
+        "tests/p15c2-campaign-legacy-integration.test.ts",
+        "tests/p15c2-campaign-legacy-sibling.test.ts",
+        "tests/r3n1-stale-schedule-take-02.test.ts",
+        "tests/r3n1-stale-schedule-take-02p31.test.ts",
+        "tests/r3n1-stale-schedule-take-02p32.test.ts",
+        "tests/world-first-scenery-load-in-provenance.test.ts",
+        "tests/bridge-p13b-s3-save-as.test.ts"
+      ]
+    },
+    {
+      "label": "recover-ui",
+      "completeFiles": [
+        "ui/src/lot/WorldFirstStudioHome.test.tsx",
+        "ui/src/lot/livingTurn.scheduler.test.tsx"
+      ],
+      "note": "the two full-ui NEW timeouts measured alone"
+    }
+  ],
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "timeoutOverride": false
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "head": "2c50c9df2f51d2d1bd97948f7c6bfe4127337bc2",
+  "sourceManifestEntries": 2069,
+  "predecessor": "a5a66c27 (tag p16-technical-checkpoint-20261027); baseline for comparison: p16-sprint9 full-tree-r3 on 63a63abe",
+  "purpose": "Sprint 10 checkpoint full gate on the P17 candidate 2c50c9df (FIX-2): root/ui types, bridge types, both contract checks, UI build, full core incl. bridge, full ui, source integrity",
+  "children": [
+    {
+      "label": "full-core-including-bridge",
+      "project": "core"
+    },
+    {
+      "label": "full-ui",
+      "project": "ui"
+    }
+  ],
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "timeoutOverride": false
+  },
+  "limits": "Timing recorded, not qualified; classification by file+fullName+first failure line against full-tree-r3."
+}

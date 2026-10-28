@@ -1,0 +1,47 @@
+{'numTotalTestSuites': 67, 'numPassedTestSuites': 51, 'numFailedTestSuites': 16, 'numPendingTestSuites': 0, 'numTotalTests': 122, 'numPassedTests': 108, 'numFailedTests': 14, 'numPendingTests': 0, 'numTodoTests': 0}
+{'NEW': 1, 'INHERITED-SAME': 4, 'INHERITED-CHANGED': 1, 'MISSING-INPUT': 8, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 7, 'OVER-BUDGET-PASS': 62} report tests 122 baseline tests 5989 in both 122
+
+## NEW (1)
+  - tests/bridge-p13b-s3-save-as.test.ts :: P13B-S3 Save As (test 7, A11) a Save As copy keeps the same plan ids and advances independently; the inactive 
+      Error: Test timed out in 20000ms.
+
+## INHERITED-CHANGED (1)
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) legacy-root-downgrade
+      AssertionError: elapsed 309330 ms against the 120000 ms budget: expected 309329.793209 to be less than or equal to 120000
+      baseline: AssertionError: elapsed 189762 ms against the 120000 ms budget: expected 189762.290514 to be less than or equal to 120000
+
+## MISSING-INPUT (8)
+  - tests/r3n1-stale-schedule-take-02.test.ts :: R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge SERVER REFUSAL
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02.test.ts :: R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge SERVER REFUSAL
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p31.test.ts :: R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p31.test.ts :: R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p32.test.ts :: R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p32.test.ts :: R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/world-first-scenery-load-in-provenance.test.ts :: World-First Scenery Load-In V1 — frozen district provenance pins authored source, accepted runtime, exporter, 
+      Error: ENOENT: no such file or directory, open 'art/hollywood/source/moonshot-studio-chronicle-concept.png'
+      UNTRACKED (not recoverable here)
+  - tests/world-first-scenery-load-in-provenance.test.ts :: World-First Scenery Load-In V1 — frozen district provenance replays the clean exporter and pins its deliberate
+      Error: Command failed: python3 <WT>/tools/hollywood/export_district.py --source <WT>/art/hollywood/source/moonshot-studio-chronicle-concept.png --manifest <WT>/art/hollywood/district-manifest.source.json --output /var/fo
+      path-unparsed
+
+## OVER-BUDGET-PASS (62) max 749935.826
+## BASELINE-NOT-REPRODUCED (7)
+  - tests/p14c3-force-order.test.ts :: C3 genuine accepted1300 to release1311 — two reconstructed bounded branches actual canonical import 
+  - tests/p14c3-force-order.test.ts :: C3 genuine accepted1300 to release1311 — two reconstructed bounded branches both admitted branches a
+  - tests/p14c3-force-order.test.ts :: C3 genuine accepted1300 to release1311 — two reconstructed bounded branches canonical insertion reco
+  - tests/p14p4p5-finishing-material.test.ts :: P4/P5 existing finishing commitments and material work Q18 distinguishes held finishing cast work fr
+  - tests/p14p4p5-post-capacity.test.ts :: P4/P5 actual post capacity after two completed shooting phases Q25 isolates post occupancy and prese
+  - tests/p14p4p5-screenplay-status.test.ts :: P4/P5 screenplay and casting status clocks Q11 uses actual writing and audition boundaries and retai
+  - tests/p14p4p5-soundstage-capacity.test.ts :: P4/P5 actual existing soundstage capacity Q22 releases the actual soundstage owner before repeating 
