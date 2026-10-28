@@ -250,18 +250,20 @@ describe('P17 Shape A — persistence in the Save50 step (additive, absent by de
 
 describe('P17 Shape A — the player\'s closure while a booking is reserved', () => {
   // Built at collection like every route here (no case timeout carries it); a premise failure fails THIS case by name
-  // instead of the whole file.
+  // instead of the whole file. Why the booking sits PRODUCTION_TICKS weeks before closure: tests/helpers/p17-cameo-route.ts.
   let closing: ReturnType<typeof closureRoute> | Error
   try { closing = closureRoute(world, a, writer, principals) } catch (error) { closing = error instanceof Error ? error : new Error(String(error)) }
 
   it('the closure cancels the unperformed booking once with its refund before the money step; the closure validator replays it', () => {
     if (closing instanceof Error) throw closing
-    const { booked, closed, guest: g, week } = closing
+    const { booked, lastOpen, closed, guest: g, week } = closing
     const x = bookingOf(booked, g.id)
-    expect(x).toMatchObject({ status: 'reserved', workWeek: week + 4, bookedWeek: week })
+    expect(x).toMatchObject({ status: 'reserved', workWeek: week + TUNING.PRODUCTION_TICKS, bookedWeek: week })
     expect(booked.studio.cash).toBe(0)
+    // still reserved on the last open week: the closing tick precedes the booked week's resolution
+    expect(bookingOf(lastOpen, g.id)?.status).toBe('reserved')
     const closure = closuresOf(closed).find((c) => c.studioId === closed.hollywood!.playerStudioId)
-    expect(closure).toBeDefined()
+    expect(closure?.closureWeek).toBe(week + TUNING.PRODUCTION_TICKS)
     expect(bookingOf(closed, g.id)).toMatchObject({ status: 'cancelled', cancelReason: 'productionCancelled', cancelledWeek: closure!.closureWeek, refund: x!.fee - x!.retained })
     expect(feeRows(closed, g.id)).toEqual([[week, -x!.fee, true], [closure!.closureWeek, x!.fee - x!.retained, true]])
     expect(() => validateSaveP17(makeSave(closed))).not.toThrow()

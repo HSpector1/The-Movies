@@ -140,35 +140,56 @@ function drain(state: GameState, amount: number): GameState {
     ledger: [...state.ledger, { week: state.market.tick, kind: 'publicity', amount: -amount, note: 'p17 cameo test drain' }] }
 }
 
-export type ClosureRoute = { booked: GameState; closed: GameState; guest: Talent; week: number }
+export type ClosureRoute = { booked: GameState; lastOpen: GameState; closed: GameState; guest: Talent; week: number }
 
 /**
- * The player drained to -1 at week 1872 walks the corporate condition law (warning, distress) to the last distress week
- * before closure. That week it takes the lawful distress loan, is drained to exactly the guest's fee, and greenlights
- * `pkg` at zero budget with one booking four weeks out (contracted staff, so the fee is the only spend). The ordinary
- * tick then charges payroll, the condition closes the studio and the closure phase runs while the booking is reserved.
+ * Why the booking lands at distress week 18 (CORPORATE_CLOSURE_DISTRESS_WEEKS − PRODUCTION_TICKS), not at the last one:
+ * once cash is negative nothing but the one loan brings money in, and the walk spends one week of fixed cost per
+ * negative week (measured r12: 126,656 a week against a fixed cost of 126,654). At the recorded distress week d the hole
+ * is about (d + 7)·O (8 negative weeks enter distress, then d − 1 more), while the loan is at most 26·O
+ * (LOAN_MAX_FIXED_COST_WEEKS). The closing tick follows the week whose recorded d is 25, so a booking at d is still
+ * reserved at closure only if its work week is at least 26 − d weeks out, and the span allows at most PRODUCTION_TICKS
+ * (8): d ≥ 18. At d = 18 the hole is about 25·O and the loan covers it with about one week of fixed cost to spare; at
+ * d = 19 or later no lawful route funds a booking (r12: d = 25 left cash −759,993 after a 3,293,000 loan). So the next
+ * tick after the booking cannot be the closing tick; the closure comes PRODUCTION_TICKS ticks later, in the tick that
+ * would otherwise have resolved the booked work week.
+ *
+ * The route: the player drained to −1 at week 1872 (the p15b one-row device) walks the condition law to distress week
+ * 18, takes the lawful distress loan, is drained to exactly the cheapest free guest's fee, and greenlights `pkg` at zero
+ * budget with one booking PRODUCTION_TICKS weeks out (contracted staff, so the fee is the only spend). Ordinary ticks
+ * follow until the condition closes the studio.
  */
+export const CLOSURE_BOOKING_DISTRESS_WEEK = TUNING.CORPORATE_CLOSURE_DISTRESS_WEEKS - TUNING.PRODUCTION_TICKS
 export function closureRoute(world: GameState, pkg: Package, writer: string, exclude: ReadonlySet<string>): ClosureRoute {
+  const target = CLOSURE_BOOKING_DISTRESS_WEEK
   let s = drain(world, world.studio.cash + 1)
   for (let guard = 0; guard < 80; guard++) {
     const c = conditionOf(s)
-    if (c?.stage === 'distress' && c.distressWeeks === TUNING.CORPORATE_CLOSURE_DISTRESS_WEEKS - 1) break
+    if (c?.stage === 'distress' && c.distressWeeks === target) break
     s = tick(s)
   }
   const c = conditionOf(s)
-  if (!(c?.stage === 'distress' && c.distressWeeks === TUNING.CORPORATE_CLOSURE_DISTRESS_WEEKS - 1)) throw new Error(`premise: the drained player never reached distress week ${TUNING.CORPORATE_CLOSURE_DISTRESS_WEEKS - 1} (at week ${s.market.tick}: ${JSON.stringify(c)})`)
+  if (!(c?.stage === 'distress' && c.distressWeeks === target)) throw new Error(`premise: the drained player never reached distress week ${target} (at week ${s.market.tick}: ${JSON.stringify(c)})`)
   const week = s.market.tick
+  const workWeek = week + TUNING.PRODUCTION_TICKS
   const busy = busyTalentIds(s)
   const guest = s.talent
-    .filter((t) => !exclude.has(t.id) && !busy.has(t.id) && t.fame > 0 && studioEmployerId(s, t.id) === null && studioEmployerId(s, t.id, week + 4) === null
+    .filter((t) => !exclude.has(t.id) && !busy.has(t.id) && t.fame > 0 && studioEmployerId(s, t.id) === null && studioEmployerId(s, t.id, workWeek) === null
       && retirementRecordFor(s, t.id) === undefined && retirementRecordFor(s, t.id, 'actor') === undefined)
     .sort((x, y) => expectedFee(x) - expectedFee(y) || (x.id < y.id ? -1 : x.id > y.id ? 1 : 0))[0]
   if (guest === undefined) throw new Error(`premise: no free guest at week ${week}`)
   const principal = loanMaxPrincipal(studioWeeklyFixedCost(s, s.hollywood!.playerStudioId))
+  const hole = s.studio.cash
   s = applyActions(s, [{ kind: 'takeLoan', principal }])
   const fee = expectedFee(guest)
-  if (s.studio.cash < fee) throw new Error(`premise: the distress loan (${principal}) leaves cash ${s.studio.cash}, below the cheapest guest fee ${fee}`)
+  if (s.studio.cash < fee) throw new Error(`premise: the distress loan (${principal}) leaves cash ${s.studio.cash} (from ${hole} at distress week ${target}), below the cheapest guest fee ${fee}`)
   if (s.studio.cash > fee) s = drain(s, s.studio.cash - fee)
-  const booked = applyActions(s, [greenlight(s, s.concepts[0]!, pkg, writer, [ask(guest, week + 4)], { negative: 0, marketing: 0 })])
-  return { booked, closed: tick(booked), guest, week }
+  const booked = applyActions(s, [greenlight(s, s.concepts[0]!, pkg, writer, [ask(guest, workWeek)], { negative: 0, marketing: 0 })])
+  let lastOpen = booked
+  let closed = tick(booked)
+  for (let i = 1; i < TUNING.PRODUCTION_TICKS && !closuresOf(closed).some((x) => x.studioId === closed.hollywood!.playerStudioId); i++) {
+    lastOpen = closed
+    closed = tick(closed)
+  }
+  return { booked, lastOpen, closed, guest, week }
 }
