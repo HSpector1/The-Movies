@@ -280,10 +280,23 @@ describe('P17 browser slice, Fix 3 — the locked forecast, titles on every path
   })
 
   it('names films from the Industry index and humanises studio, property and licence ids in one place', () => {
-    const rows = original.hollywood!.films
-    const rival = original.hollywood!.identities.find((x) => x.role === 'rival')
-    if (rows.length === 0 || rival === undefined) throw new Error('premise: the 1956 industry has a film row and a rival studio')
-    const synthetic: GameState = { ...original, hollywood: { ...original.hollywood!, films: [...rows, { ...rows[0]!, filmId: 'p17-rival-film', title: 'The Rival Picture' }] } }
+    // The route's industry has released no film yet at this point, so the case adds one synthetic rival row (the shape
+    // hollywoodTick.ts publishes), built from the player's real released result under a new id.
+    const h = original.hollywood!
+    const rival = h.identities.find((x) => x.role === 'rival')
+    const own = original.studio.releasedFilms.find((f) => f.productionId === origId)
+    if (rival === undefined || own === undefined) throw new Error('premise: the 1956 industry has a rival studio and the released original')
+    const synthetic: GameState = {
+      ...original,
+      hollywood: {
+        ...h,
+        films: [...h.films, {
+          filmId: 'p17-rival-film', studioId: rival.studioId, conceptId: 'p17-rival-concept', title: 'The Rival Picture', genre: conceptA.genre,
+          credits: [], provenance: 'simulation/v1', scriptProjectId: 'p17-rival-project', result: { ...own, productionId: 'p17-rival-film' },
+          directCommitment: 0, studioRevenueReceived: 0, settledWeek: null, releaseCommitmentId: 'release-commitment-p17-rival-film',
+        }],
+      },
+    }
     expect(filmTitle(synthetic, 'p17-rival-film')).toBe('The Rival Picture')
     expect(filmTitle(original, origId)).toBe(conceptA.title)
     expect(filmTitle(original, 'no-such-film')).toBeNull()

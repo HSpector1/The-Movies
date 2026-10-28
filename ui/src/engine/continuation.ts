@@ -284,8 +284,9 @@ export function carriedScreenplay(state: GameState, projectId: string): boolean 
 
 /** Why a chosen guest no longer counts (null while they still do): credited as a principal, refused, or re-quoted. */
 export function guestDropReason(state: GameState, request: CameoBookingRequest, credited: ReadonlySet<string>, panel: GuestPanel): string | null {
-  if (panel.eligible.some((r) => r.quote.ok && r.talentId === request.talentId && r.quote.fee === request.fee && r.quote.basis === request.basis && r.quote.workWeek === request.workWeek)) return null
+  // a principal is reported first: the core refuses a credited guest whatever the quote says
   if (credited.has(request.talentId)) return 'is now credited on this picture as a principal'
+  if (panel.eligible.some((r) => r.quote.ok && r.talentId === request.talentId && r.quote.fee === request.fee && r.quote.basis === request.basis && r.quote.workWeek === request.workWeek)) return null
   const quote = cameoQuote(state, { talentId: request.talentId, workWeek: request.workWeek })
   const name = state.talent.find((t) => t.id === request.talentId)?.name
   if (!quote.ok) return `can no longer appear: ${refusalHumaniser(state)(name === undefined ? quote.reason : quote.reason.split(request.talentId).join(name))}`
