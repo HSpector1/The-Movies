@@ -379,13 +379,15 @@ function strictCapacityProjection(value: unknown): LotScriptReviewCapacity | nul
           // P18: a live television season's hold, with its own block words.
           occupant.owner !== 'television') ||
         !isNonEmptyString(occupant.ownerId) ||
-        (occupant.activity !== 'development' &&
-          occupant.activity !== 'preProduction' &&
-          occupant.activity !== 'drafting' &&
-          occupant.activity !== 'rewriting' &&
-          occupant.activity !== 'auditioning' &&
-          occupant.activity !== 'scripts' &&
-          occupant.activity !== 'preparation') ||
+        // P18 FIX-3 (review finding 2): Core's scriptCapacityView labels a season's hold activity 'television'
+        // (src/core/scriptReadModel.ts), never its block words, and only for the television owner.
+        (occupant.owner === 'television'
+          ? occupant.activity !== 'television'
+          : occupant.activity !== 'development' &&
+            occupant.activity !== 'preProduction' &&
+            occupant.activity !== 'drafting' &&
+            occupant.activity !== 'rewriting' &&
+            occupant.activity !== 'auditioning') ||
         !isNonEmptyString(occupant.title) ||
         !isNonEmptyString(occupant.label)
       ) return null

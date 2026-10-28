@@ -84,6 +84,12 @@ export function WeeklySummary({
             {money((summary.diligence ?? 0))}
           </Metric>
           </>}
+          {/* P18 FIX-3: Core emits the television bucket only once a season exists; it is summed into the net. */}
+          {summary.television !== undefined && (
+            <Metric label="Television commissioning" small testid="sum-television">
+              {money(summary.television)}
+            </Metric>
+          )}
           <Metric label="Net this period" small testid="sum-net">
             <span className={summary.netCash < 0 ? 'money neg' : 'money pos'}>
               {summary.netCash >= 0 ? '+' : ''}

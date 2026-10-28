@@ -116,7 +116,7 @@ const OUTGOING_64 = 'sha256:57f12ee28d21aa47c7514afa1c058105a10f10a9e76d400d664e
 const OUTGOING_65 = 'sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8' // Sprint 11 slice B: outgoing65 registered beneath current66
 const OUTGOING_66 = 'sha256:589380869e1329a8027b8339b88646761ce6d791376df5fd793e77ae9dd3b96a' // P18 Sprint 12: outgoing66 (the P17 checkpoint's identity) registered beneath current67
 const OUTGOING_PROJECTION = 48
-const INCOMING_PROJECTION = 66
+const INCOMING_PROJECTION = 67 // P18 Sprint 12 FIX-3: current projection 67 (outgoing66 is prior)
 // The 36 accepted prior literals as they stand today (tests/bridge-p14b4-runtime47-compatibility.test.ts
 // :40-80, exact-count pin at :162). B.6 took this roster to 37 by adding OUTGOING_48;
 // B.8 takes it to 38 by adding OUTGOING_49.

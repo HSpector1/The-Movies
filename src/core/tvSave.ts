@@ -14,9 +14,9 @@
 import { assignmentBlockedTalentIds } from './employment.js'
 import { assertNoDoubleBookedResourceSlots } from './occupancy.js'
 import { RIGHTS_COUNTERPARTY_IDS, holderBeforeWrite, resolveTitles, type Licence } from './rights.js'
-import { TV_WORK_BLOCKS, TV_WORK_UNITS_TOTAL, tvBlockDefinition, tvDistributionLicenceEnd, tvEngagedTalentIds, tvTermsFor, tvUnitsThrough } from './tvReaders.js'
+import { TV_WORK_BLOCKS, TV_WORK_UNITS_TOTAL, tvBlockDefinition, tvEngagedTalentIds, tvUnitsThrough } from './tvReaders.js'
 import { TV_COMMISSIONER_ID, TV_LEDGER_KINDS, TV_RULESET_VERSION, TV_WORK_BLOCK_ORDER } from './tvTypes.js'
-import type { TelevisionRoot, TvAgreement, TvReceipt, TvSeason } from './tvTypes.js'
+import type { TelevisionRoot, TvAgreement, TvAgreementTerms, TvReceipt, TvSeason } from './tvTypes.js'
 import type { GameState } from './types.js'
 
 export const P18_ROOT_KEYS = ['television'] as const
@@ -109,9 +109,13 @@ export function validateP18Roots(raw: Record<string, unknown>, label: string): v
       fail(`season ${s.seasonId} parties, ruleset or episode metadata are not the contract's`)
     }
     if (!whole(s.commitWeek) || s.commitWeek > week || s.commitWeek !== series!.createdWeek) fail(`season ${s.seasonId} commitWeek is not its series' creation week`)
-    const terms = tvTermsFor(s.commitWeek)
-    if (s.dueWeek !== terms.dueWeek || s.finalWeek !== terms.finalWeek) fail(`season ${s.seasonId} schedule is not C + 16 / C + 20`)
-    validateGrant(s, rest, fail)
+    // The season's schedule and licence term read the agreement's FROZEN terms (contract §5), never live TUNING: a later
+    // retune must not invalidate a saved season (review note 20; green-r5 exposed the old key-order-sensitive equality).
+    const agreement = root.agreements.find((row) => row.agreementId === s.agreementId)
+    if (agreement === undefined) fail(`season ${s.seasonId} names no agreement`)
+    const terms = validateTerms(agreement!.terms, s.commitWeek, `agreement ${agreement!.agreementId}`, fail)
+    if (s.dueWeek !== terms.dueWeek || s.finalWeek !== terms.finalWeek) fail(`season ${s.seasonId} schedule is not its agreement's frozen due and final weeks`)
+    validateGrant(s, rest, terms, fail)
     // people and credits
     const roster = [s.roster.writerId, s.roster.directorId, s.roster.cast.lead, s.roster.cast.antagonist, s.roster.cast.support, s.roster.craftId]
     if (!sameKeys(s.roster, ['cast', 'craftId', 'directorId', 'writerId']) || !sameKeys(s.roster.cast, ['antagonist', 'lead', 'support'])) fail(`season ${s.seasonId} roster shape`)
@@ -170,14 +174,35 @@ export function validateP18Roots(raw: Record<string, unknown>, label: string): v
 }
 
 /** The grant set the season was committed under (contract §3; 19A §3): P16's own records, never a payload. */
-function validateGrant(s: TvSeason, rest: GameState, fail: (rule: string) => never): void {
+/**
+ * The frozen v1 terms by structure and arithmetic (contract §5): exact keys, positive whole amounts, the three milestones
+ * summing to the fee, the advance within the fee, the late deduction within its cap and the cap within the delivery
+ * milestone, and C < due < final. The producer froze them from TUNING at acceptance; the validator checks the record.
+ */
+function validateTerms(t: TvAgreementTerms, commitWeek: number, label: string, fail: (rule: string) => never): TvAgreementTerms {
+  const keys = ['advance', 'cancellationCharge', 'distributionWeeks', 'dueWeek', 'fee', 'finalWeek', 'lateDeductionMax', 'lateDeductionPerWeek', 'milestones', 'unitSpend']
+  if (!sameKeys(t, keys) || !sameKeys(t.milestones, ['delivery', 'pictureLock', 'scripts'])) fail(`${label} terms must carry exactly ${keys.join(', ')} and the three milestones`)
+  const amounts = [t.fee, t.advance, t.milestones.scripts, t.milestones.pictureLock, t.milestones.delivery, t.unitSpend, t.lateDeductionPerWeek, t.lateDeductionMax, t.cancellationCharge, t.distributionWeeks]
+  if (!amounts.every((n) => whole(n) && n > 0)) fail(`${label} terms amounts must be positive whole numbers`)
+  if (t.milestones.scripts + t.milestones.pictureLock + t.milestones.delivery !== t.fee || t.advance > t.fee
+    || t.lateDeductionPerWeek > t.lateDeductionMax || t.lateDeductionMax > t.milestones.delivery) {
+    fail(`${label} terms do not add up: milestones must sum to the fee, the advance stay within it and the late cap within delivery`)
+  }
+  if (!whole(t.dueWeek) || !whole(t.finalWeek) || !(commitWeek < t.dueWeek && t.dueWeek < t.finalWeek)) fail(`${label} terms schedule must satisfy C < due < final`)
+  return t
+}
+
+function validateGrant(s: TvSeason, rest: GameState, terms: TvAgreementTerms, fail: (rule: string) => never): void {
   const l = rest.rights.licences.find((x) => x.id === s.distributionLicenceId)
   if (l === undefined || l.right !== 'R4' || l.subject.right !== 'R1' || l.subject.propertyId !== s.propertyId || l.scope.use !== 'televisionDistribution' || l.exclusive !== true
-    || l.granteeId !== TV_COMMISSIONER_ID || l.grantorId !== s.producerStudioId || l.startWeek !== s.commitWeek || l.endWeekExclusive !== tvDistributionLicenceEnd(s.commitWeek) || l.grantedWeek !== s.commitWeek) {
+    || l.granteeId !== TV_COMMISSIONER_ID || l.grantorId !== s.producerStudioId || l.startWeek !== s.commitWeek || l.endWeekExclusive !== s.finalWeek + terms.distributionWeeks || l.grantedWeek !== s.commitWeek) {
     fail(`season ${s.seasonId} distribution licence ${s.distributionLicenceId} is not the commissioner's exclusive term over [C, C + 72) granted by the producer`)
   }
   // The producer held the property's R1 title when P16 minted the licence, and is its grantor (review blocking 4).
-  const order = Number(/-(\d+)$/.exec(l!.transactionId)?.[1] ?? Number.NaN)
+  // No NaN fallback (FIX-3, review note 6): a NaN order would quietly read the holder at the end of week C.
+  const orderDigits = /-(\d+)$/.exec(l!.transactionId)?.[1]
+  if (orderDigits === undefined) fail(`season ${s.seasonId} distribution licence transaction ${String(l!.transactionId)} carries no write order`)
+  const order = Number(orderDigits)
   if (holderBeforeWrite(resolveTitles(rest), { right: 'R1', propertyId: s.propertyId }, s.commitWeek, order) !== s.producerStudioId) {
     fail(`season ${s.seasonId} producer did not hold R1 over ${s.propertyId} when the distribution licence was granted at week ${s.commitWeek}`)
   }
@@ -221,7 +246,7 @@ function validateWork(s: TvSeason, rest: GameState, stageId: string, postId: str
 
 function validateAgreement(a: TvAgreement, s: TvSeason, root: TelevisionRoot, fail: (rule: string) => never): void {
   if (a.studioId !== s.producerStudioId || a.commissionerId !== TV_COMMISSIONER_ID || a.rulesetVersion !== TV_RULESET_VERSION) fail(`agreement ${a.agreementId} parties`)
-  if (JSON.stringify(a.terms) !== JSON.stringify(tvTermsFor(s.commitWeek))) fail(`agreement ${a.agreementId} terms are not the frozen v1 terms for week ${s.commitWeek}`)
+  // The terms themselves were proved (structure and arithmetic) with their season; the replay below reads them.
   // Milestones replay from the work: scripts after unit 3, picture lock after unit 9; each pays max(0, E − P).
   const reached = [...(s.work.creditedUnits >= tvUnitsThrough('preparation', 0) ? ['scripts'] : []), ...(s.work.creditedUnits >= tvUnitsThrough('post', 0) ? ['pictureLock'] : [])]
   let earned = 0

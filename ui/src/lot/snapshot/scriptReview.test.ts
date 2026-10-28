@@ -513,6 +513,46 @@ describe('accepted Lot screenplay review successor proof', () => {
     }
   })
 
+  it('proves acceptance while a television season holds a Development & Casting slot (P18 FIX-3)', () => {
+    // Shortcut, disclosed: this founding route has no commissioned season, so the case appends Core's exact
+    // television occupant (src/core/scriptReadModel.ts scriptCapacityView: owner and activity 'television') as one
+    // extra slot on every board read. RED at c1ee6e11: the strict projection refused activity 'television' and the
+    // success was null, so StudioLotScreen fell back to the generic "Screenplay action completed".
+    const state = firstReviewState('lot-script-success-television')
+    const context = currentLotScriptReviewContext(state)!
+    const action = context.legalActions.find((candidate) => candidate.kind === 'acceptScript')!
+    const result = runScriptProjectAction(state, action)
+    if (!result.ok) throw new Error(result.error)
+    const real = adapter.scriptProjectsBoard
+    vi.spyOn(adapter, 'scriptProjectsBoard').mockImplementation((value) => {
+      const board = clone(real(value))
+      const facility = board.capacity.facilities[0]!
+      facility.slots.push({
+        slot: facility.capacity,
+        occupant: {
+          owner: 'television',
+          ownerId: 'tv-season-1',
+          activity: 'television',
+          title: 'Harbour Lights',
+          label: 'Television season — Harbour Lights',
+        },
+      })
+      facility.capacity += 1
+      facility.occupied += 1
+      board.capacity.capacity += 1
+      board.capacity.occupied += 1
+      return board
+    })
+
+    expect(acceptedLotScriptReviewSuccess(context, action, state, result.next)).toEqual({
+      kind: 'accepted',
+      projectId: context.projectId,
+      title: context.title,
+      writerName: context.writer.name,
+      statusLabel: 'Ready to package',
+    })
+  })
+
   it('proves the exact writer, due week, facility, and slot for a final rewrite', () => {
     const state = firstReviewState('lot-script-success-rewrite')
     const context = currentLotScriptReviewContext(state)!

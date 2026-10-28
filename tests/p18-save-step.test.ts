@@ -148,6 +148,8 @@ describe('P18 save step — a commissioned season', () => {
     refuse((f) => { f.state.television.agreements[0]!.received += 1 }, /E\/P .* do not replay/)
     refuse((f) => { const row = f.state.ledger.find((r) => r.kind === 'tvAdvance')!; row.note = 'tv-receipt-999999' }, /does not carry exactly one television receipt's effect/)
     refuse((f) => { f.state.television.seasons[0]!.work.creditedUnits += 1 }, /credited units disagree with the block table/)
+    // FIX-3: the frozen terms are proved by structure and arithmetic, never by equality to live TUNING.
+    refuse((f) => { (f.state.television.agreements[0]!.terms as { fee: number }).fee += 1 }, /terms do not add up/)
     // Review blocking 4: a grant over a property the producer did not hold (a rival's), with its zero transaction and the
     // +120,000 advance row left in place, reconciles in cash and must still refuse.
     const player = save.state.hollywood!.playerStudioId

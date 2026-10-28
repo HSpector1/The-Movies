@@ -756,8 +756,11 @@ describe('CF-08 sound union-to-C# generation', () => {
         // Projection66 (Sprint 11 slice B): the continuation/guest request and terms $defs, the casting quote's two new
         // members, the featured-appearance page and the franchise outcome members grow both bodies. Measured by the lane
         // generator run (bfce8c29): one body, f194af88…, for F10 and F11; F12 unchanged.
-        F10_CURRENT_QUOTE_UNIONS: 'f194af887052e0cda5041e385e125a58d3dab50c5ac6be5d652de93880663328', // was bf9192ac… (projection65)
-        F11_CURRENT_COMMAND_UNION: 'f194af887052e0cda5041e385e125a58d3dab50c5ac6be5d652de93880663328', // was bf9192ac… (projection65), same body as F10
+        // Projection67 (P18 Sprint 12): the development occupant enum gains `television`. F10 measured by the lane run
+        // green-r5 (c1ee6e11): c107aca5…. F11 is the same input (BRIDGE_SCHEMA) through the same pure function, so it is the
+        // same body by construction, not separately measured; F12 is a fixed fixture schema and does not read BRIDGE_SCHEMA.
+        F10_CURRENT_QUOTE_UNIONS: 'c107aca5b70c57530c05cc8f887271ac9abd61299e02b696d583f775db0e1cfa', // was f194af88… (projection66)
+        F11_CURRENT_COMMAND_UNION: 'c107aca5b70c57530c05cc8f887271ac9abd61299e02b696d583f775db0e1cfa', // was f194af88… (projection66), same body as F10
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {

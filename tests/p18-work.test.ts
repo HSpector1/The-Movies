@@ -17,6 +17,7 @@ import { facilityEngagements } from '../src/core/placement.js'
 import { validatedLiveProfessionContext } from '../src/core/save.js'
 import { repairSetRefusal, strikeSetRefusal } from '../src/core/sets.js'
 import { tick } from '../src/core/tick.js'
+import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
 import {
   BLOCK_ORDER, FIGURES, UNITS, agreement, attempt, request, season, seasonRoute, television, tvRows, withCash, type SeasonRoute,
@@ -152,11 +153,52 @@ describe('P18 work — capacity through the same owners as films', () => {
     expect((operations as Record<string, unknown>).SWEEP_KIND_RANK).toEqual({ production: 0, tvSeason: 1 })
   })
 
+  it('the exported sweep serves the film before the season on an equal wait, and the longer wait first otherwise (FIX-3)', () => {
+    // A pure call of advanceManagedProductions. The film id `zz-film` sorts AFTER `tv-season-1` under the ordinal law,
+    // so only the kind rank can put the film first on a tie. The film has no workflow on purpose: the sweep throws by
+    // name at its first visit, which makes the visit order observable without building a capacity contest. Disclosed
+    // limit: this proves the service ORDER the slot contest depends on, not a contested slot changing hands.
+    // RED at ecbc42c9 (no participants parameter: the longer-waiting season is never attempted) and on any build whose
+    // comparator ignores kindRank (the season would be attempted first on the tie).
+    expect(weeks.length, 'the lawful commission must be accepted').toBeGreaterThan(0)
+    const ops = weeks[0]!.operations
+    const week = weeks[0]!.market.tick
+    const film = { id: 'zz-film', startTick: week - 5, remainingTicks: 10, directorId: null } as unknown as operations.ProductionClockView
+    const filmWait = operations.productionWaitWeeks(film, week)
+    const visit = (waitWeeks: number): number => {
+      let attempts = 0
+      const participant: operations.SweepParticipant = {
+        id: 'tv-season-1', kind: 'tvSeason', waitWeeks, held: new Set<string>(),
+        attempt: () => { attempts += 1; return null },
+      }
+      expect(() => operations.advanceManagedProductions(ops, [film], week, new Set<string>(), new Set<string>(), undefined, undefined, undefined, undefined, [participant]))
+        .toThrow(/managed productionId "zz-film" has no authoritative workflow/)
+      return attempts
+    }
+    expect(visit(filmWait), 'equal waits: the film is visited first, so the season is never attempted').toBe(0)
+    expect(visit(filmWait + 1), 'the season waited longer: it is attempted before the film').toBe(1)
+  })
+
   it('after paid work and a milestone the live profession proof still holds (review blocking 1, P18-04)', () => {
     expect(weeks.length).toBeGreaterThan(0)
     const done = last()
     expect(() => validatedLiveProfessionContext(done)).not.toThrow()
-    expect(prepareLiveWritingContext(done).kind).not.toBe('rejected')
+    expect(prepareLiveWritingContext(done)).not.toMatchObject({ kind: 'rejected' }) // a refusal prints its reason (FIX-3)
+  })
+
+  it('repair names the television hold on a worn standing set it holds (FIX-3; disclosed clone shortcut)', () => {
+    // Shortcut, disclosed: on this route the season's set is whole while the season holds the stage, so repair answers
+    // `alreadyWhole` first. The case lowers ONLY that set's condition on a structuredClone of the held week to reach
+    // the hold rule; no engine verb wore it.
+    expect(weeks.length).toBeGreaterThan(0)
+    const held = weeks.find((state) => season(state).reservations.some((r) => r.capability === 'soundstage'))
+    expect(held, 'premise: the season held the adopted stage in some week').toBeDefined()
+    const s = season(held!)
+    const worn = structuredClone(held!)
+    const set = worn.sets.find((candidate) => candidate.id === s.setId)
+    expect(set?.status, 'premise: the season stands on a standing set').toBe('standing')
+    set!.condition = TUNING.SET_CONDITION_INITIAL - 1
+    expect(repairSetRefusal(worn, s.setId!)).toEqual({ code: 'setHeldByTelevision', setId: s.setId, seasonId: s.seasonId })
   })
 
   it('a season person cannot be released early while the season engages them', () => {

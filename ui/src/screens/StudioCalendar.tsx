@@ -210,7 +210,11 @@ function capabilityLabel(capability: string): string {
 }
 
 function ownerLabel(owner: string): string {
-  return owner === 'script' ? 'screenplay' : owner === 'casting' ? 'casting session' : owner === 'television' ? 'television season' : 'production'
+  // Fails closed by name (P18 FIX-3): an owner Core adds later must get its own label, never 'production'.
+  const labels: Record<string, string> = { production: 'production', script: 'screenplay', casting: 'casting session', television: 'television season' }
+  const label = labels[owner]
+  if (label === undefined) throw new Error(`StudioCalendar: no label for occupant owner "${owner}"`)
+  return label
 }
 
 export function StudioCalendarPreview({

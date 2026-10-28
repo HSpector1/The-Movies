@@ -7,6 +7,10 @@
 // write. RED at ecbc42c9 by assertion: the predecessor has no `commissionTvSeason` verb (its refusal text is compared).
 
 import { beforeAll, describe, expect, it } from 'vitest'
+import { absorptionRefusal, quoteAbsorption } from '../src/core/acquisition.js'
+import { requestDiligence } from '../src/core/dueDiligence.js'
+import { isOperatingStudio } from '../src/core/operatingState.js'
+import { productionPhaseForRemainingTicksOrNull, requirementsForPhase } from '../src/core/productionPhases.js'
 import { busyTalentIds, weeklyPayroll } from '../src/core/employment.js'
 import { FINANCE_CATEGORIES } from '../src/core/financeReport.js'
 import { prepareLiveWritingContext } from '../src/core/liveRetirementWriting.js'
@@ -156,7 +160,8 @@ describe('P18 commission — refusals, each by name, each leaving the state unto
     let ahead = route.state
     for (let i = 0; i < FIGURES.quoteWeeks; i++) ahead = tick(ahead)
     const charged = ahead.ledger.slice(route.state.ledger.length).filter((row) => row.week >= C && row.week < C + FIGURES.quoteWeeks)
-    const sum = (...kinds: string[]): number => -charged.filter((row) => kinds.includes(row.kind)).reduce((total, row) => total + row.amount, 0)
+    // `0 - x`, never `-x`: an empty kind sums to 0 and `-0` fails toBe(0) (green-r5).
+    const sum = (...kinds: string[]): number => 0 - charged.filter((row) => kinds.includes(row.kind)).reduce((total, row) => total + row.amount, 0)
     expect(quote.payroll, 'payroll and research payroll as charged').toBe(sum('payroll', 'researchPayroll'))
     expect(quote.overhead, 'studio overhead as charged').toBe(sum('overhead'))
     expect(quote.facilityOpex, 'facility operating cost as charged').toBe(sum('facilityOpex'))
@@ -185,7 +190,7 @@ describe('P18 commission — the request shape and the live profession proof', (
   it('a commissioned world still proves its live profession context, so retirement-writing authority survives (review blocking 1, P18-04)', () => {
     const state = commissioned(route)
     expect(() => validatedLiveProfessionContext(state)).not.toThrow()
-    expect(prepareLiveWritingContext(state).kind).not.toBe('rejected')
+    expect(prepareLiveWritingContext(state)).not.toMatchObject({ kind: 'rejected' }) // a refusal prints its reason (FIX-3)
   })
 })
 
@@ -235,5 +240,50 @@ describe('P18 commission — shared capacity and availability through the film o
     for (const crew of route.crews) if (occupiedResourceSlots(full, { capability: 'development-casting' }).size < capacity) full = greenlightWith(full, crew).state
     expect(occupiedResourceSlots(full, { capability: 'development-casting' }).size, 'premise: films hold every Development & Casting slot').toBe(capacity)
     refused(full, request(route), /no free development-casting slot for the scripts block this week; a season is never queued/)
+  })
+
+  it('an absorption quote never seats a target picture on the season\'s Development & Casting slot (review item 3, FIX-3)', () => {
+    // Films fill every Development & Casting slot the season leaves, as the case above does. A stable, loan-free rival
+    // whose picture is in a phase that holds Development & Casting must then be refused `noCapacity:development-casting`.
+    // RED at 5710f748: buyerOperations did not count the season's hold, so the allocator seated the picture on it.
+    // STABLE readers, disclosed: they decide only the condition gates (stable, no loan), never the allocator verdict
+    // under test. Retention is the explicit empty choice so the consent ask does not move with the consideration.
+    let full = commissioned(route)
+    const capacity = full.operations.facilities.filter((f) => f.capability === 'development-casting').reduce((n, f) => n + f.capacity, 0)
+    for (const crew of route.crews) if (occupiedResourceSlots(full, { capability: 'development-casting' }).size < capacity) full = greenlightWith(full, crew).state
+    const claims = [...occupiedResourceSlots(full, { capability: 'development-casting' }).values()].flat()
+    expect(claims.length, 'premise: the season and films hold every Development & Casting slot').toBe(capacity)
+    expect(claims.filter((c) => c.owner === 'tvSeason').map((c) => c.ownerId)).toEqual([season(full).seasonId])
+    const week = full.market.tick
+    const buyerId = player(full)
+    const holdsDevelopment = (remainingTicks: number): boolean => {
+      const phase = productionPhaseForRemainingTicksOrNull(remainingTicks)
+      return phase !== null && requirementsForPhase(phase).includes('development-casting')
+    }
+    const tried: string[] = []
+    let found: { targetId: string; productionId: string; quote: Extract<ReturnType<typeof quoteAbsorption>, { kind: 'quote' }> } | null = null
+    for (const business of full.hollywood!.businesses) {
+      const targetId = business.studioId
+      const picture = business.productions.find((p) => holdsDevelopment(p.remainingTicks))
+      if (picture === undefined || !isOperatingStudio(full, targetId)) continue
+      const gate = absorptionRefusal(full, buyerId, targetId, week, STABLE)
+      if (gate !== null) { tried.push(`${targetId}: ${gate}`); continue }
+      let disclosed: ReturnType<typeof requestDiligence>
+      try {
+        disclosed = requestDiligence(full, { recipientId: buyerId, target: { kind: 'studio', studioId: targetId }, scope: ['rights', 'employment', 'liabilities'] }, week, STABLE)
+      } catch (error) { tried.push(`${targetId}: ${(error as Error).message}`); continue } // reported in the premise message below
+      const input = { buyerId, targetId, consideration: 0, retention: { kind: 'explicit' as const, contractIds: [] as string[] }, disclosureId: disclosed.record.id }
+      const first = quoteAbsorption(disclosed.state, input, week, STABLE)
+      const ask = first.kind === 'refusal' ? /^targetNotWilling:considerationBelowAsk:(\d+)$/.exec(first.refusal)?.[1] : '0'
+      if (ask === undefined) { tried.push(`${targetId}: ${first.kind === 'refusal' ? first.refusal : 'quote'}`); continue }
+      const quote = quoteAbsorption(disclosed.state, { ...input, consideration: Number(ask) }, week, STABLE)
+      if (quote.kind !== 'quote') { tried.push(`${targetId}: ${quote.refusal}`); continue }
+      found = { targetId, productionId: picture.id, quote }
+      break
+    }
+    expect(found, `premise: a stable, loan-free rival with a picture holding Development & Casting at week ${week}; tried ${JSON.stringify(tried)}`).not.toBeNull()
+    expect(found!.quote.productions.find((p) => p.productionId === found!.productionId)).toMatchObject({
+      disposition: 'cancelRequired', reason: 'noCapacity:development-casting', blockedCapability: 'development-casting',
+    })
   })
 })
