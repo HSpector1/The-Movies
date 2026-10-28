@@ -7,15 +7,13 @@
 // write. RED at ecbc42c9 by assertion: the predecessor has no `commissionTvSeason` verb (its refusal text is compared).
 
 import { beforeAll, describe, expect, it } from 'vitest'
-import { applyActions } from '../src/core/actions.js'
 import { busyTalentIds, weeklyPayroll } from '../src/core/employment.js'
 import { FINANCE_CATEGORIES } from '../src/core/financeReport.js'
 import { assertNoDoubleBookedResourceSlots, occupiedResourceSlots } from '../src/core/occupancy.js'
 import type { GameState } from '../src/core/types.js'
-import { greenlightPayload } from './helpers/p16-fixtures.js'
-import { freshConcept, greenlightAs, sellTitle } from './helpers/p17-route.js'
+import { sellTitle } from './helpers/p17-route.js'
 import {
-  COMMISSIONER, FIGURES, RULESET, agreement, attempt, commissioned, player, request, rosterIds, season, seasonRoute, sig, television,
+  COMMISSIONER, FIGURES, RULESET, agreement, attempt, commissioned, greenlightWith, player, request, rosterIds, season, seasonRoute, sig, television,
   tvCommissionModule, tvRows, withCash, type SeasonRoute,
 } from './helpers/p18-route.js'
 
@@ -130,9 +128,8 @@ describe('P18 commission — refusals, each by name, each leaving the state unto
     const busy = busyTalentIds(route.state)
     const freelancer = route.state.talent.find((t) => t.role === 'writer' && !busy.has(t.id) && !route.state.contracts.some((c) => c.talentId === t.id))!
     refused(route.state, request(route, { roster: { ...r, writerId: freelancer.id } }), new RegExp(`"${freelancer.id}" is not studio-contracted at week`))
-    // The film company seats the season's director: the ONE availability union refuses the season.
-    const concept = freshConcept(route.state)
-    const seated = applyActions(route.state, [{ kind: 'greenlight', production: { ...greenlightPayload(route.state, concept), directorId: r.directorId } }])
+    // A film crew seats the season's director: the ONE availability union refuses the season.
+    const seated = greenlightWith(route.state, { ...route.crews[0]!, directorId: r.directorId }).state
     refused(seated, request(route), new RegExp(`"${r.directorId}" is already engaged`))
   })
 
@@ -193,14 +190,14 @@ describe('P18 commission — shared capacity and availability through the film o
   it('a film greenlit after the commission never takes the season\'s slot; a full Development & Casting floor refuses the season', () => {
     const state = commissioned(route)
     const held = season(state).reservations[0]!
-    const film = greenlightAs(state, freshConcept(state))
+    const film = greenlightWith(state, route.crews[0]!)
     const claims = occupiedResourceSlots(film.state, { capability: 'development-casting' }).get(`${held.facilityId}:${held.slot}`)
     expect(claims?.map((c) => c.owner)).toEqual(['tvSeason'])
     expect(() => assertNoDoubleBookedResourceSlots(film.state)).not.toThrow()
     // Fill every Development & Casting slot with films, then ask for a season: refused, never queued.
     let full = route.state
     const capacity = full.operations.facilities.filter((f) => f.capability === 'development-casting').reduce((n, f) => n + f.capacity, 0)
-    for (let i = 0; i < capacity && occupiedResourceSlots(full, { capability: 'development-casting' }).size < capacity; i++) full = greenlightAs(full, freshConcept(full)).state
+    for (const crew of route.crews) if (occupiedResourceSlots(full, { capability: 'development-casting' }).size < capacity) full = greenlightWith(full, crew).state
     expect(occupiedResourceSlots(full, { capability: 'development-casting' }).size, 'premise: films hold every Development & Casting slot').toBe(capacity)
     refused(full, request(route), /no free development-casting slot for the scripts block this week; a season is never queued/)
   })

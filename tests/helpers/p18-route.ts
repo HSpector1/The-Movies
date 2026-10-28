@@ -1,11 +1,14 @@
 // ── P18 Sprint 12: the natural route to a lawful first-season commission (not a test file) ──────────────
 //
 // Authority: 1367-stage/p18-prep/P18-FIRST-SEASON-CONTRACT.md (adopted; independent review PROCEED) and decision 19A §3.
-// Every fact is written by the engine's own verbs and `tick`: the player's greenlight mints the P16 story property
-// (cancelled the same week, so the R1 title stays the player's and nothing occupies capacity), the synchronized-sound
-// chain is bought and adopted on the founding stage and Post and ticked to operational, and eleven idle people sign
-// 208-week contracts (six for the season, five for a film company that contests the same owners). The one disclosed
-// shortcut is P14B.2's cash bootstrap (`fund`, one studioRevenue row), so the route's money still reconciles.
+// Every fact is written by the engine's own verbs and `tick`. Two six-person film crews sign 208-week contracts first,
+// because this world's economy is engaged: a greenlight needs exactly one Craft Lead (D-11.13) and contracted or
+// freelance people (D-11.12). The first crew's greenlight mints the P16 story property and is cancelled the same week,
+// so the R1 title stays the player's and nothing stays seated or occupied. The synchronized-sound chain is then bought,
+// adopted on the founding stage and Post and ticked to operational, and six more idle people sign for the season. The
+// crews stay idle and contracted for the films that contest the season's owners. The one disclosed shortcut is
+// P14B.2's cash bootstrap (`fund`, one row each time: at week 0 and again when the route is built), so the money still
+// reconciles.
 //
 // Imports only modules that exist at the predecessor ecbc42c9, and spells the television shapes locally, so every law
 // pinned on this route runs RED there by assertion (an unknown action kind is caught and compared), never by a missing
@@ -17,10 +20,12 @@ import { hiringMarketIds } from '../../src/core/employment.js'
 import { stableStringify } from '../../src/core/save.js'
 import { adoptionChainOperational } from '../../src/core/technologyAdoption.js'
 import { tick } from '../../src/core/tick.js'
-import type { Action, CreativeRole, GameState, LedgerEntry } from '../../src/core/types.js'
+import type { Action, CreativeRole, FilmConcept, FilmShape, GameState, LedgerEntry } from '../../src/core/types.js'
 import { adoptExistingSoundChain, advanceTo, p13aGeneratedStudio } from '../../src/harness/p13a/fixtures.js'
 import { fund } from './p14b2-fixtures.js'
-import { freshConcept, greenlightAs } from './p17-route.js'
+import { MARKETING_BUDGET_LEVELS } from '../../src/core/grid.js'
+import { resolveShape } from '../../src/core/shape.js'
+import { freshConcept } from './p17-route.js'
 
 export const SEED = 'p18-sprint12-season-01'
 /** Contract §3: the versioned external party. */
@@ -58,13 +63,16 @@ export type TelevisionLocal = {
   seasons: TvSeasonLocal[]; agreements: TvAgreementLocal[]; receipts: TvReceiptLocal[]
 }
 
+/** A film company: a writer, a director, three actors and the one Craft Lead an engaged greenlight requires. */
+export type FilmCrew = { writerId: string; directorId: string; cast: { lead: string; antagonist: string; support: string }; craftId: string }
+
 export type SeasonRoute = {
-  /** Operational chain, eleven contracted people, the player's P16 property; week ≥ 428. */
+  /** Operational chain, eighteen contracted people (two idle film crews and the season roster), the player's P16 property. */
   state: GameState
-  /** The same campaign while the chain is still installing (the property exists; no one is signed yet). */
+  /** The same campaign while the chain is still installing (the property and both crews exist; the roster is unsigned). */
   installing: GameState
   roster: TvRosterLocal
-  filmRoster: { directorId: string; cast: { lead: string; antagonist: string; support: string }; craftId: string }
+  crews: FilmCrew[]
   adoptionId: string
   propertyId: string
 }
@@ -82,16 +90,48 @@ function sign(state: GameState, role: CreativeRole, taken: ReadonlySet<string>):
   throw new Error(`p18 route premise: no signable ${role} within 80 weeks`)
 }
 
+const SHAPE: FilmShape = { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' }
+
+/** `greenlightPayload`'s shape (tests/helpers/p16-fixtures.ts:89-107) seated with `crew`, its Craft Lead included. */
+export function filmPayload(state: GameState, concept: FilmConcept, crew: FilmCrew) {
+  return {
+    conceptId: concept.id,
+    shape: SHAPE,
+    promise: { genre: concept.genre, intendedSegments: ['adult' as const],
+      ranges: { intimacy: [-1, 1] as [number, number], tonalWeight: [-1, 1] as [number, number], kineticEnergy: [-1, 1] as [number, number] } },
+    writerId: crew.writerId,
+    directorId: crew.directorId,
+    craftIds: [crew.craftId],
+    cast: { ...crew.cast },
+    budget: { negative: concept.baseNegativeCost * resolveShape(SHAPE).budgetDemandMultiplier * state.era.costScale, marketing: MARKETING_BUDGET_LEVELS[0] },
+  }
+}
+
+/** The player's legacy greenlight of the next unfounded concept, seated with `crew`. */
+export function greenlightWith(state: GameState, crew: FilmCrew): { state: GameState; productionId: string } {
+  const next = applyActions(state, [{ kind: 'greenlight', production: filmPayload(state, freshConcept(state), crew) }])
+  return { state: next, productionId: next.studio.activeProductions[next.studio.activeProductions.length - 1]!.id }
+}
+
 let cached: SeasonRoute | undefined
 
 /** Built once per test file (about 440 real ticks); every read is a deep copy. */
 export function seasonRoute(): SeasonRoute {
   if (cached === undefined) {
     let state = advanceTo(fund(p13aGeneratedStudio(SEED)), 416)
+    const taken = new Set<string>()
+    const pick = (role: CreativeRole): string => {
+      const signed = sign(state, role, taken)
+      state = signed.state
+      taken.add(signed.id)
+      return signed.id
+    }
+    const crew = (): FilmCrew => ({ writerId: pick('writer'), directorId: pick('director'), cast: { lead: pick('actor'), antagonist: pick('actor'), support: pick('actor') }, craftId: pick('craft') })
+    const crews = [crew(), crew()]
     // The P16 property: the player's own greenlight mints its R1 story property; cancelling the picture the same week
     // keeps the genuine title history (p16a-mint-hooks) and frees every seat and slot it took.
     const before = new Set(state.rights.properties.map((p) => p.propertyId))
-    const greenlit = greenlightAs(state, freshConcept(state))
+    const greenlit = greenlightWith(state, crews[0]!)
     const minted = greenlit.state.rights.properties.filter((p) => !before.has(p.propertyId))
     if (minted.length !== 1) throw new Error(`p18 route premise: the greenlight minted ${minted.length} properties`)
     state = applyActions(greenlit.state, [{ kind: 'cancel', productionId: greenlit.productionId }])
@@ -103,16 +143,10 @@ export function seasonRoute(): SeasonRoute {
       if (guard > 40) throw new Error('p18 route premise: the sound chain did not become operational within 40 weeks')
       state = tick(state)
     }
-    const taken = new Set<string>()
-    const pick = (role: CreativeRole): string => {
-      const signed = sign(state, role, taken)
-      state = signed.state
-      taken.add(signed.id)
-      return signed.id
-    }
     const roster = { writerId: pick('writer'), directorId: pick('director'), cast: { lead: pick('actor'), antagonist: pick('actor'), support: pick('actor') }, craftId: pick('craft') }
-    const filmRoster = { directorId: pick('director'), cast: { lead: pick('actor'), antagonist: pick('actor'), support: pick('actor') }, craftId: pick('craft') }
-    cached = { state, installing, roster, filmRoster, adoptionId: adoption.id, propertyId: minted[0]!.propertyId }
+    // Eighteen contracts have run payroll since week 416; the disclosed bootstrap again, so cash is never the premise.
+    state = fund(state)
+    cached = { state, installing, roster, crews, adoptionId: adoption.id, propertyId: minted[0]!.propertyId }
   }
   return clone(cached)
 }
