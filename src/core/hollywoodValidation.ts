@@ -84,7 +84,7 @@ export type HollywoodLeafValidators = {
 // the terminal history it is (Wave 4): no decision cadence, costs charged only through its closure week,
 // every interval ended at that week by a `closure` receipt, no active work. Every frozen reader keeps
 // the operating law.
-export type P15BEra = { studioLoans: boolean; closure: ReadonlyMap<string, number> | null; rights: boolean; carriedProduction?: CarriedProductionAuthority | undefined; absorbedPromises?: AbsorbedPromiseAuthority | undefined; absorptions?: ReadonlyMap<string, AbsorptionRecord> }
+export type P15BEra = { studioLoans: boolean; closure: ReadonlyMap<string, number> | null; rights: boolean; /** P18 (Save51): admits the television ledger policy above the rights era. */ television?: boolean; carriedProduction?: CarriedProductionAuthority | undefined; absorbedPromises?: AbsorbedPromiseAuthority | undefined; absorptions?: ReadonlyMap<string, AbsorptionRecord> }
 export const NO_P15B_ERA: P15BEra = { studioLoans: false, closure: null, rights: false }
 export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>, research = false, plans: readonly PhysicalPlan[] = [], terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext, era: P15BEra = NO_P15B_ERA): asserts value is HollywoodState | null {
   const researchKinds = new Set<string>(RIVAL_RESEARCH_MONEY_KINDS)

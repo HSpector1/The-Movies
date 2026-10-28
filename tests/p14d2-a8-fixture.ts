@@ -1,12 +1,12 @@
 import type { GameState } from '../src/core/types.js'
-import { convertV49ToV48, convertV50ToV49 } from '../src/core/save.js'
+import { convertV49ToV48, convertV50ToV49, convertV51ToV50 } from '../src/core/save.js'
 import { cutoverRightsRoot } from '../src/core/rights.js'
 // Genuine 1363-A8 Save45 bytes. Pins recomputed from the named new mint only.
 import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { expect } from 'vitest'
-import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV45, validateSaveV50, convertV46ToV45, convertV47ToV46, convertV48ToV47, initialP15BRoots } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV45, validateSaveV51, convertV46ToV45, convertV47ToV46, convertV48ToV47, initialP15BRoots } from '../src/core/save.js'
 import { initialFoundingFunding } from '../src/core/foundingFunding.js'
 import type { RivalBusiness } from '../src/core/hollywoodTypes.js'
 type HistoricalAccount = NonNullable<ReturnType<typeof validateSaveV45>['state']['hollywood']>['businesses'][number]['account']
@@ -85,8 +85,8 @@ export function loadA8() {
   const stateBytes = stableStringify(live.state)
   const current = makeSave(live.state)
   expect(current.saveVersion).toBe(LIVE_SAVE_VERSION)
-  validateSaveV50(current)
-  const actualOld = convertV46ToV45(convertV47ToV46(convertV48ToV47(convertV49ToV48(convertV50ToV49(current))))) // Save48 (1370-ar): down through the live step first (nothing evaluated: lossless)
+  validateSaveV51(current)
+  const actualOld = convertV46ToV45(convertV47ToV46(convertV48ToV47(convertV49ToV48(convertV50ToV49(convertV51ToV50(current)))))) // Save48 (1370-ar): down through the live step first (nothing evaluated: lossless)
   validateSaveV45(actualOld)
   expect(exportSave(actualOld)).toBe(raw)
   expect(exportSave(importSave(exportSave(current)))).toBe(exportSave(current))

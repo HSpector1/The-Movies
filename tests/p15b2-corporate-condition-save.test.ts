@@ -13,7 +13,7 @@
 // steps' own reasons rather than masking them.
 import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
-import { convertV48ToV49, convertV49ToV48, convertV50ToV49, convertV49ToV50, exportSave, FOUNDING_FUNDING_SAVE_VERSION, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV45, migrateToV46, migrateToV47, P15B_SAVE_VERSION, validateSaveV47 } from '../src/core/save.js'
+import { convertV48ToV49, convertV49ToV48, convertV50ToV49, convertV51ToV50, convertV49ToV50, convertV50ToV51, exportSave, FOUNDING_FUNDING_SAVE_VERSION, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV45, migrateToV46, migrateToV47, P15B_SAVE_VERSION, validateSaveV47 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { Action, GameState } from '../src/core/types.js'
@@ -94,7 +94,7 @@ describe('p15b2 save step: migration and downgrade (1357-A §4.2; S1-S2)', () =>
     const down = convertFromStep(p15b)
     expect(down.saveVersion).toBe(P15B_SAVE_VERSION - 1) // the predecessor, renumbered with P15B_SAVE_VERSION
     expect(canon(convertToStep(down))).toBe(canon(p15b))
-    expect(canon(convertV49ToV50(convertV48ToV49(convertToStep(down) as never)))).toBe(canon(live)) // and the live steps lift it back
+    expect(canon(convertV50ToV51(convertV49ToV50(convertV48ToV49(convertToStep(down) as never))))).toBe(canon(live)) // and the live steps lift it back
     // The first tick evaluates its own week and nothing earlier (1352-F2 ruling 1).
     const ticked = tick(state)
     expect(conditionRoot(ticked).studios.every((r) => r.firstEvaluatedWeek === BASE_WEEK + 1)).toBe(true)
@@ -115,7 +115,7 @@ describe('p15b2 save step: migration and downgrade (1357-A §4.2; S1-S2)', () =>
     expect(conditionRoot(recorded()).events, 'premise: no condition event before 134').toEqual([])
     const ticked = makeSave(recorded())
     // Round 5 (review O1): the exact composed message, not a substring the live step's own phase-history reason shares.
-    expect(() => convertFromStep(convertV49ToV48(convertV50ToV49(ticked)))).toThrow(recordedRefusal(recorded()))
+    expect(() => convertFromStep(convertV49ToV48(convertV50ToV49(convertV51ToV50(ticked))))).toThrow(recordedRefusal(recorded()))
     expect(() => migrateToV47(ticked)).toThrow(recordedRefusal(recorded()))
     // ACCEPTANCE OPEN (P16 rebase rounds 4-5): the condition-event and loan refusals ('a corporateCondition event',
     // 'a studio loan', 'a loan or claim ledger row', 'the <kind> movement of <studio>'), and any control combining two or
@@ -125,7 +125,7 @@ describe('p15b2 save step: migration and downgrade (1357-A §4.2; S1-S2)', () =>
     // row. The writers stamp `Object.hasOwn(state, 'rights') ? 3 : 2`, so a rights-era world's condition event is
     // table 3, and a loan needs warning or distress (studioLoan.ts loanEligible after CORPORATE_WARN_SUSTAIN_WEEKS low
     // weeks), so an event always precedes it. The borrowed world's public downgrade refuses at the live step first.
-    expect(() => convertV49ToV48(convertV50ToV49(makeSave(borrowed())))).toThrow(LIVE_DOWNGRADE_REFUSAL)
+    expect(() => convertV49ToV48(convertV50ToV49(convertV51ToV50(makeSave(borrowed()))))).toThrow(LIVE_DOWNGRADE_REFUSAL)
     // The loan kinds are refused below the era: a predecessor envelope carrying one fails the frozen chain.
     const forgedLedger = clone(down)
     ;(forgedLedger.state.ledger as Record<string, unknown>[]).push({ week: BASE_WEEK, kind: 'loanPrincipal', amount: 1000, note: 'forged' })
@@ -173,7 +173,7 @@ describe('p15b2 save step: migration and downgrade (1357-A §4.2; S1-S2)', () =>
     expect(state133.hollywood!.receipts.some((r) => r.kind === 'facilityDisposed'), 'premise: R8 disposal').toBe(true)
     const live = makeSave(state133)
     const composed = recordedRefusal(state133)
-    expect(() => convertFromStep(convertV49ToV48(convertV50ToV49(live)))).toThrow(composed)
+    expect(() => convertFromStep(convertV49ToV48(convertV50ToV49(convertV51ToV50(live))))).toThrow(composed)
     for (const older of [migrateToV47, migrateToV46, migrateToV45]) expect(() => older(live)).toThrow(composed)
     expect(canon(makeSave(recorded()))).toBe(canon(live))
     // The borrowed world (table-3 events and loans) refuses at the live Save49 step first.

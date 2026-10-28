@@ -42,7 +42,7 @@ import { settleCameoCancellation } from './cameoBooking.js'
 import { moveRivalMoney } from './hollywood.js'
 import { closedWeekOf } from './operatingState.js'
 import { buildLegacyManifest, legacyFactsFromState, ENDED_LEGACY_DEFINITION, MODERN_LEGACY_DEFINITION, LEGACY_BOUNDARY_WEEK, type EndedLegacy, type OfficialLegacy } from './campaignLegacy.js'
-import { validateSaveP15B, validateSaveP17, P15B_SAVE_VERSION, P17_SAVE_VERSION } from './save.js'
+import { validateSaveP15B, validateSaveP18, P15B_SAVE_VERSION, P18_SAVE_VERSION } from './save.js'
 import { resolveTitles, subjectsHeldBy } from './rights.js'
 import { buildEstateHandoff, finishEstateArchival, openEstate } from './estate.js'
 import { P15_PHASE_TABLES, p15PhaseTriple } from './p15Phases.js'
@@ -485,8 +485,8 @@ function publishClosureFinale(state: GameState, hook?: EndOfRunHook | null): Gam
       p15Sequence: { ...next.p15Sequence, next: sequence + 1 } }
   }
   if (Object.hasOwn(next, 'rights')) {
-    // the rights era's live reader (P17 Save50 over P16's Save49)
-    validateSaveP17({ saveVersion: P17_SAVE_VERSION, seed: next.seed, state: next, broadcastCache: next.broadcastItems })
+    // the rights era's live reader (P18 Save51 over P17's Save50 over P16's Save49)
+    validateSaveP18({ saveVersion: P18_SAVE_VERSION, seed: next.seed, state: next, broadcastCache: next.broadcastItems })
   } else {
     validateSaveP15B({ saveVersion: P15B_SAVE_VERSION, seed: next.seed, state: next, broadcastCache: next.broadcastItems })
   }

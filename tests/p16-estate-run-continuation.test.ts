@@ -101,7 +101,7 @@ describe('P16 retained original48 active estate run continues under current49',(
   expect(saves.exportCurrentState(reload)).toBe(text)
   const refuse=(change:(s:GameState)=>void)=>{
    const saved=JSON.parse(text);change(saved.state);const bytes=JSON.stringify(saved)
-   try {expect(()=>saves.validateSaveV50(saved)).toThrow(/closure|estate|claim|studio/i)}
+   try {expect(()=>saves.validateSaveV51(saved)).toThrow(/closure|estate|claim|studio/i)}
    finally {expect(JSON.stringify(saved)).toBe(bytes)}
   }
   refuse(s=>{s.studioClosure.estateEvents.find(e=>e.closureId===p.closure.closureId&&e.kind==='runReceipt')!.studioId=s.hollywood!.playerStudioId})

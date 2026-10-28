@@ -1486,24 +1486,82 @@ export function productionsInSweepOrder<P extends Pick<ProductionClockView, 'id'
   const keyed = productions.map((production) => ({
     production,
     wait: productionWaitWeeks(production, currentTick),
+    kindRank: SWEEP_KIND_RANK.production,
     ordinal: productionOrdinalKey(production.id),
   }))
-  return boundedStableSort(keyed, (a, b) => {
-    const wait = b.wait - a.wait
-    if (wait !== 0) return wait
-    const left = a.ordinal
-    const right = b.ordinal
-    return (
-      left[0] - right[0] ||
-      left[1] - right[1] ||
-      (left[2] < right[2] ? -1 : left[2] > right[2] ? 1 : 0)
-    )
-  }).map((entry) => entry.production)
+  return boundedStableSort(keyed, compareSweepKeys).map((entry) => entry.production)
+}
+
+/**
+ * P18 (decision D15): the typed tie-break of the one admitted-work order. On EQUAL waits a
+ * production is served before a television season, then the ordinal law decides within a kind.
+ * Every production carries rank 0, so the film-only order is byte-identical to the base.
+ */
+export const SWEEP_KIND_RANK = { production: 0, tvSeason: 1 } as const
+export type SweepRequesterKind = keyof typeof SWEEP_KIND_RANK
+
+type SweepKey = { wait: number; kindRank: number; ordinal: [number, number, string] }
+
+/** THE comparator of the admitted-work order: longest waiting first, then the typed kind rank, then the ordinal law. */
+function compareSweepKeys(a: SweepKey, b: SweepKey): number {
+  const wait = b.wait - a.wait
+  if (wait !== 0) return wait
+  const kind = a.kindRank - b.kindRank
+  if (kind !== 0) return kind
+  const left = a.ordinal
+  const right = b.ordinal
+  return (
+    left[0] - right[0] ||
+    left[1] - right[1] ||
+    (left[2] < right[2] ? -1 : left[2] > right[2] ? 1 : 0)
+  )
+}
+
+type SweepEntry<P> = SweepKey & ({ kind: 'production'; production: P } | { kind: 'participant'; participant: SweepParticipant })
+
+/** P18: productions and typed participants in ONE order under the same comparator. */
+function sweepEntries<P extends Pick<ProductionClockView, 'id' | 'startTick' | 'remainingTicks'>>(
+  productions: readonly P[],
+  participants: readonly SweepParticipant[],
+  currentTick: number,
+): readonly SweepEntry<P>[] {
+  const entries: SweepEntry<P>[] = productions.map((production) => ({
+    kind: 'production', production, wait: productionWaitWeeks(production, currentTick), kindRank: SWEEP_KIND_RANK.production,
+    ordinal: productionOrdinalKey(production.id),
+  }))
+  for (const participant of participants) {
+    entries.push({ kind: 'participant', participant, wait: participant.waitWeeks, kindRank: SWEEP_KIND_RANK[participant.kind],
+      ordinal: productionOrdinalKey(participant.id) })
+  }
+  return boundedStableSort(entries, compareSweepKeys)
+}
+
+// ── P18 — a typed non-film requester of production capacity (contract §4 "one deterministic order") ──
+/**
+ * One admitted piece of work that is not a film, served at ITS place in the same longest-waiting
+ * order as the productions: `waitWeeks` is its admitted-work key; on an equal wait its typed
+ * `kind` ranks it after the productions (`SWEEP_KIND_RANK`), then its id joins the ordinal law.
+ * It retains `held` while blocked, so an existing claim is never moved by anyone else's request.
+ */
+export type SweepParticipant = {
+  readonly id: string
+  readonly kind: Exclude<SweepRequesterKind, 'production'>
+  readonly waitWeeks: number
+  /** The bare `facilityId:slot` keys it holds as the advance found it; every production sees them from the first round. */
+  readonly held: ReadonlySet<string>
+  /**
+   * Acquire this week's requirement against everyone else's keys. Returns the keys it now holds
+   * (retained plus new) and its own record, or null when blocked — it then keeps `held` and is
+   * retried whenever the sweep restarts. Pure.
+   */
+  readonly attempt: (occupiedByOthers: ReadonlySet<string>, operations: StudioOperations, sets: readonly StudioSet[]) => { held: ReadonlySet<string>; result: unknown } | null
 }
 
 export type ManagedProductionAdvance<P extends ProductionClockView = Production> = {
   productions: P[]
   operations: StudioOperations
+  /** P18: each participant's record for the week, present exactly when its attempt succeeded. */
+  participantResults: ReadonlyMap<string, unknown>
   /** The sets root after this advance — wear at wrap is the only thing that moves it. */
   sets: readonly StudioSet[]
   /**
@@ -1596,12 +1654,16 @@ export function advanceManagedProductions<P extends ProductionClockView = Produc
    * the route its own review derived rather than having one invented here.
    */
   setupRoute?: ProductionSetupRouteResolver,
+  // P18: the typed non-film requesters of this week, served inside the one order (contract §4).
+  participants: readonly SweepParticipant[] = [],
 ): ManagedProductionAdvance<P> {
   const admittedReleaseIds: string[] = []
   const firstTakes: P[] = []
   let sets: readonly StudioSet[] = binding?.sets ?? []
+  const participantResults = new Map<string, unknown>()
   if (operations.mode !== 'managed') {
     return {
+      participantResults,
       productions: productions.map((production) => {
         if (production.startTick >= currentTick) return production
         // P06A: the legacy arm decrements blindly EXCEPT at the release
@@ -1628,8 +1690,17 @@ export function advanceManagedProductions<P extends ProductionClockView = Produc
   // THE QUEUE ORDER (§3.3): longest-waiting-first, ordinal tie-break — computed
   // ONCE, from the state as this advance found it, so the order a week is served
   // in cannot shift underneath the sweep that is serving it.
-  const ordered = productionsInSweepOrder(productions, currentTick)
+  const ordered = sweepEntries(productions, participants, currentTick)
   const settled = new Set<string>()
+  // P18: what each participant holds right now. Productions see every participant's keys as
+  // external from the first round; a participant sees the productions' and the others' keys.
+  const participantHeld = new Map<string, ReadonlySet<string>>(participants.map((participant) => [participant.id, participant.held]))
+  const externalWithParticipants = (): ReadonlySet<string> => {
+    if (participants.length === 0) return externallyOccupiedSlots
+    const keys = new Set(externallyOccupiedSlots)
+    for (const held of participantHeld.values()) for (const key of held) keys.add(key)
+    return keys
+  }
 
   // ── THE FIXED-POINT WEEKLY SWEEP (charter §3.3) ───────────────────────────
   //
@@ -1653,7 +1724,24 @@ export function advanceManagedProductions<P extends ProductionClockView = Produc
   let progressed = true
   while (progressed) {
     progressed = false
-  for (const original of ordered) {
+  for (const entry of ordered) {
+    if (entry.kind === 'participant') {
+      // P18: a typed requester at its own place in the order. It never frees capacity, so a
+      // success needs no restart; a refusal keeps its place and is retried when the sweep restarts.
+      const { participant } = entry
+      if (settled.has(participant.id)) continue
+      const others = new Set(externallyOccupiedSlots)
+      for (const key of occupiedResourceSlots({ operations: nextOperations }, { owners: ['production'] }).keys()) others.add(key)
+      for (const [id, held] of participantHeld) if (id !== participant.id) for (const key of held) others.add(key)
+      const outcome = participant.attempt(others, nextOperations, sets)
+      if (outcome !== null) {
+        participantHeld.set(participant.id, outcome.held)
+        participantResults.set(participant.id, outcome.result)
+        settled.add(participant.id)
+      }
+      continue
+    }
+    const original = entry.production
     if (settled.has(original.id)) continue
     if (original.startTick >= currentTick) {
       settled.add(original.id)
@@ -1788,7 +1876,7 @@ export function advanceManagedProductions<P extends ProductionClockView = Produc
       active,
       production,
       targetPhase,
-      externallyOccupiedSlots,
+      externalWithParticipants(),
       currentTick,
       events,
       // The sets the NEXT picture in this advance can bind are the sets as they
@@ -1822,6 +1910,7 @@ export function advanceManagedProductions<P extends ProductionClockView = Produc
   return {
     productions: productions.map((production) => byId.get(production.id)!),
     operations: nextOperations,
+    participantResults,
     sets,
     admittedReleaseIds,
     // The post-advance productions, so the receipt records the picture as it

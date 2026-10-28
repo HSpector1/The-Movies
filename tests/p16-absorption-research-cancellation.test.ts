@@ -95,7 +95,7 @@ describe('P16 real absorbed research marker from fixed accepted267 input',()=>{
   const p=preparedCancellation(),text=JSON.stringify(p.save)
   const mutate=(fn:(state:GameState)=>void)=>{
    const saved=JSON.parse(text) as typeof p.save;fn(saved.state);const before=JSON.stringify(saved)
-   try {expect(()=>saves.validateSaveV50(saved)).toThrow(/absorption|Technology save/i)}
+   try {expect(()=>saves.validateSaveV51(saved)).toThrow(/absorption|Technology save/i)}
    finally {expect(JSON.stringify(saved)).toBe(before)}
   }
   mutate(state=>{delete state.technology.projects.find(p=>p.id===PROJECT)!.absorptionCancellation})

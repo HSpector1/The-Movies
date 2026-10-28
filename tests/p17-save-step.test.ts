@@ -6,6 +6,8 @@
 // Save49 is the version alone and a downgrade is lossless exactly while the root is absent (src/core/continuationSave.ts).
 // Era-neutral step names (validateSaveP17, convertPredecessorToP17, convertP17ToPredecessor, migrateToP17) carry the
 // conventional V50 aliases the version-composing tests read (P15B convention, save.ts).
+// P18 (Save51, tests/p18-save-step.test.ts) is live one step above: a live envelope enters this step through
+// `convertV51ToV50`, which is the version alone while no television season exists.
 // Every franchise here is written by the real greenlight on real P16 rights (tests/helpers/p17-route.ts).
 
 import { beforeAll, describe, expect, it } from 'vitest'
@@ -28,13 +30,13 @@ beforeAll(() => {
 })
 
 describe('P17 save step — version, aliases, dispatcher', () => {
-  it('Save50 is live one step above P16\'s Save49; the V50 names are the P17 step', () => {
-    expect(saves.LIVE_SAVE_VERSION).toBe(50)
-    expect(saves.P17_SAVE_VERSION).toBe(saves.LIVE_SAVE_VERSION)
+  it('Save50 is one step above P16\'s Save49 and one below P18\'s live Save51; the V50 names are the P17 step', () => {
+    expect(saves.P17_SAVE_VERSION).toBe(50)
+    expect(saves.LIVE_SAVE_VERSION).toBe(saves.P17_SAVE_VERSION + 1)
     expect(saves.P17_PREDECESSOR_SAVE_VERSION).toBe(saves.P16_SAVE_VERSION)
-    const save = saves.makeSave(route.released)
+    const save = saves.convertV51ToV50(saves.makeSave(route.released))
     expect(saves.stableStringify(saves.validateSaveV50(save))).toBe(saves.stableStringify(saves.validateSaveP17(save)))
-    expect(() => saves.validateSave({ ...save, saveVersion: 51 } as never)).toThrow(/unknown saveVersion 51.*versions 1 through 50 only/)
+    expect(() => saves.validateSave({ ...save, saveVersion: 52 } as never)).toThrow(/unknown saveVersion 52.*versions 1 through 51 only/)
   })
 })
 
@@ -43,13 +45,13 @@ describe('P17 save step — no franchise: absence, version-only migration, lossl
     for (const state of [route.start, route.released]) {
       expect(Object.hasOwn(state, 'franchises')).toBe(false)
       const save = saves.makeSave(state)
-      expect(save.saveVersion).toBe(50)
+      expect(save.saveVersion).toBe(51)
       expect(Object.hasOwn(save.state, 'franchises')).toBe(false)
     }
   })
 
   it('down to Save49 and back is the version alone, byte for byte', () => {
-    const save = saves.makeSave(route.released), before = saves.stableStringify(save)
+    const save = saves.convertV51ToV50(saves.makeSave(route.released)), before = saves.stableStringify(save)
     const down = saves.convertV50ToV49(save)
     expect(down.saveVersion).toBe(49)
     expect(saves.stableStringify({ ...down, saveVersion: 50 })).toBe(before)
@@ -61,9 +63,9 @@ describe('P17 save step — no franchise: absence, version-only migration, lossl
     const raw = genuineV45Raw('week53')
     const era = saves.migrateToV49(saves.importSave(raw))
     const live = saves.migrateToLive(saves.importSave(raw))
-    expect(live.saveVersion).toBe(50)
+    expect(live.saveVersion).toBe(51)
     expect(saves.stableStringify(live.state)).toBe(saves.stableStringify(era.state))
-    expect(saves.stableStringify(saves.migrateToV50(era))).toBe(saves.stableStringify(live))
+    expect(saves.stableStringify(saves.migrateToV50(era))).toBe(saves.stableStringify(saves.convertV51ToV50(live)))
   })
 })
 
@@ -77,7 +79,7 @@ describe('P17 save step — a recorded franchise', () => {
 
   it('refuses every downgrade and every frozen builder by name, and leaves the input unchanged', () => {
     const save = saves.makeSave(franchised), before = saves.stableStringify(save)
-    expect(() => saves.convertV50ToV49(save)).toThrow(DOWNGRADE)
+    expect(() => saves.convertV50ToV49(saves.convertV51ToV50(save))).toThrow(DOWNGRADE)
     expect(() => saves.migrateToV49(save)).toThrow(DOWNGRADE)
     expect(() => saves.migrateToV45(save)).toThrow(DOWNGRADE)
     expect(() => saves.makeSaveV1(franchised)).toThrow(/^makeSaveV1: cannot downgrade or discard 1 recorded franchise root\(s\)$/)
@@ -89,7 +91,7 @@ describe('P17 save step — a recorded franchise', () => {
     const refuse = (edit: (f: Forged) => void, pattern: RegExp) => {
       const forged = detached(save) as unknown as Forged
       edit(forged)
-      expect(() => saves.validateSaveP17(forged)).toThrow(pattern)
+      expect(() => saves.validateSaveP18(forged)).toThrow(pattern) // P18: the live reader runs the P17 root law inside
       expect(() => saves.makeSave(forged.state)).toThrow(pattern)
     }
     refuse((f) => { f.state.franchises.properties = [] }, /an empty franchise root is written as absence/)
@@ -102,6 +104,6 @@ describe('P17 save step — a recorded franchise', () => {
     const forged = detached(withPlain) as unknown as Forged
     const edge = forged.state.franchises.properties[0]!.installments.find((e) => e.childProductionId === sequelId)!
     edge.childProductionId = plain.productionId
-    expect(() => saves.validateSaveP17(forged)).toThrow(new RegExp(`${plain.productionId} is not a P16 work of story-property:`))
+    expect(() => saves.validateSaveP18(forged)).toThrow(new RegExp(`${plain.productionId} is not a P16 work of story-property:`))
   })
 })

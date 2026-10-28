@@ -1,5 +1,5 @@
 import { rightsStripped } from './helpers/p16-era.js'
-import { convertV49ToV48, convertV50ToV49 } from '../src/core/save.js'
+import { convertV49ToV48, convertV50ToV49, convertV51ToV50 } from '../src/core/save.js'
 // 654-T (record 653 NEXT653; plan T1 "independent test-author RED against accepted predecessor").
 // P14B.5 First Shared-Work Bond Core — the SYNTHETIC/ENGINE RED: families 1–8 and 10 of the inserted
 // expansion (docs/engineering/playability-launch-review/plans/P14-HEADLESS-PLAN.md, "## P14B.5 — First
@@ -1471,7 +1471,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // P15B (1370-ar, MASKED): the live chain now crosses the P15B step's converter FIRST, and every ticked industry
     // state carries evaluated condition records, so the P15B guard (naming the predecessor version) is the one that
     // actually refuses; the guard pinned before stays covered on its own-era input elsewhere.
-    expect(() => convertV49ToV48(convertV50ToV49(admitted as never))).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
+    expect(() => convertV49ToV48(convertV50ToV49(convertV51ToV50(admitted as never)))).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
     expect(() => migrateToV30(rightsStripped(admitted as never))).toThrow(new RegExp(`^migrateToV47: cannot downgrade or discard a corporateCondition record`))
     // Every older migrateToVn refuses too, but MEASURED (not assumed) to be for
     // two DIFFERENT reasons depending on vintage, so the loop's regex only claims
@@ -1489,7 +1489,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // same rejection-count guard refuses. Derived from source, not measured: x2
     // stopped at the migrateToV30(admitted) assertion.
     for (const older of [migrateToV29, migrateToV28, migrateToV27, migrateToV26]) {
-      expect(() => convertV49ToV48(convertV50ToV49(admitted as never))).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
+      expect(() => convertV49ToV48(convertV50ToV49(convertV51ToV50(admitted as never)))).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
       expect(() => older(rightsStripped(admitted as never))).toThrow(new RegExp(`^migrateToV47: cannot downgrade or discard a corporateCondition record`))
     }
     // P14C.4: migrateToV25 (and every migrator older than V26) now meets the
@@ -1505,7 +1505,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // retirement-extension guard behind the same recorded first-take subject.
     // 1344-N S9: migrateToV25 crosses convertV43ToV42 first too (save.ts:8591);
     // derived from source, as above.
-    expect(() => convertV49ToV48(convertV50ToV49(admitted as never))).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
+    expect(() => convertV49ToV48(convertV50ToV49(convertV51ToV50(admitted as never)))).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
     expect(() => migrateToV25(rightsStripped(admitted as never))).toThrow(new RegExp(`^migrateToV47: cannot downgrade or discard a corporateCondition record`))
     expect(JSON.stringify(admitted)).toBe(before)
 
@@ -1527,7 +1527,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // 1344-N S9: `empty` differs from `admitted` only in `relationships`, so it
     // holds the same rival rejection count and convertV43ToV42 (save.ts:9210,
     // :10698) refuses it first too; derived from source, as above.
-    expect(() => convertV49ToV48(convertV50ToV49(empty as never))).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
+    expect(() => convertV49ToV48(convertV50ToV49(convertV51ToV50(empty as never)))).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
     expect(() => migrateToV30(rightsStripped(empty as never))).toThrow(new RegExp(`^migrateToV47: cannot downgrade or discard a corporateCondition record`))
     // GAP, disclosed rather than hidden: the ORIGINAL claim under test here — that an
     // EMPTY relationship root downgrades losslessly — is a real, still-implemented

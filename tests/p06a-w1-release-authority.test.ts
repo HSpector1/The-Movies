@@ -37,7 +37,7 @@ import {
   mintReleaseCommitmentId,
   stableStringify,
   tick,
-  validateSaveV50,
+  validateSaveV51,
 } from '../src/core/index.js'
 import type { CastSlot, GameState, SegmentId } from '../src/core/index.js'
 import { predecessorSave } from './helpers/p15-roots.js'
@@ -467,12 +467,12 @@ describe('P06A W1 — save law', () => {
       state: { releaseAuthority: { commitments: { productionId: string }[] } }
     }
     orphan.state.releaseAuthority.commitments[0]!.productionId = 'prod-9999'
-    expect(() => validateSaveV50(orphan)).toThrow(/foreign identity|orphan/)
+    expect(() => validateSaveV51(orphan)).toThrow(/foreign identity|orphan/)
 
     const extraKey = JSON.parse(exportSave(good)) as {
       state: { releaseAuthority: Record<string, unknown> }
     }
     extraKey.state.releaseAuthority.surprise = true
-    expect(() => validateSaveV50(extraKey)).toThrow(/unknown field .surprise./)
+    expect(() => validateSaveV51(extraKey)).toThrow(/unknown field .surprise./)
   })
 })

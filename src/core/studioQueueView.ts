@@ -204,10 +204,13 @@ function occupantsOf(
 
 function freesInWeeksFor(
   state: GameState,
-  owner: 'production' | 'script' | 'casting',
+  owner: 'production' | 'script' | 'casting' | 'television',
   ownerId: string,
   capability: FacilityCapability,
 ): number | null {
+  // P18: a season's hold frees when its block completes, which waits on paid units and stalls the
+  // engine cannot foresee; the honest answer is "not derivable" (null), never a guess.
+  if (owner === 'television') return null
   if (owner === 'production') {
     const production = state.studio.activeProductions.find(
       (candidate) => candidate.id === ownerId,

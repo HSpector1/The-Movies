@@ -32,6 +32,7 @@ import { QUOTE_AGE_POLICIES, quoteAgeRefusal, quoteAgeVersionRefusal, type Quote
 import { HOLLYWOOD_STARTING_MANIFEST } from './hollywoodStartingData.js'
 import type { HollywoodState } from './hollywoodTypes.js'
 import type { GameState } from './types.js'
+import { TV_COMMISSIONER_ID } from './tvTypes.js'
 
 export const RIGHTS_ROOT_VERSION = 2 as const
 export const STORY_PROPERTY_ID_PREFIX = 'story-property:'
@@ -93,15 +94,37 @@ export type FilmTitle = {
   titleSource: 'release' | 'manifest' | 'history' | 'unavailable'
 }
 
-export type LicenceScope = { use: 'sequel' | 'remake' | 'spinoff' } | { use: 'television' | 'merchandise' }
+export type LicenceScope = { use: 'sequel' | 'remake' | 'spinoff' } | { use: 'televisionProduction' | 'televisionDistribution' | 'merchandise' }
 /** The enumerated continuation uses an R3 licence may name (contract §3). */
 export const R3_USES = ['sequel', 'remake', 'spinoff'] as const
-/** The enumerated cross-media uses an R4 licence names (contract §3). */
-export const R4_USES = ['television', 'merchandise'] as const
+/**
+ * The enumerated cross-media uses an R4 licence names (contract §3). Decision 19A §3 (C-07): the television use is
+ * split, so the commissioner's exclusive distribution term never answers the producer's production question and never
+ * blocks it in `overlapsExclusive`. No save before Save51 holds an R4 row, so the rename converts nothing.
+ */
+export const R4_USES = ['televisionProduction', 'televisionDistribution', 'merchandise'] as const
+/**
+ * Decision 19A §3: the non-studio contractual parties P16 admits, each ONLY as the grantee of an exclusive R4
+ * `televisionDistribution` licence on a property (`counterpartyGrantRefusal`). Offers stay studio-only.
+ */
+export const RIGHTS_COUNTERPARTY_IDS: readonly string[] = [TV_COMMISSIONER_ID]
+/** Null when `grant` is a lawful counterparty instrument, or when its grantee is not a counterparty at all. */
+export function counterpartyGrantRefusal(grant: { right: 'R3' | 'R4'; subject: RightSubject; scope: LicenceScope; exclusive: boolean; granteeId: string }): string | null {
+  if (!RIGHTS_COUNTERPARTY_IDS.includes(grant.granteeId)) return null
+  return grant.right === 'R4' && grant.scope.use === 'televisionDistribution' && grant.exclusive === true && grant.subject.right === 'R1' ? null : 'counterpartyScope'
+}
+/**
+ * The licence law a validator applies (19A §3: `validateRightsRoot` takes it as a parameter). `r4ConsumerLive` opens every
+ * R4 use; `televisionCounterparty` admits only the counterparty's distribution licence and its zero-offer grant
+ * transaction at `counterpartyConsideration`. The frozen Save49 reader keeps the default, which refuses every R4 row.
+ */
+export type RightsValidationLaw = { r4ConsumerLive: boolean; televisionCounterparty?: boolean; counterpartyConsideration?: number }
 /**
  * CONTRACT GAP (P16B, contract §3 / P16A r3): "no executable grant before the P18 consumer exists". The R4 grant law is
  * complete (licence.ts `licenceGrantRefusal`); this ONE flag keeps it closed — the producer refuses `r4ConsumerNotLive`
  * and the validator refuses any R4 licence in a save — until P18 lands its consumer and sets it true.
+ * P18 Sprint 12 keeps it false on purpose: its consumer needs exactly one R4 instrument, the counterparty's
+ * distribution licence, which the `televisionCounterparty` law opens alone; the bilateral R4 route stays closed.
  */
 export const R4_CONSUMER_LIVE = false
 export type Licence = {
@@ -961,7 +984,7 @@ export function actualP16Money(state: GameState, studioId: string): { rightsCons
   return out
 }
 
-export function validateRightsRoot(raw: Record<string, unknown>, label: string): void {
+export function validateRightsRoot(raw: Record<string, unknown>, label: string, law: RightsValidationLaw = { r4ConsumerLive: R4_CONSUMER_LIVE }): void {
   // Annotated on the binding so the compiler narrows after each `if (...) refuse(...)` (assertion-style never calls).
   const refuse: (path: string, rule: string) => never = (path, rule) => { throw new Error(`${label}: rights${path === '' ? '' : `.${path}`} ${rule}`) }
   const root = raw.rights
@@ -1189,15 +1212,17 @@ export function validateRightsRoot(raw: Record<string, unknown>, label: string):
   for (const t of rights.filmTitles) if (!bySubject.has(`R2:${t.filmId}`)) refuse('filmTitles', `${t.filmId} has no genesis event`)
   const resolved = resolveTitles(state)
   const subjectExists = (s: RightSubject): boolean => subjectKnown(resolved, s)
+  // P18 (19A §3): a counterparty's exclusive television distribution licence, lawful only under a law that admits it.
+  const counterpartyGrant = (l: Licence): boolean => law.televisionCounterparty === true && RIGHTS_COUNTERPARTY_IDS.includes(l.granteeId) && counterpartyGrantRefusal(l) === null
   for (const [i, l] of rights.licences.entries()) {
     const path = `licences[${i}]`
     idNumber(l.id, `${path}.id`)
     if (l.right !== 'R3' && l.right !== 'R4') refuse(path, 'right must be R3 or R4')
     if (l.right === 'R3' && l.subject.right !== 'R1') refuse(path, 'R3 needs a property subject')
     if (l.right === 'R3' && (l.exclusive !== true || !(R3_USES as readonly string[]).includes(l.scope.use))) refuse(path, 'an R3 licence is an exclusive term over an enumerated continuation use')
-    if (l.right === 'R4' && (!R4_CONSUMER_LIVE || !(R4_USES as readonly string[]).includes(l.scope.use))) refuse(path, 'no R4 grant is lawful before its P18 consumer is live')
+    if (l.right === 'R4' && !(law.r4ConsumerLive && (R4_USES as readonly string[]).includes(l.scope.use)) && !counterpartyGrant(l)) refuse(path, 'no R4 grant is lawful before its P18 consumer is live')
     if (!subjectExists(l.subject)) refuse(path, `unknown subject ${subjectKey(l.subject)}`)
-    if (!identities.has(l.grantorId) || !identities.has(l.granteeId) || l.grantorId === l.granteeId) refuse(path, 'grantor and grantee must be distinct studio identities')
+    if (!identities.has(l.grantorId) || !(identities.has(l.granteeId) || counterpartyGrant(l)) || l.grantorId === l.granteeId) refuse(path, 'grantor and grantee must be distinct studio identities')
     if (!(Number.isSafeInteger(l.startWeek) && Number.isSafeInteger(l.endWeekExclusive) && l.startWeek < l.endWeekExclusive)) refuse(path, 'term must be half-open [startWeek, endWeekExclusive)')
     if (!Number.isSafeInteger(l.grantedWeek) || l.grantedWeek > tick || l.grantedWeek > l.startWeek) refuse(path, 'grantedWeek must be a past week not after startWeek')
     if (typeof l.exclusive !== 'boolean') refuse(path, 'exclusive must be boolean')
@@ -1237,7 +1262,10 @@ export function validateRightsRoot(raw: Record<string, unknown>, label: string):
     const path = `transactions[${i}]`
     idNumber(t.id, `${path}.id`)
     if (!RIGHTS_TRANSACTION_KINDS.includes(t.kind)) refuse(path, `kind ${JSON.stringify(t.kind)} has no matching bilateral/estate transaction producer`)
-    if (!identities.has(t.payerId)) refuse(path, 'payer must be a studio identity')
+    // P18 (19A §3): the counterparty licence's own grant transaction, written by `grantCounterpartyLicence` with no offer.
+    const counterpartyLicence = t.kind === 'licenceGrant' && t.offerId === null ? rights.licences.find((x) => x.id === t.licenceId) : undefined
+    const counterpartyTx = counterpartyLicence !== undefined && counterpartyGrant(counterpartyLicence)
+    if (!identities.has(t.payerId) && !(counterpartyTx && t.payerId === counterpartyLicence!.granteeId)) refuse(path, 'payer must be a studio identity')
     if (t.payeeId !== null && !identities.has(t.payeeId)) refuse(path, 'payee must be a studio identity or null')
     if (!Number.isSafeInteger(t.amount) || t.amount < 0) refuse(path, 'amount must be a non-negative whole amount')
     if (!Number.isSafeInteger(t.week) || t.week > tick || t.week < from) refuse(path, 'week must be in [recordedFromWeek, market.tick]')
@@ -1245,7 +1273,13 @@ export function validateRightsRoot(raw: Record<string, unknown>, label: string):
     for (const id of t.titleEventIds) if (!eventsById.has(id)) refuse(path, `names an unknown title event ${id}`)
     const moved = t.titleEventIds.map((id) => eventsById.get(id)!)
     const inWeek = (e: TitleEvent): boolean => e.date.kind === 'campaign' && e.date.week === t.week
-    if (t.kind === 'titleSale' || t.kind === 'licenceGrant') {
+    if (counterpartyTx) {
+      const l = counterpartyLicence!
+      if (l.transactionId !== t.id || t.payerId !== l.granteeId || t.payeeId !== l.grantorId || l.grantedWeek !== t.week || t.amount !== (law.counterpartyConsideration ?? 0)
+        || t.subject === null || !sameSubject(t.subject, l.subject) || t.estateId !== null || t.lotId !== null || t.bidId !== null || moved.length !== 0) {
+        refuse(path, 'a counterparty licenceGrant must name the one licence it granted, paid by its grantee to the grantor at the disclosed consideration, moving no title')
+      }
+    } else if (t.kind === 'titleSale' || t.kind === 'licenceGrant') {
       const offer = t.offerId === null ? undefined : offersById.get(t.offerId)
       if (offer === undefined || offer.status !== 'accepted' || offer.transactionId !== t.id || offer.resolvedWeek !== t.week) refuse(path, `${t.kind} names no accepted offer that records it`)
       const buyer = offer!.direction === 'buy' ? offer!.offerorId : offer!.counterpartyId

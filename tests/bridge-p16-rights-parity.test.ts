@@ -622,7 +622,7 @@ describe('P16 absorption of a genuine current proposal', () => {
     owner.obligations.closeEvents[0]=null
    }
    const before=saves.stableStringify(hostile)
-   expect(()=>saves.validateSaveV50(hostile),defect).toThrow(/^absorption obligations:/)
+   expect(()=>saves.validateSaveV51(hostile),defect).toThrow(/^absorption obligations:/)
    expect(saves.stableStringify(hostile),defect+' caller purity').toBe(before)
   }
   // Nonempty real target proposal: keep the absent target-case limit explicit.

@@ -1142,6 +1142,41 @@ export const TUNING = {
     craft: { youngAdult: 0.5, family: 0.6, adult: 0.75, prestige: 0.9 },
     scientist: { youngAdult: 0.35, family: 0.5, adult: 0.75, prestige: 1 },
   } satisfies Record<CreativeRole, Record<SegmentId, number>>,
+
+  // ── P18 bounded first season `tv-limited-season/v1` (src/core/tvCommission.ts, tvSeason.ts;
+  // 1367-stage/p18-prep/P18-FIRST-SEASON-CONTRACT.md §4-§5, adopted under 1342-O ruling 10 with one independent
+  // review). PROVISIONAL TUNING: finite reproducible integers, not validated balance. A change is a versioned
+  // contract amendment, never a silent retune. ──
+  TV_SEASON_EPISODES: 6, // delivery metadata, never six production clocks
+  TV_SCRIPT_UNITS: 3, // scripts block: one contracted writer, one development-casting slot
+  TV_PREPARATION_UNITS: 1, // preparation: the five company members, one development-casting slot
+  TV_REHEARSAL_UNITS: 1, // rehearsal: the adoption's sound stage with its bound set
+  TV_SHOOTING_UNITS: 4, // shooting: stage + set + set-scenery on the exact sound chain
+  TV_POST_UNITS: 3, // post and delivery master: the adoption's Post; 3+1+1+4+3 = 12
+  TV_SEASON_FEE: 600_000, // F, the contracted maximum season fee = the three milestones
+  TV_SEASON_ADVANCE: 120_000, // A, paid once at acceptance, fully recoupable from earned fees
+  TV_MILESTONE_SCRIPTS: 120_000, // earned after all three script units
+  TV_MILESTONE_PICTURE_LOCK: 240_000, // earned after all four shooting units
+  TV_MILESTONE_DELIVERY: 240_000, // earned at accepted delivery less the late deduction (Sprint 13)
+  TV_UNIT_SPEND: 25_000, // incremental non-payroll spend per credited unit; 12 x 25,000 = 300,000
+  TV_DUE_WEEKS: 16, // contractual due delivery boundary C + 16
+  TV_FINAL_WEEKS: 20, // final permitted delivery boundary C + 20
+  TV_LATE_DEDUCTION_PER_WEEK: 12_000, // frozen into the terms; applied by the Sprint 13 delivery
+  TV_LATE_DEDUCTION_MAX: 48_000,
+  TV_CANCELLATION_CHARGE: 120_000, // K, frozen into the terms; assessed by the Sprint 13 cancellation
+  TV_DISTRIBUTION_WEEKS: 52, // the exclusive window after delivery; the commissioner's licence covers C + 72
+  TV_ADMISSION_CASH_FLOOR: 300_000, // the admission quote's floor, before the advance
+  TV_ADMISSION_QUOTE_WEEKS: 20, // the next twenty advances of mandatory fixed obligations
+  TV_ADMISSION_CANCELLATION_PROVISION: 120_000, // the cancellation provision in the admission quote
+  /**
+   * UNRESOLVED OWNER ASSUMPTION (decision 19A, Assumptions item 3): the commissioner's exclusive R4
+   * `televisionDistribution` licence is minted at acceptance through P16's licence producer with a zero-amount
+   * `licenceGrant` transaction, and the agreement carries the money. 19A names this "one for the Owner: the Owner may
+   * set another consideration". It is the provisional value this slice runs on, disclosed in the commission preview,
+   * not adopted authority. A non-zero ruling also needs a paying account for the commissioner, which the contract
+   * denies it ("no simulated balance sheet"), so `grantCounterpartyLicence` refuses any other value until then.
+   */
+  TV_COMMISSIONER_LICENCE_CONSIDERATION: 0,
 } as const
 
 // ── Placement Core V12 — the facility blueprint catalog ──────────────────────

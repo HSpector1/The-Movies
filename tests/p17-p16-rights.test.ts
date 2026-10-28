@@ -83,10 +83,10 @@ describe('P17-01 link versus mint: a continuation joins its parent property and 
       expect(homesOf(again.state, again.productionId)).toEqual([P])
     })
 
-    it('the live save carries the franchise root at Save50 and round-trips byte for byte', () => {
-      expect(LIVE_SAVE_VERSION).toBe(50)
+    it('the live save carries the franchise root (Save51, P18 live above P17\'s Save50) and round-trips byte for byte', () => {
+      expect(LIVE_SAVE_VERSION).toBe(51)
       const save = makeSave(c.state)
-      expect(save.saveVersion).toBe(50)
+      expect(save.saveVersion).toBe(51)
       const bytes = exportSave(save)
       expect(exportSave(migrateToLive(importSave(bytes)))).toBe(bytes)
       expect(lineage(importSave(bytes).state as GameState)).toEqual(lineage(c.state))

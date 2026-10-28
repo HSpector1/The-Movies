@@ -2,7 +2,7 @@
 import { describe, expect, it } from 'vitest'
 import { readFileSync } from 'node:fs'
 import { createHash } from 'node:crypto'
-import { convertV48ToV49, convertV49ToV48, convertV50ToV49, exportSave, makeSave, stableStringify, validateSaveP15B } from '../src/core/save.js'
+import { convertV48ToV49, convertV49ToV48, convertV50ToV49, convertV51ToV50, exportSave, makeSave, stableStringify, validateSaveP15B } from '../src/core/save.js'
 import { estateBidRefusal, submitEstateBid } from '../src/core/estate.js'
 import { currentHolder } from '../src/core/rights.js'
 import { permittedBidderRefusal } from '../src/core/rightsFinance.js'
@@ -75,7 +75,7 @@ describe('P16 observed original48 migration retains terminal authority without n
   expect(stableStringify(state)).toBe(before)
   const saved=makeSave(result.state),savedBefore=stableStringify(saved)
   // P17 (Save50): `saved` is live; the P16 step's downgrade is entered through the P17 step (no franchise: version only)
-  expect(()=>convertV49ToV48(convertV50ToV49(saved))).toThrow(/cannot discard changed estate observation or bid authority/)
+  expect(()=>convertV49ToV48(convertV50ToV49(convertV51ToV50(saved)))).toThrow(/cannot discard changed estate observation or bid authority/)
   expect(stableStringify(saved)).toBe(savedBefore)
  })
  it('frozen48 reader refuses the added current rights root without retagging a49 envelope',()=>{

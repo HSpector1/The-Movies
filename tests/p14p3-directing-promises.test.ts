@@ -426,7 +426,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
       // from the world's Save48 projection, which does not exist here: its shared-market history is table 3 and
       // nondefault, and `rightsStripped` refuses to relabel it, so the V45 guard pinned here before is unreachable from
       // this world. p15a2-power-ranking-archive keeps the V45 ranking guard on genuine input; the market guard has none.
-      expect(() => saves.convertV49ToV48(saves.convertV50ToV49(save))).toThrow(RIGHTS_ROOT_REFUSAL)
+      expect(() => saves.convertV49ToV48(saves.convertV50ToV49(saves.convertV51ToV50(save)))).toThrow(RIGHTS_ROOT_REFUSAL)
       expect(() => api.convertV39ToV38(save)).toThrow(NONDEFAULT_MARKET_PROJECTION)
     }
     const id = a.promiseId
@@ -481,7 +481,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
       // 1363-N: expected-only null cutting and zero refund in every historical period.
       const oldState = saves.stableStringify(withZeroLoanMovements(withEmptyRecovery(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.save.state))))), old.save.state.market.tick))))
       const current = saves.migrateToLive(old.save)
-      expect(saves.validateSaveV50(current)).toBe(current)
+      expect(saves.validateSaveV51(current)).toBe(current)
       // Existing semantic boundary: fails as37/38 rather than a missing import.
       expect(current.saveVersion).toBe(saves.LIVE_SAVE_VERSION)
       expect(saves.stableStringify(current.state)).toBe(oldState)
@@ -526,7 +526,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
     // from the world's Save48 projection, which does not exist here: its shared-market history is table 3 and
     // nondefault, and `rightsStripped` refuses to relabel it, so the V45 guard pinned here before is unreachable from
     // this world. p15a2-power-ranking-archive keeps the V45 ranking guard on genuine input; the market guard has none.
-    expect(() => saves.convertV49ToV48(saves.convertV50ToV49(saves.makeSave(abandoned)))).toThrow(RIGHTS_ROOT_REFUSAL)
+    expect(() => saves.convertV49ToV48(saves.convertV50ToV49(saves.convertV51ToV50(saves.makeSave(abandoned))))).toThrow(RIGHTS_ROOT_REFUSAL)
     expect(() => futureSave().convertV39ToV38(saves.makeSave(abandoned))).toThrow(NONDEFAULT_MARKET_PROJECTION)
   }, LEAF_TIMEOUT_MS)
 })
@@ -788,7 +788,7 @@ describe('P3 second slice: cancellation and same-domain waiver', () => {
       // from the world's Save48 projection, which does not exist here: its shared-market history is table 3 and
       // nondefault, and `rightsStripped` refuses to relabel it, so the V45 guard pinned here before is unreachable from
       // this world. p15a2-power-ranking-archive keeps the V45 ranking guard on genuine input; the market guard has none.
-      expect(() => saves.convertV49ToV48(saves.convertV50ToV49(save))).toThrow(RIGHTS_ROOT_REFUSAL)
+      expect(() => saves.convertV49ToV48(saves.convertV50ToV49(saves.convertV51ToV50(save)))).toThrow(RIGHTS_ROOT_REFUSAL)
       expect(() => futureSave().convertV39ToV38(save)).toThrow(NONDEFAULT_MARKET_PROJECTION)
       // 1361-N S9 (MASKED), F7 ruling 2: the recorded Power Ranking quarter makes
       // convertV45ToV44 refuse first (src/core/save.ts:10989-10995; reason :10895).

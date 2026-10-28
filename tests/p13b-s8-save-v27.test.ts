@@ -1,5 +1,5 @@
 import { NONDEFAULT_MARKET_PROJECTION, rightsStripped } from './helpers/p16-era.js'
-import { convertV49ToV48, convertV50ToV49 } from '../src/core/save.js'
+import { convertV49ToV48, convertV50ToV49, convertV51ToV50 } from '../src/core/save.js'
 // ── P13B-S8 test 7: Save V27 — genuine V26 fixtures, honest lift, conditional
 // downgrade refusal, validator refusals for forged rival authority, sentinel
 // 28 ─────────────────────────────────────────────────────────────────────
@@ -201,7 +201,7 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
     // P15B (1370-ar, MASKED): the live chain now crosses the P15B step's converter FIRST, and every ticked industry
     // state carries evaluated condition records, so the P15B guard (naming the predecessor version) is the one that
     // actually refuses; the guard pinned before stays covered on its own-era input elsewhere.
-    expect(() => convertV49ToV48(convertV50ToV49(envelope as never))).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
+    expect(() => convertV49ToV48(convertV50ToV49(convertV51ToV50(envelope as never)))).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
     // MOVED (P16 rebase): the P15B guard needs this world's Save48 projection, which does not exist: its shared-market
     // history is table 3 and nondefault, and `rightsStripped` refuses to relabel it. The live step's refusal above is
     // the first guard; the V27 guards keep the own-era coverage named above.
@@ -222,7 +222,7 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
     // P15B (1370-ar, MASKED): the live chain now crosses the P15B step's converter FIRST, and every ticked industry
     // state carries evaluated condition records, so the P15B guard (naming the predecessor version) is the one that
     // actually refuses; the guard pinned before stays covered on its own-era input elsewhere.
-    expect(() => convertV49ToV48(convertV50ToV49(envelope as never))).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
+    expect(() => convertV49ToV48(convertV50ToV49(convertV51ToV50(envelope as never)))).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
     // MOVED (P16 rebase): the P15B guard needs this world's Save48 projection, which does not exist: its shared-market
     // history is table 3 and nondefault, and `rightsStripped` refuses to relabel it. The live step's refusal above is
     // the first guard; the V27 guards keep the own-era coverage named above.

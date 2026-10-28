@@ -8,7 +8,7 @@
 // closes prospectively at the first closure phase of a surface that presents it (contract §2, review T16).
 import { describe, expect, it } from 'vitest'
 import { genuineV42Week130 } from './p14d1-rival-shelving-fixtures.js'
-import { convertV49ToV48, convertV50ToV49, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV45 } from '../src/core/save.js'
+import { convertV49ToV48, convertV50ToV49, convertV51ToV50, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV45 } from '../src/core/save.js'
 import { validateLiveSave } from './helpers/live-era.js'
 import { ESTATE_OBSERVATION_REFUSAL } from './helpers/p16-era.js'
 import { TUNING } from '../src/core/tuning.js'
@@ -61,7 +61,7 @@ describe('p15b4 closure save step: migration and downgrade (closure/v1 §5)', ()
     // when the state has `rights`), a rights instrument no Save48 envelope carries. The reason strings themselves are
     // pinned in p15b2-corporate-condition-save (strings, not the step).
     expect((raw(closedAt(C)).rights as { estates: { origin: { kind: string } }[] }).estates.map((e) => e.origin.kind), 'premise: the closure opened its estate').toContain('closure49')
-    expect(() => convertV49ToV48(convertV50ToV49(closed))).toThrow(ESTATE_OBSERVATION_REFUSAL)
+    expect(() => convertV49ToV48(convertV50ToV49(convertV51ToV50(closed)))).toThrow(ESTATE_OBSERVATION_REFUSAL)
     expect(() => migrateToV45(closed)).toThrow(ESTATE_OBSERVATION_REFUSAL)
     expect(() => (mod.migrateToV44 as (save: unknown) => unknown)(closed)).toThrow(ESTATE_OBSERVATION_REFUSAL)
   })

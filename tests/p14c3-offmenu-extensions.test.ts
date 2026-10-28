@@ -7,7 +7,7 @@ import { activeContract, canAfford, contractOffer, hiringMarketIds } from '../sr
 import { professionAtWeek } from '../src/core/index.js'
 import { trustDescriptor, trustDrivers } from '../src/core/promises.js'
 import { tiersOnRoster } from '../src/core/relationships.js'
-import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, convertV47ToV46, convertV49ToV48, convertV50ToV49, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
+import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, convertV47ToV46, convertV49ToV48, convertV50ToV49, convertV51ToV50, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
 import { caseForTalent, marketEligibility, openMarketCaseFor, playerOffer, proposalDraft, releaseFloor, studioOffer, submitProposal } from '../src/core/talentMarket.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
@@ -238,7 +238,7 @@ describe.each(OFFMENU_TARGETS)('C.3 actor→%s genuine off-menu58-week extension
     // 'cannot downgrade or discard recovery authority: ...' (R8). The world's market history holds nondefault Save49
     // table-3 assessments, which `rightsStripped` refuses to relabel, so it has no Save45 envelope. The same R8 guard
     // keeps a witness on a projected world in p14c3-transitions (the Scientist 670 to 671 case).
-    expect(() => convertV49ToV48(convertV50ToV49(saved))).toThrow(LIVE_DOWNGRADE_REFUSAL)
+    expect(() => convertV49ToV48(convertV50ToV49(convertV51ToV50(saved)))).toThrow(LIVE_DOWNGRADE_REFUSAL)
     expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(convertV47ToV46(predecessorSave(saved.state)))))))))))).toThrow(NONDEFAULT_MARKET_PROJECTION)
     accepted(loaded)
     observed[target] = { ...observed[target], term: contract.termWeeks, decision: contract.startWeek, end: contract.endWeekExclusive }

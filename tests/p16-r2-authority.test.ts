@@ -29,7 +29,7 @@ type Subject = { right: 'R1'; propertyId: string } | { right: 'R2'; filmId: stri
 const SEQUEL = { use: 'sequel' as const }
 const REMAKE = { use: 'remake' as const }
 const SPINOFF = { use: 'spinoff' as const }
-const TV = { use: 'television' as const }
+const TV = { use: 'televisionProduction' as const } // Decision 19A §3 (P18): the split production use
 
 function world() {
   const state = liveFromGenuine('week53')

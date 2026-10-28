@@ -1217,6 +1217,15 @@ export function facilityEngagements(
               : 'building a set',
         })
         break
+      // P18: a live television season's work-block hold is one named engagement per slot.
+      case 'tvSeason':
+        holders.push({
+          kind: 'tvSeason',
+          facilityId,
+          holderId: held.ownerId,
+          activity: held.kind === 'set' ? 'shooting a television season' : `television ${held.block}`,
+        })
+        break
     }
   }
 

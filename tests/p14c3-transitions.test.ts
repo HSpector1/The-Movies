@@ -8,7 +8,7 @@ import { describe, expect, it } from 'vitest'
 import * as core from '../src/core/index.js'
 import { ageAt, nextBirthdayWeek } from '../src/core/aging.js'
 import { retirementRecordFor } from '../src/core/careerLifecycle.js'
-import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, convertV47ToV46, convertV49ToV48, convertV50ToV49, exportSave, importSave, migrateToLive, stableStringify, validateSaveV38 } from '../src/core/save.js'
+import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, convertV47ToV46, convertV49ToV48, convertV50ToV49, convertV51ToV50, exportSave, importSave, migrateToLive, stableStringify, validateSaveV38 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { CreativeRole, GameState } from '../src/core/types.js'
@@ -186,7 +186,7 @@ describe('C.3 A05/A06 public profession history, current evidence and repeat saf
     // shifts every ordinal after p16.estateSale), so this world has no Save45 envelope. The same V45 ranking guard
     // keeps its genuine Save45 witness in p15a2-power-ranking-archive.
     const currentSave = envelope38(reopened), currentSaveBytes = stableStringify(currentSave)
-    expect(() => convertV49ToV48(convertV50ToV49(currentSave as never))).toThrow(LIVE_DOWNGRADE_REFUSAL)
+    expect(() => convertV49ToV48(convertV50ToV49(convertV51ToV50(currentSave as never)))).toThrow(LIVE_DOWNGRADE_REFUSAL)
     expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(convertV47ToV46(predecessorSave(reopened)))))))))))).toThrow(PHASE_HISTORY_PROJECTION)
     expect(stableStringify(currentSave), 'the refused downgrades do not mutate the current input').toBe(currentSaveBytes)
   })

@@ -1,4 +1,4 @@
-import { convertV49ToV48, convertV50ToV49 } from '../src/core/save.js'
+import { convertV49ToV48, convertV50ToV49, convertV51ToV50 } from '../src/core/save.js'
 import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
@@ -120,11 +120,11 @@ describe('P13B-S3 Save V23 (test 7)', () => {
     // predicate or recorded first-take subject$/. Measured: evidence/r3/sweep-b4.json.
     const live = makeSave(p13aLaboratorySlice())
     // P15B (1370-ar, MASKED): the live chain now crosses the P15B step's converter FIRST, and every ticked industry
-    expect(() => convertV49ToV48(convertV50ToV49(live as never))).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
+    expect(() => convertV49ToV48(convertV50ToV49(convertV51ToV50(live as never)))).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
     expect(() => migrateToV22(rightsStripped(live as never))).toThrow(new RegExp(`^migrateToV47: cannot downgrade or discard a corporateCondition record`))
-    expect(() => convertV49ToV48(convertV50ToV49(live as never))).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
+    expect(() => convertV49ToV48(convertV50ToV49(convertV51ToV50(live as never)))).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
     expect(() => migrateToV21(rightsStripped(live as never))).toThrow(new RegExp(`^migrateToV47: cannot downgrade or discard a corporateCondition record`))
-    expect(() => convertV49ToV48(convertV50ToV49(live as never))).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
+    expect(() => convertV49ToV48(convertV50ToV49(convertV51ToV50(live as never)))).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
     expect(() => migrateToV20(rightsStripped(live as never))).toThrow(new RegExp(`^migrateToV47: cannot downgrade or discard a corporateCondition record`))
   })
 

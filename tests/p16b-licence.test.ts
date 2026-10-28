@@ -38,12 +38,13 @@ describe('P16B licence producer: the four-right instrument boundaries', () => {
   it('R1/R2 move only by whole-title sale; R3 is an exclusive term licence on a property with an enumerated continuation use; R4 has no executable grant before P18', () => {
     const { state, r01, r2, grant, week } = world()
     expect(licence.R3_USES).toEqual(['sequel', 'remake', 'spinoff'])
-    expect(licence.R4_USES).toEqual(['television', 'merchandise'])
+    // Decision 19A §3 (P18): the television use is split into production and distribution.
+    expect(licence.R4_USES).toEqual(['televisionProduction', 'televisionDistribution', 'merchandise'])
     expect(licence.licenceGrantRefusal(state, grant(), week)).toBeNull()
     expect(licence.licenceGrantRefusal(state, grant({ subject: r2(r01) }), week)).toBe('r3RequiresProperty')
     expect(licence.licenceGrantRefusal(state, grant({ exclusive: false }), week)).toBe('r3RequiresExclusive')
     for (const use of licence.R4_USES) expect(licence.licenceGrantRefusal(state, grant({ scope: { use } }), week)).toBe('invalidScope')
-    expect(licence.licenceGrantRefusal(state, grant({ right: 'R4', scope: { use: 'television' } }), week)).toBe('r4ConsumerNotLive')
+    expect(licence.licenceGrantRefusal(state, grant({ right: 'R4', scope: { use: 'televisionProduction' } }), week)).toBe('r4ConsumerNotLive')
     expect(licence.licenceGrantRefusal(state, grant({ right: 'R4', subject: r2(r01), scope: { use: 'merchandise' }, exclusive: false }), week)).toBe('r4ConsumerNotLive')
     // Terms: whole weeks, half-open, starting no earlier than the grant week, strictly positive length.
     expect(licence.licenceGrantRefusal(state, grant({ startWeek: week - 1 }), week)).toBe('invalidTerm')
@@ -96,8 +97,8 @@ describe('P16B licence producer: the four-right instrument boundaries', () => {
     expect(licence.licencesHeldBy(later, r02, week + 52)).toEqual([])
     expect(licence.licencesHeldBy(granted, r01, week)).toEqual([])
     // R4 questions resolve from the relevant R1/R2 holder and carry no grant yet; unknown subjects and future weeks refuse by name.
-    expect(licence.permissionFor(granted, r01, r2(r01), 'R4', { use: 'television' }, week)).toEqual({ kind: 'permitted', via: 'title', licenceId: null })
-    expect(licence.permissionFor(granted, r02, r2(r01), 'R4', { use: 'television' }, week)).toEqual({ kind: 'refused', reason: `noAuthority:${r01}` })
+    expect(licence.permissionFor(granted, r01, r2(r01), 'R4', { use: 'televisionProduction' }, week)).toEqual({ kind: 'permitted', via: 'title', licenceId: null })
+    expect(licence.permissionFor(granted, r02, r2(r01), 'R4', { use: 'televisionProduction' }, week)).toEqual({ kind: 'refused', reason: `noAuthority:${r01}` })
     expect(licence.permissionFor(granted, r01, { right: 'R1', propertyId: 'story-property:no-such' }, 'R3', SEQUEL, week)).toEqual({ kind: 'refused', reason: 'unknownSubject' })
     expect(licence.permissionFor(granted, r02, property(r01), 'R3', SEQUEL, week + 1)).toEqual({ kind: 'refused', reason: 'futureWeek' })
   })
@@ -117,7 +118,7 @@ describe('P16B licence producer: the four-right instrument boundaries', () => {
     const direct = licence.mintLicence({ ...state, rights: { ...state.rights, nextId: Number(l.id.slice('rights-licence-'.length)) } }, grant(), week, tx.id).licence
     expect(l).toEqual(direct)
     expect(sale.offerRefusal(state, { offerorId: r02, counterpartyId: r01, direction: 'buy', instrument: { ...instrument, exclusive: false }, price }, week, STABLE)).toBe('r3RequiresExclusive')
-    expect(sale.offerRefusal(state, { offerorId: r02, counterpartyId: r01, direction: 'buy', instrument: { ...instrument, right: 'R4', scope: { use: 'television' } }, price }, week, STABLE)).toBe('r4ConsumerNotLive')
+    expect(sale.offerRefusal(state, { offerorId: r02, counterpartyId: r01, direction: 'buy', instrument: { ...instrument, right: 'R4', scope: { use: 'televisionProduction' } }, price }, week, STABLE)).toBe('r4ConsumerNotLive')
     expect(() => makeSave(closed)).not.toThrow()
   })
 })

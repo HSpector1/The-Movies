@@ -102,8 +102,8 @@ afterAll(() => {
 })
 function admitted(state: GameState): void {
   const before = stable(state), save = saves.makeSave(state)
-  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV50(save)).toBe(save)
-  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV50(imported)
+  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV51(save)).toBe(save)
+  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV51(imported)
   expect(current).toBe(imported); expect(saves.exportSave(current)).toBe(raw); expect(stable(state)).toBe(before)
 }
 function input45(): GameState {

@@ -22,6 +22,10 @@ export const FINANCE_CATEGORIES: Record<LedgerKind, string> = {
   dueDiligenceFee: 'Rights due diligence fees',
   acquisitionOutlay: 'Acquisition consideration net of target cash',
   absorbedRunRevenue: 'Scheduled film revenue acquired with a studio',
+  // P18 (contract §5): the recoupable advance is not earned revenue; milestone receipts carry earned fees.
+  tvAdvance: 'Television commission advance (recoupable, unearned)',
+  tvMilestonePayment: 'Television commission milestone payments',
+  tvProductionSpend: 'Television season production spend',
 }
 // A reporting category, not a new ledger kind or cash authority.
 export type FinanceCategoryKind = LedgerKind | 'estatePurchase'
@@ -246,7 +250,10 @@ export function financeHistory(state: GameState): FinanceHistory {
     const period = points.length === 0 ? null : finishPeriod(state, fromWeek, lastWeek, `last${windowWeeks}Weeks`, label,
       windowOpening, cash, windowNet, categories, capital)
     const costSeries = (Object.keys(CATEGORY_LABELS) as FinanceCategoryKind[])
-      .filter(kind => kind !== 'studioRevenue' && kind !== 'boxOffice' && kind !== 'absorbedRunRevenue')
+      // P18: commissioning receipts are not costs; the unit-spend series exists once a season has been commissioned,
+      // so a world that never commissioned one reports exactly the series it reported before.
+      .filter(kind => kind !== 'studioRevenue' && kind !== 'boxOffice' && kind !== 'absorbedRunRevenue' && kind !== 'tvAdvance' && kind !== 'tvMilestonePayment'
+        && (kind !== 'tvProductionSpend' || state.television !== undefined))
       .map((kind): FinanceCostSeries => ({ kind, label: CATEGORY_LABELS[kind],
         periodAmount: period?.categories.find(c => c.kind === kind)?.amount ?? (period?.complete ? 0 : null),
         points: points.map(point => ({ week: point.fromWeek,

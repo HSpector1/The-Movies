@@ -186,7 +186,7 @@ describe('P16 actual buyer public cancellation of acquired paid R02 work',()=>{
   const p=prepared(),c=cancellation(p),text=JSON.stringify(saves.makeSave(c.cancelled))
   const reject=(change:(state:GameState)=>void)=>{
    const saved=JSON.parse(text);change(saved.state);const before=JSON.stringify(saved)
-   try {expect(()=>saves.validateSaveV50(saved)).toThrow(/continued|work|workflow|relationship|cancellation|absorption|capacity|production/i)}
+   try {expect(()=>saves.validateSaveV51(saved)).toThrow(/continued|work|workflow|relationship|cancellation|absorption|capacity|production/i)}
    finally {expect(JSON.stringify(saved)).toBe(before)}
   }
   reject(state=>{state.rights.absorptions.find(a=>a.id===c.record.id)!.workCancellations=[]})

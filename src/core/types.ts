@@ -426,6 +426,9 @@ export type LedgerKind =
   | 'claimPayment'
   | P16LedgerKind
   | 'absorbedRunRevenue'
+  // P18 (Save51; contract §5): the advance and milestone receipts (+) and the per-unit production spend (−).
+  // Admitted only under the "tv-p18" ledger policy and reconciled one-to-one with their television receipts.
+  | import('./tvTypes.js').TvLedgerKind
 
 // Frozen V11 rows discriminate the one capital event and its exact correlation.
 // Construction capex cannot masquerade as film/talent spend, while historical
@@ -543,6 +546,17 @@ export type LedgerEntry =
   | {
       week: number
       kind: P16LedgerKind | 'absorbedRunRevenue'
+      amount: number
+      talentId?: never
+      productionId?: never
+      constructionProjectId?: never
+      note: string
+    }
+  // P18 (Save51): a television money row carries no talent/production/construction correlation; its `note` is the id
+  // of the one television receipt that records the same movement, which the Save51 validator reconciles.
+  | {
+      week: number
+      kind: import('./tvTypes.js').TvLedgerKind
       amount: number
       talentId?: never
       productionId?: never
@@ -1292,6 +1306,8 @@ export type FacilityEngagementKind =
    *     a stage with a set on it cannot be demolished until the set is struck.
    */
   | 'set'
+  /** P18 (contract §4): a live television season's work-block slot, or the set it stands on with its stage. */
+  | 'tvSeason'
 
 /**
  * One live claim on a facility, named precisely enough for a refusal to be
@@ -2374,7 +2390,8 @@ export type GameStateV31 = GameStateV30 & {
 // P15A.1 Wave 2 adds the shared-market root, and P15C Wave 2 adds the Campaign Legacy root.
 // V46 is the P16 rights step: the `rights` root (rights.ts) and the three rights money kinds.
 // P17 (save.ts P17_SAVE_VERSION) adds the `franchises` root, present once a continuation exists.
-export type GameState = GameStateP17
+// P18 (save.ts P18_SAVE_VERSION) adds the `television` root, present once a season has been commissioned.
+export type GameState = GameStateP18
 
 // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
 
@@ -2926,6 +2943,11 @@ export type P17StepRoots = { franchises?: FranchiseRoot; cameos?: CameoRoot }
 export type GameStateP17 = GameStateV49 & P17StepRoots
 /** The conventional name (save.ts's alias rule). */
 export type GameStateV50 = GameStateP17
+// P18 (Save51; tvSave.ts): the `television` root is absent until the first commission and never empties (no row is
+// deleted), so absence is the one encoding of "no season" and a Save50 world migrates by version alone.
+export type P18StepRoots = { television?: import('./tvTypes.js').TelevisionRoot }
+export type GameStateP18 = GameStateP17 & P18StepRoots
+export type GameStateV51 = GameStateP18
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.
@@ -3111,6 +3133,8 @@ export type Action =
   // Real held paid disclosure and original dated preview are revalidated by the transaction owner.
   | { kind: 'absorbStudio'; absorption: Omit<import('./acquisition.js').AbsorptionInput, 'buyerId'> & { quotedAtWeek: number; quoteAgePolicyVersion: import('./quoteAge.js').QuoteAgePolicyVersion } }
   | { kind: 'submitEstateBid'; estateId: string; lotId: string; amount: number }
+  // P18 (contract §3): the one public television verb of this slice. Cancellation and settlement are Sprint 13.
+  | { kind: 'commissionTvSeason'; commission: import('./tvTypes.js').CommissionTvSeasonRequest }
 
 // §10 Authored talent — extended per D-9.14 (creation budget). `actual` persona
 // stays fully player-chosen; potential/workEthic/skillBias/secondary share a

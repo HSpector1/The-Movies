@@ -89,6 +89,8 @@ import {
 } from './placement.js'
 import { type DevelopmentContext } from './development.js'
 import { economyEngaged, weeklyPayroll } from './employment.js'
+// ── P18 bounded first season ──
+import { advanceTelevisionWeek, applyTvSweep, tvSweepRequest, type TvSweepOutcome } from './tvSeason.js'
 import { openTheatricalRun } from './economy.js'
 import { clamp } from './math.js'
 import { assertNoDoubleBookedResourceSlots, setOccupiedFacilitySlots } from './occupancy.js'
@@ -370,6 +372,9 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // its commitment, seats and stage stay. The tick never throws on rights; the returning grant resumes the picture and
   // disposition stays with the cancellation owner (`cancel`). No continuation, no read: the predecessor path.
   const rightsHolds = p17RightsHolds(workInput, state.studio.activeProductions.map((p) => p.id))
+  // P18 (contract §4): the live television season requests THIS week's capacity inside the one sweep below, at its own
+  // place in the admitted-work order, retaining what it already holds. No season, no participant: the predecessor path.
+  const tvRequest = tvSweepRequest(workInput, currentTick)
   const operatedProductions = buyerOperatedProductions(workInput)
   const managedAdvance = advanceManagedProductions(
     buyerOperationsForAllWork(workInput),
@@ -390,6 +395,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
         stateAfterLoadIn.operations,
         scriptDevelopment,
         castingSessions,
+        // P18: the season's start-of-week slots, so no set crew is derived onto one.
+        state.television,
       ),
     ]),
     events,
@@ -407,7 +414,12 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     // P13B-S5-R07: the setup route is derived from the technology root as this
     // advance found it — one authority, read once, at the admission visit.
     createProductionSetupRouteResolver(stateAfterLoadIn),
+    tvRequest === null ? [] : [tvRequest.participant],
   )
+  // P18: what the sweep granted the season, or why it waits, written onto the root this advance finalizes.
+  const televisionAfterSweep = tvRequest === null || state.television === undefined
+    ? state.television
+    : applyTvSweep(state.television, tvRequest, managedAdvance.participantResults.get(tvRequest.seasonId) as TvSweepOutcome | undefined, currentTick)
   // P17: a held picture rejoins the slate in its own place, untouched (no work this week, no release).
   const productionAdvance = rightsHolds.size === 0 ? managedAdvance : (() => {
     const moved = new Map(managedAdvance.productions.map((p) => [p.id, p]))
@@ -437,6 +449,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       ...operatedAdvance,
       operations: operatedAdvance.operations,
       sets: productionAdvance.sets,
+      // P18: the post-sweep television root, so admission sees the season's slots as they now stand.
+      ...(televisionAfterSweep === undefined ? {} : { television: televisionAfterSweep }),
       scriptDevelopment,
       castingSessions,
       studio: operatedAdvance.studio,
@@ -1135,6 +1149,16 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     }
   }
 
+  // ── 7.8 TELEVISION WORK (P18, contract §4-§5) ──────────────────────────────
+  // INSERTION, NOT A REORDERING, after every mandatory charge of the week (payroll, overhead, facility opex and the
+  // loan installment, review P18-05), so "available cash" is literal. The season's capacity was granted inside step 1's
+  // one sweep; this pays one unit on it, completes its block and earns its milestone. Byte-identical with no season.
+  const televisionAdvance = advanceTelevisionWeek(admitted, { cash, sets }, currentTick)
+  cash = televisionAdvance.cash
+  ledger.push(...televisionAdvance.ledger)
+  sets = televisionAdvance.sets
+  const television = televisionAdvance.television
+
   // ── 8. CONTRACT EXPIRATION (D-11.8) ────────────────────────────────────────
   // Contracts whose term ends at or before the NEW week expire; their talent
   // become free agents (deterministic order: existing free agents, then expiring
@@ -1171,6 +1195,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     castingSessions,
     construction,
     sets,
+    // P18: the season's slots after this advance's sweep and work step.
+    television,
   })
 
   // P13 dated facts are captured on the reached boundary before either history
@@ -1213,6 +1239,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     ...(franchises === undefined ? {} : { franchises }),
     // P17 Shape A: the bookings after this week's work and releases (absent while no booking exists).
     ...(cameos === undefined ? {} : { cameos }),
+    // P18: the season after this week's sweep and paid work (absent while no season was ever commissioned).
+    ...(television === undefined ? {} : { television }),
     technology: industry.technology,
     rights: industry.rights,
     // P13B-S8: a rival's own admitted plans live on the shared plan root; the

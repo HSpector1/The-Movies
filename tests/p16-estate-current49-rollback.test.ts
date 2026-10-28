@@ -21,8 +21,8 @@ it('actual49 closure publication refusal rolls back the fully admitted pre-C cal
  expect(positive.rights.estates.filter(e=>e.closureId===closure.closureId)).toHaveLength(1)
  saves.makeSave(positive)
  expect(saves.stableStringify(input)).toBe(before);expect(saves.stableStringify(raw)).toBe(original)
- const realReader=saves.validateSaveP17,marker='P16_REAL_CURRENT49_PUBLICATION_REFUSAL' // P17: the live publication reader
- const spy=vi.spyOn(saves,'validateSaveP17').mockImplementation(envelope=>{
+ const realReader=saves.validateSaveP18,marker='P16_REAL_CURRENT49_PUBLICATION_REFUSAL' // P18: the live publication reader
+ const spy=vi.spyOn(saves,'validateSaveP18').mockImplementation(envelope=>{
   // REAL admission precedes fault; no permissive replacement can publish a candidate.
   const admitted=realReader(envelope)
   expect(admitted.state.market.tick).toBe(163)

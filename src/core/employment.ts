@@ -22,6 +22,7 @@ import { activeScriptWriterAssignments } from './scriptDevelopment.js'
 import { SCIENTIST_ANNUAL_SALARY, TUNING } from './tuning.js'
 import { freelancerFeeMultiplier } from './facilityEffects.js'
 import { contractEndRefusal, lifecycleStatus, withdrawnPersonIds } from './careerLifecycle.js'
+import { tvEngagedTalentIds } from './tvReaders.js'
 import type {
   GameStateV3,
   Contract,
@@ -189,6 +190,9 @@ export function busyTalentIds(state: GameState): Set<string> {
       if (seat.releasedWeek === null && activeContract(state, seat.talentId) !== undefined) busy.add(seat.talentId)
     }
   }
+  // P18 (contract §4): a live season's five company members, and its writer until the scripts complete. One union,
+  // so greenlights, commissions, casting, research seats, markets and cameo quotes all see the season (review P17-06).
+  for (const id of tvEngagedTalentIds(state.television)) busy.add(id)
   return busy
 }
 

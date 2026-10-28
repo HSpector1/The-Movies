@@ -66,7 +66,7 @@ import { carriedProductionAuthority, type CarriedProductionAuthority } from './c
 // Lenses follow 1353-A §5.4 with the count keys of 1353-F2 §2; a notRecorded lens
 // carries no count and no ref. A ranking ref cites the archive record's own recordId.
 
-import { validateSaveP15B, validateSaveP17, P15B_SAVE_VERSION, P17_SAVE_VERSION } from './save.js'
+import { validateSaveP15B, validateSaveP18, P15B_SAVE_VERSION, P18_SAVE_VERSION } from './save.js'
 import { campaignDate } from './calendar.js'
 import { P15_PHASE_TABLES, p15PhaseTriple } from './p15Phases.js'
 import type { FinancialStrengthBand } from './powerRanking.js'
@@ -1235,8 +1235,8 @@ export function freezeCampaignLegacyWeek(state: GameState): GameState {
     ...p15PhaseTriple(FINALE_PHASE, Object.hasOwn(state, 'rights') ? 3 : 2),
   }
   const result = { ...state, campaignLegacy: { ...root, official }, p15Sequence: { ...state.p15Sequence, next: sequence + 1 } }
-  // the rights era's live reader (P17 Save50 over P16's Save49)
-  if (Object.hasOwn(result, 'rights')) validateSaveP17({ saveVersion: P17_SAVE_VERSION, seed: result.seed, state: result, broadcastCache: result.broadcastItems })
+  // the rights era's live reader (P18 Save51 over P17's Save50 over P16's Save49)
+  if (Object.hasOwn(result, 'rights')) validateSaveP18({ saveVersion: P18_SAVE_VERSION, seed: result.seed, state: result, broadcastCache: result.broadcastItems })
   else validateSaveP15B({ saveVersion: P15B_SAVE_VERSION, seed: result.seed, state: result, broadcastCache: result.broadcastItems })
   return result
 }

@@ -76,7 +76,7 @@ export type FutureSaveAPI = {
   convertV39ToV38: (input: unknown) => SaveFileV38
 }
 type FutureSaveChainSteps = FutureSaveAPI & {
-  validateSaveV50: (input: unknown) => unknown // 1370-ar r2: the live validator, one step above founding's
+  validateSaveV51: (input: unknown) => unknown // 1370-ar r2: the live validator, one step above founding's
   convertV40ToV39: (input: unknown) => unknown
   convertV41ToV40: (input: unknown) => unknown
   convertV42ToV41: (input: unknown) => unknown
@@ -90,7 +90,7 @@ export function futureSave(): FutureSaveAPI {
   const candidate = core as unknown as Partial<FutureSaveChainSteps>
   assert.equal(typeof candidate.validateSaveV39, 'function', 'public index exposes the new strict reader')
   assert.equal(typeof candidate.convertV39ToV38, 'function', 'public index exposes the guarded reverse conversion')
-  assert.equal(typeof candidate.validateSaveV50, 'function', 'public index exposes the live validator')
+  assert.equal(typeof candidate.validateSaveV51, 'function', 'public index exposes the live validator')
   assert.equal(typeof candidate.convertV40ToV39, 'function', 'public index exposes the V40->V39 downgrade step')
   assert.equal(typeof candidate.convertV41ToV40, 'function', 'public index exposes the V41->V40 downgrade step')
   assert.equal(typeof candidate.convertV42ToV41, 'function', 'public index exposes the V42->V41 downgrade step')

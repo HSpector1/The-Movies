@@ -1135,7 +1135,7 @@ function loadOutcome(bytes: string, sessionId: string): { loaded: ReturnType<typ
 }
 // The bytes the P16 build writes for a franchise-free state: the real P17 downgrade step is version-only until a franchise exists.
 const p16BuildSaveJson = (state: Parameters<typeof shipped47Save.makeSave>[0]): string =>
-  exportSave(shipped47Save.convertV50ToV49(shipped47Save.makeSave(state)))
+  exportSave(shipped47Save.convertV50ToV49(shipped47Save.convertV51ToV50(shipped47Save.makeSave(state))))
 const liftedSaveJson = (slot: string): string => exportSaveJson(shipped47Save.migrateToLive(shipped47Save.importSave(slot)).state)
 
 describe('Sprint 11 S1 — P16-build current64 checkpoints with Save49 slots take the governed prior path', () => {
@@ -1221,7 +1221,7 @@ describe('Sprint 11 S1 — P16-build current64 checkpoints with Save49 slots tak
   it('refuses a mid-founding P16-build (Save49) or P17-build (Save50) current64 checkpoint on the prior path; the running schema still loads it', () => {
     const founding = BridgeSession.createRuntime().exportRuntimeCheckpoint()
     expect((JSON.parse(founding.currentSaveJson) as { state: { founding: unknown } }).state.founding).not.toBeNull()
-    const p16SaveJson = exportSave(shipped47Save.convertV50ToV49(shipped47Save.migrateToLive(shipped47Save.importSave(founding.currentSaveJson))))
+    const p16SaveJson = exportSave(shipped47Save.convertV50ToV49(shipped47Save.convertV51ToV50(shipped47Save.migrateToLive(shipped47Save.importSave(founding.currentSaveJson)))))
     expect(JSON.parse(p16SaveJson)).toMatchObject({ saveVersion: 49 })
     for (const [build, currentSaveJson] of [['p16', p16SaveJson], ['p17', founding.currentSaveJson]] as const) {
       const bytes = priorProtocol4Bytes({ schemaId: P16_BUILD_OUTGOING_64, sessionId: `${build}-mid-founding-64`, stateRevision: 0,

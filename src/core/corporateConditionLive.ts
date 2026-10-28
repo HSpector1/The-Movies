@@ -16,6 +16,7 @@ import { absorbedWeekOf } from './operatingState.js'
 import { CORPORATE_CONDITION_VERSION, remedies, stepCondition,
   type Condition, type ConditionFacts, type RemedyCapability, type RemedyFamily } from './corporateCondition.js'
 import { seatingProduction } from './employment.js'
+import { tvSeasonEngaging } from './tvReaders.js'
 import { moveRivalMoney } from './hollywood.js'
 import { P15_PHASE_TABLES, p15PhaseTriple } from './p15Phases.js'
 import { studioWeeklyFixedCost } from './powerRankingArchive.js'
@@ -240,6 +241,9 @@ export function releaseRefusal(state: GameState, studioId: string, talentId: str
     if (seated !== undefined) return `talent "${talentId}" is seated on active production "${seated.id}" until it is released (R2)`
     const writing = activeScriptWriterAssignments(state.scriptDevelopment, state.concepts).find((a) => a.talentId === talentId)
     if (writing !== undefined) return `talent "${talentId}" is ${writing.label} and must finish that screenplay task first`
+    // P18 (contract §4 "company holds are commitments"; review P18-07): a live season's engagement is held as a seat is.
+    const season = tvSeasonEngaging(state.television, talentId)
+    if (season !== null) return `talent "${talentId}" is engaged on live television season "${season.seasonId}" until it is delivered or cancelled`
     return null
   }
   businessOf(h, studioId)

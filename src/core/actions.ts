@@ -73,6 +73,9 @@ import { acceptOffer, makeOffer, rejectOffer, withdrawOffer } from './assetSale.
 import { requestDiligence } from './dueDiligence.js'
 import { closeAbsorption } from './acquisition.js'
 import { submitEstateBid } from './estate.js'
+// ── P18 bounded first season: the commission verb and the season's slot holds ──
+import { commissionTvSeason } from './tvCommission.js'
+import { televisionOccupiedFacilitySlots } from './tvReaders.js'
 import { breakPromisesOnCancel, breakPromisesOnGreenlight, breakPromisesOnTermination, waivePromise } from './promises.js'
 import { applyTakeLoan, releaseRefusal } from './corporateConditionLive.js'
 import { assertOperatingPlayer } from './studioClosure.js'
@@ -601,6 +604,8 @@ function applyGreenlight(
             new Set([
               ...scriptOccupiedFacilitySlots(buyerScriptDevelopment(state)),
               ...castingOccupiedFacilitySlots(state.castingSessions),
+              // P18: the slots a live television season holds.
+              ...televisionOccupiedFacilitySlots(state.television),
               // C2a-M2: the scenery crews the sets root is holding. A greenlight
               // opens in Development and takes no scenery slot, so this changes
               // nothing today — it is passed because the allocator's occupancy
@@ -611,6 +616,7 @@ function applyGreenlight(
                 state.operations,
                 state.scriptDevelopment,
                 state.castingSessions,
+                state.television,
               ),
             ]),
             greenlightEvents,
@@ -2199,7 +2205,7 @@ function applyCommissionScript(
         state.operations,
         action.project,
         week,
-        new Set([...castingOccupiedFacilitySlots(state.castingSessions),...scriptOccupiedFacilitySlots({...state.scriptDevelopment,projects:buyerScriptDevelopment(state).projects.filter(p=>!state.scriptDevelopment.projects.some(own=>own.id===p.id))})]),
+        new Set([...castingOccupiedFacilitySlots(state.castingSessions),...scriptOccupiedFacilitySlots({...state.scriptDevelopment,projects:buyerScriptDevelopment(state).projects.filter(p=>!state.scriptDevelopment.projects.some(own=>own.id===p.id))}),...televisionOccupiedFacilitySlots(state.television)]),
         poolDraftWeeks,
       )
       return assertCurrentScreenplayState(
@@ -2315,7 +2321,7 @@ function applyCommissionOriginalScreenplay(
       promise: payload.promise,
     },
     week,
-    new Set([...castingOccupiedFacilitySlots(state.castingSessions),...scriptOccupiedFacilitySlots({...state.scriptDevelopment,projects:buyerScriptDevelopment(state).projects.filter(p=>!state.scriptDevelopment.projects.some(own=>own.id===p.id))})]),
+    new Set([...castingOccupiedFacilitySlots(state.castingSessions),...scriptOccupiedFacilitySlots({...state.scriptDevelopment,projects:buyerScriptDevelopment(state).projects.filter(p=>!state.scriptDevelopment.projects.some(own=>own.id===p.id))}),...televisionOccupiedFacilitySlots(state.television)]),
     draftWeeks,
   )
 
@@ -2476,7 +2482,7 @@ function applyRequestScriptRewrite(
       state.operations,
       action.projectId,
       state.market.tick,
-      new Set([...castingOccupiedFacilitySlots(state.castingSessions),...scriptOccupiedFacilitySlots({...state.scriptDevelopment,projects:buyerScriptDevelopment(state).projects.filter(p=>!state.scriptDevelopment.projects.some(own=>own.id===p.id))})]),
+      new Set([...castingOccupiedFacilitySlots(state.castingSessions),...scriptOccupiedFacilitySlots({...state.scriptDevelopment,projects:buyerScriptDevelopment(state).projects.filter(p=>!state.scriptDevelopment.projects.some(own=>own.id===p.id))}),...televisionOccupiedFacilitySlots(state.television)]),
     ),
   }, writingContext)
 }
@@ -2683,6 +2689,8 @@ function applyStartCastingSession(
             talent: state.talent,
             assignableTalentIds,
             busyTalentIds: busyTalentIds(state),
+            // P18: the slots a live television season holds.
+            externallyOccupiedSlots: televisionOccupiedFacilitySlots(state.television),
           },
         ),
       }, writingContext, queuedCarriedValidation),
@@ -3306,6 +3314,10 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         break
       case 'submitEstateBid':
         next = submitEstateBid(next, { estateId: action.estateId, lotId: action.lotId, bidderId: requirePlayerStudioId(next), amount: action.amount }, next.market.tick).state
+        break
+      // P18 (contract §3): the engine's own commitment; the dispatch adds no rule of its own.
+      case 'commissionTvSeason':
+        next = commissionTvSeason(next, action.commission)
         break
       default: {
         // Exhaustiveness guard: an unknown action kind is a loud abort (M16).

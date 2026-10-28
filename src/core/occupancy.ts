@@ -103,6 +103,8 @@ export type ResourceOwnerKind =
   | 'castingSession'
   | 'legacyConstructionProject'
   | 'set'
+  /** P18: a live television season (contract §4 "a `tvSeason` owner kind"). */
+  | 'tvSeason'
 
 type ResourceClaimBase = {
   /** Kind-qualified runtime key. Slot claims carry the slot; facility-level ones do not. */
@@ -215,6 +217,24 @@ export type ResourceClaim =
       readonly facilitySlotKey: null
       readonly setId: string
     })
+  // P18. Two shapes, one owner: a season's work-block slot, and the set it stands on while it holds the stage.
+  | (ResourceClaimBase & {
+      readonly owner: 'tvSeason'
+      readonly kind: 'facility'
+      readonly slot: number
+      readonly capability: FacilityCapability
+      readonly facilitySlotKey: string
+      readonly block: import('./tvTypes.js').TvWorkBlock
+      readonly reservation: import('./tvTypes.js').TvReservation
+    })
+  | (ResourceClaimBase & {
+      readonly owner: 'tvSeason'
+      readonly kind: 'set'
+      readonly slot: null
+      readonly capability: null
+      readonly facilitySlotKey: null
+      readonly setId: string
+    })
 
 /** A claim that occupies a SCHEDULABLE slot — the only kind that can be double-booked. */
 export type ResourceSlotClaim = Extract<ResourceClaim, { slot: number }>
@@ -243,6 +263,8 @@ export type OccupancySources = {
   readonly construction?: StudioConstruction
   /** C2a-M2 — `state.sets`. Absent means "this caller cannot see the sets root". */
   readonly sets?: readonly StudioSet[]
+  /** P18 — `state.television`, absent until the first commission (and for a caller that cannot see it). */
+  readonly television?: import('./tvTypes.js').TelevisionRoot | undefined
 }
 
 /** The bare allocation key that has addressed a facility slot since V8. */
@@ -491,6 +513,26 @@ export function resourceClaims(sources: OccupancySources): ResourceClaim[] {
     })
   }
 
+  // 5b. P18 — a live television season's work-block slots. Emitted BEFORE the sets so the derived scenery crew of a
+  //     set under work (6b) reads them as taken: a crew is never derived onto a slot a season holds.
+  for (const season of sources.television?.seasons ?? []) {
+    if (season.status !== 'live') continue
+    for (const reservation of season.reservations) {
+      claims.push({
+        key: resourceSlotKey('facility', reservation.facilityId, reservation.slot),
+        facilitySlotKey: facilitySlotKey(reservation.facilityId, reservation.slot),
+        kind: 'facility',
+        facilityId: reservation.facilityId,
+        slot: reservation.slot,
+        capability: reservation.capability,
+        owner: 'tvSeason',
+        ownerId: season.seasonId,
+        block: season.work.block,
+        reservation,
+      })
+    }
+  }
+
   // 6. SETS (C2a-M2), in three passes so the order inside the source is fixed.
   const sets = sources.sets ?? []
 
@@ -592,6 +634,24 @@ export function resourceClaims(sources: OccupancySources): ResourceClaim[] {
     })
   }
 
+  // 7. P18 — the set a live season stands on, exactly while it holds the stage the set is mounted on (6c's law).
+  for (const season of sources.television?.seasons ?? []) {
+    if (season.status !== 'live' || season.setId === null) continue
+    const stage = season.reservations.find((reservation) => reservation.capability === 'soundstage')
+    if (stage === undefined) continue
+    claims.push({
+      key: setExclusivityKey(season.setId),
+      facilitySlotKey: null,
+      kind: 'set',
+      facilityId: stage.facilityId,
+      slot: null,
+      capability: null,
+      owner: 'tvSeason',
+      ownerId: season.seasonId,
+      setId: season.setId,
+    })
+  }
+
   return claims
 }
 
@@ -608,6 +668,8 @@ export function setOccupiedFacilitySlots(
   operations: StudioOperations,
   scriptDevelopment?: ScriptDevelopment,
   castingSessions?: CastingSessions,
+  // P18: the television root, so a set's derived crew is never assigned a slot a live season holds.
+  television?: import('./tvTypes.js').TelevisionRoot,
 ): Set<string> {
   const held = new Set<string>()
   const sources: OccupancySources = {
@@ -615,6 +677,7 @@ export function setOccupiedFacilitySlots(
     operations,
     ...(scriptDevelopment === undefined ? {} : { scriptDevelopment }),
     ...(castingSessions === undefined ? {} : { castingSessions }),
+    ...(television === undefined ? {} : { television }),
   }
   for (const claim of resourceClaims(sources)) {
     if (claim.owner !== 'set') continue

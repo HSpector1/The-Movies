@@ -232,7 +232,7 @@ describe('P16A valuation: rounding and the consumer-only score boundary', () => 
     // the lifted in-range state saves and reloads at 46.
     const other = h.identities.slice(1, 5).map((i) => i.studioId).find((id) => id !== film.studioId)!
     expect(valuation.libraryValuationV1(altered, other, altered.market.tick).kind).toBe('available')
-    expect(migrateToLive(importSave(stableStringify(makeSave(state)))).saveVersion).toBe(50)
+    expect(migrateToLive(importSave(stableStringify(makeSave(state)))).saveVersion).toBe(51)
   })
 })
 
@@ -249,7 +249,7 @@ describe('r2 (review F14): RED A1 on a predecessor-valid save that carries a fin
     expect(() => validateSave(JSON.parse(raw))).not.toThrow()
     expect(migrateToV45(importSave(raw)).saveVersion).toBe(45)
     const live = migrateToLive(importSave(raw))
-    expect(live.saveVersion).toBe(50)
+    expect(live.saveVersion).toBe(51)
     const state = live.state as GameState
     const before = stableStringify(state)
     expect(valuation.libraryValuationV1(state, h.playerStudioId, state.market.tick)).toEqual({ kind: 'unavailable', reason: 'criticScoreOutsideValuationRange', filmId: target.productionId })

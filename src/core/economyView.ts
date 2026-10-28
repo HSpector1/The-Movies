@@ -460,6 +460,7 @@ export type FinanceTotals = {
   acquisition: number // Signed acquisition outlay, including actual target cash at par
   diligence: number // Actual due diligence fees, separate from ordinary overhead
   financing: number // P15B (1357-A §6.3): Σ loan principal received less installments paid, signed
+  television: number // P18: signed commissioning cash (advance, milestone payments) and per-unit production spend
   net: number // Σ all retained ledger amounts; migrated pre-ledger cash may use a V11 checkpoint
 }
 
@@ -479,6 +480,7 @@ const ZERO_TOTALS = (): FinanceTotals => ({
   acquisition: 0,
   diligence: 0,
   financing: 0,
+  television: 0,
   net: 0,
 })
 
@@ -533,6 +535,11 @@ const KIND_FIELD: Record<LedgerKind, keyof FinanceTotals> = {
   acquisitionOutlay: 'acquisition',
   absorbedRunRevenue: 'studioRevenue',
   dueDiligenceFee: 'diligence',
+  // P18 (contract §5): the advance is cash with an unearned obligation, never Studio Revenue; the milestone receipts
+  // and the unit spend sit beside it in their own home, so no film read model counts commissioning cash.
+  tvAdvance: 'television',
+  tvMilestonePayment: 'television',
+  tvProductionSpend: 'television',
 }
 
 /** Classify buyer consideration from the actual keyed estateSale receipt, never its description. */
@@ -578,6 +585,7 @@ export type PeriodSummary = {
   acquisition?: number
   diligence?: number
   financing: number // P15B: loan principal received less installments charged in the window
+  television?: number // P18: commissioning cash and unit spend in the window (optional only for retained receipts)
   otherCash: number // signingBonus + freelancerFee + termination + claimPayment
   netCash: number // signed Σ over the window
   releases: number // runs opened in the window
@@ -603,6 +611,7 @@ export function periodSummary(state: GameState, fromWeek: number, toWeekInclusiv
     acquisition: 0,
     diligence: 0,
     financing: 0,
+    television: 0,
     otherCash: 0,
     netCash: 0,
     releases: 0,
@@ -684,6 +693,12 @@ export function periodSummary(state: GameState, fromWeek: number, toWeekInclusiv
         break
       case 'dueDiligenceFee':
         s.diligence = (s.diligence ?? 0) + e.amount
+        break
+      // P18: explicit, as KIND_FIELD files them; never Studio Revenue, production or otherCash.
+      case 'tvAdvance':
+      case 'tvMilestonePayment':
+      case 'tvProductionSpend':
+        s.television = (s.television ?? 0) + e.amount
         break
       default: {
         // Exhaustiveness guard (the actions.ts:1288 idiom): a new LedgerKind must be given a

@@ -32,10 +32,11 @@ export type StudioCalendarDecisionView =
   | { kind: 'releaseReview'; productionId: string; title: string }
 
 export type StudioCalendarOccupantView = {
-  owner: 'production' | 'script' | 'casting'
+  /** P18 adds `television`: a live season's work-block hold, named like every other occupant. */
+  owner: 'production' | 'script' | 'casting' | 'television'
   ownerId: string
   title: string
-  activity: ProductionPhase | 'drafting' | 'rewriting' | 'auditioning'
+  activity: ProductionPhase | 'drafting' | 'rewriting' | 'auditioning' | import('./tvTypes.js').TvWorkBlock
 }
 
 export type StudioCalendarSlotView = {
@@ -448,6 +449,20 @@ function facilityViews(state: GameState): StudioCalendarFacilityView[] {
           ownerId: held.ownerId,
           title: requireConceptTitle(state, project.conceptId, `casting session "${held.ownerId}"`),
           activity: 'auditioning',
+        })
+        break
+      }
+      // P18: a live television season's work-block hold reads as its series title and block.
+      case 'tvSeason': {
+        const season = state.television?.seasons.find((candidate) => candidate.seasonId === held.ownerId)
+        if (season === undefined) throw new Error(`studioCalendar: television reservation names unknown season "${held.ownerId}"`)
+        const series = state.television?.series.find((candidate) => candidate.seriesId === season.seriesId)
+        if (series === undefined) throw new Error(`studioCalendar: season "${held.ownerId}" names unknown series "${season.seriesId}"`)
+        claim(held.facilityId, held.slot, held.capability, {
+          owner: 'television',
+          ownerId: held.ownerId,
+          title: series.title,
+          activity: held.block,
         })
         break
       }

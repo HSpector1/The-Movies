@@ -19,7 +19,7 @@ import { decodeBridgeRuntimeCheckpoint, encodeBridgeRuntimeCheckpoint, loadBridg
 import { caseDisclosure } from '../src/core/talentMarket.js'
 import { activeContract } from '../src/core/employment.js'
 import { trustDescriptor } from '../src/core/promises.js'
-import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV39, validateSaveV50, initialP15BRoots } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV39, validateSaveV51, initialP15BRoots } from '../src/core/save.js'
 import type { GameState, ProfessionalPromise } from '../src/core/types.js'
 
 const TIMEOUT = 60_000
@@ -92,7 +92,7 @@ const bytes = (state: GameState): string => exportSave(makeSave(state))
 const viewer = (state: GameState): string => { assert.ok(state.hollywood); return state.hollywood.playerStudioId }
 function full(state: GameState): string {
   const before = stableStringify(state), save = makeSave(state)
-  expect(save.saveVersion).toBe(LIVE_SAVE_VERSION); expect(validateSaveV50(save)).toBe(save)
+  expect(save.saveVersion).toBe(LIVE_SAVE_VERSION); expect(validateSaveV51(save)).toBe(save)
   const raw = exportSave(save); expect(exportSave(importSave(raw))).toBe(raw)
   expect(stableStringify(state)).toBe(before); return raw
 }
@@ -546,13 +546,13 @@ describe('P4/P5 closed Bridge material and outgoing runtime authority', () => {
     expect(current.sessionId).not.toBe(old.value.sessionId)
     for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
       assert.ok(current[slot])
-      const previous = validateSaveV39(JSON.parse(old.value[slot])), now = validateSaveV50(JSON.parse(current[slot]!))
+      const previous = validateSaveV39(JSON.parse(old.value[slot])), now = validateSaveV51(JSON.parse(current[slot]!))
       expect(now.state).toEqual(withEmptyRecovery({ ...withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(previous.state)))), previous.state.market.tick), firstTakeSubjects: { version: 1, cutoverOrdinal: 25, facts: [] } }))
       expect(current[slot]).toBe(exportSave(migrateToLive(previous))); full(now.state)
     }
     expect(current.currentSaveJson).not.toBe(current.savedSaveJson)
-    const currentState = validateSaveV50(JSON.parse(current.currentSaveJson)).state
-    const savedState = validateSaveV50(JSON.parse(current.savedSaveJson!)).state
+    const currentState = validateSaveV51(JSON.parse(current.currentSaveJson)).state
+    const savedState = validateSaveV51(JSON.parse(current.savedSaveJson!)).state
     expect(root(currentState, 'promise-0')).toMatchObject({ outcome: 'WAIVED', progress: 1, supersededByPromiseId: 'promise-1' })
     expect(root(savedState, 'promise-0')).toMatchObject({ outcome: null, progress: 1, supersededByPromiseId: null })
     const currentRaw = encodeBridgeRuntimeCheckpoint(current), again = vi.fn(() => { throw new Error('current55 must not migrate again') })

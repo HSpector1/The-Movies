@@ -18,7 +18,7 @@ import * as sale from '../src/core/assetSale.js'
 import * as finance from '../src/core/rightsFinance.js'
 import * as rights from '../src/core/rights.js'
 import { libraryValuationV1, subjectValueV1 } from '../src/core/propertyValuation.js'
-import { convertV49ToV48, convertV50ToV49, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
+import { convertV49ToV48, convertV50ToV49, convertV51ToV50, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
 import { advanceRightsWeek } from '../src/core/rightsTick.js'
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
@@ -122,7 +122,7 @@ describe('P16B bilateral title sale: player buys a rival film through a binding 
     // The era boundary: saves, reloads, and refuses the downgrade by name (a real recorded sale).
     const reloaded = migrateToLive(importSave(stableStringify(makeSave(closed)))).state as GameState
     expect(stableStringify(reloaded.rights)).toBe(stableStringify(closed.rights))
-    expect(() => convertV49ToV48(convertV50ToV49(makeSave(closed)))).toThrow(/migrateToV48: cannot downgrade or discard a recorded rights root/)
+    expect(() => convertV49ToV48(convertV50ToV49(convertV51ToV50(makeSave(closed))))).toThrow(/migrateToV48: cannot downgrade or discard a recorded rights root/)
     // Replay: the same step on the same state is byte-identical.
     expect(stableStringify(advanceRightsWeek(offered, week, STABLE))).toBe(stableStringify(closed))
   })
@@ -261,7 +261,7 @@ describe('P16B licences: R3 exclusive term grants, overlap, scope, survival thro
     expect(sale.offerRefusal(granted, { offerorId: r03, counterpartyId: r01, direction: 'buy', instrument: sequel(property, week + 10, week + 20), price }, week, STABLE)).toBe('exclusiveOverlap')
     expect(sale.offerRefusal(granted, { offerorId: r03, counterpartyId: r02, direction: 'buy', instrument: sequel(property, week, week + 10), price }, week, STABLE)).toBe('counterpartyNotHolder')
     expect(sale.offerRefusal(granted, { offerorId: r03, counterpartyId: r01, direction: 'buy', instrument: { ...sequel(property, week, week + 10), scope: { use: 'remake' } }, price }, week, STABLE)).toBeNull()
-    expect(sale.offerRefusal(granted, { offerorId: r03, counterpartyId: r01, direction: 'buy', instrument: { ...sequel(property, week, week + 10), right: 'R4', scope: { use: 'television' } }, price }, week, STABLE)).toBe('r4ConsumerNotLive')
+    expect(sale.offerRefusal(granted, { offerorId: r03, counterpartyId: r01, direction: 'buy', instrument: { ...sequel(property, week, week + 10), right: 'R4', scope: { use: 'televisionProduction' } }, price }, week, STABLE)).toBe('r4ConsumerNotLive')
     expect(sale.offerRefusal(granted, { offerorId: r03, counterpartyId: r01, direction: 'buy', instrument: sequel(R2(settledFilm(r01).filmId), week, week + 10), price }, week, STABLE)).toBe('r3RequiresProperty')
     expect(sale.offerRefusal(granted, { offerorId: r03, counterpartyId: r01, direction: 'buy', instrument: sequel(property, week - 1, week + 10), price }, week, STABLE)).toBe('invalidTerm')
     expect(sale.offerRefusal(granted, { offerorId: r03, counterpartyId: r01, direction: 'buy', instrument: sequel(property, week + 10, week + 10), price }, week, STABLE)).toBe('invalidTerm')

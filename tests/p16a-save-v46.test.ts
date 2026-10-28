@@ -36,17 +36,17 @@ describe('Save49 era surface', () => {
   it('LIVE_SAVE_VERSION is P16_SAVE_VERSION (49 at this base) with predecessor48, and the V49 functions exist', () => {
     expect(saveModule.P16_SAVE_VERSION).toBe(49)
     expect(saveModule.P16_PREDECESSOR_SAVE_VERSION).toBe(48)
-    // P17 (Save50) is live one step above the P16 step.
-    expect(saveModule.LIVE_SAVE_VERSION).toBe(saveModule.P16_SAVE_VERSION + 1)
+    // P18 (Save51) is live two steps above the P16 step (P17's Save50 between).
+    expect(saveModule.LIVE_SAVE_VERSION).toBe(saveModule.P16_SAVE_VERSION + 2)
     for (const name of ['validateSaveV49', 'convertV48ToV49', 'convertV49ToV48', 'migrateToV49'] as const) {
       expect(typeof (saveModule as unknown as Record<string, unknown>)[name], name).toBe('function')
     }
   })
 
-  it('validateSave dispatches49 and names the handled range up to the live version (P17: "1 through 50")', () => {
+  it('validateSave dispatches49 and names the handled range up to the live version (P18: "1 through 51")', () => {
     const envelope = v49()
     expect(saveModule.validateSave(envelope as never).saveVersion).toBe(49)
-    expect(() => saveModule.validateSave({ ...envelope, saveVersion: 51 } as never)).toThrow(/unknown saveVersion 51.*versions 1 through 50 only/)
+    expect(() => saveModule.validateSave({ ...envelope, saveVersion: 52 } as never)).toThrow(/unknown saveVersion 52.*versions 1 through 51 only/)
   })
 })
 
@@ -74,7 +74,7 @@ describe('Save49 migration from a public-chain Save48 predecessor derived from g
     const live = saveModule.migrateToV49(saveModule.importSave(genuineV45Raw('week53')))
     expect(live.saveVersion).toBe(49)
     expect(saveModule.stableStringify(saveModule.migrateToV49(live))).toBe(saveModule.stableStringify(live))
-    expect(saveModule.stableStringify(saveModule.convertV50ToV49(saveModule.makeSave(live.state as GameState)))).toBe(saveModule.stableStringify(live))
+    expect(saveModule.stableStringify(saveModule.convertV50ToV49(saveModule.convertV51ToV50(saveModule.makeSave(live.state as GameState))))).toBe(saveModule.stableStringify(live))
     expect(saveModule.stableStringify(saveModule.migrateToLive(saveModule.importSave(genuineV45Raw('week53'))).state)).toBe(saveModule.stableStringify(live.state))
   })
 

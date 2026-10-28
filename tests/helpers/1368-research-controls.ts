@@ -3,13 +3,13 @@ import { expect } from 'vitest'
 import { accepted45 } from './1368-recovery-witnesses.js'
 import { rivalScientistDemand } from '../../src/core/rivalResearch.js'
 import { tick } from '../../src/core/tick.js'
-import { makeSave, validateSaveV50, stableStringify } from '../../src/core/save.js'
+import { makeSave, validateSaveV51, stableStringify } from '../../src/core/save.js'
 import type { GameState } from '../../src/core/types.js'
 import type { RivalBusiness } from '../../src/core/hollywoodTypes.js'
 
 function admitted(input: GameState): void {
   const before = stableStringify(input), envelope = makeSave(input)
-  expect(validateSaveV50(envelope)).toBe(envelope)
+  expect(validateSaveV51(envelope)).toBe(envelope)
   expect(stableStringify(input)).toBe(before)
 }
 function idle(input: GameState, b: RivalBusiness): boolean {

@@ -24,7 +24,7 @@ import * as estate from '../src/core/estate.js'
 import * as finance from '../src/core/rightsFinance.js'
 import * as rights from '../src/core/rights.js'
 import { libraryValuationV1 } from '../src/core/propertyValuation.js'
-import { convertV49ToV48, convertV50ToV49, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
+import { convertV49ToV48, convertV50ToV49, convertV51ToV50, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import type { GameState } from '../src/core/types.js'
 
@@ -269,7 +269,7 @@ describe('P16C close ceremony at D: sealed comparison, deterministic tie-break, 
     const saved=makeSave(closed)
     expect(stableStringify(migrateToLive(importSave(stableStringify(saved))))).toBe(stableStringify(saved))
     expect(()=>applyActions(closed,[{kind:'submitEstateBid',estateId,lotId:lotC.lotId,amount:1}])).toThrow(/estateClosed/)
-    expect(()=>convertV49ToV48(convertV50ToV49(saved))).toThrow(/migrateToV48: cannot discard unique estate observation or current closure provenance/)
+    expect(()=>convertV49ToV48(convertV50ToV49(convertV51ToV50(saved)))).toThrow(/migrateToV48: cannot discard unique estate observation or current closure provenance/)
 
   })
 

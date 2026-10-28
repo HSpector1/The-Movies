@@ -1839,5 +1839,9 @@ export { P17_ROOT_KEYS } from './continuationSave.js'
 export { P17_SAVE_VERSION, P17_PREDECESSOR_SAVE_VERSION, validateSaveP17, convertPredecessorToP17, convertP17ToPredecessor, migrateToP17,
   validateSaveV50, convertV49ToV50, convertV50ToV49, migrateToV50 } from './save.js'
 export type { SaveFileP17, SaveFileV50 } from './save.js'
+// P18 (Save51): the lazy television root over P17's Save50 (tvSave.ts).
+export { P18_SAVE_VERSION, P18_PREDECESSOR_SAVE_VERSION, validateSaveP18, convertPredecessorToP18, convertP18ToPredecessor, migrateToP18,
+  validateSaveV51, convertV50ToV51, convertV51ToV50, migrateToV51 } from './save.js'
+export type { SaveFileP18, SaveFileV51 } from './save.js'
 export type { ContinuationType, LineageEdge, LineageEdgeType, PropertyMeter, FranchiseBranch, FranchiseBranchKind, FranchiseMilestone, FranchiseMilestoneId,
   FranchiseProperty, FranchiseRoot, SubProperty, SubPropertyKind, P17StepRoots, GameStateP17, GameStateV50 } from './types.js'

@@ -142,7 +142,7 @@ describe('P16 actual clean-target absorption from retained original48 R03',()=>{
   const mutate=(change:(state:GameState)=>void,expected=/absorption|rights|employment|contract/i)=>{
    const envelope=JSON.parse(baseline) as typeof save;change(envelope.state)
    const before=saves.stableStringify(envelope)
-   try {expect(()=>saves.validateSaveV50(envelope)).toThrow(expected)}
+   try {expect(()=>saves.validateSaveV51(envelope)).toThrow(expected)}
    finally {expect(saves.stableStringify(envelope)).toBe(before)}
   }
   expect(save.state.rights.absorptions).toHaveLength(1)
@@ -168,9 +168,9 @@ describe('P16 actual clean-target absorption from retained original48 R03',()=>{
   expect(omitted.state.rights.titleEvents.filter(e=>e.source.kind==='absorption'&&e.source.absorptionId===record.id).map(e=>e.id)).toEqual(omittedRecord.titleEventIds)
   expect(omitted.state.rights.titleEvents.find(e=>e.id===retainedGenesis[0]!.id)).toEqual(retainedGenesis[0])
   const omittedBefore=saves.stableStringify(omitted)
-  try {expect(()=>saves.validateSaveV50(omitted)).toThrow(/held title dispositions incomplete/)}
+  try {expect(()=>saves.validateSaveV51(omitted)).toThrow(/held title dispositions incomplete/)}
   finally {expect(saves.stableStringify(omitted)).toBe(omittedBefore)}
-  expect(()=>saves.convertV49ToV48(saves.convertV50ToV49(save))).toThrow(/rights|absorption|downgrade/i)
+  expect(()=>saves.convertV49ToV48(saves.convertV50ToV49(saves.convertV51ToV50(save)))).toThrow(/rights|absorption|downgrade/i)
   expect(saves.stableStringify(save)).toBe(baseline)
   // Actual original48 remains its admitted own-era input; no retagged modern envelope is used as a historical control.
   expect(saves.validateSaveP15B(p.old)).toBe(p.old);originalUnchanged(p)
@@ -216,7 +216,7 @@ describe('P16 actual clean-target absorption from retained original48 R03',()=>{
    item.change(mutant.state.rights.absorptions.find(a=>a.id===record.id)!)
    const before=saves.stableStringify(mutant)
    try {
-    expect(()=>saves.validateSaveV50(mutant),item.label+' strict49').toThrow(item.reason)
+    expect(()=>saves.validateSaveV51(mutant),item.label+' strict49').toThrow(item.reason)
     expect(()=>saves.makeSave(mutant.state),item.label+' writer').toThrow(item.reason)
    } finally {expect(saves.stableStringify(mutant)).toBe(before)}
   }

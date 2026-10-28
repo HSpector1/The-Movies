@@ -62,7 +62,7 @@ function memo<T>(name: string, build: () => T): T {
 }
 function admitted(state: GameState): void {
   const before = stable(state), save = saves.makeSave(state)
-  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV50(save)).toBe(save)
+  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV51(save)).toBe(save)
   const raw = saves.exportSave(save)
   expect(saves.exportSave(saves.importSave(raw))).toBe(raw); expect(stable(state)).toBe(before)
 }
@@ -358,7 +358,7 @@ describe('P4/P5 genuine root6 and frozen receipt7 settlement', () => {
     expect(committed).toEqual({ ...joined.focusRoot, contractId: employment[0]!.contractId, feasibilityReceipt: frozen.receipt })
     expect(stable(committed.feasibilityReceipt)).toBe(stable(frozen.receipt))
     expect(committed.version).toBe(6); expect(joined.focusRoot.feasibilityReceipt.rulesVersion).toBe(6)
-    const raw = bytes(state), imported = saves.importSave(raw), round = saves.validateSaveV50(imported)
+    const raw = bytes(state), imported = saves.importSave(raw), round = saves.validateSaveV51(imported)
     expect(round).toBe(imported)
     expect(root(round.state, committed.promiseId)).toEqual(committed)
     expect(saves.exportSave(round)).toBe(raw)

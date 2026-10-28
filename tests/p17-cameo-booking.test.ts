@@ -19,7 +19,7 @@ import { retirementRecordFor } from '../src/core/careerLifecycle.js'
 import { hiringMarketView } from '../src/core/castingPackageReadModel.js'
 import { busyTalentIds, hiringMarketIds } from '../src/core/employment.js'
 import { studioEmployerId } from '../src/core/hollywood.js'
-import { convertV50ToV49, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveP17 } from '../src/core/save.js'
+import { convertV50ToV49, convertV51ToV50, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveP18 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { Action, GameState } from '../src/core/types.js'
@@ -72,7 +72,7 @@ describe('P17 Shape A — capability, identity and an atomic, charged booking', 
     expect(film.cast).toEqual(plain.studio.activeProductions.at(-1)!.cast)
     expect(JSON.stringify(film.participants)).not.toContain(guest.id)
     expect(film.forecastSnapshot).not.toEqual(plain.studio.activeProductions.at(-1)!.forecastSnapshot)
-    expect(makeSave(booked).saveVersion).toBe(50)
+    expect(makeSave(booked).saveVersion).toBe(51)
   })
 
   it('refuses a third guest, a credited principal, a week outside the span, the same person twice, a stale fee and another studio\'s employee, each atomically', () => {
@@ -230,7 +230,7 @@ describe('P17 Shape A — persistence in the Save50 step (additive, absent by de
     expect(rootOf(booked)?.bookings).toHaveLength(1)
     const save = makeSave(booked), bytes = exportSave(save)
     expect(exportSave(migrateToLive(importSave(bytes)))).toBe(bytes)
-    expect(() => convertV50ToV49(save)).toThrow(/^migrateToV49: cannot downgrade or discard 1 recorded cameo booking\(s\)$/)
+    expect(() => convertV50ToV49(convertV51ToV50(save))).toThrow(/^migrateToV49: cannot downgrade or discard 1 recorded cameo booking\(s\)$/)
     expect(exportSave(save)).toBe(bytes)
   })
 
@@ -238,7 +238,7 @@ describe('P17 Shape A — persistence in the Save50 step (additive, absent by de
     expect(rootOf(booked)?.bookings).toHaveLength(1)
     const forged = JSON.parse(JSON.stringify(makeSave(booked))) as Forged
     edit(forged)
-    expect(() => validateSaveP17(forged)).toThrow(pattern)
+    expect(() => validateSaveP18(forged)).toThrow(pattern) // P18: the live reader (the P17 root law runs inside it)
   }
   it('the validator refuses an empty root', () => refuse((f) => { f.state.cameos.bookings = [] }, /an empty cameo root is written as absence/))
   it('the validator refuses an unknown root key', () => refuse((f) => { f.state.cameos.extra = 1 }, /expected exactly keys/))
@@ -265,7 +265,7 @@ describe('P17 Shape A — the player\'s closure while a booking is reserved', ()
     expect(closure?.closureWeek).toBe(week + TUNING.PRODUCTION_TICKS)
     expect(bookingOf(closed, g.id)).toMatchObject({ status: 'cancelled', cancelReason: 'productionCancelled', cancelledWeek: closure!.closureWeek, refund: x!.fee - x!.retained })
     expect(feeRows(closed, g.id)).toEqual([[week, -x!.fee, true], [closure!.closureWeek, x!.fee - x!.retained, true]])
-    expect(() => validateSaveP17(makeSave(closed))).not.toThrow()
+    expect(() => validateSaveP18(makeSave(closed))).not.toThrow()
     expect(exportSave(migrateToLive(importSave(exportSave(makeSave(closed)))))).toBe(exportSave(makeSave(closed)))
   })
 })

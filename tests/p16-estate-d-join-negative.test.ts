@@ -100,8 +100,8 @@ describe('P16 joinedD strict-save corruption and actual publication rollback',()
  })
  it('a real strict49 D publication refusal cannot publish partial sale cash claims or archival',()=>{
   const {beforeD,final,closureId,txId}=route();admitted(beforeD);admitted(final)
-  const before=JSON.stringify(beforeD),real=saves.validateSaveP17,marker='P16_REAL_D_PUBLICATION_REFUSAL' // P17: the live publication reader
-  const spy=vi.spyOn(saves,'validateSaveP17').mockImplementation(envelope=>{
+  const before=JSON.stringify(beforeD),real=saves.validateSaveP18,marker='P16_REAL_D_PUBLICATION_REFUSAL' // P18: the live publication reader
+  const spy=vi.spyOn(saves,'validateSaveP18').mockImplementation(envelope=>{
    const admitted=real(envelope)
    expect(admitted.state.market.tick).toBe(176)
    expect(admitted.state.studioClosure.estateEvents.some(e=>e.closureId===closureId&&String(e.kind)==='saleReceipt'&&e.reference===txId)).toBe(true)

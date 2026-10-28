@@ -8,12 +8,12 @@ import { blueprintById } from '../../src/core/placement.js'
 import { technologyEntry } from '../../src/core/technologyCatalogue.js'
 import { ageAt } from '../../src/core/aging.js'
 import { tick } from '../../src/core/tick.js'
-import { makeSave, validateSaveV50, stableStringify } from '../../src/core/save.js'
+import { makeSave, validateSaveV51, stableStringify } from '../../src/core/save.js'
 import type { GameState } from '../../src/core/types.js'
 const bytes = stableStringify
 export function admitPublicResearchFixture(state: GameState): void {
   const before = bytes(state), value = makeSave(state)
-  expect(validateSaveV50(value)).toBe(value); expect(bytes(state)).toBe(before)
+  expect(validateSaveV51(value)).toBe(value); expect(bytes(state)).toBe(before)
 }
 function ordinary(state: GameState): GameState {
   const before = bytes(state), next = tick(state)
