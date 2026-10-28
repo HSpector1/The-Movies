@@ -1,0 +1,44 @@
+{
+  "head": "ee767fdb0908ccf03b98d7c76a3e15ae40d89b18",
+  "sourceManifestEntries": 2143,
+  "purpose": "Sprint 11 fix3-r28 on the FIX-3 commit: regenerate the contract (manifest stale after comment edits), both checks, Bridge and root/ui types, bridge files incl. consumer-lock, ui unit files, Playwright journey + smoke, and the three ui gate timeouts alone",
+  "children": [
+    {
+      "label": "generate+checks"
+    },
+    {
+      "label": "types"
+    },
+    {
+      "label": "bridge-files",
+      "completeFiles": [
+        "tests/bridge-contract-consumer-lock.test.ts",
+        "tests/bridge-contract-generator.test.ts",
+        "tests/bridge-schema.test.ts",
+        "tests/bridge-p17-featured-appearances.test.ts",
+        "tests/bridge-p17-franchise-read-model.test.ts",
+        "tests/bridge-p17-continuation-greenlight.test.ts"
+      ]
+    },
+    {
+      "label": "ui-unit",
+      "completeFiles": [
+        "ui/src/screens/p17-cameo-cancel-ui.test.tsx",
+        "ui/src/screens/p17-continuation-ui.test.tsx"
+      ]
+    },
+    {
+      "label": "e2e-p17"
+    },
+    {
+      "label": "ui-alone",
+      "completeFiles": [
+        "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx",
+        "ui/src/lot/WorldFirstStudioHome.test.tsx"
+      ]
+    }
+  ],
+  "budgets": {
+    "timeoutOverride": false
+  }
+}

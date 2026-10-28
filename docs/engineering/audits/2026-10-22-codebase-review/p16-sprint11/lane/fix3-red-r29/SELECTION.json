@@ -1,0 +1,14 @@
+{
+  "head": "1e1a4745113660bcba4b926e11ef47e6371651d8",
+  "sourceManifestEntries": 2085,
+  "purpose": "Sprint 11 RED r29 at 29c7cf0d for the FIX-3 cases (bridge rival-branch outcome; ui preview-forecast, filmTitle, humaniser, drop reason)",
+  "children": [
+    {
+      "label": "red",
+      "completeFiles": [
+        "ui/src/screens/p17-cameo-cancel-ui.test.tsx",
+        "ui/src/screens/p17-continuation-ui.test.tsx"
+      ]
+    }
+  ]
+}
