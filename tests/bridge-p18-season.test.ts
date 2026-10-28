@@ -29,10 +29,15 @@ const firstUnit = tickUntil(live, (s) => season(s).work.creditedUnits >= 1, 4, '
 // and ordinary ticks until the condition law actually closes the studio; the obligation stays recorded (ACCEPTANCE OPEN).
 // Built at collection like the route (about 35 ticks).
 const closedNow = (s: GameState): boolean => closuresOf(s).some((x) => x.studioId === s.hollywood!.playerStudioId)
-const closedWithOwed = (() => {
+// FIX-S13B-3: the walk also keeps its last open week (operating, the same owed balance), the lawful place for a cash row.
+const { lastOpen: openWithOwed, closed: closedWithOwed } = (() => {
   let state = withCash(applyActions(withCash(firstUnit, 50_000), [{ kind: 'cancelTvSeason', seasonId }]), -1)
-  for (let guard = 0; guard < 60 && !closedNow(state); guard++) state = tick(state)
-  return state
+  let lastOpen = state
+  for (let guard = 0; guard < 60 && !closedNow(state); guard++) {
+    lastOpen = state
+    state = tick(state)
+  }
+  return { lastOpen, closed: state }
 })()
 
 function quoteSeason(session: BridgeSession, commandId: string, draft: CommissionLocal) {
@@ -147,12 +152,25 @@ describe('P18 Sprint 13 slice B — the season on the Bridge (projection 68)', (
   })
 
   it('a closed player with obligations owed from before its closure gets no settle verb on the snapshot or the television page (FIX-S13B-1 item 5)', () => {
+    // FIX-S13B-3: no cash row after the closure (P15B reconciles closing cash + estate receipts − claim payments with the
+    // studio's cash). A positive-cash closed player is unreachable by law: the condition closes a studio only with negative
+    // cash (corporateCondition.ts distress → closed), the closure preserves that closing cash and pays claims from
+    // floor(max(0, cash)). So the guard is isolated by two worlds on one walk, the same owed balance in both:
+    // (1) the last open week with 100,000 set lawfully before the closure: the page and the snapshot offer the settle verb;
+    const open = new BridgeSession(withCash(openWithOwed, 100_000), 'p18-open-owed')
+    expect(closedNow(openWithOwed), 'premise: the last open week precedes the closure').toBe(false)
+    expect(agreement(openWithOwed).settlement).toMatchObject({ refundPaid: 50_000, chargePaid: 0, closureId: null })
+    expect(offered(open, 'settleTvObligations')).toHaveLength(1)
+    expect(televisionPage(open).seasons[0]).toMatchObject({ agreement: { outstanding: 190_000 }, settlePreview: { outstanding: 190_000, payableNow: 100_000 },
+      settleIntent: expect.objectContaining({ kind: 'settleTvObligations' }) })
+    // (2) the closed world itself, untouched: nothing is offered, and the read model's settle preview is withheld by the
+    // closed-player rule alone (without it the row would read { outstanding: 190000, payableNow: 0 }). The intent's own
+    // isolation stops here: at the closed world's negative cash the zero payable amount would also withhold the verb.
     const state = closedWithOwed
     expect(closedNow(state), 'premise: the condition law closes the drained studio').toBe(true)
+    expect(state.studio.cash, 'premise: the condition law closes a studio only with negative cash').toBeLessThan(0)
     expect(agreement(state).settlement).toMatchObject({ refundPaid: 50_000, chargePaid: 0, closureId: null })
-    // FIX-S13B-2 item 2: with 100,000 of cash the payable amount alone would offer a settle verb, so only the closed-player
-    // rule withholds it (at −1 the zero payable amount withheld it already and the case proved nothing).
-    const session = new BridgeSession(withCash(state, 100_000), 'p18-closed')
+    const session = new BridgeSession(state, 'p18-closed')
     expect(offered(session, 'settleTvObligations')).toEqual([])
     expect(televisionPage(session).seasons[0]).toMatchObject({ status: 'cancelled', agreement: { outstanding: 190_000 }, settlePreview: null, settleIntent: null })
   })
