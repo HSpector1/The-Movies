@@ -3700,7 +3700,14 @@ export function StudioLotScreen({
     recordSelection,
   ])
 
-  useEffect(() => {
+  // FIX-S13-4: a layout effect, never a passive one. A commit outside a discrete event (the renderer's
+  // ready, any non-input update) leaves its passive effects queued as a separate Scheduler task. A
+  // command click that lands first sets pendingHollywoodFocusProductionId, and React runs those queued effects
+  // before it renders the click's successor. A passive version of this effect then read the
+  // pre-command operation, "focused" the command button the successor removes, and cleared the
+  // intent: focus fell to <body>. A layout effect runs inside its own commit, so no older render's
+  // copy can outlive the commit and consume a later command's focus.
+  useLayoutEffect(() => {
     const productionId = pendingHollywoodFocusProductionId.current
     if (
       productionId === null ||
