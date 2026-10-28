@@ -581,12 +581,14 @@ describe('CF-08 sound union-to-C# generation', () => {
       // reproduces d57642ad from the parent's file); the lane generator check must confirm it.
       // Projection67 (P18 Sprint 12): the same static method over the post-image schema JSON (it reproduces 58938086 from
       // the parent's file); the projection number and the development occupant enum moved. The lane generator check must confirm it.
+      // Projection68 (P18 Sprint 13 slice B): PLACEHOLDER. The season quote/snapshot $defs, the television page and the three
+      // intent kinds move the checked-in schema JSON, which only the lane generator writes; the lane measures and pins it.
       const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 59 })
       expect(generated).toContain(
-        '// Schema identity: sha256:8bd45eec049c6105ed2efee3899cfbb2a440c1b40f536a899b332ffbde3003f0',
+        '// Schema identity: sha256:PLACEHOLDER-CURRENT68-SCHEMA-ID',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:8bd45eec049c6105ed2efee3899cfbb2a440c1b40f536a899b332ffbde3003f0',
+        'sha256:PLACEHOLDER-CURRENT68-SCHEMA-ID',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -759,8 +761,10 @@ describe('CF-08 sound union-to-C# generation', () => {
         // Projection67 (P18 Sprint 12): the development occupant enum gains `television`. F10 measured by the lane run
         // green-r5 (c1ee6e11): c107aca5…. F11 is the same input (BRIDGE_SCHEMA) through the same pure function, so it is the
         // same body by construction, not separately measured; F12 is a fixed fixture schema and does not read BRIDGE_SCHEMA.
-        F10_CURRENT_QUOTE_UNIONS: 'c107aca5b70c57530c05cc8f887271ac9abd61299e02b696d583f775db0e1cfa', // was f194af88… (projection66)
-        F11_CURRENT_COMMAND_UNION: 'c107aca5b70c57530c05cc8f887271ac9abd61299e02b696d583f775db0e1cfa', // was f194af88… (projection66), same body as F10
+        // Projection68 (P18 Sprint 13 slice B): the season quote request/snapshot, the television page $defs and the three intent
+        // kinds grow both bodies. PLACEHOLDER until the lane generator run measures them (one body for F10 and F11).
+        F10_CURRENT_QUOTE_UNIONS: 'PLACEHOLDER-F10-PROJECTION68', // was c107aca5… (projection67)
+        F11_CURRENT_COMMAND_UNION: 'PLACEHOLDER-F11-PROJECTION68', // was c107aca5… (projection67), same body as F10 by construction
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {

@@ -37,6 +37,7 @@ import { Metric, StandingBar } from '../components/common.tsx'
 import { AffordabilityScopesCard } from '../components/AffordabilityScopes.tsx'
 import { ProductionBoard } from '../components/ProductionBoard.tsx'
 import { FeaturedBookingsCard } from '../components/P17Continuation.tsx'
+import { SeasonCard } from '../components/P18Season.tsx'
 import { StudioCalendarPreview } from './StudioCalendar.tsx'
 import { StudioDevelopmentPreview } from './StudioDevelopment.tsx'
 
@@ -67,6 +68,8 @@ export function Dashboard({
   onProductionCommand,
   onCommitPictureToRelease,
   onCancelCameoBooking,
+  onCancelTvSeason,
+  onSettleTvObligations,
   focusProductionId,
   focusRunId,
   focusSection,
@@ -111,6 +114,9 @@ export function Dashboard({
   onCommitPictureToRelease?: (productionId: string) => void
   /** P17: explicitly cancel one reserved featured appearance; the outcome lets the card show a refusal. */
   onCancelCameoBooking?: (bookingId: string) => ActionOutcome | undefined
+  /** P18: cancel a live season (the settlement shows before the confirm) and settle what a cancelled agreement owes. */
+  onCancelTvSeason?: (seasonId: string) => ActionOutcome | undefined
+  onSettleTvObligations?: (agreementId: string, expectedRemaining: number, amount: number) => ActionOutcome | undefined
   /** Navigation-only handoffs from the Studio Calendar. */
   focusProductionId?: string
   focusRunId?: string
@@ -599,6 +605,8 @@ export function Dashboard({
       <div style={{ height: 16 }} />
 
       <FeaturedBookingsCard state={state} onCancel={onCancelCameoBooking} />
+
+      <SeasonCard state={state} onCancel={onCancelTvSeason} onSettle={onSettleTvObligations} />
 
       <div className="card">
         <h2 ref={releasesHeadingRef} tabIndex={-1} data-testid="dashboard-releases-heading">

@@ -117,6 +117,7 @@ const OUTGOING_63 = 'sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128
 const OUTGOING_64 = 'sha256:57f12ee28d21aa47c7514afa1c058105a10f10a9e76d400d664e97c23dc90272' // Sprint 11: the P16 build's outgoing64, prior beneath current65 (review S1)
 const OUTGOING_65 = 'sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8' // Sprint 11 slice B: outgoing65, prior beneath current66
 const OUTGOING_66 = 'sha256:589380869e1329a8027b8339b88646761ce6d791376df5fd793e77ae9dd3b96a' // P18 Sprint 12: outgoing66 (the P17 checkpoint's identity) registered beneath current67
+const OUTGOING_67 = 'sha256:8bd45eec049c6105ed2efee3899cfbb2a440c1b40f536a899b332ffbde3003f0' // P18 Sprint 13 slice B: outgoing67 (the Sprint 12 checkpoint's identity) registered beneath current68
 const OUTGOING_PROJECTION = 47
 // The 35 accepted prior literals (tests/bridge-p14b4-runtime47-compatibility.test.ts :41-83); never derived from the registry.
 const EXPECTED_35_PRIOR_IDS = [
@@ -407,7 +408,7 @@ const wireEnum = (): string[] => {
 describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, re-expressed by 700-T2 after P14B.8 landed projection 50 / Save V32 unchanged)', () => {
   it('live projection52/Save37 and literal current hash retain all40 independent prior identities (875)', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(67)
+    expect(PROJECTION_VERSION).toBe(68)
     expect(OUTGOING_PROJECTION).toBe(47)
     // 1309-X3 ruling 5: SCHEMA_ID tracks the LIVE (projection56) schema now,
     // not projection53's identity (OUTGOING_53) -- states the received value.
@@ -421,10 +422,13 @@ describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, 
     // (the method reproduces d57642ad from the parent's file); the lane generator check must confirm it. Outgoing65 is prior.
     // Current67 (P18 Sprint 12): computed statically from the post-image schema JSON by the same canonical sha256 (the
     // method reproduces 58938086 from the parent's file); the lane generator check must confirm it. Outgoing66 is prior.
-    expect(SCHEMA_ID).toBe('sha256:8bd45eec049c6105ed2efee3899cfbb2a440c1b40f536a899b332ffbde3003f0')
+    // Current68 (P18 Sprint 13 slice B): PLACEHOLDER until the lane regenerates the schema JSON and measures the identity
+    // (the client package ran no generator); outgoing67 is prior. Replace with the regenerated manifest's schemaId.
+    expect(SCHEMA_ID).toBe('sha256:PLACEHOLDER-CURRENT68-SCHEMA-ID')
+    expect(SCHEMA_ID).not.toBe(OUTGOING_67)
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61, OUTGOING_62, OUTGOING_63, OUTGOING_64, OUTGOING_65, OUTGOING_66].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61, OUTGOING_62, OUTGOING_63, OUTGOING_64, OUTGOING_65, OUTGOING_66, OUTGOING_67].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_57)).toBe('projection-v57')
@@ -474,7 +478,7 @@ describe('family 11 — projection 48 THIN (RED by value): the enum, the registr
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61, OUTGOING_62, OUTGOING_63, OUTGOING_64, OUTGOING_65, OUTGOING_66].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61, OUTGOING_62, OUTGOING_63, OUTGOING_64, OUTGOING_65, OUTGOING_66, OUTGOING_67].sort())
     expect(LIVE_SAVE_VERSION).toBeGreaterThan(30) // the governed inner-save step rides the same wave (R22 :610)
   })
 

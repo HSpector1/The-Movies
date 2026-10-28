@@ -302,7 +302,12 @@ export const PROTOCOL_VERSION = 4 as const
 // outgoing66 identity is registered prior, and each slot lifts Save50 -> Save51 on the governed prior path. The
 // development capacity occupant gains `television` (owner and activity), so a slot a season holds never reads as free.
 // Protocol4 is unchanged.
-export const PROJECTION_VERSION = 67 as const
+// Projection68 (P18 Sprint 13 slice B): the season on the wire. The `quoteTvCommission` quote family returns the core's
+// commission preview (refusal by name, or the admission quote and the frozen terms) and mints the `commissionTvSeason`
+// commit; the `cancelTvSeason` and `settleTvObligations` intents map to the core actions; the read-only `television`
+// Industry view lists the player's series and seasons. The outgoing67 identity is registered prior. Protocol4 and Save51
+// are unchanged, so a projection-67 checkpoint's slots are already live and its prior lift is identity.
+export const PROJECTION_VERSION = 68 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -2020,7 +2025,23 @@ const StudioQuoteLoanRequest = object('StudioQuoteLoanRequest', {
   draft: reference('StudioLoanDraftPayload', StudioLoanDraftPayload),
 })
 
+// P18 Sprint 13 slice B (projection 68): the commission draft is the core's public request, closed field by field. The
+// series title is plain text so an empty one reaches the core and is refused there by name.
+const StudioTvCastPayload = object('StudioTvCastPayload', { lead: nonEmptyText(), antagonist: nonEmptyText(), support: nonEmptyText() })
+const StudioTvRosterPayload = object('StudioTvRosterPayload', {
+  writerId: nonEmptyText(), directorId: nonEmptyText(), cast: reference('StudioTvCastPayload', StudioTvCastPayload), craftId: nonEmptyText(),
+})
+const StudioTvCommissionDraftPayload = object('StudioTvCommissionDraftPayload', {
+  seriesTitle: text(), propertyId: nonEmptyText(), roster: reference('StudioTvRosterPayload', StudioTvRosterPayload), adoptionId: nonEmptyText(),
+})
+const StudioQuoteTvCommissionRequest = object('StudioQuoteTvCommissionRequest', {
+  protocolVersion: literal(PROTOCOL_VERSION), schemaId: nonEmptyText(), sessionId: nonEmptyText(),
+  commandId: nonEmptyText(), expectedStateRevision: nonNegativeInteger(), type: literal('quoteTvCommission'),
+  draft: reference('StudioTvCommissionDraftPayload', StudioTvCommissionDraftPayload),
+})
+
 const StudioBridgeQuoteRequest = union('StudioBridgeQuoteRequest', [
+  reference('StudioQuoteTvCommissionRequest', StudioQuoteTvCommissionRequest),
   reference('StudioQuoteDiligenceRequest',StudioQuoteDiligenceRequest),
   reference('StudioQuoteAbsorptionRequest',StudioQuoteAbsorptionRequest),
   reference('StudioQuoteLoanRequest', StudioQuoteLoanRequest),
@@ -2411,7 +2432,28 @@ const StudioLoanQuoteSnapshot = object('StudioLoanQuoteSnapshot', {
   installments: array(nonNegativeInteger()),
 })
 
+// P18 Sprint 13 slice B (projection 68): the core's commission preview (contract §5 admission quote, the frozen v1
+// terms, the commissioner licence's disclosed consideration and term). `ok` is exactly "no refusal".
+const StudioTvAdmissionQuote = object('StudioTvAdmissionQuote', {
+  weeks: nonNegativeInteger(), cash: number(), floor: number(), payroll: number(), overhead: number(), facilityOpex: number(),
+  loanInstallments: number(), provision: number(), required: number(), ok: bool(),
+})
+const StudioTvMilestoneTerms = object('StudioTvMilestoneTerms', { scripts: number(), pictureLock: number(), delivery: number() })
+const StudioTvAgreementTerms = object('StudioTvAgreementTerms', {
+  fee: number(), advance: number(), milestones: reference('StudioTvMilestoneTerms', StudioTvMilestoneTerms), unitSpend: number(),
+  dueWeek: nonNegativeInteger(), finalWeek: nonNegativeInteger(), lateDeductionPerWeek: number(), lateDeductionMax: number(),
+  cancellationCharge: number(), distributionWeeks: nonNegativeInteger(),
+})
+const StudioTvCommissionQuoteSnapshot = object('StudioTvCommissionQuoteSnapshot', {
+  intentId: nonEmptyText(), kind: literal('commissionTvSeason'), commitLabel: nonEmptyText(),
+  startsNow: bool(), queues: bool(), queueNote: nullable(text()), ok: bool(), refusalReason: nullable(text()),
+  commitWeek: nonNegativeInteger(), quote: reference('StudioTvAdmissionQuote', StudioTvAdmissionQuote),
+  terms: reference('StudioTvAgreementTerms', StudioTvAgreementTerms), commissionerLicenceConsideration: number(),
+  distributionLicenceEndWeekExclusive: nonNegativeInteger(),
+})
+
 const StudioQuoteSnapshot = union('StudioQuoteSnapshot', [
+  reference('StudioTvCommissionQuoteSnapshot', StudioTvCommissionQuoteSnapshot),
   reference('StudioDiligenceQuoteSnapshot',StudioDiligenceQuoteSnapshot),
   reference('StudioAbsorptionQuoteSnapshot',StudioAbsorptionQuoteSnapshot),
   reference('StudioLoanQuoteSnapshot', StudioLoanQuoteSnapshot),
@@ -3818,6 +3860,8 @@ const definitions = {
   StudioLoanDraftPayload,
   StudioQuoteLoanRequest,
   StudioLoanQuoteSnapshot,
+  StudioTvCastPayload, StudioTvRosterPayload, StudioTvCommissionDraftPayload, StudioQuoteTvCommissionRequest,
+  StudioTvAdmissionQuote, StudioTvMilestoneTerms, StudioTvAgreementTerms, StudioTvCommissionQuoteSnapshot,
   StudioMarketProposalCastClassPromiseDraftPayload,
   StudioMarketProposalDirectorPromiseDraftPayload,
   StudioMarketProposalGenrePromiseDraftPayload,
@@ -4112,6 +4156,9 @@ export type CampaignAcceptedResponse=InferSchema<typeof StudioCampaignAcceptedRe
 export type BridgeLoanDraftPayload = InferSchema<typeof StudioLoanDraftPayload>
 export type BridgeQuoteLoanRequest = InferSchema<typeof StudioQuoteLoanRequest>
 export type BridgeLoanQuoteSnapshot = InferSchema<typeof StudioLoanQuoteSnapshot>
+export type BridgeTvCommissionDraftPayload = InferSchema<typeof StudioTvCommissionDraftPayload>
+export type BridgeQuoteTvCommissionRequest = InferSchema<typeof StudioQuoteTvCommissionRequest>
+export type BridgeTvCommissionQuoteSnapshot = InferSchema<typeof StudioTvCommissionQuoteSnapshot>
 
 export type BridgeDiligenceDraftPayload = InferSchema<typeof StudioDiligenceDraftPayload>
 

@@ -115,8 +115,9 @@ const OUTGOING_63 = 'sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128
 const OUTGOING_64 = 'sha256:57f12ee28d21aa47c7514afa1c058105a10f10a9e76d400d664e97c23dc90272' // Sprint 11: the P16 build's outgoing64 registered beneath current65 (review S1)
 const OUTGOING_65 = 'sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8' // Sprint 11 slice B: outgoing65 registered beneath current66
 const OUTGOING_66 = 'sha256:589380869e1329a8027b8339b88646761ce6d791376df5fd793e77ae9dd3b96a' // P18 Sprint 12: outgoing66 (the P17 checkpoint's identity) registered beneath current67
+const OUTGOING_67 = 'sha256:8bd45eec049c6105ed2efee3899cfbb2a440c1b40f536a899b332ffbde3003f0' // P18 Sprint 13 slice B: outgoing67 (the Sprint 12 checkpoint's identity) registered beneath current68
 const OUTGOING_PROJECTION = 48
-const INCOMING_PROJECTION = 67 // P18 Sprint 12 FIX-3: current projection 67 (outgoing66 is prior)
+const INCOMING_PROJECTION = 68 // P18 Sprint 13 slice B: current projection 68 (outgoing67 is prior)
 // The 36 accepted prior literals as they stand today (tests/bridge-p14b4-runtime47-compatibility.test.ts
 // :40-80, exact-count pin at :162). B.6 took this roster to 37 by adding OUTGOING_48;
 // B.8 takes it to 38 by adding OUTGOING_49.
@@ -809,10 +810,10 @@ describe('family 8 — the WIRE (RED BY VALUE: version literals and a registry c
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     expect(EXPECTED_36_PRIOR_IDS).toHaveLength(36)
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_36_PRIOR_IDS, OUTGOING_48, OUTGOING_49, OUTGOING_50, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61, OUTGOING_62, OUTGOING_63, OUTGOING_64, OUTGOING_65, OUTGOING_66].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_36_PRIOR_IDS, OUTGOING_48, OUTGOING_49, OUTGOING_50, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61, OUTGOING_62, OUTGOING_63, OUTGOING_64, OUTGOING_65, OUTGOING_66, OUTGOING_67].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
-    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size).toBe(55) // P16: + outgoing58-63; Sprint 11: + outgoing64, outgoing65; P18 Sprint 12: + outgoing66
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size).toBe(56) // P16: + outgoing58-63; Sprint 11: + outgoing64, outgoing65; P18 Sprint 12: + outgoing66; Sprint 13 slice B: + outgoing67
   })
 
   it('the checked-in generator artifacts equal the running identity (`--check` clean), and priorityOrder keeps its seven members and its line', () => {

@@ -1848,5 +1848,8 @@ export { tvCommissionPreview, tvAdmissionQuote, type TvCommissionPreview, type T
 // P18 Sprint 13: cancellation, settlement and the distribution window readers.
 export { cancelTvSeason, settleTvObligations, cancelTvSeasonsAtClosure, type SettleTvObligationsInput } from './tvSettlement.js'
 export { tvOutstanding, tvDistributionAvailable } from './tvReaders.js'
+// P18 Sprint 13 slice B: the client read model (Bridge television view and the browser season surfaces).
+export { tvView, tvCommissionChoices, tvStallText, TV_BLOCK_LABEL, TV_MILESTONE_LABEL, TV_CANCELLATION_LABEL, type TvView, type TvSeasonView, type TvCommissionChoices, type TvRosterRole } from './tvView.js'
+export type { CommissionTvSeasonRequest } from './tvTypes.js'
 export type { ContinuationType, LineageEdge, LineageEdgeType, PropertyMeter, FranchiseBranch, FranchiseBranchKind, FranchiseMilestone, FranchiseMilestoneId,
   FranchiseProperty, FranchiseRoot, SubProperty, SubPropertyKind, P17StepRoots, GameStateP17, GameStateV50 } from './types.js'

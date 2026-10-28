@@ -77,6 +77,7 @@ import {industryPage} from './industry.ts'
 import {isCancellationAction} from './cancellation.ts'
 import {laboratoryActionSpecs,type LaboratoryIntent} from './laboratory.ts'
 import {cameoCancelSpecs,type CameoIntent} from './appearances.ts'
+import {tvCommissionDraftApply,tvCommissionDraftCopy,tvCommissionQuoteSnapshot,tvIntentSpecs,type TvIntent} from './television.ts'
 import {isPhysicalPlanAction,planActionSpecs,type PlanIntent} from './plans.ts'
 import {applyOfficeAction,officeActionSpecs,type OfficeIntent} from './office.ts'
 import {setupRecipeActionSpecs,withProductionSetupRows,type ProductionSetupIntent} from './productionSetup.ts'
@@ -109,6 +110,9 @@ import type {
   BridgeLoanDraftPayload,
   BridgeQuoteLoanRequest,
   BridgeLoanQuoteSnapshot,
+  BridgeTvCommissionDraftPayload,
+  BridgeQuoteTvCommissionRequest,
+  BridgeTvCommissionQuoteSnapshot,
   BridgeContractDraftPayload,
   BridgeQuoteContractRequest,
   BridgeContractQuoteSnapshot,
@@ -197,6 +201,7 @@ type PendingQuote =
   | { family:'diligence'; draft:BridgeDiligenceDraftPayload; stateDigest:string; kind:'requestDueDiligence'; commitLabel:string }
   | { family:'absorption'; draft:BridgeAbsorptionDraftPayload; quotedAtWeek:number; quoteAgePolicyVersion:typeof QUOTE_AGE_POLICY_VERSION; stateDigest:string; kind:'absorbStudio'; commitLabel:string }
   | { family: 'loan'; draft: BridgeLoanDraftPayload; stateDigest: string; kind: 'takeLoan'; commitLabel: string }
+  | { family: 'tvCommission'; draft: BridgeTvCommissionDraftPayload; stateDigest: string; kind: 'commissionTvSeason'; commitLabel: string }
   | {
       family: 'commission'
       draft: BridgeCommissionDraftPayload
@@ -1169,6 +1174,16 @@ function resolveCameoIntents(state: GameState): Array<IntentApplication & CameoI
   }))
 }
 
+/** P18 Sprint 13 slice B (projection 68): cancel each live season, settle each owed agreement; the core actions decide. */
+function resolveTelevisionIntents(state: GameState): Array<IntentApplication & TvIntent> {
+  const stateDigest = authoritativeDigest(state)
+  return tvIntentSpecs(state).map(spec => ({
+    spec,
+    option: option(stateDigest, {kind:spec.kind,label:spec.label,detail:spec.detail,projectId:null,castingSessionId:null,productionId:null}, spec.action),
+    apply: current => caught(() => ({ok:true,next:applyActions(current,[spec.action])})),
+  }))
+}
+
 /** P13B-S3: the five plan verbs on the plans page. A plan is not research: its own kind. */
 function resolvePlanIntents(state: GameState): Array<IntentApplication & PlanIntent> {
   const stateDigest = authoritativeDigest(state)
@@ -1239,7 +1254,7 @@ function resolveLoanIntents(state: GameState): IntentApplication[] {
 function resolveAvailableIntents(state: GameState): IntentApplication[] {
   // P15B Wave 4 (closure/v1; 1362-O §5.2): a closed player studio is read-only history and offers nothing.
   if (state.hollywood !== null && !isOperatingStudio(state, state.hollywood.playerStudioId)) return []
-  return [...resolveStudioIntents(state), ...resolveLoanIntents(state), ...resolveLaboratoryIntents(state), ...resolvePlanIntents(state), ...resolveOfficeIntents(state), ...resolveProductionSetupIntents(state), ...resolveCameoIntents(state)]
+  return [...resolveStudioIntents(state), ...resolveLoanIntents(state), ...resolveLaboratoryIntents(state), ...resolvePlanIntents(state), ...resolveOfficeIntents(state), ...resolveProductionSetupIntents(state), ...resolveCameoIntents(state), ...resolveTelevisionIntents(state)]
 }
 
 export function availableIntents(state: GameState): AvailableIntent[] {
@@ -1472,7 +1487,7 @@ export class BridgeSession {
   industry(request:IndustryQuery) {
     if(request.sessionId!==this.sessionId)return this.protocolReject(request.requestId,'SESSION_MISMATCH','The active campaign changed. Refresh Industry.')
     if(request.expectedStateRevision!==this.stateRevision)return this.protocolReject(request.requestId,'STALE_REVISION','The studio advanced. Refresh this Industry page before continuing.')
-    try{return industryPage(this.state,this.sessionId,this.stateRevision,request,request.view==='laboratory'?resolveLaboratoryIntents(this.state):[],request.view==='plans'?resolvePlanIntents(this.state):[],request.view==='office'?resolveOfficeIntents(this.state):[],request.view==='featuredAppearances'?resolveCameoIntents(this.state):[])}
+    try{return industryPage(this.state,this.sessionId,this.stateRevision,request,request.view==='laboratory'?resolveLaboratoryIntents(this.state):[],request.view==='plans'?resolvePlanIntents(this.state):[],request.view==='office'?resolveOfficeIntents(this.state):[],request.view==='featuredAppearances'?resolveCameoIntents(this.state):[],request.view==='television'?resolveTelevisionIntents(this.state):[])}
     catch(error){return this.protocolReject(request.requestId,'INVALID_CONTROL',(error as Error).message)}
   }
 
@@ -1705,6 +1720,11 @@ export class BridgeSession {
           : pending.family==='diligence'?diligenceDraftApply(current,pending.draft)
             : absorptionDraftApply(current,pending.draft,pending.quotedAtWeek,pending.quoteAgePolicyVersion)}
     }
+    if (pending.family === 'tvCommission') {
+      return { option: { intentId, kind: pending.kind, label: pending.commitLabel, detail: '',
+        projectId: null, castingSessionId: null, productionId: null },
+        apply: current => tvCommissionDraftApply(current, pending.draft) }
+    }
     if (pending.family === 'loan') {
       // Resolve to a live action, never to the preflight successor captured at quote time.
       return { option: { intentId, kind: pending.kind, label: pending.commitLabel, detail: '',
@@ -1883,6 +1903,7 @@ export class BridgeSession {
   quote(request: BridgeQuoteDiligenceRequest): AcceptedQuoteResponseFor<BridgeDiligenceQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuoteAbsorptionRequest): AcceptedQuoteResponseFor<BridgeAbsorptionQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuoteLoanRequest): AcceptedQuoteResponseFor<BridgeLoanQuoteSnapshot> | RejectedResponse
+  quote(request: BridgeQuoteTvCommissionRequest): AcceptedQuoteResponseFor<BridgeTvCommissionQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuoteCommissionRequest): AcceptedQuoteResponseFor<BridgeCommissionQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuoteCastingRequest): AcceptedQuoteResponseFor<BridgeCastingQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuotePlacementRequest): AcceptedQuoteResponseFor<BridgePlacementQuoteSnapshot> | RejectedResponse
@@ -1908,6 +1929,17 @@ export class BridgeSession {
       if(quote.ok){this.pendingQuotes.set(intentId,{family:'absorption',draft,quotedAtWeek:quote.quotedAtWeek,quoteAgePolicyVersion:quote.quoteAgePolicyVersion,
         stateDigest,kind:'absorbStudio',commitLabel:quote.commitLabel});this.capPendingQuotes()}
       return this.mintQuoteResponse(request,started,stateDigest,quote)
+    }
+    if (request.type === 'quoteTvCommission') {
+      // P18 (projection 68): the core preview is the whole answer. A refusal is an accepted quote with `ok:false` and the
+      // core's reason; only a lawful one registers the digest-bound commit, which re-runs the action at commit.
+      const draft = { ...request.draft, roster: { ...request.draft.roster, cast: { ...request.draft.roster.cast } } }
+      const stateDigest = authoritativeDigest(this.state)
+      const intentId = opaqueIntentId(stateDigest, { tvCommissionDraft: tvCommissionDraftCopy(draft) })
+      const quote = tvCommissionQuoteSnapshot(this.state, draft, intentId)
+      return this.mintQuoteResponse(request, started, stateDigest, quote, quote.ok
+        ? { intentId, entry: { family: 'tvCommission', draft, stateDigest, kind: 'commissionTvSeason', commitLabel: quote.commitLabel } }
+        : undefined)
     }
     if (request.type === 'quoteLoan') {
       const stateDigest = authoritativeDigest(this.state)

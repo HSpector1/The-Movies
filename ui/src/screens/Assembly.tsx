@@ -8,6 +8,7 @@
 
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import type {
+  ActionOutcome,
   GameState,
   FilmConcept,
   FilmShape,
@@ -65,6 +66,8 @@ import {
   SEGMENT_ORDER,
   selectCash,
 } from '../engine/adapter.ts'
+import { SeasonCommissionPanel } from '../components/P18Season.tsx'
+import type { CommissionTvSeasonRequest } from '../engine/television.ts'
 import type {
   CreativeCohesion,
   PackageFit,
@@ -280,6 +283,7 @@ export function Assembly({
   onStateChange,
   onOpenProfile,
   onJourneyChange,
+  onCommissionTvSeason,
   surface = 'standalone',
 }: {
   state: GameState
@@ -295,6 +299,8 @@ export function Assembly({
   onOpenProfile?: ((id: string) => void) | undefined
   /** Mirror the current uncommitted Package form into the persistent Lot card. */
   onJourneyChange?: ((progress: PackageJourneyProgress) => void) | undefined
+  /** P18: commission a limited-series season (core `commissionTvSeason`); the outcome lets the panel show a refusal. */
+  onCommissionTvSeason?: ((request: CommissionTvSeasonRequest) => ActionOutcome | undefined) | undefined
   // The Lot workspace is a presentation adapter over this same canonical wizard. It removes
   // page-level chrome and owns scroll locally so the still-mounted world never drifts behind it.
   surface?: AssemblySurface
@@ -325,6 +331,8 @@ export function Assembly({
   // A1: when true, the embedded Talent Creator is shown IN PLACE of the wizard. Assembly stays
   // mounted the whole time, so `draft` (concept/shape/promise/talent picks) survives the round-trip.
   const [creating, setCreating] = useState(false)
+  // P18: the "Commission a season" panel opens on request, so the quote is computed only when asked for.
+  const [seasonOpen, setSeasonOpen] = useState(false)
   const [creatorReturnFocusEpoch, setCreatorReturnFocusEpoch] = useState(0)
   // World-first production formation: the native button click remains the sole action owner.
   // A synchronous ref (rather than render-time disabled state) closes double-click, key-repeat,
@@ -646,6 +654,16 @@ export function Assembly({
     onGreenlit(result.next, receipt)
   }
 
+  // P18: a season needs no screenplay, so the panel sits outside the package wizard and its managed gate.
+  const seasonPanel = onCommissionTvSeason && !isLotWorkspace ? (
+    <div className="stack" data-testid="season-entry" style={{ marginBottom: 16 }}>
+      <button type="button" className="ghost" aria-expanded={seasonOpen} onClick={() => setSeasonOpen((open) => !open)} data-testid="season-open">
+        Commission a season
+      </button>
+      {seasonOpen && <SeasonCommissionPanel state={state} onCommission={onCommissionTvSeason} />}
+    </div>
+  ) : null
+
   if (managedRequiresScript && lockedScript === undefined) {
     return (
       <div
@@ -668,6 +686,7 @@ export function Assembly({
           className={isLotWorkspace ? 'assembly-workspace-scroll' : undefined}
           data-testid={isLotWorkspace ? 'assembly-workspace-scroll' : undefined}
         >
+          {seasonPanel}
           <div className="errbox" role="alert" data-testid="managed-assembly-gate">
             Managed studios must open package assembly from a Ready screenplay in the Writers’ Room.
           </div>
@@ -735,6 +754,7 @@ export function Assembly({
         className={isLotWorkspace ? 'assembly-workspace-scroll' : undefined}
         data-testid={isLotWorkspace ? 'assembly-workspace-scroll' : undefined}
       >
+      {seasonPanel}
       <div
         className={`steps${isLotWorkspace ? ' assembly-workspace-progress' : ''}`}
         data-testid="assembly-steps"

@@ -58,6 +58,12 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
 // that window would carry the earlier hash, and this map is keyed on the
 // hash, not the label.
 export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+  // P18 Sprint 13 slice B: the outgoing67 identity (projection 67, the P18 Sprint 12 checkpoint 31fdb366 and the slice A
+  // candidate alike), prior beneath current68. Protocol 4 and Save51 are unchanged, so each slot is already live and takes
+  // the governed prior path as identity; the opaque journal resets. Its genuine capture ran on an immutable snapshot of
+  // 31fdb366 (producer docs/engineering/audits/2026-10-22-codebase-review/p18-sprint13/bridge-step/tools/capture67.ts;
+  // tests/fixtures/bridge/genuine-projection67-runtime).
+  ['sha256:8bd45eec049c6105ed2efee3899cfbb2a440c1b40f536a899b332ffbde3003f0', 'projection-v67'],
   // P18 Sprint 12: the outgoing66 identity (projection 66, the P17 technical checkpoint ecbc42c9 and the P18 candidate
   // 5710f748 alike: the bridge schema folds no save version), prior beneath current67. P18 moved the live save to Save51,
   // so a checkpoint written under 66 carries Save50 slots, which the current-schema path refuses as non-live. Each slot

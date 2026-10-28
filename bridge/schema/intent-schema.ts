@@ -66,6 +66,11 @@ export const AVAILABLE_INTENT_KINDS = [
   // P17 slice B (projection 66): cancelling ONE unperformed featured-guest booking of the player's own, the core
   // `cancelCameoBooking` action (one linked refund of fee less the retained charge; completed work keeps its fee).
   'cancelFeaturedBooking',
+  // P18 Sprint 13 slice B (projection 68): the season verbs. `commissionTvSeason` is minted only by the
+  // quoteTvCommission family; `cancelTvSeason` and `settleTvObligations` map to the core actions of the same names.
+  'commissionTvSeason',
+  'cancelTvSeason',
+  'settleTvObligations',
 ] as const
 
 export const StudioBridgeIntentOption = object('StudioBridgeIntentOption', {
