@@ -102,6 +102,7 @@ import { StudioCalendar } from './screens/StudioCalendar.tsx'
 import type { StudioCalendarRoute } from './screens/StudioCalendar.tsx'
 import { StudioDevelopment } from './screens/StudioDevelopment.tsx'
 import { ReleaseResult } from './screens/ReleaseResult.tsx'
+import { cancelCameoBookingAction } from './engine/continuation.ts'
 import { Autopsy } from './screens/Autopsy.tsx'
 import { TalentCreator } from './screens/TalentCreator.tsx'
 import { TalentHub } from './screens/TalentHub.tsx'
@@ -362,6 +363,8 @@ type Screen =
   | {
       kind: 'release'
       preTick: GameState
+      /** P17: the state this release tick produced, paired with preTick (never the live state). */
+      postTick: GameState
       postTickStanding: Standing
       released: FilmResult[]
       development: ReleaseDevelopment[]
@@ -383,6 +386,7 @@ type Screen =
       returnContext: StudioReturnContext
       release?: {
         preTick: GameState
+        postTick: GameState
         postTickStanding: Standing
         released: FilmResult[]
         development: ReleaseDevelopment[]
@@ -3022,6 +3026,7 @@ export function App() {
     }
     const release = {
       preTick,
+      postTick: next,
       postTickStanding: next.studio.standing,
       released,
       development,
@@ -3166,6 +3171,17 @@ export function App() {
     return result
   }
 
+  // P17: the one explicit cancellation of a reserved featured appearance. A refusal returns to the bookings card,
+  // which voices it through the same RefusalNotice seam Assembly uses (never a raw engine notice).
+  function handleCancelCameoBooking(bookingId: string) {
+    if (!state) return undefined
+    if (latestStateRef.current !== state) return undefined
+    const result = cancelCameoBookingAction(state, bookingId)
+    if (result.ok) replaceAuthoritativeState(result.next)
+    else punctuateRefusal(state.market.tick)
+    return result
+  }
+
   function handleProductionCommand(
     command: ProductionCommandView,
     source: StudioActionSource = 'supporting-dashboard',
@@ -3228,6 +3244,7 @@ export function App() {
       const development = buildReleaseDevelopment(result.preTick, result.next, result.released)
       const release = {
         preTick: result.preTick,
+        postTick: result.next,
         postTickStanding: result.next.studio.standing,
         released: result.released,
         development,
@@ -3375,6 +3392,7 @@ export function App() {
       )
       const release = {
         preTick: result.preTick,
+        postTick: result.next,
         postTickStanding: result.next.studio.standing,
         released: result.released,
         development,
@@ -4718,6 +4736,7 @@ export function App() {
           onPublicize={handleDashboardPublicity}
           onProductionCommand={handleProductionCommand}
           onCommitPictureToRelease={handleCommitPictureToRelease}
+          onCancelCameoBooking={handleCancelCameoBooking}
           {...(screen.focusProductionId ? { focusProductionId: screen.focusProductionId } : {})}
           {...(screen.focusRunId ? { focusRunId: screen.focusRunId } : {})}
           {...(screen.focusSection ? { focusSection: screen.focusSection } : {})}
@@ -4844,6 +4863,7 @@ export function App() {
       {screen.kind === 'release' && (
         <ReleaseResult
           preTick={screen.preTick}
+          postTick={screen.postTick}
           postTickStanding={screen.postTickStanding}
           released={screen.released}
           constructionCompletion={screen.constructionCompletion}

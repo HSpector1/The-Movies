@@ -266,6 +266,9 @@ import type { ReceptionBand, CriticTier } from '../../../src/core/index.ts'
 export { filmCommittedCost } from '../../../src/core/index.ts'
 import { canAfford as coreCanAfford, legacyAnnexOffered as coreLegacyAnnexOffered } from '../../../src/core/index.ts'
 import { SET_BLUEPRINTS } from '../../../src/core/tuning.ts'
+import type { ContinuationRequest } from '../../../src/core/index.ts'
+// P17 cameo request type: not exported from index.ts yet (see engine/continuation.ts).
+import type { CameoBookingRequest } from '../../../src/core/cameo.ts'
 import { money } from '../format.ts'
 // Gate D1: presentation-only snapshot types for the Studio Lot. This is a pure leaf
 // type module (imports nothing, no Phaser); the value import (ALL_BUILDING_IDS) adds
@@ -1994,7 +1997,17 @@ export type ActionOutcome =
   | { ok: true; next: GameState }
   | { ok: false; error: string }
 
-export function greenlight(state: GameState, pkg: DraftPackage): ActionOutcome {
+// P17: the optional continuation request and featured bookings a greenlight carries. Absent (or no guests) ⇒ the
+// predecessor action byte for byte; the core quotes both again and refuses atomically (engine/continuation.ts reads).
+export type GreenlightExtras = { continuation?: ContinuationRequest | undefined; cameos?: CameoBookingRequest[] | undefined }
+function greenlightExtras(extras: GreenlightExtras | undefined) {
+  return {
+    ...(extras?.continuation ? { continuation: extras.continuation } : {}),
+    ...(extras?.cameos && extras.cameos.length > 0 ? { cameos: extras.cameos } : {}),
+  }
+}
+
+export function greenlight(state: GameState, pkg: DraftPackage, extras?: GreenlightExtras): ActionOutcome {
   try {
     const next = applyActions(state, [
       {
@@ -2009,6 +2022,7 @@ export function greenlight(state: GameState, pkg: DraftPackage): ActionOutcome {
           cast: pkg.cast,
           budget: pkg.budget,
         },
+        ...greenlightExtras(extras),
       },
     ])
     return { ok: true, next }
@@ -2022,6 +2036,7 @@ export function greenlightScriptProject(
   state: GameState,
   projectId: string,
   pkg: DraftPackage,
+  extras?: GreenlightExtras,
 ): ActionOutcome {
   try {
     const next = applyActions(state, [
@@ -2034,6 +2049,7 @@ export function greenlightScriptProject(
           cast: { ...pkg.cast },
           budget: { ...pkg.budget },
         },
+        ...greenlightExtras(extras),
       },
     ])
     return { ok: true, next }

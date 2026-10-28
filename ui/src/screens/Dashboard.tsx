@@ -6,6 +6,7 @@
 
 import { useEffect, useRef } from 'react'
 import type {
+  ActionOutcome,
   GameState,
   FilmResult,
   RunView,
@@ -35,6 +36,7 @@ import { money, score } from '../format.ts'
 import { Metric, StandingBar } from '../components/common.tsx'
 import { AffordabilityScopesCard } from '../components/AffordabilityScopes.tsx'
 import { ProductionBoard } from '../components/ProductionBoard.tsx'
+import { FeaturedBookingsCard } from '../components/P17Continuation.tsx'
 import { StudioCalendarPreview } from './StudioCalendar.tsx'
 import { StudioDevelopmentPreview } from './StudioDevelopment.tsx'
 
@@ -64,6 +66,7 @@ export function Dashboard({
   onPublicize,
   onProductionCommand,
   onCommitPictureToRelease,
+  onCancelCameoBooking,
   focusProductionId,
   focusRunId,
   focusSection,
@@ -106,6 +109,8 @@ export function Dashboard({
   onPublicize?: (tier: PublicityTier) => void
   onProductionCommand?: (command: ProductionCommandView) => void
   onCommitPictureToRelease?: (productionId: string) => void
+  /** P17: explicitly cancel one reserved featured appearance; the outcome lets the card show a refusal. */
+  onCancelCameoBooking?: (bookingId: string) => ActionOutcome | undefined
   /** Navigation-only handoffs from the Studio Calendar. */
   focusProductionId?: string
   focusRunId?: string
@@ -592,6 +597,8 @@ export function Dashboard({
       />
 
       <div style={{ height: 16 }} />
+
+      <FeaturedBookingsCard state={state} onCancel={onCancelCameoBooking} />
 
       <div className="card">
         <h2 ref={releasesHeadingRef} tabIndex={-1} data-testid="dashboard-releases-heading">
