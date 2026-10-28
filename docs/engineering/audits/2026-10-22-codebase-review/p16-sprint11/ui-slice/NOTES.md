@@ -197,3 +197,38 @@ sha256 sit in `FIX-1-MANIFEST.json`. Status stays STATIC-UNRUN: single-file synt
 Note: `tools/make_patches.py` reads `postimages/`, so running it now would fold Fix 1 into SOURCE and TESTS and change
 their sha256. The delivered SOURCE.patch and TESTS.patch are the reviewed r0 patches; run make_patches.py only if the
 coordinator prefers folded patches over the FIX-1 chain.
+
+## Fix 2 (lane r22 on db60738b: ui typecheck 2 diagnostics, p17-continuation-ui 5/6)
+
+`FIX-2.patch` (2.5 KB, one file: `ui/src/screens/p17-continuation-ui.test.tsx`, test-only) applies on db60738b. T's
+HEAD has since moved to 988a73bb (Bridge tests only); `ui/` is unchanged from db60738b, and `git apply --check` passes at
+HEAD. `tools/make_fix2.py` regenerates the patch from `r1-postimages/` (the landed db60738b files) to `postimages/` and
+proves db60738b's blob plus FIX-2 equals the post-image (passed). `FIX-2-MANIFEST.json` holds the sha256 values. No source change.
+
+| Lane finding | Cause | Resolution |
+|---|---|---|
+| TS2571 at :232:31 and :232:84 (`booking.careerEvent!.starPowerBefore/After` is `unknown`) | The booking came from the route helper's `rootOf`, whose local `Booking` spells `careerEvent` as `Record<string, unknown> \| null` | Case 6 reads the typed core root `postRelease.cameos?.bookings` (`CameoBooking`, `careerEvent: CameoCareerEvent \| null`). A named premise throws when the booking is missing or uncredited, then narrows into `credit`. No cast, no `any`. |
+| Case 1 at :107 expected "Relies on the held title (sequel use)" | FIX-1's `USE_LABEL` renders "(the sequel right)" | Pin updated to `'Relies on the held title (the sequel right)'`. |
+
+Other pinned phrases checked against the FIX-1 label maps and copy, all unchanged and matching:
+- unit: "Title held", "No continuation recorded yet", `Recognition N` / `Fatigue N`, `add $fee`, "unlock at week 1872",
+  "Direct sequel of A in <title>, on the main continuity", "Before this release" / "After this release" (case 6 passed
+  its text assertions in r22, before the type errors), the cancel file's "Cancelled (cancelled by the studio); refunded …"
+  (passed 1/1 in r22);
+- e2e: "Relies on the held title" (substring of the new label), "(1 guest)", "retains", "Direct sequel of", "credited".
+
+### RED run at the parent (T without the ui slice, db60738b^ = d274b849): the seven ui cases
+
+| File | Case | Fails at the parent by |
+|---|---|---|
+| p17-continuation-ui.test.tsx | 1 offers the lawful continuations of the released original … | missing test id `continuation-property-<P>` |
+| p17-continuation-ui.test.tsx | 2 quotes the locked sequel too … | missing test id `continuation-choice-remake-<sequel>` |
+| p17-continuation-ui.test.tsx | 3 lists eligible guests with the quoted fee … | missing test id `guest-work-week` |
+| p17-continuation-ui.test.tsx | 4 before the 1956 unlock the guest panel discloses why … | missing test id `guest-unavailable` |
+| p17-continuation-ui.test.tsx | 5 the production screen shows the reserved booking … | missing test id `booking-cancel-disclosure-<id>` |
+| p17-continuation-ui.test.tsx | 6 shows the lineage edge, the meters … | missing test id `release-lineage-<sequel>` (the parent's ReleaseResult ignores `postTick`) |
+| p17-cameo-cancel-ui.test.tsx | the cancel action refunds fee less the retained charge … | import: missing module `ui/src/engine/continuation.ts` (whole file fails at collection) |
+
+The six cases in the first file import only modules present at the parent (core index, `cameoBooking.ts`, the cameo route
+helper, the existing screens, `careerImpact.ts`), so their collection-time route builds there and each fails on its first
+missing test id.

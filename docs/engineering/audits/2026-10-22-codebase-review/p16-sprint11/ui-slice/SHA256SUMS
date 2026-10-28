@@ -1,7 +1,9 @@
 b10dcf37c91969b7b89d0f892bc90377cc563688e454e521e2b7511f82f841f9  ./FIX-1-MANIFEST.json
 fb6d34acf8b0d1b51eead303d9fba8d6f05251fe0195fe7d8bee47e0c61f305f  ./FIX-1.patch
+643beeca7af9319cdb07d79697c80aadd217e08a1c5c0993593df825db1696fb  ./FIX-2-MANIFEST.json
+db2fe17e416e51214aa09024321dbae71d03e9aace710ad8128fe4b57e0cab70  ./FIX-2.patch
 929afd5e602f6b076a07d472963eec90189b2b18e15ab8e04b2ed9196a23a0dc  ./MANIFEST.json
-60d17b5bc880e3236a7fe01ebc921077106a2fb012092ae67552bfffab821597  ./NOTES.md
+ee3b1a7d34ca43e0766050605e02f97edde689992c319aa217bcb5ac149ab1ba  ./NOTES.md
 370177922f3469fa2a91ea067db52912aa7d0ddc41ef910939711d02ff675efc  ./SOURCE.patch
 9f8ce1ec7b9e8cb91cc2dd92961b0177085bcac688f9053dedb485c95929f0e9  ./TESTS.patch
 c1c732569d4d9b69af0c0b48cf44c4c7ff5631c441e4d3a8e6016b501c5ec024  ./postimages/ui/e2e/p17-continuation.spec.ts
@@ -13,7 +15,7 @@ cbfc6be4de867abc61dd7dbfbea21e8141e04fbeccae95fbf113a277b6ef2374  ./postimages/u
 e9e5cfb3b3b659c9bb4659e97b250c7352676d5bf1e8b03bb9d7873d90a91f2f  ./postimages/ui/src/screens/Dashboard.tsx
 71082c24073b63f11ac311a41279dd08b6a6902433fc71373476ac191847b7f2  ./postimages/ui/src/screens/ReleaseResult.tsx
 47d81a2cb30b4de33520bf53fef771d1a27b0684682197aa8972128e0af21690  ./postimages/ui/src/screens/p17-cameo-cancel-ui.test.tsx
-9bca6ab9eff32ae7c2180bb8e9b188062eeb338d262d15d1aa6adade33926b18  ./postimages/ui/src/screens/p17-continuation-ui.test.tsx
+6ee4f6fa1727292116229fbcfe0cb89fcf8ef736f3b306cc8168ba2591623bf3  ./postimages/ui/src/screens/p17-continuation-ui.test.tsx
 a405e07098e07d662b966fc7813a713fe8463180cd46ecf86ad906575c8a129c  ./r0-postimages/ui/e2e/p17-continuation.spec.ts
 28f727cf99f998330420054aa8fac150d16ac78147913648b492cfbd1c109a81  ./r0-postimages/ui/src/App.tsx
 90db065d7efed1f9261dd87bfca9629551cc0289be5701a2d33dc1488ba1e405  ./r0-postimages/ui/src/components/P17Continuation.tsx
@@ -23,5 +25,16 @@ f39ef1f6f2f193e97dffcfd82917b55db27bbbf4249fa61070c7a572ed97e72f  ./r0-postimage
 d4f8e1b373430aa7581c645985ec947c472b78377cf911989a6085bd17f153f6  ./r0-postimages/ui/src/screens/Dashboard.tsx
 8993a07f870c5e1d711c234e44c2fde80087568e0ee714366bd44ea8b69dd28e  ./r0-postimages/ui/src/screens/ReleaseResult.tsx
 054838e40e298a1c311b808c0a8fd0cb5877b58c4db621f6a6753a480239ce01  ./r0-postimages/ui/src/screens/p17-continuation-ui.test.tsx
+c1c732569d4d9b69af0c0b48cf44c4c7ff5631c441e4d3a8e6016b501c5ec024  ./r1-postimages/ui/e2e/p17-continuation.spec.ts
+3c00f8537950c062e9fc2a90867ea975db1389091d253d43638e0d0d52276c7f  ./r1-postimages/ui/src/App.tsx
+17b7c9ce601e6e639ae3df78fe585bc775d6931b2c44eadf579df114a4cd88d2  ./r1-postimages/ui/src/components/P17Continuation.tsx
+f39ef1f6f2f193e97dffcfd82917b55db27bbbf4249fa61070c7a572ed97e72f  ./r1-postimages/ui/src/engine/adapter.ts
+cbfc6be4de867abc61dd7dbfbea21e8141e04fbeccae95fbf113a277b6ef2374  ./r1-postimages/ui/src/engine/continuation.ts
+9dd14f2e90f5d41a5d0759c5b32b172a3642700d62c40bb4316128a5b3c2d2a7  ./r1-postimages/ui/src/screens/Assembly.tsx
+e9e5cfb3b3b659c9bb4659e97b250c7352676d5bf1e8b03bb9d7873d90a91f2f  ./r1-postimages/ui/src/screens/Dashboard.tsx
+71082c24073b63f11ac311a41279dd08b6a6902433fc71373476ac191847b7f2  ./r1-postimages/ui/src/screens/ReleaseResult.tsx
+47d81a2cb30b4de33520bf53fef771d1a27b0684682197aa8972128e0af21690  ./r1-postimages/ui/src/screens/p17-cameo-cancel-ui.test.tsx
+9bca6ab9eff32ae7c2180bb8e9b188062eeb338d262d15d1aa6adade33926b18  ./r1-postimages/ui/src/screens/p17-continuation-ui.test.tsx
 422c836be0292748fd7179a162631a6cd8bbd604757d16a261bf6fe9b1e246dc  ./tools/make_fix.py
+043d5304045bfda3c580035b0a59f12855f12967a1d17ce5fd4a2d0a110d563d  ./tools/make_fix2.py
 b16b857c0c2967787a6dd4b76c306a5e3fa73bdfef3c9243d48c7bb8aed055c2  ./tools/make_patches.py

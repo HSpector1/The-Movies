@@ -51,3 +51,7 @@ bridge-b-green-r20 on bfce8c29 (42 files): 564 passed / 15 failed: 14 inherited 
 ## r22 on db60738b (slice B FIX-1 d274b849 + browser slice db60738b): UI build 0, Bridge types 0, root/ui types 2 diagnostics — 23:10 CDT
 
 root/ui typecheck: two TS2571 in ui/src/screens/p17-continuation-ui.test.tsx:232 (careerEvent typed unknown); Bridge types 0; UI build 0. ui unit: p17-cameo-cancel-ui 1/1; p17-continuation-ui 5/6 (one label pin out of date after the FIX-1 label maps). bridge: contract-generator 31/31 (F10 = F11 = f194af88… confirmed), runtime-checkpoint 88/88 (projection-65 genuine capture accepted byte for byte), featured-appearances still failing to load on the managed-activation premise (slice B FIX-2 applied next). ui FIX-2 in preparation.
+
+## Bridge slice B GREEN after FIX-2 (988a73bb); RED premise r24 complete — 23:20 CDT
+
+bridge-b-green-r23: bridge-p17-continuation-greenlight 3/3, bridge-p17-featured-appearances 5/5 (route through the managed activation sequence). bridge-b-red-r24 at 29c7cf0d with ui/ present (replaces the void r21): all ten slice B cases RED by assertion (closed quote parser admits no continuation/cameos member; closed Industry parser admits no featuredAppearances view; outcome undefined; registry 53 vs 54; projection-v65 unregistered). ui FIX-2 applied; ui-r25 (ui types, unit files, Playwright journey + smoke) and ui-red-r26 in flight; combined re-review of the slice B fixes and the browser slice in flight.

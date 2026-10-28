@@ -1,0 +1,15 @@
+{
+  "head": "93ea2fe9ad36bc0d4b55501a5f295ae0fed47203",
+  "sourceManifestEntries": 2083,
+  "purpose": "Sprint 11 RED premise r24 at 29c7cf0d for Bridge slice B (ui/ present; replaces the void r21)",
+  "children": [
+    {
+      "label": "red",
+      "completeFiles": [
+        "tests/bridge-p17-continuation-greenlight.test.ts",
+        "tests/bridge-p17-featured-appearances.test.ts",
+        "tests/bridge-runtime-checkpoint.test.ts"
+      ]
+    }
+  ]
+}

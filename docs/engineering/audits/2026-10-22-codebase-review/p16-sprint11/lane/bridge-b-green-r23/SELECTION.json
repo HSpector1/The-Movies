@@ -1,0 +1,14 @@
+{
+  "head": "988a73bbb48cae53ae294dc840248ed02e9fb078",
+  "sourceManifestEntries": 2143,
+  "purpose": "Sprint 11 r23: slice B featured-appearances (after FIX-2) and continuation-greenlight files on the candidate",
+  "children": [
+    {
+      "label": "focused",
+      "completeFiles": [
+        "tests/bridge-p17-featured-appearances.test.ts",
+        "tests/bridge-p17-continuation-greenlight.test.ts"
+      ]
+    }
+  ]
+}

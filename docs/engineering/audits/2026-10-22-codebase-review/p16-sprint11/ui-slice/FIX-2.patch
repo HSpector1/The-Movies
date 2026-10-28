@@ -1,0 +1,35 @@
+diff --git a/ui/src/screens/p17-continuation-ui.test.tsx b/ui/src/screens/p17-continuation-ui.test.tsx
+index 5408086550ab3243477dd0a1d66f167cd1a40978..ede3fef0a825f6cfbafef3c43f11ed8080929e5a 100644
+--- a/ui/src/screens/p17-continuation-ui.test.tsx
++++ b/ui/src/screens/p17-continuation-ui.test.tsx
+@@ -104,7 +104,7 @@ describe('P17 browser slice — the continuation choice on the greenlight screen
+     const quote = plainQuote(original, { type: 'directSequel', predecessorProductionId: origId })
+     if (!quote.ok) throw new Error(`premise: the core refuses the directSequel: ${quote.reason}`)
+     const line = screen.getByTestId(`continuation-choice-directSequel-${origId}-quote`)
+-    expect(line).toHaveTextContent('Relies on the held title (sequel use)')
++    expect(line).toHaveTextContent('Relies on the held title (the sequel right)')
+     expect(line).toHaveTextContent(`Recognition ${quote.recognition.toFixed(1)}`)
+     expect(line).toHaveTextContent(`Fatigue ${quote.fatigue.toFixed(1)}`)
+ 
+@@ -201,8 +201,10 @@ describe('P17 browser slice — the released film\'s outcome', () => {
+   it('shows the lineage edge, the meters before and after the release, and the credited guest, from the core records', () => {
+     const film = postRelease.studio.releasedFilms.find((f) => f.productionId === sequelId)
+     expect(film).toBeDefined()
+-    const booking = rootOf(postRelease)!.bookings.find((x) => x.productionId === sequelId)!
+-    expect(booking.careerEvent).not.toBeNull()
++    // the typed core root (the route helper's Booking spells careerEvent as an untyped record)
++    const booking = postRelease.cameos?.bookings.find((x) => x.productionId === sequelId)
++    if (booking === undefined || booking.careerEvent === null) throw new Error('premise: the sequel\'s guest booking was credited at release')
++    const credit = booking.careerEvent
+     render(
+       <ReleaseResult
+         preTick={preRelease}
+@@ -229,7 +231,7 @@ describe('P17 browser slice — the released film\'s outcome', () => {
+     expect(within(rows[2]!).getByRole('rowheader')).toHaveTextContent('After this release')
+     expect(cells(rows[2]!)).toEqual(readings(postRelease))
+     expect(screen.getByTestId(`release-guest-${booking.bookingId}`)).toHaveTextContent(
+-      `credited; star power ${booking.careerEvent!.starPowerBefore.toFixed(1)} → ${booking.careerEvent!.starPowerAfter.toFixed(1)}`,
++      `credited; star power ${credit.starPowerBefore.toFixed(1)} → ${credit.starPowerAfter.toFixed(1)}`,
+     )
+   })
+ })
