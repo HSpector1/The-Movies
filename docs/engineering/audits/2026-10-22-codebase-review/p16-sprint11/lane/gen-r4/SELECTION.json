@@ -1,0 +1,14 @@
+{
+  "head": "f8aa097a483fcf33a36e9147abf04f404c1dd7e6",
+  "sourceManifestEntries": 2123,
+  "purpose": "Sprint 11 gen-r4: generator test after the F10 pin, to read F11",
+  "children": [
+    {
+      "label": "generator-test",
+      "completeFiles": [
+        "tests/bridge-contract-generator.test.ts",
+        "tests/bridge-schema.test.ts"
+      ]
+    }
+  ]
+}

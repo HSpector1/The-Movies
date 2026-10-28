@@ -1,0 +1,2 @@
+ M generated/unity/StudioBridgeDtos.Generated.cs
+ M generated/unity/project-studio-bridge.contract-manifest.json

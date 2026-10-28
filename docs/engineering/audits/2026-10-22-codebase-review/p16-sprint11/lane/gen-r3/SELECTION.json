@@ -1,0 +1,23 @@
+{
+  "head": "b5c7351f31922344b24535c1160cc267a11bc6a3",
+  "sourceManifestEntries": 2123,
+  "purpose": "Sprint 11 gen-r3: regenerate the Bridge contract and fixtures for projection 65, run both checks, Bridge and root types, and the generator/schema tests to read the F10/F11 declaration hashes",
+  "children": [
+    {
+      "label": "generate"
+    },
+    {
+      "label": "checks"
+    },
+    {
+      "label": "types"
+    },
+    {
+      "label": "generator-test",
+      "completeFiles": [
+        "tests/bridge-contract-generator.test.ts",
+        "tests/bridge-schema.test.ts"
+      ]
+    }
+  ]
+}

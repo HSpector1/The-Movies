@@ -1,0 +1,10 @@
+{
+  "head": "ef9f20a68de274c049c0a4929cdc0172896797bb",
+  "sourceManifestEntries": 1331,
+  "purpose": "Sprint 11 capture-r1: genuine P16-build outgoing64 runtime checkpoint captured in a snapshot of a5a66c27 (plus the copied capture64.ts tool only)",
+  "children": [
+    {
+      "label": "capture64"
+    }
+  ]
+}
