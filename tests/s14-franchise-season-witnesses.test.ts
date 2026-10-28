@@ -30,10 +30,11 @@
 //                             Awards source exists in the core (campaignLegacy.ts:92, 303); the Awards check is a static
 //                             shape premise, not a measurement.
 //
-// Disclosed shortcut, the only one: one P18 fixture cash row (`withCash`, tests/helpers/p18-route.ts) before the
-// technology purchase, so the money reconciles. No staff, grant or capacity is spliced. The row lands before the twins
-// fork, so both carry it; W2's first case records the cash before the row, the purchase price, the adoption commitment
-// and the admission quote, so the record shows whether the natural world could have afforded the setup.
+// No shortcut (FIX-S14-W2): the W2 setup is fully natural. No cash, staff, grant or capacity is spliced; the studio pays
+// for the sound purchase, the adoption and the season from the cash its two releases left. W2's first case prints the
+// cash record (the cash at the operations step, the purchase price, the adoption commitment and the admission quote at
+// C) as the measurement. s14-r3 measured, with a fixture row still in place, that the natural world passes the quote
+// (10,562,272 available against 2,990,340 required); this file now runs that natural world.
 // Budgets (FIX-S14-W1): first measurements, s14-r1 at 0cf00e40 ran this file in 31.9 s with three route builds; it now
 // builds twice and replays one clone. Declared 300 s top-level and 240 s per describe hook; never to be widened.
 
@@ -52,7 +53,7 @@ import type { Action, CreativeRole, GameState } from '../src/core/types.js'
 import { adoptExistingSoundChain } from '../src/harness/p13a/fixtures.js'
 import { ask, cameoRoute, freeGuest, greenlight, releaseNewest, rootOf, type CameoRoute } from './helpers/p17-cameo-route.js'
 import { freshConcept } from './helpers/p17-route.js'
-import { attempt, player, request, season, sig, television, withCash, type TvRosterLocal } from './helpers/p18-route.js'
+import { attempt, player, request, season, sig, television, type TvRosterLocal } from './helpers/p18-route.js'
 
 /** bridge-p17-featured-appearances.test.ts:105's seed: its route already reaches a released continuation with a guest. */
 const SEED = 'bridge-p17-featured-appearances'
@@ -176,10 +177,9 @@ describe('S14 W2 — a franchise with a guest and a live season: no film polluti
 
   beforeAll(() => {
     const activated = applyActions(A.released, [{ kind: 'activateStudioOperations' }])
-    const funded = withCash(activated, 30_000_000)
-    const bought = applyActions(funded, [{ kind: 'purchaseTechnology', technologyId: 'synchronized-sound' }])
+    const bought = applyActions(activated, [{ kind: 'purchaseTechnology', technologyId: 'synchronized-sound' }])
     let s = adoptExistingSoundChain(bought)
-    const purchasePrice = funded.studio.cash - bought.studio.cash
+    const purchasePrice = activated.studio.cash - bought.studio.cash
     const adoptionCommitment = bought.studio.cash - s.studio.cash
     const adoption = s.technology.adoptions.find((x) => x.studioId === player(s) && x.technologyId === 'synchronized-sound')
     if (adoption === undefined || adoption.postFacilityId === null) throw new Error('premise: no player sound adoption with a Post facility')
@@ -189,7 +189,9 @@ describe('S14 W2 — a franchise with a guest and a live season: no film polluti
     }
     base = s
     const quote = tvAdmissionQuote(base, base.market.tick)
-    const row = funded.studio.cash - activated.studio.cash
+    // FIX-S14-W2: no fixture row, so `row` is 0 and `cashWithoutRow` is the quote's own cash (fields kept for comparison
+    // with the s14-r3 record).
+    const row = 0
     cashRecord = { baseCash: activated.studio.cash, row, purchasePrice, adoptionCommitment, quoteCash: quote.cash, quoteRequired: quote.required,
       cashWithoutRow: quote.cash - row, naturalPassesQuote: quote.cash - row >= quote.required }
     const parent = base.studio.releasedFilms.find((f) => f.productionId === A.parentId)
@@ -213,8 +215,8 @@ describe('S14 W2 — a franchise with a guest and a live season: no film polluti
     withoutEnd = without
   }, 240_000)
 
-  it('P16 admits the season on the franchise\'s own story property (continuation-linked), cash-assisted by one disclosed row, within 72 advances', () => {
-    // The record, printed on every run: whether the natural world, without the one disclosed row, could afford the setup.
+  it('P16 admits the season on the franchise\'s own story property (continuation-linked) in the natural world, within 72 advances', () => {
+    // The measurement, printed on every run: the natural cash at each step of the setup and the admission quote at C.
     console.info(`S14 W2 cash record ${JSON.stringify(cashRecord)}`)
     expect(Object.values(cashRecord).every((v) => typeof v === 'boolean' || Number.isFinite(v)), JSON.stringify(cashRecord)).toBe(true)
     expect(refusal, 'the commission on the continuation-linked property').toBeUndefined()
