@@ -1178,8 +1178,7 @@ describe('Sprint 11 S1 — P16-build current64 checkpoints with Save49 slots tak
   })
 
   it('accepts the genuine P16-build capture (a5a66c27 public save route) and lifts both Save49 slots to Save50', () => {
-    // PLACEHOLDER pins: the coordinator captures the fixture at a5a66c27 with tools/capture64.ts (Sprint 11 bridge OUT)
-    // and replaces each PLACEHOLDER below with the receipt's value. Until then this case fails loudly on the missing file.
+    // Pins measured from the actual capture at a5a66c27 (tools/capture64.ts; OUTGOING64-RECEIPT.json beside the fixture).
     const compressed = readFileSync(new URL('./fixtures/p16/genuine-projection64-runtime/outgoing64.checkpoint.json.gz', import.meta.url))
     expect(createHash('sha256').update(compressed).digest('hex')).toBe('495174bd6c33748948375b3fd3a800dce9f876e42a194fc8d8047a6ca0d4e440')
     const raw = gunzipSync(compressed).toString('utf8')
@@ -1210,6 +1209,27 @@ describe('Sprint 11 S1 — P16-build current64 checkpoints with Save49 slots tak
     expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(sha256(loaded.hydrated.checkpoint.savedSaveJson ?? ''))
     expect(loaded.hydrated.checkpoint.currentStateDigest).not.toBe(original.currentStateDigest)
     expect(canonicalJson(original)).toBe(before)
+  })
+
+  // Inherited limit, recorded rather than widened (review should-fix 3): the prior path refuses any migrated slot with an
+  // open founding draft unless it is the R05/P12 native draft (runtime-checkpoint.ts nativeR05Draft). A P16-build checkpoint
+  // saved mid-founding is therefore refused with the historical "cannot contain" message, and a P17-build 64 checkpoint
+  // saved mid-founding, which loaded on the current path before projection 65, is refused the same way. The same bytes
+  // under the running schema still load. Widening nativeR05Draft is out of this slice.
+  it('refuses a mid-founding P16-build (Save49) or P17-build (Save50) current64 checkpoint on the prior path; the running schema still loads it', () => {
+    const founding = BridgeSession.createRuntime().exportRuntimeCheckpoint()
+    expect((JSON.parse(founding.currentSaveJson) as { state: { founding: unknown } }).state.founding).not.toBeNull()
+    const p16SaveJson = exportSave(shipped47Save.convertV50ToV49(shipped47Save.migrateToLive(shipped47Save.importSave(founding.currentSaveJson))))
+    expect(JSON.parse(p16SaveJson)).toMatchObject({ saveVersion: 49 })
+    for (const [build, currentSaveJson] of [['p16', p16SaveJson], ['p17', founding.currentSaveJson]] as const) {
+      const bytes = priorProtocol4Bytes({ schemaId: P16_BUILD_OUTGOING_64, sessionId: `${build}-mid-founding-64`, stateRevision: 0,
+        currentSaveJson, savedSaveJson: null, journal: [] })
+      expect(() => loadBridgeRuntimeCheckpoint(bytes, undefined, () => `${build}-mid-founding-fresh`))
+        .toThrow('checkpoint.currentSaveJson: previous protocol-4 production authority cannot contain an open founding draft')
+    }
+    const current = loadBridgeRuntimeCheckpoint(encodeBridgeRuntimeCheckpoint(founding), undefined, () => { throw new Error('a current checkpoint must not migrate') })
+    expect(current.migratedFromProtocolVersion).toBeNull()
+    expect(current.hydrated.checkpoint.currentSaveJson).toBe(founding.currentSaveJson)
   })
 
   it('still refuses a current-schema checkpoint that carries a non-live Save49 slot, by name, without the prior path', () => {

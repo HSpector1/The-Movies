@@ -413,8 +413,8 @@ describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, 
     // Current63 independently measured by p63-declaration-measurement.ts at0e0cdfde;
     // preserve authentic generated outgoing62 separately in the exact prior roster.
     // Current64 is measured by the actual contract64 generator output; authentic63 remains prior.
-    // Current65 (Sprint 11): computed statically from the post-image schema JSON by canonical sha256 (the method reproduces
-    // 57f12ee2 from the parent's file); the lane's generator check must confirm it. The P16 build's 64 remains prior.
+    // Current65 (Sprint 11): computed statically by canonical sha256, confirmed by the lane generator (manifest schemaId
+    // d57642ad…, f8aa097a). The P16 build's 64 remains prior.
     expect(SCHEMA_ID).toBe('sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8')
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)

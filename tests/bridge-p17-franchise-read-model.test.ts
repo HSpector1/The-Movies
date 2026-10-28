@@ -11,9 +11,10 @@ import { parseWireValue } from '../bridge/schema/runtime.ts'
 import type { IndustryQuery } from '../bridge/schema/industry-schema.ts'
 import { continuationQuote, type ContinuationRequest } from '../src/core/continuation.js'
 import { continuationWorldOf } from '../src/core/continuationGreenlight.js'
-import { branchBand, fatigueAt, momentumAt, recognitionReported } from '../src/core/continuationSignals.js'
+import { branchBand, fatigueAt, momentumAt, qualityOf, recognitionReported } from '../src/core/continuationSignals.js'
 import { storyPropertyId } from '../src/core/rights.js'
 import { stableStringify } from '../src/core/save.js'
+import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
 import { mintRoute } from './helpers/p16-fixtures.js'
 import { freshConcept, greenlightAs } from './helpers/p17-route.js'
@@ -62,11 +63,19 @@ describe('P17 franchise read model on the Bridge Industry route (projection 65)'
     expect(row.installments[0]!.releasedWeek).not.toBeNull()
     expect(row.installments[1]).toMatchObject({ greenlitWeek: week, studioId: player, releasedWeek: null })
     expect(row.recognition).toBe(recognitionReported(root.meter, week))
-    expect(row.recognition).toBeGreaterThan(0)
+    // Recognition is quality-gated (continuationSignals.ts recognitionGate): positive exactly when the origin film's
+    // quality clears P17_RECOGNITION_GATE_LO. Fix 1: lane bridge-green-r5 read 0 here, so this route's origin sits at or
+    // below the gate; the meter still recorded the release, and the continuity's Momentum carries it (below).
+    const film = world.releasedFilm(origin)!
+    expect(row.recognition > 0).toBe(qualityOf(film.result.criticScore / 100, film.audience01) > TUNING.P17_RECOGNITION_GATE_LO)
+    expect(root.meter.releaseCount).toBe(1)
     expect(row.fatigue).toBe(fatigueAt(root.meter, week))
     const main = root.branches[0]!
     expect(row.branches).toEqual([{ branchId: main.branchId, kind: 'main', subPropertyId: null, openedAtWeek: main.openedAtWeek,
       lastReleaseWeek: main.lastReleaseWeek, momentum: momentumAt(main, week), band: branchBand(main, root.meter, week) }])
+    // The origin's release is on the continuity: its week is the branch's last release and its surprise moved Momentum.
+    expect(main.lastReleaseWeek).toBe(row.installments[0]!.releasedWeek)
+    expect(row.branches[0]!.momentum).not.toBe(0)
     expect(row.installments.every((i) => i.branchId === main.branchId)).toBe(true)
   })
 

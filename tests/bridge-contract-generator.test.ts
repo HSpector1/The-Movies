@@ -575,8 +575,8 @@ describe('CF-08 sound union-to-C# generation', () => {
       // which also checks the committed schema file deep-equals BRIDGE_SCHEMA). The header line does not
       // read projectionVersion, so the call keeps its 59.
       // Projection63: independently measured on0e0cdfde; p16-sprint7/declaration-measurement/measurement.json.
-      // Projection65 (Sprint 11): canonical sha256 of the post-image schema JSON, computed statically by the method that
-      // reproduces 57f12ee2 from the parent's file; the lane generator check (check:bridge-contract) must confirm it.
+      // Projection65 (Sprint 11): computed statically from the post-image schema JSON by canonical sha256, then confirmed by
+      // the lane generator (check:bridge-contract exit 0; regenerated manifest schemaId d57642ad…, f8aa097a).
       const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 59 })
       expect(generated).toContain(
         '// Schema identity: sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8',
@@ -748,8 +748,7 @@ describe('CF-08 sound union-to-C# generation', () => {
         // lane-logs/p62-declaration-measurement.json; never a failure message.
         // Projection63: all8 measured twice,6fixed unchanged; current bodies473809bytes.
         // Projection65 (Sprint 11): the six StudioFranchise* $defs and the StudioIndustryResponse `franchises` member grow both
-        // whole-schema bodies. PLACEHOLDER: only the generator can produce these bodies, so the lane measures them (all eight
-        // positives rendered twice, six fixed bodies unchanged) and replaces both literals before this pin is claimed.
+        // whole-schema bodies. Measured by the lane generator run (f8aa097a F10, c0489f7c F11): one body, bf9192ac…; F12 unchanged.
         F10_CURRENT_QUOTE_UNIONS: 'bf9192ac936ff0fabb576bee25f07a3d1375ec25c2d10170713cd78c5889b5bb', // was 97ddfba0… (projection64)
         F11_CURRENT_COMMAND_UNION: 'bf9192ac936ff0fabb576bee25f07a3d1375ec25c2d10170713cd78c5889b5bb', // was 97ddfba0… (projection64), same body as F10
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
