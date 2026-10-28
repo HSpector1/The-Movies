@@ -151,3 +151,49 @@ unmeasured; no existing budget changed.
   view when players need lineage after the release screen closes.
 - Hook minting (`mintSubProperty`) and spin-off authoring: out of this slice; spin-off choices appear only for hooks
   that already exist.
+
+## Fix 1 (independent review: UI SLICE NEEDS CHANGES)
+
+`FIX-1.patch` (56 KB, ui/ only, 9 files) applies on top of the unchanged `SOURCE.patch` + `TESTS.patch`. Apply order:
+SOURCE, TESTS, FIX-1. `postimages/` now holds the post-Fix-1 files; `r0-postimages/` keeps the reviewed r0 files that
+FIX-1 diffs from. `tools/make_fix.py` regenerates FIX-1.patch and proves the chain in a scratch tree: T's HEAD
+pre-images plus SOURCE, TESTS and FIX-1, applied in that order, equal `postimages/` byte for byte (passed). Per-file r0 and post
+sha256 sit in `FIX-1-MANIFEST.json`. Status stays STATIC-UNRUN: single-file syntax checks passed; nothing type-checked or run.
+
+| # | Finding | Resolution |
+|---|---|---|
+| 1 | `resolved` unused (TS6133); lineage showed the raw property id | `releaseOutcome` returns `propertyTitle` (the resolved P16 title, else the founding concept's title); the lineage line reads "Direct sequel of A in <title>, on the main continuity". Test 6 asserts that text. |
+| 2 | Review and Budget commitment lines omitted guest fees | `BudgetStep` and `ReviewStep` take `featuredFees`; `committed` (commitment line, GreenlightDiscipline, capital exposure, BreakEvenBlock, Budget preview) adds it. Labels gain "incl. featured fees" only when a fee is chosen, so fee-free copy is unchanged. Budget also lists "Featured appearance fees". The guest panel is quoted on the Budget step too (memo keyed by the credited ids, so budget clicks do not re-quote). Test 3 asserts `release-commitment` rises and `release-cash-after` falls by exactly the quoted fee. |
+| 3 | Live `postTick={state}` | The release screen type and the newspaper `release` payload carry `postTick`; the three release payloads set `postTick: next` / `result.next`; ReleaseResult reads `screen.postTick`. When another film released by the same tick sits in the same property, the card says the readings span the whole week and names it (`release-meters-shared-<id>`). |
+| 4 | Offers the core refuses | With `willQueueGreenlightIntent`, both panels show why (a continuation or booking is quoted for this week and cannot wait in the queue) and nothing rides the action. A carried screenplay (`continuedScriptOwner`) shows that its greenlight cannot carry guests yet. |
+| 5 | Silent fallbacks | Missing continuity momentum is `null` and renders "—". Chosen guests are pruned every render against the current eligible quotes (same person, fee, basis, week), and only those count toward fees and ride the action. Economy-not-engaged becomes the banner. `licensed` keeps R3 licences on a property only. A licence reads "in force through week N-1" (the exclusive end minus one). |
+| 6 | Player copy | Label maps for types, bands (Active again, Revival candidate), continuity kinds, rights used, basis and cancel reasons (missedWork reads "the picture did not shoot that week"). Refusals show film and property titles in place of their ids. No "the core" in player copy. Cancel refusals return to the bookings card, which renders them through `RefusalNotice` (voiced headline, raw note in the disclosure); App no longer sends them through `showNotice`. |
+| 7 | Tests | New `p17-cameo-cancel-ui.test.tsx` drives `cancelCameoBookingAction(booked, id)`: refund equals fee minus retained, the second cancel returns the core's exact sentence, the card voices it as an alert, and the cancelled booking shows refund, retained charge and no button. Meter assertions are per cell (`rowheader` plus three `cell`s against `recognitionReported`, `momentumAt`, `fatigueAt` at each state's week). Test 3 asserts the three-guest premise by name instead of skipping. E2E: `cameoRoute` runs inside the test, the continue-after-import step is smoke's `expect.poll` loop (one real week), and every premise fails with a named message. |
+| 8 | Accessibility | Radios and checkboxes sit in `fieldset`/`legend`; the meter table has a non-empty first header, `th scope="row"` row headers and the `data-table-scroll` region wrapper the Dashboard uses for narrow screens; after a successful cancel, focus moves to the booking row (`tabIndex=-1`) whose button disappeared. |
+
+### RED-first after Fix 1
+
+- `p17-continuation-ui.test.tsx` (6 cases) still imports only modules present at T, so every case fails by assertion
+  there (missing test ids; test 3 now fails on `guest-work-week` before its new commitment assertions).
+- `p17-cameo-cancel-ui.test.tsx` (1 case) imports `ui/src/engine/continuation.ts`, which is new, so it is RED at T by
+  missing module, not by assertion. It is a separate file so the six cases above keep their assertion-level RED.
+
+### New risks Fix 1 adds (unrun)
+
+- Test 3 now requires three eligible guests among the 200 most famous at about week 1881 (named premise).
+- The cancel file builds the cameo route again (about 7 s more at collection).
+- The guest scan now also runs on the Budget step (once per credited-people change).
+- Type check: `onCancelCameoBooking` now returns `ActionOutcome | undefined`; `handleCancelCameoBooking` returns
+  `undefined` on its guards and the outcome otherwise.
+
+### Record for the core owner
+
+- Export from `src/core/index.ts`: `cameoQuote`, `nominalShootingWeeks`, `featuredCapacity`, `CameoBookingRequest`,
+  `CameoQuoteResult`, the `CameoBooking` type and `continuedScriptOwner`. The ui imports them from their modules
+  directly until then (`engine/continuation.ts`, `adapter.ts`).
+- A per-choice greenlight verdict (the same-concept rule and the P16 link pre-check, before the button) needs
+  `prepareContinuation` exported; until then those refusals arrive only at the greenlight button.
+
+Note: `tools/make_patches.py` reads `postimages/`, so running it now would fold Fix 1 into SOURCE and TESTS and change
+their sha256. The delivered SOURCE.patch and TESTS.patch are the reviewed r0 patches; run make_patches.py only if the
+coordinator prefers folded patches over the FIX-1 chain.

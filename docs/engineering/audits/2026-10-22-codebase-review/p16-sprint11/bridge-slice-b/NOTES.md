@@ -94,3 +94,29 @@ The moved pins fail by value at the parent.
   - The per-release R/M/F change needs a core receipt.
   - Bookings on production operation rows need the `ui/` selector or a decision that the page suffices.
   - Rival guest selection is still deferred by the core (cameo review S6).
+
+## Fix 1 (review of slice B, against bfce8c29)
+
+`FIX-1.patch` sha256 `b09a92b5261601ef155a9f7c8a00d16446d0ab0dd6b4b565df9a235c860f361d` (21736 bytes, 8 files, `bridge/` and `tests/bridge-*` only). It applies to bfce8c29 (`git apply --check` clean). Post-images are under `fix1/postimages/`. Status: STATIC-UNRUN. The only check run was a `typescript.transpileModule` syntax pass on every post-image.
+
+- **B1 (blocking).** `releaseOutcome` now reads the Industry film row: `franchisesPage` takes a `PublicFilmRow` lookup, and `industry.ts` passes `index.filmById`.
+  - `totalGross` uses the row's measure: cumulative paid gross while the run is active, the final total after. `openingGross` and `criticScore` also come from the row.
+  - `expectedTotal` publishes only when the row's studio is the player's (the `release.ts` rule). Every other studio's film gets null.
+  - A released installment with no Industry row throws by name, never a fallback.
+  - The wire shape is unchanged, so the static identity `sha256:58938086…` stands and F10/F11 do not move. The `industry-schema.ts` and `bridge-schema.ts` edits are comments only.
+  - Case 8 pins the measure:
+    - premises: the child's run is active and `cumulativeGrossPaid < boxOffice.total`;
+    - `totalGross` equals `cumulativeGrossPaid`;
+    - both installments match the Industry `film` view row on opening, total and critic score.
+  - RED at bfce8c29 by assertion: there `totalGross` is `boxOffice.total`.
+  - The rival-film branch (forecast suppressed for a licensed rival origin) has no case. The route cannot release a rival film under licence without new fixture work. It rests on the studio check reading the same row the Industry view shows.
+- **S1.** Case 4 now picks its rival the way `freeGuest` picks: employed by another studio at the greenlight week, not in `busyTalentIds`, no retirement record (any profession or actor). No reservation exists before the case books. `cameoQuote` checks the greenlight-week employer before the work-week employer, so the employer refusal fires for every one of the eight weeks.
+- **S2.** `releasedContinuation(route)` (two `releaseNewest` runs) moved to collection as `released`. Case 8 now does only the reads. No budget changed.
+- **Comments.**
+  - The stale PLACEHOLDER comments in `bridge-runtime-checkpoint.test.ts` and `bridge-contract-generator.test.ts` now cite the measured capture and the bfce8c29 generator run.
+  - `runtime-checkpoint.ts` names the producer at `docs/engineering/audits/2026-10-22-codebase-review/p16-sprint11/bridge-slice-b/tools/capture65.ts`.
+  - The bridge-schema "never `optional()`" comment names the projection-66 `continuation`/`cameos` exception.
+- **Recorded risks (no code change):**
+  - `greenlightCarrying` in `bridge/casting.ts` hand-builds the `greenlightScriptProject` action when a continuation or guest rides the package. The adapter builds it on the `adapter.ts:2021-2043` path. If the adapter's payload gains a field, the hand-built payload drifts from it. No case compares the two.
+  - The `featuredAppearances` view skips the closed-studio guard, as Laboratory, plans and office do, so a closed studio still reads the guest quotes. Fix 1 does not check how the core treats a booking from a closed studio.
+  - The quote's `freelancerFees` now includes guest fees. The total is consistent with the core's charge, but nothing on the wire labels the guest share. The separate `featuredGuests` terms carry each fee.

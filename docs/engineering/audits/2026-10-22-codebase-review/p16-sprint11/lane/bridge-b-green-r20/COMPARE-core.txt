@@ -1,0 +1,19 @@
+{'numTotalTestSuites': 225, 'numPassedTestSuites': 214, 'numFailedTestSuites': 11, 'numPendingTestSuites': 0, 'numTotalTests': 581, 'numPassedTests': 564, 'numFailedTests': 15, 'numPendingTests': 0, 'numTodoTests': 2}
+{'NEW': 1, 'INHERITED-SAME': 14, 'INHERITED-CHANGED': 0, 'MISSING-INPUT': 0, 'LOAD-FAILURE': 1, 'BASELINE-NOT-REPRODUCED': 6, 'OVER-BUDGET-PASS': 128} report tests 581 baseline tests 6048 in both 564
+
+## NEW (1)
+  - tests/bridge-p13b-s7-disclosure.test.ts :: P13B-S7-T3 item 5: Industry announcement row — derived, nullable studioId, excluded from per-studio History, a
+      Error: Test timed out in 30000ms.
+
+## LOAD-FAILURE (1)
+  - tests/bridge-p17-featured-appearances.test.ts :: <load>
+      applyActions: activateScriptDevelopment rejected — managed Studio Operations must be active first
+
+## OVER-BUDGET-PASS (128) max 789288.576
+## BASELINE-NOT-REPRODUCED (6)
+  - tests/bridge-p14p3-directing-promises.test.ts :: P3 public Bridge authority, truthful terms and durable runtime D15 commits genuine public directing 
+  - tests/bridge-p14p3-directing-promises.test.ts :: P3 public Bridge authority, truthful terms and durable runtime D16 discloses Director and legacy cas
+  - tests/bridge-p14p3-directing-promises.test.ts :: P3 public Bridge authority, truthful terms and durable runtime D17 migrates outgoing53 independently
+  - tests/bridge-p14p4p5-opportunities.test.ts :: P4/P5 closed Bridge material and outgoing runtime authority B55-1 validates closed singular drafts a
+  - tests/bridge-p14p4p5-opportunities.test.ts :: P4/P5 closed Bridge material and outgoing runtime authority B55-2 binds actual genre work and preser
+  - tests/bridge-p14p4p5-opportunities.test.ts :: P4/P5 closed Bridge material and outgoing runtime authority B55-3 independently migrates genuine54 s

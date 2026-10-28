@@ -1,0 +1,237 @@
+diff --git a/bridge/franchises.ts b/bridge/franchises.ts
+index 226b7dd..be28b55 100644
+--- a/bridge/franchises.ts
++++ b/bridge/franchises.ts
+@@ -7,17 +7,23 @@ import type {GameState} from '../src/core/types.js'
+ import type {FranchisesPage} from './schema/industry-schema.ts'
+ 
+ type Property=FranchisesPage['properties'][number]
++/** The Industry film row's public facts (bridge/industry.ts index): the one measure a released film shows on this route. */
++export type PublicFilmRow=(filmId:string)=>{studioId:string;criticScore:number;openingGross:number;totalGross:number}|undefined
+ // The quote reads the production id only to refuse one that already carries a lineage edge; no production has this id.
+ const PROBE_PRODUCTION_ID='bridge-franchise-read-probe'
+ const SEQUEL_FAMILY=['directSequel','prequel','remake','reboot'] as const
+ 
+-/** P17 slice B: what the core records about a released installment (no per-release meter change is recorded). */
+-function releaseOutcome(world:ContinuationWorld,property:FranchiseProperty,productionId:string,releasedWeek:number|null):Property['installments'][number]['outcome'] {
++/** P17 slice B: what the core records about a released installment (no per-release meter change is recorded). Fix 1
++ * (review B1): the gross is the Industry film row's own measure (cumulative paid gross while the run is active, the
++ * final total after), and a forecast is published for the player's own film only, as the release read model does:
++ * a rival's locked forecast is a private input this route never carries. */
++function releaseOutcome(world:ContinuationWorld,property:FranchiseProperty,productionId:string,releasedWeek:number|null,filmRow:PublicFilmRow):Property['installments'][number]['outcome'] {
+  if(releasedWeek===null)return null
+- const view=world.releasedFilm(productionId)
+- if(view===null)throw new Error(`franchise view: released installment ${productionId} has no public result`)
+- return {releasedWeek,criticScore:view.result.criticScore,openingGross:view.result.boxOffice.opening,totalGross:view.result.boxOffice.total,
+-  expectedTotal:view.result.forecast?.expectedTotal??null,propertyPeak:property.meter.peakInstallmentId===productionId,
++ const row=filmRow(productionId)
++ if(row===undefined)throw new Error(`franchise view: released installment ${productionId} has no Industry film row`)
++ const own=row.studioId===world.state.hollywood?.playerStudioId
++ return {releasedWeek,criticScore:row.criticScore,openingGross:row.openingGross,totalGross:row.totalGross,
++  expectedTotal:own?world.releasedFilm(productionId)?.result.forecast?.expectedTotal??null:null,propertyPeak:property.meter.peakInstallmentId===productionId,
+   activeAgain:property.milestones.some(m=>m.milestoneId==='activeAgain'&&m.productionId===productionId)}
+ }
+ 
+@@ -28,7 +34,7 @@ function creditedGuests(state:GameState,productionId:string):Property['installme
+   starPowerBefore:b.careerEvent.starPowerBefore,starPowerAfter:b.careerEvent.starPowerAfter,starPowerDelta:b.careerEvent.starPowerDelta}])
+ }
+ 
+-function propertyRow(world:ContinuationWorld,studioId:string,property:FranchiseProperty):Property {
++function propertyRow(world:ContinuationWorld,studioId:string,property:FranchiseProperty,filmRow:PublicFilmRow):Property {
+  const week=world.week
+  const meterOf=(subPropertyId:string|null)=>subPropertyId===null?property.meter:property.subProperties.find(s=>s.subPropertyId===subPropertyId)!.meter
+  // Every request the quote's legality matrix can admit on this property: each film under each type, each hook as a spin-off.
+@@ -46,7 +52,7 @@ function propertyRow(world:ContinuationWorld,studioId:string,property:FranchiseP
+    lastReleaseWeek:b.lastReleaseWeek,momentum:momentumAt(b,week),band:branchBand(b,meterOf(b.kind==='spinoff'?b.subPropertyId:null),week)})),
+   installments:property.installments.map(e=>({productionId:e.childProductionId,parentProductionId:e.parentProductionId,type:e.type,
+    branchId:e.branchId,greenlitWeek:e.greenlitWeek,studioId:e.studioId,releasedWeek:e.releasedWeek,
+-   outcome:releaseOutcome(world,property,e.childProductionId,e.releasedWeek),guests:creditedGuests(world.state,e.childProductionId)})),
++   outcome:releaseOutcome(world,property,e.childProductionId,e.releasedWeek,filmRow),guests:creditedGuests(world.state,e.childProductionId)})),
+   subProperties:property.subProperties.map(s=>({subPropertyId:s.subPropertyId,kind:s.kind,mintedAtProductionId:s.mintedAtProductionId,
+    mintedWeek:s.mintedWeek,recognition:recognitionReported(s.meter,week),fatigue:fatigueAt(s.meter,week),promotedToStoryPropertyId:s.promotedToStoryPropertyId})),
+   rebootLegal,rebootRefusal:rebootLegal?null:reboots.flatMap(quote=>quote.ok?[]:[quote.reason])[0]??null,
+@@ -56,7 +62,7 @@ function propertyRow(world:ContinuationWorld,studioId:string,property:FranchiseP
+ 
+ // ponytail: lists the properties the root already carries; a film whose first continuation is not yet greenlit has no row
+ // until then. Add a candidate scan over the player's P16 titles when the first-sequel offer needs the Bridge.
+-export function franchisesPage(state:GameState,targetId:string|null,page:number,pageSize:number):{franchises:FranchisesPage;totalRows:number;pageCount:number} {
++export function franchisesPage(state:GameState,targetId:string|null,page:number,pageSize:number,filmRow:PublicFilmRow):{franchises:FranchisesPage;totalRows:number;pageCount:number} {
+  if(targetId!==null)throw new Error('The franchise list requires a null targetId.')
+  const studioId=state.hollywood?.playerStudioId
+  if(studioId===undefined)throw new Error('Franchises require an established player studio.')
+@@ -65,5 +71,5 @@ export function franchisesPage(state:GameState,targetId:string|null,page:number,
+  if(page>0&&page>=pageCount)throw new Error('That franchise page is outside this record.')
+  return {totalRows:properties.length,pageCount,franchises:{title:'Franchises',
+   notice:'Recognition and Fatigue belong to the property; Momentum belongs to each continuity. A listed choice is lawful for your studio this week; the greenlight still checks the concept you choose.',
+-  properties:properties.slice(page*pageSize,(page+1)*pageSize).map(property=>propertyRow(world,studioId,property))}}
++  properties:properties.slice(page*pageSize,(page+1)*pageSize).map(property=>propertyRow(world,studioId,property,filmRow))}}
+ }
+diff --git a/bridge/industry.ts b/bridge/industry.ts
+index 8a1d633..40b0b7f 100644
+--- a/bridge/industry.ts
++++ b/bridge/industry.ts
+@@ -306,7 +306,7 @@ export function industryPage(state:GameState,sessionId:string,stateRevision:numb
+     result.featuredAppearances=read.featuredAppearances;result.totalRows=read.totalRows;result.pageCount=read.pageCount
+     result.title=read.featuredAppearances.title;result.notice=read.featuredAppearances.notice
+   } else if(q.view==='franchises') {
+-    const read=franchisesPage(state,q.targetId,q.page,q.pageSize)
++    const read=franchisesPage(state,q.targetId,q.page,q.pageSize,filmId=>index.filmById.get(filmId))
+     result.franchises=read.franchises;result.totalRows=read.totalRows;result.pageCount=read.pageCount
+     result.title=read.franchises.title;result.notice=read.franchises.notice
+   } else if(q.view==='diligence') {
+diff --git a/bridge/runtime-checkpoint.ts b/bridge/runtime-checkpoint.ts
+index 4e3e0f8..055de6e 100644
+--- a/bridge/runtime-checkpoint.ts
++++ b/bridge/runtime-checkpoint.ts
+@@ -60,7 +60,8 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
+ export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+   // Sprint 11 slice B: the outgoing65 identity (projection 65, generated at f8aa097a, landed through 2b1a5b4b), prior
+   // beneath current66. Protocol 4 and Save50 are unchanged, so each slot is already live and takes the governed prior
+-  // path as identity; the opaque journal resets. Its genuine capture runs on 2b1a5b4b (tools/capture65.ts).
++  // path as identity; the opaque journal resets. Its genuine capture ran on 2b1a5b4b (producer:
++  // docs/engineering/audits/2026-10-22-codebase-review/p16-sprint11/bridge-slice-b/tools/capture65.ts).
+   ['sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8', 'projection-v65'],
+   // Sprint 11 (review S1): the P16 build's current64 identity (p16-technical-checkpoint-20261027, a5a66c27). P17 moved
+   // the live save to Save50 under this same schema, so a checkpoint the P16 build wrote carries it with Save49 slots,
+diff --git a/bridge/schema/bridge-schema.ts b/bridge/schema/bridge-schema.ts
+index 332a21a..e8e64ef 100644
+--- a/bridge/schema/bridge-schema.ts
++++ b/bridge/schema/bridge-schema.ts
+@@ -1668,7 +1668,9 @@ const StudioQuoteCommissionRequest = object('StudioQuoteCommissionRequest', {
+ // `StudioCommissionDraftPayload` precedent. Every field is always PRESENT on
+ // the wire (never `optional()`); "required exactly when kind=X" is a plain-
+ // language refusal enforced by `castingDraftToEngine` against the live read
+-// models, not a JSON Schema structural constraint.
++// models, not a JSON Schema structural constraint. The ONE exception is P17
++// slice B's `continuation` and `cameos` (projection 66): OPTIONAL, so every
++// draft minted before projection 66 (and the ui client) stays valid.
+ // P17 slice B (projection 66): the core's own request shapes, closed (no second shape). `StudioContinuationRequest` is
+ // src/core/continuation.ts ContinuationRequest; `StudioCameoBookingRequest` is src/core/cameo.ts CameoBookingRequest (cameo
+ // FIX-1, 465d49a9: the core compares the accepted fee and basis with the live quote at the greenlight, so a stale one refuses).
+diff --git a/bridge/schema/industry-schema.ts b/bridge/schema/industry-schema.ts
+index 42b29b3..b6bfdea 100644
+--- a/bridge/schema/industry-schema.ts
++++ b/bridge/schema/industry-schema.ts
+@@ -197,8 +197,10 @@ const FRANCHISE_BRANCH_KINDS=['main','reboot','spinoff'] as const
+ const CONTINUATION_BANDS=['new','active','activeAgain','cooling','dormant','revivalCandidate'] as const
+ const StudioFranchiseBranch=object('StudioFranchiseBranch',{branchId:id(),kind:enumeration(FRANCHISE_BRANCH_KINDS),subPropertyId:nullable(id()),openedAtWeek:count(),lastReleaseWeek:nullable(count()),momentum:number(),band:enumeration(CONTINUATION_BANDS)})
+ // P17 slice B (projection 66): what the core RECORDS about a released installment. The franchise root keeps the meters
+-// after every release but no per-release Recognition/Momentum/Fatigue change, so none is published; the film's public
+-// result, whether it holds the property's Recognition peak and its `activeAgain` milestone are recorded facts.
++// after every release but no per-release Recognition/Momentum/Fatigue change, so none is published; the film's Industry
++// row (critic score, opening, and total as cumulative paid gross while the run is active, final after), whether it holds
++// the property's Recognition peak and its `activeAgain` milestone are recorded facts. `expectedTotal` is the player's own
++// locked forecast and null for every other studio's film (Industry carries no rival's private inputs).
+ const StudioFranchiseReleaseOutcome=object('StudioFranchiseReleaseOutcome',{releasedWeek:count(),criticScore:number(),openingGross:number(),totalGross:number(),expectedTotal:nullable(number()),propertyPeak:bool(),activeAgain:bool()})
+ // A guest the release credited: the completed booking and the career record the core attached to it.
+ const StudioFranchiseCreditedGuest=object('StudioFranchiseCreditedGuest',{bookingId:id(),talentId:id(),name:id(),workWeek:count(),fee:number(),starPowerBefore:number(),starPowerAfter:number(),starPowerDelta:number()})
+diff --git a/tests/bridge-contract-generator.test.ts b/tests/bridge-contract-generator.test.ts
+index f20f274..c80f0de 100644
+--- a/tests/bridge-contract-generator.test.ts
++++ b/tests/bridge-contract-generator.test.ts
+@@ -752,8 +752,8 @@ describe('CF-08 sound union-to-C# generation', () => {
+         // Projection65 (Sprint 11): the six StudioFranchise* $defs and the StudioIndustryResponse `franchises` member grow both
+         // whole-schema bodies. Measured by the lane generator run (f8aa097a F10, c0489f7c F11): one body, bf9192ac…; F12 unchanged.
+         // Projection66 (Sprint 11 slice B): the continuation/guest request and terms $defs, the casting quote's two new
+-        // members, the featured-appearance page and the franchise outcome members grow both bodies. PLACEHOLDER: only the
+-        // generator renders them; the lane measures both (eight positives twice, six fixed bodies unchanged) and fills them.
++        // members, the featured-appearance page and the franchise outcome members grow both bodies. Measured by the lane
++        // generator run (bfce8c29): one body, f194af88…, for F10 and F11; F12 unchanged.
+         F10_CURRENT_QUOTE_UNIONS: 'f194af887052e0cda5041e385e125a58d3dab50c5ac6be5d652de93880663328', // was bf9192ac… (projection65)
+         F11_CURRENT_COMMAND_UNION: 'f194af887052e0cda5041e385e125a58d3dab50c5ac6be5d652de93880663328', // was bf9192ac… (projection65), same body as F10
+         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
+diff --git a/tests/bridge-p17-featured-appearances.test.ts b/tests/bridge-p17-featured-appearances.test.ts
+index c42c995..82a6501 100644
+--- a/tests/bridge-p17-featured-appearances.test.ts
++++ b/tests/bridge-p17-featured-appearances.test.ts
+@@ -13,6 +13,8 @@ import { describe, expect, it } from 'vitest'
+ import { applyActions } from '../src/core/actions.js'
+ import { cameoRetained, P17_CAMEO_FEE_NOTE } from '../src/core/cameo.js'
+ import { nominalShootingWeeks } from '../src/core/cameoBooking.js'
++import { retirementRecordFor } from '../src/core/careerLifecycle.js'
++import { busyTalentIds } from '../src/core/employment.js'
+ import { studioEmployerId } from '../src/core/hollywood.js'
+ import { tick } from '../src/core/tick.js'
+ import type { Action, GameState } from '../src/core/types.js'
+@@ -97,6 +99,9 @@ describe('P17 featured appearances and continuation outcomes on the Bridge (proj
+   const workWeek = nominalShootingWeeks(ready.state.market.tick)[0]!
+   const request: BridgeCameoBookingRequest = { talentId: guest.id, workWeek, fee: expectedFee(guest), basis: 'freelance' }
+   const draft = { ...greenlightDraftFor(ready.state, ready.projectId, new Set([guest.id])), cameos: [request] }
++  // Fix 1 (review S2): the outcome branch's two releases run here at collection, like the core's cameo suites, never
++  // inside a case under the default per-case budget.
++  const released = releasedContinuation(route)
+ 
+   /** Quote and commit the package with the guest; returns the session after the booking. */
+   function booked(sessionId: string) {
+@@ -122,10 +127,18 @@ describe('P17 featured appearances and continuation outcomes on the Bridge (proj
+       retained: cameoRetained(expectedFee(guest)), refundable: expectedFee(guest) - cameoRetained(expectedFee(guest)) })
+     expect(row.weeks.map((w) => w.workWeek)).toEqual(Array.from({ length: 8 }, (_, i) => week + 1 + i))
+     expect(row.weeks.find((w) => w.workWeek === workWeek)).toMatchObject({ ok: true, basis: 'freelance', standardShooting: true, refusal: null })
+-    // Another studio's employee is refused by the core's own sentence, on every page it lands on.
++    // Another studio's employee is refused by the core's own sentence, on every page it lands on. Fix 1 (review S1):
++    // cameoQuote reads the lifecycle authority, reservations and actual work BEFORE the employer, so the rival is picked
++    // the way freeGuest picks (no actual work, no retirement record) and the employer refusal is the one that fires. The
++    // employer at the greenlight week alone refuses every work week (cameoQuote checks it before the work-week employer).
+     const player = ready.state.hollywood!.playerStudioId
+-    const rival = ready.state.talent.find((t) => { const employer = studioEmployerId(ready.state, t.id); return employer !== null && employer !== player })
+-    if (rival === undefined) throw new Error('premise: no rival employee exists at the unlock week')
++    const busy = busyTalentIds(ready.state)
++    const rival = ready.state.talent.find((t) => {
++      const employer = studioEmployerId(ready.state, t.id)
++      return employer !== null && employer !== player && !busy.has(t.id)
++        && retirementRecordFor(ready.state, t.id) === undefined && retirementRecordFor(ready.state, t.id, 'actor') === undefined
++    })
++    if (rival === undefined) throw new Error('premise: no free, unretired rival employee exists at the unlock week')
+     const rivalIndex = ready.state.talent.findIndex((t) => t.id === rival.id)
+     const rivalRow = industry(new BridgeSession(ready.state, 'p17-guests-rival'), 'featuredAppearances', Math.floor(rivalIndex / PAGE))
+       .featuredAppearances!.guests.find((g) => g.talentId === rival.id)!
+@@ -177,7 +190,7 @@ describe('P17 featured appearances and continuation outcomes on the Bridge (proj
+   })
+ 
+   it('reads a released continuation\'s lineage edge, recorded release outcome and credited guest from the core records', () => {
+-    const outcome = releasedContinuation(route)
++    const outcome = released
+     const booking = rootOf(outcome.state)!.bookings.find((b) => b.productionId === outcome.childId)!
+     expect(booking).toMatchObject({ talentId: outcome.guest.id, status: 'completed' })
+     expect(booking.careerEvent).not.toBeNull()
+@@ -188,8 +201,24 @@ describe('P17 featured appearances and continuation outcomes on the Bridge (proj
+     const root = (outcome.state as GameState & { franchises: { properties: { storyPropertyId: string; meter: { peakInstallmentId: string | null } }[] } }).franchises
+       .properties.find((p) => p.storyPropertyId === property.storyPropertyId)!
+     const child = property.installments[1]!
++    // Fix 1 (review B1): the gross is the Industry film row's measure. The child released this week, so its theatrical
++    // run is active and has paid less than the whole-run total fixed at release (the premise that tells the two apart).
++    const run = outcome.state.theatricalRuns.find((r) => r.productionId === outcome.childId)!
++    expect(run.status).toBe('active')
++    expect(run.cumulativeGrossPaid).toBeLessThan(film.boxOffice.total)
+     expect(child.outcome).toEqual({ releasedWeek: film.releaseTick, criticScore: film.criticScore, openingGross: film.boxOffice.opening,
+-      totalGross: film.boxOffice.total, expectedTotal: film.forecast?.expectedTotal ?? null, propertyPeak: root.meter.peakInstallmentId === outcome.childId, activeAgain: false })
++      totalGross: run.cumulativeGrossPaid, expectedTotal: film.forecast?.expectedTotal ?? null, propertyPeak: root.meter.peakInstallmentId === outcome.childId, activeAgain: false })
++    // Both installments show the figures the Industry film row shows for the same film, active run or settled.
++    for (const installment of property.installments) {
++      const parsed = validateIndustry({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: session.sessionId, requestId: `p17-film-${installment.productionId}`,
++        expectedStateRevision: session.stateRevision, type: 'industryQuery', view: 'film', targetId: installment.productionId, page: 0, pageSize: PAGE, lane: 'recent', period: 'all' } as IndustryQuery)
++      expect(parsed).toMatchObject({ ok: true })
++      if (!parsed.ok) throw new Error('unreachable after the assertion above')
++      const result = session.industry(parsed.request)
++      expect(result).toMatchObject({ type: 'industryPage' })
++      const row = (result as Extract<typeof result, { type: 'industryPage' }>).films[0]!
++      expect(installment.outcome).toMatchObject({ openingGross: row.openingGross, totalGross: row.totalGross, criticScore: row.criticScore })
++    }
+     const event = booking.careerEvent as { starPowerBefore: number; starPowerAfter: number; starPowerDelta: number }
+     expect(child.guests).toEqual([{ bookingId: booking.bookingId, talentId: outcome.guest.id, name: outcome.guest.name, workWeek: outcome.workWeek,
+       fee: booking.fee, starPowerBefore: event.starPowerBefore, starPowerAfter: event.starPowerAfter, starPowerDelta: event.starPowerDelta }])
+diff --git a/tests/bridge-runtime-checkpoint.test.ts b/tests/bridge-runtime-checkpoint.test.ts
+index b2668ff..7f3f3aa 100644
+--- a/tests/bridge-runtime-checkpoint.test.ts
++++ b/tests/bridge-runtime-checkpoint.test.ts
+@@ -1253,8 +1253,8 @@ describe('Sprint 11 S1 — P16-build current64 checkpoints with Save49 slots tak
+ const OUTGOING_65 = 'sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8'
+ describe('Sprint 11 slice B — the outgoing65 capture takes the governed prior path', () => {
+   it('accepts the genuine projection-65 capture (2b1a5b4b public save route) and keeps both live Save50 slots byte for byte', () => {
+-    // PLACEHOLDER pins: the coordinator captures the fixture at 2b1a5b4b with tools/capture65.ts (Sprint 11 bridge-b OUT)
+-    // and replaces each PLACEHOLDER below with the receipt's value. Until then this case fails loudly on the missing file.
++    // Pins measured from the actual capture at 2b1a5b4b (producer docs/engineering/audits/2026-10-22-codebase-review/
++    // p16-sprint11/bridge-slice-b/tools/capture65.ts; OUTGOING65-RECEIPT.json beside the fixture).
+     const compressed = readFileSync(new URL('./fixtures/bridge/genuine-projection65-runtime/outgoing65.checkpoint.json.gz', import.meta.url))
+     expect(createHash('sha256').update(compressed).digest('hex')).toBe('71769a1eb690fd21d8294cc62569d730e6b549e54270edce4bc8405513207a84')
+     const raw = gunzipSync(compressed).toString('utf8')

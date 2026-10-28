@@ -1,0 +1,15 @@
+{
+  "head": "d07d5520d1de6f9d535a6c4f7a51c1d42731e8f0",
+  "sourceManifestEntries": 1358,
+  "purpose": "Sprint 11 RED premise r21 at 29c7cf0d for Bridge slice B (new tests + projection-65 fixture; no Bridge source)",
+  "children": [
+    {
+      "label": "red",
+      "completeFiles": [
+        "tests/bridge-p17-continuation-greenlight.test.ts",
+        "tests/bridge-p17-featured-appearances.test.ts",
+        "tests/bridge-runtime-checkpoint.test.ts"
+      ]
+    }
+  ]
+}
