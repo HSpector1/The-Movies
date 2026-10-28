@@ -96,6 +96,15 @@ test('D-12: finances card, release-strategy gate, sim-to-event, theatrical run +
     // Managed productions stop unattended simulation at visible player decisions.
     // Resolve that exact command chain before asking the engine for the next event.
     await resolveProductionCommands(page)
+    // P06A release-commit affordance (as in smoke.spec.ts): a Release Ready picture holds until the
+    // player commits it, and the dashboard disables Sim to next event while that decision is
+    // pending ("<title> is Release Ready. Commit it to release, or advance a single week
+    // deliberately to hold"). Commit when offered, then sim on to the release.
+    // Sprint 16 browser-r1/r2/r3 at e115be4b: this spec stopped here with Sim disabled.
+    const commit = page.getByTestId('release-commit')
+    if (await commit.isVisible().catch(() => false)) {
+      await commit.click()
+    }
     const sim = page.getByTestId('sim-to-event')
     await expect(sim).toBeEnabled()
     await sim.click()
