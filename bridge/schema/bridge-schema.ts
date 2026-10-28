@@ -1668,7 +1668,9 @@ const StudioQuoteCommissionRequest = object('StudioQuoteCommissionRequest', {
 // `StudioCommissionDraftPayload` precedent. Every field is always PRESENT on
 // the wire (never `optional()`); "required exactly when kind=X" is a plain-
 // language refusal enforced by `castingDraftToEngine` against the live read
-// models, not a JSON Schema structural constraint.
+// models, not a JSON Schema structural constraint. The ONE exception is P17
+// slice B's `continuation` and `cameos` (projection 66): OPTIONAL, so every
+// draft minted before projection 66 (and the ui client) stays valid.
 // P17 slice B (projection 66): the core's own request shapes, closed (no second shape). `StudioContinuationRequest` is
 // src/core/continuation.ts ContinuationRequest; `StudioCameoBookingRequest` is src/core/cameo.ts CameoBookingRequest (cameo
 // FIX-1, 465d49a9: the core compares the accepted fee and basis with the live quote at the greenlight, so a stale one refuses).

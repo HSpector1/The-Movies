@@ -7,17 +7,23 @@ import type {GameState} from '../src/core/types.js'
 import type {FranchisesPage} from './schema/industry-schema.ts'
 
 type Property=FranchisesPage['properties'][number]
+/** The Industry film row's public facts (bridge/industry.ts index): the one measure a released film shows on this route. */
+export type PublicFilmRow=(filmId:string)=>{studioId:string;criticScore:number;openingGross:number;totalGross:number}|undefined
 // The quote reads the production id only to refuse one that already carries a lineage edge; no production has this id.
 const PROBE_PRODUCTION_ID='bridge-franchise-read-probe'
 const SEQUEL_FAMILY=['directSequel','prequel','remake','reboot'] as const
 
-/** P17 slice B: what the core records about a released installment (no per-release meter change is recorded). */
-function releaseOutcome(world:ContinuationWorld,property:FranchiseProperty,productionId:string,releasedWeek:number|null):Property['installments'][number]['outcome'] {
+/** P17 slice B: what the core records about a released installment (no per-release meter change is recorded). Fix 1
+ * (review B1): the gross is the Industry film row's own measure (cumulative paid gross while the run is active, the
+ * final total after), and a forecast is published for the player's own film only, as the release read model does:
+ * a rival's locked forecast is a private input this route never carries. */
+function releaseOutcome(world:ContinuationWorld,property:FranchiseProperty,productionId:string,releasedWeek:number|null,filmRow:PublicFilmRow):Property['installments'][number]['outcome'] {
  if(releasedWeek===null)return null
- const view=world.releasedFilm(productionId)
- if(view===null)throw new Error(`franchise view: released installment ${productionId} has no public result`)
- return {releasedWeek,criticScore:view.result.criticScore,openingGross:view.result.boxOffice.opening,totalGross:view.result.boxOffice.total,
-  expectedTotal:view.result.forecast?.expectedTotal??null,propertyPeak:property.meter.peakInstallmentId===productionId,
+ const row=filmRow(productionId)
+ if(row===undefined)throw new Error(`franchise view: released installment ${productionId} has no Industry film row`)
+ const own=row.studioId===world.state.hollywood?.playerStudioId
+ return {releasedWeek,criticScore:row.criticScore,openingGross:row.openingGross,totalGross:row.totalGross,
+  expectedTotal:own?world.releasedFilm(productionId)?.result.forecast?.expectedTotal??null:null,propertyPeak:property.meter.peakInstallmentId===productionId,
   activeAgain:property.milestones.some(m=>m.milestoneId==='activeAgain'&&m.productionId===productionId)}
 }
 
@@ -28,7 +34,7 @@ function creditedGuests(state:GameState,productionId:string):Property['installme
   starPowerBefore:b.careerEvent.starPowerBefore,starPowerAfter:b.careerEvent.starPowerAfter,starPowerDelta:b.careerEvent.starPowerDelta}])
 }
 
-function propertyRow(world:ContinuationWorld,studioId:string,property:FranchiseProperty):Property {
+function propertyRow(world:ContinuationWorld,studioId:string,property:FranchiseProperty,filmRow:PublicFilmRow):Property {
  const week=world.week
  const meterOf=(subPropertyId:string|null)=>subPropertyId===null?property.meter:property.subProperties.find(s=>s.subPropertyId===subPropertyId)!.meter
  // Every request the quote's legality matrix can admit on this property: each film under each type, each hook as a spin-off.
@@ -46,7 +52,7 @@ function propertyRow(world:ContinuationWorld,studioId:string,property:FranchiseP
    lastReleaseWeek:b.lastReleaseWeek,momentum:momentumAt(b,week),band:branchBand(b,meterOf(b.kind==='spinoff'?b.subPropertyId:null),week)})),
   installments:property.installments.map(e=>({productionId:e.childProductionId,parentProductionId:e.parentProductionId,type:e.type,
    branchId:e.branchId,greenlitWeek:e.greenlitWeek,studioId:e.studioId,releasedWeek:e.releasedWeek,
-   outcome:releaseOutcome(world,property,e.childProductionId,e.releasedWeek),guests:creditedGuests(world.state,e.childProductionId)})),
+   outcome:releaseOutcome(world,property,e.childProductionId,e.releasedWeek,filmRow),guests:creditedGuests(world.state,e.childProductionId)})),
   subProperties:property.subProperties.map(s=>({subPropertyId:s.subPropertyId,kind:s.kind,mintedAtProductionId:s.mintedAtProductionId,
    mintedWeek:s.mintedWeek,recognition:recognitionReported(s.meter,week),fatigue:fatigueAt(s.meter,week),promotedToStoryPropertyId:s.promotedToStoryPropertyId})),
   rebootLegal,rebootRefusal:rebootLegal?null:reboots.flatMap(quote=>quote.ok?[]:[quote.reason])[0]??null,
@@ -56,7 +62,7 @@ function propertyRow(world:ContinuationWorld,studioId:string,property:FranchiseP
 
 // ponytail: lists the properties the root already carries; a film whose first continuation is not yet greenlit has no row
 // until then. Add a candidate scan over the player's P16 titles when the first-sequel offer needs the Bridge.
-export function franchisesPage(state:GameState,targetId:string|null,page:number,pageSize:number):{franchises:FranchisesPage;totalRows:number;pageCount:number} {
+export function franchisesPage(state:GameState,targetId:string|null,page:number,pageSize:number,filmRow:PublicFilmRow):{franchises:FranchisesPage;totalRows:number;pageCount:number} {
  if(targetId!==null)throw new Error('The franchise list requires a null targetId.')
  const studioId=state.hollywood?.playerStudioId
  if(studioId===undefined)throw new Error('Franchises require an established player studio.')
@@ -65,5 +71,5 @@ export function franchisesPage(state:GameState,targetId:string|null,page:number,
  if(page>0&&page>=pageCount)throw new Error('That franchise page is outside this record.')
  return {totalRows:properties.length,pageCount,franchises:{title:'Franchises',
   notice:'Recognition and Fatigue belong to the property; Momentum belongs to each continuity. A listed choice is lawful for your studio this week; the greenlight still checks the concept you choose.',
-  properties:properties.slice(page*pageSize,(page+1)*pageSize).map(property=>propertyRow(world,studioId,property))}}
+  properties:properties.slice(page*pageSize,(page+1)*pageSize).map(property=>propertyRow(world,studioId,property,filmRow))}}
 }

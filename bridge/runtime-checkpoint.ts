@@ -60,7 +60,8 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
 export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
   // Sprint 11 slice B: the outgoing65 identity (projection 65, generated at f8aa097a, landed through 2b1a5b4b), prior
   // beneath current66. Protocol 4 and Save50 are unchanged, so each slot is already live and takes the governed prior
-  // path as identity; the opaque journal resets. Its genuine capture runs on 2b1a5b4b (tools/capture65.ts).
+  // path as identity; the opaque journal resets. Its genuine capture ran on 2b1a5b4b (producer:
+  // docs/engineering/audits/2026-10-22-codebase-review/p16-sprint11/bridge-slice-b/tools/capture65.ts).
   ['sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8', 'projection-v65'],
   // Sprint 11 (review S1): the P16 build's current64 identity (p16-technical-checkpoint-20261027, a5a66c27). P17 moved
   // the live save to Save50 under this same schema, so a checkpoint the P16 build wrote carries it with Save49 slots,

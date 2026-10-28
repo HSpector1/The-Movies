@@ -1253,8 +1253,8 @@ describe('Sprint 11 S1 — P16-build current64 checkpoints with Save49 slots tak
 const OUTGOING_65 = 'sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8'
 describe('Sprint 11 slice B — the outgoing65 capture takes the governed prior path', () => {
   it('accepts the genuine projection-65 capture (2b1a5b4b public save route) and keeps both live Save50 slots byte for byte', () => {
-    // PLACEHOLDER pins: the coordinator captures the fixture at 2b1a5b4b with tools/capture65.ts (Sprint 11 bridge-b OUT)
-    // and replaces each PLACEHOLDER below with the receipt's value. Until then this case fails loudly on the missing file.
+    // Pins measured from the actual capture at 2b1a5b4b (producer docs/engineering/audits/2026-10-22-codebase-review/
+    // p16-sprint11/bridge-slice-b/tools/capture65.ts; OUTGOING65-RECEIPT.json beside the fixture).
     const compressed = readFileSync(new URL('./fixtures/bridge/genuine-projection65-runtime/outgoing65.checkpoint.json.gz', import.meta.url))
     expect(createHash('sha256').update(compressed).digest('hex')).toBe('71769a1eb690fd21d8294cc62569d730e6b549e54270edce4bc8405513207a84')
     const raw = gunzipSync(compressed).toString('utf8')

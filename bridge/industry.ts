@@ -306,7 +306,7 @@ export function industryPage(state:GameState,sessionId:string,stateRevision:numb
     result.featuredAppearances=read.featuredAppearances;result.totalRows=read.totalRows;result.pageCount=read.pageCount
     result.title=read.featuredAppearances.title;result.notice=read.featuredAppearances.notice
   } else if(q.view==='franchises') {
-    const read=franchisesPage(state,q.targetId,q.page,q.pageSize)
+    const read=franchisesPage(state,q.targetId,q.page,q.pageSize,filmId=>index.filmById.get(filmId))
     result.franchises=read.franchises;result.totalRows=read.totalRows;result.pageCount=read.pageCount
     result.title=read.franchises.title;result.notice=read.franchises.notice
   } else if(q.view==='diligence') {

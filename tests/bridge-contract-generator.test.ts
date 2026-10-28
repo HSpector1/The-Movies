@@ -752,8 +752,8 @@ describe('CF-08 sound union-to-C# generation', () => {
         // Projection65 (Sprint 11): the six StudioFranchise* $defs and the StudioIndustryResponse `franchises` member grow both
         // whole-schema bodies. Measured by the lane generator run (f8aa097a F10, c0489f7c F11): one body, bf9192ac…; F12 unchanged.
         // Projection66 (Sprint 11 slice B): the continuation/guest request and terms $defs, the casting quote's two new
-        // members, the featured-appearance page and the franchise outcome members grow both bodies. PLACEHOLDER: only the
-        // generator renders them; the lane measures both (eight positives twice, six fixed bodies unchanged) and fills them.
+        // members, the featured-appearance page and the franchise outcome members grow both bodies. Measured by the lane
+        // generator run (bfce8c29): one body, f194af88…, for F10 and F11; F12 unchanged.
         F10_CURRENT_QUOTE_UNIONS: 'f194af887052e0cda5041e385e125a58d3dab50c5ac6be5d652de93880663328', // was bf9192ac… (projection65)
         F11_CURRENT_COMMAND_UNION: 'f194af887052e0cda5041e385e125a58d3dab50c5ac6be5d652de93880663328', // was bf9192ac… (projection65), same body as F10
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',

@@ -13,6 +13,8 @@ import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { cameoRetained, P17_CAMEO_FEE_NOTE } from '../src/core/cameo.js'
 import { nominalShootingWeeks } from '../src/core/cameoBooking.js'
+import { retirementRecordFor } from '../src/core/careerLifecycle.js'
+import { busyTalentIds } from '../src/core/employment.js'
 import { studioEmployerId } from '../src/core/hollywood.js'
 import { tick } from '../src/core/tick.js'
 import type { Action, GameState } from '../src/core/types.js'
@@ -97,6 +99,9 @@ describe('P17 featured appearances and continuation outcomes on the Bridge (proj
   const workWeek = nominalShootingWeeks(ready.state.market.tick)[0]!
   const request: BridgeCameoBookingRequest = { talentId: guest.id, workWeek, fee: expectedFee(guest), basis: 'freelance' }
   const draft = { ...greenlightDraftFor(ready.state, ready.projectId, new Set([guest.id])), cameos: [request] }
+  // Fix 1 (review S2): the outcome branch's two releases run here at collection, like the core's cameo suites, never
+  // inside a case under the default per-case budget.
+  const released = releasedContinuation(route)
 
   /** Quote and commit the package with the guest; returns the session after the booking. */
   function booked(sessionId: string) {
@@ -122,10 +127,18 @@ describe('P17 featured appearances and continuation outcomes on the Bridge (proj
       retained: cameoRetained(expectedFee(guest)), refundable: expectedFee(guest) - cameoRetained(expectedFee(guest)) })
     expect(row.weeks.map((w) => w.workWeek)).toEqual(Array.from({ length: 8 }, (_, i) => week + 1 + i))
     expect(row.weeks.find((w) => w.workWeek === workWeek)).toMatchObject({ ok: true, basis: 'freelance', standardShooting: true, refusal: null })
-    // Another studio's employee is refused by the core's own sentence, on every page it lands on.
+    // Another studio's employee is refused by the core's own sentence, on every page it lands on. Fix 1 (review S1):
+    // cameoQuote reads the lifecycle authority, reservations and actual work BEFORE the employer, so the rival is picked
+    // the way freeGuest picks (no actual work, no retirement record) and the employer refusal is the one that fires. The
+    // employer at the greenlight week alone refuses every work week (cameoQuote checks it before the work-week employer).
     const player = ready.state.hollywood!.playerStudioId
-    const rival = ready.state.talent.find((t) => { const employer = studioEmployerId(ready.state, t.id); return employer !== null && employer !== player })
-    if (rival === undefined) throw new Error('premise: no rival employee exists at the unlock week')
+    const busy = busyTalentIds(ready.state)
+    const rival = ready.state.talent.find((t) => {
+      const employer = studioEmployerId(ready.state, t.id)
+      return employer !== null && employer !== player && !busy.has(t.id)
+        && retirementRecordFor(ready.state, t.id) === undefined && retirementRecordFor(ready.state, t.id, 'actor') === undefined
+    })
+    if (rival === undefined) throw new Error('premise: no free, unretired rival employee exists at the unlock week')
     const rivalIndex = ready.state.talent.findIndex((t) => t.id === rival.id)
     const rivalRow = industry(new BridgeSession(ready.state, 'p17-guests-rival'), 'featuredAppearances', Math.floor(rivalIndex / PAGE))
       .featuredAppearances!.guests.find((g) => g.talentId === rival.id)!
@@ -177,7 +190,7 @@ describe('P17 featured appearances and continuation outcomes on the Bridge (proj
   })
 
   it('reads a released continuation\'s lineage edge, recorded release outcome and credited guest from the core records', () => {
-    const outcome = releasedContinuation(route)
+    const outcome = released
     const booking = rootOf(outcome.state)!.bookings.find((b) => b.productionId === outcome.childId)!
     expect(booking).toMatchObject({ talentId: outcome.guest.id, status: 'completed' })
     expect(booking.careerEvent).not.toBeNull()
@@ -188,8 +201,24 @@ describe('P17 featured appearances and continuation outcomes on the Bridge (proj
     const root = (outcome.state as GameState & { franchises: { properties: { storyPropertyId: string; meter: { peakInstallmentId: string | null } }[] } }).franchises
       .properties.find((p) => p.storyPropertyId === property.storyPropertyId)!
     const child = property.installments[1]!
+    // Fix 1 (review B1): the gross is the Industry film row's measure. The child released this week, so its theatrical
+    // run is active and has paid less than the whole-run total fixed at release (the premise that tells the two apart).
+    const run = outcome.state.theatricalRuns.find((r) => r.productionId === outcome.childId)!
+    expect(run.status).toBe('active')
+    expect(run.cumulativeGrossPaid).toBeLessThan(film.boxOffice.total)
     expect(child.outcome).toEqual({ releasedWeek: film.releaseTick, criticScore: film.criticScore, openingGross: film.boxOffice.opening,
-      totalGross: film.boxOffice.total, expectedTotal: film.forecast?.expectedTotal ?? null, propertyPeak: root.meter.peakInstallmentId === outcome.childId, activeAgain: false })
+      totalGross: run.cumulativeGrossPaid, expectedTotal: film.forecast?.expectedTotal ?? null, propertyPeak: root.meter.peakInstallmentId === outcome.childId, activeAgain: false })
+    // Both installments show the figures the Industry film row shows for the same film, active run or settled.
+    for (const installment of property.installments) {
+      const parsed = validateIndustry({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: session.sessionId, requestId: `p17-film-${installment.productionId}`,
+        expectedStateRevision: session.stateRevision, type: 'industryQuery', view: 'film', targetId: installment.productionId, page: 0, pageSize: PAGE, lane: 'recent', period: 'all' } as IndustryQuery)
+      expect(parsed).toMatchObject({ ok: true })
+      if (!parsed.ok) throw new Error('unreachable after the assertion above')
+      const result = session.industry(parsed.request)
+      expect(result).toMatchObject({ type: 'industryPage' })
+      const row = (result as Extract<typeof result, { type: 'industryPage' }>).films[0]!
+      expect(installment.outcome).toMatchObject({ openingGross: row.openingGross, totalGross: row.totalGross, criticScore: row.criticScore })
+    }
     const event = booking.careerEvent as { starPowerBefore: number; starPowerAfter: number; starPowerDelta: number }
     expect(child.guests).toEqual([{ bookingId: booking.bookingId, talentId: outcome.guest.id, name: outcome.guest.name, workWeek: outcome.workWeek,
       fee: booking.fee, starPowerBefore: event.starPowerBefore, starPowerAfter: event.starPowerAfter, starPowerDelta: event.starPowerDelta }])

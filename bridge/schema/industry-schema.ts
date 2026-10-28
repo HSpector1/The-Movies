@@ -197,8 +197,10 @@ const FRANCHISE_BRANCH_KINDS=['main','reboot','spinoff'] as const
 const CONTINUATION_BANDS=['new','active','activeAgain','cooling','dormant','revivalCandidate'] as const
 const StudioFranchiseBranch=object('StudioFranchiseBranch',{branchId:id(),kind:enumeration(FRANCHISE_BRANCH_KINDS),subPropertyId:nullable(id()),openedAtWeek:count(),lastReleaseWeek:nullable(count()),momentum:number(),band:enumeration(CONTINUATION_BANDS)})
 // P17 slice B (projection 66): what the core RECORDS about a released installment. The franchise root keeps the meters
-// after every release but no per-release Recognition/Momentum/Fatigue change, so none is published; the film's public
-// result, whether it holds the property's Recognition peak and its `activeAgain` milestone are recorded facts.
+// after every release but no per-release Recognition/Momentum/Fatigue change, so none is published; the film's Industry
+// row (critic score, opening, and total as cumulative paid gross while the run is active, final after), whether it holds
+// the property's Recognition peak and its `activeAgain` milestone are recorded facts. `expectedTotal` is the player's own
+// locked forecast and null for every other studio's film (Industry carries no rival's private inputs).
 const StudioFranchiseReleaseOutcome=object('StudioFranchiseReleaseOutcome',{releasedWeek:count(),criticScore:number(),openingGross:number(),totalGross:number(),expectedTotal:nullable(number()),propertyPeak:bool(),activeAgain:bool()})
 // A guest the release credited: the completed booking and the career record the core attached to it.
 const StudioFranchiseCreditedGuest=object('StudioFranchiseCreditedGuest',{bookingId:id(),talentId:id(),name:id(),workWeek:count(),fee:number(),starPowerBefore:number(),starPowerAfter:number(),starPowerDelta:number()})
