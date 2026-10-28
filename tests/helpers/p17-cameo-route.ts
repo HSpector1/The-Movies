@@ -12,7 +12,9 @@ import { assignmentRefusal, contractEndRefusal, retirementRecordFor } from '../.
 import { beginFoundingHistoricalControl, busyTalentIds } from '../../src/core/employment.js'
 import { MARKETING_BUDGET_LEVELS } from '../../src/core/grid.js'
 import { initializeHollywood, studioEmployerId } from '../../src/core/hollywood.js'
+import { studioWeeklyFixedCost } from '../../src/core/powerRankingArchive.js'
 import { resolveShape } from '../../src/core/shape.js'
+import { loanMaxPrincipal } from '../../src/core/studioLoan.js'
 import { roleOVR } from '../../src/core/talentSummary.js'
 import { tick } from '../../src/core/tick.js'
 import { TUNING } from '../../src/core/tuning.js'
@@ -23,7 +25,7 @@ import type { Action, FilmConcept, FilmShape, GameState, Talent } from '../../sr
 export const UNLOCK_WEEK = 1872
 
 /** The booking a greenlight carries (src/core/cameo.ts CameoBookingRequest), spelled locally. */
-export type Ask = { talentId: string; workWeek: number; fee: number }
+export type Ask = { talentId: string; workWeek: number; fee: number; basis: 'employee' | 'freelance' }
 /** The persisted booking (src/core/types.ts CameoBooking), the fields these tests read. */
 export type Booking = {
   bookingId: string; studioId: string; productionId: string; talentId: string; workWeek: number; bookedWeek: number
@@ -71,8 +73,9 @@ export function cameoRoute(seed: string): CameoRoute {
   return { before, world, a: pkg(0), b: pkg(1), writer: signed.writer[0]! }
 }
 
-/** An engaged legacy greenlight of `concept` staffed by `pkg` (contracted, so no freelancer fee), carrying `cameos`. */
-export function greenlight(state: GameState, concept: FilmConcept, pkg: Package, writer: string, cameos?: Ask[]): Action {
+/** An engaged legacy greenlight of `concept` staffed by `pkg` (contracted, so no freelancer fee), carrying `cameos`.
+ * `budget` replaces the fully funded default (the core accepts any finite, non-negative amount). */
+export function greenlight(state: GameState, concept: FilmConcept, pkg: Package, writer: string, cameos?: Ask[], budget?: { negative: number; marketing: number }): Action {
   return {
     kind: 'greenlight',
     production: {
@@ -83,7 +86,7 @@ export function greenlight(state: GameState, concept: FilmConcept, pkg: Package,
       directorId: pkg.director,
       craftIds: [pkg.craft],
       cast: { lead: pkg.cast[0], antagonist: pkg.cast[1], support: pkg.cast[2] },
-      budget: { negative: concept.baseNegativeCost * resolveShape(SHAPE).budgetDemandMultiplier * state.era.costScale, marketing: MARKETING_BUDGET_LEVELS[0] },
+      budget: budget ?? { negative: concept.baseNegativeCost * resolveShape(SHAPE).budgetDemandMultiplier * state.era.costScale, marketing: MARKETING_BUDGET_LEVELS[0] },
     },
     ...(cameos === undefined ? {} : { cameos }),
   } as Action
@@ -96,7 +99,7 @@ export function expectedFee(t: Talent): number {
   return Math.round(0.35 * (TUNING.SALARY_BASE + TUNING.SALARY_SKILL_COEF * ovr * ovr + TUNING.SALARY_FAME_COEF * fame * fame))
 }
 
-export const ask = (t: Talent, workWeek: number): Ask => ({ talentId: t.id, workWeek, fee: expectedFee(t) })
+export const ask = (t: Talent, workWeek: number, basis: Ask['basis'] = 'freelance'): Ask => ({ talentId: t.id, workWeek, fee: expectedFee(t), basis })
 
 /** The most famous existing person of `role` free for a week-`week + 1 … + 8` appearance: nobody's employee now or
  * then, in no actual work, holding no retirement record (current or actor), never in `exclude`. */
@@ -121,4 +124,51 @@ export function releaseNewest(state: GameState): GameState {
   s = tick(applyActions(s, [{ kind: 'commitPictureToRelease', productionId: id }]), { develop: true })
   if (!s.studio.releasedFilms.some((f) => f.productionId === id)) throw new Error(`premise: ${id} did not release`)
   return s
+}
+
+// ── the player's closure while a booking is reserved (no state surgery beyond the p15b drain device) ─────────────
+type ConditionView = { stage: string; distressWeeks: number; week: number }
+const conditionOf = (s: GameState): ConditionView | undefined =>
+  (s as unknown as { corporateCondition: { studios: { studioId: string; condition: ConditionView }[] } }).corporateCondition.studios.find((r) => r.studioId === s.hollywood!.playerStudioId)?.condition
+export const closuresOf = (s: GameState): { studioId: string; closureWeek: number }[] =>
+  (s as unknown as { studioClosure: { closures: { studioId: string; closureWeek: number }[] } }).studioClosure.closures
+
+/** The p15b drain device (tests/helpers/p15b-live.ts `drainPlayer`): one test ledger row lowers cash by `amount`. */
+function drain(state: GameState, amount: number): GameState {
+  if (!Number.isInteger(amount) || amount <= 0) throw new Error('drain: amount must be a positive integer')
+  return { ...state, studio: { ...state.studio, cash: state.studio.cash - amount },
+    ledger: [...state.ledger, { week: state.market.tick, kind: 'publicity', amount: -amount, note: 'p17 cameo test drain' }] }
+}
+
+export type ClosureRoute = { booked: GameState; closed: GameState; guest: Talent; week: number }
+
+/**
+ * The player drained to -1 at week 1872 walks the corporate condition law (warning, distress) to the last distress week
+ * before closure. That week it takes the lawful distress loan, is drained to exactly the guest's fee, and greenlights
+ * `pkg` at zero budget with one booking four weeks out (contracted staff, so the fee is the only spend). The ordinary
+ * tick then charges payroll, the condition closes the studio and the closure phase runs while the booking is reserved.
+ */
+export function closureRoute(world: GameState, pkg: Package, writer: string, exclude: ReadonlySet<string>): ClosureRoute {
+  let s = drain(world, world.studio.cash + 1)
+  for (let guard = 0; guard < 80; guard++) {
+    const c = conditionOf(s)
+    if (c?.stage === 'distress' && c.distressWeeks === TUNING.CORPORATE_CLOSURE_DISTRESS_WEEKS - 1) break
+    s = tick(s)
+  }
+  const c = conditionOf(s)
+  if (!(c?.stage === 'distress' && c.distressWeeks === TUNING.CORPORATE_CLOSURE_DISTRESS_WEEKS - 1)) throw new Error(`premise: the drained player never reached distress week ${TUNING.CORPORATE_CLOSURE_DISTRESS_WEEKS - 1} (at week ${s.market.tick}: ${JSON.stringify(c)})`)
+  const week = s.market.tick
+  const busy = busyTalentIds(s)
+  const guest = s.talent
+    .filter((t) => !exclude.has(t.id) && !busy.has(t.id) && t.fame > 0 && studioEmployerId(s, t.id) === null && studioEmployerId(s, t.id, week + 4) === null
+      && retirementRecordFor(s, t.id) === undefined && retirementRecordFor(s, t.id, 'actor') === undefined)
+    .sort((x, y) => expectedFee(x) - expectedFee(y) || (x.id < y.id ? -1 : x.id > y.id ? 1 : 0))[0]
+  if (guest === undefined) throw new Error(`premise: no free guest at week ${week}`)
+  const principal = loanMaxPrincipal(studioWeeklyFixedCost(s, s.hollywood!.playerStudioId))
+  s = applyActions(s, [{ kind: 'takeLoan', principal }])
+  const fee = expectedFee(guest)
+  if (s.studio.cash < fee) throw new Error(`premise: the distress loan (${principal}) leaves cash ${s.studio.cash}, below the cheapest guest fee ${fee}`)
+  if (s.studio.cash > fee) s = drain(s, s.studio.cash - fee)
+  const booked = applyActions(s, [greenlight(s, s.concepts[0]!, pkg, writer, [ask(guest, week + 4)], { negative: 0, marketing: 0 })])
+  return { booked, closed: tick(booked), guest, week }
 }

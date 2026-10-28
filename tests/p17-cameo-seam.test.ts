@@ -3,14 +3,16 @@
 // Authority: 1367-stage/p17-prep/P17-CAMEO-CONTRACT.md §3 (publicity replaces the OPENING star term once; the linear
 // starDraw, legs and quality read no guest fame; performance enters castExecution at 0.10, never cohesion; Standing
 // takes the same delta once through the existing star attention) and §6 items 2-4. The adopted P17 decisions this
-// slice must preserve: quality stays distinct from inherited awareness, and franchise R/M/F reads only quality (critic
-// and audience scores), so a guest's fame can never move Recognition, Momentum or the property-wide Fatigue a reboot
-// inherits.
+// slice must preserve: quality stays distinct from inherited awareness. A guest's fame reaches franchise Recognition and
+// Momentum only indirectly, through the box-office total they read (continuationSignals.ts reach01(total) and
+// surpriseOf(total, expectedTotal)); Fatigue, the property-wide meter a reboot inherits, reads quality alone and never
+// moves.
 //
 // RED-first at the parent 2c50c9df: imports only predecessor modules; the parent ignores both fields and the context
 // key, so every "moves" assertion fails there by assertion. The "absent is byte-identical" leaves are GREEN at both.
 
 import { describe, expect, it } from 'vitest'
+import { emptyMeter, emptyMomentum, registerBranchRelease, registerRelease, type ReleaseFacts } from '../src/core/continuationSignals.js'
 import { computeForecast, forecastCenters, type ForecastContext } from '../src/core/forecast.js'
 import { resolveReception, type ReceptionInputs } from '../src/core/reception.js'
 import { stream } from '../src/core/rng.js'
@@ -79,6 +81,22 @@ describe('P17 Shape A seam — fame enters once, at opening; quality never reads
     expect(fg.expectedOpening).not.toBe(fp.expectedOpening)
     // the persisted role-fit causal read stays the three principals' alone
     expect(forecastCenters(withGuests({ cameoExecutions: [0] })).core.castWeightedRoleFit).toBe(forecastCenters(fixture()).core.castWeightedRoleFit)
+  })
+
+  it('franchise meters: Recognition and Momentum move only through the total; Fatigue is identical', () => {
+    const plain = resolveReception(fixture(), stream('x', 'hollywood-v1', 'f'))
+    const known = resolveReception(withGuests({ cameoPublicityDelta: DELTA }), stream('x', 'hollywood-v1', 'f'))
+    expect(known.total).not.toBe(plain.total)
+    const facts = (r: typeof plain): ReleaseFacts => ({ installmentId: 'p', week: 2000, critic01: r.criticScore / 100, audience01: r.weightedAudienceScore / 100, total: r.total, expectedTotal: plain.total })
+    // a sequel on a property already carrying Fatigue (not the founding film, so Fatigue accrues by quality)
+    const meter = { ...emptyMeter(1900), firstFilmExempt: false, releaseCount: 1, fatigue: 20 }
+    const withGuest = registerRelease(meter, facts(known), { similarity: 0.9 })
+    const without = registerRelease(meter, facts(plain), { similarity: 0.9 })
+    expect(withGuest).toEqual(registerRelease(meter, { ...facts(plain), total: known.total }, { similarity: 0.9 }))
+    expect(withGuest.fatigue).toBe(without.fatigue)
+    expect(withGuest.fatigueLastQuality).toBe(without.fatigueLastQuality)
+    expect(registerBranchRelease(emptyMomentum(1900), facts(known))).toEqual(registerBranchRelease(emptyMomentum(1900), { ...facts(plain), total: known.total }))
+    expect(registerBranchRelease(emptyMomentum(1900), facts(known)).momentum).not.toBe(registerBranchRelease(emptyMomentum(1900), facts(plain)).momentum)
   })
 
   it('publicity alone never moves the forecast\'s quality bar', () => {

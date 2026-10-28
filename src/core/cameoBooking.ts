@@ -1,8 +1,8 @@
 // ── P17 Shape A — cameo bookings on the live GameState ──────────────────────────────────────────────────
 //
 // Binds the pure law (cameo.ts) to the real owners: the quote and the eligibility matrix read the ONE availability set
-// (`busyTalentIds`), the studio-aware employer (`studioEmployerId`), the lifecycle authority (`retirementRecordFor` /
-// `lifecycleRefusal`, with an explicit one-week end instead of `assignmentRefusal`'s full production seat) and the
+// (`busyTalentIds`), the studio-aware employer (`studioEmployerId`), the lifecycle authority (`assignmentRefusal`, with the
+// appearance's one-week obligation end instead of a full production seat's) and the
 // existing population. Money moves through the player's canonical ledger as `freelancerFee` rows (a direct production
 // cost the committed-cost readers already sum). Deterministic and pure; refusals throw before any write.
 //
@@ -26,7 +26,7 @@ import {
   type CameoBookingRequest,
   type CameoRefund,
 } from './cameo.js'
-import { lifecycleRefusal, retirementRecordFor } from './careerLifecycle.js'
+import { assignmentRefusal } from './careerLifecycle.js'
 import { busyTalentIds, economyEngaged } from './employment.js'
 import { studioEmployerId } from './hollywood.js'
 import { productionPhaseForRemainingTicksOrNull } from './productionPhases.js'
@@ -100,18 +100,12 @@ export function cameoQuote(state: GameState, args: { talentId: string; workWeek:
   if (featuredCapacity(week) === 0) return refuse(`featured/cameo bookings unlock at week ${TUNING.P17_CAMEO_UNLOCK_WEEK} (1956 Week 1); week ${week} has no capability`)
   const talent = state.talent.find((t) => t.id === args.talentId)
   if (talent === undefined) return refuse(`guest ${args.talentId} is not an existing person of this world`)
-  // greenlight's has-discipline law: an appearance is acting work, priced and performed on the acting profile
-  if (talent.skills.acting === undefined) return refuse(`guest ${talent.id} lacks an acting skill profile`)
   if (!(Number.isInteger(workWeek) && week < workWeek && workWeek <= week + TUNING.PRODUCTION_TICKS)) {
     return refuse(`work week ${String(workWeek)} must satisfy ${week} < workWeek <= ${week + TUNING.PRODUCTION_TICKS}`)
   }
-  // The lifecycle authority with an explicit one-week end: the current profession AND any recorded actor episode (an
-  // actor who retired into writing takes no new acting job); an announced person may take only work completing at
-  // its right boundary by the effective week; a finishing or retired person takes none.
-  for (const record of new Set([retirementRecordFor(state, talent.id), retirementRecordFor(state, talent.id, 'actor')])) {
-    if (record === undefined || (record.status === 'announced' && workWeek + 1 <= record.effectiveWeek)) continue
-    return refuse(lifecycleRefusal(record, `a one-week appearance in week ${workWeek} would not complete before it`))
-  }
+  // The lifecycle authority, current profession AND any recorded actor episode, with the one-week end [workWeek, workWeek + 1).
+  const lifecycle = assignmentRefusal(state, talent.id, workWeek, 'actor', workWeek + 1)
+  if (lifecycle !== null) return refuse(lifecycle)
   const otherWeeks = reservedGuestWeeks(state.cameos, talent.id)
   if (otherWeeks.includes(workWeek)) return refuse(`${talent.id} already holds a guest reservation for week ${workWeek}`)
   // ponytail: the one availability set, read as open-ended; a seat whose picture releases before the work week, or a
@@ -182,6 +176,8 @@ export function prepareCameoBookings(
     const quote = cameoQuote(state, request)
     if (!quote.ok) reject(quote.reason)
     if (request.fee !== quote.fee) reject(`stale cameo quote for ${request.talentId}: the fee is now ${money(quote.fee)}, not the accepted ${money(request.fee)}; re-quote before booking`)
+    // contract §4: an employment change makes the quote stale (the basis carries the own-employee exit obligation)
+    if (request.basis !== quote.basis) reject(`stale cameo quote for ${request.talentId}: the basis is now ${quote.basis}, not the accepted ${String(request.basis)}; re-quote before booking`)
     facts.push({
       studioId: state.hollywood!.playerStudioId,
       productionId: ctx.productionId,
@@ -219,7 +215,7 @@ export function commitCameoBookings(state: GameState, prep: CameoPrep): GameStat
   if (prep.facts.length === 0) return state
   let cameos = state.cameos
   for (const f of prep.facts) cameos = mintCameoBooking(cameos, f)
-  return { ...state, cameos }
+  return { ...state, ...(cameos === undefined ? {} : { cameos }) }
 }
 
 // ── cancellation and settlement (contract §4) ────────────────────────────────────────────────────────────

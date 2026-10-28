@@ -5,13 +5,18 @@
 // order, honest negative displacement, pool < 2), §4 (fee formula with one rounding, round(fee·0.25) retained, one
 // linked refund, completed work untouched). Every expected number is computed here from the contract's own formulas.
 //
-// RED at the parent 2c50c9df by missing module: src/core/cameo.ts is new law. The live-route cases in
-// tests/p17-cameo-booking.test.ts are the assertion-level RED pins.
+// RED at the parent 2c50c9df by missing module: src/core/cameo.ts and src/core/cameoBooking.ts are new law. The
+// live-route cases in tests/p17-cameo-booking.test.ts are the assertion-level RED pins.
+//
+// Fix 1: the booked-week decision (`resolveCameoWeek`) is pinned here on real-advance inputs for the two paths no live
+// route reaches at this checkpoint: a rights-held picture (the only producer of `rightsLoss`) and a picture whose work
+// is not on the nominal schedule (a managed picture stalled, or shooting later, in the booked week).
 
 import { describe, expect, it } from 'vitest'
 import {
   cameoAttentionDelta,
   cameoFee,
+  P17_CAMEO_REFUND_NOTE,
   cameoPublicityDelta,
   cameoRetained,
   cancelReservedBookings,
@@ -21,9 +26,13 @@ import {
   reservedCameoTalentIds,
   reservedGuestWeeks,
 } from '../src/core/cameo.js'
+import { resolveCameoWeek } from '../src/core/cameoBooking.js'
 import { TUNING } from '../src/core/tuning.js'
-import type { Segment } from '../src/core/types.js'
-import { UNLOCK_WEEK } from './helpers/p17-cameo-route.js'
+import type { CameoRoot, Production, Segment } from '../src/core/types.js'
+import { LOCKED_SHAPE, makeConcept, makeTalent, widePromise } from './_fixtures.js'
+
+/** The adopted unlock (contract §2: 1956 Week 1, absolute week 1872), spelled here instead of importing the route helper. */
+const UNLOCK_WEEK = 1872
 
 const r = (fame: number) => fame / (fame + 50)
 const SEGMENTS: Segment[] = [
@@ -137,5 +146,43 @@ describe('P17 Shape A law — the booking lifecycle and its obligation interval'
     expect([...reservedCameoTalentIds(root, 1872)].sort()).toEqual(['t-1', 't-2'])
     expect(reservedGuestWeeks(root, 't-1')).toEqual([1876])
     expect(reservedCameoTalentIds(undefined, 0).size).toBe(0)
+  })
+})
+
+describe('P17 Shape A law — the booked week resolves against real work, never the nominal schedule (Fix 1)', () => {
+  const facts = { studioId: 's', productionId: 'prod-1872', talentId: 't-1', workWeek: 1876, bookedWeek: 1872, basis: 'freelance' as const, profession: 'director' as const, fee: 162_575, perceivedActingOVR: 20, fame: 85 }
+  const root = mintCameoBooking(undefined, facts)
+  const concept = makeConcept({ id: 'concept-1' })
+  const film = (remainingTicks: number) => ({ id: 'prod-1872', conceptId: 'concept-1', shape: LOCKED_SHAPE, promise: widePromise(), remainingTicks }) as unknown as Production
+  const resolve = (r: CameoRoot, week: number, before: number, after: number | null, held: boolean) => resolveCameoWeek(r, {
+    week, before: [film(before)], after: after === null ? [] : [film(after)], held: new Set(held ? ['prod-1872'] : []),
+    talent: [makeTalent({ id: 't-1', role: 'director', skill: 40, fame: 85 })], conceptOf: () => concept,
+  })
+  const refundRow = { week: 1876, kind: 'freelancerFee', amount: 162_575 - 40_644, talentId: 't-1', productionId: 'prod-1872', note: P17_CAMEO_REFUND_NOTE }
+
+  it('a rights-held picture in the booked week cancels with rightsLoss and one refund row, even if its clock moved', () => {
+    for (const after of [5, 4]) {
+      const out = resolve(root, 1876, 5, after, true)
+      expect(out.root.bookings[0]).toMatchObject({ status: 'cancelled', cancelReason: 'rightsLoss', cancelledWeek: 1876, refund: 162_575 - 40_644 })
+      expect(out.rows).toEqual([refundRow])
+    }
+  })
+
+  it('a stalled picture (managed work unallocated) in its nominal shooting week, a non-shooting advance and a vanished picture each miss the work and refund once', () => {
+    for (const [before, after] of [[5, 5], [6, 5], [5, null]] as const) {
+      const out = resolve(root, 1876, before, after, false)
+      expect(out.root.bookings[0]).toMatchObject({ status: 'cancelled', cancelReason: 'missedWork', cancelledWeek: 1876 })
+      expect(out.rows).toEqual([refundRow])
+    }
+  })
+
+  it('a picture that actually shoots in the booked week completes and keeps the whole fee, whatever the nominal schedule said; an unreached week waits', () => {
+    const out = resolve(root, 1876, 4, 3, false)
+    expect(out.root.bookings[0]).toMatchObject({ status: 'completed', completedWeek: 1876, cancelReason: null, refund: null })
+    expect(typeof out.root.bookings[0]!.completedExecution).toBe('number')
+    expect(out.rows).toEqual([])
+    const early = resolve(root, 1875, 5, 4, false)
+    expect(early.root).toBe(root)
+    expect(early.rows).toEqual([])
   })
 })

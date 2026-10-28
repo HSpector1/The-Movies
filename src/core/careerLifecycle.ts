@@ -109,13 +109,17 @@ export function contractEndRefusal(state: Pick<GameState, 'careerLifecycle' | 't
 
 /** `null` when a production seat assigned at `week` is lawful for this person (773 D9):
  * an announced person is seated only while `week + PRODUCTION_TICKS + 1 <= effectiveWeek`;
- * a finishing or retired person never. */
-export function assignmentRefusal(state: Pick<GameState, 'careerLifecycle' | 'talent'>, personId: string, week: number, requestedProfession?: CreativeRole): string | null {
+ * a finishing or retired person never. A shorter obligation (P17's one-week guest appearance)
+ * passes its own exclusive end week in place of the seat's. */
+export function assignmentRefusal(state: Pick<GameState, 'careerLifecycle' | 'talent'>, personId: string, week: number, requestedProfession?: CreativeRole, obligationEndWeekExclusive?: number): string | null {
   const current = retirementRecordFor(state, personId)
   const requested = requestedProfession === undefined ? current : retirementRecordFor(state, personId, requestedProfession)
+  const end = obligationEndWeekExclusive ?? week + TUNING.PRODUCTION_TICKS + 1
   for (const record of new Set([current, requested])) {
-    if (record === undefined || record.status === 'announced' && week + TUNING.PRODUCTION_TICKS + 1 <= record.effectiveWeek) continue
-    return lifecycleRefusal(record, `a production seat taken at week ${week} cannot release before it`)
+    if (record === undefined || record.status === 'announced' && end <= record.effectiveWeek) continue
+    return lifecycleRefusal(record, obligationEndWeekExclusive === undefined
+      ? `a production seat taken at week ${week} cannot release before it`
+      : `an assignment taken at week ${week} ending at week ${obligationEndWeekExclusive} cannot complete before it`)
   }
   return null
 }

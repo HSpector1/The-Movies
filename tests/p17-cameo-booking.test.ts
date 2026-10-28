@@ -9,6 +9,9 @@
 // parent has, so each case fails there by assertion — the parent ignores `cameos`, refuses nothing, charges nothing and
 // keeps no root. Every case opens with an assertion on the booking it needs, so no case reaches a TypeError at the
 // parent. The world is built once at collection (tests/helpers/p17-cameo-route.ts); no hook carries it.
+//
+// Fix 1 (against fd2cc2e0): the stale-basis case is RED at fd2cc2e0 too (the basis was re-derived silently); the
+// closure case and the split validator cases are RED at 2c50c9df by assertion and GREEN at fd2cc2e0 by design.
 
 import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
@@ -20,7 +23,7 @@ import { convertV50ToV49, exportSave, importSave, makeSave, migrateToLive, stabl
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { Action, GameState } from '../src/core/types.js'
-import { ask, cameoRoute, expectedFee, freeGuest, greenlight, releaseNewest, rootOf, UNLOCK_WEEK, type Booking } from './helpers/p17-cameo-route.js'
+import { ask, cameoRoute, closureRoute, closuresOf, expectedFee, freeGuest, greenlight, releaseNewest, rootOf, UNLOCK_WEEK, type Booking } from './helpers/p17-cameo-route.js'
 
 const route = cameoRoute('p17-cameo-booking-01')
 const { world, a, b, writer } = route
@@ -77,8 +80,8 @@ describe('P17 Shape A — capability, identity and an atomic, charged booking', 
     expect(rootOf(credited)?.bookings).toHaveLength(1)
     const third = freeGuest(world, 'actor', new Set([...principals, guest.id, guest2.id]))
     unchanged(() => applyActions(world, [greenlight(world, conceptA, a, writer, [ask(guest, SHOOT), ask(guest2, SHOOT), ask(third, SHOOT)])]), /at most 2 guests per production/)
-    unchanged(() => applyActions(world, [greenlight(world, conceptA, a, writer, [{ talentId: a.director, workWeek: SHOOT, fee: 1 }])]), /already credited on this picture/)
-    unchanged(() => applyActions(world, [greenlight(world, conceptA, a, writer, [{ talentId: writer, workWeek: SHOOT, fee: 1 }])]), /already credited on this picture/)
+    unchanged(() => applyActions(world, [greenlight(world, conceptA, a, writer, [{ talentId: a.director, workWeek: SHOOT, fee: 1, basis: 'freelance' }])]), /already credited on this picture/)
+    unchanged(() => applyActions(world, [greenlight(world, conceptA, a, writer, [{ talentId: writer, workWeek: SHOOT, fee: 1, basis: 'freelance' }])]), /already credited on this picture/)
     unchanged(() => applyActions(world, [greenlight(world, conceptA, a, writer, [ask(guest, W)])]), /work week .* must satisfy/)
     unchanged(() => applyActions(world, [greenlight(world, conceptA, a, writer, [ask(guest, W + TUNING.PRODUCTION_TICKS + 1)])]), /work week .* must satisfy/)
     unchanged(() => applyActions(world, [greenlight(world, conceptA, a, writer, [ask(guest, SHOOT), ask(guest, SHOOT + 1)])]), /requested twice/)
@@ -181,7 +184,7 @@ describe('P17 Shape A — availability and employment obligations', () => {
     const both = applyActions(booked, [greenlight(booked, conceptB, b, writer, [ask(guest, SHOOT + 1)])])
     expect(rootOf(both)!.bookings.filter((x) => x.talentId === guest.id).map((x) => [x.workWeek, x.status])).toEqual([[SHOOT, 'reserved'], [SHOOT + 1, 'reserved']])
     // a principal seated on the first picture holds actual work
-    expect(() => applyActions(booked, [greenlight(booked, conceptB, b, writer, [{ talentId: a.cast[0], workWeek: SHOOT, fee: 1 }])])).toThrow(/holds actual work/)
+    expect(() => applyActions(booked, [greenlight(booked, conceptB, b, writer, [{ talentId: a.cast[0], workWeek: SHOOT, fee: 1, basis: 'freelance' }])])).toThrow(/holds actual work/)
   })
 
   it('a freelance booking is disclosed to a new employer and survives the signing; an own-employee exit cancels with the standard refund', () => {
@@ -197,12 +200,24 @@ describe('P17 Shape A — availability and employment obligations', () => {
     expect(bookingOf(signed, freelancer.id)).toEqual(bookingOf(fb, freelancer.id))
     // own employee: a second-package actor, contracted and unseated, books as an employee appearance
     const employee = world.talent.find((t) => t.id === b.cast[0])!
-    const eb = applyActions(world, [greenlight(world, conceptA, a, writer, [ask(employee, SHOOT)])])
+    const eb = applyActions(world, [greenlight(world, conceptA, a, writer, [ask(employee, SHOOT, 'employee')])])
     const x = bookingOf(eb, employee.id)!
     expect(x.basis).toBe('employee')
     const exited = applyActions(eb, [{ kind: 'releaseTalent', talentId: employee.id }])
     expect(bookingOf(exited, employee.id)).toMatchObject({ status: 'cancelled', cancelReason: 'employmentExit', refund: x.fee - x.retained, cancelledWeek: W })
     expect(feeRows(exited, employee.id)).toEqual([[W, -x.fee, true], [W, x.fee - x.retained, true]])
+  })
+
+  it('an employment change makes the quote stale: a freelancer signed in the same batch refuses as freelance and books as employee', () => {
+    const market = new Set(hiringMarketIds(world))
+    const busy = busyTalentIds(world)
+    const freelancer = world.talent.find((t) => market.has(t.id) && !principals.has(t.id) && t.id !== guest.id && !busy.has(t.id) && unretired(world, t.id)
+      && studioEmployerId(world, t.id) === null && studioEmployerId(world, t.id, SHOOT) === null)!
+    expect(freelancer).toBeDefined()
+    const sign: Action = { kind: 'signContract', talentId: freelancer.id, termWeeks: TUNING.CONTRACT_MIN_WEEKS }
+    unchanged(() => applyActions(world, [sign, greenlight(world, conceptA, a, writer, [ask(freelancer, SHOOT)])]), /stale cameo quote .* the basis is now employee, not the accepted freelance/)
+    const employed = applyActions(world, [sign, greenlight(world, conceptA, a, writer, [ask(freelancer, SHOOT, 'employee')])])
+    expect(bookingOf(employed, freelancer.id)?.basis).toBe('employee')
   })
 })
 
@@ -219,18 +234,37 @@ describe('P17 Shape A — persistence in the Save50 step (additive, absent by de
     expect(exportSave(save)).toBe(bytes)
   })
 
-  it('the validator refuses an empty root, an unknown key, a forged fee, a foreign studio and a completion that never happened', () => {
+  const save = makeSave(booked)
+  const refuse = (edit: (f: Forged) => void, pattern: RegExp) => {
     expect(rootOf(booked)?.bookings).toHaveLength(1)
-    const save = makeSave(booked)
-    const refuse = (edit: (f: Forged) => void, pattern: RegExp) => {
-      const forged = JSON.parse(JSON.stringify(save)) as Forged
-      edit(forged)
-      expect(() => validateSaveP17(forged)).toThrow(pattern)
-    }
-    refuse((f) => { f.state.cameos.bookings = [] }, /an empty cameo root is written as absence/)
-    refuse((f) => { f.state.cameos.extra = 1 }, /expected exactly keys/)
-    refuse((f) => { f.state.cameos.bookings[0]!.fee += 1 }, /is not the frozen quote's fee/)
-    refuse((f) => { f.state.cameos.bookings[0]!.studioId = world.hollywood!.identities[1]!.studioId }, /is not the player studio/)
-    refuse((f) => { f.state.cameos.bookings[0]!.status = 'completed' }, /completed work records its week and frozen execution/)
+    const forged = JSON.parse(JSON.stringify(save)) as Forged
+    edit(forged)
+    expect(() => validateSaveP17(forged)).toThrow(pattern)
+  }
+  it('the validator refuses an empty root', () => refuse((f) => { f.state.cameos.bookings = [] }, /an empty cameo root is written as absence/))
+  it('the validator refuses an unknown root key', () => refuse((f) => { f.state.cameos.extra = 1 }, /expected exactly keys/))
+  it('the validator refuses a forged fee', () => refuse((f) => { f.state.cameos.bookings[0]!.fee += 1 }, /is not the frozen quote's fee/))
+  it('the validator refuses a foreign studio', () => refuse((f) => { f.state.cameos.bookings[0]!.studioId = world.hollywood!.identities[1]!.studioId }, /is not the player studio/))
+  it('the validator refuses a completion that never happened', () => refuse((f) => { f.state.cameos.bookings[0]!.status = 'completed' }, /completed work records its week and frozen execution/))
+})
+
+describe('P17 Shape A — the player\'s closure while a booking is reserved', () => {
+  // Built at collection like every route here (no case timeout carries it); a premise failure fails THIS case by name
+  // instead of the whole file.
+  let closing: ReturnType<typeof closureRoute> | Error
+  try { closing = closureRoute(world, a, writer, principals) } catch (error) { closing = error instanceof Error ? error : new Error(String(error)) }
+
+  it('the closure cancels the unperformed booking once with its refund before the money step; the closure validator replays it', () => {
+    if (closing instanceof Error) throw closing
+    const { booked, closed, guest: g, week } = closing
+    const x = bookingOf(booked, g.id)
+    expect(x).toMatchObject({ status: 'reserved', workWeek: week + 4, bookedWeek: week })
+    expect(booked.studio.cash).toBe(0)
+    const closure = closuresOf(closed).find((c) => c.studioId === closed.hollywood!.playerStudioId)
+    expect(closure).toBeDefined()
+    expect(bookingOf(closed, g.id)).toMatchObject({ status: 'cancelled', cancelReason: 'productionCancelled', cancelledWeek: closure!.closureWeek, refund: x!.fee - x!.retained })
+    expect(feeRows(closed, g.id)).toEqual([[week, -x!.fee, true], [closure!.closureWeek, x!.fee - x!.retained, true]])
+    expect(() => validateSaveP17(makeSave(closed))).not.toThrow()
+    expect(exportSave(migrateToLive(importSave(exportSave(makeSave(closed)))))).toBe(exportSave(makeSave(closed)))
   })
 })

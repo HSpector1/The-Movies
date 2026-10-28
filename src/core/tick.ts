@@ -118,7 +118,7 @@ import { buildFilmResult, resolveReception, type ReceptionInputs } from './recep
 import { applyContinuationRelease, withFranchises } from './continuation.js'
 import { continuationReleaseInput, p17RightsHolds } from './continuationGreenlight.js'
 import { attachCameoCareerEvents, releaseCameoBookings } from './cameo.js'
-import { cameoReleaseInputs, cancelExitedEmployeeBookings, resolveCameoWeek } from './cameoBooking.js'
+import { cameoReleaseInputs, resolveCameoWeek } from './cameoBooking.js'
 import { RngStream, stream } from './rng.js'
 import { resolveShape } from './shape.js'
 import {
@@ -1321,12 +1321,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // step follows the ranking record (the quarter's band and the condition read the same settled cash, and
   // a studio closing at W stays in that snapshot), the closure phase follows the condition step (closure
   // due declared at W is closed at W, before Legacy freeze), and the freeze stays last. No RNG.
-  // P17 Shape A (cameo contract §4 employment exit): after this week's contract expiry, market and lifecycle steps and
-  // before the ranking reads the week's cash, an own-employee appearance whose employment ended is cancelled once. A
-  // tail settlement, so its refund row carries the arrived week, as the market's and the closure's rows do (L-18).
-  const employmentSettled = cancelExitedEmployeeBookings(
-    advanceLifecycleSettlement(advanceTalentMarketWeek(advancePromisesWeek(advanceLifecycleIntent(withRights, birthdays)))), currentTick + 1)
-  return freezeCampaignLegacyWeek(advanceStudioClosureWeek(advanceCorporateConditionWeek(recordPowerRankingQuarter(employmentSettled)),
+  return freezeCampaignLegacyWeek(advanceStudioClosureWeek(advanceCorporateConditionWeek(recordPowerRankingQuarter(
+    advanceLifecycleSettlement(advanceTalentMarketWeek(advancePromisesWeek(advanceLifecycleIntent(withRights, birthdays)))))),
     { deferPlayerClosure: options?.deferPlayerClosure === true }))
 }
 
