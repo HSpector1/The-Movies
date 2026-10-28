@@ -1,0 +1,28 @@
+{
+  "head": "ecbc42c97020ba74f239e78463f1898cfdf00a88",
+  "sourceManifestEntries": 2143,
+  "purpose": "Sprint 11 ui-r31 after ui FIX-4: root/ui typecheck, the two ui unit files, Playwright journey + smoke",
+  "children": [
+    {
+      "label": "root-ui-types"
+    },
+    {
+      "label": "ui-unit",
+      "completeFiles": [
+        "ui/src/screens/p17-cameo-cancel-ui.test.tsx",
+        "ui/src/screens/p17-continuation-ui.test.tsx"
+      ]
+    },
+    {
+      "label": "e2e-p17",
+      "specs": [
+        "ui/e2e/p17-continuation.spec.ts",
+        "ui/e2e/smoke.spec.ts"
+      ]
+    }
+  ],
+  "budgets": {
+    "timeoutOverride": false,
+    "note": "p17 spec carries its own 240 s budget; smoke unchanged"
+  }
+}

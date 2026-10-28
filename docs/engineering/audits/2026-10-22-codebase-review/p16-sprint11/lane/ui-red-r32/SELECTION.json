@@ -1,0 +1,13 @@
+{
+  "head": "f77fb087b7daa49047543fd6335fa44ea13adc15",
+  "sourceManifestEntries": 2089,
+  "purpose": "Sprint 11 ui RED r32 at 418f5d70 (browser slice + FIX-1/2 present, FIX-3/4 exports absent) for the FIX-3/4 cases",
+  "children": [
+    {
+      "label": "red",
+      "completeFiles": [
+        "ui/src/screens/p17-continuation-ui.test.tsx"
+      ]
+    }
+  ]
+}

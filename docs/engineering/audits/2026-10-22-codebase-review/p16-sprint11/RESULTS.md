@@ -75,3 +75,7 @@ fix3-r28: generate/fixtures/both checks 0 (manifest regenerated after the commen
 ## p15c2 alone (r30): 37/37, legacy-root-downgrade 88.6 s against its 120 s budget — 01:40 CDT
 
 Audit finding (a) resolved: the p15c2 legacy-root-downgrade row that exceeded its own 120 s budget in the Sprint 9, Sprint 10 recovery and Sprint 11 gates (189 s, 309 s, 223 s under load) passes alone at load 4 in 88.6 s on the candidate; it is lane load, not a defect, and it is not an inherited failure on a quiet host. ui FIX-4 applied; ui-r31 and the ui RED r32 at 418f5d70 in flight.
+
+## Sprint 11 CLOSED: qualified technical P17 checkpoint tag p17-technical-checkpoint-20261028 at ecbc42c9 — 2026-10-28, 01:50 CDT
+
+ui-r31 on ecbc42c9 (ui FIX-4): root/ui types 0; ui unit 10/10; Playwright journey + smoke 2/2 (52 s). ui-red-r32 at 418f5d70 (browser slice without the FIX-3 exports): the four FIX-3/4 cases RED (forecast case and the humanised-remake pin by assertion; the Industry-title and dropped-guest cases by TypeError on the missing exports); the five earlier cases have their RED record from r26. Finish condition met functionally: a usable, rights-backed P17 workflow through the real greenlight/production/release/persistence paths, the Bridge wire and the browser client, with a representative player continuation journey. Tag message carries the limits and the ACCEPTANCE OPEN list. Sprint 12 (P18 first season) begins on a descendant branch.
