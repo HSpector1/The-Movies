@@ -27,3 +27,7 @@ types-r11 root 0, Bridge 0. cameo-green-r12: 98 of 99 across the three cameo fil
 ## Cameo FIX-2 (e35bbacc): closure route at distress week 18; booking file 19/19; RED 19/19 — 22:25 CDT
 
 The closure-while-reserved live route cannot fund a booking at distress week 25 (debt ≈ 32 weeks of fixed cost against a loan of ≤ 26 weeks); the only fundable week with the booking still reserved at closure is distress week 18 with the work week 8 weeks out, so the closure (eighth tick) cancels a still-reserved booking. No law or tuning change. cameo-green-r14: booking 19/19 (so cameo law 14, seam 7, booking 19 all GREEN on the candidate); cameo-red-r15 at the tag: 19/19 RED by assertion. Re-review of FIX-1: REVIEW-CAMEO-FIX1.md (ACCEPTABLE; four small items in FIX-3, in preparation). Bridge slice B (write verbs, projection 66) and the browser slice (continuation choice, appearances, cost, outcomes, player journey e2e) are in preparation by disjoint workhorses.
+
+## Cameo core slice complete on 29c7cf0d (FIX-3): types 0/0, cameo 40/40 — 22:10 CDT
+
+FIX-3 (29c7cf0d) resolved the four small re-review items. types-green-r16: root 0, Bridge 0; p17-cameo-law 14, seam 7, booking 19 all GREEN. The cameo core slice is CANDIDATE-complete and reviewed twice; remaining Sprint 11 work: Bridge slice B (write verbs, projection 66) and the browser slice with the player continuation journey, both in preparation; then the Sprint 11 full gate and the qualified P17 technical checkpoint.

@@ -1,0 +1,65 @@
+diff --git a/src/core/cameo.ts b/src/core/cameo.ts
+--- a/src/core/cameo.ts
++++ b/src/core/cameo.ts
+@@ -22,8 +22,6 @@
+ export const P17_CAMEO_FEE_NOTE = 'P17 cameo appearance fee (one-week featured booking)'
+ export const P17_CAMEO_REFUND_NOTE = 'P17 cameo booking refund (fee less the retained reservation charge)'
+ 
+-/** A booking on a greenlight: the guest, the one work week, and the exact fee the studio accepts from the quote
+- * (`cameoQuote`). The greenlight re-evaluates every quote input; a different fee refuses as stale (contract §4). */
+ /** The accepted quote: the person, the one work week, and the quoted fee and basis, each refused at commit if changed. */
+ export type CameoBookingRequest = { talentId: string; workWeek: number; fee: number; basis: 'employee' | 'freelance' }
+ 
+diff --git a/src/core/cameoBooking.ts b/src/core/cameoBooking.ts
+--- a/src/core/cameoBooking.ts
++++ b/src/core/cameoBooking.ts
+@@ -103,8 +103,9 @@
+   if (!(Number.isInteger(workWeek) && week < workWeek && workWeek <= week + TUNING.PRODUCTION_TICKS)) {
+     return refuse(`work week ${String(workWeek)} must satisfy ${week} < workWeek <= ${week + TUNING.PRODUCTION_TICKS}`)
+   }
+-  // The lifecycle authority, current profession AND any recorded actor episode, with the one-week end [workWeek, workWeek + 1).
+-  const lifecycle = assignmentRefusal(state, talent.id, workWeek, 'actor', workWeek + 1)
++  // The lifecycle authority, current profession AND any recorded actor episode: an assignment taken at this greenlight
++  // week whose obligation ends after the one work week (exclusive end workWeek + 1).
++  const lifecycle = assignmentRefusal(state, talent.id, week, 'actor', workWeek + 1)
+   if (lifecycle !== null) return refuse(lifecycle)
+   const otherWeeks = reservedGuestWeeks(state.cameos, talent.id)
+   if (otherWeeks.includes(workWeek)) return refuse(`${talent.id} already holds a guest reservation for week ${workWeek}`)
+diff --git a/tests/helpers/p17-cameo-route.ts b/tests/helpers/p17-cameo-route.ts
+--- a/tests/helpers/p17-cameo-route.ts
++++ b/tests/helpers/p17-cameo-route.ts
+@@ -184,12 +184,18 @@
+   const fee = expectedFee(guest)
+   if (s.studio.cash < fee) throw new Error(`premise: the distress loan (${principal}) leaves cash ${s.studio.cash} (from ${hole} at distress week ${target}), below the cheapest guest fee ${fee}`)
+   if (s.studio.cash > fee) s = drain(s, s.studio.cash - fee)
+-  const booked = applyActions(s, [greenlight(s, s.concepts[0]!, pkg, writer, [ask(guest, workWeek)], { negative: 0, marketing: 0 })])
++  let booked: GameState
++  try {
++    booked = applyActions(s, [greenlight(s, s.concepts[0]!, pkg, writer, [ask(guest, workWeek)], { negative: 0, marketing: 0 })])
++  } catch (error) {
++    throw new Error(`premise: the zero-budget greenlight at distress week ${target} (week ${week}) refused: ${error instanceof Error ? error.message : String(error)}`)
++  }
+   let lastOpen = booked
+   let closed = tick(booked)
+   for (let i = 1; i < TUNING.PRODUCTION_TICKS && !closuresOf(closed).some((x) => x.studioId === closed.hollywood!.playerStudioId); i++) {
+     lastOpen = closed
+     closed = tick(closed)
+   }
++  if (!(lastOpen.studio.cash < 0)) throw new Error(`premise: cash must be below zero on the last open week ${lastOpen.market.tick} (it is ${lastOpen.studio.cash}); the condition closes only a negative studio`)
+   return { booked, lastOpen, closed, guest, week }
+ }
+diff --git a/tests/p17-cameo-booking.test.ts b/tests/p17-cameo-booking.test.ts
+--- a/tests/p17-cameo-booking.test.ts
++++ b/tests/p17-cameo-booking.test.ts
+@@ -234,10 +234,9 @@
+     expect(exportSave(save)).toBe(bytes)
+   })
+ 
+-  const save = makeSave(booked)
+   const refuse = (edit: (f: Forged) => void, pattern: RegExp) => {
+     expect(rootOf(booked)?.bookings).toHaveLength(1)
+-    const forged = JSON.parse(JSON.stringify(save)) as Forged
++    const forged = JSON.parse(JSON.stringify(makeSave(booked))) as Forged
+     edit(forged)
+     expect(() => validateSaveP17(forged)).toThrow(pattern)
+   }

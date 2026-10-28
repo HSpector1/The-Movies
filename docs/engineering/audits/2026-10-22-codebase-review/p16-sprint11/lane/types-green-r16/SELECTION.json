@@ -1,0 +1,18 @@
+{
+  "head": "29c7cf0d0856216d61866ce2347a0cf293e5bdad",
+  "sourceManifestEntries": 2131,
+  "purpose": "Sprint 11 r16 after cameo FIX-3: root and Bridge types, then the three cameo files",
+  "children": [
+    {
+      "label": "types"
+    },
+    {
+      "label": "cameo",
+      "completeFiles": [
+        "tests/p17-cameo-booking.test.ts",
+        "tests/p17-cameo-law.test.ts",
+        "tests/p17-cameo-seam.test.ts"
+      ]
+    }
+  ]
+}
