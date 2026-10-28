@@ -1,0 +1,21 @@
+{
+  "head": "8a2e840b546df86f8ad3be646726d099e1adafa1",
+  "sourceManifestEntries": 2135,
+  "predecessor": "ecbc42c9 (tag p17-technical-checkpoint-20261028); baseline for comparison: p16-sprint11 full-tree-r27 (core, ui) on 418f5d70 (the last full gate, audited clean)",
+  "purpose": "Sprint 12 checkpoint full gate on the P18 FIX-3 commit 8a2e840b (commission + shared workload, Save51, projection 67): root/ui types, bridge types, both contract checks, UI build, full core incl. bridge, full ui, source integrity; docs/evidence/art inputs and ui/ materialized",
+  "children": [
+    {
+      "label": "full-core-including-bridge",
+      "project": "core"
+    },
+    {
+      "label": "full-ui",
+      "project": "ui"
+    }
+  ],
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "timeoutOverride": false
+  },
+  "limits": "Timing recorded, not qualified; classification by file+fullName+first failure line against full-tree-r9."
+}

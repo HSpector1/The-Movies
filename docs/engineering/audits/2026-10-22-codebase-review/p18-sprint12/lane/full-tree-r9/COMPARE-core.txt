@@ -1,0 +1,62 @@
+{'numTotalTestSuites': 2115, 'numPassedTestSuites': 2053, 'numFailedTestSuites': 62, 'numPendingTestSuites': 0, 'numTotalTests': 6150, 'numPassedTests': 6031, 'numFailedTests': 105, 'numPendingTests': 3, 'numTodoTests': 11}
+{'NEW': 1, 'INHERITED-SAME': 88, 'INHERITED-CHANGED': 8, 'MISSING-INPUT': 8, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 1, 'OVER-BUDGET-PASS': 677} report tests 6148 baseline tests 6106 in both 6093
+
+## NEW (1)
+  - tests/p16-held-title-seller.test.ts :: real public film0 sale before R04 C excludes the sold title from current closure and handoff while retaining c
+      AssertionError: expected [Function] to throw error matching /estate lots|title handoff|titles|disp…/ but got 'validateSaveP18: expected version 51'
+
+## INHERITED-CHANGED (8)
+  - tests/bridge-owner-ux-projection20-migration.test.ts :: Owner UX outgoing projection20 migration migrates 'constructed distinct-slot envelope fr…' without changing ei
+      AssertionError: expected 51 to be 38 // Object.is equality
+      baseline: AssertionError: expected 50 to be 38 // Object.is equality
+  - tests/bridge-owner-ux-projection20-migration.test.ts :: Owner UX outgoing projection20 migration migrates 'frozen R12 Week106 null slot and genu…' without changing ei
+      AssertionError: expected 51 to be 38 // Object.is equality
+      baseline: AssertionError: expected 50 to be 38 // Object.is equality
+  - tests/bridge-owner-ux-projection20-migration.test.ts :: Owner UX outgoing projection20 migration migrates 'frozen Week105 null slot' without changing either V18 gamep
+      AssertionError: expected 51 to be 38 // Object.is equality
+      baseline: AssertionError: expected 50 to be 38 // Object.is equality
+  - tests/bridge-owner-ux-projection20-migration.test.ts :: Owner UX outgoing projection20 migration pins genuine prior bytes, source identity, actual journal, and constr
+      AssertionError: expected 67 to be 53 // Object.is equality
+      baseline: AssertionError: expected 66 to be 53 // Object.is equality
+  - tests/bridge-p06-checkpoint-recovery.test.ts :: AUD-001 — frozen P06 checkpoint recovery loads 'Committed with distinct Ready save an…' through the governed p
+      AssertionError: expected { broadcastCache: [], …(3) } to deeply equal { saveVersion: 51, …(3) }
+      baseline: AssertionError: expected { broadcastCache: [], …(3) } to deeply equal { saveVersion: 50, …(3) }
+  - tests/bridge-p06-checkpoint-recovery.test.ts :: AUD-001 — frozen P06 checkpoint recovery loads 'Ready with no explicit save' through the governed predecessor 
+      AssertionError: expected { broadcastCache: [], …(3) } to deeply equal { saveVersion: 51, …(3) }
+      baseline: AssertionError: expected { broadcastCache: [], …(3) } to deeply equal { saveVersion: 50, …(3) }
+  - tests/p14c3-save-v38.test.ts :: C.3 A01/A02 exact Save38 opening exposes matching strict38 conversion, validation and current migration over a
+      AssertionError: expected '{"broadcastCache":[],"saveVersion":51…' to be '{"broadcastCache":[],"saveVersion":38…' // Object.is equality
+      baseline: AssertionError: expected '{"broadcastCache":[],"saveVersion":50…' to be '{"broadcastCache":[],"saveVersion":38…' // Object.is equality
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) legacy-root-downgrade
+      AssertionError: elapsed 209905 ms against the 120000 ms budget: expected 209905.469447 to be less than or equal to 120000
+      baseline: AssertionError: elapsed 223257 ms against the 120000 ms budget: expected 223257.05819999997 to be less than or equal to 120000
+
+## MISSING-INPUT (8)
+  - tests/r3n1-stale-schedule-take-02.test.ts :: R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge SERVER REFUSAL
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02.test.ts :: R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge SERVER REFUSAL
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p31.test.ts :: R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p31.test.ts :: R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p32.test.ts :: R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p32.test.ts :: R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/world-first-scenery-load-in-provenance.test.ts :: World-First Scenery Load-In V1 — frozen district provenance pins authored source, accepted runtime, exporter, 
+      Error: ENOENT: no such file or directory, open 'art/hollywood/source/moonshot-studio-chronicle-concept.png'
+      UNTRACKED (not recoverable here)
+  - tests/world-first-scenery-load-in-provenance.test.ts :: World-First Scenery Load-In V1 — frozen district provenance replays the clean exporter and pins its deliberate
+      Error: Command failed: python3 <WT>/tools/hollywood/export_district.py --source <WT>/art/hollywood/source/moonshot-studio-chronicle-concept.png --manifest <WT>/art/hollywood/district-manifest.source.json --output /var/fo
+      path-unparsed
+
+## OVER-BUDGET-PASS (677) max 601972.034
+## BASELINE-NOT-REPRODUCED (1)
+  - tests/bridge-contract-consumer-lock.test.ts :: CF-09 source bundle and repository identity matches the actual generator manifest with the verifier 
