@@ -134,7 +134,7 @@ describe('C.2 Scientist S11: genuine outgoing50 runtime compatibility', () => {
 
   it('requires literal projection52/Save37, registers actual outgoing50, and excludes the running identity from prior schemas', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(66)
+    expect(PROJECTION_VERSION).toBe(67)
     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
     expect(SCHEMA_ID).not.toBe(OUTGOING_50)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_50)).toBe('projection-v50')

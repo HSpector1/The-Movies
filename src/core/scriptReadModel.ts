@@ -123,9 +123,10 @@ export type ScriptProjectCardView = {
 }
 
 export type ScriptCapacityOccupantView = {
-  owner: 'production' | 'script' | 'casting'
+  /** P18: `television` is a live season's scripts or preparation hold (`state.television`), activity `television`. */
+  owner: 'production' | 'script' | 'casting' | 'television'
   ownerId: string
-  activity: DevelopmentCastingOccupancy['activity']
+  activity: DevelopmentCastingOccupancy['activity'] | 'television'
   title: string
   label: string
 }
@@ -508,6 +509,22 @@ export function scriptCapacityView(state: GameState): ScriptCapacityView {
     }
     occupancyBySlot.set(key, entry)
   }
+  // P18: a live television season's Development & Casting hold is real capacity use. Without it a held slot would read
+  // as free here while every allocator refuses it.
+  const televisionBySlot = new Map<string, { seasonId: string; title: string }>()
+  for (const season of state.television?.seasons ?? []) {
+    if (season.status !== 'live') continue
+    for (const reservation of season.reservations) {
+      if (reservation.capability !== 'development-casting') continue
+      const key = facilitySlotKey(reservation.facilityId, reservation.slot)
+      if (occupancyBySlot.has(key) || televisionBySlot.has(key)) {
+        throw new Error(`scriptReadModel: shared capacity slot "${key}" is occupied twice`)
+      }
+      const series = state.television!.series.find((candidate) => candidate.seriesId === season.seriesId)
+      if (series === undefined) throw new Error(`scriptReadModel: television season "${season.seasonId}" names unknown series "${season.seriesId}"`)
+      televisionBySlot.set(key, { seasonId: season.seasonId, title: series.title })
+    }
+  }
 
   const facilities = state.operations.facilities
     .filter((facility) => facility.capability === 'development-casting')
@@ -518,7 +535,16 @@ export function scriptCapacityView(state: GameState): ScriptCapacityView {
       for (let slot = 0; slot < facility.capacity; slot++) {
         const entry = occupancyBySlot.get(facilitySlotKey(facility.id, slot))
         let occupant: ScriptCapacityOccupantView | null = null
-        if (entry !== undefined && entry.owner === 'script') {
+        const television = televisionBySlot.get(facilitySlotKey(facility.id, slot))
+        if (television !== undefined) {
+          occupant = {
+            owner: 'television',
+            ownerId: television.seasonId,
+            activity: 'television',
+            title: television.title,
+            label: `Television season — ${television.title}`,
+          }
+        } else if (entry !== undefined && entry.owner === 'script') {
           const project = buyerScriptDevelopment(state).projects.find(
             (candidate) => candidate.id === entry.ownerId,
           )

@@ -11,9 +11,9 @@
 // to the rest: P16 licence and title facts, the people and their P12 contracts, the adoption, the facilities and sets,
 // and every television ledger row one-to-one with the receipt that records it.
 
-import { busyTalentIds } from './employment.js'
+import { assignmentBlockedTalentIds } from './employment.js'
 import { assertNoDoubleBookedResourceSlots } from './occupancy.js'
-import { RIGHTS_COUNTERPARTY_IDS, type Licence } from './rights.js'
+import { RIGHTS_COUNTERPARTY_IDS, holderBeforeWrite, resolveTitles, type Licence } from './rights.js'
 import { TV_WORK_BLOCKS, TV_WORK_UNITS_TOTAL, tvBlockDefinition, tvDistributionLicenceEnd, tvEngagedTalentIds, tvTermsFor, tvUnitsThrough } from './tvReaders.js'
 import { TV_COMMISSIONER_ID, TV_LEDGER_KINDS, TV_RULESET_VERSION, TV_WORK_BLOCK_ORDER } from './tvTypes.js'
 import type { TelevisionRoot, TvAgreement, TvReceipt, TvSeason } from './tvTypes.js'
@@ -97,7 +97,6 @@ export function validateP18Roots(raw: Record<string, unknown>, label: string): v
   // seasons
   const live = root.seasons.filter((s) => s.status === 'live')
   if (live.length > 1) fail('one active season per studio')
-  const engagedElsewhere = busyTalentIds(rest)
   const talentIds = new Set(rest.talent.map((t) => t.id))
   for (const s of root.seasons) {
     if (!sameKeys(s, SEASON_KEYS)) fail(`season must carry exactly ${SEASON_KEYS.join(', ')}`)
@@ -126,8 +125,10 @@ export function validateP18Roots(raw: Record<string, unknown>, label: string): v
     const adoption = rest.technology.adoptions.find((a) => a.id === s.adoptionId)
     if (adoption === undefined || adoption.studioId !== player || adoption.technologyId !== 'synchronized-sound' || adoption.postFacilityId === null) fail(`season ${s.seasonId} names no player synchronized-sound adoption`)
     validateWork(s, rest, adoption!.stageFacilityId, adoption!.postFacilityId!, fail)
+    // The admission's own union (review should-fix 5): every other engagement plus the reserved guest weeks in [C, C + 20).
+    const engagedElsewhere = assignmentBlockedTalentIds(rest, s.commitWeek, s.finalWeek)
     for (const person of tvEngagedTalentIds({ ...root, seasons: [s] })) {
-      if (engagedElsewhere.has(person)) fail(`season ${s.seasonId} engages ${person}, who also holds a production, writing or research assignment`)
+      if (engagedElsewhere.has(person)) fail(`season ${s.seasonId} engages ${person}, who also holds a production, writing or research assignment or a reserved guest week`)
     }
   }
   // agreements and receipts
@@ -175,9 +176,22 @@ function validateGrant(s: TvSeason, rest: GameState, fail: (rule: string) => nev
     || l.granteeId !== TV_COMMISSIONER_ID || l.grantorId !== s.producerStudioId || l.startWeek !== s.commitWeek || l.endWeekExclusive !== tvDistributionLicenceEnd(s.commitWeek) || l.grantedWeek !== s.commitWeek) {
     fail(`season ${s.seasonId} distribution licence ${s.distributionLicenceId} is not the commissioner's exclusive term over [C, C + 72) granted by the producer`)
   }
+  // The producer held the property's R1 title when P16 minted the licence, and is its grantor (review blocking 4).
+  const order = Number(/-(\d+)$/.exec(l!.transactionId)?.[1] ?? Number.NaN)
+  if (holderBeforeWrite(resolveTitles(rest), { right: 'R1', propertyId: s.propertyId }, s.commitWeek, order) !== s.producerStudioId) {
+    fail(`season ${s.seasonId} producer did not hold R1 over ${s.propertyId} when the distribution licence was granted at week ${s.commitWeek}`)
+  }
   const auth = s.productionAuthority
   if (!sameKeys(auth, ['licenceId', 'via']) || (auth.via === 'title') !== (auth.licenceId === null) || (auth.via !== 'title' && auth.via !== 'licence')) fail(`season ${s.seasonId} production authority shape`)
-  if (auth.via === 'licence' && !rest.rights.licences.some((x) => x.id === auth.licenceId && x.granteeId === s.producerStudioId)) fail(`season ${s.seasonId} production licence is not the producer's`)
+  // Admission's own licence test (review note 13). The branch is unreachable at this checkpoint: the distribution grant
+  // requires the producer to hold the title, and a holder answers through `via: 'title'`.
+  if (auth.via === 'licence') {
+    const held = rest.rights.licences.find((x) => x.id === auth.licenceId)
+    if (held === undefined || held.granteeId !== s.producerStudioId || held.right !== 'R4' || held.scope.use !== 'televisionProduction'
+      || held.subject.right !== 'R1' || held.subject.propertyId !== s.propertyId || held.startWeek > s.commitWeek || held.endWeekExclusive <= s.finalWeek) {
+      fail(`season ${s.seasonId} production licence ${String(auth.licenceId)} does not cover the producer's television production over [C, C + 20]`)
+    }
+  }
 }
 
 function validateWork(s: TvSeason, rest: GameState, stageId: string, postId: string, fail: (rule: string) => never): void {

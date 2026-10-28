@@ -21,7 +21,7 @@ import { liveTvSeason, tvDistributionLicenceEnd, tvTermsFor } from './tvReaders.
 export { tvDistributionLicenceEnd, tvTermsFor }
 import { TV_COMMISSIONER_ID, TV_RULESET_VERSION } from './tvTypes.js'
 import type {
-  CommissionTvSeasonRequest, TelevisionRoot, TvAgreement, TvAgreementTerms, TvCredit, TvReceipt, TvReservation, TvRole, TvSeason, TvSeries,
+  CommissionTvSeasonRequest, TelevisionRoot, TvAgreement, TvAgreementTerms, TvCredit, TvReceipt, TvReceiptDraft, TvReservation, TvRole, TvSeason, TvSeries,
 } from './tvTypes.js'
 import type { Contract, CreativeRole, GameState, LedgerEntry } from './types.js'
 
@@ -115,8 +115,26 @@ function playerContractId(state: GameState, contract: Contract): string | null {
   return h.employment.find((row) => row.studioId === h.playerStudioId && row.endedWeek === null && sameContractTerms(row.terms, contract))?.contractId ?? null
 }
 
+const exactKeys = (value: unknown, keys: readonly string[]): boolean =>
+  value !== null && typeof value === 'object' && !Array.isArray(value) && Object.keys(value).sort().join() === [...keys].sort().join()
+const nonEmpty = (value: unknown): boolean => typeof value === 'string' && value.length > 0
+
+/** The request is the public payload: exactly its four fields and the six roster ids, refused by name (review should-fix 6). */
+function commissionShapeRefusal(request: unknown): string | null {
+  if (!exactKeys(request, ['adoptionId', 'propertyId', 'roster', 'seriesTitle'])) return 'the commission must carry exactly seriesTitle, propertyId, roster and adoptionId'
+  const r = (request as CommissionTvSeasonRequest).roster
+  if (!exactKeys(r, ['cast', 'craftId', 'directorId', 'writerId']) || !exactKeys(r.cast, ['antagonist', 'lead', 'support'])) {
+    return 'the roster must name exactly a writer, a director, a lead, an antagonist, a support and a craft lead'
+  }
+  if (![r.writerId, r.directorId, r.cast.lead, r.cast.antagonist, r.cast.support, r.craftId].every(nonEmpty)) return 'every roster id must be a non-empty string'
+  if (!nonEmpty((request as CommissionTvSeasonRequest).adoptionId)) return 'adoption id must be a non-empty string'
+  return null
+}
+
 /** The fixed-order admission. A string is the refusal; otherwise the facts the commitment needs. */
 export function admitTvCommission(state: GameState, request: CommissionTvSeasonRequest): string | Admitted {
+  const shape = commissionShapeRefusal(request)
+  if (shape !== null) return shape
   const C = state.market.tick
   const final = C + TUNING.TV_FINAL_WEEKS
   // the studio
@@ -206,7 +224,7 @@ export function allocateTvId(root: TelevisionRoot, prefix: string): { root: Tele
 }
 
 /** Append one receipt with the next id. */
-export function appendTvReceipt(root: TelevisionRoot, receipt: Omit<TvReceipt, 'receiptId'>): { root: TelevisionRoot; receiptId: string } {
+export function appendTvReceipt(root: TelevisionRoot, receipt: TvReceiptDraft): { root: TelevisionRoot; receiptId: string } {
   const allocated = allocateTvId(root, 'tv-receipt')
   return { root: { ...allocated.root, receipts: [...allocated.root.receipts, { ...receipt, receiptId: allocated.id } as TvReceipt] }, receiptId: allocated.id }
 }
@@ -238,7 +256,9 @@ export function commissionTvSeason(state: GameState, request: CommissionTvSeason
     rulesetVersion: TV_RULESET_VERSION,
     productionAuthority: { via: admitted.productionAuthority.via, licenceId: admitted.productionAuthority.licenceId },
     distributionLicenceId: granted.licence.id,
-    roster: { ...request.roster, cast: { ...request.roster.cast } },
+    // Built from the six ids alone, so no extra payload key reaches the persisted season.
+    roster: { writerId: request.roster.writerId, directorId: request.roster.directorId,
+      cast: { lead: request.roster.cast.lead, antagonist: request.roster.cast.antagonist, support: request.roster.cast.support }, craftId: request.roster.craftId },
     credits: admitted.credits,
     adoptionId: request.adoptionId,
     commitWeek: C,

@@ -11052,7 +11052,9 @@ export function validatedLiveProfessionContext(state: GameState): ProfessionVali
     state: { ...stripP18Roots(stripP17Roots(stripP16Root(stripP15Roots(stripFoundingFunding(state))))), hollywood, relationships: relationshipsAtV31(state.relationships) },
     // P15B (1370-ar): the live state is a P15B-era state, so the chain proves its rival money under that era.
     broadcastCache: state.broadcastItems }, 41, true, false, true, validateFoundingFunding(state as unknown as Record<string, unknown>, 'validatedLiveProfessionContext'),
-    p15bEraOf(state as unknown as Record<string, unknown>, true)).professionContext;
+    // P18 (review blocking 1): the television money rows stay in the ledger, so the proof runs under the Save51 era
+    // ("tv-p18"); without the flag the V27 policy refused them and liveRetirementWriting swallowed it as 'rejected'.
+    p15bEraOf(state as unknown as Record<string, unknown>, true, undefined, Object.hasOwn(state, 'television'))).professionContext;
 }
 
 export function convertV37ToV38(save: SaveFileV37): SaveFileV38 {

@@ -297,7 +297,12 @@ export const PROTOCOL_VERSION = 4 as const
 // publishes the continuation terms (the parent right, its licence and expiry) and each guest's booking terms; the
 // `cancelFeaturedBooking` intent; the `featuredAppearances` Industry view; release outcomes and credited guests on the
 // franchise view. The outgoing65 identity is registered prior. Protocol4 and Save50 are unchanged.
-export const PROJECTION_VERSION = 66 as const
+// Projection67 (P18 Sprint 12): P18 makes Save51 live (the lazy `television` root), so a checkpoint the
+// P17 build wrote under the unchanged 66 schema carries Save50 slots the current-schema path refuses as non-live. The
+// outgoing66 identity is registered prior, and each slot lifts Save50 -> Save51 on the governed prior path. The
+// development capacity occupant gains `television` (owner and activity), so a slot a season holds never reads as free.
+// Protocol4 is unchanged.
+export const PROJECTION_VERSION = 67 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -1181,9 +1186,10 @@ const StudioScriptAssessmentSnapshot = object('StudioScriptAssessmentSnapshot', 
 })
 
 const StudioDevelopmentOccupantSnapshot = object('StudioDevelopmentOccupantSnapshot', {
-  owner: enumeration(['production', 'script', 'casting']),
+  // P18 (projection 67): a live television season's Development & Casting hold (Core scriptCapacityView).
+  owner: enumeration(['production', 'script', 'casting', 'television']),
   ownerId: nonEmptyText(),
-  activity: enumeration(['production-development', 'drafting', 'rewriting', 'auditioning']),
+  activity: enumeration(['production-development', 'drafting', 'rewriting', 'auditioning', 'television']),
   title: nonEmptyText(),
   label: nonEmptyText(),
 })

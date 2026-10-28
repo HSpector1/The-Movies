@@ -24,6 +24,7 @@ import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { Action, GameState } from '../src/core/types.js'
 import { ask, cameoRoute, closureRoute, closuresOf, expectedFee, freeGuest, greenlight, releaseNewest, rootOf, UNLOCK_WEEK, type Booking } from './helpers/p17-cameo-route.js'
+import { EXPECTED_LIVE_SAVE_VERSION } from './helpers/live-era.js'
 
 const route = cameoRoute('p17-cameo-booking-01')
 const { world, a, b, writer } = route
@@ -72,7 +73,7 @@ describe('P17 Shape A — capability, identity and an atomic, charged booking', 
     expect(film.cast).toEqual(plain.studio.activeProductions.at(-1)!.cast)
     expect(JSON.stringify(film.participants)).not.toContain(guest.id)
     expect(film.forecastSnapshot).not.toEqual(plain.studio.activeProductions.at(-1)!.forecastSnapshot)
-    expect(makeSave(booked).saveVersion).toBe(51)
+    expect(makeSave(booked).saveVersion).toBe(EXPECTED_LIVE_SAVE_VERSION)
   })
 
   it('refuses a third guest, a credited principal, a week outside the span, the same person twice, a stale fee and another studio\'s employee, each atomically', () => {

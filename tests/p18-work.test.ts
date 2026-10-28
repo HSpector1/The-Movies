@@ -10,7 +10,12 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { busyTalentIds } from '../src/core/employment.js'
+import { prepareLiveWritingContext } from '../src/core/liveRetirementWriting.js'
 import { assertNoDoubleBookedResourceSlots, occupiedResourceSlots } from '../src/core/occupancy.js'
+import * as operations from '../src/core/operations.js'
+import { facilityEngagements } from '../src/core/placement.js'
+import { validatedLiveProfessionContext } from '../src/core/save.js'
+import { repairSetRefusal, strikeSetRefusal } from '../src/core/sets.js'
 import { tick } from '../src/core/tick.js'
 import type { GameState } from '../src/core/types.js'
 import {
@@ -125,6 +130,33 @@ describe('P18 work — capacity through the same owners as films', () => {
     expect(sawStage, 'the season held the adopted stage during rehearsal or shooting').toBe(true)
     // The twelfth unit releases every slot; the people stay until the Sprint 13 delivery boundary.
     expect(season(last()).reservations).toEqual([])
+  })
+
+  it('while the season holds the stage, its set cannot be struck and the stage names the season as an engagement (review 12)', () => {
+    expect(weeks.length).toBeGreaterThan(0)
+    const held = weeks.find((state) => season(state).reservations.some((r) => r.capability === 'soundstage'))
+    expect(held, 'premise: the season held the adopted stage in some week').toBeDefined()
+    const s = season(held!)
+    const stage = s.reservations.find((r) => r.capability === 'soundstage')!
+    expect(strikeSetRefusal(held!, s.setId!)).toEqual({ code: 'setHeldByTelevision', setId: s.setId, seasonId: s.seasonId })
+    // Repair answers by its earlier rules first (a whole house set is `alreadyWhole`); when it reaches the hold it names it.
+    const repair = repairSetRefusal(held!, s.setId!)
+    expect(repair === null ? null : repair.code).not.toBeNull()
+    if (repair !== null && repair.code !== 'alreadyWhole' && repair.code !== 'notStanding') expect(repair).toEqual({ code: 'setHeldByTelevision', setId: s.setId, seasonId: s.seasonId })
+    const engagements = facilityEngagements(held!, stage.facilityId)
+    expect(engagements.filter((e) => e.kind === 'tvSeason').map((e) => e.holderId)).toContain(s.seasonId)
+    expect(engagements.find((e) => e.kind === 'tvSeason')!.activity).toMatch(/television (rehearsal|shooting)|shooting a television season/)
+  })
+
+  it('films are served before a season on equal waits (pinned policy constant; ACCEPTANCE OPEN, see NOTES)', () => {
+    expect((operations as Record<string, unknown>).SWEEP_KIND_RANK).toEqual({ production: 0, tvSeason: 1 })
+  })
+
+  it('after paid work and a milestone the live profession proof still holds (review blocking 1, P18-04)', () => {
+    expect(weeks.length).toBeGreaterThan(0)
+    const done = last()
+    expect(() => validatedLiveProfessionContext(done)).not.toThrow()
+    expect(prepareLiveWritingContext(done).kind).not.toBe('rejected')
   })
 
   it('a season person cannot be released early while the season engages them', () => {

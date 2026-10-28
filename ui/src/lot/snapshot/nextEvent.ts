@@ -185,6 +185,8 @@ const SUMMARY_KEYS = [
 ] as const
 
 const P16_SUMMARY_KEYS = ['rights', 'estatePurchases', 'acquisition', 'diligence'] as const
+// P18: Core adds `television` to the period summary once a season has been commissioned (src/core/economyView.ts).
+const P18_SUMMARY_KEYS = ['television'] as const
 
 const SUMMARY_MONEY_KEYS = [
   'payroll',
@@ -368,9 +370,11 @@ function completedRuns(value: unknown): LotNextEventCompletedRun[] | null {
 
 function isSummaryShape(value: unknown): value is PeriodSummary {
   if (!isRecord(value)) return false
-  const modern = hasExactOwnKeys(value, [...SUMMARY_KEYS, ...P16_SUMMARY_KEYS])
+  const television = hasExactOwnKeys(value, [...SUMMARY_KEYS, ...P16_SUMMARY_KEYS, ...P18_SUMMARY_KEYS])
+  const modern = television || hasExactOwnKeys(value, [...SUMMARY_KEYS, ...P16_SUMMARY_KEYS])
   if (!modern && !hasExactOwnKeys(value, SUMMARY_KEYS)) return false
   if (modern && P16_SUMMARY_KEYS.some(key => !isFiniteNumber(value[key]))) return false
+  if (television && !isFiniteNumber(value.television)) return false
   for (const key of ['fromWeek', 'toWeekInclusive', 'weeks', 'releases', 'completedRuns'] as const) {
     if (!isNonNegativeSafeInteger(value[key])) return false
   }
@@ -409,6 +413,7 @@ function copySummary(summary: PeriodSummary): PeriodSummary {
     construction: summary.construction,
     ...(summary.rights === undefined || summary.estatePurchases === undefined || summary.acquisition === undefined || summary.diligence === undefined ? {} : { rights: summary.rights, estatePurchases: summary.estatePurchases, acquisition: summary.acquisition, diligence: summary.diligence }),
     financing: summary.financing, // P15B (1370-ar): the loan bucket of the period summary
+    ...(summary.television === undefined ? {} : { television: summary.television }), // P18: commissioning cash and unit spend
     otherCash: summary.otherCash,
     netCash: summary.netCash,
     releases: summary.releases,

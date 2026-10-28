@@ -19,6 +19,7 @@ import { importSave, makeSave, migrateToLive, migrateToV45, stableStringify, val
 import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
 import { detached, genuineV45Envelope, liveFromGenuine } from './helpers/p16-fixtures.js'
+import { EXPECTED_LIVE_SAVE_VERSION } from './helpers/live-era.js'
 
 type Film = { filmId: string; studioId: string; conceptId: string; score: number; releasedAt: { kind: 'beforeCampaign'; year: number } | { kind: 'campaign'; week: number }; announcedWeek: number | null }
 
@@ -232,7 +233,7 @@ describe('P16A valuation: rounding and the consumer-only score boundary', () => 
     // the lifted in-range state saves and reloads at 46.
     const other = h.identities.slice(1, 5).map((i) => i.studioId).find((id) => id !== film.studioId)!
     expect(valuation.libraryValuationV1(altered, other, altered.market.tick).kind).toBe('available')
-    expect(migrateToLive(importSave(stableStringify(makeSave(state)))).saveVersion).toBe(51)
+    expect(migrateToLive(importSave(stableStringify(makeSave(state)))).saveVersion).toBe(EXPECTED_LIVE_SAVE_VERSION)
   })
 })
 
@@ -249,7 +250,7 @@ describe('r2 (review F14): RED A1 on a predecessor-valid save that carries a fin
     expect(() => validateSave(JSON.parse(raw))).not.toThrow()
     expect(migrateToV45(importSave(raw)).saveVersion).toBe(45)
     const live = migrateToLive(importSave(raw))
-    expect(live.saveVersion).toBe(51)
+    expect(live.saveVersion).toBe(EXPECTED_LIVE_SAVE_VERSION)
     const state = live.state as GameState
     const before = stableStringify(state)
     expect(valuation.libraryValuationV1(state, h.playerStudioId, state.market.tick)).toEqual({ kind: 'unavailable', reason: 'criticScoreOutsideValuationRange', filmId: target.productionId })

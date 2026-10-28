@@ -611,7 +611,8 @@ export function periodSummary(state: GameState, fromWeek: number, toWeekInclusiv
     acquisition: 0,
     diligence: 0,
     financing: 0,
-    television: 0,
+    // P18: present only once a season has been commissioned, so a world without one summarizes byte for byte as before.
+    ...(state.television === undefined ? {} : { television: 0 }),
     otherCash: 0,
     netCash: 0,
     releases: 0,

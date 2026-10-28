@@ -12,6 +12,7 @@ import { allocateRightsId } from './rights.js'
 import { allocateScriptReservation, completeDueScriptWork, assertScriptDevelopmentInvariants, assessFirstDraft, scriptRewriteDelta, acceptScriptProject, requestScriptRewrite, linkScriptProjectToProduction, returnScriptProjectToReady, markScriptProjectProduced } from './scriptDevelopment.js'
 import { buyerOperationsForAllWork, buyerOperatedProductions } from './continuedWork.js'
 import { closedWeekOf } from './operatingState.js'
+import { televisionOccupiedFacilitySlots } from './tvReaders.js'
 import { TUNING, SCRIPT_DEVELOPMENT_OFFICE_TIER_2_EST_UPLIFT, SCRIPT_DEVELOPMENT_OFFICE_TIER_3_EST_UPLIFT, FACILITY_BLUEPRINTS } from './tuning.js'
 import { developmentOfficeEstUplift } from './facilityEffects.js'
 
@@ -403,7 +404,9 @@ export function rewriteContinuedScript(state:GameState,projectId:string,writingC
  if(!activeContract(state,writer,state.market.tick))fail('rewrite writer is not buyer contracted')
  // P17 Shape A: a rewrite is due next week, so a reserved guest week inside [week, week + 1) overlaps it.
  if(assignmentBlockedTalentIds(state,state.market.tick,state.market.tick+1).has(writer))fail('rewrite writer has an active assignment')
- const occupiedSlots=[...new Set([...castingOccupiedFacilitySlots(state.castingSessions),...resourceClaims(state).filter(r=>r.owner==='installation'&&r.facilitySlotKey!==null).map(r=>r.facilitySlotKey!)])].sort()
+ const occupiedSlots=[...new Set([...castingOccupiedFacilitySlots(state.castingSessions),...resourceClaims(state).filter(r=>r.owner==='installation'&&r.facilitySlotKey!==null).map(r=>r.facilitySlotKey!),
+  // P18 (review blocking 3): a live television season's holds; the replay reads these stored keys, so it stays exact.
+  ...televisionOccupiedFacilitySlots(state.television)])].sort()
  const nativeInput={operations:structuredClone(buyerOperationsForAllWork(state)),development:structuredClone(buyerScriptDevelopment(state)),occupiedSlots}
  const allocationAuthority={projectIds:nativeInput.development.projects.map(p=>p.id),workflowIds:nativeInput.operations.workflows.map(w=>w.productionId),productions:structuredClone(buyerOperatedProductions(state)),occupiedSlots:[...occupiedSlots],
   developmentContext:{facilities:structuredClone(state.operations.facilities),placements:structuredClone(state.placement.facilities),paidRows:state.ledger.filter(r=>r.kind==='constructionCapex'&&r.week<=state.market.tick&&state.placement.facilities.some(p=>p.projectId===r.constructionProjectId)).map(r=>({projectId:r.constructionProjectId!,week:r.week,amount:r.amount}))},estUplift:developmentOfficeEstUplift(state)}

@@ -36,6 +36,9 @@ function ownerIntent(occupant: LotAnnexWorkOccupant): LotAnnexWorkOwnerIntent {
       return { owner: 'script', ownerId: occupant.ownerId }
     case 'casting':
       return { owner: 'casting', ownerId: occupant.ownerId }
+    case 'television':
+      // Unreachable: `validActivity` below admits no television occupant, so the context fails closed first.
+      throw new Error(`operationalAnnexWorkContext: television season "${occupant.ownerId}" has no Annex owner destination`)
   }
 }
 
@@ -121,6 +124,7 @@ export function operationalAnnexWorkContext(
     (occupant.owner === 'script' &&
       (occupant.activity === 'drafting' || occupant.activity === 'rewriting')) ||
     (occupant.owner === 'casting' && occupant.activity === 'auditioning')
+  // P18: a television hold is valid snapshot truth with no lot destination, so it is withheld here by design.
   if (!validActivity) return null
 
   if (occupant.owner !== 'production') {

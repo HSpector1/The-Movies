@@ -81,7 +81,7 @@ describe('canonical Unity bridge schema', () => {
       projectionVersion: 66,
       transport: 'http-json-localhost',
     })
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-66')
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-67')
   })
 
   it('projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope', () => {
@@ -337,7 +337,7 @@ describe('canonical Unity bridge schema', () => {
     expect(() => parseWireValue(definition, int32Overflow)).toThrow(/<= 2147483647/)
 
     const oldProjection = { ...clone(envelope), snapshotVersion: 24 }
-    expect(PROJECTION_VERSION).toBe(66)
+    expect(PROJECTION_VERSION).toBe(67)
     expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 66/)
 
     const missingSection = clone(envelope)

@@ -6232,6 +6232,22 @@ function operationalAnnexOccupant(
         statusLabel: null,
         blocker: null,
       }
+    // P18: a live season's own occupant, never a film shape. Only its two Development & Casting blocks can hold here.
+    case 'television':
+      if (occupant.activity !== 'scripts' && occupant.activity !== 'preparation') {
+        return annexProjectionError(
+          `operational Annex television season "${occupant.ownerId}" has incompatible activity "${occupant.activity}"`,
+        )
+      }
+      return {
+        owner: 'television',
+        ownerId: occupant.ownerId,
+        title: occupant.title,
+        activity: occupant.activity,
+        workState: 'working',
+        statusLabel: null,
+        blocker: null,
+      }
     case 'production': {
       if (occupant.activity !== 'development' && occupant.activity !== 'preProduction') {
         return annexProjectionError(
@@ -7894,6 +7910,9 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
             } else if (annexWork.occupant === null) {
               attention = 'empty'
               reason = 'Available · 0 of 1 slot occupied'
+            } else if (annexWork.occupant.owner === 'television') {
+              attention = 'active'
+              reason = `Television season · ${annexWork.occupant.title}`
             } else if (annexWork.occupant.workState === 'held') {
               attention = 'warning'
               reason = `Production held · ${annexWork.occupant.title}`

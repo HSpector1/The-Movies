@@ -11,6 +11,7 @@
 //
 // Types only, plus the identity constants the contract names. No behaviour.
 
+import type { DistributiveOmit } from './studioHistory.js'
 import type { CastSlot, FacilityCapability } from './types.js'
 
 /** Contract §4: the provisional ruleset every season of this checkpoint is written under. */
@@ -163,6 +164,8 @@ export type TvReceipt = TvReceiptBase & (
   | { kind: 'milestonePaid'; milestone: TvMilestoneKind; amount: number }
 )
 export type TvReceiptKind = TvReceipt['kind']
+/** One receipt before the allocator names it: each variant keeps its own fields (a plain Omit would collapse the union). */
+export type TvReceiptDraft = DistributiveOmit<TvReceipt, 'receiptId'>
 
 /** The lazy P18 root: absent until the first commission, never emptied (no row is ever deleted). */
 export type TelevisionRoot = {

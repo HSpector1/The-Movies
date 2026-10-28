@@ -212,9 +212,9 @@ function foundingDraftFixture(seed: string) {
 
 describe('P14 1304-C RED (Bridge): R2 seated/founding refusal, schema leaf, release-copy correction', () => {
   it('schema leaf: PROJECTION_VERSION is 57, the schema $id and x-project-studio.projectionVersion move with it, and both new refusal codes reach the generated CONTRACT_REFUSAL_KINDS enum (mirrors the underMarketCase/projection-42 precedent, tests/bridge-p14a1-market.test.ts group 1)', () => {
-    expect(PROJECTION_VERSION).toBe(66)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-66`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(66)
+    expect(PROJECTION_VERSION).toBe(67)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-67`)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(67)
     const refusalSchema = (BRIDGE_SCHEMA.$defs as Record<string, unknown>).StudioContractQuoteSnapshot as
       { properties: { refusal: { anyOf: readonly [{ enum: readonly string[] }, unknown] } } }
     const enumMembers = refusalSchema.properties.refusal.anyOf[0].enum

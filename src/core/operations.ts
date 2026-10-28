@@ -1493,8 +1493,10 @@ export function productionsInSweepOrder<P extends Pick<ProductionClockView, 'id'
 }
 
 /**
- * P18 (decision D15): the typed tie-break of the one admitted-work order. On EQUAL waits a
- * production is served before a television season, then the ordinal law decides within a kind.
+ * P18: the typed tie-break of the one admitted-work order. On EQUAL waits a production is served
+ * before a television season, then the ordinal law decides within a kind. ACCEPTANCE OPEN: the
+ * contract says "one deterministic order" and names no tie-break; films-first is this slice's
+ * policy choice (the draft cited a "decision D15" no adopted record contains).
  * Every production carries rank 0, so the film-only order is byte-identical to the base.
  */
 export const SWEEP_KIND_RANK = { production: 0, tvSeason: 1 } as const

@@ -67,6 +67,7 @@ import { scriptOccupiedFacilitySlots } from './scriptDevelopment.js'
 import { personReservationRefusal } from './talentMarket.js'
 import { rivalInstallationSlots } from './technologyRival.js'
 import { TUNING } from './tuning.js'
+import { televisionOccupiedFacilitySlots } from './tvReaders.js'
 import type { FacilityCapability, GameState, PhysicalPlan, Production, ProductionPhase, ScriptDevelopment, ScriptProject, StudioOperations } from './types.js'
 
 export type RetentionChoice = { kind: 'default' } | { kind: 'explicit'; contractIds: string[] }
@@ -201,7 +202,9 @@ function buyerOperations(state: GameState, buyerId: string): { operations: Studi
       ...resourceClaims(state).filter((c) => c.owner === 'installation' && c.facilitySlotKey !== null).map((c) => c.facilitySlotKey!),
       ...scriptOccupiedFacilitySlots(buyerScriptDevelopment(state)),
       ...castingOccupiedFacilitySlots(state.castingSessions),
-      ...setOccupiedFacilitySlots(state.sets, state.operations, state.scriptDevelopment, state.castingSessions),
+      ...setOccupiedFacilitySlots(state.sets, state.operations, state.scriptDevelopment, state.castingSessions, state.television),
+      // P18 (review blocking 3): a live television season's holds, so an absorbed picture is never seated on one.
+      ...televisionOccupiedFacilitySlots(state.television),
     ]) }
   }
   const b = h.businesses.find((x) => x.studioId === buyerId)!

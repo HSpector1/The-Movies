@@ -21,6 +21,7 @@ import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
 import { mintRoute } from './helpers/p16-fixtures.js'
 import { buyLicence, freshConcept, grantLicence, greenlightAs, releaseNow, sellTitle } from './helpers/p17-route.js'
+import { EXPECTED_LIVE_SAVE_VERSION } from './helpers/live-era.js'
 
 type Edge = { childProductionId: string; parentProductionId: string | null; type: string; branchId: string }
 type Root = { properties: { storyPropertyId: string; installments: Edge[]; branches: { branchId: string; kind: string }[]; subProperties: { subPropertyId: string }[] }[] }
@@ -84,9 +85,9 @@ describe('P17-01 link versus mint: a continuation joins its parent property and 
     })
 
     it('the live save carries the franchise root (Save51, P18 live above P17\'s Save50) and round-trips byte for byte', () => {
-      expect(LIVE_SAVE_VERSION).toBe(51)
+      expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
       const save = makeSave(c.state)
-      expect(save.saveVersion).toBe(51)
+      expect(save.saveVersion).toBe(EXPECTED_LIVE_SAVE_VERSION)
       const bytes = exportSave(save)
       expect(exportSave(migrateToLive(importSave(bytes)))).toBe(bytes)
       expect(lineage(importSave(bytes).state as GameState)).toEqual(lineage(c.state))

@@ -690,6 +690,22 @@ export function holderAt(resolved: TitleResolution, estates: readonly EstateReco
   return { kind: 'unavailable', reason: 'unresolvedTerminalAuthority' }
 }
 
+/**
+ * P18 (review blocking 4): the holder of `subject` immediately before the rights write numbered `order` in campaign week
+ * `week` (the allocator value its id carries), or null when no title event precedes it. A same-week genesis or sale
+ * written before the grant counts; one written after it does not, so a later lawful sale never rewrites who granted.
+ */
+export function holderBeforeWrite(resolved: TitleResolution, subject: RightSubject, week: number, order: number): string | null {
+  const key = subjectKey(subject)
+  let holder: string | null = null
+  for (const e of resolved.events) {
+    if (subjectKey(e.subject) !== key) continue
+    if (e.date.kind === 'campaign' && (e.date.week > week || (e.date.week === week && e.boundaryOrder >= order))) continue
+    holder = e.newHolder
+  }
+  return holder
+}
+
 export function currentHolder(state: GameState, subject: RightSubject, asOfWeek: number): HolderResult {
   const refusal = asOfWeekRefusal(state, asOfWeek)
   if (refusal !== null) return { kind: 'unavailable', reason: refusal }
@@ -1278,6 +1294,10 @@ export function validateRightsRoot(raw: Record<string, unknown>, label: string, 
       if (l.transactionId !== t.id || t.payerId !== l.granteeId || t.payeeId !== l.grantorId || l.grantedWeek !== t.week || t.amount !== (law.counterpartyConsideration ?? 0)
         || t.subject === null || !sameSubject(t.subject, l.subject) || t.estateId !== null || t.lotId !== null || t.bidId !== null || moved.length !== 0) {
         refuse(path, 'a counterparty licenceGrant must name the one licence it granted, paid by its grantee to the grantor at the disclosed consideration, moving no title')
+      }
+      // The grantor must have held the title when it granted (review blocking 4), read from P16's own chain.
+      if (holderBeforeWrite(resolved, l.subject, t.week, Number(/-(\d+)$/.exec(t.id)![1])) !== l.grantorId) {
+        refuse(path, `a counterparty licence grantor must hold ${subjectKey(l.subject)} when it grants`)
       }
     } else if (t.kind === 'titleSale' || t.kind === 'licenceGrant') {
       const offer = t.offerId === null ? undefined : offersById.get(t.offerId)

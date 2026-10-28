@@ -579,12 +579,14 @@ describe('CF-08 sound union-to-C# generation', () => {
       // the lane generator (check:bridge-contract exit 0; regenerated manifest schemaId d57642ad…, f8aa097a).
       // Projection66 (Sprint 11 slice B): computed statically from the post-image schema JSON by the same method (which
       // reproduces d57642ad from the parent's file); the lane generator check must confirm it.
+      // Projection67 (P18 Sprint 12): the same static method over the post-image schema JSON (it reproduces 58938086 from
+      // the parent's file); the projection number and the development occupant enum moved. The lane generator check must confirm it.
       const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 59 })
       expect(generated).toContain(
-        '// Schema identity: sha256:589380869e1329a8027b8339b88646761ce6d791376df5fd793e77ae9dd3b96a',
+        '// Schema identity: sha256:8bd45eec049c6105ed2efee3899cfbb2a440c1b40f536a899b332ffbde3003f0',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:589380869e1329a8027b8339b88646761ce6d791376df5fd793e77ae9dd3b96a',
+        'sha256:8bd45eec049c6105ed2efee3899cfbb2a440c1b40f536a899b332ffbde3003f0',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')

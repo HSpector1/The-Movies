@@ -60,8 +60,10 @@ describe('P18 save step — version, aliases, dispatcher', () => {
 })
 
 describe('P18 save step — no season: absence, version-only migration, lossless downgrade', () => {
-  it('a world that never commissioned a season writes no television key', () => {
+  it('a world that never commissioned a season writes a Save51 envelope with no television key (negative-space guard)', () => {
     const save = saves.makeSave(route.state)
+    // The absence half alone passes at the predecessor by design; the version half makes the case RED there.
+    expect(save.saveVersion).toBe(51)
     expect(Object.hasOwn(save.state, 'television')).toBe(false)
   })
 
@@ -123,7 +125,7 @@ describe('P18 save step — a commissioned season', () => {
 
   it('the frozen Save49 rights law still refuses the commissioner\'s R4 licence; only the Save51 counterparty law admits it', () => {
     expect(live).toBeDefined()
-    expect(() => validateRightsRoot(live! as unknown as Record<string, unknown>, 'frozen49')).toThrow(/^frozen49/)
+    expect(() => validateRightsRoot(live! as unknown as Record<string, unknown>, 'frozen49')).toThrow(/^frozen49: rights\.licences\[\d+\] no R4 grant is lawful before its P18 consumer is live$/)
     expect(() => validateRightsRoot(live! as unknown as Record<string, unknown>, 'live51', { r4ConsumerLive: false, televisionCounterparty: true, counterpartyConsideration: 0 } as never)).not.toThrow()
   })
 
@@ -146,5 +148,19 @@ describe('P18 save step — a commissioned season', () => {
     refuse((f) => { f.state.television.agreements[0]!.received += 1 }, /E\/P .* do not replay/)
     refuse((f) => { const row = f.state.ledger.find((r) => r.kind === 'tvAdvance')!; row.note = 'tv-receipt-999999' }, /does not carry exactly one television receipt's effect/)
     refuse((f) => { f.state.television.seasons[0]!.work.creditedUnits += 1 }, /credited units disagree with the block table/)
+    // Review blocking 4: a grant over a property the producer did not hold (a rival's), with its zero transaction and the
+    // +120,000 advance row left in place, reconciles in cash and must still refuse.
+    const player = save.state.hollywood!.playerStudioId
+    const foreign = save.state.rights.properties.find((p) => p.creatorStudioId !== player)
+    expect(foreign, 'premise: a rival-founded property exists').toBeDefined()
+    refuse((f) => {
+      const s = f.state.television.seasons[0]!
+      const licence = f.state.rights.licences.find((l) => l.id === s.distributionLicenceId)!
+      const tx = f.state.rights.transactions.find((t) => t.id === licence.transactionId)!
+      s.propertyId = foreign!.propertyId
+      f.state.television.series[0]!.propertyId = foreign!.propertyId
+      licence.subject = { right: 'R1', propertyId: foreign!.propertyId }
+      tx.subject = { right: 'R1', propertyId: foreign!.propertyId }
+    }, /hold R1/)
   })
 })

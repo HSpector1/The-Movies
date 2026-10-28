@@ -375,13 +375,17 @@ function strictCapacityProjection(value: unknown): LotScriptReviewCapacity | nul
         !hasExactOwnKeys(occupant, CAPACITY_OCCUPANT_KEYS) ||
         (occupant.owner !== 'production' &&
           occupant.owner !== 'script' &&
-          occupant.owner !== 'casting') ||
+          occupant.owner !== 'casting' &&
+          // P18: a live television season's hold, with its own block words.
+          occupant.owner !== 'television') ||
         !isNonEmptyString(occupant.ownerId) ||
         (occupant.activity !== 'development' &&
           occupant.activity !== 'preProduction' &&
           occupant.activity !== 'drafting' &&
           occupant.activity !== 'rewriting' &&
-          occupant.activity !== 'auditioning') ||
+          occupant.activity !== 'auditioning' &&
+          occupant.activity !== 'scripts' &&
+          occupant.activity !== 'preparation') ||
         !isNonEmptyString(occupant.title) ||
         !isNonEmptyString(occupant.label)
       ) return null

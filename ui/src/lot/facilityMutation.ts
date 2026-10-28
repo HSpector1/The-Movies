@@ -49,6 +49,13 @@ export const LOT_FACILITY_ACTIVITY_LABEL: Readonly<Record<string, string>> = {
   'installed equipment retained on its exact facility': 'keeping installed equipment on this facility',
   research: 'hosting research',
   'a retained research project for this Laboratory': 'keeping a retained research project',
+  // P18: a live television season's holds (src/core/placement.ts facilityEngagements).
+  'television scripts': 'writing a television season',
+  'television preparation': 'preparing a television season',
+  'television rehearsal': 'rehearsing a television season',
+  'television shooting': 'shooting a television season',
+  'television post': 'in television post-production',
+  'shooting a television season': 'shooting a television season on its set',
 }
 
 /** The player word for one engine activity, or null when there is no honest one. */

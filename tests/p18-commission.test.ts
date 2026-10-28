@@ -9,6 +9,11 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 import { busyTalentIds, weeklyPayroll } from '../src/core/employment.js'
 import { FINANCE_CATEGORIES } from '../src/core/financeReport.js'
+import { prepareLiveWritingContext } from '../src/core/liveRetirementWriting.js'
+import { permittedBidderRefusal } from '../src/core/rightsFinance.js'
+import { validatedLiveProfessionContext } from '../src/core/save.js'
+import { tick } from '../src/core/tick.js'
+import { STABLE } from './helpers/p16-fixtures.js'
 import { assertNoDoubleBookedResourceSlots, occupiedResourceSlots } from '../src/core/occupancy.js'
 import type { GameState } from '../src/core/types.js'
 import { sellTitle } from './helpers/p17-route.js'
@@ -105,7 +110,12 @@ describe('P18 commission — acceptance on the genuine P16 authorities', () => {
 
 describe('P18 commission — refusals, each by name, each leaving the state untouched', () => {
   it('producer authority: a property whose R1 title the player sold, and an unknown property', () => {
-    const rival = route.state.hollywood!.identities.find((i) => i.studioId !== player(route.state))!.studioId
+    // A buyer P16 permits this week (lane r3: the first identity was terminal by week 460, buyerNotPermitted:terminal).
+    const week = route.state.market.tick
+    const live = route.state.hollywood!.identities.find((i) => i.studioId !== player(route.state) && i.enteredWeek !== null
+      && permittedBidderRefusal(route.state, i.studioId, week, STABLE) === null)
+    expect(live, 'premise: a rival P16 permits to buy this week').toBeDefined()
+    const rival = live!.studioId
     const sold = sellTitle(route.state, route.propertyId, rival)
     refused(sold, request(route), new RegExp(`no television production authority over ${route.propertyId} at week \\d+ \\(noAuthority:${rival}\\)`))
     refused(route.state, request(route, { propertyId: 'story-property:no-such' }), /no television production authority over story-property:no-such/)
@@ -141,6 +151,16 @@ describe('P18 commission — refusals, each by name, each leaving the state unto
     expect(quote).toMatchObject({ weeks: FIGURES.quoteWeeks, floor: FIGURES.floor, provision: FIGURES.provision })
     expect(quote.payroll).toBeGreaterThan(0)
     expect(quote.required).toBe(quote.floor + quote.payroll + quote.overhead + quote.facilityOpex + quote.loanInstallments + quote.provision)
+    // Review should-fix 9: each component is what the next twenty advances actually charge. A clone ticks [C, C + 20)
+    // without a commission, and its own mandatory ledger rows are summed by kind.
+    let ahead = route.state
+    for (let i = 0; i < FIGURES.quoteWeeks; i++) ahead = tick(ahead)
+    const charged = ahead.ledger.slice(route.state.ledger.length).filter((row) => row.week >= C && row.week < C + FIGURES.quoteWeeks)
+    const sum = (...kinds: string[]): number => -charged.filter((row) => kinds.includes(row.kind)).reduce((total, row) => total + row.amount, 0)
+    expect(quote.payroll, 'payroll and research payroll as charged').toBe(sum('payroll', 'researchPayroll'))
+    expect(quote.overhead, 'studio overhead as charged').toBe(sum('overhead'))
+    expect(quote.facilityOpex, 'facility operating cost as charged').toBe(sum('facilityOpex'))
+    expect(quote.loanInstallments, 'loan installments as charged').toBe(sum('loanInstallment'))
     // One dollar short refuses (the advance never counts toward it); the exact figure is admitted.
     const short = withCash(route.state, quote.required - 1)
     refused(short, request(route), new RegExp(`cash ${quote.required - 1} is below the admission quote ${quote.required} .*the advance is not counted`))
@@ -151,6 +171,21 @@ describe('P18 commission — refusals, each by name, each leaving the state unto
 
   it('affordability without the quote module: floor + provision alone is not enough once people are on payroll', () => {
     refused(withCash(route.state, FIGURES.floor + FIGURES.provision), request(route), /is below the admission quote/)
+  })
+})
+
+describe('P18 commission — the request shape and the live profession proof', () => {
+  it('refuses an extra request key, an extra roster key and a missing cast by name, never a bare TypeError (review should-fix 6)', () => {
+    refused(route.state, { ...request(route), extra: 1 } as never, /the commission must carry exactly seriesTitle, propertyId, roster and adoptionId/)
+    refused(route.state, request(route, { roster: { ...route.roster, extra: 'x' } as never }), /the roster must name exactly a writer, a director, a lead, an antagonist, a support and a craft lead/)
+    const { cast: _cast, ...noCast } = route.roster
+    refused(route.state, request(route, { roster: noCast as never }), /the roster must name exactly/)
+  })
+
+  it('a commissioned world still proves its live profession context, so retirement-writing authority survives (review blocking 1, P18-04)', () => {
+    const state = commissioned(route)
+    expect(() => validatedLiveProfessionContext(state)).not.toThrow()
+    expect(prepareLiveWritingContext(state).kind).not.toBe('rejected')
   })
 })
 

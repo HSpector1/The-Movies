@@ -1843,5 +1843,7 @@ export type { SaveFileP17, SaveFileV50 } from './save.js'
 export { P18_SAVE_VERSION, P18_PREDECESSOR_SAVE_VERSION, validateSaveP18, convertPredecessorToP18, convertP18ToPredecessor, migrateToP18,
   validateSaveV51, convertV50ToV51, convertV51ToV50, migrateToV51 } from './save.js'
 export type { SaveFileP18, SaveFileV51 } from './save.js'
+// P18: the commission preview and admission quote (the same admission the action runs).
+export { tvCommissionPreview, tvAdmissionQuote, type TvCommissionPreview, type TvAdmissionQuote } from './tvCommission.js'
 export type { ContinuationType, LineageEdge, LineageEdgeType, PropertyMeter, FranchiseBranch, FranchiseBranchKind, FranchiseMilestone, FranchiseMilestoneId,
   FranchiseProperty, FranchiseRoot, SubProperty, SubPropertyKind, P17StepRoots, GameStateP17, GameStateV50 } from './types.js'

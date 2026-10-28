@@ -191,6 +191,10 @@ function activityLabel(activity: string): string {
     drafting: 'Drafting',
     rewriting: 'Rewriting',
     auditioning: 'Auditioning',
+    // P18: a television season's blocks (rehearsal and shooting share the film words above).
+    scripts: 'Scripts',
+    preparation: 'Preparation',
+    post: 'Post',
   }
   return labels[activity] ?? activity
 }
@@ -206,7 +210,7 @@ function capabilityLabel(capability: string): string {
 }
 
 function ownerLabel(owner: string): string {
-  return owner === 'script' ? 'screenplay' : owner === 'casting' ? 'casting session' : 'production'
+  return owner === 'script' ? 'screenplay' : owner === 'casting' ? 'casting session' : owner === 'television' ? 'television season' : 'production'
 }
 
 export function StudioCalendarPreview({

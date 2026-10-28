@@ -119,7 +119,7 @@ import { describe, expect, it } from 'vitest'
 // src/core/save.ts at HEAD 3c6a7732 (see header, INTERPRETATION 1). Each is called below.
 import {
   LIVE_SAVE_VERSION, exportSave, makeSave, migrateToV40, validateSaveV40,
-  validateSaveV41, convertV40ToV41, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV49ToV48, convertV50ToV49, migrateToV41,
+  validateSaveV41, convertV40ToV41, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV49ToV48, convertV50ToV49, convertV51ToV50, migrateToV41,
 } from '../src/core/save.js'
 import { terminationCost } from '../src/core/employment.js'
 import { industryBusyTalentIds, moveRivalMoney } from '../src/core/hollywood.js'
@@ -392,7 +392,7 @@ describe('P14 1305-C Save41: 41->40 downgrade', () => {
     // Power Ranking quarter' on this world. Its assessments are nondefault Save49 table-3 rows, which `rightsStripped`
     // refuses to relabel, and no committed Save45 capture holds an assessment (the V45 market guard's recorded gap).
     // The ranking reason alone keeps its genuine Save45 witness in p15a2-power-ranking-archive.
-    expect(() => convertV49ToV48(convertV50ToV49(save as never))).toThrow(LIVE_DOWNGRADE_REFUSAL)
+    expect(() => convertV49ToV48(convertV50ToV49(convertV51ToV50(save as never)))).toThrow(LIVE_DOWNGRADE_REFUSAL) // P18: down through the live step first
     expect(() => convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(downgradeLiveTo45(save as never))))))).toThrow(NONDEFAULT_MARKET_PROJECTION)
     // 1358-F10 ruling 4: no Save41 engine remains to write a rival release, so one is staged on a V41 copy
     // of the genuine week110 input. It writes what the release law writes (src/core/hollywoodTick.ts:180-197)
