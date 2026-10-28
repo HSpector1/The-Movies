@@ -12073,7 +12073,11 @@ export function validateSaveP17(save: unknown): SaveFileP17 {
   if (nonFinite !== null) throw new Error(`validateSaveP17: state${nonFinite}`);
   assertStudioEventSequenceLaw(raw, 'validateSaveP17');
   validateSaveV49({ ...save, saveVersion: P17_PREDECESSOR_SAVE_VERSION, state: stripP17Roots(raw) });
-  validateP17Roots(raw, 'validateSaveP17');
+  // P17 Shape A: a cameo career credit is a frozen-V8-shaped record, proved by the same leaf against the same people
+  // and the player's released films.
+  const talentIds = new Set((raw.talent as { id: string }[]).map((t) => t.id));
+  const releasedIds = new Set((raw.studio as { releasedFilms: { productionId: string }[] }).releasedFilms.map((f) => f.productionId));
+  validateP17Roots(raw, 'validateSaveP17', (value, label) => v8CareerEvent(value, label, talentIds, releasedIds));
   return save as SaveFileP17;
 }
 

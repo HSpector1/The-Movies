@@ -111,6 +111,14 @@ export type ReceptionInputs = {
   // (live, before this film's own result). It enters `computeBoxOffice` exactly once, through the
   // studio-awareness term. ABSENT is the whole legacy world — a bit-exact no-op, the setUplift rule.
   inheritedAwareness01?: number
+  // ── P17 Shape A (cameo contract §3) — the picture's featured guests ───────────────────────────
+  // `cameoPublicityDelta`: per-segment rank-pool delta (principals + guests minus principals, /2), applied once to
+  // the OPENING star term only. `cameoExecutions`: each guest's support-fit execution (perceived at the forecast,
+  // the frozen actual of completed work at release) at P17_CAMEO_CAST_WEIGHT in castExecution, never in cohesion.
+  // Fame never reaches quality: legs, the linear starDraw, critic and audience scores read no guest fame.
+  // Absent ⇒ byte-identical.
+  cameoPublicityDelta?: Record<SegmentId, number>
+  cameoExecutions?: readonly number[]
 }
 
 // The rich breakdown §5.6 requires: every intermediate exposed alongside the
@@ -257,6 +265,11 @@ function computeCraft(inp: ReceptionInputs, engaged = false): {
         inp.shape,
       )
     castDen += CAST_WEIGHT[slot]
+  }
+  // P17 Shape A: each completed guest at the provisional cameo weight (absent ⇒ no term, no FP change).
+  for (const execution of inp.cameoExecutions ?? []) {
+    castNum += TUNING.P17_CAMEO_CAST_WEIGHT * execution
+    castDen += TUNING.P17_CAMEO_CAST_WEIGHT
   }
   const castExecution = castNum / castDen
 
@@ -522,6 +535,11 @@ export function computeSegmentAppeal(
   const segmentFit: Record<SegmentId, number> = {} as Record<SegmentId, number>
   const segmentAppeal: Record<SegmentId, number> = {} as Record<SegmentId, number>
   const segmentAppealOpening: Record<SegmentId, number> = {} as Record<SegmentId, number>
+  // P17 Shape A: the guests' rank-pool delta replaces the OPENING star term once per segment
+  // (newOpeningStar = clamp(old + 100·delta, 0, 100)); the linear starDraw, appeal and legs are untouched.
+  const cameo = inp.cameoPublicityDelta
+  const openingStarFor = (segmentId: SegmentId): number =>
+    cameo === undefined ? starDrawOpening : clamp(starDrawOpening + 100 * cameo[segmentId], 0, 100)
   for (const seg of inp.market.segments) {
     const fit = 100 * (1 - clamp(distance(delivered, seg.taste) / Math.sqrt(12), 0, 1))
     segmentFit[seg.id] = fit
@@ -537,10 +555,10 @@ export function computeSegmentAppeal(
       100,
     )
     // Opening-only appeal: the SAME formula with the saturated star term (else identical).
-    segmentAppealOpening[seg.id] = saturateFame
+    segmentAppealOpening[seg.id] = saturateFame || cameo !== undefined
       ? clamp(
           0.35 * craft +
-            0.25 * starDrawOpening +
+            0.25 * openingStarFor(seg.id) +
             0.25 * fit +
             0.15 * (timelinessContribution * 5) +
             inp.shapeEffects.segmentAffinity[seg.id] -

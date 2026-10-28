@@ -1125,6 +1125,23 @@ export const TUNING = {
   P17_SPINOFF_TRANSFER_HOOK_COEF: 0.27,
   P17_SPINOFF_FATIGUE_INHERIT: 0.5, // SPINOFF_F_INHERIT
   P17_HOOK_WEIGHT_DEFAULT: 0.5, // location / major-concept hooks
+  // ── P17 Shape A cameo — 1367-stage/p17-prep/P17-CAMEO-CONTRACT.md, adopted as versioned PROVISIONAL rules ──
+  P17_CAMEO_UNLOCK_WEEK: 1872, // 1956 Week 1: no featured slots before; zero to two from here (one unlock, no EraConfig widening)
+  P17_CAMEO_MAX_GUESTS: 2,
+  P17_CAMEO_FEE_FRACTION: 0.35, // fee = round(0.35·(SALARY_BASE + SKILL·(ovr/100)² + FAME·(fame/100)²))
+  P17_CAMEO_CANCEL_RETAINED_FRACTION: 0.25, // round(fee·0.25) retained; the remainder refunds until completed work
+  P17_CAMEO_CAST_WEIGHT: 0.1, // a guest's weight in castExecution; never in the cohesion centroid or ROLE_WEIGHT
+  P17_CAMEO_VISIBILITY_WEIGHT: 0.1, // one completed appearance's role-visibility weight in the fame pipeline
+  P17_CAMEO_RANK_DECAY: 0.5, // publicity pool 0.5^rank
+  P17_CAMEO_POOL_NORMALIZER: 2, // delta = (P_all − P_principals)/2 (the pool's < 2 bound)
+  /** Provisional film-professional publicity affinities by ACTUAL profession (contract §2); actors neutral. */
+  P17_CAMEO_PROFILE: {
+    actor: { youngAdult: 1, family: 1, adult: 1, prestige: 1 },
+    director: { youngAdult: 0.6, family: 0.6, adult: 0.85, prestige: 1 },
+    writer: { youngAdult: 0.5, family: 0.65, adult: 1, prestige: 0.85 },
+    craft: { youngAdult: 0.5, family: 0.6, adult: 0.75, prestige: 0.9 },
+    scientist: { youngAdult: 0.35, family: 0.5, adult: 0.75, prestige: 1 },
+  } satisfies Record<CreativeRole, Record<SegmentId, number>>,
 } as const
 
 // ── Placement Core V12 — the facility blueprint catalog ──────────────────────

@@ -47,6 +47,7 @@ import { professionAtWeekIfKnown } from './professionTransitions.js'
 
 import {
   activeContract,
+  assignmentBlockedTalentIds,
   busyTalentIds,
   canAfford,
   economyEngaged,
@@ -66,6 +67,8 @@ import { recordPlayerEmployment } from './industryEmployment.js'
 import { greenlightRightsRefusal, linkContinuationAtGreenlight, mintStoryPropertyAtGreenlight } from './rights.js'
 import { continuationReleaseAuthority } from './continuation.js'
 import { applyMintSubProperty, commitContinuation, prepareContinuation } from './continuationGreenlight.js'
+import { reservedCameoTalentIds, reservedGuestWeeks } from './cameo.js'
+import { applyCancelCameoBooking, cameoFeeRows, cancelExitedEmployeeBookings, commitCameoBookings, prepareCameoBookings, settleCameoCancellation } from './cameoBooking.js'
 import { acceptOffer, makeOffer, rejectOffer, withdrawOffer } from './assetSale.js'
 import { requestDiligence } from './dueDiligence.js'
 import { closeAbsorption } from './acquisition.js'
@@ -356,6 +359,14 @@ function applyGreenlight(
   // writer reaches `engagedIds` only through a seat, and `requireCommissionableWriter`
   // applies the same one set on the writing side.
   assertGreenlightStaffingIdle(staffing.engagedIds, busyTalentIds(state))
+  // P17 Shape A (cameo contract §4): a seat holds from greenlight through release, so it may not consume any reserved
+  // guest week; a long assignment never silently swallows a previously reserved appearance.
+  const reservedGuests = reservedCameoTalentIds(state.cameos, currentTick)
+  for (const talentId of staffing.engagedIds) {
+    if (reservedGuests.has(talentId)) {
+      throw new Error(`applyActions: greenlight rejected — talent "${talentId}" holds a reserved guest appearance in week ${reservedGuestWeeks(state.cameos, talentId).join(', ')}, which a production seat would consume`)
+    }
+  }
   // P14C.2a (773 D9, obligations first): no seat is assigned that cannot release before
   // its holder's effective retirement week, and a finishing or retired person takes no
   // seat at all. The ONE commit both `greenlight` and `greenlightScriptProject` (front
@@ -393,6 +404,18 @@ function applyGreenlight(
     conceptId: p.conceptId,
     proposed: { writerId: p.writerId, directorId: p.directorId, cast: { ...p.cast } },
   })
+  // P17 Shape A: the featured bookings' law (capability, the per-person matrix on the real employment, availability and
+  // lifecycle owners, the accepted fee) runs here too, before any write. Absent ⇒ the predecessor path, byte for byte.
+  const cameoPrep = prepareCameoBookings(state, prod.cameos, {
+    productionId: id,
+    creditedIds: new Set([p.writerId, p.directorId, ...CAST_SLOTS.map((slot) => p.cast[slot]), ...p.craftIds]),
+    cast,
+    concept,
+    shapeEffects: resolveShape(p.shape),
+    promise: p.promise,
+    shape: p.shape,
+    carriedScreenplay: scriptProject !== undefined && Boolean(continuedScriptOwner(state, scriptProject.id)),
+  })
 
   // Assemble the §5 ReceptionInputs the forecast reads at greenlight (M1/B16).
   const inp: ReceptionInputs = {
@@ -419,6 +442,8 @@ function applyGreenlight(
       : {}),
     // P17 (rev02 §5.3): the one continuation input, read once here and locked with the forecast snapshot.
     ...(continuation === null ? {} : { inheritedAwareness01: continuation.quote.inheritedAwareness01 }),
+    // P17 Shape A: the committed guests' publicity and PERCEIVED execution, locked with the snapshot (absent ⇒ none).
+    ...cameoPrep.inputs,
   }
 
   // forecastSnapshot — computed at greenlight (M1). computeForecast draws its ONE
@@ -489,13 +514,17 @@ function applyGreenlight(
         note: 'freelancer one-film fee',
       })
     }
+    // P17 Shape A: each booking's fee is charged ONCE here as a direct production cost (cameo contract §4).
+    ledgerAdds.push(...cameoFeeRows(cameoPrep, currentTick))
     // D-12 solvency gate — a voluntary greenlight (production + marketing + freelancer fees)
     // may not leave cash below zero. Unavoidable weekly costs may still go negative later.
-    const aff = canAfford(state, productionCost + freelancerFees)
+    const aff = canAfford(state, productionCost + freelancerFees + cameoPrep.fees)
     if (!aff.ok) {
       throw new Error(`applyActions: greenlight rejected — ${aff.reason} (D-12 solvency gate)`)
     }
     cash = state.studio.cash - productionCost - freelancerFees
+    // the fee rows fold after the freelancer rows, one subtraction each (L-03)
+    for (const fact of cameoPrep.facts) cash -= fact.fee
     ledgerAdds.unshift({
       week: currentTick,
       kind: 'production',
@@ -559,8 +588,8 @@ function applyGreenlight(
     },
     ledger: [...state.ledger, ...ledgerAdds],
   }
-  // P17: the lineage edge commits atomically with the production.
-  const next = continuation === null ? withProduction : commitContinuation(withProduction, continuation, id)
+  // P17: the lineage edge and the featured bookings commit atomically with the production.
+  const next = commitCameoBookings(continuation === null ? withProduction : commitContinuation(withProduction, continuation, id), cameoPrep)
   const greenlightEvents = injectedEvents ?? studioEventSinkFor(state)
   const withOperations =
     state.operations.mode === 'managed'
@@ -685,6 +714,9 @@ function applyCancel(state: GameState, action: Action & { kind: 'cancel' }): Gam
     technology: discardUnfilmedProductionTechnology(state,action.productionId),
     scriptDevelopment,
   }
+  // P17 Shape A (cameo contract §4): every UNPERFORMED booking on the picture closes once with its linked refund of
+  // fee − retained; completed work and its earned fee are preserved.
+  const settledCameos = settleCameoCancellation(withoutProduction, (b) => b.productionId === action.productionId, state.market.tick, 'productionCancelled')
   // P14B.1 (6) / companion §4.4 / plan :243-252 / record 26 §2: BROKEN is recorded
   // IMMEDIATELY iff the SEPARATE target-specific physical proof finds no path for the
   // REMAINING count on the post-cancel state, in the promise's class mask. A joint
@@ -693,7 +725,7 @@ function applyCancel(state: GameState, action: Action & { kind: 'cancel' }): Gam
   // P14B.5 (2c): the relationship driver fires on exactly the COMPLEMENTARY
   // condition — a first take EXISTS for the picture — beside the promise seam,
   // which is untouched; a picture without a take mints nothing here.
-  const returned = returnCarriedScriptToReady(withoutProduction,cancelled)
+  const returned = returnCarriedScriptToReady(settledCameos,cancelled)
   const playerStudioId = state.hollywood?.playerStudioId
   return playerStudioId === undefined
     ? returned
@@ -2076,6 +2108,11 @@ function requireWriterTermCoversDraft(
   dueWeek: number,
   verb: string,
 ): void {
+  // P17 Shape A (cameo contract §4): every writing interval [week, dueWeek) passes here, so this is the one place a
+  // draft may not consume the writer's reserved guest week; an unrelated reserved week stays usable.
+  if (reservedCameoTalentIds(state.cameos, week, dueWeek).has(writerId)) {
+    throw new Error(`applyActions: ${verb} rejected — writer "${writerId}" holds a reserved guest appearance inside weeks ${week}–${dueWeek - 1}, which this writing would cover`)
+  }
   const contract = activeContract(state, writerId, week)
   if (contract === undefined || dueWeek <= contract.endWeekExclusive) return
   const retirement = retirementRecordFor(state, writerId)
@@ -2426,7 +2463,8 @@ function applyRequestScriptRewrite(
       `applyActions: requestScriptRewrite rejected — writer "${project.writerId}" is not currently studio-contracted`,
     )
   }
-  if (busyTalentIds(state).has(project.writerId)) {
+  // P17 Shape A: a rewrite is due next week, so only a reserved guest week inside [week, week + 1) overlaps it.
+  if (assignmentBlockedTalentIds(state, state.market.tick, state.market.tick + 1).has(project.writerId)) {
     throw new Error(
       `applyActions: requestScriptRewrite rejected — writer "${project.writerId}" already has an active assignment`,
     )
@@ -2503,9 +2541,9 @@ function applyGreenlightScriptProject(
       `applyActions: greenlightScriptProject rejected — screenplay project "${action.production.projectId}" already has a greenlight waiting in the production queue`,
     )
   }
-  // P17: a continuation request is quoted against THIS week's grant, so it starts now or refuses; it never waits in the
-  // queue, whose frozen payload leaf carries no continuation field.
-  const continuationBearing = action.continuation !== undefined
+  // P17: a continuation request is quoted against THIS week's grant, and a featured booking against this week's quote,
+  // so either starts now or refuses; it never waits in the queue, whose frozen payload leaf carries no P17 field.
+  const continuationBearing = action.continuation !== undefined || (action.cameos?.length ?? 0) > 0
   try {
     return admitOrQueue(
       state,
@@ -2517,7 +2555,7 @@ function applyGreenlightScriptProject(
   } catch (error) {
     if (continuationBearing && allowQueue && error instanceof QueueableCapacityRefusal && queueingActive(state.operations)) {
       throw new Error(
-        `applyActions: greenlightScriptProject rejected — ${error.message}; a continuation greenlight cannot wait in the queue (its quote is bound to week ${week}): greenlight it when capacity is free`,
+        `applyActions: greenlightScriptProject rejected — ${error.message}; a continuation or featured-guest greenlight cannot wait in the queue (its quote is bound to week ${week}): greenlight it when capacity is free`,
       )
     }
     throw error
@@ -2564,6 +2602,7 @@ function applyGreenlightScriptProjectNow(
       },
       // P17: the request rides the action into the one greenlight verb (absent ⇒ the predecessor path, byte for byte)
       ...(action.continuation === undefined ? {} : { continuation: action.continuation }),
+      ...(action.cameos === undefined ? {} : { cameos: action.cameos }),
     },
     project.id,
     injectedEvents,
@@ -3227,6 +3266,10 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
       case 'mintSubProperty':
         next = applyMintSubProperty(next, action)
         break
+      // P17 Shape A: the explicit cancellation of one unperformed featured booking.
+      case 'cancelCameoBooking':
+        next = applyCancelCameoBooking(next, action)
+        break
       // P14B.7: the waiver is the engine's own verb; the dispatch adds no rule
       // of its own, so the action and the direct call agree exactly.
       case 'waivePromise':
@@ -3272,6 +3315,9 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
     }
     next = recordPlayerEmployment(next)
   }
+  // P17 Shape A (cameo contract §4 employment exit): an own-employee appearance whose employment this batch ended or
+  // transferred is cancelled once with the standard refund. No booking, no work.
+  next = cancelExitedEmployeeBookings(next, next.market.tick)
 
   // FAIL-CLOSED at the action boundary (charter §3.2), the twin of the tick
   // boundary's check. Greenlight, commission, and startCastingSession each

@@ -23,6 +23,7 @@ import { clamp } from './math.js'
 import { roleOVR } from './talentSummary.js'
 import { TUNING } from './tuning.js'
 import type {
+  CameoCareerEvent,
   CareerReasonCode,
   Discipline,
   FilmParticipant,
@@ -49,6 +50,9 @@ export type StarPowerInput = {
   realizedTotal: number // realized total theatrical gross ($) — the reach proxy
   audienceScore: number // weightedAudienceScore (0..100)
   expectedTotal: number | null // locked greenlight forecast expectedTotal, or null
+  // P17 Shape A: a completed one-week appearance moves fame through this same law once, at the provisional cameo
+  // visibility weight instead of a frozen participant role's. Absent ⇒ STAR_POWER_ROLE_WEIGHTS[role], byte for byte.
+  roleWeight?: number
 }
 
 export type StarPowerResult = {
@@ -65,7 +69,7 @@ export type StarPowerResult = {
  * Pure: depends only on the realized outcome + role + current fame.
  */
 export function computeStarPowerDelta(inp: StarPowerInput): StarPowerResult {
-  const roleWeight = starPowerRoleWeight(inp.role)
+  const roleWeight = inp.roleWeight ?? starPowerRoleWeight(inp.role)
   const fame = clamp(inp.fameBefore, 0, 100)
 
   // Realized reach in [0,1): a saturating map of total gross (more seen ⇒ more chance
@@ -205,6 +209,13 @@ export function buildTalentCareerEvent(c: CareerEventInput): TalentCareerEvent {
     forecastComparator: c.sp.forecastComparator,
     reasonCodes: c.sp.reasonCodes,
   }
+}
+
+/** P17 Shape A: a completed guest appearance's career record, built by the SAME builder as every participant's (acting,
+ * the support-fit convention), with the `cameo` role and its provisional visibility weight. */
+export function buildCameoCareerEvent(c: Omit<CareerEventInput, 'role' | 'discipline'>): CameoCareerEvent {
+  const event = buildTalentCareerEvent({ ...c, role: 'support', discipline: 'acting' })
+  return { ...event, role: 'cameo', billingWeight: TUNING.P17_CAMEO_VISIBILITY_WEIGHT }
 }
 
 /** Map a FilmParticipantRole to the discipline it performs (for OVR/skill snapshots). */

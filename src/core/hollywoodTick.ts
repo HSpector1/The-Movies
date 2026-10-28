@@ -10,6 +10,7 @@ import { considerRivalSoundPurchase, selectRivalSoundProduction, rivalInstallati
 import { createProductionTechnologyPolicy } from './technologyProduction.js'
 import { busyTalentIds, offerForTalent, weeklySalary, renewalWindowOpen, terminationCost } from './employment.js'
 import { productionCompanyTalentIds } from './productionPeople.js'
+import { reservedCameoTalentIds } from './cameo.js'
 import { caseOpenForTalent, floorOffer } from './talentMarket.js'
 import { assignmentRefusal, contractEndRefusal } from './careerLifecycle.js'
 import { promisedCastMasks, WEEKS_TO_FIRST_TAKE } from './promises.js'
@@ -244,11 +245,14 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
   const indexedOutcomes=new Map<number|string,RivalCostCuttingEntryFacts['indexedOutcomes'][number]>()
   const runDecision=()=>{
   const busy=busyTalentIds({...state,hollywood:h,talent})
+  // P17 Shape A (cameo contract §4): a person holding a reserved guest week (any studio's booking) is never seated or
+  // commissioned over it; a seat is open-ended, and so, conservatively, is a rival's writing commission here.
+  const reservedGuests=reservedCameoTalentIds(state.cameos,week)
   const people=new Map(talent.map(t=>[t.id,t]))
   const employees=currentEmployees(h,b.studioId).map(e=>people.get(e.terms.talentId)!)
   // P14C.2a (773 D9): a rival seats nobody whose seat cannot release before their
   // effective retirement week, and nobody finishing or retired — director, cast and craft.
-  const seatable=(t:Talent)=>!busy.has(t.id)&&assignmentRefusal(state,t.id,week)===null
+  const seatable=(t:Talent)=>!busy.has(t.id)&&!reservedGuests.has(t.id)&&assignmentRefusal(state,t.id,week)===null
   // P14D.1 (1344-A §3.1): one decision opportunity for one ready screenplay. A viable package
   // is returned for the greenlight; otherwise the outcome names why none was chosen.
   const evaluate=(ready:ScriptProject)=>{
@@ -371,7 +375,8 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
   if(buyerScriptDevelopment(decisionState(),b.studioId).projects.length>=2){commissionStop='fullIndex';return}
   if(b.account.cash<operatingReserve(b,h,week))return
   if(week<b.screenplayShelving.commissionHoldUntilWeek){commissionStop='hold';return}
-  const writer=employees.find(t=>t.role==='writer'&&!busy.has(t.id))
+  // ponytail: open-ended against reserved guest weeks; read the draft's due week if a rival needs that writer sooner.
+  const writer=employees.find(t=>t.role==='writer'&&!busy.has(t.id)&&!reservedGuests.has(t.id))
   if(!writer){commissionStop=employees.some(t=>t.role==='writer')?'busyWriter':'missingWriter';return}
   const ordinal=b.development.projects.length
   const chooser=stream(state.seed,'hollywood-v1',`${b.studioId}:package:${ordinal}`)

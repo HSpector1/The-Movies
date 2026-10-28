@@ -1,5 +1,5 @@
 import type { AbsorptionRecord } from './rights.js'
-import { activeContract, busyTalentIds, canAfford, economyEngaged, weeklySalary } from './employment.js'
+import { activeContract, assignmentBlockedTalentIds, canAfford, economyEngaged, weeklySalary } from './employment.js'
 import { hasOperationalFacilityInstallation } from './facilityEffects.js'
 import { commitFacilityInstallation, queryFacilityInstallation } from './placement.js'
 import { campaignDate } from './calendar.js'
@@ -374,7 +374,8 @@ export function assignSeat(state: GameState, context: StudioContext,
   if (!lab) throw new Error('Complete this Research Laboratory before assigning its seats.')
   if (state.talent.find(t => t.id === request.scientistId)?.role !== 'scientist' || !context.employed(request.scientistId, state.market.tick)) throw new Error('Employ this Scientist before assigning a Laboratory seat.')
   if (state.technology.projects.some(p => occupiedSeats(p).some(s => s.talentId === request.scientistId))) throw new Error('This Scientist already holds a Laboratory seat.')
-  if (busyTalentIds(state).has(request.scientistId)) throw new Error('This Scientist already has an active assignment.')
+  // P17 Shape A: an open-ended Laboratory seat may not consume a reserved guest week (cameo contract §4).
+  if (assignmentBlockedTalentIds(state).has(request.scientistId)) throw new Error('This Scientist already has an active assignment.')
   const entry = technologyEntry(request.technologyId)
   // Owner decision 10A (L-33): no seat before the brief's research opens, so no studio holds a
   // paused, zero-work project on a technology nobody may research yet.

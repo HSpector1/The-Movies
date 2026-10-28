@@ -1,5 +1,6 @@
 import { buyerScriptDevelopment, buyerScriptConcepts } from './continuedScripts.js'
 import { productionCompanyTalentIds } from './productionPeople.js'
+import { reservedCameoTalentIds } from './cameo.js'
 import { initializeHollywood, industryBusyTalentIds, rivalEmployment } from './hollywood.js'
 import { buyerContinuedProductions, buyerOperatedProductions } from './continuedWork.js'
 import { terminalWeekOf } from './operatingState.js'
@@ -189,6 +190,19 @@ export function busyTalentIds(state: GameState): Set<string> {
     }
   }
   return busy
+}
+
+/**
+ * P17 Shape A (cameo contract §4): the ids a NEW assignment occupying `[week, untilWeekExclusive)` may not take —
+ * everyone in actual work plus every guest holding a reserved one-week appearance inside that interval. A production
+ * or research seat is open-ended (the default bound); writing passes its own due week, so an unrelated reserved week
+ * stays usable. Hiring, markets and `employmentStatus` keep `busyTalentIds`: a booking accepted while freelance
+ * survives later employment and the person stays signable.
+ */
+export function assignmentBlockedTalentIds(state: GameState, week: number = state.market.tick, untilWeekExclusive = Number.POSITIVE_INFINITY): Set<string> {
+  const blocked = busyTalentIds(state)
+  for (const id of reservedCameoTalentIds(state.cameos, week, untilWeekExclusive)) blocked.add(id)
+  return blocked
 }
 
 // ── salary / payroll / termination math (D-11.4 / D-11.5 / D-11.9) ───────────

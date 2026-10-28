@@ -3,7 +3,7 @@ import type { RivalProjectCosts } from './hollywoodTypes.js'
 import { liveRetirementWritingAuthority, prepareLiveWritingContext, type LiveWritingContext } from './liveRetirementWriting.js'
 import type { RetirementWritingAuthority } from './retirementWriting.js'
 import { assertStudioOperationsInvariants } from './operations.js'
-import { activeContract, busyTalentIds } from './employment.js'
+import { activeContract, assignmentBlockedTalentIds } from './employment.js'
 import { castingOccupiedFacilitySlots } from './castingSessions.js'
 import { resourceClaims } from './occupancy.js'
 import type { GameState, ScriptDevelopment, ScriptProject, Production, FilmConcept, LedgerEntry } from './types.js'
@@ -401,7 +401,8 @@ export function rewriteContinuedScript(state:GameState,projectId:string,writingC
  if(!carriedRewriteHistorySupported(state))fail('competing screenplay history producer required')
  const writer=owner.row.project.writerId
  if(!activeContract(state,writer,state.market.tick))fail('rewrite writer is not buyer contracted')
- if(busyTalentIds(state).has(writer))fail('rewrite writer has an active assignment')
+ // P17 Shape A: a rewrite is due next week, so a reserved guest week inside [week, week + 1) overlaps it.
+ if(assignmentBlockedTalentIds(state,state.market.tick,state.market.tick+1).has(writer))fail('rewrite writer has an active assignment')
  const occupiedSlots=[...new Set([...castingOccupiedFacilitySlots(state.castingSessions),...resourceClaims(state).filter(r=>r.owner==='installation'&&r.facilitySlotKey!==null).map(r=>r.facilitySlotKey!)])].sort()
  const nativeInput={operations:structuredClone(buyerOperationsForAllWork(state)),development:structuredClone(buyerScriptDevelopment(state)),occupiedSlots}
  const allocationAuthority={projectIds:nativeInput.development.projects.map(p=>p.id),workflowIds:nativeInput.operations.workflows.map(w=>w.productionId),productions:structuredClone(buyerOperatedProductions(state)),occupiedSlots:[...occupiedSlots],

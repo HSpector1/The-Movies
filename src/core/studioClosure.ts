@@ -38,6 +38,7 @@ import { buyerOperatedProductions, buyerContinuedProductions } from './continued
 import { closureDue, conditionRecord, outstandingLoan, requireCorporateCondition } from './corporateConditionLive.js'
 import { openTheatricalRun } from './economy.js'
 import { terminationCost } from './employment.js'
+import { settleCameoCancellation } from './cameoBooking.js'
 import { moveRivalMoney } from './hollywood.js'
 import { closedWeekOf } from './operatingState.js'
 import { buildLegacyManifest, legacyFactsFromState, ENDED_LEGACY_DEFINITION, MODERN_LEGACY_DEFINITION, LEGACY_BOUNDARY_WEEK, type EndedLegacy, type OfficialLegacy } from './campaignLegacy.js'
@@ -388,6 +389,10 @@ function prepareStudioClosure(state: GameState, studioId: string, causeEventId: 
     for (const facility of business!.operations.facilities) row('facility', facility.id, facility.capability, 'nonoperational in place; zero refund', 'applied')
   }
 
+  // P17 Shape A (cameo contract §4): closure cancels the player's productions terminally (row 3), so every unperformed
+  // featured booking closes once under the production-cancellation rule before the money step; its refund joins the
+  // closing cash the claims are paid from. Completed appearances and their earned fees stay. Rivals book no guests.
+  if (player) next = settleCameoCancellation(next, (b) => b.studioId === studioId, week, 'productionCancelled')
   // 4. Money: the loan stops at C; the closing cash is preserved as it is; claims are paid from floor(max(0, cash)).
   const loan = outstandingLoan(state, studioId, week)
   let loanRecord: ClosureRecord['loan'] = null

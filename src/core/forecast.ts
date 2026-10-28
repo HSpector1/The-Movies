@@ -130,8 +130,16 @@ export function forecastSkills(inp: ForecastInputs) {
     castDen += CAST_WEIGHT[slot]
     fitNum += CAST_WEIGHT[slot] * fit
   }
-  const castExecution = castNum / castDen
+  // Principal-only role fit (cameo contract §3 "do not modify the weights of the three principals"): read before
+  // any guest term, so the persisted `roleFit` causal factor stays the principals' alone.
   const castWeightedRoleFit = fitNum / castDen
+  // P17 Shape A: each committed guest's PERCEIVED support-fit execution at the cameo weight, the same term reception
+  // applies to the frozen actual at release (absent ⇒ no term, no FP change).
+  for (const execution of inp.cameoExecutions ?? []) {
+    castNum += TUNING.P17_CAMEO_CAST_WEIGHT * execution
+    castDen += TUNING.P17_CAMEO_CAST_WEIGHT
+  }
+  const castExecution = castNum / castDen
 
   const technical =
     inp.craftHires.length > 0

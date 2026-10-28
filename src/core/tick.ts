@@ -117,6 +117,8 @@ import { FACILITY_OPEX_LEDGER_NOTE, LOAN_INSTALLMENT_LEDGER_NOTE, TUNING } from 
 import { buildFilmResult, resolveReception, type ReceptionInputs } from './reception.js'
 import { applyContinuationRelease, withFranchises } from './continuation.js'
 import { continuationReleaseInput, p17RightsHolds } from './continuationGreenlight.js'
+import { attachCameoCareerEvents, releaseCameoBookings } from './cameo.js'
+import { cameoReleaseInputs, cancelExitedEmployeeBookings, resolveCameoWeek } from './cameoBooking.js'
 import { RngStream, stream } from './rng.js'
 import { resolveShape } from './shape.js'
 import {
@@ -194,6 +196,8 @@ type ReleaseRecord = {
   ctx: StandingContext
   broadcast: ReleaseBroadcastCapture
   develop: DevelopCapture
+  /** P17 Shape A: the picture's COMPLETED guests (one release credit and one fame pass each in the careers step). */
+  cameoGuests?: readonly { talentId: string }[]
 }
 
 // Run/harness options for a tick. `develop` GATES the D-9.8 DEVELOPMENT step and
@@ -596,6 +600,31 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     cash += entry.amount
     ledger.push(entry)
   }
+  // ── 1.8 CAMEO WORK (P17 Shape A; cameo contract §4) ─────────────────────────
+  // INSERTION, NOT A REORDERING. A booked week resolves against THIS advance's real production work: a shooting-phase
+  // advance in exactly the booked week completes the appearance and freezes the guest's actual execution; anything
+  // else (no shooting work, a stalled or held picture, a picture no longer on the slate) cancels with the retained
+  // charge and one linked refund, booked row by row. No booking, no root, no step.
+  let cameos = admitted.cameos
+  if (cameos !== undefined) {
+    const work = resolveCameoWeek(cameos, {
+      week: currentTick,
+      before: state.studio.activeProductions,
+      after: advanced,
+      held: rightsHolds,
+      talent: state.talent,
+      conceptOf: (production) => {
+        const concept = state.concepts.find((c) => c.id === production.conceptId) ?? carriedConceptForProduction(state, production.id)
+        if (concept === undefined) throw new Error(`tick: cameo work references unknown conceptId "${production.conceptId}"`)
+        return concept
+      },
+    })
+    cameos = work.root
+    for (const row of work.rows) {
+      cash += row.amount
+      ledger.push(row)
+    }
+  }
   // ── D-12 economy (gated) — a shallow copy of the run history so weekly progress can be
   // recorded without mutating the input. Empty (and untouched) for the M0A corpus.
   const engaged = economyEngaged(state)
@@ -635,6 +664,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     // P17 (rev02 §5.3): the live continuation read, from then-current state BEFORE this film's own result.
     // Review B1: `releasedFilms` carries this tick's earlier releases, which `franchises` already marks released.
     const inheritedAwareness01 = continuationReleaseInput(withFranchises(state, franchises), prod.id, { writerId: prod.writerId, directorId: prod.directorId, cast: { ...prod.cast } }, releasedFilms)
+    // P17 Shape A: the COMPLETED guests' publicity at contemporaneous fame and their frozen actual execution (null ⇒ none).
+    const guestRelease = cameoReleaseInputs(cameos, prod.id, cast, state.talent, state.market.segments)
 
     const inp: ReceptionInputs = {
       concept,
@@ -678,6 +709,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       ...(marketBatch === null ? {} : { competitionFactor: frozenFactor(marketBatch, prod.id) }),
       // P17: absent on every non-continuation release.
       ...(inheritedAwareness01 === undefined ? {} : { inheritedAwareness01 }),
+      ...(guestRelease === null ? {} : guestRelease.inputs),
     }
 
     // The single §5.3 critic draw for this release — the ONLY sim-stream advance. `engaged` drives
@@ -714,6 +746,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       : baseFilmResult
     // P17: exactly ONE R/M/F update per release, after the live read above. A film with no edge leaves the root as it is.
     if (franchises !== undefined) franchises = applyContinuationRelease(franchises, { productionId: prod.id, week: currentTick, result: filmResult, audience01: result.weightedAudienceScore / 100 })
+    // P17 Shape A: the release marks each completed appearance once; unperformed work earns nothing.
+    if (cameos !== undefined) cameos = releaseCameoBookings(cameos, prod.id, currentTick)
 
     releasedFilms.push(filmResult)
     // P08A: the release fact, frozen with its display title AT RELEASE (identity is
@@ -778,6 +812,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       // and theatrical branches above already consume (`economyEngaged(state)`, the persisted
       // R2 fact). Ephemeral like the rest of this context (B12): nothing is persisted.
       engaged,
+      // P17 Shape A: the completed guests' share-weighted publicity delta, into the existing star attention once.
+      ...(guestRelease === null ? {} : { cameoAttentionDelta: guestRelease.attentionDelta }),
     }
 
     // §8 broadcast inputs (B23/B24), captured now from the ReceptionResult + the
@@ -834,7 +870,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     // double release on one set depletes it twice, deterministically.
     sets = depleteSetNoveltyForRelease(sets, boundSetId)
 
-    records.push({ filmResult, benchmarks, ctx, broadcast, develop })
+    records.push({ filmResult, benchmarks, ctx, broadcast, develop, ...(guestRelease === null ? {} : { cameoGuests: guestRelease.guests }) })
   }
 
   // The film result now exists and the production has left the active slate; keep
@@ -1020,7 +1056,9 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     a.filmResult.productionId<b.filmResult.productionId?-1:a.filmResult.productionId>b.filmResult.productionId?1:0)
   const growth = allGrowthRecords.length > 0
     ? applyReleaseCareers(state.seed,industry.talent,allGrowthRecords)
-    : {talent:industry.talent,careerEvents:[]}
+    : {talent:industry.talent,careerEvents:[],cameoCareerEvents:[]}
+  // P17 Shape A: the careers step's one cameo record per completed, released guest lands on its booking.
+  if (cameos !== undefined) cameos = attachCameoCareerEvents(cameos, growth.cameoCareerEvents)
   const talent = growth.talent
   const industryFilmIds = new Set([...continuedReception.growth,...industry.growth].map(r=>r.filmResult.productionId))
   const newCareerEvents = growth.careerEvents.filter(e=>!industryFilmIds.has(e.filmId))
@@ -1173,6 +1211,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     ...admitted,
     // P17: the root after this week's player, continued and rival releases (absent while no franchise exists).
     ...(franchises === undefined ? {} : { franchises }),
+    // P17 Shape A: the bookings after this week's work and releases (absent while no booking exists).
+    ...(cameos === undefined ? {} : { cameos }),
     technology: industry.technology,
     rights: industry.rights,
     // P13B-S8: a rival's own admitted plans live on the shared plan root; the
@@ -1281,8 +1321,12 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // step follows the ranking record (the quarter's band and the condition read the same settled cash, and
   // a studio closing at W stays in that snapshot), the closure phase follows the condition step (closure
   // due declared at W is closed at W, before Legacy freeze), and the freeze stays last. No RNG.
-  return freezeCampaignLegacyWeek(advanceStudioClosureWeek(advanceCorporateConditionWeek(recordPowerRankingQuarter(
-    advanceLifecycleSettlement(advanceTalentMarketWeek(advancePromisesWeek(advanceLifecycleIntent(withRights, birthdays)))))),
+  // P17 Shape A (cameo contract §4 employment exit): after this week's contract expiry, market and lifecycle steps and
+  // before the ranking reads the week's cash, an own-employee appearance whose employment ended is cancelled once. A
+  // tail settlement, so its refund row carries the arrived week, as the market's and the closure's rows do (L-18).
+  const employmentSettled = cancelExitedEmployeeBookings(
+    advanceLifecycleSettlement(advanceTalentMarketWeek(advancePromisesWeek(advanceLifecycleIntent(withRights, birthdays)))), currentTick + 1)
+  return freezeCampaignLegacyWeek(advanceStudioClosureWeek(advanceCorporateConditionWeek(recordPowerRankingQuarter(employmentSettled)),
     { deferPlayerClosure: options?.deferPlayerClosure === true }))
 }
 

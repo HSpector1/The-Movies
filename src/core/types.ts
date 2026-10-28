@@ -2886,7 +2886,43 @@ export type FranchiseProperty = {
   milestones: FranchiseMilestone[]
 }
 export type FranchiseRoot = { version: 1; nextOrdinal: number; properties: FranchiseProperty[] }
-export type P17StepRoots = { franchises?: FranchiseRoot }
+// ── P17 Shape A cameo / featured appearances (src/core/cameo.ts; the same Save50 step, additive) ──────────────────
+// 1367-stage P17-CAMEO-CONTRACT §5: a booking authority keyed by exact studio/production/person/booking ids, with
+// the frozen quote, the named work week, the paid amount, the status, the actual completed week and the linked
+// refund. Like `franchises`, the root is absent until its first booking and never empties (bookings are never
+// deleted), so absence is the one encoding of "no booking" and a predecessor-era state reads unchanged.
+export type CameoBookingStatus = 'reserved' | 'completed' | 'cancelled'
+export type CameoCancelReason = 'explicit' | 'missedWork' | 'productionCancelled' | 'employmentExit' | 'rightsLoss'
+/** A completed appearance's one permanent career record: the TalentCareerEvent shape from the same builder, with
+ * the cameo role and its provisional visibility weight. Stored on its booking; the frozen V8 list is never widened. */
+export type CameoCareerEvent = Omit<TalentCareerEvent, 'role'> & { role: 'cameo' }
+export type CameoBooking = {
+  bookingId: string
+  studioId: string
+  productionId: string
+  talentId: string
+  workWeek: number
+  bookedWeek: number
+  basis: 'employee' | 'freelance'
+  /** The person's actual profession at booking: the publicity profile row the quote used. */
+  profession: CreativeRole
+  fee: number
+  retained: number
+  /** The frozen fee inputs and the rule/capability/profile versions the quote was evaluated under. */
+  quote: { perceivedActingOVR: number; fame: number; ruleVersion: 'p17-cameo/v1'; capabilityVersion: 'p17-cameo-capability/v1'; profileVersion: 'p17-cameo-profile/v1' }
+  status: CameoBookingStatus
+  completedWeek: number | null
+  /** The guest's actual support-fit execution, frozen when the one week of work completed. */
+  completedExecution: number | null
+  cancelledWeek: number | null
+  cancelReason: CameoCancelReason | null
+  refund: number | null
+  /** The release that earned the permanent credit; null until then, and forever for unperformed work. */
+  releasedWeek: number | null
+  careerEvent: CameoCareerEvent | null
+}
+export type CameoRoot = { version: 1; nextOrdinal: number; bookings: CameoBooking[] }
+export type P17StepRoots = { franchises?: FranchiseRoot; cameos?: CameoRoot }
 export type GameStateP17 = GameStateV49 & P17StepRoots
 /** The conventional name (save.ts's alias rule). */
 export type GameStateV50 = GameStateP17
@@ -2946,6 +2982,8 @@ export type Action =
       // P17: an optional continuation request, read against the live P16 rights and committed atomically with the
       // production. Absent ⇒ the predecessor path, byte for byte.
       continuation?: import('./continuation.js').ContinuationRequest
+      // P17 Shape A: zero to two featured bookings, quoted this week and committed atomically with the production.
+      cameos?: import('./cameo.js').CameoBookingRequest[]
     }
   | { kind: 'cancel'; productionId: string }
   | { kind: 'createTalent'; talent: AuthoredTalentInput } // §10 (legacy budget creator)
@@ -2987,7 +3025,7 @@ export type Action =
   | { kind: 'acceptScript'; projectId: string }
   // P17: the same optional continuation request. It rides the ACTION, never the queued payload: a continuation is
   // quoted against this week's grant, so it starts now or refuses; the frozen queue leaf is never widened.
-  | { kind: 'greenlightScriptProject'; production: GreenlightScriptProjectPayload; continuation?: import('./continuation.js').ContinuationRequest }
+  | { kind: 'greenlightScriptProject'; production: GreenlightScriptProjectPayload; continuation?: import('./continuation.js').ContinuationRequest; cameos?: import('./cameo.js').CameoBookingRequest[] }
   // ── Casting Sessions V1 ──
   | { kind: 'activateCastingSessions' }
   | { kind: 'startCastingSession'; session: StartCastingSessionPayload }
@@ -3015,6 +3053,8 @@ export type Action =
   | { kind: 'commitPictureToRelease'; productionId: string }
   // ── P17: mint an authored SubProperty hook on an exact film of a property the studio may spin off (rev02 §9.1-2) ──
   | { kind: 'mintSubProperty'; productionId: string; hookKind: SubPropertyKind; citedTalentIds: string[] }
+  // ── P17 Shape A: explicitly cancel one unperformed featured booking (its one linked refund of fee − retained) ──
+  | { kind: 'cancelCameoBooking'; bookingId: string }
   // ── P13B-S5-R07 — the reviewed setup-plan verb ──
   // It names a production, a catalogue recipe and the plan revision it was
   // reviewed against, and nothing else: a setup plan cannot reach a stage, a
