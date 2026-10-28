@@ -1,0 +1,31 @@
+{
+  "head": "db60738be34ab459bede13229bf5475ade13b930",
+  "sourceManifestEntries": 2143,
+  "purpose": "Sprint 11 r22: root/ui and Bridge types, UI build, the new ui unit files, and the bridge files slice B FIX-1 touched, on the candidate",
+  "children": [
+    {
+      "label": "types"
+    },
+    {
+      "label": "ui-build"
+    },
+    {
+      "label": "ui-unit",
+      "completeFiles": [
+        "ui/src/screens/p17-cameo-cancel-ui.test.tsx",
+        "ui/src/screens/p17-continuation-ui.test.tsx"
+      ]
+    },
+    {
+      "label": "bridge-fix",
+      "completeFiles": [
+        "tests/bridge-contract-generator.test.ts",
+        "tests/bridge-p17-featured-appearances.test.ts",
+        "tests/bridge-runtime-checkpoint.test.ts"
+      ]
+    }
+  ],
+  "budgets": {
+    "timeoutOverride": false
+  }
+}

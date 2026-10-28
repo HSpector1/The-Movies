@@ -81,7 +81,7 @@ The moved pins fail by value at the parent.
   - The generated C# accepting `optional(reference(...))` on the draft.
 - **Route premises.** Each throws by name or fails at the first assertion.
   - The industry-managed seed leaves two screenplays in review after one week (the same steps as `industryContendedStudio`).
-  - In the 1872 cameo world (historical control, legacy operations), `activateScriptDevelopment` and `activateCastingSessions` are accepted, the commissioned screenplay reaches review within 12 weeks, the casting board offers an available package outside the guest, and the cheapest published budget is affordable.
+  - (Corrected in Fix 2: legacy operations refuse `activateScriptDevelopment`.) In the 1872 cameo world (historical control), `activateStudioOperations`, `activateScriptDevelopment` and `activateCastingSessions` are accepted, the commissioned screenplay reaches review within 12 weeks, the casting board offers an available package outside the guest, and the cheapest published budget is affordable.
   - A rival employee exists at 1872.
   - In the outcome route, the sequel's guest completes in a standard shooting week.
   - A lineage edge's `releasedWeek` equals the film's `releaseTick`.
@@ -120,3 +120,24 @@ The moved pins fail by value at the parent.
   - `greenlightCarrying` in `bridge/casting.ts` hand-builds the `greenlightScriptProject` action when a continuation or guest rides the package. The adapter builds it on the `adapter.ts:2021-2043` path. If the adapter's payload gains a field, the hand-built payload drifts from it. No case compares the two.
   - The `featuredAppearances` view skips the closed-studio guard, as Laboratory, plans and office do, so a closed studio still reads the guest quotes. Fix 1 does not check how the core treats a booking from a closed studio.
   - The quote's `freelancerFees` now includes guest fees. The total is consistent with the core's charge, but nothing on the wire labels the guest share. The separate `featuredGuests` terms carry each fee.
+
+## Fix 2 (lane bridge-b-green-r20 on bfce8c29: featured-appearances file failed at collection)
+
+`FIX-2.patch` sha256 `d526c05c56ecdf83cfa315a1b549df1e12fe1d72fe9f6ccb7aa70210f40b22fa` (3,301 bytes, 1 file: `tests/bridge-p17-featured-appearances.test.ts`). It applies on top of the FIX-1 post-image: a `git apply` in a scratch copy of that file yields `fix2/postimages/` byte for byte. Base it on T HEAD once FIX-1 lands. Status: STATIC-UNRUN, with a `transpileModule` syntax pass only.
+
+- **Cause.** My premise was false. `applyActivateScriptDevelopment` (`actions.ts:2052`) refuses unless `state.operations.mode` is `managed`. The cameo world is founded in legacy operations, so `bridgeReady` threw at collection.
+- **Fix.** `bridgeReady` now applies `activateStudioOperations`, `activateScriptDevelopment` and `activateCastingSessions` in one `applyActions`. The adapter's `foundManagedStudioAction` uses this order (mirrored at `tests/p1364-late-founding.test.ts:60`), and `industryManagedStudio` in `tests/helpers/p16-fixtures.ts` uses it too.
+  - The casting greenlight draft is the managed path, so the legacy greenlight route is no substitute.
+  - A refusal now throws `premise: the founded 1872 cameo world takes the managed activation (operations, screenplays, casting): <core message>`.
+  - The activations add no tick, so the collection build stays bounded.
+- **Guards checked by reading `applyActivateStudioOperations`.** The cameo world meets each guard on paper:
+  - founded (`founding === null`) and engaged;
+  - empty active production slate (the Bridge branch forks before any greenlight);
+  - legacy-empty operations, construction, placement and sets (the route never builds or commissions a set).
+  - The world uses the default `endowed` regime (`worldgen.ts:693`), so activation mints the five founding facilities.
+- **Commission concept.** The commission now uses `freshConcept(state)` (the first concept no picture used and no title founded) instead of index 0. The 1,871 headless weeks may have founded concept 0's title.
+- **Premises nobody has run yet:**
+  - The placement invariant check passes on the ticked world.
+  - Managed weekly operating charges over the screenplay weeks leave the cheapest published budget affordable. The continuation file passes with `withCash(200M)`; this route adds no cash.
+  - Each failure throws by name at collection.
+- The outcome branch (`releasedContinuation`) still forks the legacy `route.world` and uses the core's legacy greenlight. It does not change.
