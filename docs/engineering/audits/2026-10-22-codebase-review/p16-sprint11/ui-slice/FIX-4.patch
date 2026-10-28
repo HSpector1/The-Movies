@@ -1,0 +1,47 @@
+diff --git a/ui/src/engine/continuation.ts b/ui/src/engine/continuation.ts
+index 7fa985917c5bf4d418e410b2aca4458583109aee..13981fe7708767fc0abe0677df5508d0d78de800 100644
+--- a/ui/src/engine/continuation.ts
++++ b/ui/src/engine/continuation.ts
+@@ -284,8 +284,9 @@ export function carriedScreenplay(state: GameState, projectId: string): boolean
+ 
+ /** Why a chosen guest no longer counts (null while they still do): credited as a principal, refused, or re-quoted. */
+ export function guestDropReason(state: GameState, request: CameoBookingRequest, credited: ReadonlySet<string>, panel: GuestPanel): string | null {
+-  if (panel.eligible.some((r) => r.quote.ok && r.talentId === request.talentId && r.quote.fee === request.fee && r.quote.basis === request.basis && r.quote.workWeek === request.workWeek)) return null
++  // a principal is reported first: the core refuses a credited guest whatever the quote says
+   if (credited.has(request.talentId)) return 'is now credited on this picture as a principal'
++  if (panel.eligible.some((r) => r.quote.ok && r.talentId === request.talentId && r.quote.fee === request.fee && r.quote.basis === request.basis && r.quote.workWeek === request.workWeek)) return null
+   const quote = cameoQuote(state, { talentId: request.talentId, workWeek: request.workWeek })
+   const name = state.talent.find((t) => t.id === request.talentId)?.name
+   if (!quote.ok) return `can no longer appear: ${refusalHumaniser(state)(name === undefined ? quote.reason : quote.reason.split(request.talentId).join(name))}`
+diff --git a/ui/src/screens/p17-continuation-ui.test.tsx b/ui/src/screens/p17-continuation-ui.test.tsx
+index 799a0f0291f1497fe6635dd2d13c7f4b19131924..78a9d9f7d1a01713598faf896576a3b5cc768ba2 100644
+--- a/ui/src/screens/p17-continuation-ui.test.tsx
++++ b/ui/src/screens/p17-continuation-ui.test.tsx
+@@ -280,10 +280,23 @@ describe('P17 browser slice, Fix 3 — the locked forecast, titles on every path
+   })
+ 
+   it('names films from the Industry index and humanises studio, property and licence ids in one place', () => {
+-    const rows = original.hollywood!.films
+-    const rival = original.hollywood!.identities.find((x) => x.role === 'rival')
+-    if (rows.length === 0 || rival === undefined) throw new Error('premise: the 1956 industry has a film row and a rival studio')
+-    const synthetic: GameState = { ...original, hollywood: { ...original.hollywood!, films: [...rows, { ...rows[0]!, filmId: 'p17-rival-film', title: 'The Rival Picture' }] } }
++    // The route's industry has released no film yet at this point, so the case adds one synthetic rival row (the shape
++    // hollywoodTick.ts publishes), built from the player's real released result under a new id.
++    const h = original.hollywood!
++    const rival = h.identities.find((x) => x.role === 'rival')
++    const own = original.studio.releasedFilms.find((f) => f.productionId === origId)
++    if (rival === undefined || own === undefined) throw new Error('premise: the 1956 industry has a rival studio and the released original')
++    const synthetic: GameState = {
++      ...original,
++      hollywood: {
++        ...h,
++        films: [...h.films, {
++          filmId: 'p17-rival-film', studioId: rival.studioId, conceptId: 'p17-rival-concept', title: 'The Rival Picture', genre: conceptA.genre,
++          credits: [], provenance: 'simulation/v1', scriptProjectId: 'p17-rival-project', result: { ...own, productionId: 'p17-rival-film' },
++          directCommitment: 0, studioRevenueReceived: 0, settledWeek: null, releaseCommitmentId: 'release-commitment-p17-rival-film',
++        }],
++      },
++    }
+     expect(filmTitle(synthetic, 'p17-rival-film')).toBe('The Rival Picture')
+     expect(filmTitle(original, origId)).toBe(conceptA.title)
+     expect(filmTitle(original, 'no-such-film')).toBeNull()

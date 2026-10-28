@@ -1,0 +1,17 @@
+{
+  "head": "5c8d4daa26c360a9674b0458fa7d13a5a4368dfe",
+  "sourceManifestEntries": 2143,
+  "purpose": "Sprint 11 r30: p15c2-campaign-legacy-integration alone on a quiet host (audit finding a: legacy-root-downgrade against its own 120 s budget)",
+  "children": [
+    {
+      "label": "alone",
+      "completeFiles": [
+        "tests/p15c2-campaign-legacy-integration.test.ts"
+      ]
+    }
+  ],
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "timeoutOverride": false
+  }
+}

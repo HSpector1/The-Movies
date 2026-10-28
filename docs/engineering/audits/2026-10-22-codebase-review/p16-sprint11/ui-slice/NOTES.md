@@ -265,3 +265,22 @@ behaviour, and the cancel file is untouched.
 - `refusalHumaniser` builds one id map per panel render (studios, industry films, the player's films, resolved properties,
   licences, franchise continuities and hooks); cost is unmeasured on a large industry.
 - The Talent step's package summary still previews without the P17 inputs (no choice is made there yet).
+
+## Fix 4 (lane on ee767fdb / 5c8d4daa: p17-continuation-ui 7/9)
+
+`FIX-4.patch` (3.8 KB, ui/ only, 2 files) applies on 5c8d4daa (T's HEAD). `git apply --check` passes there.
+`tools/make_fix4.py` regenerates it from `r3-postimages/` (the 5c8d4daa files) and proves that 5c8d4daa's blobs plus
+FIX-4 equal `postimages/` (passed). `FIX-4-MANIFEST.json` has the sha256 values. STATIC-UNRUN (syntax checks only).
+
+| Failing case | Cause | Resolution |
+|---|---|---|
+| "names films from the Industry index …" threw its premise at :285 | `initializeHollywood(…, 'migration')` opens the industry with an empty `films` list (`hollywood.ts:193`); no rival has released by the time the original releases, so `original.hollywood.films` is empty. Rivals do exist (`identities` role `'rival'`). | The case appends one synthetic `simulation/v1` row in the shape `hollywoodTick.ts:490` publishes (rival studio id, title "The Rival Picture", the player's real `FilmResult` under a new id) instead of copying a row that does not exist. The premise now checks only the rival studio and the released original. Assertions unchanged. |
+| "a chosen guest who stops counting …" got null at :305 | `guestDropReason` checked eligibility before the credited set; the panel was quoted before the guest became a principal, so the stale eligible row returned null first | The credited check now runs first: a principal is reported whatever the quote says, which is how the core refuses it (`prepareCameoBookings`: "already credited on this picture"). The UI's pruning agrees: a re-quoted panel excludes credited people, so the guest also leaves `liveGuests`. Assertion unchanged. |
+
+RED base for `p17-continuation-ui.test.tsx` now: since Fix 3 the file imports engine/continuation.ts exports, so at
+29c7cf0d (before the ui slice) it fails to load, as a whole. The six original cases already have their RED record from the
+earlier run at the pre-slice parent, where the file did not import the module (6 by missing test id). The Fix 3 additions
+are RED at 418f5d70: the three new cases fail with a TypeError on the missing exports (`greenlightForecastExtras`,
+`filmTitle`, `refusalHumaniser`, `guestDropReason`), and test 2 fails by assertion on the humanised sentence. The other
+five original cases pass there (their surfaces landed at db60738b). `p17-cameo-cancel-ui` stays RED by missing module at
+29c7cf0d.
