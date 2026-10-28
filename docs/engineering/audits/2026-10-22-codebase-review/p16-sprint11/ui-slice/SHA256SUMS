@@ -1,0 +1,14 @@
+929afd5e602f6b076a07d472963eec90189b2b18e15ab8e04b2ed9196a23a0dc  ./MANIFEST.json
+a7655f8c7d98a98b044568b4c9cb05db02630e694587b5e2f621838784182bdd  ./NOTES.md
+370177922f3469fa2a91ea067db52912aa7d0ddc41ef910939711d02ff675efc  ./SOURCE.patch
+9f8ce1ec7b9e8cb91cc2dd92961b0177085bcac688f9053dedb485c95929f0e9  ./TESTS.patch
+a405e07098e07d662b966fc7813a713fe8463180cd46ecf86ad906575c8a129c  ./postimages/ui/e2e/p17-continuation.spec.ts
+28f727cf99f998330420054aa8fac150d16ac78147913648b492cfbd1c109a81  ./postimages/ui/src/App.tsx
+90db065d7efed1f9261dd87bfca9629551cc0289be5701a2d33dc1488ba1e405  ./postimages/ui/src/components/P17Continuation.tsx
+f39ef1f6f2f193e97dffcfd82917b55db27bbbf4249fa61070c7a572ed97e72f  ./postimages/ui/src/engine/adapter.ts
+4d6b9e5aee26b6d10a80989e97ed2bd778a627d3a243878728c899a4139e3dfc  ./postimages/ui/src/engine/continuation.ts
+5ad52e04d5eea13784f491165dba8ab5040d6b77e03088c2f6abf49b1f0dd5cb  ./postimages/ui/src/screens/Assembly.tsx
+d4f8e1b373430aa7581c645985ec947c472b78377cf911989a6085bd17f153f6  ./postimages/ui/src/screens/Dashboard.tsx
+8993a07f870c5e1d711c234e44c2fde80087568e0ee714366bd44ea8b69dd28e  ./postimages/ui/src/screens/ReleaseResult.tsx
+054838e40e298a1c311b808c0a8fd0cb5877b58c4db621f6a6753a480239ce01  ./postimages/ui/src/screens/p17-continuation-ui.test.tsx
+b16b857c0c2967787a6dd4b76c306a5e3fa73bdfef3c9243d48c7bb8aed055c2  ./tools/make_patches.py

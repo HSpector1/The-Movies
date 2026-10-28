@@ -1,0 +1,71 @@
+{
+  "target": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt",
+  "head": "bfce8c29fd397bc89f26bb10420149e3ed48cee8",
+  "files": [
+    {
+      "path": "ui/e2e/p17-continuation.spec.ts",
+      "pre_sha256": null,
+      "post_sha256": "a405e07098e07d662b966fc7813a713fe8463180cd46ecf86ad906575c8a129c",
+      "patch": "TESTS.patch"
+    },
+    {
+      "path": "ui/src/App.tsx",
+      "pre_sha256": "5c19a90187c81ba1c314fb6e4edc5c2da3d49703f7e43620972c6934ebcfa0d7",
+      "post_sha256": "28f727cf99f998330420054aa8fac150d16ac78147913648b492cfbd1c109a81",
+      "patch": "SOURCE.patch"
+    },
+    {
+      "path": "ui/src/components/P17Continuation.tsx",
+      "pre_sha256": null,
+      "post_sha256": "90db065d7efed1f9261dd87bfca9629551cc0289be5701a2d33dc1488ba1e405",
+      "patch": "SOURCE.patch"
+    },
+    {
+      "path": "ui/src/engine/adapter.ts",
+      "pre_sha256": "b4c936e117f1a1c770c489ef397a59e0ebe3db9793f22dd81f6c9acbf25b94b5",
+      "post_sha256": "f39ef1f6f2f193e97dffcfd82917b55db27bbbf4249fa61070c7a572ed97e72f",
+      "patch": "SOURCE.patch"
+    },
+    {
+      "path": "ui/src/engine/continuation.ts",
+      "pre_sha256": null,
+      "post_sha256": "4d6b9e5aee26b6d10a80989e97ed2bd778a627d3a243878728c899a4139e3dfc",
+      "patch": "SOURCE.patch"
+    },
+    {
+      "path": "ui/src/screens/Assembly.tsx",
+      "pre_sha256": "d466f45b626ab305b8fdbffcc2e30897ded8c7e320161cf314328f3052d7022a",
+      "post_sha256": "5ad52e04d5eea13784f491165dba8ab5040d6b77e03088c2f6abf49b1f0dd5cb",
+      "patch": "SOURCE.patch"
+    },
+    {
+      "path": "ui/src/screens/Dashboard.tsx",
+      "pre_sha256": "cbc49888cec10a0ac0bbb2517f1b8ee1afc681e7c77158938eca4cb121119012",
+      "post_sha256": "d4f8e1b373430aa7581c645985ec947c472b78377cf911989a6085bd17f153f6",
+      "patch": "SOURCE.patch"
+    },
+    {
+      "path": "ui/src/screens/ReleaseResult.tsx",
+      "pre_sha256": "fd092536c65dd06c211bd2d9d5ce70776f17b212e45415d65c8dfda1ec273d1c",
+      "post_sha256": "8993a07f870c5e1d711c234e44c2fde80087568e0ee714366bd44ea8b69dd28e",
+      "patch": "SOURCE.patch"
+    },
+    {
+      "path": "ui/src/screens/p17-continuation-ui.test.tsx",
+      "pre_sha256": null,
+      "post_sha256": "054838e40e298a1c311b808c0a8fd0cb5877b58c4db621f6a6753a480239ce01",
+      "patch": "TESTS.patch"
+    }
+  ],
+  "SOURCE.patch": {
+    "sha256": "370177922f3469fa2a91ea067db52912aa7d0ddc41ef910939711d02ff675efc",
+    "bytes": 44080
+  },
+  "TESTS.patch": {
+    "sha256": "9f8ce1ec7b9e8cb91cc2dd92961b0177085bcac688f9053dedb485c95929f0e9",
+    "bytes": 20872
+  },
+  "brief_head": "e35bbacc",
+  "pre_images_identical_at_brief_head": true,
+  "status": "STATIC-UNRUN CANDIDATE"
+}
