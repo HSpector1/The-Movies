@@ -85,9 +85,10 @@ export function greenlightWith(state: GameState, crew: FilmCrew): { state: GameS
   return { state: next, productionId: next.studio.activeProductions[next.studio.activeProductions.length - 1]!.id }
 }
 
-/** About 440 real ticks; callers cache and deep-copy. */
-export function buildSeasonWorld(): SeasonRoute {
-  let state = advanceTo(fund(p13aGeneratedStudio(SEED)), 416)
+/** About 440 real ticks; callers cache and deep-copy. Sprint 14 (replay witness): `seed` defaults to the route's SEED;
+ * another seed builds the same route from a different world, so a byte comparison can show it is not vacuous. */
+export function buildSeasonWorld(seed: string = SEED): SeasonRoute {
+  let state = advanceTo(fund(p13aGeneratedStudio(seed)), 416)
   const taken = new Set<string>()
   const pick = (role: CreativeRole): string => {
     const signed = sign(state, role, taken)
