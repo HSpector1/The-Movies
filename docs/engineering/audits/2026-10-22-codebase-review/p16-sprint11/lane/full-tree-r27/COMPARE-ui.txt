@@ -1,0 +1,6 @@
+{'numTotalTestSuites': 769, 'numPassedTestSuites': 765, 'numFailedTestSuites': 4, 'numPendingTestSuites': 0, 'numTotalTests': 2741, 'numPassedTests': 2733, 'numFailedTests': 3, 'numPendingTests': 5, 'numTodoTests': 0}
+{'NEW': 0, 'INHERITED-SAME': 3, 'INHERITED-CHANGED': 0, 'MISSING-INPUT': 0, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 1, 'OVER-BUDGET-PASS': 42} report tests 2737 baseline tests 2730 in both 2730
+
+## OVER-BUDGET-PASS (42) max 25373.231
+## BASELINE-NOT-REPRODUCED (1)
+  - ui/src/lot/livingTurn.scheduler.test.tsx :: Living Turn V1 — time flows while unpaused (the Owner s acceptance) runs 12 consecutive weeks with Z

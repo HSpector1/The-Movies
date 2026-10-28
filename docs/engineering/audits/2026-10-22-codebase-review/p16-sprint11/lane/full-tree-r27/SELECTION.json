@@ -1,0 +1,21 @@
+{
+  "head": "418f5d700805f88067ad9ef8badb1e2c28bc70e5",
+  "sourceManifestEntries": 2143,
+  "predecessor": "2c50c9df (tag p17-sprint10-checkpoint-20261027); baselines for comparison: p16-sprint10 full-tree-r9 (core, ui) on 2c50c9df",
+  "purpose": "Sprint 11 checkpoint full gate on the P17 candidate 418f5d70 (cameo core, Bridge A+B, browser slice): root/ui types, bridge types, both contract checks, UI build, full core incl. bridge, full ui, source integrity; docs/evidence/art inputs and ui/ materialized in the worktree",
+  "children": [
+    {
+      "label": "full-core-including-bridge",
+      "project": "core"
+    },
+    {
+      "label": "full-ui",
+      "project": "ui"
+    }
+  ],
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "timeoutOverride": false
+  },
+  "limits": "Timing recorded, not qualified; classification by file+fullName+first failure line against full-tree-r9."
+}

@@ -1,0 +1,104 @@
+{'numTotalTestSuites': 2100, 'numPassedTestSuites': 2039, 'numFailedTestSuites': 61, 'numPendingTestSuites': 0, 'numTotalTests': 6108, 'numPassedTests': 5991, 'numFailedTests': 103, 'numPendingTests': 3, 'numTodoTests': 11}
+{'NEW': 1, 'INHERITED-SAME': 92, 'INHERITED-CHANGED': 4, 'MISSING-INPUT': 6, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 61, 'OVER-BUDGET-PASS': 683} report tests 6106 baseline tests 6048 in both 6041
+
+## NEW (1)
+  - tests/bridge-contract-consumer-lock.test.ts :: CF-09 source bundle and repository identity matches the actual generator manifest with the verifier source dep
+      AssertionError: expected '4ed60fee2533fa9bb8217e68de83753e6a514…' to be '31f75dfb90fc05d8b81d982bd018c00ab2619…' // Object.is equality
+
+## INHERITED-CHANGED (4)
+  - tests/bridge-owner-ux-projection20-migration.test.ts :: Owner UX outgoing projection20 migration pins genuine prior bytes, source identity, actual journal, and constr
+      AssertionError: expected 66 to be 53 // Object.is equality
+      baseline: AssertionError: expected 64 to be 53 // Object.is equality
+  - tests/p14c3-canonical-rival-history.test.ts :: C.3 canonical Actor history survives actual passive rival Writer transition and work L1 observes an actual pas
+      AssertionError [ERR_ASSERTION]: L passive work premise ended without an obligation: {"personId":"person-studio-8c9ee794-r01-4","week":607,"profession":"writer","source":{"personId":"person-studio-8c9ee794-r01-4","profess
+      baseline: Error: ENOENT: no such file or directory, open 'docs/engineering/playability-launch-review/evidence/p14b4-20260919/1035-c3-stage-c-zero-tick-inventory.json'
+  - tests/p14c3-canonical-rival-history.test.ts :: C.3 canonical Actor history survives actual passive rival Writer transition and work L2 completes real rival s
+      AssertionError [ERR_ASSERTION]: L passive work premise ended without an obligation: {"personId":"person-studio-8c9ee794-r01-4","week":607,"profession":"writer","source":{"personId":"person-studio-8c9ee794-r01-4","profess
+      baseline: Error: ENOENT: no such file or directory, open 'docs/engineering/playability-launch-review/evidence/p14b4-20260919/1035-c3-stage-c-zero-tick-inventory.json'
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) legacy-root-downgrade
+      AssertionError: elapsed 223257 ms against the 120000 ms budget: expected 223257.05819999997 to be less than or equal to 120000
+      baseline: Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+
+## MISSING-INPUT (6)
+  - tests/r3n1-stale-schedule-take-02.test.ts :: R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge SERVER REFUSAL
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02.test.ts :: R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge SERVER REFUSAL
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p31.test.ts :: R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p31.test.ts :: R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p32.test.ts :: R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p32.test.ts :: R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'
+      UNTRACKED (not recoverable here)
+
+## OVER-BUDGET-PASS (683) max 696210.815
+## BASELINE-NOT-REPRODUCED (61)
+  - tests/bridge-p13b-s3-save-as.test.ts :: P13B-S3 Save As (test 7, A11) a Save As copy keeps the same plan ids and advances independently; the
+  - tests/bridge-p14p3-directing-promises.test.ts :: P3 public Bridge authority, truthful terms and durable runtime D15 commits genuine public directing 
+  - tests/bridge-p14p3-directing-promises.test.ts :: P3 public Bridge authority, truthful terms and durable runtime D16 discloses Director and legacy cas
+  - tests/bridge-p14p3-directing-promises.test.ts :: P3 public Bridge authority, truthful terms and durable runtime D17 migrates outgoing53 independently
+  - tests/bridge-p14p4p5-opportunities.test.ts :: P4/P5 closed Bridge material and outgoing runtime authority B55-1 validates closed singular drafts a
+  - tests/bridge-p14p4p5-opportunities.test.ts :: P4/P5 closed Bridge material and outgoing runtime authority B55-2 binds actual genre work and preser
+  - tests/bridge-p14p4p5-opportunities.test.ts :: P4/P5 closed Bridge material and outgoing runtime authority B55-3 independently migrates genuine54 s
+  - tests/p14c3-canonical-rival-history.test.ts :: C.3 canonical Actor history survives actual passive rival Writer transition and work K1 reaches genu
+  - tests/p14c3-canonical-rival-history.test.ts :: C.3 canonical Actor history survives actual passive rival Writer transition and work K2 observes the
+  - tests/p14c3-canonical-rival-history.test.ts :: C.3 canonical Actor history survives actual passive rival Writer transition and work K3 preserves ex
+  - tests/p14c3-canonical-rival-history.test.ts :: C.3 canonical Actor history survives actual passive rival Writer transition and work K4 refuses sepa
+  - tests/p14c3-force-order.test.ts :: C3 genuine accepted1300 to release1311 — two reconstructed bounded branches actual canonical import 
+  - tests/p14c3-force-order.test.ts :: C3 genuine accepted1300 to release1311 — two reconstructed bounded branches both admitted branches a
+  - tests/p14c3-force-order.test.ts :: C3 genuine accepted1300 to release1311 — two reconstructed bounded branches canonical insertion reco
+  - tests/p14p3-directing-promises.test.ts :: P3 first slice: public Director promises and historical meaning D13 admits exact new promise authori
+  - tests/p14p3-directing-promises.test.ts :: P3 second slice: cancellation and same-domain waiver D12 waives only forward same-domain remaining w
+  - tests/p14p4p5-casting-reservation.test.ts :: P4/P5 actual casting reservation under development congestion Q20 exempts only the target audition r
+  - tests/p14p4p5-cross-owner.test.ts :: P4/P5 cross-owner production and writing availability Q17 distinguishes an occupied rival Actor from
+  - tests/p14p4p5-delayed-retirement.test.ts :: P4/P5 delayed committed witness and actual retirement readmission Q21 repeats retirement admission a
+  - tests/p14p4p5-finishing-material.test.ts :: P4/P5 existing finishing commitments and material work Q18 distinguishes held finishing cast work fr
+  - tests/p14p4p5-opportunities.test.ts :: P4/P5 actual narrowing on the retained bound contract Q09 narrows cast and material through a genuin
+  - tests/p14p4p5-opportunities.test.ts :: P4/P5 actual public binding and cast work Q05 binds the selected genre and records one actual cast t
+  - tests/p14p4p5-opportunities.test.ts :: P4/P5 actual public binding and cast work Q06 binds the exact screenplay and distinguishes its cast 
+  - tests/p14p4p5-opportunities.test.ts :: P4/P5 existing committed reservation witness Q10 admits a distinct Ready project behind one actual q
+  - tests/p14p4p5-opportunities.test.ts :: P4/P5 initial Ready paths and genuine39 boundary Q01 quotes one Ready genre opportunity with explici
+  - tests/p14p4p5-opportunities.test.ts :: P4/P5 initial Ready paths and genuine39 boundary Q02 quotes only the exact existing Ready project an
+  - tests/p14p4p5-opportunities.test.ts :: P4/P5 initial Ready paths and genuine39 boundary Q03 attaches exact selected material terms and refu
+  - tests/p14p4p5-opportunities.test.ts :: P4/P5 initial Ready paths and genuine39 boundary Q04 migrates genuine39 to an exact empty subject su
+  - tests/p14p4p5-opportunities.test.ts :: P4/P5 retained subject and waiver authority controls Q07 rejects nonempty suffix and owner contradic
+  - tests/p14p4p5-opportunities.test.ts :: P4/P5 retained subject and waiver authority controls Q08 selects actual cast classes and half-open m
+  - tests/p14p4p5-post-capacity.test.ts :: P4/P5 actual post capacity after two completed shooting phases Q25 isolates post occupancy and prese
+  - tests/p14p4p5-queued-project-outcome.test.ts :: P4/P5 refused, queued and committed project-seat outcomes Q23 preserves an open project promise unti
+  - tests/p14p4p5-receipt-freeze.test.ts :: P4/P5 genuine root6 and frozen receipt7 settlement Q12 preserves actual Director root6 while committ
+  - tests/p14p4p5-scenery-capacity.test.ts :: P4/P5 actual scenery capacity with independently free other facilities Q24 isolates two under-constr
+  - tests/p14p4p5-screenplay-status.test.ts :: P4/P5 screenplay and casting status clocks Q11 uses actual writing and audition boundaries and retai
+  - tests/p14p4p5-soundstage-capacity.test.ts :: P4/P5 actual existing soundstage capacity Q22 releases the actual soundstage owner before repeating 
+  - tests/p14p4p5-writer-resources.test.ts :: P4/P5 actual writing availability and development reservations Q13 separates finite active-writing d
+  - tests/p14p4p5-writer-resources.test.ts :: P4/P5 actual writing availability and development reservations Q14 retains unrelated development hol
+  - tests/p15b-legacy-v3.test.ts :: p15b modern Legacy constructed transaction controls official-v3-with-null-ended-is-not-admitted-by-f
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) legacy-adapter-career-events
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) legacy-adapter-domain-facts
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) legacy-adapter-film-facts
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) legacy-adapter-missing-concept-ref
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) legacy-adapter-private-money-never
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) legacy-adapter-run-status
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) legacy-adapter-studios
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) legacy-condition-at-6240-o
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 controls: the fixtures are lawful at RED and at GREEN legacy-control-genuine-save38-6240-lawfu
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) legacy-ol
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) legacy-va
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) legacy-migration-empty-root-genui
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) legacy-migration-past-boundary-ge
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) leg
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) leg
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) leg
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) leg
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) leg
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) leg
+  - tests/p15c2-campaign-legacy-sibling.test.ts :: p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8
+  - tests/world-first-scenery-load-in-provenance.test.ts :: World-First Scenery Load-In V1 — frozen district provenance pins authored source, accepted runtime, 
+  - tests/world-first-scenery-load-in-provenance.test.ts :: World-First Scenery Load-In V1 — frozen district provenance replays the clean exporter and pins its 
