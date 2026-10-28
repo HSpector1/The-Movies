@@ -58,6 +58,13 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
 // that window would carry the earlier hash, and this map is keyed on the
 // hash, not the label.
 export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+  // Sprint 11 (review S1): the P16 build's current64 identity (p16-technical-checkpoint-20261027, a5a66c27). P17 moved
+  // the live save to Save50 under this same schema, so a checkpoint the P16 build wrote carries it with Save49 slots,
+  // which the current-schema path refuses as non-live. Projection 65 makes it prior: each slot lifts Save49 -> Save50
+  // independently through migrateToLive and the opaque journal resets. A 64 checkpoint the P17 build already wrote
+  // (Save50 slots) takes the same path, where migrateToLive changes nothing.
+  // Install only with its original-runtime capture verified (tests/fixtures/p16/genuine-projection64-runtime).
+  ['sha256:57f12ee28d21aa47c7514afa1c058105a10f10a9e76d400d664e97c23dc90272', 'projection-v64'],
   // Authentic outgoing63: install only after its original-runtime capture is verified.
   ['sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1', 'projection-v63'],
   // Authentic generated outgoing62, before retained-writing projection63.

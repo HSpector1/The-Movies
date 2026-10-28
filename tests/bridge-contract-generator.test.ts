@@ -575,12 +575,14 @@ describe('CF-08 sound union-to-C# generation', () => {
       // which also checks the committed schema file deep-equals BRIDGE_SCHEMA). The header line does not
       // read projectionVersion, so the call keeps its 59.
       // Projection63: independently measured on0e0cdfde; p16-sprint7/declaration-measurement/measurement.json.
+      // Projection65 (Sprint 11): canonical sha256 of the post-image schema JSON, computed statically by the method that
+      // reproduces 57f12ee2 from the parent's file; the lane generator check (check:bridge-contract) must confirm it.
       const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 59 })
       expect(generated).toContain(
-        '// Schema identity: sha256:57f12ee28d21aa47c7514afa1c058105a10f10a9e76d400d664e97c23dc90272',
+        '// Schema identity: sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:57f12ee28d21aa47c7514afa1c058105a10f10a9e76d400d664e97c23dc90272',
+        'sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -745,8 +747,11 @@ describe('CF-08 sound union-to-C# generation', () => {
         // F04, F09, F12) unchanged; both current bodies are 473437 bytes / 2667c096…. Evidence:
         // lane-logs/p62-declaration-measurement.json; never a failure message.
         // Projection63: all8 measured twice,6fixed unchanged; current bodies473809bytes.
-        F10_CURRENT_QUOTE_UNIONS: '97ddfba0428d3e0b1368e22e8ef04b509bdf003536abb25cdf8a2b4e4082d004', // P16 obligation projection64: independently measured all8 twice; six fixed bodies unchanged
-        F11_CURRENT_COMMAND_UNION: '97ddfba0428d3e0b1368e22e8ef04b509bdf003536abb25cdf8a2b4e4082d004', // P16 obligation projection64: independently measured 475215-byte body, same as F10
+        // Projection65 (Sprint 11): the six StudioFranchise* $defs and the StudioIndustryResponse `franchises` member grow both
+        // whole-schema bodies. PLACEHOLDER: only the generator can produce these bodies, so the lane measures them (all eight
+        // positives rendered twice, six fixed bodies unchanged) and replaces both literals before this pin is claimed.
+        F10_CURRENT_QUOTE_UNIONS: 'PLACEHOLDER-P65-F10-DECLARATION-SHA256-FILL-FROM-LANE', // was 97ddfba0… (projection64)
+        F11_CURRENT_COMMAND_UNION: 'PLACEHOLDER-P65-F11-DECLARATION-SHA256-FILL-FROM-LANE', // was 97ddfba0… (projection64), same body as F10
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {

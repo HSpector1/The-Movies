@@ -73,6 +73,7 @@ const OUTGOING_60 = 'sha256:8bf350135c7a8b69b4fc2258d1082f452047d37964d0d58b6cc8
 const OUTGOING_61 = 'sha256:7d23fdb9a710175afb88208170cfe5692510febe06fb898a3ccd95edc9c53306'
 const OUTGOING_62 = 'sha256:2b94e6df66cd5b45e398861c8130085434d4bb9c4d0cf9bdcb97607699799604' // P16 Sprint 7: outgoing62 registered beneath 63 (bridge/runtime-checkpoint.ts)
 const OUTGOING_63 = 'sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1' // P16 Sprint 8: outgoing63 registered beneath current64 (contract64)
+const OUTGOING_64 = 'sha256:57f12ee28d21aa47c7514afa1c058105a10f10a9e76d400d664e97c23dc90272' // Sprint 11: the P16 build's outgoing64 registered beneath current65 (review S1)
 const PINS = {
   gzip: '3db0599c6e183140b79c83880eb967dde37aecc0d178a85d192283893ea0cc34',
   raw: 'e344be06db6794e9d1523c036befb4180595564ef8a3fb6e6062328e477e7699',
@@ -166,7 +167,7 @@ beforeAll(() => {
   expect(canonicalJson(prior) + '\n').toBe(raw)
 })
 
-describe('P14B4 genuine outgoing46 runtime compatibility — current Save49/projection64', () => {
+describe('P14B4 genuine outgoing46 runtime compatibility — current Save50/projection65', () => {
   it('pins genuine original46 artifact, producer authority, and two SAME-week DIFFERENT slots', () => {
     const provenance = JSON.parse(readFileSync(artifact('genuine-projection46-runtime.provenance.json'), 'utf8'))
     const manifest = JSON.parse(readFileSync(artifact('MANIFEST.json'), 'utf8'))
@@ -226,13 +227,13 @@ describe('P14B4 genuine outgoing46 runtime compatibility — current Save49/proj
     expect(current.state.talentMarket.proposals.filter((p) => p.promises.includes('promise-0'))).toEqual([])
   })
 
-  it('requires literal projection64/Save49 and the exact prior roster through outgoing63, excluding the running identity', () => {
+  it('requires literal projection65/Save50 and the exact prior roster through outgoing64, excluding the running identity', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(64)
+    expect(PROJECTION_VERSION).toBe(65)
     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
     expect(SCHEMA_ID).not.toBe(OUTGOING_46)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_PRIOR_IDS, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61, OUTGOING_62, OUTGOING_63].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_PRIOR_IDS, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61, OUTGOING_62, OUTGOING_63, OUTGOING_64].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_53)).toBe('projection-v53')

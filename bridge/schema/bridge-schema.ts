@@ -289,8 +289,10 @@ export const PROTOCOL_VERSION = 4 as const
 // Projection62: explicit stopped-drafting/rewriting outcomes in the coupled absorption preview.
 // Projection63: carried-screenplay blocker and retained-writing absorption verdicts.
 // Projection64: truthful retained/exit/unbound promise and market disposition facts in the absorption quote.
-// Protocol4 and Save49 are unchanged; generated artifacts derive this identity.
-export const PROJECTION_VERSION = 64 as const
+// Projection65 (P17 Save50): the read-only `franchises` Industry view (lineages, Recognition/Momentum/Fatigue, reboot
+// legality, lawful continuation choices) and the outgoing64 identity registered prior, so a checkpoint the P16 build
+// wrote with Save49 slots under the unchanged 64 schema lifts to Save50 on the governed prior path. Protocol4 is unchanged.
+export const PROJECTION_VERSION = 65 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })

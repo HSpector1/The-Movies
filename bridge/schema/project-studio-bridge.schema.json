@@ -961,7 +961,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 64,
+          "const": 65,
           "type": "integer"
         },
         "stateDigest": {
@@ -1078,7 +1078,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 64,
+          "const": 65,
           "type": "integer"
         },
         "stateDigest": {
@@ -1613,7 +1613,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 64,
+          "const": 65,
           "type": "integer"
         },
         "stateDigest": {
@@ -1692,7 +1692,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 64,
+          "const": 65,
           "type": "integer"
         },
         "stateDigest": {
@@ -1984,7 +1984,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 64,
+          "const": 65,
           "type": "integer"
         },
         "stateDigest": {
@@ -7489,6 +7489,410 @@
       "type": "object",
       "x-csharp-name": "StudioFoundingSnapshot"
     },
+    "StudioFranchiseBranch": {
+      "additionalProperties": false,
+      "properties": {
+        "band": {
+          "enum": [
+            "new",
+            "active",
+            "activeAgain",
+            "cooling",
+            "dormant",
+            "revivalCandidate"
+          ],
+          "type": "string"
+        },
+        "branchId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "main",
+            "reboot",
+            "spinoff"
+          ],
+          "type": "string"
+        },
+        "lastReleaseWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "momentum": {
+          "type": "number"
+        },
+        "openedAtWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "subPropertyId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "band",
+        "branchId",
+        "kind",
+        "lastReleaseWeek",
+        "momentum",
+        "openedAtWeek",
+        "subPropertyId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFranchiseBranch"
+    },
+    "StudioFranchiseChoice": {
+      "additionalProperties": false,
+      "properties": {
+        "band": {
+          "enum": [
+            "new",
+            "active",
+            "activeAgain",
+            "cooling",
+            "dormant",
+            "revivalCandidate"
+          ],
+          "type": "string"
+        },
+        "branchId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "branchKind": {
+          "enum": [
+            "main",
+            "reboot",
+            "spinoff"
+          ],
+          "type": "string"
+        },
+        "fatigue": {
+          "type": "number"
+        },
+        "inheritedAwareness01": {
+          "type": "number"
+        },
+        "momentum": {
+          "type": "number"
+        },
+        "predecessorProductionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "recognition": {
+          "type": "number"
+        },
+        "subPropertyId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "type": {
+          "enum": [
+            "directSequel",
+            "prequel",
+            "remake",
+            "reboot",
+            "spinOff"
+          ],
+          "type": "string"
+        },
+        "use": {
+          "enum": [
+            "sequel",
+            "remake",
+            "spinoff"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "band",
+        "branchId",
+        "branchKind",
+        "fatigue",
+        "inheritedAwareness01",
+        "momentum",
+        "predecessorProductionId",
+        "recognition",
+        "subPropertyId",
+        "type",
+        "use"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFranchiseChoice"
+    },
+    "StudioFranchiseInstallment": {
+      "additionalProperties": false,
+      "properties": {
+        "branchId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "greenlitWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "parentProductionId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "productionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "releasedWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "studioId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "type": {
+          "enum": [
+            "directSequel",
+            "prequel",
+            "remake",
+            "reboot",
+            "spinOff",
+            "origin"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "branchId",
+        "greenlitWeek",
+        "parentProductionId",
+        "productionId",
+        "releasedWeek",
+        "studioId",
+        "type"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFranchiseInstallment"
+    },
+    "StudioFranchiseProperty": {
+      "additionalProperties": false,
+      "properties": {
+        "branches": {
+          "items": {
+            "$ref": "#/$defs/StudioFranchiseBranch"
+          },
+          "type": "array"
+        },
+        "choices": {
+          "items": {
+            "$ref": "#/$defs/StudioFranchiseChoice"
+          },
+          "type": "array"
+        },
+        "fatigue": {
+          "type": "number"
+        },
+        "franchiseId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "installments": {
+          "items": {
+            "$ref": "#/$defs/StudioFranchiseInstallment"
+          },
+          "type": "array"
+        },
+        "mintedWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "rebootLegal": {
+          "type": "boolean"
+        },
+        "rebootRefusal": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "recognition": {
+          "type": "number"
+        },
+        "storyPropertyId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "subProperties": {
+          "items": {
+            "$ref": "#/$defs/StudioFranchiseSubProperty"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "branches",
+        "choices",
+        "fatigue",
+        "franchiseId",
+        "installments",
+        "mintedWeek",
+        "rebootLegal",
+        "rebootRefusal",
+        "recognition",
+        "storyPropertyId",
+        "subProperties"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFranchiseProperty"
+    },
+    "StudioFranchiseSubProperty": {
+      "additionalProperties": false,
+      "properties": {
+        "fatigue": {
+          "type": "number"
+        },
+        "kind": {
+          "enum": [
+            "character",
+            "organization",
+            "location",
+            "concept"
+          ],
+          "type": "string"
+        },
+        "mintedAtProductionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "mintedWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "promotedToStoryPropertyId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "recognition": {
+          "type": "number"
+        },
+        "subPropertyId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "fatigue",
+        "kind",
+        "mintedAtProductionId",
+        "mintedWeek",
+        "promotedToStoryPropertyId",
+        "recognition",
+        "subPropertyId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFranchiseSubProperty"
+    },
+    "StudioFranchisesPage": {
+      "additionalProperties": false,
+      "properties": {
+        "notice": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "properties": {
+          "items": {
+            "$ref": "#/$defs/StudioFranchiseProperty"
+          },
+          "type": "array"
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "notice",
+        "properties",
+        "title"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFranchisesPage"
+    },
     "StudioGridCellSnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -8612,7 +9016,8 @@
             "market",
             "alumni",
             "powerRanking",
-            "diligence"
+            "diligence",
+            "franchises"
           ],
           "type": "string"
         }
@@ -8667,6 +9072,16 @@
             "$ref": "#/$defs/StudioIndustryFilm"
           },
           "type": "array"
+        },
+        "franchises": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioFranchisesPage"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "laboratory": {
           "anyOf": [
@@ -8841,7 +9256,8 @@
             "market",
             "alumni",
             "powerRanking",
-            "diligence"
+            "diligence",
+            "franchises"
           ],
           "type": "string"
         }
@@ -8852,6 +9268,7 @@
         "credits",
         "diligence",
         "films",
+        "franchises",
         "laboratory",
         "lane",
         "market",
@@ -19669,7 +20086,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-64",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-65",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -19725,7 +20142,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 64,
+    "projectionVersion": 65,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

@@ -1,5 +1,6 @@
 import { buyerScriptConcepts } from '../src/core/continuedScripts.ts'
 import {paidReportsPage} from './paidReports.ts'
+import {franchisesPage} from './franchises.ts'
 import {filmScoreTenths} from '../src/core/powerRanking.js'
 /** Public, bounded Industry reads. Authoritative IDs and facts only; no private business inputs. */
 import {campaignDate} from '../src/core/calendar.js'
@@ -297,9 +298,13 @@ export function industryPage(state:GameState,sessionId:string,stateRevision:numb
     throw new Error('Industry pages require a non-negative integer page and a pageSize from 1 to 50.')
   }
   const index=indexFor(state),h=state.hollywood!,calendar=campaignDate(state.market.tick)
-  const result:IndustryPage={protocolVersion:PROTOCOL_VERSION,schemaId:SCHEMA_ID,snapshotVersion:SNAPSHOT_VERSION,type:'industryPage',requestId:q.requestId,sessionId,stateRevision,stateDigest:snapshotBuildContextFor(state).stateDigest(),calendar,view:q.view,targetId:q.targetId,page:q.page,pageSize:q.pageSize,totalRows:0,pageCount:0,lane:q.lane,period:q.period,title:'Industry',notice:'Public facts only. Standing channels and film measures have separate meanings. The quarterly Power Ranking is a separate comparison.',studios:[],films:[],people:[],credits:[],activities:[],projects:[],tendencies:[],laboratory:null,plans:null,office:null,market:null,powerRanking:null,diligence:null}
+  const result:IndustryPage={protocolVersion:PROTOCOL_VERSION,schemaId:SCHEMA_ID,snapshotVersion:SNAPSHOT_VERSION,type:'industryPage',requestId:q.requestId,sessionId,stateRevision,stateDigest:snapshotBuildContextFor(state).stateDigest(),calendar,view:q.view,targetId:q.targetId,page:q.page,pageSize:q.pageSize,totalRows:0,pageCount:0,lane:q.lane,period:q.period,title:'Industry',notice:'Public facts only. Standing channels and film measures have separate meanings. The quarterly Power Ranking is a separate comparison.',studios:[],films:[],people:[],credits:[],activities:[],projects:[],tendencies:[],laboratory:null,plans:null,office:null,market:null,powerRanking:null,diligence:null,franchises:null}
   const page=<T>(rows:T[]):T[]=>{result.totalRows=rows.length;result.pageCount=Math.ceil(rows.length/q.pageSize);if(q.page>0&&q.page>=result.pageCount)throw new Error('That page is outside this snapshot. Return to the first page.');return rows.slice(q.page*q.pageSize,(q.page+1)*q.pageSize)}
-  if(q.view==='diligence') {
+  if(q.view==='franchises') {
+    const read=franchisesPage(state,q.targetId,q.page,q.pageSize)
+    result.franchises=read.franchises;result.totalRows=read.totalRows;result.pageCount=read.pageCount
+    result.title=read.franchises.title;result.notice=read.franchises.notice
+  } else if(q.view==='diligence') {
     const reports=paidReportsPage(state,q.targetId,q.page,q.pageSize)
     result.diligence=reports.diligence;result.totalRows=reports.totalRows;result.pageCount=reports.pageCount
     result.title=reports.diligence.title;result.notice=reports.diligence.notice

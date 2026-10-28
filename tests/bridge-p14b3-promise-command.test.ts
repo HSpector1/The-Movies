@@ -508,7 +508,7 @@ describe('P14B.3: real settlement/outcome, V29 and B2 public/private carriers', 
     const saved = saveSlot(completed)
     const validated = validateLiveSave(JSON.parse(saved))
     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
-    expect(PROJECTION_VERSION).toBe(64)
+    expect(PROJECTION_VERSION).toBe(65)
     expect(validated.saveVersion).toBe(LIVE_SAVE_VERSION)
     const reloaded = BridgeSession.fromSaveJson(saved, 'b3-outcome-reloaded')
     const read = (world: GameState) => ({ trust: trustBlockFor(world, talentId, player(world)),
