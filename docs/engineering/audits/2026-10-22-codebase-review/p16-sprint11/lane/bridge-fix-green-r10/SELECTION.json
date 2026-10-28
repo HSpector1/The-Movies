@@ -1,0 +1,16 @@
+{
+  "head": "2b1a5b4b50dd66b6506d61b51a6b8a6861581579",
+  "sourceManifestEntries": 2131,
+  "purpose": "Sprint 11 bridge-fix-green-r10: the four files Bridge FIX-1 touched, on the candidate 2b1a5b4b",
+  "children": [
+    {
+      "label": "focused",
+      "completeFiles": [
+        "tests/bridge-runtime-checkpoint.test.ts",
+        "tests/bridge-p17-franchise-read-model.test.ts",
+        "tests/bridge-contract-generator.test.ts",
+        "tests/bridge-p14b5-relationships.test.ts"
+      ]
+    }
+  ]
+}

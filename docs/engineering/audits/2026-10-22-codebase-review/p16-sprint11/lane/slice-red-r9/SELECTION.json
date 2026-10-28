@@ -1,0 +1,17 @@
+{
+  "head": "6814e7d79135db448169e4b786fcee835249ed09",
+  "sourceManifestEntries": 2076,
+  "purpose": "Sprint 11 RED premise r9 at the Sprint 10 tag 2c50c9df (worktree p17-slice-red-20261027: no Sprint 11 source; the Bridge slice A tests after FIX-1, the genuine capture fixture, the three cameo tests and their route helper)",
+  "children": [
+    {
+      "label": "red",
+      "completeFiles": [
+        "tests/bridge-runtime-checkpoint.test.ts",
+        "tests/bridge-p17-franchise-read-model.test.ts",
+        "tests/p17-cameo-booking.test.ts",
+        "tests/p17-cameo-seam.test.ts",
+        "tests/p17-cameo-law.test.ts"
+      ]
+    }
+  ]
+}
