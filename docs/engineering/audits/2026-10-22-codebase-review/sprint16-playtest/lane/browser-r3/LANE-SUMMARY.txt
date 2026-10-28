@@ -1,0 +1,6 @@
+=== BEGIN browser-d12-economy-journey
+  ✘  1 [chromium] › ui/e2e/d12-economy-journey.spec.ts:43:1 › D-12: finances card, release-strategy gate, sim-to-event, theatrical run + Studio Rev (22.4s)
+    Error: expect(locator).toBeEnabled() failed
+  1 failed
+=== END browser-d12-economy-journey exit=1 elapsed=37s
+=== CHECKPOINT exit=1

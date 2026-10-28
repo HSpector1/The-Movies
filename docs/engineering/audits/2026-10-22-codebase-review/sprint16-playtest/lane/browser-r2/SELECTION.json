@@ -1,0 +1,16 @@
+{
+  "head": "e115be4ba55cde244520fd0babc68b961e4eb17a",
+  "sourceManifestEntries": 2130,
+  "purpose": "Sprint 16 browser-r2: d12-economy-journey alone, unpatched, to capture the dashboard state (error-context snapshot) at the disabled Sim-to-next-event step that failed in browser-r1; diagnosis run, no fix",
+  "children": [
+    {
+      "label": "browser-d12-economy-journey",
+      "command": "node node_modules/@playwright/test/cli.js test --config ui/playwright.config.ts d12-economy-journey.spec.ts --reporter=list,json",
+      "jsonReport": "d12-economy-journey-report.json"
+    }
+  ],
+  "budgets": {
+    "timeoutOverride": false,
+    "note": "spec-declared Playwright budgets unchanged"
+  }
+}

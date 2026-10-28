@@ -1,0 +1,18 @@
+=== BEGIN browser-smoke
+  ✓  1 [chromium] › ui/e2e/smoke.spec.ts:111:1 › full playable loop: assemble → greenlight → release → autopsy → save round-trip (30.2s)
+  1 passed (47.1s)
+=== END browser-smoke exit=0 elapsed=49s
+=== BEGIN browser-d12-economy-journey
+  ✘  1 [chromium] › ui/e2e/d12-economy-journey.spec.ts:43:1 › D-12: finances card, release-strategy gate, sim-to-event, theatrical run + Studio Rev (20.5s)
+    Error: expect(locator).toBeEnabled() failed
+  1 failed
+=== END browser-d12-economy-journey exit=1 elapsed=36s
+=== BEGIN browser-p17-continuation
+  ✓  1 [chromium] › ui/e2e/p17-continuation.spec.ts:108:1 › P17 journey: release an original, greenlight its sequel with a featured guest, release it, read lineage and meters (19.3s)
+  1 passed (34.5s)
+=== END browser-p17-continuation exit=0 elapsed=36s
+=== BEGIN browser-p18-season
+  ✓  1 [chromium] › ui/e2e/p18-season.spec.ts:73:1 › P18 journey: commission a season from Assembly, advance to its first credited unit, read the Dashboard row (14.7s)
+  1 passed (29.1s)
+=== END browser-p18-season exit=0 elapsed=30s
+=== CHECKPOINT exit=1

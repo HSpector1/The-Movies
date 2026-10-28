@@ -1,0 +1,16 @@
+{
+  "head": "468d99b8ad6efdfbbf4c7b5d93512c6e18eec11e",
+  "sourceManifestEntries": 2130,
+  "purpose": "Sprint 16 browser-r4: d12-economy-journey alone on the spec-fix commit (release-commit step added); expected green after red at e115be4b (browser-r1/r2/r3)",
+  "children": [
+    {
+      "label": "browser-d12-economy-journey",
+      "command": "node node_modules/@playwright/test/cli.js test --config ui/playwright.config.ts d12-economy-journey.spec.ts --reporter=list,json",
+      "jsonReport": "d12-economy-journey-report.json"
+    }
+  ],
+  "budgets": {
+    "timeoutOverride": false,
+    "note": "spec-declared Playwright budgets unchanged"
+  }
+}

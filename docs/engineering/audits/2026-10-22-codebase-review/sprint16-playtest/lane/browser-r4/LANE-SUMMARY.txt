@@ -1,0 +1,5 @@
+=== BEGIN browser-d12-economy-journey
+  ✓  1 [chromium] › ui/e2e/d12-economy-journey.spec.ts:43:1 › D-12: finances card, release-strategy gate, sim-to-event, theatrical run + Studio Rev (18.4s)
+  1 passed (34.9s)
+=== END browser-d12-economy-journey exit=0 elapsed=36s
+=== CHECKPOINT exit=0

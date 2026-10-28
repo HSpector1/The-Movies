@@ -1,0 +1,31 @@
+{
+  "head": "e115be4ba55cde244520fd0babc68b961e4eb17a",
+  "sourceManifestEntries": 2130,
+  "purpose": "Sprint 16 browser-r1 on e115be4b (tag p18-sprint14-checkpoint-20261028): the four real-browser journeys in installed Google Chrome 150 via Playwright channel chrome (ui/playwright.config.ts, fixed port 5178, workers 1): smoke (new studio, legal film, greenlight, release, autopsy, export, new game, import, continue), d12-economy-journey (finances card, release strategy, sim to next event, theatrical run), p17-continuation (released original, sequel with a featured guest, lineage), p18-season (commission a limited series, first credited unit). Launch-path and route evidence for the playtest candidate; not Owner acceptance.",
+  "children": [
+    {
+      "label": "browser-smoke",
+      "command": "node node_modules/@playwright/test/cli.js test --config ui/playwright.config.ts smoke.spec.ts --reporter=list,json",
+      "jsonReport": "smoke-report.json"
+    },
+    {
+      "label": "browser-d12-economy-journey",
+      "command": "node node_modules/@playwright/test/cli.js test --config ui/playwright.config.ts d12-economy-journey.spec.ts --reporter=list,json",
+      "jsonReport": "d12-economy-journey-report.json"
+    },
+    {
+      "label": "browser-p17-continuation",
+      "command": "node node_modules/@playwright/test/cli.js test --config ui/playwright.config.ts p17-continuation.spec.ts --reporter=list,json",
+      "jsonReport": "p17-continuation-report.json"
+    },
+    {
+      "label": "browser-p18-season",
+      "command": "node node_modules/@playwright/test/cli.js test --config ui/playwright.config.ts p18-season.spec.ts --reporter=list,json",
+      "jsonReport": "p18-season-report.json"
+    }
+  ],
+  "budgets": {
+    "timeoutOverride": false,
+    "note": "spec-declared Playwright budgets unchanged"
+  }
+}
