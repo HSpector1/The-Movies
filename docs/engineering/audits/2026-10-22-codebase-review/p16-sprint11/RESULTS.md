@@ -19,3 +19,7 @@ Cameo slice: installed as fd2cc2e0 (after the evidence commit 744da457 with capt
 ## RED premise at 2c50c9df for both slices; Bridge FIX-1 GREEN — 22:10 CDT
 
 slice-red-r9 (lane/slice-red-r9/RED-CASES.md): every Sprint 11 case is RED at the Sprint 10 tag: Bridge slice A 4 + 3 by assertion; cameo booking 12 by assertion and 1 by TypeError, seam 5 of 6 by assertion, law by missing module. bridge-fix-green-r10 on 2b1a5b4b: bridge-runtime-checkpoint 86/86, bridge-p17-franchise-read-model 3/3, bridge-contract-generator 31/31; bridge-p14b5-relationships 10/15 with the five inherited family-12 failures (same as the Sprint 10 gate). Bridge slice A is GREEN and reviewed; cameo FIX-1 pending (one type diagnostic plus the six review items).
+
+## Cameo FIX-1 (465d49a9): types 0/0; focused 98/99; RED at 2c50c9df complete — 22:20 CDT
+
+types-r11 root 0, Bridge 0. cameo-green-r12: 98 of 99 across the three cameo files (law 14, seam 7, booking 19) and the five continuation files; the one failure is the closure live route's own premise ("the distress loan leaves cash below the cheapest guest fee"), failing by name at both commits, not a law; cameo FIX-2 for the route in preparation. cameo-red-r13 at the tag: booking 19/19 RED by assertion, seam 6/7 (the design-identical case passes), law RED by missing module. Re-review of FIX-1 in flight.

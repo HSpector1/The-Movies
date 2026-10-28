@@ -1,0 +1,478 @@
+diff --git a/src/core/cameo.ts b/src/core/cameo.ts
+--- a/src/core/cameo.ts
++++ b/src/core/cameo.ts
+@@ -24,7 +24,8 @@
+ 
+ /** A booking on a greenlight: the guest, the one work week, and the exact fee the studio accepts from the quote
+  * (`cameoQuote`). The greenlight re-evaluates every quote input; a different fee refuses as stale (contract §4). */
+-export type CameoBookingRequest = { talentId: string; workWeek: number; fee: number }
++/** The accepted quote: the person, the one work week, and the quoted fee and basis, each refused at commit if changed. */
++export type CameoBookingRequest = { talentId: string; workWeek: number; fee: number; basis: 'employee' | 'freelance' }
+ 
+ // ── §2 capability and profile ─────────────────────────────────────────────────
+ /** Featured capacity at a week: none before the 1956 unlock, two from it on. */
+diff --git a/src/core/cameoBooking.ts b/src/core/cameoBooking.ts
+--- a/src/core/cameoBooking.ts
++++ b/src/core/cameoBooking.ts
+@@ -1,8 +1,8 @@
+ // ── P17 Shape A — cameo bookings on the live GameState ──────────────────────────────────────────────────
+ //
+ // Binds the pure law (cameo.ts) to the real owners: the quote and the eligibility matrix read the ONE availability set
+-// (`busyTalentIds`), the studio-aware employer (`studioEmployerId`), the lifecycle authority (`retirementRecordFor` /
+-// `lifecycleRefusal`, with an explicit one-week end instead of `assignmentRefusal`'s full production seat) and the
++// (`busyTalentIds`), the studio-aware employer (`studioEmployerId`), the lifecycle authority (`assignmentRefusal`, with the
++// appearance's one-week obligation end instead of a full production seat's) and the
+ // existing population. Money moves through the player's canonical ledger as `freelancerFee` rows (a direct production
+ // cost the committed-cost readers already sum). Deterministic and pure; refusals throw before any write.
+ //
+@@ -26,7 +26,7 @@
+   type CameoBookingRequest,
+   type CameoRefund,
+ } from './cameo.js'
+-import { lifecycleRefusal, retirementRecordFor } from './careerLifecycle.js'
++import { assignmentRefusal } from './careerLifecycle.js'
+ import { busyTalentIds, economyEngaged } from './employment.js'
+ import { studioEmployerId } from './hollywood.js'
+ import { productionPhaseForRemainingTicksOrNull } from './productionPhases.js'
+@@ -100,18 +100,12 @@
+   if (featuredCapacity(week) === 0) return refuse(`featured/cameo bookings unlock at week ${TUNING.P17_CAMEO_UNLOCK_WEEK} (1956 Week 1); week ${week} has no capability`)
+   const talent = state.talent.find((t) => t.id === args.talentId)
+   if (talent === undefined) return refuse(`guest ${args.talentId} is not an existing person of this world`)
+-  // greenlight's has-discipline law: an appearance is acting work, priced and performed on the acting profile
+-  if (talent.skills.acting === undefined) return refuse(`guest ${talent.id} lacks an acting skill profile`)
+   if (!(Number.isInteger(workWeek) && week < workWeek && workWeek <= week + TUNING.PRODUCTION_TICKS)) {
+     return refuse(`work week ${String(workWeek)} must satisfy ${week} < workWeek <= ${week + TUNING.PRODUCTION_TICKS}`)
+   }
+-  // The lifecycle authority with an explicit one-week end: the current profession AND any recorded actor episode (an
+-  // actor who retired into writing takes no new acting job); an announced person may take only work completing at
+-  // its right boundary by the effective week; a finishing or retired person takes none.
+-  for (const record of new Set([retirementRecordFor(state, talent.id), retirementRecordFor(state, talent.id, 'actor')])) {
+-    if (record === undefined || (record.status === 'announced' && workWeek + 1 <= record.effectiveWeek)) continue
+-    return refuse(lifecycleRefusal(record, `a one-week appearance in week ${workWeek} would not complete before it`))
+-  }
++  // The lifecycle authority, current profession AND any recorded actor episode, with the one-week end [workWeek, workWeek + 1).
++  const lifecycle = assignmentRefusal(state, talent.id, workWeek, 'actor', workWeek + 1)
++  if (lifecycle !== null) return refuse(lifecycle)
+   const otherWeeks = reservedGuestWeeks(state.cameos, talent.id)
+   if (otherWeeks.includes(workWeek)) return refuse(`${talent.id} already holds a guest reservation for week ${workWeek}`)
+   // ponytail: the one availability set, read as open-ended; a seat whose picture releases before the work week, or a
+@@ -182,6 +176,8 @@
+     const quote = cameoQuote(state, request)
+     if (!quote.ok) reject(quote.reason)
+     if (request.fee !== quote.fee) reject(`stale cameo quote for ${request.talentId}: the fee is now ${money(quote.fee)}, not the accepted ${money(request.fee)}; re-quote before booking`)
++    // contract §4: an employment change makes the quote stale (the basis carries the own-employee exit obligation)
++    if (request.basis !== quote.basis) reject(`stale cameo quote for ${request.talentId}: the basis is now ${quote.basis}, not the accepted ${String(request.basis)}; re-quote before booking`)
+     facts.push({
+       studioId: state.hollywood!.playerStudioId,
+       productionId: ctx.productionId,
+@@ -219,7 +215,7 @@
+   if (prep.facts.length === 0) return state
+   let cameos = state.cameos
+   for (const f of prep.facts) cameos = mintCameoBooking(cameos, f)
+-  return { ...state, cameos }
++  return { ...state, ...(cameos === undefined ? {} : { cameos }) }
+ }
+ 
+ // ── cancellation and settlement (contract §4) ────────────────────────────────────────────────────────────
+diff --git a/src/core/careerLifecycle.ts b/src/core/careerLifecycle.ts
+--- a/src/core/careerLifecycle.ts
++++ b/src/core/careerLifecycle.ts
+@@ -109,13 +109,17 @@
+ 
+ /** `null` when a production seat assigned at `week` is lawful for this person (773 D9):
+  * an announced person is seated only while `week + PRODUCTION_TICKS + 1 <= effectiveWeek`;
+- * a finishing or retired person never. */
+-export function assignmentRefusal(state: Pick<GameState, 'careerLifecycle' | 'talent'>, personId: string, week: number, requestedProfession?: CreativeRole): string | null {
++ * a finishing or retired person never. A shorter obligation (P17's one-week guest appearance)
++ * passes its own exclusive end week in place of the seat's. */
++export function assignmentRefusal(state: Pick<GameState, 'careerLifecycle' | 'talent'>, personId: string, week: number, requestedProfession?: CreativeRole, obligationEndWeekExclusive?: number): string | null {
+   const current = retirementRecordFor(state, personId)
+   const requested = requestedProfession === undefined ? current : retirementRecordFor(state, personId, requestedProfession)
++  const end = obligationEndWeekExclusive ?? week + TUNING.PRODUCTION_TICKS + 1
+   for (const record of new Set([current, requested])) {
+-    if (record === undefined || record.status === 'announced' && week + TUNING.PRODUCTION_TICKS + 1 <= record.effectiveWeek) continue
+-    return lifecycleRefusal(record, `a production seat taken at week ${week} cannot release before it`)
++    if (record === undefined || record.status === 'announced' && end <= record.effectiveWeek) continue
++    return lifecycleRefusal(record, obligationEndWeekExclusive === undefined
++      ? `a production seat taken at week ${week} cannot release before it`
++      : `an assignment taken at week ${week} ending at week ${obligationEndWeekExclusive} cannot complete before it`)
+   }
+   return null
+ }
+diff --git a/src/core/tick.ts b/src/core/tick.ts
+--- a/src/core/tick.ts
++++ b/src/core/tick.ts
+@@ -118,7 +118,7 @@
+ import { applyContinuationRelease, withFranchises } from './continuation.js'
+ import { continuationReleaseInput, p17RightsHolds } from './continuationGreenlight.js'
+ import { attachCameoCareerEvents, releaseCameoBookings } from './cameo.js'
+-import { cameoReleaseInputs, cancelExitedEmployeeBookings, resolveCameoWeek } from './cameoBooking.js'
++import { cameoReleaseInputs, resolveCameoWeek } from './cameoBooking.js'
+ import { RngStream, stream } from './rng.js'
+ import { resolveShape } from './shape.js'
+ import {
+@@ -1321,12 +1321,8 @@
+   // step follows the ranking record (the quarter's band and the condition read the same settled cash, and
+   // a studio closing at W stays in that snapshot), the closure phase follows the condition step (closure
+   // due declared at W is closed at W, before Legacy freeze), and the freeze stays last. No RNG.
+-  // P17 Shape A (cameo contract §4 employment exit): after this week's contract expiry, market and lifecycle steps and
+-  // before the ranking reads the week's cash, an own-employee appearance whose employment ended is cancelled once. A
+-  // tail settlement, so its refund row carries the arrived week, as the market's and the closure's rows do (L-18).
+-  const employmentSettled = cancelExitedEmployeeBookings(
+-    advanceLifecycleSettlement(advanceTalentMarketWeek(advancePromisesWeek(advanceLifecycleIntent(withRights, birthdays)))), currentTick + 1)
+-  return freezeCampaignLegacyWeek(advanceStudioClosureWeek(advanceCorporateConditionWeek(recordPowerRankingQuarter(employmentSettled)),
++  return freezeCampaignLegacyWeek(advanceStudioClosureWeek(advanceCorporateConditionWeek(recordPowerRankingQuarter(
++    advanceLifecycleSettlement(advanceTalentMarketWeek(advancePromisesWeek(advanceLifecycleIntent(withRights, birthdays)))))),
+     { deferPlayerClosure: options?.deferPlayerClosure === true }))
+ }
+ 
+diff --git a/tests/helpers/p17-cameo-route.ts b/tests/helpers/p17-cameo-route.ts
+--- a/tests/helpers/p17-cameo-route.ts
++++ b/tests/helpers/p17-cameo-route.ts
+@@ -12,7 +12,9 @@
+ import { beginFoundingHistoricalControl, busyTalentIds } from '../../src/core/employment.js'
+ import { MARKETING_BUDGET_LEVELS } from '../../src/core/grid.js'
+ import { initializeHollywood, studioEmployerId } from '../../src/core/hollywood.js'
++import { studioWeeklyFixedCost } from '../../src/core/powerRankingArchive.js'
+ import { resolveShape } from '../../src/core/shape.js'
++import { loanMaxPrincipal } from '../../src/core/studioLoan.js'
+ import { roleOVR } from '../../src/core/talentSummary.js'
+ import { tick } from '../../src/core/tick.js'
+ import { TUNING } from '../../src/core/tuning.js'
+@@ -23,7 +25,7 @@
+ export const UNLOCK_WEEK = 1872
+ 
+ /** The booking a greenlight carries (src/core/cameo.ts CameoBookingRequest), spelled locally. */
+-export type Ask = { talentId: string; workWeek: number; fee: number }
++export type Ask = { talentId: string; workWeek: number; fee: number; basis: 'employee' | 'freelance' }
+ /** The persisted booking (src/core/types.ts CameoBooking), the fields these tests read. */
+ export type Booking = {
+   bookingId: string; studioId: string; productionId: string; talentId: string; workWeek: number; bookedWeek: number
+@@ -71,8 +73,9 @@
+   return { before, world, a: pkg(0), b: pkg(1), writer: signed.writer[0]! }
+ }
+ 
+-/** An engaged legacy greenlight of `concept` staffed by `pkg` (contracted, so no freelancer fee), carrying `cameos`. */
+-export function greenlight(state: GameState, concept: FilmConcept, pkg: Package, writer: string, cameos?: Ask[]): Action {
++/** An engaged legacy greenlight of `concept` staffed by `pkg` (contracted, so no freelancer fee), carrying `cameos`.
++ * `budget` replaces the fully funded default (the core accepts any finite, non-negative amount). */
++export function greenlight(state: GameState, concept: FilmConcept, pkg: Package, writer: string, cameos?: Ask[], budget?: { negative: number; marketing: number }): Action {
+   return {
+     kind: 'greenlight',
+     production: {
+@@ -83,7 +86,7 @@
+       directorId: pkg.director,
+       craftIds: [pkg.craft],
+       cast: { lead: pkg.cast[0], antagonist: pkg.cast[1], support: pkg.cast[2] },
+-      budget: { negative: concept.baseNegativeCost * resolveShape(SHAPE).budgetDemandMultiplier * state.era.costScale, marketing: MARKETING_BUDGET_LEVELS[0] },
++      budget: budget ?? { negative: concept.baseNegativeCost * resolveShape(SHAPE).budgetDemandMultiplier * state.era.costScale, marketing: MARKETING_BUDGET_LEVELS[0] },
+     },
+     ...(cameos === undefined ? {} : { cameos }),
+   } as Action
+@@ -96,7 +99,7 @@
+   return Math.round(0.35 * (TUNING.SALARY_BASE + TUNING.SALARY_SKILL_COEF * ovr * ovr + TUNING.SALARY_FAME_COEF * fame * fame))
+ }
+ 
+-export const ask = (t: Talent, workWeek: number): Ask => ({ talentId: t.id, workWeek, fee: expectedFee(t) })
++export const ask = (t: Talent, workWeek: number, basis: Ask['basis'] = 'freelance'): Ask => ({ talentId: t.id, workWeek, fee: expectedFee(t), basis })
+ 
+ /** The most famous existing person of `role` free for a week-`week + 1 … + 8` appearance: nobody's employee now or
+  * then, in no actual work, holding no retirement record (current or actor), never in `exclude`. */
+@@ -122,3 +125,50 @@
+   if (!s.studio.releasedFilms.some((f) => f.productionId === id)) throw new Error(`premise: ${id} did not release`)
+   return s
+ }
++
++// ── the player's closure while a booking is reserved (no state surgery beyond the p15b drain device) ─────────────
++type ConditionView = { stage: string; distressWeeks: number; week: number }
++const conditionOf = (s: GameState): ConditionView | undefined =>
++  (s as unknown as { corporateCondition: { studios: { studioId: string; condition: ConditionView }[] } }).corporateCondition.studios.find((r) => r.studioId === s.hollywood!.playerStudioId)?.condition
++export const closuresOf = (s: GameState): { studioId: string; closureWeek: number }[] =>
++  (s as unknown as { studioClosure: { closures: { studioId: string; closureWeek: number }[] } }).studioClosure.closures
++
++/** The p15b drain device (tests/helpers/p15b-live.ts `drainPlayer`): one test ledger row lowers cash by `amount`. */
++function drain(state: GameState, amount: number): GameState {
++  if (!Number.isInteger(amount) || amount <= 0) throw new Error('drain: amount must be a positive integer')
++  return { ...state, studio: { ...state.studio, cash: state.studio.cash - amount },
++    ledger: [...state.ledger, { week: state.market.tick, kind: 'publicity', amount: -amount, note: 'p17 cameo test drain' }] }
++}
++
++export type ClosureRoute = { booked: GameState; closed: GameState; guest: Talent; week: number }
++
++/**
++ * The player drained to -1 at week 1872 walks the corporate condition law (warning, distress) to the last distress week
++ * before closure. That week it takes the lawful distress loan, is drained to exactly the guest's fee, and greenlights
++ * `pkg` at zero budget with one booking four weeks out (contracted staff, so the fee is the only spend). The ordinary
++ * tick then charges payroll, the condition closes the studio and the closure phase runs while the booking is reserved.
++ */
++export function closureRoute(world: GameState, pkg: Package, writer: string, exclude: ReadonlySet<string>): ClosureRoute {
++  let s = drain(world, world.studio.cash + 1)
++  for (let guard = 0; guard < 80; guard++) {
++    const c = conditionOf(s)
++    if (c?.stage === 'distress' && c.distressWeeks === TUNING.CORPORATE_CLOSURE_DISTRESS_WEEKS - 1) break
++    s = tick(s)
++  }
++  const c = conditionOf(s)
++  if (!(c?.stage === 'distress' && c.distressWeeks === TUNING.CORPORATE_CLOSURE_DISTRESS_WEEKS - 1)) throw new Error(`premise: the drained player never reached distress week ${TUNING.CORPORATE_CLOSURE_DISTRESS_WEEKS - 1} (at week ${s.market.tick}: ${JSON.stringify(c)})`)
++  const week = s.market.tick
++  const busy = busyTalentIds(s)
++  const guest = s.talent
++    .filter((t) => !exclude.has(t.id) && !busy.has(t.id) && t.fame > 0 && studioEmployerId(s, t.id) === null && studioEmployerId(s, t.id, week + 4) === null
++      && retirementRecordFor(s, t.id) === undefined && retirementRecordFor(s, t.id, 'actor') === undefined)
++    .sort((x, y) => expectedFee(x) - expectedFee(y) || (x.id < y.id ? -1 : x.id > y.id ? 1 : 0))[0]
++  if (guest === undefined) throw new Error(`premise: no free guest at week ${week}`)
++  const principal = loanMaxPrincipal(studioWeeklyFixedCost(s, s.hollywood!.playerStudioId))
++  s = applyActions(s, [{ kind: 'takeLoan', principal }])
++  const fee = expectedFee(guest)
++  if (s.studio.cash < fee) throw new Error(`premise: the distress loan (${principal}) leaves cash ${s.studio.cash}, below the cheapest guest fee ${fee}`)
++  if (s.studio.cash > fee) s = drain(s, s.studio.cash - fee)
++  const booked = applyActions(s, [greenlight(s, s.concepts[0]!, pkg, writer, [ask(guest, week + 4)], { negative: 0, marketing: 0 })])
++  return { booked, closed: tick(booked), guest, week }
++}
+diff --git a/tests/p17-cameo-booking.test.ts b/tests/p17-cameo-booking.test.ts
+--- a/tests/p17-cameo-booking.test.ts
++++ b/tests/p17-cameo-booking.test.ts
+@@ -9,6 +9,9 @@
+ // parent has, so each case fails there by assertion — the parent ignores `cameos`, refuses nothing, charges nothing and
+ // keeps no root. Every case opens with an assertion on the booking it needs, so no case reaches a TypeError at the
+ // parent. The world is built once at collection (tests/helpers/p17-cameo-route.ts); no hook carries it.
++//
++// Fix 1 (against fd2cc2e0): the stale-basis case is RED at fd2cc2e0 too (the basis was re-derived silently); the
++// closure case and the split validator cases are RED at 2c50c9df by assertion and GREEN at fd2cc2e0 by design.
+ 
+ import { describe, expect, it } from 'vitest'
+ import { applyActions } from '../src/core/actions.js'
+@@ -20,7 +23,7 @@
+ import { tick } from '../src/core/tick.js'
+ import { TUNING } from '../src/core/tuning.js'
+ import type { Action, GameState } from '../src/core/types.js'
+-import { ask, cameoRoute, expectedFee, freeGuest, greenlight, releaseNewest, rootOf, UNLOCK_WEEK, type Booking } from './helpers/p17-cameo-route.js'
++import { ask, cameoRoute, closureRoute, closuresOf, expectedFee, freeGuest, greenlight, releaseNewest, rootOf, UNLOCK_WEEK, type Booking } from './helpers/p17-cameo-route.js'
+ 
+ const route = cameoRoute('p17-cameo-booking-01')
+ const { world, a, b, writer } = route
+@@ -77,8 +80,8 @@
+     expect(rootOf(credited)?.bookings).toHaveLength(1)
+     const third = freeGuest(world, 'actor', new Set([...principals, guest.id, guest2.id]))
+     unchanged(() => applyActions(world, [greenlight(world, conceptA, a, writer, [ask(guest, SHOOT), ask(guest2, SHOOT), ask(third, SHOOT)])]), /at most 2 guests per production/)
+-    unchanged(() => applyActions(world, [greenlight(world, conceptA, a, writer, [{ talentId: a.director, workWeek: SHOOT, fee: 1 }])]), /already credited on this picture/)
+-    unchanged(() => applyActions(world, [greenlight(world, conceptA, a, writer, [{ talentId: writer, workWeek: SHOOT, fee: 1 }])]), /already credited on this picture/)
++    unchanged(() => applyActions(world, [greenlight(world, conceptA, a, writer, [{ talentId: a.director, workWeek: SHOOT, fee: 1, basis: 'freelance' }])]), /already credited on this picture/)
++    unchanged(() => applyActions(world, [greenlight(world, conceptA, a, writer, [{ talentId: writer, workWeek: SHOOT, fee: 1, basis: 'freelance' }])]), /already credited on this picture/)
+     unchanged(() => applyActions(world, [greenlight(world, conceptA, a, writer, [ask(guest, W)])]), /work week .* must satisfy/)
+     unchanged(() => applyActions(world, [greenlight(world, conceptA, a, writer, [ask(guest, W + TUNING.PRODUCTION_TICKS + 1)])]), /work week .* must satisfy/)
+     unchanged(() => applyActions(world, [greenlight(world, conceptA, a, writer, [ask(guest, SHOOT), ask(guest, SHOOT + 1)])]), /requested twice/)
+@@ -181,7 +184,7 @@
+     const both = applyActions(booked, [greenlight(booked, conceptB, b, writer, [ask(guest, SHOOT + 1)])])
+     expect(rootOf(both)!.bookings.filter((x) => x.talentId === guest.id).map((x) => [x.workWeek, x.status])).toEqual([[SHOOT, 'reserved'], [SHOOT + 1, 'reserved']])
+     // a principal seated on the first picture holds actual work
+-    expect(() => applyActions(booked, [greenlight(booked, conceptB, b, writer, [{ talentId: a.cast[0], workWeek: SHOOT, fee: 1 }])])).toThrow(/holds actual work/)
++    expect(() => applyActions(booked, [greenlight(booked, conceptB, b, writer, [{ talentId: a.cast[0], workWeek: SHOOT, fee: 1, basis: 'freelance' }])])).toThrow(/holds actual work/)
+   })
+ 
+   it('a freelance booking is disclosed to a new employer and survives the signing; an own-employee exit cancels with the standard refund', () => {
+@@ -197,13 +200,25 @@
+     expect(bookingOf(signed, freelancer.id)).toEqual(bookingOf(fb, freelancer.id))
+     // own employee: a second-package actor, contracted and unseated, books as an employee appearance
+     const employee = world.talent.find((t) => t.id === b.cast[0])!
+-    const eb = applyActions(world, [greenlight(world, conceptA, a, writer, [ask(employee, SHOOT)])])
++    const eb = applyActions(world, [greenlight(world, conceptA, a, writer, [ask(employee, SHOOT, 'employee')])])
+     const x = bookingOf(eb, employee.id)!
+     expect(x.basis).toBe('employee')
+     const exited = applyActions(eb, [{ kind: 'releaseTalent', talentId: employee.id }])
+     expect(bookingOf(exited, employee.id)).toMatchObject({ status: 'cancelled', cancelReason: 'employmentExit', refund: x.fee - x.retained, cancelledWeek: W })
+     expect(feeRows(exited, employee.id)).toEqual([[W, -x.fee, true], [W, x.fee - x.retained, true]])
+   })
++
++  it('an employment change makes the quote stale: a freelancer signed in the same batch refuses as freelance and books as employee', () => {
++    const market = new Set(hiringMarketIds(world))
++    const busy = busyTalentIds(world)
++    const freelancer = world.talent.find((t) => market.has(t.id) && !principals.has(t.id) && t.id !== guest.id && !busy.has(t.id) && unretired(world, t.id)
++      && studioEmployerId(world, t.id) === null && studioEmployerId(world, t.id, SHOOT) === null)!
++    expect(freelancer).toBeDefined()
++    const sign: Action = { kind: 'signContract', talentId: freelancer.id, termWeeks: TUNING.CONTRACT_MIN_WEEKS }
++    unchanged(() => applyActions(world, [sign, greenlight(world, conceptA, a, writer, [ask(freelancer, SHOOT)])]), /stale cameo quote .* the basis is now employee, not the accepted freelance/)
++    const employed = applyActions(world, [sign, greenlight(world, conceptA, a, writer, [ask(freelancer, SHOOT, 'employee')])])
++    expect(bookingOf(employed, freelancer.id)?.basis).toBe('employee')
++  })
+ })
+ 
+ describe('P17 Shape A — persistence in the Save50 step (additive, absent by default)', () => {
+@@ -219,18 +234,37 @@
+     expect(exportSave(save)).toBe(bytes)
+   })
+ 
+-  it('the validator refuses an empty root, an unknown key, a forged fee, a foreign studio and a completion that never happened', () => {
++  const save = makeSave(booked)
++  const refuse = (edit: (f: Forged) => void, pattern: RegExp) => {
+     expect(rootOf(booked)?.bookings).toHaveLength(1)
+-    const save = makeSave(booked)
+-    const refuse = (edit: (f: Forged) => void, pattern: RegExp) => {
+-      const forged = JSON.parse(JSON.stringify(save)) as Forged
+-      edit(forged)
+-      expect(() => validateSaveP17(forged)).toThrow(pattern)
+-    }
+-    refuse((f) => { f.state.cameos.bookings = [] }, /an empty cameo root is written as absence/)
+-    refuse((f) => { f.state.cameos.extra = 1 }, /expected exactly keys/)
+-    refuse((f) => { f.state.cameos.bookings[0]!.fee += 1 }, /is not the frozen quote's fee/)
+-    refuse((f) => { f.state.cameos.bookings[0]!.studioId = world.hollywood!.identities[1]!.studioId }, /is not the player studio/)
+-    refuse((f) => { f.state.cameos.bookings[0]!.status = 'completed' }, /completed work records its week and frozen execution/)
++    const forged = JSON.parse(JSON.stringify(save)) as Forged
++    edit(forged)
++    expect(() => validateSaveP17(forged)).toThrow(pattern)
++  }
++  it('the validator refuses an empty root', () => refuse((f) => { f.state.cameos.bookings = [] }, /an empty cameo root is written as absence/))
++  it('the validator refuses an unknown root key', () => refuse((f) => { f.state.cameos.extra = 1 }, /expected exactly keys/))
++  it('the validator refuses a forged fee', () => refuse((f) => { f.state.cameos.bookings[0]!.fee += 1 }, /is not the frozen quote's fee/))
++  it('the validator refuses a foreign studio', () => refuse((f) => { f.state.cameos.bookings[0]!.studioId = world.hollywood!.identities[1]!.studioId }, /is not the player studio/))
++  it('the validator refuses a completion that never happened', () => refuse((f) => { f.state.cameos.bookings[0]!.status = 'completed' }, /completed work records its week and frozen execution/))
++})
++
++describe('P17 Shape A — the player\'s closure while a booking is reserved', () => {
++  // Built at collection like every route here (no case timeout carries it); a premise failure fails THIS case by name
++  // instead of the whole file.
++  let closing: ReturnType<typeof closureRoute> | Error
++  try { closing = closureRoute(world, a, writer, principals) } catch (error) { closing = error instanceof Error ? error : new Error(String(error)) }
++
++  it('the closure cancels the unperformed booking once with its refund before the money step; the closure validator replays it', () => {
++    if (closing instanceof Error) throw closing
++    const { booked, closed, guest: g, week } = closing
++    const x = bookingOf(booked, g.id)
++    expect(x).toMatchObject({ status: 'reserved', workWeek: week + 4, bookedWeek: week })
++    expect(booked.studio.cash).toBe(0)
++    const closure = closuresOf(closed).find((c) => c.studioId === closed.hollywood!.playerStudioId)
++    expect(closure).toBeDefined()
++    expect(bookingOf(closed, g.id)).toMatchObject({ status: 'cancelled', cancelReason: 'productionCancelled', cancelledWeek: closure!.closureWeek, refund: x!.fee - x!.retained })
++    expect(feeRows(closed, g.id)).toEqual([[week, -x!.fee, true], [closure!.closureWeek, x!.fee - x!.retained, true]])
++    expect(() => validateSaveP17(makeSave(closed))).not.toThrow()
++    expect(exportSave(migrateToLive(importSave(exportSave(makeSave(closed)))))).toBe(exportSave(makeSave(closed)))
+   })
+ })
+diff --git a/tests/p17-cameo-law.test.ts b/tests/p17-cameo-law.test.ts
+--- a/tests/p17-cameo-law.test.ts
++++ b/tests/p17-cameo-law.test.ts
+@@ -5,13 +5,18 @@
+ // order, honest negative displacement, pool < 2), §4 (fee formula with one rounding, round(fee·0.25) retained, one
+ // linked refund, completed work untouched). Every expected number is computed here from the contract's own formulas.
+ //
+-// RED at the parent 2c50c9df by missing module: src/core/cameo.ts is new law. The live-route cases in
+-// tests/p17-cameo-booking.test.ts are the assertion-level RED pins.
++// RED at the parent 2c50c9df by missing module: src/core/cameo.ts and src/core/cameoBooking.ts are new law. The
++// live-route cases in tests/p17-cameo-booking.test.ts are the assertion-level RED pins.
++//
++// Fix 1: the booked-week decision (`resolveCameoWeek`) is pinned here on real-advance inputs for the two paths no live
++// route reaches at this checkpoint: a rights-held picture (the only producer of `rightsLoss`) and a picture whose work
++// is not on the nominal schedule (a managed picture stalled, or shooting later, in the booked week).
+ 
+ import { describe, expect, it } from 'vitest'
+ import {
+   cameoAttentionDelta,
+   cameoFee,
++  P17_CAMEO_REFUND_NOTE,
+   cameoPublicityDelta,
+   cameoRetained,
+   cancelReservedBookings,
+@@ -21,9 +26,13 @@
+   reservedCameoTalentIds,
+   reservedGuestWeeks,
+ } from '../src/core/cameo.js'
++import { resolveCameoWeek } from '../src/core/cameoBooking.js'
+ import { TUNING } from '../src/core/tuning.js'
+-import type { Segment } from '../src/core/types.js'
+-import { UNLOCK_WEEK } from './helpers/p17-cameo-route.js'
++import type { CameoRoot, Production, Segment } from '../src/core/types.js'
++import { LOCKED_SHAPE, makeConcept, makeTalent, widePromise } from './_fixtures.js'
++
++/** The adopted unlock (contract §2: 1956 Week 1, absolute week 1872), spelled here instead of importing the route helper. */
++const UNLOCK_WEEK = 1872
+ 
+ const r = (fame: number) => fame / (fame + 50)
+ const SEGMENTS: Segment[] = [
+@@ -139,3 +148,41 @@
+     expect(reservedCameoTalentIds(undefined, 0).size).toBe(0)
+   })
+ })
++
++describe('P17 Shape A law — the booked week resolves against real work, never the nominal schedule (Fix 1)', () => {
++  const facts = { studioId: 's', productionId: 'prod-1872', talentId: 't-1', workWeek: 1876, bookedWeek: 1872, basis: 'freelance' as const, profession: 'director' as const, fee: 162_575, perceivedActingOVR: 20, fame: 85 }
++  const root = mintCameoBooking(undefined, facts)
++  const concept = makeConcept({ id: 'concept-1' })
++  const film = (remainingTicks: number) => ({ id: 'prod-1872', conceptId: 'concept-1', shape: LOCKED_SHAPE, promise: widePromise(), remainingTicks }) as unknown as Production
++  const resolve = (r: CameoRoot, week: number, before: number, after: number | null, held: boolean) => resolveCameoWeek(r, {
++    week, before: [film(before)], after: after === null ? [] : [film(after)], held: new Set(held ? ['prod-1872'] : []),
++    talent: [makeTalent({ id: 't-1', role: 'director', skill: 40, fame: 85 })], conceptOf: () => concept,
++  })
++  const refundRow = { week: 1876, kind: 'freelancerFee', amount: 162_575 - 40_644, talentId: 't-1', productionId: 'prod-1872', note: P17_CAMEO_REFUND_NOTE }
++
++  it('a rights-held picture in the booked week cancels with rightsLoss and one refund row, even if its clock moved', () => {
++    for (const after of [5, 4]) {
++      const out = resolve(root, 1876, 5, after, true)
++      expect(out.root.bookings[0]).toMatchObject({ status: 'cancelled', cancelReason: 'rightsLoss', cancelledWeek: 1876, refund: 162_575 - 40_644 })
++      expect(out.rows).toEqual([refundRow])
++    }
++  })
++
++  it('a stalled picture (managed work unallocated) in its nominal shooting week, a non-shooting advance and a vanished picture each miss the work and refund once', () => {
++    for (const [before, after] of [[5, 5], [6, 5], [5, null]] as const) {
++      const out = resolve(root, 1876, before, after, false)
++      expect(out.root.bookings[0]).toMatchObject({ status: 'cancelled', cancelReason: 'missedWork', cancelledWeek: 1876 })
++      expect(out.rows).toEqual([refundRow])
++    }
++  })
++
++  it('a picture that actually shoots in the booked week completes and keeps the whole fee, whatever the nominal schedule said; an unreached week waits', () => {
++    const out = resolve(root, 1876, 4, 3, false)
++    expect(out.root.bookings[0]).toMatchObject({ status: 'completed', completedWeek: 1876, cancelReason: null, refund: null })
++    expect(typeof out.root.bookings[0]!.completedExecution).toBe('number')
++    expect(out.rows).toEqual([])
++    const early = resolve(root, 1875, 5, 4, false)
++    expect(early.root).toBe(root)
++    expect(early.rows).toEqual([])
++  })
++})
+diff --git a/tests/p17-cameo-seam.test.ts b/tests/p17-cameo-seam.test.ts
+--- a/tests/p17-cameo-seam.test.ts
++++ b/tests/p17-cameo-seam.test.ts
+@@ -3,14 +3,16 @@
+ // Authority: 1367-stage/p17-prep/P17-CAMEO-CONTRACT.md §3 (publicity replaces the OPENING star term once; the linear
+ // starDraw, legs and quality read no guest fame; performance enters castExecution at 0.10, never cohesion; Standing
+ // takes the same delta once through the existing star attention) and §6 items 2-4. The adopted P17 decisions this
+-// slice must preserve: quality stays distinct from inherited awareness, and franchise R/M/F reads only quality (critic
+-// and audience scores), so a guest's fame can never move Recognition, Momentum or the property-wide Fatigue a reboot
+-// inherits.
++// slice must preserve: quality stays distinct from inherited awareness. A guest's fame reaches franchise Recognition and
++// Momentum only indirectly, through the box-office total they read (continuationSignals.ts reach01(total) and
++// surpriseOf(total, expectedTotal)); Fatigue, the property-wide meter a reboot inherits, reads quality alone and never
++// moves.
+ //
+ // RED-first at the parent 2c50c9df: imports only predecessor modules; the parent ignores both fields and the context
+ // key, so every "moves" assertion fails there by assertion. The "absent is byte-identical" leaves are GREEN at both.
+ 
+ import { describe, expect, it } from 'vitest'
++import { emptyMeter, emptyMomentum, registerBranchRelease, registerRelease, type ReleaseFacts } from '../src/core/continuationSignals.js'
+ import { computeForecast, forecastCenters, type ForecastContext } from '../src/core/forecast.js'
+ import { resolveReception, type ReceptionInputs } from '../src/core/reception.js'
+ import { stream } from '../src/core/rng.js'
+@@ -81,6 +83,22 @@
+     expect(forecastCenters(withGuests({ cameoExecutions: [0] })).core.castWeightedRoleFit).toBe(forecastCenters(fixture()).core.castWeightedRoleFit)
+   })
+ 
++  it('franchise meters: Recognition and Momentum move only through the total; Fatigue is identical', () => {
++    const plain = resolveReception(fixture(), stream('x', 'hollywood-v1', 'f'))
++    const known = resolveReception(withGuests({ cameoPublicityDelta: DELTA }), stream('x', 'hollywood-v1', 'f'))
++    expect(known.total).not.toBe(plain.total)
++    const facts = (r: typeof plain): ReleaseFacts => ({ installmentId: 'p', week: 2000, critic01: r.criticScore / 100, audience01: r.weightedAudienceScore / 100, total: r.total, expectedTotal: plain.total })
++    // a sequel on a property already carrying Fatigue (not the founding film, so Fatigue accrues by quality)
++    const meter = { ...emptyMeter(1900), firstFilmExempt: false, releaseCount: 1, fatigue: 20 }
++    const withGuest = registerRelease(meter, facts(known), { similarity: 0.9 })
++    const without = registerRelease(meter, facts(plain), { similarity: 0.9 })
++    expect(withGuest).toEqual(registerRelease(meter, { ...facts(plain), total: known.total }, { similarity: 0.9 }))
++    expect(withGuest.fatigue).toBe(without.fatigue)
++    expect(withGuest.fatigueLastQuality).toBe(without.fatigueLastQuality)
++    expect(registerBranchRelease(emptyMomentum(1900), facts(known))).toEqual(registerBranchRelease(emptyMomentum(1900), { ...facts(plain), total: known.total }))
++    expect(registerBranchRelease(emptyMomentum(1900), facts(known)).momentum).not.toBe(registerBranchRelease(emptyMomentum(1900), facts(plain)).momentum)
++  })
++
+   it('publicity alone never moves the forecast\'s quality bar', () => {
+     const fp = computeForecast(fixture(), ctx)
+     const fg = computeForecast(withGuests({ cameoPublicityDelta: DELTA }), ctx)

@@ -1,0 +1,24 @@
+{
+  "head": "465d49a9ae86fca7b08ad99a11075ff61ddfd499",
+  "sourceManifestEntries": 2131,
+  "purpose": "Sprint 11 cameo GREEN r12 after FIX-1 (same eight files)",
+  "children": [
+    {
+      "label": "focused",
+      "completeFiles": [
+        "tests/p17-cameo-booking.test.ts",
+        "tests/p17-cameo-seam.test.ts",
+        "tests/p17-cameo-law.test.ts",
+        "tests/p17-continuation-law.test.ts",
+        "tests/p17-continuation-seam.test.ts",
+        "tests/p17-continuation-signals.test.ts",
+        "tests/p17-p16-rights.test.ts",
+        "tests/p17-save-step.test.ts"
+      ]
+    }
+  ],
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "timeoutOverride": false
+  }
+}

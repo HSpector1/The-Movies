@@ -1,0 +1,15 @@
+{
+  "head": "29b1490b8b15bdd1d7017783f5815d848b63f940",
+  "sourceManifestEntries": 2076,
+  "purpose": "Sprint 11 cameo RED r13 at 2c50c9df for the FIX-1 cases",
+  "children": [
+    {
+      "label": "red",
+      "completeFiles": [
+        "tests/p17-cameo-booking.test.ts",
+        "tests/p17-cameo-seam.test.ts",
+        "tests/p17-cameo-law.test.ts"
+      ]
+    }
+  ]
+}

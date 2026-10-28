@@ -1,0 +1,17 @@
+{
+  "head": "465d49a9ae86fca7b08ad99a11075ff61ddfd499",
+  "predecessor": "a5a66c27e8b07b029d196850f8133cccfa3d26ef (tag p16-technical-checkpoint-20261027)",
+  "sourceManifestEntries": 2131,
+  "purpose": "Sprint 11 types r11 after cameo FIX-1",
+  "children": [
+    {
+      "label": "root-types",
+      "command": "node node_modules/typescript/bin/tsc --noEmit"
+    },
+    {
+      "label": "bridge-types",
+      "command": "node node_modules/typescript/bin/tsc -p tsconfig.bridge.json --noEmit"
+    }
+  ],
+  "limits": "Compiler only; no runtime claim."
+}

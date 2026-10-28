@@ -49,11 +49,11 @@ deleted). So:
 | §4 fee formula with one rounding; charged once at greenlight as a direct production cost; affordability | `cameoFee`, `actions.ts applyGreenlight` (fee rows, `canAfford` includes fees) |
 | §4 one week inside real shooting work; a missed, stalled or held week closes with 25% retained and one linked refund | tick step 1.8 `resolveCameoWeek` (`missedWork`, `rightsLoss` from T's `p17RightsHolds`) |
 | §4 explicit cancellation, production cancellation, completed work keeps its fee | action `cancelCameoBooking`, `applyCancel` |
-| §4 own-employee exit cancels with the refund; a freelance booking survives employment and is disclosed | `cancelExitedEmployeeBookings` at the end of `applyActions` and in the tick tail; `hiringMarketView` label |
+| §4 own-employee exit cancels with the refund; a freelance booking survives employment and is disclosed | `cancelExitedEmployeeBookings` at the end of `applyActions` (the tick-tail sweep was removed in Fix 1 as unreachable); `hiringMarketView` label |
 | §4 a long assignment never consumes a reserved week; unrelated weeks stay usable | seats (`applyGreenlight`, rival `decide`, Laboratory `assignSeat`) open-ended; writing through `requireWriterTermCoversDraft` over `[week, dueWeek)`; rewrites over `[week, week+1)`; casting pool shows the reservation |
 | §4 closure owns the corporate consequence | `studioClosure.prepareStudioClosure`: closure cancels the player's productions terminally, so reserved bookings close under the production-cancellation rule before the money step; the refund joins the closing cash the existing claim distribution pays from |
 | §5 persistence, exact joins, refused downgrade | `cameo.validateCameoRoot`, `continuationSave.ts`, `save.ts` |
-| Adopted P17 decisions kept | guest fame reaches only the opening and awareness, never critic or audience score, so franchise quality, Recognition, Momentum and the property-wide Fatigue a reboot inherits never read it (seam test) |
+| Adopted P17 decisions kept | guest fame reaches only the opening and awareness, never critic or audience score. Franchise Recognition and Momentum read the box-office total (`reach01(total)`, `surpriseOf(total, expectedTotal)`), so guest publicity moves them indirectly through the total and nothing else; Fatigue, the property-wide meter a reboot inherits, reads quality alone and is untouched (seam test, Fix 1 case) |
 
 Bookings require the living industry and the engaged economy: the eligibility law reads D-11 employment and the P12 studio
 identities, and the D-14 career pipeline is engaged-only. The M0A headless corpus refuses a booking and is byte-identical by
@@ -137,11 +137,64 @@ The RED-run record should state per-case results from the lane, not this list.
    case assumes craft is not clamped.
 4. **Timing.** About 1,871 headless ticks plus roughly 45 living-industry ticks across the booking file, all at collection. A
    premise failure there fails the whole file loudly. Measure alone if it is slow under lane load; do not add timeouts.
-5. **Untested paths, reasoned only:** studio closure with a reserved booking; a rights-held picture's booked week
-   (`rightsLoss`); managed-operations shooting allocation; rival seating and writer pick around a reserved week; the tick-tail
-   employment sweep (only the action-boundary sweep is tested); `requireWriterTermCoversDraft` and the Laboratory seat guards.
+5. **Untested paths, reasoned only** (superseded by Fix 1 below for closure, rights loss, managed work and the tail sweep):
+   rival seating and writer pick around a reserved week; `requireWriterTermCoversDraft` and the Laboratory seat guards.
 6. **Interactions left as they are:** promise feasibility proofs do not read reserved guest weeks (a reservation can block a seat
    for at most eight weeks); the casting pool omits a reserved person instead of listing them as an unavailable row; filmPackage
    previews do not include guests, so a pre-greenlight preview differs from the locked forecast when guests are booked.
 7. **Bridge.** No Bridge file changed. A save holding a booking digests differently; a booking-free save is byte-identical, so
    projection 65's pins are unaffected.
+
+## Fix 1 (against fd2cc2e0; applies at 2b1a5b4b)
+
+`FIX-1.patch` (34,768 bytes, sha256 `aea03efd4dd24756e18a6021e973e1ce21ec3dba0dc9353ebfaf31c50cfe2863`), post-images under
+`fix1/postimages/`, per-file pre/post sha256 in `fix1/MANIFEST.json` (pre = the fd2cc2e0 blob; every one is byte-identical
+at 2b1a5b4b). Eight files: `src/core/{cameo,cameoBooking,careerLifecycle,tick}.ts`, `tests/p17-cameo-{booking,law,seam}.test.ts`,
+`tests/helpers/p17-cameo-route.ts`. `git apply --check` is clean at 2b1a5b4b (T's worktree) and on a fd2cc2e0 export.
+Single-file transpile syntax check passes for all eight. Not type-checked or run.
+
+| Item | Resolution |
+|---|---|
+| TS2375 `cameoBooking.ts(222,3)` | `commitCameoBookings` writes `cameos` only when the root exists (conditional spread), as the franchise code does. |
+| S1 franchise wording | Corrected here and in the seam-test header: Recognition and Momentum move only indirectly through the total; Fatigue reads quality alone. New seam case pins it exactly: the meter with a guest equals the meter registered from the guest-free facts with only `total` replaced; Fatigue and its last quality are identical; Momentum differs. |
+| S2 stale basis | `CameoBookingRequest` gains `basis` (`'employee' \| 'freelance'`); the greenlight refuses a changed basis by name, after the fee check: `stale cameo quote for X: the basis is now employee, not the accepted freelance; re-quote before booking`. The quote's `basis` is what the player accepts. |
+| S3 lifecycle authority | `assignmentRefusal` takes an optional `obligationEndWeekExclusive` (default: the seat's `week + PRODUCTION_TICKS + 1`; the seat's message is unchanged byte for byte). The quote calls `assignmentRefusal(state, id, workWeek, 'actor', workWeek + 1)`; the parallel loop is gone. Every existing caller passes four or fewer arguments, so no behaviour changes for them. |
+| S4(a) closure | New live case: the player drained to -1 at 1872 (the p15b drain device, one test ledger row) walks warning and distress to distress week 25; that week it takes the lawful distress loan, is drained to exactly the cheapest free guest's fee, and greenlights the contracted package at zero budget with one booking four weeks out. The ordinary tick closes the studio; the case asserts the booking cancelled `productionCancelled` at the closure week with its refund row, and that `validateSaveP17` (the closure validator's replay) and the save round trip accept the closed world. |
+| S4(b) rights loss | Seam case on `resolveCameoWeek` with a real held set (whether or not the clock moved): `rightsLoss`, one refund row. No live route reaches a P17 rights hold at or after 1872 at this checkpoint (it needs a released origin, a sequel in production and a P16 sale or licence lapse mid-production). |
+| S4(c) tail sweep | **Removed as unreachable**, not tested. Inside a tick a player employment row ends only by expiry at `endWeekExclusive` (`industryEmployment.ts` expiry and `recordPlayerEmployment`; rival cost-cutting ends rival rows only; closure cancels every booking under `productionCancelled` before it ends rows), and an employee basis requires employment covering the work week. Retirement notice is 52 weeks and the quote refuses work past an announced effective week. Every earlier exit is an action (termination), caught by the tested sweep at the end of `applyActions`. If a future in-tick exit appears, restore the sweep with its case. |
+| S4(d) managed work | Seam cases on `resolveCameoWeek`: a stalled picture in its nominal shooting week, a non-shooting advance and a vanished picture each miss and refund; a picture that actually shoots in the booked week completes and keeps the fee. No live managed case: a managed greenlight needs a Development & Casting facility (`operations.ts` allocation refusal), which this route does not build. |
+| S5 | Validator forgeries split into five cases sharing one `makeSave`. No timeout changes. |
+| S6 | Recorded below as ACCEPTANCE OPEN. |
+| N2 | Dead `skills.acting === undefined` check removed. |
+| N8 | The law test spells `UNLOCK_WEEK = 1872` locally and no longer imports the route helper. |
+
+Refusal-only paths with no case (as the review allows): rival seating and the rival writer pick around a reserved week
+(`hollywoodTick.ts`), the Laboratory and rival research seats (`technology.ts assignSeat`), the writing-interval guard
+(`requireWriterTermCoversDraft`), the rewrite guard (`requestScriptRewrite`) and the casting-pool reservation label.
+
+**ACCEPTANCE OPEN: rival guest selection** (contract §5 and §6 item 9; draft D31). Rivals book no guests at this checkpoint.
+They meet the law only as the party whose seats and commissions respect a player's reserved week. The rival greedy
+selection and its RED item remain open for acceptance.
+
+### New RED-first cases (Fix 1)
+
+| Case | RED at 2c50c9df | At fd2cc2e0 |
+|---|---|---|
+| booking: an employment change makes the quote stale: a freelancer signed in the same batch refuses as freelance and books as employee | by assertion | **RED by assertion** (the batch books silently as employee) |
+| booking: the closure cancels the unperformed booking once with its refund before the money step; the closure validator replays it | by assertion | GREEN expected |
+| booking: the validator refuses an empty root / an unknown root key / a forged fee / a foreign studio / a completion that never happened (5 cases, split from one) | by assertion | GREEN expected |
+| seam: franchise meters: Recognition and Momentum move only through the total; Fatigue is identical | by assertion (`known.total` equals `plain.total` there) | GREEN expected |
+| law: a rights-held picture in the booked week cancels with rightsLoss and one refund row, even if its clock moved | missing module | GREEN expected |
+| law: a stalled picture (managed work unallocated) in its nominal shooting week, a non-shooting advance and a vanished picture each miss the work and refund once | missing module | GREEN expected |
+| law: a picture that actually shoots in the booked week completes and keeps the whole fee, whatever the nominal schedule said; an unreached week waits | missing module | GREEN expected |
+
+Fix 1 risks, precisely:
+- **Closure route premises** (each throws by name, failing only that case; the route is built at collection inside a
+  try/catch and rethrown in its case):
+  - the drained player reaches distress week 25 within 80 ticks
+  - the loan law admits a principal of at least the cheapest free guest's fee
+  - the ordinary tick's payroll takes cash below zero from 0
+  - the package's principals are still contracted and lifecycle-clear about 33 weeks after 1872
+  - `s.concepts[0]` is still greenlightable
+- **Closure route cost:** about 33 extra living-industry ticks at collection.
+- **Type check:** the helper's `drain` ledger literal mirrors `tests/helpers/p15b-live.ts`, and `{ kind: 'takeLoan', principal }` is a plain `Action`.
