@@ -150,7 +150,9 @@ describe('P18 Sprint 13 slice B — the season on the Bridge (projection 68)', (
     const state = closedWithOwed
     expect(closedNow(state), 'premise: the condition law closes the drained studio').toBe(true)
     expect(agreement(state).settlement).toMatchObject({ refundPaid: 50_000, chargePaid: 0, closureId: null })
-    const session = new BridgeSession(state, 'p18-closed')
+    // FIX-S13B-2 item 2: with 100,000 of cash the payable amount alone would offer a settle verb, so only the closed-player
+    // rule withholds it (at −1 the zero payable amount withheld it already and the case proved nothing).
+    const session = new BridgeSession(withCash(state, 100_000), 'p18-closed')
     expect(offered(session, 'settleTvObligations')).toEqual([])
     expect(televisionPage(session).seasons[0]).toMatchObject({ status: 'cancelled', agreement: { outstanding: 190_000 }, settlePreview: null, settleIntent: null })
   })

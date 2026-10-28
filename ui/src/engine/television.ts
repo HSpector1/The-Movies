@@ -39,10 +39,30 @@ export function seasonRefusalVoice(state: GameState): (raw: string) => string {
     const title = root!.series.find((x) => x.seriesId === season.seriesId)?.title
     if (title !== undefined) { names.set(season.seasonId, title); names.set(season.agreementId, `for ${title}`) }
   }
-  for (const a of tvCommissionChoices(state).adoptions) names.set(a.adoptionId, `the ${a.stageName} and ${a.postName} chain`)
+  // FIX-S13B-2 item 4: the adoption labels read the records directly (no admission sweep per render, no throw on a
+  // refusal surface); an adoption whose facility is not on record keeps its id, which the raw note discloses anyway.
+  const facility = (id: string | null) => state.operations.facilities.find((f) => f.id === id)?.name
+  for (const a of state.technology.adoptions) {
+    const stage = facility(a.stageFacilityId)
+    const post = facility(a.postFacilityId)
+    if (stage !== undefined && post !== undefined) names.set(a.id, `the ${stage} and ${post} chain`)
+  }
   for (const t of state.talent) names.set(t.id, t.name)
   const humane = refusalHumaniser(state)
-  return (raw) => humane(raw.replace(ENGINE_PREFIX, '').replace(/\w[\w:.-]*\w|\w/g, (token) => names.get(token) ?? (/[A-Z]/.test(token) ? P16_REASON_TEXT[token] : undefined) ?? token))
+  // Each season-side replacement is parked behind a sentinel the humaniser's tokeniser cannot match (no word character),
+  // so a series title or person's name equal to an id or one of its WORDS is never rewritten a second time.
+  return (raw) => {
+    const parked: string[] = []
+    // The index rides as one private-use character: JS `\w` is ASCII, so no tokeniser pass can see into a sentinel.
+    const park = (text: string): string => `\u0000${String.fromCharCode(0xe000 + parked.push(text) - 1)}\u0000`
+    const first = raw.replace(ENGINE_PREFIX, '').replace(/\w[\w:.-]*\w|\w/g, (token) => {
+      const name = names.get(token)
+      if (name !== undefined) return park(name)
+      if (/[A-Z]/.test(token) && Object.hasOwn(P16_REASON_TEXT, token)) return park(P16_REASON_TEXT[token]!)
+      return token
+    })
+    return humane(first).replace(/\u0000([\ue000-\uf8ff])\u0000/g, (_m, c: string) => parked[c.charCodeAt(0) - 0xe000]!)
+  }
 }
 
 export function seasonChoices(state: GameState): TvCommissionChoices {

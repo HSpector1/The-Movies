@@ -13,6 +13,7 @@ import { FIGURES, agreement, attempt, request, season, seasonRoute, tickUntil, w
 import { moneyExact } from '../format.ts'
 import { Assembly } from './Assembly.tsx'
 import { Dashboard } from './Dashboard.tsx'
+import { SeasonCard } from '../components/P18Season.tsx'
 
 afterEach(cleanup)
 
@@ -74,11 +75,14 @@ describe('P18 browser slice — the Assembly "Commission a season" panel', () =>
   it('voices a refusal at commit in the player\'s words, with the core\'s own sentence behind the disclosure, never a generic message', () => {
     // The panel quoted on the pre-commission world; the commit lands on a world where a season is already live.
     const onCommission = vi.fn(commitAt(live))
-    render(<Assembly state={route.state} onGreenlit={() => {}} onCancel={() => {}} {...{ onCommissionTvSeason: onCommission }} />)
+    const { rerender } = render(<Assembly state={route.state} onGreenlit={() => {}} onCancel={() => {}} {...{ onCommissionTvSeason: onCommission }} />)
     expect(screen.queryByTestId('season-open'), 'Assembly offers the season panel').not.toBeNull()
     fireEvent.click(screen.getByTestId('season-open'))
     fireEvent.change(screen.getByTestId('season-title'), { target: { value: 'The Long Night' } })
     fireEvent.click(screen.getByTestId('season-commission'))
+    // FIX-S13B-2 item 1: the panel then reads the world the commit landed on, as App does (runSeasonAction keeps the
+    // authoritative state current); the refusal it holds is voiced against that world, where the season id has a title.
+    rerender(<Assembly state={live} onGreenlit={() => {}} onCancel={() => {}} {...{ onCommissionTvSeason: onCommission }} />)
     const outcome = onCommission.mock.results[0]!.value as { ok: false; error: string }
     expect(outcome.ok).toBe(false)
     expect(outcome.error).toContain(`one active season per studio: "${seasonId}" is live`)
@@ -168,5 +172,18 @@ describe('P18 browser slice — the Dashboard season row', () => {
     expect(screen.getByTestId(`season-state-${seasonId}`)).toHaveTextContent(`Delivered at week ${at}`)
     expect(screen.getByTestId(`season-state-${seasonId}`)).toHaveTextContent(`through week ${at + FIGURES.distributionWeeks - 1}`)
     expect(screen.queryByTestId(`season-cancel-${seasonId}`)).toBeNull()
+  })
+
+  it('the delivered card says when the window has ended and when P16 no longer permits the distribution (FIX-S13B-2 item 5)', () => {
+    // The card alone, on two in-memory readings of the delivered record (disclosed surgery, presentation only): the
+    // same record read at its window's end week, and read at its delivery week without the season's own P16 licence.
+    const s = season(delivered)
+    const end = s.deliveredWeek! + FIGURES.distributionWeeks
+    render(<SeasonCard state={{ ...delivered, market: { ...delivered.market, tick: end } }} />)
+    expect(screen.getByTestId(`season-state-${seasonId}`)).toHaveTextContent(`Delivered at week ${s.deliveredWeek}; the commissioner\u2019s window ended at week ${end}`)
+    cleanup()
+    const unlicensed = { ...delivered, rights: { ...delivered.rights, licences: delivered.rights.licences.filter((l) => l.id !== s.distributionLicenceId) } }
+    render(<SeasonCard state={unlicensed} />)
+    expect(screen.getByTestId(`season-state-${seasonId}`)).toHaveTextContent(`Delivered at week ${s.deliveredWeek}; not on the commissioner\u2019s service: P16 no longer permits its distribution`)
   })
 })

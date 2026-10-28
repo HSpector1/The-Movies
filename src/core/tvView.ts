@@ -9,6 +9,7 @@
 import { assignmentRefusal } from './careerLifecycle.js'
 import { activeContract, assignmentBlockedTalentIds } from './employment.js'
 import { isOperatingStudio } from './operatingState.js'
+import type { HolderReason } from './rights.js'
 import { adoptionChainOperational } from './technologyAdoption.js'
 import { tvDistributionAvailable, tvProductionPermission } from './tvCommission.js'
 import { TV_WORK_UNITS_TOTAL, tvOutstanding, tvUnitsThrough } from './tvReaders.js'
@@ -27,19 +28,24 @@ const CAPABILITY_LABEL: Record<FacilityCapability, string> = {
   'development-casting': 'Development & Casting', soundstage: 'sound stage', 'set-scenery': 'Scenery Shop', post: 'Post Building', laboratory: 'laboratory',
 }
 
-/** P16's permission reason codes in the studio's words (rights.ts HolderReason and the authority reasons). */
-const P16_REASON: Record<string, string> = {
+/**
+ * P16's permission reason codes in the studio's words (rights.ts HolderReason and the authority reasons). FIX-S13B-2
+ * item 3: `satisfies` the closed union, so a new HolderReason fails tsc until it has its sentence.
+ */
+const P16_PERMISSION_REASON = {
   noIndustry: 'the living industry is not running', invalidAsOfWeek: 'the week is not a valid one', futureWeek: 'the week has not happened yet',
   unknownSubject: 'the property is not on record', noTitleAtDate: 'no one held the title at that week', ambiguousProvenance: 'the title history is ambiguous',
   missingGenesis: 'the title history has no origin', unresolvedTerminalAuthority: 'the title passed through a closure that has not resolved',
   archived: 'the property is archived', r3RequiresProperty: 'the right needs a property',
-  // licence.ts licenceGrantRefusal codes (the commissioner's grant at admission)
+} satisfies Record<HolderReason | 'r3RequiresProperty' | 'archived', string>
+/** licence.ts licenceGrantRefusal codes (the commissioner's grant at admission); that function returns a plain string. */
+const P16_GRANT_REASON: Readonly<Record<string, string>> = {
   exclusiveOverlap: 'an exclusive licence already covers that term', grantorNotHolder: 'your studio does not hold the title',
   notTradeable: 'the title cannot be licensed now', selfGrant: 'a studio cannot license itself', invalidTerm: 'the licence term is not valid',
   r4ConsumerNotLive: 'television licensing is not open', activeProductionEncumbrance: 'a production on the property blocks the grant',
 }
-/** The voiced P16 codes (the browser's refusal voice reads the same table). */
-export const P16_REASON_TEXT: Readonly<Record<string, string>> = P16_REASON
+/** The voiced P16 codes (the browser's refusal voice reads the same table). Look up with Object.hasOwn only. */
+export const P16_REASON_TEXT: Readonly<Record<string, string>> = { ...P16_PERMISSION_REASON, ...P16_GRANT_REASON }
 
 const nameOf = (state: GameState, talentId: string): string => {
   const person = state.talent.find((t) => t.id === talentId)
@@ -52,16 +58,20 @@ const nameOf = (state: GameState, talentId: string): string => {
  * licence, another licence answering, or the code's own sentence. A code with no sentence throws by name, never prints raw.
  */
 export function voicePermissionReason(state: GameState, reason: string): string {
-  const studio = (id: string): string => (id === state.hollywood?.playerStudioId ? 'your studio'
-    : state.hollywood?.identities.find((x) => x.studioId === id)?.name ?? `the studio on record as ${id}`)
+  const studio = (id: string): string => {
+    if (id === state.hollywood?.playerStudioId) return 'your studio'
+    const name = state.hollywood?.identities.find((x) => x.studioId === id)?.name
+    if (name === undefined) throw new Error(`tv view: no studio identity for ${id}`)
+    return name
+  }
   const held = /^noAuthority:(.+)$/.exec(reason)
   if (held !== null) return `the right is held by ${studio(held[1]!)}`
   if (reason.startsWith('expired:')) return 'the licence it relied on has expired'
   if (reason.startsWith('answered by ')) return 'a licence other than this season\'s answers for the commissioner'
   if (reason.startsWith('holderUnavailable:')) return voicePermissionReason(state, reason.slice('holderUnavailable:'.length))
-  const voiced = P16_REASON[reason]
-  if (voiced === undefined) throw new Error(`tv view: no voiced sentence for the P16 reason ${reason}`)
-  return voiced
+  // FIX-S13B-2 item 3: own keys only, so `constructor` or `toString` never answers as a reason.
+  if (!Object.hasOwn(P16_REASON_TEXT, reason)) throw new Error(`tv view: no voiced sentence for the P16 reason ${reason}`)
+  return P16_REASON_TEXT[reason]!
 }
 
 /** A season rights stall (`production: <reason>` or `distribution: <reason>`, tvSeason.ts tvWorkGate) voiced. */
