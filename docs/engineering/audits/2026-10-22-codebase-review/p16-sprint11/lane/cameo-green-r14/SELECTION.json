@@ -1,0 +1,17 @@
+{
+  "head": "e35bbacc55e15d5a139e381eeaae058f9046ceef",
+  "sourceManifestEntries": 2131,
+  "purpose": "Sprint 11 cameo GREEN r14 after FIX-2 (booking file alone)",
+  "children": [
+    {
+      "label": "focused",
+      "completeFiles": [
+        "tests/p17-cameo-booking.test.ts"
+      ]
+    }
+  ],
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "timeoutOverride": false
+  }
+}

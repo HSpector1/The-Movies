@@ -23,3 +23,7 @@ slice-red-r9 (lane/slice-red-r9/RED-CASES.md): every Sprint 11 case is RED at th
 ## Cameo FIX-1 (465d49a9): types 0/0; focused 98/99; RED at 2c50c9df complete — 22:20 CDT
 
 types-r11 root 0, Bridge 0. cameo-green-r12: 98 of 99 across the three cameo files (law 14, seam 7, booking 19) and the five continuation files; the one failure is the closure live route's own premise ("the distress loan leaves cash below the cheapest guest fee"), failing by name at both commits, not a law; cameo FIX-2 for the route in preparation. cameo-red-r13 at the tag: booking 19/19 RED by assertion, seam 6/7 (the design-identical case passes), law RED by missing module. Re-review of FIX-1 in flight.
+
+## Cameo FIX-2 (e35bbacc): closure route at distress week 18; booking file 19/19; RED 19/19 — 22:25 CDT
+
+The closure-while-reserved live route cannot fund a booking at distress week 25 (debt ≈ 32 weeks of fixed cost against a loan of ≤ 26 weeks); the only fundable week with the booking still reserved at closure is distress week 18 with the work week 8 weeks out, so the closure (eighth tick) cancels a still-reserved booking. No law or tuning change. cameo-green-r14: booking 19/19 (so cameo law 14, seam 7, booking 19 all GREEN on the candidate); cameo-red-r15 at the tag: 19/19 RED by assertion. Re-review of FIX-1: REVIEW-CAMEO-FIX1.md (ACCEPTABLE; four small items in FIX-3, in preparation). Bridge slice B (write verbs, projection 66) and the browser slice (continuation choice, appearances, cost, outcomes, player journey e2e) are in preparation by disjoint workhorses.

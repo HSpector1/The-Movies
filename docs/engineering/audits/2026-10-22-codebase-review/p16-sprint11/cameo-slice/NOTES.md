@@ -198,3 +198,63 @@ Fix 1 risks, precisely:
   - `s.concepts[0]` is still greenlightable
 - **Closure route cost:** about 33 extra living-industry ticks at collection.
 - **Type check:** the helper's `drain` ledger literal mirrors `tests/helpers/p15b-live.ts`, and `{ kind: 'takeLoan', principal }` is a plain `Action`.
+
+## Fix 2 (against 465d49a9)
+
+`FIX-2.patch` (7,781 bytes, sha256 `1ef210f725c0cd369aebd0d7c9b9242e868b4cd149b0522d07a886b6e6378211`), post-images under
+`fix2/postimages/`, pre/post sha256 in `fix2/MANIFEST.json`. Two files: `tests/helpers/p17-cameo-route.ts` and
+`tests/p17-cameo-booking.test.ts`. No source, law or tuning change. `git apply --check` is clean at 465d49a9 (T's worktree);
+single-file syntax check passes. Not run.
+
+**Cause of the r12 failure.** Once the player's cash is negative, the one distress loan is the only inflow, and the walk
+spends one week of fixed cost per negative week (r12: about 126,656 a week against a fixed cost of 126,654). At recorded
+distress week d the hole is about (d + 7)·O: 8 negative weeks to enter distress, then d − 1 more. The loan is at most 26·O
+(`LOAN_MAX_FIXED_COST_WEEKS`). At d = 25 the hole was 32·O (cash −4,052,993; the 3,293,000 loan left −759,993). No lawful
+route closes the studio on the tick right after a funded booking:
+- the closing tick follows the week whose recorded d is 25, and a booking then meets a hole of 32·O;
+- draining less does not help, because every negative week costs the same;
+- an earlier loan lifts cover out of `low` (distress turns to recovery) and blocks a second loan for its 52-week term;
+- a credit row would invent money.
+
+**The truthful route.** A booking at recorded distress week d is still reserved at closure only if its work week is at least
+26 − d weeks out. The span allows at most `PRODUCTION_TICKS` (8), so d ≥ 18. At d = 18 the hole is about 25·O, and the loan
+covers it with about one week of fixed cost to spare (expected cash after the loan ≈ 126,600 against the guest fee ≈ 9,503).
+The route now:
+1. walks to distress week `CORPORATE_CLOSURE_DISTRESS_WEEKS − PRODUCTION_TICKS` (18);
+2. takes the loan and drains to exactly the fee;
+3. books the cheapest free guest at the last lawful week (booked week + 8);
+4. ticks until the closure, at most 8 ticks.
+
+The closure happens in the eighth tick, stamped week booked + 8. That tick runs before the tick that would resolve the
+booked week, so the booking is still reserved when the closure cancels it under `productionCancelled`. The validator admits
+a production cancellation in the work week (`bookedWeek <= cancelledWeek <= workWeek`).
+
+The case now also asserts that the booking is still reserved on the last open week and that `closureWeek` is booked + 8.
+Premise checks keep their names: the distress walk, a free guest, and the loan covering the fee (the message now also
+reports the hole). The route ticks 7 fewer weeks before the booking and 7 more after it, so its cost is unchanged.
+
+RED at 2c50c9df: the cameo request is ignored there, so the first assertion (a reserved booking) fails by assertion. The
+studio still closes eight ticks later, because the fee is not spent and payroll takes cash negative anyway. Expected GREEN at
+465d49a9 with this patch.
+
+## Fix 3 (against e35bbacc, the FIX-2 commit)
+
+`FIX-3.patch` (sha256 and size in `fix3/MANIFEST.json`), post-images under `fix3/postimages/`. `git apply --check` is clean
+at e35bbacc (T's worktree); single-file syntax check passes. Not run.
+
+1. `cameo.ts`: the stale JSDoc block above `CameoBookingRequest` is deleted.
+2. `cameoBooking.ts`: the quote now passes the greenlight week as `assignmentRefusal`'s assignment week, still with the
+   exclusive end `workWeek + 1`. The shared message therefore reads "an assignment taken at week <greenlight week> ending at
+   week <workWeek + 1> cannot complete before it". The decision is unchanged, because the refusal reads only the end week
+   when an end week is passed. `careerLifecycle.ts` is untouched.
+3. Closure route premises, now four, each named and each failing only the closure case:
+   - the distress walk
+   - the loan covering the fee
+   - the zero-budget greenlight (a refusal, for example an expired principal contract or an unavailable concept, is
+     rethrown as `premise: the zero-budget greenlight at distress week 18 (week N) refused: <engine message>`)
+   - cash below zero on the last open week
+
+   These live in `tests/helpers/p17-cameo-route.ts`, where `closureRoute` builds the greenlight and the walk. That file is
+   outside the three files the brief named; item 3 cannot be met without it.
+4. `tests/p17-cameo-booking.test.ts`: the forged-save cases build `makeSave(booked)` inside `refuse`, so a failure there
+   fails only that case.

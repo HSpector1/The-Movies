@@ -1,0 +1,11 @@
+# Independent re-review — cameo FIX-1 (465d49a9 vs 2b1a5b4b), 2026-10-27, 22:15 CDT
+
+Reviewer: independent Opus reviewer, read-only. Verdict: CAMEO FIX-1 ACCEPTABLE; no blocking finding.
+
+- S3 assignmentRefusal optional obligation end (careerLifecycle.ts:114-125): default byte-identical for every existing caller (promises.ts:521/:985, opportunityPromises.ts:178/:207/:215, actions.ts:383, hollywoodTick.ts:255, helpers and ~40 direct test calls, two four-parameter spies); the cameo call (cameoBooking.ts:107, `workWeek + 1`) matches contract §4.
+- S2 basis: required on the request, compared after the fee, refused by name; single booking path (prepareCameoBookings, actions.ts:409) shared by both greenlight kinds; nothing re-derives basis silently.
+- Tail-sweep removal (tick.ts:1324-1326) sound: employee check exact to the week (hollywood.ts:100-103); in-tick expiry drops only contracts ending ≤ currentTick+1 (tick.ts:1146) while unresolved bookings have workWeek ≥ currentTick+1; every other writer of state.contracts is an action caught by the applyActions sweep (actions.ts:3320), the talent market only adds, closure cancels bookings before employment rows (studioClosure.ts:312/395), retirement never writes contracts (52-week notice). Tick tail byte-identical to 2c50c9df.
+- S4(a) closure case proves the ordering through the closure validator's cash reconciliation (studioClosure.ts:917); (b)/(d) resolveCameoWeek cases prove the money rows (one refund row; fee kept). S1 seam case exact (meter equal with only `total` swapped; Fatigue identical; Momentum differs).
+- Hygiene: no weakened assertion; no timeout/budget change; no new RNG/Date/mutation; conditional spread correct; noUnusedLocals clean.
+
+SHOULD-FIX (small; cameo FIX-3): stale JSDoc block at cameo.ts:25-26; lifecycle message wording "taken at week <workWeek>" (booking is taken at the greenlight week); only two of the closure case's five premises named (add a named below-zero check and a named greenlight premise); makeSave(booked) moved into collection at p17-cameo-booking.test.ts:237 (build inside `refuse`). NOTES: the closure case title overstates the validator (it reconciles cash, never re-derives the refund); toEqual vs toStrictEqual cosmetic.
