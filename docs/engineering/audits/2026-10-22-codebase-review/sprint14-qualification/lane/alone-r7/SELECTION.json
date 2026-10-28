@@ -1,0 +1,16 @@
+{
+  "head": "e115be4ba55cde244520fd0babc68b961e4eb17a",
+  "sourceManifestEntries": 2164,
+  "purpose": "Sprint 14 alone-r7 on e115be4b: tests/bridge-p12-campaign-library.test.ts alone with no concurrent agent activity, repeating alone-r6 where the 11 inherited cases exceeded their 5 s / 20 s budgets by 0.3-2.8 s and 1.4-1.7 s",
+  "children": [
+    {
+      "label": "bridge-p12-campaign-library",
+      "completeFiles": [
+        "tests/bridge-p12-campaign-library.test.ts"
+      ]
+    }
+  ],
+  "budgets": {
+    "timeoutOverride": false
+  }
+}

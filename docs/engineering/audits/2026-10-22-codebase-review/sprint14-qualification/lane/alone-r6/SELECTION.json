@@ -1,0 +1,28 @@
+{
+  "head": "e115be4ba55cde244520fd0babc68b961e4eb17a",
+  "sourceManifestEntries": 2164,
+  "purpose": "Sprint 14 alone-r6 on e115be4b: the three core files whose tests were NEW 20 s/30 s timeouts in full-tree-r4 (gate 16% slower than r13), each file alone, timing qualification before any claim",
+  "children": [
+    {
+      "label": "bridge-p12-campaign-library",
+      "completeFiles": [
+        "tests/bridge-p12-campaign-library.test.ts"
+      ]
+    },
+    {
+      "label": "bridge-p13b-s7-disclosure",
+      "completeFiles": [
+        "tests/bridge-p13b-s7-disclosure.test.ts"
+      ]
+    },
+    {
+      "label": "bridge-runtime-worker",
+      "completeFiles": [
+        "tests/bridge-runtime-worker.test.ts"
+      ]
+    }
+  ],
+  "budgets": {
+    "timeoutOverride": false
+  }
+}

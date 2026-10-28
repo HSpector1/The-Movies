@@ -1,0 +1,43 @@
+{'numTotalTestSuites': 2134, 'numPassedTestSuites': 2071, 'numFailedTestSuites': 63, 'numPendingTestSuites': 0, 'numTotalTests': 6192, 'numPassedTests': 6071, 'numFailedTests': 107, 'numPendingTests': 3, 'numTodoTests': 11}
+{'NEW': 5, 'INHERITED-SAME': 95, 'INHERITED-CHANGED': 1, 'MISSING-INPUT': 6, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 1, 'OVER-BUDGET-PASS': 813} report tests 6190 baseline tests 6173 in both 6173
+
+## NEW (5)
+  - tests/bridge-p12-campaign-library.test.ts :: R05 independent named campaign transactions keeps a reviewed contract quote usable across failed and successfu
+      Error: Test timed out in 20000ms.
+  - tests/bridge-p12-campaign-library.test.ts :: R05 independent named campaign transactions keeps a reviewed contract quote usable across failed and successfu
+      Error: Test timed out in 20000ms.
+  - tests/bridge-p13b-s7-disclosure.test.ts :: P13B-S7-T3 item 5: Industry announcement row — derived, nullable studioId, excluded from per-studio History, a
+      Error: Test timed out in 30000ms.
+  - tests/bridge-runtime-worker.test.ts :: runtime worker production authority delivers an accepted campaign Save before close completes and recovers its
+      Error: Test timed out in 30000ms.
+  - tests/bridge-runtime-worker.test.ts :: runtime worker production authority durably saves exact response bytes and replays them after later progress a
+      Error: Test timed out in 30000ms.
+
+## INHERITED-CHANGED (1)
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) legacy-root-downgrade
+      AssertionError: elapsed 215827 ms against the 120000 ms budget: expected 215827.19911800005 to be less than or equal to 120000
+      baseline: AssertionError: elapsed 204259 ms against the 120000 ms budget: expected 204259.00319 to be less than or equal to 120000
+
+## MISSING-INPUT (6)
+  - tests/r3n1-stale-schedule-take-02.test.ts :: R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge SERVER REFUSAL
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02.test.ts :: R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge SERVER REFUSAL
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p31.test.ts :: R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p31.test.ts :: R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p32.test.ts :: R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p32.test.ts :: R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'
+      UNTRACKED (not recoverable here)
+
+## OVER-BUDGET-PASS (813) max 716930.91
+## BASELINE-NOT-REPRODUCED (1)
+  - tests/bridge-p13b-s3-save-as.test.ts :: P13B-S3 Save As (test 7, A11) a Save As copy keeps the same plan ids and advances independently; the

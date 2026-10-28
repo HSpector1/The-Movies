@@ -1,4 +1,4 @@
-# Sprint 14 integrated qualification record — p18-season-20261028 (item 1 compiled read-only by Sonnet from the r13 gate, 2026-10-28 14:05 CDT; items 2–4 filled by the coordinator from the Sprint 14 lane runs, 14:35 CDT; the final gate full-tree-r4 on e115be4b is RUNNING and its classification is appended when it ends)
+# Sprint 14 integrated qualification record — p18-season-20261028 (item 1 compiled read-only by Sonnet from the r13 gate, 2026-10-28 14:05 CDT; items 2–4 filled by the coordinator from the Sprint 14 lane runs, 14:35 CDT; the final gate full-tree-r4 on e115be4b ended 17:00 CDT and its classification is §10, written 17:15 CDT; §7–§9 carry the corrections it forced)
 
 
 ## 0. Basis
@@ -257,6 +257,17 @@
 | Rival recovery/closure | PARTIALLY MEASURED (natural recovery: NOT MEASURED) |
 | Interactions | PARTIALLY MEASURED (pairwise green; one-world composition: NOT MEASURED) |
 
+After the Sprint 14 lane runs and the final gate (§10) the classes read:
+
+| Obligation | Class after Sprint 14 |
+|---|---|
+| Migration | MEASURED WITH NAMED INHERITED FAILURES (long-world Save48-51 migration: still NOT MEASURED; the gate's p12 save/load timeouts are NOT timing-qualified alone, §10) |
+| Conservation | MEASURED (closure/transfer clause and long composition: NOT MEASURED; the 1366 natural closure measured on every seed, §4) |
+| Deterministic replay | MEASURED on the P17 and P18 routes (same-seed byte identity with one-action controls, s14 W1 ×2; harness arms byte-identical at 520/1040; rebuild digests equal) |
+| Long campaign | MEASURED AS A FINDING (natural route closes the player at 1366 on every seed; 6240+ reached only under the closure-deferred engine option, with the save-size and probe-performance findings; post-2040 player release on Save51 still NOT MEASURED) |
+| Rival recovery/closure | MEASURED AS A FINDING (no rival that entered cost-cutting ever greenlit again on any route; p15a1 8 of 9 rivals zero releases) |
+| Interactions | MEASURED (one-world franchise + guest + live season no-pollution with a fully natural setup, s14 W2; title sale mid-season measured; allocation sweep with real contention) |
+
 ---
 
 ## 8. Named inherited failures (r13 core, 103 failed; classes from COMPARE-core.txt and AUDIT.md)
@@ -267,7 +278,7 @@
 | `bridge-p06-checkpoint-recovery` (2/11) | INHERITED-SAME 2 | Migration | Save51 version drift; recovered envelope no longer equals the pinned `saveVersion: 51` shape |
 | `p14c3-save-v38` (1/47) | INHERITED-SAME 1 | Migration | Version drift (51 for 38) |
 | `p15c2-campaign-legacy-integration` `legacy-root-downgrade` (1/37) | INHERITED-CHANGED 1 | Migration and long campaign | Budget overrun under gate load: 204,259 ms against 120,000 ms (209,905 at r9). Alone: 105,639 ms (`alone-r16`) and 86,772 ms (`alone-r13`), both pass |
-| `bridge-p12-campaign-library` (11/13) | INHERITED-SAME 11 | Migration (save/load) | Load timeouts: 9 at 5,000 ms, 2 at 20,000 ms. Pass alone |
+| `bridge-p12-campaign-library` (11/13) | INHERITED-SAME 11 | Migration (save/load) | Timeouts: 9 at 5,000 ms, 2 at 20,000 ms. CORRECTED 17:15 CDT: they do NOT pass alone at e115be4b on this host — `alone-r6` 5.0–7.8 s and 21.4/21.7 s, `alone-r7` (file alone, nothing else running, load 3.50) 5.2–8.4 s and 21.4/22.4 s. The earlier "pass alone" had no run directory behind it (INVENTORY.md §3). Budgets unchanged; not timing-qualified |
 | `bridge-p13-campaign-isolation` (1/1) | INHERITED-SAME 1 | Migration (save/load) | Load timeout at 60,000 ms (73.1 s). Passes alone |
 | `bridge-p14c3-runtime` (1/8) | INHERITED-SAME 1 | Migration (save/load) | Load timeout at 5,000 ms (9.0 s). Passes alone |
 | `bridge-runtime-checkpoint-prepared-reuse` (1/21) | INHERITED-SAME 1 | Replay (journal receipt) | Load timeout at 20,000 ms (24.4 s). Passes alone |
@@ -312,8 +323,30 @@
   - `WorldFirstLotNativeNextEventApp`: slowest case 30,013 ms alone at 85c09bc6 (passes, at the limit, "timing not qualified"; 29,125 ms at 31fdb366).
   - `WorldFirstStudioHome`: 16,370 ms alone at 85c09bc6 (12,678 ms at 31fdb366); 33,433 ms for the topbar case in the gate.
   - `bridge-p13b-s3-save-as`: 18 s alone against 21.1 s in the gate.
-  - The 14 core load timeouts passed alone in earlier alone runs. They were not re-run at r13, per the inventory's reuse rule.
+  - The 14 core load timeouts were recorded as passing alone in earlier runs and were not re-run at r13. CORRECTED 17:15 CDT: the 11 `bridge-p12-campaign-library` rows fail alone at e115be4b (`alone-r6`, `alone-r7`, §10); the other three (p13-campaign-isolation 60 s, p14c3-runtime 5 s, runtime-checkpoint-prepared-reuse 20 s) remain unmeasured alone at this commit.
 - **Not in the gate:** Playwright and the harnesses listed in §4(c).
 - **Unchanged ACCEPTANCE OPEN items:** the P18 list (p18-sprint12/RESULTS.md), the P17 tag list, natural C-08, native/Unity unrun, cross-engine save portability, and Owner-pending policies (including the equal-wait film-first policy constant).
 
 Files read: `/Users/zacheryspector/The-Movies-headless-program/docs/engineering/audits/2026-10-22-codebase-review/sprint14-qualification/{ENTRY,INVENTORY,RESULTS}.md`, the r13 `AUDIT.md`, `COMPARE-core.txt`, `COMPARE-ui.txt` and `COMPARE-ui-r23-vs-r13.txt`, and p18-sprint12/p18-sprint13 `RESULTS.md`. I also read `/Users/zacheryspector/studio-scratch/p18-prep/P18-FIRST-SEASON-CONTRACT.md` §7-§9, grepped `/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/tests`, and parsed the r13 JSON files. No file was edited and no tsc, vitest or npm was run.
+---
+
+## 10. Final gate full-tree-r4 on e115be4b (ended 17:00:16 CDT; baseline full-tree-r13 at 85c09bc6)
+
+Run dir studio-scratch/sprint14-20261028/full-tree-r4; records lane/full-tree-r4/{AUDIT.md, COMPARE-core-r4-vs-r13.txt, COMPARE-ui-r4-vs-r13.txt, SELECTION.json}. Independent postflight audit (Sonnet, read-only): **AUDIT CLEAN WITH NOTES, all ten checks pass.** Static stages 0 (root-ui-types 106 s, bridge-types 43 s, bridge-contract 1 s, bridge-fixture-contract 1 s, build 24 s, final-source-integrity 0). Core 6,192 tests / 107 failed / 6,071 passed / 3 skipped / 11 todo in 565 files, 8,466 s (+16.2% on r13's 7,286 s, slowdown concentrated 1–2 h in; cause not shown in any run file). UI 2,757 / 3 failed / 2,749 passed / 5 skipped in 211 files, 903 s (−4.1%).
+
+**Zero new assertion failures.** Delta from the baseline: Sprint 13's FIX-4/FIX-5 (ebfdf2ca ui/src/lot/StudioLotScreen.tsx useEffect → useLayoutEffect plus its witness; 0774e16e test-only; both tagged p18-sprint13-checkpoint-20261028 and covered by the full ui rerun ui-r23) and the three tests-only Sprint 14 commits (0cf00e40, bd65e801, e115be4b: the two s14 witness files, 17 cases, all passing in the gate: season 10/10, franchise 7/7). No core or bridge source changed. generated/ and the bridge schema unchanged.
+
+Core classification (tool and independent reclassification agree): NEW 5, INHERITED-SAME 95, INHERITED-CHANGED 1, MISSING-INPUT 6, BASELINE-NOT-REPRODUCED 1; OVER-BUDGET-PASS 813 (max 716.9 s).
+- NEW 5, all pure timeouts, every one passing alone at e115be4b (`alone-r6`, 17:02–17:06 CDT, 2 minutes after the gate, load 3.53): `bridge-p12-campaign-library` R05 catalogue-only rename 31,992 ms in the gate (r13 13,233) → 7,431 ms alone of 20,000; R05 catalogue-only delete 43,005 (r13 11,923) → 5,675 of 20,000; `bridge-p13b-s7-disclosure` item 5 Industry announcement 33,892 (r13 25,083) → 18,573 of 30,000 (thin: 84% in r13, 62% alone); `bridge-runtime-worker` "delivers an accepted campaign Save before close completes" 30,086 (r13 12,807) → 6,314 of 30,000; "durably saves exact response bytes and replays them" 33,702 (r13 22,082) → 11,358 of 30,000. Class: LOAD TIMING, resolved alone (files s7 22/22 and worker 8/8 green alone). Not timing-qualified under gate load.
+- INHERITED-CHANGED 1: `p15c2` legacy-root-downgrade 215,827 ms against 120,000 (r13 204,259; alone 105,639 at 85c09bc6). Same failure at both commits.
+- INHERITED-SAME 95 = r13's 94 plus the projection20 "expected 68 to be 53" row that was already 68 in r13. The 11 `bridge-p12-campaign-library` timeouts inside this count FAIL ALONE at e115be4b (`alone-r6` 5,007–7,832 ms and 21,374/21,723 ms; `alone-r7` 5,211–8,443 ms and 21,424/22,449 ms against 5,000 and 20,000 ms budgets): inherited timing failures, not load-only, not timing-qualified; budgets unchanged; §8/§9 corrected.
+- MISSING-INPUT 6: the three untracked r3n1 checkpoints, as in r13 and r9.
+- BASELINE-NOT-REPRODUCED 1: `bridge-p13b-s3-save-as` (21,065 ms in r13) passes at 17,574 ms of 20,000 (87.9%).
+
+UI classification: NEW 0, INHERITED-SAME 3 (30 s timeouts: LotNative cash-stop 42,810 ms, StudioHome topbar-focus 32,104, StudioHome building-focus 36,608; alone measurements carried from §9), BASELINE-NOT-REPRODUCED 1 (StudioLotScreen focus hand-off, failed toHaveFocus in r13, passes at 985 ms: the ebfdf2ca code fix, not load).
+
+Timeouts by budget in the core JSON: 19 (5,000 ms ×10, 20,000 ms ×5, 30,000 ms ×3, 60,000 ms ×1; r13 15). UI 3 (r13 3). Log scan clean (no Unhandled, hook timeout, worker crash, load/transform failure, EMFILE, ENOSPC).
+
+Host at launch: AC 100%, free 5,612,596 KiB, loadLOCAL { 3.13 6.48 7.12 } (lighter than r13's 9.09), swap 8,611.5 M of 9,216 M, 47 Chrome helper processes (r13 36); Godot scan 0 lines; USED one-shot; SOURCE-MANIFEST 2,164 entries all equal on disk and in `git show e115be4b:`.
+
+Verdict for the sprint: the final gate is a functional pass with zero new assertion failures; timing is qualified alone for the five NEW rows and NOT qualified for the eleven inherited p12 save/load timeouts (fail alone on this host), the p15c2 downgrade overrun, the three ui 30 s rows and the thin-margin passes (s7 item 5, save-as). Owner acceptance is a separate claim (RESULTS.md ACCEPTANCE OPEN).

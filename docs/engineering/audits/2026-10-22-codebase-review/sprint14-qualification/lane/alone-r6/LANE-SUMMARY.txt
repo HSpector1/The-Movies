@@ -1,0 +1,44 @@
+=== BEGIN bridge-p12-campaign-library
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only rename 7431ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only delete 5675ms
+   × R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record 5346ms
+   × R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit 5007ms
+   × R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session 6727ms
+   × R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart 7832ms
+   × R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact 6318ms
+   × R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record 5202ms
+   × R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes 6887ms
+   × R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals 6247ms
+   × R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart 7552ms
+   × R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority 21374ms
+   × R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority 21723ms
+⎯⎯⎯⎯⎯⎯ Failed Tests 11 ⎯⎯⎯⎯⎯⎯⎯
+ Test Files  1 failed (1)
+      Tests  11 failed | 2 passed (13)
+=== END bridge-p12-campaign-library exit=1 elapsed=126s
+=== BEGIN bridge-p13b-s7-disclosure
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts (22 tests) 67351ms
+   ✓ P13B-S7-T3 item 2: Laboratory forecast rows — windowed before 884 (no leak), exact at/after 884, sound exact throughout > week 793 (windowed, unannounced): lighting forecast row is a window 884..
+   ✓ P13B-S7-T3 item 2: Laboratory forecast rows — windowed before 884 (no leak), exact at/after 884, sound exact throughout > week 884 and week 900 (exact, announced): lighting forecast row publishes
+   ✓ P13B-S7-T3 item 3: replacementLabel on the purchase row, adopt-* rows and adoptions[] rows, for both technologies > an uncommitted adopt-synchronized-sound-* row and an uncommitted adopt-lighting
+   ✓ P13B-S7-T3 item 3: replacementLabel on the purchase row, adopt-* rows and adoptions[] rows, for both technologies > committed adoptions[] rows for both technologies carry replacementLabel verbati
+   ✓ P13B-S7-T3 item 4: generalised wait-<id>/purchase-<id> rows — sound unchanged, lighting per the MEASURED engine law (see header) > purchase-lighting-control-01 at week 936 (commercial open): enab
+   ✓ P13B-S7-T3 item 5: Industry announcement row — derived, nullable studioId, excluded from per-studio History, absent for sound, Save As identical > identical in a Save As world: two independently-
+   ✓ P13B-S7-T3 item 6: rival-independence on the wire — identical forecast/announcement rows across states differing only in rival facts (PARTIAL until S8, per the engine's own test 2 scope) > Labora
+   ✓ P13B-S7-T3 item 6: rival-independence on the wire — identical forecast/announcement rows across states differing only in rival facts (PARTIAL until S8, per the engine's own test 2 scope) > indust
+   ✓ P13B-S7-T3 item 7: genuine V26 fixture loads through the bridge and publishes the windowed lighting forecast at week 795 > sha256 matches provenance; BridgeSession.fromSaveJson loads it; the Labo
+ Test Files  1 passed (1)
+      Tests  22 passed (22)
+=== END bridge-p13b-s7-disclosure exit=0 elapsed=91s
+=== BEGIN bridge-runtime-worker
+ ✓ |core| tests/bridge-runtime-worker.test.ts (8 tests) 23447ms
+   ✓ runtime worker production authority > delivers an accepted campaign Save before close completes and recovers its catalogue receipt 6314ms
+   ✓ runtime worker production authority > durably saves exact response bytes and replays them after later progress and reopen 11358ms
+   ✓ runtime worker production authority > refuses a second authority while preserving the first worker and its durable bytes 3522ms
+   ✓ runtime worker production authority > rejects corrupt persisted state without replacing it with a fresh campaign 366ms
+   ✓ runtime worker responsiveness and lifecycle > keeps the caller timer responsive during synchronous work and retains exact UTF-8 bytes 512ms
+   ✓ runtime worker responsiveness and lifecycle > drains accepted work before graceful close and rejects requests made after closing starts 505ms
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+=== END bridge-runtime-worker exit=0 elapsed=31s
+=== CHECKPOINT exit=1

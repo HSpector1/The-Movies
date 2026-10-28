@@ -1,0 +1,19 @@
+=== BEGIN bridge-p12-campaign-library
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only rename 7771ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only delete 5124ms
+   × R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record 6121ms
+   × R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit 5956ms
+   × R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session 6604ms
+   × R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart 5591ms
+   × R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact 8443ms
+   × R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record 6650ms
+   × R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes 5211ms
+   × R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals 7553ms
+   × R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart 5997ms
+   × R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority 22449ms
+   × R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority 21424ms
+⎯⎯⎯⎯⎯⎯ Failed Tests 11 ⎯⎯⎯⎯⎯⎯⎯
+ Test Files  1 failed (1)
+      Tests  11 failed | 2 passed (13)
+=== END bridge-p12-campaign-library exit=1 elapsed=125s
+=== CHECKPOINT exit=1

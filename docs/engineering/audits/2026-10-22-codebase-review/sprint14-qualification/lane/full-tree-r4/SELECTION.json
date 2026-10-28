@@ -1,0 +1,21 @@
+{
+  "head": "e115be4ba55cde244520fd0babc68b961e4eb17a",
+  "sourceManifestEntries": 2164,
+  "predecessor": "31fdb366 (tag p18-sprint12-checkpoint-20261028); baseline for comparison: p18-sprint12 full-tree-r9 (core, ui) on 8a2e840b (audited CLEAN WITH NOTES) \u2014 expected drift: the Sprint 12 NEW row (held-title seller) and the two scenery MISSING-INPUT rows are fixed/recovered on this tree",
+  "purpose": "Sprint 14 final full current-tree gate (item 5) on the settled candidate after items 2-4 land; baseline p18-sprint13 full-tree-r13 (85c09bc6)",
+  "children": [
+    {
+      "label": "full-core-including-bridge",
+      "project": "core"
+    },
+    {
+      "label": "full-ui",
+      "project": "ui"
+    }
+  ],
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "timeoutOverride": false
+  },
+  "limits": "Timing recorded, not qualified; classification by file+fullName+first failure line against full-tree-r9."
+}

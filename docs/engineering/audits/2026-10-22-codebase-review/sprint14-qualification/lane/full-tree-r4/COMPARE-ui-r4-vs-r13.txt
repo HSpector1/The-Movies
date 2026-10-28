@@ -1,0 +1,6 @@
+{'numTotalTestSuites': 775, 'numPassedTestSuites': 771, 'numFailedTestSuites': 4, 'numPendingTestSuites': 0, 'numTotalTests': 2757, 'numPassedTests': 2749, 'numFailedTests': 3, 'numPendingTests': 5, 'numTodoTests': 0}
+{'NEW': 0, 'INHERITED-SAME': 3, 'INHERITED-CHANGED': 0, 'MISSING-INPUT': 0, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 1, 'OVER-BUDGET-PASS': 0} report tests 2753 baseline tests 2752 in both 2752
+
+## OVER-BUDGET-PASS (0) max 0
+## BASELINE-NOT-REPRODUCED (1)
+  - ui/src/lot/StudioLotScreen.test.tsx :: StudioLotScreen — authoritative Hollywood operations host moves Hollywood keyboard focus to each suc
