@@ -1,0 +1,28 @@
+{
+  "head": "2c50c9df2f51d2d1bd97948f7c6bfe4127337bc2",
+  "sourceManifestEntries": 2104,
+  "purpose": "Sprint 10 timing control r11: the three NEW timeout files run one at a time on the candidate 2c50c9df",
+  "children": [
+    {
+      "label": "alone-core",
+      "completeFiles": [
+        "tests/bridge-p13b-s3-save-as.test.ts"
+      ]
+    },
+    {
+      "label": "alone-ui-home",
+      "completeFiles": [
+        "ui/src/lot/WorldFirstStudioHome.test.tsx"
+      ]
+    },
+    {
+      "label": "alone-ui-turn",
+      "completeFiles": [
+        "ui/src/lot/livingTurn.scheduler.test.tsx"
+      ]
+    }
+  ],
+  "budgets": {
+    "timeoutOverride": false
+  }
+}

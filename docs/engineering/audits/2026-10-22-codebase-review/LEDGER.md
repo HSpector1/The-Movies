@@ -1,3 +1,8 @@
+## Sprint 10 closed; Sprint 11 starting — 2026-10-27, 20:40 CDT
+
+P17 continuations are functional on 2c50c9df (tag p17-sprint10-checkpoint-20261027, branch p17-continuation-20261027): full gate audited, 53 missing-input rows recovered, three load timeouts pass alone at both commits. Zero new assertion failures versus the P16 checkpoint. Carryover and limits in p16-sprint10/RESULTS.md. Sprint 11 (cameo/featured appearances; Bridge/browser continuation surfaces; S1 Bridge priors) begins on the same branch.
+
+
 ## Sprint 10 candidate installed and reviewed — 2026-10-27, 14:55 CDT
 
 The adapted P17 draft is a CANDIDATE on p17-continuation-20261027 (506d6c84 + FIX-1 5a6fc0bb; gameplay predecessor 63a63abe unchanged on its branch). Root and Bridge types 0 after materializing ui/ in the sparse worktree. Focused GREEN 245/249 (p16-sprint10/lane/green-r4); RED premise at the parent 9/11 failing by assertion (red-r5). Independent review: NEEDS CHANGES (p16-sprint10/REVIEW.md): a same-week sequel+reboot release crash, a swept genuine-fixture pin, a concept-reuse clean-mint gap and a missing shared-release case; FIX-2 in preparation. Not qualified; no promotion.
@@ -727,7 +732,9 @@ Governing [Owner assignment](p16-sprint5/OWNER-ASSIGNMENT.txt) supersedes routin
 | 9 — technical P16 checkpoint (13:55 record) | GATES RUN; BROWSER CLIENT HAS NO P16 TRANSACTION SURFACE | Full-tree r3 classified; test pins repaired; real browser smoke passes; P16 transactions proved only through Bridge/core fixtures (labelled). Checkpoint decision recorded in RESULTS.md. |
 | 9 — technical P16 checkpoint (10:40 record) | GATES RUN; BROWSER TRANSACTIONS PENDING | Full-tree r3 classified; nine new test pins repaired under review (test-only, 71ddea72); inherited failures retain baseline identity. Next: browser rights/acquisition/estate transactions on the existing client (needs a launchable browser), then decide the immutable non-main checkpoint. |
 | 9 — technical P16 checkpoint (entry record) | DEPENDENCY BLOCKED | Coherent Sprints 6–8, historical/consumer gates and actual browser transactions; no immutable qualified checkpoint yet. |
-| 10 — P17 continuation | FIX-2 INSTALLED 2c50c9df; RE-REVIEW ACCEPTABLE (READ); LANE BLOCKED ON AC POWER | types-r6/green-r7/red-r8 pending the charger (chain-fix2.sh). |
+| 10 — P17 continuation | CLOSED: FUNCTIONAL; TAG p17-sprint10-checkpoint-20261027 AT 2c50c9df | Full gate + audit + recovery + timing control: zero new assertion failures; carryover named in p16-sprint10/RESULTS.md (managed front door, rival route, rights-hold, S1 Bridge priors, Bridge/ui verbs). Timing not qualified; no Owner acceptance. |
+| 11 — P17 featured appearances and player-facing integration | STARTING | Cameo core slice from the preserved draft; Bridge projection bump (S1 priors) in parallel, disjoint files. |
+| 10 — P17 continuation (15:45 record) | FIX-2 INSTALLED 2c50c9df; RE-REVIEW ACCEPTABLE (READ); LANE BLOCKED ON AC POWER | types-r6/green-r7/red-r8 pending the charger (chain-fix2.sh). |
 | 10 — P17 continuation (14:55 record) | CANDIDATE INSTALLED; TYPES 0; GREEN 245/249; REVIEW NEEDS CHANGES | 5a6fc0bb on p17-continuation-20261027. FIX-2 pending for the same-week release crash (B1), the swept bridge checkpoint case, the P17-01 expectation, the route director, the concept-reuse clean mint and a shared-release case. S1 deferred to Sprint 11. |
 | 10 — P17 continuation (14:15 record) | STARTED: ENTRY RECORDED | Inputs and the five named rebase defects (P17-01..05) are in p16-sprint10/ENTRY.md; adaptation of the preserved draft to a5a66c27 begins on p17-continuation-20261027. |
 | 10 — P17 continuation (14:05 record) | ELIGIBLE; STARTING | Predecessor tag published; adapt the preserved P17 draft on p17-continuation-20261027 using real P16 title/licence readers and the adopted greenlight link-versus-mint design. |

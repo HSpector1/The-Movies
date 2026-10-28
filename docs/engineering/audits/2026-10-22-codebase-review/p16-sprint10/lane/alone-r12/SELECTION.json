@@ -1,0 +1,28 @@
+{
+  "head": "9c9c81262dc6073705bfa3c7f9141a35dbc09f70",
+  "sourceManifestEntries": 2059,
+  "purpose": "Sprint 10 timing control r12: the same three files one at a time at the parent a5a66c27 (RED worktree 9c9c8126: parent source, ui materialized)",
+  "children": [
+    {
+      "label": "alone-core",
+      "completeFiles": [
+        "tests/bridge-p13b-s3-save-as.test.ts"
+      ]
+    },
+    {
+      "label": "alone-ui-home",
+      "completeFiles": [
+        "ui/src/lot/WorldFirstStudioHome.test.tsx"
+      ]
+    },
+    {
+      "label": "alone-ui-turn",
+      "completeFiles": [
+        "ui/src/lot/livingTurn.scheduler.test.tsx"
+      ]
+    }
+  ],
+  "budgets": {
+    "timeoutOverride": false
+  }
+}

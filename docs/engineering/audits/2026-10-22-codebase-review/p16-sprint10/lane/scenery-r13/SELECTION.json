@@ -1,0 +1,13 @@
+{
+  "head": "2c50c9df2f51d2d1bd97948f7c6bfe4127337bc2",
+  "sourceManifestEntries": 2119,
+  "purpose": "Sprint 10 r13: world-first-scenery-load-in-provenance after materializing art/hollywood/ (tracked, sparse-excluded)",
+  "children": [
+    {
+      "label": "scenery",
+      "completeFiles": [
+        "tests/world-first-scenery-load-in-provenance.test.ts"
+      ]
+    }
+  ]
+}
