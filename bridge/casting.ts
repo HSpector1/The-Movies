@@ -59,13 +59,23 @@ import {
   type DraftPackage,
 } from '../ui/src/engine/adapter.ts'
 import type {
+  BridgeCameoBookingRequest,
   BridgeCastingCandidateSnapshot,
   BridgeCastingDraftPayload,
   BridgeCastingExpiryNoticeSnapshot,
   BridgeCastingProjectSnapshot,
   BridgeCastingQuoteSnapshot,
   BridgeCastingSnapshot,
+  BridgeContinuationQuoteTerms,
+  BridgeContinuationRequest,
+  BridgeFeaturedGuestTerms,
 } from './schema/bridge-schema.ts'
+import { applyActions } from '../src/core/actions.js'
+import { cameoQuote } from '../src/core/cameoBooking.js'
+import type { ContinuationRequest } from '../src/core/continuation.js'
+import { prepareContinuation } from '../src/core/continuationGreenlight.js'
+import { branchAuthority, permissionFor } from '../src/core/rights.js'
+import { TUNING } from '../src/core/tuning.js'
 import { castingChemistryRows, castingChemistryWarning, type ChemistrySeats } from './relationships.ts'
 
 type CastingBoardWire = NonNullable<BridgeCastingSnapshot['board']>
@@ -473,10 +483,79 @@ function greenlightConversion(
   return {
     ok: true,
     kind: 'greenlightPicture',
-    apply: (current) => greenlightScriptProject(current, view.projectId, pkg),
+    apply: (current) => greenlightCarrying(current, view.projectId, pkg, draft),
     commitLabel: 'Greenlight picture',
     projectTitle: view.title,
   }
+}
+
+const continuationRequest = (request: BridgeContinuationRequest): ContinuationRequest => ({
+  type: request.type,
+  predecessorProductionId: request.predecessorProductionId,
+  ...(request.subPropertyId === undefined ? {} : { subPropertyId: request.subPropertyId }),
+  ...(request.branchId === undefined ? {} : { branchId: request.branchId }),
+})
+const cameoRequest = (request: BridgeCameoBookingRequest): BridgeCameoBookingRequest => ({
+  talentId: request.talentId, workWeek: request.workWeek, fee: request.fee, basis: request.basis,
+})
+
+/**
+ * P17 slice B: the greenlight package with the core's optional requests. Absent both, it is the adapter's greenlight,
+ * byte for byte. Present, the same `greenlightScriptProject` action carries them, so the core's continuation quote,
+ * P16 link-versus-mint law and featured-booking law decide (the adapter's door, which this module may not widen, sends
+ * neither field).
+ */
+function greenlightCarrying(state: GameState, projectId: string, pkg: DraftPackage, draft: BridgeCastingDraftPayload): ActionOutcome {
+  if (draft.continuation === undefined && draft.cameos === undefined) return greenlightScriptProject(state, projectId, pkg)
+  try {
+    return { ok: true, next: applyActions(state, [{
+      kind: 'greenlightScriptProject',
+      production: { projectId, directorId: pkg.directorId, craftIds: [...(pkg.craftIds ?? [])], cast: { ...pkg.cast }, budget: { ...pkg.budget } },
+      ...(draft.continuation === undefined ? {} : { continuation: continuationRequest(draft.continuation) }),
+      ...(draft.cameos === undefined ? {} : { cameos: draft.cameos.map(cameoRequest) }),
+    }]) }
+  } catch (error) {
+    return { ok: false, error: (error as Error).message }
+  }
+}
+
+/** The continuation the greenlight commits: the core quote for the production id the discarded successor assigned, and
+ * the P16 answer it relies on (permissionFor, or branchAuthority for a spin-off continuity), read live, never stored. */
+function continuationTerms(state: GameState, request: BridgeContinuationRequest, productionId: string, pkg: DraftPackage): BridgeContinuationQuoteTerms {
+  const studioId = state.hollywood!.playerStudioId
+  const prep = prepareContinuation(state, continuationRequest(request), {
+    productionId, conceptId: pkg.conceptId, proposed: { writerId: pkg.writerId, directorId: pkg.directorId, cast: { ...pkg.cast } },
+  })
+  const q = prep.quote, week = state.market.tick
+  let via: 'title' | 'licence' | 'parent', holderStudioId: string, licenceId: string | null
+  if (q.use === 'spinoff') {
+    const answer = branchAuthority(state, { parentPropertyId: q.storyPropertyId, branch: q.subPropertyId ?? q.branchId ?? 'new continuity' }, week)
+    if (answer.kind !== 'authority') throw new Error(`continuation quote: P16 gives no spin-off authority on ${q.storyPropertyId} (${answer.reason})`)
+    via = 'parent'; holderStudioId = answer.studioId; licenceId = answer.licenceId
+  } else {
+    const answer = permissionFor(state, studioId, { right: 'R1', propertyId: q.storyPropertyId }, 'R3', { use: q.use }, week)
+    if (answer.kind !== 'permitted') throw new Error(`continuation quote: P16 refuses ${q.use} on ${q.storyPropertyId} (${answer.reason})`)
+    via = answer.via; holderStudioId = studioId; licenceId = answer.licenceId
+  }
+  const licence = licenceId === null ? null : state.rights.licences.find((l) => l.id === licenceId) ?? null
+  if (licenceId !== null && licence === null) throw new Error(`continuation quote: P16 answered with unknown licence ${licenceId}`)
+  return {
+    storyPropertyId: q.storyPropertyId, type: q.type, use: q.use, predecessorProductionId: q.predecessorProductionId,
+    branchId: q.branchId, branchKind: q.branchKind, subPropertyId: q.subPropertyId, link: prep.link,
+    rights: { via, holderStudioId, licenceId, grantorStudioId: licence?.grantorId ?? null,
+      licenceEndWeekExclusive: licence?.endWeekExclusive ?? null, coverWeek: week + TUNING.PRODUCTION_TICKS },
+    recognition: q.recognition, momentum: q.momentum, fatigue: q.fatigue, comparison01: q.comparison01,
+    continuityCredit: q.continuityCredit, inheritedAwareness01: q.inheritedAwareness01, band: q.band,
+  }
+}
+
+/** One requested guest's booking terms: the core quote the greenlight re-runs (the preflight already accepted it). */
+function featuredGuestTerms(state: GameState, request: BridgeCameoBookingRequest): BridgeFeaturedGuestTerms {
+  const q = cameoQuote(state, { talentId: request.talentId, workWeek: request.workWeek })
+  if (!q.ok) throw new Error(`featured guest quote: ${q.reason}`)
+  return { talentId: q.talentId, name: q.name, profession: q.profession, basis: q.basis, workWeek: q.workWeek,
+    standardShootingWeek: q.nominalShootingWeeks.includes(q.workWeek), fee: q.fee, retained: q.retained, refundable: q.refundable,
+    readinessRisk: q.readinessRisk, disclosures: [...q.disclosures] }
 }
 
 /**
@@ -561,6 +640,9 @@ export function castingDraftToEngine(
   state: GameState,
   draft: BridgeCastingDraftPayload,
 ): CastingDraftConversion {
+  if (draft.kind !== 'greenlightPackage' && (draft.continuation !== undefined || draft.cameos !== undefined)) {
+    return { ok: false, error: 'A continuation or a featured guest rides only a greenlight package.' }
+  }
   if (draft.kind === 'signActor') return signActorConversion(state, draft)
   if (draft.projectId === null) {
     return { ok: false, error: 'Choose the exact Ready screenplay before casting or greenlighting.' }
@@ -628,7 +710,14 @@ function screenTestQuoteSnapshot(
     // read chemistry for, and an honest null is not a neutral score.
     chemistry: null,
     chemistryWarning: null,
+    continuation: null,
+    featuredGuests: null,
   }
+}
+
+function requireNewProduction<T>(production: T | undefined): T {
+  if (production === undefined) throw new Error('A continuation greenlight must start now; the core refuses to queue it.')
+  return production
 }
 
 function greenlightQuoteSnapshot(
@@ -728,6 +817,10 @@ function greenlightQuoteSnapshot(
     // change NOTHING in it: no cost, no forecast, no affordability and no refusal.
     chemistry: [...castingChemistryRows(state, seats)],
     chemistryWarning: castingChemistryWarning(state, seats),
+    // P17 slice B: a continuation or featured-guest greenlight never queues (the core refuses it), so it always has the
+    // new production the terms are quoted for.
+    continuation: draft.continuation === undefined ? null : continuationTerms(state, draft.continuation, requireNewProduction(newProduction).id, pkg),
+    featuredGuests: draft.cameos === undefined ? null : draft.cameos.map((request) => featuredGuestTerms(state, request)),
   }
 }
 
@@ -792,6 +885,8 @@ function signContractQuoteSnapshot(
     // Signing a contract proposes no seating; an honest null, never a neutral score.
     chemistry: null,
     chemistryWarning: null,
+    continuation: null,
+    featuredGuests: null,
   }
 }
 

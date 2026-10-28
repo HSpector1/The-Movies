@@ -63,6 +63,9 @@ export const AVAILABLE_INTENT_KINDS = [
   'takeLoan',
   'requestDueDiligence',
   'absorbStudio',
+  // P17 slice B (projection 66): cancelling ONE unperformed featured-guest booking of the player's own, the core
+  // `cancelCameoBooking` action (one linked refund of fee less the retained charge; completed work keeps its fee).
+  'cancelFeaturedBooking',
 ] as const
 
 export const StudioBridgeIntentOption = object('StudioBridgeIntentOption', {

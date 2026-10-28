@@ -805,7 +805,7 @@ describe('P04A REOPEN — enumerated prior protocol-4 checkpoint import', () => 
         expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(sha256(loaded.hydrated.checkpoint.savedSaveJson ?? ''))
         expect(loaded.hydrated.checkpoint.currentStateDigest).not.toBe(original.currentStateDigest)
         const encoded = encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint)
-        const reopened = loadBridgeRuntimeCheckpoint(encoded, undefined, () => { throw new Error('current65 must not migrate again') })
+        const reopened = loadBridgeRuntimeCheckpoint(encoded, undefined, () => { throw new Error('current66 must not migrate again') })
         expect(reopened.migratedFromProtocolVersion).toBeNull()
         expect(encodeBridgeRuntimeCheckpoint(reopened.hydrated.checkpoint)).toBe(encoded)
         expect(canonicalJson(original)).toBe(before)
@@ -1096,6 +1096,8 @@ describe('prior protocol-4 acceptance boundary pins', () => {
       'sha256:c9c07d6febe4afee7f7c27c991acdfa1c86b6c3a7f5dff8528d7fa5ad72e43a1',
       'sha256:c9dad9f3d8bb94445db1a5425d90db3f9894da9354f47a07992ff96261cfc399',
       'sha256:d3338cb713385cc23414e6a17293a5900871764f0eeaed19698e17634e74740b',
+      // Sprint 11 slice B: outgoing65, prior beneath current66 (its genuine capture below).
+      'sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8',
       // P3: genuine1117 outgoing53 natural and waiver checkpoints.
       'sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d',
       'sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99',
@@ -1172,7 +1174,7 @@ describe('Sprint 11 S1 — P16-build current64 checkpoints with Save49 slots tak
     expect(loaded.hydrated.checkpoint.savedStateDigest).not.toBe(sha256(savedSaveJson))
     // The migrated checkpoint is current: it reopens without a second migration and re-encodes byte for byte.
     const encoded = encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint)
-    const reopened = loadBridgeRuntimeCheckpoint(encoded, undefined, () => { throw new Error('current65 must not migrate again') })
+    const reopened = loadBridgeRuntimeCheckpoint(encoded, undefined, () => { throw new Error('current66 must not migrate again') })
     expect(reopened.migratedFromProtocolVersion).toBeNull()
     expect(encodeBridgeRuntimeCheckpoint(reopened.hydrated.checkpoint)).toBe(encoded)
   })
@@ -1243,6 +1245,47 @@ describe('Sprint 11 S1 — P16-build current64 checkpoints with Save49 slots tak
     })
     expect(() => loadBridgeRuntimeCheckpoint(bytes, undefined, () => { throw new Error('a current-schema checkpoint must not take the prior path') }))
       .toThrow(`checkpoint.currentSaveJson: must be a current V${String(LIVE_SAVE_VERSION)} save, received V49`)
+  })
+})
+
+// Sprint 11 slice B: projection 66 registers the outgoing65 identity. Save50 did not move, so both slots are already live
+// and the governed prior path keeps their bytes; only the session and the opaque journal reset.
+const OUTGOING_65 = 'sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8'
+describe('Sprint 11 slice B — the outgoing65 capture takes the governed prior path', () => {
+  it('accepts the genuine projection-65 capture (2b1a5b4b public save route) and keeps both live Save50 slots byte for byte', () => {
+    // PLACEHOLDER pins: the coordinator captures the fixture at 2b1a5b4b with tools/capture65.ts (Sprint 11 bridge-b OUT)
+    // and replaces each PLACEHOLDER below with the receipt's value. Until then this case fails loudly on the missing file.
+    const compressed = readFileSync(new URL('./fixtures/bridge/genuine-projection65-runtime/outgoing65.checkpoint.json.gz', import.meta.url))
+    expect(createHash('sha256').update(compressed).digest('hex')).toBe('71769a1eb690fd21d8294cc62569d730e6b549e54270edce4bc8405513207a84')
+    const raw = gunzipSync(compressed).toString('utf8')
+    expect(sha256(raw)).toBe('fcc07f9d61376abae825f79dadd5f12d4e38166a9d5490336a2a83d8eb2df382')
+    const original = JSON.parse(raw) as BridgeRuntimeCheckpointV1, before = canonicalJson(original)
+    expect(original).toMatchObject({ schemaId: OUTGOING_65, protocolVersion: 4, stateRevision: 0, sessionId: 'p17-authentic-outgoing65-session' })
+    expect(original.journal).toHaveLength(1)
+    expect(original.journal[0]).toMatchObject({ route: 'save', commandId: 'outgoing65-real-save' })
+    expect(JSON.parse(original.journal[0]!.responseJson)).toMatchObject({ accepted: true, schemaId: OUTGOING_65 })
+    expect(original.savedSaveJson).not.toBeNull()
+    for (const slot of [original.currentSaveJson, original.savedSaveJson!]) {
+      expect(sha256(slot)).toBe('d8510590b44432ea5e481ee955536604f61f8b837ae8c2ad60adb2395df222f4')
+      expect(JSON.parse(slot)).toMatchObject({ saveVersion: LIVE_SAVE_VERSION, state: { market: { tick: 0 } } })
+    }
+    const outcome = loadOutcome(raw, 'fresh-session-projection-v65')
+    expect(outcome).not.toHaveProperty('refused')
+    if (!('loaded' in outcome)) return
+    const { loaded } = outcome
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_65)).toBe('projection-v65')
+    expect(loaded.migratedFromProtocolVersion).toBe(PROTOCOL_VERSION)
+    expect(loaded.hydrated.checkpoint).toMatchObject({ schemaId: SCHEMA_ID, protocolVersion: PROTOCOL_VERSION,
+      sessionId: 'fresh-session-projection-v65', stateRevision: 0, journal: [], journalDigest: sha256('[]') })
+    // Already live: the canonical chain is identity, so both slots and both digests are the capture's own.
+    expect(loaded.hydrated.checkpoint.currentSaveJson).toBe(original.currentSaveJson)
+    expect(loaded.hydrated.checkpoint.savedSaveJson).toBe(original.savedSaveJson)
+    expect(loaded.hydrated.checkpoint.currentStateDigest).toBe(original.currentStateDigest)
+    expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(original.savedStateDigest)
+    const encoded = encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint)
+    const reopened = loadBridgeRuntimeCheckpoint(encoded, undefined, () => { throw new Error('current66 must not migrate again') })
+    expect(reopened.migratedFromProtocolVersion).toBeNull()
+    expect(canonicalJson(original)).toBe(before)
   })
 })
 

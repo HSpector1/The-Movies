@@ -227,9 +227,9 @@ function studioQuery(sessionId: string, targetId: string): IndustryQuery {
 
 describe('group 1: PROJECTION_VERSION 46 / schema / converted law', () => {
   it('PROJECTION_VERSION is 46; the schema $id and x-project-studio.projectionVersion move with it', () => {
-    expect(PROJECTION_VERSION).toBe(65)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-65`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(65)
+    expect(PROJECTION_VERSION).toBe(66)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-66`)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(66)
   })
 
   it('personWorldRoute answers for a freshly signed actor with no case yet — reach playerLot, statusLine null, caseRef null', () => {

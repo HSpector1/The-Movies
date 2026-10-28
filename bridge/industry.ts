@@ -1,6 +1,7 @@
 import { buyerScriptConcepts } from '../src/core/continuedScripts.ts'
 import {paidReportsPage} from './paidReports.ts'
 import {franchisesPage} from './franchises.ts'
+import {featuredAppearancesPage,type CameoIntent} from './appearances.ts'
 import {filmScoreTenths} from '../src/core/powerRanking.js'
 /** Public, bounded Industry reads. Authoritative IDs and facts only; no private business inputs. */
 import {campaignDate} from '../src/core/calendar.js'
@@ -293,14 +294,18 @@ function rankingPage(state:GameState,index:Index,record:PowerRankingRecord):Powe
 }
 
 /** Query results own their output objects; the immutable per-state index never escapes. */
-export function industryPage(state:GameState,sessionId:string,stateRevision:number,q:IndustryQuery,laboratoryIntents:readonly LaboratoryIntent[]=[],planIntents:readonly PlanIntent[]=[],officeIntents:readonly OfficeIntent[]=[]):IndustryPage {
+export function industryPage(state:GameState,sessionId:string,stateRevision:number,q:IndustryQuery,laboratoryIntents:readonly LaboratoryIntent[]=[],planIntents:readonly PlanIntent[]=[],officeIntents:readonly OfficeIntent[]=[],cameoIntents:readonly CameoIntent[]=[]):IndustryPage {
   if(!Number.isInteger(q.page)||q.page<0||!Number.isInteger(q.pageSize)||q.pageSize<1||q.pageSize>50) {
     throw new Error('Industry pages require a non-negative integer page and a pageSize from 1 to 50.')
   }
   const index=indexFor(state),h=state.hollywood!,calendar=campaignDate(state.market.tick)
-  const result:IndustryPage={protocolVersion:PROTOCOL_VERSION,schemaId:SCHEMA_ID,snapshotVersion:SNAPSHOT_VERSION,type:'industryPage',requestId:q.requestId,sessionId,stateRevision,stateDigest:snapshotBuildContextFor(state).stateDigest(),calendar,view:q.view,targetId:q.targetId,page:q.page,pageSize:q.pageSize,totalRows:0,pageCount:0,lane:q.lane,period:q.period,title:'Industry',notice:'Public facts only. Standing channels and film measures have separate meanings. The quarterly Power Ranking is a separate comparison.',studios:[],films:[],people:[],credits:[],activities:[],projects:[],tendencies:[],laboratory:null,plans:null,office:null,market:null,powerRanking:null,diligence:null,franchises:null}
+  const result:IndustryPage={protocolVersion:PROTOCOL_VERSION,schemaId:SCHEMA_ID,snapshotVersion:SNAPSHOT_VERSION,type:'industryPage',requestId:q.requestId,sessionId,stateRevision,stateDigest:snapshotBuildContextFor(state).stateDigest(),calendar,view:q.view,targetId:q.targetId,page:q.page,pageSize:q.pageSize,totalRows:0,pageCount:0,lane:q.lane,period:q.period,title:'Industry',notice:'Public facts only. Standing channels and film measures have separate meanings. The quarterly Power Ranking is a separate comparison.',studios:[],films:[],people:[],credits:[],activities:[],projects:[],tendencies:[],laboratory:null,plans:null,office:null,market:null,powerRanking:null,diligence:null,franchises:null,featuredAppearances:null}
   const page=<T>(rows:T[]):T[]=>{result.totalRows=rows.length;result.pageCount=Math.ceil(rows.length/q.pageSize);if(q.page>0&&q.page>=result.pageCount)throw new Error('That page is outside this snapshot. Return to the first page.');return rows.slice(q.page*q.pageSize,(q.page+1)*q.pageSize)}
-  if(q.view==='franchises') {
+  if(q.view==='featuredAppearances') {
+    const read=featuredAppearancesPage(state,q.targetId,q.page,q.pageSize,cameoIntents)
+    result.featuredAppearances=read.featuredAppearances;result.totalRows=read.totalRows;result.pageCount=read.pageCount
+    result.title=read.featuredAppearances.title;result.notice=read.featuredAppearances.notice
+  } else if(q.view==='franchises') {
     const read=franchisesPage(state,q.targetId,q.page,q.pageSize)
     result.franchises=read.franchises;result.totalRows=read.totalRows;result.pageCount=read.pageCount
     result.title=read.franchises.title;result.notice=read.franchises.notice

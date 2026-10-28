@@ -577,12 +577,14 @@ describe('CF-08 sound union-to-C# generation', () => {
       // Projection63: independently measured on0e0cdfde; p16-sprint7/declaration-measurement/measurement.json.
       // Projection65 (Sprint 11): computed statically from the post-image schema JSON by canonical sha256, then confirmed by
       // the lane generator (check:bridge-contract exit 0; regenerated manifest schemaId d57642ad…, f8aa097a).
+      // Projection66 (Sprint 11 slice B): computed statically from the post-image schema JSON by the same method (which
+      // reproduces d57642ad from the parent's file); the lane generator check must confirm it.
       const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 59 })
       expect(generated).toContain(
-        '// Schema identity: sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8',
+        '// Schema identity: sha256:589380869e1329a8027b8339b88646761ce6d791376df5fd793e77ae9dd3b96a',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8',
+        'sha256:589380869e1329a8027b8339b88646761ce6d791376df5fd793e77ae9dd3b96a',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -749,8 +751,11 @@ describe('CF-08 sound union-to-C# generation', () => {
         // Projection63: all8 measured twice,6fixed unchanged; current bodies473809bytes.
         // Projection65 (Sprint 11): the six StudioFranchise* $defs and the StudioIndustryResponse `franchises` member grow both
         // whole-schema bodies. Measured by the lane generator run (f8aa097a F10, c0489f7c F11): one body, bf9192ac…; F12 unchanged.
-        F10_CURRENT_QUOTE_UNIONS: 'bf9192ac936ff0fabb576bee25f07a3d1375ec25c2d10170713cd78c5889b5bb', // was 97ddfba0… (projection64)
-        F11_CURRENT_COMMAND_UNION: 'bf9192ac936ff0fabb576bee25f07a3d1375ec25c2d10170713cd78c5889b5bb', // was 97ddfba0… (projection64), same body as F10
+        // Projection66 (Sprint 11 slice B): the continuation/guest request and terms $defs, the casting quote's two new
+        // members, the featured-appearance page and the franchise outcome members grow both bodies. PLACEHOLDER: only the
+        // generator renders them; the lane measures both (eight positives twice, six fixed bodies unchanged) and fills them.
+        F10_CURRENT_QUOTE_UNIONS: 'PLACEHOLDER-P66-F10-DECLARATION-SHA256-FILL-FROM-LANE', // was bf9192ac… (projection65)
+        F11_CURRENT_COMMAND_UNION: 'PLACEHOLDER-P66-F11-DECLARATION-SHA256-FILL-FROM-LANE', // was bf9192ac… (projection65), same body as F10
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {

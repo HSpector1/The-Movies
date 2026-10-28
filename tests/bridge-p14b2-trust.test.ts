@@ -138,10 +138,10 @@ describe('P14B.2 group1 — projection46, unchanged Save29/intents, closed wire 
   it('pins the exact version, old-five-plus-two attention enum and unchanged intent vocabulary', () => {
     const state = p13aGeneratedStudio()
     readModels(state, state.talent[0]!.id)
-    expect(PROJECTION_VERSION).toBe(65)
+    expect(PROJECTION_VERSION).toBe(66)
     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-65`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(65)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-66`)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(66)
     const attentionSchema = schemaDefinition('StudioMarketAttentionRowSnapshot') as unknown as { properties: { cause: { enum: string[] } } }
     // Schema enum order is not gameplay row order; copies retain exact membership/count without mutating the schema.
     expect([...attentionSchema.properties.cause.enum].sort()).toEqual(['decisionWeekNear', 'newCompetingProposal', 'termsRevised',
@@ -157,7 +157,9 @@ describe('P14B.2 group1 — projection46, unchanged Save29/intents, closed wire 
       // P16 rebase round 6: the candidate's two rights verbs, minted by the quotePaidDueDiligence and
       // quoteHealthyAbsorption families (bridge/rights.ts); read from bridge/schema/intent-schema.ts, whose enumeration
       // is inside the projection-62 schema identity measured at 839bb7c5 (lane wave3c).
-      'requestDueDiligence', 'absorbStudio'])
+      'requestDueDiligence', 'absorbStudio',
+      // P17 Sprint 11 slice B (projection 66): the featured-booking cancellation verb (bridge/schema/intent-schema.ts).
+      'cancelFeaturedBooking'])
   })
   it('validates actual session profile, Market, Pulse and studio DTOs without stripping the new members', () => {
     const f = retentionFixture()

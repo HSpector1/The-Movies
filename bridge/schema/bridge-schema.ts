@@ -292,7 +292,12 @@ export const PROTOCOL_VERSION = 4 as const
 // Projection65 (P17 Save50): the read-only `franchises` Industry view (lineages, Recognition/Momentum/Fatigue, reboot
 // legality, lawful continuation choices) and the outgoing64 identity registered prior, so a checkpoint the P16 build
 // wrote with Save49 slots under the unchanged 64 schema lifts to Save50 on the governed prior path. Protocol4 is unchanged.
-export const PROJECTION_VERSION = 65 as const
+// Projection66 (P17 Sprint 11 slice B): the greenlight package carries the core's optional `continuation` request and
+// featured-guest `cameos` requests (both OPTIONAL draft members, so every earlier draft stays valid); the casting quote
+// publishes the continuation terms (the parent right, its licence and expiry) and each guest's booking terms; the
+// `cancelFeaturedBooking` intent; the `featuredAppearances` Industry view; release outcomes and credited guests on the
+// franchise view. The outgoing65 identity is registered prior. Protocol4 and Save50 are unchanged.
+export const PROJECTION_VERSION = 66 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -1664,6 +1669,22 @@ const StudioQuoteCommissionRequest = object('StudioQuoteCommissionRequest', {
 // the wire (never `optional()`); "required exactly when kind=X" is a plain-
 // language refusal enforced by `castingDraftToEngine` against the live read
 // models, not a JSON Schema structural constraint.
+// P17 slice B (projection 66): the core's own request shapes, closed (no second shape). `StudioContinuationRequest` is
+// src/core/continuation.ts ContinuationRequest; `StudioCameoBookingRequest` is src/core/cameo.ts CameoBookingRequest (cameo
+// FIX-1, 465d49a9: the core compares the accepted fee and basis with the live quote at the greenlight, so a stale one refuses).
+const StudioContinuationRequest = object('StudioContinuationRequest', {
+  type: enumeration(['directSequel', 'prequel', 'remake', 'reboot', 'spinOff']),
+  predecessorProductionId: nonEmptyText(),
+  subPropertyId: optional(nonEmptyText()),
+  branchId: optional(nonEmptyText()),
+})
+const StudioCameoBookingRequest = object('StudioCameoBookingRequest', {
+  talentId: nonEmptyText(),
+  workWeek: nonNegativeInteger(),
+  fee: number({ minimum: 0 }),
+  basis: enumeration(['employee', 'freelance']),
+})
+
 const StudioCastingDraftPayload = object('StudioCastingDraftPayload', {
   kind: enumeration(['screenTest', 'greenlightPackage', 'signActor']),
   /** Hiring may have no screenplay; camera tests and greenlight require an exact Ready project. */
@@ -1684,6 +1705,9 @@ const StudioCastingDraftPayload = object('StudioCastingDraftPayload', {
   /** Required exactly when kind is `signActor`: a published hiring candidate + a published term. */
   signTalentId: nullable(text()),
   signTermWeeks: nullable(nonNegativeInteger()),
+  /** P17 (projection 66), greenlightPackage only and OPTIONAL: absent is the predecessor greenlight, byte for byte. */
+  continuation: optional(reference('StudioContinuationRequest', StudioContinuationRequest)),
+  cameos: optional(array(reference('StudioCameoBookingRequest', StudioCameoBookingRequest))),
 })
 
 const StudioQuoteCastingRequest = object('StudioQuoteCastingRequest', {
@@ -2034,6 +2058,52 @@ const StudioCastingChemistryRow = object('StudioCastingChemistryRow', {
   line: nonEmptyText(),
 })
 
+// P17 slice B: the continuation a greenlight quote would commit, read from the core quote (prepareContinuation) and the
+// live P16 readers it consults (permissionFor, or branchAuthority for a spin-off continuity).
+const StudioContinuationRightsBasis = object('StudioContinuationRightsBasis', {
+  via: enumeration(['title', 'licence', 'parent']),
+  holderStudioId: nonEmptyText(),
+  licenceId: nullable(nonEmptyText()),
+  grantorStudioId: nullable(nonEmptyText()),
+  licenceEndWeekExclusive: nullable(nonNegativeInteger()),
+  /** The picture's earliest release week, which a licence term must cover. */
+  coverWeek: nonNegativeInteger(),
+})
+const StudioContinuationQuoteTerms = object('StudioContinuationQuoteTerms', {
+  storyPropertyId: nonEmptyText(),
+  type: enumeration(['directSequel', 'prequel', 'remake', 'reboot', 'spinOff']),
+  use: enumeration(['sequel', 'remake', 'spinoff']),
+  predecessorProductionId: nonEmptyText(),
+  branchId: nullable(nonEmptyText()),
+  branchKind: enumeration(['main', 'reboot', 'spinoff']),
+  subPropertyId: nullable(nonEmptyText()),
+  /** True: the picture joins the parent property's works and mints no title of its own (P16 link). False: a remake of
+   *  the parent's own concept, which P16's same-concept law links. */
+  link: bool(),
+  rights: reference('StudioContinuationRightsBasis', StudioContinuationRightsBasis),
+  recognition: number(),
+  momentum: number(),
+  fatigue: number(),
+  comparison01: number(),
+  continuityCredit: nullable(number()),
+  inheritedAwareness01: number(),
+  band: enumeration(['new', 'active', 'activeAgain', 'cooling', 'dormant', 'revivalCandidate']),
+})
+// One requested guest's booking terms, from the core quote (cameoQuote) the greenlight re-runs at commit.
+const StudioFeaturedGuestTerms = object('StudioFeaturedGuestTerms', {
+  talentId: nonEmptyText(),
+  name: nonEmptyText(),
+  profession: enumeration(['writer', 'director', 'actor', 'craft', 'scientist']),
+  basis: enumeration(['employee', 'freelance']),
+  workWeek: nonNegativeInteger(),
+  standardShootingWeek: bool(),
+  fee: number({ minimum: 0 }),
+  retained: number({ minimum: 0 }),
+  refundable: number({ minimum: 0 }),
+  readinessRisk: nonEmptyText(),
+  disclosures: array(nonEmptyText()),
+})
+
 const StudioCastingQuoteSnapshot = object('StudioCastingQuoteSnapshot', {
   financial: nullable(reference('StudioFinancialConsequence', StudioFinancialConsequence)),
   /** The ONE opaque digest-bound commit intent this quote mints. */
@@ -2081,6 +2151,9 @@ const StudioCastingQuoteSnapshot = object('StudioCastingQuoteSnapshot', {
   /** Ruling 3 (iii): ONE sentence when a seated pair reads −1. It never refuses, never
    *  blocks, and never changes a quote, a cost or a forecast. */
   chemistryWarning: nullable(text()),
+  // P17 slice B (projection 66): null unless a greenlight package carries the request.
+  continuation: nullable(reference('StudioContinuationQuoteTerms', StudioContinuationQuoteTerms)),
+  featuredGuests: nullable(array(reference('StudioFeaturedGuestTerms', StudioFeaturedGuestTerms))),
 })
 
 const StudioPlacementCellVerdictSnapshot = object('StudioPlacementCellVerdictSnapshot', {
@@ -3721,6 +3794,8 @@ const definitions = {
   StudioCastingSnapshot,
   StudioCommissionDraftPayload,
   StudioCommissionQuoteSnapshot,
+  StudioContinuationRequest,
+  StudioCameoBookingRequest,
   StudioCastingDraftPayload,
   StudioQuoteCommissionRequest,
   StudioQuoteCastingRequest,
@@ -3756,6 +3831,9 @@ const definitions = {
   StudioPromiseWaiverQuoteSnapshot,
   StudioBridgeQuoteRequest,
   StudioCastingChemistryRow,
+  StudioContinuationRightsBasis,
+  StudioContinuationQuoteTerms,
+  StudioFeaturedGuestTerms,
   StudioCastingQuoteSnapshot,
   StudioPlacementCellVerdictSnapshot,
   StudioPlacementUnmetRequirementSnapshot,
@@ -3957,6 +4035,10 @@ export type BridgeCommissionQuoteSnapshot = InferSchema<typeof StudioCommissionQ
 export type BridgeCastingDraftPayload = InferSchema<typeof StudioCastingDraftPayload>
 export type BridgeCastingChemistryRow = InferSchema<typeof StudioCastingChemistryRow>
 export type BridgeCastingQuoteSnapshot = InferSchema<typeof StudioCastingQuoteSnapshot>
+export type BridgeContinuationRequest = InferSchema<typeof StudioContinuationRequest>
+export type BridgeCameoBookingRequest = InferSchema<typeof StudioCameoBookingRequest>
+export type BridgeContinuationQuoteTerms = InferSchema<typeof StudioContinuationQuoteTerms>
+export type BridgeFeaturedGuestTerms = InferSchema<typeof StudioFeaturedGuestTerms>
 export type BridgeContractOfferSnapshot = InferSchema<typeof StudioContractOfferSnapshot>
 export type BridgeHiringCandidateSnapshot = InferSchema<typeof StudioHiringCandidateSnapshot>
 export type BridgeQuoteCommissionRequest = InferSchema<typeof StudioQuoteCommissionRequest>

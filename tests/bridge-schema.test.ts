@@ -78,10 +78,10 @@ describe('canonical Unity bridge schema', () => {
     assertEveryObjectIsClosed(BRIDGE_SCHEMA)
     expect(BRIDGE_SCHEMA['x-project-studio']).toMatchObject({
       protocolVersion: 4,
-      projectionVersion: 65,
+      projectionVersion: 66,
       transport: 'http-json-localhost',
     })
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-65')
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-66')
   })
 
   it('projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope', () => {
@@ -337,8 +337,8 @@ describe('canonical Unity bridge schema', () => {
     expect(() => parseWireValue(definition, int32Overflow)).toThrow(/<= 2147483647/)
 
     const oldProjection = { ...clone(envelope), snapshotVersion: 24 }
-    expect(PROJECTION_VERSION).toBe(65)
-    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 65/)
+    expect(PROJECTION_VERSION).toBe(66)
+    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 66/)
 
     const missingSection = clone(envelope)
     delete (missingSection.snapshot as Partial<typeof missingSection.snapshot>).releaseResults
@@ -573,7 +573,7 @@ describe('canonical Unity bridge schema', () => {
     expect(checkedInSchema).toBe(canonicalJsonPretty(BRIDGE_SCHEMA))
     expect(generatedCsharp).toContain(`public const string SchemaId = "${SCHEMA_ID}";`)
     expect(generatedCsharp).toContain('public const int ProtocolVersion = 4;')
-    expect(generatedCsharp).toContain('public const int ProjectionVersion = 65;')
+    expect(generatedCsharp).toContain('public const int ProjectionVersion = 66;')
     expect(generatedCsharp).toContain('public int protocolVersion;')
     expect(generatedCsharp).toContain('public int snapshotVersion;')
     expect(generatedCsharp.match(/public string runtimeInstanceId;/g)).toHaveLength(2)
@@ -850,6 +850,9 @@ describe('canonical Unity bridge schema', () => {
         // absent key, which is the structural closure this case asserts below).
         chemistry: null,
         chemistryWarning: null,
+        // P17 slice B (projection 66): required on the closed member and null for a screen test.
+        continuation: null,
+        featuredGuests: null,
       }
       const greenlightQuote = {
         financial: null,
@@ -899,6 +902,9 @@ describe('canonical Unity bridge schema', () => {
           },
         ],
         chemistryWarning: null,
+        // P17 slice B (projection 66): null when the package carries no continuation and no featured guest.
+        continuation: null,
+        featuredGuests: null,
       }
       expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioQuoteSnapshot, commissionQuote)).toEqual(commissionQuote)
       expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioQuoteSnapshot, screenTestQuote)).toEqual(screenTestQuote)

@@ -513,8 +513,8 @@ describe('P4/P5 closed Bridge material and outgoing runtime authority', () => {
     const old = prior54(), preimage = canonicalJson(old.value), factory = vi.fn(() => '1236-prior54')
     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
     expect(loaded.migratedFromProtocolVersion).toBe(4); expect(factory).toHaveBeenCalledTimes(1)
-    expect(PROTOCOL_VERSION).toBe(4); expect(PROJECTION_VERSION).toBe(65)
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-65')
+    expect(PROTOCOL_VERSION).toBe(4); expect(PROJECTION_VERSION).toBe(66)
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-66')
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OLD_SCHEMA)).toEqual([[OLD_SCHEMA, 'projection-v54']])
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     const older = [...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id !== OLD_SCHEMA)
@@ -538,8 +538,9 @@ describe('P4/P5 closed Bridge material and outgoing runtime authority', () => {
     // Projection63 adds only authentic outgoing62; same independently reproduced sorted-pair method.
     // Projection64 adds only authenticated outgoing63; independently reproduced sorted-pair method.
     // Projection65 (Sprint 11) adds only the P16 build's outgoing64; same method, which reproduces 51/1a452a62 on the parent map.
-    expect(older).toHaveLength(52)
-    expect(sha(canonicalJson(older))).toBe('a6666891e226bf8c1180354c7fee318693f13bfa732e4c171024b60434d176dc')
+    // Projection66 (Sprint 11 slice B) adds only outgoing65; same method, which reproduces 52/a6666891 on the parent map.
+    expect(older).toHaveLength(53)
+    expect(sha(canonicalJson(older))).toBe('c768ef9805615dcabc16f10acac1eb98ca641b9fca6068ec0b554d5659b5b866')
     const current = loaded.hydrated.checkpoint
     expect(current).toMatchObject({ schemaId: SCHEMA_ID, sessionId: '1236-prior54', stateRevision: 0, journal: [], journalDigest: sha('[]') })
     expect(current.sessionId).not.toBe(old.value.sessionId)

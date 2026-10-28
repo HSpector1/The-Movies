@@ -961,7 +961,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 65,
+          "const": 66,
           "type": "integer"
         },
         "stateDigest": {
@@ -1078,7 +1078,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 65,
+          "const": 66,
           "type": "integer"
         },
         "stateDigest": {
@@ -1159,7 +1159,8 @@
             "waivePromise",
             "takeLoan",
             "requestDueDiligence",
-            "absorbStudio"
+            "absorbStudio",
+            "cancelFeaturedBooking"
           ],
           "type": "string"
         },
@@ -1613,7 +1614,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 65,
+          "const": 66,
           "type": "integer"
         },
         "stateDigest": {
@@ -1692,7 +1693,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 65,
+          "const": 66,
           "type": "integer"
         },
         "stateDigest": {
@@ -1796,6 +1797,39 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioBuildingSnapshot"
+    },
+    "StudioCameoBookingRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "enum": [
+            "employee",
+            "freelance"
+          ],
+          "type": "string"
+        },
+        "fee": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "workWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "basis",
+        "fee",
+        "talentId",
+        "workWeek"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioCameoBookingRequest"
     },
     "StudioCampaignAcceptedResponse": {
       "additionalProperties": false,
@@ -1984,7 +2018,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 65,
+          "const": 66,
           "type": "integer"
         },
         "stateDigest": {
@@ -2599,6 +2633,12 @@
             }
           ]
         },
+        "cameos": {
+          "items": {
+            "$ref": "#/$defs/StudioCameoBookingRequest"
+          },
+          "type": "array"
+        },
         "castAntagonist": {
           "anyOf": [
             {
@@ -2628,6 +2668,9 @@
               "type": "null"
             }
           ]
+        },
+        "continuation": {
+          "$ref": "#/$defs/StudioContinuationRequest"
         },
         "craftLeadId": {
           "anyOf": [
@@ -3114,6 +3157,29 @@
           "minLength": 1,
           "type": "string"
         },
+        "continuation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioContinuationQuoteTerms"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "featuredGuests": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/StudioFeaturedGuestTerms"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "financial": {
           "anyOf": [
             {
@@ -3361,6 +3427,8 @@
         "chemistry",
         "chemistryWarning",
         "commitLabel",
+        "continuation",
+        "featuredGuests",
         "financial",
         "forecastLine",
         "freelancerFees",
@@ -4143,6 +4211,228 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioConstructionProjection"
+    },
+    "StudioContinuationQuoteTerms": {
+      "additionalProperties": false,
+      "properties": {
+        "band": {
+          "enum": [
+            "new",
+            "active",
+            "activeAgain",
+            "cooling",
+            "dormant",
+            "revivalCandidate"
+          ],
+          "type": "string"
+        },
+        "branchId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "branchKind": {
+          "enum": [
+            "main",
+            "reboot",
+            "spinoff"
+          ],
+          "type": "string"
+        },
+        "comparison01": {
+          "type": "number"
+        },
+        "continuityCredit": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fatigue": {
+          "type": "number"
+        },
+        "inheritedAwareness01": {
+          "type": "number"
+        },
+        "link": {
+          "type": "boolean"
+        },
+        "momentum": {
+          "type": "number"
+        },
+        "predecessorProductionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "recognition": {
+          "type": "number"
+        },
+        "rights": {
+          "$ref": "#/$defs/StudioContinuationRightsBasis"
+        },
+        "storyPropertyId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "subPropertyId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "type": {
+          "enum": [
+            "directSequel",
+            "prequel",
+            "remake",
+            "reboot",
+            "spinOff"
+          ],
+          "type": "string"
+        },
+        "use": {
+          "enum": [
+            "sequel",
+            "remake",
+            "spinoff"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "band",
+        "branchId",
+        "branchKind",
+        "comparison01",
+        "continuityCredit",
+        "fatigue",
+        "inheritedAwareness01",
+        "link",
+        "momentum",
+        "predecessorProductionId",
+        "recognition",
+        "rights",
+        "storyPropertyId",
+        "subPropertyId",
+        "type",
+        "use"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioContinuationQuoteTerms"
+    },
+    "StudioContinuationRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "branchId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "predecessorProductionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "subPropertyId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "directSequel",
+            "prequel",
+            "remake",
+            "reboot",
+            "spinOff"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "predecessorProductionId",
+        "type"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioContinuationRequest"
+    },
+    "StudioContinuationRightsBasis": {
+      "additionalProperties": false,
+      "properties": {
+        "coverWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "grantorStudioId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "holderStudioId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "licenceEndWeekExclusive": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "licenceId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "via": {
+          "enum": [
+            "title",
+            "licence",
+            "parent"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "coverWeek",
+        "grantorStudioId",
+        "holderStudioId",
+        "licenceEndWeekExclusive",
+        "licenceId",
+        "via"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioContinuationRightsBasis"
     },
     "StudioContractDraftPayload": {
       "additionalProperties": false,
@@ -5245,6 +5535,452 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioEquipmentAsset"
+    },
+    "StudioFeaturedAppearancesPage": {
+      "additionalProperties": false,
+      "properties": {
+        "bookings": {
+          "items": {
+            "$ref": "#/$defs/StudioFeaturedBookingRow"
+          },
+          "type": "array"
+        },
+        "capacity": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "greenlightWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "guests": {
+          "items": {
+            "$ref": "#/$defs/StudioFeaturedGuestRow"
+          },
+          "type": "array"
+        },
+        "nominalShootingWeeks": {
+          "items": {
+            "maximum": 2147483647,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "notice": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "bookings",
+        "capacity",
+        "greenlightWeek",
+        "guests",
+        "nominalShootingWeeks",
+        "notice",
+        "title"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFeaturedAppearancesPage"
+    },
+    "StudioFeaturedBookingRow": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "enum": [
+            "employee",
+            "freelance"
+          ],
+          "type": "string"
+        },
+        "bookedWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "bookingId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "cancelIntent": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioBridgeIntentOption"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cancelReason": {
+          "anyOf": [
+            {
+              "enum": [
+                "explicit",
+                "missedWork",
+                "productionCancelled",
+                "employmentExit",
+                "rightsLoss"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cancelledWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "completedWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fee": {
+          "type": "number"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "productionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "productionTitle": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "profession": {
+          "enum": [
+            "writer",
+            "director",
+            "actor",
+            "craft",
+            "scientist"
+          ],
+          "type": "string"
+        },
+        "refund": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "releasedWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retained": {
+          "type": "number"
+        },
+        "starPowerDelta": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "reserved",
+            "completed",
+            "cancelled"
+          ],
+          "type": "string"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "workWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "basis",
+        "bookedWeek",
+        "bookingId",
+        "cancelIntent",
+        "cancelReason",
+        "cancelledWeek",
+        "completedWeek",
+        "fee",
+        "name",
+        "productionId",
+        "productionTitle",
+        "profession",
+        "refund",
+        "releasedWeek",
+        "retained",
+        "starPowerDelta",
+        "status",
+        "talentId",
+        "workWeek"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFeaturedBookingRow"
+    },
+    "StudioFeaturedGuestRow": {
+      "additionalProperties": false,
+      "properties": {
+        "fame": {
+          "type": "number"
+        },
+        "fee": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "profession": {
+          "enum": [
+            "writer",
+            "director",
+            "actor",
+            "craft",
+            "scientist"
+          ],
+          "type": "string"
+        },
+        "refundable": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retained": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "weeks": {
+          "items": {
+            "$ref": "#/$defs/StudioFeaturedGuestWeek"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "fame",
+        "fee",
+        "name",
+        "profession",
+        "refundable",
+        "retained",
+        "talentId",
+        "weeks"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFeaturedGuestRow"
+    },
+    "StudioFeaturedGuestTerms": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "enum": [
+            "employee",
+            "freelance"
+          ],
+          "type": "string"
+        },
+        "disclosures": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "fee": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "profession": {
+          "enum": [
+            "writer",
+            "director",
+            "actor",
+            "craft",
+            "scientist"
+          ],
+          "type": "string"
+        },
+        "readinessRisk": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "refundable": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "retained": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "standardShootingWeek": {
+          "type": "boolean"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "workWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "basis",
+        "disclosures",
+        "fee",
+        "name",
+        "profession",
+        "readinessRisk",
+        "refundable",
+        "retained",
+        "standardShootingWeek",
+        "talentId",
+        "workWeek"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFeaturedGuestTerms"
+    },
+    "StudioFeaturedGuestWeek": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "anyOf": [
+            {
+              "enum": [
+                "employee",
+                "freelance"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "disclosures": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "ok": {
+          "type": "boolean"
+        },
+        "readinessRisk": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "refusal": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "standardShooting": {
+          "type": "boolean"
+        },
+        "workWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "basis",
+        "disclosures",
+        "ok",
+        "readinessRisk",
+        "refusal",
+        "standardShooting",
+        "workWeek"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFeaturedGuestWeek"
     },
     "StudioFilmResultSnapshot": {
       "additionalProperties": false,
@@ -7654,6 +8390,52 @@
       "type": "object",
       "x-csharp-name": "StudioFranchiseChoice"
     },
+    "StudioFranchiseCreditedGuest": {
+      "additionalProperties": false,
+      "properties": {
+        "bookingId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "fee": {
+          "type": "number"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "starPowerAfter": {
+          "type": "number"
+        },
+        "starPowerBefore": {
+          "type": "number"
+        },
+        "starPowerDelta": {
+          "type": "number"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "workWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "bookingId",
+        "fee",
+        "name",
+        "starPowerAfter",
+        "starPowerBefore",
+        "starPowerDelta",
+        "talentId",
+        "workWeek"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFranchiseCreditedGuest"
+    },
     "StudioFranchiseInstallment": {
       "additionalProperties": false,
       "properties": {
@@ -7667,6 +8449,22 @@
               "maximum": 2147483647,
               "minimum": 0,
               "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "guests": {
+          "items": {
+            "$ref": "#/$defs/StudioFranchiseCreditedGuest"
+          },
+          "type": "array"
+        },
+        "outcome": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioFranchiseReleaseOutcome"
             },
             {
               "type": "null"
@@ -7726,6 +8524,8 @@
       "required": [
         "branchId",
         "greenlitWeek",
+        "guests",
+        "outcome",
         "parentProductionId",
         "productionId",
         "releasedWeek",
@@ -7811,6 +8611,52 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioFranchiseProperty"
+    },
+    "StudioFranchiseReleaseOutcome": {
+      "additionalProperties": false,
+      "properties": {
+        "activeAgain": {
+          "type": "boolean"
+        },
+        "criticScore": {
+          "type": "number"
+        },
+        "expectedTotal": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "openingGross": {
+          "type": "number"
+        },
+        "propertyPeak": {
+          "type": "boolean"
+        },
+        "releasedWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "totalGross": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "activeAgain",
+        "criticScore",
+        "expectedTotal",
+        "openingGross",
+        "propertyPeak",
+        "releasedWeek",
+        "totalGross"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFranchiseReleaseOutcome"
     },
     "StudioFranchiseSubProperty": {
       "additionalProperties": false,
@@ -9017,7 +9863,8 @@
             "alumni",
             "powerRanking",
             "diligence",
-            "franchises"
+            "franchises",
+            "featuredAppearances"
           ],
           "type": "string"
         }
@@ -9061,6 +9908,16 @@
           "anyOf": [
             {
               "$ref": "#/$defs/StudioPaidReportsPage"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "featuredAppearances": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioFeaturedAppearancesPage"
             },
             {
               "type": "null"
@@ -9257,7 +10114,8 @@
             "alumni",
             "powerRanking",
             "diligence",
-            "franchises"
+            "franchises",
+            "featuredAppearances"
           ],
           "type": "string"
         }
@@ -9267,6 +10125,7 @@
         "calendar",
         "credits",
         "diligence",
+        "featuredAppearances",
         "films",
         "franchises",
         "laboratory",
@@ -20086,7 +20945,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-65",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-66",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -20142,7 +21001,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 65,
+    "projectionVersion": 66,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

@@ -28,7 +28,7 @@ import { exportSave, makeSaveV14 } from '../src/core/index.js'
 // "Schema identity" header, never derived from the registry under test.
 const PROJECTION_38 = 'sha256:baecd21e5fbfd4f13bd08b7af132d4b05fe24a40f1b38cd19d2782d9e2d0851e' // 06f05cf5
 const LOWEST_REGISTERED = 'sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f' // projection-v4-early, 720826bd
-const HIGHEST_REGISTERED = 'sha256:57f12ee28d21aa47c7514afa1c058105a10f10a9e76d400d664e97c23dc90272' // projection-v64, the P16 build's outgoing identity registered beneath current65 (Sprint 11, review S1)
+const HIGHEST_REGISTERED = 'sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8' // projection-v65, the outgoing identity registered beneath current66 (Sprint 11 slice B)
 const RETIRED_LABELS = Array.from({ length: 13 }, (_, i) => `projection-v${String(32 + i)}`)
 
 const sha256 = (value: string): string => createHash('sha256').update(value, 'utf8').digest('hex')
@@ -109,7 +109,7 @@ describe('L-22: projections 32–44 are retired by name, and the registered rang
     resolves(LOWEST_REGISTERED, 'projection-v4-early', Math.min)
   })
 
-  it('the highest registered projection (64) still resolves and takes the governed prior path', () => {
-    resolves(HIGHEST_REGISTERED, 'projection-v64', Math.max)
+  it('the highest registered projection (65) still resolves and takes the governed prior path', () => {
+    resolves(HIGHEST_REGISTERED, 'projection-v65', Math.max)
   })
 })

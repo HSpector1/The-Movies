@@ -76,6 +76,7 @@ import { snapshotBuildContextFor } from './snapshot-build-context.ts'
 import {industryPage} from './industry.ts'
 import {isCancellationAction} from './cancellation.ts'
 import {laboratoryActionSpecs,type LaboratoryIntent} from './laboratory.ts'
+import {cameoCancelSpecs,type CameoIntent} from './appearances.ts'
 import {isPhysicalPlanAction,planActionSpecs,type PlanIntent} from './plans.ts'
 import {applyOfficeAction,officeActionSpecs,type OfficeIntent} from './office.ts'
 import {setupRecipeActionSpecs,withProductionSetupRows,type ProductionSetupIntent} from './productionSetup.ts'
@@ -1158,6 +1159,16 @@ function resolveLaboratoryIntents(state: GameState): Array<IntentApplication & L
   }))
 }
 
+/** P17 Shape A (projection 66): one cancel verb per unperformed featured booking of the player's own. */
+function resolveCameoIntents(state: GameState): Array<IntentApplication & CameoIntent> {
+  const stateDigest = authoritativeDigest(state)
+  return cameoCancelSpecs(state).map(spec => ({
+    spec,
+    option: option(stateDigest, {kind:'cancelFeaturedBooking',label:spec.label,detail:spec.detail,projectId:null,castingSessionId:null,productionId:spec.productionId}, spec.action),
+    apply: current => caught(() => ({ok:true,next:applyActions(current,[spec.action])})),
+  }))
+}
+
 /** P13B-S3: the five plan verbs on the plans page. A plan is not research: its own kind. */
 function resolvePlanIntents(state: GameState): Array<IntentApplication & PlanIntent> {
   const stateDigest = authoritativeDigest(state)
@@ -1228,7 +1239,7 @@ function resolveLoanIntents(state: GameState): IntentApplication[] {
 function resolveAvailableIntents(state: GameState): IntentApplication[] {
   // P15B Wave 4 (closure/v1; 1362-O §5.2): a closed player studio is read-only history and offers nothing.
   if (state.hollywood !== null && !isOperatingStudio(state, state.hollywood.playerStudioId)) return []
-  return [...resolveStudioIntents(state), ...resolveLoanIntents(state), ...resolveLaboratoryIntents(state), ...resolvePlanIntents(state), ...resolveOfficeIntents(state), ...resolveProductionSetupIntents(state)]
+  return [...resolveStudioIntents(state), ...resolveLoanIntents(state), ...resolveLaboratoryIntents(state), ...resolvePlanIntents(state), ...resolveOfficeIntents(state), ...resolveProductionSetupIntents(state), ...resolveCameoIntents(state)]
 }
 
 export function availableIntents(state: GameState): AvailableIntent[] {
@@ -1461,7 +1472,7 @@ export class BridgeSession {
   industry(request:IndustryQuery) {
     if(request.sessionId!==this.sessionId)return this.protocolReject(request.requestId,'SESSION_MISMATCH','The active campaign changed. Refresh Industry.')
     if(request.expectedStateRevision!==this.stateRevision)return this.protocolReject(request.requestId,'STALE_REVISION','The studio advanced. Refresh this Industry page before continuing.')
-    try{return industryPage(this.state,this.sessionId,this.stateRevision,request,request.view==='laboratory'?resolveLaboratoryIntents(this.state):[],request.view==='plans'?resolvePlanIntents(this.state):[],request.view==='office'?resolveOfficeIntents(this.state):[])}
+    try{return industryPage(this.state,this.sessionId,this.stateRevision,request,request.view==='laboratory'?resolveLaboratoryIntents(this.state):[],request.view==='plans'?resolvePlanIntents(this.state):[],request.view==='office'?resolveOfficeIntents(this.state):[],request.view==='featuredAppearances'?resolveCameoIntents(this.state):[])}
     catch(error){return this.protocolReject(request.requestId,'INVALID_CONTROL',(error as Error).message)}
   }
 

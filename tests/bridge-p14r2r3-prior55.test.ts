@@ -183,8 +183,8 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
 
     // The schema/projection literals the migration target must already carry.
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(65)
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-65')
+    expect(PROJECTION_VERSION).toBe(66)
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-66')
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OLD_SCHEMA)).toEqual([[OLD_SCHEMA, 'projection-v55']])
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     // 1308-D required change 1 / 1308-F item 1 (B55-3-style older-roster pin, mirrored from
@@ -208,8 +208,9 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
     // Projection63 adds only authentic outgoing62; same independently reproduced sorted-pair method.
     // Projection64 adds only authenticated outgoing63; independently reproduced sorted-pair method.
     // Projection65 (Sprint 11) adds only the P16 build's outgoing64; same method, which reproduces 51/9270841e on the parent map.
-    expect(older).toHaveLength(52)
-    expect(sha(canonicalJson(older))).toBe('fa11f1c37a84c87f7ce805e36e27da29fe045c60738a063c52eebe36c26f7b6f')
+    // Projection66 (Sprint 11 slice B) adds only outgoing65; same method, which reproduces 52/fa11f1c3 on the parent map.
+    expect(older).toHaveLength(53)
+    expect(sha(canonicalJson(older))).toBe('9d2a641fc1db028e713ac490ebd8646b5f02135e1d7ccd4c70cbb48f345b983e')
 
     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
     expect(loaded.migratedFromProtocolVersion).toBe(4)

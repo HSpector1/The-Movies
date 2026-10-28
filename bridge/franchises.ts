@@ -11,6 +11,23 @@ type Property=FranchisesPage['properties'][number]
 const PROBE_PRODUCTION_ID='bridge-franchise-read-probe'
 const SEQUEL_FAMILY=['directSequel','prequel','remake','reboot'] as const
 
+/** P17 slice B: what the core records about a released installment (no per-release meter change is recorded). */
+function releaseOutcome(world:ContinuationWorld,property:FranchiseProperty,productionId:string,releasedWeek:number|null):Property['installments'][number]['outcome'] {
+ if(releasedWeek===null)return null
+ const view=world.releasedFilm(productionId)
+ if(view===null)throw new Error(`franchise view: released installment ${productionId} has no public result`)
+ return {releasedWeek,criticScore:view.result.criticScore,openingGross:view.result.boxOffice.opening,totalGross:view.result.boxOffice.total,
+  expectedTotal:view.result.forecast?.expectedTotal??null,propertyPeak:property.meter.peakInstallmentId===productionId,
+  activeAgain:property.milestones.some(m=>m.milestoneId==='activeAgain'&&m.productionId===productionId)}
+}
+
+/** P17 slice B: the guests a release credited, exactly where the core attached a career record to the completed booking. */
+function creditedGuests(state:GameState,productionId:string):Property['installments'][number]['guests'] {
+ return (state.cameos?.bookings??[]).flatMap(b=>b.productionId!==productionId||b.status!=='completed'||b.careerEvent===null?[]:[{
+  bookingId:b.bookingId,talentId:b.talentId,name:state.talent.find(t=>t.id===b.talentId)?.name??b.talentId,workWeek:b.workWeek,fee:b.fee,
+  starPowerBefore:b.careerEvent.starPowerBefore,starPowerAfter:b.careerEvent.starPowerAfter,starPowerDelta:b.careerEvent.starPowerDelta}])
+}
+
 function propertyRow(world:ContinuationWorld,studioId:string,property:FranchiseProperty):Property {
  const week=world.week
  const meterOf=(subPropertyId:string|null)=>subPropertyId===null?property.meter:property.subProperties.find(s=>s.subPropertyId===subPropertyId)!.meter
@@ -28,7 +45,8 @@ function propertyRow(world:ContinuationWorld,studioId:string,property:FranchiseP
   branches:property.branches.map(b=>({branchId:b.branchId,kind:b.kind,subPropertyId:b.subPropertyId,openedAtWeek:b.openedAtWeek,
    lastReleaseWeek:b.lastReleaseWeek,momentum:momentumAt(b,week),band:branchBand(b,meterOf(b.kind==='spinoff'?b.subPropertyId:null),week)})),
   installments:property.installments.map(e=>({productionId:e.childProductionId,parentProductionId:e.parentProductionId,type:e.type,
-   branchId:e.branchId,greenlitWeek:e.greenlitWeek,studioId:e.studioId,releasedWeek:e.releasedWeek})),
+   branchId:e.branchId,greenlitWeek:e.greenlitWeek,studioId:e.studioId,releasedWeek:e.releasedWeek,
+   outcome:releaseOutcome(world,property,e.childProductionId,e.releasedWeek),guests:creditedGuests(world.state,e.childProductionId)})),
   subProperties:property.subProperties.map(s=>({subPropertyId:s.subPropertyId,kind:s.kind,mintedAtProductionId:s.mintedAtProductionId,
    mintedWeek:s.mintedWeek,recognition:recognitionReported(s.meter,week),fatigue:fatigueAt(s.meter,week),promotedToStoryPropertyId:s.promotedToStoryPropertyId})),
   rebootLegal,rebootRefusal:rebootLegal?null:reboots.flatMap(quote=>quote.ok?[]:[quote.reason])[0]??null,
