@@ -1,0 +1,160 @@
+{
+  "target": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt",
+  "base": "2c50c9df2f51d2d1bd97948f7c6bfe4127337bc2",
+  "headAtPackaging": "c0489f7cbc2aae52a06013e38e45328493d3c6a3",
+  "note": "pre_sha256 is the blob at base; every patched path is byte-identical at headAtPackaging (its later commits touch only bridge/ and tests/bridge-*)",
+  "files": [
+    {
+      "path": "src/core/actions.ts",
+      "pre_sha256": "067ce9c9781a9476e7f4713c22661bb9e0a58b8ffc87325fd99f0c1c4449affb",
+      "post_sha256": "6f59d791941bd3c770997ccdacf3386dd5bc250cbe8d5cb7251565913829f6a8"
+    },
+    {
+      "path": "src/core/cameo.ts",
+      "pre_sha256": null,
+      "post_sha256": "c1d83b5181d9243a2c646d1a1db440be181d9743bbae79d394a3c72c575f015d"
+    },
+    {
+      "path": "src/core/cameoBooking.ts",
+      "pre_sha256": null,
+      "post_sha256": "b04ebe188f2bab79ddda8c4eead627d2dce5b98c75349127030aa36f047e8b04"
+    },
+    {
+      "path": "src/core/castingPackageReadModel.ts",
+      "pre_sha256": "fa897aacf2e3d5e955853059510836ee37f449f5770736acc0c87e0cd6ab890c",
+      "post_sha256": "3080f7954e9bf67b6fb8a95e103ca516788ad649ab0aae23680f271425bb3438"
+    },
+    {
+      "path": "src/core/continuationSave.ts",
+      "pre_sha256": "536143ee55a4500e677eccf98a79e4c13ae761eda5e2a31f557e802cb3e73525",
+      "post_sha256": "18f8eca42a0bfddeac70310ee7753ab695f12d0a7e5a0a25eea4a9f5521d7dc3"
+    },
+    {
+      "path": "src/core/continuedScripts.ts",
+      "pre_sha256": "60e391ec8381ab4806a4a238a1227aa6bd6448538f6bc1bf23a9b0357b760846",
+      "post_sha256": "4abe499501c627a30d8bb320068e420842faf3738480abdf20af04922120eb86"
+    },
+    {
+      "path": "src/core/employment.ts",
+      "pre_sha256": "9cdb23f1a970d4e5b688ebad57df63c311393a83f1afc368e3b91ac12d4e2fbc",
+      "post_sha256": "34ceeb716a7a5d828fbc94e1f716fba2b7b02e9c6fa9154beebbbdcebb651330"
+    },
+    {
+      "path": "src/core/forecast.ts",
+      "pre_sha256": "901d76b47e2d8a5b6ac7579a8a3cb79ad9819f1a1591f692725fc81f78f1c84d",
+      "post_sha256": "aeeeb8bb56625b807cd8eb53fe9cfd55cfed19538a7948ac77711295ad070abe"
+    },
+    {
+      "path": "src/core/hollywoodTick.ts",
+      "pre_sha256": "e7b46338d4d770b0ef0373d0d536236631e90dd7e62f5c2b3350220a23bedccf",
+      "post_sha256": "fb31a93b7bc8d16f9d93378b279b7b365bb5f0bb9a47268a7780483a7042b70a"
+    },
+    {
+      "path": "src/core/reception.ts",
+      "pre_sha256": "e2ade8a7cf0c458eb41d8e52805e0d3a7df341ec718c219cf275b254c560a9ec",
+      "post_sha256": "0be626970e1910eb8a4f02158bc4a56ec07dc918d0664455c94506641c0af045"
+    },
+    {
+      "path": "src/core/releaseCareers.ts",
+      "pre_sha256": "b8050c8a70b165e42ed2841bbcfd99eb27ff5986529aa94dc511e5bd196ee965",
+      "post_sha256": "a8a03590001b3bad0bb21e8caafcffc3a72e3a1409f16dea389d2380ce7c8f80"
+    },
+    {
+      "path": "src/core/save.ts",
+      "pre_sha256": "71829c16a63890a3dab958898af7b1d27831abe4ec41a2c2c093afaf7dd61cd1",
+      "post_sha256": "fa0df6b987c8f4b182f983d9bb425486fa2999a951c496c674e64b5d7682a64a"
+    },
+    {
+      "path": "src/core/standing.ts",
+      "pre_sha256": "5e1ec7279553014099077a8e5cbe02c1b78454256bf3f400634accc2209c6893",
+      "post_sha256": "490fa3590df98b0cb2d812212ffe44eabb808be2bd38332a47738dd1a7a3ff70"
+    },
+    {
+      "path": "src/core/starPower.ts",
+      "pre_sha256": "007c98dcaf612f87f7197bd14ddeb89df7a2cb0ae6542027f33d398976ccb881",
+      "post_sha256": "e2356fcf66f90466034277136118d866550a5c68ffff7e41847279c1ad397e57"
+    },
+    {
+      "path": "src/core/studioClosure.ts",
+      "pre_sha256": "e55787c636aad72a113578d52297233dc63747e58b11506752b38a662810fe21",
+      "post_sha256": "bce915ca59e37090fb3e1e1333c7977563eb0a73201e1c9bf4af52f2d1eba062"
+    },
+    {
+      "path": "src/core/technology.ts",
+      "pre_sha256": "d03c900ca14bd3387dd82a9962d8c7ea4b313d296ce179b42ec3ead5a8a1c4ed",
+      "post_sha256": "e079aad2f965a44d8dbbe8218632e0d4bc0462c4723eb561fd57c157a601ac8f"
+    },
+    {
+      "path": "src/core/tick.ts",
+      "pre_sha256": "baad95c49c8f927aa2465a0a4e5c027bf6b356be8b4b697cbd71e1bbe496714c",
+      "post_sha256": "39e5e06f22d80a41aa8c2245ea7fc827c5e4e854b03c60edfd93f2c94cf5bf29"
+    },
+    {
+      "path": "src/core/tuning.ts",
+      "pre_sha256": "bd2086d82f5eb2d1b633efbc0dba72d294613d7c3a25a2041d10fa905f66c6ed",
+      "post_sha256": "6e6a93707a78d419209ae6554960ee62eca8c0514dcfba22e78119fd48563b03"
+    },
+    {
+      "path": "src/core/types.ts",
+      "pre_sha256": "ec7569752319bcbf7ecf83d9c297a06f7209af0d8eb18be9dda3c164326a109d",
+      "post_sha256": "c02c5b44bdf0d16cb433344a3fd95d2087ee5be465767e75a8fcc3bf6b3bb8ea"
+    },
+    {
+      "path": "tests/helpers/p17-cameo-route.ts",
+      "pre_sha256": null,
+      "post_sha256": "680fb1652d9c462848580af0dd647a7296724a06b613fa9a87b4da1a509d8475"
+    },
+    {
+      "path": "tests/p17-cameo-booking.test.ts",
+      "pre_sha256": null,
+      "post_sha256": "ec61085a9bb8e98ab552c1b02a3ddd9b36b3842a795182e2da726d7b939730c1"
+    },
+    {
+      "path": "tests/p17-cameo-law.test.ts",
+      "pre_sha256": null,
+      "post_sha256": "5939add14f6101d22c2a9e39d80587a3c2b18a2f22eacc27fbad0f7d96d037a1"
+    },
+    {
+      "path": "tests/p17-cameo-seam.test.ts",
+      "pre_sha256": null,
+      "post_sha256": "358401f6f843bbce0c354aeba40be4d7fc5e7e3a316f679034f29a1a27a7eadd"
+    }
+  ],
+  "patches": {
+    "SOURCE.patch": {
+      "sha256": "4a6c1ca7e75898124490d24132a22904396eb560debde121abb30645d9c3be5a",
+      "bytes": 100155,
+      "files": [
+        "src/core/actions.ts",
+        "src/core/cameo.ts",
+        "src/core/cameoBooking.ts",
+        "src/core/castingPackageReadModel.ts",
+        "src/core/continuationSave.ts",
+        "src/core/continuedScripts.ts",
+        "src/core/employment.ts",
+        "src/core/forecast.ts",
+        "src/core/hollywoodTick.ts",
+        "src/core/reception.ts",
+        "src/core/releaseCareers.ts",
+        "src/core/save.ts",
+        "src/core/standing.ts",
+        "src/core/starPower.ts",
+        "src/core/studioClosure.ts",
+        "src/core/technology.ts",
+        "src/core/tick.ts",
+        "src/core/tuning.ts",
+        "src/core/types.ts"
+      ]
+    },
+    "TESTS.patch": {
+      "sha256": "1eb93bc99197f15eb0eb26cde99c0ba06b3cdd4871edd4d04536bb7021960682",
+      "bytes": 43061,
+      "files": [
+        "tests/helpers/p17-cameo-route.ts",
+        "tests/p17-cameo-booking.test.ts",
+        "tests/p17-cameo-law.test.ts",
+        "tests/p17-cameo-seam.test.ts"
+      ]
+    }
+  }
+}

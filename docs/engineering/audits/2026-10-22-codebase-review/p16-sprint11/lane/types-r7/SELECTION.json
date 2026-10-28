@@ -1,0 +1,17 @@
+{
+  "head": "fd2cc2e06f01323f4c6235785f2c73c766897eb4",
+  "predecessor": "a5a66c27e8b07b029d196850f8133cccfa3d26ef (tag p16-technical-checkpoint-20261027)",
+  "sourceManifestEntries": 2131,
+  "purpose": "Sprint 11 types r7: root and Bridge typecheck after the cameo slice",
+  "children": [
+    {
+      "label": "root-types",
+      "command": "node node_modules/typescript/bin/tsc --noEmit"
+    },
+    {
+      "label": "bridge-types",
+      "command": "node node_modules/typescript/bin/tsc -p tsconfig.bridge.json --noEmit"
+    }
+  ],
+  "limits": "Compiler only; no runtime claim."
+}

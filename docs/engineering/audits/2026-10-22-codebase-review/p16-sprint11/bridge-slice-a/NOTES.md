@@ -76,3 +76,33 @@ Guard, green at the parent and after: "still refuses a current-schema checkpoint
   3. is read-only and guarded: no state or revision change, detached rows, stale revision and non-null target refused, empty before any continuation
 
 The franchise test imports `tests/helpers/p17-route.ts` and `tests/helpers/p16-fixtures.ts` read-only (`mintRoute`, `freshConcept`, `greenlightAs`). It runs one route (eight production ticks plus release) in `beforeAll` under the default hook timeout; no timeout changed.
+
+## Fix 1 (against c0489f7c; tests only)
+
+FIX-1.patch sha256 `7fff1877d4effbf67b039778a1e64e41737989a552d3cad57bc7504ed890bccd`. Files: tests/bridge-p17-franchise-read-model.test.ts, tests/bridge-runtime-checkpoint.test.ts, tests/bridge-contract-generator.test.ts, tests/bridge-p14b5-relationships.test.ts. Post-images in fix1/postimages/. `git apply --check` passes on the worktree at fd2cc2e0, where all four files still match c0489f7c. STATIC-UNRUN.
+
+**Lane failure diagnosis (bridge-green-r5, franchise case 1, line 65).** The read model does not drop rows. Every assertion before line 65 passed: one property, the exact lineage, and `row.recognition === recognitionReported(root.meter, week)`. Line 65 failed because that value is 0. Recognition is quality-gated: `registerRelease` scores `reach01 · q · recognitionGate(q)`, and the gate is 0 for quality q ≤ P17_RECOGNITION_GATE_LO (0.5). The route's origin film sits at or below the gate, so its Recognition is lawfully 0. Fatigue is also 0 because the founding film is exempt (C5). My `> 0` expectation assumed a quality the route does not produce. Choosing a seed whose film clears the gate would need a run, which this lane forbids.
+
+**Test change.** The case still proves a real lineage with a non-trivial meter, now tied to the law rather than a guessed quality:
+- Recognition is positive exactly when the origin film's own `qualityOf(critic, audience)` clears the gate.
+- The property meter recorded the release (`releaseCount` 1).
+- The main continuity's `lastReleaseWeek` equals the origin's release week.
+- The continuity's Momentum is non-zero: the release's surprise term, read by `momentumAt`.
+The exact-equality assertions against the core readers are unchanged.
+
+**RED base.** The parent for RED is 2c50c9df, not a5a66c27. Every symbol the new cases import exists at 2c50c9df: `convertV50ToV49` (save.ts:704), `continuation.ts`, `continuationGreenlight.ts`, `continuationSignals.ts` (including `qualityOf`), `TUNING.P17_RECOGNITION_GATE_LO`, and `tests/helpers/p17-route.ts` (`freshConcept`, `greenlightAs`). At 2c50c9df each new case therefore fails by assertion:
+- the two "accepts" cases fail on `not.toHaveProperty('refused')`;
+- the three franchise cases fail on the Industry parser's `{ ok: true }`;
+- the new founding case fails on `toThrow`'s message, because the parent refuses the Save49 slot as non-live and loads the Save50 one.
+At a5a66c27 they fail by TypeError or a load error, as the coordinator observed. The RED claim applies to 2c50c9df only.
+
+**Review should-fix 1.** I reworded the stale placeholder and "must confirm" comments as measured or confirmed, citing the lane commits:
+- tests/bridge-runtime-checkpoint.test.ts (capture pins)
+- tests/bridge-contract-generator.test.ts (schema id, and F10/F11 bf9192ac…)
+- tests/bridge-p14b5-relationships.test.ts (schema id)
+
+**Review should-fix 3 (inherited limit, recorded rather than widened).** New case in tests/bridge-runtime-checkpoint.test.ts: "refuses a mid-founding P16-build (Save49) or P17-build (Save50) current64 checkpoint on the prior path; the running schema still loads it". It uses the real open-founding runtime (`BridgeSession.createRuntime()`). Both current64 variants are refused with `checkpoint.currentSaveJson: previous protocol-4 production authority cannot contain an open founding draft`, and the same checkpoint under the running schema loads without migration.
+
+The choice: `nativeR05Draft` (runtime-checkpoint.ts:1085-1098) stays R05/P12-only in this slice. A P16 player who saved mid-founding, and a P17-build 64 checkpoint saved mid-founding (which loaded on the current path before projection 65), cannot load until a later slice admits a strictly validated founding draft for projection-v64. The refusal message's word "impossible" (in the older test's name) does not hold for this era, and the new case's comment says so.
+
+**Reviewer note (no code).** `rebootRefusal` passes through the core quote's refusal text verbatim, including P16's `noAuthority:<holderStudioId>`, exactly as the greenlight refusal does. The franchise view therefore names the title holder's studio id when the player lacks the right. The greenlight already discloses that id, so the view adds no new disclosure.

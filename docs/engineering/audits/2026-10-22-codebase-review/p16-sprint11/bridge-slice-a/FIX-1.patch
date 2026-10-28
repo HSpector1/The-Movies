@@ -1,0 +1,111 @@
+--- a/tests/bridge-contract-generator.test.ts
++++ b/tests/bridge-contract-generator.test.ts
+@@ -575,8 +575,8 @@
+       // which also checks the committed schema file deep-equals BRIDGE_SCHEMA). The header line does not
+       // read projectionVersion, so the call keeps its 59.
+       // Projection63: independently measured on0e0cdfde; p16-sprint7/declaration-measurement/measurement.json.
+-      // Projection65 (Sprint 11): canonical sha256 of the post-image schema JSON, computed statically by the method that
+-      // reproduces 57f12ee2 from the parent's file; the lane generator check (check:bridge-contract) must confirm it.
++      // Projection65 (Sprint 11): computed statically from the post-image schema JSON by canonical sha256, then confirmed by
++      // the lane generator (check:bridge-contract exit 0; regenerated manifest schemaId d57642ad…, f8aa097a).
+       const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 59 })
+       expect(generated).toContain(
+         '// Schema identity: sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8',
+@@ -748,8 +748,7 @@
+         // lane-logs/p62-declaration-measurement.json; never a failure message.
+         // Projection63: all8 measured twice,6fixed unchanged; current bodies473809bytes.
+         // Projection65 (Sprint 11): the six StudioFranchise* $defs and the StudioIndustryResponse `franchises` member grow both
+-        // whole-schema bodies. PLACEHOLDER: only the generator can produce these bodies, so the lane measures them (all eight
+-        // positives rendered twice, six fixed bodies unchanged) and replaces both literals before this pin is claimed.
++        // whole-schema bodies. Measured by the lane generator run (f8aa097a F10, c0489f7c F11): one body, bf9192ac…; F12 unchanged.
+         F10_CURRENT_QUOTE_UNIONS: 'bf9192ac936ff0fabb576bee25f07a3d1375ec25c2d10170713cd78c5889b5bb', // was 97ddfba0… (projection64)
+         F11_CURRENT_COMMAND_UNION: 'bf9192ac936ff0fabb576bee25f07a3d1375ec25c2d10170713cd78c5889b5bb', // was 97ddfba0… (projection64), same body as F10
+         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
+--- a/tests/bridge-p14b5-relationships.test.ts
++++ b/tests/bridge-p14b5-relationships.test.ts
+@@ -413,8 +413,8 @@
+     // Current63 independently measured by p63-declaration-measurement.ts at0e0cdfde;
+     // preserve authentic generated outgoing62 separately in the exact prior roster.
+     // Current64 is measured by the actual contract64 generator output; authentic63 remains prior.
+-    // Current65 (Sprint 11): computed statically from the post-image schema JSON by canonical sha256 (the method reproduces
+-    // 57f12ee2 from the parent's file); the lane's generator check must confirm it. The P16 build's 64 remains prior.
++    // Current65 (Sprint 11): computed statically by canonical sha256, confirmed by the lane generator (manifest schemaId
++    // d57642ad…, f8aa097a). The P16 build's 64 remains prior.
+     expect(SCHEMA_ID).toBe('sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8')
+     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
+     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
+--- a/tests/bridge-p17-franchise-read-model.test.ts
++++ b/tests/bridge-p17-franchise-read-model.test.ts
+@@ -11,9 +11,10 @@
+ import type { IndustryQuery } from '../bridge/schema/industry-schema.ts'
+ import { continuationQuote, type ContinuationRequest } from '../src/core/continuation.js'
+ import { continuationWorldOf } from '../src/core/continuationGreenlight.js'
+-import { branchBand, fatigueAt, momentumAt, recognitionReported } from '../src/core/continuationSignals.js'
++import { branchBand, fatigueAt, momentumAt, qualityOf, recognitionReported } from '../src/core/continuationSignals.js'
+ import { storyPropertyId } from '../src/core/rights.js'
+ import { stableStringify } from '../src/core/save.js'
++import { TUNING } from '../src/core/tuning.js'
+ import type { GameState } from '../src/core/types.js'
+ import { mintRoute } from './helpers/p16-fixtures.js'
+ import { freshConcept, greenlightAs } from './helpers/p17-route.js'
+@@ -62,11 +63,19 @@
+     expect(row.installments[0]!.releasedWeek).not.toBeNull()
+     expect(row.installments[1]).toMatchObject({ greenlitWeek: week, studioId: player, releasedWeek: null })
+     expect(row.recognition).toBe(recognitionReported(root.meter, week))
+-    expect(row.recognition).toBeGreaterThan(0)
++    // Recognition is quality-gated (continuationSignals.ts recognitionGate): positive exactly when the origin film's
++    // quality clears P17_RECOGNITION_GATE_LO. Fix 1: lane bridge-green-r5 read 0 here, so this route's origin sits at or
++    // below the gate; the meter still recorded the release, and the continuity's Momentum carries it (below).
++    const film = world.releasedFilm(origin)!
++    expect(row.recognition > 0).toBe(qualityOf(film.result.criticScore / 100, film.audience01) > TUNING.P17_RECOGNITION_GATE_LO)
++    expect(root.meter.releaseCount).toBe(1)
+     expect(row.fatigue).toBe(fatigueAt(root.meter, week))
+     const main = root.branches[0]!
+     expect(row.branches).toEqual([{ branchId: main.branchId, kind: 'main', subPropertyId: null, openedAtWeek: main.openedAtWeek,
+       lastReleaseWeek: main.lastReleaseWeek, momentum: momentumAt(main, week), band: branchBand(main, root.meter, week) }])
++    // The origin's release is on the continuity: its week is the branch's last release and its surprise moved Momentum.
++    expect(main.lastReleaseWeek).toBe(row.installments[0]!.releasedWeek)
++    expect(row.branches[0]!.momentum).not.toBe(0)
+     expect(row.installments.every((i) => i.branchId === main.branchId)).toBe(true)
+   })
+ 
+--- a/tests/bridge-runtime-checkpoint.test.ts
++++ b/tests/bridge-runtime-checkpoint.test.ts
+@@ -1178,8 +1178,7 @@
+   })
+ 
+   it('accepts the genuine P16-build capture (a5a66c27 public save route) and lifts both Save49 slots to Save50', () => {
+-    // PLACEHOLDER pins: the coordinator captures the fixture at a5a66c27 with tools/capture64.ts (Sprint 11 bridge OUT)
+-    // and replaces each PLACEHOLDER below with the receipt's value. Until then this case fails loudly on the missing file.
++    // Pins measured from the actual capture at a5a66c27 (tools/capture64.ts; OUTGOING64-RECEIPT.json beside the fixture).
+     const compressed = readFileSync(new URL('./fixtures/p16/genuine-projection64-runtime/outgoing64.checkpoint.json.gz', import.meta.url))
+     expect(createHash('sha256').update(compressed).digest('hex')).toBe('495174bd6c33748948375b3fd3a800dce9f876e42a194fc8d8047a6ca0d4e440')
+     const raw = gunzipSync(compressed).toString('utf8')
+@@ -1212,6 +1211,27 @@
+     expect(canonicalJson(original)).toBe(before)
+   })
+ 
++  // Inherited limit, recorded rather than widened (review should-fix 3): the prior path refuses any migrated slot with an
++  // open founding draft unless it is the R05/P12 native draft (runtime-checkpoint.ts nativeR05Draft). A P16-build checkpoint
++  // saved mid-founding is therefore refused with the historical "cannot contain" message, and a P17-build 64 checkpoint
++  // saved mid-founding, which loaded on the current path before projection 65, is refused the same way. The same bytes
++  // under the running schema still load. Widening nativeR05Draft is out of this slice.
++  it('refuses a mid-founding P16-build (Save49) or P17-build (Save50) current64 checkpoint on the prior path; the running schema still loads it', () => {
++    const founding = BridgeSession.createRuntime().exportRuntimeCheckpoint()
++    expect((JSON.parse(founding.currentSaveJson) as { state: { founding: unknown } }).state.founding).not.toBeNull()
++    const p16SaveJson = exportSave(shipped47Save.convertV50ToV49(shipped47Save.migrateToLive(shipped47Save.importSave(founding.currentSaveJson))))
++    expect(JSON.parse(p16SaveJson)).toMatchObject({ saveVersion: 49 })
++    for (const [build, currentSaveJson] of [['p16', p16SaveJson], ['p17', founding.currentSaveJson]] as const) {
++      const bytes = priorProtocol4Bytes({ schemaId: P16_BUILD_OUTGOING_64, sessionId: `${build}-mid-founding-64`, stateRevision: 0,
++        currentSaveJson, savedSaveJson: null, journal: [] })
++      expect(() => loadBridgeRuntimeCheckpoint(bytes, undefined, () => `${build}-mid-founding-fresh`))
++        .toThrow('checkpoint.currentSaveJson: previous protocol-4 production authority cannot contain an open founding draft')
++    }
++    const current = loadBridgeRuntimeCheckpoint(encodeBridgeRuntimeCheckpoint(founding), undefined, () => { throw new Error('a current checkpoint must not migrate') })
++    expect(current.migratedFromProtocolVersion).toBeNull()
++    expect(current.hydrated.checkpoint.currentSaveJson).toBe(founding.currentSaveJson)
++  })
++
+   it('still refuses a current-schema checkpoint that carries a non-live Save49 slot, by name, without the prior path', () => {
+     const bytes = priorProtocol4Bytes({
+       schemaId: SCHEMA_ID,

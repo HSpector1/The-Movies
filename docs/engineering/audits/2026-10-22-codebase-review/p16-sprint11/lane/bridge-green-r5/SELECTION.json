@@ -1,0 +1,56 @@
+{
+  "head": "c0489f7cbc2aae52a06013e38e45328493d3c6a3",
+  "sourceManifestEntries": 2123,
+  "purpose": "Sprint 11 bridge-green-r5: every bridge test file touched by Bridge slice A (projection 65, priors, franchise read model) on the candidate",
+  "children": [
+    {
+      "label": "bridge-touched",
+      "completeFiles": [
+        "tests/bridge-contract-generator.test.ts",
+        "tests/bridge-operations-events.test.ts",
+        "tests/bridge-owner-ux-projection21-schema.test.ts",
+        "tests/bridge-p10a-w0-people-projection.test.ts",
+        "tests/bridge-p11-capital-contributors.test.ts",
+        "tests/bridge-p11-ready.test.ts",
+        "tests/bridge-p13b-r07-setup.test.ts",
+        "tests/bridge-p13b-s1b-seats.test.ts",
+        "tests/bridge-p13b-s2-labs.test.ts",
+        "tests/bridge-p13b-s3-plans.test.ts",
+        "tests/bridge-p13b-s4-office.test.ts",
+        "tests/bridge-p13b-s5-adoption.test.ts",
+        "tests/bridge-p13b-s6-cancellation.test.ts",
+        "tests/bridge-p13b-s7-disclosure.test.ts",
+        "tests/bridge-p13b-s8-rivals.test.ts",
+        "tests/bridge-p14a1-market.test.ts",
+        "tests/bridge-p14a1-release-busy-set.test.ts",
+        "tests/bridge-p14a2-market.test.ts",
+        "tests/bridge-p14a3-world.test.ts",
+        "tests/bridge-p14b1-promises.test.ts",
+        "tests/bridge-p14b10-relationship-labels.test.ts",
+        "tests/bridge-p14b2-trust.test.ts",
+        "tests/bridge-p14b3-promise-command.test.ts",
+        "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+        "tests/bridge-p14b5-relationships.test.ts",
+        "tests/bridge-p14b6-relationship-read-models.test.ts",
+        "tests/bridge-p14b7-promise-waiver.test.ts",
+        "tests/bridge-p14b8-waiver-surface.test.ts",
+        "tests/bridge-p14c2rm-runtime.test.ts",
+        "tests/bridge-p14c2s-scientist-runtime.test.ts",
+        "tests/bridge-p14c3-promise-digest-continuity.test.ts",
+        "tests/bridge-p14c3-runtime.test.ts",
+        "tests/bridge-p14p3-directing-promises.test.ts",
+        "tests/bridge-p14p4p5-opportunities.test.ts",
+        "tests/bridge-p14r2r3-prior55.test.ts",
+        "tests/bridge-p17-franchise-read-model.test.ts",
+        "tests/bridge-r3n4-read-model-deltas.test.ts",
+        "tests/bridge-runtime-checkpoint.test.ts",
+        "tests/bridge-schema.test.ts",
+        "tests/bridge-stabilization-l22-retired-projections.test.ts",
+        "tests/bridge.test.ts"
+      ]
+    }
+  ],
+  "budgets": {
+    "timeoutOverride": false
+  }
+}
