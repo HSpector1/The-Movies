@@ -1,0 +1,28 @@
+{
+  "head": "418f5d700805f88067ad9ef8badb1e2c28bc70e5",
+  "sourceManifestEntries": 2143,
+  "purpose": "Sprint 11 ui-r25 on the candidate: root/ui typecheck, the two ui unit files, then the Playwright continuation journey and the existing smoke in the installed Chrome (channel chrome)",
+  "children": [
+    {
+      "label": "root-ui-types"
+    },
+    {
+      "label": "ui-unit",
+      "completeFiles": [
+        "ui/src/screens/p17-cameo-cancel-ui.test.tsx",
+        "ui/src/screens/p17-continuation-ui.test.tsx"
+      ]
+    },
+    {
+      "label": "e2e-p17",
+      "specs": [
+        "ui/e2e/p17-continuation.spec.ts",
+        "ui/e2e/smoke.spec.ts"
+      ]
+    }
+  ],
+  "budgets": {
+    "timeoutOverride": false,
+    "note": "p17 spec carries its own 240 s budget; smoke unchanged"
+  }
+}
