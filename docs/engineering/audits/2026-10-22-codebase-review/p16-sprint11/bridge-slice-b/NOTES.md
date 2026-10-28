@@ -141,3 +141,30 @@ The moved pins fail by value at the parent.
   - Managed weekly operating charges over the screenplay weeks leave the cheapest published budget affordable. The continuation file passes with `withCash(200M)`; this route adds no cash.
   - Each failure throws by name at collection.
 - The outcome branch (`releasedContinuation`) still forks the legacy `route.world` and uses the core's legacy greenlight. It does not change.
+
+## Fix 3 (re-review of slice B fixes, against 418f5d70)
+
+`FIX-3.patch` sha256 `9f7b88207e0c059fc62b79f15065a3f503d59af0c94c2bcb505d75e08782f14c` (8,036 bytes, 3 files). It applies to 418f5d70 (`git apply --check` clean). Post-images are under `fix3/postimages/`, and the 418f5d70 pre-images under `fix3/pre/`. 418f5d70 carries the FIX-1 and FIX-2 post-images byte for byte. Status: STATIC-UNRUN, with a `transpileModule` syntax pass only.
+
+- **S-A1 (a), case 8.** A new premise asserts that the player's released sequel carries a numeric `forecast.expectedTotal`. The engaged greenlight stamps it at release (`tick.ts:736-745`, when `participants` is present). The outcome pin now expects that exact forecast, with no `?? null` fallback. A null forecast now fails by name instead of matching the rival path.
+- **S-A1 (b), unit level.** The coordinator asked which route this case uses. It is a unit-level case. No cheap route releases another studio's film into a franchise:
+  - The only licence route at 418f5d70 (`tests/p17-p16-rights.test.ts:97`, `buyLicence`) licenses back a title the player sold. Its origin is the player's own film.
+  - No test or helper greenlights a continuation of a rival simulation film. Building one means a licence on a rival-held property that nobody has run.
+- **The unit case** (new describe at the end of `tests/bridge-p17-franchise-read-model.test.ts`) pins `releaseOutcome` directly:
+  - The world is real: the P12 lifecycle route (`initializeHollywood(generateWorld('r05-lifecycle'))`, ticked up to 52 weeks until a rival run exists). This is the seed `tests/bridge-p12-industry.test.ts` already passes on, built at collection.
+  - The film row is the one `industryPage` serves for that film (`film` view), passed as the `PublicFilmRow` lookup. No synthetic rows.
+  - Only the `FranchiseProperty` is a stand-in (`peakInstallmentId: null`, no milestones). It feeds `propertyPeak` and `activeAgain` alone.
+  - Premises: the film is `simulation/v1` and not the player's; it carries a numeric locked forecast; its active run has paid less than the whole-run total; and the row's `totalGross` equals `cumulativeGrossPaid`.
+  - Pin: `expectedTotal` is null, `totalGross` equals `cumulativeGrossPaid`, and opening and critic score match the row.
+  - RED at bfce8c29 and d274b849 by assertion: the first assertion is `typeof releaseOutcome === 'function'`, and the function was not exported there.
+- **Source change.** `bridge/franchises.ts` exports `releaseOutcome` for this pin, with a comment saying why. No wire, schema or behaviour change.
+- **S-A2, ACCEPTANCE OPEN, Owner decision.** The meters leak private figures through core law. No Bridge field causes it.
+  - `factsOf` (`continuation.ts:168-169`) feeds the whole-run `boxOffice.total` and the locked `forecast.expectedTotal` of every released installment into the meters. For a rival film, that forecast is the rival's private `forecastSnapshot`.
+  - Recognition reads `reach01(total)` (`continuationSignals.ts:115`). Momentum adds `surpriseOf(total, expectedTotal, q)` (`continuationSignals.ts:152`).
+  - So the Recognition and Momentum the franchise view publishes, on a property whose origin is a licensed rival film, let the player infer two figures that film's public row never shows: its total-to-forecast ratio, and its full-run gross while the run is still active.
+  - The Bridge publishes the core's meters unchanged. Changing them is core law.
+  - Options for the Owner:
+    1. Publish the meters anyway.
+    2. Delay the meters on a rival-origin property until the run ends.
+    3. Compute rival-origin facts from public figures only (no forecast, so no surprise term).
+  - Line for the Owner: "Franchise meters are computed from a rival film's whole-run gross and its private forecast, so the Recognition/Momentum shown on a property licensed from a rival leaks that film's full gross and forecast ratio; choose: publish anyway, delay meters until the run ends, or compute from public figures only."

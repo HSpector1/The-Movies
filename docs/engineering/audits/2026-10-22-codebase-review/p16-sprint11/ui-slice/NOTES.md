@@ -232,3 +232,36 @@ Other pinned phrases checked against the FIX-1 label maps and copy, all unchange
 The six cases in the first file import only modules present at the parent (core index, `cameoBooking.ts`, the cameo route
 helper, the existing screens, `careerImpact.ts`), so their collection-time route builds there and each fails on its first
 missing test id.
+
+## Fix 3 (combined re-review on 418f5d70: UI SLICE ACCEPTABLE, should-fix items)
+
+`FIX-3.patch` (51 KB, ui/ only, 6 files: `adapter.ts`, `continuation.ts`, `P17Continuation.tsx`, `Assembly.tsx`,
+`p17-continuation-ui.test.tsx`, `p17-continuation.spec.ts`) applies on 418f5d70. HEAD is still 418f5d70, and
+`git apply --check` passes there. `tools/make_fix3.py` regenerates it from `r2-postimages/` (the 418f5d70 files) and
+proves that 418f5d70's blobs plus FIX-3 equal `postimages/` (passed). `FIX-3-MANIFEST.json` has the sha256 values. Status:
+STATIC-UNRUN (single-file syntax checks only).
+
+| Item | Resolution |
+|---|---|
+| S-B1 Review forecast differs from the locked one | `DraftPackage` gains an optional `p17` (the three `ReceptionInputs` fields the greenlight locks), and `assembleReceptionInputs` spreads it, so every preview built from the package (forecast panel, GreenlightDiscipline, profit range, execution confidence, discovery, marketing menu) reads the same inputs. Assembly composes them through `greenlightForecastExtras`: `inheritedAwareness01` from the chosen choice's own `continuationQuote` (same predicted id and principals as `prepareContinuation`), and the guest inputs from the core's own `prepareCameoBookings` (exported from cameoBooking.ts), so no law is re-derived. The greenlight action is still built field by field, so `p17` never rides it. If the core refuses the inputs, a notice says the forecast leaves them out and the greenlight will refuse for the same reason. The choices and guests are also read on the Budget step, so its forecast agrees. New case: the Review's displayed opening and total equal `money()` of the locked snapshot, `previewForecast(original, locked package + core-composed inputs)` `toEqual`s the stored `forecastSnapshot`, and a named premise checks that the inputs really move the forecast. |
+| S-B2 raw ids on the licensed path | `filmTitle(state, id)`: the player's picture by its concept (via `findConcept`, the buyer catalogue), any industry film by its Industry row `title`, a rival picture in production by its concept in `hollywood.concepts`; null otherwise. Choices, booking rows, lineage parent, property title and the shared-week names all use it. New case: a synthetic `h.films` row resolves by title, the player's original by its concept, an unknown id to null. |
+| S-B3 raw enums and ids in refusals | `PROFESSION_LABEL` for the guest profession. `refusalHumaniser(state)` is the one translator: it rewrites `noAuthority:<studio>` to "held by <name>" and `expired:<licence>` to "<licence> has expired", then swaps every id token for the player's word (studios by name, the player's as "your studio"; films and properties by title; licences as "the licence from <grantor>"; continuities by kind; hooks as "the <kind> hook from <film>") plus `RELEASED`, `directSequel`, `spinOff`, `SubProperty`. Continuation and guest refusals render the humanised sentence with the raw one under "Show the studio's note". Test 2 pins the humanised remake sentence and finds the raw sentence in the disclosure; the reboot pin uses the humaniser. New case pins the noAuthority and enum rewrites. |
+| S-B4 silent guest drop | `guestDropReason` names why a chosen guest stopped counting (now credited as a principal, refused with the humanised reason, re-quoted fee, changed basis, week). The guest panel announces it in a `role="status"` live region (`guest-dropped`) until the player chooses again. New case covers the reasons and the announcement. |
+| S-B5 e2e sampling | `advanceWeek` commits a Release Ready picture, advances, then waits for each destination with smoke's `expect.poll` (newspaper, release list, or the Dashboard at week + 1). `advanceUntilRelease` counts settled weeks, not samples, and continue-after-import reuses it and asserts no release in that week. No `isVisible().catch` remains. |
+| Notes (cheap, done) | Work week: no fallback to week + 1. No standard shooting week shows a banner. A missing guest name or picture title renders "— (no recorded name/title)", never the id. A cancelled booking without a reason or refund shows "— (no reason recorded)" / "— (no refund recorded)" instead of "no reason recorded" / $0. |
+
+### RED at the parent for the Fix 3 cases (418f5d70)
+
+The file loads at 418f5d70, because `engine/continuation.ts` exists there. The three new cases fail when they call a
+missing export (`greenlightForecastExtras`, `filmTitle`, `refusalHumaniser`, `guestDropReason`), so a TypeError, not an
+assertion. Test 2 fails there by assertion (the humanised sentence). The other five original cases are unchanged in
+behaviour, and the cancel file is untouched.
+
+### Unverified (unrun)
+
+- The forecast case assumes the Review step renders one `fc-opening` / `fc-total` (ReviewStep's ForecastDisplay).
+- `toEqual` of the preview and the snapshot assumes `computeForecast` ignores input key order (the core spreads
+  `scriptStrengthOverride`, then the continuation input, then the guest inputs; the adapter spreads `p17` last).
+- `refusalHumaniser` builds one id map per panel render (studios, industry films, the player's films, resolved properties,
+  licences, franchise continuities and hooks); cost is unmeasured on a large industry.
+- The Talent step's package summary still previews without the P17 inputs (no choice is made there yet).

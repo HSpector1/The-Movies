@@ -1,0 +1,834 @@
+diff --git a/ui/e2e/p17-continuation.spec.ts b/ui/e2e/p17-continuation.spec.ts
+index 6ad0fff9708a6d569e0fa291f215fa55a2796800..785fb4b7df5851e296b38aa5519d6fa58a0bd441 100644
+--- a/ui/e2e/p17-continuation.spec.ts
++++ b/ui/e2e/p17-continuation.spec.ts
+@@ -53,33 +53,21 @@ async function packageToReview(page: Page, conceptId: string) {
+   await expect(page.getByTestId('step-review')).toHaveClass(/active/)
+ }
+ 
+-/** Advance (committing at Release Ready) until a release card shows; returns its production id. */
+-async function advanceUntilRelease(page: Page): Promise<string> {
+-  for (let i = 0; i < MAX_RELEASE_WEEKS; i++) {
+-    const commit = page.getByTestId('release-commit')
+-    if (await commit.isVisible().catch(() => false)) await commit.click()
+-    const advance = page.getByTestId('advance-week')
+-    if (await advance.isVisible().catch(() => false)) await advance.click()
+-    const newspaper = page.getByTestId('newspaper-reveal')
+-    if (await newspaper.isVisible().catch(() => false)) await page.getByTestId('newspaper-continue').click()
+-    const releaseList = page.getByTestId('release-list')
+-    if (await releaseList.isVisible().catch(() => false)) {
+-      const cards = releaseList.locator('[data-testid^="release-card-"]')
+-      if ((await cards.count()) > 0) return (await cards.first().getAttribute('data-testid'))!.replace('release-card-', '')
+-      await page.getByTestId('release-continue').click()
+-    }
+-  }
+-  throw new Error(`premise: a release within ${MAX_RELEASE_WEEKS} weeks`)
+-}
+-
+-/** smoke.spec.ts's continue step: one real week, walking any newspaper or release screen back to the Dashboard. */
+-async function continueOneWeek(page: Page) {
++/**
++ * One real week from the Dashboard, smoke.spec.ts's poll per screen: commit a Release Ready picture first (the P06A
++ * affordance), advance, then wait for each destination instead of sampling it, walking the newspaper. Returns the
++ * released production id when the release list shows a card (the page stays there), else null back on the Dashboard.
++ */
++async function advanceWeek(page: Page): Promise<string | null> {
++  await expect(page.getByTestId('dash-week')).toBeVisible()
+   const before = Number(await page.getByTestId('dash-week').textContent())
+   expect(Number.isSafeInteger(before), 'premise: the Dashboard shows a whole week').toBe(true)
+   const continuedWeek = String(before + 1)
++  const commit = page.getByTestId('release-commit')
++  if ((await commit.count()) > 0) await commit.click()
+   await expect(page.getByTestId('advance-week')).toBeEnabled()
+   await page.getByTestId('advance-week').click()
+-  for (let transition = 0; transition < 3; transition++) {
++  for (let transition = 0; transition < 4; transition++) {
+     let destination = 'pending'
+     await expect.poll(async () => {
+       if (await page.getByTestId('newspaper-reveal').isVisible()) destination = 'newspaper'
+@@ -89,10 +77,32 @@ async function continueOneWeek(page: Page) {
+       else destination = 'pending'
+       return destination
+     }).not.toBe('pending')
+-    if (destination === 'dashboard') break
+-    await page.getByTestId(destination === 'newspaper' ? 'newspaper-continue' : 'release-continue').click()
++    if (destination === 'dashboard') return null
++    if (destination === 'newspaper') {
++      await page.getByTestId('newspaper-continue').click()
++      continue
++    }
++    const cards = page.getByTestId('release-list').locator('[data-testid^="release-card-"]')
++    if ((await cards.count()) > 0) return (await cards.first().getAttribute('data-testid'))!.replace('release-card-', '')
++    await page.getByTestId('release-continue').click()
+   }
+-  await expect(page.getByTestId('dash-week')).toHaveText(continuedWeek)
++  throw new Error(`premise: week ${continuedWeek} settles within four screens`)
++}
++
++/** Advance week by week (each one settled by the poll above) until a release card shows; returns its production id. */
++async function advanceUntilRelease(page: Page): Promise<string> {
++  for (let week = 0; week < MAX_RELEASE_WEEKS; week++) {
++    const released = await advanceWeek(page)
++    if (released !== null) return released
++  }
++  throw new Error(`premise: a release within ${MAX_RELEASE_WEEKS} weeks`)
++}
++
++/** smoke.spec.ts's continue-after-import step: one real week, with no release, back on the Dashboard. */
++async function continueOneWeek(page: Page) {
++  const before = Number(await page.getByTestId('dash-week').textContent())
++  expect(await advanceWeek(page), 'premise: the imported studio releases nothing in its first continued week').toBeNull()
++  await expect(page.getByTestId('dash-week')).toHaveText(String(before + 1))
+ }
+ 
+ test('P17 journey: release an original, greenlight its sequel with a featured guest, release it, read lineage and meters', async ({ page }) => {
+diff --git a/ui/src/components/P17Continuation.tsx b/ui/src/components/P17Continuation.tsx
+index eb4ebd920efdeef6afb59f6ee1a8e3f505de55dd..db1128f15020c29e851affe93f7c908f01d526eb 100644
+--- a/ui/src/components/P17Continuation.tsx
++++ b/ui/src/components/P17Continuation.tsx
+@@ -11,6 +11,7 @@ import {
+   BRANCH_KIND_LABEL,
+   CANCEL_REASON_LABEL,
+   CONTINUATION_TYPE_LABEL,
++  PROFESSION_LABEL,
+   productionBookings,
+   releaseOutcome,
+   USE_LABEL,
+@@ -24,8 +25,23 @@ import { money, pct } from '../format.ts'
+ import { RefusalNotice } from './common.tsx'
+ 
+ const fixed = (n: number) => n.toFixed(1)
+-/** Some refusals name a guest by id; the player sees the person's name. */
+-const named = (reason: string, id: string, name: string) => reason.split(id).join(name)
++/** A record with no title or name: a disclosed dash, never an id and never an invented name. */
++const untitled = (t: string | null, what = 'title') => t ?? `— (no recorded ${what})`
++
++/** The humanised refusal, with the studio's own sentence one click away. */
++function Refusal({ text, raw, testid }: { text: string; raw: string; testid: string }) {
++  return (
++    <span className="hint stack" style={{ gap: 2 }} data-testid={testid}>
++      <span>Not available: {text}</span>
++      {text !== raw && (
++        <details>
++          <summary>Show the studio&rsquo;s note</summary>
++          <span className="mono">{raw}</span>
++        </details>
++      )}
++    </span>
++  )
++}
+ 
+ const QUALITY_NOTE =
+   'Inherited awareness raises the opening reach only; it never changes critic or audience scores. ' +
+@@ -71,7 +87,7 @@ export function ContinuationChoicePanel({
+           {panel.properties.map((p) => (
+             <div className="inset stack" key={p.storyPropertyId} data-testid={`continuation-property-${p.storyPropertyId}`}>
+               <div className="spread">
+-                <strong>{p.title}</strong>
++                <strong>{untitled(p.title)}</strong>
+                 <span className="tag">{p.standing === 'title' ? 'Title held' : 'Licensed'}</span>
+               </div>
+               {p.meters === null ? (
+@@ -97,7 +113,7 @@ export function ContinuationChoicePanel({
+                         onChange={() => onSelect(c.key)}
+                         data-testid={testid}
+                       />
+-                      <strong>{CONTINUATION_TYPE_LABEL[c.request.type]}</strong> of {c.predecessorTitle}
++                      <strong>{CONTINUATION_TYPE_LABEL[c.request.type]}</strong> of {untitled(c.predecessorTitle)}
+                     </span>
+                     {c.quote.ok ? (
+                       <span className="hint" data-testid={`${testid}-quote`}>
+@@ -107,7 +123,7 @@ export function ContinuationChoicePanel({
+                         {` (${USE_LABEL[c.quote.use]}) · Recognition ${fixed(c.quote.recognition)} · Momentum ${fixed(c.quote.momentum)} · Fatigue ${fixed(c.quote.fatigue)} · Inherited awareness ${pct(c.quote.inheritedAwareness01)} · ${BAND_LABEL[c.quote.band]}`}
+                       </span>
+                     ) : (
+-                      <span className="hint" data-testid={`${testid}-refusal`}>Not available: {c.refusal}</span>
++                      <Refusal text={c.refusal ?? c.quote.reason} raw={c.quote.reason} testid={`${testid}-refusal`} />
+                     )}
+                   </label>
+                 )
+@@ -123,6 +139,7 @@ export function ContinuationChoicePanel({
+ export function FeaturedGuestPanel({
+   panel,
+   blocked,
++  dropped,
+   onWorkWeek,
+   selected,
+   onChange,
+@@ -130,6 +147,8 @@ export function FeaturedGuestPanel({
+   panel: GuestPanel
+   /** Why this greenlight cannot carry guests at all (queued, or a carried screenplay); null when it can. */
+   blocked: string | null
++  /** Chosen guests who no longer count, each with the reason (announced, never dropped silently). */
++  dropped: { talentId: string; name: string; reason: string }[]
+   onWorkWeek: (week: number) => void
+   /** The chosen guests that are still eligible at their quoted fee and basis this render. */
+   selected: CameoBookingRequest[]
+@@ -153,10 +172,16 @@ export function FeaturedGuestPanel({
+           </p>
+           <label className="row" style={{ gap: 8 }}>
+             Work week
+-            <select value={workWeek} onChange={(e) => onWorkWeek(Number(e.target.value))} data-testid="guest-work-week">
++            <select value={workWeek ?? ''} onChange={(e) => onWorkWeek(Number(e.target.value))} data-testid="guest-work-week">
+               {panel.workWeeks.map((w) => <option key={w} value={w}>Week {w} (standard shooting week)</option>)}
+             </select>
+           </label>
++          {dropped.length > 0 && (
++            <div className="notice" role="status" aria-live="polite" data-testid="guest-dropped">
++              {dropped.map((d) => `${d.name} ${d.reason}.`).join(' ')} Their fee no longer counts and they will not be booked; choose
++              again if you still want them.
++            </div>
++          )}
+           {panel.eligible.length === 0 && (
+             <div className="notice" data-testid="guest-none">
+               Nobody among the {panel.scanned} most famous people can appear in week {workWeek}.
+@@ -175,10 +200,10 @@ export function FeaturedGuestPanel({
+                     onChange={() => onChange(on ? selected.filter((g) => g.talentId !== talentId) : [...selected, bookingRequestOf(quote)])}
+                     data-testid={`guest-feature-${talentId}`}
+                   />
+-                  <strong>{quote.name}</strong> ({quote.profession}, fame {fixed(quote.fame)}) · {BASIS_LABEL[quote.basis]} · fee{' '}
++                  <strong>{quote.name}</strong> ({PROFESSION_LABEL[quote.profession]}, fame {fixed(quote.fame)}) · {BASIS_LABEL[quote.basis]} · fee{' '}
+                   <span className="mono" data-testid={`guest-fee-${talentId}`}>{money(quote.fee)}</span>
+                 </span>
+-                <span className="hint">{named(quote.readinessRisk, talentId, quote.name)}</span>
++                <span className="hint">{quote.readinessRisk}</span>
+                 {quote.disclosures.map((d) => <span className="hint" key={d}>{d}</span>)}
+               </label>
+             )
+@@ -186,9 +211,10 @@ export function FeaturedGuestPanel({
+           {panel.refused.length > 0 && (
+             <details data-testid="guest-refused">
+               <summary>Not available this week ({panel.refused.length} shown)</summary>
+-              {panel.refused.map(({ talentId, name, quote }) => (
+-                <div className="hint" key={talentId} data-testid={`guest-refusal-${talentId}`}>
+-                  {name}: {quote.ok ? '' : named(quote.reason, talentId, name)}
++              {panel.refused.map(({ talentId, name, quote, refusal }) => (
++                <div key={talentId}>
++                  <strong>{name}</strong>
++                  {!quote.ok && <Refusal text={refusal ?? quote.reason} raw={quote.reason} testid={`guest-refusal-${talentId}`} />}
+                 </div>
+               ))}
+             </details>
+@@ -205,7 +231,12 @@ export function FeaturedGuestPanel({
+ 
+ function BookingStatus({ b }: { b: BookingRow }) {
+   if (b.status === 'cancelled') {
+-    return <>Cancelled ({b.cancelReason ? CANCEL_REASON_LABEL[b.cancelReason] : 'no reason recorded'}); refunded {money(b.refund ?? 0)}, retained {money(b.retained)}</>
++    return (
++      <>
++        Cancelled ({b.cancelReason === null ? '— (no reason recorded)' : CANCEL_REASON_LABEL[b.cancelReason]}); refunded{' '}
++        {b.refund === null ? '— (no refund recorded)' : money(b.refund)}, retained {money(b.retained)}
++      </>
++    )
+   }
+   if (b.status === 'completed') return <>Completed in week {b.completedWeek}; the fee is earned</>
+   return <>Reserved for week {b.workWeek}</>
+@@ -248,7 +279,7 @@ export function FeaturedBookingsCard({
+           }}
+           style={{ gap: 4 }}
+         >
+-          <span><strong>{b.name}</strong> in {b.pictureTitle} · fee {money(b.fee)} · <BookingStatus b={b} /></span>
++          <span><strong>{untitled(b.name, 'name')}</strong> in {untitled(b.pictureTitle)} · fee {money(b.fee)} · <BookingStatus b={b} /></span>
+           {b.status === 'reserved' && (
+             <>
+               <span className="hint" data-testid={`booking-cancel-disclosure-${b.bookingId}`}>
+@@ -270,7 +301,7 @@ export function FeaturedBookingsCard({
+                 }}
+                 data-testid={`booking-cancel-${b.bookingId}`}
+               >
+-                Cancel {b.name}&rsquo;s appearance
++                Cancel {b.name === null ? 'this' : `${b.name}\u2019s`} appearance
+               </button>
+             </>
+           )}
+@@ -314,7 +345,7 @@ export function ReleaseContinuationOutcome({
+           <h4 style={{ margin: 0 }}>Lineage</h4>
+           <p className="reason" style={{ margin: 0 }} data-testid={`release-lineage-${productionId}`}>
+             {CONTINUATION_TYPE_LABEL[lineage.type]}
+-            {lineage.parentTitle !== null ? ` of ${lineage.parentTitle}` : ''} in {lineage.propertyTitle}, on the{' '}
++            {lineage.parentTitle !== null ? ` of ${lineage.parentTitle}` : ''} in {untitled(lineage.propertyTitle)}, on the{' '}
+             {BRANCH_KIND_LABEL[lineage.branchKind]}
+             {lineage.greenlitWeek !== null ? `, greenlit week ${lineage.greenlitWeek}` : ''}
+             {lineage.releasedWeek !== null ? `, released week ${lineage.releasedWeek}` : ''}.
+@@ -345,7 +376,7 @@ export function ReleaseContinuationOutcome({
+           <h4 style={{ margin: 0 }}>Featured appearances</h4>
+           {guests.map((g) => (
+             <div className="hint" key={g.bookingId} data-testid={`release-guest-${g.bookingId}`}>
+-              <strong>{g.name}</strong>:{' '}
++              <strong>{untitled(g.name, 'name')}</strong>:{' '}
+               {g.credit
+                 ? `credited; star power ${fixed(g.credit.starPowerBefore)} → ${fixed(g.credit.starPowerAfter)}`
+                 : <BookingStatus b={g} />}
+diff --git a/ui/src/engine/adapter.ts b/ui/src/engine/adapter.ts
+index 15d2e88e8dd60be6dc906e65adf47b9c9b6347af..37ed52f4386e0c62a27a1a463061d69dbae46d8a 100644
+--- a/ui/src/engine/adapter.ts
++++ b/ui/src/engine/adapter.ts
+@@ -1897,6 +1897,12 @@ export type DraftPackage = DraftPackageIds & {
+   shape: FilmShape
+   promise: FilmPromise
+   budget: Budget
++  /**
++   * P17: the forecast inputs the greenlight will lock for a chosen continuation and featured guests, composed by the core
++   * (`engine/continuation.ts` greenlightForecastExtras). Every preview built from this package reads them, so the Review
++   * forecast equals the snapshot the greenlight stores. Never part of the greenlight action itself.
++   */
++  p17?: Pick<ReceptionInputs, 'inheritedAwareness01' | 'cameoPublicityDelta' | 'cameoExecutions'>
+ }
+ 
+ // Assemble the §5 ReceptionInputs a forecast/reception reads, resolving all ids to
+@@ -1952,6 +1958,8 @@ function assembleReceptionInputs(
+     standing: state.studio.standing,
+     era: state.era,
+     ...(scriptStrengthOverride ? { scriptStrengthOverride } : {}),
++    // P17: the same continuation and guest inputs the greenlight locks (absent ⇒ the predecessor preview).
++    ...(pkg.p17 ?? {}),
+   }
+ }
+ 
+diff --git a/ui/src/engine/continuation.ts b/ui/src/engine/continuation.ts
+index c6aaaaaa0600398cc7c29357b8a222ab416edbe4..7fa985917c5bf4d418e410b2aca4458583109aee 100644
+--- a/ui/src/engine/continuation.ts
++++ b/ui/src/engine/continuation.ts
+@@ -25,6 +25,7 @@ import {
+   permissionFor,
+   predictProductionId,
+   recognitionReported,
++  resolveShape,
+   resolveTitles,
+   TUNING,
+   type ContinuationBand,
+@@ -36,15 +37,17 @@ import {
+   type GameState,
+   type LineageEdgeType,
+   type ProposedPrincipals,
++  type ReceptionInputs,
+ } from '../../../src/core/index.ts'
+ // The cameo slice is not exported from src/core/index.ts yet (cameo NOTES: "add cameoQuote and the action there when a
+ // consumer exists"). This module is that consumer; switch these two lines to index.ts when the core owner exports them.
+-import { cameoQuote, nominalShootingWeeks, type CameoQuoteResult } from '../../../src/core/cameoBooking.ts'
++import { cameoQuote, nominalShootingWeeks, prepareCameoBookings, type CameoQuoteResult } from '../../../src/core/cameoBooking.ts'
+ import { featuredCapacity, type CameoBookingRequest } from '../../../src/core/cameo.ts'
+-import type { CameoBooking } from '../../../src/core/types.ts'
++import type { CameoBooking, CastSlot, CreativeRole, Talent } from '../../../src/core/types.ts'
+ // Not exported from index.ts either: the carried-screenplay owner, whose greenlight the core refuses guests on.
+ import { continuedScriptOwner } from '../../../src/core/continuedScripts.ts'
+-import type { ActionOutcome } from './adapter.ts'
++import { findConcept, type ActionOutcome, type DraftPackage } from './adapter.ts'
++import { moneyExact } from '../format.ts'
+ 
+ export type { CameoBookingRequest, ContinuationRequest }
+ 
+@@ -57,15 +60,16 @@ export type RightRelied = { via: 'title' | 'licence'; licenceId: string | null;
+ export type ContinuationChoice = {
+   key: string
+   request: ContinuationRequest
+-  predecessorTitle: string
++  /** Null when no record names the film (rendered as a disclosed dash, never its id). */
++  predecessorTitle: string | null
+   quote: ContinuationQuote
+-  /** The refusal reason as the player reads it (ids replaced by titles); null for a lawful choice. */
++  /** The refusal reason as the player reads it (`humaniseRefusal`); null for a lawful choice. The raw sentence stays on `quote`. */
+   refusal: string | null
+   right: RightRelied | null
+ }
+ export type ContinuableProperty = {
+   storyPropertyId: string
+-  title: string
++  title: string | null
+   /** Why the studio sees it: it holds the title, or only a licence on another studio's title. */
+   standing: 'title' | 'licence'
+   /** Null until a continuation first records the property in the franchise root. */
+@@ -77,10 +81,66 @@ export type ContinuationPanel = { unavailable: string | null; properties: Contin
+ 
+ const keyOf = (r: ContinuationRequest) => `${r.type}:${r.predecessorProductionId}${r.subPropertyId ? `:${r.subPropertyId}` : ''}`
+ 
+-function titleOfFilm(state: GameState, conceptId: string | undefined, fallback: string): string {
+-  return state.concepts.find((c) => c.id === conceptId)?.title ?? fallback
++function conceptTitle(state: GameState, conceptId: string | undefined): string | null {
++  if (conceptId === undefined) return null
++  return findConcept(state, conceptId)?.title ?? state.hollywood?.concepts.find((c) => c.id === conceptId)?.title ?? null
+ }
+ 
++/**
++ * A film's player-facing title on every path: the player's own picture (released or in production) by its concept; any
++ * industry film by its Industry row title (rival and licensed works); a rival picture still in production by its
++ * concept in the industry catalogue. Null when no record names it: the caller shows a disclosed dash, never the id.
++ */
++export function filmTitle(state: GameState, productionId: string): string | null {
++  const own = state.studio.releasedFilms.find((f) => f.productionId === productionId)?.conceptId
++    ?? state.studio.activeProductions.find((p) => p.id === productionId)?.conceptId
++  if (own !== undefined) return conceptTitle(state, own)
++  const row = state.hollywood?.films.find((f) => f.filmId === productionId)
++  if (row !== undefined) return row.title
++  const rival = state.hollywood?.businesses.flatMap((b) => b.productions).find((p) => p.id === productionId)
++  return conceptTitle(state, rival?.conceptId)
++}
++
++const WORDS: Record<string, string> = {
++  RELEASED: 'released',
++  directSequel: 'direct sequel',
++  spinOff: 'spin-off',
++  SubProperty: 'hook',
++  SubProperties: 'hooks',
++  workWeek: 'the work week',
++}
++
++/**
++ * The ONE refusal humaniser: keeps the core's sentence recognisable and swaps each id it names for the player's word —
++ * studios by name (yours as "your studio"), films and properties by title, licences as "the licence from <studio>",
++ * continuities by kind, hooks by kind and film — plus the few camel-case enums the sentences carry. An id with no
++ * record stays as written. Callers show the raw sentence in a disclosure beside it.
++ */
++export function refusalHumaniser(state: GameState): (reason: string) => string {
++  const names = new Map<string, string>()
++  const player = state.hollywood?.playerStudioId
++  for (const s of state.hollywood?.identities ?? []) names.set(s.studioId, s.studioId === player ? 'your studio' : s.name)
++  for (const f of state.hollywood?.films ?? []) names.set(f.filmId, f.title)
++  for (const f of state.studio.releasedFilms) { const t = filmTitle(state, f.productionId); if (t !== null) names.set(f.productionId, t) }
++  for (const p of state.studio.activeProductions) { const t = filmTitle(state, p.id); if (t !== null) names.set(p.id, t) }
++  for (const p of resolveTitles(state).properties) { const t = p.title ?? conceptTitle(state, p.conceptId); if (t !== null) names.set(p.propertyId, t) }
++  for (const l of state.rights.licences) names.set(l.id, `the licence from ${names.get(l.grantorId) ?? l.grantorId}`)
++  for (const property of franchisesOf(state).properties) {
++    for (const b of property.branches) names.set(b.branchId, `the ${BRANCH_KIND_LABEL[b.kind]}`)
++    for (const sub of property.subProperties) {
++      const from = filmTitle(state, sub.mintedAtProductionId)
++      names.set(sub.subPropertyId, `the ${sub.kind} hook${from === null ? '' : ` from ${from}`}`)
++    }
++  }
++  const word = (token: string) => names.get(token) ?? WORDS[token] ?? token
++  return (reason) => reason
++    .replace(/noAuthority:([\w:.-]*\w)/g, (_m, id: string) => `held by ${word(id)}`)
++    .replace(/expired:([\w:.-]*\w)/g, (_m, id: string) => `${word(id)} has expired`)
++    .replace(/\w[\w:.-]*\w|\w/g, word)
++}
++
++export const PROFESSION_LABEL: Record<CreativeRole, string> = { actor: 'Actor', director: 'Director', writer: 'Writer', craft: 'Craft', scientist: 'Scientist' }
++
+ function metersOf(property: FranchiseProperty, week: number): PropertyMeters {
+   return { recognition: recognitionReported(property.meter, week), fatigue: fatigueAt(property.meter, week) }
+ }
+@@ -123,6 +183,7 @@ export function continuationPanel(state: GameState, proposed?: ProposedPrincipal
+   const root = franchisesOf(state)
+   const productionId = predictProductionId(state)
+   // continuation uses are R3 licences on a property (R4 licences are cross-media and never answer a continuation)
++  const humanise = refusalHumaniser(state)
+   const licensed = new Set(licencesHeldBy(state, studioId, week).flatMap((l) => (l.right === 'R3' && l.subject.right === 'R1' ? [l.subject.propertyId] : [])))
+   const properties: ContinuableProperty[] = []
+   for (const p of resolveTitles(state).properties) {
+@@ -141,19 +202,15 @@ export function continuationPanel(state: GameState, proposed?: ProposedPrincipal
+         .filter((s) => s.promotedToStoryPropertyId === null)
+         .map((s): ContinuationRequest => ({ type: 'spinOff', predecessorProductionId: id, subPropertyId: s.subPropertyId }))),
+     ]
+-    const title = p.title ?? titleOfFilm(state, p.conceptId, p.propertyId)
++    const title = p.title ?? conceptTitle(state, p.conceptId)
+     const choices = requests.map((request): ContinuationChoice => {
+       const quote = continuationQuote(world, { studioId, productionId, request, ...(proposed ? { proposed } : {}) })
+-      const film = world.releasedFilm(request.predecessorProductionId)?.result
+-      const locked = state.studio.activeProductions.find((x) => x.id === request.predecessorProductionId)
+-      const predecessorTitle = titleOfFilm(state, film?.conceptId ?? locked?.conceptId, request.predecessorProductionId)
+       return {
+         key: keyOf(request),
+         request,
+-        predecessorTitle,
++        predecessorTitle: filmTitle(state, request.predecessorProductionId),
+         quote,
+-        // the refusal's own words, with the film and property ids it names shown by their titles
+-        refusal: quote.ok ? null : quote.reason.split(request.predecessorProductionId).join(predecessorTitle).split(p.propertyId).join(title),
++        refusal: quote.ok ? null : humanise(quote.reason),
+         right: quote.ok ? rightOf(state, studioId, quote) : null,
+       }
+     })
+@@ -171,14 +228,15 @@ export function continuationPanel(state: GameState, proposed?: ProposedPrincipal
+ 
+ // ── featured appearances (cameo bookings) ─────────────────────────────────────
+ 
+-export type GuestRow = { talentId: string; name: string; quote: CameoQuoteResult }
++/** `refusal` is the humanised reason for a refused quote (null when lawful); the raw sentence stays on `quote`. */
++export type GuestRow = { talentId: string; name: string; quote: CameoQuoteResult; refusal: string | null }
+ export type GuestPanel = {
+   unavailable: string | null
+   capacity: number
+   /** The standard schedule's shooting weeks for a picture greenlit this week (the core's own projection). */
+   workWeeks: number[]
+-  /** The week these quotes are for: the asked week, else the first standard shooting week. */
+-  workWeek: number
++  /** The week these quotes are for: the asked week, else the first standard shooting week; null when neither exists. */
++  workWeek: number | null
+   eligible: GuestRow[]
+   refused: GuestRow[]
+   scanned: number
+@@ -194,11 +252,13 @@ export function featuredGuestPanel(state: GameState, askedWeek: number | null, e
+   const week = state.market.tick
+   const capacity = featuredCapacity(week)
+   const workWeeks = nominalShootingWeeks(week)
+-  const workWeek = askedWeek ?? workWeeks[0] ?? week + 1
++  const workWeek = askedWeek ?? workWeeks[0] ?? null
+   const empty = { capacity, workWeeks, workWeek, eligible: [], refused: [], scanned: 0 }
+   if (state.hollywood === null) return { ...empty, unavailable: 'Featured appearances read studio employment in the living industry, and this studio has no living industry.' }
+   if (!economyEngaged(state)) return { ...empty, unavailable: 'Featured appearances need the engaged studio economy (their fee and the employment law they read), which this studio has not engaged.' }
+   if (capacity === 0) return { ...empty, unavailable: `Featured appearances unlock at week ${TUNING.P17_CAMEO_UNLOCK_WEEK} (1956 Week 1); this is week ${week}.` }
++  if (workWeek === null) return { ...empty, unavailable: `The standard schedule has no shooting week for a picture greenlit in week ${week}, so no appearance can be booked.` }
++  const humanise = refusalHumaniser(state)
+   const candidates = state.talent
+     .filter((t) => !exclude.has(t.id))
+     .sort((a, b) => b.fame - a.fame || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))
+@@ -209,7 +269,8 @@ export function featuredGuestPanel(state: GameState, askedWeek: number | null, e
+   for (const t of candidates) {
+     if (eligible.length >= GUEST_SHOW) break
+     scanned++
+-    const row = { talentId: t.id, name: t.name, quote: cameoQuote(state, { talentId: t.id, workWeek }) }
++    const quote = cameoQuote(state, { talentId: t.id, workWeek })
++    const row = { talentId: t.id, name: t.name, quote, refusal: quote.ok ? null : humanise(quote.reason.split(t.id).join(t.name)) }
+     if (row.quote.ok) eligible.push(row)
+     else if (refused.length < GUEST_SHOW) refused.push(row)
+   }
+@@ -221,6 +282,59 @@ export function carriedScreenplay(state: GameState, projectId: string): boolean
+   return continuedScriptOwner(state, projectId) !== null
+ }
+ 
++/** Why a chosen guest no longer counts (null while they still do): credited as a principal, refused, or re-quoted. */
++export function guestDropReason(state: GameState, request: CameoBookingRequest, credited: ReadonlySet<string>, panel: GuestPanel): string | null {
++  if (panel.eligible.some((r) => r.quote.ok && r.talentId === request.talentId && r.quote.fee === request.fee && r.quote.basis === request.basis && r.quote.workWeek === request.workWeek)) return null
++  if (credited.has(request.talentId)) return 'is now credited on this picture as a principal'
++  const quote = cameoQuote(state, { talentId: request.talentId, workWeek: request.workWeek })
++  const name = state.talent.find((t) => t.id === request.talentId)?.name
++  if (!quote.ok) return `can no longer appear: ${refusalHumaniser(state)(name === undefined ? quote.reason : quote.reason.split(request.talentId).join(name))}`
++  if (quote.fee !== request.fee) return `was re-quoted at ${moneyExact(quote.fee)} (you accepted ${moneyExact(request.fee)})`
++  if (quote.basis !== request.basis) return `is now quoted as ${BASIS_LABEL[quote.basis]}, not ${BASIS_LABEL[request.basis]}`
++  if (quote.workWeek !== panel.workWeek) return `was booked for week ${request.workWeek}, and the panel now quotes week ${panel.workWeek ?? 'none'}`
++  return 'is no longer among the guests listed this week'
++}
++
++/**
++ * The forecast inputs the greenlight will lock for this package (actions.ts applyGreenlight): the chosen continuation's
++ * `inheritedAwareness01` from its quote (the same `continuationQuote` call, same predicted id and principals) and the
++ * guests' `cameoPublicityDelta` / `cameoExecutions` from the core's own `prepareCameoBookings`. A refusal comes back
++ * as its reason; the greenlight would refuse the same way.
++ */
++export function greenlightForecastExtras(
++  state: GameState,
++  pkg: DraftPackage,
++  chosen: { inheritedAwareness01: number | null; cameos: readonly CameoBookingRequest[]; carriedScreenplay: boolean },
++): { ok: true; extras: NonNullable<DraftPackage['p17']> } | { ok: false; reason: string } {
++  const concept = findConcept(state, pkg.conceptId)
++  const person = (id: string): Talent => {
++    const t = state.talent.find((x) => x.id === id)
++    if (t === undefined) throw new Error(`continuation view: unknown person ${id} in the package`)
++    return t
++  }
++  if (concept === undefined) return { ok: false, reason: `unknown concept ${pkg.conceptId}` }
++  const cast = { lead: person(pkg.cast.lead), antagonist: person(pkg.cast.antagonist), support: person(pkg.cast.support) } satisfies Record<CastSlot, Talent>
++  try {
++    const prep = prepareCameoBookings(state, chosen.cameos, {
++      productionId: predictProductionId(state),
++      creditedIds: new Set([pkg.writerId, pkg.directorId, ...Object.values(pkg.cast), ...(pkg.craftIds ?? [])]),
++      cast,
++      concept,
++      shapeEffects: resolveShape(pkg.shape),
++      promise: pkg.promise,
++      shape: pkg.shape,
++      carriedScreenplay: chosen.carriedScreenplay,
++    })
++    const extras: Pick<ReceptionInputs, 'inheritedAwareness01' | 'cameoPublicityDelta' | 'cameoExecutions'> = {
++      ...(chosen.inheritedAwareness01 === null ? {} : { inheritedAwareness01: chosen.inheritedAwareness01 }),
++      ...prep.inputs,
++    }
++    return { ok: true, extras }
++  } catch (e) {
++    return { ok: false, reason: refusalHumaniser(state)((e as Error).message) }
++  }
++}
++
+ /** The booking request a greenlight carries for an accepted quote: exactly the quoted fee and basis. */
+ export function bookingRequestOf(quote: Extract<CameoQuoteResult, { ok: true }>): CameoBookingRequest {
+   return { talentId: quote.talentId, workWeek: quote.workWeek, fee: quote.fee, basis: quote.basis }
+@@ -229,9 +343,10 @@ export function bookingRequestOf(quote: Extract<CameoQuoteResult, { ok: true }>)
+ export type BookingRow = {
+   bookingId: string
+   productionId: string
+-  pictureTitle: string
++  /** Null when no record names the picture or the person: rendered as a disclosed dash, never the id. */
++  pictureTitle: string | null
+   talentId: string
+-  name: string
++  name: string | null
+   workWeek: number
+   fee: number
+   retained: number
+@@ -244,14 +359,12 @@ export type BookingRow = {
+ }
+ 
+ function bookingRow(state: GameState, b: CameoBooking): BookingRow {
+-  const production = state.studio.activeProductions.find((p) => p.id === b.productionId)
+-  const film = state.studio.releasedFilms.find((f) => f.productionId === b.productionId)
+   return {
+     bookingId: b.bookingId,
+     productionId: b.productionId,
+-    pictureTitle: titleOfFilm(state, production?.conceptId ?? film?.conceptId, b.productionId),
++    pictureTitle: filmTitle(state, b.productionId),
+     talentId: b.talentId,
+-    name: state.talent.find((t) => t.id === b.talentId)?.name ?? b.talentId,
++    name: state.talent.find((t) => t.id === b.talentId)?.name ?? null,
+     workWeek: b.workWeek,
+     fee: b.fee,
+     retained: b.retained,
+@@ -286,7 +399,7 @@ export type ReleaseOutcome = {
+   lineage: {
+     storyPropertyId: string
+     /** The P16 property's resolved title (its founding concept's title when it has none of its own). */
+-    propertyTitle: string
++    propertyTitle: string | null
+     type: LineageEdgeType
+     parentProductionId: string | null
+     parentTitle: string | null
+@@ -319,15 +432,15 @@ export function releaseOutcome(preTick: GameState, postTick: GameState, producti
+   const branch = property.branches.find((b) => b.branchId === edge.branchId)
+   if (branch === undefined) throw new Error(`continuation view: ${property.storyPropertyId} has no continuity ${edge.branchId}`)
+   const before = franchisesOf(preTick).properties.find((p) => p.storyPropertyId === property.storyPropertyId)
+-  const parentFilm = edge.parentProductionId === null ? undefined : postTick.studio.releasedFilms.find((f) => f.productionId === edge.parentProductionId)
+   const resolved = resolveTitles(postTick).properties.find((p) => p.propertyId === property.storyPropertyId)
+   return {
+     lineage: {
+       storyPropertyId: property.storyPropertyId,
+-      propertyTitle: resolved?.title ?? titleOfFilm(postTick, resolved?.conceptId, property.storyPropertyId),
++      propertyTitle: resolved?.title ?? conceptTitle(postTick, resolved?.conceptId),
+       type: edge.type,
+       parentProductionId: edge.parentProductionId,
+-      parentTitle: edge.parentProductionId === null ? null : titleOfFilm(postTick, parentFilm?.conceptId, edge.parentProductionId),
++      // null only for the founding film (no parent); a parent no record names shows a disclosed dash
++      parentTitle: edge.parentProductionId === null ? null : filmTitle(postTick, edge.parentProductionId) ?? '— (a film with no recorded title)',
+       branchId: edge.branchId,
+       branchKind: branch.kind,
+       greenlitWeek: edge.greenlitWeek,
+@@ -338,7 +451,7 @@ export function releaseOutcome(preTick: GameState, postTick: GameState, producti
+       after: snapshot(property, branch, postTick.market.tick),
+       sharedWith: coReleased
+         .filter((id) => id !== productionId && property.installments.some((e) => e.childProductionId === id))
+-        .map((id) => titleOfFilm(postTick, postTick.studio.releasedFilms.find((f) => f.productionId === id)?.conceptId, id)),
++        .map((id) => filmTitle(postTick, id) ?? '— (a film with no recorded title)'),
+     },
+     guests,
+   }
+diff --git a/ui/src/screens/Assembly.tsx b/ui/src/screens/Assembly.tsx
+index 6e7358ca6806904b43a584711bb65e38f4c91cad..15637035c2434d7265af5d7c20f2b73bc49854de 100644
+--- a/ui/src/screens/Assembly.tsx
++++ b/ui/src/screens/Assembly.tsx
+@@ -110,7 +110,14 @@ import {
+   type GreenlightFormationReceipt,
+ } from '../lot/snapshot/productionFormation.ts'
+ // P17: the continuation choice and featured appearances the greenlight may carry (core reads only).
+-import { carriedScreenplay, continuationPanel, featuredGuestPanel, type CameoBookingRequest } from '../engine/continuation.ts'
++import {
++  carriedScreenplay,
++  continuationPanel,
++  featuredGuestPanel,
++  greenlightForecastExtras,
++  guestDropReason,
++  type CameoBookingRequest,
++} from '../engine/continuation.ts'
+ import { ContinuationChoicePanel, FeaturedGuestPanel } from '../components/P17Continuation.tsx'
+ 
+ type Step = 'concept' | 'shape' | 'promise' | 'talent' | 'budget' | 'review'
+@@ -429,18 +436,21 @@ export function Assembly({
+     return m
+   }, [state, engaged])
+ 
+-  const pkg = useMemo(() => buildPackage(state, draft, lockedScript), [state, draft, lockedScript])
+-  // P17: read on the Review step only, for the complete package (the proposed principals feed the core's quote).
++  // The package as drafted; `pkg` below adds the P17 forecast inputs the greenlight will lock.
++  const basePkg = useMemo(() => buildPackage(state, draft, lockedScript), [state, draft, lockedScript])
++  // P17: read on the Budget and Review steps, for the complete package (the proposed principals feed the core's quote).
+   const [continuationKey, setContinuationKey] = useState<string | null>(null)
+   const [guestWeek, setGuestWeek] = useState<number | null>(null)
+   const [guests, setGuests] = useState<CameoBookingRequest[]>([])
+   const continuation = useMemo(
+-    () => (step === 'review' && pkg ? continuationPanel(state, { writerId: pkg.writerId, directorId: pkg.directorId, cast: pkg.cast }) : null),
+-    [state, pkg, step],
++    () => ((step === 'review' || step === 'budget') && basePkg
++      ? continuationPanel(state, { writerId: basePkg.writerId, directorId: basePkg.directorId, cast: basePkg.cast })
++      : null),
++    [state, basePkg, step],
+   )
+   // Quoted on the Budget step too, so both steps' committed totals include the fees; keyed by the credited people so a
+   // budget change does not re-quote.
+-  const creditedKey = pkg ? [pkg.writerId, pkg.directorId, ...Object.values(pkg.cast), ...(pkg.craftIds ?? [])].join('|') : null
++  const creditedKey = basePkg ? [basePkg.writerId, basePkg.directorId, ...Object.values(basePkg.cast), ...(basePkg.craftIds ?? [])].join('|') : null
+   const guestPanel = useMemo(
+     () => ((step === 'review' || step === 'budget') && creditedKey !== null
+       ? featuredGuestPanel(state, guestWeek, new Set(creditedKey.split('|')))
+@@ -464,6 +474,28 @@ export function Assembly({
+   const liveGuests = guestsBlocked !== null || guestPanel === null ? [] : guests.filter((g) =>
+     guestPanel.eligible.some((r) => r.quote.ok && r.talentId === g.talentId && r.quote.fee === g.fee && r.quote.basis === g.basis && r.quote.workWeek === g.workWeek))
+   const guestFees = liveGuests.reduce((sum, g) => sum + g.fee, 0)
++  // A chosen guest who stops counting (now a principal, refused, re-quoted) is announced with the reason.
++  const droppedGuests = guestsBlocked !== null || guestPanel === null || creditedKey === null ? [] : guests
++    .filter((g) => !liveGuests.includes(g))
++    .map((g) => ({
++      talentId: g.talentId,
++      name: state.talent.find((t) => t.id === g.talentId)?.name ?? '— (no recorded name)',
++      reason: guestDropReason(state, g, new Set(creditedKey.split('|')), guestPanel) ?? 'no longer counts',
++    }))
++  // The forecast inputs the greenlight will lock, composed by the core (S-B1): every preview of `pkg` reads them, so
++  // the Review forecast equals the stored snapshot. A refusal is disclosed and the preview shows the package without them.
++  const forecastExtras = basePkg && (selectedContinuation !== null || liveGuests.length > 0)
++    ? greenlightForecastExtras(state, basePkg, {
++        inheritedAwareness01: selectedContinuation?.quote.ok ? selectedContinuation.quote.inheritedAwareness01 : null,
++        cameos: liveGuests,
++        carriedScreenplay: lockedScript !== undefined && carriedScreenplay(state, lockedScript.projectId),
++      })
++    : null
++  const pkg = useMemo(
++    () => (basePkg && forecastExtras?.ok ? { ...basePkg, p17: forecastExtras.extras } : basePkg),
++    // the extras are value-compared through their JSON so an unchanged choice keeps one package identity
++    [basePkg, forecastExtras?.ok ? JSON.stringify(forecastExtras.extras) : null],
++  )
+   const partialPkg = useMemo(
+     () => buildPartialPackage(state, draft, lockedScript),
+     [state, draft, lockedScript],
+@@ -785,11 +817,18 @@ export function Assembly({
+             />
+           </div>
+         )}
++        {(step === 'review' || step === 'budget') && forecastExtras !== null && !forecastExtras.ok && (
++          <div className="notice" style={{ marginTop: 16 }} data-testid="p17-forecast-unavailable">
++            The forecast shown leaves out the chosen continuation and guests: {forecastExtras.reason}. The greenlight will
++            refuse for the same reason.
++          </div>
++        )}
+         {step === 'review' && guestPanel && (
+           <div style={{ marginTop: 16 }}>
+             <FeaturedGuestPanel
+               panel={guestPanel}
+               blocked={guestsBlocked}
++              dropped={droppedGuests}
+               onWorkWeek={(w) => {
+                 setGuestWeek(w)
+                 setGuests([])
+diff --git a/ui/src/screens/p17-continuation-ui.test.tsx b/ui/src/screens/p17-continuation-ui.test.tsx
+index ede3fef0a825f6cfbafef3c43f11ed8080929e5a..799a0f0291f1497fe6635dd2d13c7f4b19131924 100644
+--- a/ui/src/screens/p17-continuation-ui.test.tsx
++++ b/ui/src/screens/p17-continuation-ui.test.tsx
+@@ -6,6 +6,10 @@
+ // at week 1871 and ticked to the 1956 unlock, then one original greenlit and released through the real tick. A
+ // directSequel of it with one featured guest is greenlit by the core action and released the same way. Built once at
+ // collection; no hook or timeout is set.
++//
++// Fix 3 (against 418f5d70) adds three cases that read the new boundary exports (greenlightForecastExtras, filmTitle,
++// refusalHumaniser, guestDropReason, FeaturedGuestPanel's `dropped`). engine/continuation.ts exists at 418f5d70, so the
++// file still loads there; those cases fail on a missing export (TypeError) or a missing test id, not on import.
+ 
+ import { afterEach, describe, expect, it, vi } from 'vitest'
+ import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
+@@ -27,6 +31,9 @@ import type { Action, GameState } from '../../../src/core/index.ts'
+ import { cameoQuote, nominalShootingWeeks } from '../../../src/core/cameoBooking.ts'
+ import { ask, cameoRoute, freeGuest, greenlight, rootOf } from '../../../tests/helpers/p17-cameo-route.ts'
+ import { filmCareerImpact } from '../engine/careerImpact.ts'
++import { previewForecast, type DraftPackage } from '../engine/adapter.ts'
++import { featuredGuestPanel, filmTitle, greenlightForecastExtras, guestDropReason, refusalHumaniser } from '../engine/continuation.ts'
++import { FeaturedGuestPanel } from '../components/P17Continuation.tsx'
+ import { money } from '../format.ts'
+ import { Assembly } from './Assembly.tsx'
+ import { Dashboard } from './Dashboard.tsx'
+@@ -121,17 +128,17 @@ describe('P17 browser slice — the continuation choice on the greenlight screen
+     reviewStep(booked, conceptC.id)
+     const remake = screen.getByTestId(`continuation-choice-remake-${sequelId}`) as HTMLInputElement
+     expect(remake.disabled).toBe(true)
+-    // the core's own words, with the film's id shown by its title
+-    expect(screen.getByTestId(`continuation-choice-remake-${sequelId}-refusal`)).toHaveTextContent(
+-      `a remake cites exactly one RELEASED film; ${conceptB.title} is not released`,
+-    )
++    // the core's sentence, humanised (the film's id by its title, RELEASED in lower case); the raw note in the disclosure
++    const refusal = screen.getByTestId(`continuation-choice-remake-${sequelId}-refusal`)
++    expect(refusal).toHaveTextContent(`Not available: a remake cites exactly one released film; ${conceptB.title} is not released`)
++    expect(within(refusal).getByText(`a remake cites exactly one RELEASED film; ${sequelId} is not released`)).toBeInTheDocument()
+     const recorded = franchisesOf(booked).properties.find((p) => p.storyPropertyId === property)!
+     expect(screen.getByTestId(`continuation-meters-${property}`)).toHaveTextContent(
+       `Recognition ${recognitionReported(recorded.meter, booked.market.tick).toFixed(1)} · Fatigue ${fatigueAt(recorded.meter, booked.market.tick).toFixed(1)}`,
+     )
+     const reboot = plainQuote(booked, { type: 'reboot', predecessorProductionId: origId })
+     if (reboot.ok) expect(screen.getByTestId(`continuation-choice-reboot-${origId}-quote`)).toHaveTextContent(`Recognition ${reboot.recognition.toFixed(1)}`)
+-    else expect(screen.getByTestId(`continuation-choice-reboot-${origId}-refusal`)).toHaveTextContent(reboot.reason.split(origId).join(conceptA.title))
++    else expect(screen.getByTestId(`continuation-choice-reboot-${origId}-refusal`)).toHaveTextContent(refusalHumaniser(booked)(reboot.reason))
+   })
+ })
+ 
+@@ -235,3 +242,79 @@ describe('P17 browser slice — the released film\'s outcome', () => {
+     )
+   })
+ })
++
++describe('P17 browser slice, Fix 3 — the locked forecast, titles on every path, and dropped guests', () => {
++  it('the Review forecast with a continuation and a guest is the forecast the greenlight locks', () => {
++    const onGreenlit = reviewStep(original, conceptB.id)
++    fireEvent.click(screen.getByTestId(`continuation-choice-directSequel-${origId}`))
++    const box = document.querySelector<HTMLInputElement>('input[data-testid^="guest-feature-"]:not([disabled])')
++    if (box === null) throw new Error('premise: at least one eligible featured guest')
++    fireEvent.click(box)
++    const shown = { opening: screen.getByTestId('fc-opening').textContent, total: screen.getByTestId('fc-total').textContent }
++    fireEvent.click(screen.getByTestId('greenlight'))
++    const next = onGreenlit.mock.calls[0]![0] as GameState
++    const production = next.studio.activeProductions.at(-1)!
++    const snapshot = production.forecastSnapshot
++    expect(shown).toEqual({ opening: money(snapshot.expectedOpening), total: money(snapshot.expectedTotal) })
++
++    // exact: the adapter preview of the locked package with the core-composed inputs IS the stored snapshot
++    const draft: DraftPackage = {
++      conceptId: production.conceptId, shape: production.shape, promise: production.promise, writerId: production.writerId,
++      directorId: production.directorId, craftIds: production.craftIds, cast: production.cast, budget: production.budget,
++    }
++    const booking = next.cameos?.bookings[0]
++    if (booking === undefined) throw new Error('premise: the greenlight booked the guest')
++    const quote = continuationQuote(continuationWorldOf(original), {
++      studioId, productionId: predictProductionId(original), request: { type: 'directSequel', predecessorProductionId: origId },
++      proposed: { writerId: draft.writerId, directorId: draft.directorId, cast: draft.cast },
++    })
++    if (!quote.ok) throw new Error(`premise: the directSequel quotes: ${quote.reason}`)
++    const extras = greenlightForecastExtras(original, draft, {
++      inheritedAwareness01: quote.inheritedAwareness01,
++      cameos: [{ talentId: booking.talentId, workWeek: booking.workWeek, fee: booking.fee, basis: booking.basis }],
++      carriedScreenplay: false,
++    })
++    if (!extras.ok) throw new Error(`premise: the core composes the inputs: ${extras.reason}`)
++    expect(previewForecast(original, { ...draft, p17: extras.extras })).toEqual(snapshot)
++    expect(previewForecast(original, draft), 'premise: the continuation and the guest move the forecast').not.toEqual(snapshot)
++  })
++
++  it('names films from the Industry index and humanises studio, property and licence ids in one place', () => {
++    const rows = original.hollywood!.films
++    const rival = original.hollywood!.identities.find((x) => x.role === 'rival')
++    if (rows.length === 0 || rival === undefined) throw new Error('premise: the 1956 industry has a film row and a rival studio')
++    const synthetic: GameState = { ...original, hollywood: { ...original.hollywood!, films: [...rows, { ...rows[0]!, filmId: 'p17-rival-film', title: 'The Rival Picture' }] } }
++    expect(filmTitle(synthetic, 'p17-rival-film')).toBe('The Rival Picture')
++    expect(filmTitle(original, origId)).toBe(conceptA.title)
++    expect(filmTitle(original, 'no-such-film')).toBeNull()
++    const propertyTitle = resolveTitles(original).properties.find((p) => p.propertyId === property)?.title ?? conceptA.title
++    const humanise = refusalHumaniser(synthetic)
++    expect(humanise(`${studioId} holds no lawful sequel right in ${property} at week 9 (rights: noAuthority:${rival.studioId})`))
++      .toBe(`your studio holds no lawful sequel right in ${propertyTitle} at week 9 (rights: held by ${rival.name})`)
++    expect(humanise('a directSequel of p17-rival-film is not RELEASED')).toBe('a direct sequel of The Rival Picture is not released')
++  })
++
++  it('a chosen guest who stops counting is announced with the reason, never dropped silently', () => {
++    const credited = new Set(principals)
++    const panel = featuredGuestPanel(original, null, credited)
++    const row = panel.eligible[0]
++    if (row === undefined || !row.quote.ok) throw new Error('premise: one eligible guest')
++    const accepted = { talentId: row.talentId, workWeek: row.quote.workWeek, fee: row.quote.fee, basis: row.quote.basis }
++    expect(guestDropReason(original, accepted, credited, panel)).toBeNull()
++    expect(guestDropReason(original, { ...accepted, fee: accepted.fee + 1 }, credited, panel)).toContain('was re-quoted at')
++    expect(guestDropReason(original, accepted, new Set([...credited, row.talentId]), panel)).toBe('is now credited on this picture as a principal')
++    render(
++      <FeaturedGuestPanel
++        panel={panel}
++        blocked={null}
++        dropped={[{ talentId: row.talentId, name: row.name, reason: 'is now credited on this picture as a principal' }]}
++        onWorkWeek={() => {}}
++        selected={[]}
++        onChange={() => {}}
++      />,
++    )
++    const notice = screen.getByTestId('guest-dropped')
++    expect(notice).toHaveAttribute('role', 'status')
++    expect(notice).toHaveTextContent(`${row.name} is now credited on this picture as a principal.`)
++  })
++})
