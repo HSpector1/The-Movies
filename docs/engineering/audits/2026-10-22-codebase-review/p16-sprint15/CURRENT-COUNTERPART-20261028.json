@@ -41,12 +41,18 @@
     "pushed": true
   },
   "contractDelta": {
-    "typesBefore": 181,
-    "typesAfter": 357,
-    "typesAdded": 176,
+    "typesAdded": 325,
+    "typesAddedDtoClasses": 149,
+    "typesAddedValuesAndConverters": 176,
     "typesRemoved": 0,
-    "sharedClassPropertiesRemoved": 0,
-    "sharedClassPropertyTypeChanges": 0
+    "sharedClassFieldsRetyped": [
+      "StudioPlacementQuoteSnapshot.cashBefore/cashAfter int->double",
+      "StudioSetCommissionQuoteSnapshot.cashBefore/cashAfter int->double",
+      "StudioContractQuoteSnapshot.cashBefore/cashAfter int->double",
+      "StudioCastingQuoteSnapshot.cashBefore/cashAfter int?->double?",
+      "StudioIndustryActivity.studioId string -> nullable"
+    ],
+    "note": "coordinator's first scan (properties, not fields) was vacuous; corrected from the writer's audit 2026-10-28 17:55 CDT"
   },
   "ownedWorktree": {
     "path": "/Users/zacheryspector/studio-scratch/sprint15-consumer-20261028-wt",
@@ -79,5 +85,9 @@
     "attestation after the authorized Unity pass"
   ],
   "runtime": "UNRUN",
-  "installOrLicenseOperation": false
+  "installOrLicenseOperation": false,
+  "clientCommits": {
+    "a010cd5": "STATIC-UNRUN compile/runtime fixes for the retyped fields and nullable studioId",
+    "98603a2": "STATIC-UNRUN read-only QueryTelevision/QueryFeaturedAppearances partial (+ .meta)"
+  }
 }
