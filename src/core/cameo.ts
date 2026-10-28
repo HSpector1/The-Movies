@@ -22,8 +22,6 @@ export const P17_CAMEO_PROFILE_VERSION = 'p17-cameo-profile/v1' as const
 export const P17_CAMEO_FEE_NOTE = 'P17 cameo appearance fee (one-week featured booking)'
 export const P17_CAMEO_REFUND_NOTE = 'P17 cameo booking refund (fee less the retained reservation charge)'
 
-/** A booking on a greenlight: the guest, the one work week, and the exact fee the studio accepts from the quote
- * (`cameoQuote`). The greenlight re-evaluates every quote input; a different fee refuses as stale (contract §4). */
 /** The accepted quote: the person, the one work week, and the quoted fee and basis, each refused at commit if changed. */
 export type CameoBookingRequest = { talentId: string; workWeek: number; fee: number; basis: 'employee' | 'freelance' }
 

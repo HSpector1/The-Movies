@@ -103,8 +103,9 @@ export function cameoQuote(state: GameState, args: { talentId: string; workWeek:
   if (!(Number.isInteger(workWeek) && week < workWeek && workWeek <= week + TUNING.PRODUCTION_TICKS)) {
     return refuse(`work week ${String(workWeek)} must satisfy ${week} < workWeek <= ${week + TUNING.PRODUCTION_TICKS}`)
   }
-  // The lifecycle authority, current profession AND any recorded actor episode, with the one-week end [workWeek, workWeek + 1).
-  const lifecycle = assignmentRefusal(state, talent.id, workWeek, 'actor', workWeek + 1)
+  // The lifecycle authority, current profession AND any recorded actor episode: an assignment taken at this greenlight
+  // week whose obligation ends after the one work week (exclusive end workWeek + 1).
+  const lifecycle = assignmentRefusal(state, talent.id, week, 'actor', workWeek + 1)
   if (lifecycle !== null) return refuse(lifecycle)
   const otherWeeks = reservedGuestWeeks(state.cameos, talent.id)
   if (otherWeeks.includes(workWeek)) return refuse(`${talent.id} already holds a guest reservation for week ${workWeek}`)

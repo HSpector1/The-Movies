@@ -234,10 +234,9 @@ describe('P17 Shape A — persistence in the Save50 step (additive, absent by de
     expect(exportSave(save)).toBe(bytes)
   })
 
-  const save = makeSave(booked)
   const refuse = (edit: (f: Forged) => void, pattern: RegExp) => {
     expect(rootOf(booked)?.bookings).toHaveLength(1)
-    const forged = JSON.parse(JSON.stringify(save)) as Forged
+    const forged = JSON.parse(JSON.stringify(makeSave(booked))) as Forged
     edit(forged)
     expect(() => validateSaveP17(forged)).toThrow(pattern)
   }

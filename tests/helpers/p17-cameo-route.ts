@@ -184,12 +184,18 @@ export function closureRoute(world: GameState, pkg: Package, writer: string, exc
   const fee = expectedFee(guest)
   if (s.studio.cash < fee) throw new Error(`premise: the distress loan (${principal}) leaves cash ${s.studio.cash} (from ${hole} at distress week ${target}), below the cheapest guest fee ${fee}`)
   if (s.studio.cash > fee) s = drain(s, s.studio.cash - fee)
-  const booked = applyActions(s, [greenlight(s, s.concepts[0]!, pkg, writer, [ask(guest, workWeek)], { negative: 0, marketing: 0 })])
+  let booked: GameState
+  try {
+    booked = applyActions(s, [greenlight(s, s.concepts[0]!, pkg, writer, [ask(guest, workWeek)], { negative: 0, marketing: 0 })])
+  } catch (error) {
+    throw new Error(`premise: the zero-budget greenlight at distress week ${target} (week ${week}) refused: ${error instanceof Error ? error.message : String(error)}`)
+  }
   let lastOpen = booked
   let closed = tick(booked)
   for (let i = 1; i < TUNING.PRODUCTION_TICKS && !closuresOf(closed).some((x) => x.studioId === closed.hollywood!.playerStudioId); i++) {
     lastOpen = closed
     closed = tick(closed)
   }
+  if (!(lastOpen.studio.cash < 0)) throw new Error(`premise: cash must be below zero on the last open week ${lastOpen.market.tick} (it is ${lastOpen.studio.cash}); the condition closes only a negative studio`)
   return { booked, lastOpen, closed, guest, week }
 }
