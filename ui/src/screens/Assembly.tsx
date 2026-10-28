@@ -110,7 +110,14 @@ import {
   type GreenlightFormationReceipt,
 } from '../lot/snapshot/productionFormation.ts'
 // P17: the continuation choice and featured appearances the greenlight may carry (core reads only).
-import { carriedScreenplay, continuationPanel, featuredGuestPanel, type CameoBookingRequest } from '../engine/continuation.ts'
+import {
+  carriedScreenplay,
+  continuationPanel,
+  featuredGuestPanel,
+  greenlightForecastExtras,
+  guestDropReason,
+  type CameoBookingRequest,
+} from '../engine/continuation.ts'
 import { ContinuationChoicePanel, FeaturedGuestPanel } from '../components/P17Continuation.tsx'
 
 type Step = 'concept' | 'shape' | 'promise' | 'talent' | 'budget' | 'review'
@@ -429,18 +436,21 @@ export function Assembly({
     return m
   }, [state, engaged])
 
-  const pkg = useMemo(() => buildPackage(state, draft, lockedScript), [state, draft, lockedScript])
-  // P17: read on the Review step only, for the complete package (the proposed principals feed the core's quote).
+  // The package as drafted; `pkg` below adds the P17 forecast inputs the greenlight will lock.
+  const basePkg = useMemo(() => buildPackage(state, draft, lockedScript), [state, draft, lockedScript])
+  // P17: read on the Budget and Review steps, for the complete package (the proposed principals feed the core's quote).
   const [continuationKey, setContinuationKey] = useState<string | null>(null)
   const [guestWeek, setGuestWeek] = useState<number | null>(null)
   const [guests, setGuests] = useState<CameoBookingRequest[]>([])
   const continuation = useMemo(
-    () => (step === 'review' && pkg ? continuationPanel(state, { writerId: pkg.writerId, directorId: pkg.directorId, cast: pkg.cast }) : null),
-    [state, pkg, step],
+    () => ((step === 'review' || step === 'budget') && basePkg
+      ? continuationPanel(state, { writerId: basePkg.writerId, directorId: basePkg.directorId, cast: basePkg.cast })
+      : null),
+    [state, basePkg, step],
   )
   // Quoted on the Budget step too, so both steps' committed totals include the fees; keyed by the credited people so a
   // budget change does not re-quote.
-  const creditedKey = pkg ? [pkg.writerId, pkg.directorId, ...Object.values(pkg.cast), ...(pkg.craftIds ?? [])].join('|') : null
+  const creditedKey = basePkg ? [basePkg.writerId, basePkg.directorId, ...Object.values(basePkg.cast), ...(basePkg.craftIds ?? [])].join('|') : null
   const guestPanel = useMemo(
     () => ((step === 'review' || step === 'budget') && creditedKey !== null
       ? featuredGuestPanel(state, guestWeek, new Set(creditedKey.split('|')))
@@ -464,6 +474,28 @@ export function Assembly({
   const liveGuests = guestsBlocked !== null || guestPanel === null ? [] : guests.filter((g) =>
     guestPanel.eligible.some((r) => r.quote.ok && r.talentId === g.talentId && r.quote.fee === g.fee && r.quote.basis === g.basis && r.quote.workWeek === g.workWeek))
   const guestFees = liveGuests.reduce((sum, g) => sum + g.fee, 0)
+  // A chosen guest who stops counting (now a principal, refused, re-quoted) is announced with the reason.
+  const droppedGuests = guestsBlocked !== null || guestPanel === null || creditedKey === null ? [] : guests
+    .filter((g) => !liveGuests.includes(g))
+    .map((g) => ({
+      talentId: g.talentId,
+      name: state.talent.find((t) => t.id === g.talentId)?.name ?? '— (no recorded name)',
+      reason: guestDropReason(state, g, new Set(creditedKey.split('|')), guestPanel) ?? 'no longer counts',
+    }))
+  // The forecast inputs the greenlight will lock, composed by the core (S-B1): every preview of `pkg` reads them, so
+  // the Review forecast equals the stored snapshot. A refusal is disclosed and the preview shows the package without them.
+  const forecastExtras = basePkg && (selectedContinuation !== null || liveGuests.length > 0)
+    ? greenlightForecastExtras(state, basePkg, {
+        inheritedAwareness01: selectedContinuation?.quote.ok ? selectedContinuation.quote.inheritedAwareness01 : null,
+        cameos: liveGuests,
+        carriedScreenplay: lockedScript !== undefined && carriedScreenplay(state, lockedScript.projectId),
+      })
+    : null
+  const pkg = useMemo(
+    () => (basePkg && forecastExtras?.ok ? { ...basePkg, p17: forecastExtras.extras } : basePkg),
+    // the extras are value-compared through their JSON so an unchanged choice keeps one package identity
+    [basePkg, forecastExtras?.ok ? JSON.stringify(forecastExtras.extras) : null],
+  )
   const partialPkg = useMemo(
     () => buildPartialPackage(state, draft, lockedScript),
     [state, draft, lockedScript],
@@ -785,11 +817,18 @@ export function Assembly({
             />
           </div>
         )}
+        {(step === 'review' || step === 'budget') && forecastExtras !== null && !forecastExtras.ok && (
+          <div className="notice" style={{ marginTop: 16 }} data-testid="p17-forecast-unavailable">
+            The forecast shown leaves out the chosen continuation and guests: {forecastExtras.reason}. The greenlight will
+            refuse for the same reason.
+          </div>
+        )}
         {step === 'review' && guestPanel && (
           <div style={{ marginTop: 16 }}>
             <FeaturedGuestPanel
               panel={guestPanel}
               blocked={guestsBlocked}
+              dropped={droppedGuests}
               onWorkWeek={(w) => {
                 setGuestWeek(w)
                 setGuests([])

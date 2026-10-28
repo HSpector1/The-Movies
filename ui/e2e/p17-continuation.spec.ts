@@ -53,33 +53,21 @@ async function packageToReview(page: Page, conceptId: string) {
   await expect(page.getByTestId('step-review')).toHaveClass(/active/)
 }
 
-/** Advance (committing at Release Ready) until a release card shows; returns its production id. */
-async function advanceUntilRelease(page: Page): Promise<string> {
-  for (let i = 0; i < MAX_RELEASE_WEEKS; i++) {
-    const commit = page.getByTestId('release-commit')
-    if (await commit.isVisible().catch(() => false)) await commit.click()
-    const advance = page.getByTestId('advance-week')
-    if (await advance.isVisible().catch(() => false)) await advance.click()
-    const newspaper = page.getByTestId('newspaper-reveal')
-    if (await newspaper.isVisible().catch(() => false)) await page.getByTestId('newspaper-continue').click()
-    const releaseList = page.getByTestId('release-list')
-    if (await releaseList.isVisible().catch(() => false)) {
-      const cards = releaseList.locator('[data-testid^="release-card-"]')
-      if ((await cards.count()) > 0) return (await cards.first().getAttribute('data-testid'))!.replace('release-card-', '')
-      await page.getByTestId('release-continue').click()
-    }
-  }
-  throw new Error(`premise: a release within ${MAX_RELEASE_WEEKS} weeks`)
-}
-
-/** smoke.spec.ts's continue step: one real week, walking any newspaper or release screen back to the Dashboard. */
-async function continueOneWeek(page: Page) {
+/**
+ * One real week from the Dashboard, smoke.spec.ts's poll per screen: commit a Release Ready picture first (the P06A
+ * affordance), advance, then wait for each destination instead of sampling it, walking the newspaper. Returns the
+ * released production id when the release list shows a card (the page stays there), else null back on the Dashboard.
+ */
+async function advanceWeek(page: Page): Promise<string | null> {
+  await expect(page.getByTestId('dash-week')).toBeVisible()
   const before = Number(await page.getByTestId('dash-week').textContent())
   expect(Number.isSafeInteger(before), 'premise: the Dashboard shows a whole week').toBe(true)
   const continuedWeek = String(before + 1)
+  const commit = page.getByTestId('release-commit')
+  if ((await commit.count()) > 0) await commit.click()
   await expect(page.getByTestId('advance-week')).toBeEnabled()
   await page.getByTestId('advance-week').click()
-  for (let transition = 0; transition < 3; transition++) {
+  for (let transition = 0; transition < 4; transition++) {
     let destination = 'pending'
     await expect.poll(async () => {
       if (await page.getByTestId('newspaper-reveal').isVisible()) destination = 'newspaper'
@@ -89,10 +77,32 @@ async function continueOneWeek(page: Page) {
       else destination = 'pending'
       return destination
     }).not.toBe('pending')
-    if (destination === 'dashboard') break
-    await page.getByTestId(destination === 'newspaper' ? 'newspaper-continue' : 'release-continue').click()
+    if (destination === 'dashboard') return null
+    if (destination === 'newspaper') {
+      await page.getByTestId('newspaper-continue').click()
+      continue
+    }
+    const cards = page.getByTestId('release-list').locator('[data-testid^="release-card-"]')
+    if ((await cards.count()) > 0) return (await cards.first().getAttribute('data-testid'))!.replace('release-card-', '')
+    await page.getByTestId('release-continue').click()
   }
-  await expect(page.getByTestId('dash-week')).toHaveText(continuedWeek)
+  throw new Error(`premise: week ${continuedWeek} settles within four screens`)
+}
+
+/** Advance week by week (each one settled by the poll above) until a release card shows; returns its production id. */
+async function advanceUntilRelease(page: Page): Promise<string> {
+  for (let week = 0; week < MAX_RELEASE_WEEKS; week++) {
+    const released = await advanceWeek(page)
+    if (released !== null) return released
+  }
+  throw new Error(`premise: a release within ${MAX_RELEASE_WEEKS} weeks`)
+}
+
+/** smoke.spec.ts's continue-after-import step: one real week, with no release, back on the Dashboard. */
+async function continueOneWeek(page: Page) {
+  const before = Number(await page.getByTestId('dash-week').textContent())
+  expect(await advanceWeek(page), 'premise: the imported studio releases nothing in its first continued week').toBeNull()
+  await expect(page.getByTestId('dash-week')).toHaveText(String(before + 1))
 }
 
 test('P17 journey: release an original, greenlight its sequel with a featured guest, release it, read lineage and meters', async ({ page }) => {

@@ -4,14 +4,18 @@
 // momentumAt, branchBand); the route under test is BridgeSession.industry. The world is P17's real route on landed P16
 // rights (tests/helpers/p17-route.ts): a released origin film and the player's greenlit direct sequel.
 import { beforeAll, describe, expect, it } from 'vitest'
+import * as franchiseView from '../bridge/franchises.ts'
+import { industryPage } from '../bridge/industry.ts'
 import { BridgeSession } from '../bridge/session.ts'
 import { PROTOCOL_VERSION, SCHEMA_ID, validateIndustry } from '../bridge/protocol.ts'
 import { BRIDGE_SCHEMA } from '../bridge/schema/bridge-schema.ts'
 import { parseWireValue } from '../bridge/schema/runtime.ts'
 import type { IndustryQuery } from '../bridge/schema/industry-schema.ts'
-import { continuationQuote, type ContinuationRequest } from '../src/core/continuation.js'
+import { continuationQuote, type ContinuationRequest, type FranchiseProperty } from '../src/core/continuation.js'
 import { continuationWorldOf } from '../src/core/continuationGreenlight.js'
 import { branchBand, fatigueAt, momentumAt, qualityOf, recognitionReported } from '../src/core/continuationSignals.js'
+import { initializeHollywood } from '../src/core/hollywood.js'
+import { generateWorld, tick } from '../src/core/index.js'
 import { storyPropertyId } from '../src/core/rights.js'
 import { stableStringify } from '../src/core/save.js'
 import { TUNING } from '../src/core/tuning.js'
@@ -119,5 +123,35 @@ describe('P17 franchise read model on the Bridge Industry route (projection 65)'
     const empty = page(new BridgeSession(released, 'p17-franchise-none'))
     expect(empty.franchises!.properties).toEqual([])
     expect(empty.totalRows).toBe(0)
+  })
+})
+
+// Sprint 11 slice B Fix 3 (re-review S-A1): the rival branch of the franchise outcome. No route releases another studio's
+// film into a franchise property (a licensed continuation of a rival simulation film has no fixture), so this pins
+// `releaseOutcome` directly. The world and the Industry row are real: the P12 lifecycle route (tests/bridge-p12-industry
+// .test.ts, same seed) ticks the living industry until a rival film is in its theatrical run, and the row is the one
+// `industryPage` serves for that film. Only the franchise property is a stand-in, read for `propertyPeak` and
+// `activeAgain` alone. RED at bfce8c29 by assertion: `releaseOutcome` is not exported there.
+describe('P17 franchise outcome for another studio\'s film (slice B Fix 3, unit pin on a real Industry row)', () => {
+  let world = initializeHollywood(generateWorld('r05-lifecycle'), 'fresh')
+  for (let i = 0; i < 52 && !world.hollywood!.businesses.some((b) => b.runs.length > 0); i++) world = tick(world)
+  const run = world.hollywood!.businesses.flatMap((b) => b.runs)[0]
+  const film = run === undefined ? undefined : world.hollywood!.films.find((f) => f.filmId === run.productionId)
+  const rowOf = (filmId: string) => industryPage(world, 'p17-rival-outcome', 0, { protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID,
+    sessionId: 'p17-rival-outcome', requestId: `film-${filmId}`, expectedStateRevision: 0, type: 'industryQuery', view: 'film', targetId: filmId,
+    page: 0, pageSize: 50, lane: 'recent', period: 'all' } as IndustryQuery).films[0]
+
+  it('publishes no forecast for a rival film and the gross its Industry row shows (cumulative paid while the run is active)', () => {
+    expect(typeof franchiseView.releaseOutcome, 'releaseOutcome is exported for this pin').toBe('function')
+    if (run === undefined || film === undefined || film.provenance !== 'simulation/v1') throw new Error('premise: a rival simulation film is in its theatrical run within 52 weeks')
+    expect(film.studioId).not.toBe(world.hollywood!.playerStudioId)
+    expect(film.result.forecast?.expectedTotal, 'premise: the rival film carries its locked forecast (the private input withheld)').toEqual(expect.any(Number))
+    expect(run.cumulativeGrossPaid, 'premise: the active run has paid less than the whole-run total').toBeLessThan(film.result.boxOffice.total)
+    const row = rowOf(film.filmId)!
+    expect(row.totalGross).toBe(run.cumulativeGrossPaid)
+    const property = { meter: { peakInstallmentId: null }, milestones: [] } as unknown as FranchiseProperty
+    const outcome = franchiseView.releaseOutcome(continuationWorldOf(world), property, film.filmId, film.result.releaseTick, rowOf)
+    expect(outcome).toEqual({ releasedWeek: film.result.releaseTick, criticScore: row.criticScore, openingGross: row.openingGross,
+      totalGross: run.cumulativeGrossPaid, expectedTotal: null, propertyPeak: false, activeAgain: false })
   })
 })

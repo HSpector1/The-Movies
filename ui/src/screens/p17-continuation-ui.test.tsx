@@ -6,6 +6,10 @@
 // at week 1871 and ticked to the 1956 unlock, then one original greenlit and released through the real tick. A
 // directSequel of it with one featured guest is greenlit by the core action and released the same way. Built once at
 // collection; no hook or timeout is set.
+//
+// Fix 3 (against 418f5d70) adds three cases that read the new boundary exports (greenlightForecastExtras, filmTitle,
+// refusalHumaniser, guestDropReason, FeaturedGuestPanel's `dropped`). engine/continuation.ts exists at 418f5d70, so the
+// file still loads there; those cases fail on a missing export (TypeError) or a missing test id, not on import.
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
@@ -27,6 +31,9 @@ import type { Action, GameState } from '../../../src/core/index.ts'
 import { cameoQuote, nominalShootingWeeks } from '../../../src/core/cameoBooking.ts'
 import { ask, cameoRoute, freeGuest, greenlight, rootOf } from '../../../tests/helpers/p17-cameo-route.ts'
 import { filmCareerImpact } from '../engine/careerImpact.ts'
+import { previewForecast, type DraftPackage } from '../engine/adapter.ts'
+import { featuredGuestPanel, filmTitle, greenlightForecastExtras, guestDropReason, refusalHumaniser } from '../engine/continuation.ts'
+import { FeaturedGuestPanel } from '../components/P17Continuation.tsx'
 import { money } from '../format.ts'
 import { Assembly } from './Assembly.tsx'
 import { Dashboard } from './Dashboard.tsx'
@@ -121,17 +128,17 @@ describe('P17 browser slice — the continuation choice on the greenlight screen
     reviewStep(booked, conceptC.id)
     const remake = screen.getByTestId(`continuation-choice-remake-${sequelId}`) as HTMLInputElement
     expect(remake.disabled).toBe(true)
-    // the core's own words, with the film's id shown by its title
-    expect(screen.getByTestId(`continuation-choice-remake-${sequelId}-refusal`)).toHaveTextContent(
-      `a remake cites exactly one RELEASED film; ${conceptB.title} is not released`,
-    )
+    // the core's sentence, humanised (the film's id by its title, RELEASED in lower case); the raw note in the disclosure
+    const refusal = screen.getByTestId(`continuation-choice-remake-${sequelId}-refusal`)
+    expect(refusal).toHaveTextContent(`Not available: a remake cites exactly one released film; ${conceptB.title} is not released`)
+    expect(within(refusal).getByText(`a remake cites exactly one RELEASED film; ${sequelId} is not released`)).toBeInTheDocument()
     const recorded = franchisesOf(booked).properties.find((p) => p.storyPropertyId === property)!
     expect(screen.getByTestId(`continuation-meters-${property}`)).toHaveTextContent(
       `Recognition ${recognitionReported(recorded.meter, booked.market.tick).toFixed(1)} · Fatigue ${fatigueAt(recorded.meter, booked.market.tick).toFixed(1)}`,
     )
     const reboot = plainQuote(booked, { type: 'reboot', predecessorProductionId: origId })
     if (reboot.ok) expect(screen.getByTestId(`continuation-choice-reboot-${origId}-quote`)).toHaveTextContent(`Recognition ${reboot.recognition.toFixed(1)}`)
-    else expect(screen.getByTestId(`continuation-choice-reboot-${origId}-refusal`)).toHaveTextContent(reboot.reason.split(origId).join(conceptA.title))
+    else expect(screen.getByTestId(`continuation-choice-reboot-${origId}-refusal`)).toHaveTextContent(refusalHumaniser(booked)(reboot.reason))
   })
 })
 
@@ -233,5 +240,81 @@ describe('P17 browser slice — the released film\'s outcome', () => {
     expect(screen.getByTestId(`release-guest-${booking.bookingId}`)).toHaveTextContent(
       `credited; star power ${credit.starPowerBefore.toFixed(1)} → ${credit.starPowerAfter.toFixed(1)}`,
     )
+  })
+})
+
+describe('P17 browser slice, Fix 3 — the locked forecast, titles on every path, and dropped guests', () => {
+  it('the Review forecast with a continuation and a guest is the forecast the greenlight locks', () => {
+    const onGreenlit = reviewStep(original, conceptB.id)
+    fireEvent.click(screen.getByTestId(`continuation-choice-directSequel-${origId}`))
+    const box = document.querySelector<HTMLInputElement>('input[data-testid^="guest-feature-"]:not([disabled])')
+    if (box === null) throw new Error('premise: at least one eligible featured guest')
+    fireEvent.click(box)
+    const shown = { opening: screen.getByTestId('fc-opening').textContent, total: screen.getByTestId('fc-total').textContent }
+    fireEvent.click(screen.getByTestId('greenlight'))
+    const next = onGreenlit.mock.calls[0]![0] as GameState
+    const production = next.studio.activeProductions.at(-1)!
+    const snapshot = production.forecastSnapshot
+    expect(shown).toEqual({ opening: money(snapshot.expectedOpening), total: money(snapshot.expectedTotal) })
+
+    // exact: the adapter preview of the locked package with the core-composed inputs IS the stored snapshot
+    const draft: DraftPackage = {
+      conceptId: production.conceptId, shape: production.shape, promise: production.promise, writerId: production.writerId,
+      directorId: production.directorId, craftIds: production.craftIds, cast: production.cast, budget: production.budget,
+    }
+    const booking = next.cameos?.bookings[0]
+    if (booking === undefined) throw new Error('premise: the greenlight booked the guest')
+    const quote = continuationQuote(continuationWorldOf(original), {
+      studioId, productionId: predictProductionId(original), request: { type: 'directSequel', predecessorProductionId: origId },
+      proposed: { writerId: draft.writerId, directorId: draft.directorId, cast: draft.cast },
+    })
+    if (!quote.ok) throw new Error(`premise: the directSequel quotes: ${quote.reason}`)
+    const extras = greenlightForecastExtras(original, draft, {
+      inheritedAwareness01: quote.inheritedAwareness01,
+      cameos: [{ talentId: booking.talentId, workWeek: booking.workWeek, fee: booking.fee, basis: booking.basis }],
+      carriedScreenplay: false,
+    })
+    if (!extras.ok) throw new Error(`premise: the core composes the inputs: ${extras.reason}`)
+    expect(previewForecast(original, { ...draft, p17: extras.extras })).toEqual(snapshot)
+    expect(previewForecast(original, draft), 'premise: the continuation and the guest move the forecast').not.toEqual(snapshot)
+  })
+
+  it('names films from the Industry index and humanises studio, property and licence ids in one place', () => {
+    const rows = original.hollywood!.films
+    const rival = original.hollywood!.identities.find((x) => x.role === 'rival')
+    if (rows.length === 0 || rival === undefined) throw new Error('premise: the 1956 industry has a film row and a rival studio')
+    const synthetic: GameState = { ...original, hollywood: { ...original.hollywood!, films: [...rows, { ...rows[0]!, filmId: 'p17-rival-film', title: 'The Rival Picture' }] } }
+    expect(filmTitle(synthetic, 'p17-rival-film')).toBe('The Rival Picture')
+    expect(filmTitle(original, origId)).toBe(conceptA.title)
+    expect(filmTitle(original, 'no-such-film')).toBeNull()
+    const propertyTitle = resolveTitles(original).properties.find((p) => p.propertyId === property)?.title ?? conceptA.title
+    const humanise = refusalHumaniser(synthetic)
+    expect(humanise(`${studioId} holds no lawful sequel right in ${property} at week 9 (rights: noAuthority:${rival.studioId})`))
+      .toBe(`your studio holds no lawful sequel right in ${propertyTitle} at week 9 (rights: held by ${rival.name})`)
+    expect(humanise('a directSequel of p17-rival-film is not RELEASED')).toBe('a direct sequel of The Rival Picture is not released')
+  })
+
+  it('a chosen guest who stops counting is announced with the reason, never dropped silently', () => {
+    const credited = new Set(principals)
+    const panel = featuredGuestPanel(original, null, credited)
+    const row = panel.eligible[0]
+    if (row === undefined || !row.quote.ok) throw new Error('premise: one eligible guest')
+    const accepted = { talentId: row.talentId, workWeek: row.quote.workWeek, fee: row.quote.fee, basis: row.quote.basis }
+    expect(guestDropReason(original, accepted, credited, panel)).toBeNull()
+    expect(guestDropReason(original, { ...accepted, fee: accepted.fee + 1 }, credited, panel)).toContain('was re-quoted at')
+    expect(guestDropReason(original, accepted, new Set([...credited, row.talentId]), panel)).toBe('is now credited on this picture as a principal')
+    render(
+      <FeaturedGuestPanel
+        panel={panel}
+        blocked={null}
+        dropped={[{ talentId: row.talentId, name: row.name, reason: 'is now credited on this picture as a principal' }]}
+        onWorkWeek={() => {}}
+        selected={[]}
+        onChange={() => {}}
+      />,
+    )
+    const notice = screen.getByTestId('guest-dropped')
+    expect(notice).toHaveAttribute('role', 'status')
+    expect(notice).toHaveTextContent(`${row.name} is now credited on this picture as a principal.`)
   })
 })

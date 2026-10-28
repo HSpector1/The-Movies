@@ -1897,6 +1897,12 @@ export type DraftPackage = DraftPackageIds & {
   shape: FilmShape
   promise: FilmPromise
   budget: Budget
+  /**
+   * P17: the forecast inputs the greenlight will lock for a chosen continuation and featured guests, composed by the core
+   * (`engine/continuation.ts` greenlightForecastExtras). Every preview built from this package reads them, so the Review
+   * forecast equals the snapshot the greenlight stores. Never part of the greenlight action itself.
+   */
+  p17?: Pick<ReceptionInputs, 'inheritedAwareness01' | 'cameoPublicityDelta' | 'cameoExecutions'>
 }
 
 // Assemble the §5 ReceptionInputs a forecast/reception reads, resolving all ids to
@@ -1952,6 +1958,8 @@ function assembleReceptionInputs(
     standing: state.studio.standing,
     era: state.era,
     ...(scriptStrengthOverride ? { scriptStrengthOverride } : {}),
+    // P17: the same continuation and guest inputs the greenlight locks (absent ⇒ the predecessor preview).
+    ...(pkg.p17 ?? {}),
   }
 }
 

@@ -11,6 +11,7 @@ import {
   BRANCH_KIND_LABEL,
   CANCEL_REASON_LABEL,
   CONTINUATION_TYPE_LABEL,
+  PROFESSION_LABEL,
   productionBookings,
   releaseOutcome,
   USE_LABEL,
@@ -24,8 +25,23 @@ import { money, pct } from '../format.ts'
 import { RefusalNotice } from './common.tsx'
 
 const fixed = (n: number) => n.toFixed(1)
-/** Some refusals name a guest by id; the player sees the person's name. */
-const named = (reason: string, id: string, name: string) => reason.split(id).join(name)
+/** A record with no title or name: a disclosed dash, never an id and never an invented name. */
+const untitled = (t: string | null, what = 'title') => t ?? `— (no recorded ${what})`
+
+/** The humanised refusal, with the studio's own sentence one click away. */
+function Refusal({ text, raw, testid }: { text: string; raw: string; testid: string }) {
+  return (
+    <span className="hint stack" style={{ gap: 2 }} data-testid={testid}>
+      <span>Not available: {text}</span>
+      {text !== raw && (
+        <details>
+          <summary>Show the studio&rsquo;s note</summary>
+          <span className="mono">{raw}</span>
+        </details>
+      )}
+    </span>
+  )
+}
 
 const QUALITY_NOTE =
   'Inherited awareness raises the opening reach only; it never changes critic or audience scores. ' +
@@ -71,7 +87,7 @@ export function ContinuationChoicePanel({
           {panel.properties.map((p) => (
             <div className="inset stack" key={p.storyPropertyId} data-testid={`continuation-property-${p.storyPropertyId}`}>
               <div className="spread">
-                <strong>{p.title}</strong>
+                <strong>{untitled(p.title)}</strong>
                 <span className="tag">{p.standing === 'title' ? 'Title held' : 'Licensed'}</span>
               </div>
               {p.meters === null ? (
@@ -97,7 +113,7 @@ export function ContinuationChoicePanel({
                         onChange={() => onSelect(c.key)}
                         data-testid={testid}
                       />
-                      <strong>{CONTINUATION_TYPE_LABEL[c.request.type]}</strong> of {c.predecessorTitle}
+                      <strong>{CONTINUATION_TYPE_LABEL[c.request.type]}</strong> of {untitled(c.predecessorTitle)}
                     </span>
                     {c.quote.ok ? (
                       <span className="hint" data-testid={`${testid}-quote`}>
@@ -107,7 +123,7 @@ export function ContinuationChoicePanel({
                         {` (${USE_LABEL[c.quote.use]}) · Recognition ${fixed(c.quote.recognition)} · Momentum ${fixed(c.quote.momentum)} · Fatigue ${fixed(c.quote.fatigue)} · Inherited awareness ${pct(c.quote.inheritedAwareness01)} · ${BAND_LABEL[c.quote.band]}`}
                       </span>
                     ) : (
-                      <span className="hint" data-testid={`${testid}-refusal`}>Not available: {c.refusal}</span>
+                      <Refusal text={c.refusal ?? c.quote.reason} raw={c.quote.reason} testid={`${testid}-refusal`} />
                     )}
                   </label>
                 )
@@ -123,6 +139,7 @@ export function ContinuationChoicePanel({
 export function FeaturedGuestPanel({
   panel,
   blocked,
+  dropped,
   onWorkWeek,
   selected,
   onChange,
@@ -130,6 +147,8 @@ export function FeaturedGuestPanel({
   panel: GuestPanel
   /** Why this greenlight cannot carry guests at all (queued, or a carried screenplay); null when it can. */
   blocked: string | null
+  /** Chosen guests who no longer count, each with the reason (announced, never dropped silently). */
+  dropped: { talentId: string; name: string; reason: string }[]
   onWorkWeek: (week: number) => void
   /** The chosen guests that are still eligible at their quoted fee and basis this render. */
   selected: CameoBookingRequest[]
@@ -153,10 +172,16 @@ export function FeaturedGuestPanel({
           </p>
           <label className="row" style={{ gap: 8 }}>
             Work week
-            <select value={workWeek} onChange={(e) => onWorkWeek(Number(e.target.value))} data-testid="guest-work-week">
+            <select value={workWeek ?? ''} onChange={(e) => onWorkWeek(Number(e.target.value))} data-testid="guest-work-week">
               {panel.workWeeks.map((w) => <option key={w} value={w}>Week {w} (standard shooting week)</option>)}
             </select>
           </label>
+          {dropped.length > 0 && (
+            <div className="notice" role="status" aria-live="polite" data-testid="guest-dropped">
+              {dropped.map((d) => `${d.name} ${d.reason}.`).join(' ')} Their fee no longer counts and they will not be booked; choose
+              again if you still want them.
+            </div>
+          )}
           {panel.eligible.length === 0 && (
             <div className="notice" data-testid="guest-none">
               Nobody among the {panel.scanned} most famous people can appear in week {workWeek}.
@@ -175,10 +200,10 @@ export function FeaturedGuestPanel({
                     onChange={() => onChange(on ? selected.filter((g) => g.talentId !== talentId) : [...selected, bookingRequestOf(quote)])}
                     data-testid={`guest-feature-${talentId}`}
                   />
-                  <strong>{quote.name}</strong> ({quote.profession}, fame {fixed(quote.fame)}) · {BASIS_LABEL[quote.basis]} · fee{' '}
+                  <strong>{quote.name}</strong> ({PROFESSION_LABEL[quote.profession]}, fame {fixed(quote.fame)}) · {BASIS_LABEL[quote.basis]} · fee{' '}
                   <span className="mono" data-testid={`guest-fee-${talentId}`}>{money(quote.fee)}</span>
                 </span>
-                <span className="hint">{named(quote.readinessRisk, talentId, quote.name)}</span>
+                <span className="hint">{quote.readinessRisk}</span>
                 {quote.disclosures.map((d) => <span className="hint" key={d}>{d}</span>)}
               </label>
             )
@@ -186,9 +211,10 @@ export function FeaturedGuestPanel({
           {panel.refused.length > 0 && (
             <details data-testid="guest-refused">
               <summary>Not available this week ({panel.refused.length} shown)</summary>
-              {panel.refused.map(({ talentId, name, quote }) => (
-                <div className="hint" key={talentId} data-testid={`guest-refusal-${talentId}`}>
-                  {name}: {quote.ok ? '' : named(quote.reason, talentId, name)}
+              {panel.refused.map(({ talentId, name, quote, refusal }) => (
+                <div key={talentId}>
+                  <strong>{name}</strong>
+                  {!quote.ok && <Refusal text={refusal ?? quote.reason} raw={quote.reason} testid={`guest-refusal-${talentId}`} />}
                 </div>
               ))}
             </details>
@@ -205,7 +231,12 @@ export function FeaturedGuestPanel({
 
 function BookingStatus({ b }: { b: BookingRow }) {
   if (b.status === 'cancelled') {
-    return <>Cancelled ({b.cancelReason ? CANCEL_REASON_LABEL[b.cancelReason] : 'no reason recorded'}); refunded {money(b.refund ?? 0)}, retained {money(b.retained)}</>
+    return (
+      <>
+        Cancelled ({b.cancelReason === null ? '— (no reason recorded)' : CANCEL_REASON_LABEL[b.cancelReason]}); refunded{' '}
+        {b.refund === null ? '— (no refund recorded)' : money(b.refund)}, retained {money(b.retained)}
+      </>
+    )
   }
   if (b.status === 'completed') return <>Completed in week {b.completedWeek}; the fee is earned</>
   return <>Reserved for week {b.workWeek}</>
@@ -248,7 +279,7 @@ export function FeaturedBookingsCard({
           }}
           style={{ gap: 4 }}
         >
-          <span><strong>{b.name}</strong> in {b.pictureTitle} · fee {money(b.fee)} · <BookingStatus b={b} /></span>
+          <span><strong>{untitled(b.name, 'name')}</strong> in {untitled(b.pictureTitle)} · fee {money(b.fee)} · <BookingStatus b={b} /></span>
           {b.status === 'reserved' && (
             <>
               <span className="hint" data-testid={`booking-cancel-disclosure-${b.bookingId}`}>
@@ -270,7 +301,7 @@ export function FeaturedBookingsCard({
                 }}
                 data-testid={`booking-cancel-${b.bookingId}`}
               >
-                Cancel {b.name}&rsquo;s appearance
+                Cancel {b.name === null ? 'this' : `${b.name}\u2019s`} appearance
               </button>
             </>
           )}
@@ -314,7 +345,7 @@ export function ReleaseContinuationOutcome({
           <h4 style={{ margin: 0 }}>Lineage</h4>
           <p className="reason" style={{ margin: 0 }} data-testid={`release-lineage-${productionId}`}>
             {CONTINUATION_TYPE_LABEL[lineage.type]}
-            {lineage.parentTitle !== null ? ` of ${lineage.parentTitle}` : ''} in {lineage.propertyTitle}, on the{' '}
+            {lineage.parentTitle !== null ? ` of ${lineage.parentTitle}` : ''} in {untitled(lineage.propertyTitle)}, on the{' '}
             {BRANCH_KIND_LABEL[lineage.branchKind]}
             {lineage.greenlitWeek !== null ? `, greenlit week ${lineage.greenlitWeek}` : ''}
             {lineage.releasedWeek !== null ? `, released week ${lineage.releasedWeek}` : ''}.
@@ -345,7 +376,7 @@ export function ReleaseContinuationOutcome({
           <h4 style={{ margin: 0 }}>Featured appearances</h4>
           {guests.map((g) => (
             <div className="hint" key={g.bookingId} data-testid={`release-guest-${g.bookingId}`}>
-              <strong>{g.name}</strong>:{' '}
+              <strong>{untitled(g.name, 'name')}</strong>:{' '}
               {g.credit
                 ? `credited; star power ${fixed(g.credit.starPowerBefore)} → ${fixed(g.credit.starPowerAfter)}`
                 : <BookingStatus b={g} />}

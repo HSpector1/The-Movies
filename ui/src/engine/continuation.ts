@@ -25,6 +25,7 @@ import {
   permissionFor,
   predictProductionId,
   recognitionReported,
+  resolveShape,
   resolveTitles,
   TUNING,
   type ContinuationBand,
@@ -36,15 +37,17 @@ import {
   type GameState,
   type LineageEdgeType,
   type ProposedPrincipals,
+  type ReceptionInputs,
 } from '../../../src/core/index.ts'
 // The cameo slice is not exported from src/core/index.ts yet (cameo NOTES: "add cameoQuote and the action there when a
 // consumer exists"). This module is that consumer; switch these two lines to index.ts when the core owner exports them.
-import { cameoQuote, nominalShootingWeeks, type CameoQuoteResult } from '../../../src/core/cameoBooking.ts'
+import { cameoQuote, nominalShootingWeeks, prepareCameoBookings, type CameoQuoteResult } from '../../../src/core/cameoBooking.ts'
 import { featuredCapacity, type CameoBookingRequest } from '../../../src/core/cameo.ts'
-import type { CameoBooking } from '../../../src/core/types.ts'
+import type { CameoBooking, CastSlot, CreativeRole, Talent } from '../../../src/core/types.ts'
 // Not exported from index.ts either: the carried-screenplay owner, whose greenlight the core refuses guests on.
 import { continuedScriptOwner } from '../../../src/core/continuedScripts.ts'
-import type { ActionOutcome } from './adapter.ts'
+import { findConcept, type ActionOutcome, type DraftPackage } from './adapter.ts'
+import { moneyExact } from '../format.ts'
 
 export type { CameoBookingRequest, ContinuationRequest }
 
@@ -57,15 +60,16 @@ export type RightRelied = { via: 'title' | 'licence'; licenceId: string | null; 
 export type ContinuationChoice = {
   key: string
   request: ContinuationRequest
-  predecessorTitle: string
+  /** Null when no record names the film (rendered as a disclosed dash, never its id). */
+  predecessorTitle: string | null
   quote: ContinuationQuote
-  /** The refusal reason as the player reads it (ids replaced by titles); null for a lawful choice. */
+  /** The refusal reason as the player reads it (`humaniseRefusal`); null for a lawful choice. The raw sentence stays on `quote`. */
   refusal: string | null
   right: RightRelied | null
 }
 export type ContinuableProperty = {
   storyPropertyId: string
-  title: string
+  title: string | null
   /** Why the studio sees it: it holds the title, or only a licence on another studio's title. */
   standing: 'title' | 'licence'
   /** Null until a continuation first records the property in the franchise root. */
@@ -77,9 +81,65 @@ export type ContinuationPanel = { unavailable: string | null; properties: Contin
 
 const keyOf = (r: ContinuationRequest) => `${r.type}:${r.predecessorProductionId}${r.subPropertyId ? `:${r.subPropertyId}` : ''}`
 
-function titleOfFilm(state: GameState, conceptId: string | undefined, fallback: string): string {
-  return state.concepts.find((c) => c.id === conceptId)?.title ?? fallback
+function conceptTitle(state: GameState, conceptId: string | undefined): string | null {
+  if (conceptId === undefined) return null
+  return findConcept(state, conceptId)?.title ?? state.hollywood?.concepts.find((c) => c.id === conceptId)?.title ?? null
 }
+
+/**
+ * A film's player-facing title on every path: the player's own picture (released or in production) by its concept; any
+ * industry film by its Industry row title (rival and licensed works); a rival picture still in production by its
+ * concept in the industry catalogue. Null when no record names it: the caller shows a disclosed dash, never the id.
+ */
+export function filmTitle(state: GameState, productionId: string): string | null {
+  const own = state.studio.releasedFilms.find((f) => f.productionId === productionId)?.conceptId
+    ?? state.studio.activeProductions.find((p) => p.id === productionId)?.conceptId
+  if (own !== undefined) return conceptTitle(state, own)
+  const row = state.hollywood?.films.find((f) => f.filmId === productionId)
+  if (row !== undefined) return row.title
+  const rival = state.hollywood?.businesses.flatMap((b) => b.productions).find((p) => p.id === productionId)
+  return conceptTitle(state, rival?.conceptId)
+}
+
+const WORDS: Record<string, string> = {
+  RELEASED: 'released',
+  directSequel: 'direct sequel',
+  spinOff: 'spin-off',
+  SubProperty: 'hook',
+  SubProperties: 'hooks',
+  workWeek: 'the work week',
+}
+
+/**
+ * The ONE refusal humaniser: keeps the core's sentence recognisable and swaps each id it names for the player's word —
+ * studios by name (yours as "your studio"), films and properties by title, licences as "the licence from <studio>",
+ * continuities by kind, hooks by kind and film — plus the few camel-case enums the sentences carry. An id with no
+ * record stays as written. Callers show the raw sentence in a disclosure beside it.
+ */
+export function refusalHumaniser(state: GameState): (reason: string) => string {
+  const names = new Map<string, string>()
+  const player = state.hollywood?.playerStudioId
+  for (const s of state.hollywood?.identities ?? []) names.set(s.studioId, s.studioId === player ? 'your studio' : s.name)
+  for (const f of state.hollywood?.films ?? []) names.set(f.filmId, f.title)
+  for (const f of state.studio.releasedFilms) { const t = filmTitle(state, f.productionId); if (t !== null) names.set(f.productionId, t) }
+  for (const p of state.studio.activeProductions) { const t = filmTitle(state, p.id); if (t !== null) names.set(p.id, t) }
+  for (const p of resolveTitles(state).properties) { const t = p.title ?? conceptTitle(state, p.conceptId); if (t !== null) names.set(p.propertyId, t) }
+  for (const l of state.rights.licences) names.set(l.id, `the licence from ${names.get(l.grantorId) ?? l.grantorId}`)
+  for (const property of franchisesOf(state).properties) {
+    for (const b of property.branches) names.set(b.branchId, `the ${BRANCH_KIND_LABEL[b.kind]}`)
+    for (const sub of property.subProperties) {
+      const from = filmTitle(state, sub.mintedAtProductionId)
+      names.set(sub.subPropertyId, `the ${sub.kind} hook${from === null ? '' : ` from ${from}`}`)
+    }
+  }
+  const word = (token: string) => names.get(token) ?? WORDS[token] ?? token
+  return (reason) => reason
+    .replace(/noAuthority:([\w:.-]*\w)/g, (_m, id: string) => `held by ${word(id)}`)
+    .replace(/expired:([\w:.-]*\w)/g, (_m, id: string) => `${word(id)} has expired`)
+    .replace(/\w[\w:.-]*\w|\w/g, word)
+}
+
+export const PROFESSION_LABEL: Record<CreativeRole, string> = { actor: 'Actor', director: 'Director', writer: 'Writer', craft: 'Craft', scientist: 'Scientist' }
 
 function metersOf(property: FranchiseProperty, week: number): PropertyMeters {
   return { recognition: recognitionReported(property.meter, week), fatigue: fatigueAt(property.meter, week) }
@@ -123,6 +183,7 @@ export function continuationPanel(state: GameState, proposed?: ProposedPrincipal
   const root = franchisesOf(state)
   const productionId = predictProductionId(state)
   // continuation uses are R3 licences on a property (R4 licences are cross-media and never answer a continuation)
+  const humanise = refusalHumaniser(state)
   const licensed = new Set(licencesHeldBy(state, studioId, week).flatMap((l) => (l.right === 'R3' && l.subject.right === 'R1' ? [l.subject.propertyId] : [])))
   const properties: ContinuableProperty[] = []
   for (const p of resolveTitles(state).properties) {
@@ -141,19 +202,15 @@ export function continuationPanel(state: GameState, proposed?: ProposedPrincipal
         .filter((s) => s.promotedToStoryPropertyId === null)
         .map((s): ContinuationRequest => ({ type: 'spinOff', predecessorProductionId: id, subPropertyId: s.subPropertyId }))),
     ]
-    const title = p.title ?? titleOfFilm(state, p.conceptId, p.propertyId)
+    const title = p.title ?? conceptTitle(state, p.conceptId)
     const choices = requests.map((request): ContinuationChoice => {
       const quote = continuationQuote(world, { studioId, productionId, request, ...(proposed ? { proposed } : {}) })
-      const film = world.releasedFilm(request.predecessorProductionId)?.result
-      const locked = state.studio.activeProductions.find((x) => x.id === request.predecessorProductionId)
-      const predecessorTitle = titleOfFilm(state, film?.conceptId ?? locked?.conceptId, request.predecessorProductionId)
       return {
         key: keyOf(request),
         request,
-        predecessorTitle,
+        predecessorTitle: filmTitle(state, request.predecessorProductionId),
         quote,
-        // the refusal's own words, with the film and property ids it names shown by their titles
-        refusal: quote.ok ? null : quote.reason.split(request.predecessorProductionId).join(predecessorTitle).split(p.propertyId).join(title),
+        refusal: quote.ok ? null : humanise(quote.reason),
         right: quote.ok ? rightOf(state, studioId, quote) : null,
       }
     })
@@ -171,14 +228,15 @@ export function continuationPanel(state: GameState, proposed?: ProposedPrincipal
 
 // ── featured appearances (cameo bookings) ─────────────────────────────────────
 
-export type GuestRow = { talentId: string; name: string; quote: CameoQuoteResult }
+/** `refusal` is the humanised reason for a refused quote (null when lawful); the raw sentence stays on `quote`. */
+export type GuestRow = { talentId: string; name: string; quote: CameoQuoteResult; refusal: string | null }
 export type GuestPanel = {
   unavailable: string | null
   capacity: number
   /** The standard schedule's shooting weeks for a picture greenlit this week (the core's own projection). */
   workWeeks: number[]
-  /** The week these quotes are for: the asked week, else the first standard shooting week. */
-  workWeek: number
+  /** The week these quotes are for: the asked week, else the first standard shooting week; null when neither exists. */
+  workWeek: number | null
   eligible: GuestRow[]
   refused: GuestRow[]
   scanned: number
@@ -194,11 +252,13 @@ export function featuredGuestPanel(state: GameState, askedWeek: number | null, e
   const week = state.market.tick
   const capacity = featuredCapacity(week)
   const workWeeks = nominalShootingWeeks(week)
-  const workWeek = askedWeek ?? workWeeks[0] ?? week + 1
+  const workWeek = askedWeek ?? workWeeks[0] ?? null
   const empty = { capacity, workWeeks, workWeek, eligible: [], refused: [], scanned: 0 }
   if (state.hollywood === null) return { ...empty, unavailable: 'Featured appearances read studio employment in the living industry, and this studio has no living industry.' }
   if (!economyEngaged(state)) return { ...empty, unavailable: 'Featured appearances need the engaged studio economy (their fee and the employment law they read), which this studio has not engaged.' }
   if (capacity === 0) return { ...empty, unavailable: `Featured appearances unlock at week ${TUNING.P17_CAMEO_UNLOCK_WEEK} (1956 Week 1); this is week ${week}.` }
+  if (workWeek === null) return { ...empty, unavailable: `The standard schedule has no shooting week for a picture greenlit in week ${week}, so no appearance can be booked.` }
+  const humanise = refusalHumaniser(state)
   const candidates = state.talent
     .filter((t) => !exclude.has(t.id))
     .sort((a, b) => b.fame - a.fame || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))
@@ -209,7 +269,8 @@ export function featuredGuestPanel(state: GameState, askedWeek: number | null, e
   for (const t of candidates) {
     if (eligible.length >= GUEST_SHOW) break
     scanned++
-    const row = { talentId: t.id, name: t.name, quote: cameoQuote(state, { talentId: t.id, workWeek }) }
+    const quote = cameoQuote(state, { talentId: t.id, workWeek })
+    const row = { talentId: t.id, name: t.name, quote, refusal: quote.ok ? null : humanise(quote.reason.split(t.id).join(t.name)) }
     if (row.quote.ok) eligible.push(row)
     else if (refused.length < GUEST_SHOW) refused.push(row)
   }
@@ -221,6 +282,59 @@ export function carriedScreenplay(state: GameState, projectId: string): boolean 
   return continuedScriptOwner(state, projectId) !== null
 }
 
+/** Why a chosen guest no longer counts (null while they still do): credited as a principal, refused, or re-quoted. */
+export function guestDropReason(state: GameState, request: CameoBookingRequest, credited: ReadonlySet<string>, panel: GuestPanel): string | null {
+  if (panel.eligible.some((r) => r.quote.ok && r.talentId === request.talentId && r.quote.fee === request.fee && r.quote.basis === request.basis && r.quote.workWeek === request.workWeek)) return null
+  if (credited.has(request.talentId)) return 'is now credited on this picture as a principal'
+  const quote = cameoQuote(state, { talentId: request.talentId, workWeek: request.workWeek })
+  const name = state.talent.find((t) => t.id === request.talentId)?.name
+  if (!quote.ok) return `can no longer appear: ${refusalHumaniser(state)(name === undefined ? quote.reason : quote.reason.split(request.talentId).join(name))}`
+  if (quote.fee !== request.fee) return `was re-quoted at ${moneyExact(quote.fee)} (you accepted ${moneyExact(request.fee)})`
+  if (quote.basis !== request.basis) return `is now quoted as ${BASIS_LABEL[quote.basis]}, not ${BASIS_LABEL[request.basis]}`
+  if (quote.workWeek !== panel.workWeek) return `was booked for week ${request.workWeek}, and the panel now quotes week ${panel.workWeek ?? 'none'}`
+  return 'is no longer among the guests listed this week'
+}
+
+/**
+ * The forecast inputs the greenlight will lock for this package (actions.ts applyGreenlight): the chosen continuation's
+ * `inheritedAwareness01` from its quote (the same `continuationQuote` call, same predicted id and principals) and the
+ * guests' `cameoPublicityDelta` / `cameoExecutions` from the core's own `prepareCameoBookings`. A refusal comes back
+ * as its reason; the greenlight would refuse the same way.
+ */
+export function greenlightForecastExtras(
+  state: GameState,
+  pkg: DraftPackage,
+  chosen: { inheritedAwareness01: number | null; cameos: readonly CameoBookingRequest[]; carriedScreenplay: boolean },
+): { ok: true; extras: NonNullable<DraftPackage['p17']> } | { ok: false; reason: string } {
+  const concept = findConcept(state, pkg.conceptId)
+  const person = (id: string): Talent => {
+    const t = state.talent.find((x) => x.id === id)
+    if (t === undefined) throw new Error(`continuation view: unknown person ${id} in the package`)
+    return t
+  }
+  if (concept === undefined) return { ok: false, reason: `unknown concept ${pkg.conceptId}` }
+  const cast = { lead: person(pkg.cast.lead), antagonist: person(pkg.cast.antagonist), support: person(pkg.cast.support) } satisfies Record<CastSlot, Talent>
+  try {
+    const prep = prepareCameoBookings(state, chosen.cameos, {
+      productionId: predictProductionId(state),
+      creditedIds: new Set([pkg.writerId, pkg.directorId, ...Object.values(pkg.cast), ...(pkg.craftIds ?? [])]),
+      cast,
+      concept,
+      shapeEffects: resolveShape(pkg.shape),
+      promise: pkg.promise,
+      shape: pkg.shape,
+      carriedScreenplay: chosen.carriedScreenplay,
+    })
+    const extras: Pick<ReceptionInputs, 'inheritedAwareness01' | 'cameoPublicityDelta' | 'cameoExecutions'> = {
+      ...(chosen.inheritedAwareness01 === null ? {} : { inheritedAwareness01: chosen.inheritedAwareness01 }),
+      ...prep.inputs,
+    }
+    return { ok: true, extras }
+  } catch (e) {
+    return { ok: false, reason: refusalHumaniser(state)((e as Error).message) }
+  }
+}
+
 /** The booking request a greenlight carries for an accepted quote: exactly the quoted fee and basis. */
 export function bookingRequestOf(quote: Extract<CameoQuoteResult, { ok: true }>): CameoBookingRequest {
   return { talentId: quote.talentId, workWeek: quote.workWeek, fee: quote.fee, basis: quote.basis }
@@ -229,9 +343,10 @@ export function bookingRequestOf(quote: Extract<CameoQuoteResult, { ok: true }>)
 export type BookingRow = {
   bookingId: string
   productionId: string
-  pictureTitle: string
+  /** Null when no record names the picture or the person: rendered as a disclosed dash, never the id. */
+  pictureTitle: string | null
   talentId: string
-  name: string
+  name: string | null
   workWeek: number
   fee: number
   retained: number
@@ -244,14 +359,12 @@ export type BookingRow = {
 }
 
 function bookingRow(state: GameState, b: CameoBooking): BookingRow {
-  const production = state.studio.activeProductions.find((p) => p.id === b.productionId)
-  const film = state.studio.releasedFilms.find((f) => f.productionId === b.productionId)
   return {
     bookingId: b.bookingId,
     productionId: b.productionId,
-    pictureTitle: titleOfFilm(state, production?.conceptId ?? film?.conceptId, b.productionId),
+    pictureTitle: filmTitle(state, b.productionId),
     talentId: b.talentId,
-    name: state.talent.find((t) => t.id === b.talentId)?.name ?? b.talentId,
+    name: state.talent.find((t) => t.id === b.talentId)?.name ?? null,
     workWeek: b.workWeek,
     fee: b.fee,
     retained: b.retained,
@@ -286,7 +399,7 @@ export type ReleaseOutcome = {
   lineage: {
     storyPropertyId: string
     /** The P16 property's resolved title (its founding concept's title when it has none of its own). */
-    propertyTitle: string
+    propertyTitle: string | null
     type: LineageEdgeType
     parentProductionId: string | null
     parentTitle: string | null
@@ -319,15 +432,15 @@ export function releaseOutcome(preTick: GameState, postTick: GameState, producti
   const branch = property.branches.find((b) => b.branchId === edge.branchId)
   if (branch === undefined) throw new Error(`continuation view: ${property.storyPropertyId} has no continuity ${edge.branchId}`)
   const before = franchisesOf(preTick).properties.find((p) => p.storyPropertyId === property.storyPropertyId)
-  const parentFilm = edge.parentProductionId === null ? undefined : postTick.studio.releasedFilms.find((f) => f.productionId === edge.parentProductionId)
   const resolved = resolveTitles(postTick).properties.find((p) => p.propertyId === property.storyPropertyId)
   return {
     lineage: {
       storyPropertyId: property.storyPropertyId,
-      propertyTitle: resolved?.title ?? titleOfFilm(postTick, resolved?.conceptId, property.storyPropertyId),
+      propertyTitle: resolved?.title ?? conceptTitle(postTick, resolved?.conceptId),
       type: edge.type,
       parentProductionId: edge.parentProductionId,
-      parentTitle: edge.parentProductionId === null ? null : titleOfFilm(postTick, parentFilm?.conceptId, edge.parentProductionId),
+      // null only for the founding film (no parent); a parent no record names shows a disclosed dash
+      parentTitle: edge.parentProductionId === null ? null : filmTitle(postTick, edge.parentProductionId) ?? '— (a film with no recorded title)',
       branchId: edge.branchId,
       branchKind: branch.kind,
       greenlitWeek: edge.greenlitWeek,
@@ -338,7 +451,7 @@ export function releaseOutcome(preTick: GameState, postTick: GameState, producti
       after: snapshot(property, branch, postTick.market.tick),
       sharedWith: coReleased
         .filter((id) => id !== productionId && property.installments.some((e) => e.childProductionId === id))
-        .map((id) => titleOfFilm(postTick, postTick.studio.releasedFilms.find((f) => f.productionId === id)?.conceptId, id)),
+        .map((id) => filmTitle(postTick, id) ?? '— (a film with no recorded title)'),
     },
     guests,
   }

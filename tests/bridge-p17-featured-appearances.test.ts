@@ -215,8 +215,11 @@ describe('P17 featured appearances and continuation outcomes on the Bridge (proj
     const run = outcome.state.theatricalRuns.find((r) => r.productionId === outcome.childId)!
     expect(run.status).toBe('active')
     expect(run.cumulativeGrossPaid).toBeLessThan(film.boxOffice.total)
+    // Fix 3 (re-review S-A1): the player's film carries its locked forecast, so the published figure is that forecast,
+    // never the null a rival's film gets (a null forecast here would hide the difference between the two branches).
+    expect(film.forecast?.expectedTotal, 'premise: the player\'s released film carries its locked forecast').toEqual(expect.any(Number))
     expect(child.outcome).toEqual({ releasedWeek: film.releaseTick, criticScore: film.criticScore, openingGross: film.boxOffice.opening,
-      totalGross: run.cumulativeGrossPaid, expectedTotal: film.forecast?.expectedTotal ?? null, propertyPeak: root.meter.peakInstallmentId === outcome.childId, activeAgain: false })
+      totalGross: run.cumulativeGrossPaid, expectedTotal: film.forecast?.expectedTotal, propertyPeak: root.meter.peakInstallmentId === outcome.childId, activeAgain: false })
     // Both installments show the figures the Industry film row shows for the same film, active run or settled.
     for (const installment of property.installments) {
       const parsed = validateIndustry({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: session.sessionId, requestId: `p17-film-${installment.productionId}`,

@@ -16,8 +16,9 @@ const SEQUEL_FAMILY=['directSequel','prequel','remake','reboot'] as const
 /** P17 slice B: what the core records about a released installment (no per-release meter change is recorded). Fix 1
  * (review B1): the gross is the Industry film row's own measure (cumulative paid gross while the run is active, the
  * final total after), and a forecast is published for the player's own film only, as the release read model does:
- * a rival's locked forecast is a private input this route never carries. */
-function releaseOutcome(world:ContinuationWorld,property:FranchiseProperty,productionId:string,releasedWeek:number|null,filmRow:PublicFilmRow):Property['installments'][number]['outcome'] {
+ * a rival's locked forecast is a private input this route never carries. Exported for the unit pin of the rival branch
+ * (tests/bridge-p17-franchise-read-model.test.ts, slice B Fix 3): no route releases a rival film into a franchise yet. */
+export function releaseOutcome(world:ContinuationWorld,property:FranchiseProperty,productionId:string,releasedWeek:number|null,filmRow:PublicFilmRow):Property['installments'][number]['outcome'] {
  if(releasedWeek===null)return null
  const row=filmRow(productionId)
  if(row===undefined)throw new Error(`franchise view: released installment ${productionId} has no Industry film row`)
