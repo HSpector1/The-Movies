@@ -1,0 +1,16 @@
+{
+  "head": "9a9e56a8aaf5ee062c91f8c085e9dd131afbd3dc",
+  "sourceManifestEntries": 1384,
+  "purpose": "Sprint 14 harness-r2 (RED worktree snapshot branch p18-s14-harness-snapshot = 0cf00e40 + harness scripts): the 1367-K operated 312 trial on Save51 (exit 1 with result.json = measured non-qualification, not a crash), the natural long campaign on p13a-core-causal-01 and seed-b (default arm as 1367-K; closure-deferred arm only if the player closes early \u2014 an engine option, disclosed, never survival evidence), rival recovery per 1363-A \u00a76",
+  "children": [
+    {
+      "label": "operated312"
+    },
+    {
+      "label": "campaign"
+    },
+    {
+      "label": "rival"
+    }
+  ]
+}

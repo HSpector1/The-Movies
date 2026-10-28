@@ -1,0 +1,354 @@
+{
+  "status": "MEASURED",
+  "obligation": "Sprint 14 item 4: 1363-A §6 natural routes on the landed recovery + live P15B tree; a measured non-recovery is a finding",
+  "sourceHead": "9a9e56a8aaf5ee062c91f8c085e9dd131afbd3dc",
+  "node": "v20.20.2",
+  "saveVersion": 51,
+  "scripts": {
+    "rival-recovery-measure.ts": "88a6d07bd77ce91210423654e18d4ba9083b50ef5a9c980367f6a9274773af4c",
+    "measure-lib.ts": "e5edb5861c6e3363394e9090407807acd93c5a208f998766e28f5482ca791439"
+  },
+  "routeActions": "p13aGeneratedStudio(seed) from src/harness/p13a/fixtures.ts (unchanged since Save45 source d5e2dad1): generateWorld(seed) with economyEngagedEver true, ONE applyActions activateStudioOperations, initializeHollywood(fresh); then one tick per week: tick(state) on the default arm, tick(state, {deferPlayerClosure: true}) on the closure-deferred arm. No other player action (no hiring, film, rights, continuation, cameo or TV command); any rights/franchise/television rows come from engine and rival laws. Same route as 1361-GL-probe.ts runSeed and the 1363-V kit (1368-natural-recovery.test.ts). No cash, roster or controller input.",
+  "seeds": [
+    {
+      "seed": "p15a1-w2-market-01",
+      "horizon": 6240,
+      "arms": [
+        {
+          "seed": "p15a1-w2-market-01",
+          "arm": "default",
+          "horizon": 6240,
+          "finalWeek": 1366,
+          "routeTickMs": 6995.300052999983,
+          "finalSave": {
+            "bytes": 1268875,
+            "sha256": "a65505bd4493891d6ef1a61523fab8dfb51c334c7b1833b5baf2bb27ce61f506"
+          },
+          "saveSha256ByCheckpoint": {
+            "520": "1c8ab770e5205459f0042f843db8f4d2f3e46d4504b89140aff408196580edf0",
+            "1040": "154e272eaade35eb247961a5330373475d6dba730be06f49729c61bdb1c14bd2",
+            "1366": "a65505bd4493891d6ef1a61523fab8dfb51c334c7b1833b5baf2bb27ce61f506"
+          },
+          "final": {
+            "week": 1366,
+            "player": {
+              "cash": -490000,
+              "conditionStage": "closed",
+              "closedWeek": 1366,
+              "releases": 0,
+              "releasesWeek312to519": 0,
+              "releasesFrom312": 0,
+              "releasesAfter2040": 0,
+              "contracts": 0,
+              "activeProductions": 0,
+              "operationsMode": "managed"
+            },
+            "rivals": {
+              "total": 6,
+              "closed": 6,
+              "alive": 0,
+              "closureDueNotClosed": 0,
+              "inCostCutting": 0
+            },
+            "industryFilmReleasedReceiptsByStudio": {},
+            "eraRoots": {
+              "rights": {
+                "properties": 8,
+                "filmTitles": 8,
+                "titleEvents": 32,
+                "licences": 0,
+                "offers": 0,
+                "transactions": 0,
+                "diligence": 0,
+                "estates": 7,
+                "absorptions": 0
+              },
+              "franchises": null,
+              "cameos": null,
+              "television": null
+            }
+          },
+          "findings": [
+            "route ends at week 1366: the player's actual closure (closure/v1); tick refuses after it, so 6240 is not reached on this arm",
+            "no player release in weeks 312..519 (structural: the route issues no player production action)"
+          ],
+          "files": {
+            "p15a1-w2-market-01.default.campaign.jsonl": "bdbe1bc5c64b08a6a2cbe785f040e0f1dbad77d9638351285f1eb13f51871b27",
+            "p15a1-w2-market-01.default.rivals.jsonl": "babd6ad1055df5b9bac53f95f4c06241f715c197be817ff08db2a73d0bc1fffb",
+            "p15a1-w2-market-01.default.rival-summary.json": "930e0c561db3d2839353dd7222ec3174933c0e2807376d897ac1fa2f6c49372c"
+          }
+        },
+        {
+          "seed": "p15a1-w2-market-01",
+          "arm": "closure-deferred",
+          "horizon": 6240,
+          "finalWeek": 6240,
+          "routeTickMs": 17106.274772999706,
+          "finalSave": {
+            "bytes": 4134204,
+            "sha256": "fa98508fd19bab875e6ca3bfef69d881d1d11661bdf1fc7f3021a8eee1532c75"
+          },
+          "saveSha256ByCheckpoint": {
+            "520": "1c8ab770e5205459f0042f843db8f4d2f3e46d4504b89140aff408196580edf0",
+            "1040": "154e272eaade35eb247961a5330373475d6dba730be06f49729c61bdb1c14bd2",
+            "1560": "3b30879ad0bce8cd727ae962efd9002c3bce35adb5532ec712839e5a8dfb215a",
+            "2080": "9c71fdd2d04147fb81d600ab13383966efd6e3d36b55885d005644bc292dcb37",
+            "2600": "08f76c25cf77e77407e3aa53a0080001e02dd848dc772a553e93639b7de9567c",
+            "3120": "7a529f143f1a2b983e50104c66691282b360015afb77f0d673effb9f4fa02bf5",
+            "3640": "5cef63a605516cf1187c64233ad7dd2be3754c8e9c18cad43b3a1514b9d602b1",
+            "4160": "1af7c9bc04324f7b7720862e85acbc2c92bb50c81a38211719f5d08d726c8736",
+            "4680": "90132c8c209c1275686d92f4703d91623119c96da114040ce309ac92812050fc",
+            "5200": "b1902714caa0e1862ad08008ca6948059b172c85a1f93d4cfbe84f08cccf8372",
+            "5720": "9974ca7f789c2d1d6821af80bc26b4a32d25dcde54ad773d44d9e9d41bc7aa23",
+            "6240": "fa98508fd19bab875e6ca3bfef69d881d1d11661bdf1fc7f3021a8eee1532c75"
+          },
+          "final": {
+            "week": 6240,
+            "player": {
+              "cash": -73600000,
+              "conditionStage": "closed",
+              "closedWeek": null,
+              "releases": 0,
+              "releasesWeek312to519": 0,
+              "releasesFrom312": 0,
+              "releasesAfter2040": 0,
+              "contracts": 0,
+              "activeProductions": 0,
+              "operationsMode": "managed"
+            },
+            "rivals": {
+              "total": 9,
+              "closed": 9,
+              "alive": 0,
+              "closureDueNotClosed": 0,
+              "inCostCutting": 0
+            },
+            "industryFilmReleasedReceiptsByStudio": {
+              "studio-ff9bdb2b-r08": 1
+            },
+            "eraRoots": {
+              "rights": {
+                "properties": 9,
+                "filmTitles": 9,
+                "titleEvents": 36,
+                "licences": 0,
+                "offers": 0,
+                "transactions": 0,
+                "diligence": 0,
+                "estates": 9,
+                "absorptions": 0
+              },
+              "franchises": null,
+              "cameos": null,
+              "television": null
+            }
+          },
+          "findings": [
+            "no player release in weeks 312..519 (structural: the route issues no player production action)"
+          ],
+          "files": {
+            "p15a1-w2-market-01.closure-deferred.campaign.jsonl": "bc4b0e1faf0121aa25d412c507cbd62d3022f153721385deb888804d426587dc",
+            "p15a1-w2-market-01.closure-deferred.rivals.jsonl": "9630877a978804cd7bd7f476c09d0e0bd3066483b581d8c5bd1d6309ec38d385",
+            "p15a1-w2-market-01.closure-deferred.rival-summary.json": "7c8be716b9985af52fb7edeede4a61b9580d4996ac481b6d587c12932581a539"
+          }
+        }
+      ],
+      "determinism": {
+        "armsAgree": [
+          {
+            "week": 520,
+            "identical": true
+          },
+          {
+            "week": 1040,
+            "identical": true
+          }
+        ],
+        "rebuild": {
+          "arm": "default",
+          "week": 520,
+          "recorded": "1c8ab770e5205459f0042f843db8f4d2f3e46d4504b89140aff408196580edf0",
+          "rebuilt": "1c8ab770e5205459f0042f843db8f4d2f3e46d4504b89140aff408196580edf0",
+          "identical": true,
+          "method": "same seed and arm rebuilt in this process; sha256 of exportSave bytes"
+        },
+        "identical": true
+      }
+    },
+    {
+      "seed": "p13b-s8-bridge-probe-01",
+      "horizon": 520,
+      "arms": [
+        {
+          "seed": "p13b-s8-bridge-probe-01",
+          "arm": "default",
+          "horizon": 520,
+          "finalWeek": 520,
+          "routeTickMs": 9226.881487999948,
+          "finalSave": {
+            "bytes": 3985836,
+            "sha256": "d5b7706b6378d441ce7f16605b00df4d6f457ae4ec5afa4c21688c6d2e9bb59a"
+          },
+          "saveSha256ByCheckpoint": {
+            "520": "d5b7706b6378d441ce7f16605b00df4d6f457ae4ec5afa4c21688c6d2e9bb59a"
+          },
+          "final": {
+            "week": 520,
+            "player": {
+              "cash": 12200000,
+              "conditionStage": "stable",
+              "closedWeek": null,
+              "releases": 0,
+              "releasesWeek312to519": 0,
+              "releasesFrom312": 0,
+              "releasesAfter2040": 0,
+              "contracts": 0,
+              "activeProductions": 0,
+              "operationsMode": "managed"
+            },
+            "rivals": {
+              "total": 5,
+              "closed": 0,
+              "alive": 5,
+              "closureDueNotClosed": 0,
+              "inCostCutting": 0
+            },
+            "industryFilmReleasedReceiptsByStudio": {
+              "studio-efb645e3-r01": 56,
+              "studio-efb645e3-r02": 56,
+              "studio-efb645e3-r03": 49,
+              "studio-efb645e3-r04": 43
+            },
+            "eraRoots": {
+              "rights": {
+                "properties": 205,
+                "filmTitles": 204,
+                "titleEvents": 409,
+                "licences": 0,
+                "offers": 0,
+                "transactions": 0,
+                "diligence": 0,
+                "estates": 0,
+                "absorptions": 0
+              },
+              "franchises": null,
+              "cameos": null,
+              "television": null
+            }
+          },
+          "findings": [
+            "no player release in weeks 312..519 (structural: the route issues no player production action)"
+          ],
+          "files": {
+            "p13b-s8-bridge-probe-01.default.campaign.jsonl": "8507ccddae3eff320446c1b1986b4a21ffb008cf127392632a0bc68f4c35b919",
+            "p13b-s8-bridge-probe-01.default.rivals.jsonl": "69a057a45381a24c0a68bf5c92e0dfac78f93a83568632e45a7d0827ae43f370",
+            "p13b-s8-bridge-probe-01.default.rival-summary.json": "d9cbbefa4bae0c7a1c7e86d7bd3aca835f69d39133f0674da4ece3c8c31ee029"
+          }
+        }
+      ],
+      "determinism": {
+        "armsAgree": [],
+        "rebuild": {
+          "arm": "default",
+          "week": 520,
+          "recorded": "d5b7706b6378d441ce7f16605b00df4d6f457ae4ec5afa4c21688c6d2e9bb59a",
+          "rebuilt": "d5b7706b6378d441ce7f16605b00df4d6f457ae4ec5afa4c21688c6d2e9bb59a",
+          "identical": true,
+          "method": "same seed and arm rebuilt in this process; sha256 of exportSave bytes"
+        },
+        "identical": true
+      }
+    },
+    {
+      "seed": "p13-public-commercial-adoption",
+      "horizon": 520,
+      "arms": [
+        {
+          "seed": "p13-public-commercial-adoption",
+          "arm": "default",
+          "horizon": 520,
+          "finalWeek": 520,
+          "routeTickMs": 8810.896283000031,
+          "finalSave": {
+            "bytes": 2655576,
+            "sha256": "b11ad12cb4c15f8f4c6f02eadb3a69b89e5ee284cc304610bb2081cbe3a56587"
+          },
+          "saveSha256ByCheckpoint": {
+            "520": "b11ad12cb4c15f8f4c6f02eadb3a69b89e5ee284cc304610bb2081cbe3a56587"
+          },
+          "final": {
+            "week": 520,
+            "player": {
+              "cash": 12200000,
+              "conditionStage": "stable",
+              "closedWeek": null,
+              "releases": 0,
+              "releasesWeek312to519": 0,
+              "releasesFrom312": 0,
+              "releasesAfter2040": 0,
+              "contracts": 0,
+              "activeProductions": 0,
+              "operationsMode": "managed"
+            },
+            "rivals": {
+              "total": 5,
+              "closed": 3,
+              "alive": 2,
+              "closureDueNotClosed": 0,
+              "inCostCutting": 0
+            },
+            "industryFilmReleasedReceiptsByStudio": {
+              "studio-5a47d054-r01": 43,
+              "studio-5a47d054-r02": 37,
+              "studio-5a47d054-r03": 19,
+              "studio-5a47d054-r04": 13
+            },
+            "eraRoots": {
+              "rights": {
+                "properties": 118,
+                "filmTitles": 118,
+                "titleEvents": 386,
+                "licences": 0,
+                "offers": 0,
+                "transactions": 0,
+                "diligence": 0,
+                "estates": 3,
+                "absorptions": 0
+              },
+              "franchises": null,
+              "cameos": null,
+              "television": null
+            }
+          },
+          "findings": [
+            "no player release in weeks 312..519 (structural: the route issues no player production action)"
+          ],
+          "files": {
+            "p13-public-commercial-adoption.default.campaign.jsonl": "01a5b891f7e36322fe6ec7f4061831f627b995a8875a03d08a101e7c608e1afe",
+            "p13-public-commercial-adoption.default.rivals.jsonl": "04fe54e565b459a6fa8c41f2a57fa7dca034eebc5539c6886c851d0e95ecab77",
+            "p13-public-commercial-adoption.default.rival-summary.json": "cb875e5c5d7a9afb7183e48cfc635e966cb80a4530ad4036b4e076c13a6ff8d7"
+          }
+        }
+      ],
+      "determinism": {
+        "armsAgree": [],
+        "rebuild": {
+          "arm": "default",
+          "week": 520,
+          "recorded": "b11ad12cb4c15f8f4c6f02eadb3a69b89e5ee284cc304610bb2081cbe3a56587",
+          "rebuilt": "b11ad12cb4c15f8f4c6f02eadb3a69b89e5ee284cc304610bb2081cbe3a56587",
+          "identical": true,
+          "method": "same seed and arm rebuilt in this process; sha256 of exportSave bytes"
+        },
+        "identical": true
+      }
+    }
+  ],
+  "elapsedMs": 77980.50422999999,
+  "limits": [
+    "single landed tree: the charter arms (control, A, A+B) and controls (a), (e), (f), (g) need historical trees and are not measured here",
+    "no source observers: package/evaluation outcomes, refusal gates and the 154 promise attribution are not read",
+    "reserve-based weeks (first below reserve, back at reserve) are read at sampled weeks only",
+    "closure is reported from the live studioClosure root; closureDueNotClosed marks a due-only stage"
+  ]
+}
