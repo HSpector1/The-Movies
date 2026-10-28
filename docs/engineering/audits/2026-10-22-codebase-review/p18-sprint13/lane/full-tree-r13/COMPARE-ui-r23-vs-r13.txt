@@ -1,0 +1,7 @@
+{'numTotalTestSuites': 775, 'numPassedTestSuites': 771, 'numFailedTestSuites': 4, 'numPendingTestSuites': 0, 'numTotalTests': 2757, 'numPassedTests': 2750, 'numFailedTests': 2, 'numPendingTests': 5, 'numTodoTests': 0}
+{'NEW': 0, 'INHERITED-SAME': 2, 'INHERITED-CHANGED': 0, 'MISSING-INPUT': 0, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 2, 'OVER-BUDGET-PASS': 2} report tests 2753 baseline tests 2752 in both 2752
+
+## OVER-BUDGET-PASS (2) max 35631.25
+## BASELINE-NOT-REPRODUCED (2)
+  - ui/src/lot/StudioLotScreen.test.tsx :: StudioLotScreen — authoritative Hollywood operations host moves Hollywood keyboard focus to each suc
+  - ui/src/lot/WorldFirstStudioHome.test.tsx :: Studio Home V1 — App world-root navigation preserves topbar focus through a supporting-Dashboard Sim

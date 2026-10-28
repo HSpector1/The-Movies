@@ -1,0 +1,13 @@
+# Sprint 13 entry — P18 delivery, cancellation, distribution and client surfaces, 2026-10-28, 06:55 CDT
+
+Predecessor: tag p18-sprint12-checkpoint-20261028 at 31fdb366 on p18-season-20261028 (Sprint 12 close; p18-sprint12/RESULTS.md carries the limits and the ACCEPTANCE OPEN list). Same branch, same integration worktree (studio-scratch/p17-continuation-20261027-wt, ui/, art/ and docs inputs materialized), same RED worktree (studio-scratch/p17-slice-red-20261027-wt, branch p18-red-20261028 at ecbc42c9 + witness tests; slice REDs may move to 31fdb366 for cases the Sprint 12 verbs make reachable).
+
+## Scope (contract §5-§7, the Sprint 12 carry list)
+- Core slice: delivery of the season on the twelfth unit (delivery milestone from the frozen terms; lateness against the due and final weeks with the frozen late per-week and cap; the final boundary outcome); cancellation and refund settlement with partial repayment of the recoupable advance from the unearned balance; release of the five company members, the Development & Casting slot, stage and Post reservations and the set on delivery or cancellation; closure treatment of a live season when the studio closes (P18-06 handoff); the 52-week distribution term of the commissioner's R4 licence after final delivery and what ends with it; the receipts and ledger rows for each, reconciled; Save51 root fields as needed (no new save version unless the root shape must change: then Save52 lazy).
+- Client slice: a Bridge commission intent and season view on the projection (bump + prior registration as in Sprint 12), and the minimal browser surface: commission a season from the Assembly screen with the quote and refusals by name, a season row with its block and units on the Dashboard, cancel with the settlement shown; Playwright journey for commission → first credited unit.
+- Kept out: rival seasons; renewals or second seasons; more than one live season per studio; any policy the Owner has not decided (licence consideration, title sale mid-season, tie-break): record, do not invent.
+
+## Plan
+1. Workhorse (Opus, the Sprint 12 adapter, context intact) delivers the core slice package to studio-scratch/p18-sprint13-20261028/core/ (SOURCE/TESTS patches, post-images, NOTES, MANIFEST), RED-first; then the client slice to .../client/.
+2. Coordinator installs each as a commit, independent Opus review per slice, lane: types, focused GREEN, RED at the slice base, fixes; full gate at the Sprint 13 checkpoint against full-tree-r9 (+ the FIX-4 delta); postflight audit; qualified technical P18 checkpoint tag with the limits named.
+3. Budgets unchanged; AC power and the Godot scan before every launch; the foreign session paused during lane runs.

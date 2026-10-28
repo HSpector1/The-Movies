@@ -1,0 +1,16 @@
+# Sprint 13 independent review of slice B FIX-2 — commit 9923051a (read-only, Opus), 2026-10-28, 09:05 CDT
+
+Verdict: INSTALLABLE AS THE SPRINT 13 CANDIDATE pending lane and full gate. Nothing blocks; one SHOULD-FIX is wording.
+
+1. SHOULD-FIX (wording): the closed-player case does not isolate the resolveTelevisionIntents guard (session.ts:1180): tvView.ts:152 offers settlePreview only when operating (FIX-1) and tvIntentSpecs emits the intent only from a non-null preview; the snapshot path is also covered by resolveAvailableIntents' P15B rule (session.ts:1258). The case is still stronger than before (RED at b7357aeb; pins the closed-player rule with cash on hand). FIX-3 (which also replaced the post-closure cash row with a lawful last-open-week premise) already records the guard as a defensive second layer.
+2. NOTE: television.ts:57, :64 sentinel restore `parked[...]!` has two silent failure modes (NUL + private-use + NUL inside a humaniser-inserted name; > 6,400 parked replacements) — unreachable with real input (engine sentences carry no NUL; the humaniser inserts only studio, film, property and licence names); throw on an undefined index to stay fail-loud. Parked text is never rescanned; names appearing twice or nested are safe; noAuthority:/expired: tokens still voiced by P17.
+3. NOTE: television.ts:45-48 labels every adoption whose two facilities are on record (wider than the old tvCommissionChoices source); harmless; an adoption with a missing facility keeps its raw id (the disclosed P17 fallback).
+4. NOTE: tvView.ts:41 the permission-reason union is hand-written but exactly AuthorityResult's unavailable reasons (rights.ts:729); a reason added to AuthorityResult alone would still compile → `satisfies Record<Extract<AuthorityResult,{kind:'unavailable'}>['reason'], string>`.
+5. NOTE: tvView.ts:43-47 grant-code table lacks counterpartyScope, invalidExclusivity, invalidScope, r3RequiresExclusive, invalidRight (inherited; unreachable for P18, printed raw not thrown by the browser voice).
+6. NOTE: tvView.ts:61-66 studio-id throw unreachable from any validated state (validateRightsRoot refuses holders outside hollywood.identities or their estates; identity rows are never removed; no televisionProduction licence can exist); reverses a fallback the FIX-1 review had accepted — a tightening folded into item 3.
+7. NOTE: p18-season-ui.test.tsx:185-187 removes the season's own licence to reach "P16 no longer permits its distribution": no current core path reaches that branch (licences append-only; the term covers the window) — disclosed surgery pinning a defensive branch; add a comment.
+8. NOTE: voicePermissionReason still `export`ed inside tvView.ts:60 (unused).
+9. NOTE: NOTES' "bound to the dev-server project" is loose: the single Playwright project runs vite dev; a future preview server would not be caught.
+10. NOTE (P17, out of scope): continuation.ts:137 `WORDS[token]` answers prototype keys; the season voice's Object.hasOwn hardening runs before it.
+Item 1 check: rerender keeps the panel's commitRefusal state; assertions unchanged.
+Per item: 1 FIXED; 2 PARTIAL (test right and stronger; isolation claim false → FIX-3 wording); 3 FIXED; 4 FIXED; 5 FIXED (second case disclosed surgery); 6 FIXED; 7 FIXED. No invented policy; the adoption widening and the restore fallback are minor.

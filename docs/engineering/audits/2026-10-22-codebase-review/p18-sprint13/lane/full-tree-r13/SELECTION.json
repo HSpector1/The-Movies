@@ -1,0 +1,21 @@
+{
+  "head": "85c09bc665ee49b751adc4285f23f5475c091390",
+  "sourceManifestEntries": 2162,
+  "predecessor": "31fdb366 (tag p18-sprint12-checkpoint-20261028); baseline for comparison: p18-sprint12 full-tree-r9 (core, ui) on 8a2e840b (audited CLEAN WITH NOTES) \u2014 expected drift: the Sprint 12 NEW row (held-title seller) and the two scenery MISSING-INPUT rows are fixed/recovered on this tree",
+  "purpose": "Sprint 13 checkpoint full gate on the P18 slice A + slice B candidate (delivery, cancellation, closure handoff, distribution expiry; Bridge television view and intents at projection 68; Assembly panel and Dashboard season card): root/ui types, bridge types, both contract checks, UI build, full core incl. bridge, full ui, source integrity; ui/, art/ and docs inputs materialized",
+  "children": [
+    {
+      "label": "full-core-including-bridge",
+      "project": "core"
+    },
+    {
+      "label": "full-ui",
+      "project": "ui"
+    }
+  ],
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "timeoutOverride": false
+  },
+  "limits": "Timing recorded, not qualified; classification by file+fullName+first failure line against full-tree-r9."
+}

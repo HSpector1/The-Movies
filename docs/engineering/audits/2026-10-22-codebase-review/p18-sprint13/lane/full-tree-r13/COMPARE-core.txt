@@ -1,0 +1,40 @@
+{'numTotalTestSuites': 2127, 'numPassedTestSuites': 2066, 'numFailedTestSuites': 61, 'numPendingTestSuites': 0, 'numTotalTests': 6175, 'numPassedTests': 6058, 'numFailedTests': 103, 'numPendingTests': 3, 'numTodoTests': 11}
+{'NEW': 1, 'INHERITED-SAME': 94, 'INHERITED-CHANGED': 2, 'MISSING-INPUT': 6, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 3, 'OVER-BUDGET-PASS': 764} report tests 6173 baseline tests 6148 in both 6140
+
+## NEW (1)
+  - tests/bridge-p13b-s3-save-as.test.ts :: P13B-S3 Save As (test 7, A11) a Save As copy keeps the same plan ids and advances independently; the inactive 
+      Error: Test timed out in 20000ms.
+
+## INHERITED-CHANGED (2)
+  - tests/bridge-owner-ux-projection20-migration.test.ts :: Owner UX outgoing projection20 migration pins genuine prior bytes, source identity, actual journal, and constr
+      AssertionError: expected 68 to be 53 // Object.is equality
+      baseline: AssertionError: expected 67 to be 53 // Object.is equality
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) legacy-root-downgrade
+      AssertionError: elapsed 204259 ms against the 120000 ms budget: expected 204259.00319 to be less than or equal to 120000
+      baseline: AssertionError: elapsed 209905 ms against the 120000 ms budget: expected 209905.469447 to be less than or equal to 120000
+
+## MISSING-INPUT (6)
+  - tests/r3n1-stale-schedule-take-02.test.ts :: R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge SERVER REFUSAL
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02.test.ts :: R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge SERVER REFUSAL
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p31.test.ts :: R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p31.test.ts :: R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p32.test.ts :: R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p32.test.ts :: R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'
+      UNTRACKED (not recoverable here)
+
+## OVER-BUDGET-PASS (764) max 709230.146
+## BASELINE-NOT-REPRODUCED (3)
+  - tests/p16-held-title-seller.test.ts :: real public film0 sale before R04 C excludes the sold title from current closure and handoff while r
+  - tests/world-first-scenery-load-in-provenance.test.ts :: World-First Scenery Load-In V1 — frozen district provenance pins authored source, accepted runtime, 
+  - tests/world-first-scenery-load-in-provenance.test.ts :: World-First Scenery Load-In V1 — frozen district provenance replays the clean exporter and pins its 

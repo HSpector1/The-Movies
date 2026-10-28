@@ -1,0 +1,11 @@
+{'numTotalTestSuites': 775, 'numPassedTestSuites': 769, 'numFailedTestSuites': 6, 'numPendingTestSuites': 0, 'numTotalTests': 2756, 'numPassedTests': 2747, 'numFailedTests': 4, 'numPendingTests': 5, 'numTodoTests': 0}
+{'NEW': 2, 'INHERITED-SAME': 2, 'INHERITED-CHANGED': 0, 'MISSING-INPUT': 0, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 0, 'OVER-BUDGET-PASS': 0} report tests 2752 baseline tests 2743 in both 2743
+
+## NEW (2)
+  - ui/src/lot/StudioLotScreen.test.tsx :: StudioLotScreen — authoritative Hollywood operations host moves Hollywood keyboard focus to each successor and
+      Error: expect(element).toHaveFocus()
+  - ui/src/lot/WorldFirstStudioHome.test.tsx :: Studio Home V1 — App world-root navigation preserves topbar focus through a supporting-Dashboard Sim result
+      Error: Test timed out in 30000ms.
+
+## OVER-BUDGET-PASS (0) max 0
+## BASELINE-NOT-REPRODUCED (0)
