@@ -751,7 +751,7 @@ describe('CF-08 sound union-to-C# generation', () => {
         // whole-schema bodies. PLACEHOLDER: only the generator can produce these bodies, so the lane measures them (all eight
         // positives rendered twice, six fixed bodies unchanged) and replaces both literals before this pin is claimed.
         F10_CURRENT_QUOTE_UNIONS: 'bf9192ac936ff0fabb576bee25f07a3d1375ec25c2d10170713cd78c5889b5bb', // was 97ddfba0… (projection64)
-        F11_CURRENT_COMMAND_UNION: 'PLACEHOLDER-P65-F11-DECLARATION-SHA256-FILL-FROM-LANE', // was 97ddfba0… (projection64), same body as F10
+        F11_CURRENT_COMMAND_UNION: 'bf9192ac936ff0fabb576bee25f07a3d1375ec25c2d10170713cd78c5889b5bb', // was 97ddfba0… (projection64), same body as F10
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {
