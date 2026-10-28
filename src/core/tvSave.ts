@@ -113,13 +113,18 @@ export function validateP18Roots(raw: Record<string, unknown>, label: string): v
   if (live.length > 1) fail('one active season per studio')
   const talentIds = new Set(rest.talent.map((t) => t.id))
   for (const s of root.seasons) {
-    const seasonKeys = [...SEASON_KEYS, ...(TERMINAL_KEYS[String(s.status)] ?? [])]
+    // FIX-S13A-1 item 9: the status is read by name before it indexes anything, so a forged status (even an Object
+    // prototype key) refuses here, never as a TypeError.
+    if (!Object.hasOwn(TERMINAL_KEYS, String(s.status))) fail(`season ${String(s.seasonId)} status ${String(s.status)} is not live, delivered or cancelled`)
+    const seasonKeys = [...SEASON_KEYS, ...TERMINAL_KEYS[String(s.status)]!]
     if (!sameKeys(s, seasonKeys)) fail(`season must carry exactly ${seasonKeys.join(', ')}`)
     id(s.seasonId, 'tv-season')
     id(s.workId, 'tv-work')
     const series = root.series.find((row) => row.seriesId === s.seriesId)
     if (series === undefined || series.seasonIds[0] !== s.seasonId || series.propertyId !== s.propertyId) fail(`season ${s.seasonId} names no series that records it`)
-    if (!Object.hasOwn(TERMINAL_KEYS, String(s.status))) fail(`season ${s.seasonId} status ${String(s.status)} is not live, delivered or cancelled`)
+    // FIX-S13A-1 item 1: the boundary at C + 20 resolves every live season (delivery or the deadline cancellation), so a
+    // season still live at or past its final week (a Sprint 12 save left running past C + 20) is refused by name.
+    if (s.status === 'live' && whole(s.finalWeek) && week >= s.finalWeek) fail(`season ${s.seasonId} is live at week ${week}, at or past its final boundary ${s.finalWeek}`)
     if (s.producerStudioId !== player || s.commissionerId !== TV_COMMISSIONER_ID || s.rulesetVersion !== TV_RULESET_VERSION || s.seasonNumber !== 1 || s.episodes !== TUNING.TV_SEASON_EPISODES) {
       fail(`season ${s.seasonId} parties, ruleset or episode metadata are not the contract's`)
     }
@@ -371,14 +376,23 @@ function validateSettlement(a: TvAgreement, s: TvSeason, mine: TvReceipt[], rest
   let refund = 0
   let charge = 0
   let settlementSeen = false
+  const atCancellation = new Set<string>()
   for (const p of payments) {
     const sourceOk = p.source === 'cancellation' ? !settlementSeen && p.week === c.week : p.source === 'settlement' && p.week >= c.week
     if (p.source === 'settlement') settlementSeen = true
     if (!whole(p.amount) || p.amount <= 0 || !sourceOk || st!.closureId !== null) fail(`agreement ${a.agreementId} payment ${p.receiptId} amount, source or week`)
-    if (p.kind === 'advanceRefundPaid') refund += p.amount
-    else {
+    // FIX-S13A-1 item 10: the cancellation transaction writes at most one refund and one charge payment.
+    if (p.source === 'cancellation') {
+      if (atCancellation.has(p.kind)) fail(`agreement ${a.agreementId} records a second cancellation-time ${p.kind} payment (${p.receiptId})`)
+      atCancellation.add(p.kind)
+    }
+    if (p.kind === 'advanceRefundPaid') {
+      refund += p.amount
+      if (refund > st!.refundDue) fail(`agreement ${a.agreementId} payment ${p.receiptId} pays more than the frozen advance refund U0 (${st!.refundDue})`)
+    } else {
       if (refund !== st!.refundDue) fail(`agreement ${a.agreementId} paid the cancellation charge before the advance refund (${p.receiptId})`)
       charge += p.amount
+      if (charge > st!.chargeDue) fail(`agreement ${a.agreementId} payment ${p.receiptId} pays more than the frozen cancellation charge K (${st!.chargeDue})`)
     }
   }
   if (refund !== st!.refundPaid || charge !== st!.chargePaid || refund > st!.refundDue || charge > st!.chargeDue) {

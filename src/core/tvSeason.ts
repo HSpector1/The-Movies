@@ -231,6 +231,9 @@ function resolveTelevisionBoundary(state: GameState, worked: TelevisionAdvance, 
   const boundary = week + 1
   const season = liveTvSeason(worked.television)
   if (worked.television === undefined || season === null) return worked
+  // FIX-S13A-1 item 1: the deadline resolves AT C + 20, so a season still live past it is a broken record (the save
+  // validator refuses one at or past its final week); never write a cancellation at a boundary the contract has no rule for.
+  if (boundary > season.finalWeek) throw new Error(`tv season: live season ${season.seasonId} reached boundary ${boundary}, past its final boundary ${season.finalWeek}`)
   if (tvWorkComplete(season)) {
     const refusal = tvDeliveryRefusal(state, season, week)
     if (refusal === null) return deliverTvSeason(worked, season, boundary, week)
@@ -257,6 +260,8 @@ export function tvDeliveryRefusal(state: GameState, season: TvSeason, week: numb
  * The status change releases the five company members; every reservation went back at the last block's completion.
  */
 function deliverTvSeason(worked: TelevisionAdvance, season: TvSeason, boundary: number, week: number): TelevisionAdvance {
+  // FIX-S13A-1 item 7: the twelfth unit's block completion released every slot; a slot still held here is a broken record.
+  if (season.reservations.length > 0) throw new Error(`tv season: season ${season.seasonId} reached delivery still holding ${season.reservations.length} slot(s)`)
   let root = worked.television!
   const agreement = agreementFor(root, season)
   const terms = agreement.terms
@@ -268,7 +273,7 @@ function deliverTvSeason(worked: TelevisionAdvance, season: TvSeason, boundary: 
   const ledger = [...worked.ledger]
   let cash = worked.cash
   root = earnMilestone(root, season, 'delivery', terms.milestones.delivery - reduction, boundary, week, ledger, (amount) => { cash += amount })
-  root = replaceSeason(root, { ...season, status: 'delivered', deliveredWeek: boundary, reservations: [], work: { ...season.work, stall: null } })
+  root = replaceSeason(root, { ...season, status: 'delivered', deliveredWeek: boundary, work: { ...season.work, stall: null } })
   return { ...worked, television: root, cash, ledger }
 }
 
@@ -276,7 +281,9 @@ function deliverTvSeason(worked: TelevisionAdvance, season: TvSeason, boundary: 
 export function expireTvDistribution(root: TelevisionRoot, boundary: number): TelevisionRoot {
   let next = root
   for (const season of root.seasons) {
-    if (season.status !== 'delivered' || season.deliveredWeek === undefined) continue
+    if (season.status !== 'delivered') continue
+    // FIX-S13A-1 item 8: a delivered season without its delivered week is a broken record, never skipped.
+    if (season.deliveredWeek === undefined) throw new Error(`tv distribution: delivered season ${season.seasonId} carries no deliveredWeek`)
     if (boundary !== season.deliveredWeek + agreementFor(root, season).terms.distributionWeeks) continue
     if (next.receipts.some((r) => r.kind === 'distributionExpired' && r.seasonId === season.seasonId)) continue
     next = appendTvReceipt(next, { kind: 'distributionExpired', week: boundary, seasonId: season.seasonId, agreementId: season.agreementId }).root

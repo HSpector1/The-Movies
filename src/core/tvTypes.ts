@@ -127,7 +127,8 @@ export type TvSeason = {
 }
 
 export type TvSeasonStatus = 'live' | 'delivered' | 'cancelled'
-/** Contract §7 causes this slice implements; grant loss, person loss and absorption are not wired yet (NOTES-S13A). */
+/** Contract §7 causes this slice implements. Automatic cancellation on grant loss or unrecoverable person loss is
+ * contract-required (§4, §7) and not implemented in this slice (NOTES-S13A-FIX1); absorption is not wired either. */
 export type TvCancellationCause = 'producer' | 'deadline' | 'closure'
 export type TvCancellation = { week: number; cause: TvCancellationCause }
 

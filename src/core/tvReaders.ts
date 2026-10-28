@@ -127,11 +127,6 @@ export function tvOutstanding(agreement: TvAgreement): number {
   return s === undefined ? 0 : (s.refundDue - s.refundPaid) + (s.chargeDue - s.chargePaid)
 }
 
-/** Contract §6: the commissioner's exclusive availability window [deliveredWeek, deliveredWeek + 52), half-open. */
-export function tvDistributionAvailable(season: TvSeason, terms: TvAgreementTerms, week: number): boolean {
-  return season.status === 'delivered' && season.deliveredWeek !== undefined && season.deliveredWeek <= week && week < season.deliveredWeek + terms.distributionWeeks
-}
-
 /** The commissioner's licence term: the whole possible availability interval [C, C + 20 + 52) (contract §3). */
 export function tvDistributionLicenceEnd(commitWeek: number): number {
   return commitWeek + TUNING.TV_FINAL_WEEKS + TUNING.TV_DISTRIBUTION_WEEKS

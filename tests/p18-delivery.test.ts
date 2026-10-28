@@ -9,6 +9,12 @@
 // RED at 31fdb366 by assertion: the season stays live after its twelfth unit and at C + 20, the two new actions are
 // unknown kinds (caught and compared), the settlement module is absent (a dynamic import returns null) and the expiry
 // and window readers are absent (namespace members compared).
+//
+// FIX-S13A-1 (REVIEW-S13A): the natural walk is built once and shared (item 14); the window reader requires the P16
+// permission (item 5); the live-past-final, slot-at-delivery, missing-delivered-week, forged-status, duplicate and
+// excess payment rules (items 1, 7-10) are RED at the slice B commit by assertion; the natural closure route, the
+// part-paid settlement across the refund/charge split, the forgeries, the expiry tick and the sequential-seasons
+// round-trip (items 3, 6) are coverage of laws that already hold there.
 
 import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
@@ -16,13 +22,19 @@ import { busyTalentIds } from '../src/core/employment.js'
 import { occupiedResourceSlots } from '../src/core/occupancy.js'
 import * as saves from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
+import * as tvCommissionModule from '../src/core/tvCommission.js'
+import { tvAdmissionQuote } from '../src/core/tvCommission.js'
 import * as tvReaders from '../src/core/tvReaders.js'
+import { validateP18Roots } from '../src/core/tvSave.js'
+import { settleTvObligations } from '../src/core/tvSettlement.js'
 import * as tvSeasonModule from '../src/core/tvSeason.js'
+import { TUNING } from '../src/core/tuning.js'
 import type { Action, GameState } from '../src/core/types.js'
 import { detached } from './helpers/p16-fixtures.js'
 import { fund } from './helpers/p14b2-fixtures.js'
+import { closuresOf } from './helpers/p17-cameo-route.js'
 import {
-  FIGURES, agreement, attempt, commissioned, request, rosterIds, season, seasonRoute, television, tvRows, type SeasonRoute, type TelevisionLocal,
+  FIGURES, agreement, attempt, commissioned, greenlightWith, request, rosterIds, season, seasonRoute, television, tvRows, withCash, type SeasonRoute, type TelevisionLocal,
 } from './helpers/p18-route.js'
 
 const LATE_PER_WEEK = 12_000
@@ -31,6 +43,14 @@ const CHARGE = 120_000
 
 let route: SeasonRoute
 beforeAll(() => { route = seasonRoute() }, 240_000)
+
+// FIX-S13A-1 item 14: the natural commission-to-delivery walk, built once for every describe that reads it.
+let naturalWeeks: GameState[] = []
+beforeAll(() => {
+  const result = attempt(route.state, request(route))
+  if (result.error !== undefined) return
+  naturalWeeks = walk(result.state, 22)
+}, 300_000)
 
 /** The P17 cameo route's disclosed drain: one publicity row of exactly the amount, so the money reconciles. */
 function drain(state: GameState, amount: number): GameState {
@@ -79,11 +99,7 @@ function roundTrips(state: GameState): void {
 // ── delivery on the natural route ────────────────────────────────────────────────────────────────────────
 describe('P18 delivery — the twelfth unit\'s advance accepts the master', () => {
   let weeks: GameState[] = []
-  beforeAll(() => {
-    const result = attempt(route.state, request(route))
-    if (result.error !== undefined) return
-    weeks = walk(result.state, 22)
-  }, 300_000)
+  beforeAll(() => { weeks = naturalWeeks })
   const delivered = (): GameState => weeks[weeks.length - 1]!
 
   it('delivers at T with the delivery milestone less the frozen late reduction, paid max(0, E − P) on its own row', () => {
@@ -127,8 +143,9 @@ describe('P18 delivery — the twelfth unit\'s advance accepts the master', () =
     expect(weeks.length).toBeGreaterThan(1)
     const done = delivered()
     const expire = (tvSeasonModule as Record<string, unknown>).expireTvDistribution as ((root: unknown, boundary: number) => TelevisionLocal) | undefined
-    const available = (tvReaders as Record<string, unknown>).tvDistributionAvailable as ((s: unknown, terms: unknown, week: number) => boolean) | undefined
-    // RED at 31fdb366: neither producer nor reader exists.
+    // FIX-S13A-1 item 5: the reader lives beside the P16 permission it now requires and takes the state.
+    const available = (tvCommissionModule as Record<string, unknown>).tvDistributionAvailable as ((state: unknown, s: unknown, terms: unknown, week: number) => boolean) | undefined
+    // RED at 31fdb366: neither producer nor reader exists. RED at the slice B commit: the reader is not in tvCommission.
     expect(typeof expire).toBe('function')
     expect(typeof available).toBe('function')
     const s = season(done)
@@ -138,7 +155,15 @@ describe('P18 delivery — the twelfth unit\'s advance accepts the master', () =
     expect(after.receipts.slice(television(done)!.receipts.length).map((r) => [r.kind, r.week])).toEqual([['distributionExpired', end]])
     expect(expire!(after, end)).toBe(after)
     const terms = agreement(done).terms
-    expect([s.deliveredWeek! - 1, s.deliveredWeek!, end - 1, end].map((w) => available!(s, terms, w))).toEqual([false, true, true, false])
+    expect([s.deliveredWeek! - 1, s.deliveredWeek!, end - 1, end].map((w) => available!(done, s, terms, w))).toEqual([false, true, true, false])
+    // Inside the window, availability still asks P16: without the season's own licence the commissioner may not distribute.
+    const unlicensed = { ...done, rights: { ...done.rights, licences: done.rights.licences.filter((l) => l.id !== s.distributionLicenceId) } }
+    expect(available!(unlicensed, s, terms, s.deliveredWeek!)).toBe(false)
+    // A delivered season without its delivered week is a broken record: both readers throw by name (item 8).
+    const broken = { ...s }
+    delete broken.deliveredWeek
+    expect(() => available!(done, broken, terms, s.deliveredWeek!)).toThrow(/delivered season tv-season-\d+ carries no deliveredWeek/)
+    expect(() => expire!({ ...done.television!, seasons: [broken] }, end)).toThrow(/delivered season tv-season-\d+ carries no deliveredWeek/)
     const licence = done.rights.licences.find((l) => l.id === s.distributionLicenceId)!
     expect(licence.endWeekExclusive).toBe(s.commitWeek + FIGURES.finalWeeks + FIGURES.distributionWeeks)
     expect(licence.endWeekExclusive).toBeGreaterThanOrEqual(end)
@@ -183,7 +208,7 @@ describe('P18 delivery — late delivery', () => {
   beforeAll(() => {
     const result = attempt(route.state, request(route))
     if (result.error !== undefined) return
-    const walked = walk(result.state, 22)
+    const walked = naturalWeeks
     natural = walked[walked.length - 1]!
     const naturalWeek = season(natural).deliveredWeek
     const due = season(result.state).dueWeek
@@ -245,6 +270,19 @@ describe('P18 cancellation — deadline failure at C + 20', () => {
     expect(status(later)).toBe('cancelled')
   })
 
+  it('a season still live at or past its final week is refused by the validator and stops the tick by name (FIX-S13A-1 item 1)', () => {
+    expect(eve).not.toBeNull()
+    const s = season(eve!)
+    // The eve itself (live at C + 19) is lawful; the same record read at C + 20 (a Sprint 12 save run past it) is not.
+    expect(() => validateP18Roots(eve as unknown as Record<string, unknown>, 'eve')).not.toThrow()
+    const atFinal = { ...eve!, market: { ...eve!.market, tick: s.finalWeek } }
+    expect(() => validateP18Roots(atFinal as unknown as Record<string, unknown>, 'forged'))
+      .toThrow(`forged: television season ${s.seasonId} is live at week ${s.finalWeek}, at or past its final boundary ${s.finalWeek}`)
+    // The step never writes a cancellation at a boundary past C + 20.
+    expect(() => tvSeasonModule.advanceTelevisionWeek(atFinal, { cash: atFinal.studio.cash, sets: atFinal.sets }, s.finalWeek))
+      .toThrow(`tv season: live season ${s.seasonId} reached boundary ${s.finalWeek + 1}, past its final boundary ${s.finalWeek}`)
+  })
+
   it('with cash: the advance\'s unit credits, then the deadline pays U0 then K from what is left, rows dated T − 1', () => {
     expect(eve).not.toBeNull()
     const funded = fund(eve!)
@@ -300,11 +338,26 @@ describe('P18 cancellation — producer action, partial repayment, settleTvOblig
     expect(clear.error).toBeUndefined()
     expect(agreement(clear.state!).settlement).toMatchObject({ refundPaid: FIGURES.advance, chargePaid: CHARGE })
     expect(act(clear.state!, { kind: 'settleTvObligations', agreementId, expectedRemaining: 0, amount: 1 }).error).toMatch(/owes nothing/)
-    // The arrears refusal is gone and the one-live-season slot is free (any later refusal names another rule).
+    // The arrears refusal is gone and the one-live-season slot is free. A fresh season on the SAME property is refused by
+    // P16: the commissioner's exclusive licence from the cancelled season lives to C + 72 (OWNER ITEM, NOTES-S13A-FIX1).
     const after = attempt(clear.state!, request(route))
-    expect(after.error ?? '').not.toMatch(/still owes|one active season/)
+    expect(after.error).toBe(`applyActions: commissionTvSeason rejected — P16 refuses the commissioner's exclusive television distribution licence over ${route.propertyId} for [${week}, ${week + FIGURES.finalWeeks + FIGURES.distributionWeeks}): exclusiveOverlap`)
     expect(() => saves.makeSave(clear.state!)).not.toThrow()
     roundTrips(clear.state!)
+    // Sequential seasons: a second property minted by the second crew's greenlight (cancelled the same week, the route's
+    // own device) takes a second season; the root then holds one terminal and one live season and round-trips.
+    const before = new Set(clear.state!.rights.properties.map((p) => p.propertyId))
+    const minted = greenlightWith(clear.state!, route.crews[1]!)
+    const second = minted.state.rights.properties.find((p) => !before.has(p.propertyId))
+    expect(second, 'premise: the second greenlight mints a property').toBeDefined()
+    const withSecond = applyActions(minted.state, [{ kind: 'cancel', productionId: minted.productionId }])
+    const sequential = attempt(withSecond, request(route, { seriesTitle: 'The Second Night', propertyId: second!.propertyId }))
+    expect(sequential.error).toBeUndefined()
+    const both = television(sequential.state!)!
+    expect(both.seasons.map((x) => x.status)).toEqual(['cancelled', 'live'])
+    expect(both.series.map((x) => x.propertyId)).toEqual([route.propertyId, second!.propertyId])
+    expect(() => saves.makeSave(sequential.state!)).not.toThrow()
+    roundTrips(sequential.state!)
 
     refuses(c, (f) => { f.state.television.agreements[0]!.settlement!.chargePaid += 1 }, /does not replay its receipts/)
     refuses(c, (f) => { f.state.television.agreements[0]!.settlement!.refundDue += 1 }, /does not freeze U0/)
@@ -332,5 +385,200 @@ describe('P18 cancellation — closure handoff', () => {
     expect(() => saves.makeSave(closed)).toThrow(/names closure studio-closure-99, which is not .*'s closure at week \d+/)
     // A world with no live season is returned unchanged.
     expect(mod!.cancelTvSeasonsAtClosure(route.state, 'studio-closure-99', week)).toBe(route.state)
+  })
+})
+
+// ── FIX-S13A-1: broken records refuse by name, and the settlement replay is exact ───────────────────────────
+/** A forged extra receipt with the next free id (the allocator's own law), so only the rule under test can refuse it. */
+function addReceipt(tv: TelevisionLocal, receipt: Record<string, unknown>): void {
+  tv.receipts.push({ ...receipt, receiptId: `tv-receipt-${tv.nextId}` } as TelevisionLocal['receipts'][number])
+  tv.nextId += 1
+}
+
+describe('P18 FIX-S13A-1 — delivery, status and payment records', () => {
+  let delivered: GameState | null = null
+  let beforeDelivery: GameState | null = null
+  beforeAll(() => {
+    if (naturalWeeks.length < 2) return
+    delivered = naturalWeeks[naturalWeeks.length - 1]!
+    beforeDelivery = naturalWeeks[naturalWeeks.length - 2]!
+  })
+
+  it('delivery with a slot still held throws by name instead of overwriting the reservations (item 7)', () => {
+    expect(beforeDelivery, 'the lawful commission must be accepted').not.toBeNull()
+    const s = season(beforeDelivery!)
+    expect(s.status).toBe('live')
+    expect(s.reservations.length, 'premise: the eleventh unit\'s week still holds its Post slot').toBeGreaterThan(0)
+    // The same record with its twelve units credited but the slot never released.
+    const forged = { ...beforeDelivery!, television: { ...television(beforeDelivery!)!, seasons: [{ ...s, work: { ...s.work, creditedUnits: 12, blockCredited: 3 } }] } } as unknown as GameState
+    expect(() => tvSeasonModule.advanceTelevisionWeek(forged, { cash: forged.studio.cash, sets: forged.sets }, forged.market.tick))
+      .toThrow(`tv season: season ${s.seasonId} reached delivery still holding ${s.reservations.length} slot(s)`)
+    expect(status(delivered!)).toBe('delivered')
+  })
+
+  it('a forged status refuses by name, an Object prototype key included, never a TypeError (item 9)', () => {
+    const live = commissioned(route)
+    refuses(live, (f) => { (f.state.television.seasons[0] as { status: string }).status = 'constructor' }, /season tv-season-\d+ status constructor is not live, delivered or cancelled/)
+    refuses(live, (f) => { (f.state.television.seasons[0] as { status: string }).status = 'paused' }, /season tv-season-\d+ status paused is not live, delivered or cancelled/)
+  })
+
+  it('the forged delivery facts the review named are refused by name (item 6)', () => {
+    expect(delivered).not.toBeNull()
+    // An expiry receipt before the window's end.
+    refuses(delivered!, (f) => {
+      const s = f.state.television.seasons[0]!
+      addReceipt(f.state.television, { kind: 'distributionExpired', week: s.deliveredWeek!, seasonId: s.seasonId, agreementId: s.agreementId })
+    }, /distribution expiry receipt \(window ends at week \d+\)/)
+    // Delivered with fewer than twelve units (the slots and stall cleared so only the delivery rule can refuse it).
+    const shooting = naturalWeeks.find((state) => status(state) === 'live' && season(state).work.creditedUnits === 9)
+    expect(shooting, 'premise: the walk passes picture lock').toBeDefined()
+    refuses(shooting!, (f) => {
+      const s = f.state.television.seasons[0]!
+      Object.assign(s, { status: 'delivered', deliveredWeek: f.state.market.tick, reservations: [] })
+      s.work.stall = null
+    }, /delivered week \d+ is not a boundary in \[its twelfth unit, C \+ 20\]/)
+    // A cancelled receipt on a live season.
+    const live = commissioned(route)
+    refuses(live, (f) => {
+      const s = f.state.television.seasons[0]!
+      addReceipt(f.state.television, { kind: 'cancelled', week: f.state.market.tick, seasonId: s.seasonId, agreementId: s.agreementId, cause: 'producer', refundDue: FIGURES.advance, chargeDue: CHARGE })
+    }, /carries a settlement for a live season/)
+  })
+
+  it('a part-paid cancellation settles across the refund/charge split, round-trips, and the replay refuses a reordered, doubled or excess payment', () => {
+    const c0 = commissioned(route)
+    const seasonId = season(c0).seasonId
+    const agreementId = agreement(c0).agreementId
+    const week = c0.market.tick
+    // Cancelled at 50,000 cash: U0 = 120,000 part-paid, K = 120,000 unpaid.
+    const part = act(drainTo(c0, 50_000), { kind: 'cancelTvSeason', seasonId })
+    expect(part.error).toBeUndefined()
+    const owed = part.state!
+    expect(agreement(owed).settlement).toEqual({ week, refundDue: FIGURES.advance, refundPaid: 50_000, chargeDue: CHARGE, chargePaid: 0, closureId: null })
+    expect(() => saves.makeSave(owed)).not.toThrow()
+    roundTrips(owed)
+    // One settlement of 100,000: the remaining 70,000 refund, then 30,000 of the charge, two receipts and two rows.
+    const rich = fund(owed)
+    const split = act(rich, { kind: 'settleTvObligations', agreementId, expectedRemaining: 190_000, amount: 100_000 })
+    expect(split.error).toBeUndefined()
+    const settled = split.state!
+    expect(agreement(settled).settlement).toMatchObject({ refundPaid: FIGURES.advance, chargePaid: 30_000 })
+    expect(television(settled)!.receipts.slice(television(rich)!.receipts.length).map((r) => [r.kind, r.amount, r.source])).toEqual([
+      ['advanceRefundPaid', 70_000, 'settlement'], ['cancellationChargePaid', 30_000, 'settlement']])
+    expect(tvRows(settled).slice(tvRows(rich).length).map((row) => [row.kind, row.amount, row.week])).toEqual([
+      ['tvAdvanceRefund', -70_000, week], ['tvCancellationCharge', -30_000, week]])
+    expect(settled.studio.cash).toBe(rich.studio.cash - 100_000)
+    expect(() => saves.makeSave(settled)).not.toThrow()
+    roundTrips(settled)
+    // The charge recorded before the refund completes (the last two receipts swapped).
+    refuses(settled, (f) => {
+      const r = f.state.television.receipts
+      const [refund, charge] = [r[r.length - 2]!, r[r.length - 1]!]
+      r[r.length - 2] = charge
+      r[r.length - 1] = refund
+    }, /paid the cancellation charge before the advance refund/)
+    // A second cancellation-time refund payment (the 50,000 split in two; the ledger is left for the later rule). Item 10.
+    refuses(owed, (f) => {
+      const paid = f.state.television.receipts.find((r) => r.kind === 'advanceRefundPaid')!
+      paid.amount = 30_000
+      addReceipt(f.state.television, { kind: 'advanceRefundPaid', week: paid.week, seasonId: paid.seasonId, agreementId: paid.agreementId, amount: 20_000, source: 'cancellation' })
+    }, /records a second cancellation-time advanceRefundPaid payment/)
+    // A refund larger than U0, its settlement figure moved with it.
+    refuses(settled, (f) => {
+      const paid = f.state.television.receipts.filter((r) => r.kind === 'advanceRefundPaid').at(-1)!
+      paid.amount = (paid.amount as number) + 1
+      f.state.television.agreements[0]!.settlement!.refundPaid += 1
+    }, /pays more than the frozen advance refund U0 \(120000\)/)
+  })
+})
+
+// ── the distribution expiry through the real tick (item 6) ──────────────────────────────────────────────
+describe('P18 FIX-S13A-1 — the window\'s end through the tick and the validator', () => {
+  let open: GameState | null = null
+  let ended: GameState | null = null
+  beforeAll(() => {
+    if (naturalWeeks.length < 2) return
+    let state = naturalWeeks[naturalWeeks.length - 1]!
+    if (status(state) !== 'delivered') return
+    const end = season(state).deliveredWeek! + FIGURES.distributionWeeks
+    while (state.market.tick < end - 1) state = tick(state)
+    open = state
+    ended = tick(state)
+  }, 600_000)
+
+  it('the advance that reaches delivered + 52 writes the one expiry receipt; the validator requires it and refuses one too many', () => {
+    expect(ended, 'premise: the natural season delivers').not.toBeNull()
+    const s = season(ended!)
+    const end = s.deliveredWeek! + FIGURES.distributionWeeks
+    expect(ended!.market.tick).toBe(end)
+    expect(receipts(open!, 'distributionExpired')).toEqual([])
+    expect(receipts(ended!, 'distributionExpired')).toEqual([expect.objectContaining({ week: end, seasonId: s.seasonId })])
+    const available = (tvCommissionModule as Record<string, unknown>).tvDistributionAvailable as ((state: unknown, s: unknown, terms: unknown, week: number) => boolean) | undefined
+    expect(typeof available).toBe('function')
+    expect(available!(open!, season(open!), agreement(open!).terms, open!.market.tick)).toBe(true)
+    expect(available!(ended!, s, agreement(ended!).terms, ended!.market.tick)).toBe(false)
+    expect(() => saves.makeSave(open!)).not.toThrow()
+    expect(() => saves.makeSave(ended!)).not.toThrow()
+    roundTrips(ended!)
+    refuses(ended!, (f) => { f.state.television.receipts = f.state.television.receipts.filter((r) => r.kind !== 'distributionExpired') }, /distribution expiry receipt \(window ends at week \d+\)/)
+    refuses(ended!, (f) => {
+      const x = f.state.television.seasons[0]!
+      addReceipt(f.state.television, { kind: 'distributionExpired', week: f.state.market.tick, seasonId: x.seasonId, agreementId: x.agreementId })
+    }, /distribution expiry receipt \(window ends at week \d+\)/)
+  })
+})
+
+// ── the player's actual closure with a live season (item 3): no state surgery beyond the disclosed devices ──
+type ConditionView = { stage: string; distressWeeks: number }
+const conditionOf = (s: GameState): ConditionView | undefined =>
+  (s as unknown as { corporateCondition: { studios: { studioId: string; condition: ConditionView }[] } }).corporateCondition.studios.find((r) => r.studioId === s.hollywood!.playerStudioId)?.condition
+/** Twelve distress weeks before the closing one: inside the season's twenty weeks, so the closure meets it live. */
+const COMMISSION_DISTRESS_WEEK = TUNING.CORPORATE_CLOSURE_DISTRESS_WEEKS - 12
+
+describe('P18 FIX-S13A-1 — the natural closure route', () => {
+  let committed: GameState | null = null
+  let closed: GameState | null = null
+  let lastOpen: GameState | null = null
+  beforeAll(() => {
+    // Drain to −1 (the delivery suite's device) and walk the condition law to distress week 14. Admission has no
+    // condition-stage gate, so the distressed studio funded to exactly the admission quote (P14B.2's disclosed device,
+    // one row) commissions the season the same week; the drain then takes cash below zero before the week ends, so the
+    // condition stays in distress and ordinary ticks close the studio at distress week 26.
+    let s = drainTo(route.state, -1)
+    for (let guard = 0; guard < 80; guard++) {
+      const c = conditionOf(s)
+      if (c?.stage === 'distress' && c.distressWeeks === COMMISSION_DISTRESS_WEEK) break
+      s = tick(s)
+    }
+    const c = conditionOf(s)
+    if (!(c?.stage === 'distress' && c.distressWeeks === COMMISSION_DISTRESS_WEEK)) throw new Error(`premise: the drained studio never reached distress week ${COMMISSION_DISTRESS_WEEK} (${JSON.stringify(c)})`)
+    s = withCash(s, tvAdmissionQuote(s, s.market.tick).required)
+    const result = attempt(s, request(route))
+    if (result.error !== undefined) throw new Error(`premise: the distressed studio funded to the quote commissions: ${result.error}`)
+    committed = result.state
+    let next = drainTo(committed, -1)
+    for (let guard = 0; guard < 20 && !closuresOf(next).some((x) => x.studioId === next.hollywood!.playerStudioId); guard++) {
+      lastOpen = next
+      next = tick(next)
+    }
+    closed = next
+  }, 600_000)
+
+  it('the closure transaction cancels the live season at its closure week with the real closure id, and the save validates', () => {
+    expect(committed, 'premise: the route commissions').not.toBeNull()
+    const player = closed!.hollywood!.playerStudioId
+    const closure = (closed as unknown as { studioClosure: { closures: { closureId: string; studioId: string; closureWeek: number }[] } }).studioClosure.closures.find((x) => x.studioId === player)
+    expect(closure, 'premise: the condition closes the studio within the season\'s twenty weeks').toBeDefined()
+    expect(status(lastOpen!)).toBe('live')
+    expect(closure!.closureWeek).toBeLessThan(season(committed!).finalWeek)
+    expect(status(closed!)).toBe('cancelled')
+    expect(season(closed!).cancellation).toEqual({ week: closure!.closureWeek, cause: 'closure' })
+    expect(agreement(closed!).settlement).toEqual({ week: closure!.closureWeek, refundDue: FIGURES.advance, refundPaid: 0, chargeDue: CHARGE, chargePaid: 0, closureId: closure!.closureId })
+    expect(tvRows(closed!).filter((row) => row.kind === 'tvAdvanceRefund' || row.kind === 'tvCancellationCharge')).toEqual([])
+    expect(() => saves.makeSave(closed!)).not.toThrow()
+    roundTrips(closed!)
+    // A closed player takes no action at all; the settlement law itself names the estate as the owner of the obligations.
+    expect(() => settleTvObligations(closed!, { agreementId: agreement(closed!).agreementId, expectedRemaining: FIGURES.advance + CHARGE, amount: 1 }))
+      .toThrow(`obligations were published to closure ${closure!.closureId}; the estate owns them`)
   })
 })

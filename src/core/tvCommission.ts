@@ -101,6 +101,20 @@ export function tvDistributionPermission(state: GameState, propertyId: string, w
   return permissionFor(state, TV_COMMISSIONER_ID, { right: 'R1', propertyId }, 'R4', { use: 'televisionDistribution' }, week)
 }
 
+/**
+ * Contract §6-§7: the delivered season is available on the commissioner's service at `week` exactly when the week lies in
+ * its exclusive window [deliveredWeek, deliveredWeek + 52) AND P16 still permits the commissioner's distribution through
+ * the season's own licence (FIX-S13A-1 item 5; moved here from tvReaders.ts, which takes no engine import). A delivered
+ * season without its delivered week is a broken record and throws by name.
+ */
+export function tvDistributionAvailable(state: GameState, season: TvSeason, terms: TvAgreementTerms, week: number): boolean {
+  if (season.status !== 'delivered') return false
+  if (season.deliveredWeek === undefined) throw new Error(`tv distribution: delivered season ${season.seasonId} carries no deliveredWeek`)
+  if (week < season.deliveredWeek || week >= season.deliveredWeek + terms.distributionWeeks) return false
+  const permission = tvDistributionPermission(state, season.propertyId, week)
+  return permission.kind === 'permitted' && permission.licenceId === season.distributionLicenceId
+}
+
 type Admitted = {
   player: string
   commitWeek: number

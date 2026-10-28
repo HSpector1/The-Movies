@@ -9,8 +9,8 @@
 import { assignmentRefusal } from './careerLifecycle.js'
 import { activeContract, assignmentBlockedTalentIds } from './employment.js'
 import { adoptionChainOperational } from './technologyAdoption.js'
-import { tvProductionPermission } from './tvCommission.js'
-import { TV_WORK_UNITS_TOTAL, tvDistributionAvailable, tvOutstanding, tvUnitsThrough } from './tvReaders.js'
+import { tvDistributionAvailable, tvProductionPermission } from './tvCommission.js'
+import { TV_WORK_UNITS_TOTAL, tvOutstanding, tvUnitsThrough } from './tvReaders.js'
 import type { TvCancellationCause, TvMilestoneKind, TvSeasonStatus, TvSettlement, TvStall, TvWorkBlock } from './tvTypes.js'
 import type { FacilityCapability, GameState } from './types.js'
 import { TUNING } from './tuning.js'
@@ -89,7 +89,7 @@ export function tvView(state: GameState): TvView {
       agreement: { agreementId: a.agreementId, fee: a.terms.fee, advance: a.terms.advance, earned: a.earned, received: a.received,
         unearnedAdvance: live ? refundDue : 0, settlement: a.settlement === undefined ? null : { ...a.settlement }, outstanding },
       distribution: { licenceId: s.distributionLicenceId, availableFromWeek: from, availableUntilWeekExclusive: from === null ? null : from + a.terms.distributionWeeks,
-        available: tvDistributionAvailable(s, a.terms, week), expired: from !== null && week >= from + a.terms.distributionWeeks },
+        available: tvDistributionAvailable(state, s, a.terms, week), expired: from !== null && week >= from + a.terms.distributionWeeks },
       cancelPreview: live ? { refundDue, refundPaidNow, chargeDue: a.terms.cancellationCharge, chargePaidNow, owedAfter: refundDue + a.terms.cancellationCharge - refundPaidNow - chargePaidNow } : null,
       settlePreview: outstanding > 0 && a.settlement?.closureId === null ? { outstanding, payableNow: Math.min(outstanding, cash) } : null,
     }

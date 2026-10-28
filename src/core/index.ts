@@ -1844,10 +1844,11 @@ export { P18_SAVE_VERSION, P18_PREDECESSOR_SAVE_VERSION, validateSaveP18, conver
   validateSaveV51, convertV50ToV51, convertV51ToV50, migrateToV51 } from './save.js'
 export type { SaveFileP18, SaveFileV51 } from './save.js'
 // P18: the commission preview and admission quote (the same admission the action runs).
-export { tvCommissionPreview, tvAdmissionQuote, type TvCommissionPreview, type TvAdmissionQuote } from './tvCommission.js'
+export { tvCommissionPreview, tvAdmissionQuote, tvDistributionAvailable, type TvCommissionPreview, type TvAdmissionQuote } from './tvCommission.js'
 // P18 Sprint 13: cancellation, settlement and the distribution window readers.
-export { cancelTvSeason, settleTvObligations, cancelTvSeasonsAtClosure, type SettleTvObligationsInput } from './tvSettlement.js'
-export { tvOutstanding, tvDistributionAvailable } from './tvReaders.js'
+// FIX-S13A-1 item 13: the closure handoff stays internal to the P15B closure transaction (studioClosure.ts); no public export.
+export { cancelTvSeason, settleTvObligations, type SettleTvObligationsInput } from './tvSettlement.js'
+export { tvOutstanding } from './tvReaders.js'
 // P18 Sprint 13 slice B: the client read model (Bridge television view and the browser season surfaces).
 export { tvView, tvCommissionChoices, tvStallText, TV_BLOCK_LABEL, TV_MILESTONE_LABEL, TV_CANCELLATION_LABEL, type TvView, type TvSeasonView, type TvCommissionChoices, type TvRosterRole } from './tvView.js'
 export type { CommissionTvSeasonRequest } from './tvTypes.js'
