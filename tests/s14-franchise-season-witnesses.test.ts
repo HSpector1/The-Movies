@@ -14,20 +14,28 @@
 //
 //   W1 (MEASUREMENT, replay)  the route built twice from the seed with the same action list exports the same save bytes
 //                             at commitment (the sequel greenlight carrying the booking), after the advances through the
-//                             booked work week, and at the continuation's release. CONTROL: another seed's route
-//                             exports different bytes after the same first greenlight.
+//                             booked work week, and at the continuation's release. CONTROL (FIX-S14-W1 item 1): a clone
+//                             of the same route that books the guest in the second nominal shooting week instead keeps
+//                             the greenlight bytes and changes the bytes at the same week after the first booked week.
+//                             A second seed proves nothing: the seed is in the save envelope (save.ts:6830) and in
+//                             state (worldgen.ts:729).
 //   W2 (MEASUREMENT, §8)      the same released world then takes the managed operations step, buys and adopts the
 //                             synchronized-sound chain on its founding stage and Post, and commissions a season on the
 //                             franchise's own story property (the "season on a continuation-linked property" witness;
 //                             the case asserts that P16 admits it). Over every advance of the season, film R/M/F (the
 //                             franchise root), released film results, Standing, promises, the guest's booking, career
-//                             events and first takes are byte-identical to the same world without the season, which ticks
-//                             the same weeks. No Awards source exists in the core (campaignLegacy.ts:92, 303), so Awards
-//                             cannot move; the case asserts the absence.
+//                             events, first takes and the film-side studioHistory rows (standingChanged,
+//                             standingDriftFolded, filmReleased, theatricalRunCompleted, careerMilestone; event ids aside)
+//                             are byte-identical to the same world without the season, which ticks the same weeks. No
+//                             Awards source exists in the core (campaignLegacy.ts:92, 303); the Awards check is a static
+//                             shape premise, not a measurement.
 //
 // Disclosed shortcut, the only one: one P18 fixture cash row (`withCash`, tests/helpers/p18-route.ts) before the
-// technology purchase, so the money reconciles. No staff, grant or capacity is spliced.
-// Budgets: each heavy build runs in a hook with the budget declared beside it; cases only compare stored results.
+// technology purchase, so the money reconciles. No staff, grant or capacity is spliced. The row lands before the twins
+// fork, so both carry it; W2's first case records the cash before the row, the purchase price, the adoption commitment
+// and the admission quote, so the record shows whether the natural world could have afforded the setup.
+// Budgets (FIX-S14-W1): first measurements, s14-r1 at 0cf00e40 ran this file in 31.9 s with three route builds; it now
+// builds twice and replays one clone. Declared 300 s top-level and 240 s per describe hook; never to be widened.
 
 import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
@@ -38,6 +46,7 @@ import { storyPropertyId } from '../src/core/rights.js'
 import { exportCurrentState, makeSave } from '../src/core/save.js'
 import { adoptionChainOperational } from '../src/core/technologyAdoption.js'
 import { tick } from '../src/core/tick.js'
+import { tvAdmissionQuote } from '../src/core/tvCommission.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { Action, CreativeRole, GameState } from '../src/core/types.js'
 import { adoptExistingSoundChain } from '../src/harness/p13a/fixtures.js'
@@ -47,8 +56,6 @@ import { attempt, player, request, season, sig, television, withCash, type TvRos
 
 /** bridge-p17-featured-appearances.test.ts:105's seed: its route already reaches a released continuation with a guest. */
 const SEED = 'bridge-p17-featured-appearances'
-/** The CONTROL seed: p17-cameo-booking.test.ts:29's, whose founded world takes the same first greenlight. */
-const OTHER_SEED = 'p17-cameo-booking-01'
 
 type ContinuationRun = {
   route: CameoRoute
@@ -66,19 +73,24 @@ type ContinuationRun = {
   workWeek: number
 }
 
-/** bridge-p17-featured-appearances.test.ts:54-67 `releasedContinuation`, with its intermediate states kept. */
-function continuationRun(route: CameoRoute): ContinuationRun {
+/** bridge-p17-featured-appearances.test.ts:54-67 `releasedContinuation`, with its intermediate states kept. The CONTROL
+ * passes `shootingIndex` 1 (the guest's week is the second nominal shooting week) and `workedTick` (stop the advances at
+ * that week instead of just after the booked one); the measured run keeps the defaults. */
+function continuationRun(route: CameoRoute, shootingIndex = 0, workedTick?: number): ContinuationRun {
   const greenlit = applyActions(route.world, [greenlight(route.world, freshConcept(route.world), route.a, route.writer)])
   const parentId = greenlit.studio.activeProductions[greenlit.studio.activeProductions.length - 1]!.id
   let state = releaseNewest(greenlit)
   const staff = new Set([route.writer, route.a.director, route.a.craft, ...route.a.cast, route.b.director, route.b.craft, ...route.b.cast])
   const guest = freeGuest(state, 'actor', staff)
-  const workWeek = nominalShootingWeeks(state.market.tick)[0]!
+  const shooting = nominalShootingWeeks(state.market.tick)
+  if (shooting.length <= shootingIndex) throw new Error(`premise: no nominal shooting week ${shootingIndex + 1} after week ${state.market.tick}`)
+  const workWeek = shooting[shootingIndex]!
   const commitment = applyActions(state, [{ ...greenlight(state, freshConcept(state), route.b, route.writer, [ask(guest, workWeek)]),
     continuation: { type: 'directSequel', predecessorProductionId: parentId } } as Action])
   const childId = commitment.studio.activeProductions[commitment.studio.activeProductions.length - 1]!.id
   state = commitment
-  while (state.market.tick <= workWeek) state = tick(state)
+  const stop = workedTick ?? workWeek + 1
+  while (state.market.tick < stop) state = tick(state)
   const worked = state
   return { route, greenlit, commitment, worked, released: releaseNewest(worked), parentId, childId, guestId: guest.id, workWeek }
 }
@@ -86,7 +98,7 @@ function continuationRun(route: CameoRoute): ContinuationRun {
 let A: ContinuationRun
 beforeAll(() => {
   A = continuationRun(cameoRoute(SEED))
-}, 600_000)
+}, 300_000)
 
 describe('S14 W1 — same seed, same actions: byte identity on the P17 continuation route with a featured guest (MEASUREMENT; P17 §6 :106)', () => {
   type Bytes = { commitment: string; worked: string; released: string }
@@ -94,24 +106,18 @@ describe('S14 W1 — same seed, same actions: byte identity on the P17 continuat
   let a: Bytes
   let b: Bytes
   let aGreenlit: string
-  let other: { bytes: string } | { premise: string }
+  let control: ContinuationRun
   beforeAll(() => {
     a = bytesOf(A)
     aGreenlit = exportCurrentState(A.greenlit)
     b = bytesOf(continuationRun(cameoRoute(SEED)))
-    try {
-      const route = cameoRoute(OTHER_SEED)
-      other = { bytes: exportCurrentState(applyActions(route.world, [greenlight(route.world, freshConcept(route.world), route.a, route.writer)])) }
-    } catch (error) {
-      // Isolated, never swallowed: the CONTROL case below fails by this name while the identity case still runs.
-      other = { premise: error instanceof Error ? error.message : String(error) }
-    }
-  }, 900_000)
+    control = continuationRun(structuredClone(A.route), 1, A.worked.market.tick)
+  }, 240_000)
 
   it('the route is the one the contract names: a released direct sequel whose guest worked the booked week and was credited', () => {
     const booking = rootOf(A.worked)?.bookings.find((x) => x.talentId === A.guestId)
     expect(booking).toMatchObject({ productionId: A.childId, status: 'completed', completedWeek: A.workWeek })
-    expect(rootOf(A.released)?.bookings.find((x) => x.talentId === A.guestId)?.careerEvent).not.toBeNull()
+    expect(rootOf(A.released)?.bookings.find((x) => x.talentId === A.guestId)?.careerEvent).toMatchObject({ talentId: A.guestId })
     const edge = A.released.franchises?.properties.flatMap((p) => p.installments).find((e) => e.childProductionId === A.childId)
     expect(edge).toMatchObject({ type: 'directSequel', parentProductionId: A.parentId })
   })
@@ -122,10 +128,12 @@ describe('S14 W1 — same seed, same actions: byte identity on the P17 continuat
     expect(b.released === a.released, 'release bytes').toBe(true)
   })
 
-  it('CONTROL: another seed\'s route exports different bytes after the same first greenlight, so the comparison is not vacuous', () => {
-    expect(other, `the ${OTHER_SEED} route reached its first greenlight`).toHaveProperty('bytes')
-    if (!('bytes' in other)) return
-    expect(other.bytes === aGreenlit, `${OTHER_SEED} versus ${SEED}`).toBe(false)
+  it('CONTROL: the guest booked one nominal shooting week later keeps the greenlight bytes and changes the bytes at the same week', () => {
+    expect(exportCurrentState(control.greenlit) === aGreenlit, 'greenlight bytes').toBe(true)
+    expect(control.workWeek, 'premise: the control books a later week').toBeGreaterThan(A.workWeek)
+    expect(control.worked.market.tick).toBe(A.worked.market.tick)
+    expect(rootOf(control.worked)?.bookings.find((x) => x.talentId === control.guestId)?.status, 'the control booking is still reserved').toBe('reserved')
+    expect(exportCurrentState(control.worked) === a.worked, `bytes at week ${A.worked.market.tick}`).toBe(false)
   })
 })
 
@@ -135,7 +143,12 @@ describe('S14 W2 — a franchise with a guest and a live season: no film polluti
   const filmSide = (s: GameState): string => sig({
     franchises: s.franchises ?? null, releasedFilms: s.studio.releasedFilms, standing: s.studio.standing, promises: s.promises,
     cameos: s.cameos ?? null, careerEvents: s.careerEvents, firstTakes: s.firstTakes,
+    // FIX-S14-W1 item 4: the film-side history rows, without their event ids (a season row may take an id first).
+    history: s.studioHistory.rows.filter((r) => FILM_HISTORY.has(r.kind)).map(({ eventId: _eventId, ...row }) => row),
   })
+  const FILM_HISTORY: ReadonlySet<string> = new Set(['standingChanged', 'standingDriftFolded', 'filmReleased', 'theatricalRunCompleted', 'careerMilestone'])
+  type CashRecord = { baseCash: number; row: number; purchasePrice: number; adoptionCommitment: number; quoteCash: number; quoteRequired: number; cashWithoutRow: number; naturalPassesQuote: boolean }
+  let cashRecord: CashRecord
   let base: GameState
   let propertyId: string
   let refusal: string | undefined
@@ -162,9 +175,12 @@ describe('S14 W2 — a franchise with a guest and a live season: no film polluti
   }
 
   beforeAll(() => {
-    let s = applyActions(A.released, [{ kind: 'activateStudioOperations' }])
-    s = withCash(s, 30_000_000)
-    s = adoptExistingSoundChain(applyActions(s, [{ kind: 'purchaseTechnology', technologyId: 'synchronized-sound' }]))
+    const activated = applyActions(A.released, [{ kind: 'activateStudioOperations' }])
+    const funded = withCash(activated, 30_000_000)
+    const bought = applyActions(funded, [{ kind: 'purchaseTechnology', technologyId: 'synchronized-sound' }])
+    let s = adoptExistingSoundChain(bought)
+    const purchasePrice = funded.studio.cash - bought.studio.cash
+    const adoptionCommitment = bought.studio.cash - s.studio.cash
     const adoption = s.technology.adoptions.find((x) => x.studioId === player(s) && x.technologyId === 'synchronized-sound')
     if (adoption === undefined || adoption.postFacilityId === null) throw new Error('premise: no player sound adoption with a Post facility')
     for (let guard = 0; !adoptionChainOperational(s, s.technology.adoptions.find((x) => x.id === adoption.id)!); guard++) {
@@ -172,6 +188,10 @@ describe('S14 W2 — a franchise with a guest and a live season: no film polluti
       s = tick(s)
     }
     base = s
+    const quote = tvAdmissionQuote(base, base.market.tick)
+    const row = funded.studio.cash - activated.studio.cash
+    cashRecord = { baseCash: activated.studio.cash, row, purchasePrice, adoptionCommitment, quoteCash: quote.cash, quoteRequired: quote.required,
+      cashWithoutRow: quote.cash - row, naturalPassesQuote: quote.cash - row >= quote.required }
     const parent = base.studio.releasedFilms.find((f) => f.productionId === A.parentId)
     if (parent === undefined) throw new Error('premise: the parent film is not among the released films')
     propertyId = storyPropertyId(parent.conceptId)
@@ -184,15 +204,19 @@ describe('S14 W2 — a franchise with a guest and a live season: no film polluti
     let without = base
     rows.push({ week: withSeason.market.tick, withSeason: filmSide(withSeason), without: filmSide(without) })
     while (season(withSeason).status === 'live') {
+      if (withSeason.market.tick >= season(withSeason).finalWeek) throw new Error(`p18 W2: the season is still live at its final week ${season(withSeason).finalWeek}`)
       withSeason = tick(withSeason)
       without = tick(without)
       rows.push({ week: withSeason.market.tick, withSeason: filmSide(withSeason), without: filmSide(without) })
     }
     withEnd = withSeason
     withoutEnd = without
-  }, 300_000)
+  }, 240_000)
 
-  it('P16 admits the season on the franchise\'s own story property (continuation-linked), within 72 advances', () => {
+  it('P16 admits the season on the franchise\'s own story property (continuation-linked), cash-assisted by one disclosed row, within 72 advances', () => {
+    // The record, printed on every run: whether the natural world, without the one disclosed row, could afford the setup.
+    console.info(`S14 W2 cash record ${JSON.stringify(cashRecord)}`)
+    expect(Object.values(cashRecord).every((v) => typeof v === 'boolean' || Number.isFinite(v)), JSON.stringify(cashRecord)).toBe(true)
     expect(refusal, 'the commission on the continuation-linked property').toBeUndefined()
     const property = base.franchises?.properties.find((p) => p.storyPropertyId === propertyId)
     const edges = property?.installments.map((e) => [e.childProductionId, e.type]) ?? []
@@ -216,7 +240,7 @@ describe('S14 W2 — a franchise with a guest and a live season: no film polluti
     expect(rows.filter((r) => r.withSeason !== r.without).map((r) => r.week)).toEqual([])
   })
 
-  it('no Awards source exists for a season to touch, and both worlds still save', () => {
+  it('static shape premise, not a measurement: no Awards root exists for a season to touch; both worlds still save', () => {
     expect(refusal, 'premise: the commission').toBeUndefined()
     expect(Object.hasOwn(withEnd, 'awards')).toBe(false)
     expect(Object.hasOwn(withoutEnd, 'awards')).toBe(false)

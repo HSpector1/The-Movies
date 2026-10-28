@@ -12,36 +12,42 @@
 //   W1 (MEASUREMENT, replay)  the route built twice from SEED with the same action list (the commission, both film
 //                             crews greenlit as Development & Casting frees, the player's shooting calls each week)
 //                             gives the same exported save bytes at commitment, after 8 advances with the films
-//                             contesting the season's owners, and at the season's terminal boundary. CONTROL: the
-//                             same route from another seed exports different bytes at commitment.
-//   W3 (MEASUREMENT, Owner)   the player sells the R1 title to a live rival after the scripts block. Today the season
+//                             contesting the season's owners, and at the season's terminal boundary. CONTROL (FIX-S14-W1
+//                             item 1): a clone of the same build that leaves out one action after commitment (the
+//                             first week's shooting calls that change anything) exports the same commitment bytes and
+//                             different bytes after N. A second seed proves nothing: the seed itself is in the save
+//                             envelope (save.ts:6830) and in state (worldgen.ts:729).
+//   W3 (MEASUREMENT, Owner)   the player sells the R1 title to a live rival after the scripts block. The buyer is chosen
+//                             through the existing STABLE condition readers (tests/helpers/p16-fixtures.ts:164), a P16
+//                             test device that decides only which rival P16 permits as a bidder; it splices nothing. Today the season
 //                             stalls on rights each week and the C + 20 deadline cancels it with the v1 settlement; the
 //                             commissioner's R4 licence survives. Owner items: the classification of "authority ends"
 //                             (block or cancel at once) and the contract-required automatic cancellation on grant loss,
 //                             not implemented (p18-sprint13/RESULTS.md, ACCEPTANCE OPEN).
-//   W4 (MEASUREMENT, sweep)   on W1's run, after every advance: no double-booked slot, no person engaged twice, the
-//                             save validates (cash reconciles with the ledger), one 25,000 spend row per credited unit.
+//   W4 (MEASUREMENT, sweep)   on W1's run, after every advance: no double-booked slot, the film and writing arms of the
+//                             busy union disjoint from the season's arm (through the readers), the save validates (cash
+//                             reconciles with the ledger), one 25,000 spend row per credited unit. The contention premise
+//                             counts only a week the season actually lost: a capacity or set stall, a film on the adopted
+//                             stage in the rehearsal or shooting block, or both Post slots held in the post block.
 //
 // Disclosed shortcut: the route's own P14B.2 fund rows (tests/helpers/p18-season-world.ts); nothing else is spliced.
-// Budgets: each heavy build runs in a hook with the budget declared beside it; cases only compare stored results.
+// Budgets (FIX-S14-W1): first measurements, s14-r1 at 0cf00e40 ran this file in 57.9 s with three route builds; it now
+// builds twice and replays one clone. Declared 300 s top-level and 240 s per describe hook; never to be widened.
 
 import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
-import { busyTalentIds } from '../src/core/employment.js'
+import { activeProductionCompanyTalentIds, activeWritingAssignmentIds, busyTalentIds } from '../src/core/employment.js'
 import { assertNoDoubleBookedResourceSlots, occupiedResourceSlots } from '../src/core/occupancy.js'
 import { permittedBidderRefusal } from '../src/core/rightsFinance.js'
 import { exportCurrentState, makeSave } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { tvDistributionPermission, tvProductionPermission } from '../src/core/tvCommission.js'
-import { tvReservedPeople } from '../src/core/tvReaders.js'
+import { tvEngagedTalentIds } from '../src/core/tvReaders.js'
 import type { GameState } from '../src/core/types.js'
 import { STABLE } from './helpers/p16-fixtures.js'
 import { sellTitle } from './helpers/p17-route.js'
 import { FIGURES, agreement, commissioned, greenlightWith, player, season, television, tickUntil, tvRows, type SeasonRoute } from './helpers/p18-route.js'
-import { SEED, buildSeasonWorld, type FilmCrew } from './helpers/p18-season-world.js'
-
-/** The CONTROL seed: the p13a world's own default seed, run through the same route. */
-const OTHER_SEED = 'p13a-core-causal-01'
+import { buildSeasonWorld, type FilmCrew } from './helpers/p18-season-world.js'
 /** "After N advances with films contesting the season's owners": N, fixed before any run. */
 const N = 8
 
@@ -70,11 +76,14 @@ type ContestedRun = {
   states: GameState[]
   /** The week each crew's film was greenlit, in crew order (null if it never was). */
   greenlitWeeks: (number | null)[]
+  /** CONTROL only: the week whose shooting calls were left out (null in the measured run). */
+  skippedWeek: number | null
 }
 
 /** W1's one action list: commission, greenlight each crew as soon as a Development & Casting slot is free, and before
- * every advance make the player's shooting calls. Ticks until the season leaves `live` (delivery or the deadline). */
-function contestedRun(route: SeasonRoute): ContestedRun {
+ * every advance make the player's shooting calls. Ticks until the season leaves `live` (delivery or the deadline).
+ * `skipFirstCalls` (the CONTROL) leaves out the first week's shooting calls that would change the state, and nothing else. */
+function contestedRun(route: SeasonRoute, skipFirstCalls = false): ContestedRun {
   let s = commissioned(route)
   const crews: FilmCrew[] = route.crews
   const greenlitWeeks: (number | null)[] = crews.map(() => null)
@@ -88,13 +97,17 @@ function contestedRun(route: SeasonRoute): ContestedRun {
   greenlightWaiting()
   const states = [s]
   const finalWeek = season(s).finalWeek
+  let skippedWeek: number | null = null
   while (season(s).status === 'live') {
     if (s.market.tick >= finalWeek) throw new Error(`p18 W1: the season is still live at its final week ${finalWeek}`)
-    s = tick(directFilms(s))
+    const directed = directFilms(s)
+    if (skipFirstCalls && skippedWeek === null && directed !== s) skippedWeek = s.market.tick
+    else s = directed
+    s = tick(s)
     greenlightWaiting()
     states.push(s)
   }
-  return { states, greenlitWeeks }
+  return { states, greenlitWeeks, skippedWeek }
 }
 
 type Bytes = { commitment: string; afterN: string; terminal: string; terminalStatus: string }
@@ -114,17 +127,12 @@ beforeAll(() => {
 describe('S14 W1 — same seed, same actions: byte identity on the P18 season route (MEASUREMENT; §9 :135)', () => {
   let a: Bytes
   let b: Bytes
-  let other: { bytes: string } | { premise: string }
+  let control: ContestedRun
   beforeAll(() => {
     a = bytesOf(runA)
     b = bytesOf(contestedRun(buildSeasonWorld()))
-    try {
-      other = { bytes: exportCurrentState(commissioned(buildSeasonWorld(OTHER_SEED))) }
-    } catch (error) {
-      // Isolated, never swallowed: the CONTROL case below fails by this name while the identity cases still run.
-      other = { premise: error instanceof Error ? error.message : String(error) }
-    }
-  }, 900_000)
+    control = contestedRun(structuredClone(routeA), true)
+  }, 240_000)
 
   it('the films contest the season\'s owners within the measured window (premise of "after N advances")', () => {
     expect(runA.greenlitWeeks.every((w) => w !== null), `both crews' films are greenlit while the season is live: ${JSON.stringify(runA.greenlitWeeks)}`).toBe(true)
@@ -139,52 +147,69 @@ describe('S14 W1 — same seed, same actions: byte identity on the P18 season ro
     expect(b.terminal === a.terminal, `terminal bytes (${a.terminalStatus})`).toBe(true)
   })
 
-  it('CONTROL: another seed through the same route exports different bytes at commitment, so the comparison is not vacuous', () => {
-    expect(other, `the ${OTHER_SEED} route reached its commission`).toHaveProperty('bytes')
-    if (!('bytes' in other)) return
-    expect(other.bytes === a.commitment, `${OTHER_SEED} versus ${SEED}`).toBe(false)
+  it('CONTROL: one action left out after commitment (the first week of shooting calls) keeps the commitment bytes and changes the bytes after N', () => {
+    const commit = runA.states[0]!.market.tick
+    expect(control.skippedWeek, 'premise: a week of shooting calls changed the state within the first N advances').not.toBeNull()
+    expect(control.skippedWeek!).toBeGreaterThanOrEqual(commit)
+    expect(control.skippedWeek!).toBeLessThan(commit + N)
+    expect(exportCurrentState(control.states[0]!) === a.commitment, 'commitment bytes').toBe(true)
+    expect(control.states.length, 'the control season ran past N advances').toBeGreaterThan(N)
+    expect(exportCurrentState(control.states[N]!) === a.afterN, `bytes after ${N} advances`).toBe(false)
   })
 })
 
 describe('S14 W4 — shared allocation order: no double spend, person or slot after any advance (MEASUREMENT; §9 :135)', () => {
-  type Week = { week: number; doubleBooked: string | null; twice: string[]; seasonPeopleNotBusy: string[]; save: string | null; spendRows: number; units: number; contested: boolean }
+  type Week = { week: number; block: string; doubleBooked: string | null; shared: string[]; seasonPeopleNotBusy: string[]; save: string | null; spendRows: number; units: number; contested: boolean }
   let rows: Week[]
   beforeAll(() => {
     const adoption = routeA.state.technology.adoptions.find((x) => x.id === routeA.adoptionId)!
-    const chain = [adoption.stageFacilityId, adoption.postFacilityId]
+    const stage = adoption.stageFacilityId
+    const post = adoption.postFacilityId
+    const filmOwner = (owner: string): boolean => owner === 'production' || owner === 'shootingTask'
     rows = runA.states.map((s) => {
       let doubleBooked: string | null = null
       try { assertNoDoubleBookedResourceSlots(s) } catch (error) { doubleBooked = (error as Error).message }
       let save: string | null = null
       try { makeSave(s) } catch (error) { save = (error as Error).message }
-      const seats = s.studio.activeProductions.flatMap((p) => [p.directorId, ...Object.values(p.cast), ...p.craftIds])
-      const live = (s.television?.seasons ?? []).filter((x) => x.status === 'live')
-      const seasonPeople = live.flatMap((x) => tvReservedPeople(x))
-      const all = [...seats, ...seasonPeople]
+      // FIX-S14-W1 item 3: the film and writing arms of the busy union against the season's arm, each through its reader.
+      const filmAndWriting = new Set([...activeProductionCompanyTalentIds(s), ...activeWritingAssignmentIds(s)])
+      const seasonPeople = [...tvEngagedTalentIds(s.television)]
       const busy = busyTalentIds(s)
-      const filmOnChain = [...occupiedResourceSlots(s).entries()].some(([key, claims]) =>
-        chain.some((facilityId) => facilityId !== null && key.startsWith(`${facilityId}:`)) && claims.some((c) => c.owner === 'production' || c.owner === 'shootingTask'))
-      const stall = season(s).work.stall?.kind
+      // FIX-S14-W1 item 2: a week counts only if the season lost it to a film. Post has two slots (tuning.ts:684), so a
+      // film on Post contests only when every Post slot is held in the season's post block.
+      const sx = season(s)
+      const live = sx.status === 'live'
+      const slots = [...occupiedResourceSlots(s).entries()]
+      const filmOn = (facilityId: string | null) => facilityId !== null && slots.some(([key, claims]) => key.startsWith(`${facilityId}:`) && claims.some((c) => filmOwner(c.owner)))
+      const postCapacity = s.operations.facilities.find((f) => f.id === post)?.capacity ?? 0
+      const postFull = post !== null && slots.filter(([key, claims]) => key.startsWith(`${post}:`) && claims.length > 0).length >= postCapacity
+      const stall = sx.work.stall?.kind
       return {
         week: s.market.tick,
+        block: sx.work.block,
         doubleBooked,
-        twice: [...new Set(all.filter((id, i) => all.indexOf(id) !== i))],
+        shared: seasonPeople.filter((id) => filmAndWriting.has(id)),
         seasonPeopleNotBusy: seasonPeople.filter((id) => !busy.has(id)),
         save,
         spendRows: tvRows(s, 'tvProductionSpend').filter((r) => r.amount === -FIGURES.unitSpend).length,
         units: television(s)!.receipts.filter((r) => r.kind === 'unitCredited').length,
-        contested: live.length > 0 && (filmOnChain || stall === 'facility-capacity' || stall === 'set-unavailable'),
+        contested: live && (stall === 'facility-capacity' || stall === 'set-unavailable'
+          || ((sx.work.block === 'rehearsal' || sx.work.block === 'shooting') && filmOn(stage))
+          || (sx.work.block === 'post' && postFull && filmOn(post))),
       }
     })
-  }, 300_000)
+  }, 240_000)
 
-  it('the films held the season\'s adopted stage or Post, or the season waited for capacity, in some live week (premise)', () => {
-    expect(rows.some((r) => r.contested), JSON.stringify(rows.map((r) => [r.week, r.contested]))).toBe(true)
+  it('premise: in some live week the season lost a block to a film (a capacity or set stall, the adopted stage in rehearsal or shooting, or a full Post in post)', () => {
+    expect(rows.some((r) => r.contested), JSON.stringify(rows.map((r) => [r.week, r.block, r.contested]))).toBe(true)
   })
 
-  it('every advance: no slot booked twice, no person in two engagements, every season person in the busy union', () => {
+  it('every advance: no slot booked twice; the film and writing arms of the busy union never share a person with the season\'s arm', () => {
     expect(rows.filter((r) => r.doubleBooked !== null).map((r) => [r.week, r.doubleBooked])).toEqual([])
-    expect(rows.filter((r) => r.twice.length > 0).map((r) => [r.week, r.twice])).toEqual([])
+    expect(rows.filter((r) => r.shared.length > 0).map((r) => [r.week, r.shared])).toEqual([])
+  })
+
+  it('structural premise, not a measurement: busyTalentIds adds the season\'s arm by construction (employment.ts:195)', () => {
     expect(rows.filter((r) => r.seasonPeopleNotBusy.length > 0).map((r) => [r.week, r.seasonPeopleNotBusy])).toEqual([])
   })
 
@@ -219,7 +244,7 @@ describe('S14 W3 — an R1 title sale during a live season (MEASUREMENT; Owner: 
       s = tick(s)
       after.push(s)
     }
-  }, 300_000)
+  }, 240_000)
 
   it('the sale lands: the producer loses its production authority, the commissioner keeps its licence', () => {
     const propertyId = season(sold).propertyId
