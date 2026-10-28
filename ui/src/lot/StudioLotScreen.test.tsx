@@ -966,21 +966,38 @@ describe('StudioLotScreen — authoritative Hollywood operations host', () => {
     expect(getByTestId('lot-canvas-loading')).toBeInTheDocument()
 
     // Resolve as soon as the ready commit is in the DOM. MutationObserver delivery is a microtask, so this
-    // continuation runs before the Scheduler task that would flush the commit's passive effects.
-    const readyCommitted = new Promise<void>((resolve) => {
-      const observer = new MutationObserver(() => {
+    // continuation runs before the Scheduler task that would flush the commit's passive effects. A host where
+    // the loading note never leaves fails here by name instead of at the test timeout.
+    let observer: MutationObserver | undefined
+    let timer: ReturnType<typeof setTimeout> | undefined
+    const readyCommitted = new Promise<void>((resolve, reject) => {
+      observer = new MutationObserver(() => {
         if (document.querySelector('[data-testid="lot-canvas-loading"]') !== null) return
-        observer.disconnect()
         resolve()
       })
       observer.observe(document.body, { childList: true, subtree: true })
+      timer = setTimeout(() => {
+        reject(new Error('FIX-S13-5: the renderer-ready commit did not remove lot-canvas-loading within 2000 ms'))
+      }, 2000)
+    }).finally(() => {
+      observer?.disconnect()
+      clearTimeout(timer)
     })
     latest().opts.onReady?.()
     await readyCommitted
     expect(queryByTestId('lot-canvas-loading')).toBeNull()
     expect(schedule).toHaveFocus()
+    // Precondition: the window is open. Only the canvasReady passive effect calls setIdentityMode, so an empty
+    // record proves the ready commit's passive effects are still queued. A host that flushed them inside the
+    // ready task cannot tell the passive code from the layout fix, and fails here instead of passing silently.
+    expect(
+      latest().identityModes,
+      'the ready commit already flushed its passive effects; this run cannot witness FIX-S13-4',
+    ).toEqual([])
 
     fireEvent.click(schedule)
+    // React ran the queued ready-commit effects inside the click, before the successor render.
+    expect(latest().identityModes).toHaveLength(1)
     const status = getByTestId(`hollywood-task-status-${productionId}`)
     expect(status).toHaveTextContent('scheduled')
     expect(queryByTestId('hollywood-production-command-scheduleShootingTake')).toBeNull()
