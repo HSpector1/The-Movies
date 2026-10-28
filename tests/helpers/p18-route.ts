@@ -50,11 +50,15 @@ export type TvSeasonLocal = {
   commitWeek: number; dueWeek: number; finalWeek: number; status: string
   work: { block: string; creditedUnits: number; blockCredited: number; lastCreditedWeek: number | null; stall: { kind: string } | null; stageHeldSinceWeek: number | null }
   reservations: TvReservationLocal[]; setId: string | null; writerReleasedWeek: number | null
+  // Sprint 13: present exactly in the terminal state.
+  deliveredWeek?: number; cancellation?: { week: number; cause: string }
 }
+export type TvSettlementLocal = { week: number; refundDue: number; refundPaid: number; chargeDue: number; chargePaid: number; closureId: string | null }
 export type TvAgreementLocal = {
   agreementId: string; seasonId: string; studioId: string; commissionerId: string; earned: number; received: number
   terms: Record<string, unknown> & { advance: number; unitSpend: number; dueWeek: number; finalWeek: number }
   milestones: { kind: string; week: number; earned: number; paid: number }[]
+  settlement?: TvSettlementLocal
 }
 export type TvReceiptLocal = { receiptId: string; kind: string; week: number; seasonId: string; agreementId: string } & Record<string, unknown>
 export type TelevisionLocal = {

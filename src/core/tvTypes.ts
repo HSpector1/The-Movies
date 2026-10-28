@@ -5,9 +5,10 @@
 // commissioned six-episode season produced as ONE twelve-unit workload for one external commissioner. Six is
 // delivery metadata, never six production clocks.
 //
-// Sprint 12 slice: commission (preview, accept, refuse) and paid work. Delivery, lateness, cancellation and
-// refund settlement, partial repayment, closure treatment and the 52-week distribution term are Sprint 13; their
-// records are not here, and a season that finishes its twelfth unit waits for that lane's delivery boundary.
+// Sprint 12: commission (preview, accept, refuse) and paid work. Sprint 13 slice 1: delivery with lateness, the
+// 52-week distribution window, cancellation (producer, deadline, closure) with the v1 settlement and partial
+// repayment, and the explicit settlement action. The terminal facts are optional leaves on the existing records
+// (present exactly when the season is delivered or cancelled), so absence and presence of the root mean what they did.
 //
 // Types only, plus the identity constants the contract names. No behaviour.
 
@@ -22,8 +23,8 @@ export const TV_COMMISSIONER_ID = 'p18-limited-season-commissioner-v1' as const
 export const TV_WORK_BLOCK_ORDER = ['scripts', 'preparation', 'rehearsal', 'shooting', 'post'] as const
 export type TvWorkBlock = (typeof TV_WORK_BLOCK_ORDER)[number]
 
-/** Contract §5: the television money kinds this slice writes. Refund and cancellation-charge kinds are Sprint 13. */
-export const TV_LEDGER_KINDS = ['tvAdvance', 'tvMilestonePayment', 'tvProductionSpend'] as const
+/** Contract §5: the television money kinds. Receipts are positive; spend, refund and charge are negative outflows. */
+export const TV_LEDGER_KINDS = ['tvAdvance', 'tvMilestonePayment', 'tvProductionSpend', 'tvAdvanceRefund', 'tvCancellationCharge'] as const
 export type TvLedgerKind = (typeof TV_LEDGER_KINDS)[number]
 
 export type TvRole = 'writer' | 'director' | 'lead' | 'antagonist' | 'support' | 'craft'
@@ -112,14 +113,30 @@ export type TvSeason = {
   commitWeek: number
   dueWeek: number
   finalWeek: number
-  /** Sprint 12 writes only live seasons; delivery and cancellation are Sprint 13. */
-  status: 'live'
+  /** Live until the delivery boundary or a cancellation (contract §6-§7); terminal states are permanent. */
+  status: TvSeasonStatus
   work: TvSeasonWork
   reservations: TvReservation[]
   /** The set bound with the stage at rehearsal; survives as the record of what was shot on. */
   setId: string | null
   writerReleasedWeek: number | null
+  /** Present exactly when delivered: the boundary T the master was accepted at (contract §6). */
+  deliveredWeek?: number
+  /** Present exactly when cancelled. */
+  cancellation?: TvCancellation
 }
+
+export type TvSeasonStatus = 'live' | 'delivered' | 'cancelled'
+/** Contract §7 causes this slice implements; grant loss, person loss and absorption are not wired yet (NOTES-S13A). */
+export type TvCancellationCause = 'producer' | 'deadline' | 'closure'
+export type TvCancellation = { week: number; cause: TvCancellationCause }
+
+/**
+ * Contract §5/§7 settlement, frozen at the cancellation boundary: U0 = P − E (refundDue) and K (chargeDue), what has
+ * been paid of each (refund first, then charge), and the P15 closure the obligations were published to (null while
+ * the studio operates). Outstanding = (refundDue − refundPaid) + (chargeDue − chargePaid).
+ */
+export type TvSettlement = { week: number; refundDue: number; refundPaid: number; chargeDue: number; chargePaid: number; closureId: string | null }
 
 export type TvMilestoneKind = 'scripts' | 'pictureLock' | 'delivery'
 
@@ -151,7 +168,12 @@ export type TvAgreement = {
   /** P: gross commissioning cash actually received, the advance included. */
   received: number
   milestones: TvMilestoneRecord[]
+  /** Present exactly when the season is cancelled. */
+  settlement?: TvSettlement
 }
+
+/** Who wrote a settlement payment: the cancellation transaction itself, or a later `settleTvObligations` action. */
+export type TvPaymentSource = 'cancellation' | 'settlement'
 
 type TvReceiptBase = { receiptId: string; week: number; seasonId: string; agreementId: string }
 export type TvReceipt = TvReceiptBase & (
@@ -162,6 +184,14 @@ export type TvReceipt = TvReceiptBase & (
   | { kind: 'writerReleased'; talentId: string }
   | { kind: 'milestoneEarned'; milestone: TvMilestoneKind; amount: number }
   | { kind: 'milestonePaid'; milestone: TvMilestoneKind; amount: number }
+  // Sprint 13 slice 1 (contract §5-§7). Noncash: delivered, the late reduction, distribution expiry, cancelled.
+  | { kind: 'delivered'; lateWeeks: number }
+  | { kind: 'deliveryReduction'; amount: number }
+  | { kind: 'distributionExpired' }
+  | { kind: 'cancelled'; cause: TvCancellationCause; refundDue: number; chargeDue: number }
+  // Cash, each carried by exactly one ledger row (tvAdvanceRefund / tvCancellationCharge).
+  | { kind: 'advanceRefundPaid'; amount: number; source: TvPaymentSource }
+  | { kind: 'cancellationChargePaid'; amount: number; source: TvPaymentSource }
 )
 export type TvReceiptKind = TvReceipt['kind']
 /** One receipt before the allocator names it: each variant keeps its own fields (a plain Omit would collapse the union). */

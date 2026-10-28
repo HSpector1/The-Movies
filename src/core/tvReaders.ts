@@ -5,7 +5,7 @@
 
 import { TUNING } from './tuning.js'
 import { TV_WORK_BLOCK_ORDER } from './tvTypes.js'
-import type { TelevisionRoot, TvAgreementTerms, TvSeason, TvWorkBlock } from './tvTypes.js'
+import type { TelevisionRoot, TvAgreement, TvAgreementTerms, TvReceipt, TvReceiptDraft, TvSeason, TvWorkBlock } from './tvTypes.js'
 import type { FacilityCapability } from './types.js'
 
 export type TvWorkBlockDefinition = { block: TvWorkBlock; units: number; capabilities: readonly FacilityCapability[] }
@@ -108,6 +108,28 @@ export function tvTermsFor(commitWeek: number): TvAgreementTerms {
     cancellationCharge: TUNING.TV_CANCELLATION_CHARGE,
     distributionWeeks: TUNING.TV_DISTRIBUTION_WEEKS,
   }
+}
+
+/** One id from the P18 allocator (moved here from tvCommission.ts so the settlement and closure paths stay leaf-only). */
+export function allocateTvId(root: TelevisionRoot, prefix: string): { root: TelevisionRoot; id: string } {
+  return { root: { ...root, nextId: root.nextId + 1 }, id: `${prefix}-${String(root.nextId)}` }
+}
+
+/** Append one receipt with the next id. */
+export function appendTvReceipt(root: TelevisionRoot, receipt: TvReceiptDraft): { root: TelevisionRoot; receiptId: string } {
+  const allocated = allocateTvId(root, 'tv-receipt')
+  return { root: { ...allocated.root, receipts: [...allocated.root.receipts, { ...receipt, receiptId: allocated.id } as TvReceipt] }, receiptId: allocated.id }
+}
+
+/** Contract §7: what a cancelled agreement still owes (advance refund, then cancellation charge); 0 while live or delivered. */
+export function tvOutstanding(agreement: TvAgreement): number {
+  const s = agreement.settlement
+  return s === undefined ? 0 : (s.refundDue - s.refundPaid) + (s.chargeDue - s.chargePaid)
+}
+
+/** Contract §6: the commissioner's exclusive availability window [deliveredWeek, deliveredWeek + 52), half-open. */
+export function tvDistributionAvailable(season: TvSeason, terms: TvAgreementTerms, week: number): boolean {
+  return season.status === 'delivered' && season.deliveredWeek !== undefined && season.deliveredWeek <= week && week < season.deliveredWeek + terms.distributionWeeks
 }
 
 /** The commissioner's licence term: the whole possible availability interval [C, C + 20 + 52) (contract §3). */

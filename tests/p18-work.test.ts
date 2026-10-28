@@ -5,7 +5,8 @@
 // owners as films (`tvSeason`): Development & Casting for scripts and preparation, the adopted sound stage with a
 // standing set for rehearsal, stage + set + scenery for shooting, the adopted Post for post. The scripts milestone earns
 // 120,000 and pays nothing (the advance covers it); picture lock earns 240,000 and pays 240,000. The writer leaves after
-// scripts; the other five stay engaged (delivery, lateness and settlement are Sprint 13). RED at ecbc42c9 by assertion.
+// scripts; the other five stay engaged until the twelfth unit's advance delivers the season (Sprint 13: delivery, the
+// late reduction and settlement are pinned in p18-delivery.test.ts). RED at ecbc42c9 by assertion.
 
 import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
@@ -81,16 +82,19 @@ describe('P18 work — twelve paid units in the contract blocks', () => {
     expect(agreement(afterScripts)).toMatchObject({ earned: FIGURES.scripts, received: FIGURES.advance })
     expect(agreement(afterScripts).milestones).toEqual([{ kind: 'scripts', week: units(afterScripts).at(-1)!.week, earned: FIGURES.scripts, paid: 0 }])
     expect(tvRows(afterScripts, 'tvMilestonePayment')).toEqual([])
-    const done = last()
+    // Sprint 13 re-pin: the twelfth unit's advance also delivers (contract §6), so the picture-lock facts are read on the
+    // last state before it; the delivery milestone itself is p18-delivery.test.ts's.
+    const done = weeks[weeks.length - 2]!
+    expect(season(done).work.creditedUnits, 'premise: the state before the twelfth unit').toBe(11)
     expect(agreement(done)).toMatchObject({ earned: FIGURES.scripts + FIGURES.pictureLock, received: FIGURES.advance + FIGURES.pictureLock })
     expect(agreement(done).milestones.map((m) => [m.kind, m.earned, m.paid])).toEqual([['scripts', FIGURES.scripts, 0], ['pictureLock', FIGURES.pictureLock, FIGURES.pictureLock]])
     const lockWeek = units(done)[UNITS.scripts + UNITS.preparation + UNITS.rehearsal + UNITS.shooting - 1]!.week
     expect(tvRows(done, 'tvMilestonePayment').map((row) => [row.week, row.amount])).toEqual([[lockWeek - 1, FIGURES.pictureLock]])
-    // Delivery stays unearned at this checkpoint (Sprint 13): E = 360,000 < F.
+    // Before delivery the delivery milestone is unearned: E = 360,000 < F.
     expect(agreement(done).earned).toBeLessThan(FIGURES.fee)
   })
 
-  it('the writer is released when scripts completes; the other five stay engaged through the twelfth unit', () => {
+  it('the writer is released when scripts completes; the other five stay engaged until the twelfth unit\'s advance', () => {
     expect(weeks.length).toBeGreaterThan(0)
     const r = route.roster
     const afterScripts = weeks.find((s) => season(s).work.creditedUnits === UNITS.scripts)!
@@ -98,7 +102,8 @@ describe('P18 work — twelve paid units in the contract blocks', () => {
     expect(busyTalentIds(afterScripts).has(r.writerId)).toBe(false)
     for (const id of [r.directorId, r.cast.lead, r.cast.antagonist, r.cast.support, r.craftId]) {
       expect(busyTalentIds(afterScripts).has(id)).toBe(true)
-      expect(busyTalentIds(last()).has(id)).toBe(true)
+      // Sprint 13 re-pin: engaged through the eleventh unit; the delivery release is p18-delivery.test.ts's.
+      expect(busyTalentIds(weeks[weeks.length - 2]!).has(id)).toBe(true)
     }
     expect(season(weeks[0]!).writerReleasedWeek).toBeNull()
   })
@@ -129,7 +134,7 @@ describe('P18 work — capacity through the same owners as films', () => {
       }
     }
     expect(sawStage, 'the season held the adopted stage during rehearsal or shooting').toBe(true)
-    // The twelfth unit releases every slot; the people stay until the Sprint 13 delivery boundary.
+    // The twelfth unit releases every slot (its advance then delivers the season and releases the people).
     expect(season(last()).reservations).toEqual([])
   })
 

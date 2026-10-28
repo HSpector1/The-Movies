@@ -75,6 +75,7 @@ import { closeAbsorption } from './acquisition.js'
 import { submitEstateBid } from './estate.js'
 // ── P18 bounded first season: the commission verb and the season's slot holds ──
 import { commissionTvSeason } from './tvCommission.js'
+import { cancelTvSeason, settleTvObligations } from './tvSettlement.js'
 import { televisionOccupiedFacilitySlots } from './tvReaders.js'
 import { breakPromisesOnCancel, breakPromisesOnGreenlight, breakPromisesOnTermination, waivePromise } from './promises.js'
 import { applyTakeLoan, releaseRefusal } from './corporateConditionLive.js'
@@ -3318,6 +3319,13 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
       // P18 (contract §3): the engine's own commitment; the dispatch adds no rule of its own.
       case 'commissionTvSeason':
         next = commissionTvSeason(next, action.commission)
+        break
+      // Sprint 13 (contract §7): the engine's own settlement law; the dispatch adds no rule of its own.
+      case 'cancelTvSeason':
+        next = cancelTvSeason(next, action.seasonId)
+        break
+      case 'settleTvObligations':
+        next = settleTvObligations(next, { agreementId: action.agreementId, expectedRemaining: action.expectedRemaining, amount: action.amount })
         break
       default: {
         // Exhaustiveness guard: an unknown action kind is a loud abort (M16).

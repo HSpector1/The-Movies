@@ -540,6 +540,9 @@ const KIND_FIELD: Record<LedgerKind, keyof FinanceTotals> = {
   tvAdvance: 'television',
   tvMilestonePayment: 'television',
   tvProductionSpend: 'television',
+  // Sprint 13: the advance refund and the cancellation charge are commissioning settlement outflows, same home.
+  tvAdvanceRefund: 'television',
+  tvCancellationCharge: 'television',
 }
 
 /** Classify buyer consideration from the actual keyed estateSale receipt, never its description. */
@@ -699,6 +702,8 @@ export function periodSummary(state: GameState, fromWeek: number, toWeekInclusiv
       case 'tvAdvance':
       case 'tvMilestonePayment':
       case 'tvProductionSpend':
+      case 'tvAdvanceRefund':
+      case 'tvCancellationCharge':
         s.television = (s.television ?? 0) + e.amount
         break
       default: {

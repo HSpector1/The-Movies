@@ -26,6 +26,8 @@ export const FINANCE_CATEGORIES: Record<LedgerKind, string> = {
   tvAdvance: 'Television commission advance (recoupable, unearned)',
   tvMilestonePayment: 'Television commission milestone payments',
   tvProductionSpend: 'Television season production spend',
+  tvAdvanceRefund: 'Television advance refunded after cancellation',
+  tvCancellationCharge: 'Television cancellation charge',
 }
 // A reporting category, not a new ledger kind or cash authority.
 export type FinanceCategoryKind = LedgerKind | 'estatePurchase'
@@ -253,7 +255,7 @@ export function financeHistory(state: GameState): FinanceHistory {
       // P18: commissioning receipts are not costs; the unit-spend series exists once a season has been commissioned,
       // so a world that never commissioned one reports exactly the series it reported before.
       .filter(kind => kind !== 'studioRevenue' && kind !== 'boxOffice' && kind !== 'absorbedRunRevenue' && kind !== 'tvAdvance' && kind !== 'tvMilestonePayment'
-        && (kind !== 'tvProductionSpend' || state.television !== undefined))
+        && ((kind !== 'tvProductionSpend' && kind !== 'tvAdvanceRefund' && kind !== 'tvCancellationCharge') || state.television !== undefined))
       .map((kind): FinanceCostSeries => ({ kind, label: CATEGORY_LABELS[kind],
         periodAmount: period?.categories.find(c => c.kind === kind)?.amount ?? (period?.complete ? 0 : null),
         points: points.map(point => ({ week: point.fromWeek,

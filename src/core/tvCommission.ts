@@ -16,12 +16,12 @@ import { expectedWeeklyOperatingCostAt } from './placement.js'
 import { permissionFor, type Permission } from './rights.js'
 import { adoptionChainOperational } from './technologyAdoption.js'
 import { TUNING } from './tuning.js'
-import { liveTvSeason, tvDistributionLicenceEnd, tvTermsFor } from './tvReaders.js'
+import { allocateTvId, appendTvReceipt, liveTvSeason, tvDistributionLicenceEnd, tvOutstanding, tvTermsFor } from './tvReaders.js'
 
-export { tvDistributionLicenceEnd, tvTermsFor }
+export { allocateTvId, appendTvReceipt, tvDistributionLicenceEnd, tvTermsFor }
 import { TV_COMMISSIONER_ID, TV_RULESET_VERSION } from './tvTypes.js'
 import type {
-  CommissionTvSeasonRequest, TelevisionRoot, TvAgreement, TvAgreementTerms, TvCredit, TvReceipt, TvReceiptDraft, TvReservation, TvRole, TvSeason, TvSeries,
+  CommissionTvSeasonRequest, TelevisionRoot, TvAgreement, TvAgreementTerms, TvCredit, TvReservation, TvRole, TvSeason, TvSeries,
 } from './tvTypes.js'
 import type { Contract, CreativeRole, GameState, LedgerEntry } from './types.js'
 
@@ -145,6 +145,9 @@ export function admitTvCommission(state: GameState, request: CommissionTvSeasonR
   const player = state.hollywood.playerStudioId
   const live = liveTvSeason(state.television)
   if (live !== null) return `one active season per studio: "${live.seasonId}" is live`
+  // Contract §5: no new season while an earlier agreement still owes its advance refund or cancellation charge.
+  const arrears = state.television?.agreements.find((a) => tvOutstanding(a) > 0)
+  if (arrears !== undefined) return `agreement ${arrears.agreementId} still owes ${tvOutstanding(arrears)} (advance refund, then cancellation charge); a new season waits until it is settled`
   if (typeof request.seriesTitle !== 'string' || request.seriesTitle.trim().length === 0) return 'a new series needs a non-empty title'
   // the grant set (contract §3): the producer's live production permission on the exact P16 property, then the
   // commissioner's exclusive distribution licence as P16's producer would mint it. Title equality joins nothing.
@@ -216,17 +219,6 @@ export function tvCommissionPreview(state: GameState, request: CommissionTvSeaso
   const admitted = admitTvCommission(state, request)
   return { refusal: typeof admitted === 'string' ? admitted : null, quote: tvAdmissionQuote(state, C), terms: tvTermsFor(C), commitWeek: C,
     commissionerLicenceConsideration: TUNING.TV_COMMISSIONER_LICENCE_CONSIDERATION, distributionLicenceEndWeekExclusive: tvDistributionLicenceEnd(C) }
-}
-
-/** One id from the P18 allocator. */
-export function allocateTvId(root: TelevisionRoot, prefix: string): { root: TelevisionRoot; id: string } {
-  return { root: { ...root, nextId: root.nextId + 1 }, id: `${prefix}-${String(root.nextId)}` }
-}
-
-/** Append one receipt with the next id. */
-export function appendTvReceipt(root: TelevisionRoot, receipt: TvReceiptDraft): { root: TelevisionRoot; receiptId: string } {
-  const allocated = allocateTvId(root, 'tv-receipt')
-  return { root: { ...allocated.root, receipts: [...allocated.root.receipts, { ...receipt, receiptId: allocated.id } as TvReceipt] }, receiptId: allocated.id }
 }
 
 /** The one atomic commitment. Throws the admission refusal before any write. */

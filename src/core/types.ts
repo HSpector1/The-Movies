@@ -3133,8 +3133,11 @@ export type Action =
   // Real held paid disclosure and original dated preview are revalidated by the transaction owner.
   | { kind: 'absorbStudio'; absorption: Omit<import('./acquisition.js').AbsorptionInput, 'buyerId'> & { quotedAtWeek: number; quoteAgePolicyVersion: import('./quoteAge.js').QuoteAgePolicyVersion } }
   | { kind: 'submitEstateBid'; estateId: string; lotId: string; amount: number }
-  // P18 (contract §3): the one public television verb of this slice. Cancellation and settlement are Sprint 13.
+  // P18 (contract §3): the commission. Sprint 13 (contract §7): the producer's pre-delivery cancellation and the
+  // explicit settlement of a cancelled agreement's outstanding refund and charge.
   | { kind: 'commissionTvSeason'; commission: import('./tvTypes.js').CommissionTvSeasonRequest }
+  | { kind: 'cancelTvSeason'; seasonId: string }
+  | { kind: 'settleTvObligations'; agreementId: string; expectedRemaining: number; amount: number }
 
 // §10 Authored talent — extended per D-9.14 (creation budget). `actual` persona
 // stays fully player-chosen; potential/workEthic/skillBias/secondary share a

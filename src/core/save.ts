@@ -2351,10 +2351,11 @@ function v8LedgerEntry(
     for(const key of ['talentId','productionId','constructionProjectId']) if(Object.hasOwn(entry,key)) v8Error(`${label}.${key}`,'is forbidden for absorption run revenue');
   }
   // P16: a rights money row is a whole-dollar amount with no correlation key; a diligence fee is a charge.
-  // P18: a television row is a whole-dollar movement with no correlation key; receipts positive, unit spend negative.
+  // P18: a television row is a whole-dollar movement with no correlation key; receipts positive, unit spend, advance
+  // refund and cancellation charge negative (contract §5).
   // Its reconciliation with the television receipts is the Save51 root validator's (tvSave.ts).
   if (policy === "tv-p18" && (TV_LEDGER_KINDS as readonly string[]).includes(String(entry.kind))) {
-    const positive = entry.kind !== "tvProductionSpend";
+    const positive = entry.kind === "tvAdvance" || entry.kind === "tvMilestonePayment";
     if (!Number.isInteger(entry.amount) || (positive ? (entry.amount as number) <= 0 : (entry.amount as number) >= 0)) {
       v8Error(`${label}.amount`, `${String(entry.kind)} ${positive ? "must be a positive whole-dollar receipt" : "must be a negative whole-dollar charge"}`);
     }
@@ -7273,6 +7274,8 @@ const LEDGER_KIND_PROVES_ENGAGEMENT = {
   tvAdvance: false,
   tvMilestonePayment: false,
   tvProductionSpend: false,
+  tvAdvanceRefund: false,
+  tvCancellationCharge: false,
 } as const satisfies Record<LedgerKind, boolean>;
 
 function ledgerKindProvesEngagement(kind: LedgerKind): boolean {

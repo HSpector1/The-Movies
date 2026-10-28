@@ -1845,5 +1845,8 @@ export { P18_SAVE_VERSION, P18_PREDECESSOR_SAVE_VERSION, validateSaveP18, conver
 export type { SaveFileP18, SaveFileV51 } from './save.js'
 // P18: the commission preview and admission quote (the same admission the action runs).
 export { tvCommissionPreview, tvAdmissionQuote, type TvCommissionPreview, type TvAdmissionQuote } from './tvCommission.js'
+// P18 Sprint 13: cancellation, settlement and the distribution window readers.
+export { cancelTvSeason, settleTvObligations, cancelTvSeasonsAtClosure, type SettleTvObligationsInput } from './tvSettlement.js'
+export { tvOutstanding, tvDistributionAvailable } from './tvReaders.js'
 export type { ContinuationType, LineageEdge, LineageEdgeType, PropertyMeter, FranchiseBranch, FranchiseBranchKind, FranchiseMilestone, FranchiseMilestoneId,
   FranchiseProperty, FranchiseRoot, SubProperty, SubPropertyKind, P17StepRoots, GameStateP17, GameStateV50 } from './types.js'

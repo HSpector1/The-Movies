@@ -11,9 +11,12 @@
 // resource-release law: what the next block requires is retained (rehearsal → shooting keeps the stage and its set);
 // everything else releases the week the block completes.
 //
-// Sprint 12 stops at paid work: a season that has credited its twelfth unit, or reached its final boundary C + 20,
-// does no more work and keeps its people until the Sprint 13 delivery or cancellation boundary. A stall never cancels
-// here. Pure: no RNG, no clock, no I/O; this module never writes `operations.workflows`.
+// TERMINAL BOUNDARY (Sprint 13, contract §6): at the end of the same step, at boundary T = week + 1, a season whose
+// twelve units are credited is delivered (the delivery milestone less the late deduction, paid max(0, E − P)) when its
+// people and both P16 permissions still hold; otherwise, at T = C + 20, it is cancelled for deadline failure under the
+// v1 settlement (tvSettlement.ts). A stall before the deadline never cancels. A delivered season's exclusive window
+// [delivered, delivered + 52) ends with a noncash receipt at its end boundary. Pure: no RNG, no clock, no I/O; this
+// module never writes `operations.workflows`.
 
 import { lifecycleStatus } from './careerLifecycle.js'
 import { activeContract } from './employment.js'
@@ -22,8 +25,9 @@ import type { SweepParticipant } from './operations.js'
 import { facilityBodyCentre, gridDistance, sceneryLoadInWeeksForDistance } from './sceneryLoadIn.js'
 import { bindableSetsOn, heldSetIds, wearSetAtWrap } from './sets.js'
 import { adoptionChainOperational } from './technologyAdoption.js'
-import { appendTvReceipt, tvDistributionPermission, tvProductionPermission } from './tvCommission.js'
-import { liveTvSeason, nextTvBlock, TV_WORK_UNITS_TOTAL, tvBlockDefinition, tvReservedPeople } from './tvReaders.js'
+import { tvDistributionPermission, tvProductionPermission } from './tvCommission.js'
+import { appendTvReceipt, liveTvSeason, nextTvBlock, TV_WORK_UNITS_TOTAL, tvBlockDefinition, tvReservedPeople } from './tvReaders.js'
+import { cancelTvSeasonIn } from './tvSettlement.js'
 import type { TvWorkBlockDefinition } from './tvReaders.js'
 import type { TelevisionRoot, TvAgreement, TvMilestoneKind, TvReservation, TvSceneryWithheldReason, TvSeason, TvStall } from './tvTypes.js'
 import type { GameState, LedgerEntry, StudioOperations, StudioSet } from './types.js'
@@ -208,10 +212,80 @@ export type TelevisionAdvance = { television: TelevisionRoot | undefined; cash: 
  * Tick step 7.8, the MONEY step for the advance `week` → `week` + 1: at most one valid paid work unit for the live
  * season on the capacity the week's one sweep granted it, then the block's completion: the scripts and picture-lock
  * milestones (earned E, paid max(0, E − P)), the writer's release, set wear at the end of shooting, and the release of
- * every resource the next block does not require. `cash` is what is left after the week's mandatory charges, so
- * "available cash" is literal (contract §5). It allocates nothing.
+ * every resource the next block does not require; then the terminal boundary (delivery or the deadline cancellation)
+ * and the distribution-window expiry. `cash` is what is left after the week's mandatory charges, so "available cash"
+ * is literal (contract §5). It allocates nothing.
  */
 export function advanceTelevisionWeek(state: GameState, facts: { cash: number; sets: readonly StudioSet[] }, week: number): TelevisionAdvance {
+  if (state.television === undefined || state.founding !== null || state.operations.mode !== 'managed') return { television: state.television, cash: facts.cash, ledger: [], sets: facts.sets }
+  const worked = workTelevisionWeek(state, facts, week)
+  const resolved = resolveTelevisionBoundary(state, worked, week)
+  return { ...resolved, television: expireTvDistribution(resolved.television!, week + 1) }
+}
+
+/**
+ * Contract §6 at boundary T = week + 1, after the week's unit: lawful delivery first; if the season is still live at
+ * its final boundary, cancel it for deadline failure, paying U0 then K from the cash left after this advance's charges.
+ */
+function resolveTelevisionBoundary(state: GameState, worked: TelevisionAdvance, week: number): TelevisionAdvance {
+  const boundary = week + 1
+  const season = liveTvSeason(worked.television)
+  if (worked.television === undefined || season === null) return worked
+  if (tvWorkComplete(season)) {
+    const refusal = tvDeliveryRefusal(state, season, week)
+    if (refusal === null) return deliverTvSeason(worked, season, boundary, week)
+    if (boundary < season.finalWeek) return { ...worked, television: replaceSeason(worked.television, { ...season, work: { ...season.work, stall: refusal } }) }
+  }
+  if (boundary < season.finalWeek) return worked
+  const cancelled = cancelTvSeasonIn(worked.television, season.seasonId, { week: boundary, cause: 'deadline', ledgerWeek: week, cash: worked.cash, closureId: null })
+  return { ...worked, television: cancelled.television, cash: cancelled.cash, ledger: [...worked.ledger, ...cancelled.ledger] }
+}
+
+/**
+ * Why a season with twelve credited units cannot be accepted at the end of the advance from `week`, or null: the same
+ * live people and P16 permission checks as a work unit (contract §7 "before each work unit and delivery"). The sound
+ * chain is a work requirement, not a delivery one, and the final boundary is the caller's.
+ */
+export function tvDeliveryRefusal(state: GameState, season: TvSeason, week: number): TvStall | null {
+  const gate = tvWorkGate(state, season, week)
+  return gate === null || gate.kind === 'sound-chain' ? null : gate
+}
+
+/**
+ * Accept the master at boundary T (contract §5-§6): the delivery milestone earned is the frozen 240,000 less
+ * min(max, perWeek × max(0, T − due)), recorded on its own noncash receipt when positive, and paid max(0, E − P).
+ * The status change releases the five company members; every reservation went back at the last block's completion.
+ */
+function deliverTvSeason(worked: TelevisionAdvance, season: TvSeason, boundary: number, week: number): TelevisionAdvance {
+  let root = worked.television!
+  const agreement = agreementFor(root, season)
+  const terms = agreement.terms
+  const lateWeeks = Math.max(0, boundary - terms.dueWeek)
+  const reduction = Math.min(terms.lateDeductionMax, terms.lateDeductionPerWeek * lateWeeks)
+  const base = { week: boundary, seasonId: season.seasonId, agreementId: agreement.agreementId }
+  root = appendTvReceipt(root, { ...base, kind: 'delivered', lateWeeks }).root
+  if (reduction > 0) root = appendTvReceipt(root, { ...base, kind: 'deliveryReduction', amount: reduction }).root
+  const ledger = [...worked.ledger]
+  let cash = worked.cash
+  root = earnMilestone(root, season, 'delivery', terms.milestones.delivery - reduction, boundary, week, ledger, (amount) => { cash += amount })
+  root = replaceSeason(root, { ...season, status: 'delivered', deliveredWeek: boundary, reservations: [], work: { ...season.work, stall: null } })
+  return { ...worked, television: root, cash, ledger }
+}
+
+/** Contract §6: the exclusive window ends at delivered + 52; a noncash receipt marks it, nothing is paid or reversed. */
+export function expireTvDistribution(root: TelevisionRoot, boundary: number): TelevisionRoot {
+  let next = root
+  for (const season of root.seasons) {
+    if (season.status !== 'delivered' || season.deliveredWeek === undefined) continue
+    if (boundary !== season.deliveredWeek + agreementFor(root, season).terms.distributionWeeks) continue
+    if (next.receipts.some((r) => r.kind === 'distributionExpired' && r.seasonId === season.seasonId)) continue
+    next = appendTvReceipt(next, { kind: 'distributionExpired', week: boundary, seasonId: season.seasonId, agreementId: season.agreementId }).root
+  }
+  return next
+}
+
+/** The paid unit of the advance `week` → `week` + 1 (Sprint 12's step body, unchanged). */
+function workTelevisionWeek(state: GameState, facts: { cash: number; sets: readonly StudioSet[] }, week: number): TelevisionAdvance {
   const boundary = week + 1
   let root = state.television
   let cash = facts.cash
@@ -257,8 +331,8 @@ export function advanceTelevisionWeek(state: GameState, facts: { cash: number; s
       sets = wearSetAtWrap(sets, working.setId)
     }
     const next = nextTvBlock(season.work.block)
-    // The last block keeps its block name with every unit credited; nothing more needs capacity before the Sprint 13
-    // delivery boundary, so every slot goes back to the pool and the five company members stay engaged.
+    // The last block keeps its block name with every unit credited; delivery needs no capacity, so every slot goes
+    // back to the pool now and the five company members stay engaged until the boundary resolution below.
     const retained = next === null ? [] : tvBlockDefinition(next).capabilities
     working = {
       ...working,

@@ -10,6 +10,11 @@
 // the ledger and the studio cash reconciles with them as recorded. This module proves the root itself, exactly joined
 // to the rest: P16 licence and title facts, the people and their P12 contracts, the adoption, the facilities and sets,
 // and every television ledger row one-to-one with the receipt that records it.
+//
+// Sprint 13 slice 1 extends the root IN PLACE (still Save51): a delivered season carries `deliveredWeek`, a cancelled
+// one `cancellation`, and its agreement `settlement`; each leaf is present exactly in its terminal state, so the root's
+// absence/presence encoding and the downgrade guard are unchanged. The validator replays delivery (milestone less the
+// late reduction), the distribution expiry receipt, the frozen U0/K settlement and every refund/charge payment.
 
 import { assignmentBlockedTalentIds } from './employment.js'
 import { assertNoDoubleBookedResourceSlots } from './occupancy.js'
@@ -17,7 +22,7 @@ import { RIGHTS_COUNTERPARTY_IDS, holderBeforeWrite, resolveTitles, type Licence
 import { TUNING } from './tuning.js'
 import { TV_WORK_BLOCKS, TV_WORK_UNITS_TOTAL, tvBlockDefinition, tvEngagedTalentIds, tvTermsFor, tvUnitsThrough } from './tvReaders.js'
 import { TV_COMMISSIONER_ID, TV_LEDGER_KINDS, TV_RULESET_VERSION, TV_WORK_BLOCK_ORDER } from './tvTypes.js'
-import type { TelevisionRoot, TvAgreement, TvAgreementTerms, TvReceipt, TvSeason } from './tvTypes.js'
+import type { TelevisionRoot, TvAgreement, TvAgreementTerms, TvMilestoneKind, TvReceipt, TvSeason } from './tvTypes.js'
 import type { GameState } from './types.js'
 
 export const P18_ROOT_KEYS = ['television'] as const
@@ -36,7 +41,15 @@ const RECEIPT_KEYS: Record<TvReceipt['kind'], string[]> = {
   writerReleased: ['talentId'],
   milestoneEarned: ['milestone', 'amount'],
   milestonePaid: ['milestone', 'amount'],
+  delivered: ['lateWeeks'],
+  deliveryReduction: ['amount'],
+  distributionExpired: [],
+  cancelled: ['cause', 'refundDue', 'chargeDue'],
+  advanceRefundPaid: ['amount', 'source'],
+  cancellationChargePaid: ['amount', 'source'],
 }
+const SETTLEMENT_KEYS = ['chargeDue', 'chargePaid', 'closureId', 'refundDue', 'refundPaid', 'week']
+const TERMINAL_KEYS: Record<string, string[]> = { live: [], delivered: ['deliveredWeek'], cancelled: ['cancellation'] }
 
 /** The state without the step's root, every other key kept in its order. */
 export function stripP18Roots(raw: object): Record<string, unknown> {
@@ -100,12 +113,13 @@ export function validateP18Roots(raw: Record<string, unknown>, label: string): v
   if (live.length > 1) fail('one active season per studio')
   const talentIds = new Set(rest.talent.map((t) => t.id))
   for (const s of root.seasons) {
-    if (!sameKeys(s, SEASON_KEYS)) fail(`season must carry exactly ${SEASON_KEYS.join(', ')}`)
+    const seasonKeys = [...SEASON_KEYS, ...(TERMINAL_KEYS[String(s.status)] ?? [])]
+    if (!sameKeys(s, seasonKeys)) fail(`season must carry exactly ${seasonKeys.join(', ')}`)
     id(s.seasonId, 'tv-season')
     id(s.workId, 'tv-work')
     const series = root.series.find((row) => row.seriesId === s.seriesId)
     if (series === undefined || series.seasonIds[0] !== s.seasonId || series.propertyId !== s.propertyId) fail(`season ${s.seasonId} names no series that records it`)
-    if (s.status !== 'live') fail(`season ${s.seasonId} status ${String(s.status)} has no producer at this checkpoint`)
+    if (!Object.hasOwn(TERMINAL_KEYS, String(s.status))) fail(`season ${s.seasonId} status ${String(s.status)} is not live, delivered or cancelled`)
     if (s.producerStudioId !== player || s.commissionerId !== TV_COMMISSIONER_ID || s.rulesetVersion !== TV_RULESET_VERSION || s.seasonNumber !== 1 || s.episodes !== TUNING.TV_SEASON_EPISODES) {
       fail(`season ${s.seasonId} parties, ruleset or episode metadata are not the contract's`)
     }
@@ -130,6 +144,7 @@ export function validateP18Roots(raw: Record<string, unknown>, label: string): v
     const adoption = rest.technology.adoptions.find((a) => a.id === s.adoptionId)
     if (adoption === undefined || adoption.studioId !== player || adoption.technologyId !== 'synchronized-sound' || adoption.postFacilityId === null) fail(`season ${s.seasonId} names no player synchronized-sound adoption`)
     validateWork(s, rest, adoption!.stageFacilityId, adoption!.postFacilityId!, fail)
+    validateTerminal(s, rest, fail)
     // The admission's own union (review should-fix 5): every other engagement plus the reserved guest weeks in [C, C + 20).
     const engagedElsewhere = assignmentBlockedTalentIds(rest, s.commitWeek, s.finalWeek)
     for (const person of tvEngagedTalentIds({ ...root, seasons: [s] })) {
@@ -138,11 +153,12 @@ export function validateP18Roots(raw: Record<string, unknown>, label: string): v
   }
   // agreements and receipts
   for (const a of root.agreements) {
-    if (!sameKeys(a, AGREEMENT_KEYS)) fail(`agreement must carry exactly ${AGREEMENT_KEYS.join(', ')}`)
+    const agreementKeys = [...AGREEMENT_KEYS, ...(Object.hasOwn(a, 'settlement') ? ['settlement'] : [])]
+    if (!sameKeys(a, agreementKeys)) fail(`agreement must carry exactly ${agreementKeys.join(', ')}`)
     id(a.agreementId, 'tv-agreement')
     const season = root.seasons.find((s) => s.seasonId === a.seasonId)
     if (season === undefined || season.agreementId !== a.agreementId) fail(`agreement ${a.agreementId} names no season that records it`)
-    validateAgreement(a, season!, root, fail)
+    validateAgreement(a, season!, root, rest, fail)
   }
   for (const s of root.seasons) if (!root.agreements.some((a) => a.agreementId === s.agreementId)) fail(`season ${s.seasonId} names no agreement`)
   const receiptRows = new Map<string, TvReceipt>()
@@ -153,21 +169,28 @@ export function validateP18Roots(raw: Record<string, unknown>, label: string): v
     if (!root.seasons.some((s) => s.seasonId === r.seasonId && s.agreementId === r.agreementId)) fail(`receipt ${r.receiptId} names no season and agreement pair`)
     receiptRows.set(r.receiptId, r)
   }
-  // Every television ledger row carries exactly one money receipt's effect, at its sign and week.
+  // Every television ledger row carries exactly one money receipt's effect, at its sign and week. A tick-written
+  // receipt is dated at the boundary T and its row at the advance week T − 1; an action's receipt and row share a week.
+  // A settlement payment is the deadline's (tick) only when the cancellation transaction itself wrote it.
+  const paymentWeek = (r: Extract<TvReceipt, { source: string }>): number =>
+    r.source === 'cancellation' && root.seasons.find((s) => s.seasonId === r.seasonId)?.cancellation?.cause === 'deadline' ? r.week - 1 : r.week
   const carried = new Set<string>()
   for (const row of tvRows) {
     const r = receiptRows.get(row.note)
     const expected = r === undefined ? null
       : r.kind === 'advancePaid' ? { kind: 'tvAdvance', amount: r.amount, week: r.week }
         : r.kind === 'unitCredited' ? { kind: 'tvProductionSpend', amount: -r.amount, week: r.week - 1 }
-          : r.kind === 'milestonePaid' ? { kind: 'tvMilestonePayment', amount: r.amount, week: r.week - 1 } : null
+          : r.kind === 'milestonePaid' ? { kind: 'tvMilestonePayment', amount: r.amount, week: r.week - 1 }
+            : r.kind === 'advanceRefundPaid' ? { kind: 'tvAdvanceRefund', amount: -r.amount, week: paymentWeek(r) }
+              : r.kind === 'cancellationChargePaid' ? { kind: 'tvCancellationCharge', amount: -r.amount, week: paymentWeek(r) } : null
     if (expected === null || carried.has(row.note) || row.kind !== expected.kind || row.amount !== expected.amount || row.week !== expected.week) {
       fail(`ledger row ${row.kind} ${row.amount} (note ${row.note}) does not carry exactly one television receipt's effect`)
     }
     carried.add(row.note)
   }
   for (const r of root.receipts) {
-    if ((r.kind === 'advancePaid' || r.kind === 'unitCredited' || r.kind === 'milestonePaid') && !carried.has(r.receiptId)) fail(`receipt ${r.receiptId} has no ledger row carrying it`)
+    if ((r.kind === 'advancePaid' || r.kind === 'unitCredited' || r.kind === 'milestonePaid' || r.kind === 'advanceRefundPaid' || r.kind === 'cancellationChargePaid')
+      && !carried.has(r.receiptId)) fail(`receipt ${r.receiptId} has no ledger row carrying it`)
   }
   for (const l of tvLicences) if (!root.seasons.some((s) => s.distributionLicenceId === l.id)) fail(`counterparty licence ${l.id} belongs to no season`)
   // No slot has two owners, the television owner included.
@@ -223,7 +246,7 @@ function validateWork(s: TvSeason, rest: GameState, stageId: string, postId: str
     || w.lastCreditedWeek < s.commitWeek + w.creditedUnits))) fail(`season ${s.seasonId} last credited week`)
   if ((s.writerReleasedWeek === null) !== (w.block === 'scripts')) fail(`season ${s.seasonId} writer release disagrees with the scripts block`)
   if (w.stall !== null && (typeof w.stall !== 'object' || typeof (w.stall as { kind?: unknown }).kind !== 'string')) fail(`season ${s.seasonId} stall shape`)
-  const allowed = complete ? [] : block.capabilities
+  const allowed = complete || s.status !== 'live' ? [] : block.capabilities
   const facilities = new Map(rest.operations.facilities.map((f) => [f.id, f]))
   for (const r of s.reservations) {
     const f = facilities.get(r.facilityId)
@@ -234,23 +257,48 @@ function validateWork(s: TvSeason, rest: GameState, stageId: string, postId: str
   const stage = s.reservations.find((r) => r.capability === 'soundstage')
   if (stage !== undefined && (s.setId === null || !rest.sets.some((set) => set.id === s.setId && set.mountedOn === stage.facilityId))) fail(`season ${s.seasonId} holds a stage without the set standing on it`)
   if (s.setId !== null && TV_WORK_BLOCKS.findIndex((b) => b.block === w.block) < 2) fail(`season ${s.seasonId} bound a set before rehearsal`)
-  if ((stage === undefined) !== (w.stageHeldSinceWeek === null) && !(stage === undefined && w.stageHeldSinceWeek !== null && (w.block === 'post' || complete))) fail(`season ${s.seasonId} stage tenure`)
+  if (s.status === 'live' && (stage === undefined) !== (w.stageHeldSinceWeek === null) && !(stage === undefined && w.stageHeldSinceWeek !== null && (w.block === 'post' || complete))) fail(`season ${s.seasonId} stage tenure`)
 }
 
-function validateAgreement(a: TvAgreement, s: TvSeason, root: TelevisionRoot, fail: (rule: string) => never): void {
+/** Contract §6-§7: a terminal season's own leaf, its boundary and its release of every slot. */
+function validateTerminal(s: TvSeason, rest: GameState, fail: (rule: string) => never): void {
+  const week = rest.market.tick
+  const last = s.work.lastCreditedWeek
+  if (s.status === 'delivered') {
+    const d = s.deliveredWeek
+    if (!whole(d) || s.work.creditedUnits !== TV_WORK_UNITS_TOTAL || last === null || d < last || d > s.finalWeek || d > week) {
+      fail(`season ${s.seasonId} delivered week ${String(d)} is not a boundary in [its twelfth unit, C + 20] at or before week ${week}`)
+    }
+  }
+  if (s.status === 'cancelled') {
+    const c = s.cancellation
+    if (!sameKeys(c, ['cause', 'week']) || !whole(c!.week) || c!.week < s.commitWeek || c!.week > week || (last !== null && c!.week < last)) fail(`season ${s.seasonId} cancellation shape or week`)
+    const onBoundary = c!.cause === 'deadline' ? c!.week === s.finalWeek : (c!.cause === 'producer' || c!.cause === 'closure') && c!.week < s.finalWeek
+    if (!onBoundary) fail(`season ${s.seasonId} cancellation cause ${String(c!.cause)} at week ${c!.week} disagrees with its final boundary ${s.finalWeek}`)
+  }
+  if (s.status !== 'live' && (s.reservations.length > 0 || s.work.stall !== null)) fail(`season ${s.seasonId} is ${s.status} but still holds a slot or a stall`)
+}
+
+function validateAgreement(a: TvAgreement, s: TvSeason, root: TelevisionRoot, rest: GameState, fail: (rule: string) => never): void {
   if (a.studioId !== s.producerStudioId || a.commissionerId !== TV_COMMISSIONER_ID || a.rulesetVersion !== TV_RULESET_VERSION) fail(`agreement ${a.agreementId} parties`)
   // The terms themselves were proved (structure and arithmetic) with their season; the replay below reads them.
   // Milestones replay from the work: scripts after unit 3, picture lock after unit 9; each pays max(0, E − P).
-  const reached = [...(s.work.creditedUnits >= tvUnitsThrough('preparation', 0) ? ['scripts'] : []), ...(s.work.creditedUnits >= tvUnitsThrough('post', 0) ? ['pictureLock'] : [])]
+  // Delivery is earned only by a delivered season, at its delivered week, less the frozen late reduction (contract §5).
+  const reached: TvMilestoneKind[] = [...(s.work.creditedUnits >= tvUnitsThrough('preparation', 0) ? ['scripts' as const] : []),
+    ...(s.work.creditedUnits >= tvUnitsThrough('post', 0) ? ['pictureLock' as const] : []), ...(s.status === 'delivered' ? ['delivery' as const] : [])]
+  const lateWeeks = s.status === 'delivered' ? Math.max(0, s.deliveredWeek! - a.terms.dueWeek) : 0
+  const reduction = Math.min(a.terms.lateDeductionMax, a.terms.lateDeductionPerWeek * lateWeeks)
+  const milestoneEarned = (kind: TvMilestoneKind): number => kind === 'delivery' ? a.terms.milestones.delivery - reduction : a.terms.milestones[kind]
   let earned = 0
   let received = a.terms.advance
   if (!Array.isArray(a.milestones) || a.milestones.length !== reached.length) fail(`agreement ${a.agreementId} milestones disagree with the credited work`)
   for (const [i, m] of a.milestones.entries()) {
-    const kind = reached[i] as 'scripts' | 'pictureLock'
-    earned += a.terms.milestones[kind]
+    const kind = reached[i]!
+    earned += milestoneEarned(kind)
     const pay = Math.max(0, earned - received)
     received += pay
-    if (!sameKeys(m, ['earned', 'kind', 'paid', 'week']) || m.kind !== kind || m.earned !== a.terms.milestones[kind] || m.paid !== pay) fail(`agreement ${a.agreementId} milestone ${String(m.kind)} does not replay`)
+    if (!sameKeys(m, ['earned', 'kind', 'paid', 'week']) || m.kind !== kind || m.earned !== milestoneEarned(kind) || m.paid !== pay
+      || (kind === 'delivery' && m.week !== s.deliveredWeek)) fail(`agreement ${a.agreementId} milestone ${String(m.kind)} does not replay`)
     const earnedReceipt = root.receipts.filter((r) => r.kind === 'milestoneEarned' && r.agreementId === a.agreementId && r.milestone === kind && r.amount === m.earned && r.week === m.week)
     const paidReceipt = root.receipts.filter((r) => r.kind === 'milestonePaid' && r.agreementId === a.agreementId && r.milestone === kind && r.amount === m.paid && r.week === m.week)
     if (earnedReceipt.length !== 1 || paidReceipt.length !== (pay > 0 ? 1 : 0)) fail(`agreement ${a.agreementId} milestone ${kind} receipts`)
@@ -273,4 +321,67 @@ function validateAgreement(a: TvAgreement, s: TvSeason, root: TelevisionRoot, fa
   if (blockReceipts.join() !== completedBlocks.join()) fail(`agreement ${a.agreementId} block receipts`)
   const writer = mine.filter((r) => r.kind === 'writerReleased')
   if (writer.length !== (s.writerReleasedWeek === null ? 0 : 1) || (writer[0] !== undefined && (writer[0].week !== s.writerReleasedWeek || (writer[0] as { talentId: string }).talentId !== s.roster.writerId))) fail(`agreement ${a.agreementId} writer release receipt`)
+  validateDeliveryReceipts(a, s, mine, lateWeeks, reduction, rest.market.tick, fail)
+  validateSettlement(a, s, mine, rest, fail)
+}
+
+/** The delivered receipt, the late reduction's own noncash receipt, and the distribution expiry at delivered + 52. */
+function validateDeliveryReceipts(a: TvAgreement, s: TvSeason, mine: TvReceipt[], lateWeeks: number, reduction: number, week: number, fail: (rule: string) => never): void {
+  const delivered = mine.filter((r): r is Extract<TvReceipt, { kind: 'delivered' }> => r.kind === 'delivered')
+  const reductions = mine.filter((r): r is Extract<TvReceipt, { kind: 'deliveryReduction' }> => r.kind === 'deliveryReduction')
+  const expired = mine.filter((r) => r.kind === 'distributionExpired')
+  if (s.status !== 'delivered') {
+    if (delivered.length + reductions.length + expired.length > 0) fail(`agreement ${a.agreementId} carries delivery receipts for a ${s.status} season`)
+    return
+  }
+  if (delivered.length !== 1 || delivered[0]!.week !== s.deliveredWeek || delivered[0]!.lateWeeks !== lateWeeks) fail(`agreement ${a.agreementId} delivery receipt`)
+  if (reductions.length !== (reduction > 0 ? 1 : 0) || (reductions[0] !== undefined && (reductions[0].amount !== reduction || reductions[0].week !== s.deliveredWeek))) {
+    fail(`agreement ${a.agreementId} late reduction receipt (expected ${reduction} for ${lateWeeks} late weeks)`)
+  }
+  const end = s.deliveredWeek! + a.terms.distributionWeeks
+  if (expired.length !== (week >= end ? 1 : 0) || (expired[0] !== undefined && expired[0].week !== end)) fail(`agreement ${a.agreementId} distribution expiry receipt (window ends at week ${end})`)
+}
+
+/**
+ * Contract §7: a cancelled agreement freezes U0 = P − E and K at its cancellation week; every payment is replayed in
+ * receipt order (refund first, then charge; the cancellation's own payments at its week, later ones by action), and a
+ * closure-published agreement pays nothing and names an actual closure of its studio at that week.
+ */
+function validateSettlement(a: TvAgreement, s: TvSeason, mine: TvReceipt[], rest: GameState, fail: (rule: string) => never): void {
+  const cancelledReceipts = mine.filter((r): r is Extract<TvReceipt, { kind: 'cancelled' }> => r.kind === 'cancelled')
+  const payments = mine.filter((r): r is Extract<TvReceipt, { kind: 'advanceRefundPaid' | 'cancellationChargePaid' }> => r.kind === 'advanceRefundPaid' || r.kind === 'cancellationChargePaid')
+  const st = a.settlement
+  if (s.status !== 'cancelled') {
+    if (st !== undefined || cancelledReceipts.length + payments.length > 0) fail(`agreement ${a.agreementId} carries a settlement for a ${s.status} season`)
+    return
+  }
+  const c = s.cancellation!
+  if (!sameKeys(st, SETTLEMENT_KEYS)) fail(`agreement ${a.agreementId} settlement must carry exactly ${SETTLEMENT_KEYS.join(', ')}`)
+  if (st!.week !== c.week || st!.refundDue !== a.received - a.earned || st!.chargeDue !== a.terms.cancellationCharge) {
+    fail(`agreement ${a.agreementId} settlement does not freeze U0 = P − E (${a.received - a.earned}) and K (${a.terms.cancellationCharge}) at week ${c.week}`)
+  }
+  if ((c.cause === 'closure') !== (st!.closureId !== null)) fail(`agreement ${a.agreementId} closure id disagrees with cancellation cause ${c.cause}`)
+  if (st!.closureId !== null && !rest.studioClosure.closures.some((x) => x.closureId === st!.closureId && x.studioId === s.producerStudioId && x.closureWeek === c.week)) {
+    fail(`agreement ${a.agreementId} names closure ${st!.closureId}, which is not ${s.producerStudioId}'s closure at week ${c.week}`)
+  }
+  const cancelled = cancelledReceipts[0]
+  if (cancelledReceipts.length !== 1 || cancelled!.week !== c.week || cancelled!.cause !== c.cause || cancelled!.refundDue !== st!.refundDue || cancelled!.chargeDue !== st!.chargeDue) {
+    fail(`agreement ${a.agreementId} cancellation receipt`)
+  }
+  let refund = 0
+  let charge = 0
+  let settlementSeen = false
+  for (const p of payments) {
+    const sourceOk = p.source === 'cancellation' ? !settlementSeen && p.week === c.week : p.source === 'settlement' && p.week >= c.week
+    if (p.source === 'settlement') settlementSeen = true
+    if (!whole(p.amount) || p.amount <= 0 || !sourceOk || st!.closureId !== null) fail(`agreement ${a.agreementId} payment ${p.receiptId} amount, source or week`)
+    if (p.kind === 'advanceRefundPaid') refund += p.amount
+    else {
+      if (refund !== st!.refundDue) fail(`agreement ${a.agreementId} paid the cancellation charge before the advance refund (${p.receiptId})`)
+      charge += p.amount
+    }
+  }
+  if (refund !== st!.refundPaid || charge !== st!.chargePaid || refund > st!.refundDue || charge > st!.chargeDue) {
+    fail(`agreement ${a.agreementId} settlement paid ${st!.refundPaid}/${st!.chargePaid} does not replay its receipts (${refund}/${charge})`)
+  }
 }
