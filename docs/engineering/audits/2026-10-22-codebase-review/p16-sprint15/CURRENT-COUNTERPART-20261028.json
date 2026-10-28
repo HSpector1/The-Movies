@@ -1,0 +1,83 @@
+{
+  "status": "PAIRED-SOURCE-IDENTITY-VERIFIED; NATIVE-BLOCKED-UNRUN",
+  "recordedAt": "2026-10-28T17:30:00-05:00",
+  "engine": {
+    "repository": "HSpector1/The-Movies",
+    "ref": "refs/heads/p18-season-20261028",
+    "commit": "e115be4ba55cde244520fd0babc68b961e4eb17a",
+    "tag": "p18-sprint14-checkpoint-20261028",
+    "protocol": 4,
+    "projection": 68,
+    "schema": "sha256:b91efc9c632b2503a0f5ca0f33a243164e97775b2c13f566746ba004d7835851",
+    "dtoSha256": "2da6d5c5fa8f54c5251cca589f7a93204c17694e66b781699cd6fcf218b419ce",
+    "fixtureSha256": "be4b1dd1da2e7dc28906b9bad1ab0fa73e32d4dbe69eef344d9aeaf0a697bdb6"
+  },
+  "authorizedCounterpartAsFound": {
+    "repository": "HSpector1/project-studio-unity-visual-spike",
+    "ref": "refs/heads/wip/playability-interaction-01-client",
+    "remoteCommit": "08c32c47f6faf223068d0999ec4a7a6c90649948",
+    "committedAt": "2026-09-16T07:13:44Z",
+    "protocol": 4,
+    "projection": 32,
+    "schema": "sha256:b3a76d197481175c3a4a615f634cf227ae00b95981625df3f67784b307fc9e5c",
+    "dtoSha256": "c749729a56419eeb154392e7a503a5a7f4ea34aaded2fda3f0657258aa26c33f",
+    "fixtureSha256": "be4b1dd1da2e7dc28906b9bad1ab0fa73e32d4dbe69eef344d9aeaf0a697bdb6",
+    "cf09": "FAIL CF09_CONSUMER_HASH_MISMATCH"
+  },
+  "pairedCounterpart": {
+    "ref": "refs/heads/sprint15-consumer-20261028",
+    "commit": "72e9be21603c44bbbeab101a902e8ea67060a6cb",
+    "parent": "08c32c47f6faf223068d0999ec4a7a6c90649948",
+    "protocol": 4,
+    "projection": 68,
+    "schema": "sha256:b91efc9c632b2503a0f5ca0f33a243164e97775b2c13f566746ba004d7835851",
+    "dtoSha256": "2da6d5c5fa8f54c5251cca589f7a93204c17694e66b781699cd6fcf218b419ce",
+    "generatedContractGitBlob": "ca42a18270d42312a79f5b02cd723109d0956ed5",
+    "editModeFixtureManifest": {
+      "projectionVersion": 68,
+      "generatorSha256": "1e7a5036ca6d2e7a9627d0bbe9f3f4de05a6b4953bbe9d838a06df8da7604df9"
+    },
+    "cf09": "PASS (seal) \u2014 PAIR-VERIFICATION.json",
+    "pushed": true
+  },
+  "contractDelta": {
+    "typesBefore": 181,
+    "typesAfter": 357,
+    "typesAdded": 176,
+    "typesRemoved": 0,
+    "sharedClassPropertiesRemoved": 0,
+    "sharedClassPropertyTypeChanges": 0
+  },
+  "ownedWorktree": {
+    "path": "/Users/zacheryspector/studio-scratch/sprint15-consumer-20261028-wt",
+    "branch": "sprint15-consumer-20261028",
+    "sparse": false,
+    "sizeKiB": 134032
+  },
+  "ownerLocalCheckout": {
+    "path": "/Users/zacheryspector/Project Studio - Unity Production Convergence 80H",
+    "branch": "wip/p04a2-final-convergence-client-secondary-20260828",
+    "commit": "9bcd7be6c4133b22a0d6457a0cf85d7e90bfc549",
+    "clean": true,
+    "switched": false
+  },
+  "editorRequired": "6000.3.22f1 (1c726e1fb402)",
+  "editorAvailable": false,
+  "csharpToolchainAvailable": false,
+  "hostMacOS": "12.7.6",
+  "packagesPinned": {
+    "com.unity.render-pipelines.universal": "17.3.0",
+    "com.unity.inputsystem": "1.19.0",
+    "com.unity.nuget.newtonsoft-json": "3.2.2",
+    "com.unity.test-framework": "1.6.0",
+    "com.coplaydev.unity-mcp": "v10.1.2"
+  },
+  "lockScriptFinding": "CURRENT_ACCEPTED_SAVE_VERSION = 19 in scripts/bridge-contract-consumer-lock.ts while the engine is at Save51; Owner/contract reading needed before attestation",
+  "remaining": [
+    "static adaptation audit and P16/P17/P18 surfaces inventory (Opus writer, owned worktree)",
+    "native EditMode/PlayMode/build/input/save evidence on a capable host",
+    "attestation after the authorized Unity pass"
+  ],
+  "runtime": "UNRUN",
+  "installOrLicenseOperation": false
+}
