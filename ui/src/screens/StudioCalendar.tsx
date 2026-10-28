@@ -8,6 +8,7 @@ import type {
   GameState,
   StudioCalendarCommitmentView,
   StudioCalendarDecisionView,
+  StudioCalendarOccupantView,
   StudioCalendarView,
 } from '../engine/adapter.ts'
 import { campaignDate, studioCalendarBoard, studioQueueBoard, studioQueueHolderPlaces } from '../engine/adapter.ts'
@@ -209,12 +210,16 @@ function capabilityLabel(capability: string): string {
   return labels[capability] ?? capability
 }
 
-function ownerLabel(owner: string): string {
-  // Fails closed by name (P18 FIX-3): an owner Core adds later must get its own label, never 'production'.
-  const labels: Record<string, string> = { production: 'production', script: 'screenplay', casting: 'casting session', television: 'television season' }
-  const label = labels[owner]
-  if (label === undefined) throw new Error(`StudioCalendar: no label for occupant owner "${owner}"`)
-  return label
+// Closed over Core's owner union (P18 FIX-4): a fifth owner fails tsc here, never a render-time throw or a 'production' default.
+const OWNER_LABELS: Record<StudioCalendarOccupantView['owner'], string> = {
+  production: 'production',
+  script: 'screenplay',
+  casting: 'casting session',
+  television: 'television season',
+}
+
+function ownerLabel(owner: StudioCalendarOccupantView['owner']): string {
+  return OWNER_LABELS[owner]
 }
 
 export function StudioCalendarPreview({

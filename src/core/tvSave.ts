@@ -14,7 +14,8 @@
 import { assignmentBlockedTalentIds } from './employment.js'
 import { assertNoDoubleBookedResourceSlots } from './occupancy.js'
 import { RIGHTS_COUNTERPARTY_IDS, holderBeforeWrite, resolveTitles, type Licence } from './rights.js'
-import { TV_WORK_BLOCKS, TV_WORK_UNITS_TOTAL, tvBlockDefinition, tvEngagedTalentIds, tvUnitsThrough } from './tvReaders.js'
+import { TUNING } from './tuning.js'
+import { TV_WORK_BLOCKS, TV_WORK_UNITS_TOTAL, tvBlockDefinition, tvEngagedTalentIds, tvTermsFor, tvUnitsThrough } from './tvReaders.js'
 import { TV_COMMISSIONER_ID, TV_LEDGER_KINDS, TV_RULESET_VERSION, TV_WORK_BLOCK_ORDER } from './tvTypes.js'
 import type { TelevisionRoot, TvAgreement, TvAgreementTerms, TvReceipt, TvSeason } from './tvTypes.js'
 import type { GameState } from './types.js'
@@ -105,12 +106,12 @@ export function validateP18Roots(raw: Record<string, unknown>, label: string): v
     const series = root.series.find((row) => row.seriesId === s.seriesId)
     if (series === undefined || series.seasonIds[0] !== s.seasonId || series.propertyId !== s.propertyId) fail(`season ${s.seasonId} names no series that records it`)
     if (s.status !== 'live') fail(`season ${s.seasonId} status ${String(s.status)} has no producer at this checkpoint`)
-    if (s.producerStudioId !== player || s.commissionerId !== TV_COMMISSIONER_ID || s.rulesetVersion !== TV_RULESET_VERSION || s.seasonNumber !== 1 || s.episodes !== 6) {
+    if (s.producerStudioId !== player || s.commissionerId !== TV_COMMISSIONER_ID || s.rulesetVersion !== TV_RULESET_VERSION || s.seasonNumber !== 1 || s.episodes !== TUNING.TV_SEASON_EPISODES) {
       fail(`season ${s.seasonId} parties, ruleset or episode metadata are not the contract's`)
     }
     if (!whole(s.commitWeek) || s.commitWeek > week || s.commitWeek !== series!.createdWeek) fail(`season ${s.seasonId} commitWeek is not its series' creation week`)
-    // The season's schedule and licence term read the agreement's FROZEN terms (contract §5), never live TUNING: a later
-    // retune must not invalidate a saved season (review note 20; green-r5 exposed the old key-order-sensitive equality).
+    // The agreement's terms must be exactly the frozen v1 terms (contract §5; a change is a versioned contract amendment);
+    // the season's schedule and licence term then read that exact record.
     const agreement = root.agreements.find((row) => row.agreementId === s.agreementId)
     if (agreement === undefined) fail(`season ${s.seasonId} names no agreement`)
     const terms = validateTerms(agreement!.terms, s.commitWeek, `agreement ${agreement!.agreementId}`, fail)
@@ -173,30 +174,22 @@ export function validateP18Roots(raw: Record<string, unknown>, label: string): v
   assertNoDoubleBookedResourceSlots(raw as unknown as GameState, (b) => `${label}: television resource slot "${b.key}" is claimed by ${b.held.owner} "${b.held.ownerId}" and ${b.claimed.owner} "${b.claimed.ownerId}"`)
 }
 
-/** The grant set the season was committed under (contract §3; 19A §3): P16's own records, never a payload. */
-/**
- * The frozen v1 terms by structure and arithmetic (contract §5): exact keys, positive whole amounts, the three milestones
- * summing to the fee, the advance within the fee, the late deduction within its cap and the cap within the delivery
- * milestone, and C < due < final. The producer froze them from TUNING at acceptance; the validator checks the record.
- */
+/** Key-order-insensitive JSON: exportSave writes sorted keys (stableStringify), so a reloaded record differs in order only. */
+const canonical = (value: unknown): string => JSON.stringify(value, (_key, v: unknown) =>
+  v !== null && typeof v === 'object' && !Array.isArray(v) ? Object.fromEntries(Object.entries(v).sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))) : v)
+
+/** The frozen v1 terms, exactly (contract §5): the producer froze tvTermsFor(C) at acceptance and the record must equal it. */
 function validateTerms(t: TvAgreementTerms, commitWeek: number, label: string, fail: (rule: string) => never): TvAgreementTerms {
-  const keys = ['advance', 'cancellationCharge', 'distributionWeeks', 'dueWeek', 'fee', 'finalWeek', 'lateDeductionMax', 'lateDeductionPerWeek', 'milestones', 'unitSpend']
-  if (!sameKeys(t, keys) || !sameKeys(t.milestones, ['delivery', 'pictureLock', 'scripts'])) fail(`${label} terms must carry exactly ${keys.join(', ')} and the three milestones`)
-  const amounts = [t.fee, t.advance, t.milestones.scripts, t.milestones.pictureLock, t.milestones.delivery, t.unitSpend, t.lateDeductionPerWeek, t.lateDeductionMax, t.cancellationCharge, t.distributionWeeks]
-  if (!amounts.every((n) => whole(n) && n > 0)) fail(`${label} terms amounts must be positive whole numbers`)
-  if (t.milestones.scripts + t.milestones.pictureLock + t.milestones.delivery !== t.fee || t.advance > t.fee
-    || t.lateDeductionPerWeek > t.lateDeductionMax || t.lateDeductionMax > t.milestones.delivery) {
-    fail(`${label} terms do not add up: milestones must sum to the fee, the advance stay within it and the late cap within delivery`)
-  }
-  if (!whole(t.dueWeek) || !whole(t.finalWeek) || !(commitWeek < t.dueWeek && t.dueWeek < t.finalWeek)) fail(`${label} terms schedule must satisfy C < due < final`)
+  if (canonical(t) !== canonical(tvTermsFor(commitWeek))) fail(`${label} terms are not the frozen v1 terms for week ${commitWeek}`)
   return t
 }
 
+/** The grant set the season was committed under (contract §3; 19A §3): P16's own records, never a payload. */
 function validateGrant(s: TvSeason, rest: GameState, terms: TvAgreementTerms, fail: (rule: string) => never): void {
   const l = rest.rights.licences.find((x) => x.id === s.distributionLicenceId)
   if (l === undefined || l.right !== 'R4' || l.subject.right !== 'R1' || l.subject.propertyId !== s.propertyId || l.scope.use !== 'televisionDistribution' || l.exclusive !== true
     || l.granteeId !== TV_COMMISSIONER_ID || l.grantorId !== s.producerStudioId || l.startWeek !== s.commitWeek || l.endWeekExclusive !== s.finalWeek + terms.distributionWeeks || l.grantedWeek !== s.commitWeek) {
-    fail(`season ${s.seasonId} distribution licence ${s.distributionLicenceId} is not the commissioner's exclusive term over [C, C + 72) granted by the producer`)
+    fail(`season ${s.seasonId} distribution licence ${s.distributionLicenceId} is not the commissioner's exclusive term over [C, final week + distribution weeks) granted by the producer`)
   }
   // The producer held the property's R1 title when P16 minted the licence, and is its grantor (review blocking 4).
   // No NaN fallback (FIX-3, review note 6): a NaN order would quietly read the holder at the end of week C.

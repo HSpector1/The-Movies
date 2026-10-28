@@ -2,7 +2,7 @@
 import { expect,it } from 'vitest'
 import { readFileSync } from 'node:fs'
 import { createHash } from 'node:crypto'
-import { convertV48ToV49,validateSaveP15B,validateSaveV51,makeSave,stableStringify } from '../src/core/save.js'
+import { convertV48ToV49,validateSaveP15B,validateSaveV51,makeSave,stableStringify,LIVE_SAVE_VERSION } from '../src/core/save.js'
 import { applyActions } from '../src/core/actions.js'
 import { tick } from '../src/core/tick.js'
 import { offerRefusal,rivalWillingness } from '../src/core/assetSale.js'
@@ -92,7 +92,8 @@ it('real public film0 sale before R04 C excludes the sold title from current clo
  record.estate.lots=structuredClone(originalC.estate.lots)
  record.dispositions=record.dispositions.filter(x=>x.subjectKind!=='title').concat(structuredClone(originalC.dispositions.filter(x=>x.subjectKind==='title'))).sort((a,b)=>a.subjectKind<b.subjectKind?-1:a.subjectKind>b.subjectKind?1:a.subjectId<b.subjectId?-1:a.subjectId>b.subjectId?1:0)
  record.counts.title=10;record.digest=closureDigest(record.closureId,record.dispositions)
- const mutantBefore=stableStringify(mutant),envelope={saveVersion:50 as const,seed:mutant.seed,state:mutant,broadcastCache:mutant.broadcastItems}
+ const mutantBefore=stableStringify(mutant),envelope={saveVersion:LIVE_SAVE_VERSION,seed:mutant.seed,state:mutant,broadcastCache:mutant.broadcastItems}
+ // P18 FIX-4B: the live version, so the version check passes and the estate law answers (a 50 literal met 'expected version 51').
  expect(()=>validateSaveV51(envelope)).toThrow(/estate lots|title handoff|titles|dispositions/)
  expect(()=>makeSave(mutant)).toThrow(/estate lots|title handoff|titles|dispositions/)
  expect(stableStringify(mutant)).toBe(mutantBefore);expect(stableStringify(offered)).toBe(input);expect(stableStringify(state)).toBe(before)

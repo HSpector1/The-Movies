@@ -148,8 +148,21 @@ describe('P18 save step — a commissioned season', () => {
     refuse((f) => { f.state.television.agreements[0]!.received += 1 }, /E\/P .* do not replay/)
     refuse((f) => { const row = f.state.ledger.find((r) => r.kind === 'tvAdvance')!; row.note = 'tv-receipt-999999' }, /does not carry exactly one television receipt's effect/)
     refuse((f) => { f.state.television.seasons[0]!.work.creditedUnits += 1 }, /credited units disagree with the block table/)
-    // FIX-3: the frozen terms are proved by structure and arithmetic, never by equality to live TUNING.
-    refuse((f) => { (f.state.television.agreements[0]!.terms as { fee: number }).fee += 1 }, /terms do not add up/)
+    // FIX-4: the agreement's terms are exactly the frozen v1 terms (contract §5).
+    const notFrozen = /agreement tv-agreement-\d+ terms are not the frozen v1 terms for week \d+/
+    refuse((f) => { (f.state.television.agreements[0]!.terms as { fee: number }).fee += 1 }, notFrozen)
+    // The self-consistent forger (REVIEW.md blocking 4 model): a 600,000 advance with its receipt, ledger row, P and cash
+    // all moved by the same +480,000, so every replay and reconciliation agrees; only the frozen terms refuse it.
+    refuse((f) => {
+      const raise = 480_000
+      const a = f.state.television.agreements[0]!
+      ;(a.terms as { advance: number }).advance += raise
+      a.received += raise
+      const receipt = f.state.television.receipts.find((r) => r.kind === 'advancePaid')! as unknown as { amount: number }
+      receipt.amount += raise
+      f.state.ledger.find((r) => r.kind === 'tvAdvance')!.amount += raise
+      f.state.studio.cash += raise
+    }, notFrozen)
     // Review blocking 4: a grant over a property the producer did not hold (a rival's), with its zero transaction and the
     // +120,000 advance row left in place, reconciles in cash and must still refuse.
     const player = save.state.hollywood!.playerStudioId
