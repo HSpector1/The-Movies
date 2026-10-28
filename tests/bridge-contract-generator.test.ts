@@ -754,8 +754,8 @@ describe('CF-08 sound union-to-C# generation', () => {
         // Projection66 (Sprint 11 slice B): the continuation/guest request and terms $defs, the casting quote's two new
         // members, the featured-appearance page and the franchise outcome members grow both bodies. PLACEHOLDER: only the
         // generator renders them; the lane measures both (eight positives twice, six fixed bodies unchanged) and fills them.
-        F10_CURRENT_QUOTE_UNIONS: 'PLACEHOLDER-P66-F10-DECLARATION-SHA256-FILL-FROM-LANE', // was bf9192ac… (projection65)
-        F11_CURRENT_COMMAND_UNION: 'PLACEHOLDER-P66-F11-DECLARATION-SHA256-FILL-FROM-LANE', // was bf9192ac… (projection65), same body as F10
+        F10_CURRENT_QUOTE_UNIONS: 'f194af887052e0cda5041e385e125a58d3dab50c5ac6be5d652de93880663328', // was bf9192ac… (projection65)
+        F11_CURRENT_COMMAND_UNION: 'f194af887052e0cda5041e385e125a58d3dab50c5ac6be5d652de93880663328', // was bf9192ac… (projection65), same body as F10
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {
