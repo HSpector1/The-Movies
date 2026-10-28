@@ -1,0 +1,1870 @@
+--- /dev/null
++++ b/bridge/appearances.ts
+@@ -0,0 +1,81 @@
++/** P17 Shape A (projection 66): featured appearances on the Bridge. Every fee, basis, refusal and booking fact is the
++ * core's own (cameoQuote and the `cameos` root); the cancel verb is the core `cancelCameoBooking` action. Nothing here
++ * books: a booking rides the greenlight package (bridge/casting.ts), which the core books atomically at greenlight. */
++import { featuredCapacity } from '../src/core/cameo.js'
++import { cameoQuote, nominalShootingWeeks, type CameoQuote } from '../src/core/cameoBooking.js'
++import { TUNING } from '../src/core/tuning.js'
++import type { Action, CameoBooking, GameState } from '../src/core/types.js'
++import type { AvailableIntent } from './protocol.ts'
++import type { FeaturedAppearancesPage } from './schema/industry-schema.ts'
++
++export type CameoCancelSpec = { bookingId: string; productionId: string; label: string; detail: string; action: Extract<Action, { kind: 'cancelCameoBooking' }> }
++export type CameoIntent = { spec: CameoCancelSpec; option: AvailableIntent }
++
++const money = (n: number): string => `$${Math.round(n).toLocaleString('en-US')}`
++const nameOf = (state: GameState, talentId: string): string => state.talent.find((t) => t.id === talentId)?.name ?? talentId
++
++function playerBookings(state: GameState): CameoBooking[] {
++  const player = state.hollywood?.playerStudioId
++  return player === undefined ? [] : (state.cameos?.bookings ?? []).filter((b) => b.studioId === player)
++}
++
++function productionTitle(state: GameState, productionId: string): string {
++  const conceptId = state.studio.activeProductions.find((p) => p.id === productionId)?.conceptId
++    ?? state.studio.releasedFilms.find((f) => f.productionId === productionId)?.conceptId
++  return state.concepts.find((c) => c.id === conceptId)?.title ?? productionId
++}
++
++/** One cancel verb per unperformed booking of the player's own; the core action revalidates it at commit. */
++export function cameoCancelSpecs(state: GameState): CameoCancelSpec[] {
++  return playerBookings(state).filter((b) => b.status === 'reserved').map((b) => ({
++    bookingId: b.bookingId,
++    productionId: b.productionId,
++    label: `Cancel ${nameOf(state, b.talentId)}'s guest appearance (week ${b.workWeek})`,
++    detail: `Refunds ${money(b.fee - b.retained)} of the ${money(b.fee)} fee; the ${money(b.retained)} reservation charge is retained.`,
++    action: { kind: 'cancelCameoBooking', bookingId: b.bookingId },
++  }))
++}
++
++export function featuredAppearancesPage(
++  state: GameState, targetId: string | null, page: number, pageSize: number, intents: readonly CameoIntent[],
++): { featuredAppearances: FeaturedAppearancesPage; totalRows: number; pageCount: number } {
++  if (targetId !== null) throw new Error('The featured-appearance list requires a null targetId.')
++  if (state.hollywood === null) throw new Error('Featured appearances require an established player studio.')
++  const week = state.market.tick
++  const shooting = nominalShootingWeeks(week)
++  const workWeeks = Array.from({ length: TUNING.PRODUCTION_TICKS }, (_, index) => week + 1 + index)
++  const pageCount = Math.ceil(state.talent.length / pageSize)
++  if (page > 0 && page >= pageCount) throw new Error('That featured-appearance page is outside this record.')
++  // ponytail: every person in world order, quoted for each lawful work week on the requested page only (≤ 50 × 8 quotes);
++  // add an eligibility sort when a page of refusals gets in the player's way.
++  const guests = state.talent.slice(page * pageSize, (page + 1) * pageSize).map((t) => {
++    const quotes = workWeeks.map((workWeek) => cameoQuote(state, { talentId: t.id, workWeek }))
++    const lawful = quotes.find((q): q is CameoQuote => q.ok)
++    return {
++      talentId: t.id, name: t.name, profession: t.role, fame: t.fame,
++      fee: lawful?.fee ?? null, retained: lawful?.retained ?? null, refundable: lawful?.refundable ?? null,
++      weeks: quotes.map((q, index) => {
++        const workWeek = workWeeks[index]!, standardShooting = shooting.includes(workWeek)
++        return q.ok
++          ? { workWeek, standardShooting, ok: true, basis: q.basis, refusal: null, readinessRisk: q.readinessRisk, disclosures: [...q.disclosures] }
++          : { workWeek, standardShooting, ok: false, basis: null, refusal: q.reason, readinessRisk: null, disclosures: [] }
++      }),
++    }
++  })
++  const options = new Map(intents.map((intent) => [intent.spec.bookingId, intent.option]))
++  const bookings = playerBookings(state).map((b) => ({
++    bookingId: b.bookingId, productionId: b.productionId, productionTitle: productionTitle(state, b.productionId),
++    talentId: b.talentId, name: nameOf(state, b.talentId), profession: b.profession, basis: b.basis, workWeek: b.workWeek,
++    bookedWeek: b.bookedWeek, fee: b.fee, retained: b.retained, status: b.status, completedWeek: b.completedWeek,
++    cancelledWeek: b.cancelledWeek, cancelReason: b.cancelReason, refund: b.refund, releasedWeek: b.releasedWeek,
++    starPowerDelta: b.careerEvent?.starPowerDelta ?? null,
++    cancelIntent: options.get(b.bookingId) ?? null,
++  }))
++  const capacity = featuredCapacity(week)
++  return { totalRows: state.talent.length, pageCount, featuredAppearances: {
++    title: 'Featured appearances',
++    notice: `Each fee, basis and refusal is the engine's quote for a greenlight this week. A picture books at most ${capacity} guest(s), `
++      + 'carried on its greenlight package; a guest works one week only and an unperformed booking refunds all but its retained charge.',
++    greenlightWeek: week, capacity, nominalShootingWeeks: shooting, guests, bookings,
++  } }
++}
+--- a/bridge/casting.ts
++++ b/bridge/casting.ts
+@@ -59,13 +59,23 @@
+   type DraftPackage,
+ } from '../ui/src/engine/adapter.ts'
+ import type {
++  BridgeCameoBookingRequest,
+   BridgeCastingCandidateSnapshot,
+   BridgeCastingDraftPayload,
+   BridgeCastingExpiryNoticeSnapshot,
+   BridgeCastingProjectSnapshot,
+   BridgeCastingQuoteSnapshot,
+   BridgeCastingSnapshot,
++  BridgeContinuationQuoteTerms,
++  BridgeContinuationRequest,
++  BridgeFeaturedGuestTerms,
+ } from './schema/bridge-schema.ts'
++import { applyActions } from '../src/core/actions.js'
++import { cameoQuote } from '../src/core/cameoBooking.js'
++import type { ContinuationRequest } from '../src/core/continuation.js'
++import { prepareContinuation } from '../src/core/continuationGreenlight.js'
++import { branchAuthority, permissionFor } from '../src/core/rights.js'
++import { TUNING } from '../src/core/tuning.js'
+ import { castingChemistryRows, castingChemistryWarning, type ChemistrySeats } from './relationships.ts'
+ 
+ type CastingBoardWire = NonNullable<BridgeCastingSnapshot['board']>
+@@ -473,12 +483,81 @@
+   return {
+     ok: true,
+     kind: 'greenlightPicture',
+-    apply: (current) => greenlightScriptProject(current, view.projectId, pkg),
++    apply: (current) => greenlightCarrying(current, view.projectId, pkg, draft),
+     commitLabel: 'Greenlight picture',
+     projectTitle: view.title,
+   }
+ }
+ 
++const continuationRequest = (request: BridgeContinuationRequest): ContinuationRequest => ({
++  type: request.type,
++  predecessorProductionId: request.predecessorProductionId,
++  ...(request.subPropertyId === undefined ? {} : { subPropertyId: request.subPropertyId }),
++  ...(request.branchId === undefined ? {} : { branchId: request.branchId }),
++})
++const cameoRequest = (request: BridgeCameoBookingRequest): BridgeCameoBookingRequest => ({
++  talentId: request.talentId, workWeek: request.workWeek, fee: request.fee, basis: request.basis,
++})
++
++/**
++ * P17 slice B: the greenlight package with the core's optional requests. Absent both, it is the adapter's greenlight,
++ * byte for byte. Present, the same `greenlightScriptProject` action carries them, so the core's continuation quote,
++ * P16 link-versus-mint law and featured-booking law decide (the adapter's door, which this module may not widen, sends
++ * neither field).
++ */
++function greenlightCarrying(state: GameState, projectId: string, pkg: DraftPackage, draft: BridgeCastingDraftPayload): ActionOutcome {
++  if (draft.continuation === undefined && draft.cameos === undefined) return greenlightScriptProject(state, projectId, pkg)
++  try {
++    return { ok: true, next: applyActions(state, [{
++      kind: 'greenlightScriptProject',
++      production: { projectId, directorId: pkg.directorId, craftIds: [...(pkg.craftIds ?? [])], cast: { ...pkg.cast }, budget: { ...pkg.budget } },
++      ...(draft.continuation === undefined ? {} : { continuation: continuationRequest(draft.continuation) }),
++      ...(draft.cameos === undefined ? {} : { cameos: draft.cameos.map(cameoRequest) }),
++    }]) }
++  } catch (error) {
++    return { ok: false, error: (error as Error).message }
++  }
++}
++
++/** The continuation the greenlight commits: the core quote for the production id the discarded successor assigned, and
++ * the P16 answer it relies on (permissionFor, or branchAuthority for a spin-off continuity), read live, never stored. */
++function continuationTerms(state: GameState, request: BridgeContinuationRequest, productionId: string, pkg: DraftPackage): BridgeContinuationQuoteTerms {
++  const studioId = state.hollywood!.playerStudioId
++  const prep = prepareContinuation(state, continuationRequest(request), {
++    productionId, conceptId: pkg.conceptId, proposed: { writerId: pkg.writerId, directorId: pkg.directorId, cast: { ...pkg.cast } },
++  })
++  const q = prep.quote, week = state.market.tick
++  let via: 'title' | 'licence' | 'parent', holderStudioId: string, licenceId: string | null
++  if (q.use === 'spinoff') {
++    const answer = branchAuthority(state, { parentPropertyId: q.storyPropertyId, branch: q.subPropertyId ?? q.branchId ?? 'new continuity' }, week)
++    if (answer.kind !== 'authority') throw new Error(`continuation quote: P16 gives no spin-off authority on ${q.storyPropertyId} (${answer.reason})`)
++    via = 'parent'; holderStudioId = answer.studioId; licenceId = answer.licenceId
++  } else {
++    const answer = permissionFor(state, studioId, { right: 'R1', propertyId: q.storyPropertyId }, 'R3', { use: q.use }, week)
++    if (answer.kind !== 'permitted') throw new Error(`continuation quote: P16 refuses ${q.use} on ${q.storyPropertyId} (${answer.reason})`)
++    via = answer.via; holderStudioId = studioId; licenceId = answer.licenceId
++  }
++  const licence = licenceId === null ? null : state.rights.licences.find((l) => l.id === licenceId) ?? null
++  if (licenceId !== null && licence === null) throw new Error(`continuation quote: P16 answered with unknown licence ${licenceId}`)
++  return {
++    storyPropertyId: q.storyPropertyId, type: q.type, use: q.use, predecessorProductionId: q.predecessorProductionId,
++    branchId: q.branchId, branchKind: q.branchKind, subPropertyId: q.subPropertyId, link: prep.link,
++    rights: { via, holderStudioId, licenceId, grantorStudioId: licence?.grantorId ?? null,
++      licenceEndWeekExclusive: licence?.endWeekExclusive ?? null, coverWeek: week + TUNING.PRODUCTION_TICKS },
++    recognition: q.recognition, momentum: q.momentum, fatigue: q.fatigue, comparison01: q.comparison01,
++    continuityCredit: q.continuityCredit, inheritedAwareness01: q.inheritedAwareness01, band: q.band,
++  }
++}
++
++/** One requested guest's booking terms: the core quote the greenlight re-runs (the preflight already accepted it). */
++function featuredGuestTerms(state: GameState, request: BridgeCameoBookingRequest): BridgeFeaturedGuestTerms {
++  const q = cameoQuote(state, { talentId: request.talentId, workWeek: request.workWeek })
++  if (!q.ok) throw new Error(`featured guest quote: ${q.reason}`)
++  return { talentId: q.talentId, name: q.name, profession: q.profession, basis: q.basis, workWeek: q.workWeek,
++    standardShootingWeek: q.nominalShootingWeeks.includes(q.workWeek), fee: q.fee, retained: q.retained, refundable: q.refundable,
++    readinessRisk: q.readinessRisk, disclosures: [...q.disclosures] }
++}
++
+ /**
+  * R3-N4-SIM-20 — the affordability answer for ONE published term, asked of the SAME
+  * authority the sign door re-asks at commit (`canAfford` on the signing bonus, the
+@@ -561,6 +640,9 @@
+   state: GameState,
+   draft: BridgeCastingDraftPayload,
+ ): CastingDraftConversion {
++  if (draft.kind !== 'greenlightPackage' && (draft.continuation !== undefined || draft.cameos !== undefined)) {
++    return { ok: false, error: 'A continuation or a featured guest rides only a greenlight package.' }
++  }
+   if (draft.kind === 'signActor') return signActorConversion(state, draft)
+   if (draft.projectId === null) {
+     return { ok: false, error: 'Choose the exact Ready screenplay before casting or greenlighting.' }
+@@ -628,9 +710,16 @@
+     // read chemistry for, and an honest null is not a neutral score.
+     chemistry: null,
+     chemistryWarning: null,
++    continuation: null,
++    featuredGuests: null,
+   }
+ }
+ 
++function requireNewProduction<T>(production: T | undefined): T {
++  if (production === undefined) throw new Error('A continuation greenlight must start now; the core refuses to queue it.')
++  return production
++}
++
+ function greenlightQuoteSnapshot(
+   state: GameState,
+   draft: BridgeCastingDraftPayload,
+@@ -728,6 +817,10 @@
+     // change NOTHING in it: no cost, no forecast, no affordability and no refusal.
+     chemistry: [...castingChemistryRows(state, seats)],
+     chemistryWarning: castingChemistryWarning(state, seats),
++    // P17 slice B: a continuation or featured-guest greenlight never queues (the core refuses it), so it always has the
++    // new production the terms are quoted for.
++    continuation: draft.continuation === undefined ? null : continuationTerms(state, draft.continuation, requireNewProduction(newProduction).id, pkg),
++    featuredGuests: draft.cameos === undefined ? null : draft.cameos.map((request) => featuredGuestTerms(state, request)),
+   }
+ }
+ 
+@@ -792,6 +885,8 @@
+     // Signing a contract proposes no seating; an honest null, never a neutral score.
+     chemistry: null,
+     chemistryWarning: null,
++    continuation: null,
++    featuredGuests: null,
+   }
+ }
+ 
+--- a/bridge/franchises.ts
++++ b/bridge/franchises.ts
+@@ -11,6 +11,23 @@
+ const PROBE_PRODUCTION_ID='bridge-franchise-read-probe'
+ const SEQUEL_FAMILY=['directSequel','prequel','remake','reboot'] as const
+ 
++/** P17 slice B: what the core records about a released installment (no per-release meter change is recorded). */
++function releaseOutcome(world:ContinuationWorld,property:FranchiseProperty,productionId:string,releasedWeek:number|null):Property['installments'][number]['outcome'] {
++ if(releasedWeek===null)return null
++ const view=world.releasedFilm(productionId)
++ if(view===null)throw new Error(`franchise view: released installment ${productionId} has no public result`)
++ return {releasedWeek,criticScore:view.result.criticScore,openingGross:view.result.boxOffice.opening,totalGross:view.result.boxOffice.total,
++  expectedTotal:view.result.forecast?.expectedTotal??null,propertyPeak:property.meter.peakInstallmentId===productionId,
++  activeAgain:property.milestones.some(m=>m.milestoneId==='activeAgain'&&m.productionId===productionId)}
++}
++
++/** P17 slice B: the guests a release credited, exactly where the core attached a career record to the completed booking. */
++function creditedGuests(state:GameState,productionId:string):Property['installments'][number]['guests'] {
++ return (state.cameos?.bookings??[]).flatMap(b=>b.productionId!==productionId||b.status!=='completed'||b.careerEvent===null?[]:[{
++  bookingId:b.bookingId,talentId:b.talentId,name:state.talent.find(t=>t.id===b.talentId)?.name??b.talentId,workWeek:b.workWeek,fee:b.fee,
++  starPowerBefore:b.careerEvent.starPowerBefore,starPowerAfter:b.careerEvent.starPowerAfter,starPowerDelta:b.careerEvent.starPowerDelta}])
++}
++
+ function propertyRow(world:ContinuationWorld,studioId:string,property:FranchiseProperty):Property {
+  const week=world.week
+  const meterOf=(subPropertyId:string|null)=>subPropertyId===null?property.meter:property.subProperties.find(s=>s.subPropertyId===subPropertyId)!.meter
+@@ -28,7 +45,8 @@
+   branches:property.branches.map(b=>({branchId:b.branchId,kind:b.kind,subPropertyId:b.subPropertyId,openedAtWeek:b.openedAtWeek,
+    lastReleaseWeek:b.lastReleaseWeek,momentum:momentumAt(b,week),band:branchBand(b,meterOf(b.kind==='spinoff'?b.subPropertyId:null),week)})),
+   installments:property.installments.map(e=>({productionId:e.childProductionId,parentProductionId:e.parentProductionId,type:e.type,
+-   branchId:e.branchId,greenlitWeek:e.greenlitWeek,studioId:e.studioId,releasedWeek:e.releasedWeek})),
++   branchId:e.branchId,greenlitWeek:e.greenlitWeek,studioId:e.studioId,releasedWeek:e.releasedWeek,
++   outcome:releaseOutcome(world,property,e.childProductionId,e.releasedWeek),guests:creditedGuests(world.state,e.childProductionId)})),
+   subProperties:property.subProperties.map(s=>({subPropertyId:s.subPropertyId,kind:s.kind,mintedAtProductionId:s.mintedAtProductionId,
+    mintedWeek:s.mintedWeek,recognition:recognitionReported(s.meter,week),fatigue:fatigueAt(s.meter,week),promotedToStoryPropertyId:s.promotedToStoryPropertyId})),
+   rebootLegal,rebootRefusal:rebootLegal?null:reboots.flatMap(quote=>quote.ok?[]:[quote.reason])[0]??null,
+--- a/bridge/industry.ts
++++ b/bridge/industry.ts
+@@ -1,6 +1,7 @@
+ import { buyerScriptConcepts } from '../src/core/continuedScripts.ts'
+ import {paidReportsPage} from './paidReports.ts'
+ import {franchisesPage} from './franchises.ts'
++import {featuredAppearancesPage,type CameoIntent} from './appearances.ts'
+ import {filmScoreTenths} from '../src/core/powerRanking.js'
+ /** Public, bounded Industry reads. Authoritative IDs and facts only; no private business inputs. */
+ import {campaignDate} from '../src/core/calendar.js'
+@@ -293,14 +294,18 @@
+ }
+ 
+ /** Query results own their output objects; the immutable per-state index never escapes. */
+-export function industryPage(state:GameState,sessionId:string,stateRevision:number,q:IndustryQuery,laboratoryIntents:readonly LaboratoryIntent[]=[],planIntents:readonly PlanIntent[]=[],officeIntents:readonly OfficeIntent[]=[]):IndustryPage {
++export function industryPage(state:GameState,sessionId:string,stateRevision:number,q:IndustryQuery,laboratoryIntents:readonly LaboratoryIntent[]=[],planIntents:readonly PlanIntent[]=[],officeIntents:readonly OfficeIntent[]=[],cameoIntents:readonly CameoIntent[]=[]):IndustryPage {
+   if(!Number.isInteger(q.page)||q.page<0||!Number.isInteger(q.pageSize)||q.pageSize<1||q.pageSize>50) {
+     throw new Error('Industry pages require a non-negative integer page and a pageSize from 1 to 50.')
+   }
+   const index=indexFor(state),h=state.hollywood!,calendar=campaignDate(state.market.tick)
+-  const result:IndustryPage={protocolVersion:PROTOCOL_VERSION,schemaId:SCHEMA_ID,snapshotVersion:SNAPSHOT_VERSION,type:'industryPage',requestId:q.requestId,sessionId,stateRevision,stateDigest:snapshotBuildContextFor(state).stateDigest(),calendar,view:q.view,targetId:q.targetId,page:q.page,pageSize:q.pageSize,totalRows:0,pageCount:0,lane:q.lane,period:q.period,title:'Industry',notice:'Public facts only. Standing channels and film measures have separate meanings. The quarterly Power Ranking is a separate comparison.',studios:[],films:[],people:[],credits:[],activities:[],projects:[],tendencies:[],laboratory:null,plans:null,office:null,market:null,powerRanking:null,diligence:null,franchises:null}
++  const result:IndustryPage={protocolVersion:PROTOCOL_VERSION,schemaId:SCHEMA_ID,snapshotVersion:SNAPSHOT_VERSION,type:'industryPage',requestId:q.requestId,sessionId,stateRevision,stateDigest:snapshotBuildContextFor(state).stateDigest(),calendar,view:q.view,targetId:q.targetId,page:q.page,pageSize:q.pageSize,totalRows:0,pageCount:0,lane:q.lane,period:q.period,title:'Industry',notice:'Public facts only. Standing channels and film measures have separate meanings. The quarterly Power Ranking is a separate comparison.',studios:[],films:[],people:[],credits:[],activities:[],projects:[],tendencies:[],laboratory:null,plans:null,office:null,market:null,powerRanking:null,diligence:null,franchises:null,featuredAppearances:null}
+   const page=<T>(rows:T[]):T[]=>{result.totalRows=rows.length;result.pageCount=Math.ceil(rows.length/q.pageSize);if(q.page>0&&q.page>=result.pageCount)throw new Error('That page is outside this snapshot. Return to the first page.');return rows.slice(q.page*q.pageSize,(q.page+1)*q.pageSize)}
+-  if(q.view==='franchises') {
++  if(q.view==='featuredAppearances') {
++    const read=featuredAppearancesPage(state,q.targetId,q.page,q.pageSize,cameoIntents)
++    result.featuredAppearances=read.featuredAppearances;result.totalRows=read.totalRows;result.pageCount=read.pageCount
++    result.title=read.featuredAppearances.title;result.notice=read.featuredAppearances.notice
++  } else if(q.view==='franchises') {
+     const read=franchisesPage(state,q.targetId,q.page,q.pageSize)
+     result.franchises=read.franchises;result.totalRows=read.totalRows;result.pageCount=read.pageCount
+     result.title=read.franchises.title;result.notice=read.franchises.notice
+--- a/bridge/runtime-checkpoint.ts
++++ b/bridge/runtime-checkpoint.ts
+@@ -58,6 +58,10 @@
+ // that window would carry the earlier hash, and this map is keyed on the
+ // hash, not the label.
+ export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
++  // Sprint 11 slice B: the outgoing65 identity (projection 65, generated at f8aa097a, landed through 2b1a5b4b), prior
++  // beneath current66. Protocol 4 and Save50 are unchanged, so each slot is already live and takes the governed prior
++  // path as identity; the opaque journal resets. Its genuine capture runs on 2b1a5b4b (tools/capture65.ts).
++  ['sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8', 'projection-v65'],
+   // Sprint 11 (review S1): the P16 build's current64 identity (p16-technical-checkpoint-20261027, a5a66c27). P17 moved
+   // the live save to Save50 under this same schema, so a checkpoint the P16 build wrote carries it with Save49 slots,
+   // which the current-schema path refuses as non-live. Projection 65 makes it prior: each slot lifts Save49 -> Save50
+--- a/bridge/schema/bridge-schema.ts
++++ b/bridge/schema/bridge-schema.ts
+@@ -292,7 +292,12 @@
+ // Projection65 (P17 Save50): the read-only `franchises` Industry view (lineages, Recognition/Momentum/Fatigue, reboot
+ // legality, lawful continuation choices) and the outgoing64 identity registered prior, so a checkpoint the P16 build
+ // wrote with Save49 slots under the unchanged 64 schema lifts to Save50 on the governed prior path. Protocol4 is unchanged.
+-export const PROJECTION_VERSION = 65 as const
++// Projection66 (P17 Sprint 11 slice B): the greenlight package carries the core's optional `continuation` request and
++// featured-guest `cameos` requests (both OPTIONAL draft members, so every earlier draft stays valid); the casting quote
++// publishes the continuation terms (the parent right, its licence and expiry) and each guest's booking terms; the
++// `cancelFeaturedBooking` intent; the `featuredAppearances` Industry view; release outcomes and credited guests on the
++// franchise view. The outgoing65 identity is registered prior. Protocol4 and Save50 are unchanged.
++export const PROJECTION_VERSION = 66 as const
+ 
+ const nonEmptyText = () => text({ minLength: 1 })
+ const nonNegativeInteger = () => integer({ minimum: 0 })
+@@ -1664,6 +1669,22 @@
+ // the wire (never `optional()`); "required exactly when kind=X" is a plain-
+ // language refusal enforced by `castingDraftToEngine` against the live read
+ // models, not a JSON Schema structural constraint.
++// P17 slice B (projection 66): the core's own request shapes, closed (no second shape). `StudioContinuationRequest` is
++// src/core/continuation.ts ContinuationRequest; `StudioCameoBookingRequest` is src/core/cameo.ts CameoBookingRequest (cameo
++// FIX-1, 465d49a9: the core compares the accepted fee and basis with the live quote at the greenlight, so a stale one refuses).
++const StudioContinuationRequest = object('StudioContinuationRequest', {
++  type: enumeration(['directSequel', 'prequel', 'remake', 'reboot', 'spinOff']),
++  predecessorProductionId: nonEmptyText(),
++  subPropertyId: optional(nonEmptyText()),
++  branchId: optional(nonEmptyText()),
++})
++const StudioCameoBookingRequest = object('StudioCameoBookingRequest', {
++  talentId: nonEmptyText(),
++  workWeek: nonNegativeInteger(),
++  fee: number({ minimum: 0 }),
++  basis: enumeration(['employee', 'freelance']),
++})
++
+ const StudioCastingDraftPayload = object('StudioCastingDraftPayload', {
+   kind: enumeration(['screenTest', 'greenlightPackage', 'signActor']),
+   /** Hiring may have no screenplay; camera tests and greenlight require an exact Ready project. */
+@@ -1684,6 +1705,9 @@
+   /** Required exactly when kind is `signActor`: a published hiring candidate + a published term. */
+   signTalentId: nullable(text()),
+   signTermWeeks: nullable(nonNegativeInteger()),
++  /** P17 (projection 66), greenlightPackage only and OPTIONAL: absent is the predecessor greenlight, byte for byte. */
++  continuation: optional(reference('StudioContinuationRequest', StudioContinuationRequest)),
++  cameos: optional(array(reference('StudioCameoBookingRequest', StudioCameoBookingRequest))),
+ })
+ 
+ const StudioQuoteCastingRequest = object('StudioQuoteCastingRequest', {
+@@ -2034,6 +2058,52 @@
+   line: nonEmptyText(),
+ })
+ 
++// P17 slice B: the continuation a greenlight quote would commit, read from the core quote (prepareContinuation) and the
++// live P16 readers it consults (permissionFor, or branchAuthority for a spin-off continuity).
++const StudioContinuationRightsBasis = object('StudioContinuationRightsBasis', {
++  via: enumeration(['title', 'licence', 'parent']),
++  holderStudioId: nonEmptyText(),
++  licenceId: nullable(nonEmptyText()),
++  grantorStudioId: nullable(nonEmptyText()),
++  licenceEndWeekExclusive: nullable(nonNegativeInteger()),
++  /** The picture's earliest release week, which a licence term must cover. */
++  coverWeek: nonNegativeInteger(),
++})
++const StudioContinuationQuoteTerms = object('StudioContinuationQuoteTerms', {
++  storyPropertyId: nonEmptyText(),
++  type: enumeration(['directSequel', 'prequel', 'remake', 'reboot', 'spinOff']),
++  use: enumeration(['sequel', 'remake', 'spinoff']),
++  predecessorProductionId: nonEmptyText(),
++  branchId: nullable(nonEmptyText()),
++  branchKind: enumeration(['main', 'reboot', 'spinoff']),
++  subPropertyId: nullable(nonEmptyText()),
++  /** True: the picture joins the parent property's works and mints no title of its own (P16 link). False: a remake of
++   *  the parent's own concept, which P16's same-concept law links. */
++  link: bool(),
++  rights: reference('StudioContinuationRightsBasis', StudioContinuationRightsBasis),
++  recognition: number(),
++  momentum: number(),
++  fatigue: number(),
++  comparison01: number(),
++  continuityCredit: nullable(number()),
++  inheritedAwareness01: number(),
++  band: enumeration(['new', 'active', 'activeAgain', 'cooling', 'dormant', 'revivalCandidate']),
++})
++// One requested guest's booking terms, from the core quote (cameoQuote) the greenlight re-runs at commit.
++const StudioFeaturedGuestTerms = object('StudioFeaturedGuestTerms', {
++  talentId: nonEmptyText(),
++  name: nonEmptyText(),
++  profession: enumeration(['writer', 'director', 'actor', 'craft', 'scientist']),
++  basis: enumeration(['employee', 'freelance']),
++  workWeek: nonNegativeInteger(),
++  standardShootingWeek: bool(),
++  fee: number({ minimum: 0 }),
++  retained: number({ minimum: 0 }),
++  refundable: number({ minimum: 0 }),
++  readinessRisk: nonEmptyText(),
++  disclosures: array(nonEmptyText()),
++})
++
+ const StudioCastingQuoteSnapshot = object('StudioCastingQuoteSnapshot', {
+   financial: nullable(reference('StudioFinancialConsequence', StudioFinancialConsequence)),
+   /** The ONE opaque digest-bound commit intent this quote mints. */
+@@ -2081,6 +2151,9 @@
+   /** Ruling 3 (iii): ONE sentence when a seated pair reads −1. It never refuses, never
+    *  blocks, and never changes a quote, a cost or a forecast. */
+   chemistryWarning: nullable(text()),
++  // P17 slice B (projection 66): null unless a greenlight package carries the request.
++  continuation: nullable(reference('StudioContinuationQuoteTerms', StudioContinuationQuoteTerms)),
++  featuredGuests: nullable(array(reference('StudioFeaturedGuestTerms', StudioFeaturedGuestTerms))),
+ })
+ 
+ const StudioPlacementCellVerdictSnapshot = object('StudioPlacementCellVerdictSnapshot', {
+@@ -3721,6 +3794,8 @@
+   StudioCastingSnapshot,
+   StudioCommissionDraftPayload,
+   StudioCommissionQuoteSnapshot,
++  StudioContinuationRequest,
++  StudioCameoBookingRequest,
+   StudioCastingDraftPayload,
+   StudioQuoteCommissionRequest,
+   StudioQuoteCastingRequest,
+@@ -3756,6 +3831,9 @@
+   StudioPromiseWaiverQuoteSnapshot,
+   StudioBridgeQuoteRequest,
+   StudioCastingChemistryRow,
++  StudioContinuationRightsBasis,
++  StudioContinuationQuoteTerms,
++  StudioFeaturedGuestTerms,
+   StudioCastingQuoteSnapshot,
+   StudioPlacementCellVerdictSnapshot,
+   StudioPlacementUnmetRequirementSnapshot,
+@@ -3957,6 +4035,10 @@
+ export type BridgeCastingDraftPayload = InferSchema<typeof StudioCastingDraftPayload>
+ export type BridgeCastingChemistryRow = InferSchema<typeof StudioCastingChemistryRow>
+ export type BridgeCastingQuoteSnapshot = InferSchema<typeof StudioCastingQuoteSnapshot>
++export type BridgeContinuationRequest = InferSchema<typeof StudioContinuationRequest>
++export type BridgeCameoBookingRequest = InferSchema<typeof StudioCameoBookingRequest>
++export type BridgeContinuationQuoteTerms = InferSchema<typeof StudioContinuationQuoteTerms>
++export type BridgeFeaturedGuestTerms = InferSchema<typeof StudioFeaturedGuestTerms>
+ export type BridgeContractOfferSnapshot = InferSchema<typeof StudioContractOfferSnapshot>
+ export type BridgeHiringCandidateSnapshot = InferSchema<typeof StudioHiringCandidateSnapshot>
+ export type BridgeQuoteCommissionRequest = InferSchema<typeof StudioQuoteCommissionRequest>
+--- a/bridge/schema/industry-schema.ts
++++ b/bridge/schema/industry-schema.ts
+@@ -196,14 +196,28 @@
+ const FRANCHISE_BRANCH_KINDS=['main','reboot','spinoff'] as const
+ const CONTINUATION_BANDS=['new','active','activeAgain','cooling','dormant','revivalCandidate'] as const
+ const StudioFranchiseBranch=object('StudioFranchiseBranch',{branchId:id(),kind:enumeration(FRANCHISE_BRANCH_KINDS),subPropertyId:nullable(id()),openedAtWeek:count(),lastReleaseWeek:nullable(count()),momentum:number(),band:enumeration(CONTINUATION_BANDS)})
+-const StudioFranchiseInstallment=object('StudioFranchiseInstallment',{productionId:id(),parentProductionId:nullable(id()),type:enumeration([...CONTINUATION_TYPES,'origin']),branchId:id(),greenlitWeek:nullable(count()),studioId:nullable(id()),releasedWeek:nullable(count())})
++// P17 slice B (projection 66): what the core RECORDS about a released installment. The franchise root keeps the meters
++// after every release but no per-release Recognition/Momentum/Fatigue change, so none is published; the film's public
++// result, whether it holds the property's Recognition peak and its `activeAgain` milestone are recorded facts.
++const StudioFranchiseReleaseOutcome=object('StudioFranchiseReleaseOutcome',{releasedWeek:count(),criticScore:number(),openingGross:number(),totalGross:number(),expectedTotal:nullable(number()),propertyPeak:bool(),activeAgain:bool()})
++// A guest the release credited: the completed booking and the career record the core attached to it.
++const StudioFranchiseCreditedGuest=object('StudioFranchiseCreditedGuest',{bookingId:id(),talentId:id(),name:id(),workWeek:count(),fee:number(),starPowerBefore:number(),starPowerAfter:number(),starPowerDelta:number()})
++const StudioFranchiseInstallment=object('StudioFranchiseInstallment',{productionId:id(),parentProductionId:nullable(id()),type:enumeration([...CONTINUATION_TYPES,'origin']),branchId:id(),greenlitWeek:nullable(count()),studioId:nullable(id()),releasedWeek:nullable(count()),outcome:nullable(reference('StudioFranchiseReleaseOutcome',StudioFranchiseReleaseOutcome)),guests:array(reference('StudioFranchiseCreditedGuest',StudioFranchiseCreditedGuest))})
+ const StudioFranchiseSubProperty=object('StudioFranchiseSubProperty',{subPropertyId:id(),kind:enumeration(['character','organization','location','concept']),mintedAtProductionId:id(),mintedWeek:count(),recognition:number(),fatigue:number(),promotedToStoryPropertyId:nullable(id())})
+ const StudioFranchiseChoice=object('StudioFranchiseChoice',{type:enumeration(CONTINUATION_TYPES),predecessorProductionId:id(),subPropertyId:nullable(id()),branchId:nullable(id()),branchKind:enumeration(FRANCHISE_BRANCH_KINDS),use:enumeration(['sequel','remake','spinoff']),recognition:number(),momentum:number(),fatigue:number(),inheritedAwareness01:number(),band:enumeration(CONTINUATION_BANDS)})
+ const StudioFranchiseProperty=object('StudioFranchiseProperty',{storyPropertyId:id(),franchiseId:id(),mintedWeek:count(),recognition:number(),fatigue:number(),branches:array(reference('StudioFranchiseBranch',StudioFranchiseBranch)),installments:array(reference('StudioFranchiseInstallment',StudioFranchiseInstallment)),subProperties:array(reference('StudioFranchiseSubProperty',StudioFranchiseSubProperty)),rebootLegal:bool(),rebootRefusal:nullable(id()),choices:array(reference('StudioFranchiseChoice',StudioFranchiseChoice))})
+ const StudioFranchisesPage=object('StudioFranchisesPage',{title:id(),notice:id(),properties:array(reference('StudioFranchiseProperty',StudioFranchiseProperty))})
+-export const StudioIndustryRequest=object('StudioIndustryRequest',{protocolVersion:literal(4),schemaId:id(),sessionId:id(),requestId:id(),expectedStateRevision:count(),type:literal('industryQuery'),view:enumeration(['studios','studio','films','film','person','pulse','history','roster','project','employment','laboratory','plans','office','market','alumni','powerRanking','diligence','franchises']),targetId:nullable(id()),page:count(),pageSize:integer({minimum:1,maximum:50}),lane:enumeration([...INDUSTRY_LANES,...INDUSTRY_FILM_LANES]),period:enumeration(['recent','all','authored','live']),historyPage:optional(count())})
+-export const StudioIndustryResponse=object('StudioIndustryResponse',{protocolVersion:literal(4),schemaId:id(),snapshotVersion:count(),type:literal('industryPage'),requestId:id(),sessionId:id(),stateRevision:count(),stateDigest:id(),calendar:reference('StudioCampaignDate',StudioCampaignDate),view:enumeration(['studios','studio','films','film','person','pulse','history','roster','project','employment','laboratory','plans','office','market','alumni','powerRanking','diligence','franchises']),targetId:nullable(id()),page:count(),pageSize:integer({minimum:1,maximum:50}),totalRows:count(),pageCount:count(),lane:id(),period:id(),title:id(),notice:id(),studios:array(reference('StudioIndustryStudio',StudioIndustryStudio)),films:array(reference('StudioIndustryFilm',StudioIndustryFilm)),people:array(reference('StudioIndustryPerson',StudioIndustryPerson)),credits:array(reference('StudioIndustryCredit',StudioIndustryCredit)),activities:array(reference('StudioIndustryActivity',StudioIndustryActivity)),projects:array(reference('StudioIndustryProject',StudioIndustryProject)),tendencies:array(reference('StudioIndustryTendency',StudioIndustryTendency)),laboratory:nullable(reference('StudioLaboratoryPage',StudioLaboratoryPage)),plans:nullable(reference('StudioPlansPage',StudioPlansPage)),office:nullable(reference('StudioOfficePage',StudioOfficePage)),market:nullable(marketPageRef()),powerRanking:nullable(reference('StudioPowerRankingPage',StudioPowerRankingPage)),diligence:nullable(reference('StudioPaidReportsPage',StudioPaidReportsPage)),franchises:nullable(reference('StudioFranchisesPage',StudioFranchisesPage))})
+-export const industryDefinitions={StudioFranchiseBranch,StudioFranchiseInstallment,StudioFranchiseSubProperty,StudioFranchiseChoice,StudioFranchiseProperty,StudioFranchisesPage,StudioPaidReportStudioTarget,StudioPaidReportLotTarget,StudioPaidReportTarget,StudioPaidReportProperty,StudioPaidReportFilm,StudioPaidReportSubject,StudioPaidReportReceipt,StudioPaidReportRight,StudioPaidReportEmployment,StudioPaidReportLiabilities,StudioPaidReportBody,StudioPaidReportDetail,StudioPaidReportsPage,StudioPowerRankingFilm,StudioPowerRankingRow,StudioPowerRankingPage,StudioAdoptionComponent,StudioCancellationRestoration,StudioActionQuoteComponent,StudioActionQuote,StudioEquipmentAsset,StudioAdoptionRow,StudioLaboratoryAction,StudioOfficeConversionRow,StudioOfficePage,StudioPlanQuoteComponent,StudioPlanQuote,StudioPlanNext,StudioPlanCommitReceipt,StudioPlanRow,StudioPlansPage,StudioLaboratorySeat,StudioResearchLabRow,StudioResearchReceipt,StudioResearchLabShare,StudioResearchWeek,StudioLaboratoryProject,StudioTechnologyForecast,StudioLaboratoryPage,StudioCampaignDate,StudioIndustryLane,StudioIndustryStudio,StudioIndustryFilm,StudioIndustryPerson,StudioIndustryCredit,StudioIndustryActivity,StudioIndustryProject,StudioIndustryTendency,StudioIndustrySummary,StudioIndustryProjection,StudioIndustryRequest,StudioIndustryResponse}
++// ── P17 Shape A: featured appearances (projection 66) ──
++// The guests a greenlight this week could book, every verdict the core quote's (cameoQuote) for each lawful work week
++// (week+1 … week+PRODUCTION_TICKS), and the player's own bookings with the cancel intent while one is unperformed.
++const CAMEO_BASIS=['employee','freelance'] as const
++const StudioFeaturedGuestWeek=object('StudioFeaturedGuestWeek',{workWeek:count(),standardShooting:bool(),ok:bool(),basis:nullable(enumeration(CAMEO_BASIS)),refusal:nullable(id()),readinessRisk:nullable(id()),disclosures:array(id())})
++const StudioFeaturedGuestRow=object('StudioFeaturedGuestRow',{talentId:id(),name:id(),profession:enumeration(['writer','director','actor','craft','scientist']),fame:number(),fee:nullable(number()),retained:nullable(number()),refundable:nullable(number()),weeks:array(reference('StudioFeaturedGuestWeek',StudioFeaturedGuestWeek))})
++const StudioFeaturedBookingRow=object('StudioFeaturedBookingRow',{bookingId:id(),productionId:id(),productionTitle:id(),talentId:id(),name:id(),profession:enumeration(['writer','director','actor','craft','scientist']),basis:enumeration(CAMEO_BASIS),workWeek:count(),bookedWeek:count(),fee:number(),retained:number(),status:enumeration(['reserved','completed','cancelled']),completedWeek:nullable(count()),cancelledWeek:nullable(count()),cancelReason:nullable(enumeration(['explicit','missedWork','productionCancelled','employmentExit','rightsLoss'])),refund:nullable(number()),releasedWeek:nullable(count()),starPowerDelta:nullable(number()),cancelIntent:nullable(reference('StudioBridgeIntentOption',StudioBridgeIntentOption))})
++const StudioFeaturedAppearancesPage=object('StudioFeaturedAppearancesPage',{title:id(),notice:id(),greenlightWeek:count(),capacity:count(),nominalShootingWeeks:array(count()),guests:array(reference('StudioFeaturedGuestRow',StudioFeaturedGuestRow)),bookings:array(reference('StudioFeaturedBookingRow',StudioFeaturedBookingRow))})
++export const StudioIndustryRequest=object('StudioIndustryRequest',{protocolVersion:literal(4),schemaId:id(),sessionId:id(),requestId:id(),expectedStateRevision:count(),type:literal('industryQuery'),view:enumeration(['studios','studio','films','film','person','pulse','history','roster','project','employment','laboratory','plans','office','market','alumni','powerRanking','diligence','franchises','featuredAppearances']),targetId:nullable(id()),page:count(),pageSize:integer({minimum:1,maximum:50}),lane:enumeration([...INDUSTRY_LANES,...INDUSTRY_FILM_LANES]),period:enumeration(['recent','all','authored','live']),historyPage:optional(count())})
++export const StudioIndustryResponse=object('StudioIndustryResponse',{protocolVersion:literal(4),schemaId:id(),snapshotVersion:count(),type:literal('industryPage'),requestId:id(),sessionId:id(),stateRevision:count(),stateDigest:id(),calendar:reference('StudioCampaignDate',StudioCampaignDate),view:enumeration(['studios','studio','films','film','person','pulse','history','roster','project','employment','laboratory','plans','office','market','alumni','powerRanking','diligence','franchises','featuredAppearances']),targetId:nullable(id()),page:count(),pageSize:integer({minimum:1,maximum:50}),totalRows:count(),pageCount:count(),lane:id(),period:id(),title:id(),notice:id(),studios:array(reference('StudioIndustryStudio',StudioIndustryStudio)),films:array(reference('StudioIndustryFilm',StudioIndustryFilm)),people:array(reference('StudioIndustryPerson',StudioIndustryPerson)),credits:array(reference('StudioIndustryCredit',StudioIndustryCredit)),activities:array(reference('StudioIndustryActivity',StudioIndustryActivity)),projects:array(reference('StudioIndustryProject',StudioIndustryProject)),tendencies:array(reference('StudioIndustryTendency',StudioIndustryTendency)),laboratory:nullable(reference('StudioLaboratoryPage',StudioLaboratoryPage)),plans:nullable(reference('StudioPlansPage',StudioPlansPage)),office:nullable(reference('StudioOfficePage',StudioOfficePage)),market:nullable(marketPageRef()),powerRanking:nullable(reference('StudioPowerRankingPage',StudioPowerRankingPage)),diligence:nullable(reference('StudioPaidReportsPage',StudioPaidReportsPage)),franchises:nullable(reference('StudioFranchisesPage',StudioFranchisesPage)),featuredAppearances:nullable(reference('StudioFeaturedAppearancesPage',StudioFeaturedAppearancesPage))})
++export const industryDefinitions={StudioFranchiseReleaseOutcome,StudioFranchiseCreditedGuest,StudioFeaturedGuestWeek,StudioFeaturedGuestRow,StudioFeaturedBookingRow,StudioFeaturedAppearancesPage,StudioFranchiseBranch,StudioFranchiseInstallment,StudioFranchiseSubProperty,StudioFranchiseChoice,StudioFranchiseProperty,StudioFranchisesPage,StudioPaidReportStudioTarget,StudioPaidReportLotTarget,StudioPaidReportTarget,StudioPaidReportProperty,StudioPaidReportFilm,StudioPaidReportSubject,StudioPaidReportReceipt,StudioPaidReportRight,StudioPaidReportEmployment,StudioPaidReportLiabilities,StudioPaidReportBody,StudioPaidReportDetail,StudioPaidReportsPage,StudioPowerRankingFilm,StudioPowerRankingRow,StudioPowerRankingPage,StudioAdoptionComponent,StudioCancellationRestoration,StudioActionQuoteComponent,StudioActionQuote,StudioEquipmentAsset,StudioAdoptionRow,StudioLaboratoryAction,StudioOfficeConversionRow,StudioOfficePage,StudioPlanQuoteComponent,StudioPlanQuote,StudioPlanNext,StudioPlanCommitReceipt,StudioPlanRow,StudioPlansPage,StudioLaboratorySeat,StudioResearchLabRow,StudioResearchReceipt,StudioResearchLabShare,StudioResearchWeek,StudioLaboratoryProject,StudioTechnologyForecast,StudioLaboratoryPage,StudioCampaignDate,StudioIndustryLane,StudioIndustryStudio,StudioIndustryFilm,StudioIndustryPerson,StudioIndustryCredit,StudioIndustryActivity,StudioIndustryProject,StudioIndustryTendency,StudioIndustrySummary,StudioIndustryProjection,StudioIndustryRequest,StudioIndustryResponse}
+ export type IndustryQuery=InferSchema<typeof StudioIndustryRequest>
+ export type IndustryPage=InferSchema<typeof StudioIndustryResponse>
+ export type IndustrySummary=InferSchema<typeof StudioIndustrySummary>
+@@ -213,3 +227,4 @@
+ export type PaidReportsPage=InferSchema<typeof StudioPaidReportsPage>
+ 
+ export type FranchisesPage=InferSchema<typeof StudioFranchisesPage>
++export type FeaturedAppearancesPage=InferSchema<typeof StudioFeaturedAppearancesPage>
+--- a/bridge/schema/intent-schema.ts
++++ b/bridge/schema/intent-schema.ts
+@@ -63,6 +63,9 @@
+   'takeLoan',
+   'requestDueDiligence',
+   'absorbStudio',
++  // P17 slice B (projection 66): cancelling ONE unperformed featured-guest booking of the player's own, the core
++  // `cancelCameoBooking` action (one linked refund of fee less the retained charge; completed work keeps its fee).
++  'cancelFeaturedBooking',
+ ] as const
+ 
+ export const StudioBridgeIntentOption = object('StudioBridgeIntentOption', {
+--- a/bridge/schema/project-studio-bridge.schema.json
++++ b/bridge/schema/project-studio-bridge.schema.json
+@@ -961,7 +961,7 @@
+           "$ref": "#/$defs/StudioProjectionBundle"
+         },
+         "snapshotVersion": {
+-          "const": 65,
++          "const": 66,
+           "type": "integer"
+         },
+         "stateDigest": {
+@@ -1078,7 +1078,7 @@
+           "type": "string"
+         },
+         "snapshotVersion": {
+-          "const": 65,
++          "const": 66,
+           "type": "integer"
+         },
+         "stateDigest": {
+@@ -1159,7 +1159,8 @@
+             "waivePromise",
+             "takeLoan",
+             "requestDueDiligence",
+-            "absorbStudio"
++            "absorbStudio",
++            "cancelFeaturedBooking"
+           ],
+           "type": "string"
+         },
+@@ -1613,7 +1614,7 @@
+           "type": "string"
+         },
+         "snapshotVersion": {
+-          "const": 65,
++          "const": 66,
+           "type": "integer"
+         },
+         "stateDigest": {
+@@ -1692,7 +1693,7 @@
+           "$ref": "#/$defs/StudioProjectionBundle"
+         },
+         "snapshotVersion": {
+-          "const": 65,
++          "const": 66,
+           "type": "integer"
+         },
+         "stateDigest": {
+@@ -1797,6 +1798,39 @@
+       "type": "object",
+       "x-csharp-name": "StudioBuildingSnapshot"
+     },
++    "StudioCameoBookingRequest": {
++      "additionalProperties": false,
++      "properties": {
++        "basis": {
++          "enum": [
++            "employee",
++            "freelance"
++          ],
++          "type": "string"
++        },
++        "fee": {
++          "minimum": 0,
++          "type": "number"
++        },
++        "talentId": {
++          "minLength": 1,
++          "type": "string"
++        },
++        "workWeek": {
++          "maximum": 2147483647,
++          "minimum": 0,
++          "type": "integer"
++        }
++      },
++      "required": [
++        "basis",
++        "fee",
++        "talentId",
++        "workWeek"
++      ],
++      "type": "object",
++      "x-csharp-name": "StudioCameoBookingRequest"
++    },
+     "StudioCampaignAcceptedResponse": {
+       "additionalProperties": false,
+       "properties": {
+@@ -1984,7 +2018,7 @@
+           "type": "string"
+         },
+         "snapshotVersion": {
+-          "const": 65,
++          "const": 66,
+           "type": "integer"
+         },
+         "stateDigest": {
+@@ -2599,6 +2633,12 @@
+             }
+           ]
+         },
++        "cameos": {
++          "items": {
++            "$ref": "#/$defs/StudioCameoBookingRequest"
++          },
++          "type": "array"
++        },
+         "castAntagonist": {
+           "anyOf": [
+             {
+@@ -2629,6 +2669,9 @@
+             }
+           ]
+         },
++        "continuation": {
++          "$ref": "#/$defs/StudioContinuationRequest"
++        },
+         "craftLeadId": {
+           "anyOf": [
+             {
+@@ -3114,6 +3157,29 @@
+           "minLength": 1,
+           "type": "string"
+         },
++        "continuation": {
++          "anyOf": [
++            {
++              "$ref": "#/$defs/StudioContinuationQuoteTerms"
++            },
++            {
++              "type": "null"
++            }
++          ]
++        },
++        "featuredGuests": {
++          "anyOf": [
++            {
++              "items": {
++                "$ref": "#/$defs/StudioFeaturedGuestTerms"
++              },
++              "type": "array"
++            },
++            {
++              "type": "null"
++            }
++          ]
++        },
+         "financial": {
+           "anyOf": [
+             {
+@@ -3361,6 +3427,8 @@
+         "chemistry",
+         "chemistryWarning",
+         "commitLabel",
++        "continuation",
++        "featuredGuests",
+         "financial",
+         "forecastLine",
+         "freelancerFees",
+@@ -4144,6 +4212,228 @@
+       "type": "object",
+       "x-csharp-name": "StudioConstructionProjection"
+     },
++    "StudioContinuationQuoteTerms": {
++      "additionalProperties": false,
++      "properties": {
++        "band": {
++          "enum": [
++            "new",
++            "active",
++            "activeAgain",
++            "cooling",
++            "dormant",
++            "revivalCandidate"
++          ],
++          "type": "string"
++        },
++        "branchId": {
++          "anyOf": [
++            {
++              "minLength": 1,
++              "type": "string"
++            },
++            {
++              "type": "null"
++            }
++          ]
++        },
++        "branchKind": {
++          "enum": [
++            "main",
++            "reboot",
++            "spinoff"
++          ],
++          "type": "string"
++        },
++        "comparison01": {
++          "type": "number"
++        },
++        "continuityCredit": {
++          "anyOf": [
++            {
++              "type": "number"
++            },
++            {
++              "type": "null"
++            }
++          ]
++        },
++        "fatigue": {
++          "type": "number"
++        },
++        "inheritedAwareness01": {
++          "type": "number"
++        },
++        "link": {
++          "type": "boolean"
++        },
++        "momentum": {
++          "type": "number"
++        },
++        "predecessorProductionId": {
++          "minLength": 1,
++          "type": "string"
++        },
++        "recognition": {
++          "type": "number"
++        },
++        "rights": {
++          "$ref": "#/$defs/StudioContinuationRightsBasis"
++        },
++        "storyPropertyId": {
++          "minLength": 1,
++          "type": "string"
++        },
++        "subPropertyId": {
++          "anyOf": [
++            {
++              "minLength": 1,
++              "type": "string"
++            },
++            {
++              "type": "null"
++            }
++          ]
++        },
++        "type": {
++          "enum": [
++            "directSequel",
++            "prequel",
++            "remake",
++            "reboot",
++            "spinOff"
++          ],
++          "type": "string"
++        },
++        "use": {
++          "enum": [
++            "sequel",
++            "remake",
++            "spinoff"
++          ],
++          "type": "string"
++        }
++      },
++      "required": [
++        "band",
++        "branchId",
++        "branchKind",
++        "comparison01",
++        "continuityCredit",
++        "fatigue",
++        "inheritedAwareness01",
++        "link",
++        "momentum",
++        "predecessorProductionId",
++        "recognition",
++        "rights",
++        "storyPropertyId",
++        "subPropertyId",
++        "type",
++        "use"
++      ],
++      "type": "object",
++      "x-csharp-name": "StudioContinuationQuoteTerms"
++    },
++    "StudioContinuationRequest": {
++      "additionalProperties": false,
++      "properties": {
++        "branchId": {
++          "minLength": 1,
++          "type": "string"
++        },
++        "predecessorProductionId": {
++          "minLength": 1,
++          "type": "string"
++        },
++        "subPropertyId": {
++          "minLength": 1,
++          "type": "string"
++        },
++        "type": {
++          "enum": [
++            "directSequel",
++            "prequel",
++            "remake",
++            "reboot",
++            "spinOff"
++          ],
++          "type": "string"
++        }
++      },
++      "required": [
++        "predecessorProductionId",
++        "type"
++      ],
++      "type": "object",
++      "x-csharp-name": "StudioContinuationRequest"
++    },
++    "StudioContinuationRightsBasis": {
++      "additionalProperties": false,
++      "properties": {
++        "coverWeek": {
++          "maximum": 2147483647,
++          "minimum": 0,
++          "type": "integer"
++        },
++        "grantorStudioId": {
++          "anyOf": [
++            {
++              "minLength": 1,
++              "type": "string"
++            },
++            {
++              "type": "null"
++            }
++          ]
++        },
++        "holderStudioId": {
++          "minLength": 1,
++          "type": "string"
++        },
++        "licenceEndWeekExclusive": {
++          "anyOf": [
++            {
++              "maximum": 2147483647,
++              "minimum": 0,
++              "type": "integer"
++            },
++            {
++              "type": "null"
++            }
++          ]
++        },
++        "licenceId": {
++          "anyOf": [
++            {
++              "minLength": 1,
++              "type": "string"
++            },
++            {
++              "type": "null"
++            }
++          ]
++        },
++        "via": {
++          "enum": [
++            "title",
++            "licence",
++            "parent"
++          ],
++          "type": "string"
++        }
++      },
++      "required": [
++        "coverWeek",
++        "grantorStudioId",
++        "holderStudioId",
++        "licenceEndWeekExclusive",
++        "licenceId",
++        "via"
++      ],
++      "type": "object",
++      "x-csharp-name": "StudioContinuationRightsBasis"
++    },
+     "StudioContractDraftPayload": {
+       "additionalProperties": false,
+       "properties": {
+@@ -5089,22 +5379,549 @@
+         "ok": {
+           "type": "boolean"
+         },
+-        "queueNote": {
+-          "anyOf": [
+-            {
+-              "type": "string"
+-            },
+-            {
+-              "type": "null"
+-            }
+-          ]
++        "queueNote": {
++          "anyOf": [
++            {
++              "type": "string"
++            },
++            {
++              "type": "null"
++            }
++          ]
++        },
++        "queues": {
++          "type": "boolean"
++        },
++        "refusalReason": {
++          "anyOf": [
++            {
++              "type": "string"
++            },
++            {
++              "type": "null"
++            }
++          ]
++        },
++        "scope": {
++          "items": {
++            "enum": [
++              "rights",
++              "employment",
++              "liabilities"
++            ],
++            "type": "string"
++          },
++          "type": "array"
++        },
++        "staleFromWeek": {
++          "anyOf": [
++            {
++              "maximum": 2147483647,
++              "minimum": 0,
++              "type": "integer"
++            },
++            {
++              "type": "null"
++            }
++          ]
++        },
++        "startsNow": {
++          "type": "boolean"
++        },
++        "target": {
++          "$ref": "#/$defs/StudioDiligenceTarget"
++        }
++      },
++      "required": [
++        "commitLabel",
++        "disclosureId",
++        "disclosureWeek",
++        "fee",
++        "intentId",
++        "kind",
++        "ok",
++        "queueNote",
++        "queues",
++        "refusalReason",
++        "scope",
++        "staleFromWeek",
++        "startsNow",
++        "target"
++      ],
++      "type": "object",
++      "x-csharp-name": "StudioDiligenceQuoteSnapshot"
++    },
++    "StudioDiligenceStudioTarget": {
++      "additionalProperties": false,
++      "properties": {
++        "kind": {
++          "const": "studio",
++          "type": "string"
++        },
++        "studioId": {
++          "minLength": 1,
++          "type": "string"
++        }
++      },
++      "required": [
++        "kind",
++        "studioId"
++      ],
++      "type": "object",
++      "x-csharp-name": "StudioDiligenceStudioTarget"
++    },
++    "StudioDiligenceTarget": {
++      "anyOf": [
++        {
++          "$ref": "#/$defs/StudioDiligenceStudioTarget"
++        },
++        {
++          "$ref": "#/$defs/StudioDiligenceLotTarget"
++        }
++      ],
++      "x-csharp-name": "StudioDiligenceTarget"
++    },
++    "StudioEquipmentAsset": {
++      "additionalProperties": false,
++      "properties": {
++        "acquiredWeek": {
++          "maximum": 2147483647,
++          "minimum": 0,
++          "type": "integer"
++        },
++        "cost": {
++          "maximum": 2147483647,
++          "minimum": 0,
++          "type": "integer"
++        },
++        "holderAdoptionId": {
++          "anyOf": [
++            {
++              "minLength": 1,
++              "type": "string"
++            },
++            {
++              "type": "null"
++            }
++          ]
++        },
++        "id": {
++          "minLength": 1,
++          "type": "string"
++        },
++        "source": {
++          "enum": [
++            "first-prototype",
++            "later-inventor",
++            "commercial"
++          ],
++          "type": "string"
++        },
++        "technologyId": {
++          "enum": [
++            "synchronized-sound",
++            "lighting-control-01"
++          ],
++          "type": "string"
++        }
++      },
++      "required": [
++        "acquiredWeek",
++        "cost",
++        "holderAdoptionId",
++        "id",
++        "source",
++        "technologyId"
++      ],
++      "type": "object",
++      "x-csharp-name": "StudioEquipmentAsset"
++    },
++    "StudioFeaturedAppearancesPage": {
++      "additionalProperties": false,
++      "properties": {
++        "bookings": {
++          "items": {
++            "$ref": "#/$defs/StudioFeaturedBookingRow"
++          },
++          "type": "array"
++        },
++        "capacity": {
++          "maximum": 2147483647,
++          "minimum": 0,
++          "type": "integer"
++        },
++        "greenlightWeek": {
++          "maximum": 2147483647,
++          "minimum": 0,
++          "type": "integer"
++        },
++        "guests": {
++          "items": {
++            "$ref": "#/$defs/StudioFeaturedGuestRow"
++          },
++          "type": "array"
++        },
++        "nominalShootingWeeks": {
++          "items": {
++            "maximum": 2147483647,
++            "minimum": 0,
++            "type": "integer"
++          },
++          "type": "array"
++        },
++        "notice": {
++          "minLength": 1,
++          "type": "string"
++        },
++        "title": {
++          "minLength": 1,
++          "type": "string"
++        }
++      },
++      "required": [
++        "bookings",
++        "capacity",
++        "greenlightWeek",
++        "guests",
++        "nominalShootingWeeks",
++        "notice",
++        "title"
++      ],
++      "type": "object",
++      "x-csharp-name": "StudioFeaturedAppearancesPage"
++    },
++    "StudioFeaturedBookingRow": {
++      "additionalProperties": false,
++      "properties": {
++        "basis": {
++          "enum": [
++            "employee",
++            "freelance"
++          ],
++          "type": "string"
++        },
++        "bookedWeek": {
++          "maximum": 2147483647,
++          "minimum": 0,
++          "type": "integer"
++        },
++        "bookingId": {
++          "minLength": 1,
++          "type": "string"
++        },
++        "cancelIntent": {
++          "anyOf": [
++            {
++              "$ref": "#/$defs/StudioBridgeIntentOption"
++            },
++            {
++              "type": "null"
++            }
++          ]
++        },
++        "cancelReason": {
++          "anyOf": [
++            {
++              "enum": [
++                "explicit",
++                "missedWork",
++                "productionCancelled",
++                "employmentExit",
++                "rightsLoss"
++              ],
++              "type": "string"
++            },
++            {
++              "type": "null"
++            }
++          ]
++        },
++        "cancelledWeek": {
++          "anyOf": [
++            {
++              "maximum": 2147483647,
++              "minimum": 0,
++              "type": "integer"
++            },
++            {
++              "type": "null"
++            }
++          ]
++        },
++        "completedWeek": {
++          "anyOf": [
++            {
++              "maximum": 2147483647,
++              "minimum": 0,
++              "type": "integer"
++            },
++            {
++              "type": "null"
++            }
++          ]
++        },
++        "fee": {
++          "type": "number"
++        },
++        "name": {
++          "minLength": 1,
++          "type": "string"
++        },
++        "productionId": {
++          "minLength": 1,
++          "type": "string"
++        },
++        "productionTitle": {
++          "minLength": 1,
++          "type": "string"
++        },
++        "profession": {
++          "enum": [
++            "writer",
++            "director",
++            "actor",
++            "craft",
++            "scientist"
++          ],
++          "type": "string"
++        },
++        "refund": {
++          "anyOf": [
++            {
++              "type": "number"
++            },
++            {
++              "type": "null"
++            }
++          ]
++        },
++        "releasedWeek": {
++          "anyOf": [
++            {
++              "maximum": 2147483647,
++              "minimum": 0,
++              "type": "integer"
++            },
++            {
++              "type": "null"
++            }
++          ]
++        },
++        "retained": {
++          "type": "number"
++        },
++        "starPowerDelta": {
++          "anyOf": [
++            {
++              "type": "number"
++            },
++            {
++              "type": "null"
++            }
++          ]
++        },
++        "status": {
++          "enum": [
++            "reserved",
++            "completed",
++            "cancelled"
++          ],
++          "type": "string"
++        },
++        "talentId": {
++          "minLength": 1,
++          "type": "string"
++        },
++        "workWeek": {
++          "maximum": 2147483647,
++          "minimum": 0,
++          "type": "integer"
++        }
++      },
++      "required": [
++        "basis",
++        "bookedWeek",
++        "bookingId",
++        "cancelIntent",
++        "cancelReason",
++        "cancelledWeek",
++        "completedWeek",
++        "fee",
++        "name",
++        "productionId",
++        "productionTitle",
++        "profession",
++        "refund",
++        "releasedWeek",
++        "retained",
++        "starPowerDelta",
++        "status",
++        "talentId",
++        "workWeek"
++      ],
++      "type": "object",
++      "x-csharp-name": "StudioFeaturedBookingRow"
++    },
++    "StudioFeaturedGuestRow": {
++      "additionalProperties": false,
++      "properties": {
++        "fame": {
++          "type": "number"
++        },
++        "fee": {
++          "anyOf": [
++            {
++              "type": "number"
++            },
++            {
++              "type": "null"
++            }
++          ]
++        },
++        "name": {
++          "minLength": 1,
++          "type": "string"
++        },
++        "profession": {
++          "enum": [
++            "writer",
++            "director",
++            "actor",
++            "craft",
++            "scientist"
++          ],
++          "type": "string"
++        },
++        "refundable": {
++          "anyOf": [
++            {
++              "type": "number"
++            },
++            {
++              "type": "null"
++            }
++          ]
++        },
++        "retained": {
++          "anyOf": [
++            {
++              "type": "number"
++            },
++            {
++              "type": "null"
++            }
++          ]
++        },
++        "talentId": {
++          "minLength": 1,
++          "type": "string"
++        },
++        "weeks": {
++          "items": {
++            "$ref": "#/$defs/StudioFeaturedGuestWeek"
++          },
++          "type": "array"
++        }
++      },
++      "required": [
++        "fame",
++        "fee",
++        "name",
++        "profession",
++        "refundable",
++        "retained",
++        "talentId",
++        "weeks"
++      ],
++      "type": "object",
++      "x-csharp-name": "StudioFeaturedGuestRow"
++    },
++    "StudioFeaturedGuestTerms": {
++      "additionalProperties": false,
++      "properties": {
++        "basis": {
++          "enum": [
++            "employee",
++            "freelance"
++          ],
++          "type": "string"
++        },
++        "disclosures": {
++          "items": {
++            "minLength": 1,
++            "type": "string"
++          },
++          "type": "array"
++        },
++        "fee": {
++          "minimum": 0,
++          "type": "number"
++        },
++        "name": {
++          "minLength": 1,
++          "type": "string"
++        },
++        "profession": {
++          "enum": [
++            "writer",
++            "director",
++            "actor",
++            "craft",
++            "scientist"
++          ],
++          "type": "string"
++        },
++        "readinessRisk": {
++          "minLength": 1,
++          "type": "string"
++        },
++        "refundable": {
++          "minimum": 0,
++          "type": "number"
++        },
++        "retained": {
++          "minimum": 0,
++          "type": "number"
+         },
+-        "queues": {
++        "standardShootingWeek": {
+           "type": "boolean"
+         },
+-        "refusalReason": {
++        "talentId": {
++          "minLength": 1,
++          "type": "string"
++        },
++        "workWeek": {
++          "maximum": 2147483647,
++          "minimum": 0,
++          "type": "integer"
++        }
++      },
++      "required": [
++        "basis",
++        "disclosures",
++        "fee",
++        "name",
++        "profession",
++        "readinessRisk",
++        "refundable",
++        "retained",
++        "standardShootingWeek",
++        "talentId",
++        "workWeek"
++      ],
++      "type": "object",
++      "x-csharp-name": "StudioFeaturedGuestTerms"
++    },
++    "StudioFeaturedGuestWeek": {
++      "additionalProperties": false,
++      "properties": {
++        "basis": {
+           "anyOf": [
+             {
++              "enum": [
++                "employee",
++                "freelance"
++              ],
+               "type": "string"
+             },
+             {
+@@ -5112,99 +5929,28 @@
+             }
+           ]
+         },
+-        "scope": {
++        "disclosures": {
+           "items": {
+-            "enum": [
+-              "rights",
+-              "employment",
+-              "liabilities"
+-            ],
++            "minLength": 1,
+             "type": "string"
+           },
+           "type": "array"
+         },
+-        "staleFromWeek": {
++        "ok": {
++          "type": "boolean"
++        },
++        "readinessRisk": {
+           "anyOf": [
+             {
+-              "maximum": 2147483647,
+-              "minimum": 0,
+-              "type": "integer"
++              "minLength": 1,
++              "type": "string"
+             },
+             {
+               "type": "null"
+             }
+           ]
+         },
+-        "startsNow": {
+-          "type": "boolean"
+-        },
+-        "target": {
+-          "$ref": "#/$defs/StudioDiligenceTarget"
+-        }
+-      },
+-      "required": [
+-        "commitLabel",
+-        "disclosureId",
+-        "disclosureWeek",
+-        "fee",
+-        "intentId",
+-        "kind",
+-        "ok",
+-        "queueNote",
+-        "queues",
+-        "refusalReason",
+-        "scope",
+-        "staleFromWeek",
+-        "startsNow",
+-        "target"
+-      ],
+-      "type": "object",
+-      "x-csharp-name": "StudioDiligenceQuoteSnapshot"
+-    },
+-    "StudioDiligenceStudioTarget": {
+-      "additionalProperties": false,
+-      "properties": {
+-        "kind": {
+-          "const": "studio",
+-          "type": "string"
+-        },
+-        "studioId": {
+-          "minLength": 1,
+-          "type": "string"
+-        }
+-      },
+-      "required": [
+-        "kind",
+-        "studioId"
+-      ],
+-      "type": "object",
+-      "x-csharp-name": "StudioDiligenceStudioTarget"
+-    },
+-    "StudioDiligenceTarget": {
+-      "anyOf": [
+-        {
+-          "$ref": "#/$defs/StudioDiligenceStudioTarget"
+-        },
+-        {
+-          "$ref": "#/$defs/StudioDiligenceLotTarget"
+-        }
+-      ],
+-      "x-csharp-name": "StudioDiligenceTarget"
+-    },
+-    "StudioEquipmentAsset": {
+-      "additionalProperties": false,
+-      "properties": {
+-        "acquiredWeek": {
+-          "maximum": 2147483647,
+-          "minimum": 0,
+-          "type": "integer"
+-        },
+-        "cost": {
+-          "maximum": 2147483647,
+-          "minimum": 0,
+-          "type": "integer"
+-        },
+-        "holderAdoptionId": {
++        "refusal": {
+           "anyOf": [
+             {
+               "minLength": 1,
+@@ -5215,36 +5961,26 @@
+             }
+           ]
+         },
+-        "id": {
+-          "minLength": 1,
+-          "type": "string"
+-        },
+-        "source": {
+-          "enum": [
+-            "first-prototype",
+-            "later-inventor",
+-            "commercial"
+-          ],
+-          "type": "string"
++        "standardShooting": {
++          "type": "boolean"
+         },
+-        "technologyId": {
+-          "enum": [
+-            "synchronized-sound",
+-            "lighting-control-01"
+-          ],
+-          "type": "string"
++        "workWeek": {
++          "maximum": 2147483647,
++          "minimum": 0,
++          "type": "integer"
+         }
+       },
+       "required": [
+-        "acquiredWeek",
+-        "cost",
+-        "holderAdoptionId",
+-        "id",
+-        "source",
+-        "technologyId"
++        "basis",
++        "disclosures",
++        "ok",
++        "readinessRisk",
++        "refusal",
++        "standardShooting",
++        "workWeek"
+       ],
+       "type": "object",
+-      "x-csharp-name": "StudioEquipmentAsset"
++      "x-csharp-name": "StudioFeaturedGuestWeek"
+     },
+     "StudioFilmResultSnapshot": {
+       "additionalProperties": false,
+@@ -7654,6 +8390,52 @@
+       "type": "object",
+       "x-csharp-name": "StudioFranchiseChoice"
+     },
++    "StudioFranchiseCreditedGuest": {
++      "additionalProperties": false,
++      "properties": {
++        "bookingId": {
++          "minLength": 1,
++          "type": "string"
++        },
++        "fee": {
++          "type": "number"
++        },
++        "name": {
++          "minLength": 1,
++          "type": "string"
++        },
++        "starPowerAfter": {
++          "type": "number"
++        },
++        "starPowerBefore": {
++          "type": "number"
++        },
++        "starPowerDelta": {
++          "type": "number"
++        },
++        "talentId": {
++          "minLength": 1,
++          "type": "string"
++        },
++        "workWeek": {
++          "maximum": 2147483647,
++          "minimum": 0,
++          "type": "integer"
++        }
++      },
++      "required": [
++        "bookingId",
++        "fee",
++        "name",
++        "starPowerAfter",
++        "starPowerBefore",
++        "starPowerDelta",
++        "talentId",
++        "workWeek"
++      ],
++      "type": "object",
++      "x-csharp-name": "StudioFranchiseCreditedGuest"
++    },
+     "StudioFranchiseInstallment": {
+       "additionalProperties": false,
+       "properties": {
+@@ -7673,6 +8455,22 @@
+             }
+           ]
+         },
++        "guests": {
++          "items": {
++            "$ref": "#/$defs/StudioFranchiseCreditedGuest"
++          },
++          "type": "array"
++        },
++        "outcome": {
++          "anyOf": [
++            {
++              "$ref": "#/$defs/StudioFranchiseReleaseOutcome"
++            },
++            {
++              "type": "null"
++            }
++          ]
++        },
+         "parentProductionId": {
+           "anyOf": [
+             {
+@@ -7726,6 +8524,8 @@
+       "required": [
+         "branchId",
+         "greenlitWeek",
++        "guests",
++        "outcome",
+         "parentProductionId",
+         "productionId",
+         "releasedWeek",
+@@ -7812,6 +8612,52 @@
+       "type": "object",
+       "x-csharp-name": "StudioFranchiseProperty"
+     },
++    "StudioFranchiseReleaseOutcome": {
++      "additionalProperties": false,
++      "properties": {
++        "activeAgain": {
++          "type": "boolean"
++        },
++        "criticScore": {
++          "type": "number"
++        },
++        "expectedTotal": {
++          "anyOf": [
++            {
++              "type": "number"
++            },
++            {
++              "type": "null"
++            }
++          ]
++        },
++        "openingGross": {
++          "type": "number"
++        },
++        "propertyPeak": {
++          "type": "boolean"
++        },
++        "releasedWeek": {
++          "maximum": 2147483647,
++          "minimum": 0,
++          "type": "integer"
++        },
++        "totalGross": {
++          "type": "number"
++        }
++      },
++      "required": [
++        "activeAgain",
++        "criticScore",
++        "expectedTotal",
++        "openingGross",
++        "propertyPeak",
++        "releasedWeek",
++        "totalGross"
++      ],
++      "type": "object",
++      "x-csharp-name": "StudioFranchiseReleaseOutcome"
++    },
+     "StudioFranchiseSubProperty": {
+       "additionalProperties": false,
+       "properties": {
+@@ -9017,7 +9863,8 @@
+             "alumni",
+             "powerRanking",
+             "diligence",
+-            "franchises"
++            "franchises",
++            "featuredAppearances"
+           ],
+           "type": "string"
+         }
+@@ -9067,6 +9914,16 @@
+             }
+           ]
+         },
++        "featuredAppearances": {
++          "anyOf": [
++            {
++              "$ref": "#/$defs/StudioFeaturedAppearancesPage"
++            },
++            {
++              "type": "null"
++            }
++          ]
++        },
+         "films": {
+           "items": {
+             "$ref": "#/$defs/StudioIndustryFilm"
+@@ -9257,7 +10114,8 @@
+             "alumni",
+             "powerRanking",
+             "diligence",
+-            "franchises"
++            "franchises",
++            "featuredAppearances"
+           ],
+           "type": "string"
+         }
+@@ -9267,6 +10125,7 @@
+         "calendar",
+         "credits",
+         "diligence",
++        "featuredAppearances",
+         "films",
+         "franchises",
+         "laboratory",
+@@ -20086,7 +20945,7 @@
+       "x-csharp-name": "StudioWrapReceiptSnapshot"
+     }
+   },
+-  "$id": "urn:project-studio:bridge:protocol-4:projection-65",
++  "$id": "urn:project-studio:bridge:protocol-4:projection-66",
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
+   "oneOf": [
+@@ -20142,7 +21001,7 @@
+   "title": "Project Studio TypeScript to Unity Bridge",
+   "x-project-studio": {
+     "contractId": "project-studio-current-game-unity-bridge",
+-    "projectionVersion": 65,
++    "projectionVersion": 66,
+     "protocolVersion": 4,
+     "routes": {
+       "command": "POST /command",
+--- a/bridge/session.ts
++++ b/bridge/session.ts
+@@ -76,6 +76,7 @@
+ import {industryPage} from './industry.ts'
+ import {isCancellationAction} from './cancellation.ts'
+ import {laboratoryActionSpecs,type LaboratoryIntent} from './laboratory.ts'
++import {cameoCancelSpecs,type CameoIntent} from './appearances.ts'
+ import {isPhysicalPlanAction,planActionSpecs,type PlanIntent} from './plans.ts'
+ import {applyOfficeAction,officeActionSpecs,type OfficeIntent} from './office.ts'
+ import {setupRecipeActionSpecs,withProductionSetupRows,type ProductionSetupIntent} from './productionSetup.ts'
+@@ -1158,6 +1159,16 @@
+   }))
+ }
+ 
++/** P17 Shape A (projection 66): one cancel verb per unperformed featured booking of the player's own. */
++function resolveCameoIntents(state: GameState): Array<IntentApplication & CameoIntent> {
++  const stateDigest = authoritativeDigest(state)
++  return cameoCancelSpecs(state).map(spec => ({
++    spec,
++    option: option(stateDigest, {kind:'cancelFeaturedBooking',label:spec.label,detail:spec.detail,projectId:null,castingSessionId:null,productionId:spec.productionId}, spec.action),
++    apply: current => caught(() => ({ok:true,next:applyActions(current,[spec.action])})),
++  }))
++}
++
+ /** P13B-S3: the five plan verbs on the plans page. A plan is not research: its own kind. */
+ function resolvePlanIntents(state: GameState): Array<IntentApplication & PlanIntent> {
+   const stateDigest = authoritativeDigest(state)
+@@ -1228,7 +1239,7 @@
+ function resolveAvailableIntents(state: GameState): IntentApplication[] {
+   // P15B Wave 4 (closure/v1; 1362-O §5.2): a closed player studio is read-only history and offers nothing.
+   if (state.hollywood !== null && !isOperatingStudio(state, state.hollywood.playerStudioId)) return []
+-  return [...resolveStudioIntents(state), ...resolveLoanIntents(state), ...resolveLaboratoryIntents(state), ...resolvePlanIntents(state), ...resolveOfficeIntents(state), ...resolveProductionSetupIntents(state)]
++  return [...resolveStudioIntents(state), ...resolveLoanIntents(state), ...resolveLaboratoryIntents(state), ...resolvePlanIntents(state), ...resolveOfficeIntents(state), ...resolveProductionSetupIntents(state), ...resolveCameoIntents(state)]
+ }
+ 
+ export function availableIntents(state: GameState): AvailableIntent[] {
+@@ -1461,7 +1472,7 @@
+   industry(request:IndustryQuery) {
+     if(request.sessionId!==this.sessionId)return this.protocolReject(request.requestId,'SESSION_MISMATCH','The active campaign changed. Refresh Industry.')
+     if(request.expectedStateRevision!==this.stateRevision)return this.protocolReject(request.requestId,'STALE_REVISION','The studio advanced. Refresh this Industry page before continuing.')
+-    try{return industryPage(this.state,this.sessionId,this.stateRevision,request,request.view==='laboratory'?resolveLaboratoryIntents(this.state):[],request.view==='plans'?resolvePlanIntents(this.state):[],request.view==='office'?resolveOfficeIntents(this.state):[])}
++    try{return industryPage(this.state,this.sessionId,this.stateRevision,request,request.view==='laboratory'?resolveLaboratoryIntents(this.state):[],request.view==='plans'?resolvePlanIntents(this.state):[],request.view==='office'?resolveOfficeIntents(this.state):[],request.view==='featuredAppearances'?resolveCameoIntents(this.state):[])}
+     catch(error){return this.protocolReject(request.requestId,'INVALID_CONTROL',(error as Error).message)}
+   }
+ 

@@ -1,0 +1,1145 @@
+--- a/tests/bridge-contract-generator.test.ts
++++ b/tests/bridge-contract-generator.test.ts
+@@ -577,12 +577,14 @@
+       // Projection63: independently measured on0e0cdfde; p16-sprint7/declaration-measurement/measurement.json.
+       // Projection65 (Sprint 11): computed statically from the post-image schema JSON by canonical sha256, then confirmed by
+       // the lane generator (check:bridge-contract exit 0; regenerated manifest schemaId d57642ad…, f8aa097a).
++      // Projection66 (Sprint 11 slice B): computed statically from the post-image schema JSON by the same method (which
++      // reproduces d57642ad from the parent's file); the lane generator check must confirm it.
+       const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 59 })
+       expect(generated).toContain(
+-        '// Schema identity: sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8',
++        '// Schema identity: sha256:589380869e1329a8027b8339b88646761ce6d791376df5fd793e77ae9dd3b96a',
+       )
+       expect(schemaIdentity(schema)).toBe(
+-        'sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8',
++        'sha256:589380869e1329a8027b8339b88646761ce6d791376df5fd793e77ae9dd3b96a',
+       )
+       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
+       expect(generated).toContain('public StudioCastingDraftPayload draft;')
+@@ -749,8 +751,11 @@
+         // Projection63: all8 measured twice,6fixed unchanged; current bodies473809bytes.
+         // Projection65 (Sprint 11): the six StudioFranchise* $defs and the StudioIndustryResponse `franchises` member grow both
+         // whole-schema bodies. Measured by the lane generator run (f8aa097a F10, c0489f7c F11): one body, bf9192ac…; F12 unchanged.
+-        F10_CURRENT_QUOTE_UNIONS: 'bf9192ac936ff0fabb576bee25f07a3d1375ec25c2d10170713cd78c5889b5bb', // was 97ddfba0… (projection64)
+-        F11_CURRENT_COMMAND_UNION: 'bf9192ac936ff0fabb576bee25f07a3d1375ec25c2d10170713cd78c5889b5bb', // was 97ddfba0… (projection64), same body as F10
++        // Projection66 (Sprint 11 slice B): the continuation/guest request and terms $defs, the casting quote's two new
++        // members, the featured-appearance page and the franchise outcome members grow both bodies. PLACEHOLDER: only the
++        // generator renders them; the lane measures both (eight positives twice, six fixed bodies unchanged) and fills them.
++        F10_CURRENT_QUOTE_UNIONS: 'PLACEHOLDER-P66-F10-DECLARATION-SHA256-FILL-FROM-LANE', // was bf9192ac… (projection65)
++        F11_CURRENT_COMMAND_UNION: 'PLACEHOLDER-P66-F11-DECLARATION-SHA256-FILL-FROM-LANE', // was bf9192ac… (projection65), same body as F10
+         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
+       } as const
+       for (const [name, expectedHash] of Object.entries(expected)) {
+--- a/tests/bridge-operations-events.test.ts
++++ b/tests/bridge-operations-events.test.ts
+@@ -330,7 +330,7 @@
+     const response = new BridgeSession(state, 'r3n7-operations-events').snapshot()
+     expect(() => parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeSnapshotResponse, response)).not.toThrow()
+     expect(response.snapshotVersion).toBe(PROJECTION_VERSION)
+-    expect(PROJECTION_VERSION).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
+     const served = response.snapshot.operationsEvents.operationsEvents
+     // The served section is the projection itself — no re-derivation on the way out.
+     expect(stableStringify(served)).toBe(stableStringify(operationsEventsProjection(state)))
+--- a/tests/bridge-owner-ux-projection21-schema.test.ts
++++ b/tests/bridge-owner-ux-projection21-schema.test.ts
+@@ -15,8 +15,8 @@
+ describe('Owner UX projection21 public field wire boundary', () => {
+   it('pins the intended version and required envelope/profile fields independently', () => {
+     expect(PROTOCOL_VERSION).toBe(4)
+-    expect(PROJECTION_VERSION).toBe(65)
+-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-65')
++    expect(PROJECTION_VERSION).toBe(66)
++    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-66')
+     expect(BRIDGE_SCHEMA.$defs.StudioPersonProfileSnapshot.required).toContain('genreExperience')
+     for (const definition of [BRIDGE_SCHEMA.$defs.StudioBridgeSnapshotResponse,
+       BRIDGE_SCHEMA.$defs.StudioBridgeAcceptedCommandResponse, BRIDGE_SCHEMA.$defs.StudioBridgeSaveResponse]) {
+--- a/tests/bridge-p10a-w0-people-projection.test.ts
++++ b/tests/bridge-p10a-w0-people-projection.test.ts
+@@ -318,8 +318,8 @@
+   it('R9 the served section is projection 32 and the projection-17/18 identities stay accepted', () => {
+     const state = foundStudio('p10-w0-schema')
+     // Owner UX adds explicit public genre cells and saved-slot envelope metadata.
+-    expect(PROJECTION_VERSION).toBe(65)
+-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-65')
++    expect(PROJECTION_VERSION).toBe(66)
++    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-66')
+     const context = snapshotBuildContextFor(state)
+     const bundle = projectStudioProjectionBundle({ ...context.lotSnapshot(), development: context.development(), casting: context.casting(), release: context.release(), history: context.history(), operationsEvents: context.operationsEvents(), talent: context.people(), finance: context.finance(), industry: context.industry() })
+     expect(bundle.talent.talent.profiles.length).toBe(state.talent.length)
+--- a/tests/bridge-p11-capital-contributors.test.ts
++++ b/tests/bridge-p11-capital-contributors.test.ts
+@@ -21,7 +21,7 @@
+ 
+ describe('P11 recorded facility capital contributors over the real bridge', () => {
+   it('hydrates genuine outgoing projection24 and joins four original payments to exact construction events', () => {
+-    expect(PROJECTION_VERSION).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
+     expect(SCHEMA_ID).not.toBe(oldSchema)
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(oldSchema)).toBe('projection-v24')
+     const session = capitalStudio()
+--- a/tests/bridge-p11-ready.test.ts
++++ b/tests/bridge-p11-ready.test.ts
+@@ -49,7 +49,7 @@
+ 
+ describe('P11 ready Upcoming and discarded financial successors', () => {
+   it('migrates authentic core25 without relabeling its bytes; strict26 includes a nullable Week0 history', () => {
+-    expect(PROJECTION_VERSION).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get('sha256:fe9bf4558dc12abc5f258ba8b8f581242e06361cfbae8ae31d8c676f6c7a6460')).toBe('projection-v25')
+     const state = fixture('s5-p11-steady')
+     const snapshot = new BridgeSession(state, 'ready-week0').snapshot()
+--- a/tests/bridge-p13b-r07-setup.test.ts
++++ b/tests/bridge-p13b-r07-setup.test.ts
+@@ -318,9 +318,9 @@
+ 
+ describe('P13B-S5-R07-T3 bridge projection bump (37 -> 38; 46 after the P14B.2 bump)', () => {
+   it('PROJECTION_VERSION is 40; schema $id and x-project-studio.projectionVersion move with it', () => {
+-    expect(PROJECTION_VERSION).toBe(65)
+-    expect(BRIDGE_SCHEMA.$id).toContain('projection-65')
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
++    expect(BRIDGE_SCHEMA.$id).toContain('projection-66')
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(66)
+   })
+   it('AVAILABLE_INTENT_KINDS gains productionSetupAction, distinct from every existing kind', () => {
+     expect((AVAILABLE_INTENT_KINDS as readonly string[])).toContain('productionSetupAction')
+--- a/tests/bridge-p13b-s1b-seats.test.ts
++++ b/tests/bridge-p13b-s1b-seats.test.ts
+@@ -73,7 +73,7 @@
+ 
+ describe('P13B-S1b Laboratory seats read model (projection 46 after P14B.2)', () => {
+   it('bumps PROJECTION_VERSION to the S1b wire contract (33; 46 after the P14B.2 bump)', () => {
+-    expect(PROJECTION_VERSION).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
+   })
+ 
+   let entry: GameState
+@@ -99,7 +99,7 @@
+ 
+   it('a. fresh Laboratory with no project publishes empty seats/receipts, zero weekly and snapshotVersion 38', () => {
+     const page = readLaboratory(entry, entryLabFacilityId)
+-    expect(page.snapshotVersion).toBe(65)
++    expect(page.snapshotVersion).toBe(66)
+     expect(page.laboratory!.seats).toEqual([])
+     expect(page.laboratory!.receipts).toEqual([])
+     expect(page.laboratory!.weekly).toEqual({ ceiling: 0, usable: 0, seats: 0, output: 0, units: 0, labs: [] })
+--- a/tests/bridge-p13b-s2-labs.test.ts
++++ b/tests/bridge-p13b-s2-labs.test.ts
+@@ -113,7 +113,7 @@
+ 
+ describe('P13B-S2 T6 Laboratory bridge page: projection bump', () => {
+   it('bumps PROJECTION_VERSION to the S2 wire contract (34; 38 after the S5-R07-T3 bump)', () => {
+-    expect(PROJECTION_VERSION).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
+   })
+ })
+ 
+@@ -124,7 +124,7 @@
+     const buildingId = buildingIdOf(state, laboratoryFacilityId)
+     const session = new BridgeSession(state, 'p13b-s2-labs-1-fresh')
+     const response = labResponse(session, buildingId, nextRequestId('fresh'))
+-    expect(response.snapshotVersion).toBe(65)
++    expect(response.snapshotVersion).toBe(66)
+     expect(response.laboratory.projects).toEqual([])
+   })
+ })
+--- a/tests/bridge-p13b-s3-plans.test.ts
++++ b/tests/bridge-p13b-s3-plans.test.ts
+@@ -199,7 +199,7 @@
+ 
+ describe('P13B-S3-T4 plans bridge page: projection bump', () => {
+   it('bumps PROJECTION_VERSION to the S3-T4 wire contract (35; 38 after the S5-R07-T3 bump)', () => {
+-    expect(PROJECTION_VERSION).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
+   })
+ })
+ 
+@@ -211,7 +211,7 @@
+     const session = new BridgeSession(state, 'p13b-s3-plans-1-fresh')
+ 
+     const plans = plansResponse(session, nextRequestId('fresh'))
+-    expect(plans.snapshotVersion).toBe(65)
++    expect(plans.snapshotVersion).toBe(66)
+     expect(plans.plans.rows).toEqual([])
+     expect(plans.plans.actions).toEqual([])
+ 
+--- a/tests/bridge-p13b-s4-office.test.ts
++++ b/tests/bridge-p13b-s4-office.test.ts
+@@ -221,7 +221,7 @@
+ 
+ describe('P13B-S4-T3 office bridge page: projection bump', () => {
+   it('bumps PROJECTION_VERSION to the S4-T3 wire contract (36)', () => {
+-    expect(PROJECTION_VERSION).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
+   })
+ })
+ 
+@@ -232,7 +232,7 @@
+     const session = new BridgeSession(state, 'p13b-s4-office-1-fresh')
+ 
+     const response = officeResponse(session, facilityId, nextRequestId('fresh'))
+-    expect(response.snapshotVersion).toBe(65)
++    expect(response.snapshotVersion).toBe(66)
+     const office = response.office
+     expect(office.facilityId).toBe(facilityId)
+     expect(office.standard).toBe('I')
+--- a/tests/bridge-p13b-s5-adoption.test.ts
++++ b/tests/bridge-p13b-s5-adoption.test.ts
+@@ -247,9 +247,9 @@
+ 
+ describe('P13B-S5-T4 bridge adoption wire: projection bump (36 -> 37)', () => {
+   it('bumps PROJECTION_VERSION to 37 and its schema $id / x-project-studio.projectionVersion move with it', () => {
+-    expect(PROJECTION_VERSION).toBe(65)
+-    expect(BRIDGE_SCHEMA.$id).toContain('projection-65')
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
++    expect(BRIDGE_SCHEMA.$id).toContain('projection-66')
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(66)
+   })
+   it('AVAILABLE_INTENT_KINDS gains the adoptTechnology kind, distinct from researchAction/installationAction/physicalPlanAction', () => {
+     expect((AVAILABLE_INTENT_KINDS as readonly string[])).toContain('adoptTechnology')
+--- a/tests/bridge-p13b-s6-cancellation.test.ts
++++ b/tests/bridge-p13b-s6-cancellation.test.ts
+@@ -267,9 +267,9 @@
+ 
+ describe('P13B-S6-T3 item 1: projection version bump (38 -> 39; 46 after the P14B.2 bump) and the cancellationAction intent kind', () => {
+   it('bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it', () => {
+-    expect(PROJECTION_VERSION).toBe(65)
+-    expect(BRIDGE_SCHEMA.$id).toContain('projection-65')
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
++    expect(BRIDGE_SCHEMA.$id).toContain('projection-66')
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(66)
+   })
+   it('AVAILABLE_INTENT_KINDS gains cancellationAction, distinct from researchAction/installationAction/physicalPlanAction/adoptTechnology', () => {
+     const kinds = AVAILABLE_INTENT_KINDS as readonly string[]
+--- a/tests/bridge-p13b-s7-disclosure.test.ts
++++ b/tests/bridge-p13b-s7-disclosure.test.ts
+@@ -277,9 +277,9 @@
+ 
+ describe('P13B-S7-T3 item 1: projection version bump 39 -> 40; 46 after the P14B.2 bump', () => {
+   it('bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it', () => {
+-    expect(PROJECTION_VERSION).toBe(65)
+-    expect(BRIDGE_SCHEMA.$id).toContain('projection-65')
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
++    expect(BRIDGE_SCHEMA.$id).toContain('projection-66')
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(66)
+   })
+ })
+ 
+--- a/tests/bridge-p13b-s8-rivals.test.ts
++++ b/tests/bridge-p13b-s8-rivals.test.ts
+@@ -221,9 +221,9 @@
+ 
+ describe('P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag', () => {
+   it('bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it', () => {
+-    expect(PROJECTION_VERSION).toBe(65) // RED: today PROJECTION_VERSION is 40
+-    expect(BRIDGE_SCHEMA.$id).toContain('projection-65')
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66) // RED: today PROJECTION_VERSION is 40
++    expect(BRIDGE_SCHEMA.$id).toContain('projection-66')
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(66)
+   })
+ 
+   it('converted: false for a genuine current live-version save, round-tripped through save()/load() on the SAME session (regression guard — matches tests/bridge-p13b-r07-setup.test.ts\'s own now-fixed case)', () => {
+--- a/tests/bridge-p14a1-market.test.ts
++++ b/tests/bridge-p14a1-market.test.ts
+@@ -149,9 +149,9 @@
+ 
+ describe('group 1: PROJECTION_VERSION', () => {
+   it('PROJECTION_VERSION is 46; the schema $id and x-project-studio.projectionVersion move with it', () => {
+-    expect(PROJECTION_VERSION).toBe(65)
+-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-65`)
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
++    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-66`)
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(66)
+   })
+ })
+ 
+--- a/tests/bridge-p14a1-release-busy-set.test.ts
++++ b/tests/bridge-p14a1-release-busy-set.test.ts
+@@ -212,9 +212,9 @@
+ 
+ describe('P14 1304-C RED (Bridge): R2 seated/founding refusal, schema leaf, release-copy correction', () => {
+   it('schema leaf: PROJECTION_VERSION is 57, the schema $id and x-project-studio.projectionVersion move with it, and both new refusal codes reach the generated CONTRACT_REFUSAL_KINDS enum (mirrors the underMarketCase/projection-42 precedent, tests/bridge-p14a1-market.test.ts group 1)', () => {
+-    expect(PROJECTION_VERSION).toBe(65)
+-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-65`)
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
++    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-66`)
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(66)
+     const refusalSchema = (BRIDGE_SCHEMA.$defs as Record<string, unknown>).StudioContractQuoteSnapshot as
+       { properties: { refusal: { anyOf: readonly [{ enum: readonly string[] }, unknown] } } }
+     const enumMembers = refusalSchema.properties.refusal.anyOf[0].enum
+--- a/tests/bridge-p14a2-market.test.ts
++++ b/tests/bridge-p14a2-market.test.ts
+@@ -215,9 +215,9 @@
+ 
+ describe('group 1: PROJECTION_VERSION 46 / schema / view market / converted law', () => {
+   it('PROJECTION_VERSION is 46; the schema $id and x-project-studio.projectionVersion move with it', () => {
+-    expect(PROJECTION_VERSION).toBe(65)
+-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-65`)
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
++    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-66`)
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(66)
+   })
+ 
+   it('a view:"market" industry request validates against the wire schema, and marketPage answers it', () => {
+--- a/tests/bridge-p14a3-world.test.ts
++++ b/tests/bridge-p14a3-world.test.ts
+@@ -227,9 +227,9 @@
+ 
+ describe('group 1: PROJECTION_VERSION 46 / schema / converted law', () => {
+   it('PROJECTION_VERSION is 46; the schema $id and x-project-studio.projectionVersion move with it', () => {
+-    expect(PROJECTION_VERSION).toBe(65)
+-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-65`)
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
++    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-66`)
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(66)
+   })
+ 
+   it('personWorldRoute answers for a freshly signed actor with no case yet — reach playerLot, statusLine null, caseRef null', () => {
+--- a/tests/bridge-p14b1-promises.test.ts
++++ b/tests/bridge-p14b1-promises.test.ts
+@@ -206,9 +206,9 @@
+ describe('group 1: PROJECTION_VERSION / LIVE_SAVE_VERSION', () => {
+   it('LIVE_SAVE_VERSION is 35 (stale title corrected post-C.4) and the live promise surface carries projection 47 after the P14B.4 cutover (record 600 / 616)', () => {
+     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
+-    expect(PROJECTION_VERSION).toBe(65)
+-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-65`)
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
++    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-66`)
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(66)
+   })
+ })
+ 
+--- a/tests/bridge-p14b10-relationship-labels.test.ts
++++ b/tests/bridge-p14b10-relationship-labels.test.ts
+@@ -146,7 +146,7 @@
+ 
+ describe('P14B10 T1 — the projection version moves once for slice B (1347-F Addendum)', () => {
+   it('PROJECTION_VERSION is 57', () => {
+-    expect(PROJECTION_VERSION).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
+   })
+ })
+ 
+--- a/tests/bridge-p14b2-trust.test.ts
++++ b/tests/bridge-p14b2-trust.test.ts
+@@ -138,10 +138,10 @@
+   it('pins the exact version, old-five-plus-two attention enum and unchanged intent vocabulary', () => {
+     const state = p13aGeneratedStudio()
+     readModels(state, state.talent[0]!.id)
+-    expect(PROJECTION_VERSION).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
+     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
+-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-65`)
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(65)
++    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-66`)
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(66)
+     const attentionSchema = schemaDefinition('StudioMarketAttentionRowSnapshot') as unknown as { properties: { cause: { enum: string[] } } }
+     // Schema enum order is not gameplay row order; copies retain exact membership/count without mutating the schema.
+     expect([...attentionSchema.properties.cause.enum].sort()).toEqual(['decisionWeekNear', 'newCompetingProposal', 'termsRevised',
+@@ -157,7 +157,9 @@
+       // P16 rebase round 6: the candidate's two rights verbs, minted by the quotePaidDueDiligence and
+       // quoteHealthyAbsorption families (bridge/rights.ts); read from bridge/schema/intent-schema.ts, whose enumeration
+       // is inside the projection-62 schema identity measured at 839bb7c5 (lane wave3c).
+-      'requestDueDiligence', 'absorbStudio'])
++      'requestDueDiligence', 'absorbStudio',
++      // P17 Sprint 11 slice B (projection 66): the featured-booking cancellation verb (bridge/schema/intent-schema.ts).
++      'cancelFeaturedBooking'])
+   })
+   it('validates actual session profile, Market, Pulse and studio DTOs without stripping the new members', () => {
+     const f = retentionFixture()
+--- a/tests/bridge-p14b3-promise-command.test.ts
++++ b/tests/bridge-p14b3-promise-command.test.ts
+@@ -508,7 +508,7 @@
+     const saved = saveSlot(completed)
+     const validated = validateLiveSave(JSON.parse(saved))
+     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
+-    expect(PROJECTION_VERSION).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
+     expect(validated.saveVersion).toBe(LIVE_SAVE_VERSION)
+     const reloaded = BridgeSession.fromSaveJson(saved, 'b3-outcome-reloaded')
+     const read = (world: GameState) => ({ trust: trustBlockFor(world, talentId, player(world)),
+--- a/tests/bridge-p14b4-runtime47-compatibility.test.ts
++++ b/tests/bridge-p14b4-runtime47-compatibility.test.ts
+@@ -74,6 +74,7 @@
+ const OUTGOING_62 = 'sha256:2b94e6df66cd5b45e398861c8130085434d4bb9c4d0cf9bdcb97607699799604' // P16 Sprint 7: outgoing62 registered beneath 63 (bridge/runtime-checkpoint.ts)
+ const OUTGOING_63 = 'sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1' // P16 Sprint 8: outgoing63 registered beneath current64 (contract64)
+ const OUTGOING_64 = 'sha256:57f12ee28d21aa47c7514afa1c058105a10f10a9e76d400d664e97c23dc90272' // Sprint 11: the P16 build's outgoing64 registered beneath current65 (review S1)
++const OUTGOING_65 = 'sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8' // Sprint 11 slice B: outgoing65 registered beneath current66
+ const PINS = {
+   gzip: '3db0599c6e183140b79c83880eb967dde37aecc0d178a85d192283893ea0cc34',
+   raw: 'e344be06db6794e9d1523c036befb4180595564ef8a3fb6e6062328e477e7699',
+@@ -167,7 +168,7 @@
+   expect(canonicalJson(prior) + '\n').toBe(raw)
+ })
+ 
+-describe('P14B4 genuine outgoing46 runtime compatibility — current Save50/projection65', () => {
++describe('P14B4 genuine outgoing46 runtime compatibility — current Save50/projection66', () => {
+   it('pins genuine original46 artifact, producer authority, and two SAME-week DIFFERENT slots', () => {
+     const provenance = JSON.parse(readFileSync(artifact('genuine-projection46-runtime.provenance.json'), 'utf8'))
+     const manifest = JSON.parse(readFileSync(artifact('MANIFEST.json'), 'utf8'))
+@@ -227,13 +228,13 @@
+     expect(current.state.talentMarket.proposals.filter((p) => p.promises.includes('promise-0'))).toEqual([])
+   })
+ 
+-  it('requires literal projection65/Save50 and the exact prior roster through outgoing64, excluding the running identity', () => {
++  it('requires literal projection66/Save50 and the exact prior roster through outgoing65, excluding the running identity', () => {
+     expect(PROTOCOL_VERSION).toBe(4)
+-    expect(PROJECTION_VERSION).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
+     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
+     expect(SCHEMA_ID).not.toBe(OUTGOING_46)
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_PRIOR_IDS, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61, OUTGOING_62, OUTGOING_63, OUTGOING_64].sort())
++    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_PRIOR_IDS, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61, OUTGOING_62, OUTGOING_63, OUTGOING_64, OUTGOING_65].sort())
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_53)).toBe('projection-v53')
+--- a/tests/bridge-p14b5-relationships.test.ts
++++ b/tests/bridge-p14b5-relationships.test.ts
+@@ -115,6 +115,7 @@
+ const OUTGOING_62 = 'sha256:2b94e6df66cd5b45e398861c8130085434d4bb9c4d0cf9bdcb97607699799604' // authentic generated outgoing62
+ const OUTGOING_63 = 'sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1' // actual original-runtime outgoing63
+ const OUTGOING_64 = 'sha256:57f12ee28d21aa47c7514afa1c058105a10f10a9e76d400d664e97c23dc90272' // Sprint 11: the P16 build's outgoing64, prior beneath current65 (review S1)
++const OUTGOING_65 = 'sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8' // Sprint 11 slice B: outgoing65, prior beneath current66
+ const OUTGOING_PROJECTION = 47
+ // The 35 accepted prior literals (tests/bridge-p14b4-runtime47-compatibility.test.ts :41-83); never derived from the registry.
+ const EXPECTED_35_PRIOR_IDS = [
+@@ -405,7 +406,7 @@
+ describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, re-expressed by 700-T2 after P14B.8 landed projection 50 / Save V32 unchanged)', () => {
+   it('live projection52/Save37 and literal current hash retain all40 independent prior identities (875)', () => {
+     expect(PROTOCOL_VERSION).toBe(4)
+-    expect(PROJECTION_VERSION).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
+     expect(OUTGOING_PROJECTION).toBe(47)
+     // 1309-X3 ruling 5: SCHEMA_ID tracks the LIVE (projection56) schema now,
+     // not projection53's identity (OUTGOING_53) -- states the received value.
+@@ -415,10 +416,12 @@
+     // Current64 is measured by the actual contract64 generator output; authentic63 remains prior.
+     // Current65 (Sprint 11): computed statically by canonical sha256, confirmed by the lane generator (manifest schemaId
+     // d57642ad…, f8aa097a). The P16 build's 64 remains prior.
+-    expect(SCHEMA_ID).toBe('sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8')
++    // Current66 (Sprint 11 slice B): computed statically from the post-image schema JSON by the same canonical sha256
++    // (the method reproduces d57642ad from the parent's file); the lane generator check must confirm it. Outgoing65 is prior.
++    expect(SCHEMA_ID).toBe('sha256:589380869e1329a8027b8339b88646761ce6d791376df5fd793e77ae9dd3b96a')
+     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
+     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
+-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61, OUTGOING_62, OUTGOING_63, OUTGOING_64].sort())
++    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61, OUTGOING_62, OUTGOING_63, OUTGOING_64, OUTGOING_65].sort())
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_57)).toBe('projection-v57')
+@@ -468,7 +471,7 @@
+     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
+-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61, OUTGOING_62, OUTGOING_63, OUTGOING_64].sort())
++    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61, OUTGOING_62, OUTGOING_63, OUTGOING_64, OUTGOING_65].sort())
+     expect(LIVE_SAVE_VERSION).toBeGreaterThan(30) // the governed inner-save step rides the same wave (R22 :610)
+   })
+ 
+--- a/tests/bridge-p14b6-relationship-read-models.test.ts
++++ b/tests/bridge-p14b6-relationship-read-models.test.ts
+@@ -113,8 +113,9 @@
+ const OUTGOING_62 = 'sha256:2b94e6df66cd5b45e398861c8130085434d4bb9c4d0cf9bdcb97607699799604' // P16 Sprint 7: outgoing62 registered beneath 63 (bridge/runtime-checkpoint.ts)
+ const OUTGOING_63 = 'sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1' // P16 Sprint 8: outgoing63 registered beneath current64 (contract64)
+ const OUTGOING_64 = 'sha256:57f12ee28d21aa47c7514afa1c058105a10f10a9e76d400d664e97c23dc90272' // Sprint 11: the P16 build's outgoing64 registered beneath current65 (review S1)
++const OUTGOING_65 = 'sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8' // Sprint 11 slice B: outgoing65 registered beneath current66
+ const OUTGOING_PROJECTION = 48
+-const INCOMING_PROJECTION = 65
++const INCOMING_PROJECTION = 66
+ // The 36 accepted prior literals as they stand today (tests/bridge-p14b4-runtime47-compatibility.test.ts
+ // :40-80, exact-count pin at :162). B.6 took this roster to 37 by adding OUTGOING_48;
+ // B.8 takes it to 38 by adding OUTGOING_49.
+@@ -807,10 +808,10 @@
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+     expect(EXPECTED_36_PRIOR_IDS).toHaveLength(36)
+-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_36_PRIOR_IDS, OUTGOING_48, OUTGOING_49, OUTGOING_50, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61, OUTGOING_62, OUTGOING_63, OUTGOING_64].sort())
++    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_36_PRIOR_IDS, OUTGOING_48, OUTGOING_49, OUTGOING_50, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61, OUTGOING_62, OUTGOING_63, OUTGOING_64, OUTGOING_65].sort())
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
+-    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size).toBe(53) // P16: + outgoing58-63; Sprint 11: + outgoing64
++    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size).toBe(54) // P16: + outgoing58-63; Sprint 11: + outgoing64, outgoing65
+   })
+ 
+   it('the checked-in generator artifacts equal the running identity (`--check` clean), and priorityOrder keeps its seven members and its line', () => {
+--- a/tests/bridge-p14b7-promise-waiver.test.ts
++++ b/tests/bridge-p14b7-promise-waiver.test.ts
+@@ -134,7 +134,7 @@
+ // ═══════════════════════════════════════════════════════════════════════════════════════════════
+ describe('P14B.7 group9b — PROJECTION_VERSION is the frozen value this slice must not move (bridge half of group9; relocated by 730-T finding 3)', () => {
+   it('PROJECTION_VERSION is still 49', () => {
+-    expect(PROJECTION_VERSION).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
+   })
+ })
+ 
+--- a/tests/bridge-p14b8-waiver-surface.test.ts
++++ b/tests/bridge-p14b8-waiver-surface.test.ts
+@@ -773,9 +773,9 @@
+ // group12 — 744 §11 A3: the projection bump, complete and consistent, in ONE commit.
+ describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing identity is registered as a prior', () => {
+   it('PROJECTION_VERSION is 54 and the schema document agrees', () => {
+-    expect(PROJECTION_VERSION).toBe(65)
+-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-65`)
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
++    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-66`)
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(66)
+     expect(PROJECTION_VERSION).toBeGreaterThan(OUTGOING_PROJECTION)
+   })
+ 
+@@ -785,7 +785,7 @@
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID), 'the RUNNING identity is never its own prior').toBe(false)
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get('sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2')).toBe('projection-v52')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get('sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d')).toBe('projection-v53')
+-    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size, 'P15B adds actual shipped outgoing57; P16 adds outgoing58-61; projection63 adds authentic outgoing62; projection64 adds authentic outgoing63; projection65 adds the P16 build\'s outgoing64').toBe(53)
++    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size, 'P15B adds actual shipped outgoing57; P16 adds outgoing58-61; projection63 adds authentic outgoing62; projection64 adds authentic outgoing63; projection65 adds the P16 build\'s outgoing64; projection66 adds outgoing65').toBe(54)
+   })
+ 
+   it('the checked-in JSON schema, the contract manifest and the C# header all equal the running identity', () => {
+--- a/tests/bridge-p14c2rm-runtime.test.ts
++++ b/tests/bridge-p14c2rm-runtime.test.ts
+@@ -121,7 +121,7 @@
+   })
+ 
+   it('steps projection once to52 while retaining Save37/protocol4 and enumerating actual outgoing51 exactly once', () => {
+-    expect(PROJECTION_VERSION).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
+     expect(PROTOCOL_VERSION).toBe(4)
+     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
+     expect(SCHEMA_ID).not.toBe(OUTGOING_51)
+--- a/tests/bridge-p14c2s-scientist-runtime.test.ts
++++ b/tests/bridge-p14c2s-scientist-runtime.test.ts
+@@ -134,7 +134,7 @@
+ 
+   it('requires literal projection52/Save37, registers actual outgoing50, and excludes the running identity from prior schemas', () => {
+     expect(PROTOCOL_VERSION).toBe(4)
+-    expect(PROJECTION_VERSION).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
+     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
+     expect(SCHEMA_ID).not.toBe(OUTGOING_50)
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_50)).toBe('projection-v50')
+--- a/tests/bridge-p14c3-promise-digest-continuity.test.ts
++++ b/tests/bridge-p14c3-promise-digest-continuity.test.ts
+@@ -145,7 +145,7 @@
+     // Stable historical leaf title is retained for the paired selector. Under
+     // the explicit53 cutover this actual52 journal is preserved as old evidence;
+     // it must lose replay authority when both genuine37 slots migrate to38.
+-    expect(PROJECTION_VERSION).toBe(65)
++    expect(PROJECTION_VERSION).toBe(66)
+     const outgoing52 = 'sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2'
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(outgoing52)).toBe('projection-v52')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+--- a/tests/bridge-p14c3-runtime.test.ts
++++ b/tests/bridge-p14c3-runtime.test.ts
+@@ -158,7 +158,7 @@
+   })
+   it('R2 opens53/Save38 once, registers exact52 and independently migrates208/207 while resetting prior session authority', () => {
+     const f = recovered52('slots')
+-    expect(PROJECTION_VERSION).toBe(65); expect(PROTOCOL_VERSION).toBe(4); expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
++    expect(PROJECTION_VERSION).toBe(66); expect(PROTOCOL_VERSION).toBe(4); expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
+     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OUTGOING_52)).toEqual([[OUTGOING_52, 'projection-v52']])
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+     const current = f.loaded.hydrated.checkpoint
+--- a/tests/bridge-p14p3-directing-promises.test.ts
++++ b/tests/bridge-p14p3-directing-promises.test.ts
+@@ -383,7 +383,7 @@
+     const factory = vi.fn(() => `1174-prior53-${name}`)
+     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
+     expect(loaded.migratedFromProtocolVersion).toBe(4); expect(factory).toHaveBeenCalledTimes(1)
+-    expect(PROJECTION_VERSION).toBe(65); expect(PROTOCOL_VERSION).toBe(4)
++    expect(PROJECTION_VERSION).toBe(66); expect(PROTOCOL_VERSION).toBe(4)
+     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OLD_SCHEMA)).toEqual([[OLD_SCHEMA, 'projection-v53']])
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+     const current = loaded.hydrated.checkpoint
+--- a/tests/bridge-p14p4p5-opportunities.test.ts
++++ b/tests/bridge-p14p4p5-opportunities.test.ts
+@@ -513,8 +513,8 @@
+     const old = prior54(), preimage = canonicalJson(old.value), factory = vi.fn(() => '1236-prior54')
+     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
+     expect(loaded.migratedFromProtocolVersion).toBe(4); expect(factory).toHaveBeenCalledTimes(1)
+-    expect(PROTOCOL_VERSION).toBe(4); expect(PROJECTION_VERSION).toBe(65)
+-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-65')
++    expect(PROTOCOL_VERSION).toBe(4); expect(PROJECTION_VERSION).toBe(66)
++    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-66')
+     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OLD_SCHEMA)).toEqual([[OLD_SCHEMA, 'projection-v54']])
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+     const older = [...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id !== OLD_SCHEMA)
+@@ -538,8 +538,9 @@
+     // Projection63 adds only authentic outgoing62; same independently reproduced sorted-pair method.
+     // Projection64 adds only authenticated outgoing63; independently reproduced sorted-pair method.
+     // Projection65 (Sprint 11) adds only the P16 build's outgoing64; same method, which reproduces 51/1a452a62 on the parent map.
+-    expect(older).toHaveLength(52)
+-    expect(sha(canonicalJson(older))).toBe('a6666891e226bf8c1180354c7fee318693f13bfa732e4c171024b60434d176dc')
++    // Projection66 (Sprint 11 slice B) adds only outgoing65; same method, which reproduces 52/a6666891 on the parent map.
++    expect(older).toHaveLength(53)
++    expect(sha(canonicalJson(older))).toBe('c768ef9805615dcabc16f10acac1eb98ca641b9fca6068ec0b554d5659b5b866')
+     const current = loaded.hydrated.checkpoint
+     expect(current).toMatchObject({ schemaId: SCHEMA_ID, sessionId: '1236-prior54', stateRevision: 0, journal: [], journalDigest: sha('[]') })
+     expect(current.sessionId).not.toBe(old.value.sessionId)
+--- a/tests/bridge-p14r2r3-prior55.test.ts
++++ b/tests/bridge-p14r2r3-prior55.test.ts
+@@ -183,8 +183,8 @@
+ 
+     // The schema/projection literals the migration target must already carry.
+     expect(PROTOCOL_VERSION).toBe(4)
+-    expect(PROJECTION_VERSION).toBe(65)
+-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-65')
++    expect(PROJECTION_VERSION).toBe(66)
++    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-66')
+     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OLD_SCHEMA)).toEqual([[OLD_SCHEMA, 'projection-v55']])
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+     // 1308-D required change 1 / 1308-F item 1 (B55-3-style older-roster pin, mirrored from
+@@ -208,8 +208,9 @@
+     // Projection63 adds only authentic outgoing62; same independently reproduced sorted-pair method.
+     // Projection64 adds only authenticated outgoing63; independently reproduced sorted-pair method.
+     // Projection65 (Sprint 11) adds only the P16 build's outgoing64; same method, which reproduces 51/9270841e on the parent map.
+-    expect(older).toHaveLength(52)
+-    expect(sha(canonicalJson(older))).toBe('fa11f1c37a84c87f7ce805e36e27da29fe045c60738a063c52eebe36c26f7b6f')
++    // Projection66 (Sprint 11 slice B) adds only outgoing65; same method, which reproduces 52/fa11f1c3 on the parent map.
++    expect(older).toHaveLength(53)
++    expect(sha(canonicalJson(older))).toBe('9d2a641fc1db028e713ac490ebd8646b5f02135e1d7ccd4c70cbb48f345b983e')
+ 
+     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
+     expect(loaded.migratedFromProtocolVersion).toBe(4)
+--- /dev/null
++++ b/tests/bridge-p17-continuation-greenlight.test.ts
+@@ -0,0 +1,136 @@
++// Sprint 11 Bridge slice B: greenlight with a continuation through the real Bridge quote/commit pair (projection 66).
++// RED at 2b1a5b4b by assertion: the closed quote parser there has no `continuation` member on the casting draft, so the
++// first `{ ok: true }` assertion of each case fails. Every expected value is the core's own (continuationQuote over
++// continuationWorldOf, resolveTitles, the franchise root); the route is the real industry-managed studio with two Ready
++// screenplays, the first greenlit by the core as the locked parent (P16 mints its title at that greenlight).
++import { beforeAll, describe, expect, it } from 'vitest'
++import { applyActions } from '../src/core/actions.js'
++import { continuationQuote } from '../src/core/continuation.js'
++import { continuationWorldOf } from '../src/core/continuationGreenlight.js'
++import { resolveTitles, storyPropertyId } from '../src/core/rights.js'
++import { tick } from '../src/core/tick.js'
++import { TUNING } from '../src/core/tuning.js'
++import type { GameState } from '../src/core/types.js'
++import { castingProjection } from '../bridge/casting.ts'
++import { BRIDGE_SCHEMA, PROTOCOL_VERSION, SCHEMA_ID, validateQuote } from '../bridge/protocol.ts'
++import { BridgeSession } from '../bridge/session.ts'
++import type { BridgeCastingDraftPayload, BridgeContinuationRequest } from '../bridge/schema/bridge-schema.ts'
++import { parseWireValue } from '../bridge/schema/runtime.ts'
++import { commissionFor, freePackage } from './_m4Fixtures.js'
++import { industryManagedStudio } from './helpers/p16-fixtures.js'
++
++type Root = { properties: { storyPropertyId: string; installments: { childProductionId: string; type: string; parentProductionId: string | null }[] }[] }
++const rootOf = (s: GameState): Root | undefined => (s as GameState & { franchises?: Root }).franchises
++
++/** Two Ready screenplays after one week; the first is greenlit by the core and stays locked as the parent. */
++function continuationWorld(seed: string) {
++  let state = industryManagedStudio(seed)
++  for (const index of [0, 1]) state = applyActions(state, [{ kind: 'commissionScript', project: commissionFor(state, index, index) }])
++  state = tick(state)
++  const ready: string[] = []
++  for (const project of state.scriptDevelopment.projects) {
++    if (project.status !== 'review') continue
++    state = applyActions(state, [{ kind: 'acceptScript', projectId: project.id }])
++    ready.push(project.id)
++  }
++  if (ready.length !== 2) throw new Error(`premise: seed ${seed} must leave two screenplays in review after one week (got ${ready.length})`)
++  state = applyActions(state, [{ kind: 'greenlightScriptProject', production: freePackage(state, ready[0]!) }])
++  const parent = state.studio.activeProductions[state.studio.activeProductions.length - 1]!
++  return { state, parentId: parent.id, parentPropertyId: storyPropertyId(parent.conceptId), projectId: ready[1]! }
++}
++
++/** The bridge-casting.test.ts draft rule: every id from the LIVE candidate pools, three distinct available actors. */
++function greenlightDraftFor(state: GameState, projectId: string): BridgeCastingDraftPayload {
++  const view = castingProjection(state).board!.projects.find((p) => p.projectId === projectId)!
++  const available = (pool: readonly { talentId: string; available: boolean }[]) => pool.find((candidate) => candidate.available)!.talentId
++  const actors = view.leadCandidates.filter((candidate) => candidate.available)
++  if (actors.length < 3) throw new Error(`premise: project ${projectId} has fewer than three available acting candidates`)
++  return {
++    kind: 'greenlightPackage', projectId, slateLead: null, slateAntagonist: null, slateSupport: null,
++    directorId: available(view.directorCandidates), castLead: actors[0]!.talentId, castAntagonist: actors[1]!.talentId,
++    castSupport: actors[2]!.talentId, craftLeadId: available(view.craftCandidates),
++    budgetNegative: view.negativeOptions[0]!.amount, budgetMarketing: view.marketingOptions[0]!.amount, signTalentId: null, signTermWeeks: null,
++  }
++}
++
++function quote(session: BridgeSession, commandId: string, draft: unknown) {
++  const parsed = validateQuote({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: session.sessionId, commandId,
++    expectedStateRevision: session.stateRevision, type: 'quoteCasting', draft })
++  expect(parsed, 'the closed quote parser admits the continuation member').toMatchObject({ ok: true })
++  if (!parsed.ok || parsed.quote.type !== 'quoteCasting') throw new Error('unreachable after the assertion above')
++  return session.quote(parsed.quote)
++}
++const commit = (session: BridgeSession, commandId: string, intentId: string) => session.command({ protocolVersion: PROTOCOL_VERSION,
++  schemaId: SCHEMA_ID, sessionId: session.sessionId, commandId, expectedStateRevision: session.stateRevision, type: 'submitIntent', payload: { intentId } })
++
++describe('P17 greenlight with a continuation on the Bridge (projection 66)', () => {
++  let world: ReturnType<typeof continuationWorld>
++  beforeAll(() => { world = continuationWorld('bridge-p17-continuation-greenlight') })
++
++  it('quotes the lawful continuation choice, the parent right it relies on and the core read before committing anything', () => {
++    const session = new BridgeSession(world.state, 'p17-continuation-quote')
++    const draft = greenlightDraftFor(session.gameState, world.projectId)
++    const request: BridgeContinuationRequest = { type: 'directSequel', predecessorProductionId: world.parentId }
++    const before = session.gameState
++    const quoted = quote(session, 'continuation-quote', { ...draft, continuation: request })
++    expect(session.gameState).toBe(before)
++    expect(quoted).toMatchObject({ accepted: true })
++    if (!quoted.accepted || quoted.quote.kind !== 'greenlightPicture') throw new Error('unreachable after the assertion above')
++    expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteResponse, quoted)).toEqual(quoted)
++    expect(quoted.quote.startsNow).toBe(true)
++    expect(quoted.quote.queues).toBe(false)
++    expect(quoted.quote.featuredGuests).toBeNull()
++    const player = world.state.hollywood!.playerStudioId
++    const writerId = world.state.scriptDevelopment.projects.find((p) => p.id === world.projectId)!.writerId
++    const core = continuationQuote(continuationWorldOf(world.state), { studioId: player, productionId: 'p17-continuation-expected', request,
++      proposed: { writerId, directorId: draft.directorId!, cast: { lead: draft.castLead!, antagonist: draft.castAntagonist!, support: draft.castSupport! } } })
++    expect(core.ok).toBe(true)
++    if (!core.ok) throw new Error(core.reason)
++    expect(quoted.quote.continuation).toEqual({
++      storyPropertyId: world.parentPropertyId, type: 'directSequel', use: 'sequel', predecessorProductionId: world.parentId,
++      branchId: core.branchId, branchKind: 'main', subPropertyId: null, link: true,
++      rights: { via: 'title', holderStudioId: player, licenceId: null, grantorStudioId: null, licenceEndWeekExclusive: null,
++        coverWeek: world.state.market.tick + TUNING.PRODUCTION_TICKS },
++      recognition: core.recognition, momentum: core.momentum, fatigue: core.fatigue, comparison01: core.comparison01,
++      continuityCredit: core.continuityCredit, inheritedAwareness01: core.inheritedAwareness01, band: core.band,
++    })
++    expect(core.storyPropertyId).toBe(world.parentPropertyId)
++  })
++
++  it('refuses an unlawful continuation by the core\'s own name, rejects an unknown request key and a continuation off a greenlight package', () => {
++    const session = new BridgeSession(world.state, 'p17-continuation-refusal')
++    const draft = greenlightDraftFor(session.gameState, world.projectId)
++    const refused = quote(session, 'remake-of-locked', { ...draft, continuation: { type: 'remake', predecessorProductionId: world.parentId } })
++    expect(refused).toMatchObject({ accepted: false, reasonCode: 'ENGINE_REJECTED' })
++    if (refused.accepted) throw new Error('unreachable after the assertion above')
++    expect(refused.message).toContain(`continuation refused: a remake cites exactly one RELEASED film; ${world.parentId} is not released`)
++    const offPackage = quote(session, 'screen-test-continuation', { ...draft, kind: 'screenTest', continuation: { type: 'directSequel', predecessorProductionId: world.parentId } })
++    expect(offPackage).toMatchObject({ accepted: false, reasonCode: 'ENGINE_REJECTED', message: 'A continuation or a featured guest rides only a greenlight package.' })
++    const unknownKey = validateQuote({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: session.sessionId, commandId: 'unknown-key',
++      expectedStateRevision: session.stateRevision, type: 'quoteCasting',
++      draft: { ...draft, continuation: { type: 'directSequel', predecessorProductionId: world.parentId, ownerStudioId: 'forged' } } })
++    expect(unknownKey).toMatchObject({ ok: false })
++    expect(session.gameState).toBe(world.state)
++  })
++
++  it('commits through the greenlight action: the picture links to the parent property and mints no title of its own', () => {
++    const session = new BridgeSession(world.state, 'p17-continuation-commit')
++    const draft = greenlightDraftFor(session.gameState, world.projectId)
++    const quoted = quote(session, 'continuation-commit-quote', { ...draft, continuation: { type: 'directSequel', predecessorProductionId: world.parentId } })
++    expect(quoted).toMatchObject({ accepted: true })
++    if (!quoted.accepted) throw new Error('unreachable after the assertion above')
++    const committed = commit(session, 'continuation-commit', quoted.quote.intentId)
++    expect(committed).toMatchObject({ accepted: true })
++    const after = session.gameState
++    const child = after.studio.activeProductions[after.studio.activeProductions.length - 1]!
++    expect(child.id).not.toBe(world.parentId)
++    const childConceptProperty = storyPropertyId(child.conceptId)
++    expect(childConceptProperty).not.toBe(world.parentPropertyId)
++    expect(rootOf(after)?.properties.map((p) => ({ property: p.storyPropertyId, edges: p.installments.map((e) => [e.childProductionId, e.type, e.parentProductionId]) })))
++      .toEqual([{ property: world.parentPropertyId, edges: [[world.parentId, 'origin', null], [child.id, 'directSequel', world.parentId]] }])
++    expect(resolveTitles(after).properties.find((p) => p.propertyId === world.parentPropertyId)!.workLinks).toContain(child.id)
++    expect(after.rights.properties.some((p) => p.propertyId === childConceptProperty)).toBe(false)
++    expect(after.rights.titleEvents.filter((e) => e.subject.right === 'R1' && e.subject.propertyId === childConceptProperty)).toEqual([])
++    expect(resolveTitles(after).properties.filter((p) => p.workLinks.includes(child.id)).map((p) => p.propertyId)).toEqual([world.parentPropertyId])
++  })
++})
+--- /dev/null
++++ b/tests/bridge-p17-featured-appearances.test.ts
+@@ -0,0 +1,201 @@
++// Sprint 11 Bridge slice B: featured appearances and continuation outcomes on the real Bridge (projection 66).
++// RED at 2b1a5b4b by assertion: there the closed Industry parser has no `featuredAppearances` view, the closed quote parser
++// has no `cameos` member on the casting draft, the intent vocabulary has no `cancelFeaturedBooking` and the franchise
++// installment carries no `outcome`/`guests`; each case's first assertion on those fails. Every fee, basis, refusal and
++// record is the core's (cameoQuote, the `cameos` root, the franchise root, the public film result).
++//
++// The world is the cameo route (tests/helpers/p17-cameo-route.ts): the headless world ticked to 1871, a studio founded
++// there and one tick to the 1956 unlock (1872), built ONCE at collection like the core's cameo suites (no hook carries
++// it; no timeout set). Two branches leave it: the Bridge branch activates screenplay development and casting so the real
++// greenlight package can carry a guest; the outcome branch releases a parent and then a continuation with a guest by the
++// core's legacy greenlight, and the Bridge reads the records.
++import { describe, expect, it } from 'vitest'
++import { applyActions } from '../src/core/actions.js'
++import { cameoRetained, P17_CAMEO_FEE_NOTE } from '../src/core/cameo.js'
++import { nominalShootingWeeks } from '../src/core/cameoBooking.js'
++import { studioEmployerId } from '../src/core/hollywood.js'
++import { tick } from '../src/core/tick.js'
++import type { Action, GameState } from '../src/core/types.js'
++import { castingProjection } from '../bridge/casting.ts'
++import { BRIDGE_SCHEMA, PROTOCOL_VERSION, SCHEMA_ID, validateIndustry, validateQuote } from '../bridge/protocol.ts'
++import { BridgeSession } from '../bridge/session.ts'
++import type { BridgeCameoBookingRequest, BridgeCastingDraftPayload } from '../bridge/schema/bridge-schema.ts'
++import type { IndustryQuery } from '../bridge/schema/industry-schema.ts'
++import { parseWireValue } from '../bridge/schema/runtime.ts'
++import { commissionFor } from './_m4Fixtures.js'
++import { ask, cameoRoute, expectedFee, freeGuest, greenlight, releaseNewest, rootOf, type CameoRoute } from './helpers/p17-cameo-route.js'
++import { freshConcept } from './helpers/p17-route.js'
++
++const PAGE = 50
++
++/** The cameo world with screenplay development and casting active and one Ready screenplay (the real package door). */
++function bridgeReady(route: CameoRoute): { state: GameState; projectId: string } {
++  let state = applyActions(route.world, [{ kind: 'activateScriptDevelopment' }, { kind: 'activateCastingSessions' }])
++  state = applyActions(state, [{ kind: 'commissionScript', project: commissionFor(state, 0, 0) }])
++  const projectId = state.scriptDevelopment.projects[0]!.id
++  for (let guard = 0; guard < 12 && state.scriptDevelopment.projects[0]!.status !== 'review'; guard++) state = tick(state)
++  if (state.scriptDevelopment.projects[0]!.status !== 'review') throw new Error('premise: the commissioned screenplay never reached review')
++  state = applyActions(state, [{ kind: 'acceptScript', projectId }])
++  return { state, projectId }
++}
++
++/** A parent released, then its direct sequel greenlit with one guest in a standard shooting week and released. */
++function releasedContinuation(route: CameoRoute) {
++  let state = applyActions(route.world, [greenlight(route.world, freshConcept(route.world), route.a, route.writer)])
++  const parentId = state.studio.activeProductions[state.studio.activeProductions.length - 1]!.id
++  state = releaseNewest(state)
++  const staff = new Set([route.writer, route.a.director, route.a.craft, ...route.a.cast, route.b.director, route.b.craft, ...route.b.cast])
++  const guest = freeGuest(state, 'actor', staff)
++  const workWeek = nominalShootingWeeks(state.market.tick)[0]!
++  state = applyActions(state, [{ ...greenlight(state, freshConcept(state), route.b, route.writer, [ask(guest, workWeek)]),
++    continuation: { type: 'directSequel', predecessorProductionId: parentId } } as Action])
++  const childId = state.studio.activeProductions[state.studio.activeProductions.length - 1]!.id
++  state = releaseNewest(state)
++  return { state, parentId, childId, guest, workWeek }
++}
++
++function greenlightDraftFor(state: GameState, projectId: string, exclude: ReadonlySet<string>): BridgeCastingDraftPayload {
++  const view = castingProjection(state).board!.projects.find((p) => p.projectId === projectId)!
++  const free = <T extends { talentId: string; available: boolean }>(pool: readonly T[]) => pool.filter((c) => c.available && !exclude.has(c.talentId))
++  const actors = free(view.leadCandidates)
++  if (actors.length < 3 || free(view.directorCandidates).length === 0 || free(view.craftCandidates).length === 0) {
++    throw new Error(`premise: project ${projectId} lacks an available package outside the guest`)
++  }
++  return {
++    kind: 'greenlightPackage', projectId, slateLead: null, slateAntagonist: null, slateSupport: null,
++    directorId: free(view.directorCandidates)[0]!.talentId, castLead: actors[0]!.talentId, castAntagonist: actors[1]!.talentId,
++    castSupport: actors[2]!.talentId, craftLeadId: free(view.craftCandidates)[0]!.talentId,
++    budgetNegative: view.negativeOptions[0]!.amount, budgetMarketing: view.marketingOptions[0]!.amount, signTalentId: null, signTermWeeks: null,
++  }
++}
++
++function industry(session: BridgeSession, view: 'featuredAppearances' | 'franchises', page = 0) {
++  const parsed = validateIndustry({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: session.sessionId, requestId: `p17-${view}`,
++    expectedStateRevision: session.stateRevision, type: 'industryQuery', view, targetId: null, page, pageSize: PAGE, lane: 'recent', period: 'all' } as IndustryQuery)
++  expect(parsed, `the closed Industry parser admits the ${view} view`).toMatchObject({ ok: true })
++  if (!parsed.ok) throw new Error('unreachable after the assertion above')
++  const result = session.industry(parsed.request)
++  expect(result).toHaveProperty(view)
++  if (!(view in result)) throw new Error('unreachable after the assertion above')
++  expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioIndustryResponse, result)).toEqual(result)
++  return result as Extract<typeof result, { type: 'industryPage' }>
++}
++function quote(session: BridgeSession, commandId: string, draft: unknown) {
++  const parsed = validateQuote({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: session.sessionId, commandId,
++    expectedStateRevision: session.stateRevision, type: 'quoteCasting', draft })
++  expect(parsed, 'the closed quote parser admits the cameos member').toMatchObject({ ok: true })
++  if (!parsed.ok || parsed.quote.type !== 'quoteCasting') throw new Error('unreachable after the assertion above')
++  return session.quote(parsed.quote)
++}
++const command = (session: BridgeSession, commandId: string, intentId: string) => session.command({ protocolVersion: PROTOCOL_VERSION,
++  schemaId: SCHEMA_ID, sessionId: session.sessionId, commandId, expectedStateRevision: session.stateRevision, type: 'submitIntent', payload: { intentId } })
++
++describe('P17 featured appearances and continuation outcomes on the Bridge (projection 66)', () => {
++  const route = cameoRoute('bridge-p17-featured-appearances')
++  const ready = bridgeReady(route)
++  const guest = freeGuest(ready.state, 'actor', new Set())
++  const workWeek = nominalShootingWeeks(ready.state.market.tick)[0]!
++  const request: BridgeCameoBookingRequest = { talentId: guest.id, workWeek, fee: expectedFee(guest), basis: 'freelance' }
++  const draft = { ...greenlightDraftFor(ready.state, ready.projectId, new Set([guest.id])), cameos: [request] }
++
++  /** Quote and commit the package with the guest; returns the session after the booking. */
++  function booked(sessionId: string) {
++    const session = new BridgeSession(ready.state, sessionId)
++    const quoted = quote(session, `${sessionId}-quote`, draft)
++    expect(quoted).toMatchObject({ accepted: true })
++    if (!quoted.accepted) throw new Error('unreachable after the assertion above')
++    expect(command(session, `${sessionId}-commit`, quoted.quote.intentId)).toMatchObject({ accepted: true })
++    const booking = rootOf(session.gameState)?.bookings.find((b) => b.talentId === guest.id)
++    expect(booking).toMatchObject({ status: 'reserved', workWeek, fee: request.fee, basis: 'freelance' })
++    return { session, quoted, booking: booking! }
++  }
++
++  it('lists every person with the core quote for each lawful work week: the real fee, basis, cap and refusals by name', () => {
++    const week = ready.state.market.tick
++    const index = ready.state.talent.findIndex((t) => t.id === guest.id)
++    const result = industry(new BridgeSession(ready.state, 'p17-guests'), 'featuredAppearances', Math.floor(index / PAGE))
++    const page = result.featuredAppearances!
++    expect(page).toMatchObject({ greenlightWeek: week, capacity: 2, nominalShootingWeeks: nominalShootingWeeks(week), bookings: [] })
++    expect(result.totalRows).toBe(ready.state.talent.length)
++    const row = page.guests.find((g) => g.talentId === guest.id)!
++    expect(row).toMatchObject({ name: guest.name, profession: 'actor', fame: guest.fame, fee: expectedFee(guest),
++      retained: cameoRetained(expectedFee(guest)), refundable: expectedFee(guest) - cameoRetained(expectedFee(guest)) })
++    expect(row.weeks.map((w) => w.workWeek)).toEqual(Array.from({ length: 8 }, (_, i) => week + 1 + i))
++    expect(row.weeks.find((w) => w.workWeek === workWeek)).toMatchObject({ ok: true, basis: 'freelance', standardShooting: true, refusal: null })
++    // Another studio's employee is refused by the core's own sentence, on every page it lands on.
++    const player = ready.state.hollywood!.playerStudioId
++    const rival = ready.state.talent.find((t) => { const employer = studioEmployerId(ready.state, t.id); return employer !== null && employer !== player })
++    if (rival === undefined) throw new Error('premise: no rival employee exists at the unlock week')
++    const rivalIndex = ready.state.talent.findIndex((t) => t.id === rival.id)
++    const rivalRow = industry(new BridgeSession(ready.state, 'p17-guests-rival'), 'featuredAppearances', Math.floor(rivalIndex / PAGE))
++      .featuredAppearances!.guests.find((g) => g.talentId === rival.id)!
++    expect(rivalRow.fee).toBeNull()
++    expect(rivalRow.weeks.every((w) => !w.ok && w.refusal !== null && w.refusal.includes('another studio\'s employee takes no appearance'))).toBe(true)
++  })
++
++  it('quotes the guest\'s booking terms on the greenlight package and commits the booking through the greenlight action', () => {
++    const { session, quoted, booking } = booked('p17-guest-book')
++    if (!quoted.accepted || quoted.quote.kind !== 'greenlightPicture') throw new Error('expected a greenlight quote')
++    expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteResponse, quoted)).toEqual(quoted)
++    expect(quoted.quote.continuation).toBeNull()
++    expect(quoted.quote.featuredGuests).toEqual([expect.objectContaining({ talentId: guest.id, name: guest.name, profession: 'actor',
++      basis: 'freelance', workWeek, standardShootingWeek: true, fee: request.fee, retained: cameoRetained(request.fee), refundable: request.fee - cameoRetained(request.fee) })])
++    const production = session.gameState.studio.activeProductions[session.gameState.studio.activeProductions.length - 1]!
++    expect(booking.productionId).toBe(production.id)
++    expect(session.gameState.ledger.filter((row) => row.note?.startsWith(P17_CAMEO_FEE_NOTE))).toHaveLength(1)
++    const bookings = industry(session, 'featuredAppearances').featuredAppearances!.bookings
++    expect(bookings).toEqual([expect.objectContaining({ bookingId: booking.bookingId, productionId: production.id, talentId: guest.id,
++      basis: 'freelance', workWeek, fee: request.fee, retained: booking.retained, status: 'reserved', refund: null })])
++    expect(bookings[0]!.cancelIntent).toMatchObject({ kind: 'cancelFeaturedBooking', productionId: production.id })
++  })
++
++  it('refuses a stale basis and a stale fee by the core\'s own name at the quote and leaves the state untouched', () => {
++    const session = new BridgeSession(ready.state, 'p17-guest-stale-basis')
++    const stale = quote(session, 'stale-basis', { ...draft, cameos: [{ ...request, basis: 'employee' }] })
++    expect(stale).toMatchObject({ accepted: false, reasonCode: 'ENGINE_REJECTED' })
++    if (stale.accepted) throw new Error('unreachable after the assertion above')
++    expect(stale.message).toContain(`stale cameo quote for ${guest.id}: the basis is now freelance, not the accepted employee; re-quote before booking`)
++    const staleFee = quote(session, 'stale-fee', { ...draft, cameos: [{ ...request, fee: request.fee + 1 }] })
++    expect(staleFee).toMatchObject({ accepted: false, reasonCode: 'ENGINE_REJECTED' })
++    if (staleFee.accepted) throw new Error('unreachable after the assertion above')
++    expect(staleFee.message).toContain(`stale cameo quote for ${guest.id}`)
++    expect(session.gameState).toBe(ready.state)
++  })
++
++  it('cancels an unperformed booking through the cancelFeaturedBooking intent: one refund of fee less the retained charge', () => {
++    const { session, booking } = booked('p17-guest-cancel')
++    const offered = session.snapshot().availableIntents.filter((intent) => intent.kind === 'cancelFeaturedBooking')
++    expect(offered).toHaveLength(1)
++    const cashBefore = session.gameState.studio.cash
++    expect(command(session, 'cancel-guest', offered[0]!.intentId)).toMatchObject({ accepted: true })
++    const cancelled = rootOf(session.gameState)!.bookings.find((b) => b.bookingId === booking.bookingId)!
++    expect(cancelled).toMatchObject({ status: 'cancelled', cancelReason: 'explicit', refund: booking.fee - booking.retained })
++    expect(session.gameState.studio.cash).toBe(cashBefore + booking.fee - booking.retained)
++    expect(session.snapshot().availableIntents.some((intent) => intent.kind === 'cancelFeaturedBooking')).toBe(false)
++    expect(industry(session, 'featuredAppearances').featuredAppearances!.bookings).toEqual([expect.objectContaining({
++      bookingId: booking.bookingId, status: 'cancelled', cancelReason: 'explicit', refund: booking.fee - booking.retained, cancelIntent: null })])
++  })
++
++  it('reads a released continuation\'s lineage edge, recorded release outcome and credited guest from the core records', () => {
++    const outcome = releasedContinuation(route)
++    const booking = rootOf(outcome.state)!.bookings.find((b) => b.productionId === outcome.childId)!
++    expect(booking).toMatchObject({ talentId: outcome.guest.id, status: 'completed' })
++    expect(booking.careerEvent).not.toBeNull()
++    const session = new BridgeSession(outcome.state, 'p17-outcomes')
++    const property = industry(session, 'franchises').franchises!.properties.find((p) => p.installments.some((i) => i.productionId === outcome.childId))!
++    expect(property.installments.map((i) => [i.productionId, i.type, i.parentProductionId])).toEqual([[outcome.parentId, 'origin', null], [outcome.childId, 'directSequel', outcome.parentId]])
++    const film = outcome.state.studio.releasedFilms.find((f) => f.productionId === outcome.childId)!
++    const root = (outcome.state as GameState & { franchises: { properties: { storyPropertyId: string; meter: { peakInstallmentId: string | null } }[] } }).franchises
++      .properties.find((p) => p.storyPropertyId === property.storyPropertyId)!
++    const child = property.installments[1]!
++    expect(child.outcome).toEqual({ releasedWeek: film.releaseTick, criticScore: film.criticScore, openingGross: film.boxOffice.opening,
++      totalGross: film.boxOffice.total, expectedTotal: film.forecast?.expectedTotal ?? null, propertyPeak: root.meter.peakInstallmentId === outcome.childId, activeAgain: false })
++    const event = booking.careerEvent as { starPowerBefore: number; starPowerAfter: number; starPowerDelta: number }
++    expect(child.guests).toEqual([{ bookingId: booking.bookingId, talentId: outcome.guest.id, name: outcome.guest.name, workWeek: outcome.workWeek,
++      fee: booking.fee, starPowerBefore: event.starPowerBefore, starPowerAfter: event.starPowerAfter, starPowerDelta: event.starPowerDelta }])
++    expect(property.installments[0]!.outcome).not.toBeNull()
++    expect(property.installments[0]!.guests).toEqual([])
++    const credited = industry(session, 'featuredAppearances').featuredAppearances!.bookings.find((b) => b.bookingId === booking.bookingId)!
++    expect(credited).toMatchObject({ status: 'completed', releasedWeek: film.releaseTick, starPowerDelta: event.starPowerDelta, cancelIntent: null })
++  })
++})
+--- a/tests/bridge-r3n4-read-model-deltas.test.ts
++++ b/tests/bridge-r3n4-read-model-deltas.test.ts
+@@ -141,8 +141,8 @@
+     // deltas below are unchanged by that; what this case still owns is the law
+     // that the identity this task retired stays accepted forever.
+     expect(PROTOCOL_VERSION).toBe(4)
+-    expect(PROJECTION_VERSION).toBe(65)
+-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-65')
++    expect(PROJECTION_VERSION).toBe(66)
++    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-66')
+     // A bump that forgets its outgoing identity bricks every durable checkpoint
+     // written under it; a bump that keeps the RUNNING identity re-migrates forever.
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_PROJECTION_30_SCHEMA_ID)).toBe('projection-v30')
+@@ -348,7 +348,7 @@
+ 
+     const response = new BridgeSession(state, 'r3n4-bundle').snapshot()
+     expect(() => parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeSnapshotResponse, response)).not.toThrow()
+-    expect(response.snapshotVersion).toBe(65)
++    expect(response.snapshotVersion).toBe(66)
+ 
+     const development = response.snapshot.development.development.board!
+     expect(development.projects.length).toBeGreaterThan(0)
+--- a/tests/bridge-runtime-checkpoint.test.ts
++++ b/tests/bridge-runtime-checkpoint.test.ts
+@@ -805,7 +805,7 @@
+         expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(sha256(loaded.hydrated.checkpoint.savedSaveJson ?? ''))
+         expect(loaded.hydrated.checkpoint.currentStateDigest).not.toBe(original.currentStateDigest)
+         const encoded = encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint)
+-        const reopened = loadBridgeRuntimeCheckpoint(encoded, undefined, () => { throw new Error('current65 must not migrate again') })
++        const reopened = loadBridgeRuntimeCheckpoint(encoded, undefined, () => { throw new Error('current66 must not migrate again') })
+         expect(reopened.migratedFromProtocolVersion).toBeNull()
+         expect(encodeBridgeRuntimeCheckpoint(reopened.hydrated.checkpoint)).toBe(encoded)
+         expect(canonicalJson(original)).toBe(before)
+@@ -1096,6 +1096,8 @@
+       'sha256:c9c07d6febe4afee7f7c27c991acdfa1c86b6c3a7f5dff8528d7fa5ad72e43a1',
+       'sha256:c9dad9f3d8bb94445db1a5425d90db3f9894da9354f47a07992ff96261cfc399',
+       'sha256:d3338cb713385cc23414e6a17293a5900871764f0eeaed19698e17634e74740b',
++      // Sprint 11 slice B: outgoing65, prior beneath current66 (its genuine capture below).
++      'sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8',
+       // P3: genuine1117 outgoing53 natural and waiver checkpoints.
+       'sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d',
+       'sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99',
+@@ -1172,7 +1174,7 @@
+     expect(loaded.hydrated.checkpoint.savedStateDigest).not.toBe(sha256(savedSaveJson))
+     // The migrated checkpoint is current: it reopens without a second migration and re-encodes byte for byte.
+     const encoded = encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint)
+-    const reopened = loadBridgeRuntimeCheckpoint(encoded, undefined, () => { throw new Error('current65 must not migrate again') })
++    const reopened = loadBridgeRuntimeCheckpoint(encoded, undefined, () => { throw new Error('current66 must not migrate again') })
+     expect(reopened.migratedFromProtocolVersion).toBeNull()
+     expect(encodeBridgeRuntimeCheckpoint(reopened.hydrated.checkpoint)).toBe(encoded)
+   })
+@@ -1246,6 +1248,47 @@
+   })
+ })
+ 
++// Sprint 11 slice B: projection 66 registers the outgoing65 identity. Save50 did not move, so both slots are already live
++// and the governed prior path keeps their bytes; only the session and the opaque journal reset.
++const OUTGOING_65 = 'sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8'
++describe('Sprint 11 slice B — the outgoing65 capture takes the governed prior path', () => {
++  it('accepts the genuine projection-65 capture (2b1a5b4b public save route) and keeps both live Save50 slots byte for byte', () => {
++    // PLACEHOLDER pins: the coordinator captures the fixture at 2b1a5b4b with tools/capture65.ts (Sprint 11 bridge-b OUT)
++    // and replaces each PLACEHOLDER below with the receipt's value. Until then this case fails loudly on the missing file.
++    const compressed = readFileSync(new URL('./fixtures/bridge/genuine-projection65-runtime/outgoing65.checkpoint.json.gz', import.meta.url))
++    expect(createHash('sha256').update(compressed).digest('hex')).toBe('PLACEHOLDER-OUTGOING65-COMPRESSED-SHA256')
++    const raw = gunzipSync(compressed).toString('utf8')
++    expect(sha256(raw)).toBe('PLACEHOLDER-OUTGOING65-DECODED-SHA256')
++    const original = JSON.parse(raw) as BridgeRuntimeCheckpointV1, before = canonicalJson(original)
++    expect(original).toMatchObject({ schemaId: OUTGOING_65, protocolVersion: 4, stateRevision: 0, sessionId: 'p17-authentic-outgoing65-session' })
++    expect(original.journal).toHaveLength(1)
++    expect(original.journal[0]).toMatchObject({ route: 'save', commandId: 'outgoing65-real-save' })
++    expect(JSON.parse(original.journal[0]!.responseJson)).toMatchObject({ accepted: true, schemaId: OUTGOING_65 })
++    expect(original.savedSaveJson).not.toBeNull()
++    for (const slot of [original.currentSaveJson, original.savedSaveJson!]) {
++      expect(sha256(slot)).toBe('PLACEHOLDER-OUTGOING65-SLOT-SHA256')
++      expect(JSON.parse(slot)).toMatchObject({ saveVersion: LIVE_SAVE_VERSION, state: { market: { tick: 0 } } })
++    }
++    const outcome = loadOutcome(raw, 'fresh-session-projection-v65')
++    expect(outcome).not.toHaveProperty('refused')
++    if (!('loaded' in outcome)) return
++    const { loaded } = outcome
++    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_65)).toBe('projection-v65')
++    expect(loaded.migratedFromProtocolVersion).toBe(PROTOCOL_VERSION)
++    expect(loaded.hydrated.checkpoint).toMatchObject({ schemaId: SCHEMA_ID, protocolVersion: PROTOCOL_VERSION,
++      sessionId: 'fresh-session-projection-v65', stateRevision: 0, journal: [], journalDigest: sha256('[]') })
++    // Already live: the canonical chain is identity, so both slots and both digests are the capture's own.
++    expect(loaded.hydrated.checkpoint.currentSaveJson).toBe(original.currentSaveJson)
++    expect(loaded.hydrated.checkpoint.savedSaveJson).toBe(original.savedSaveJson)
++    expect(loaded.hydrated.checkpoint.currentStateDigest).toBe(original.currentStateDigest)
++    expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(original.savedStateDigest)
++    const encoded = encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint)
++    const reopened = loadBridgeRuntimeCheckpoint(encoded, undefined, () => { throw new Error('current66 must not migrate again') })
++    expect(reopened.migratedFromProtocolVersion).toBeNull()
++    expect(canonicalJson(original)).toBe(before)
++  })
++})
++
+ describe('C17 shipped projection57 carry-forward', () => {
+   it('registers the actual shipped projection57 identity, independently of map iteration', () => {
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(C17_SHIPPED_OUTGOING_57)).toBe('projection-v57')
+--- a/tests/bridge-schema.test.ts
++++ b/tests/bridge-schema.test.ts
+@@ -78,10 +78,10 @@
+     assertEveryObjectIsClosed(BRIDGE_SCHEMA)
+     expect(BRIDGE_SCHEMA['x-project-studio']).toMatchObject({
+       protocolVersion: 4,
+-      projectionVersion: 65,
++      projectionVersion: 66,
+       transport: 'http-json-localhost',
+     })
+-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-65')
++    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-66')
+   })
+ 
+   it('projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope', () => {
+@@ -337,8 +337,8 @@
+     expect(() => parseWireValue(definition, int32Overflow)).toThrow(/<= 2147483647/)
+ 
+     const oldProjection = { ...clone(envelope), snapshotVersion: 24 }
+-    expect(PROJECTION_VERSION).toBe(65)
+-    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 65/)
++    expect(PROJECTION_VERSION).toBe(66)
++    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 66/)
+ 
+     const missingSection = clone(envelope)
+     delete (missingSection.snapshot as Partial<typeof missingSection.snapshot>).releaseResults
+@@ -573,7 +573,7 @@
+     expect(checkedInSchema).toBe(canonicalJsonPretty(BRIDGE_SCHEMA))
+     expect(generatedCsharp).toContain(`public const string SchemaId = "${SCHEMA_ID}";`)
+     expect(generatedCsharp).toContain('public const int ProtocolVersion = 4;')
+-    expect(generatedCsharp).toContain('public const int ProjectionVersion = 65;')
++    expect(generatedCsharp).toContain('public const int ProjectionVersion = 66;')
+     expect(generatedCsharp).toContain('public int protocolVersion;')
+     expect(generatedCsharp).toContain('public int snapshotVersion;')
+     expect(generatedCsharp.match(/public string runtimeInstanceId;/g)).toHaveLength(2)
+@@ -850,6 +850,9 @@
+         // absent key, which is the structural closure this case asserts below).
+         chemistry: null,
+         chemistryWarning: null,
++        // P17 slice B (projection 66): required on the closed member and null for a screen test.
++        continuation: null,
++        featuredGuests: null,
+       }
+       const greenlightQuote = {
+         financial: null,
+@@ -899,6 +902,9 @@
+           },
+         ],
+         chemistryWarning: null,
++        // P17 slice B (projection 66): null when the package carries no continuation and no featured guest.
++        continuation: null,
++        featuredGuests: null,
+       }
+       expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioQuoteSnapshot, commissionQuote)).toEqual(commissionQuote)
+       expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioQuoteSnapshot, screenTestQuote)).toEqual(screenTestQuote)
+--- a/tests/bridge-stabilization-l22-retired-projections.test.ts
++++ b/tests/bridge-stabilization-l22-retired-projections.test.ts
+@@ -28,7 +28,7 @@
+ // "Schema identity" header, never derived from the registry under test.
+ const PROJECTION_38 = 'sha256:baecd21e5fbfd4f13bd08b7af132d4b05fe24a40f1b38cd19d2782d9e2d0851e' // 06f05cf5
+ const LOWEST_REGISTERED = 'sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f' // projection-v4-early, 720826bd
+-const HIGHEST_REGISTERED = 'sha256:57f12ee28d21aa47c7514afa1c058105a10f10a9e76d400d664e97c23dc90272' // projection-v64, the P16 build's outgoing identity registered beneath current65 (Sprint 11, review S1)
++const HIGHEST_REGISTERED = 'sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8' // projection-v65, the outgoing identity registered beneath current66 (Sprint 11 slice B)
+ const RETIRED_LABELS = Array.from({ length: 13 }, (_, i) => `projection-v${String(32 + i)}`)
+ 
+ const sha256 = (value: string): string => createHash('sha256').update(value, 'utf8').digest('hex')
+@@ -109,7 +109,7 @@
+     resolves(LOWEST_REGISTERED, 'projection-v4-early', Math.min)
+   })
+ 
+-  it('the highest registered projection (64) still resolves and takes the governed prior path', () => {
+-    resolves(HIGHEST_REGISTERED, 'projection-v64', Math.max)
++  it('the highest registered projection (65) still resolves and takes the governed prior path', () => {
++    resolves(HIGHEST_REGISTERED, 'projection-v65', Math.max)
+   })
+ })
+--- a/tests/bridge.test.ts
++++ b/tests/bridge.test.ts
+@@ -164,7 +164,7 @@
+ describe('Current-game Unity adoption bridge', () => {
+   it('pins protocol v4/projection v32 and fingerprints named projections and exact intent fields', () => {
+     expect(PROTOCOL_VERSION).toBe(4)
+-    expect(SNAPSHOT_VERSION).toBe(65)
++    expect(SNAPSHOT_VERSION).toBe(66)
+     expect(SCHEMA_ID).toMatch(/^sha256:[0-9a-f]{64}$/)
+     expect(Object.keys(
+       BRIDGE_CONTRACT.$defs.StudioBridgeIntentOption.properties as Record<string, unknown>,

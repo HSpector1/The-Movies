@@ -1,0 +1,10 @@
+{
+  "head": "1e8e89751d0531b2d393a77291d3aa78e83ddf26",
+  "sourceManifestEntries": 2080,
+  "purpose": "Sprint 11 capture65-r17: genuine projection-65 runtime checkpoint captured in a snapshot of 2b1a5b4b (plus the copied capture65.ts) (r18: ui/ materialized)",
+  "children": [
+    {
+      "label": "capture65"
+    }
+  ]
+}
