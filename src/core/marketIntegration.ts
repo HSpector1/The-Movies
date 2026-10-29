@@ -13,7 +13,7 @@ import { carriedProductionAuthority, type CarriedProductionAuthority } from './c
 import { P15_PHASE_TABLES, p15PhaseTriple } from './p15Phases.js'
 import { terminalWeekOf } from './operatingState.js'
 import {
-  assessBatch, SHARED_MARKET_DEFINITION, SHARED_MARKET_LAW_V1, type MarketAssessment, type MarketBatchMember, type MarketExposure,
+  assessBatch, SHARED_MARKET_DEFINITION, SHARED_MARKET_LAW_V1, SHARED_MARKET_LAW_V2, type MarketAssessment, type MarketBatchMember, type MarketExposure,
 } from './sharedMarket.js'
 import { GENRE_ORDER, TUNING } from './tuning.js'
 import type { HollywoodState } from './hollywoodTypes.js'
@@ -129,9 +129,23 @@ const REASON_KEYS = ['code', 'sourceReleaseIds', 'value']
  * adds a definition and its law here, so old rows keep reconciling under their own. */
 const LAWS: Readonly<Record<string, typeof assessBatch>> = {
   'p15a1-market-v1': (exposures, batch) => assessBatch(exposures, batch, { law: SHARED_MARKET_LAW_V1 }),
+  'p15a1-market-v2': (exposures, batch) => assessBatch(exposures, batch, { law: SHARED_MARKET_LAW_V2 }),
   [SHARED_MARKET_DEFINITION]: assessBatch,
 }
 const LAW_FIELDS = ['pressure', 'factor', 'windowTerm', 'stockTerm', 'inputDigest'] as const
+/**
+ * ASTRA Sprint 19 (Owner decision D, 5c): the sealed engine-arithmetic eras. Their `factor` and `stockTerm` (and the
+ * GENRE_SATURATION reason value, which is the stock term) were computed with the writing engine's Math.exp and `**`,
+ * which IEEE 754 does not pin to the bit: Chrome 150 and Node 20 differ by one ULP on the Owner's P18 save (one row of
+ * 72). A row of these eras reconciles when the stored value is within SEALED_ROUNDING_ALLOWANCE of the recomputation:
+ * 4 × EPSILON × |expected|, between two and four ULPs, documented here and nowhere else; `pressure`, `windowTerm` and
+ * `inputDigest` use only exact operations and stay exact. The live era (v3) prices through portableMath.ts and stays
+ * exact on every engine. Not a global epsilon: no other field, era or validator reads it.
+ */
+const SEALED_ENGINE_ERAS: ReadonlySet<string> = new Set(['p15a1-market-v1', 'p15a1-market-v2'])
+const SEALED_ROUNDED_FIELDS: ReadonlySet<string> = new Set(['factor', 'stockTerm'])
+const SEALED_ROUNDING_ALLOWANCE = 4 * Number.EPSILON
+const withinSealedAllowance = (stored: number, expected: number): boolean => Math.abs(stored - expected) <= SEALED_ROUNDING_ALLOWANCE * Math.abs(expected)
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   value !== null && typeof value === 'object' && !Array.isArray(value)
@@ -257,14 +271,18 @@ function reconcileLaw(rows: readonly PersistedMarketAssessment[], fail: (message
     const members = rows.slice(start, end)
     const law = LAWS[members[0]!.definitionVersion]!
     const expected = law(exposures, { week, members: members.map((row) => ({ releaseId: row.releaseId, studioId: row.studioId, genre: row.genre })) })
+    const sealed = SEALED_ENGINE_ERAS.has(members[0]!.definitionVersion)
     members.forEach((row, k) => {
       const lawRow = expected[k]!
       for (const field of LAW_FIELDS) {
-        if (row[field] !== lawRow[field]) fail(`assessment ${row.releaseId} ${field} does not reconcile with ${row.definitionVersion}`)
+        const same = row[field] === lawRow[field]
+          || (sealed && SEALED_ROUNDED_FIELDS.has(field) && typeof row[field] === 'number' && typeof lawRow[field] === 'number' && withinSealedAllowance(row[field] as number, lawRow[field] as number))
+        if (!same) fail(`assessment ${row.releaseId} ${field} does not reconcile with ${row.definitionVersion}`)
       }
       const reasonsMatch = row.reasons.length === lawRow.reasons.length && row.reasons.every((reason, r) => {
         const other = lawRow.reasons[r]!
-        return reason.code === other.code && reason.value === other.value &&
+        const valueSame = reason.value === other.value || (sealed && reason.code === 'GENRE_SATURATION' && withinSealedAllowance(reason.value, other.value))
+        return reason.code === other.code && valueSame &&
           reason.sourceReleaseIds.length === other.sourceReleaseIds.length &&
           reason.sourceReleaseIds.every((id, s) => id === other.sourceReleaseIds[s])
       })

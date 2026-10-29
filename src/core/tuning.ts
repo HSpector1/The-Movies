@@ -1002,7 +1002,7 @@ export const TUNING = {
   // never make a card, a hoarding or a headline unrenderable.
   SCREENPLAY_TITLE_MAX_LENGTH: 64, // [ICH] characters a player-chosen title may run to
 
-  // P15A.1 shared-market law, the live era `p15a1-market-v2` (src/core/sharedMarket.ts; 1323-A §3
+  // P15A.1 shared-market law, the live era `p15a1-market-v3` (src/core/sharedMarket.ts; 1323-A §3
   // as amended by 1323-F). PROVISIONAL TUNING under Owner decision D-1323-1 (record 1340-O):
   // the Owner approved the formula with these constants as provisional, to be judged
   // KEEP/REVISE/REJECT at the Wave 4 playtest. A revision changes the law: bump
@@ -1010,6 +1010,8 @@ export const TUNING = {
   // 1365 (1361-F5 ruling 3, G2 verdict Retune): the maximum penalty moves 0.25 -> 0.15, the
   // Owner's named weaker alternative (1323-F:61-63); the other six are v1's. v1's seven are
   // frozen as SHARED_MARKET_LAW_V1 so a v1 row reconciles under its own law.
+  // ASTRA Sprint 19 (Owner decision D): v3 keeps these seven numbers and prices through engine-independent
+  // arithmetic (portableMath.ts); v2's seven are frozen as SHARED_MARKET_LAW_V2 with the engine's arithmetic.
   SHARED_MARKET_WINDOW_WEIGHTS: [1, 0.55, 0.55, 0.2] as readonly number[], // weight by week offset in the window [R, R+4)
   SHARED_MARKET_STOCK_START: 0.2, // genre-saturation stock weight at R+4, continuous with the last window week
   SHARED_MARKET_STOCK_HALF_LIFE_WEEKS: 13, // the stock weight halves every 13 weeks

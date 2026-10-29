@@ -33,11 +33,14 @@
 
 import { fnv1a64 } from './math.js'
 import { GENRE_ORDER, TUNING } from './tuning.js'
+import { portableExp, portablePow2 } from './portableMath.js'
 import type { Genre } from './types.js'
 
-export type MarketDefinitionId = 'p15a1-market-v1' | 'p15a1-market-v2'
-/** The live era. A change to any of the seven SHARED_MARKET_* values bumps it (tuning.ts). */
-export const SHARED_MARKET_DEFINITION: MarketDefinitionId = 'p15a1-market-v2'
+export type MarketDefinitionId = 'p15a1-market-v1' | 'p15a1-market-v2' | 'p15a1-market-v3'
+/** The live era. A change to any of the seven SHARED_MARKET_* values, or to the arithmetic, bumps it (tuning.ts).
+ * v3 (ASTRA Sprint 19, Owner decision D): v2's seven numbers priced through engine-independent exp and 2^y
+ * (portableMath.ts), so a row written by one JavaScript engine reconciles exactly on every other. */
+export const SHARED_MARKET_DEFINITION: MarketDefinitionId = 'p15a1-market-v3'
 
 /** The seven numbers one era prices under (1355-A §3.4 item 5). */
 export type MarketLaw = Readonly<{
@@ -49,6 +52,8 @@ export type MarketLaw = Readonly<{
   factorMaxPenalty: number
   pressureScale: number
   studioWindowCap: number
+  /** `engine`: Math.exp and `**` (v1, v2: sealed, engine-dependent in the last bit); `portable`: portableMath.ts (v3). */
+  transcendentals: 'engine' | 'portable'
 }>
 /** v1's seven numbers as Wave 1 landed them (D-1323-1). A v1 row reconciles under these forever. */
 export const SHARED_MARKET_LAW_V1: MarketLaw = Object.freeze({
@@ -60,6 +65,19 @@ export const SHARED_MARKET_LAW_V1: MarketLaw = Object.freeze({
   factorMaxPenalty: 0.25,
   pressureScale: 2,
   studioWindowCap: 1,
+  transcendentals: 'engine',
+})
+/** v2's seven numbers (1365, G2 retune: maximum penalty 0.15) with the engine's arithmetic, frozen; a v2 row reconciles under these forever. */
+export const SHARED_MARKET_LAW_V2: MarketLaw = Object.freeze({
+  definition: 'p15a1-market-v2' as const,
+  windowWeights: Object.freeze([1, 0.55, 0.55, 0.2]) as readonly number[],
+  stockStart: 0.2,
+  stockHalfLifeWeeks: 13,
+  retireAfterWeeks: 26,
+  factorMaxPenalty: 0.15,
+  pressureScale: 2,
+  studioWindowCap: 1,
+  transcendentals: 'engine',
 })
 /** The live law: the live definition over TUNING, read at the call. */
 export function liveMarketLaw(): MarketLaw {
@@ -72,14 +90,21 @@ export function liveMarketLaw(): MarketLaw {
     factorMaxPenalty: TUNING.SHARED_MARKET_FACTOR_MAX_PENALTY,
     pressureScale: TUNING.SHARED_MARKET_PRESSURE_SCALE,
     studioWindowCap: TUNING.SHARED_MARKET_STUDIO_WINDOW_CAP,
+    transcendentals: 'portable',
   }
 }
 /** The era table: each definition a stored row may name, to its law. A later retune adds an entry
  * and leaves the earlier ones untouched. */
 export const MARKET_LAWS: Readonly<Record<MarketDefinitionId, () => MarketLaw>> = Object.freeze({
   'p15a1-market-v1': () => SHARED_MARKET_LAW_V1,
-  'p15a1-market-v2': liveMarketLaw,
+  'p15a1-market-v2': () => SHARED_MARKET_LAW_V2,
+  'p15a1-market-v3': liveMarketLaw,
 })
+
+/** e^x under the law's arithmetic. */
+export const lawExp = (law: MarketLaw, x: number): number => (law.transcendentals === 'portable' ? portableExp(x) : Math.exp(x))
+/** 2^y under the law's arithmetic. */
+export const lawPow2 = (law: MarketLaw, y: number): number => (law.transcendentals === 'portable' ? portablePow2(y) : 2 ** y)
 
 /** Hard maximum of source ids on one reason (1346-F). Bounds a record, not a market outcome. */
 export const MARKET_REASON_SOURCE_LIMIT = 5
@@ -143,7 +168,7 @@ export function exposureWeight(releaseWeek: number, week: number, law: MarketLaw
   if (offset < law.retireAfterWeeks) {
     return {
       lane: 'stock',
-      weight: law.stockStart * 2 ** (-(offset - window.length) / law.stockHalfLifeWeeks),
+      weight: law.stockStart * lawPow2(law, -(offset - window.length) / law.stockHalfLifeWeeks),
     }
   }
   return { lane: 'retired', weight: 0 }
@@ -155,7 +180,7 @@ export function pressureFactor(pressure: number, law: MarketLaw = liveMarketLaw(
   if (!Number.isFinite(pressure) || pressure < 0) {
     throw new Error(`shared market: pressure must be finite and non-negative (got ${pressure})`)
   }
-  return 1 - law.factorMaxPenalty * (1 - Math.exp(-pressure / law.pressureScale))
+  return 1 - law.factorMaxPenalty * (1 - lawExp(law, -pressure / law.pressureScale))
 }
 
 // ── batch assessment ─────────────────────────────────────────────────────────

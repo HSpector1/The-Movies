@@ -167,7 +167,7 @@ describe('p15a1 shared market: TUNING (real, already-existing module)', () => {
 describe('p15a1 shared market: module surface', () => {
   it('market-definition-version-export', async () => {
     const market = await loadMarket()
-    expect(market.SHARED_MARKET_DEFINITION).toBe('p15a1-market-v2') // 1365 retune; v1 stays reachable through MARKET_LAWS
+    expect(market.SHARED_MARKET_DEFINITION).toBe('p15a1-market-v3') // 1365 retune (v2), then ASTRA Sprint 19 (v3: portable arithmetic); v1 and v2 stay reachable through MARKET_LAWS
   })
 
   it('market-reason-source-limit-export', async () => {
