@@ -1,0 +1,156 @@
+PROJECT: STUDIO — ASTRA SPRINTS 17–21
+Standing assignment: recovery, usable transactions, reliable saves, native integration, and a playtest candidate
+
+OWNER AUTHORIZATION
+
+Continue as the existing Project: Studio coordinator. Execute the five bounded sprints below, including necessary implementation, proportionate verification, focused independent review, and recoverable publication.
+
+This authorizes Sprints 17–21 and supersedes the earlier instruction to stop at the Sprint 16 program boundary. Continue between eligible sprints without asking for routine permission. It does not grant Owner playtest acceptance, waive failed requirements, authorize a release, or authorize a gameplay merge into main.
+
+These sprint numbers are work packages, not the product phases P17/P18. Do not rebuild the already implemented continuation or television systems. This remains HSpector1/The-Movies, not the separate Godot/REA reconstruction.
+
+The goal is a more usable, dependable game, not five more rounds of general auditing or test optimization. Finish meaningful player-facing work and carry precise residuals rather than forcing all-green claims.
+
+1. RECOVER THE ACTUAL STATE ONCE
+
+Explicit remote: https://github.com/HSpector1/The-Movies.git
+Last PM-verified references when this assignment was prepared:
+
+- Integrated gameplay: p18-season-20261028 at 6da4206a3446c415cdb5e6ee5e1c50546cb2e750.
+- Immutable playtest tag: p18-sprint16-playtest-candidate-r3-20261028.
+- Records: wip/headless-program-20260916-ts at e20ab39526e7386040f900b7d39cddc466a58ecd.
+- main: ab65eb20c73c35ac3530f59181332cc9a313b604.
+- Draft integration PR: #20. It was OPEN/DRAFT and mergeable=false; recheck before planning integration.
+- Unity repository: HSpector1/project-studio-unity-visual-spike.
+- Unity candidate: sprint15-consumer-20261028 at 8290f2cd39dd15effb36d91969a583885806f3dc.
+
+These are recovery references, never reset targets. Refresh explicit refs and reconcile newer local work. Read the newest records HANDOFF as well as the candidate's instructions; a candidate's older handoff is not necessarily current authority.
+
+Read AGENTS.md, the applicable Claude/Codex entry point, the matching installed workflow/review/debugging skills and lesson routes. Under docs/engineering/audits/2026-10-22-codebase-review/, read only the relevant current sections of:
+
+- playtest-response/OWNER-RULING-20261028.md, RESULTS.md, REVIEW.md and MEASUREMENTS.md;
+- sprint16-playtest/PROGRAM-CLOSEOUT.md, RESULTS.md and OWNER-INVITATION.md;
+- p16-sprint15/RESULTS.md and its later pairing/attestation amendments;
+- the existing ledger and adopted contracts for each task.
+
+Preserve prior tags, original current200, genuine captures, failed attempts, source identities, untracked work and hook-owned AUTO content. Reuse the active owned integration workspace; do not switch to an obsolete P16 candidate or create another coordinator.
+
+Give one brief entry report, then implement. No repeat intake, repository-wide lessons scan, skill installation campaign or new project-management system.
+
+2. DECISIONS AND SCOPE FOR THIS PROGRAM
+
+A. Rival recovery: select the previously proposed 4a direction. Cost-cutting must not be an unavoidable path to closure when a lawful recovery opportunity exists. Implement a bounded exit/restart policy, not guaranteed survival. Preserve real failure, existing O1 disposal safeguards and O6's actual-disbursed-loan exit. No subsidies, cash injection, obligatory lending, hidden replacement rivals or minimum rival population.
+
+B. TV title-sale consequence: select playtest-response review finding 1 option (a). Keep lawful sales available, but disclose any actual resulting season cancellation and its existing financial consequences before commitment. Do not create a new cancellation fee, waive a legitimate obligation or claim all title sales necessarily remove authority.
+
+C. Final deadline: select review finding 12 option (a). Keep the adopted final-boundary deadline classification. Explain the underlying inability to deliver where supported, without changing the money or rewriting cancellation history.
+
+D. Save portability: authorize the bounded permanent compatibility work below, corresponding to the earlier 5c direction. The earlier same-runtime-only playtest limitation remains honestly disclosed until replaced by evidence. This does not authorize approximate accounting or wholesale save-format redesign.
+
+E. Native surfaces: authorize the minimum existing-game workflows needed to manage P16 rights/acquisitions, P17 continuations/featured appearances and the bounded P18 season in the native client. Read-only query methods and generic one-click memo buttons do not constitute these workflows. Use the engine's real commands, quotes and state; no second simulation.
+
+F. No blanket timing waiver. Keep current budgets and original failures. The proposed p12 10,000 ms exception has NOT been adopted by this assignment. Do not spend five sprints trying to eliminate inherited host-dependent overruns. Use the actual target host, avoid competing work, and report any remaining specific exception needed at close-out.
+
+G. Owner acceptance and main promotion remain separate. Missing feedback must not block unrelated authorized engineering, but neither simulated playtesting nor an agent verdict can become Howard's KEEP/REVISE/REJECT.
+
+Record these decisions compactly in the existing decision ledger. New substantive policy choices outside these bounds require one concrete question, not a broad questionnaire.
+
+3. SPRINT 17 — RECOVERABLE RIVAL STUDIOS
+
+Problem established by retained measurements: all 25 observed cost-cutting entries ended in closure with no further greenlights; the current exit is a loan that those rivals never take on the measured routes.
+
+Reuse that diagnosis. Do not replay the whole campaign matrix to discover it again.
+
+- Inspect entry, exit, affordability, indexed opportunities, employment and greenlight rules together.
+- Implement the smallest coherent, deterministic exit/restart rule grounded in existing condition, reserve, commitments and opportunity facts. Reuse existing thresholds/cadence; state any necessary provisional hysteresis explicitly. Do not retune the entire economy.
+- Restore permission to take ordinary actions only when lawful. Leaving cost-cutting must not force a film, free hire, loan or successful recovery.
+- Preserve legitimate closure for genuinely unsustainable businesses and all actual payroll, exit and work costs.
+- Use the existing relevant tests and one representative admitted recovery route, plus a contrasting genuinely unrecovered case. Check save/reload and repeated transitions where affected. Report borrowing, costs, restart and outcome, not only a changed mode flag.
+
+Finish line: at least one legitimate demonstrated restart opportunity under the selected policy, retained genuine-failure behavior, and source-bound regression evidence. Do not add rival concurrency solely to manufacture the still-missing natural C-08 witness. If that witness becomes naturally available, reuse it; otherwise retain its exact scope limit.
+
+4. SPRINT 18 — USABLE, HONEST RIGHTS AND TELEVISION TRANSACTIONS
+
+Prioritize actions a player can actually reach and understand, not more backend-only success.
+
+- Reconcile existing browser transaction surfaces before building. Finish missing minimum paths for diligence, healthy acquisition, estate bidding/title transactions and their relevant finance/rights results. Reuse existing panels, quote APIs, entity focus and authoritative commands.
+- Do not implement a second market or unrelated negotiation system. Repair only missing surfaces needed for the adopted transactions, and preserve privacy/costed disclosure.
+- For a proposed title sale that would actually remove live-season authority, show the affected season, when cancellation occurs, and the existing refund/cancellation-charge obligations before binding confirmation. Preserve fees already paid, incurred costs, unpaid balances and partial settlements.
+- Revalidate at commit; a stale preview cannot approve different consequences. Cancel/back must not transact. Use the existing confirmation/lifecycle pattern for destructive actions, not a new global framework.
+- Complete clearly specified P18 creditor/closure and licence-after-cancellation integration gaps against the adopted contracts. Cancellation is not automatically licence revocation; a loss of authority is not permission to fabricate claims. Escalate only a genuinely missing financial rule.
+- Preserve the final-boundary deadline decision and improve truthful status/remedy copy without changing its receipt semantics.
+- Reuse existing P17/P18 routes and add or extend only the necessary real-browser interaction coverage. Keep constructed test data labelled; it does not establish natural campaign behavior.
+
+Finish line: the targeted transactions are reachable, quote/confirm/refusal/settlement states are understandable, and the player can see the real consequences. Identify any unsupported action still refused. Do not silently replace it with cancellation to make a deal succeed.
+
+5. SPRINT 19 — PORTABLE SAVES AND RESPONSIVE CAMPAIGN OPERATIONS
+
+Start from the retained Chrome-to-Node shared-market reconciliation failure and the existing authenticated route saves. Do not re-open completed Save As or schema profiling without changed evidence.
+
+- Implement the smallest versioned, engine-independent derivation/reconciliation needed for supported save portability. Preserve monetary conservation, identities, historical era semantics and genuine existing saves.
+- Do not add an arbitrary global epsilon, round every monetary field, trust a stored value without validation, relabel old saves as new, or rewrite recorded transactions.
+- Verify an actual browser-written save in the supported Node runtime and the reverse direction, then save/reload and a short identical-input continuation. Check authoritative state/history, not merely successful JSON parsing. Do not claim every browser or operating system was tested.
+- Keep the last known-good save recoverable on import failure. Make unsupported-version, corrupt-file and runtime-compatibility errors actionable through existing UI.
+- For size/memory limits, reuse the measured 0.45–2.8 MB operated-world results. The 45–60 MB closure-deferred arm remains engine stress evidence, not a normal-campaign benchmark. Do not invent a history-compaction project or raise the import cap without a demonstrated supported-route need and a safe memory plan.
+- Measure the existing p12 campaign-library file once under controlled conditions on the actual target host when relevant source/host changes. Respect each leaf's actual declared budget; the reports contain differing inherited limits. Fix only a demonstrated remaining shared bottleneck. No timeout chasing or benchmark campaign.
+
+Finish line: source-bound portability for the named runtime pair and trustworthy save/load error behavior, or a precise residual with the smaller supported boundary retained. Preserve unresolved timing results; functional portability is not a performance waiver.
+
+6. SPRINT 20 — REAL UNITY CONSUMER AND NATIVE PLAYABILITY
+
+Resume the existing paired counterpart. Do not create a replacement client or mark STATIC-UNRUN code as verified.
+
+- Check the current machine, installed toolchain and project pins. The earlier macOS 12 host was incapable; do not assume either that limitation still applies or that the new M5 Mac has arrived and is configured.
+- Use the pinned Unity version/package set or a separately approved compatible change. Do not install a large editor, accept licence terms, change global settings or perform purchases without existing explicit permission. If one prerequisite needs the Owner, state it once and continue independent source/browser work; do not repeat failed probes.
+- Complete compilation and the relevant EditMode/PlayMode/build checks, repairing demonstrated incompatibilities in existing source/tests. Generate required wire fixtures from real producers with provenance; never repin from an error message or replace meaningful fixtures with empty objects.
+- Implement the minimum native surfaces authorized in section 2E, reusing the current workspaces and projection. Ensure supported quotes are parsed, inputs/confirmations work, stale commands are refused, and destructive actions are not exposed as generic unconfirmed memo clicks.
+- Preserve attestation version 2 based on protocol/projection identity. The old save-version-19 instructions are historical and were superseded; do not reinstate them.
+- Re-pair exact engine/client commits after actual contract changes. A static CF09 seal is identity evidence, not compilation or interaction evidence.
+- Run a genuine native route with selection, quotes, cancellation/confirmation, save/reload and return-to-lot focus. Reuse the browser route's expectations, not a second set of gameplay laws.
+
+Finish line: a locally runnable native candidate with actual build/input evidence for the declared supported scope, or a named platform blocker with preserved useful work. A blocked native item stays BLOCKED; it does not make all of Sprint 20 delivered.
+
+7. SPRINT 21 — PLAYTEST RESPONSE AND AN INTEGRATION-READY CANDIDATE
+
+Consolidate the improvements rather than adding a new feature family.
+
+- Exercise the existing real-browser studio/film/save, P17 and P18 journeys and the new recovery/transaction paths. Use genuine native evidence where available. Fix reproducible high-impact input, focus, clarity, cancellation, save-loss and progression defects.
+- Consume Howard's actual feedback where supplied. Otherwise keep OWNER ACCEPTANCE PENDING and provide one short, reproducible playtest invitation with honest limitations. Do not block unrelated fixes while waiting or send repeated requests for the same verdict.
+- At the coherent final candidate, run the already-required integration milestone with all specifically required inputs present. Compare complete failure identities, first causes, reachability and applicable timings against the exact retained baseline.
+- Do not turn zero NEW into all tests green. Separate inherited failures, new defects, missing inputs, unsupported producers, timing failures and human acceptance.
+- Refresh draft PR #20. Inspect actual merge conflicts after its base/head are refreshed; resolve only understood conflicts through a history-preserving integration method in the owned candidate. No force push, rebase of published history or resetting a checkout to resolve conflicts. Reverify affected behavior, not every historical test after a documentation-only merge.
+- Keep the PR draft and unmerged. Do not enable auto-merge. This program does not authorize gameplay promotion to main or a public release.
+- Publish exact source/build identities, permitted playable artifacts and launch instructions on the verified platform. Never package private Owner saves, credentials or restricted assets; use explicitly shareable generated fixtures where needed.
+
+Finish line: one recoverable playable candidate, an evidence-backed GO / CONDITIONAL GO / NO-GO technical integration recommendation, exact remaining blockers, and the outstanding Owner playtest/promotion decision. No invented completion percentage or full-game-release claim.
+
+8. EXECUTION AND TEST EFFICIENCY — APPLIES TO ALL FIVE SPRINTS
+
+- One coordinator integration writer and one intensive execution tree across the host. Delegate only clearly disjoint preparation or a focused independent review where useful. No nested swarms.
+- Use the actual current preflight, run directory, host-wide foreign-job scan and audit requirements. Never reuse a USED run directory. Do not assume the Godot terminal remains paused or kill its work. Stay idle during timing-sensitive stages.
+- Apply current resource thresholds, not historical notes. Source/index/HANDOFF and relevant inputs stay frozen through recorded execution and its audit. Missing required input is not a passing or skipped law.
+- Recover only named missing inputs; no broad cache deletion, archive hydration, machine inventory, privileged cleanup or duplicate dependency trees.
+- Reuse existing test files, captures and source-bound evidence. New tests must close a named invariant/regression or genuine integration gap; there is no coverage-count target.
+- Focused checks during editing, complete affected files when ready, required broad gates at meaningful milestones. Do not automatically run the full game after every small change or run duplicate Bridge selections already covered by the chosen core gate.
+- Test-only expectation changes must derive from the adopted rule independently, not the implementation's returned value. Preserve original failures. A red reproduction is for an actual defect, not obligatory theatre for every text edit.
+- Use one focused independent review of consequential repairs. Do not reopen settled findings without changed facts or demand all unrelated debt disappear before useful development proceeds.
+- Existing financial/rights, historical save, determinism, privacy and acceptance contracts remain. No new REA investigation, machinima editor, movie exporter, art overhaul, P19 product scope, package upgrade campaign or workflow rewrite.
+
+9. CONTINUITY, PUBLICATION AND STOP CONDITIONS
+
+Work on the refreshed integrated gameplay lineage, not main or the old P16-only candidate. Continue using the owned candidate branch and draft PR unless a source-preserving successor is genuinely needed; record the chosen base and ownership.
+
+Use the existing safe Git flags for every Git invocation:
+  git -c gc.auto=0 -c maintenance.auto=0 --no-optional-locks ...
+
+Preserve commit history and the repository's applicable attribution requirements. Commit coherent recoverable changes, push and verify the explicit remote ref. Update current HANDOFF, ledger and relevant lessons at non-frozen checkpoints; use existing records rather than a parallel tracker. No automatic main synchronization is inferred from older records-only permissions if refs have diverged.
+
+After each sprint, report briefly: player-visible improvement, exact changed source, meaningful verification/reuse, residuals, published commit and next eligible action. Continue immediately when dependencies permit. Combine duplicate work and skip already-proven implementation with a cited evidence pointer; do not manufacture five batches merely to satisfy the numbering.
+
+A blocked platform or genuinely missing policy should hold only its dependent work. Do not bypass it or mark it complete. If a sprint expands beyond its bounded outcome, publish the useful checkpoint and precise residual; do not hide scope growth under the same number.
+
+At a session/resource limit, leave an exact resumable handoff with jobs and next action; do not promise background execution. At program completion, return one integrated report and stop. No Sprint 22 or gameplay merge into main without further authorization.
+
+START NOW
+
+Recover the newest source and task ownership once. Record the bounded decisions above, begin Sprint 17, and continue through the eligible Sprints 18–21. Prioritize actual game behavior and a usable playtest candidate over additional process.

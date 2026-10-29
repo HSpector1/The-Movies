@@ -1,0 +1,2841 @@
+{
+  "seed": "p15a1-w2-market-01",
+  "arm": "closure-deferred",
+  "horizon": 6240,
+  "finalWeek": 6240,
+  "rivals": [
+    {
+      "studioId": "studio-ff9bdb2b-r01",
+      "greenlightWeeks": [],
+      "releases": 0,
+      "firstTakes": 0,
+      "hires": 8,
+      "commissions": 14,
+      "terminations": [
+        {
+          "week": 219,
+          "contractId": "studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r01-2:208",
+          "weeklySalaryAvoided": 5050
+        },
+        {
+          "week": 219,
+          "contractId": "studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r01-3:208",
+          "weeklySalaryAvoided": 8393
+        },
+        {
+          "week": 219,
+          "contractId": "studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r01-4:208",
+          "weeklySalaryAvoided": 12315
+        },
+        {
+          "week": 219,
+          "contractId": "studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r01-5:208",
+          "weeklySalaryAvoided": 3055
+        },
+        {
+          "week": 219,
+          "contractId": "studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r02-0:208",
+          "weeklySalaryAvoided": 4405
+        },
+        {
+          "week": 219,
+          "contractId": "studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r02-1:208",
+          "weeklySalaryAvoided": 14939
+        }
+      ],
+      "refunds": [
+        {
+          "week": 218,
+          "facilityId": "studio-ff9bdb2b-r01:laboratory:0",
+          "refund": 450000
+        }
+      ],
+      "minimumCash": -2294893,
+      "minimumCashWeek": 348,
+      "firstNonpositiveWeek": 299,
+      "cuttingEpisodes": [
+        {
+          "since": 218,
+          "endedWeek": 306
+        },
+        {
+          "since": 306,
+          "endedWeek": null
+        }
+      ],
+      "firstAfterFirstCuttingEntry": {
+        "hire": 307
+      },
+      "sampledFirstBelowReserveWeek": 288,
+      "sampledFirstBackAtReserveWeek": 306,
+      "lastGreenlightWeek": null,
+      "longestWeeksWithoutGreenlight": 6240,
+      "conditionStage": "closed",
+      "conditionEvents": [
+        {
+          "week": 298,
+          "from": "stable",
+          "to": "warning",
+          "causes": [
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 306,
+          "from": "warning",
+          "to": "distress",
+          "causes": [
+            "NEGATIVE_CASH",
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 307,
+          "from": "distress",
+          "to": "recovery",
+          "causes": [
+            "COVER_RESTORED"
+          ]
+        },
+        {
+          "week": 315,
+          "from": "recovery",
+          "to": "warning",
+          "causes": [
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 323,
+          "from": "warning",
+          "to": "distress",
+          "causes": [
+            "NEGATIVE_CASH",
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 348,
+          "from": "distress",
+          "to": "closed",
+          "causes": [
+            "DISTRESS_DURATION",
+            "NEGATIVE_CASH"
+          ]
+        }
+      ],
+      "loans": [
+        {
+          "loanId": "corporate-loan-4",
+          "contractedWeek": 306,
+          "principal": 1001000,
+          "total": 1121120,
+          "installments": 52
+        }
+      ],
+      "closure": {
+        "closureWeek": 348,
+        "cash": {
+          "closing": -2294893,
+          "distributable": 0
+        },
+        "loan": {
+          "loanId": "corporate-loan-4",
+          "stopWeek": 348,
+          "paidInstallments": 41,
+          "paidAmount": 883960,
+          "remainder": 237160
+        }
+      },
+      "closureDueNotClosed": false,
+      "dormantSurvivor": false,
+      "annualPeriods": [
+        {
+          "fromWeek": 0,
+          "throughWeek": 51,
+          "opening": 32000000,
+          "closing": 19975249,
+          "movements": {
+            "capacity": -5900000,
+            "signing": -401923,
+            "payroll": -2232828,
+            "overhead": -1248000,
+            "facilityOpex": -1342000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": -900000,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 52,
+          "throughWeek": 103,
+          "opening": 19975249,
+          "closing": 15116421,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -2232828,
+            "overhead": -1248000,
+            "facilityOpex": -1378000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 104,
+          "throughWeek": 155,
+          "opening": 15116421,
+          "closing": 10257593,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -2232828,
+            "overhead": -1248000,
+            "facilityOpex": -1378000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 156,
+          "throughWeek": 207,
+          "opening": 10257593,
+          "closing": 5398765,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -2232828,
+            "overhead": -1248000,
+            "facilityOpex": -1378000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 208,
+          "throughWeek": 259,
+          "opening": 5398765,
+          "closing": 1485212,
+          "movements": {
+            "capacity": 0,
+            "signing": -450744,
+            "payroll": -529727,
+            "overhead": -879000,
+            "facilityOpex": -1252000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": -1252082,
+            "facilityDemolitionRefund": 450000,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 260,
+          "throughWeek": 311,
+          "opening": 1485212,
+          "closing": 243827,
+          "movements": {
+            "capacity": 0,
+            "signing": -69825,
+            "payroll": -44760,
+            "overhead": -798000,
+            "facilityOpex": -1222000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 1001000,
+            "loanInstallment": -107800,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 312,
+          "throughWeek": 347,
+          "opening": 243827,
+          "closing": -2294893,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -268560,
+            "overhead": -648000,
+            "facilityOpex": -846000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": -776160,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        }
+      ]
+    },
+    {
+      "studioId": "studio-ff9bdb2b-r02",
+      "greenlightWeeks": [],
+      "releases": 0,
+      "firstTakes": 0,
+      "hires": 0,
+      "commissions": 12,
+      "terminations": [],
+      "refunds": [
+        {
+          "week": 187,
+          "facilityId": "studio-ff9bdb2b-r02:laboratory:0",
+          "refund": 450000
+        }
+      ],
+      "minimumCash": -1977034,
+      "minimumCashWeek": 341,
+      "firstNonpositiveWeek": 289,
+      "cuttingEpisodes": [
+        {
+          "since": 187,
+          "endedWeek": 296
+        },
+        {
+          "since": 296,
+          "endedWeek": null
+        }
+      ],
+      "firstAfterFirstCuttingEntry": {},
+      "sampledFirstBelowReserveWeek": 280,
+      "sampledFirstBackAtReserveWeek": 296,
+      "lastGreenlightWeek": null,
+      "longestWeeksWithoutGreenlight": 6240,
+      "conditionStage": "closed",
+      "conditionEvents": [
+        {
+          "week": 288,
+          "from": "stable",
+          "to": "warning",
+          "causes": [
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 296,
+          "from": "warning",
+          "to": "distress",
+          "causes": [
+            "NEGATIVE_CASH",
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 297,
+          "from": "distress",
+          "to": "recovery",
+          "causes": [
+            "COVER_RESTORED"
+          ]
+        },
+        {
+          "week": 308,
+          "from": "recovery",
+          "to": "warning",
+          "causes": [
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 316,
+          "from": "warning",
+          "to": "distress",
+          "causes": [
+            "NEGATIVE_CASH",
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 341,
+          "from": "distress",
+          "to": "closed",
+          "causes": [
+            "DISTRESS_DURATION",
+            "NEGATIVE_CASH"
+          ]
+        }
+      ],
+      "loans": [
+        {
+          "loanId": "corporate-loan-3",
+          "contractedWeek": 296,
+          "principal": 1001000,
+          "total": 1121120,
+          "installments": 52
+        }
+      ],
+      "closure": {
+        "closureWeek": 341,
+        "cash": {
+          "closing": -1977034,
+          "distributable": 0
+        },
+        "loan": {
+          "loanId": "corporate-loan-3",
+          "stopWeek": 341,
+          "paidInstallments": 44,
+          "paidAmount": 948640,
+          "remainder": 172480
+        }
+      },
+      "closureDueNotClosed": false,
+      "dormantSurvivor": false,
+      "annualPeriods": [
+        {
+          "fromWeek": 0,
+          "throughWeek": 51,
+          "opening": 29000000,
+          "closing": 17025890,
+          "movements": {
+            "capacity": -5900000,
+            "signing": -394182,
+            "payroll": -2189928,
+            "overhead": -1248000,
+            "facilityOpex": -1342000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": -900000,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 52,
+          "throughWeek": 103,
+          "opening": 17025890,
+          "closing": 12209962,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -2189928,
+            "overhead": -1248000,
+            "facilityOpex": -1378000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 104,
+          "throughWeek": 155,
+          "opening": 12209962,
+          "closing": 7394034,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -2189928,
+            "overhead": -1248000,
+            "facilityOpex": -1378000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 156,
+          "throughWeek": 207,
+          "opening": 7394034,
+          "closing": 3091106,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -2189928,
+            "overhead": -1248000,
+            "facilityOpex": -1315000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 450000,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 208,
+          "throughWeek": 259,
+          "opening": 3091106,
+          "closing": 1089106,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": 0,
+            "overhead": -780000,
+            "facilityOpex": -1222000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 260,
+          "throughWeek": 311,
+          "opening": 1089106,
+          "closing": -235294,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": 0,
+            "overhead": -780000,
+            "facilityOpex": -1222000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 1001000,
+            "loanInstallment": -323400,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 312,
+          "throughWeek": 340,
+          "opening": -235294,
+          "closing": -1977034,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": 0,
+            "overhead": -435000,
+            "facilityOpex": -681500,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": -625240,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        }
+      ]
+    },
+    {
+      "studioId": "studio-ff9bdb2b-r03",
+      "greenlightWeeks": [],
+      "releases": 0,
+      "firstTakes": 0,
+      "hires": 0,
+      "commissions": 8,
+      "terminations": [
+        {
+          "week": 120,
+          "contractId": "studio-ff9bdb2b-r03:contract:person-studio-ff9bdb2b-r03-0:0",
+          "weeklySalaryAvoided": 9302
+        },
+        {
+          "week": 120,
+          "contractId": "studio-ff9bdb2b-r03:contract:person-studio-ff9bdb2b-r03-1:0",
+          "weeklySalaryAvoided": 2892
+        },
+        {
+          "week": 120,
+          "contractId": "studio-ff9bdb2b-r03:contract:person-studio-ff9bdb2b-r03-2:0",
+          "weeklySalaryAvoided": 9641
+        },
+        {
+          "week": 120,
+          "contractId": "studio-ff9bdb2b-r03:contract:person-studio-ff9bdb2b-r03-3:0",
+          "weeklySalaryAvoided": 19926
+        },
+        {
+          "week": 120,
+          "contractId": "studio-ff9bdb2b-r03:contract:person-studio-ff9bdb2b-r03-4:0",
+          "weeklySalaryAvoided": 1807
+        },
+        {
+          "week": 120,
+          "contractId": "studio-ff9bdb2b-r03:contract:person-studio-ff9bdb2b-r03-5:0",
+          "weeklySalaryAvoided": 3570
+        }
+      ],
+      "refunds": [
+        {
+          "week": 119,
+          "facilityId": "studio-ff9bdb2b-r03:laboratory:0",
+          "refund": 450000
+        }
+      ],
+      "minimumCash": -1955001,
+      "minimumCashWeek": 258,
+      "firstNonpositiveWeek": 206,
+      "cuttingEpisodes": [
+        {
+          "since": 119,
+          "endedWeek": 213
+        },
+        {
+          "since": 213,
+          "endedWeek": null
+        }
+      ],
+      "firstAfterFirstCuttingEntry": {},
+      "sampledFirstBelowReserveWeek": 188,
+      "sampledFirstBackAtReserveWeek": null,
+      "lastGreenlightWeek": null,
+      "longestWeeksWithoutGreenlight": 6240,
+      "conditionStage": "closed",
+      "conditionEvents": [
+        {
+          "week": 205,
+          "from": "stable",
+          "to": "warning",
+          "causes": [
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 213,
+          "from": "warning",
+          "to": "distress",
+          "causes": [
+            "NEGATIVE_CASH",
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 214,
+          "from": "distress",
+          "to": "recovery",
+          "causes": [
+            "COVER_RESTORED"
+          ]
+        },
+        {
+          "week": 225,
+          "from": "recovery",
+          "to": "warning",
+          "causes": [
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 233,
+          "from": "warning",
+          "to": "distress",
+          "causes": [
+            "NEGATIVE_CASH",
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 258,
+          "from": "distress",
+          "to": "closed",
+          "causes": [
+            "DISTRESS_DURATION",
+            "NEGATIVE_CASH"
+          ]
+        }
+      ],
+      "loans": [
+        {
+          "loanId": "corporate-loan-2",
+          "contractedWeek": 213,
+          "principal": 1001000,
+          "total": 1121120,
+          "installments": 52
+        }
+      ],
+      "closure": {
+        "closureWeek": 258,
+        "cash": {
+          "closing": -1955001,
+          "distributable": 0
+        },
+        "loan": {
+          "loanId": "corporate-loan-2",
+          "stopWeek": 258,
+          "paidInstallments": 44,
+          "paidAmount": 948640,
+          "remainder": 172480
+        }
+      },
+      "closureDueNotClosed": false,
+      "dormantSurvivor": false,
+      "annualPeriods": [
+        {
+          "fromWeek": 0,
+          "throughWeek": 51,
+          "opening": 23000000,
+          "closing": 10717611,
+          "movements": {
+            "capacity": -5900000,
+            "signing": -441213,
+            "payroll": -2451176,
+            "overhead": -1248000,
+            "facilityOpex": -1342000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": -900000,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 52,
+          "throughWeek": 103,
+          "opening": 10717611,
+          "closing": 5640435,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -2451176,
+            "overhead": -1248000,
+            "facilityOpex": -1378000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 104,
+          "throughWeek": 155,
+          "opening": 5640435,
+          "closing": 1919639,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -754208,
+            "overhead": -924000,
+            "facilityOpex": -1267000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": -1225588,
+            "facilityDemolitionRefund": 450000,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 156,
+          "throughWeek": 207,
+          "opening": 1919639,
+          "closing": -82361,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": 0,
+            "overhead": -780000,
+            "facilityOpex": -1222000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 208,
+          "throughWeek": 257,
+          "opening": -82361,
+          "closing": -1955001,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": 0,
+            "overhead": -750000,
+            "facilityOpex": -1175000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 1001000,
+            "loanInstallment": -948640,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        }
+      ]
+    },
+    {
+      "studioId": "studio-ff9bdb2b-r04",
+      "greenlightWeeks": [],
+      "releases": 0,
+      "firstTakes": 0,
+      "hires": 0,
+      "commissions": 6,
+      "terminations": [
+        {
+          "week": 95,
+          "contractId": "studio-ff9bdb2b-r04:contract:person-studio-ff9bdb2b-r04-0:0",
+          "weeklySalaryAvoided": 17974
+        },
+        {
+          "week": 95,
+          "contractId": "studio-ff9bdb2b-r04:contract:person-studio-ff9bdb2b-r04-1:0",
+          "weeklySalaryAvoided": 6269
+        },
+        {
+          "week": 95,
+          "contractId": "studio-ff9bdb2b-r04:contract:person-studio-ff9bdb2b-r04-2:0",
+          "weeklySalaryAvoided": 11098
+        },
+        {
+          "week": 95,
+          "contractId": "studio-ff9bdb2b-r04:contract:person-studio-ff9bdb2b-r04-3:0",
+          "weeklySalaryAvoided": 5992
+        },
+        {
+          "week": 95,
+          "contractId": "studio-ff9bdb2b-r04:contract:person-studio-ff9bdb2b-r04-4:0",
+          "weeklySalaryAvoided": 7582
+        },
+        {
+          "week": 95,
+          "contractId": "studio-ff9bdb2b-r04:contract:person-studio-ff9bdb2b-r04-5:0",
+          "weeklySalaryAvoided": 8543
+        }
+      ],
+      "refunds": [
+        {
+          "week": 94,
+          "facilityId": "studio-ff9bdb2b-r04:laboratory:0",
+          "refund": 450000
+        }
+      ],
+      "minimumCash": -1972862,
+      "minimumCashWeek": 184,
+      "firstNonpositiveWeek": 132,
+      "cuttingEpisodes": [
+        {
+          "since": 94,
+          "endedWeek": 139
+        },
+        {
+          "since": 139,
+          "endedWeek": null
+        }
+      ],
+      "firstAfterFirstCuttingEntry": {},
+      "sampledFirstBelowReserveWeek": 120,
+      "sampledFirstBackAtReserveWeek": 139,
+      "lastGreenlightWeek": null,
+      "longestWeeksWithoutGreenlight": 6240,
+      "conditionStage": "closed",
+      "conditionEvents": [
+        {
+          "week": 131,
+          "from": "stable",
+          "to": "warning",
+          "causes": [
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 139,
+          "from": "warning",
+          "to": "distress",
+          "causes": [
+            "NEGATIVE_CASH",
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 140,
+          "from": "distress",
+          "to": "recovery",
+          "causes": [
+            "COVER_RESTORED"
+          ]
+        },
+        {
+          "week": 151,
+          "from": "recovery",
+          "to": "warning",
+          "causes": [
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 159,
+          "from": "warning",
+          "to": "distress",
+          "causes": [
+            "NEGATIVE_CASH",
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 184,
+          "from": "distress",
+          "to": "closed",
+          "causes": [
+            "DISTRESS_DURATION",
+            "NEGATIVE_CASH"
+          ]
+        }
+      ],
+      "loans": [
+        {
+          "loanId": "corporate-loan-1",
+          "contractedWeek": 139,
+          "principal": 1001000,
+          "total": 1121120,
+          "installments": 52
+        }
+      ],
+      "closure": {
+        "closureWeek": 184,
+        "cash": {
+          "closing": -1972862,
+          "distributable": 0
+        },
+        "loan": {
+          "loanId": "corporate-loan-1",
+          "stopWeek": 184,
+          "paidInstallments": 44,
+          "paidAmount": 948640,
+          "remainder": 172480
+        }
+      },
+      "closureDueNotClosed": false,
+      "dormantSurvivor": false,
+      "annualPeriods": [
+        {
+          "fromWeek": 0,
+          "throughWeek": 51,
+          "opening": 20000000,
+          "closing": 7084380,
+          "movements": {
+            "capacity": -5900000,
+            "signing": -537804,
+            "payroll": -2987816,
+            "overhead": -1248000,
+            "facilityOpex": -1342000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": -900000,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 52,
+          "throughWeek": 103,
+          "opening": 7084380,
+          "closing": 1054778,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -2470694,
+            "overhead": -1167000,
+            "facilityOpex": -1348000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": -1493908,
+            "facilityDemolitionRefund": 450000,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 104,
+          "throughWeek": 155,
+          "opening": 1054778,
+          "closing": -291182,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": 0,
+            "overhead": -780000,
+            "facilityOpex": -1222000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 1001000,
+            "loanInstallment": -344960,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 156,
+          "throughWeek": 183,
+          "opening": -291182,
+          "closing": -1972862,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": 0,
+            "overhead": -420000,
+            "facilityOpex": -658000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": -603680,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        }
+      ]
+    },
+    {
+      "studioId": "studio-ff9bdb2b-r05",
+      "greenlightWeeks": [],
+      "releases": 0,
+      "firstTakes": 0,
+      "hires": 7,
+      "commissions": 10,
+      "terminations": [
+        {
+          "week": 675,
+          "contractId": "studio-ff9bdb2b-r05:contract:t-wri-00:520",
+          "weeklySalaryAvoided": 8639
+        },
+        {
+          "week": 675,
+          "contractId": "studio-ff9bdb2b-r05:contract:t-dir-01:520",
+          "weeklySalaryAvoided": 3518
+        },
+        {
+          "week": 675,
+          "contractId": "studio-ff9bdb2b-r05:contract:t-act-00:520",
+          "weeklySalaryAvoided": 16993
+        },
+        {
+          "week": 675,
+          "contractId": "studio-ff9bdb2b-r05:contract:t-act-01:520",
+          "weeklySalaryAvoided": 2756
+        },
+        {
+          "week": 675,
+          "contractId": "studio-ff9bdb2b-r05:contract:t-act-02:520",
+          "weeklySalaryAvoided": 2774
+        },
+        {
+          "week": 675,
+          "contractId": "studio-ff9bdb2b-r05:contract:t-cra-00:520",
+          "weeklySalaryAvoided": 1663
+        }
+      ],
+      "refunds": [
+        {
+          "week": 674,
+          "facilityId": "studio-ff9bdb2b-r05:laboratory:0",
+          "refund": 450000
+        }
+      ],
+      "minimumCash": -2111471,
+      "minimumCashWeek": 764,
+      "firstNonpositiveWeek": 714,
+      "cuttingEpisodes": [
+        {
+          "since": 674,
+          "endedWeek": 721
+        },
+        {
+          "since": 721,
+          "endedWeek": null
+        }
+      ],
+      "firstAfterFirstCuttingEntry": {
+        "hire": 722
+      },
+      "sampledFirstBelowReserveWeek": 713,
+      "sampledFirstBackAtReserveWeek": 721,
+      "lastGreenlightWeek": null,
+      "longestWeeksWithoutGreenlight": 6240,
+      "conditionStage": "closed",
+      "conditionEvents": [
+        {
+          "week": 713,
+          "from": "stable",
+          "to": "warning",
+          "causes": [
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 721,
+          "from": "warning",
+          "to": "distress",
+          "causes": [
+            "NEGATIVE_CASH",
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 722,
+          "from": "distress",
+          "to": "recovery",
+          "causes": [
+            "COVER_RESTORED"
+          ]
+        },
+        {
+          "week": 731,
+          "from": "recovery",
+          "to": "warning",
+          "causes": [
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 739,
+          "from": "warning",
+          "to": "distress",
+          "causes": [
+            "NEGATIVE_CASH",
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 764,
+          "from": "distress",
+          "to": "closed",
+          "causes": [
+            "DISTRESS_DURATION",
+            "NEGATIVE_CASH"
+          ]
+        }
+      ],
+      "loans": [
+        {
+          "loanId": "corporate-loan-5",
+          "contractedWeek": 721,
+          "principal": 1001000,
+          "total": 1121120,
+          "installments": 52
+        }
+      ],
+      "closure": {
+        "closureWeek": 764,
+        "cash": {
+          "closing": -2111471,
+          "distributable": 0
+        },
+        "loan": {
+          "loanId": "corporate-loan-5",
+          "stopWeek": 764,
+          "paidInstallments": 42,
+          "paidAmount": 905520,
+          "remainder": 215600
+        }
+      },
+      "closureDueNotClosed": false,
+      "dormantSurvivor": false,
+      "annualPeriods": [
+        {
+          "fromWeek": 520,
+          "throughWeek": 571,
+          "opening": 24000000,
+          "closing": 10904998,
+          "movements": {
+            "capacity": -5900000,
+            "signing": -340166,
+            "payroll": -1889836,
+            "overhead": -1248000,
+            "facilityOpex": -1342000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": -1475000,
+            "researchSpend": 0,
+            "researchCapacity": -900000,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 572,
+          "throughWeek": 623,
+          "opening": 10904998,
+          "closing": 6389162,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -1889836,
+            "overhead": -1248000,
+            "facilityOpex": -1378000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 624,
+          "throughWeek": 675,
+          "opening": 6389162,
+          "closing": 1429751,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -1853493,
+            "overhead": -1239000,
+            "facilityOpex": -1372000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": -944918,
+            "facilityDemolitionRefund": 450000,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 676,
+          "throughWeek": 727,
+          "opening": 1429751,
+          "closing": 231337,
+          "movements": {
+            "capacity": 0,
+            "signing": -32928,
+            "payroll": -24626,
+            "overhead": -790500,
+            "facilityOpex": -1222000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 1001000,
+            "loanInstallment": -129360,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 728,
+          "throughWeek": 763,
+          "opening": 231337,
+          "closing": -2111471,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -126648,
+            "overhead": -594000,
+            "facilityOpex": -846000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": -776160,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        }
+      ]
+    },
+    {
+      "studioId": "studio-ff9bdb2b-r06",
+      "greenlightWeeks": [],
+      "releases": 0,
+      "firstTakes": 0,
+      "hires": 6,
+      "commissions": 10,
+      "terminations": [
+        {
+          "week": 1140,
+          "contractId": "studio-ff9bdb2b-r06:contract:t-wri-00:988",
+          "weeklySalaryAvoided": 8163
+        },
+        {
+          "week": 1140,
+          "contractId": "studio-ff9bdb2b-r06:contract:t-dir-02:988",
+          "weeklySalaryAvoided": 11517
+        },
+        {
+          "week": 1140,
+          "contractId": "studio-ff9bdb2b-r06:contract:t-act-03:988",
+          "weeklySalaryAvoided": 4861
+        },
+        {
+          "week": 1140,
+          "contractId": "studio-ff9bdb2b-r06:contract:t-act-05:988",
+          "weeklySalaryAvoided": 10059
+        },
+        {
+          "week": 1140,
+          "contractId": "studio-ff9bdb2b-r06:contract:t-act-10:988",
+          "weeklySalaryAvoided": 10755
+        },
+        {
+          "week": 1140,
+          "contractId": "studio-ff9bdb2b-r06:contract:t-cra-02:988",
+          "weeklySalaryAvoided": 3712
+        }
+      ],
+      "refunds": [
+        {
+          "week": 1139,
+          "facilityId": "studio-ff9bdb2b-r06:laboratory:0",
+          "refund": 450000
+        }
+      ],
+      "minimumCash": -1967339,
+      "minimumCashWeek": 1217,
+      "firstNonpositiveWeek": 1165,
+      "cuttingEpisodes": [
+        {
+          "since": 1139,
+          "endedWeek": 1172
+        },
+        {
+          "since": 1172,
+          "endedWeek": null
+        }
+      ],
+      "firstAfterFirstCuttingEntry": {},
+      "sampledFirstBelowReserveWeek": 1164,
+      "sampledFirstBackAtReserveWeek": 1172,
+      "lastGreenlightWeek": null,
+      "longestWeeksWithoutGreenlight": 6240,
+      "conditionStage": "closed",
+      "conditionEvents": [
+        {
+          "week": 1164,
+          "from": "stable",
+          "to": "warning",
+          "causes": [
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 1172,
+          "from": "warning",
+          "to": "distress",
+          "causes": [
+            "NEGATIVE_CASH",
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 1173,
+          "from": "distress",
+          "to": "recovery",
+          "causes": [
+            "COVER_RESTORED"
+          ]
+        },
+        {
+          "week": 1184,
+          "from": "recovery",
+          "to": "warning",
+          "causes": [
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 1192,
+          "from": "warning",
+          "to": "distress",
+          "causes": [
+            "NEGATIVE_CASH",
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 1217,
+          "from": "distress",
+          "to": "closed",
+          "causes": [
+            "DISTRESS_DURATION",
+            "NEGATIVE_CASH"
+          ]
+        }
+      ],
+      "loans": [
+        {
+          "loanId": "corporate-loan-6",
+          "contractedWeek": 1172,
+          "principal": 1001000,
+          "total": 1121120,
+          "installments": 52
+        }
+      ],
+      "closure": {
+        "closureWeek": 1217,
+        "cash": {
+          "closing": -1967339,
+          "distributable": 0
+        },
+        "loan": {
+          "loanId": "corporate-loan-6",
+          "stopWeek": 1217,
+          "paidInstallments": 44,
+          "paidAmount": 948640,
+          "remainder": 172480
+        }
+      },
+      "closureDueNotClosed": false,
+      "dormantSurvivor": false,
+      "annualPeriods": [
+        {
+          "fromWeek": 988,
+          "throughWeek": 1039,
+          "opening": 26000000,
+          "closing": 11724243,
+          "movements": {
+            "capacity": -5900000,
+            "signing": -459273,
+            "payroll": -2551484,
+            "overhead": -1248000,
+            "facilityOpex": -1342000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": -1875000,
+            "researchSpend": 0,
+            "researchCapacity": -900000,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 1040,
+          "throughWeek": 1091,
+          "opening": 11724243,
+          "closing": 6546759,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -2551484,
+            "overhead": -1248000,
+            "facilityOpex": -1378000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 1092,
+          "throughWeek": 1143,
+          "opening": 6546759,
+          "closing": 790801,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -2355216,
+            "overhead": -1212000,
+            "facilityOpex": -1363000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": -1275742,
+            "facilityDemolitionRefund": 450000,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 1144,
+          "throughWeek": 1195,
+          "opening": 790801,
+          "closing": -706079,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": 0,
+            "overhead": -780000,
+            "facilityOpex": -1222000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 1001000,
+            "loanInstallment": -495880,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 1196,
+          "throughWeek": 1216,
+          "opening": -706079,
+          "closing": -1967339,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": 0,
+            "overhead": -315000,
+            "facilityOpex": -493500,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": -452760,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        }
+      ]
+    },
+    {
+      "studioId": "studio-ff9bdb2b-r07",
+      "greenlightWeeks": [],
+      "releases": 0,
+      "firstTakes": 0,
+      "hires": 7,
+      "commissions": 12,
+      "terminations": [],
+      "refunds": [
+        {
+          "week": 1745,
+          "facilityId": "studio-ff9bdb2b-r07:laboratory:0",
+          "refund": 450000
+        }
+      ],
+      "minimumCash": -2183859,
+      "minimumCashWeek": 1823,
+      "firstNonpositiveWeek": 1773,
+      "cuttingEpisodes": [
+        {
+          "since": 1745,
+          "endedWeek": 1780
+        },
+        {
+          "since": 1780,
+          "endedWeek": null
+        }
+      ],
+      "firstAfterFirstCuttingEntry": {
+        "hire": 1781
+      },
+      "sampledFirstBelowReserveWeek": 1772,
+      "sampledFirstBackAtReserveWeek": 1780,
+      "lastGreenlightWeek": null,
+      "longestWeeksWithoutGreenlight": 6240,
+      "conditionStage": "closed",
+      "conditionEvents": [
+        {
+          "week": 1772,
+          "from": "stable",
+          "to": "warning",
+          "causes": [
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 1780,
+          "from": "warning",
+          "to": "distress",
+          "causes": [
+            "NEGATIVE_CASH",
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 1781,
+          "from": "distress",
+          "to": "recovery",
+          "causes": [
+            "COVER_RESTORED"
+          ]
+        },
+        {
+          "week": 1790,
+          "from": "recovery",
+          "to": "warning",
+          "causes": [
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 1798,
+          "from": "warning",
+          "to": "distress",
+          "causes": [
+            "NEGATIVE_CASH",
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 1823,
+          "from": "distress",
+          "to": "closed",
+          "causes": [
+            "DISTRESS_DURATION",
+            "NEGATIVE_CASH"
+          ]
+        }
+      ],
+      "loans": [
+        {
+          "loanId": "corporate-loan-7",
+          "contractedWeek": 1780,
+          "principal": 1001000,
+          "total": 1121120,
+          "installments": 52
+        }
+      ],
+      "closure": {
+        "closureWeek": 1823,
+        "cash": {
+          "closing": -2183859,
+          "distributable": 0
+        },
+        "loan": {
+          "loanId": "corporate-loan-7",
+          "stopWeek": 1823,
+          "paidInstallments": 42,
+          "paidAmount": 905520,
+          "remainder": 215600
+        }
+      },
+      "closureDueNotClosed": false,
+      "dormantSurvivor": false,
+      "annualPeriods": [
+        {
+          "fromWeek": 1560,
+          "throughWeek": 1611,
+          "opening": 34000000,
+          "closing": 18438998,
+          "movements": {
+            "capacity": -5900000,
+            "signing": -655326,
+            "payroll": -3640676,
+            "overhead": -1248000,
+            "facilityOpex": -1342000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": -1875000,
+            "researchSpend": 0,
+            "researchCapacity": -900000,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 1612,
+          "throughWeek": 1663,
+          "opening": 18438998,
+          "closing": 12172322,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -3640676,
+            "overhead": -1248000,
+            "facilityOpex": -1378000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 1664,
+          "throughWeek": 1715,
+          "opening": 12172322,
+          "closing": 5905646,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -3640676,
+            "overhead": -1248000,
+            "facilityOpex": -1378000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 1716,
+          "throughWeek": 1767,
+          "opening": 5905646,
+          "closing": 157970,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -3640676,
+            "overhead": -1248000,
+            "facilityOpex": -1309000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 450000,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 1768,
+          "throughWeek": 1819,
+          "opening": 157970,
+          "closing": -1984551,
+          "movements": {
+            "capacity": 0,
+            "signing": -45641,
+            "payroll": -195040,
+            "overhead": -840000,
+            "facilityOpex": -1222000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 1001000,
+            "loanInstallment": -840840,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 1820,
+          "throughWeek": 1822,
+          "opening": -1984551,
+          "closing": -2183859,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -14628,
+            "overhead": -49500,
+            "facilityOpex": -70500,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": -64680,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        }
+      ]
+    },
+    {
+      "studioId": "studio-ff9bdb2b-r08",
+      "greenlightWeeks": [
+        1907
+      ],
+      "releases": 1,
+      "firstTakes": 1,
+      "hires": 6,
+      "commissions": 9,
+      "terminations": [
+        {
+          "week": 2006,
+          "contractId": "studio-ff9bdb2b-r08:contract:t-wri-01:1872",
+          "weeklySalaryAvoided": 16379
+        },
+        {
+          "week": 2006,
+          "contractId": "studio-ff9bdb2b-r08:contract:t-dir-02:1872",
+          "weeklySalaryAvoided": 10882
+        },
+        {
+          "week": 2006,
+          "contractId": "studio-ff9bdb2b-r08:contract:t-act-21:1872",
+          "weeklySalaryAvoided": 13511
+        },
+        {
+          "week": 2006,
+          "contractId": "studio-ff9bdb2b-r08:contract:t-act-24:1872",
+          "weeklySalaryAvoided": 17798
+        },
+        {
+          "week": 2006,
+          "contractId": "studio-ff9bdb2b-r08:contract:t-act-27:1872",
+          "weeklySalaryAvoided": 4876
+        },
+        {
+          "week": 2006,
+          "contractId": "studio-ff9bdb2b-r08:contract:t-cra-05:1872",
+          "weeklySalaryAvoided": 5444
+        }
+      ],
+      "refunds": [
+        {
+          "week": 2005,
+          "facilityId": "studio-ff9bdb2b-r08:laboratory:0",
+          "refund": 450000
+        }
+      ],
+      "minimumCash": -1966899.3545109574,
+      "minimumCashWeek": 2098,
+      "firstNonpositiveWeek": 2046,
+      "cuttingEpisodes": [
+        {
+          "since": 2005,
+          "endedWeek": 2053
+        },
+        {
+          "since": 2053,
+          "endedWeek": null
+        }
+      ],
+      "firstAfterFirstCuttingEntry": {},
+      "sampledFirstBelowReserveWeek": 2045,
+      "sampledFirstBackAtReserveWeek": 2053,
+      "lastGreenlightWeek": 1907,
+      "longestWeeksWithoutGreenlight": 4333,
+      "conditionStage": "closed",
+      "conditionEvents": [
+        {
+          "week": 2045,
+          "from": "stable",
+          "to": "warning",
+          "causes": [
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 2053,
+          "from": "warning",
+          "to": "distress",
+          "causes": [
+            "NEGATIVE_CASH",
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 2054,
+          "from": "distress",
+          "to": "recovery",
+          "causes": [
+            "COVER_RESTORED"
+          ]
+        },
+        {
+          "week": 2065,
+          "from": "recovery",
+          "to": "warning",
+          "causes": [
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 2073,
+          "from": "warning",
+          "to": "distress",
+          "causes": [
+            "NEGATIVE_CASH",
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 2098,
+          "from": "distress",
+          "to": "closed",
+          "causes": [
+            "DISTRESS_DURATION",
+            "NEGATIVE_CASH"
+          ]
+        }
+      ],
+      "loans": [
+        {
+          "loanId": "corporate-loan-8",
+          "contractedWeek": 2053,
+          "principal": 1001000,
+          "total": 1121120,
+          "installments": 52
+        }
+      ],
+      "closure": {
+        "closureWeek": 2098,
+        "cash": {
+          "closing": -1966899.3545109574,
+          "distributable": 0
+        },
+        "loan": {
+          "loanId": "corporate-loan-8",
+          "stopWeek": 2098,
+          "paidInstallments": 44,
+          "paidAmount": 948640,
+          "remainder": 172480
+        }
+      },
+      "closureDueNotClosed": false,
+      "dormantSurvivor": false,
+      "annualPeriods": [
+        {
+          "fromWeek": 1872,
+          "throughWeek": 1923,
+          "opening": 28000000,
+          "closing": 12650860.645489043,
+          "movements": {
+            "capacity": -5900000,
+            "signing": -644813,
+            "payroll": -3582280,
+            "overhead": -1248000,
+            "facilityOpex": -1342000,
+            "development": 0,
+            "production": -1196715,
+            "marketing": -597669,
+            "studioRevenue": 1937337.6454890429,
+            "technologyAdoption": -1875000,
+            "researchSpend": 0,
+            "researchCapacity": -900000,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 1924,
+          "throughWeek": 1975,
+          "opening": 12650860.645489043,
+          "closing": 6442580.645489043,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -3582280,
+            "overhead": -1248000,
+            "facilityOpex": -1378000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 1976,
+          "throughWeek": 2027,
+          "opening": 6442580.645489043,
+          "closing": 675740.6454890426,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -2066700,
+            "overhead": -1050000,
+            "facilityOpex": -1309000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": -1791140,
+            "facilityDemolitionRefund": 450000,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 2028,
+          "throughWeek": 2079,
+          "opening": 675740.6454890426,
+          "closing": -885819.3545109574,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": 0,
+            "overhead": -780000,
+            "facilityOpex": -1222000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 1001000,
+            "loanInstallment": -560560,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 2080,
+          "throughWeek": 2097,
+          "opening": -885819.3545109574,
+          "closing": -1966899.3545109574,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": 0,
+            "overhead": -270000,
+            "facilityOpex": -423000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": -388080,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        }
+      ]
+    },
+    {
+      "studioId": "studio-ff9bdb2b-r09",
+      "greenlightWeeks": [],
+      "releases": 0,
+      "firstTakes": 0,
+      "hires": 13,
+      "commissions": 16,
+      "terminations": [
+        {
+          "week": 2798,
+          "contractId": "studio-ff9bdb2b-r09:contract:person-cohort-624-actor-0:2756",
+          "weeklySalaryAvoided": 6463
+        },
+        {
+          "week": 2798,
+          "contractId": "studio-ff9bdb2b-r09:contract:person-cohort-676-actor-0:2756",
+          "weeklySalaryAvoided": 12216
+        },
+        {
+          "week": 2798,
+          "contractId": "studio-ff9bdb2b-r09:contract:person-cohort-676-actor-1:2756",
+          "weeklySalaryAvoided": 5270
+        },
+        {
+          "week": 2798,
+          "contractId": "studio-ff9bdb2b-r09:contract:person-cohort-780-craft-0:2756",
+          "weeklySalaryAvoided": 14172
+        }
+      ],
+      "refunds": [
+        {
+          "week": 2797,
+          "facilityId": "studio-ff9bdb2b-r09:laboratory:0",
+          "refund": 450000
+        }
+      ],
+      "minimumCash": -2889387,
+      "minimumCashWeek": 2905,
+      "firstNonpositiveWeek": 2855,
+      "cuttingEpisodes": [
+        {
+          "since": 2797,
+          "endedWeek": 2862
+        },
+        {
+          "since": 2862,
+          "endedWeek": null
+        }
+      ],
+      "firstAfterFirstCuttingEntry": {
+        "hire": 2863
+      },
+      "sampledFirstBelowReserveWeek": 2854,
+      "sampledFirstBackAtReserveWeek": 2862,
+      "lastGreenlightWeek": null,
+      "longestWeeksWithoutGreenlight": 6240,
+      "conditionStage": "closed",
+      "conditionEvents": [
+        {
+          "week": 2854,
+          "from": "stable",
+          "to": "warning",
+          "causes": [
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 2862,
+          "from": "warning",
+          "to": "distress",
+          "causes": [
+            "NEGATIVE_CASH",
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 2863,
+          "from": "distress",
+          "to": "recovery",
+          "causes": [
+            "COVER_RESTORED"
+          ]
+        },
+        {
+          "week": 2872,
+          "from": "recovery",
+          "to": "warning",
+          "causes": [
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 2880,
+          "from": "warning",
+          "to": "distress",
+          "causes": [
+            "NEGATIVE_CASH",
+            "LOW_COVER"
+          ]
+        },
+        {
+          "week": 2905,
+          "from": "distress",
+          "to": "closed",
+          "causes": [
+            "DISTRESS_DURATION",
+            "NEGATIVE_CASH"
+          ]
+        }
+      ],
+      "loans": [
+        {
+          "loanId": "corporate-loan-9",
+          "contractedWeek": 2862,
+          "principal": 1369000,
+          "total": 1533280,
+          "installments": 52
+        }
+      ],
+      "closure": {
+        "closureWeek": 2905,
+        "cash": {
+          "closing": -2889387,
+          "distributable": 0
+        },
+        "loan": {
+          "loanId": "corporate-loan-9",
+          "stopWeek": 2905,
+          "paidInstallments": 42,
+          "paidAmount": 1238420,
+          "remainder": 294860
+        }
+      },
+      "closureDueNotClosed": false,
+      "dormantSurvivor": false,
+      "annualPeriods": [
+        {
+          "fromWeek": 2548,
+          "throughWeek": 2599,
+          "opening": 38000000,
+          "closing": 23711130,
+          "movements": {
+            "capacity": -5900000,
+            "signing": -461258,
+            "payroll": -2562612,
+            "overhead": -1248000,
+            "facilityOpex": -1342000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": -1875000,
+            "researchSpend": 0,
+            "researchCapacity": -900000,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 2600,
+          "throughWeek": 2651,
+          "opening": 23711130,
+          "closing": 18522518,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -2562612,
+            "overhead": -1248000,
+            "facilityOpex": -1378000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 2652,
+          "throughWeek": 2703,
+          "opening": 18522518,
+          "closing": 13333906,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -2562612,
+            "overhead": -1248000,
+            "facilityOpex": -1378000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 2704,
+          "throughWeek": 2755,
+          "opening": 13333906,
+          "closing": 8145294,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -2562612,
+            "overhead": -1248000,
+            "facilityOpex": -1378000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 2756,
+          "throughWeek": 2807,
+          "opening": 8145294,
+          "closing": 2428488,
+          "movements": {
+            "capacity": 0,
+            "signing": -461258,
+            "payroll": -2181402,
+            "overhead": -1188000,
+            "facilityOpex": -1345000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": -991146,
+            "facilityDemolitionRefund": 450000,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 2808,
+          "throughWeek": 2859,
+          "opening": 2428488,
+          "closing": -309832,
+          "movements": {
+            "capacity": 0,
+            "signing": 0,
+            "payroll": -580320,
+            "overhead": -936000,
+            "facilityOpex": -1222000,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 0,
+            "loanInstallment": 0,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        },
+        {
+          "fromWeek": 2860,
+          "throughWeek": 2904,
+          "opening": -309832,
+          "closing": -2889387,
+          "movements": {
+            "capacity": 0,
+            "signing": -49325,
+            "payroll": -728810,
+            "overhead": -874500,
+            "facilityOpex": -1057500,
+            "development": 0,
+            "production": 0,
+            "marketing": 0,
+            "studioRevenue": 0,
+            "technologyAdoption": 0,
+            "researchSpend": 0,
+            "researchCapacity": 0,
+            "technologyRestoration": 0,
+            "technologyRefund": 0,
+            "termination": 0,
+            "facilityDemolitionRefund": 0,
+            "loanPrincipal": 1369000,
+            "loanInstallment": -1238420,
+            "claimPayment": 0,
+            "rightsConsideration": 0,
+            "dueDiligenceFee": 0,
+            "acquisitionOutlay": 0,
+            "estateSaleProceeds": 0
+          }
+        }
+      ]
+    }
+  ]
+}

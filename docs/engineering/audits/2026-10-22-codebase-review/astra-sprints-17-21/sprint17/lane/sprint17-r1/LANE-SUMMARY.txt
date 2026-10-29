@@ -1,0 +1,20 @@
+# sprint17-r1 lane summary (bound 8892b693 = 60531b94 + harness scripts)
+waiting for pid 0; then: bash /Users/zacheryspector/studio-scratch/astra-20261029/sprint17-r1/run.sh; 2026-10-29 08:20:47 CDT
+start; 2026-10-29 08:20:47 CDT
+end, exit 0; 2026-10-29 08:26:18 CDT
+
+Node v20.20.2; HEAD 8892b6934c4133725457aa4fe688258fed9fbb42
+=== BEGIN focused-core
+ Test Files  19 passed (19)
+      Tests  444 passed | 2 skipped (446)
+=== END focused-core exit=0 elapsed=263s
+=== BEGIN rival
+=== END rival exit=0 elapsed=67s
+=== CHECKPOINT exit=0
+
+preflight:
+{"competingHeavy": null, "freeKiB": 4793788, "heavyLOCAL": [], "laneAbsent": true, "launchAllowed": true}
+godot lines at launch scan: 0
+launch-at: 2026-10-29T08:20:47-05:00
+
+rival routes vs sprint14 harness-r2: all four rivals.jsonl byte-identical (compared 2026-10-29 08:30 CDT); RIVAL-RECEIPT status MEASURED

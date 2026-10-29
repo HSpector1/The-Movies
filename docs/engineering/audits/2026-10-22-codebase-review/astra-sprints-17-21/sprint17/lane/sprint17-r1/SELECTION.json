@@ -1,0 +1,14 @@
+{
+  "head": "8892b6934c4133725457aa4fe688258fed9fbb42",
+  "sourceManifestEntries": 1386,
+  "purpose": "ASTRA Sprint 17 r1 (snapshot branch astra17-snapshot-20261029 = 60531b94 + the unchanged Sprint 14 harness scripts): the affected core test files for the cost-cutting restart examination (decision A, 4a), then the 1363-A section 6 natural rival routes through rival-recovery-measure.ts for comparison with the retained Sprint 14 harness-r2 output",
+  "limits": "focused files only; the full gate on the Sprint 17 checkpoint follows separately; measurements are natural routes, not acceptance",
+  "children": [
+    {
+      "label": "focused-core"
+    },
+    {
+      "label": "rival"
+    }
+  ]
+}
