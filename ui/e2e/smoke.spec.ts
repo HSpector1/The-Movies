@@ -21,6 +21,39 @@ const MAX_MANAGED_RELEASE_WEEKS = 24
 const shotsDir = join(dirname(fileURLToPath(import.meta.url)), '..', 'screenshots')
 mkdirSync(shotsDir, { recursive: true })
 
+/**
+ * Sprint 16 known issue: the headline quotes the title (`“TITLE” OPENS …`), and when the title's last word
+ * filled the column the closing quote wrapped alone onto the next line. The witness reads the rendered line
+ * boxes: the closing quote must sit on the same line as the character before it. The smoke seed's first
+ * release is “PORTRAIT OF A CONSTELLATION”, whose 13-letter word fills the column at 1280×900.
+ */
+async function expectClosingQuoteOnItsWordLine(page: Page) {
+  const result = await page.evaluate(() => {
+    const headline = document.querySelector('[data-testid="newspaper-headline"]')
+    if (!headline) return { error: 'no headline' }
+    const walker = document.createTreeWalker(headline, NodeFilter.SHOW_TEXT)
+    let node: Node | null
+    while ((node = walker.nextNode())) {
+      const text = (node as Text).data
+      const at = text.indexOf('”')
+      if (at < 1) continue
+      const rect = (offset: number) => {
+        const range = document.createRange()
+        range.setStart(node!, offset)
+        range.setEnd(node!, offset + 1)
+        return range.getClientRects()[0]
+      }
+      const quote = rect(at)
+      const before = rect(at - 1)
+      if (!quote || !before) return { error: 'closing quote has no line box' }
+      return { text, sameLine: Math.round(quote.top) === Math.round(before.top), quoteTop: quote.top, beforeTop: before.top }
+    }
+    return { error: `no closing quote after a character in the headline: ${headline.textContent}` }
+  })
+  expect(result, 'premise: the headline quotes the title').not.toHaveProperty('error')
+  expect(result, `the closing quote stays on its word's line: ${JSON.stringify(result)}`).toMatchObject({ sameLine: true })
+}
+
 test.beforeEach(async ({ page }) => {
   await page.addInitScript((key) => localStorage.setItem(key, '0'), STUDIO_LOT_OVERVIEW_FLAG)
 })
@@ -152,6 +185,7 @@ test('full playable loop: assemble → greenlight → release → autopsy → sa
     if (await newspaper.isVisible().catch(() => false)) {
       if (!capturedNewspaper) {
         await shot(page, '9-newspaper-reveal')
+        await expectClosingQuoteOnItsWordLine(page)
         capturedNewspaper = true
       }
       await page.getByTestId('newspaper-continue').click()
