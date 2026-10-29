@@ -1,0 +1,151 @@
+{
+  "config": {
+    "argv": [
+      "/usr/local/bin/node",
+      "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/node_modules/@playwright/test/cli.js",
+      "test",
+      "--config",
+      "ui/playwright.config.ts",
+      "astra18-rights-desk.spec.ts",
+      "--reporter=list,json"
+    ],
+    "configFile": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/playwright.config.ts",
+    "rootDir": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/e2e",
+        "testIgnore": [
+          "/.*current-break-audit\\.spec\\.ts$/"
+        ],
+        "testMatch": [
+          "/.*\\.spec\\.ts$/"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "astra18-rights-desk.spec.ts",
+      "file": "astra18-rights-desk.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "ASTRA 18 journey: disclosure request, then a title sale disclosed before the confirm, then the season cancels as disclosed",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 21447,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid^=\"season-money-\"]')\nExpected substring: \u001b[32m\"owed\"\u001b[39m\nReceived string:    \u001b[31m\"Earned $0 of $600,000 · received $120,000\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid^=\"season-money-\"]')\u001b[22m\n\u001b[2m    14 × locator resolved to <span class=\"hint\" data-testid=\"season-money-tv-season-2\">…</span>\u001b[22m\n\u001b[2m       - unexpected value \"Earned $0 of $600,000 · received $120,000\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid^=\"season-money-\"]')\nExpected substring: \u001b[32m\"owed\"\u001b[39m\nReceived string:    \u001b[31m\"Earned $0 of $600,000 · received $120,000\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid^=\"season-money-\"]')\u001b[22m\n\u001b[2m    14 × locator resolved to <span class=\"hint\" data-testid=\"season-money-tv-season-2\">…</span>\u001b[22m\n\u001b[2m       - unexpected value \"Earned $0 of $600,000 · received $120,000\"\u001b[22m\n\n    at /Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/e2e/astra18-rights-desk.spec.ts:128:64",
+                    "location": {
+                      "file": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/e2e/astra18-rights-desk.spec.ts",
+                      "column": 64,
+                      "line": 128
+                    },
+                    "snippet": "  126 |   await expect(state).toContainText(`Cancelled at week ${C + 2} (cancelled when the season's rights authority ended)`)\n  127 |   await expect(state).toContainText('its distribution licence')\n> 128 |   await expect(page.locator('[data-testid^=\"season-money-\"]')).toContainText('owed')\n      |                                                                ^\n  129 |   await shot(page, 'astra18-3-season-cancelled')\n  130 |\n  131 |   // (5) The desk no longer lists the sold property; the accepted offer is on record."
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/e2e/astra18-rights-desk.spec.ts",
+                        "column": 64,
+                        "line": 128
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid^=\"season-money-\"]')\nExpected substring: \u001b[32m\"owed\"\u001b[39m\nReceived string:    \u001b[31m\"Earned $0 of $600,000 · received $120,000\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid^=\"season-money-\"]')\u001b[22m\n\u001b[2m    14 × locator resolved to <span class=\"hint\" data-testid=\"season-money-tv-season-2\">…</span>\u001b[22m\n\u001b[2m       - unexpected value \"Earned $0 of $600,000 · received $120,000\"\u001b[22m\n\n\n  126 |   await expect(state).toContainText(`Cancelled at week ${C + 2} (cancelled when the season's rights authority ended)`)\n  127 |   await expect(state).toContainText('its distribution licence')\n> 128 |   await expect(page.locator('[data-testid^=\"season-money-\"]')).toContainText('owed')\n      |                                                                ^\n  129 |   await shot(page, 'astra18-3-season-cancelled')\n  130 |\n  131 |   // (5) The desk no longer lists the sold property; the accepted offer is on record.\n    at /Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/e2e/astra18-rights-desk.spec.ts:128:64"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-29T15:49:30.210Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/test-results/astra18-rights-desk-ASTRA--a0606-season-cancels-as-disclosed-chromium/error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/e2e/astra18-rights-desk.spec.ts",
+                    "column": 64,
+                    "line": 128
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1fe451bae95160cfe08a-1bf9fb61fab6c60e54c3",
+          "file": "astra18-rights-desk.spec.ts",
+          "line": 72,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-29T15:49:10.590Z",
+    "duration": 45643.369,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

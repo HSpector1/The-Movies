@@ -1,0 +1,30 @@
+{
+  "head": "fe47314fcbd6f0e5e0168479f1476186c3aa9fca",
+  "sourceManifestEntries": 2268,
+  "purpose": "ASTRA Sprint 18 r1 on the Rights desk candidate fe47314f (decisions B, C, E): root and ui typecheck, the affected core files (rights desk, P16 asset sale, diligence, licence, estate, absorption, licence survival, P18 commission/work/delivery/save, the s14 season witnesses), the affected ui files (rights desk, season surfaces), then the four real-Chrome journeys (smoke, P17, P18, the new rights desk journey), then source integrity",
+  "limits": "focused files only; the full gate on the Sprint 18 checkpoint follows separately; budgets unchanged (core 5000 ms default, ui 30000 ms); the browser stage runs in installed Google Chrome (channel chrome) on the constructed season world, labelled",
+  "children": [
+    {
+      "label": "root-ui-types"
+    },
+    {
+      "label": "focused-core",
+      "project": "core"
+    },
+    {
+      "label": "focused-ui",
+      "project": "ui"
+    },
+    {
+      "label": "browser"
+    },
+    {
+      "label": "final-source-integrity"
+    }
+  ],
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "uiMilliseconds": 30000,
+    "timeoutOverride": false
+  }
+}

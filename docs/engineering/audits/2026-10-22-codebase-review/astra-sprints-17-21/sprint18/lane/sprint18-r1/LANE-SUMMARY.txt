@@ -1,0 +1,27 @@
+# sprint18-r1 lane summary (bound fe47314f)
+waiting for pid 0; then: bash /Users/zacheryspector/studio-scratch/astra-20261029/sprint18-r1/run.sh; 2026-10-29 10:54:13 CDT
+start; 2026-10-29 10:54:14 CDT
+end, exit 1; 2026-10-29 11:02:50 CDT
+
+known-missing inputs:        3
+Node v20.20.2; HEAD fe47314fcbd6f0e5e0168479f1476186c3aa9fca
+=== BEGIN root-ui-types
+=== END root-ui-types exit=2 elapsed=179s
+=== BEGIN focused-core
+ Test Files  12 passed (12)
+      Tests  106 passed (106)
+=== END focused-core exit=0 elapsed=184s
+=== BEGIN focused-ui
+ Test Files  2 passed (2)
+      Tests  14 passed (14)
+=== END focused-ui exit=0 elapsed=42s
+=== BEGIN browser
+  4 passed (1.8m)
+=== END browser exit=0 elapsed=109s
+=== BEGIN final-source-integrity
+=== END final-source-integrity exit=0 elapsed=0s
+=== CHECKPOINT exit=1
+
+root-ui-types error (test-only, fixed in the FIX commit):
+ui/src/screens/astra18-rights-desk-ui.test.tsx(58,65): error TS2339: Property 'propertyId' does not exist on type 'RightSubject'.
+godot lines at launch scan: 0

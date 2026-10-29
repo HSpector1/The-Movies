@@ -1,0 +1,31 @@
+# sprint18-r2 lane summary (bound 61c858b9, FIX-1)
+waiting for pid 0; then: bash /Users/zacheryspector/studio-scratch/astra-20261029/sprint18-r2/run.sh; 2026-10-29 11:26:47 CDT
+start; 2026-10-29 11:26:47 CDT
+end, exit 1; 2026-10-29 11:46:10 CDT
+
+known-missing inputs:        3
+Node v20.20.2; HEAD 61c858b9a0335a9f7169cb73d08ec07b5c270099
+=== BEGIN root-ui-types
+=== END root-ui-types exit=0 elapsed=97s
+=== BEGIN focused-core
+ Test Files  12 passed (12)
+      Tests  111 passed (111)
+=== END focused-core exit=0 elapsed=109s
+=== BEGIN full-ui
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+ Test Files  2 failed | 210 passed (212)
+      Tests  3 failed | 2755 passed | 5 skipped (2763)
+=== END full-ui exit=1 elapsed=871s
+=== BEGIN browser
+  4 passed (1.4m)
+=== END browser exit=0 elapsed=84s
+=== BEGIN final-source-integrity
+=== END final-source-integrity exit=0 elapsed=1s
+=== CHECKPOINT exit=1
+
+ui classification (compare-full.py, budget 30000 ms):
+vs full-tree-s17-r1 (ac697d84):
+{'NEW': 1, 'INHERITED-SAME': 2, 'INHERITED-CHANGED': 0, 'MISSING-INPUT': 0, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 0, 'OVER-BUDGET-PASS': 0} report tests 2759 baseline tests 2753 in both 2753
+vs sprint14 full-tree-r4 (e115be4b):
+{'NEW': 0, 'INHERITED-SAME': 3, 'INHERITED-CHANGED': 0, 'MISSING-INPUT': 0, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 0, 'OVER-BUDGET-PASS': 0} report tests 2759 baseline tests 2753 in both 2753
+godot lines at launch scan: 0

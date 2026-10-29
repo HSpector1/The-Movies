@@ -1,0 +1,30 @@
+{
+  "head": "61c858b9a0335a9f7169cb73d08ec07b5c270099",
+  "sourceManifestEntries": 2268,
+  "purpose": "ASTRA Sprint 18 r2 on the FIX-1 candidate (review NEEDS CHANGES -> fixes): root and ui typecheck, the affected core files, the FULL ui project (the Dashboard and season card changed), the four real-Chrome journeys, source integrity",
+  "limits": "focused core files only (the core delta is one new module plus index exports; the full core gate is deferred to the Sprint 21 integration milestone and stated so); budgets unchanged (core 5000 ms default, ui 30000 ms); browser stage in installed Google Chrome on the constructed season world, labelled",
+  "children": [
+    {
+      "label": "root-ui-types"
+    },
+    {
+      "label": "focused-core",
+      "project": "core"
+    },
+    {
+      "label": "full-ui",
+      "project": "ui"
+    },
+    {
+      "label": "browser"
+    },
+    {
+      "label": "final-source-integrity"
+    }
+  ],
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "uiMilliseconds": 30000,
+    "timeoutOverride": false
+  }
+}
