@@ -6,7 +6,11 @@
 // season world is built HERE in Node, imported through the visible Start-screen control, exported back by the page
 // (byte-identical to Node's export), advanced two real weeks in the page, and the page's export after those weeks is
 // compared with Node's own two ticks of the same state: an identical-input continuation across the two engines.
-// Then the page's export is imported again (save, reload) and the week holds. Constructed world, labelled.
+// Then the page's export is imported again (save, reload), the page is reloaded (the session autosave restores) and the
+// week holds. Constructed world, labelled. The two continued weeks release no film on this world, so the market law is
+// exercised at IMPORT (Chrome re-derives all 72 Node-written v3 rows exactly), and the continuation identity covers the
+// rest of the tick; cross-engine identity of a continuation is sampled here, not guaranteed, because reception and the
+// rng still use the engine's own transcendental functions (they are not re-derived by any validator).
 
 import { test, expect, type Page } from '@playwright/test'
 import { mkdirSync } from 'node:fs'
@@ -65,6 +69,11 @@ test('ASTRA 19 portability: Node-built season world imports in Chrome, exports i
   const nodeReplay = importSaveJson(nodeBytes)
   if (!nodeReplay.ok) throw new Error(`premise: Node imports its own export: ${nodeReplay.error}`)
   const C = route.state.market.tick
+  // Premise: the save carries live-era market rows the page must re-derive exactly, including pressured ones with a stock term.
+  const rows = (route.state as unknown as { sharedMarket: { assessments: { definitionVersion: string; factor: number; stockTerm: number }[] } }).sharedMarket.assessments
+  expect(rows.length, 'premise: market rows in the save').toBeGreaterThan(0)
+  expect(rows.every((r) => r.definitionVersion === 'p15a1-market-v3'), 'premise: Node wrote live-era rows').toBe(true)
+  expect(rows.some((r) => r.factor < 1 && r.stockTerm > 0), 'premise: a pressured row with a stock term').toBe(true)
 
   // (1) The page imports the Node-written save through the visible control (the reverse of the p18 journey's direction).
   await page.goto('/')
@@ -97,5 +106,8 @@ test('ASTRA 19 portability: Node-built season world imports in Chrome, exports i
   await page.getByTestId('saves-import').click()
   await expect(page.getByTestId('dash-week')).toHaveText(String(C + 2))
   await expect(page.getByTestId('seed-label')).toContainText(SEED)
+  // (5) A page reload: the session autosave restores the same week.
+  await page.reload()
+  await expect(page.getByTestId('dash-week')).toHaveText(String(C + 2))
   await page.screenshot({ path: join(shotsDir, 'astra19-1-reloaded.png'), fullPage: true })
 })

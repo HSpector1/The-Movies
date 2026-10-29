@@ -82,7 +82,7 @@ export function Saves({
     const result = importSaveJson(text)
     if (!result.ok) {
       // ASTRA Sprint 19: the refusal names its cause; the line after it tells the player what still stands and what to keep.
-      setError(`This save was rejected: ${result.error} Your current studio is unchanged; keep the file, it may be a newer or a differently written print than this build accepts.`)
+      setError(`This save was rejected: ${result.error.replace(/\.?\s*$/, '.')} Your studio is unchanged. Keep the file; it may be a newer or differently written print than this build accepts.`)
       return
     }
     // App owns the post-navigation notice. A local notice would unmount in this same

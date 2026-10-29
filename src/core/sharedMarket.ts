@@ -12,8 +12,10 @@
 // genre-g window weight (its exposures plus its other batch members at 1.00 each; never
 // s itself) and stock sums every genre-g stock weight, unclamped. The factor is
 // f(P) = 1 − m·(1 − e^(−P/2)), m the era's maximum penalty: 0.25 under `p15a1-market-v1`
-// (frozen below), 0.15 under the live `p15a1-market-v2` (the 1365 retune, 1361-F5 ruling 3,
-// the Owner's named weaker alternative of 1323-F). Other genres contribute nothing.
+// (frozen below), 0.15 under `p15a1-market-v2` (the 1365 retune, 1361-F5 ruling 3, the Owner's
+// named weaker alternative of 1323-F; frozen below) and under the live `p15a1-market-v3`, which keeps
+// v2's numbers and prices through engine-independent arithmetic (ASTRA Sprint 19, portableMath.ts).
+// Other genres contribute nothing.
 //
 // Eras (1355-A §3.4 item 5): every function takes the law it prices under; the default is the
 // live law read from TUNING at the call. A stored row reconciles under the law its

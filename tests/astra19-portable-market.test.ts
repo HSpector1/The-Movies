@@ -13,7 +13,8 @@ import { marketRoot, routeAt, ROUTE_CAP_WEEK, type PersistedAssessment } from '.
 
 /** Units in the last place between two doubles, measured on the second's exponent. */
 const ulps = (a: number, b: number): number => (a === b ? 0 : Math.abs(a - b) / (2 ** (Math.floor(Math.log2(Math.abs(b))) - 52)))
-const nudge = (x: number, n: number): number => { let y = x; for (let i = 0; i < n; i++) y = y + 2 ** (Math.floor(Math.log2(Math.abs(y))) - 52); return y }
+/** x moved by n ULPs (n may be negative), measured on x's own binade. */
+const nudge = (x: number, n: number): number => { let y = x; for (let i = 0; i < Math.abs(n); i++) y = y + Math.sign(n) * 2 ** (Math.floor(Math.log2(Math.abs(y))) - 52); return y }
 
 describe('portableMath: basic operations only, within one ULP of the engine, exact where the law relies on it', () => {
   it('agrees with Math.exp and 2 ** y to within one ULP over the market\'s domain, and is exact at the anchors', () => {
@@ -64,9 +65,9 @@ function withRows(state: GameState, rows: PersistedAssessment[]): GameState {
   return { ...state, sharedMarket: { ...marketRoot(state), assessments: rows } } as unknown as GameState
 }
 const validates = (state: GameState): void => { makeSave(state) }
-function sealedV2Copy(state: GameState): PersistedAssessment[] {
-  // A labelled constructed record: what an engine of the v2 era would have written for these weeks (the same releases
-  // priced under v2's sealed law), week by week from the stored rows' own facts.
+function sealedCopy(state: GameState, law: typeof SHARED_MARKET_LAW_V2): PersistedAssessment[] {
+  // A labelled constructed record: what an engine of a sealed era would have written for these weeks (the same releases
+  // priced under that era's law with the engine's arithmetic), week by week from the stored rows' own facts.
   const rows = marketRoot(state).assessments
   const out: PersistedAssessment[] = []
   let start = 0
@@ -76,14 +77,14 @@ function sealedV2Copy(state: GameState): PersistedAssessment[] {
     while (end < rows.length && rows[end]!.week === week) end++
     const exposures = rows.slice(0, start).filter((r) => r.week > week - 26).map((r) => ({ releaseId: r.releaseId, studioId: r.studioId, genre: r.genre, releaseWeek: r.week }))
     const members = rows.slice(start, end)
-    const priced = assessBatch(exposures, { week, members: members.map((r) => ({ releaseId: r.releaseId, studioId: r.studioId, genre: r.genre })) }, { law: SHARED_MARKET_LAW_V2 })
+    const priced = assessBatch(exposures, { week, members: members.map((r) => ({ releaseId: r.releaseId, studioId: r.studioId, genre: r.genre })) }, { law })
     members.forEach((row, k) => out.push({ ...row, ...priced[k]!, p15DomainSequence: row.p15DomainSequence, phaseId: row.phaseId, phaseOrdinal: row.phaseOrdinal, phaseOrderVersion: row.phaseOrderVersion }))
     start = end
   }
   return out
 }
 
-describe('reconciliation: live rows exact; sealed rows within the documented allowance on factor and stock term only', () => {
+describe('reconciliation: live rows exact; a sealed row\'s factor within one ULP, every other field exact', () => {
   const state = routeAt(ROUTE_CAP_WEEK)
   const rows = marketRoot(state).assessments
   const pressured = rows.findIndex((r) => r.factor < 1 && r.stockTerm > 0)
@@ -96,19 +97,44 @@ describe('reconciliation: live rows exact; sealed rows within the documented all
     expect(() => validates(withRows(state, off))).toThrow(/factor does not reconcile with p15a1-market-v3/)
   })
 
-  it('a sealed v2 record validates as written by the engine, with its factor or stock term up to two ULPs off, and is refused beyond the allowance', () => {
-    const v2 = sealedV2Copy(state)
+  it('a sealed v2 record validates as written by the engine, its factor one ULP off still validates, two ULPs or any other field off is refused', () => {
+    const v2 = sealedCopy(state, SHARED_MARKET_LAW_V2)
     expect(v2.every((r) => r.definitionVersion === 'p15a1-market-v2')).toBe(true)
     expect(() => validates(withRows(state, v2))).not.toThrow()
     const oneOff = v2.map((r, i) => (i === pressured ? { ...r, factor: nudge(r.factor, 1) } : r))
     expect(() => validates(withRows(state, oneOff))).not.toThrow()
+    const oneDown = v2.map((r, i) => (i === pressured ? { ...r, factor: nudge(r.factor, -1) } : r))
+    expect(() => validates(withRows(state, oneDown))).not.toThrow()
     const twoOff = v2.map((r, i) => (i === pressured ? { ...r, factor: nudge(r.factor, 2) } : r))
-    expect(() => validates(withRows(state, twoOff))).not.toThrow()
-    const farOff = v2.map((r, i) => (i === pressured ? { ...r, factor: nudge(r.factor, 12) } : r))
-    expect(() => validates(withRows(state, farOff))).toThrow(/factor does not reconcile with p15a1-market-v2/)
-    // The exact fields keep exact equality in a sealed era too.
+    expect(() => validates(withRows(state, twoOff))).toThrow(/factor does not reconcile with p15a1-market-v2/)
+    // The exact fields keep exact equality in a sealed era too: pressure, the stock term and the stock reason value.
     const pressureOff = v2.map((r, i) => (i === pressured ? { ...r, pressure: nudge(r.pressure, 1) } : r))
     expect(() => validates(withRows(state, pressureOff))).toThrow(/pressure does not reconcile with p15a1-market-v2/)
+    const stockOff = v2.map((r, i) => (i === pressured ? { ...r, stockTerm: nudge(r.stockTerm, 1) } : r))
+    expect(() => validates(withRows(state, stockOff))).toThrow(/stockTerm does not reconcile with p15a1-market-v2/)
+    const reasonOff = v2.map((r, i) => (i === pressured ? { ...r, reasons: r.reasons.map((x) => (x.code === 'GENRE_SATURATION' ? { ...x, value: nudge(x.value, 1) } : x)) } : r))
+    expect(() => validates(withRows(state, reasonOff))).toThrow(/reasons do not reconcile with p15a1-market-v2/)
+    // A factor of exactly 1 (no pressure) is exact on every engine: a forged 1 − 2^-53 is refused (review finding 3).
+    const unpressured = v2.findIndex((r) => r.factor === 1)
+    expect(unpressured, 'premise: an unpressured row').toBeGreaterThanOrEqual(0)
+    const forgedOne = v2.map((r, i) => (i === unpressured ? { ...r, factor: 1 - Number.EPSILON / 2 } : r))
+    expect(() => validates(withRows(state, forgedOne))).toThrow(/factor does not reconcile with p15a1-market-v2/)
+    // A live (v3) row relabelled as v2 inside its week's batch is refused by name (the batch is priced under its first
+    // member's law; every member must name that law), wherever in the batch it sits.
+    const relabelled = rows.map((r, i) => (i === pressured ? { ...r, definitionVersion: 'p15a1-market-v2' as const } : r))
+    expect(() => validates(withRows(state, relabelled))).toThrow(/does not reconcile with p15a1-market-v/)
+    const relabelledLast = rows.map((r, i) => (i === rows.length - 1 ? { ...r, definitionVersion: 'p15a1-market-v2' as const } : r))
+    expect(() => validates(withRows(state, relabelledLast))).toThrow(/definitionVersion does not reconcile with p15a1-market-v/)
+  })
+
+  it('a sealed v1 record (the engine\'s arithmetic, maximum penalty 0.25) validates, and its factor one ULP off still validates', () => {
+    const v1 = sealedCopy(state, SHARED_MARKET_LAW_V1)
+    expect(v1.every((r) => r.definitionVersion === 'p15a1-market-v1')).toBe(true)
+    expect(() => validates(withRows(state, v1))).not.toThrow()
+    const oneOff = v1.map((r, i) => (i === pressured ? { ...r, factor: nudge(r.factor, -1) } : r))
+    expect(() => validates(withRows(state, oneOff))).not.toThrow()
+    const twoOff = v1.map((r, i) => (i === pressured ? { ...r, factor: nudge(r.factor, 2) } : r))
+    expect(() => validates(withRows(state, twoOff))).toThrow(/factor does not reconcile with p15a1-market-v1/)
   })
 
   it('a v3 world saves, reloads byte for byte and continues deterministically', () => {

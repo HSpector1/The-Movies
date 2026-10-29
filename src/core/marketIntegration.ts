@@ -13,7 +13,7 @@ import { carriedProductionAuthority, type CarriedProductionAuthority } from './c
 import { P15_PHASE_TABLES, p15PhaseTriple } from './p15Phases.js'
 import { terminalWeekOf } from './operatingState.js'
 import {
-  assessBatch, SHARED_MARKET_DEFINITION, SHARED_MARKET_LAW_V1, SHARED_MARKET_LAW_V2, type MarketAssessment, type MarketBatchMember, type MarketExposure,
+  assessBatch, MARKET_LAWS, SHARED_MARKET_DEFINITION, type MarketAssessment, type MarketBatchMember, type MarketExposure,
 } from './sharedMarket.js'
 import { GENRE_ORDER, TUNING } from './tuning.js'
 import type { HollywoodState } from './hollywoodTypes.js'
@@ -124,28 +124,32 @@ const ROOT_KEYS = ['assessments', 'recordedFromWeek', 'version']
 const ROW_KEYS = ['definitionVersion', 'factor', 'genre', 'inputDigest', 'p15DomainSequence', 'phaseId', 'phaseOrderVersion',
   'phaseOrdinal', 'pressure', 'reasons', 'releaseId', 'stockTerm', 'studioId', 'week', 'windowTerm']
 const REASON_KEYS = ['code', 'sourceReleaseIds', 'value']
-/** The era map (1355-A §3.4 item 5): each definition version to its law. v1 is frozen in
- * sharedMarket.ts (SHARED_MARKET_LAW_V1); v2, the live TUNING, is the 1365 retune. A later retune
- * adds a definition and its law here, so old rows keep reconciling under their own. */
-const LAWS: Readonly<Record<string, typeof assessBatch>> = {
-  'p15a1-market-v1': (exposures, batch) => assessBatch(exposures, batch, { law: SHARED_MARKET_LAW_V1 }),
-  'p15a1-market-v2': (exposures, batch) => assessBatch(exposures, batch, { law: SHARED_MARKET_LAW_V2 }),
-  [SHARED_MARKET_DEFINITION]: assessBatch,
-}
-const LAW_FIELDS = ['pressure', 'factor', 'windowTerm', 'stockTerm', 'inputDigest'] as const
+/** The era map (1355-A §3.4 item 5): each definition version to its law, read from sharedMarket.ts's one era table
+ * (v1 and v2 frozen, v3 the live TUNING through portable arithmetic). A later retune adds an entry there, so old rows
+ * keep reconciling under their own law. */
+const LAWS: Readonly<Record<string, typeof assessBatch>> = Object.fromEntries(
+  Object.entries(MARKET_LAWS).map(([definition, law]) => [definition,
+    definition === SHARED_MARKET_DEFINITION ? assessBatch : ((exposures, batch) => assessBatch(exposures, batch, { law: law() })) as typeof assessBatch]),
+)
+/** One law per week batch (the first member's); every member must name it, so a row relabelled inside a batch priced
+ * under another era is refused by name rather than slipping through the batch's digest (ASTRA Sprint 19 review). */
+const LAW_FIELDS = ['definitionVersion', 'pressure', 'factor', 'windowTerm', 'stockTerm', 'inputDigest'] as const
 /**
- * ASTRA Sprint 19 (Owner decision D, 5c): the sealed engine-arithmetic eras. Their `factor` and `stockTerm` (and the
- * GENRE_SATURATION reason value, which is the stock term) were computed with the writing engine's Math.exp and `**`,
- * which IEEE 754 does not pin to the bit: Chrome 150 and Node 20 differ by one ULP on the Owner's P18 save (one row of
- * 72). A row of these eras reconciles when the stored value is within SEALED_ROUNDING_ALLOWANCE of the recomputation:
- * 4 × EPSILON × |expected|, between two and four ULPs, documented here and nowhere else; `pressure`, `windowTerm` and
- * `inputDigest` use only exact operations and stay exact. The live era (v3) prices through portableMath.ts and stays
- * exact on every engine. Not a global epsilon: no other field, era or validator reads it.
+ * ASTRA Sprint 19 (Owner decision D, 5c; review FIX-1): the sealed engine-arithmetic eras. Their `factor` was computed
+ * with the writing engine's Math.exp, which IEEE 754 does not pin to the bit: on the Owner's Chrome-written P18 save one
+ * row of 72 differs from Node 20's recomputation by one ULP (Chrome's exp was correctly rounded there, Node's was not;
+ * an exp one, two or four ULPs off moves the factor by one). A sealed row's `factor` therefore reconciles when the
+ * stored value is within EPSILON × |expected| of the recomputation: exactly one ULP for a factor in [0.5, 1), documented
+ * here and nowhere else, and only when the law found pressure (a factor of exactly 1 is exact on every engine and
+ * stays exact). Every other field stays exact: `pressure` and `windowTerm` are sums and products; `stockTerm` and the
+ * GENRE_SATURATION reason value come from `**`, which has reconciled exactly on every save measured, and `pressure`
+ * contains the stock term, so an allowance there could never rescue a save the pressure check refuses. The live era
+ * (v3) prices through portableMath.ts and stays exact on every engine. Not a global epsilon: no other field, era or
+ * validator reads it.
  */
 const SEALED_ENGINE_ERAS: ReadonlySet<string> = new Set(['p15a1-market-v1', 'p15a1-market-v2'])
-const SEALED_ROUNDED_FIELDS: ReadonlySet<string> = new Set(['factor', 'stockTerm'])
-const SEALED_ROUNDING_ALLOWANCE = 4 * Number.EPSILON
-const withinSealedAllowance = (stored: number, expected: number): boolean => Math.abs(stored - expected) <= SEALED_ROUNDING_ALLOWANCE * Math.abs(expected)
+const SEALED_ROUNDING_ALLOWANCE = Number.EPSILON
+const withinSealedAllowance = (stored: number, expected: number): boolean => expected !== 1 && Math.abs(stored - expected) <= SEALED_ROUNDING_ALLOWANCE * Math.abs(expected)
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   value !== null && typeof value === 'object' && !Array.isArray(value)
@@ -258,7 +262,8 @@ function validateFilmBijection(state: GameState, hollywood: HollywoodState, rows
 
 /** 1355-A §3.4 item 4: week by week, rebuild the exposures and members from the stored rows alone
  * and re-run the law of the week's definition; every law field and every reason must be exactly
- * equal (the law is order-free, sharedMarket.ts:16-19). One pass, O(sum of active + members). */
+ * equal (the law is order-free, sharedMarket.ts:16-19), except a sealed era's `factor`, which may sit
+ * one ULP from the recomputation (SEALED_ROUNDING_ALLOWANCE above). One pass, O(sum of active + members). */
 function reconcileLaw(rows: readonly PersistedMarketAssessment[], fail: (message: string) => never): void {
   let windowStart = 0
   for (let start = 0; start < rows.length;) {
@@ -276,13 +281,12 @@ function reconcileLaw(rows: readonly PersistedMarketAssessment[], fail: (message
       const lawRow = expected[k]!
       for (const field of LAW_FIELDS) {
         const same = row[field] === lawRow[field]
-          || (sealed && SEALED_ROUNDED_FIELDS.has(field) && typeof row[field] === 'number' && typeof lawRow[field] === 'number' && withinSealedAllowance(row[field] as number, lawRow[field] as number))
+          || (sealed && field === 'factor' && withinSealedAllowance(row.factor, lawRow.factor))
         if (!same) fail(`assessment ${row.releaseId} ${field} does not reconcile with ${row.definitionVersion}`)
       }
       const reasonsMatch = row.reasons.length === lawRow.reasons.length && row.reasons.every((reason, r) => {
         const other = lawRow.reasons[r]!
-        const valueSame = reason.value === other.value || (sealed && reason.code === 'GENRE_SATURATION' && withinSealedAllowance(reason.value, other.value))
-        return reason.code === other.code && valueSame &&
+        return reason.code === other.code && reason.value === other.value &&
           reason.sourceReleaseIds.length === other.sourceReleaseIds.length &&
           reason.sourceReleaseIds.every((id, s) => id === other.sourceReleaseIds[s])
       })
