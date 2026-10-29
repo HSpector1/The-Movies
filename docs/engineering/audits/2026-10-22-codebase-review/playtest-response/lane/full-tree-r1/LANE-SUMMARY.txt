@@ -1,0 +1,35 @@
+# full-tree-r1 lane summary (bound 6a846c99)
+waiting for pid 0; then: bash /Users/zacheryspector/studio-scratch/playtest-response-20261028/full-tree-r1/run.sh; 2026-10-28 21:41:33 CDT
+start; 2026-10-28 21:41:33 CDT
+end, exit 1; 2026-10-28 23:38:39 CDT
+
+known-missing inputs:        4
+Node v20.20.2; HEAD 6a846c997a6caac18bf32973518d24e5baab2850
+=== BEGIN root-ui-types
+=== END root-ui-types exit=0 elapsed=101s
+=== BEGIN bridge-types
+=== END bridge-types exit=0 elapsed=37s
+=== BEGIN bridge-contract
+=== END bridge-contract exit=0 elapsed=1s
+=== BEGIN bridge-fixture-contract
+=== END bridge-fixture-contract exit=0 elapsed=2s
+=== BEGIN build
+=== END build exit=0 elapsed=24s
+=== BEGIN full-core-including-bridge
+⎯⎯⎯⎯⎯⎯ Failed Tests 129 ⎯⎯⎯⎯⎯⎯
+ Test Files  32 failed | 533 passed (565)
+      Tests  129 failed | 6053 passed | 3 skipped | 11 todo (6196)
+=== END full-core-including-bridge exit=1 elapsed=5899s
+=== BEGIN full-ui
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+ Test Files  2 failed | 209 passed (211)
+      Tests  3 failed | 2749 passed | 5 skipped (2757)
+=== END full-ui exit=1 elapsed=960s
+=== BEGIN final-source-integrity
+=== END final-source-integrity exit=0 elapsed=1s
+=== CHECKPOINT exit=1
+
+preflight:
+{"freeKiB": 6992892, "heavyLOCAL": [], "laneAbsent": true, "launchAllowed": true}
+godot lines at launch scan: 0
+launch-at: 2026-10-28T21:41:33-05:00

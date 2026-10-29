@@ -1,0 +1,31 @@
+# Playtest response slice — independent review and dispositions (2026-10-28, 23:55 CDT)
+
+Reviewer: one independent Opus 5.5 read-only agent, briefed on the frozen commits bab5f462 (slice candidate) and 6a846c99 (pins and the W3 witness fix), with the Owner ruling (OWNER-RULING-20261028.md), the P18 contract (studio-scratch/p18-prep/P18-FIRST-SEASON-CONTRACT.md §4, §7) and the P16 reason codes (src/core/rights.ts) as its references. Verdict: ACCEPTABLE. Twelve findings follow with the coordinator's disposition of each. The coordinator applied findings 2 to 11 in FIX-1 (commit 91f6da7e on p18-season-20261028) and left findings 1 and 12 to the Owner because each is a product reading, not a defect the agent may settle alone.
+
+## Findings and dispositions
+
+| # | Class | Finding | Disposition |
+|---|---|---|---|
+| 1 | Product reading | A voluntary title sale (P16 R1) ends the studio's rights authority at the next boundary, so a live season cancels under cause `rights` and the producer pays K at once. The sale offer does not disclose this. | OWNER. Options: (a) accept the charge as the contract's §7 consequence and add the disclosure to the sale offer in a later slice; (b) refuse a sale while a season is live on the title; (c) keep the behaviour undisclosed. The coordinator recommends (a). Nothing changed in FIX-1. |
+| 2 | Should fix | `tvAuthorityLossCause` cancelled on every rights stall, including the integrity reasons (`ambiguousProvenance`, `missingGenesis`, `unknownSubject`, `noIndustry`, `invalidAsOfWeek`, `futureWeek`, `noTitleAtDate`). Those mean a broken or forged title record; the contract says such a grant fails validation, it never charges the producer. | FIXED. The helper cancels only on `noAuthority:*`, `expired:*`, `archived` and a distribution licence "answered by" a replacement, and throws by name on every other reason (src/core/tvSeason.ts). |
+| 3 | Nit | `settledCompletely` short-circuited `const`/`enum` schemas before the type switch, and a `required` list with a non-string entry was treated as settled although `project` throws a plain Error there. | FIXED in bridge/schema/runtime.ts: `const`/`enum` fall through to the type switch; a non-string `required` entry returns undefined (the walk stops and `project` reports). |
+| 4 | Should fix | No test proved that `firstRefusal` returns the same message `project` throws first. | FIXED. New tests/bridge-schema-first-refusal.test.ts: for every DSL shape (literal, enumeration, bounded integer and number, text, nullable object, object with array and nested nullable, discriminated union, `$ref` into the bridge schema) and the malformed shapes the review named (out-of-range integer const, untyped const, non-string `required` entry), the message `firstRefusal` returns equals the message `project` throws first, and `firstRefusal` never refuses a value `project` accepts, under both additional-property modes. |
+| 5 | Nit | A retired version-1 attestation (carrying `saveVersion`) was refused as a generic key mismatch whose text still said "attestationVersion 1 invariants". | FIXED in scripts/bridge-contract-consumer-lock.ts: `attestationVersion: 1` is refused by name with the Owner decision 8b remediation; the field-mismatch text says version 2. Test added to tests/bridge-contract-consumer-lock.test.ts. |
+| 6 | Nit | The stall write after a delivery refusal before the final boundary was unreachable (every such refusal is a person or rights loss, which cancels first). | FIXED. The dead write is removed with a comment naming why the branch cannot be reached. |
+| 7 | Nit | The save validator accepted a `rights` or `participant` cancellation dated at the commission week C, which the tick cannot write (its first boundary is C+1). | FIXED in src/core/tvSave.ts: tick causes require `commitWeek < week < finalWeek`. |
+| 8 | Nit | Stale comments: the "not implemented" note above `TvCancellationCause` (src/core/tvTypes.ts) and the "deadline's only" payment comment (src/core/tvSave.ts). | FIXED. |
+| 9 | Tests | No validator-level case for `participant`, and none refusing a tick cause at C. | FIXED in tests/s14-season-route-witnesses.test.ts: the W3 end save is exported, re-labelled `participant` and accepted by `validateSaveV51`; the same save dated at C is refused by name. The final-week case the reviewer called optional is not added (the `deadline` rule already covers it). |
+| 10 | Nit | Label "cancelled when the studio lost its rights authority" misstates the cause (the season's authority ended; the studio may still hold other rights). | FIXED in src/core/tvView.ts: "cancelled when the season's rights authority ended". |
+| 11 | Nit | Three object literals in tests/bridge-contract-consumer-lock.test.ts indented by eight spaces instead of six. | FIXED. |
+| 12 | Product reading | A complete season that cannot be delivered at C+20 because its rights or a required person were lost is labelled `deadline`, since the final boundary is the deadline's by the contract. | OWNER. Options: (a) keep `deadline` at the final boundary whatever the stall (current; matches §4's "automatic cancellation on deadline"); (b) prefer the authority-loss cause when one is present at the final boundary. The coordinator recommends (a) because the money is identical and the contract names the final boundary the deadline's. |
+
+## Verification state of FIX-1
+
+- Typecheck (root and bridge) passes at 91f6da7e.
+- Alone, outside the lane: tests/bridge-schema-first-refusal.test.ts and tests/bridge-contract-consumer-lock.test.ts, 103 tests passed (244 s).
+- Lane focused-r2 (studio-scratch/playtest-response-20261028/focused-r2, bound to 91f6da7e): the files FIX-1 invalidates plus bridge-p12-campaign-library alone. Result recorded in RESULTS.md when it ends.
+- A final full gate on the final commit follows the focused run; its audit and classification are recorded in RESULTS.md and lane/.
+
+## What the review did not cover
+
+The review read the frozen commits and the contract. It did not run the browser route, judge the player-facing copy or rule on the two product readings above; those stay with the Owner (OWNER ACCEPTANCE PENDING).

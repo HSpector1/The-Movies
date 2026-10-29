@@ -1,0 +1,123 @@
+{'numTotalTestSuites': 2136, 'numPassedTestSuites': 2060, 'numFailedTestSuites': 76, 'numPendingTestSuites': 0, 'numTotalTests': 6196, 'numPassedTests': 6053, 'numFailedTests': 129, 'numPendingTests': 3, 'numTodoTests': 11}
+{'NEW': 0, 'INHERITED-SAME': 93, 'INHERITED-CHANGED': 1, 'MISSING-INPUT': 35, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 6, 'OVER-BUDGET-PASS': 682} report tests 6194 baseline tests 6190 in both 6180
+
+## INHERITED-CHANGED (1)
+  - tests/bridge-owner-ux-projection20-migration.test.ts :: Owner UX outgoing projection20 migration pins genuine prior bytes, source identity, actual journal, and constr
+      AssertionError: expected 69 to be 53 // Object.is equality
+      baseline: AssertionError: expected 68 to be 53 // Object.is equality
+
+## MISSING-INPUT (35)
+  - tests/p14c3-force-order.test.ts :: C3 genuine accepted1300 to release1311 — two reconstructed bounded branches actual canonical import produces e
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-C-recording-v1/authority-failure.json'
+      UNTRACKED (not recoverable here)
+  - tests/p14c3-force-order.test.ts :: C3 genuine accepted1300 to release1311 — two reconstructed bounded branches both admitted branches agree at ev
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-C-recording-v1/authority-failure.json'
+      UNTRACKED (not recoverable here)
+  - tests/p14c3-force-order.test.ts :: C3 genuine accepted1300 to release1311 — two reconstructed bounded branches canonical insertion reconstruction
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-C-recording-v1/authority-failure.json'
+      UNTRACKED (not recoverable here)
+  - tests/p14p4p5-finishing-material.test.ts :: P4/P5 existing finishing commitments and material work Q18 distinguishes held finishing cast work from forbidd
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/978-c3-historical-controls.json'
+      UNTRACKED (not recoverable here)
+  - tests/p14p4p5-post-capacity.test.ts :: P4/P5 actual post capacity after two completed shooting phases Q25 isolates post occupancy and preserves actua
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/978-c3-historical-controls.json'
+      UNTRACKED (not recoverable here)
+  - tests/p14p4p5-screenplay-status.test.ts :: P4/P5 screenplay and casting status clocks Q11 uses actual writing and audition boundaries and retains fact-on
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1230-legacy46-baseline.txt'
+      UNTRACKED (not recoverable here)
+  - tests/p14p4p5-soundstage-capacity.test.ts :: P4/P5 actual existing soundstage capacity Q22 releases the actual soundstage owner before repeating the unchan
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/978-c3-historical-controls.json'
+      UNTRACKED (not recoverable here)
+  - tests/p15b-legacy-v3.test.ts :: p15b modern Legacy constructed transaction controls official-v3-with-null-ended-is-not-admitted-by-frozen-read
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+      UNTRACKED (not recoverable here)
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) legacy-adapter-career-events
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+      UNTRACKED (not recoverable here)
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) legacy-adapter-domain-facts
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+      UNTRACKED (not recoverable here)
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) legacy-adapter-film-facts
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+      UNTRACKED (not recoverable here)
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) legacy-adapter-missing-concept-refuses
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+      UNTRACKED (not recoverable here)
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) legacy-adapter-private-money-never-read
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+      UNTRACKED (not recoverable here)
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) legacy-adapter-run-status
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+      UNTRACKED (not recoverable here)
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) legacy-adapter-studios
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+      UNTRACKED (not recoverable here)
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) legacy-condition-at-6240-outside
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+      UNTRACKED (not recoverable here)
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 controls: the fixtures are lawful at RED and at GREEN legacy-control-genuine-save38-6240-lawful
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+      UNTRACKED (not recoverable here)
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) legacy-old-law-fixt
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+      UNTRACKED (not recoverable here)
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) legacy-validate-rep
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+      UNTRACKED (not recoverable here)
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) legacy-migration-empty-root-genuine-save38
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+      UNTRACKED (not recoverable here)
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) legacy-migration-past-boundary-genuine-save
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+      UNTRACKED (not recoverable here)
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) legacy-root-downgrade
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+      UNTRACKED (not recoverable here)
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) legacy-defini
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+      UNTRACKED (not recoverable here)
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) legacy-valida
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+      UNTRACKED (not recoverable here)
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) legacy-valida
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+      UNTRACKED (not recoverable here)
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) legacy-valida
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+      UNTRACKED (not recoverable here)
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) legacy-valida
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+      UNTRACKED (not recoverable here)
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) legacy-valida
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+      UNTRACKED (not recoverable here)
+  - tests/p15c2-campaign-legacy-sibling.test.ts :: p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8, C10) leg
+      Error: ENOENT: no such file or directory, open '<WT>/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02.test.ts :: R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge SERVER REFUSAL
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02.test.ts :: R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge SERVER REFUSAL
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p31.test.ts :: R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p31.test.ts :: R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p32.test.ts :: R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p32.test.ts :: R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'
+      UNTRACKED (not recoverable here)
+
+## OVER-BUDGET-PASS (682) max 356613.392
+## BASELINE-NOT-REPRODUCED (6)
+  - tests/bridge-p12-campaign-library.test.ts :: R05 independent named campaign transactions keeps a reviewed contract quote usable across failed and
+  - tests/bridge-p12-campaign-library.test.ts :: R05 independent named campaign transactions keeps a reviewed contract quote usable across failed and
+  - tests/bridge-p13b-s7-disclosure.test.ts :: P13B-S7-T3 item 5: Industry announcement row — derived, nullable studioId, excluded from per-studio 
+  - tests/bridge-runtime-checkpoint-prepared-reuse.test.ts :: prepared checkpoint representation reuse preserves authority boundaries preserves live authority on 
+  - tests/bridge-runtime-worker.test.ts :: runtime worker production authority delivers an accepted campaign Save before close completes and re
+  - tests/bridge-runtime-worker.test.ts :: runtime worker production authority durably saves exact response bytes and replays them after later 

@@ -1,0 +1,21 @@
+{
+  "head": "6a846c997a6caac18bf32973518d24e5baab2850",
+  "sourceManifestEntries": 2236,
+  "predecessor": "31fdb366 (tag p18-sprint12-checkpoint-20261028); baseline for comparison: p18-sprint12 full-tree-r9 (core, ui) on 8a2e840b (audited CLEAN WITH NOTES) \u2014 expected drift: the Sprint 12 NEW row (held-title seller) and the two scenery MISSING-INPUT rows are fixed/recovered on this tree",
+  "purpose": "playtest-response full-tree-r1: the one full gate (static gates, build, core including bridge, ui, source integrity) on the slice candidate after focused-r1 and any pin fix; baseline sprint14 full-tree-r4 (e115be4b) for the compare",
+  "children": [
+    {
+      "label": "full-core-including-bridge",
+      "project": "core"
+    },
+    {
+      "label": "full-ui",
+      "project": "ui"
+    }
+  ],
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "timeoutOverride": false
+  },
+  "limits": "Timing recorded, not qualified; classification by file+fullName+first failure line against full-tree-r9."
+}
