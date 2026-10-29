@@ -1,6 +1,6 @@
-# Sprint 17 — recoverable rival studios (2026-10-29, IN PROGRESS from 08:05 CDT)
+# Sprint 17 — recoverable rival studios (2026-10-29, 08:05 to 10:40 CDT, CLOSED)
 
-Decision A (ENTRY.md): the 4a direction, a bounded exit/restart policy for 1363-F cost cutting. Candidate commit 60531b94 on p18-season-20261028, then FIX-1 ac697d84 (review items: tests and nits), both pushed. Parent 6da4206a. Checkpoint candidate: ac697d84.
+Decision A (ENTRY.md): the 4a direction, a bounded exit/restart policy for 1363-F cost cutting. Candidate commit 60531b94 on p18-season-20261028, then FIX-1 ac697d84 (review items: tests and nits), both pushed. Parent 6da4206a. Checkpoint: ac697d84, tag p18-sprint17-checkpoint-20261029 (pushed; remote tag object 99aab6c2).
 
 ## Diagnosis reused (corrected)
 
@@ -24,7 +24,7 @@ The retained Sprint 14 harness output (studio-scratch/sprint14-20261028/harness-
 | Lane sprint17-r1 (studio-scratch/astra-20261029/sprint17-r1, snapshot branch astra17-snapshot-20261029 = 60531b94 + the unchanged Sprint 14 harness scripts, bound 8892b693; lane/sprint17-r1/) | 08:20:47 to 08:26:18 CDT, exit 0. Focused core: 19 files, 444 passed, 2 skipped, 0 failed (focused-core.json). Natural routes: RIVAL-RECEIPT MEASURED, determinism identical; all four per-week rival samples (p13-public-commercial-adoption 520, p13b-s8-bridge-probe-01 520, p15a1-w2-market-01 default 1366 and closure-deferred 6240) are byte-identical to the retained Sprint 14 harness-r2 output: no natural cutting rival passed an examination; every closure, loan, greenlight and charge is unchanged |
 | Independent review of 60531b94 (REVIEW.md) | ACCEPTABLE WITH FIXES, no blocking defect: fidelity, copy safety, laws, determinism accepted as read; churn measured as zero on the natural arms; tests extended in FIX-1 (the examination observed through the cadence seam, a failed examination leaves no trace byte for byte, a natural-like cash-limited rival refused for cash); the shelving gap (finding 9) goes to the Owner as the one concrete question |
 | GREEN at ac697d84 (local/astra17-green-at-ac697d84.json) | 4 of 4 pass; root typecheck exit 0 |
-| Full gate full-tree-s17-r1 on ac697d84 (studio-scratch/astra-20261029/full-tree-s17-r1) | RUNNING (launched 08:33:47 CDT; core including bridge, ui, source integrity; classified against full-tree-r4 and full-tree-r2) |
+| Full gate full-tree-s17-r1 on ac697d84 (studio-scratch/astra-20261029/full-tree-s17-r1) | 08:33:47 to 10:28:01 CDT, lane exit 1 (inherited failures present). Core including bridge: 6227 tests, 6112 passed, 101 failed, 3 skipped, 11 todo; ui: 2757 tests, 2750 passed, 2 failed, 5 skipped. compare-full.py: NEW 0 in core and ui against both full-tree-r4 (e115be4b) and full-tree-r2 (6da4206a); the 101 core failures are the same 101 keys as r2; INHERITED-CHANGED only the known projection20 pin (69, as r2) and the p15c2 legacy-root-downgrade elapsed number (226,227 ms against its 120,000 ms budget); 6 MISSING-INPUT rows for the 3 gitignored r3n1 fixtures; 6 core and 1 ui timeout-class baseline failures passed under lighter load. Postflight audit (Sonnet, read-only): CLEAN WITH NOTES; 2262 manifest hashes match ac697d84 with 0 mismatches; budgets and config unchanged from e115be4b; the 4 new tests pass well under their declared timeouts. Files: lane/full-tree-s17-r1/{AUDIT.md, COMPARE-*.txt, LANE-SUMMARY.txt, SELECTION.json, MISSING-INPUTS.txt} |
 
 ## Why no natural rival restarts (read from the weekly samples, lane/sprint17-r1/out)
 
@@ -32,12 +32,12 @@ At each examination week the shed team is gone and cash is far below what the or
 
 Reading: the policy is correct to the decision (an exit exists exactly when the ordinary laws would restart; nothing is forced) and the measured routes contain no lawful restart opportunity under the existing affordability and release laws. The one concrete follow-up question for the Owner, outside this sprint's bounds because it changes the release and shelving laws (REVIEW.md finding 9 joins it): should a cutting rival keep its film team while it holds a viable-but-cash-blocked package, and should market rejections of a ready screenplay count toward shelving while the team is released, so that a restart can find a team and a fresh commission? Options: (a) accept the limit as stated (recommended for now: no natural rival on the measured routes would have restarted either way, since the binding constraint is cash against the film cost); (b) a bounded release-law slice in a later sprint. Not implemented; not assumed.
 
-## Claims so far
+## Claims
 
-- LANDED (candidate): the restart examination, source-bound at 60531b94; red at the parent by assertion; green with typecheck.
+- LANDED: the restart examination, source-bound at 60531b94 and ac697d84; red at the parent by assertion; green with typecheck; full gate zero NEW, audited CLEAN WITH NOTES; checkpoint tag p18-sprint17-checkpoint-20261029.
 - MEASURED (constructed, labelled entry): one legitimate restart with real costs and a real recovery on the p13a world; one genuine stall fixture that stays in cutting.
 - MEASURED (natural): the four Sprint 14 rival arms are byte-identical under the new policy; no natural rival restarts, borrows differently or closes differently; the reasons are in the section above.
 - REGRESSION: the nineteen affected core files pass in the lane (444 tests), source-bound at 8892b693.
 - REVIEWED: ACCEPTABLE WITH FIXES, fixes in ac697d84 (REVIEW.md); one Owner question open (below).
-- PENDING: the full gate on ac697d84, its audit, the checkpoint tag.
+- PLAYER-VISIBLE: on the four measured natural seeds, none (no natural rival meets the ordinary laws at any examination week); the improvement is a lawful exit that did not exist, demonstrated on a constructed entry. Whether any Owner save shows a natural restart is not measured.
 - NOT CLAIMED: survival of any natural rival; the natural C-08 witness (not pursued; scope limit retained); Owner acceptance.

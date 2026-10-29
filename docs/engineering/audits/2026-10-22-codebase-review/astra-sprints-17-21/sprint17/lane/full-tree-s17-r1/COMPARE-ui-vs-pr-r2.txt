@@ -1,0 +1,6 @@
+{'numTotalTestSuites': 775, 'numPassedTestSuites': 771, 'numFailedTestSuites': 4, 'numPendingTestSuites': 0, 'numTotalTests': 2757, 'numPassedTests': 2750, 'numFailedTests': 2, 'numPendingTests': 5, 'numTodoTests': 0}
+{'NEW': 0, 'INHERITED-SAME': 2, 'INHERITED-CHANGED': 0, 'MISSING-INPUT': 0, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 1, 'OVER-BUDGET-PASS': 0} report tests 2753 baseline tests 2753 in both 2753
+
+## OVER-BUDGET-PASS (0) max 0
+## BASELINE-NOT-REPRODUCED (1)
+  - ui/src/lot/WorldFirstStudioHome.test.tsx :: Studio Home V1 — App world-root navigation preserves topbar focus through a supporting-Dashboard Sim

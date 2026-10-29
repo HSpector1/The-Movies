@@ -1,0 +1,21 @@
+{
+  "head": "ac697d84a10e5f558e3ee67633b209be31ca7eca",
+  "sourceManifestEntries": 2262,
+  "predecessor": "e115be4b (tag p18-sprint14-checkpoint-20261028, full gate full-tree-r4 audited CLEAN WITH NOTES) and the slice gate full-tree-r1 at 6a846c99 (CLEAN WITH NOTES, zero NEW); expected drift from r1: the 28 sparse-checkout MISSING-INPUT rows now measured, the projection20 pin message unchanged at 69, FIX-1's new differential test file added",
+  "purpose": "ASTRA Sprint 17 full gate on the Sprint 17 checkpoint candidate (60531b94 restart examination + FIX-1): core including bridge and ui, classified against sprint14 full-tree-r4 (e115be4b) and against playtest-response full-tree-r2 (6da4206a) with compare-full.py",
+  "children": [
+    {
+      "label": "full-core-including-bridge",
+      "project": "core"
+    },
+    {
+      "label": "full-ui",
+      "project": "ui"
+    }
+  ],
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "timeoutOverride": false
+  },
+  "limits": "budgets unchanged; inherited failures named against full-tree-r4; timing rows are measurements"
+}
