@@ -1,0 +1,14 @@
+{'numTotalTestSuites': 403, 'numPassedTestSuites': 385, 'numFailedTestSuites': 18, 'numPendingTestSuites': 0, 'numTotalTests': 1161, 'numPassedTests': 1125, 'numFailedTests': 34, 'numPendingTests': 0, 'numTodoTests': 2}
+{'NEW': 0, 'INHERITED-SAME': 34, 'INHERITED-CHANGED': 0, 'MISSING-INPUT': 0, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 9, 'OVER-BUDGET-PASS': 247} report tests 1161 baseline tests 1161 in both 1156
+
+## OVER-BUDGET-PASS (247) max 149822.128
+## BASELINE-NOT-REPRODUCED (9)
+  - tests/bridge-p14b4-runtime47-compatibility.test.ts :: P14B4 genuine outgoing46 runtime compatibility — current Save51/projection69 requires literal projec
+  - tests/bridge-p14b6-relationship-read-models.test.ts :: family 8 — the WIRE (RED BY VALUE: version literals and a registry count; no absent module is import
+  - tests/bridge-p14b6-relationship-read-models.test.ts :: family 8 — the WIRE (RED BY VALUE: version literals and a registry count; no absent module is import
+  - tests/bridge-p14b6-relationship-read-models.test.ts :: family 8 — the WIRE (RED BY VALUE: version literals and a registry count; no absent module is import
+  - tests/bridge-p14b8-waiver-surface.test.ts :: P14B.8 group12 — the projection moves 49 -> 50 and the outgoing identity is registered as a prior th
+  - tests/bridge-p14p4p5-opportunities.test.ts :: P4/P5 closed Bridge material and outgoing runtime authority B55-3 independently migrates genuine54 s
+  - tests/bridge-p14r2r3-prior55.test.ts :: P14 1308-C: the outgoing projection55 runtime checkpoint migrates to current56, and each Save40 slot
+  - tests/bridge-supervisor.test.ts :: one-command studio supervisor launches only after authenticated readiness and preserves one private 
+  - tests/bridge-supervisor.test.ts :: one-command studio supervisor restarts a SIGKILLed engine on its fixed port without changing durable

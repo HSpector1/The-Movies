@@ -1,0 +1,10 @@
+{'numTotalTestSuites': 403, 'numPassedTestSuites': 385, 'numFailedTestSuites': 18, 'numPendingTestSuites': 0, 'numTotalTests': 1161, 'numPassedTests': 1125, 'numFailedTests': 34, 'numPendingTests': 0, 'numTodoTests': 2}
+{'NEW': 0, 'INHERITED-SAME': 33, 'INHERITED-CHANGED': 1, 'MISSING-INPUT': 0, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 0, 'OVER-BUDGET-PASS': 247} report tests 1161 baseline tests 6225 in both 1154
+
+## INHERITED-CHANGED (1)
+  - tests/bridge-owner-ux-projection20-migration.test.ts :: Owner UX outgoing projection20 migration pins genuine prior bytes, source identity, actual journal, and constr
+      AssertionError: expected 70 to be 53 // Object.is equality
+      baseline: AssertionError: expected 69 to be 53 // Object.is equality
+
+## OVER-BUDGET-PASS (247) max 149822.128
+## BASELINE-NOT-REPRODUCED (0)

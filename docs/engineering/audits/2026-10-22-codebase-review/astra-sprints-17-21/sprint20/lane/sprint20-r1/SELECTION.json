@@ -1,0 +1,32 @@
+{
+  "head": "aa4c335f6e69835c36ed4d0aad76c159443c9ae6",
+  "sourceManifestEntries": 2271,
+  "purpose": "ASTRA Sprint 20 r1 on the projection-70 engine commit (intent option `confirmation`): root, ui and bridge typecheck, the contract and fixture checks, every tests/bridge*.test.ts file (114), integrity",
+  "limits": "focused files; budgets unchanged; the native client cannot be compiled on this host (stated once in sprint20/ENTRY.md); the full core gate is deferred to Sprint 21",
+  "children": [
+    {
+      "label": "root-ui-types"
+    },
+    {
+      "label": "bridge-types"
+    },
+    {
+      "label": "bridge-contract"
+    },
+    {
+      "label": "bridge-fixture-contract"
+    },
+    {
+      "label": "bridge-tests",
+      "project": "core"
+    },
+    {
+      "label": "final-source-integrity"
+    }
+  ],
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "uiMilliseconds": 30000,
+    "timeoutOverride": false
+  }
+}

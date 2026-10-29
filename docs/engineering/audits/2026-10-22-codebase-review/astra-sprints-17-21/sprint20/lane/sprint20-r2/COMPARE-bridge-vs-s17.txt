@@ -1,0 +1,32 @@
+{'numTotalTestSuites': 403, 'numPassedTestSuites': 371, 'numFailedTestSuites': 32, 'numPendingTestSuites': 0, 'numTotalTests': 1161, 'numPassedTests': 1115, 'numFailedTests': 44, 'numPendingTests': 0, 'numTodoTests': 2}
+{'NEW': 10, 'INHERITED-SAME': 33, 'INHERITED-CHANGED': 1, 'MISSING-INPUT': 0, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 0, 'OVER-BUDGET-PASS': 329} report tests 1161 baseline tests 6225 in both 1155
+
+## NEW (10)
+  - tests/bridge-p14b4-runtime47-compatibility.test.ts :: P14B4 genuine outgoing46 runtime compatibility — current Save51/projection69 requires literal projection69/Sav
+      AssertionError: expected [ …(58) ] to deeply equal [ …(57) ]
+  - tests/bridge-p14b6-relationship-read-models.test.ts :: family 8 — the WIRE (RED BY VALUE: version literals and a registry count; no absent module is imported here) p
+      AssertionError: expected 70 to be 69 // Object.is equality
+  - tests/bridge-p14b6-relationship-read-models.test.ts :: family 8 — the WIRE (RED BY VALUE: version literals and a registry count; no absent module is imported here) t
+      AssertionError: expected 70 to be 69 // Object.is equality
+  - tests/bridge-p14b6-relationship-read-models.test.ts :: family 8 — the WIRE (RED BY VALUE: version literals and a registry count; no absent module is imported here) t
+      AssertionError: expected [ …(58) ] to deeply equal [ …(57) ]
+  - tests/bridge-p14b8-waiver-surface.test.ts :: P14B.8 group12 — the projection moves 49 -> 50 and the outgoing identity is registered as a prior the running 
+      AssertionError: P15B adds actual shipped outgoing57; P16 adds outgoing58-61; projection63 adds authentic outgoing62; projection64 adds authentic outgoing63; projection65 adds the P16 build's outgoing64; projection66 adds
+  - tests/bridge-p14p4p5-opportunities.test.ts :: P4/P5 closed Bridge material and outgoing runtime authority B55-3 independently migrates genuine54 slots and r
+      AssertionError: expected [ [ …(2) ], [ …(2) ], [ …(2) ], …(54) ] to have a length of 56 but got 57
+  - tests/bridge-p14r2r3-prior55.test.ts :: P14 1308-C: the outgoing projection55 runtime checkpoint migrates to current56, and each Save40 slot migrates 
+      AssertionError: expected [ [ …(2) ], [ …(2) ], [ …(2) ], …(54) ] to have a length of 56 but got 57
+  - tests/bridge-stabilization-l22-retired-projections.test.ts :: L-22: projections 32–44 are retired by name, and the registered range still resolves the highest registered pr
+      AssertionError: expected 69 to be 68 // Object.is equality
+  - tests/bridge-supervisor.test.ts :: one-command studio supervisor launches only after authenticated readiness and preserves one private profile ac
+      Error: Fake Unity did not report started.
+  - tests/bridge-supervisor.test.ts :: one-command studio supervisor restarts a SIGKILLed engine on its fixed port without changing durable authority
+      Error: Fake Unity did not report started.
+
+## INHERITED-CHANGED (1)
+  - tests/bridge-owner-ux-projection20-migration.test.ts :: Owner UX outgoing projection20 migration pins genuine prior bytes, source identity, actual journal, and constr
+      AssertionError: expected 70 to be 53 // Object.is equality
+      baseline: AssertionError: expected 69 to be 53 // Object.is equality
+
+## OVER-BUDGET-PASS (329) max 208822.73
+## BASELINE-NOT-REPRODUCED (0)
