@@ -1,0 +1,336 @@
+{
+  "config": {
+    "argv": [
+      "/usr/local/bin/node",
+      "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/node_modules/@playwright/test/cli.js",
+      "test",
+      "--config",
+      "ui/playwright.config.ts",
+      "smoke.spec.ts",
+      "d12-economy-journey.spec.ts",
+      "p17-continuation.spec.ts",
+      "p18-season.spec.ts",
+      "astra18-rights-desk.spec.ts",
+      "astra19-portability.spec.ts",
+      "--reporter=list,json"
+    ],
+    "configFile": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/playwright.config.ts",
+    "rootDir": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/e2e",
+        "testIgnore": [
+          "/.*current-break-audit\\.spec\\.ts$/"
+        ],
+        "testMatch": [
+          "/.*\\.spec\\.ts$/"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "astra18-rights-desk.spec.ts",
+      "file": "astra18-rights-desk.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "ASTRA 18 journey: disclosure request, then a title sale disclosed before the confirm, then the season cancels as disclosed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 18062,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-29T22:40:47.599Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1fe451bae95160cfe08a-1bf9fb61fab6c60e54c3",
+          "file": "astra18-rights-desk.spec.ts",
+          "line": 72,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "astra19-portability.spec.ts",
+      "file": "astra19-portability.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "ASTRA 19 portability: Node-built season world imports in Chrome, exports identically, continues identically, and reloads",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 56147,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-29T22:41:08.041Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "13b19e3db74c543dde48-ace16eb3c239df726ff8",
+          "file": "astra19-portability.spec.ts",
+          "line": 64,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "d12-economy-journey.spec.ts",
+      "file": "d12-economy-journey.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "D-12: finances card, release-strategy gate, sim-to-event, theatrical run + Studio Rev",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11015,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-29T22:42:04.373Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "83c4ab6fe004f109dbf9-047feb794921180659b6",
+          "file": "d12-economy-journey.spec.ts",
+          "line": 43,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "p17-continuation.spec.ts",
+      "file": "p17-continuation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "P17 journey: release an original, greenlight its sequel with a featured guest, release it, read lineage and meters",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 15822,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-29T22:42:15.487Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "246073cfc595ded192a2-02c9074013188e784a71",
+          "file": "p17-continuation.spec.ts",
+          "line": 108,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "p18-season.spec.ts",
+      "file": "p18-season.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "P18 journey: commission a season from Assembly, advance to its first credited unit, read the Dashboard row",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11343,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-29T22:42:31.368Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "50d2a5857017ef3430b6-2a545b340a37431b9465",
+          "file": "p18-season.spec.ts",
+          "line": 73,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "smoke.spec.ts",
+      "file": "smoke.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "full playable loop: assemble → greenlight → release → autopsy → save round-trip",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 20985,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-29T22:42:42.796Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4219922fea2e2bd3c691-24fdc3f42f019e4ea7d9",
+          "file": "smoke.spec.ts",
+          "line": 144,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-29T22:40:36.081Z",
+    "duration": 148760.427,
+    "expected": 6,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

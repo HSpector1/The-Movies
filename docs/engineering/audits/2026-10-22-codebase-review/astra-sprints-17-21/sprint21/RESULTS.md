@@ -12,6 +12,11 @@ Entry: ENTRY.md. Starts from the Sprint 20 checkpoint (tag p18-sprint20-checkpoi
 - Reverification of the affected behaviour only on 9f6103f3 (17:37 CDT): ui typecheck 0; ui/e2e/lot-key-capture-v1.spec.ts 1 of 1 in installed Chrome, 11.7 s (local/s21-lot-key-capture-r1.json). Not every historical test: the merge changed no other source.
 - PR #20: head 9f6103f3, draft, unmerged, auto-merge off; GitHub reports MERGEABLE (it had shown CONFLICTING at 7020053f because its main was already at ab65eb20). Description refreshed with the Sprint 17 to 21 rows and the verification state; the integration recommendation line is refreshed again at the final candidate.
 
-## Slices 2 to 4
+## Slice 2 — real-browser journeys on the merged candidate
 
-Pending: browser journeys on the merged candidate; the full-gate integration lane against full-tree-s17-r1; the candidate report with GO / CONDITIONAL GO / NO-GO.
+- 9f6103f3, installed Chrome (channel chrome), one worker, fixed port 5178, 17:40 to 17:43 CDT: 6 of 6 (local/s21-journeys-r1.json): smoke (full playable loop: assemble, greenlight, release, autopsy, save round-trip, 21.0 s), d12-economy-journey (finances card, release-strategy gate, sim-to-event, theatrical run, 11.0 s), p17-continuation (original, sequel with a featured guest, lineage and meters, 15.8 s), p18-season (commission from Assembly, first credited unit, Dashboard row, 11.3 s), astra18-rights-desk (disclosure request, title sale disclosed before the confirm, season cancels as disclosed, 18.1 s), astra19-portability (Node-built season world imports in Chrome, exports identically, continues identically, reloads, 56.1 s). Firefox and WebKit unavailable on this host: unrun.
+- Defects found by the journeys: none. No Owner feedback has arrived since the Sprint 16 invitation, so no reported input, focus, clarity, cancellation, save-loss or progression defect exists to reproduce; OWNER ACCEPTANCE PENDING. The invitation is refreshed once for the final candidate (OWNER-INVITATION.md).
+
+## Slices 3 and 4
+
+Pending: the full-gate integration lane on the final candidate against full-tree-s17-r1; the candidate report with GO / CONDITIONAL GO / NO-GO.
