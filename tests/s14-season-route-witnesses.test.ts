@@ -17,13 +17,14 @@
 //                             first week's shooting calls that change anything) exports the same commitment bytes and
 //                             different bytes after N. A second seed proves nothing: the seed itself is in the save
 //                             envelope (save.ts:6830) and in state (worldgen.ts:729).
-//   W3 (MEASUREMENT, Owner)   the player sells the R1 title to a live rival after the scripts block. The buyer is chosen
+//   W3 (contract §7)          the player sells the R1 title to a live rival after the scripts block. The buyer is chosen
 //                             through the existing STABLE condition readers (tests/helpers/p16-fixtures.ts:164), a P16
-//                             test device that decides only which rival P16 permits as a bidder; it splices nothing. Today the season
-//                             stalls on rights each week and the C + 20 deadline cancels it with the v1 settlement; the
-//                             commissioner's R4 licence survives. Owner items: the classification of "authority ends"
-//                             (block or cancel at once) and the contract-required automatic cancellation on grant loss,
-//                             not implemented (p18-sprint13/RESULTS.md, ACCEPTANCE OPEN).
+//                             test device that decides only which rival P16 permits as a bidder; it splices nothing. The
+//                             producer's production authority ends with the sale, so the first advance after it cancels
+//                             the season at once (cause 'rights') under the v1 settlement; the commissioner's R4 licence
+//                             survives. Owner decision 7c (playtest-response/OWNER-RULING-20261028.md) implemented the
+//                             contract's automatic cancellation on grant-authority loss; before it (Sprint 14) the season
+//                             stalled on rights each week until the C + 20 deadline cancelled it.
 //   W4 (MEASUREMENT, sweep)   on W1's run, after every advance: no double-booked slot, the film and writing arms of the
 //                             busy union disjoint from the season's arm (through the readers), the save validates (cash
 //                             reconciles with the ledger), one 25,000 spend row per credited unit. The contention premise
@@ -220,7 +221,7 @@ describe('S14 W4 — shared allocation order: no double spend, person or slot af
   })
 })
 
-describe('S14 W3 — an R1 title sale during a live season (MEASUREMENT; Owner: authority-ends classification, automatic cancellation on grant loss)', () => {
+describe('S14 W3 — an R1 title sale during a live season cancels it at once (contract §7; Owner decision 7c)', () => {
   let saleWeek: number
   let rival: string
   let atSale: GameState
@@ -254,28 +255,35 @@ describe('S14 W3 — an R1 title sale during a live season (MEASUREMENT; Owner: 
     expect(tvDistributionPermission(sold, propertyId, saleWeek)).toMatchObject({ kind: 'permitted', licenceId: season(sold).distributionLicenceId })
   })
 
-  it('measured today: every live advance stalls on rights, credits nothing and spends nothing', () => {
-    const live = after.filter((s) => season(s).status === 'live')
-    expect(live.length, 'live advances between the sale and the final boundary').toBeGreaterThan(0)
-    for (const s of live) {
-      expect(season(s).work.stall).toMatchObject({ kind: 'rights', reason: `production: noAuthority:${rival}` })
-      expect(season(s).work.creditedUnits).toBe(season(sold).work.creditedUnits)
-      expect(tvRows(s, 'tvProductionSpend')).toHaveLength(tvRows(sold, 'tvProductionSpend').length)
-    }
-  })
-
-  it('measured today: the C + 20 deadline cancels it once with the v1 settlement; the commissioner\'s licence survives the cancellation', () => {
-    const end = after[after.length - 1]!
+  it('the first advance after the sale cancels the season at once (cause rights): nothing credited or spent, U0 then K paid, people and slots released', () => {
+    // RED before Owner decision 7c: the season stayed live on a rights stall until the C + 20 deadline (Sprint 14 measurement).
+    expect(after.length, 'advances between the sale and the terminal state').toBe(1)
+    const end = after[0]!
     const s = season(end)
     const a = agreement(sold)
-    expect(end.market.tick).toBe(season(sold).finalWeek)
+    const boundary = saleWeek + 1
+    expect(end.market.tick).toBe(boundary)
     expect(s.status).toBe('cancelled')
-    expect(s.cancellation).toEqual({ week: s.finalWeek, cause: 'deadline' })
-    // U0 = P − E frozen at the cancellation; the funded route pays U0 then K in full.
-    expect(agreement(end).settlement).toEqual({ week: s.finalWeek, refundDue: a.received - a.earned, refundPaid: a.received - a.earned,
+    expect(s.cancellation).toEqual({ week: boundary, cause: 'rights' })
+    expect(s.work.creditedUnits).toBe(season(sold).work.creditedUnits)
+    expect(s.work.stall).toBeNull()
+    expect(s.reservations).toEqual([])
+    expect(tvRows(end, 'tvProductionSpend')).toHaveLength(tvRows(sold, 'tvProductionSpend').length)
+    // U0 = P − E frozen at the cancellation; the funded route pays U0 then K in full, rows dated the advance week T − 1.
+    expect(agreement(end).settlement).toEqual({ week: boundary, refundDue: a.received - a.earned, refundPaid: a.received - a.earned,
       chargeDue: a.terms.cancellationCharge, chargePaid: a.terms.cancellationCharge, closureId: null })
-    expect(television(end)!.receipts.filter((r) => r.kind === 'cancelled')).toHaveLength(1)
+    expect(television(end)!.receipts.filter((r) => r.kind === 'cancelled')).toEqual([expect.objectContaining({ week: boundary, cause: 'rights' })])
+    expect(tvRows(end).filter((row) => row.kind === 'tvAdvanceRefund' || row.kind === 'tvCancellationCharge').map((row) => row.week)).toEqual([saleWeek, saleWeek])
     expect(tvDistributionPermission(end, s.propertyId, end.market.tick)).toMatchObject({ kind: 'permitted', licenceId: s.distributionLicenceId })
     expect(() => makeSave(end)).not.toThrow()
+  })
+
+  it('after the cancellation a further advance works, credits and charges nothing on the agreement', () => {
+    const end = after[0]!
+    const later = tick(end)
+    expect(season(later).status).toBe('cancelled')
+    expect(television(later)!.receipts.filter((r) => r.kind === 'cancelled')).toHaveLength(1)
+    expect(tvRows(later)).toHaveLength(tvRows(end).length)
+    expect(() => makeSave(later)).not.toThrow()
   })
 })

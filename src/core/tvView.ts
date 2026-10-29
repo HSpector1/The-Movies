@@ -23,6 +23,7 @@ export const TV_BLOCK_LABEL: Record<TvWorkBlock, string> = {
 export const TV_MILESTONE_LABEL: Record<TvMilestoneKind, string> = { scripts: 'Scripts milestone', pictureLock: 'Picture lock milestone', delivery: 'Delivery milestone' }
 export const TV_CANCELLATION_LABEL: Record<TvCancellationCause, string> = {
   producer: 'cancelled by the studio', deadline: 'cancelled at the final delivery boundary', closure: 'cancelled when the studio closed',
+  rights: 'cancelled when the studio lost its rights authority', participant: 'cancelled when a required person was lost',
 }
 const CAPABILITY_LABEL: Record<FacilityCapability, string> = {
   'development-casting': 'Development & Casting', soundstage: 'sound stage', 'set-scenery': 'Scenery Shop', post: 'Post Building', laboratory: 'laboratory',

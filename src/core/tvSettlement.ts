@@ -1,7 +1,8 @@
 // ── P18: cancellation and the v1 settlement (contract §5, §7) ─────────────────────────────────────────
 //
-// One cancellation law for every cause this slice wires: the producer's explicit action, the deadline at T = C + 20
-// (tvSeason.ts, tick step 7.8) and the player's actual P15B closure (studioClosure.ts). Each retains completed work,
+// One cancellation law for every cause: the producer's explicit action, the deadline at T = C + 20 and the tick's
+// authority-loss cancellations 'rights' and 'participant' (tvSeason.ts, tick step 7.8), and the player's actual P15B
+// closure (studioClosure.ts). Each retains completed work,
 // credits, costs and earned fees; cancels the unearned future milestones; freezes the refund principal U0 = P − E and
 // the cancellation charge K once; releases the people and every reservation by the status change (the readers read
 // live seasons only). An operating studio pays U0 from available nonnegative cash first, then K from the remainder,

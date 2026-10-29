@@ -28,9 +28,11 @@ export const UNITY_CONTRACT_PATH = 'Assets/Studio/Runtime/Data/Generated/StudioB
 export const UNITY_FIXTURE_PATH = 'Assets/Studio/Tests/EditMode/Generated/StudioBridgeUnionFixtures.Generated.cs'
 
 export const GENERATOR_VERSION = 1
-export const ATTESTATION_VERSION = 1
+// Attestation 2 (Owner decision 8b, 2026-10-28): the attestation names protocol and projection identity only. The native
+// client never reads an engine save file, so the former accepted save version (19, against an engine at Save51) said
+// nothing the consumer could honour; it is no longer recorded or compared.
+export const ATTESTATION_VERSION = 2
 export const FIXTURE_CORPUS_VERSION = 1
-export const CURRENT_ACCEPTED_SAVE_VERSION = 19
 
 const EDITMODE_RESULT_NAME = 'contract-gate-editmode.xml'
 const EDITMODE_LOG_NAME = 'contract-gate-editmode.log'
@@ -99,7 +101,6 @@ const ATTESTATION_KEYS = [
   'hostileReviewVerdict',
   'projectionVersion',
   'protocolVersion',
-  'saveVersion',
   'schemaId',
   'typescriptClean',
   'typescriptCleanStatusSha256',
@@ -261,15 +262,14 @@ export interface EditModeEvidence {
   readonly logPath: string
 }
 
-export interface ContractGateAttestationV1 {
-  readonly attestationVersion: 1
+export interface ContractGateAttestationV2 {
+  readonly attestationVersion: 2
   readonly contractManifestPath: string
   readonly contractManifestSha256: string
   readonly contractId: string
   readonly schemaId: string
   readonly protocolVersion: number
   readonly projectionVersion: number
-  readonly saveVersion: number
   readonly generatorVersion: number
   readonly generatorSourceSha256: string
   readonly verifierSourceSha256: string
@@ -1755,12 +1755,11 @@ function verificationCommand(input: {
 
 export function createAttestation(
   request: ContractPairRequest & {
-    readonly saveVersion: number
     readonly hostileReviewVerdict: 'ACCEPT'
     readonly attestationPath: string
     readonly editModeEvidence: EditModeEvidence
   },
-): ContractGateAttestationV1 {
+): ContractGateAttestationV2 {
   if (request.mode !== 'seal') {
     fail({
       code: 'CF09_ATTESTATION_HASH_MISMATCH', stage: 'attestation', role: 'verifier',
@@ -1777,9 +1776,6 @@ export function createAttestation(
     'Obtain one fresh hostile-review ACCEPT before emitting the closed attestation.',
     { path: 'hostileReviewVerdict' },
   )
-  compare('CF09_ATTESTATION_HASH_MISMATCH', 'attestation', 'typescript',
-    CURRENT_ACCEPTED_SAVE_VERSION, request.saveVersion,
-    'Record the accepted save version without an unauthorized bump.')
   const facts = verifyContractPair(request)
   const verifierAtCommit = sourceBundleFromCommit(
     repositoryContext(
@@ -1815,7 +1811,6 @@ export function createAttestation(
     schemaId: facts.schemaId,
     protocolVersion: facts.protocolVersion,
     projectionVersion: facts.projectionVersion,
-    saveVersion: request.saveVersion,
     generatorVersion: facts.generatorVersion,
     generatorSourceSha256: facts.generatorSourceSha256,
     verifierSourceSha256: executingVerifier,
@@ -1866,7 +1861,7 @@ export function createAttestation(
   }
 }
 
-function parseAttestation(bytes: Buffer, path: string): ContractGateAttestationV1 {
+function parseAttestation(bytes: Buffer, path: string): ContractGateAttestationV2 {
   let value: unknown
   try {
     value = JSON.parse(bytes.toString('utf8'))
@@ -1890,7 +1885,7 @@ function parseAttestation(bytes: Buffer, path: string): ContractGateAttestationV
       remediation: 'Use the unchanged closed canonical attestation emitted after both commits existed.',
     })
   }
-  return record as unknown as ContractGateAttestationV1
+  return record as unknown as ContractGateAttestationV2
 }
 
 function assertAttestationField(
@@ -1910,7 +1905,7 @@ export function verifyAttestation(request: {
   readonly unityRemote?: string | undefined
   readonly evidenceRoot: string
   readonly runGeneratorCheck?: boolean | undefined
-}): ContractGateAttestationV1 {
+}): ContractGateAttestationV2 {
   const attestationBytes = evidenceFile(request.attestationPath, request.attestationPath.split(sep).at(-1) ?? '')
   const attestation = parseAttestation(attestationBytes, request.attestationPath)
   const resultName = requireCanonicalEvidenceName(
@@ -1930,7 +1925,6 @@ export function verifyAttestation(request: {
     && attestation.typescriptGeneratedFixturePath === TYPESCRIPT_FIXTURE_PATH
     && attestation.unityGeneratedContractPath === UNITY_CONTRACT_PATH
     && attestation.unityGeneratedFixturePath === UNITY_FIXTURE_PATH
-    && attestation.saveVersion === CURRENT_ACCEPTED_SAVE_VERSION
     && attestation.fixtureCorpusVersion === FIXTURE_CORPUS_VERSION
     && attestation.hostileReviewVerdict === 'ACCEPT'
     && attestation.verificationResult === 'PASS'

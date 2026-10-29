@@ -14,7 +14,10 @@
 // TERMINAL BOUNDARY (Sprint 13, contract §6): at the end of the same step, at boundary T = week + 1, a season whose
 // twelve units are credited is delivered (the delivery milestone less the late deduction, paid max(0, E − P)) when its
 // people and both P16 permissions still hold; otherwise, at T = C + 20, it is cancelled for deadline failure under the
-// v1 settlement (tvSettlement.ts). A stall before the deadline never cancels. A delivered season's exclusive window
+// v1 settlement (tvSettlement.ts). AUTHORITY LOSS (playtest-response slice, contract §4 and §7): a week whose live gate
+// reports a lost P16 permission (`rights`) or a required person no longer under contract or retired (`participant`)
+// cancels the season at that boundary under the same settlement, cause 'rights' or 'participant'; a capacity, cash,
+// scenery or sound-chain stall before the deadline never cancels. A delivered season's exclusive window
 // [delivered, delivered + 52) ends with a noncash receipt at its end boundary. Pure: no RNG, no clock, no I/O; this
 // module never writes `operations.workflows`.
 
@@ -29,7 +32,7 @@ import { tvDistributionPermission, tvProductionPermission } from './tvCommission
 import { appendTvReceipt, liveTvSeason, nextTvBlock, TV_WORK_UNITS_TOTAL, tvBlockDefinition, tvReservedPeople } from './tvReaders.js'
 import { cancelTvSeasonIn } from './tvSettlement.js'
 import type { TvWorkBlockDefinition } from './tvReaders.js'
-import type { TelevisionRoot, TvAgreement, TvMilestoneKind, TvReservation, TvSceneryWithheldReason, TvSeason, TvStall } from './tvTypes.js'
+import type { TelevisionRoot, TvAgreement, TvCancellationCause, TvMilestoneKind, TvReservation, TvSceneryWithheldReason, TvSeason, TvStall } from './tvTypes.js'
 import type { GameState, LedgerEntry, StudioOperations, StudioSet } from './types.js'
 
 function reservationKey(reservation: TvReservation): string {
@@ -223,9 +226,23 @@ export function advanceTelevisionWeek(state: GameState, facts: { cash: number; s
   return { ...resolved, television: expireTvDistribution(resolved.television!, week + 1) }
 }
 
+/** The cause an authority-loss stall cancels under (contract §7 "rights/person cancellation"), or null for every other stall. */
+export function tvAuthorityLossCause(stall: TvStall | null): Extract<TvCancellationCause, 'rights' | 'participant'> | null {
+  return stall === null ? null : stall.kind === 'rights' ? 'rights' : stall.kind === 'participant' ? 'participant' : null
+}
+
+/** Cancel the live season at `boundary` under the v1 settlement, paying U0 then K from the cash left after this advance's charges. */
+function cancelAtBoundary(worked: TelevisionAdvance, season: TvSeason, boundary: number, week: number, cause: TvCancellationCause): TelevisionAdvance {
+  const cancelled = cancelTvSeasonIn(worked.television!, season.seasonId, { week: boundary, cause, ledgerWeek: week, cash: worked.cash, closureId: null })
+  return { ...worked, television: cancelled.television, cash: cancelled.cash, ledger: [...worked.ledger, ...cancelled.ledger] }
+}
+
 /**
- * Contract §6 at boundary T = week + 1, after the week's unit: lawful delivery first; if the season is still live at
- * its final boundary, cancel it for deadline failure, paying U0 then K from the cash left after this advance's charges.
+ * Contract §6 and §7 at boundary T = week + 1, after the week's unit: lawful delivery first; then, before the final
+ * boundary, a lost P16 permission or a lost required person cancels at once (cause 'rights' or 'participant'; the
+ * title-sale route of s14 W3 is the one lawful trigger today); any other stall waits; and a season still live at its
+ * final boundary is cancelled for deadline failure. Every cancellation pays U0 then K from the cash left after this
+ * advance's charges.
  */
 function resolveTelevisionBoundary(state: GameState, worked: TelevisionAdvance, week: number): TelevisionAdvance {
   const boundary = week + 1
@@ -237,11 +254,16 @@ function resolveTelevisionBoundary(state: GameState, worked: TelevisionAdvance, 
   if (tvWorkComplete(season)) {
     const refusal = tvDeliveryRefusal(state, season, week)
     if (refusal === null) return deliverTvSeason(worked, season, boundary, week)
+    const lost = tvAuthorityLossCause(refusal)
+    if (lost !== null && boundary < season.finalWeek) return cancelAtBoundary(worked, season, boundary, week, lost)
     if (boundary < season.finalWeek) return { ...worked, television: replaceSeason(worked.television, { ...season, work: { ...season.work, stall: refusal } }) }
+  } else {
+    // The same live gate the unit asked (people, both permissions, the sound chain), read at this week, never a stored copy.
+    const lost = tvAuthorityLossCause(tvWorkGate(state, season, week))
+    if (lost !== null && boundary < season.finalWeek) return cancelAtBoundary(worked, season, boundary, week, lost)
   }
   if (boundary < season.finalWeek) return worked
-  const cancelled = cancelTvSeasonIn(worked.television, season.seasonId, { week: boundary, cause: 'deadline', ledgerWeek: week, cash: worked.cash, closureId: null })
-  return { ...worked, television: cancelled.television, cash: cancelled.cash, ledger: [...worked.ledger, ...cancelled.ledger] }
+  return cancelAtBoundary(worked, season, boundary, week, 'deadline')
 }
 
 /**

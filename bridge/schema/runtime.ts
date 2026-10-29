@@ -71,6 +71,74 @@ function assertConstraints(schema: SchemaRecord, value: string | number, path: s
   }
 }
 
+const hasOwn = (record: Record<string, unknown>, key: string): boolean => Object.prototype.hasOwnProperty.call(record, key)
+
+/**
+ * The first refusal `project` would throw for `value` against `schema`, read without throwing, projecting or
+ * building anything: `undefined` when every check this walk can settle passes (the full projection may still refuse
+ * deeper), a message when the projection would refuse here. Exact by construction: it repeats `project`'s own checks
+ * in `project`'s own order (reference, const, enum, type, required, additional properties, then each present property
+ * in declaration order) and stops at the first property it cannot settle completely (an array or object, a constrained
+ * string or number), so a message it returns is the one the projection would throw. Union probing uses it so a
+ * discriminated alternative that does not match costs one comparison, not a thrown error and a partial projection:
+ * the schema runtime spent a quarter of the bridge-p12 campaign-library time constructing refused-alternative errors
+ * (playtest-response measure-r1 CPU profile).
+ */
+function firstRefusal(unresolvedSchema: SchemaRecord, value: unknown, path: string, options: ProjectionOptions): string | undefined {
+  const schema = resolveReference(unresolvedSchema)
+  if (Array.isArray(schema['oneOf']) || Array.isArray(schema['anyOf'])) return undefined
+  if ('const' in schema) return value === schema['const'] ? undefined : `${path}: expected literal ${JSON.stringify(schema['const'])}`
+  const enumValues = schema['enum']
+  if (Array.isArray(enumValues)) return enumValues.includes(value) ? undefined : `${path}: expected one of ${enumValues.map(String).join(', ')}`
+  switch (schema['type']) {
+    case 'null': return value === null ? undefined : `${path}: expected null`
+    case 'string': return typeof value === 'string' ? undefined : `${path}: expected a string`
+    case 'boolean': return typeof value === 'boolean' ? undefined : `${path}: expected a boolean`
+    case 'integer': return Number.isSafeInteger(value) ? undefined : `${path}: expected a safe integer`
+    case 'number': return typeof value === 'number' && Number.isFinite(value) ? undefined : `${path}: expected a finite number`
+    case 'array': return Array.isArray(value) ? undefined : `${path}: expected an array`
+    case 'object': {
+      if (typeof value !== 'object' || value === null || Array.isArray(value)) return `${path}: expected an object`
+      const record = value as Record<string, unknown>
+      const properties = schema['properties']
+      const required = schema['required']
+      if (typeof properties !== 'object' || properties === null || !Array.isArray(required)) return undefined
+      for (const key of required) {
+        if (typeof key === 'string' && (!hasOwn(record, key) || record[key] === undefined)) return `${path}.${key}: required property is missing`
+      }
+      if (!options.stripAdditionalProperties && schema['additionalProperties'] === false) {
+        const unknown = Object.keys(record).find((key) => !hasOwn(properties as Record<string, unknown>, key))
+        if (unknown !== undefined) return `${path}.${unknown}: additional properties are not allowed`
+      }
+      for (const [key, propertySchema] of Object.entries(properties as SchemaRecord)) {
+        if (!hasOwn(record, key) || record[key] === undefined) continue
+        const property = resolveReference(schemaRecord(propertySchema, `${path}.${key}`))
+        const refusal = firstRefusal(property, record[key], `${path}.${key}`, options)
+        if (refusal !== undefined) return refusal
+        // Settled completely only for a literal, an enumeration, null, a boolean or an unconstrained safe int32 or
+        // finite number or string; anything else may still refuse deeper, so the walk stops here.
+        if (!settledCompletely(property, record[key])) return undefined
+      }
+      return undefined
+    }
+    default: return undefined
+  }
+}
+
+/** Whether a passing `firstRefusal` on this resolved schema is the whole of `project`'s checks for `value`. */
+function settledCompletely(schema: SchemaRecord, value: unknown): boolean {
+  if (Array.isArray(schema['oneOf']) || Array.isArray(schema['anyOf'])) return false
+  if ('const' in schema || Array.isArray(schema['enum'])) return schema['type'] !== 'object' && schema['type'] !== 'array'
+  switch (schema['type']) {
+    case 'null': case 'boolean': return true
+    case 'string': return schema['minLength'] === undefined && schema['pattern'] === undefined
+    case 'number': return schema['minimum'] === undefined && schema['maximum'] === undefined
+    case 'integer': return schema['minimum'] === undefined && schema['maximum'] === undefined
+      && (value as number) <= 2147483647 && (value as number) >= -2147483648
+    default: return false
+  }
+}
+
 function project(
   unresolvedSchema: SchemaRecord,
   value: unknown,
@@ -83,8 +151,14 @@ function project(
     const matches: unknown[] = []
     const failures: string[] = []
     for (const alternative of exclusiveAlternatives) {
+      const resolved = schemaRecord(alternative, `${path}.oneOf`)
+      const refusal = firstRefusal(resolved, value, path, options)
+      if (refusal !== undefined) {
+        failures.push(refusal)
+        continue
+      }
       try {
-        matches.push(project(schemaRecord(alternative, `${path}.oneOf`), value, path, options))
+        matches.push(project(resolved, value, path, options))
       } catch (error) {
         if (!(error instanceof BridgeSchemaError)) throw error
         failures.push(error.message)
@@ -100,8 +174,14 @@ function project(
   if (Array.isArray(alternatives)) {
     const failures: string[] = []
     for (const alternative of alternatives) {
+      const resolved = schemaRecord(alternative, `${path}.anyOf`)
+      const refusal = firstRefusal(resolved, value, path, options)
+      if (refusal !== undefined) {
+        failures.push(refusal)
+        continue
+      }
       try {
-        return project(schemaRecord(alternative, `${path}.anyOf`), value, path, options)
+        return project(resolved, value, path, options)
       } catch (error) {
         if (!(error instanceof BridgeSchemaError)) throw error
         failures.push(error.message)

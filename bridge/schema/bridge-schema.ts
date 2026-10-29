@@ -307,7 +307,10 @@ export const PROTOCOL_VERSION = 4 as const
 // commit; the `cancelTvSeason` and `settleTvObligations` intents map to the core actions; the read-only `television`
 // Industry view lists the player's series and seasons. The outgoing67 identity is registered prior. Protocol4 and Save51
 // are unchanged, so a projection-67 checkpoint's slots are already live and its prior lift is identity.
-export const PROJECTION_VERSION = 68 as const
+// Projection69 (playtest-response slice, Owner decision 7c): the television cancellation cause gains the tick's automatic
+// `rights` and `participant` cancellations on authority loss (contract §4, §7). The outgoing68 identity is registered
+// prior from its genuine capture (b3c179b0). Protocol4 and Save51 are unchanged, so the prior lift is identity.
+export const PROJECTION_VERSION = 69 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })

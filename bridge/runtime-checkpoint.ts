@@ -58,6 +58,14 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
 // that window would carry the earlier hash, and this map is keyed on the
 // hash, not the label.
 export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+  // Projection69 (playtest-response slice, Owner decision 7c): the outgoing68 identity (projection 68, the immutable
+  // snapshot b3c179b0, tag p18-sprint16-playtest-candidate-r2-20261028), prior beneath current69. The television
+  // cancellation cause gains the tick's automatic `rights` and `participant` cancellations on authority loss (contract
+  // §4, §7). Protocol 4 and Save51 are unchanged, so each slot is already live and takes the governed prior path as
+  // identity; the opaque journal resets. Its genuine capture ran on an immutable snapshot of b3c179b0 (producer
+  // docs/engineering/audits/2026-10-22-codebase-review/playtest-response/bridge-step/tools/capture68.ts in the records
+  // repository; tests/fixtures/bridge/genuine-projection68-runtime).
+  ['sha256:b91efc9c632b2503a0f5ca0f33a243164e97775b2c13f566746ba004d7835851', 'projection-v68'],
   // P18 Sprint 13 slice B: the outgoing67 identity (projection 67, the P18 Sprint 12 checkpoint 31fdb366 and the slice A
   // candidate alike), prior beneath current68. Protocol 4 and Save51 are unchanged, so each slot is already live and takes
   // the governed prior path as identity; the opaque journal resets. Its genuine capture ran on an immutable snapshot of

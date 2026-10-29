@@ -223,7 +223,7 @@ const StudioFeaturedAppearancesPage=object('StudioFeaturedAppearancesPage',{titl
 // the cancel and settle intents while they apply. Only the player studio produces seasons; nothing here is a rival's.
 const TV_BLOCKS=['scripts','preparation','rehearsal','shooting','post'] as const
 const StudioTelevisionSeries=object('StudioTelevisionSeries',{seriesId:id(),title:text(),propertyId:id(),createdWeek:count(),seasonIds:array(id())})
-const StudioTelevisionCancellation=object('StudioTelevisionCancellation',{week:count(),cause:enumeration(['producer','deadline','closure'])})
+const StudioTelevisionCancellation=object('StudioTelevisionCancellation',{week:count(),cause:enumeration(['producer','deadline','closure','rights','participant'])})
 const StudioTelevisionMilestone=object('StudioTelevisionMilestone',{kind:enumeration(['scripts','pictureLock','delivery']),afterUnit:count(),amount:number()})
 const StudioTelevisionSettlement=object('StudioTelevisionSettlement',{week:count(),refundDue:number(),refundPaid:number(),chargeDue:number(),chargePaid:number(),closureId:nullable(id())})
 const StudioTelevisionAgreement=object('StudioTelevisionAgreement',{agreementId:id(),fee:number(),advance:number(),earned:number(),received:number(),unearnedAdvance:number(),settlement:nullable(reference('StudioTelevisionSettlement',StudioTelevisionSettlement)),outstanding:number()})

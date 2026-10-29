@@ -25,6 +25,9 @@ import { TV_COMMISSIONER_ID, TV_LEDGER_KINDS, TV_RULESET_VERSION, TV_WORK_BLOCK_
 import type { TelevisionRoot, TvAgreement, TvAgreementTerms, TvMilestoneKind, TvReceipt, TvSeason } from './tvTypes.js'
 import type { GameState } from './types.js'
 
+/** Cancellations the tick writes at boundary T, whose settlement rows are dated the advance week T − 1. */
+const TICK_CANCELLATION_CAUSES: ReadonlySet<unknown> = new Set(['deadline', 'rights', 'participant'])
+
 export const P18_ROOT_KEYS = ['television'] as const
 const ROOT_KEYS = ['agreements', 'nextId', 'receipts', 'seasons', 'series', 'version']
 const SERIES_KEYS = ['createdWeek', 'producerStudioId', 'propertyId', 'seasonIds', 'seriesId', 'title']
@@ -178,7 +181,7 @@ export function validateP18Roots(raw: Record<string, unknown>, label: string): v
   // receipt is dated at the boundary T and its row at the advance week T − 1; an action's receipt and row share a week.
   // A settlement payment is the deadline's (tick) only when the cancellation transaction itself wrote it.
   const paymentWeek = (r: Extract<TvReceipt, { source: string }>): number =>
-    r.source === 'cancellation' && root.seasons.find((s) => s.seasonId === r.seasonId)?.cancellation?.cause === 'deadline' ? r.week - 1 : r.week
+    r.source === 'cancellation' && TICK_CANCELLATION_CAUSES.has(root.seasons.find((s) => s.seasonId === r.seasonId)?.cancellation?.cause) ? r.week - 1 : r.week
   const carried = new Set<string>()
   for (const row of tvRows) {
     const r = receiptRows.get(row.note)
@@ -278,7 +281,10 @@ function validateTerminal(s: TvSeason, rest: GameState, fail: (rule: string) => 
   if (s.status === 'cancelled') {
     const c = s.cancellation
     if (!sameKeys(c, ['cause', 'week']) || !whole(c!.week) || c!.week < s.commitWeek || c!.week > week || (last !== null && c!.week < last)) fail(`season ${s.seasonId} cancellation shape or week`)
-    const onBoundary = c!.cause === 'deadline' ? c!.week === s.finalWeek : (c!.cause === 'producer' || c!.cause === 'closure') && c!.week < s.finalWeek
+    // The deadline cancels AT the final boundary; the producer's action, the closure and the tick's authority-loss
+    // cancellations ('rights', 'participant': contract §7) all precede it.
+    const onBoundary = c!.cause === 'deadline' ? c!.week === s.finalWeek
+      : (c!.cause === 'producer' || c!.cause === 'closure' || c!.cause === 'rights' || c!.cause === 'participant') && c!.week < s.finalWeek
     if (!onBoundary) fail(`season ${s.seasonId} cancellation cause ${String(c!.cause)} at week ${c!.week} disagrees with its final boundary ${s.finalWeek}`)
   }
   if (s.status !== 'live' && (s.reservations.length > 0 || s.work.stall !== null)) fail(`season ${s.seasonId} is ${s.status} but still holds a slot or a stall`)

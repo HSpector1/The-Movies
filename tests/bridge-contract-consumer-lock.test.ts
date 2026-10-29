@@ -16,7 +16,6 @@ import { afterEach, describe, expect, test } from 'vitest'
 
 import {
   CONTRACT_ID,
-  CURRENT_ACCEPTED_SAVE_VERSION,
   FIXTURE_SOURCE_PATHS,
   GENERATOR_SOURCE_PATHS,
   MANIFEST_PATH,
@@ -36,7 +35,7 @@ import {
   sourceBundleSha256,
   verifyAttestation,
   verifyContractPair,
-  type ContractGateAttestationV1,
+  type ContractGateAttestationV2,
   type ContractManifestV1,
   type ContractPairRequest,
 } from '../scripts/bridge-contract-consumer-lock.ts'
@@ -317,10 +316,9 @@ function updateCommit(pair: PairFixture, role: 'typescript' | 'unity', message: 
   refreshRequest(pair)
 }
 
-function attest(pair: PairFixture): ContractGateAttestationV1 {
+function attest(pair: PairFixture): ContractGateAttestationV2 {
   return createAttestation({
     ...pair.request,
-    saveVersion: CURRENT_ACCEPTED_SAVE_VERSION,
     hostileReviewVerdict: 'ACCEPT',
     attestationPath: join(pair.evidenceRoot, 'contract-gate-attestation.json'),
     editModeEvidence: {
@@ -330,7 +328,7 @@ function attest(pair: PairFixture): ContractGateAttestationV1 {
   })
 }
 
-function writeAttestation(pair: PairFixture, value: ContractGateAttestationV1 | Record<string, unknown>): string {
+function writeAttestation(pair: PairFixture, value: ContractGateAttestationV2 | Record<string, unknown>): string {
   const path = join(pair.evidenceRoot, 'contract-gate-attestation.json')
   writeFileSync(path, canonicalJson(value))
   return path
@@ -340,7 +338,7 @@ function reverify(
   pair: PairFixture,
   attestationPath: string,
   evidenceRoot = pair.evidenceRoot,
-): ContractGateAttestationV1 {
+): ContractGateAttestationV2 {
   return verifyAttestation({
     attestationPath,
     typescriptRoot: pair.typescript.root,
@@ -676,8 +674,7 @@ describe('CF-09 post-commit attestation', () => {
     const pair = makePair()
     expectCode(() => createAttestation({
       ...pair.request,
-      saveVersion: CURRENT_ACCEPTED_SAVE_VERSION,
-      hostileReviewVerdict: 'REJECT' as 'ACCEPT',
+        hostileReviewVerdict: 'REJECT' as 'ACCEPT',
       attestationPath: join(pair.evidenceRoot, 'contract-gate-attestation.json'),
       editModeEvidence: {
         resultPath: join(pair.evidenceRoot, 'contract-gate-editmode.xml'),
@@ -693,7 +690,9 @@ describe('CF-09 post-commit attestation', () => {
     expect(canonicalJson(first)).toBe(canonicalJson(second))
     expect(first.typescriptSourceCommit).toBe(pair.typescript.commit)
     expect(first.unityConsumerCommit).toBe(pair.unity.commit)
-    expect(first.saveVersion).toBe(19)
+    // Attestation 2 (Owner decision 8b): identity is protocol and projection; no save version is recorded.
+    expect(first.attestationVersion).toBe(2)
+    expect(first).not.toHaveProperty('saveVersion')
     expect(first.hostileReviewVerdict).toBe('ACCEPT')
     expect(first.compiledFixtureEditModeTestCount).toBe(12)
     expect(first.compiledFixtureEditModePassedCount).toBe(11)
@@ -713,8 +712,7 @@ describe('CF-09 post-commit attestation', () => {
     writeFileSync(outsideLog, 'full EditMode PASS\n')
     expectCode(() => createAttestation({
       ...pair.request,
-      saveVersion: CURRENT_ACCEPTED_SAVE_VERSION,
-      hostileReviewVerdict: 'ACCEPT',
+        hostileReviewVerdict: 'ACCEPT',
       attestationPath: join(pair.evidenceRoot, 'contract-gate-attestation.json'),
       editModeEvidence: {
         resultPath: join(pair.evidenceRoot, 'contract-gate-editmode.xml'),
@@ -729,8 +727,7 @@ describe('CF-09 post-commit attestation', () => {
     writeFileSync(wrongResult, successfulEditModeXml())
     expectCode(() => createAttestation({
       ...pair.request,
-      saveVersion: CURRENT_ACCEPTED_SAVE_VERSION,
-      hostileReviewVerdict: 'ACCEPT',
+        hostileReviewVerdict: 'ACCEPT',
       attestationPath: join(pair.evidenceRoot, 'contract-gate-attestation.json'),
       editModeEvidence: {
         resultPath: wrongResult,

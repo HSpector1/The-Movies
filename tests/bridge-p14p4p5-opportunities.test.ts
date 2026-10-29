@@ -513,8 +513,8 @@ describe('P4/P5 closed Bridge material and outgoing runtime authority', () => {
     const old = prior54(), preimage = canonicalJson(old.value), factory = vi.fn(() => '1236-prior54')
     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
     expect(loaded.migratedFromProtocolVersion).toBe(4); expect(factory).toHaveBeenCalledTimes(1)
-    expect(PROTOCOL_VERSION).toBe(4); expect(PROJECTION_VERSION).toBe(68)
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-68')
+    expect(PROTOCOL_VERSION).toBe(4); expect(PROJECTION_VERSION).toBe(69)
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-69')
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OLD_SCHEMA)).toEqual([[OLD_SCHEMA, 'projection-v54']])
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     const older = [...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id !== OLD_SCHEMA)
@@ -541,8 +541,9 @@ describe('P4/P5 closed Bridge material and outgoing runtime authority', () => {
     // Projection66 (Sprint 11 slice B) adds only outgoing65; same method, which reproduces 52/a6666891 on the parent map.
     // Projection67 (P18 Sprint 12) adds only outgoing66; same method, which reproduces 53/c768ef98 on the parent map.
     // Projection68 (P18 Sprint 13 slice B) adds only outgoing67; same method, which reproduces 54/e8e0e202 on the parent map.
-    expect(older).toHaveLength(55)
-    expect(sha(canonicalJson(older))).toBe('e01c748d498a354a3ed9e669353ecb3771034b1c7094b5cfa19b97f377e088ab')
+    // Projection69 (playtest-response slice) adds only outgoing68; same method, which reproduces 55/e01c748d on the parent map.
+    expect(older).toHaveLength(56)
+    expect(sha(canonicalJson(older))).toBe('5e76d2296412fd6280992296b800f45263de168cfa47c2b9f04467447d0ddccc')
     const current = loaded.hydrated.checkpoint
     expect(current).toMatchObject({ schemaId: SCHEMA_ID, sessionId: '1236-prior54', stateRevision: 0, journal: [], journalDigest: sha('[]') })
     expect(current.sessionId).not.toBe(old.value.sessionId)
