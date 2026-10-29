@@ -269,11 +269,14 @@ describe('S14 W3 — an R1 title sale during a live season cancels it at once (c
     expect(s.work.stall).toBeNull()
     expect(s.reservations).toEqual([])
     expect(tvRows(end, 'tvProductionSpend')).toHaveLength(tvRows(sold, 'tvProductionSpend').length)
-    // U0 = P − E frozen at the cancellation; the funded route pays U0 then K in full, rows dated the advance week T − 1.
-    expect(agreement(end).settlement).toEqual({ week: boundary, refundDue: a.received - a.earned, refundPaid: a.received - a.earned,
+    // U0 = P − E frozen at the cancellation (zero here: the scripts milestone recouped the advance before the sale); the
+    // funded route pays U0 then K in full, each paid amount on its own row dated the advance week T − 1.
+    const refund = a.received - a.earned
+    expect(agreement(end).settlement).toEqual({ week: boundary, refundDue: refund, refundPaid: refund,
       chargeDue: a.terms.cancellationCharge, chargePaid: a.terms.cancellationCharge, closureId: null })
-    expect(television(end)!.receipts.filter((r) => r.kind === 'cancelled')).toEqual([expect.objectContaining({ week: boundary, cause: 'rights' })])
-    expect(tvRows(end).filter((row) => row.kind === 'tvAdvanceRefund' || row.kind === 'tvCancellationCharge').map((row) => row.week)).toEqual([saleWeek, saleWeek])
+    expect(television(end)!.receipts.filter((r) => r.kind === 'cancelled')).toEqual([expect.objectContaining({ week: boundary, cause: 'rights', refundDue: refund, chargeDue: a.terms.cancellationCharge })])
+    expect(tvRows(end).filter((row) => row.kind === 'tvAdvanceRefund' || row.kind === 'tvCancellationCharge').map((row) => [row.kind, -row.amount, row.week]))
+      .toEqual([...(refund > 0 ? [['tvAdvanceRefund', refund, saleWeek]] : []), ['tvCancellationCharge', a.terms.cancellationCharge, saleWeek]])
     expect(tvDistributionPermission(end, s.propertyId, end.market.tick)).toMatchObject({ kind: 'permitted', licenceId: s.distributionLicenceId })
     expect(() => makeSave(end)).not.toThrow()
   })

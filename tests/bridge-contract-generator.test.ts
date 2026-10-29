@@ -770,8 +770,12 @@ describe('CF-08 sound union-to-C# generation', () => {
         // kinds grow both bodies. F10 measured by the lane run green-r6 (b7357aeb): b4156967…. F11 is the same input
         // (BRIDGE_SCHEMA, tests/fixtures/bridge-contract-union-fixtures.ts) through the same pure function, so it is the same
         // body by construction; the run stopped at F10, so F11 is not separately measured.
-        F10_CURRENT_QUOTE_UNIONS: 'b41569678a1327bee21a372317032527a1efe29b37795e89b80f7643530546d2', // was c107aca5… (projection67)
-        F11_CURRENT_COMMAND_UNION: 'b41569678a1327bee21a372317032527a1efe29b37795e89b80f7643530546d2', // was c107aca5… (projection67), same body as F10 by construction
+        // Projection69 (playtest-response slice, Owner decision 7c): the television cancellation cause enumeration gains `rights`
+        // and `participant`. F10 measured by the lane run focused-r1 (bab5f462): 6e239527…, body 520,714 bytes; F11 is the same
+        // input through the same pure function (same body by construction, and the same hash when rendered beside F10 outside
+        // the lane); F12 unchanged.
+        F10_CURRENT_QUOTE_UNIONS: '6e239527efc21ac14734a2ca66fa6f375c7e568eaeb8e1732c411c7a06d6463b', // was b4156967… (projection68)
+        F11_CURRENT_COMMAND_UNION: '6e239527efc21ac14734a2ca66fa6f375c7e568eaeb8e1732c411c7a06d6463b', // was b4156967… (projection68), same body as F10 by construction
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {
