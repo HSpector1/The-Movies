@@ -1,0 +1,7 @@
+=== BEGIN browser-smoke
+  1 passed (45.9s)
+=== END browser-smoke exit=0 elapsed=48s
+=== CHECKPOINT exit=0
+waiting for pid 0; then: bash /Users/zacheryspector/studio-scratch/sprint16-20261028/browser-r6/run.sh; 2026-10-28 19:53:10 CDT
+start; 2026-10-28 19:53:10 CDT
+end, exit 0; 2026-10-28 19:54:00 CDT

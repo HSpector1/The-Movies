@@ -1,0 +1,12 @@
+=== BEGIN browser-smoke-expected-red
+  1 failed
+=== END browser-smoke-expected-red exit=1 elapsed=36s
+=== BEGIN browser-owner-route-saves
+wrote /Users/zacheryspector/studio-scratch/sprint16-20261028/browser-r5/owner-saves/p17-cameo-world.json (453449 bytes)
+wrote /Users/zacheryspector/studio-scratch/sprint16-20261028/browser-r5/owner-saves/p18-season-world.json (2014848 bytes)
+  2 passed (33.3s)
+=== END browser-owner-route-saves exit=0 elapsed=34s
+=== CHECKPOINT exit=1
+waiting for pid 0; then: bash /Users/zacheryspector/studio-scratch/sprint16-20261028/browser-r5/run.sh; 2026-10-28 19:51:09 CDT
+start; 2026-10-28 19:51:09 CDT
+end, exit 1; 2026-10-28 19:52:21 CDT

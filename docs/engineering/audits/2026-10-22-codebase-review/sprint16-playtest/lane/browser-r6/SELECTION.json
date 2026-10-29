@@ -1,0 +1,16 @@
+{
+  "head": "b3c179b07fd1d41446c2f5ea00872a9e38b94703",
+  "sourceManifestEntries": 2131,
+  "purpose": "Sprint 16 browser-r6: smoke.spec.ts (full journey with the closing-quote witness) on the headline CSS fix \u2014 expected PASS after RED at 91a5e723 (browser-r5)",
+  "children": [
+    {
+      "label": "browser-smoke",
+      "command": "node node_modules/@playwright/test/cli.js test --config ui/playwright.config.ts smoke.spec.ts --reporter=list,json",
+      "jsonReport": "smoke-report.json"
+    }
+  ],
+  "budgets": {
+    "timeoutOverride": false,
+    "note": "spec-declared Playwright budgets unchanged"
+  }
+}

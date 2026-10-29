@@ -14,6 +14,7 @@ Written at the end of Sprint 16 as the order requires: integrated results, preci
 | Cross-system campaign qualification record (Sprint 14) | tag p18-sprint14-checkpoint-20261028 at e115be4b | full gate r4 audited CLEAN WITH NOTES, zero new assertion failures; witnesses as measurements; harness findings | QUALIFICATION RECORD (sprint14-qualification/) |
 | Unity counterpart pairing (Sprint 15) | HSpector1/project-studio-unity-visual-spike branch sprint15-consumer-20261028 at 765ff22b | CF09 seal verification PASS; static review ACCEPTABLE | PAIRED SOURCE IDENTITY; native BLOCKED/UNRUN |
 | Playtest candidate (Sprint 16) | tag p18-sprint16-playtest-candidate-20261028 at 468d99b8 | four real-browser journeys pass in installed Chrome; one stale spec fixed red-first | CANDIDATE; OWNER ACCEPTANCE PENDING |
+| Playtest candidate r2 (Sprint 16 independent repair, after the boundary) | tag p18-sprint16-playtest-candidate-r2-20261028 at b3c179b0 | headline closing-quote strand fixed red-first (browser-r5 red, browser-r6 green); Owner route saves exported and import-proven; draft PR #20 opened, not merged | CANDIDATE; OWNER ACCEPTANCE PENDING |
 
 Sprints 5–9 (preflight, retained writing, consumers, producers, P16 checkpoint) are recorded in LEDGER.md and p16-sprint5..9/. Every sprint kept the discipline the order set: one coordinator writer, one heavy lane with preflight, Godot scan and independent postflight audit, RED-first fixes, budgets never raised, inherited failures named, no merge to main.
 
@@ -35,7 +36,7 @@ Sprints 5–9 (preflight, retained writing, consumers, producers, P16 checkpoint
 - Natural C-08 (no premise); the 1363-A attribution arms; post-2040 player release on Save51; long-world Save48–51 migration.
 - Native Unity: EditMode/PlayMode/build/input/save evidence and the attestation, on a host with Unity 6000.3.22f1; the classic memo's one-click rendering of the new destructive intents; the unreproducible PlayMode wire manifest; which P16/P17/P18 surfaces the native client must present.
 - Timing: the three ui 30 s rows and the eleven p12 timeouts; thin-margin passes named in QUALIFICATION.md §10.
-- Cosmetic: newspaper headline quotation wrap.
+- Cosmetic: none open (the newspaper headline quotation wrap was fixed in candidate r2).
 
 ## 4. Required Owner decisions
 
@@ -48,6 +49,10 @@ Sprints 5–9 (preflight, retained writing, consumers, producers, P16 checkpoint
 7. P18 automatic cancellation on authority loss: implement now or accept the C+20 deadline behaviour.
 8. Attestation save-version semantics for the Unity consumer lock (19 vs Save51).
 
-## 5. Recommended next milestone
+## 5. Recommended next milestone (unchanged)
 
 A bounded "Owner playtest response" slice: run the route, collect the verdict and the confusion points, then one coordinator fixes the reproducible high-impact items RED-first with focused reruns and one final gate; in parallel, if a Unity-capable host exists, the Sprint 15 native verification list (p16-sprint15/RESULTS.md). Promotion to main stays a separate Owner authorization after that response. No new broad research or planning campaign is needed to start it.
+
+## 6. Independent work after the boundary (2026-10-28, 19:55 CDT)
+
+Under the Sprint 16 permission for independent reproducible repairs and a draft PR while Owner feedback is missing: draft PR #20 (https://github.com/HSpector1/The-Movies/pull/20) opened against main, draft only, not merged; the one cosmetic defect on the route fixed red-first (RESULTS.md defect 2; witness in ui/e2e/smoke.spec.ts); the two route saves for OWNER-INVITATION.md step 6 exported by a new, skipped-by-default spec and import-proven (owner-saves/). Candidate r2 is b3c179b0, tag p18-sprint16-playtest-candidate-r2-20261028, pushed. Nothing in §2–§5 changes; Sprint 17 is not started.

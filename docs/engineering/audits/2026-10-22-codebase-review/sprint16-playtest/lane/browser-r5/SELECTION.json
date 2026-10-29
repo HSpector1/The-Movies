@@ -1,0 +1,21 @@
+{
+  "head": "91a5e7238efd47194d700c6edc2501e728bdbf8d",
+  "sourceManifestEntries": 2131,
+  "purpose": "Sprint 16 browser-r5: (1) smoke.spec.ts with the new closing-quote witness on the unfixed CSS \u2014 expected RED at the witness assertion only; (2) owner-route-saves.spec.ts exporting the P17 and P18 worlds to owner-saves/ and importing each through the Start screen \u2014 expected PASS",
+  "children": [
+    {
+      "label": "browser-smoke-expected-red",
+      "command": "node node_modules/@playwright/test/cli.js test --config ui/playwright.config.ts smoke.spec.ts --reporter=list,json",
+      "jsonReport": "smoke-report.json"
+    },
+    {
+      "label": "browser-owner-route-saves",
+      "command": "env OWNER_SAVES_DIR=<run>/owner-saves node node_modules/@playwright/test/cli.js test --config ui/playwright.config.ts owner-route-saves.spec.ts --reporter=list,json",
+      "jsonReport": "owner-route-saves-report.json"
+    }
+  ],
+  "budgets": {
+    "timeoutOverride": false,
+    "note": "spec-declared Playwright budgets unchanged"
+  }
+}
