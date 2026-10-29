@@ -1,0 +1,11 @@
+{'numTotalTestSuites': 382, 'numPassedTestSuites': 355, 'numFailedTestSuites': 27, 'numPendingTestSuites': 0, 'numTotalTests': 1093, 'numPassedTests': 1052, 'numFailedTests': 39, 'numPendingTests': 0, 'numTodoTests': 2}
+known baseline failures reproduced: 37 in 10 files
+NEW failures: 2 in 2 files
+
+## tests/bridge-p13b-s7-disclosure.test.ts (1)
+  - P13B-S7-T3 item 5: Industry announcement row — derived, nullable studioId, excluded from per-studio History, absent for 
+      Error: Test timed out in 30000ms. | If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout". | at 
+
+## tests/bridge-runtime-checkpoint-prepared-reuse.test.ts (1)
+  - prepared checkpoint representation reuse preserves authority boundaries preserves live authority on failed Save and repl
+      Error: Test timed out in 20000ms. | If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout". | at 

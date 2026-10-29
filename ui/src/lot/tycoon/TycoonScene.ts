@@ -4470,8 +4470,10 @@ export class TycoonScene extends Phaser.Scene {
       // Letters are registered with capture OFF: Phaser's KeyboardManager would otherwise
       // preventDefault every w/a/s/d/r keydown on the WHOLE page while the Lot is mounted,
       // whatever has focus, so a text field or a Settings control over the Lot lost them
-      // (stabilization 2026-10-22, L-09). Cursor keys and Space keep capture (page scroll),
-      // released by `setInputSuspended` while a modal owns interaction.
+      // (stabilization 2026-10-22, L-09). Cursor keys and Space keep capture (page scroll)
+      // only while the canvas has focus: `StudioLotView` gates the keyboard plugin on canvas
+      // focus and on suspension (Owner decision 17A, 2026-10-24), and `setInputSuspended`
+      // releases it while a modal owns interaction.
       this.wasd = {
         up: keyboard.addKey('W', false),
         down: keyboard.addKey('S', false),

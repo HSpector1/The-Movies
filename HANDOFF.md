@@ -579,15 +579,14 @@ headings above retain their established names. History carries evidence, not cur
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-17 22:53 CDT by **claude** on SessionEnd (session cb9626c5-c417-4055-870c-4e5e5b5d09e9)
-- Branch: `wip/headless-program-20260916-ts` @ `1e3e19161aaa4c57be4e0b2a94a6a3fc0654e862`
+- Stamped: 2026-10-25 09:12 CDT by **claude** on SessionEnd (session 9cc1c978-4c1c-4700-a984-2931170871a6)
+- Branch: `wip/headless-program-20260916-ts` @ `99e3af62b7333b65c5bad5e10b78173f6a2ae370`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 1
-  - `M HANDOFF.md`
+- Uncommitted files: 0
 - Last commits:
-  - 1e3e1916 Record end-of-day stop reading and resume command
-  - 50cf6487 Ignore private .LOCAL. receipts in the public repo
-  - 955f0442 Map program steps to skills in CLAUDE.md pointer
-  - afad1ea0 Add Claude lane-guard hook for direct heavy commands
-  - 5ee57b86 Archive superseded HANDOFF history verbatim
+  - 99e3af62 Records: the fifteen audit domain reports beside the ledger
+  - 12e05bdc Records: wave 3 checkpoint (rounds 4–7, third review, full gate wave3f) and the takeover handoff
+  - d7f2be0a Records: wave 3 (P16 rebase) rounds 1-3 recorded; 18A folded into projection 62 on the candidate branch
+  - 9f36dd23 TycoonScene: the key-capture comment states the 17A rule
+  - 8792de52 Records: waves 1 and 2 landed, PR 19 merged, handoff current
 <!-- AUTO:END -->

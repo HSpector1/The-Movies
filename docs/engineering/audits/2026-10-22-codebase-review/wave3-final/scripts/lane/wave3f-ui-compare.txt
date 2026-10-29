@@ -1,0 +1,3 @@
+{'numTotalTestSuites': 763, 'numPassedTestSuites': 759, 'numFailedTestSuites': 4, 'numPendingTestSuites': 0, 'numTotalTests': 2734, 'numPassedTests': 2726, 'numFailedTests': 3, 'numPendingTests': 5, 'numTodoTests': 0}
+known baseline failures reproduced: 3 in 2 files
+NEW failures: 0 in 0 files

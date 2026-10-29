@@ -1,0 +1,63 @@
+{'numTotalTestSuites': 92, 'numPassedTestSuites': 65, 'numFailedTestSuites': 27, 'numPendingTestSuites': 0, 'numTotalTests': 240, 'numPassedTests': 211, 'numFailedTests': 29, 'numPendingTests': 0, 'numTodoTests': 0}
+known baseline failures reproduced: 7 in 2 files
+NEW failures: 22 in 8 files
+
+## tests/bridge-p13b-s7-disclosure.test.ts (1)
+  - P13B-S7-T3 item 5: Industry announcement row — derived, nullable studioId, excluded from per-studio History, absent for 
+      Error: Test timed out in 30000ms. | If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout". | at Timeout.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/no
+
+## tests/p16-healthy-drafting171-funded-baseline.test.ts (1)
+  - P16 real funded171 stopped drafting writeoff real explicit writer exits preserve original draft costs due reservation an
+      Error: absorption work: missing-participant cancellation differs from actual coupled retention | at fail (/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/absorbedWork.ts:11:41) | at Module.validateAbsorbedProductionStop
+
+## tests/p16-r2-acquisition.test.ts (2)
+  - r2 F6/F8/F33: the target consents at quote; its ask prices the cash that moves at par; money is whole dollars a consider
+      AssertionError: expected null not to be null | at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-r2-acquisition.test.ts:72:23 | at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/d
+  - r2 F13: person-choice and relationship refusals bind the retention preview a target employee with a Nemesis on the buyer
+      AssertionError: expected 'refusal' to be 'quote' // Object.is equality | at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-r2-acquisition.test.ts:176:28 | at file:///Users/zacheryspector/The-Movies-headless-program/no
+
+## tests/p16-r2-authority.test.ts (2)
+  - r2 F1/F27/F41: a live licence survives its grantor's closure, an estate sale and archival the licensee keeps exclusive a
+      Error: estate handoff refused: actualClosureMissing | at Module.openEstate (/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/estate.ts:293:31) | at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-r2
+  - r2 F1/F27/F41: a live licence survives its grantor's closure, an estate sale and archival a licensed property the handof
+      Error: estate handoff refused: actualClosureMissing | at Module.openEstate (/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/estate.ts:293:31) | at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-r2
+
+## tests/p16-r2-estate.test.ts (6)
+  - r2 F4/F29: the estate path refuses the bilateral path's encumbrances a lot holding an active-run film or an active-produ
+      AssertionError: expected 'actualClosureMissing' to be 'lotEncumbered:activeRun:R2:studio-aca…' // Object.is equality | at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-r2-estate.test.ts:46:62 | at file:///Users/zache
+  - r2 F4/F29: the estate path refuses the bilateral path's encumbrances a lot encumbered after the handoff (a production st
+      Error: estate handoff refused: actualClosureMissing | at Module.openEstate (/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/estate.ts:293:31) | at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-r2
+  - r2 F4/F29: the estate path refuses the bilateral path's encumbrances every right the closed studio held is disposed exac
+      AssertionError: expected 'actualClosureMissing' to be 'dispositionMissing:R1:story-property:…' // Object.is equality | at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-r2-estate.test.ts:88:99 | at file:///Users/zache
+  - r2 F18/F37/F60: the window opens at the closure week, closes exactly at D, and needs certifiable bidders openEstate refu
+      AssertionError: expected 'actualClosureMissing' to be 'notClosureWeek' // Object.is equality | at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-r2-estate.test.ts:102:67 | at file:///Users/zacheryspector/The-Movies-he
+  - r2 F38: an as-of read inside the window reports the lot as it stood that week a subject that archives at D reads unarchi
+      Error: estate handoff refused: actualClosureMissing | at Module.openEstate (/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/estate.ts:293:31) | at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-r2
+  - r2 F48: the deterministic tie-break is ascending reserved identity order, not submission order equal sealed bids resolve
+      Error: estate handoff refused: actualClosureMissing | at Module.openEstate (/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/estate.ts:293:31) | at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-r2
+
+## tests/p16-r2-validator.test.ts (1)
+  - r2 F58: the licence-overlap, bid-window and estate-proceeds rules each refuse a forged save a sealed bid dated before it
+      Error: estate handoff refused: actualClosureMissing | at Module.openEstate (/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/estate.ts:293:31) | at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16-r2
+
+## tests/p16c-acquisition.test.ts (3)
+  - P16C healthy absorption: the quote separates consideration, at-par cash, exits and disclosed guarantees default retentio
+      AssertionError: expected 'refusal' to be 'quote' // Object.is equality | at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16c-acquisition.test.ts:91:24 | at file:///Users/zacheryspector/The-Movies-headless-program/node_
+  - P16C healthy absorption: work continues only where the buyer's operations admit it (the real allocator) the target's in-
+      AssertionError: expected 'refusal' to be 'quote' // Object.is equality | at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16c-acquisition.test.ts:207:24 | at file:///Users/zacheryspector/The-Movies-headless-program/node
+  - P16C healthy absorption: work continues only where the buyer's operations admit it (the real allocator) a buyer whose op
+      AssertionError: expected 'refusal' to be 'quote' // Object.is equality | at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16c-acquisition.test.ts:243:27 | at file:///Users/zacheryspector/The-Movies-headless-program/node
+
+## tests/p16c-estate.test.ts (6)
+  - P16C estate handoff: the typed adapter point opens an estate; it never declares a studio terminal opens from a valid han
+      AssertionError: expected 'actualClosureMissing' to be null | at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16c-estate.test.ts:63:63 | at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/r
+  - P16C estate handoff: the typed adapter point opens an estate; it never declares a studio terminal refuses a malformed ha
+      AssertionError: expected 'actualClosureMissing' to be 'lotOverlap' // Object.is equality | at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16c-estate.test.ts:91:146 | at file:///Users/zacheryspector/The-Movies-headless
+  - P16C sealed bids: admission only before D, reservations, refusals admits one sealed bid per bidder per lot before D, res
+      Error: estate handoff refused: actualClosureMissing | at Module.openEstate (/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/estate.ts:293:31) | at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16c-e
+  - P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival re
+      Error: estate handoff refused: actualClosureMissing | at Module.openEstate (/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/estate.ts:293:31) | at bidsPlaced (/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/
+  - P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival th
+      Error: estate handoff refused: actualClosureMissing | at Module.openEstate (/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/estate.ts:293:31) | at bidsPlaced (/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/
+  - P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival a 
+      Error: estate handoff refused: actualClosureMissing | at Module.openEstate (/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/src/core/estate.ts:293:31) | at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p16c-e

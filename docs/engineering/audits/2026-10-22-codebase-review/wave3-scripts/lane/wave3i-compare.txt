@@ -1,0 +1,63 @@
+{'numTotalTestSuites': 147, 'numPassedTestSuites': 117, 'numFailedTestSuites': 30, 'numPendingTestSuites': 0, 'numTotalTests': 680, 'numPassedTests': 658, 'numFailedTests': 22, 'numPendingTests': 0, 'numTodoTests': 0}
+known baseline failures reproduced: 5 in 2 files
+NEW failures: 17 in 13 files
+
+## tests/facility-move-demolish.test.ts (1)
+  - C1-M3a (F) — saves, boundaries, and determinism keeps the refund row out of every historical save format (law 19)
+      AssertionError: expected [Function] to throw error matching /SaveFileV13 facility demolition autho…/ but got 'validateSaveV11: state has unknown fi…' 
+
+## tests/p1364-late-founding.test.ts (4)
+  - 1364 R-B: a founded campaign never opens a second founding draft or receives a second grant (parent ruling 2026-10-11) f
+      Error: rightsStripped: a nondefault current market assessment cannot be projected | at Module.rightsStripped (/Users/zacheryspector/studio-scratch/p16
+  - 1364 persistence: the step, its downgrade and the frozen reader founding-step-live: the live writer stamps the founding 
+      AssertionError: expected 49 to be 48 // Object.is equality | at /Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/p1364-late-founding.
+  - 1364 persistence: the step, its downgrade and the frozen reader founding-step-preserves-save46-gates: a Save46 recovery 
+      Error: RED: save.ts does not export convertV49ToV47 (the founding step is 47) | at saveFn (/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt
+  - 1364 persistence: the step, its downgrade and the frozen reader founding-downgrade-refuses-recorded-fund: a closed fund 
+      AssertionError: expected [Function] to throw error matching /cannot downgrade or discard the recor…/ but got 'rightsStripped: a nondefault current …' 
+
+## tests/p13b-s7-announcements.test.ts (1)
+  - P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) the annou
+      AssertionError: expected '{"broadcastCache":[],"saveVersion":49…' not to match /"announcement/i | at /Users/zacheryspector/studio-scratch/p16-rebase-2
+
+## tests/p13b-s8-old-era-period.test.ts (1)
+  - 1363 explicit V27 staging keeps its finance era across a calendar boundary real original26 week52 first charge opens exa
+      AssertionError: expected [ 'acquisitionOutlay', …(17) ] to deeply equal [ 'capacity', 'development', …(12) ] | at stage (/Users/zacheryspector/studio-
+
+## tests/p14c3-offmenu-extensions.test.ts (2)
+  - C.3 actor→director genuine off-menu58-week extension O3 actually settles and pays58 weeks at410 with real trust and both
+      AssertionError: expected [Function] to throw error matching /^migrateToV45: cannot downgrade or di…/ but got 'rightsStripped: a nondefault current …' 
+  - C.3 actor→writer genuine off-menu58-week extension O3 actually settles and pays58 weeks at410 with real trust and both d
+      AssertionError: expected [Function] to throw error matching /^migrateToV45: cannot downgrade or di…/ but got 'rightsStripped: a nondefault current …' 
+
+## tests/p14c3-transitions.test.ts (1)
+  - C.3 A05/A06 public profession history, current evidence and repeat safety uses inclusive change weeks and current-versus
+      Error: rightsStripped: current phase history cannot be projected | at refuseCurrentPhaseHistory (/Users/zacheryspector/studio-scratch/p16-rebase-20261
+
+## tests/p14d1-rival-shelving.test.ts (1)
+  - shelving-viable-control (1344-F Amendment 2) zero-penalty historical control: genesis to week77 matches the genuine old 
+      Error: rightsStripped: a nondefault current market assessment cannot be projected | at Module.rightsStripped (/Users/zacheryspector/studio-scratch/p16
+
+## tests/p14r3-save-v41.test.ts (1)
+  - P14 1305-C Save41: 41->40 downgrade refused, with a message matching /termination/i, on a genuine V41 save carrying a re
+      AssertionError: expected [Function] to throw error matching /^migrateToV44: cannot downgrade or di…/ but got 'rightsStripped: a nondefault current …' 
+
+## tests/p15b2-corporate-condition-live.test.ts (1)
+  - p15b2 live condition: root, facts and the evaluated set (1357-A §3-§4) condition-root-fresh-and-live-version
+      AssertionError: the P15B save step is the live version: expected 49 to be 48 // Object.is equality | at /Users/zacheryspector/studio-scratch/p16-rebas
+
+## tests/p15b4-pending-player-adoption.test.ts (1)
+  - real paid capital/refund/loan edge retains earned pending player adoption at actual closure
+      AssertionError: expected [Function] to throw error including 'no disposition for live subject adopt…' but got 'unit: studioClosure closure studio-cl…'
+
+## tests/p15b4-player-proposal-transaction.test.ts (1)
+  - real retained week45 player proposal withdraws before own-case invalidation and linked ended publication
+      AssertionError: expected [Function] to throw error including 'no disposition for live subject propo…' but got 'unit: studioClosure closure studio-cl…'
+
+## tests/p15b4-proposal-transaction.test.ts (1)
+  - real retained week45 proposal is withdrawn once by a full-admitted constructed rival closure
+      AssertionError: expected [Function] to throw error including 'no disposition for live subject propo…' but got 'unit: studioClosure closure studio-cl…'
+
+## tests/p15c2-campaign-legacy-integration.test.ts (1)
+  - p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) legacy-validate-stamp
+      Error: expected a refusal, but the call returned | at thrownMessage (/Users/zacheryspector/studio-scratch/p16-rebase-20261024-wt/tests/helpers/p15c2-l

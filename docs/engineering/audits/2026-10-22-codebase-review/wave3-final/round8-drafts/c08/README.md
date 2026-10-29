@@ -1,0 +1,9 @@
+# C-08 bounded diagnostic draft
+
+STATIC-UNRUN. Full copy of existing p16c-acquisition.test.ts with one appended case only. No original assertion, fixture, budget or source changed. Run as the complete existing file after coordinator integration through the sole lane.
+
+Constructed quote boundary: clones one production into two with shared participants, first at8 ticks requiring absent soundstage and second at1 tick requiring no future capability. Preserves actual credited writer employment. Disclosed source has a deliberately large buyer-cash control; it is explicitly not an admitted save/ledger. Uses the actual allocator, existing world/disclosed/quoteAtAsk helpers and STABLE reader already used throughout that file. Known fractional ask is handled only by offering a legal whole consideration above the unchanged ask, not changing money law or the shared helper.
+
+Expected evidence at current source: first cancelRequired/noFacility:soundstage, second continues/missingParticipants empty, writer disposition workCannotContinue/not retained. Final assertion requires retention and should fail with the defect. Diagnostic records disposition and exact scope. Other premature refusal or person/term reasons must remain failures, not be rewritten away.
+
+A RED here proves the pure quote algorithm disagrees with its retention requirement on the disclosed constructed boundary. It does NOT prove a natural admitted two-production state can reach this case, a public close succeeds otherwise, or a Bridge call reaches that close. In particular duplicated company participants and altered phase history would not constitute a valid aggregate. Do not claim runtime reachability or close error from this diagnostic alone. Repair authorization is existing stabilization; acceptance evidence still needs an admitted shared-writer route before declaring the full C-08 finding closed.
