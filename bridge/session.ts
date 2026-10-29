@@ -388,14 +388,24 @@ function opaqueIntentId(stateDigest: string, descriptor: unknown): string {
     .digest('hex')}`
 }
 
+/** ASTRA Sprint 20 (projection 70): the one-click intents a client must confirm with a second gesture: every cancellation
+ * of work or of a booking, and the payment of a cancelled season's obligations. The contract carries the verdict
+ * (`confirmation`), so no client can treat them as ordinary memo clicks. */
+const CONFIRMATION_REQUIRED_KINDS: ReadonlySet<AvailableIntent['kind']> = new Set(['cancellationAction', 'cancelFeaturedBooking', 'cancelTvSeason', 'settleTvObligations'])
+export const intentConfirmation = (kind: AvailableIntent['kind']): AvailableIntent['confirmation'] => (CONFIRMATION_REQUIRED_KINDS.has(kind) ? 'required' : 'none')
+
+/** An option's authored fields; `confirmation` is derived from the kind by `option()` (never authored per site). */
+type IntentFields = Omit<AvailableIntent, 'intentId' | 'confirmation'>
+
 function option(
   stateDigest: string,
-  fields: Omit<AvailableIntent, 'intentId'>,
+  fields: IntentFields,
   hiddenAction: unknown,
 ): AvailableIntent {
+  const confirmed = { ...fields, confirmation: intentConfirmation(fields.kind) }
   return {
-    intentId: opaqueIntentId(stateDigest, { fields, hiddenAction }),
-    ...fields,
+    intentId: opaqueIntentId(stateDigest, { fields: confirmed, hiddenAction }),
+    ...confirmed,
   }
 }
 
@@ -592,7 +602,7 @@ function resolveFounding(
       if (offer === undefined) continue
       const preview = signContractAction(state, row.id, FOUNDING_OFFER_TERM_WEEKS)
       if (!preview.ok) continue
-      const fields: Omit<AvailableIntent, 'intentId'> = {
+      const fields: IntentFields = {
         kind: 'signFoundingContract',
         label: `Offer ${row.name} a 2-year ${foundingRoleLabel(row.role)} contract`,
         detail:
@@ -662,7 +672,7 @@ function resolveFounding(
     const rosterSentence = actorProgress.extra > 0
       ? 'The roster includes a reserve Actor for two-picture continuity. '
       : ''
-    const fields: Omit<AvailableIntent, 'intentId'> = {
+    const fields: IntentFields = {
       kind: 'foundStudio',
       label: 'START A STUDIO',
       detail:
@@ -761,7 +771,7 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
 
   const construction = studioDevelopment(state)
   if (construction.canStart) {
-    const fields: Omit<AvailableIntent, 'intentId'> = {
+    const fields: IntentFields = {
       kind: 'startConstruction',
       label: `Start ${construction.name}`,
       detail: construction.consequence,
@@ -812,7 +822,7 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
     const capacityDetail = commissionCapacityOnly
       ? board.commission.blockers[0]?.detail ?? ''
       : ''
-    const fields: Omit<AvailableIntent, 'intentId'> = {
+    const fields: IntentFields = {
       kind: 'commissionScreenplay',
       label:
         journey.next?.kind === 'commission'
@@ -861,7 +871,7 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
         support: [candidates[1]!.id, candidates[2]!.id] as [string, string],
       },
     }
-    const fields: Omit<AvailableIntent, 'intentId'> = {
+    const fields: IntentFields = {
       kind: 'startAuditions',
       label:
         journey.next?.kind === 'plan-auditions' && journey.scriptProjectId === project.projectId
@@ -913,7 +923,7 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
           marketing: 0,
         },
       }
-      const fields: Omit<AvailableIntent, 'intentId'> = {
+      const fields: IntentFields = {
         kind: 'greenlightPicture',
         label:
           `Lead ${cast.lead.name} / Antagonist ${cast.antagonist.name} / ` +
@@ -950,7 +960,7 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
       )
     for (const card of commandCards) {
       const command = card.command!
-      const fields: Omit<AvailableIntent, 'intentId'> = {
+      const fields: IntentFields = {
         kind: 'resolveProductionBlocker',
         label: command.label,
         detail: card.blocker?.detail ?? card.statusLabel,
@@ -986,7 +996,7 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
         (candidate) => candidate.id === production.conceptId,
       )
       const title = concept?.title ?? state.hollywood?.concepts.find(candidate=>candidate.id===production.conceptId)?.title ?? production.id
-      const fields: Omit<AvailableIntent, 'intentId'> = {
+      const fields: IntentFields = {
         kind: 'commitPictureToRelease',
         label: `Commit ${title} to release`,
         detail:
@@ -1034,7 +1044,7 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
     next.kind === 'review-casting-blocker'
   ) {
     if (studioDecision(state) === null) {
-      const fields: Omit<AvailableIntent, 'intentId'> = {
+      const fields: IntentFields = {
         kind: 'advanceWeek',
         label: 'No action is required this week — advance the week',
         detail: journey.waiting?.reason ?? journey.detail ?? 'Advance the authoritative studio week.',
@@ -1051,7 +1061,7 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
   }
 
   if (next.kind === 'advance-week') {
-    const fields: Omit<AvailableIntent, 'intentId'> = {
+    const fields: IntentFields = {
       kind: 'advanceWeek',
       label: next.label,
       detail: journey.waiting?.reason ?? journey.detail ?? 'Advance the authoritative studio week.',
@@ -1075,7 +1085,7 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
   // The commit intent itself arrives with W2's schema — until then the direct
   // core action and this hold path are the interface.
   if (next.kind === 'release-review') {
-    const fields: Omit<AvailableIntent, 'intentId'> = {
+    const fields: IntentFields = {
       kind: 'advanceWeek',
       label: `Hold ${journey.pictureTitle ?? 'the picture'} at Release Ready — advance the week`,
       detail:
@@ -1096,7 +1106,7 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
     if (decision?.projectId === journey.scriptProjectId) {
       for (const action of decision.legalActions) {
         const kind = action.kind === 'acceptScript' ? 'acceptScreenplay' : 'requestRewrite'
-        const fields: Omit<AvailableIntent, 'intentId'> = {
+        const fields: IntentFields = {
           kind,
           label: action.label,
           detail: `${decision.title} · ${journey.whyItMatters}`,
@@ -1124,7 +1134,7 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
       const reads = project.results === null
         ? 0
         : Object.values(project.results).reduce((sum, entries) => sum + entries.length, 0)
-      const fields: Omit<AvailableIntent, 'intentId'> = {
+      const fields: IntentFields = {
         kind: 'acknowledgeAuditions',
         label: action.label,
         detail: `${String(reads)} authoritative camera-test reads reviewed for ${project.title}.`,
@@ -1241,7 +1251,7 @@ function resolveLoanIntents(state: GameState): IntentApplication[] {
   if (state.founding !== null) return []
   const principal = loanMaxPrincipal(studioWeeklyFixedCost(state, h.playerStudioId))
   const terms = contractLoan(principal, studioWeeklyFixedCost(state, h.playerStudioId), state.market.tick)
-  const fields: Omit<AvailableIntent, 'intentId'> = {
+  const fields: IntentFields = {
     kind: 'takeLoan',
     label: `Take a studio loan of ${exactDollars(principal)}`,
     detail: `Flat interest brings the total to ${exactDollars(terms.total)}, repaid over ${terms.installments.length} weeks at ${exactDollars(terms.installments[0]!)}/week from Week ${state.market.tick + 1}, charged with payroll whatever the cash. One loan at a time; no early repayment.`,
@@ -1716,7 +1726,7 @@ export class BridgeSession {
     if (pending === undefined) return undefined
     if (pending.stateDigest !== authoritativeDigest(this.state)) return undefined
     if (pending.family === 'diligence' || pending.family === 'absorption') {
-      return {option:{intentId,kind:pending.kind,label:pending.commitLabel,detail:'',projectId:null,castingSessionId:null,productionId:null},
+      return {option:{intentId,kind:pending.kind,label:pending.commitLabel,detail:'',projectId:null,castingSessionId:null,productionId:null,confirmation:'none'},
         apply:current=>authoritativeDigest(current)!==pending.stateDigest
           ? {ok:false,error:'Quoted rights intent no longer matches the authoritative state.'}
           : pending.family==='diligence'?diligenceDraftApply(current,pending.draft)
@@ -1724,13 +1734,13 @@ export class BridgeSession {
     }
     if (pending.family === 'tvCommission') {
       return { option: { intentId, kind: pending.kind, label: pending.commitLabel, detail: '',
-        projectId: null, castingSessionId: null, productionId: null },
+        projectId: null, castingSessionId: null, productionId: null, confirmation: 'none' },
         apply: current => tvCommissionDraftApply(current, pending.draft) }
     }
     if (pending.family === 'loan') {
       // Resolve to a live action, never to the preflight successor captured at quote time.
       return { option: { intentId, kind: pending.kind, label: pending.commitLabel, detail: '',
-        projectId: null, castingSessionId: null, productionId: null },
+        projectId: null, castingSessionId: null, productionId: null, confirmation: 'none' },
         apply: current => loanDraftApply(current, pending.draft) }
     }
     const fields = {
@@ -1740,6 +1750,7 @@ export class BridgeSession {
       projectId: pending.family === 'casting' ? pending.draft.projectId : null,
       castingSessionId: null,
       productionId: null,
+      confirmation: 'none',
     } as const
     const conversion = pending.family === 'commission'
       ? draftToEngine(this.state, pending.draft)

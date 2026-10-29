@@ -73,6 +73,14 @@ export const AVAILABLE_INTENT_KINDS = [
   'settleTvObligations',
 ] as const
 
+/**
+ * ASTRA Sprint 20 (Owner decision E, projection 70): the contract names which published one-click intents a client must
+ * not dispatch from a single gesture. `required` means the client shows the option's `detail` (the core's own consequence
+ * sentence) and takes a second, distinct gesture before submitting; `none` is the ordinary memo button. The Bridge sets
+ * it from the intent kind (session.ts CONFIRMATION_REQUIRED_KINDS): the cancellations and the obligation settlement. A
+ * quote-minted commit (`commitLabel` intents) is `none`: its quote was the review step.
+ */
+export const INTENT_CONFIRMATION_KINDS = ['none', 'required'] as const
 export const StudioBridgeIntentOption = object('StudioBridgeIntentOption', {
   intentId: nonEmptyText(),
   kind: enumeration(AVAILABLE_INTENT_KINDS),
@@ -81,5 +89,6 @@ export const StudioBridgeIntentOption = object('StudioBridgeIntentOption', {
   projectId: nullable(text()),
   castingSessionId: nullable(text()),
   productionId: nullable(text()),
+  confirmation: enumeration(INTENT_CONFIRMATION_KINDS),
 })
 

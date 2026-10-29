@@ -310,7 +310,7 @@ export const PROTOCOL_VERSION = 4 as const
 // Projection69 (playtest-response slice, Owner decision 7c): the television cancellation cause gains the tick's automatic
 // `rights` and `participant` cancellations on authority loss (contract §4, §7). The outgoing68 identity is registered
 // prior from its genuine capture (b3c179b0). Protocol4 and Save51 are unchanged, so the prior lift is identity.
-export const PROJECTION_VERSION = 69 as const
+export const PROJECTION_VERSION = 70 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
