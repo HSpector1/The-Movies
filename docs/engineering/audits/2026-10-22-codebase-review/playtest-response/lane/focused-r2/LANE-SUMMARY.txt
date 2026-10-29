@@ -1,0 +1,22 @@
+# focused-r2 lane summary
+waiting for pid 0; then: bash /Users/zacheryspector/studio-scratch/playtest-response-20261028/focused-r2/run.sh; 2026-10-28 23:52:28 CDT
+start; 2026-10-28 23:52:29 CDT
+end, exit 1; 2026-10-29 00:03:25 CDT
+
+=== BEGIN bridge-p12-campaign-library
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+ Test Files  1 failed (1)
+      Tests  8 failed | 5 passed (13)
+=== END bridge-p12-campaign-library exit=1 elapsed=89s
+=== BEGIN focused-core
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ Test Files  1 failed | 11 passed (12)
+      Tests  1 failed | 342 passed (343)
+=== END focused-core exit=1 elapsed=546s
+=== BEGIN focused-ui
+ Test Files  1 passed (1)
+      Tests  9 passed (9)
+=== END focused-ui exit=0 elapsed=19s
+=== CHECKPOINT exit=1
+godot lines at launch scan: 0
+launch-at: 2026-10-28T23:52:28-05:00

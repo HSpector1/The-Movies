@@ -1,0 +1,13 @@
+# p12-alone-r1 lane summary
+waiting for pid 0; then: bash /Users/zacheryspector/studio-scratch/playtest-response-20261028/p12-alone-r1/run.sh; 2026-10-29 00:07:09 CDT
+start; 2026-10-29 00:07:09 CDT
+end, exit 1; 2026-10-29 00:08:29 CDT
+
+=== BEGIN bridge-p12-campaign-library
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+ Test Files  1 failed (1)
+      Tests  6 failed | 7 passed (13)
+=== END bridge-p12-campaign-library exit=1 elapsed=78s
+=== CHECKPOINT exit=1
+godot lines at launch scan: 0
+launch-at: 2026-10-29T00:07:09-05:00

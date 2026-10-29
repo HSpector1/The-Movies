@@ -52,3 +52,26 @@ bridge-p12-campaign-library alone, same host, budgets unchanged (5,000 ms; two c
 | durably discard dirty progress (20 s) | 21,424 FAIL | 5,803 |
 
 Eleven failing alone became five, over their 5,000 ms budget by 142 to 1,618 ms. The repeated profile (measure-r5) of the same case: 7,991 ms under the profiler (was 15,524); `snapshot` 944 ms inclusive (was 5,212); `project` 651 ms (was 2,189 self); `firstRefusal` 37 ms. What remains is the save cycle each campaign operation performs on the ~750 KB library (validateSaveP18 2,076 ms inclusive across the case, makeSave 1,009, importSave 935, stableStringify 800, the garbage collector 1,154) plus the coordinator's own world creation (createBridgeRuntimeCoordinator 2,849 inclusive). One further waste is visible but small: the era validators scan the raw save for non-finite numbers once per era layer (four walks of the same object per validate, `nonFiniteNumberTail`, 481 ms self); threading one scan through the chain would save about 5% of a case and would not bring the 6,618 ms case under budget. Reading under the ruling: the remaining cost is inherent to the library size and the validate cycle, so the five residual cases fall to 6a, an exception the Owner declares (the measured alone maxima: 5,276 / 5,492 / 5,142 / 5,487 / 6,618 ms; a per-leaf exception of 10,000 ms on these five, or on the file, would hold with the margin the other p12 cases already have). The agent did not change any budget.
+
+### 6b on the final commit, idle (lane/p12-alone-r1 on 6da4206a; lane/focused-r2 on 91f6da7e for contrast)
+
+The same file alone twice more. In focused-r2 the p12 stage ran while the coordinator committed and pushed records on this 2-core host; it is reported but not read as an alone measurement (5 of 13 passed; the margins are tens of milliseconds, so coordinator activity decides them). In p12-alone-r1 the coordinator stayed idle for the whole stage.
+
+| Case (budget 5,000 ms unless noted) | focused-r2 (91f6da7e, coordinator active) | p12-alone-r1 (6da4206a, idle) |
+|---|---|---|
+| catalogue-only rename (20 s) | 3,972 | 5,243 |
+| catalogue-only delete (20 s) | 3,069 | 2,620 |
+| shipped Save route and save-before-load | 5,027 FAIL | 5,265 FAIL |
+| corrupted cross-world binding | 6,952 | 5,168 FAIL |
+| saves atomically across the journal | 5,344 FAIL | 3,742 |
+| branches CURRENT state, survives restart | 5,311 FAIL | 5,414 FAIL |
+| failed writes, conflicts, stale targets | 5,141 FAIL | 5,017 FAIL |
+| exact delete/overwrite confirmation | 5,040 FAIL | 5,174 FAIL |
+| imports old checkpoints | 5,206 FAIL | 6,694 |
+| recovers legacy slots | 6,533 FAIL | 6,731 FAIL |
+| branches a full journal | 8,538 FAIL | 4,358 |
+| durably save dirty progress (20 s) | 12,418 | 8,376 |
+| durably discard dirty progress (20 s) | 7,117 | 6,817 |
+
+Reading: after the repair the eleven inherited cases sit within a few hundred milliseconds of the 5,000 ms budget on either side, and which of them cross it changes from run to run (five in focused-r1, eight under coordinator activity in focused-r2, six idle in p12-alone-r1; nine distinct cases crossed at least once). The two 20 s cases never came near their budget again (maximum 12,418 ms). The correction to the earlier line that the corrupted-binding case "declares a larger budget": it does not; vitest reports a passing duration that includes its hooks, and the case failed at 5,168 ms idle. Recommendation for the Owner's 6a exception, if declared: cover the eleven inherited cases of this file (or the file) at 10,000 ms per leaf, not the five of focused-r1; the idle maximum is 6,731 ms. No budget was changed.
+

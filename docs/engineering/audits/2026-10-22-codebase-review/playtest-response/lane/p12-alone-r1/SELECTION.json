@@ -1,0 +1,15 @@
+{
+  "head": "6da4206a3446c415cdb5e6ee5e1c50546cb2e750",
+  "sourceManifestEntries": 2261,
+  "purpose": "playtest-response p12-alone-r1: bridge-p12-campaign-library alone on the final commit with the coordinator idle for the whole stage (focused-r2's p12 stage ran while the coordinator committed and pushed records on this 2-core host, so its 5/13 is not a clean alone measurement). Decision 6b residual and the 6a fallback maxima are read from this run. Budgets unchanged.",
+  "children": [
+    {
+      "label": "bridge-p12-campaign-library",
+      "command": "vitest run --project core tests/bridge-p12-campaign-library.test.ts"
+    }
+  ],
+  "budgets": {
+    "timeoutOverride": false,
+    "note": "spec-declared budgets unchanged"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "head": "91f6da7e345412629ebb33ab019ba741b3692321",
+  "sourceManifestEntries": 2261,
+  "purpose": "playtest-response focused-r2 on FIX-1 commit 91f6da7e (review findings 2-11 applied over the slice candidate 6a846c99, whose full gate full-tree-r1 was audited CLEAN WITH NOTES, zero NEW): (1) bridge-p12-campaign-library alone (decision 6b residual measured on the final runtime.ts; budgets unchanged); (2) the files FIX-1 invalidates: the season witnesses and P18 files (tvSeason authority-loss filter, tvSave tick-cause week rule, tvView label), the lock test (attestation v1 refusal, indentation), the schema runtime files including the new differential test bridge-schema-first-refusal.test.ts, the generator test (F10/F11 body pins may move if they hash the verifier bundle; measured, then pinned from this run if so), checkpoint and bridge.test.ts; (3) the ui P18 tests. Baseline for classification: full-tree-r1 at 6a846c99 and full-tree-r4 at e115be4b.",
+  "children": [
+    {
+      "label": "bridge-p12-campaign-library",
+      "command": "vitest run --project core tests/bridge-p12-campaign-library.test.ts"
+    },
+    {
+      "label": "focused-core",
+      "command": "vitest run --project core tests/s14-season-route-witnesses.test.ts tests/p18-delivery.test.ts tests/p18-work.test.ts tests/p18-save-step.test.ts tests/p18-commission.test.ts tests/bridge-p18-season.test.ts tests/bridge-contract-consumer-lock.test.ts tests/bridge-contract-generator.test.ts tests/bridge-schema.test.ts tests/bridge-schema-first-refusal.test.ts tests/bridge-runtime-checkpoint.test.ts tests/bridge.test.ts"
+    },
+    {
+      "label": "focused-ui",
+      "command": "vitest run --project ui ui/src/screens/p18-season-ui.test.tsx"
+    }
+  ],
+  "budgets": {
+    "timeoutOverride": false,
+    "note": "spec-declared budgets unchanged"
+  }
+}
