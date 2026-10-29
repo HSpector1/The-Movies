@@ -4718,7 +4718,7 @@ export function App() {
             })
           }
           onOpenHub={() => setScreen({ kind: 'hub', returnContext: dashboardDeepReturnContext })}
-          onOpenRightsDesk={() => setScreen({ kind: 'rightsDesk', returnContext: dashboardDeepReturnContext })}
+          {...(state.hollywood !== null ? { onOpenRightsDesk: () => setScreen({ kind: 'rightsDesk', returnContext: dashboardDeepReturnContext }) } : {})}
           onOpenRoster={() =>
             setScreen({ kind: 'roster', returnContext: dashboardDeepReturnContext })
           }

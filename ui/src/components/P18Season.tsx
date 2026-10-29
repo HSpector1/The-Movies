@@ -156,14 +156,14 @@ export function SeasonCommissionPanel({
  */
 function deadlineExplanation(row: TvSeasonView): string {
   return row.creditedUnits < row.totalUnits
-    ? `the season could not be delivered: ${row.creditedUnits} of ${row.totalUnits} units were credited by the final week ${row.finalWeek}`
-    : `all ${row.totalUnits} units were credited but the master could not be accepted at the final week ${row.finalWeek}; the record keeps no further reason`
+    ? `the season could not be delivered, ${row.creditedUnits} of ${row.totalUnits} units credited by the final week ${row.finalWeek}`
+    : `all ${row.totalUnits} units were credited but the master could not be accepted at the final week ${row.finalWeek} (the record keeps no further reason)`
 }
 
 /** Decision C: a cancelled season's distribution licence is not revoked by the cancellation; nothing is deliverable under it. */
 function cancelledLicenceText(state: GameState, row: TvSeasonView): string {
   const licence = state.rights.licences.find((l) => l.id === row.distribution.licenceId)
-  if (licence === undefined) return 'its distribution licence is not on record'
+  if (licence === undefined) throw new Error(`season ${row.seasonId} names distribution licence ${row.distribution.licenceId}, which is not on record`)
   return state.market.tick < licence.endWeekExclusive
     ? `its distribution licence stays in force through week ${licence.endWeekExclusive - 1}, with nothing deliverable under it`
     : `its distribution licence ended at week ${licence.endWeekExclusive}`
