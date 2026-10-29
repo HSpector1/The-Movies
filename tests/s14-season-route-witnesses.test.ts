@@ -283,11 +283,16 @@ describe('S14 W3 — an R1 title sale during a live season cancels it at once (c
 
   it('the validator accepts the tick causes only at a boundary after C and before the final week (review FIX-1 items 7, 9)', () => {
     const end = after[0]!
-    const envelope = () => JSON.parse(exportSave(makeSave(end))) as { state: { television: { seasons: { cancellation: { week: number; cause: string } }[] } } }
+    const envelope = () => JSON.parse(exportSave(makeSave(end))) as { state: { television: { seasons: { cancellation: { week: number; cause: string } }[]; receipts: { kind: string; cause?: string }[] } } }
     expect(() => validateSaveV51(envelope())).not.toThrow()
+    // The season's cause and its agreement's 'cancelled' receipt must agree (the validator replays the receipt), so both flip.
     const asParticipant = envelope(); asParticipant.state.television.seasons[0]!.cancellation.cause = 'participant'
+    for (const r of asParticipant.state.television.receipts) if (r.kind === 'cancelled') r.cause = 'participant'
     // The same money and boundary rule as 'rights': the record is accepted on reload, cause by cause.
     expect(() => validateSaveV51(asParticipant)).not.toThrow()
+    // A cause that is not one of the five is refused by name before any money rule.
+    const bogus = envelope(); bogus.state.television.seasons[0]!.cancellation.cause = 'bogus'
+    expect(() => validateSaveV51(bogus)).toThrow(/cancellation/)
     const atCommit = envelope(); atCommit.state.television.seasons[0]!.cancellation.week = season(end).commitWeek
     // The season credited work before the sale, so the week-order rule (a cancellation before the last credited week) refuses
     // this record first; a season that credited nothing is refused by the tick-cause rule itself. Either refusal is by name.
