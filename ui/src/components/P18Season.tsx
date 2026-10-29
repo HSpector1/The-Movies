@@ -149,13 +149,34 @@ export function SeasonCommissionPanel({
   )
 }
 
+/**
+ * ASTRA Sprint 18, decision C (option a): a deadline cancellation keeps its classification and names the inability the
+ * record supports: incomplete work (the credited units), or a complete master that could not be accepted at the final
+ * boundary (the record keeps no reason for that, and none is invented).
+ */
+function deadlineExplanation(row: TvSeasonView): string {
+  return row.creditedUnits < row.totalUnits
+    ? `the season could not be delivered: ${row.creditedUnits} of ${row.totalUnits} units were credited by the final week ${row.finalWeek}`
+    : `all ${row.totalUnits} units were credited but the master could not be accepted at the final week ${row.finalWeek}; the record keeps no further reason`
+}
+
+/** Decision C: a cancelled season's distribution licence is not revoked by the cancellation; nothing is deliverable under it. */
+function cancelledLicenceText(state: GameState, row: TvSeasonView): string {
+  const licence = state.rights.licences.find((l) => l.id === row.distribution.licenceId)
+  if (licence === undefined) return 'its distribution licence is not on record'
+  return state.market.tick < licence.endWeekExclusive
+    ? `its distribution licence stays in force through week ${licence.endWeekExclusive - 1}, with nothing deliverable under it`
+    : `its distribution licence ended at week ${licence.endWeekExclusive}`
+}
+
 /** FIX-S13B-1 items 4, 6: one closed branch per status; a delivered season reads its P16-checked availability. */
-function seasonStatusText(row: TvSeasonView): string {
+function seasonStatusText(state: GameState, row: TvSeasonView): string {
   switch (row.status) {
     case 'live': return 'In production'
     case 'cancelled': {
       if (row.cancellation === null) throw new Error(`season ${row.seasonId} is cancelled without its cancellation record`)
-      return `Cancelled at week ${row.cancellation.week} (${TV_CANCELLATION_LABEL[row.cancellation.cause]})`
+      const why = row.cancellation.cause === 'deadline' ? `: ${deadlineExplanation(row)}` : ''
+      return `Cancelled at week ${row.cancellation.week} (${TV_CANCELLATION_LABEL[row.cancellation.cause]})${why}; ${cancelledLicenceText(state, row)}`
     }
     case 'delivered': {
       const until = row.distribution.availableUntilWeekExclusive
@@ -168,8 +189,8 @@ function seasonStatusText(row: TvSeasonView): string {
   }
 }
 
-function SeasonStatus({ row }: { row: TvSeasonView }) {
-  return <span data-testid={`season-state-${row.seasonId}`}>{seasonStatusText(row)}</span>
+function SeasonStatus({ state, row }: { state: GameState; row: TvSeasonView }) {
+  return <span data-testid={`season-state-${row.seasonId}`}>{seasonStatusText(state, row)}</span>
 }
 
 /** The Dashboard's season rows: live progress, the cancel with its settlement shown first, settle when owed, terminal state. */
@@ -197,7 +218,7 @@ export function SeasonCard({
       {refusal !== null && <SeasonRefusal state={state} message={refusal} testid="season-action-refusal" />}
       {rows.map((row) => (
         <div className="inset stack" key={row.seasonId} data-testid={`season-row-${row.seasonId}`} style={{ gap: 4 }}>
-          <span><strong>{row.seriesTitle}</strong> · <SeasonStatus row={row} /></span>
+          <span><strong>{row.seriesTitle}</strong> · <SeasonStatus state={state} row={row} /></span>
           {row.status === 'live' && (
             <>
               <span data-testid={`season-progress-${row.seasonId}`}>

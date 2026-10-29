@@ -107,6 +107,7 @@ import { cancelTvSeasonAction, commissionTvSeasonAction, settleTvObligationsActi
 import { Autopsy } from './screens/Autopsy.tsx'
 import { TalentCreator } from './screens/TalentCreator.tsx'
 import { TalentHub } from './screens/TalentHub.tsx'
+import { RightsDesk } from './screens/RightsDesk.tsx'
 import { Saves } from './screens/Saves.tsx'
 import { FoundingScreen } from './screens/FoundingScreen.tsx'
 import { StudioRoster } from './screens/StudioRoster.tsx'
@@ -420,6 +421,7 @@ type Screen =
       returnContext: StudioReturnContext
     }
   | { kind: 'hub'; returnContext: StudioReturnContext }
+  | { kind: 'rightsDesk'; returnContext: StudioReturnContext } // ASTRA Sprint 18: P16 transactions
   | { kind: 'saves'; returnContext: StudioReturnContext }
   | { kind: 'recap'; returnContext: StudioReturnContext } // D-15: read-only Studio Run Recap
   | { kind: 'lot'; entryFocus: OrdinaryLotEntryFocus }
@@ -4716,6 +4718,7 @@ export function App() {
             })
           }
           onOpenHub={() => setScreen({ kind: 'hub', returnContext: dashboardDeepReturnContext })}
+          onOpenRightsDesk={() => setScreen({ kind: 'rightsDesk', returnContext: dashboardDeepReturnContext })}
           onOpenRoster={() =>
             setScreen({ kind: 'roster', returnContext: dashboardDeepReturnContext })
           }
@@ -4984,6 +4987,16 @@ export function App() {
         <TalentHub
           state={state}
           onBack={() => returnToStudioContext(screen.returnContext)}
+        />
+      )}
+
+      {screen.kind === 'rightsDesk' && (
+        // ASTRA Sprint 18: every verb runs through the same guarded path as the season verbs (an accepted action
+        // replaces the authoritative state; a refusal punctuates and returns to the desk, which shows the sentence).
+        <RightsDesk
+          state={state}
+          onBack={() => returnToStudioContext(screen.returnContext)}
+          act={runSeasonAction}
         />
       )}
 

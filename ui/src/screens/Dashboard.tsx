@@ -56,6 +56,7 @@ export function Dashboard({
   onOpenLot,
   onReturnToLot,
   onOpenRecap,
+  onOpenRightsDesk,
   onOpenCalendar,
   onOpenDevelopment,
   onSaves,
@@ -92,6 +93,8 @@ export function Dashboard({
   onReturnToLot?: (() => void) | undefined
   // D-15: open the read-only Studio Run Recap.
   onOpenRecap?: () => void
+  /** ASTRA Sprint 18: open the Rights desk (P16 transactions). */
+  onOpenRightsDesk?: () => void
   onOpenCalendar?: () => void
   onOpenDevelopment?: () => void
   onSaves: () => void
@@ -377,6 +380,14 @@ export function Dashboard({
               data-testid="open-recap"
             >
               Studio Run Recap
+            </button>
+            <button
+              className="ghost"
+              onClick={onOpenRightsDesk}
+              disabled={!onOpenRightsDesk}
+              data-testid="open-rights-desk"
+            >
+              Rights Desk
             </button>
             {onReturnToLot ? (
               <button
