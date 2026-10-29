@@ -212,8 +212,9 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
     // Projection67 (P18 Sprint 12) adds only outgoing66; same method, which reproduces 53/9d2a641f on the parent map.
     // Projection68 (P18 Sprint 13 slice B) adds only outgoing67; same method, which reproduces 54/13adc010 on the parent map.
     // Projection69 (playtest-response slice) adds only outgoing68; same method, which reproduces 55/6be7e2a9 on the parent map.
-    expect(older).toHaveLength(56)
-    expect(sha(canonicalJson(older))).toBe('4cd2f94859ffc5ba070d449cc19ea5b636f48a953cf54994f9415a2ef9a7f942')
+    // Projection70 (ASTRA Sprint 20) adds only outgoing69; same method, which reproduces 56/4cd2f948 on the parent map.
+    expect(older).toHaveLength(57)
+    expect(sha(canonicalJson(older))).toBe('47e4ec5e91c7e2c910748e7515b906f939acddb9ac69c08b1253a99f32f1076a')
 
     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
     expect(loaded.migratedFromProtocolVersion).toBe(4)

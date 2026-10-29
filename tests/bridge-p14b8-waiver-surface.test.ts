@@ -785,7 +785,7 @@ describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing iden
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID), 'the RUNNING identity is never its own prior').toBe(false)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get('sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2')).toBe('projection-v52')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get('sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d')).toBe('projection-v53')
-    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size, 'P15B adds actual shipped outgoing57; P16 adds outgoing58-61; projection63 adds authentic outgoing62; projection64 adds authentic outgoing63; projection65 adds the P16 build\'s outgoing64; projection66 adds outgoing65; projection67 adds outgoing66; projection68 adds outgoing67; projection69 adds outgoing68').toBe(57)
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size, 'P15B adds actual shipped outgoing57; P16 adds outgoing58-61; projection63 adds authentic outgoing62; projection64 adds authentic outgoing63; projection65 adds the P16 build\'s outgoing64; projection66 adds outgoing65; projection67 adds outgoing66; projection68 adds outgoing67; projection69 adds outgoing68; projection70 adds outgoing69').toBe(58)
   })
 
   it('the checked-in JSON schema, the contract manifest and the C# header all equal the running identity', () => {

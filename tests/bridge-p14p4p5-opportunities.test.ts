@@ -542,8 +542,9 @@ describe('P4/P5 closed Bridge material and outgoing runtime authority', () => {
     // Projection67 (P18 Sprint 12) adds only outgoing66; same method, which reproduces 53/c768ef98 on the parent map.
     // Projection68 (P18 Sprint 13 slice B) adds only outgoing67; same method, which reproduces 54/e8e0e202 on the parent map.
     // Projection69 (playtest-response slice) adds only outgoing68; same method, which reproduces 55/e01c748d on the parent map.
-    expect(older).toHaveLength(56)
-    expect(sha(canonicalJson(older))).toBe('5e76d2296412fd6280992296b800f45263de168cfa47c2b9f04467447d0ddccc')
+    // Projection70 (ASTRA Sprint 20) adds only outgoing69; same method, which reproduces 56/5e76d229 on the parent map.
+    expect(older).toHaveLength(57)
+    expect(sha(canonicalJson(older))).toBe('b67cf2189b0a68a679e958ce0476a7ab845c977ff53db7143eddfd70554b43b5')
     const current = loaded.hydrated.checkpoint
     expect(current).toMatchObject({ schemaId: SCHEMA_ID, sessionId: '1236-prior54', stateRevision: 0, journal: [], journalDigest: sha('[]') })
     expect(current.sessionId).not.toBe(old.value.sessionId)
