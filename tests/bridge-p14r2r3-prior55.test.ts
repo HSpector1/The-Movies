@@ -183,8 +183,8 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
 
     // The schema/projection literals the migration target must already carry.
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(69)
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-69')
+    expect(PROJECTION_VERSION).toBe(70)
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-70')
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OLD_SCHEMA)).toEqual([[OLD_SCHEMA, 'projection-v55']])
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     // 1308-D required change 1 / 1308-F item 1 (B55-3-style older-roster pin, mirrored from

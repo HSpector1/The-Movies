@@ -773,9 +773,9 @@ describe('P14B.8 group11 — A8: the waiver draft offers only what this surface 
 // group12 — 744 §11 A3: the projection bump, complete and consistent, in ONE commit.
 describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing identity is registered as a prior', () => {
   it('PROJECTION_VERSION is 54 and the schema document agrees', () => {
-    expect(PROJECTION_VERSION).toBe(69)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-69`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(69)
+    expect(PROJECTION_VERSION).toBe(70)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-70`)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(70)
     expect(PROJECTION_VERSION).toBeGreaterThan(OUTGOING_PROJECTION)
   })
 

@@ -121,7 +121,7 @@ describe('C.2-RM genuine projection51 recovery', () => {
   })
 
   it('steps projection once to52 while retaining Save37/protocol4 and enumerating actual outgoing51 exactly once', () => {
-    expect(PROJECTION_VERSION).toBe(69)
+    expect(PROJECTION_VERSION).toBe(70)
     expect(PROTOCOL_VERSION).toBe(4)
     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
     expect(SCHEMA_ID).not.toBe(OUTGOING_51)

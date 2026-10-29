@@ -58,6 +58,13 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
 // that window would carry the earlier hash, and this map is keyed on the
 // hash, not the label.
 export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+  // Projection70 (ASTRA Sprint 20, Owner decision E): the outgoing69 identity (projection 69, the immutable snapshot edb1cee4,
+  // tag p18-sprint19-checkpoint-20261029), prior beneath current70. The intent option gains `confirmation` (none | required);
+  // protocol 4 and Save51 are unchanged, so each slot is already live and takes the governed prior path as identity; the
+  // opaque journal resets. Its genuine capture ran on a detached sparse snapshot of edb1cee4 (producer
+  // docs/engineering/audits/2026-10-22-codebase-review/astra-sprints-17-21/sprint20/bridge-step/tools/capture69.ts in the
+  // records repository; tests/fixtures/bridge/genuine-projection69-runtime).
+  ['sha256:6cdb8065eedbfe81d794f6e0a17db71570729ac5701f688ea033b2175bfe4a5a', 'projection-v69'],
   // Projection69 (playtest-response slice, Owner decision 7c): the outgoing68 identity (projection 68, the immutable
   // snapshot b3c179b0, tag p18-sprint16-playtest-candidate-r2-20261028), prior beneath current69. The television
   // cancellation cause gains the tick's automatic `rights` and `participant` cancellations on authority loss (contract

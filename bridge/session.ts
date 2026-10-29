@@ -392,7 +392,15 @@ function opaqueIntentId(stateDigest: string, descriptor: unknown): string {
  * of work or of a booking, and the payment of a cancelled season's obligations. The contract carries the verdict
  * (`confirmation`), so no client can treat them as ordinary memo clicks. */
 const CONFIRMATION_REQUIRED_KINDS: ReadonlySet<AvailableIntent['kind']> = new Set(['cancellationAction', 'cancelFeaturedBooking', 'cancelTvSeason', 'settleTvObligations'])
-export const intentConfirmation = (kind: AvailableIntent['kind']): AvailableIntent['confirmation'] => (CONFIRMATION_REQUIRED_KINDS.has(kind) ? 'required' : 'none')
+/** Engine verbs published under a broader kind that are cancellations all the same (review FIX-1): the plan cancel rides
+ * `physicalPlanAction`. `cancelResearch` (under `researchAction`) keeps every verified result and is NOT marked; the Owner
+ * question is recorded in the sprint record. */
+const CONFIRMATION_REQUIRED_ACTIONS: ReadonlySet<string> = new Set(['cancelPhysicalPlan'])
+export const intentConfirmation = (kind: AvailableIntent['kind'], hiddenAction: unknown = null): AvailableIntent['confirmation'] => {
+  if (CONFIRMATION_REQUIRED_KINDS.has(kind)) return 'required'
+  const verb = typeof hiddenAction === 'object' && hiddenAction !== null ? (hiddenAction as { kind?: unknown }).kind : undefined
+  return typeof verb === 'string' && CONFIRMATION_REQUIRED_ACTIONS.has(verb) ? 'required' : 'none'
+}
 
 /** An option's authored fields; `confirmation` is derived from the kind by `option()` (never authored per site). */
 type IntentFields = Omit<AvailableIntent, 'intentId' | 'confirmation'>
@@ -402,7 +410,7 @@ function option(
   fields: IntentFields,
   hiddenAction: unknown,
 ): AvailableIntent {
-  const confirmed = { ...fields, confirmation: intentConfirmation(fields.kind) }
+  const confirmed = { ...fields, confirmation: intentConfirmation(fields.kind, hiddenAction) }
   return {
     intentId: opaqueIntentId(stateDigest, { fields: confirmed, hiddenAction }),
     ...confirmed,
@@ -1726,7 +1734,7 @@ export class BridgeSession {
     if (pending === undefined) return undefined
     if (pending.stateDigest !== authoritativeDigest(this.state)) return undefined
     if (pending.family === 'diligence' || pending.family === 'absorption') {
-      return {option:{intentId,kind:pending.kind,label:pending.commitLabel,detail:'',projectId:null,castingSessionId:null,productionId:null,confirmation:'none'},
+      return {option:{intentId,kind:pending.kind,label:pending.commitLabel,detail:'',projectId:null,castingSessionId:null,productionId:null,confirmation:intentConfirmation(pending.kind)},
         apply:current=>authoritativeDigest(current)!==pending.stateDigest
           ? {ok:false,error:'Quoted rights intent no longer matches the authoritative state.'}
           : pending.family==='diligence'?diligenceDraftApply(current,pending.draft)
@@ -1734,13 +1742,13 @@ export class BridgeSession {
     }
     if (pending.family === 'tvCommission') {
       return { option: { intentId, kind: pending.kind, label: pending.commitLabel, detail: '',
-        projectId: null, castingSessionId: null, productionId: null, confirmation: 'none' },
+        projectId: null, castingSessionId: null, productionId: null, confirmation: intentConfirmation(pending.kind) },
         apply: current => tvCommissionDraftApply(current, pending.draft) }
     }
     if (pending.family === 'loan') {
       // Resolve to a live action, never to the preflight successor captured at quote time.
       return { option: { intentId, kind: pending.kind, label: pending.commitLabel, detail: '',
-        projectId: null, castingSessionId: null, productionId: null, confirmation: 'none' },
+        projectId: null, castingSessionId: null, productionId: null, confirmation: intentConfirmation(pending.kind) },
         apply: current => loanDraftApply(current, pending.draft) }
     }
     const fields = {
@@ -1750,7 +1758,7 @@ export class BridgeSession {
       projectId: pending.family === 'casting' ? pending.draft.projectId : null,
       castingSessionId: null,
       productionId: null,
-      confirmation: 'none',
+      confirmation: intentConfirmation(pending.kind),
     } as const
     const conversion = pending.family === 'commission'
       ? draftToEngine(this.state, pending.draft)

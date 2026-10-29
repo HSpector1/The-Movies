@@ -383,7 +383,7 @@ function qualifyPrior53(): void {
     const factory = vi.fn(() => `1174-prior53-${name}`)
     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
     expect(loaded.migratedFromProtocolVersion).toBe(4); expect(factory).toHaveBeenCalledTimes(1)
-    expect(PROJECTION_VERSION).toBe(69); expect(PROTOCOL_VERSION).toBe(4)
+    expect(PROJECTION_VERSION).toBe(70); expect(PROTOCOL_VERSION).toBe(4)
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OLD_SCHEMA)).toEqual([[OLD_SCHEMA, 'projection-v53']])
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     const current = loaded.hydrated.checkpoint
