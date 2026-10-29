@@ -1,0 +1,36 @@
+{
+  "head": "edb1cee4d7c203fa5603b5febebc77d3ba794691",
+  "sourceManifestEntries": 2271,
+  "purpose": "ASTRA Sprint 19 r3 on the FIX-1 candidate (review ACCEPTABLE WITH FIXES -> fixes): root and ui typecheck; market, save-step, season and rights-desk core files; both Owner route saves in Node; Saves and rights-desk ui files; smoke, P18 and portability Chrome journeys; integrity. r1's p12 single measurement stands.",
+  "limits": "focused files; budgets unchanged (core 5000 ms default, ui 30000 ms, the p12 file's own declared leaf budgets); the Owner saves are read in place from the records tree and never copied; the full core gate is deferred to the Sprint 21 integration milestone",
+  "children": [
+    {
+      "label": "root-ui-types"
+    },
+    {
+      "label": "focused-core",
+      "project": "core"
+    },
+    {
+      "label": "owner-save-p18"
+    },
+    {
+      "label": "owner-save-p17"
+    },
+    {
+      "label": "focused-ui",
+      "project": "ui"
+    },
+    {
+      "label": "browser"
+    },
+    {
+      "label": "final-source-integrity"
+    }
+  ],
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "uiMilliseconds": 30000,
+    "timeoutOverride": false
+  }
+}

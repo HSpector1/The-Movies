@@ -1,0 +1,30 @@
+# sprint19-r3 lane summary (bound edb1cee4, FIX-1)
+waiting for pid 0; then: bash /Users/zacheryspector/studio-scratch/astra-20261029/sprint19-r3/run.sh; 2026-10-29 12:20:12 CDT
+start; 2026-10-29 12:20:12 CDT
+end, exit 0; 2026-10-29 12:27:57 CDT
+
+known-missing inputs:        3
+Node v20.20.2; HEAD edb1cee4d7c203fa5603b5febebc77d3ba794691
+=== BEGIN root-ui-types
+=== END root-ui-types exit=0 elapsed=142s
+=== BEGIN focused-core
+ Test Files  10 passed (10)
+      Tests  143 passed (143)
+=== END focused-core exit=0 elapsed=104s
+=== BEGIN owner-save-p18
+{"file":"/Users/zacheryspector/The-Movies-headless-program/docs/engineering/audits/2026-10-22-codebase-review/sprint16-playtest/owner-saves/p18-season-world.json","head":"edb1cee4d7c203fa5603b5febebc77d3ba794691","node":"v20.20.2","saveVersion":51,"week":428,"importMs":556,"assessments":72,"definitions":["p15a1-market-v2"],"reexportBytes":2014848,"reloadByteIdentical":true,"roundTripMs":858,"conti
+=== END owner-save-p18 exit=0 elapsed=7s
+=== BEGIN owner-save-p17
+{"file":"/Users/zacheryspector/The-Movies-headless-program/docs/engineering/audits/2026-10-22-codebase-review/sprint16-playtest/owner-saves/p17-cameo-world.json","head":"edb1cee4d7c203fa5603b5febebc77d3ba794691","node":"v20.20.2","saveVersion":51,"week":1872,"importMs":140,"assessments":0,"definitions":[],"reexportBytes":453449,"reloadByteIdentical":true,"roundTripMs":192,"continuationWeeks":3,"co
+=== END owner-save-p17 exit=0 elapsed=5s
+=== BEGIN focused-ui
+ Test Files  5 passed (5)
+      Tests  60 passed (60)
+=== END focused-ui exit=0 elapsed=64s
+=== BEGIN browser
+  3 passed (2.3m)
+=== END browser exit=0 elapsed=141s
+=== BEGIN final-source-integrity
+=== END final-source-integrity exit=0 elapsed=0s
+=== CHECKPOINT exit=0
+godot lines at launch scan: 0

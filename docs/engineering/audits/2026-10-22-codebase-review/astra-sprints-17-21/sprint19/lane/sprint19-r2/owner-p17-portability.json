@@ -1,0 +1,18 @@
+{
+  "file": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/audits/2026-10-22-codebase-review/sprint16-playtest/owner-saves/p17-cameo-world.json",
+  "head": "53ef65a291b6fe7dbfd9b9e2c8f56058fbab6857",
+  "node": "v20.20.2",
+  "saveVersion": 51,
+  "week": 1872,
+  "importMs": 150,
+  "assessments": 0,
+  "definitions": [],
+  "reexportBytes": 453449,
+  "reloadByteIdentical": true,
+  "roundTripMs": 160,
+  "continuationWeeks": 3,
+  "continuationIdentical": true,
+  "continuationWeek": 1875,
+  "continuationMs": 661,
+  "result": "IMPORTED"
+}

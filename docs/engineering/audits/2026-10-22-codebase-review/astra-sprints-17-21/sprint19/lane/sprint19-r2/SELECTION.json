@@ -1,0 +1,29 @@
+{
+  "head": "53ef65a291b6fe7dbfd9b9e2c8f56058fbab6857",
+  "sourceManifestEntries": 2271,
+  "purpose": "ASTRA Sprint 19 r2 on 53ef65a2: the stages r1 did not reach (r1's run.sh referenced an undefined HEAD variable after the p12 stage, a staging error, and set -u ended it): the two Owner route saves in Node, the Saves and rights-desk ui files, the smoke, P18 and portability Chrome journeys, integrity. r1 stands for typecheck, the focused core files and the p12 single measurement.",
+  "limits": "focused files; budgets unchanged (core 5000 ms default, ui 30000 ms, the p12 file's own declared leaf budgets); the Owner saves are read in place from the records tree and never copied; the full core gate is deferred to the Sprint 21 integration milestone",
+  "children": [
+    {
+      "label": "owner-save-p18"
+    },
+    {
+      "label": "owner-save-p17"
+    },
+    {
+      "label": "focused-ui",
+      "project": "ui"
+    },
+    {
+      "label": "browser"
+    },
+    {
+      "label": "final-source-integrity"
+    }
+  ],
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "uiMilliseconds": 30000,
+    "timeoutOverride": false
+  }
+}

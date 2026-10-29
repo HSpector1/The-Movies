@@ -1,0 +1,40 @@
+{
+  "head": "53ef65a291b6fe7dbfd9b9e2c8f56058fbab6857",
+  "sourceManifestEntries": 2271,
+  "purpose": "ASTRA Sprint 19 r1 on the portable-market candidate (decision D): root and ui typecheck; the market, save-step and season core files; the p12 campaign-library file measured once ALONE under its declared budgets; the two Owner route saves imported, round-tripped and continued three weeks in Node (the P18 one is the Chrome-written save Node refused at 6da4206a); the Saves and rights-desk ui files; the smoke, P18 and portability Chrome journeys; integrity",
+  "limits": "focused files; budgets unchanged (core 5000 ms default, ui 30000 ms, the p12 file's own declared leaf budgets); the Owner saves are read in place from the records tree and never copied; the full core gate is deferred to the Sprint 21 integration milestone",
+  "children": [
+    {
+      "label": "root-ui-types"
+    },
+    {
+      "label": "focused-core",
+      "project": "core"
+    },
+    {
+      "label": "p12-alone",
+      "project": "core"
+    },
+    {
+      "label": "owner-save-p18"
+    },
+    {
+      "label": "owner-save-p17"
+    },
+    {
+      "label": "focused-ui",
+      "project": "ui"
+    },
+    {
+      "label": "browser"
+    },
+    {
+      "label": "final-source-integrity"
+    }
+  ],
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "uiMilliseconds": 30000,
+    "timeoutOverride": false
+  }
+}

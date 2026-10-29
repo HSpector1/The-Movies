@@ -1,0 +1,20 @@
+{
+  "file": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/audits/2026-10-22-codebase-review/sprint16-playtest/owner-saves/p18-season-world.json",
+  "head": "edb1cee4d7c203fa5603b5febebc77d3ba794691",
+  "node": "v20.20.2",
+  "saveVersion": 51,
+  "week": 428,
+  "importMs": 556,
+  "assessments": 72,
+  "definitions": [
+    "p15a1-market-v2"
+  ],
+  "reexportBytes": 2014848,
+  "reloadByteIdentical": true,
+  "roundTripMs": 858,
+  "continuationWeeks": 3,
+  "continuationIdentical": true,
+  "continuationWeek": 431,
+  "continuationMs": 682,
+  "result": "IMPORTED"
+}

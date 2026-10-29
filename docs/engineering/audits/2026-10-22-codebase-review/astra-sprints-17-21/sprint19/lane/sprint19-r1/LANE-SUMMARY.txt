@@ -1,0 +1,36 @@
+# sprint19-r1 lane summary (bound 53ef65a2)
+waiting for pid 0; then: bash /Users/zacheryspector/studio-scratch/astra-20261029/sprint19-r1/run.sh; 2026-10-29 11:57:30 CDT
+start; 2026-10-29 11:57:30 CDT
+end, exit 1; 2026-10-29 12:01:41 CDT
+
+known-missing inputs:        3
+Node v20.20.2; HEAD 53ef65a291b6fe7dbfd9b9e2c8f56058fbab6857
+=== BEGIN root-ui-types
+=== END root-ui-types exit=0 elapsed=97s
+=== BEGIN focused-core
+ Test Files  10 passed (10)
+      Tests  152 passed (152)
+=== END focused-core exit=0 elapsed=77s
+=== BEGIN p12-alone
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+ Test Files  1 failed (1)
+      Tests  6 failed | 7 passed (13)
+=== END p12-alone exit=1 elapsed=75s
+
+ended early: run.sh line 51 'HEAD: unbound variable' (staging error: the stage template lacked the HEAD definition the owner-save stages reference; set -u ended the script). The unreached stages run in sprint19-r2.
+
+p12 single measurement (tests/bridge-p12-campaign-library.test.ts ALONE, budgets unchanged):
+  passed   3532 ms  keeps a reviewed contract quote usable across failed and successful catalogue-on
+  passed   2765 ms  keeps a reviewed contract quote usable across failed and successful catalogue-on
+  failed   5228 ms  keeps the shipped Save route and save-before-load consistent with the named reco
+  failed   5214 ms  rejects a corrupted cross-world active binding and stops on an uncertain commit
+  passed   4472 ms  saves atomically across the bounded replay journal with a new logical session
+  failed   5471 ms  branches CURRENT complete state, preserves original records, switches scope and 
+  failed   5007 ms  makes failed writes, cancel/unsaved conflicts, stale targets and rename collisio
+  failed   5454 ms  requires exact delete/overwrite confirmation and never recreates a deleted activ
+  passed   5559 ms  imports real old current/saved checkpoints as independently recoverable records 
+  failed   6949 ms  recovers different-world legacy slots and null saved state, preserving exact ori
+  passed   4491 ms  branches a full journal without changing source bytes and retries the exact dura
+  passed   8162 ms  durably save dirty progress while preserving two inactive worlds and failed-writ
+  passed   6221 ms  durably discard dirty progress while preserving two inactive worlds and failed-w
+godot lines at launch scan: 0
