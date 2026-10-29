@@ -1,0 +1,121 @@
+{
+  "config": {
+    "argv": [
+      "/usr/local/bin/node",
+      "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/node_modules/@playwright/test/cli.js",
+      "test",
+      "--config",
+      "ui/playwright.config.ts",
+      "lot-key-capture-v1.spec.ts",
+      "--reporter=list,json"
+    ],
+    "configFile": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/playwright.config.ts",
+    "rootDir": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/e2e",
+        "testIgnore": [
+          "/.*current-break-audit\\.spec\\.ts$/"
+        ],
+        "testMatch": [
+          "/.*\\.spec\\.ts$/"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "lot-key-capture-v1.spec.ts",
+      "file": "lot-key-capture-v1.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "a focused control keeps the arrows and Space; the world takes them once the canvas has focus",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11732,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-29T22:38:21.581Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9cddb2535f758f603039-20bd3109696c31bfab79",
+          "file": "lot-key-capture-v1.spec.ts",
+          "line": 277,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-29T22:38:09.281Z",
+    "duration": 28150.653,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}
