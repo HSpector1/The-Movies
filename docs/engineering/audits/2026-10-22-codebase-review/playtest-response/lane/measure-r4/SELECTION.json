@@ -1,0 +1,15 @@
+{
+  "head": "b3c179b07fd1d41446c2f5ea00872a9e38b94703",
+  "sourceManifestEntries": 2131,
+  "purpose": "playtest-response measure-r4: decision 3b detail (which save roots grow over 128 idle weeks from the operated 1872 world; the Chrome-written p18 file is reported as refused instead of aborting the probe) save cost on the two Owner route saves and idle continuation (save-growth.ts). No test budgets involved; nothing written into the tree.",
+  "children": [
+    {
+      "label": "save-growth",
+      "command": "node node_modules/vite-node/vite-node.mjs --root <wt> <run>/save-growth.ts > out/save-growth.json"
+    }
+  ],
+  "budgets": {
+    "timeoutOverride": false,
+    "note": "measurement only"
+  }
+}

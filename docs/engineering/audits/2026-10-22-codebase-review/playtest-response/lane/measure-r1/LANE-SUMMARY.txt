@@ -1,0 +1,6 @@
+=== BEGIN p12-profile
+=== END p12-profile exit=0 elapsed=22s
+=== BEGIN save-cost
+=== END save-cost exit=1 elapsed=8s
+=== CHECKPOINT exit=1
+end, exit 1; 2026-10-28 21:00:56 CDT

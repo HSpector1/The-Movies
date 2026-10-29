@@ -1,0 +1,19 @@
+{
+  "head": "57fc768a85425b083c488d22fe8edf0b53b302ce",
+  "sourceManifestEntries": 2649,
+  "purpose": "playtest-response red-r1: the two witness files on the RED worktree (branch playtest-response-red-20261028 = b3c179b0 + the witness files only): expected FAIL by assertion in s14 W3 (season still live on a rights stall) and in the new p18-delivery participant case; every other case in both files expected unchanged",
+  "children": [
+    {
+      "label": "red-s14-w3",
+      "command": "vitest run --project core tests/s14-season-route-witnesses.test.ts"
+    },
+    {
+      "label": "red-p18-delivery",
+      "command": "vitest run --project core tests/p18-delivery.test.ts"
+    }
+  ],
+  "budgets": {
+    "timeoutOverride": false,
+    "note": "spec-declared budgets unchanged"
+  }
+}

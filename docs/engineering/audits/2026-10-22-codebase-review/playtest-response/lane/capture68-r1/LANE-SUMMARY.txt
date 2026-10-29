@@ -1,0 +1,5 @@
+=== BEGIN capture68
+captured outgoing68
+=== END capture68 exit=0 elapsed=7s
+=== CHECKPOINT exit=0
+end, exit 0; 2026-10-28 21:11:57 CDT

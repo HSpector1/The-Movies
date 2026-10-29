@@ -1,0 +1,20 @@
+{
+ "storeBytes": 749282,
+ "firstWeek": 12,
+ "marks": {
+  "createCoordinator": 3001,
+  "saveAs": 638,
+  "decodeLibrary": 37,
+  "advance1": 716,
+  "state(store) decode+import+migrate": 76,
+  "snapshot": 53,
+  "dispatch save": 286,
+  "load": 689,
+  "state(store) 2": 89,
+  "advance2": 641,
+  "state(store) 3": 91,
+  "load with save": 1583,
+  "state(store) 4": 91,
+  "close": 0
+ },
+ "totalMs": 7991

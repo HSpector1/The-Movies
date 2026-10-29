@@ -1,0 +1,97 @@
+{
+ "top": [
+  {
+   "root": "state",
+   "at1872": 453372,
+   "at2000": 2141753,
+   "delta": 1688381
+  },
+  {
+   "root": "saveVersion",
+   "at1872": 2,
+   "at2000": 2,
+   "delta": 0
+  },
+  {
+   "root": "seed",
+   "at1872": 22,
+   "at2000": 22,
+   "delta": 0
+  },
+  {
+   "root": "broadcastCache",
+   "at1872": 2,
+   "at2000": 2,
+   "delta": 0
+  }
+ ],
+ "total": {
+  "at1872": 453398,
+  "at2000": 2141779
+ }
+}
+{
+ "root": "state",
+ "children": [
+  {
+   "key": "hollywood",
+   "at1872": 51711,
+   "at2000": 1337088,
+   "delta": 1285377
+  },
+  {
+   "key": "rights",
+   "at1872": 256,
+   "at2000": 127430,
+   "delta": 127174
+  },
+  {
+   "key": "sharedMarket",
+   "at1872": 51,
+   "at2000": 56973,
+   "delta": 56922
+  },
+  {
+   "key": "relationships",
+   "at1872": 2,
+   "at2000": 50680,
+   "delta": 50678
+  },
+  {
+   "key": "studioHistory",
+   "at1872": 687,
+   "at2000": 45104,
+   "delta": 44417
+  },
+  {
+   "key": "firstTakes",
+   "at1872": 2,
+   "at2000": 22653,
+   "delta": 22651
+  },
+  {
+   "key": "technology",
+   "at1872": 19149,
+   "at2000": 41002,
+   "delta": 21853
+  },
+  {
+   "key": "powerRanking",
+   "at1872": 1602,
+   "at2000": 21705,
+   "delta": 20103
+  },
+  {
+   "key": "ledger",
+   "at1872": 152,
+   "at2000": 19480,
+   "delta": 19328
+  },
+  {
+   "key": "talent",
+   "at1872": 326492,
+   "at2000": 339916,
+   "delta": 13424
+  }
+ ]
+}

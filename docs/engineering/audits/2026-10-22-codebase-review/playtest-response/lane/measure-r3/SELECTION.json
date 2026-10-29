@@ -1,0 +1,15 @@
+{
+  "head": "b3c179b07fd1d41446c2f5ea00872a9e38b94703",
+  "sourceManifestEntries": 2131,
+  "purpose": "playtest-response measure-r3: decision 3b (rerun 2: the player closure stops the idle walk and is reported; the Chrome-written p18 file is reported as refused instead of aborting the probe) save cost on the two Owner route saves and idle continuation (save-cost.ts). No test budgets involved; nothing written into the tree.",
+  "children": [
+    {
+      "label": "save-cost",
+      "command": "node node_modules/vite-node/vite-node.mjs --root <wt> <run>/save-cost.ts > out/save-cost.json"
+    }
+  ],
+  "budgets": {
+    "timeoutOverride": false,
+    "note": "measurement only"
+  }
+}

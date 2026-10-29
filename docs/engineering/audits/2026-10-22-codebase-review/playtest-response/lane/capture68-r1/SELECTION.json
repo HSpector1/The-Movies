@@ -1,0 +1,15 @@
+{
+  "head": "b3c179b07fd1d41446c2f5ea00872a9e38b94703",
+  "sourceManifestEntries": 2131,
+  "purpose": "playtest-response capture68-r1: genuine outgoing68 runtime checkpoint captured on the immutable snapshot b3c179b0 (projection 68) by capture68.ts (records: playtest-response/bridge-step/tools/), the prior fixture for the projection-69 bump; read-only on the tree",
+  "children": [
+    {
+      "label": "capture68",
+      "command": "env CONTRACT69_OUTPUT=<run>/out node node_modules/vite-node/vite-node.mjs --root <wt> <run>/capture68.ts"
+    }
+  ],
+  "budgets": {
+    "timeoutOverride": false,
+    "note": "measurement only"
+  }
+}

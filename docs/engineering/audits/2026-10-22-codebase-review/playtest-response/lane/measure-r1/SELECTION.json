@@ -1,0 +1,19 @@
+{
+  "head": "b3c179b07fd1d41446c2f5ea00872a9e38b94703",
+  "sourceManifestEntries": 2131,
+  "purpose": "playtest-response measure-r1: decision 6b CPU profile of one p12 campaign-library case replicated with timers (p12-profile.ts, read-only); decision 3b save cost on the two Owner route saves and idle continuation (save-cost.ts). No test budgets involved; nothing written into the tree.",
+  "children": [
+    {
+      "label": "p12-profile",
+      "command": "node --cpu-prof node_modules/vite-node/vite-node.mjs --root <wt> <run>/p12-profile.ts"
+    },
+    {
+      "label": "save-cost",
+      "command": "node node_modules/vite-node/vite-node.mjs --root <wt> <run>/save-cost.ts > out/save-cost.json"
+    }
+  ],
+  "budgets": {
+    "timeoutOverride": false,
+    "note": "measurement only"
+  }
+}

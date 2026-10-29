@@ -1,0 +1,62 @@
+=== BEGIN bridge-p12-campaign-library
+   × R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record 5276ms
+     → Test timed out in 5000ms.
+   × R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart 5492ms
+     → Test timed out in 5000ms.
+   × R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact 5142ms
+     → Test timed out in 5000ms.
+   × R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record 5487ms
+     → Test timed out in 5000ms.
+   × R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals 6618ms
+     → Test timed out in 5000ms.
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+ Test Files  1 failed (1)
+      Tests  5 failed | 8 passed (13)
+=== END bridge-p12-campaign-library exit=1 elapsed=74s
+=== BEGIN focused-core
+   × CF-08 sound union-to-C# generation > current accepted contract and future sentinel > pins exact positive output identities and deterministic rerendering 414ms
+     → F10_CURRENT_QUOTE_UNIONS: expected '6e239527efc21ac14734a2ca66fa6f375c7e5…' to be 'b41569678a1327bee21a372317032527a1efe…' // Object.is equality
+   × family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > p13a-core-causal-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only 8575ms
+     → expected [ { week: 208, …(11) }, …(17) ] to have a length of 40 but got 18
+   × family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > seed-b: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only 10323ms
+     → expected [ { week: 208, …(11) }, …(46) ] to have a length of 48 but got 47
+   × family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > p13b-s8-bridge-probe-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only 11226ms
+     → expected [ { week: 208, …(11) }, …(42) ] to have a length of 48 but got 43
+   × family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > p13-public-commercial-adoption: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only 10841ms
+     → expected [ { week: 208, …(11) }, …(35) ] to have a length of 48 but got 36
+   × family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > the MOST EXPOSED shared fixture, poachingFixture (p14b2-fixtures.ts :145-211; consumers bridge-p14b2-trust, p14b2-fixture-preconditions): the week-208 reasons pin and endedWeek 208 hold, and under D1 no survivor holds a shared-take counterpart 3646ms
+     → expected 208 to be 52 // Object.is equality
+   × P4/P5 closed Bridge material and outgoing runtime authority > B55-1 validates closed singular drafts and discloses only actual own material 16ms
+     → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json'
+   × P4/P5 closed Bridge material and outgoing runtime authority > B55-2 binds actual genre work and preserves material through an own waiver chain 2ms
+     → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/MANIFEST.json'
+   × P4/P5 closed Bridge material and outgoing runtime authority > B55-3 independently migrates genuine54 slots and resets only prior runtime authority 2ms
+     → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/MANIFEST.json'
+   × P14B.2 group3 — one bound-only newest-first history DTO on both carriers > does not publish another studio’s real bound history as the player’s own terms 4867ms
+     → P14B.2 fixture: no natural rival-only promise outcome by 240
+   × P14B.2 group5 — independent promise attention after cases close > raises due at minus8 but not minus9 for an actual player poaching winner with no proposals 4624ms
+     → expected 208 to be 52 // Object.is equality
+   × P14B.2 group5 — independent promise attention after cases close > raises the poaching winner’s actual outcome only in its recorded week, once per cause/person 3635ms
+     → expected 208 to be 52 // Object.is equality
+   × P14B.2 group5 — independent promise attention after cases close > does not require any case entry to retain a real promise reminder (explicit read-only case-carrier probe) 3537ms
+     → expected 208 to be 52 // Object.is equality
+   × P14B.2 group5 — independent promise attention after cases close > ignores real withdrawn unbound drafts near due and never interrupts for rival-issued promises 4494ms
+     → P14B.2 fixture: no natural rival-only promise outcome by 240
+   × P14B.2 group7 — rival terms stay private and rival outcomes stay public > keeps open rival proposal terms literal UNKNOWN across Profile and Market 4089ms
+     → P14B.2 fixture: no natural rival-only promise outcome by 240
+   × P14B.2 group7 — rival terms stay private and rival outcomes stay public > publishes the real rival kept outcome and aggregate label while withholding bound history terms 4965ms
+     → P14B.2 fixture: no natural rival-only promise outcome by 240
+   × P14B.2 group7 — rival terms stay private and rival outcomes stay public > is semantically unchanged when only hidden terminal terms vary, retaining real outcome/event identities 3783ms
+     → P14B.2 fixture: no natural rival-only promise outcome by 240
+   × S14 W3 — an R1 title sale during a live season cancels it at once (contract §7; Owner decision 7c) > the first advance after the sale cancels the season at once (cause rights): nothing credited or spent, U0 then K paid, people and slots released 50ms
+     → expected [ 431 ] to deeply equal [ 431, 431 ]
+⎯⎯⎯⎯⎯⎯ Failed Tests 18 ⎯⎯⎯⎯⎯⎯⎯
+ Test Files  5 failed | 14 passed (19)
+      Tests  18 failed | 406 passed (424)
+=== END focused-core exit=1 elapsed=546s
+=== BEGIN focused-ui
+ Test Files  1 passed (1)
+      Tests  9 passed (9)
+=== END focused-ui exit=0 elapsed=20s
+=== CHECKPOINT exit=1
+end, exit 1; 2026-10-28 21:36:54 CDT

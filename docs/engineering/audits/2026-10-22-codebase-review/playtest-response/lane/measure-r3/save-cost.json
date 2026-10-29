@@ -1,0 +1,47 @@
+[
+ {
+  "label": "p17-cameo-world.json as exported",
+  "week": 1872,
+  "cash": 19873344,
+  "makeSaveMs": 34.7,
+  "validateMs": 20.6,
+  "exportMs": 35.2,
+  "bytes": 453449,
+  "rivalsAlive": 8,
+  "closure": null
+ },
+ {
+  "label": "p17-cameo-world.json idle to 2000",
+  "week": 2000,
+  "cash": 3661376,
+  "makeSaveMs": 194.2,
+  "validateMs": 100.6,
+  "exportMs": 160.1,
+  "bytes": 2141830,
+  "rivalsAlive": 8,
+  "closure": null,
+  "ticks": 128,
+  "tickMsTotal": 3584,
+  "msPerTick": 28,
+  "closed": null
+ },
+ {
+  "label": "p17-cameo-world.json idle to 2500 (stopped: player closed)",
+  "week": 2061,
+  "cash": -4064640,
+  "makeSaveMs": 195.4,
+  "validateMs": 188.2,
+  "exportMs": 265.8,
+  "bytes": 2765067,
+  "rivalsAlive": 8,
+  "closure": null,
+  "ticks": 189,
+  "tickMsTotal": 5665,
+  "msPerTick": 29.97,
+  "closed": "tick: the studio closed in week 2061 and is read-only history; nothing advances or acts after an actual closure (closure"
+ },
+ {
+  "label": "p18-season-world.json REFUSED by Node import (decision 5: the p18 file was written by Chrome)",
+  "error": "validateSaveV45: sharedMarket assessment studio-373a3bcc-r04:film:4 factor does not reconcile with p15a1-market-v2"
+ }
+]

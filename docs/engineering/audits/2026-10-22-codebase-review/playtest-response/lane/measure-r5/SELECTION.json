@@ -1,0 +1,15 @@
+{
+  "head": "6a846c997a6caac18bf32973518d24e5baab2850",
+  "sourceManifestEntries": 2236,
+  "purpose": "playtest-response measure-r5: the measure-r1 p12 case profile repeated on the repaired schema runtime (decision 6b) to read what remains of the five overruns; read-only",
+  "children": [
+    {
+      "label": "p12-profile",
+      "command": "node --cpu-prof node_modules/vite-node/vite-node.mjs --root <wt> <run>/p12-profile.ts"
+    }
+  ],
+  "budgets": {
+    "timeoutOverride": false,
+    "note": "measurement only"
+  }
+}

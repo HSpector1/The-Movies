@@ -1,0 +1,18 @@
+=== BEGIN red-s14-w3
+   × S14 W3 — an R1 title sale during a live season cancels it at once (contract §7; Owner decision 7c) > the first advance after the sale cancels the season at once (cause rights): nothing credited or spent, U0 then K paid, people and slots released 18ms
+     → advances between the sale and the terminal state: expected 17 to be 1 // Object.is equality
+   × S14 W3 — an R1 title sale during a live season cancels it at once (contract §7; Owner decision 7c) > after the cancellation a further advance works, credits and charges nothing on the agreement 9ms
+     → expected 'live' to be 'cancelled' // Object.is equality
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+ Test Files  1 failed (1)
+      Tests  2 failed | 8 passed (10)
+=== END red-s14-w3 exit=1 elapsed=34s
+=== BEGIN red-p18-delivery
+   × P18 cancellation — a required person lost mid-season cancels at once (contract §4, §7) > cancels at the boundary with cause participant, pays U0 then K from available cash, releases every slot and credits nothing 15ms
+     → expected 'live' to be 'cancelled' // Object.is equality
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ Test Files  1 failed (1)
+      Tests  1 failed | 18 passed (19)
+=== END red-p18-delivery exit=1 elapsed=37s
+=== CHECKPOINT exit=1
+end, exit 1; 2026-10-28 21:25:23 CDT

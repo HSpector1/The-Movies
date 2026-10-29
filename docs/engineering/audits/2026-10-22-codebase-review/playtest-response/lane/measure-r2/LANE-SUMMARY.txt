@@ -1,0 +1,4 @@
+=== BEGIN save-cost
+=== END save-cost exit=1 elapsed=10s
+=== CHECKPOINT exit=1
+end, exit 1; 2026-10-28 21:02:53 CDT

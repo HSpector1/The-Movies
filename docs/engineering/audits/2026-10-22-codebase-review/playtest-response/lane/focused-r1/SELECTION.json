@@ -1,0 +1,23 @@
+{
+  "head": "bab5f462724db23b9a5738ebaaca8ad5b17a41b2",
+  "sourceManifestEntries": 2133,
+  "purpose": "playtest-response focused-r1 on the slice candidate bab5f462: (1) bridge-p12-campaign-library alone (decision 6b timing: the eleven inherited timeouts measured alone after the schema-runtime change; budgets unchanged); (2) the touched core files: the two witnesses expected GREEN, the P18 files, the lock/generator/schema/checkpoint files and the swept prior-roster files (the F10/F11 body pins are expected to fail once and be pinned from this run); (3) the ui P18 tests",
+  "children": [
+    {
+      "label": "bridge-p12-campaign-library",
+      "command": "vitest run --project core tests/bridge-p12-campaign-library.test.ts"
+    },
+    {
+      "label": "focused-core",
+      "command": "vitest run --project core <19 files>"
+    },
+    {
+      "label": "focused-ui",
+      "command": "vitest run --project ui <p18 ui tests>"
+    }
+  ],
+  "budgets": {
+    "timeoutOverride": false,
+    "note": "spec-declared budgets unchanged"
+  }
+}
