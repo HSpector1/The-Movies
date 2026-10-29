@@ -1,0 +1,16 @@
+{
+  "generatedContractSha256": "2e6cae58ccca518805d25549edee023f03dc1e2a0777e21c5994204599265061",
+  "generatorSourceSha256": "f5613506f54f8ae4f2a8ce77b79fba05a261325e3c54fdd363c6dbc7397c1edf",
+  "generatorVersion": 1,
+  "projectionVersion": 70,
+  "protocolVersion": 4,
+  "result": "PASS",
+  "schemaId": "sha256:aaafd0bdf597d3538acc5cb77568dd38de43dd50c7f052767ee40bb8e16ea448",
+  "typescriptCommit": "777b00bc8f3a91d7bee6de8718d7343b47a66e5a",
+  "typescriptGeneratedContractGitBlob": "7539b8e173dc29c8809a3ad93ad8bc45a71dad0d",
+  "typescriptRepository": "HSpector1/The-Movies",
+  "unityCommit": "08e335fc87407c5e9c539633d03cc3a7002d1f93",
+  "unityGeneratedContractGitBlob": "7539b8e173dc29c8809a3ad93ad8bc45a71dad0d",
+  "unityRepository": "HSpector1/project-studio-unity-visual-spike",
+  "verificationMode": "seal"
+}
