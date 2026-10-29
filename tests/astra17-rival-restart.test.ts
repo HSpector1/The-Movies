@@ -3,13 +3,13 @@
 // private copies with the restrictions lifted, would commission a screenplay or greenlight a film that week.
 // Nothing is forced: the real pass then repeats the same deterministic laws on the real records. The entry law,
 // the R3 release law, the greenlight exit and the 1366-O O6 loan exit are unchanged.
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import * as policyModule from '../src/core/hollywoodPolicy.js'
 import { tick } from '../src/core/tick.js'
 import { exportSave, importSave, makeSave, migrateToLive } from '../src/core/save.js'
 import { p13aGeneratedStudio, advanceTo } from '../src/harness/p13a/fixtures.js'
 import { TUNING } from '../src/core/tuning.js'
-import { liveWeek130, RIVAL_R01 } from './p14d1-rival-shelving-fixtures.js'
+import { liveWeek100, liveWeek130, RIVAL_R01 } from './p14d1-rival-shelving-fixtures.js'
 import type { GameState } from '../src/core/types.js'
 import type { IndustryReceipt, RivalBusiness } from '../src/core/hollywoodTypes.js'
 
@@ -66,7 +66,7 @@ describe('a released team restarts when the ordinary laws would commission (p13a
   // labelled synthetic control cuttingInput() writes (never evidence of natural entry); everything after it is
   // natural ticks under the real laws.
   const TIMEOUT = 60_000
-  it('stays restricted through the interval, then exits, re-staffs at its own cost and commissions in one week; the save round-trips', () => {
+  it('stays restricted through the interval, then exits, re-staffs at its own cost, greenlights and commissions in one week; the save round-trips', () => {
     const original = advanceTo(p13aGeneratedStudio(), 3), id = rowOne(original)
     let state = cuttingInput(original, id)
     const since = state.market.tick
@@ -93,7 +93,8 @@ describe('a released team restarts when the ordinary laws would commission (p13a
     expect(hired.length, 'the ordinary staffing law filled the shed roles').toBeGreaterThan(0)
     const commissioned = b.development.projects.length > business(beforeRestart, id).development.projects.length
     const announced = rows.some(r => r.kind === 'filmAnnounced')
-    expect(commissioned || announced, 'the restart commissioned a screenplay or greenlit a film in the same week').toBe(true)
+    expect(announced, 'the ready screenplay was greenlit with the restored team').toBe(true)
+    expect(commissioned, 'and the freed index slot took a new commission in the same decision').toBe(true)
     // Costs are real: signing bonuses for the hires were paid from the rival's own account this week.
     const before = movements(beforeRestart, id), after = movements(restarted, id)
     expect(after['signing']!).toBeLessThan(before['signing']!)
@@ -115,15 +116,30 @@ describe('no restart without an opportunity (genuine v42 week-130 stall fixture,
   // (the 1344 shelving fixture). Cash is not an opportunity: the examination runs at the interval and fails,
   // cutting continues, and no hire, loan or film is created by the policy.
   const TIMEOUT = 120_000
-  it('examines at the interval, finds no commission or greenlight, and keeps every restriction', () => {
+  it('examines at the interval, finds no commission or greenlight, keeps every restriction, and the failed examination leaves no trace', () => {
     const original = liveWeek130()
     let state = cuttingInput(original, RIVAL_R01)
     const since = state.market.tick
     const projectsBefore = business(state, RIVAL_R01).development.projects.length
-    for (let w = 0; w <= RETRY; w++) {
+    for (let w = 0; w < RETRY; w++) {
       state = tick(state)
       expect(business(state, RIVAL_R01).costCutting.since, `week ${state.market.tick}`).toBe(since)
     }
+    expect(state.market.tick).toBe(since + RETRY)
+    // The examination week, observed through the cadence seam: it ran for r01 and failed.
+    const api = policyModule as unknown as { rivalCostCuttingRestartDue: (since: number, week: number) => boolean }
+    const spy = vi.spyOn(api, 'rivalCostCuttingRestartDue')
+    let live: GameState
+    try {
+      live = tick(state)
+      expect(spy.mock.calls.some(([s, w]) => s === since && w === since + RETRY), 'the examination was due and consulted').toBe(true)
+      expect(business(live, RIVAL_R01).costCutting.since).toBe(since)
+      // With the cadence forced off, the same week produces the same save byte for byte: a failed examination keeps nothing.
+      spy.mockReturnValue(false)
+      const skipped = tick(state)
+      expect(exportSave(makeSave(skipped))).toBe(exportSave(makeSave(live)))
+    } finally { spy.mockRestore() }
+    state = live
     expect(state.market.tick).toBe(since + RETRY + 1)
     const rows = receiptsOf(state, RIVAL_R01, since)
     expect(hires(rows, RIVAL_R01)).toHaveLength(0)
@@ -131,5 +147,36 @@ describe('no restart without an opportunity (genuine v42 week-130 stall fixture,
     expect(business(state, RIVAL_R01).development.projects.length).toBe(projectsBefore)
     expect(movements(state, RIVAL_R01)['loanPrincipal'] ?? 0).toBe(movements(original, RIVAL_R01)['loanPrincipal'] ?? 0)
     makeSave(state)
+  }, TIMEOUT)
+})
+
+describe('an opportunity without the money stays in cutting (genuine v42 week-100 fixture, rival r04)', () => {
+  // r04 at week 100 holds one ready screenplay, a six-person team and 3.75 M in cash: the cash level the natural
+  // entries show (ENTRY.md, 4c correction). After the release law's charges the examination finds the restart
+  // unaffordable under the ordinary reserve and package laws, so the rival stays in cutting with nothing created.
+  const TIMEOUT = 120_000
+  it('is examined at the interval and refused for cash, not for want of a screenplay', () => {
+    const original = liveWeek100()
+    const id = original.hollywood!.businesses.find(b => b.studioId.endsWith('-r04'))!.studioId
+    expect(business(original, id).development.projects.filter(p => p.status === 'ready'), 'premise: one ready screenplay').toHaveLength(1)
+    let state = cuttingInput(original, id)
+    const since = state.market.tick
+    for (let w = 0; w < RETRY; w++) state = tick(state)
+    const shed = terminations(receiptsOf(state, id, since))
+    expect(shed.length, 'premise: the release law shed people').toBeGreaterThan(0)
+    const api = policyModule as unknown as { rivalCostCuttingRestartDue: (since: number, week: number) => boolean }
+    const spy = vi.spyOn(api, 'rivalCostCuttingRestartDue')
+    let next: GameState
+    try {
+      next = tick(state)
+      expect(spy.mock.calls.some(([s, w]) => s === since && w === since + RETRY), 'the examination was due and consulted').toBe(true)
+    } finally { spy.mockRestore() }
+    expect(business(next, id).costCutting.since).toBe(since)
+    const rows = receiptsOf(next, id, since + RETRY)
+    expect(hires(rows, id)).toHaveLength(0)
+    expect(rows.some(r => r.kind === 'filmAnnounced')).toBe(false)
+    expect(business(next, id).development.projects.filter(p => p.status === 'ready')).toHaveLength(1)
+    expect(movements(next, id)['loanPrincipal'] ?? 0).toBe(movements(original, id)['loanPrincipal'] ?? 0)
+    makeSave(next)
   }, TIMEOUT)
 })

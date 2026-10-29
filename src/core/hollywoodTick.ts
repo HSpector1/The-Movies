@@ -439,10 +439,12 @@ function restartWouldCommit(state:GameState,h:HollywoodState,b:RivalBusiness,tal
   const trial:RivalBusiness=structuredClone({...b,costCutting:{version:1,since:null}})
   const scratch:HollywoodState={...h,employment:[...h.employment],activeEmploymentOrdinals:[...h.activeEmploymentOrdinals],
     receipts:[...h.receipts],concepts:[...h.concepts],businesses:h.businesses.map(row=>row.studioId===b.studioId?trial:row)}
+  let staffed=talent
   const probe=():GameState=>({...state,hollywood:scratch,talent:staffed})
   const facts:StaffingCashFacts={unfilledFilmSlotForCash:false,renewalRefusedForCash:false,unrelatedScientistSlotRefusedForCash:false}
   const greenlights:{studioId:string;production:Production}[]=[]
-  let staffed=talent
+  // Note (review): staff() may re-hire people this studio released, at a fresh offer under the R1 floor, with the
+  // existing receipt reason 'renewal'; that is the unchanged staff() law, not a rule of the examination.
   staffed=staff(probe(),scratch,trial,talent,week,
     Array.from({length:rivalScientistDemand(probe(),scratch,trial,talent,week)},()=>'scientist' as const),[],facts)
   const physicalPlans=admitRivalPlansInWeek(probe(),scratch,trial,state.physicalPlans,week)
