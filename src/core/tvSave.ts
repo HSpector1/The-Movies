@@ -179,7 +179,7 @@ export function validateP18Roots(raw: Record<string, unknown>, label: string): v
   }
   // Every television ledger row carries exactly one money receipt's effect, at its sign and week. A tick-written
   // receipt is dated at the boundary T and its row at the advance week T − 1; an action's receipt and row share a week.
-  // A settlement payment is the deadline's (tick) only when the cancellation transaction itself wrote it.
+  // A settlement payment is a tick cause's (dated T − 1) only when the cancellation transaction itself wrote it.
   const paymentWeek = (r: Extract<TvReceipt, { source: string }>): number =>
     r.source === 'cancellation' && TICK_CANCELLATION_CAUSES.has(root.seasons.find((s) => s.seasonId === r.seasonId)?.cancellation?.cause) ? r.week - 1 : r.week
   const carried = new Set<string>()
@@ -283,8 +283,10 @@ function validateTerminal(s: TvSeason, rest: GameState, fail: (rule: string) => 
     if (!sameKeys(c, ['cause', 'week']) || !whole(c!.week) || c!.week < s.commitWeek || c!.week > week || (last !== null && c!.week < last)) fail(`season ${s.seasonId} cancellation shape or week`)
     // The deadline cancels AT the final boundary; the producer's action, the closure and the tick's authority-loss
     // cancellations ('rights', 'participant': contract §7) all precede it.
+    // The tick writes 'rights' and 'participant' at a boundary T = week + 1 ≥ C + 1 (review FIX-1 item 7), never at C.
     const onBoundary = c!.cause === 'deadline' ? c!.week === s.finalWeek
-      : (c!.cause === 'producer' || c!.cause === 'closure' || c!.cause === 'rights' || c!.cause === 'participant') && c!.week < s.finalWeek
+      : c!.cause === 'rights' || c!.cause === 'participant' ? c!.week > s.commitWeek && c!.week < s.finalWeek
+      : (c!.cause === 'producer' || c!.cause === 'closure') && c!.week < s.finalWeek
     if (!onBoundary) fail(`season ${s.seasonId} cancellation cause ${String(c!.cause)} at week ${c!.week} disagrees with its final boundary ${s.finalWeek}`)
   }
   if (s.status !== 'live' && (s.reservations.length > 0 || s.work.stall !== null)) fail(`season ${s.seasonId} is ${s.status} but still holds a slot or a stall`)

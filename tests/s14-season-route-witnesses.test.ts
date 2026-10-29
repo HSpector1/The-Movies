@@ -40,7 +40,7 @@ import { applyActions } from '../src/core/actions.js'
 import { activeProductionCompanyTalentIds, activeWritingAssignmentIds, busyTalentIds } from '../src/core/employment.js'
 import { assertNoDoubleBookedResourceSlots, occupiedResourceSlots } from '../src/core/occupancy.js'
 import { permittedBidderRefusal } from '../src/core/rightsFinance.js'
-import { exportCurrentState, makeSave } from '../src/core/save.js'
+import { exportCurrentState, exportSave, makeSave, validateSaveV51 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { tvDistributionPermission, tvProductionPermission } from '../src/core/tvCommission.js'
 import { tvEngagedTalentIds } from '../src/core/tvReaders.js'
@@ -279,6 +279,19 @@ describe('S14 W3 — an R1 title sale during a live season cancels it at once (c
       .toEqual([...(refund > 0 ? [['tvAdvanceRefund', refund, saleWeek]] : []), ['tvCancellationCharge', a.terms.cancellationCharge, saleWeek]])
     expect(tvDistributionPermission(end, s.propertyId, end.market.tick)).toMatchObject({ kind: 'permitted', licenceId: s.distributionLicenceId })
     expect(() => makeSave(end)).not.toThrow()
+  })
+
+  it('the validator accepts the tick causes only at a boundary after C and before the final week (review FIX-1 items 7, 9)', () => {
+    const end = after[0]!
+    const envelope = () => JSON.parse(exportSave(makeSave(end))) as { state: { television: { seasons: { cancellation: { week: number; cause: string } }[] } } }
+    expect(() => validateSaveV51(envelope())).not.toThrow()
+    const asParticipant = envelope(); asParticipant.state.television.seasons[0]!.cancellation.cause = 'participant'
+    // The same money and boundary rule as 'rights': the record is accepted on reload, cause by cause.
+    expect(() => validateSaveV51(asParticipant)).not.toThrow()
+    const atCommit = envelope(); atCommit.state.television.seasons[0]!.cancellation.week = season(end).commitWeek
+    // The season credited work before the sale, so the week-order rule (a cancellation before the last credited week) refuses
+    // this record first; a season that credited nothing is refused by the tick-cause rule itself. Either refusal is by name.
+    expect(() => validateSaveV51(atCommit)).toThrow(/cancellation (shape or week|cause rights at week \d+ disagrees with its final boundary)/)
   })
 
   it('after the cancellation a further advance works, credits and charges nothing on the agreement', () => {

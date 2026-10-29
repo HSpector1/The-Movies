@@ -674,7 +674,7 @@ describe('CF-09 post-commit attestation', () => {
     const pair = makePair()
     expectCode(() => createAttestation({
       ...pair.request,
-        hostileReviewVerdict: 'REJECT' as 'ACCEPT',
+      hostileReviewVerdict: 'REJECT' as 'ACCEPT',
       attestationPath: join(pair.evidenceRoot, 'contract-gate-attestation.json'),
       editModeEvidence: {
         resultPath: join(pair.evidenceRoot, 'contract-gate-editmode.xml'),
@@ -712,7 +712,7 @@ describe('CF-09 post-commit attestation', () => {
     writeFileSync(outsideLog, 'full EditMode PASS\n')
     expectCode(() => createAttestation({
       ...pair.request,
-        hostileReviewVerdict: 'ACCEPT',
+      hostileReviewVerdict: 'ACCEPT',
       attestationPath: join(pair.evidenceRoot, 'contract-gate-attestation.json'),
       editModeEvidence: {
         resultPath: join(pair.evidenceRoot, 'contract-gate-editmode.xml'),
@@ -727,7 +727,7 @@ describe('CF-09 post-commit attestation', () => {
     writeFileSync(wrongResult, successfulEditModeXml())
     expectCode(() => createAttestation({
       ...pair.request,
-        hostileReviewVerdict: 'ACCEPT',
+      hostileReviewVerdict: 'ACCEPT',
       attestationPath: join(pair.evidenceRoot, 'contract-gate-attestation.json'),
       editModeEvidence: {
         resultPath: wrongResult,
@@ -755,6 +755,22 @@ describe('CF-09 post-commit attestation', () => {
     })
     expect(verified.typescriptSourceCommit).toBe(attestation.typescriptSourceCommit)
     expect(verified.unityConsumerCommit).toBe(attestation.unityConsumerCommit)
+  })
+
+  test('rejects a retired version-1 attestation (with a save version) by name (Owner decision 8b)', () => {
+    const pair = makePair()
+    const attestation = { ...attest(pair), attestationVersion: 1, saveVersion: 19 }
+    const path = writeAttestation(pair, attestation)
+    const error = expectCode(() => verifyAttestation({
+      attestationPath: path,
+      typescriptRoot: pair.typescript.root,
+      typescriptRemote: pair.typescript.remoteName,
+      unityRoot: pair.unity.root,
+      unityRemote: pair.unity.remoteName,
+      evidenceRoot: pair.evidenceRoot,
+      runGeneratorCheck: false,
+    }), 'CF09_ATTESTATION_HASH_MISMATCH')
+    expect(JSON.stringify(error)).toContain('attestationVersion 1')
   })
 
   test('rejects an attestation naming a nonexistent commit', () => {

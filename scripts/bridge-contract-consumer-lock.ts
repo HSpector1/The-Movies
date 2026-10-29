@@ -1873,6 +1873,14 @@ function parseAttestation(bytes: Buffer, path: string): ContractGateAttestationV
     })
   }
   const record = asRecord(value)
+  // Attestation 1 carried a save version; Owner decision 8b retired it (review FIX-1 item 5): name it instead of a key mismatch.
+  if (record !== null && record['attestationVersion'] === 1) {
+    fail({
+      code: 'CF09_ATTESTATION_HASH_MISMATCH', stage: 'attestation', role: 'verifier', path,
+      expected: `attestationVersion ${String(ATTESTATION_VERSION)}`, observed: 'attestationVersion 1 (carried saveVersion; retired by Owner decision 8b)',
+      remediation: 'Re-attest with the current verifier; the save version is no longer part of the attestation.',
+    })
+  }
   const keys = record === null ? [] : Object.keys(record).sort(ordinal)
   if (
     record === null
@@ -1944,7 +1952,7 @@ export function verifyAttestation(request: {
   if (!basicValid || !commandValid) {
     fail({
       code: 'CF09_ATTESTATION_HASH_MISMATCH', stage: 'attestation', role: 'verifier',
-      path: request.attestationPath, expected: 'closed attestationVersion 1 invariants', observed: 'field mismatch',
+      path: request.attestationPath, expected: 'closed attestationVersion 2 invariants', observed: 'field mismatch',
       remediation: 'Use the exact unchanged attestation emitted by seal mode.',
     })
   }

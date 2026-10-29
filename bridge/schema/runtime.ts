@@ -84,7 +84,7 @@ const hasOwn = (record: Record<string, unknown>, key: string): boolean => Object
  * the schema runtime spent a quarter of the bridge-p12 campaign-library time constructing refused-alternative errors
  * (playtest-response measure-r1 CPU profile).
  */
-function firstRefusal(unresolvedSchema: SchemaRecord, value: unknown, path: string, options: ProjectionOptions): string | undefined {
+export function firstRefusal(unresolvedSchema: SchemaRecord, value: unknown, path: string, options: ProjectionOptions): string | undefined {
   const schema = resolveReference(unresolvedSchema)
   if (Array.isArray(schema['oneOf']) || Array.isArray(schema['anyOf'])) return undefined
   if ('const' in schema) return value === schema['const'] ? undefined : `${path}: expected literal ${JSON.stringify(schema['const'])}`
@@ -102,9 +102,10 @@ function firstRefusal(unresolvedSchema: SchemaRecord, value: unknown, path: stri
       const record = value as Record<string, unknown>
       const properties = schema['properties']
       const required = schema['required']
-      if (typeof properties !== 'object' || properties === null || !Array.isArray(required)) return undefined
-      for (const key of required) {
-        if (typeof key === 'string' && (!hasOwn(record, key) || record[key] === undefined)) return `${path}.${key}: required property is missing`
+      // A malformed required list is a plain Error in `project`, which escapes a union; never settle it here (review FIX-1 item 3).
+      if (typeof properties !== 'object' || properties === null || !Array.isArray(required) || !required.every((key) => typeof key === 'string')) return undefined
+      for (const key of required as string[]) {
+        if (!hasOwn(record, key) || record[key] === undefined) return `${path}.${key}: required property is missing`
       }
       if (!options.stripAdditionalProperties && schema['additionalProperties'] === false) {
         const unknown = Object.keys(record).find((key) => !hasOwn(properties as Record<string, unknown>, key))
@@ -128,7 +129,8 @@ function firstRefusal(unresolvedSchema: SchemaRecord, value: unknown, path: stri
 /** Whether a passing `firstRefusal` on this resolved schema is the whole of `project`'s checks for `value`. */
 function settledCompletely(schema: SchemaRecord, value: unknown): boolean {
   if (Array.isArray(schema['oneOf']) || Array.isArray(schema['anyOf'])) return false
-  if ('const' in schema || Array.isArray(schema['enum'])) return schema['type'] !== 'object' && schema['type'] !== 'array'
+  // A literal or an enumeration still runs its type's checks after the value matched (an untyped const falls to the
+  // `default` below and is never settled), so the type switch decides (review FIX-1 item 3).
   switch (schema['type']) {
     case 'null': case 'boolean': return true
     case 'string': return schema['minLength'] === undefined && schema['pattern'] === undefined
@@ -260,6 +262,11 @@ function project(
     default:
       throw new Error(`Unsupported bridge schema type ${String(schema['type'])} at ${path}.`)
   }
+}
+
+/** `project` under explicit options, for the differential exactness test of `firstRefusal`. */
+export function projectForTest(schema: JsonSchema, value: unknown, options: ProjectionOptions): unknown {
+  return project(schemaRecord(schema, '$'), value, '$', options)
 }
 
 export function parseWireValue<TSchema extends JsonSchema>(

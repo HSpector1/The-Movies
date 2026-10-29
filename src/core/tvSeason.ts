@@ -226,9 +226,22 @@ export function advanceTelevisionWeek(state: GameState, facts: { cash: number; s
   return { ...resolved, television: expireTvDistribution(resolved.television!, week + 1) }
 }
 
-/** The cause an authority-loss stall cancels under (contract §7 "rights/person cancellation"), or null for every other stall. */
-export function tvAuthorityLossCause(stall: TvStall | null): Extract<TvCancellationCause, 'rights' | 'participant'> | null {
-  return stall === null ? null : stall.kind === 'rights' ? 'rights' : stall.kind === 'participant' ? 'participant' : null
+/** A P16 refusal that is a genuine end of authority (contract §7): the holder changed, the licence lapsed or the subject was
+ * archived, or the season's distribution licence no longer answers. Every other reason (`noIndustry`, `invalidAsOfWeek`,
+ * `futureWeek`, `unknownSubject`, `noTitleAtDate`, `ambiguousProvenance`, `missingGenesis`) is a broken or forged record. */
+const AUTHORITY_ENDED = /^(production|distribution): (noAuthority:|expired:|archived$|answered by )/
+
+/**
+ * The cause an authority-loss stall cancels under (contract §7 "rights/person cancellation"), or null for every other
+ * stall. A rights stall whose reason is an integrity failure throws by name (review FIX-1 item 2): contract §7 says an
+ * invalidated or forged grant fails validation; it never charges the producer K.
+ */
+export function tvAuthorityLossCause(stall: TvStall | null, seasonId: string): Extract<TvCancellationCause, 'rights' | 'participant'> | null {
+  if (stall === null) return null
+  if (stall.kind === 'participant') return 'participant'
+  if (stall.kind !== 'rights') return null
+  if (AUTHORITY_ENDED.test(stall.reason)) return 'rights'
+  throw new Error(`tv season: season ${seasonId} rights check answered "${stall.reason}", an integrity failure of the title record, not an end of authority; the record fails validation instead of cancelling (contract §7)`)
 }
 
 /** Cancel the live season at `boundary` under the v1 settlement, paying U0 then K from the cash left after this advance's charges. */
@@ -254,12 +267,13 @@ function resolveTelevisionBoundary(state: GameState, worked: TelevisionAdvance, 
   if (tvWorkComplete(season)) {
     const refusal = tvDeliveryRefusal(state, season, week)
     if (refusal === null) return deliverTvSeason(worked, season, boundary, week)
-    const lost = tvAuthorityLossCause(refusal)
+    // Before the final boundary a delivery refusal is always a person or a rights loss (the sound chain is filtered out and
+    // the final boundary is the caller's), so it cancels here (review FIX-1 item 6 removed the unreachable stall write).
+    const lost = tvAuthorityLossCause(refusal, season.seasonId)
     if (lost !== null && boundary < season.finalWeek) return cancelAtBoundary(worked, season, boundary, week, lost)
-    if (boundary < season.finalWeek) return { ...worked, television: replaceSeason(worked.television, { ...season, work: { ...season.work, stall: refusal } }) }
   } else {
     // The same live gate the unit asked (people, both permissions, the sound chain), read at this week, never a stored copy.
-    const lost = tvAuthorityLossCause(tvWorkGate(state, season, week))
+    const lost = tvAuthorityLossCause(tvWorkGate(state, season, week), season.seasonId)
     if (lost !== null && boundary < season.finalWeek) return cancelAtBoundary(worked, season, boundary, week, lost)
   }
   if (boundary < season.finalWeek) return worked
