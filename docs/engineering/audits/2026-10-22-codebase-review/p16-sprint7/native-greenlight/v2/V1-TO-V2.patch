@@ -1,0 +1,282 @@
+--- a/src/core/campaignLegacy.ts
++++ b/src/core/campaignLegacy.ts
+@@ -1,3 +1,4 @@
++import { carriedProductionAuthority, type CarriedProductionAuthority } from './continuedScripts.js'
+ // ── P15C Wave 1: the pure Legacy law `campaign-legacy/v2` ─────────────────────
+ // Authority (docs/engineering/playability-launch-review/evidence/p14b4-20260919/):
+ // Owner rulings 2, 3, 5 and 6 of 1342-O; charter 1353-A §5 as amended by 1353-F (the
+@@ -1036,7 +1037,7 @@
+  * makes every cut. It reads no cash, cost, revenue, loan amount, in-run payment or career money or skill field. A
+  * player film's genre is its concept's; a missing concept refuses by name.
+  */
+-export function legacyFactsFromState(state: GameState, boundaryWeek: number, definition: LegacyDefinitionId = CAMPAIGN_LEGACY_DEFINITION): LegacyFacts {
++export function legacyFactsFromState(state: GameState, boundaryWeek: number, definition: LegacyDefinitionId = CAMPAIGN_LEGACY_DEFINITION, carriedProduction:CarriedProductionAuthority|null = carriedProductionAuthority(state)??null): LegacyFacts {
+   if (state.hollywood === null) fail('state.hollywood', 'must hold the living industry the Legacy reads')
+   const h = state.hollywood
+   const genreOf = new Map(state.concepts.map((concept) => [concept.id, concept.genre]))
+@@ -1048,7 +1049,10 @@
+ 
+   const films: LegacyFilmFact[] = []
+   for (const film of state.studio.releasedFilms) {
+-    const genre = genreOf.get(film.conceptId)
++    const project=carriedProduction?.productionScripts.get(film.productionId)
++    const acquired=project?.conceptId===film.conceptId&&project.status==='produced'
++      ?carriedProduction?.concepts.find(c=>c.id===film.conceptId):undefined
++    const genre = genreOf.get(film.conceptId)??acquired?.genre
+     if (genre === undefined) {
+       fail('state.concepts', `must hold concept ${film.conceptId}, the genre of player film ${film.productionId}`)
+     }
+@@ -1244,12 +1248,12 @@
+  * the frozen entry its definition names, then replays with the catalogue and archetype evaluators
+  * frozen by 1361-F6 ruling 2. It never reads TUNING and refuses malformed state by name.
+  */
+-export function validateCampaignLegacy(raw: Record<string, unknown>, label: string, modern = false, rightsEstate = false): void {
+-  validateLegacyManifest(raw, label, modern, false, rightsEstate)
+-  if (modern) validateLegacyManifest(raw, label, true, true, rightsEstate)
+-}
+-
+-function validateLegacyManifest(raw: Record<string, unknown>, label: string, modern: boolean, ended: boolean, rightsEstate: boolean): void {
++export function validateCampaignLegacy(raw: Record<string, unknown>, label: string, modern = false, rightsEstate = false, carriedProduction?:CarriedProductionAuthority): void {
++  validateLegacyManifest(raw, label, modern, false, rightsEstate, carriedProduction)
++  if (modern) validateLegacyManifest(raw, label, true, true, rightsEstate, carriedProduction)
++}
++
++function validateLegacyManifest(raw: Record<string, unknown>, label: string, modern: boolean, ended: boolean, rightsEstate: boolean, carriedProduction?:CarriedProductionAuthority): void {
+   // An explicit type on the binding makes every call a never-returning call for narrowing.
+   const refuse: (path: string, rule: string) => never = (path, rule) => {
+     throw new Error(`${label}: campaignLegacy${path === '' ? '' : `.${ended ? path.replace(/^official/, 'endOfRun') : path}`} ${rule}`)
+@@ -1420,7 +1424,7 @@
+   // recorded from B or later; notRecorded exactly when the domain records nothing before B. A P15 watermark is
+   // the largest sequence in its root below the official's, exact because the allocator is append order; an
+   // array watermark lies within its root's length, which grows after the freeze.
+-  const facts = legacyFactsFromState(state, cutoff, official.definition)
++  const facts = legacyFactsFromState(state, cutoff, official.definition, carriedProduction??null)
+   const derived = new Map(facts.domains.map((domain) => [domain.domainId, domain]))
+   const lengthOf: Readonly<Record<string, number>> = {
+     playerFilms: state.studio.releasedFilms.length, industryFilms: h.films.length, playerRuns: state.theatricalRuns.length,
+--- a/src/core/continuedScripts.ts
++++ b/src/core/continuedScripts.ts
+@@ -87,19 +87,99 @@
+  const project=markScriptProjectProduced({mode:'managed',projects:[previous]},productionId).projects[0]!
+  return productionDecision(state,previous.id,project,{projectId:previous.id,kind:'productionReleased',week,productionId})
+ }
++/** Only the dereference shapes consumed by the early receipt replay. This is
++ * not a substitute for any frozen/full validator, all of which still run. */
++function assertCarriedHistoryInputShape(state:GameState):void {
++ type Row=Record<string,unknown>
++ const object=(value:unknown,path:string):Row=>{
++  if(value===null||typeof value!=='object'||Array.isArray(value))fail(`native production input ${path} must be an object`)
++  return value as Row
++ }
++ const rows=(value:unknown,path:string):Row[]=>{
++  if(!Array.isArray(value))fail(`native production input ${path} must be an array`)
++  return value.map((row,i)=>object(row,`${path}[${i}]`))
++ }
++ const text=(value:unknown,path:string):void=>{
++  if(typeof value!=='string'||value.length===0)fail(`native production input ${path} must be a string`)
++ }
++ const strings=(value:unknown,path:string):void=>{
++  if(!Array.isArray(value))fail(`native production input ${path} must be an array`)
++  value.forEach((item,i)=>text(item,`${path}[${i}]`))
++ }
++ const script=(value:unknown,path:string):void=>{
++  const p=object(value,path);text(p.id,`${path}.id`);strings(p.writerIds,`${path}.writerIds`)
++ }
++ const production=(value:unknown,path:string):void=>{
++  const p=object(value,path);text(p.id,`${path}.id`);object(p.budget,`${path}.budget`)
++  object(p.forecastSnapshot,`${path}.forecastSnapshot`)
++ }
++ const development=(value:unknown,path:string):void=>{
++  const d=object(value,path);rows(d.projects,`${path}.projects`).forEach((p,i)=>script(p,`${path}.projects[${i}]`))
++ }
++ const operations=(value:unknown,path:string):void=>{
++  const op=object(value,path)
++  rows(op.facilities,`${path}.facilities`).forEach(f=>{text(f.id,`${path}.facility.id`);text(f.name,`${path}.facility.name`)})
++  rows(op.workflows,`${path}.workflows`).forEach(w=>{
++   rows(w.reservations,`${path}.workflow.reservations`)
++   if(w.bindings!==undefined)object(w.bindings,`${path}.workflow.bindings`)
++   if(w.shootingTask!==null)object(w.shootingTask,`${path}.workflow.shootingTask`)
++   if(w.blocker!==null)object(w.blocker,`${path}.workflow.blocker`)
++  })
++ }
++ const observation=(value:unknown,path:string):void=>{
++  const o=object(value,path);rows(o.facilities,`${path}.facilities`);rows(o.placements,`${path}.placements`);rows(o.paidRows,`${path}.paidRows`)
++ }
++ const root=object(state,'state'),h=object(root.hollywood,'hollywood')
++ const market=object(root.market,'market')
++ if(!Number.isSafeInteger(market.tick))fail('native production input market.tick must be a whole week')
++ development(root.scriptDevelopment,'scriptDevelopment')
++ rows(root.ledger,'ledger')
++ const studio=object(root.studio,'studio')
++ rows(studio.activeProductions,'studio.activeProductions').forEach((p,i)=>production(p,`studio.activeProductions[${i}]`))
++ rows(studio.releasedFilms,'studio.releasedFilms')
++ rows(object(root.releaseAuthority,'releaseAuthority').commitments,'releaseAuthority.commitments')
++ rows(object(root.studioClosure,'studioClosure').closures,'studioClosure.closures')
++ rows(object(root.placement,'placement').facilities,'placement.facilities')
++ operations(root.operations,'operations')
++ rows(h.concepts,'hollywood.concepts').forEach((c,i)=>text(c.id,`hollywood.concepts[${i}].id`))
++ rows(h.employment,'hollywood.employment').forEach((e,i)=>object(e.terms,`hollywood.employment[${i}].terms`))
++ const businesses=rows(h.businesses,'hollywood.businesses')
++ const rights=object(root.rights,'rights')
++ if(!Number.isSafeInteger(rights.nextId))fail('native production input rights.nextId must be a whole number')
++ for(const a of rows(rights.absorptions,'rights.absorptions')){
++  text(a.id,'absorption.id')
++  rows(a.continuedProductions,'absorption.continuedProductions').forEach(r=>production(r.originalProduction,'continuedProduction.originalProduction'))
++  rows(a.workSteps,'absorption.workSteps');rows(a.workCancellations,'absorption.workCancellations');rows(a.workReleases,'absorption.workReleases')
++  if(!['absorption-scripts/v3','absorption-scripts/v4','absorption-scripts/v5','absorption-scripts/v6'].includes(a.producerVersion as string))continue
++  const source=businesses.find(b=>b.studioId===a.targetId)
++  if(!source)fail('native production input source business missing')
++  development(source.development,'source.development');rows(source.projects,'source.projects')
++  rows(a.contracts,'absorption.contracts');rows(a.stoppedScripts,'absorption.stoppedScripts')
++  rows(a.continuedScripts,'absorption.continuedScripts').forEach(r=>{
++   script(r.project,'continuedScript.project');script(r.originalScript,'continuedScript.originalScript')
++   object(r.originalCosts,'continuedScript.originalCosts');object(r.reservationAtClose,'continuedScript.reservationAtClose')
++  })
++  rows(a.scriptCompletions,'absorption.scriptCompletions').forEach(r=>observation(r.developmentContext,'completion.developmentContext'))
++  if(a.producerVersion==='absorption-scripts/v3')continue
++  for(const d of rows(a.scriptDecisions,'absorption.scriptDecisions')){
++   text(d.id,'decision.id');text(d.projectId,'decision.projectId')
++   if(d.kind==='greenlight'||d.kind==='cancelProduction')production(d.production,'decision.production')
++   if(d.kind==='greenlight')rows(d.paidRows,'decision.paidRows')
++   if(d.kind!=='rewrite')continue
++   const input=object(d.nativeInput,'rewrite.nativeInput'),authority=object(d.allocationAuthority,'rewrite.allocationAuthority')
++   development(input.development,'rewrite.development');operations(input.operations,'rewrite.operations')
++   rows(authority.productions,'rewrite.productions').forEach(p=>production(p,'rewrite.production'))
++   strings(authority.projectIds,'rewrite.projectIds');strings(authority.workflowIds,'rewrite.workflowIds')
++   observation(authority.developmentContext,'rewrite.developmentContext')
++  }
++ }
++}
+ export function carriedProductionAuthority(state:GameState):CarriedProductionAuthority|undefined {
+  const raw=state.rights?.absorptions
+  // Older saves retain their existing validation traversal and refusal order.
+  if(!Array.isArray(raw)||!raw.some(a=>a&&typeof a==='object'&&a.producerVersion==='absorption-scripts/v6'))return undefined
+- if(raw.some(a=>!a||typeof a!=='object'))fail('invalid native production owner')
++ assertCarriedHistoryInputShape(state)
+  const current=owners(state).filter(a=>a.producerVersion==='absorption-scripts/v6')
+- if(!state.hollywood||!Array.isArray(state.hollywood.businesses)||!Array.isArray(state.hollywood.concepts)||!state.scriptDevelopment||!Array.isArray(state.scriptDevelopment.projects)||!Array.isArray(state.ledger))fail('native production source context missing')
+- for(const a of owners(state)){
+-  const source=state.hollywood.businesses.find(b=>b&&b.studioId===a.targetId)
+-  if(!source||!source.development||!Array.isArray(source.development.projects)||!Array.isArray(source.projects)||!Array.isArray(a.continuedScripts)||!Array.isArray(a.stoppedScripts)||!Array.isArray(a.scriptCompletions))fail('native production source shape differs')
+-  if(a.continuedScripts.some(r=>!r||!r.project||!r.originalScript||!r.originalCosts))fail('native production screenplay shape differs')
+-  if(a.producerVersion!=='absorption-scripts/v3'&&(!Array.isArray(a.scriptDecisions)||a.scriptDecisions.some(d=>!d||typeof d!=='object'||((d.kind==='greenlight'||d.kind==='cancelProduction')&&(!d.production||!d.production.budget)))))fail('native production decision shape differs')
+- }
+  // This replays exact receipt IDs/order, source bargains/paid work, earned
+  // assessment and every native lifecycle transition BEFORE granting any lookup.
+  validateContinuedScriptHistory(state)
+@@ -259,7 +339,8 @@
+   let lastDecisionOrder=Number(a.id.slice(a.id.lastIndexOf('-')+1))
+   for(const decision of decisions){
+    if(!decision||typeof decision!=='object')fail('buyer script decision shape differs')
+-   const receiptOrder=Number(decision.id?.slice(decision.id.lastIndexOf('-')+1))
++   if(typeof decision.id!=='string')fail('buyer script decision id must be a string')
++   const receiptOrder=Number(decision.id.slice(decision.id.lastIndexOf('-')+1))
+    if(a.producerVersion==='absorption-scripts/v6'&&(!Number.isSafeInteger(receiptOrder)||receiptOrder<=lastDecisionOrder||receiptOrder>=state.rights.nextId))fail('native production receipt order differs')
+    lastDecisionOrder=receiptOrder
+    const rewrite=decision.kind==='rewrite'
+@@ -303,7 +384,8 @@
+     if(!exact(r,['id','projectId','week','inputWeek','estUplift','developmentContext','writerRewriting','assessment'])||!/^script-completion-[1-9][0-9]*$/.test(r.id)
+      ||r.week!==original.dueWeek||r.inputWeek!==r.week-1||r.inputWeek<a.week||![0,SCRIPT_DEVELOPMENT_OFFICE_TIER_2_EST_UPLIFT,SCRIPT_DEVELOPMENT_OFFICE_TIER_3_EST_UPLIFT].includes(r.estUplift))fail('completion observation differs')
+     validateCompletionContext(state,r)
+-    const concept=state.hollywood!.concepts.find(c=>c.id===original.conceptId)!
++    const concept=state.hollywood!.concepts.find(c=>c.id===original.conceptId)
++    if(!concept)fail('native completion source concept missing')
+     let assessment
+     if(original.status==='drafting'){
+      if(r.writerRewriting!==null)fail('first draft invents rewrite context')
+@@ -335,6 +417,12 @@
+      const debit=paid.filter(row=>row.kind==='production')
+      if(!same(paid,decision.paidRows)||debit.length!==1||debit[0]!.week!==decision.week||debit[0]!.amount!==-(p.budget.negative+p.budget.marketing)
+       ||paid.some(row=>row.week!==decision.week||row.amount>=0))fail('native greenlight lacks exact actual paid source')
++     const live=state.studio.activeProductions.find(row=>row.id===p.id)
++     // Native operations change only the countdown. Sound/technology/shooting
++     // progress lives in its own independently validated roots, not this row.
++     if(live&&(!Number.isInteger(live.remainingTicks)||live.remainingTicks<1||live.remainingTicks>p.remainingTicks
++      ||state.market.tick-decision.week<p.remainingTicks-live.remainingTicks
++      ||!same({...live,remainingTicks:p.remainingTicks},p)))fail('native active production differs from paid greenlight')
+      expected=linkScriptProjectToProduction({mode:'managed',projects:[expected]},project.id,p.id).projects[0]!
+      continue
+     }
+@@ -351,7 +439,10 @@
+     }
+     if(decision.kind==='productionReleased'){
+      const film=state.studio.releasedFilms.find(f=>f.productionId===decision.productionId)
+-     if(!film||film.releaseTick!==decision.week||expected.productionId!==film.productionId||film.conceptId!==expected.conceptId
++     const original=decisions.find(d=>d.kind==='greenlight'&&d.production.id===decision.productionId)
++     if(!film||!original||original.kind!=='greenlight'||film.releaseTick!==decision.week||expected.productionId!==film.productionId||film.conceptId!==expected.conceptId
++      ||film.directorId!==original.production.directorId||!same(film.participants,original.production.participants)
++      ||!same(film.forecast,original.production.participants?{expectedOpening:original.production.forecastSnapshot.expectedOpening,expectedTotal:original.production.forecastSnapshot.expectedTotal,expectedCriticScore:original.production.forecastSnapshot.expectedCriticScore}:undefined)
+       ||state.studio.activeProductions.some(p=>p.id===film.productionId))fail('native carried release lacks actual buyer film')
+      expected=markScriptProjectProduced({mode:'managed',projects:[expected]},film.productionId).projects[0]!
+      continue
+--- a/src/core/marketIntegration.ts
++++ b/src/core/marketIntegration.ts
+@@ -1,3 +1,4 @@
++import { carriedProductionAuthority, type CarriedProductionAuthority } from './continuedScripts.js'
+ // ── P15A.1 Wave 2: the shared market in the live release pipeline ─────────────
+ // Authority (docs/engineering/playability-launch-review/evidence/p14b4-20260919/): 1355-A §3 as
+ // adopted by 1355-F, 1355-F2, 1355-F3 and 1355-F5; 1361-F rulings 3 to 6. The law is Wave 1's
+@@ -67,8 +68,13 @@
+     if (concept === undefined) throw new Error(`shared market: release ${production.id} has no concept`)
+     return concept.genre
+   }
+-  const player: MarketBatchMember[] = playerReleasing.map((production) =>
+-    ({ releaseId: production.id, studioId: hollywood.playerStudioId, genre: genreOf(state.concepts, production) }))
++  const carried=playerReleasing.some(p=>!state.concepts.some(c=>c.id===p.conceptId))?carriedProductionAuthority(state):undefined
++  const player: MarketBatchMember[] = playerReleasing.map((production) => {
++    const project=carried?.productionScripts.get(production.id)
++    const acquired=project?.conceptId===production.conceptId&&project.status==='inProduction'
++      ?carried?.concepts.find(c=>c.id===production.conceptId):undefined
++    return { releaseId: production.id, studioId: hollywood.playerStudioId, genre: genreOf(acquired?[...state.concepts,acquired]:state.concepts, production) }
++  })
+   // P15B closure/v1 (r3; Wave-4 contract §4): an actually closed business's retained production never releases.
+   const closed = terminalWeekOf(state)
+   const rivals: MarketBatchMember[] = hollywood.businesses.filter((business) => !closed.has(business.studioId)).flatMap((business) => business.productions
+@@ -138,7 +144,7 @@
+  * own `phaseOrderVersion`; `recordedFromWeek <= week < market.tick`; strict (week, releaseId) and
+  * p15DomainSequence ascent; no row without an industry; the film bijection; the law reconciled.
+  */
+-export function validateSharedMarketRoot(raw: Record<string, unknown>, label: string, rightsEstate = false, absorptions?:ReadonlyMap<string,import('./rights.js').AbsorptionRecord>): void {
++export function validateSharedMarketRoot(raw: Record<string, unknown>, label: string, rightsEstate = false, absorptions?:ReadonlyMap<string,import('./rights.js').AbsorptionRecord>, carriedProduction?:CarriedProductionAuthority): void {
+   const fail = (message: string): never => { throw new Error(`${label}: sharedMarket ${message}`) }
+   const root = raw.sharedMarket
+   if (!isRecord(root)) return fail('root must be an object')
+@@ -197,19 +203,22 @@
+     }
+     rows.push(row)
+   }
+-  if (state.hollywood !== null) validateFilmBijection(state, state.hollywood, rows, recordedFromWeek, fail, rightsEstate?absorptions:undefined)
++  if (state.hollywood !== null) validateFilmBijection(state, state.hollywood, rows, recordedFromWeek, fail, rightsEstate?absorptions:undefined, carriedProduction)
+   reconcileLaw(rows, fail)
+ }
+ 
+ /** 1355-A §3.4 item 3: from max(recordedFromWeek, originWeek), every simulated release has exactly
+  * one assessment with its id, week, studio and genre, and every assessment has its film. */
+ function validateFilmBijection(state: GameState, hollywood: HollywoodState, rows: readonly PersistedMarketAssessment[],
+-  recordedFromWeek: number, fail: (message: string) => never, absorptions?:ReadonlyMap<string,import('./rights.js').AbsorptionRecord>): void {
++  recordedFromWeek: number, fail: (message: string) => never, absorptions?:ReadonlyMap<string,import('./rights.js').AbsorptionRecord>, carriedProduction?:CarriedProductionAuthority): void {
+   const from = Math.max(recordedFromWeek, hollywood.originWeek)
+   const genres = new Map(state.concepts.map((concept) => [concept.id, concept.genre]))
+   const films = new Map<string, { week: number; studioId: string; genre: Genre | undefined }>()
+   for (const film of state.studio.releasedFilms) {
+-    if (film.releaseTick >= from) films.set(film.productionId, { week: film.releaseTick, studioId: hollywood.playerStudioId, genre: genres.get(film.conceptId) })
++    const project=carriedProduction?.productionScripts.get(film.productionId)
++    const acquired=project?.conceptId===film.conceptId&&project.status==='produced'
++      ?carriedProduction?.concepts.find(c=>c.id===film.conceptId):undefined
++    if (film.releaseTick >= from) films.set(film.productionId, { week: film.releaseTick, studioId: hollywood.playerStudioId, genre: genres.get(film.conceptId)??acquired?.genre })
+   }
+   for (const film of hollywood.films) {
+     if (film.provenance === 'simulation/v1' && film.result.releaseTick >= from) {
+--- a/src/core/save.ts
++++ b/src/core/save.ts
+@@ -11383,8 +11383,8 @@
+   }
+   validateSaveV44Era({ ...save, saveVersion: 44, state: stripP15Roots(raw) }, rivalCostCutting, rivalFacilityDisposal, foundingFunding, era, onValidatedWriting);
+   validatePowerRankingArchive(raw, era.closure, era.rights, new Map([...(era.absorptions?.values() ?? [])].map(a => [a.targetId, a.week])));
+-  validateSharedMarketRoot(raw, 'validateSaveV45', era.rights, era.rights ? era.absorptions : undefined);
+-  validateCampaignLegacy(raw, 'validateSaveV45', era.studioLoans, era.rights);
++  validateSharedMarketRoot(raw, 'validateSaveV45', era.rights, era.rights ? era.absorptions : undefined, era.carriedProduction);
++  validateCampaignLegacy(raw, 'validateSaveV45', era.studioLoans, era.rights, era.carriedProduction);
+   if (allocator) validateP15Allocator(raw, 'validateSaveV45');
+   return save as SaveFileV45;
+ }

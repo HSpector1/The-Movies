@@ -67,5 +67,11 @@
     "final-gate/PROPOSAL.md": "ea259886ab2ec966de2b4164886cc353928915cd40941f2a3182d04d0b5dd0ab"
   },
   "profileNote": "Original CPU profiles remain at sourceDirectory; published .gz files decompress to these original hashes.",
-  "logNote": "Published *.log.txt preserves exact original *.log bytes, avoiding repository *.log ignore; original SHA256 keys name the source files."
+  "logNote": "Published *.log.txt preserves exact original *.log bytes, avoiding repository *.log ignore; original SHA256 keys name the source files.",
+  "publishedDocumentationChanges": {
+    "RESULTS.md": {
+      "sha256": "c56ec79e97e102d225af8f95914bd3a7a73a07aa8e8328e01848f41ff6d9eaf9",
+      "reason": "Added committed source identity after original scratch evidence snapshot; original RESULTS bytes remain in sourceDirectory."
+    }
+  }
 }

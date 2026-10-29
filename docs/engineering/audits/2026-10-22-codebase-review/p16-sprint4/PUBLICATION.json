@@ -1,0 +1,10 @@
+{
+  "at": "2026-10-25T21:28:46.931319-05:00",
+  "remote": "https://github.com/HSpector1/The-Movies.git",
+  "candidateRef": "refs/heads/p16-rebase-20261024",
+  "verifiedRemoteCandidate": "b3be2b78f821ca356158b63083eced051d20f3f7",
+  "reviewedSourceCommit": "3364567ccfa2f29d240b8a73f30e91fcb1816bd5",
+  "mainAndWipBeforeRecords": "632dc4587ee16b7ae62d6fd6c604652171adaf0d",
+  "candidateGameplayPromotedToMain": false,
+  "qualification": "Actual tests pass assertions; timing/resource/exclusivity/full-game/platform acceptance remains open."
+}

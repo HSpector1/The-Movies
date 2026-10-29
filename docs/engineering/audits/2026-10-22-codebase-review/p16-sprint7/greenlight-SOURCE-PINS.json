@@ -1,0 +1,16 @@
+{
+  "status": "READ_ONLY_STATIC_INSPECTION",
+  "head": "5a730f42d5a66d22cba4808b5c642510c2f068bb",
+  "files": {
+    "src/core/continuedScripts.ts": "0f104e522f6274d12cc702ba471837d90f6d64f05abe5e7f08c3d194e67f0c1b",
+    "src/core/scriptDevelopment.ts": "3f65e7d0f2c6e6e3a1f8816c64ca233749213842b85746f65fcb693f87d68bfa",
+    "src/core/save.ts": "1c0a6edbc339844e7c169fbe6fa01da2d2db8587a0dd12824326167684ca0d48",
+    "src/core/continuedWork.ts": "74aa3c51e82119fac5f33871ee8aa374423f4a1a8453f1b72e3be94f91b8df17",
+    "src/core/actions.ts": "86aa087289234063d658991162207edc6579431d026e53eb88f659b9aa744564",
+    "src/core/rights.ts": "310741413e5dde8e8077fb585b3f5cde380d7735c426825defd42dffbd44a580",
+    "src/core/productionAdmission.ts": "fba9441b361920491e430ca87306912e7e54b40ee9bb0ce25a05c3da3d9ecd6e",
+    "src/core/tick.ts": "11aace322a6c6b4db7ea7fb5129db94463581044440a98b99a62cda54ea0c45a",
+    "tests/p16-carried-script-accept.test.ts": "a7bd894bd802569aa52455a57483b5d46c9111bdb59d4e525027e2c5751603e0",
+    "tests/p16-carried-script-rewrite.test.ts": "2fd0f1a06cb6656b5c97320137a71ddae537b3b0cf534e9d0e15d6b18bb14d85"
+  }
+}

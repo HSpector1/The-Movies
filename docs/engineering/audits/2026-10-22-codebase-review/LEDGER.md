@@ -1,5 +1,46 @@
 # Findings ledger — stabilization phase (Owner order 2026-10-22 "IMPLEMENT CODE REVIEW FINDINGS")
 
+## Native screenplay production preparation — 2026-10-26
+
+A 24-file source draft and independent one-file test extension are preserved under `p16-sprint7/native-greenlight`, based on experimental commit `5a730f42`. The corrected source patch is `v2/NATIVE-LIFECYCLE-v2.patch` (SHA-256 `678c3a06e0ad1b6a0c7d974280d4c187ae70c36ea65e9d4d7db2716fa1d59bca`). It reuses native buyer production and release storage while retaining acquired screenplay and concept history at their source. Actual lifecycle decisions use a versioned v6 record and narrowly scoped current49 validation context. Nothing has been installed, compiled or run.
+
+The independent review found three blockers in the preserved first draft: missing market/Legacy concept consumers, malformed early-save dereferences, and an absent immutable-field join between paid receipts and active productions. The four-file correction received targeted verification: all three findings addressed statically, with no new consequential defect found. Original and corrected patches, reviews, manifests and exact postimages are archived. Static approval is not runtime qualification.
+
+The independently authored `test-draft/TESTS.patch` (SHA-256 `907df2a0888eeba9f1d6c5e6f59310ba1ab31c2c3517b718a2cdb60773063a0a`) extends the existing three Accept cases with public hiring, greenlight, cancellation, release, save/replay and five specific refusal controls. Original 5000 ms budgets and meaningful assertions remain; only obsolete unconditional packaging-refusal expectations change. Hiring, affordability, production progress and timing remain unrun premises. Both patches pass static application checks against the base; the candidate remains unchanged.
+
+The third renewed consumer attempt, `consumer-core-remainder`, was interrupted with exit 143 after foreign Godot appeared at 12:07:36, using 23.4% CPU. No core file completed. Independent audit verified all 1,641 pins and the absence of owned processes and lock. Process ancestry established that another Codex session repeatedly launches these tests. Another Godot job at 12:33:41 used 94.4% CPU. Five-minute availability observations stay private; no foreign process or lock was changed. The 12:44 scan was clear at that instant, but no paused execution window was confirmed.
+
+Next, when an exclusive window is established: obtain the source-bound original-refusal witness, apply the reviewed source/test at an idle boundary, and run focused compiler, lifecycle and historical checks through fresh preflight and the sole lane. Preserve any invalid or unreached premise. Do not finish an obsolete 35-file consumer run immediately before invalidating its source; retain it as interrupted and run the coherent affected-consumer milestone after focused qualification. The original full-game gate still requires three missing r3n1 fixtures. No P17 predecessor, gameplay promotion or Sprint 7 completion is claimed.
+
+## Availability-driven continuation, 2026-10-26
+
+Owner explicitly authorized availability checks every five minutes and automatic continuation when unblocked. Two fresh preflights passed on unchanged experimental source `5a730f42`; both subsequent runs were controlled-interrupted with wrapper 143 after foreign Godot restarted. No foreign work was terminated. Independent audits verified all 1,641 source/input pins and preflight hashes, then released each freeze; no owned test job or lane lock remains at this checkpoint.
+
+`consumer-resume`: UI typecheck 0. Four completed core files yield 94 assertions: 89 pass and five exact inherited D5 errors. The corrected current contract/roster expectations now pass. Five full identities/first errors match predecessor 332a742a; the S8 discrepancy is settled-count 48 versus43, and poaching fails publicPreferredTerm expected52/actual208, not a clock assertion. Later D5 assertions remain unreached. Core has no complete child result/JSON. Foreign Godot observed at11:46:06,24.1%CPU,elapsed32s; the four summaries were already observed at11:45:01. These observations do not qualify the overall gate or all timing.
+
+`consumer-remainder`: reused those four unchanged files and prior types; ran three UI files first. UI completed20/20, child0; maximum bodies 1.294s,3.534s,8.349s, below the unchanged UI30s default but foreign overlap prevents exclusive timing qualification. Godot observed11:52:55 at20.1%CPU,elapsed50s. The remaining35 corefiles started but were interrupted without completion. UI results will be reused as scoped assertion evidence; no complete broad gate is claimed.
+
+Fresh35-core-only runner is prepared (NOT LAUNCHED) at `studio-scratch/p16-sprint7-verification-20261026/consumer-core-remainder/run.sh`. At11:58:11 the host scan was clear, lane absent, free8,325,536KiB. Following two short clear gaps that preceded new foreign jobs, seek a quiet interval with the next five-minute check before fresh preflight/launch. Keep polling within the active session, never promise background execution. Actual source preparation remains disjoint in scratch; no new gameplay integrated. Full-game gate still needs original r3n1 fixtures.
+
+
+## Continuation readiness, 2026-10-26
+
+Fresh host observation found foreign Godot PID 43875 using 55% CPU; no Studio lane lock. Available disk was 10,738,636 KiB, above launch floor. No heavy Studio execution or foreign termination. The Owner was asked to pause other engine/build jobs for the exclusive window; response remains pending. This is a resource prerequisite, not a routine continuation approval.
+
+A fresh 39-core/3-UI consumer runner is prepared, NOT LAUNCHED, at `studio-scratch/p16-sprint7-verification-20261026/consumer-resume/run.sh`, source `5a730f42`, with 1,641 input/source pins including the restored atlas. Root/Bridge typecheck observations are reused because subsequent changes affect tests/records only; UI types remain required. Shell syntax checked only. Immediately before launch, confirm host exclusivity and rerun the authoritative equipment preflight with a fresh private receipt; verify all prepared pins and freeze source/index/HANDOFF through postflight/audit. No completed qualification is claimed.
+
+Sol's bounded source inspection identifies the next acquired-screenplay seam in `p16-sprint7/greenlight-GREENLIGHT-BOUNDARY.md`: existing current49 contexts prove source-at-close productions, not new buyer-created post-close production. A coherent greenlight/cancel/release producer needs its actual durable provenance. This is an engineering dependency within approved scope, not a new Owner policy question. No speculative receipt/version, source patch or runtime was introduced. The primary and experimental candidates are unchanged. Full-game qualification separately still needs three original r3n1 fixtures.
+
+
+## Consumer checkpoint, 2026-10-26
+
+Experimental branch `p16-retained-writing-20261026` is published and explicit GitHub ref verified at `5a730f42d5a66d22cba4808b5c642510c2f068bb`. Primary P16 remains `013c4edc90c0ce063fea00ebb187161ad6eb3414`; no gameplay enters main. The UI parser now preserves legitimate carried-action blockers (existing leaf RED, complete file 19/19 GREEN). Projection 63 generated/checks passed and authentic outgoing 62 is retained. Declaration identities independently measured; final expectation-only follow-up remains STATIC-UNRUN.
+
+Consumer gate interrupted with exit 143 when foreign Godot appeared; workload was not observed before exit, so exclusivity and causal timing remain unknown. Independent audit released all 1,640 source pins. Six completed files: 187/196 assertions; four current-contract pins corrected, five inherited D5 failures match exact predecessor causes. Remaining 33 core files incomplete and three UI files unrun. Root/Bridge types pass; missing tracked atlas caused UI type failure, then was restored byte-for-byte. UI type rerun is pending. No timing/full-gate qualification inferred.
+
+Next: Owner-confirmed exclusive window, fresh bound consumer runner/preflight, preserve original budgets and reuse unchanged qualified evidence. Full-game Sprint 5 separately needs three original r3n1 fixtures. No jobs or lane lock remain. Existing lifecycle, genuine authority-composition and platform/player acceptance requirements remain open. Details and sanitized reports: `p16-sprint7/RESULTS.md`, `consumer-gate/AUDIT.md`, `declaration-measurement/`. Raw host inventories remain private. Cleanup continues only for exact remotely preserved or safely reproducible session files; active inputs and dependencies are retained.
+
+
 Source audit: `AUDIT.md` beside this file (review of `0a12cbfd`, 2026-10-22). Dispositions: FIXED (landed on the
 working branch with a regression test), VERIFIED (confirmed by execution, no change needed), DEFERRED (not done in
 this phase; reason and owner recorded), NOT REPRODUCED (the described defect did not reproduce at the current code),
@@ -408,15 +449,17 @@ Execution qualification limit: coordinator used the historical2.3GB note instead
 
 Natural C08 close remains without a genuine shared-writer/two-production rival input; current native starts/routes and inspected captures do not supply one. This bounded evidence is not proof all historical saves impossible. Named player-ledger/ended-manifest, Legacy/fund, shared-market and older direct-step compositions remain open. Unsupported transaction producers remain explicit refusals; no P17/P18/new gameplay added. Native/browser/Owner playtesting and P16 promotion remain separate requirements. Owner A–E stay settled; no new policy ruling requested. [Results](p16-sprint4/RESULTS.md), [blocker reconciliation](p16-sprint4/integration/BLOCKERS.md), [review](p16-sprint4/REVIEW.md), and [process limit](p16-sprint4/PROCESS-LIMIT.md) preserve the exact scope. Minimum next sprint: recover required full-gate inputs/headroom, qualify the current full tree once, then actionable regression/platform/player work. Do not start it automatically.
 
+Final Sprint4 candidate `b3be2b78f821ca356158b63083eced051d20f3f7` pushed and explicit remote ref verified. Reviewed source/test checkpoint `3364567ccfa2f29d240b8a73f30e91fcb1816bd5`; subsequent candidate commit is records only. See [publication receipt](p16-sprint4/PUBLICATION.json).
+
 ## Authorized Sprints 5–16 program — 2026-10-25
 
-Governing [Owner assignment](p16-sprint5/OWNER-ASSIGNMENT.txt) supersedes routine stop-after-sprint instructions. Entry candidate for every row is `b3be2b78f821ca356158b63083eced051d20f3f7`; no later gameplay candidate exists at this checkpoint. Continue eligible packages without another routine approval, but no gameplay promotion to main or predecessor waiver. Sprint 4 results retain their resource/exclusivity limitations.
+Governing [Owner assignment](p16-sprint5/OWNER-ASSIGNMENT.txt) supersedes routine stop-after-sprint instructions. Primary candidate is `013c4edc90c0ce063fea00ebb187161ad6eb3414`, gameplay unchanged from entry `b3be2b78f821ca356158b63083eced051d20f3f7`. Experimental retained-writing branch `9ff330b4a2de131037c4dbcfc03de9676a558b61` is separately published with partial runtime qualification. Continue eligible packages without another routine approval, but no gameplay promotion to main or predecessor waiver. Sprint 4 results retain their resource/exclusivity limitations.
 
 | Sprint | Status at entry candidate | Remaining dependency / exact next action |
 | --- | --- | --- |
 | 5 — full baseline | BLOCKED | Recover three original r3n1 inputs/reports; sufficient disk and exclusive window; bind and pass current preflight, run prepared full core-including-Bridge/UI once. One tracked input restored and hash-verified. |
 | 6 — regression/browser | NOT RUN | Classify actual Sprint 5 outcomes; existing ui/e2e/smoke.spec.ts supplies real production/release/save route under original 120 s budget. Browser launch also resource-blocked. |
-| 7 — screenplay continuation | DRAFT PREPARED; INSTALLATION BLOCKED | Thirteen-path adaptation and exact final ten tests preserved outside baseline. Review identifies omitted retirement-writing authority; resolve and qualify before installation. Carried greenlight and broader screenplay-history support remain required. |
+| 7 — screenplay continuation | EXPERIMENTAL SOURCE PUBLISHED; RUNTIME UNQUALIFIED | Side branch9ff330b4: types0, retained4/4 within5s, Accept/Rewrite6 functional passes with four timing gaps. Affected128/129, exact inherited era expectation; genuine coexistence/canonical/Bridge journey remain unrun. Carried greenlight and broader screenplay-history support remain required. |
 | 8 — other acquisition producers | NOT STARTED | Implement only adopted remaining producers against coherent P16 source; no guard removal ahead of producer. Natural C-08 remains genuinely unavailable under current inspected routes. |
 | 9 — technical P16 checkpoint | DEPENDENCY BLOCKED | Coherent Sprints 6–8, historical/consumer gates and actual browser transactions; no immutable qualified checkpoint yet. |
 | 10 — P17 continuation | PREDECESSOR BLOCKED | Actual qualified P16 technical checkpoint before adapting preserved P17 source. |
@@ -428,3 +471,19 @@ Governing [Owner assignment](p16-sprint5/OWNER-ASSIGNMENT.txt) supersedes routin
 | 16 — playtest/handoff | NOT STARTED | Qualified available platform and reproducible candidate; Owner acceptance remains human. |
 
 Sprint 5 entry preflight refused at 2,261,252 KiB, below 3,670,016 KiB launch and 3,145,728 KiB runtime floors. No heavy command ran. Private process inventories remain local; [sanitized receipt](p16-sprint5/ENTRY.json) and [input recovery](p16-sprint5/INPUT-RECOVERY.md) preserve the exact limitation. The three missing fixture families are historical ENOENT gaps, not newly demonstrated gameplay defects. No threshold change, invented fixture, cleanup or repeating preflight against unchanged conditions.
+
+Publication: candidate `013c4edc90c0ce063fea00ebb187161ad6eb3414` on `p16-rebase-20261024` pushed and explicit GitHub ref verified. This checkpoint changes only HANDOFF/docs; executable gameplay remains the b3be2b78 baseline. Sprint 5 is blocked, draft installation is blocked, and the authorized program remains incomplete.
+
+## Independent retained-writing slice — 2026-10-26
+
+Primary candidate 013c4edc stays unchanged. Experimental `p16-retained-writing-20261026` at `6fdbe96672e28049199f312fc59c95ebfda20c44` is pushed/remote-verified: prepared source13 plus Accept/Rewrite and focused reviewed retirement-authority threading. Ten original tests unchanged, no new acceptance leaf. One predecessor positive reaches retainedScriptProducerRequired in 2.475 s; three unselected. Preflight passed, but swap grew 7→8 GiB and postflight disk fell below runtime floor; resource/timing qualification withheld, no further launch. Genuine coexistence remains missing. Root/Bridge compilation, green runtime, canonical generation and consumers remain UNRUN; no qualified P16 checkpoint, primary integration or main gameplay promotion. See p16-sprint7/RESULTS.md and REVIEW.md.
+
+## Native lifecycle runtime checkpoint — 2026-10-26
+
+The short original-source RED completed with one failed and two selected-out cases: packaging writerAvailable was false where the new supported route requires true (2.700 seconds). Genuine public Accept and prior preservation assertions were reached. This proves the old packaging refusal, not downstream lifecycle behavior.
+
+The exact reviewed v2 source and independent test patches are now installed on experimental 5a730f42, uncommitted. Root, Bridge and UI typechecks all exited 0. The complete three-case file has two functional passes and one failure: native first-take subject creation cannot resolve the acquired concept. Genuine hiring, native paid greenlight, save/reload, cancellation/replay, no refund and second paid greenlight with a distinct ID all reached before the failure. Release and subsequent assertions remain unreached. All five new malformed-history/paid-production controls passed with named refusals and caller purity.
+
+Measured bodies: positive 13.606 seconds, hostile 10.242 seconds, rollback 9.281 seconds. Every body exceeds its original 5-second budget; passing assertions are not timing qualification. Both runs passed fresh equipment preflight. No foreign engine was observed during the green run's repeated host checks. Independent audits verified all 1,642 pins/preflight hashes and released both freezes. Detailed reports, original failures and audits are retained in native-lifecycle-red and native-lifecycle-green.
+
+The next correction is the demonstrated firstTakeSubjects ownership consumer, using exact carried production provenance while preserving historical reader rules. Source remains experimental and unqualified; primary 013c4edc is unchanged. Reuse these type results unless the correction invalidates them. Do not rerun obsolete consumer selection before the coherent source checkpoint. Full-game missing inputs and separate platform/player acceptance remain open.

@@ -1,0 +1,269 @@
+{
+  "status": "PARTIAL_INTERRUPTED_NO_OVERALL_OR_TIMING_QUALIFICATION",
+  "sourceHead": "5a730f42d5a66d22cba4808b5c642510c2f068bb",
+  "evidence": {
+    "currentLog": {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint7-verification-20261026/consumer-resume/run.log",
+      "sha256": "c03d1ae00621abf8e049909229f89a4066cf61e35ec0bb037500b1fcfd6c4006"
+    },
+    "selectionSHA256": "e2401dbae239dc450e5c02df653ccf4c87badfd10eedb3b8ddbf78f2bc01a837",
+    "sourceManifestSHA256": "3b44bb2f2ab7ff2a1e73920f208e962f9e3c03e673fc1b74478988bcb9488193",
+    "priorConsumerGate": {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint7-verification-20261026/consumer-gate/run.log",
+      "sha256": "fff6a6e9f7743183c21a201fa6a091197559ee80859cb146f1672837fa73318d"
+    },
+    "wave3l": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-codebase-review-20261022-r1/lane-logs/wave3l-core.json",
+      "sha256": "48d737049e4d8f473872acb6b9314420f83e2e9fc0dbaefabfe7d0b1efed5888",
+      "source": "332a742a"
+    }
+  },
+  "interruption": {
+    "exit": 143,
+    "laneStart": "2026-10-26 11:39:30 CDT",
+    "laneEnd": "2026-10-26 11:46:32 CDT",
+    "reason": "coordinator stopped on foreign Godot observation; no foreign process killed",
+    "gateExclusiveQualified": false,
+    "coordinatorHostOrderingEvidence": {
+      "completedFourSummarySample": "11:45:01 CDT",
+      "foreignGodotObserved": "11:46:06 CDT",
+      "observedElapsedSeconds": 32,
+      "estimatedForeignStart": "approximately11:45:34 CDT, after the captured four completed summaries",
+      "limit": "ordering observation only, not blanket gate or timing qualification"
+    }
+  },
+  "uiTypecheck": {
+    "exit": 0,
+    "logLines": [
+      1,
+      3
+    ],
+    "status": "COMPLETED"
+  },
+  "completedCoreFiles": [
+    {
+      "path": "tests/bridge-contract-generator.test.ts",
+      "logLine": 10,
+      "total": 31,
+      "passed": 31,
+      "failed": 0,
+      "skipped": 0,
+      "observedDurationMs": 3921,
+      "timingQualified": false,
+      "priorConsumerGateCompletedSummary": {
+        "path": "tests/bridge-contract-generator.test.ts",
+        "logLine": 19,
+        "total": 31,
+        "passed": 31,
+        "failed": 0,
+        "skipped": 0,
+        "observedDurationMs": 4532,
+        "timingQualified": false
+      }
+    },
+    {
+      "path": "tests/bridge-p14a2-market.test.ts",
+      "logLine": 15,
+      "total": 16,
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0,
+      "observedDurationMs": 94036,
+      "timingQualified": false,
+      "priorConsumerGateCompletedSummary": {
+        "path": "tests/bridge-p14a2-market.test.ts",
+        "logLine": 25,
+        "total": 16,
+        "passed": 16,
+        "failed": 0,
+        "skipped": 0,
+        "observedDurationMs": 53171,
+        "timingQualified": false
+      }
+    },
+    {
+      "path": "tests/bridge-p14b8-waiver-surface.test.ts",
+      "logLine": 28,
+      "total": 32,
+      "passed": 32,
+      "failed": 0,
+      "skipped": 0,
+      "observedDurationMs": 130119,
+      "timingQualified": false,
+      "priorConsumerGateCompletedSummary": {
+        "path": "tests/bridge-p14b8-waiver-surface.test.ts",
+        "logLine": 38,
+        "total": 32,
+        "passed": 31,
+        "failed": 1,
+        "skipped": 0,
+        "observedDurationMs": 73610,
+        "timingQualified": false
+      }
+    },
+    {
+      "path": "tests/bridge-p14b5-relationships.test.ts",
+      "logLine": 49,
+      "total": 15,
+      "passed": 10,
+      "failed": 5,
+      "skipped": 0,
+      "observedDurationMs": 137559,
+      "timingQualified": false,
+      "priorConsumerGateCompletedSummary": {
+        "path": "tests/bridge-p14b5-relationships.test.ts",
+        "logLine": 59,
+        "total": 15,
+        "passed": 8,
+        "failed": 7,
+        "skipped": 0,
+        "observedDurationMs": 79587,
+        "timingQualified": false
+      }
+    }
+  ],
+  "completedOnlyCounts": {
+    "files": 4,
+    "filePassed": 3,
+    "fileFailed": 1,
+    "tests": 94,
+    "passed": 89,
+    "failed": 5,
+    "skipped": 0
+  },
+  "failures": [
+    {
+      "file": "tests/bridge-p14b5-relationships.test.ts",
+      "fullName": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) p13a-core-causal-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+      "firstError": "expected [ { week: 208, \u2026(11) }, \u2026(17) ] to have a length of 40 but got 18",
+      "currentLogLine": 57,
+      "priorConsumerGateLogLine": 71,
+      "wave3lStatus": "failed",
+      "wave3lFirstErrorIdentical": true,
+      "firstAssertionOwner": "total ledger row count",
+      "classification": "REUSED exact predecessor first failure; no new cause established",
+      "unreached": "all assertions after this first row-count mismatch, including later counts/roster/exposure/sentences/settlement and receipt/employment/first-take/RNG digests, remain unreached",
+      "currentFullIdentityMatchesWave3l": true
+    },
+    {
+      "file": "tests/bridge-p14b5-relationships.test.ts",
+      "fullName": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) seed-b: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+      "firstError": "expected [ { week: 208, \u2026(11) }, \u2026(46) ] to have a length of 48 but got 47",
+      "currentLogLine": 59,
+      "priorConsumerGateLogLine": 73,
+      "wave3lStatus": "failed",
+      "wave3lFirstErrorIdentical": true,
+      "firstAssertionOwner": "total ledger row count",
+      "classification": "REUSED exact predecessor first failure; no new cause established",
+      "unreached": "all assertions after this first row-count mismatch, including later counts/roster/exposure/sentences/settlement and receipt/employment/first-take/RNG digests, remain unreached",
+      "currentFullIdentityMatchesWave3l": true
+    },
+    {
+      "file": "tests/bridge-p14b5-relationships.test.ts",
+      "fullName": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) p13b-s8-bridge-probe-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+      "firstError": "expected [ { week: 208, \u2026(11) }, \u2026(42) ] to have a length of 48 but got 43",
+      "currentLogLine": 61,
+      "priorConsumerGateLogLine": 75,
+      "wave3lStatus": "failed",
+      "wave3lFirstErrorIdentical": true,
+      "firstAssertionOwner": "settled row count expected48 actual43",
+      "classification": "REUSED exact predecessor first failure; no new cause established",
+      "unreached": "all assertions after this first row-count mismatch, including later counts/roster/exposure/sentences/settlement and receipt/employment/first-take/RNG digests, remain unreached",
+      "currentFullIdentityMatchesWave3l": true
+    },
+    {
+      "file": "tests/bridge-p14b5-relationships.test.ts",
+      "fullName": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) p13-public-commercial-adoption: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+      "firstError": "expected [ { week: 208, \u2026(11) }, \u2026(35) ] to have a length of 48 but got 36",
+      "currentLogLine": 63,
+      "priorConsumerGateLogLine": 77,
+      "wave3lStatus": "failed",
+      "wave3lFirstErrorIdentical": true,
+      "firstAssertionOwner": "total ledger row count",
+      "classification": "REUSED exact predecessor first failure; no new cause established",
+      "unreached": "all assertions after this first row-count mismatch, including later counts/roster/exposure/sentences/settlement and receipt/employment/first-take/RNG digests, remain unreached",
+      "currentFullIdentityMatchesWave3l": true
+    },
+    {
+      "file": "tests/bridge-p14b5-relationships.test.ts",
+      "fullName": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) the MOST EXPOSED shared fixture, poachingFixture (p14b2-fixtures.ts :145-211; consumers bridge-p14b2-trust, p14b2-fixture-preconditions): the week-208 reasons pin and endedWeek 208 hold, and under D1 no survivor holds a shared-take counterpart",
+      "firstError": "expected 208 to be 52 // Object.is equality",
+      "currentLogLine": 65,
+      "priorConsumerGateLogLine": 79,
+      "wave3lStatus": "failed",
+      "wave3lFirstErrorIdentical": true,
+      "firstAssertionOwner": "tests/helpers/p14b2-fixtures.ts:199:48 publicPreferredTerm expected52 actual208",
+      "classification": "REUSED exact predecessor first failure; no new cause established",
+      "unreached": "poachingFixture does not return: downstream fixture guards and the D5 test receipt/roster/relationship assertions are unreached",
+      "currentFullIdentityMatchesWave3l": true
+    }
+  ],
+  "reachabilityNotes": [
+    "Relationships current63 hash and both explicit prior rosters now pass, as complete15-test file summary has only five inherited D5 errors.",
+    "Waiver complete32 has no failures: previous outgoing62 registry-size pin failure is no longer present.",
+    "bridge-runtime-checkpoint.test.ts has no completed summary in this resumed log; earlier80/1 result is not superseded by this partial run.",
+    "Core command never emitted its END marker/final summary; no final coreJSON is assumed. UI runtime step was never entered."
+  ],
+  "budgets": "unchanged core5000/UI30000; original explicit per-test budgets preserved; no worker overrides",
+  "uiRuntime": {
+    "status": "UNRUN",
+    "selectedCompleteFiles": [
+      "ui/src/lot/LotScriptReviewPanel.test.tsx",
+      "ui/src/lot/WorldFirstLotNativeScriptReviewAppAuthority.test.tsx",
+      "ui/src/lot/StudioLotScreen.script-review-receipt.test.tsx"
+    ]
+  },
+  "minimumRemainingExecution": {
+    "coreCompleteFiles": [
+      "tests/bridge-operations-events.test.ts",
+      "tests/bridge-owner-ux-projection21-schema.test.ts",
+      "tests/bridge-p10a-w0-people-projection.test.ts",
+      "tests/bridge-p11-capital-contributors.test.ts",
+      "tests/bridge-p11-ready.test.ts",
+      "tests/bridge-p13b-r07-setup.test.ts",
+      "tests/bridge-p13b-s1b-seats.test.ts",
+      "tests/bridge-p13b-s2-labs.test.ts",
+      "tests/bridge-p13b-s3-plans.test.ts",
+      "tests/bridge-p13b-s4-office.test.ts",
+      "tests/bridge-p13b-s5-adoption.test.ts",
+      "tests/bridge-p13b-s6-cancellation.test.ts",
+      "tests/bridge-p13b-s7-disclosure.test.ts",
+      "tests/bridge-p13b-s8-rivals.test.ts",
+      "tests/bridge-p14a1-market.test.ts",
+      "tests/bridge-p14a1-release-busy-set.test.ts",
+      "tests/bridge-p14a3-world.test.ts",
+      "tests/bridge-p14b1-promises.test.ts",
+      "tests/bridge-p14b10-relationship-labels.test.ts",
+      "tests/bridge-p14b2-trust.test.ts",
+      "tests/bridge-p14b3-promise-command.test.ts",
+      "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+      "tests/bridge-p14b7-promise-waiver.test.ts",
+      "tests/bridge-p14c2rm-runtime.test.ts",
+      "tests/bridge-p14c2s-scientist-runtime.test.ts",
+      "tests/bridge-p14c3-promise-digest-continuity.test.ts",
+      "tests/bridge-p14c3-runtime.test.ts",
+      "tests/bridge-p14p3-directing-promises.test.ts",
+      "tests/bridge-p14p4p5-opportunities.test.ts",
+      "tests/bridge-p14r2r3-prior55.test.ts",
+      "tests/bridge-r3n4-read-model-deltas.test.ts",
+      "tests/bridge-schema.test.ts",
+      "tests/bridge-development.test.ts",
+      "tests/bridge-p16-absorption-finance.test.ts",
+      "tests/bridge-runtime-checkpoint.test.ts"
+    ],
+    "coreFileCount": 35,
+    "uiCompleteFiles": [
+      "ui/src/lot/LotScriptReviewPanel.test.tsx",
+      "ui/src/lot/WorldFirstLotNativeScriptReviewAppAuthority.test.tsx",
+      "ui/src/lot/StudioLotScreen.script-review-receipt.test.tsx"
+    ],
+    "uiFileCount": 3,
+    "reuse": [
+      "UI typecheck exit0",
+      "Four unchanged completed core file summaries as scoped assertion evidence, with inherited failures retained"
+    ],
+    "conditions": "Fresh exclusive-window preflight and sole lane; unchanged source/input pins; preserve original budgets. Do not automatically rerun four unchanged completed files. If coordinator requires a single complete39-file machine report, that is a distinct stronger gate obligation, not already satisfied."
+  },
+  "overallPass": false,
+  "timingQualified": false
+}

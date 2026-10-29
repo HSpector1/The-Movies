@@ -1,0 +1,11 @@
+{
+  "archive": "postimages.tar.gz",
+  "sha256": "113a34b2cca265f697a16e5bbcca45737a7e5b4a0cc49a264858a57b8a2aa3ab",
+  "files": [
+    {
+      "path": "tests/p16-carried-script-accept.test.ts",
+      "bytes": 35127,
+      "sha256": "76c91414c3aced11dc00dcfe021498050efb32c2d8bd46e4595c2964e1a3ce23"
+    }
+  ]
+}

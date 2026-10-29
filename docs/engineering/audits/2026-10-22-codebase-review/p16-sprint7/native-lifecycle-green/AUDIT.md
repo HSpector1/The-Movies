@@ -1,0 +1,13 @@
+# Native lifecycle successor postflight audit
+
+All 1,642 frozen source/input hashes and all preflight pins independently match. Actual and selected HEAD remain `5a730f42d5a66d22cba4808b5c642510c2f068bb`; the tested successor is the manifest-pinned uncommitted source/test delta, not bare HEAD. Preflight allowed launch with 9,302,664 KiB free. Root, Bridge and UI typechecks each exited 0. The complete selected file exited 1, and the wrapper ended normally with exit 1. No selected runner, Vitest/compiler process or heavy-lane lock remained at audit.
+
+Actual JSON: two passed, one failed, no selection skips. All three measured bodies exceed the unchanged 5,000 ms budget: positive lifecycle 13,606.345 ms (failed); hostile controls 10,241.866 ms (Vitest passed); native Accept rollback 9,281.282 ms (Vitest passed). Thus assertion success in the latter two is functional evidence, not budget-qualified acceptance.
+
+The positive reaches genuine hiring/bonus debits, Ready package availability, ordinary first native greenlight and production payment, credited-writer/non-seated distinction, v6 receipt/source preservation, makeSave, export/import equality, duplicate-greenlight refusal/purity, cancellation with no refund and save/reload cancellation replay, removal of production/workflow, Ready restoration, and a second paid greenlight with a fresh production ID. It then fails during the ordinary runUntil driver at test line 288: `first take subject: missing issuing owner or concept`, originating at firstTakeSubjects.ts:24 through appendFirstTakes/tick. The post-run caller-purity assertion, countdown-one/first-take assertions, release hold/commit/cancel refusal, actual release, market/Legacy facts, R2 ownership, final money reconciliation and release replay are UNREACHED. This remains a genuine native consumer blocker; it must not be described as completed release support.
+
+The hostile leaf reaches all seven existing decision controls and all five new v6 controls: numeric ID, null paid ledger row, missing employment root, active-budget drift and cast drift, with expected named refusals and caller purity. The rollback leaf reaches the real Accept producer failure after Ready and confirms original Review caller preservation. Their timings remain open as stated above.
+
+Coordinator sampling approximately every 30 seconds observed no foreign Godot during this run; these sampled observations do not establish uninterrupted exclusivity or erase the measured overruns. No private process inventories are copied here.
+
+Release the completed checkpoint freeze to the sole coordinator for the bounded first-take consumer repair. No runtime or repository edit was performed by this reviewer.

@@ -1,0 +1,116 @@
+{
+  "archive": "postimages.tar.gz",
+  "sha256": "13b7fee77315b6ccb1792b504736154a2b6723a7bba234b44b370aef18e8944b",
+  "files": [
+    {
+      "path": "bridge/finance.ts",
+      "bytes": 9634,
+      "sha256": "5680d7fdcb45c5dd81d4ccec0f70c9c77fe2e2d82e4acb5ab1c3ca25169b4155"
+    },
+    {
+      "path": "bridge/industry.ts",
+      "bytes": 44746,
+      "sha256": "734497d5b3737f793f359e7d42494ab625a5d11608d2f8855c039ecaf27b7639"
+    },
+    {
+      "path": "src/core/absorbedScripts.ts",
+      "bytes": 4195,
+      "sha256": "04ade48e36ee7d3ecd098e78334b65db6bdcfa03c2a1840a30ee5f84064b5845"
+    },
+    {
+      "path": "src/core/acquisition.ts",
+      "bytes": 61307,
+      "sha256": "674be539ae188b8193e693bca0805b1d9efa33ab113f780d7eb47d2fd3e7d58e"
+    },
+    {
+      "path": "src/core/actions.ts",
+      "bytes": 142207,
+      "sha256": "b84257f7b35aac67676a1724482df23966f98776a08b402dd0411bdc869561cc"
+    },
+    {
+      "path": "src/core/castingPackageReadModel.ts",
+      "bytes": 25753,
+      "sha256": "fa897aacf2e3d5e955853059510836ee37f449f5770736acc0c87e0cd6ab890c"
+    },
+    {
+      "path": "src/core/construction.ts",
+      "bytes": 24947,
+      "sha256": "efadaecb7ba4704cec733d56fdd460fa8eecdd5ec9dfbc52a3119dc5b368b9aa"
+    },
+    {
+      "path": "src/core/continuedScripts.ts",
+      "bytes": 44201,
+      "sha256": "a77b41e300d17df2dc0b0a57eb8eee0e648cd11e009d5f41e341bcbac2fbe305"
+    },
+    {
+      "path": "src/core/hollywoodValidation.ts",
+      "bytes": 70682,
+      "sha256": "f10627a9222f247a3f53289543b88dabb053e4edae6fa7e2cc0cb86c2c6bda4a"
+    },
+    {
+      "path": "src/core/index.ts",
+      "bytes": 57685,
+      "sha256": "12d314af178b138279d4d50f059aa4975941616ce67afa9cca817ac1647325ee"
+    },
+    {
+      "path": "src/core/occupancy.ts",
+      "bytes": 32472,
+      "sha256": "a94d906b97267e242dc8c8a6cab3243ef141b101f90d835a161646d227a9e929"
+    },
+    {
+      "path": "src/core/placement.ts",
+      "bytes": 125099,
+      "sha256": "a7699cf473d2467ec6c2cc5e2ad8d6bae586fa77f000e2ae7cfba3f7c04219bf"
+    },
+    {
+      "path": "src/core/productionIdentity.ts",
+      "bytes": 12598,
+      "sha256": "6898bf681a08158938745afa77dcd7ceb5031e254d730ae1664c60ea8483e3df"
+    },
+    {
+      "path": "src/core/releaseAuthority.ts",
+      "bytes": 9941,
+      "sha256": "1ae159cb884abd5f2723d5ed2e825883bc5a3a55703244e12e6fea604e5a0e11"
+    },
+    {
+      "path": "src/core/rights.ts",
+      "bytes": 106060,
+      "sha256": "ed7bb51aa5d5f5ce191e761a7250a72a909c332a378df6010450e1ddb24ebd96"
+    },
+    {
+      "path": "src/core/save.ts",
+      "bytes": 593236,
+      "sha256": "e021934121e1e47e725006e73d0b8e60fab8add57e6475fb4c900d1a383da8e8"
+    },
+    {
+      "path": "src/core/scriptReadModel.ts",
+      "bytes": 59637,
+      "sha256": "e1efb64b5d4e0fa3b6edfc35b00ab3088b0856de38f9f3bfe3b0eb85f859d3ce"
+    },
+    {
+      "path": "src/core/studioCalendar.ts",
+      "bytes": 36047,
+      "sha256": "1e6ce12d5fee007c1f89ced0e799977d77d7dbe7ed414e8069b8e815520fdebf"
+    },
+    {
+      "path": "src/core/studioClosure.ts",
+      "bytes": 81695,
+      "sha256": "9aad6233d20b4fb2149d3cf9a6d79459f4506fc289498c4f41442c7355add2ef"
+    },
+    {
+      "path": "src/core/technologyProduction.ts",
+      "bytes": 10031,
+      "sha256": "33bb4b975217ec040dbd7a73dd8a64addf81466fab734f16e8089e8d0ba6f127"
+    },
+    {
+      "path": "src/core/tick.ts",
+      "bytes": 71325,
+      "sha256": "e65702143a1365f9df4eff3f5fa6335e598084301b3822fce39b9f38e8da30b4"
+    },
+    {
+      "path": "ui/src/engine/adapter.ts",
+      "bytes": 363282,
+      "sha256": "b4c936e117f1a1c770c489ef397a59e0ebe3db9793f22dd81f6c9acbf25b94b5"
+    }
+  ]
+}

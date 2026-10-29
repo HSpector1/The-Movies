@@ -1,0 +1,30 @@
+{
+  "removedLogs": [
+    {
+      "local": "/Users/zacheryspector/studio-scratch/p16-sprint7-verification-20261026/green-checkpoint/run.log",
+      "bytes": 47,
+      "sha256": "3670bf747ea07615cf550f8c4211419708dad10a6e20c42ca00b4ee65a3aeea1",
+      "publishedCommit": "9ff330b4a2de131037c4dbcfc03de9676a558b61",
+      "publishedGzip": "docs/engineering/audits/2026-10-22-codebase-review/p16-sprint7/green-checkpoint/run.log.gz",
+      "restore": "gzip-decompress exact Git blob; verifySHA256"
+    },
+    {
+      "local": "/Users/zacheryspector/studio-scratch/p16-sprint7-verification-20261026/green-checkpoint/run-r2.log",
+      "bytes": 22509,
+      "sha256": "9f0f964e1c73a30fa47aeac3179dcd59e35b3c0592f5916ee1d1756ae658e162",
+      "publishedCommit": "9ff330b4a2de131037c4dbcfc03de9676a558b61",
+      "publishedGzip": "docs/engineering/audits/2026-10-22-codebase-review/p16-sprint7/green-checkpoint/run-r2.log.gz",
+      "restore": "gzip-decompress exact Git blob; verifySHA256"
+    },
+    {
+      "local": "/Users/zacheryspector/studio-scratch/p16-sprint7-verification-20261026/repair-checkpoint/run.log",
+      "bytes": 3422631,
+      "sha256": "1be12a46007e0ad47d2ea3a0af55b23ef223e36587444e5fea3257798e334404",
+      "publishedCommit": "9ff330b4a2de131037c4dbcfc03de9676a558b61",
+      "publishedGzip": "docs/engineering/audits/2026-10-22-codebase-review/p16-sprint7/repair-checkpoint/run.log.gz",
+      "restore": "gzip-decompress exact Git blob; verifySHA256"
+    }
+  ],
+  "totalBytes": 3445187,
+  "kept": "JSON comparison reports, source, manifests, private preflights, original failures retained remotely"
+}
