@@ -1,0 +1,39 @@
+{'numTotalTestSuites': 2138, 'numPassedTestSuites': 2081, 'numFailedTestSuites': 57, 'numPendingTestSuites': 0, 'numTotalTests': 6223, 'numPassedTests': 6108, 'numFailedTests': 101, 'numPendingTests': 3, 'numTodoTests': 11}
+{'NEW': 0, 'INHERITED-SAME': 93, 'INHERITED-CHANGED': 2, 'MISSING-INPUT': 6, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 6, 'OVER-BUDGET-PASS': 660} report tests 6221 baseline tests 6190 in both 6180
+
+## INHERITED-CHANGED (2)
+  - tests/bridge-owner-ux-projection20-migration.test.ts :: Owner UX outgoing projection20 migration pins genuine prior bytes, source identity, actual journal, and constr
+      AssertionError: expected 69 to be 53 // Object.is equality
+      baseline: AssertionError: expected 68 to be 53 // Object.is equality
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) legacy-root-downgrade
+      AssertionError: elapsed 188452 ms against the 120000 ms budget: expected 188452.39867700002 to be less than or equal to 120000
+      baseline: AssertionError: elapsed 215827 ms against the 120000 ms budget: expected 215827.19911800005 to be less than or equal to 120000
+
+## MISSING-INPUT (6)
+  - tests/r3n1-stale-schedule-take-02.test.ts :: R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge SERVER REFUSAL
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02.test.ts :: R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge SERVER REFUSAL
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p31.test.ts :: R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p31.test.ts :: R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p32.test.ts :: R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p32.test.ts :: R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'
+      UNTRACKED (not recoverable here)
+
+## OVER-BUDGET-PASS (660) max 312394.436
+## BASELINE-NOT-REPRODUCED (6)
+  - tests/bridge-p12-campaign-library.test.ts :: R05 independent named campaign transactions keeps a reviewed contract quote usable across failed and
+  - tests/bridge-p12-campaign-library.test.ts :: R05 independent named campaign transactions keeps a reviewed contract quote usable across failed and
+  - tests/bridge-p13b-s7-disclosure.test.ts :: P13B-S7-T3 item 5: Industry announcement row — derived, nullable studioId, excluded from per-studio 
+  - tests/bridge-runtime-checkpoint-prepared-reuse.test.ts :: prepared checkpoint representation reuse preserves authority boundaries preserves live authority on 
+  - tests/bridge-runtime-worker.test.ts :: runtime worker production authority delivers an accepted campaign Save before close completes and re
+  - tests/bridge-runtime-worker.test.ts :: runtime worker production authority durably saves exact response bytes and replays them after later 

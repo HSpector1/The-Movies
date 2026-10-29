@@ -1,10 +1,10 @@
-# Owner playtest invitation — browser candidate r2, b3c179b0 (2026-10-28, updated 19:55 CDT)
+# Owner playtest invitation — browser candidate r3, 6da4206a (2026-10-28; updated 2026-10-29, 02:11 CDT)
 
 Howard: this is one short route through the current browser build. Your verdict is yours; nothing below is accepted on your behalf. The coordinator's evidence (four scripted journeys in your installed Chrome, screenshots in sprint16-playtest/screenshots/) says the route works; it does not say the game is good.
 
 ## 1. Launch
 
-From a checkout of HSpector1/The-Movies at tag p18-sprint16-playtest-candidate-r2-20261028 (branch p18-season-20261028, commit b3c179b0; the earlier tag p18-sprint16-playtest-candidate-20261028 at 468d99b8 differs only by the headline fix and two test files), with node v20.20.2 on the PATH and dependencies installed:
+From a checkout of HSpector1/The-Movies at tag p18-sprint16-playtest-candidate-r3-20261028 (branch p18-season-20261028, commit 6da4206a; the r2 tag at b3c179b0 lacks the season cancellation below and the earlier tag at 468d99b8 also lacks the headline fix), with node v20.20.2 on the PATH and dependencies installed:
 
 ```
 npm run build
@@ -25,7 +25,7 @@ Open the printed localhost address in Google Chrome. (`npm run dev` also works, 
 ## 3. Known issues you will meet (not accepted, not hidden)
 
 - The front door for commissioning a television season is the standalone Assembly screen only; the refusal copy and the settle amount wording are provisional.
-- A cancelled season leaves the commissioner's licence in place until its term ends; a studio that loses authority does not cancel its season automatically (the contract requires it; not implemented).
+- A cancelled season leaves the commissioner's licence in place until its term ends. A season whose rights authority or a required person is lost now cancels at the next weekly boundary (candidate r3); selling the title mid-season cancels at once and charges the producer the agreed K, and the sale offer does not yet say so.
 - Guests for a sequel are chosen by the studio only; rival guest selection is not modelled.
 - A save written by the Node runtime may be refused by the browser import; browser-written saves round-trip.
 - Very long campaigns (past week 6240 under the deferred-closure engine option) produce 45 to 60 MB saves and slow saving; a normal campaign is nowhere near that.
@@ -33,7 +33,7 @@ Open the printed localhost address in Google Chrome. (`npm run dev` also works, 
 - No rival that entered cost-cutting has ever recovered in the measured routes.
 - The native Unity client is paired at source level only and has no build on this machine.
 
-Fixed since the first invitation (candidate r2): the newspaper headline no longer strands its closing quotation mark on a new line.
+Fixed since the first invitation: the newspaper headline no longer strands its closing quotation mark on a new line (r2); a season cancels automatically when its rights authority or a required person is lost, and the campaign-library save and load are faster (r3).
 
 ## 4. What we need from you
 

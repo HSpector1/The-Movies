@@ -1,0 +1,39 @@
+# full-tree-r2 lane summary (bound 6da4206a)
+waiting for pid 0; then: bash /Users/zacheryspector/studio-scratch/playtest-response-20261028/full-tree-r2/run.sh; 2026-10-29 00:09:45 CDT
+start; 2026-10-29 00:09:45 CDT
+end, exit 1; 2026-10-29 02:02:58 CDT
+
+known-missing inputs:        3
+Node v20.20.2; HEAD 6da4206a3446c415cdb5e6ee5e1c50546cb2e750
+=== BEGIN root-ui-types
+=== END root-ui-types exit=0 elapsed=104s
+=== BEGIN bridge-types
+=== END bridge-types exit=0 elapsed=38s
+=== BEGIN bridge-contract
+=== END bridge-contract exit=0 elapsed=2s
+=== BEGIN bridge-fixture-contract
+=== END bridge-fixture-contract exit=0 elapsed=1s
+=== BEGIN build
+=== END build exit=0 elapsed=24s
+=== BEGIN full-core-including-bridge
+⎯⎯⎯⎯⎯⎯ Failed Tests 101 ⎯⎯⎯⎯⎯⎯
+ Test Files  25 failed | 541 passed (566)
+      Tests  101 failed | 6108 passed | 3 skipped | 11 todo (6223)
+=== END full-core-including-bridge exit=1 elapsed=5708s
+=== BEGIN full-ui
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+ Test Files  2 failed | 209 passed (211)
+      Tests  3 failed | 2749 passed | 5 skipped (2757)
+=== END full-ui exit=1 elapsed=914s
+=== BEGIN final-source-integrity
+=== END final-source-integrity exit=0 elapsed=1s
+=== CHECKPOINT exit=1
+
+preflight:
+{"freeKiB": 6820324, "heavyLOCAL": [], "laneAbsent": true, "launchAllowed": true}
+godot lines at launch scan: 0
+launch-at: 2026-10-29T00:09:45-05:00
+
+classification (compare-full.py vs sprint14 full-tree-r4 e115be4b):
+{'NEW': 0, 'INHERITED-SAME': 93, 'INHERITED-CHANGED': 2, 'MISSING-INPUT': 6, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 6, 'OVER-BUDGET-PASS': 660} report tests 6221 baseline tests 6190 in both 6180
+{'NEW': 0, 'INHERITED-SAME': 3, 'INHERITED-CHANGED': 0, 'MISSING-INPUT': 0, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 0, 'OVER-BUDGET-PASS': 1} report tests 2753 baseline tests 2753 in both 2753

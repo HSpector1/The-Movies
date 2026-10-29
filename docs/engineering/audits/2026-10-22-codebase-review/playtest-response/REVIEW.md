@@ -23,8 +23,8 @@ Reviewer: one independent Opus 5.5 read-only agent, briefed on the frozen commit
 
 - Typecheck (root and bridge) passes at 91f6da7e.
 - Alone, outside the lane: tests/bridge-schema-first-refusal.test.ts and tests/bridge-contract-consumer-lock.test.ts, 103 tests passed (244 s).
-- Lane focused-r2 (studio-scratch/playtest-response-20261028/focused-r2, bound to 91f6da7e): the files FIX-1 invalidates plus bridge-p12-campaign-library alone. Result recorded in RESULTS.md when it ends.
-- A final full gate on the final commit follows the focused run; its audit and classification are recorded in RESULTS.md and lane/.
+- Lane focused-r2 (bound to 91f6da7e): every FIX-1 file green except the new validator case of finding 9, which relabelled the season cause and not the `cancelled` receipt the validator replays; FIX-2 (6da4206a, test-only) flips the receipt too and adds a bogus-cause refusal (RESULTS.md row).
+- Final full gate full-tree-r2 at 6da4206a: AUDITED CLEAN WITH NOTES, zero NEW in core and ui (lane/full-tree-r2/AUDIT.md). CF09 seal PASS on 6da4206a ↔ 8290f2c (PAIR-VERIFICATION-20261029.json).
 
 ## What the review did not cover
 

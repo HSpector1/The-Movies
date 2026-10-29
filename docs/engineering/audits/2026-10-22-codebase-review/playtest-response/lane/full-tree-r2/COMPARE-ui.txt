@@ -1,0 +1,5 @@
+{'numTotalTestSuites': 775, 'numPassedTestSuites': 771, 'numFailedTestSuites': 4, 'numPendingTestSuites': 0, 'numTotalTests': 2757, 'numPassedTests': 2749, 'numFailedTests': 3, 'numPendingTests': 5, 'numTodoTests': 0}
+{'NEW': 0, 'INHERITED-SAME': 3, 'INHERITED-CHANGED': 0, 'MISSING-INPUT': 0, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 0, 'OVER-BUDGET-PASS': 1} report tests 2753 baseline tests 2753 in both 2753
+
+## OVER-BUDGET-PASS (1) max 30383.192
+## BASELINE-NOT-REPRODUCED (0)

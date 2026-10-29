@@ -1,0 +1,21 @@
+{
+  "head": "6da4206a3446c415cdb5e6ee5e1c50546cb2e750",
+  "sourceManifestEntries": 2261,
+  "predecessor": "e115be4b (tag p18-sprint14-checkpoint-20261028, full gate full-tree-r4 audited CLEAN WITH NOTES) and the slice gate full-tree-r1 at 6a846c99 (CLEAN WITH NOTES, zero NEW); expected drift from r1: the 28 sparse-checkout MISSING-INPUT rows now measured, the projection20 pin message unchanged at 69, FIX-1's new differential test file added",
+  "purpose": "playtest-response full-tree-r2: the final full gate on the slice's final commit (FIX-1 91f6da7e or a later focused-rerun fix), after full-tree-r1 at 6a846c99 (CLEAN WITH NOTES, zero NEW) and focused-r2. All 24 docs evidence inputs the baseline manifest held are materialized in the sparse worktree, so the 28 rows unverified in r1 are measured here. Baseline for classification: full-tree-r4 at e115be4b (and r1 for the row-by-row diff). Budgets unchanged.",
+  "children": [
+    {
+      "label": "full-core-including-bridge",
+      "project": "core"
+    },
+    {
+      "label": "full-ui",
+      "project": "ui"
+    }
+  ],
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "timeoutOverride": false
+  },
+  "limits": "Timing recorded, not qualified; classification by file+fullName+first failure line against full-tree-r4 (e115be4b)."
+}
