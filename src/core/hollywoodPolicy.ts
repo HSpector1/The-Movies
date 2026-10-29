@@ -125,6 +125,16 @@ export function rivalCostCuttingEntry(facts: RivalCostCuttingEntryFacts): boolea
       || (outcome === 'staffingBlocked' && facts.unfilledFilmSlotForCash))
 }
 
+/** ASTRA Sprint 17 (Owner decision A, the 4a direction, 2026-10-29): a cutting rival re-examines a restart at a
+ * bounded cadence. Provisional hysteresis, stated here so it can be revisited: the first examination falls one
+ * shelved-retry interval after entry and one falls at every later multiple; between examinations every 1363-F
+ * restriction holds. The examination itself is the ordinary staffing and decision pass run on private copies
+ * (hollywoodTick.ts restartWouldCommit); this function only says when it is due. */
+export function rivalCostCuttingRestartDue(since: number, week: number): boolean {
+  const weeks = week - since
+  return weeks > 0 && weeks % TUNING.HOLLYWOOD_SHELVED_RETRY_WEEKS === 0
+}
+
 export type RivalCostCuttingReleaseFacts = {
   week: number; endWeekExclusive: number; annualSalary: number
   cash: number; weeklyOperatingCost: number; reserveWeeks: number

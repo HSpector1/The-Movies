@@ -4,7 +4,7 @@ import { buyerContinuedProductions, buyerOperationsForAllWork, buyerOperatedProd
 import { advanceAbsorbedRuns } from './absorbedRuns.js'
 import { validateAbsorbedProductionStops } from './absorbedWork.js'
 import { validateAbsorbedScripts } from './absorbedScripts.js'
-import {chooseIndustryPackage, searchIndustryPackages, rivalCostCuttingEntry, rivalCostCuttingReleaseAllowed,
+import {chooseIndustryPackage, searchIndustryPackages, rivalCostCuttingEntry, rivalCostCuttingReleaseAllowed, rivalCostCuttingRestartDue,
   type RivalCostCuttingEntryFacts} from './hollywoodPolicy.js'
 import { considerRivalSoundPurchase, selectRivalSoundProduction, rivalInstallationSlots } from './technologyRival.js'
 import { createProductionTechnologyPolicy } from './technologyProduction.js'
@@ -427,6 +427,31 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
   return rights
 }
 
+/** ASTRA Sprint 17 (Owner decision A, 4a): the restart examination of a cutting rival. The ordinary staffing,
+ * admission, research and decision laws run once on private copies of this business and the industry registry with
+ * the 1363-F restrictions lifted; the examination passes only if that ordinary pass commissions a screenplay or
+ * greenlights a film this week. Nothing from the copies is kept. When it passes the caller clears `costCutting`
+ * and the real pass below repeats the same deterministic laws on the real records: every hire pays its signing
+ * bonus against the reserve, every commission and greenlight pays its own cost, and the entry law may lawfully
+ * re-enter cutting at a later decision. No hire, loan, film or recovery is forced; a rival with cash and no
+ * opportunity (an unviable index, no affordable package, no fillable team) stays in cutting. */
+function restartWouldCommit(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],week:number):boolean {
+  const trial:RivalBusiness=structuredClone({...b,costCutting:{version:1,since:null}})
+  const scratch:HollywoodState={...h,employment:[...h.employment],activeEmploymentOrdinals:[...h.activeEmploymentOrdinals],
+    receipts:[...h.receipts],concepts:[...h.concepts],businesses:h.businesses.map(row=>row.studioId===b.studioId?trial:row)}
+  const probe=():GameState=>({...state,hollywood:scratch,talent:staffed})
+  const facts:StaffingCashFacts={unfilledFilmSlotForCash:false,renewalRefusedForCash:false,unrelatedScientistSlotRefusedForCash:false}
+  const greenlights:{studioId:string;production:Production}[]=[]
+  let staffed=talent
+  staffed=staff(probe(),scratch,trial,talent,week,
+    Array.from({length:rivalScientistDemand(probe(),scratch,trial,talent,week)},()=>'scientist' as const),[],facts)
+  const physicalPlans=admitRivalPlansInWeek(probe(),scratch,trial,state.physicalPlans,week)
+  const technology=advanceRivalResearch({...probe(),physicalPlans},scratch,trial,staffed,week)
+  const before=trial.development.projects.length
+  decide({...probe(),physicalPlans,technology},scratch,trial,staffed,week,greenlights,facts)
+  return greenlights.length>0||trial.development.projects.length>before
+}
+
 /** Each active run pays its installment due at input week `week` at its locked share; a final payment settles the
  * film at that week. One loop for an operating business and for a closed business's estate (P15B r3). */
 function payRuns(h:HollywoodState,b:RivalBusiness,week:number) {
@@ -578,6 +603,10 @@ export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<str
     if(closed.has(b.studioId)){payRuns(h,b,week);continue}
     const cashFacts:StaffingCashFacts={unfilledFilmSlotForCash:false,renewalRefusedForCash:false,unrelatedScientistSlotRefusedForCash:false}
     technology=considerRivalSoundPurchase(working(),h,{...b,operations:buyerOperationsForAllWork(working(),b.studioId)})
+    // ASTRA Sprint 17 (decision A): a due restart examination runs before this week's staffing so that, when it
+    // passes, the same week's ordinary staff()/decide() pass re-staffs and commissions on the real records.
+    if(b.costCutting.since!==null&&week>=b.nextDecisionWeek&&rivalCostCuttingRestartDue(b.costCutting.since,week)
+      &&restartWouldCommit(working(),h,b,talent,week))b.costCutting={version:1,since:null}
     if(week>=b.nextDecisionWeek)talent=staff(working(),h,b,talent,week,
       Array.from({length:rivalScientistDemand({...state,technology,physicalPlans,hollywood:h},h,b,talent,week)},()=>'scientist' as const),suppliedTalent,cashFacts)
     // P13B-S8 (audit item 7): this studio's own physical admission and research
