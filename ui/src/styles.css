@@ -1725,7 +1725,10 @@ th.num {
   font-weight: 800;
   letter-spacing: -0.045em;
   line-height: 0.94;
-  overflow-wrap: anywhere;
+  /* No overflow-wrap: anywhere here. The headline quotes the title, and when the title's last word
+     filled the column that rule broke before the closing quote and stranded it on the next line
+     (Sprint 16 known issue). Title words come from the word lists (longest: Constellation, 13
+     letters), measured to fit the column at every breakpoint; the quote may hang into the padding. */
   text-transform: uppercase;
   text-wrap: balance;
 }
