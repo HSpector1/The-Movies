@@ -17,6 +17,18 @@ Entry: ENTRY.md. Starts from the Sprint 20 checkpoint (tag p18-sprint20-checkpoi
 - 9f6103f3, installed Chrome (channel chrome), one worker, fixed port 5178, 17:40 to 17:43 CDT: 6 of 6 (local/s21-journeys-r1.json): smoke (full playable loop: assemble, greenlight, release, autopsy, save round-trip, 21.0 s), d12-economy-journey (finances card, release-strategy gate, sim-to-event, theatrical run, 11.0 s), p17-continuation (original, sequel with a featured guest, lineage and meters, 15.8 s), p18-season (commission from Assembly, first credited unit, Dashboard row, 11.3 s), astra18-rights-desk (disclosure request, title sale disclosed before the confirm, season cancels as disclosed, 18.1 s), astra19-portability (Node-built season world imports in Chrome, exports identically, continues identically, reloads, 56.1 s). Firefox and WebKit unavailable on this host: unrun.
 - Defects found by the journeys: none. No Owner feedback has arrived since the Sprint 16 invitation, so no reported input, focus, clarity, cancellation, save-loss or progression defect exists to reproduce; OWNER ACCEPTANCE PENDING. The invitation is refreshed once for the final candidate (OWNER-INVITATION.md).
 
-## Slices 3 and 4
+## Slice 3 — integration milestone (full gate)
 
-Pending: the full-gate integration lane on the final candidate against full-tree-s17-r1; the candidate report with GO / CONDITIONAL GO / NO-GO.
+- full-tree-s21-r1 (bound 9f6103f3, launched 17:53:31 CDT): STOPPED by the coordinator at 17:54:43 CDT, in the root typecheck stage, exit 143 (STOPPED-BY-COORDINATOR.txt in the run dir). Cause: the bind counted 2138 source entries against 2274 at sprint20-r3 and MISSING-INPUTS listed four, not three; the two merges had re-applied the worktree's sparse patterns and dropped 142 hand-materialized gate inputs (118 under docs/engineering/playability-launch-review, among them the required p14b4 authority-failure.json; art/hollywood people and evidence; two docs contracts). Nothing from r1 is evidence.
+- Recovery by name only: the 142 paths (the difference of the two SOURCE-MANIFESTs) restored from HEAD with `update-index --no-skip-worktree` and `checkout-index -f`; tree clean; bind 2280 entries (the six records files main added account for the rest).
+- full-tree-s21-r2 (bound 9f6103f3, 2280 entries, launched 17:54:56 CDT, known-missing inputs 3: the gitignored r3n1 fixtures, as every baseline): RUNNING. Stages: root, ui and bridge typecheck, contract and fixture checks, build, full core including bridge, full ui, integrity. Compare: compare-full.py against full-tree-s17-r1 core-including-bridge.json and ui.json.
+
+## Owner cleanup order (2026-10-29, 13:25 CDT) — DONE at 17:55 CDT
+
+- Pushed p17-red-20261027 (cda4c04f) and astra17-snapshot-20261029 (8892b693); removed five pushed clean worktrees and the finished snapshot worktree (about 710 MB); stopped the two orphan Sprint 14 monitors (pids 43340 and 43341).
+- Archived studio-scratch to the private GitHub release HSpector1/mac-archive archive-2026-10-29 in four groups (tools/archive-scratch-group.sh, member lists tools/g*.list, inventory tools/scratch-du-20261029.txt): g4-rest 383 entries 19.7 MB, g3-sprints 26 entries 387 MB, g1-13xx 866 entries 946 MB, g2-1370 2451 entries 896 MB on disk; parts 3, 111, 422 and 173 MB uploaded with every size verified against the release and the whole-stream SHA-256 and restore command in the release notes; the member lists are release assets too. 416 read-only receipt directories refused the first removal and were removed after a membership check against the archived lists; two dangling aliases (never archivable) deleted.
+- Kept on disk (1,210 MB): the three worktrees, astra-20261029 (lane staging and evidence), p16-c03-sprint1-20261025 (lane env), 1370-astra-takeover-20261012 (preflight root) and 1370-c0-stage41-heavy-lane-recovery-proposal-r8 (lane runner), HEAVY-LANE-LOCK. The main repository checkout under the home directory is untouched.
+
+## Slice 4
+
+Pending: the candidate report and the integrated Sprints 17 to 21 report with GO / CONDITIONAL GO / NO-GO (INTEGRATED-REPORT.md draft).
