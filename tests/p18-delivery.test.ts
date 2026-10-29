@@ -602,3 +602,46 @@ describe('P18 FIX-S13A-1 — the natural closure route', () => {
       .toThrow(`obligations were published to closure ${closure!.closureId}; the estate owns them`)
   })
 })
+
+// ── automatic cancellation on unrecoverable required-person loss (contract §4, §7; Owner decision 7c) ──────────────
+describe('P18 cancellation — a required person lost mid-season cancels at once (contract §4, §7)', () => {
+  // No public verb removes a season's engaged person (releaseTalent refuses by name while the season is live) and the
+  // lifecycle's retirement runs on birthdays the test cannot schedule, so the loss is a disclosed shortcut: the director's
+  // player contract is dropped from `contracts`, the one record `activeContract` reads. The step is called directly, as
+  // the FIX-S13A-1 item 1 case does; the edited state is not saved (the validator's credits rule reads the employment
+  // rows, which the shortcut leaves intact). The rights branch runs end to end on the title-sale route (s14 W3).
+  it('cancels at the boundary with cause participant, pays U0 then K from available cash, releases every slot and credits nothing', () => {
+    const live = naturalWeeks.find((s) => status(s) === 'live' && season(s).work.creditedUnits >= 1 && season(s).work.creditedUnits < 12)
+    expect(live, 'premise: a live mid-season week on the natural walk').toBeDefined()
+    const lost = season(live!).roster.directorId
+    const edited: GameState = { ...live!, contracts: live!.contracts.filter((c) => c.talentId !== lost) }
+    const week = edited.market.tick
+    const liveSeason = tvReaders.liveTvSeason(edited.television)!
+    expect(tvSeasonModule.tvWorkGate(edited, liveSeason, week)).toEqual({ kind: 'participant', talentId: lost })
+    const a = agreement(edited)
+    const advanced = tvSeasonModule.advanceTelevisionWeek(edited, { cash: edited.studio.cash, sets: edited.sets }, week)
+    const s = advanced.television!.seasons.find((row) => row.seasonId === liveSeason.seasonId)!
+    expect(s.status).toBe('cancelled')
+    expect(s.cancellation).toEqual({ week: week + 1, cause: 'participant' })
+    expect(s.work.creditedUnits).toBe(liveSeason.work.creditedUnits)
+    expect(s.work.stall).toBeNull()
+    expect(s.reservations).toEqual([])
+    expect(advanced.television!.receipts.filter((r) => r.kind === 'unitCredited')).toHaveLength(television(edited)!.receipts.filter((r) => r.kind === 'unitCredited').length)
+    const settled = advanced.television!.agreements.find((row) => row.agreementId === a.agreementId)!.settlement!
+    const refund = a.received - a.earned
+    const available = Math.floor(Math.max(0, edited.studio.cash))
+    expect(settled).toEqual({ week: week + 1, refundDue: refund, refundPaid: Math.min(refund, available),
+      chargeDue: CHARGE, chargePaid: Math.min(CHARGE, available - Math.min(refund, available)), closureId: null })
+    expect(edited.studio.cash - advanced.cash).toBe(settled.refundPaid + settled.chargePaid)
+    const rows = advanced.ledger.filter((row) => row.kind === 'tvAdvanceRefund' || row.kind === 'tvCancellationCharge')
+    expect(rows.map((row) => [row.kind, -row.amount, row.week])).toEqual([
+      ...(settled.refundPaid > 0 ? [['tvAdvanceRefund', settled.refundPaid, week]] : []),
+      ...(settled.chargePaid > 0 ? [['tvCancellationCharge', settled.chargePaid, week]] : []),
+    ])
+  })
+
+  it('a capacity, cash or scenery stall still waits for the deadline (unchanged): the natural walk never cancels before C + 20 without an authority loss', () => {
+    const cancelledEarly = naturalWeeks.find((s) => status(s) === 'cancelled' && season(s).cancellation!.week < season(s).finalWeek)
+    expect(cancelledEarly).toBeUndefined()
+  })
+})
