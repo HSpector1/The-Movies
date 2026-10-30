@@ -1,0 +1,32 @@
+{
+  "head": "3d5b8b7ae721a1554b65f02b3d6b6314b02ca0ad",
+  "sourceManifestEntries": 2287,
+  "purpose": "ASTRA Sprint 27 r1 on the projection-71 engine commit 3d5b8b7a (the Rights desk and the estates on the Bridge): root, ui and bridge typecheck, the contract and fixture checks, every tests/bridge*.test.ts file (116, including the new bridge-astra27-rights-estate), integrity; classified by identity against sprint20-r3 and full-tree-s26-r1",
+  "limits": "the Bridge dependency scope only (the core and ui outside the Bridge did not change); budgets unchanged; the native client cannot be compiled on this host (stated once in astra-sprints-22-26/ENTRY.md)",
+  "children": [
+    {
+      "label": "root-ui-types"
+    },
+    {
+      "label": "bridge-types"
+    },
+    {
+      "label": "bridge-contract"
+    },
+    {
+      "label": "bridge-fixture-contract"
+    },
+    {
+      "label": "bridge-tests",
+      "project": "core"
+    },
+    {
+      "label": "final-source-integrity"
+    }
+  ],
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "uiMilliseconds": 30000,
+    "timeoutOverride": false
+  }
+}
