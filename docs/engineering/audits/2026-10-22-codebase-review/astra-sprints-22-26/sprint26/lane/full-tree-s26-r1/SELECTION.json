@@ -1,0 +1,21 @@
+{
+  "head": "6ddeeb00c5636c13429637694b5e60d98a8bc190",
+  "sourceManifestEntries": 2283,
+  "predecessor": "9f6103f3 (full gate full-tree-s21-r2, Sprint 21: core 6,130 of 6,248 with 104 failures classified 93 inherited same, 2 inherited changed by value, 6 missing untracked r3n1 fixtures, 3 NEW; ui 2,755 of 2,763 with 2 inherited and 1 NEW timing) and FIX-1 6c82214f (the p14d1 era pin, 29 of 29 alone); expected drift from s21-r2: the p14d1 NEW row gone, Sprint 22 to 24 test files added (bridge-astra20 confirmation cases, p15b5 loan choice, dashboard-release-commit, p18-delivery closure cases, p15b4 tiers, p16-absorption calendar pin, astra18/astra24 desk), the p15c2 downgrade and p15c1 module-load timing rows measured again",
+  "purpose": "ASTRA Sprint 26 combined playtest candidate milestone on 6ddeeb00 (Sprints 22 to 24 on the Sprint 21 candidate; main ab65eb20 unchanged and an ancestor): root, ui and bridge typecheck, contract and fixture checks, build, the full core suite including the Bridge, the full ui suite, final source integrity; classified by full identity against full-tree-s21-r2 and full-tree-s17-r1 with the existing compare script; nothing subtracted",
+  "children": [
+    {
+      "label": "full-core-including-bridge",
+      "project": "core"
+    },
+    {
+      "label": "full-ui",
+      "project": "ui"
+    }
+  ],
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "timeoutOverride": false
+  },
+  "limits": "budgets unchanged; inherited failures named against full-tree-r4; timing rows are measurements"
+}

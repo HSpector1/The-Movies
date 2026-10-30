@@ -1,0 +1,9 @@
+{'numTotalTestSuites': 778, 'numPassedTestSuites': 774, 'numFailedTestSuites': 4, 'numPendingTestSuites': 0, 'numTotalTests': 2763, 'numPassedTests': 2755, 'numFailedTests': 3, 'numPendingTests': 5, 'numTodoTests': 0}
+{'NEW': 1, 'INHERITED-SAME': 2, 'INHERITED-CHANGED': 0, 'MISSING-INPUT': 0, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 0, 'OVER-BUDGET-PASS': 50} report tests 2759 baseline tests 2753 in both 2753
+
+## NEW (1)
+  - ui/src/lot/WorldFirstStudioHome.test.tsx :: Studio Home V1 — App world-root navigation preserves topbar focus through a supporting-Dashboard Sim result
+      Error: Test timed out in 30000ms.
+
+## OVER-BUDGET-PASS (50) max 24252.981
+## BASELINE-NOT-REPRODUCED (0)
