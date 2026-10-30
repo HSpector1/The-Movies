@@ -135,7 +135,9 @@ describe('App end-to-end loop', () => {
       // browser now renders that exact control. Click it the way a player would.
       const commit = screen.queryByTestId('release-commit')
       if (commit) {
+        // ASTRA Sprint 22 (decision A): review first, then confirm; the first click commits nothing.
         fireEvent.click(commit)
+        fireEvent.click(screen.getByTestId('release-commit-confirm'))
       }
       const advance = screen.queryByTestId('advance-week')
       if (advance) {

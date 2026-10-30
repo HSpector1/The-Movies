@@ -104,6 +104,8 @@ test('D-12: finances card, release-strategy gate, sim-to-event, theatrical run +
     const commit = page.getByTestId('release-commit')
     if (await commit.isVisible().catch(() => false)) {
       await commit.click()
+      // ASTRA Sprint 22 (decision A): the commit is reviewed (outlook, paid, finality) and confirmed with a second gesture.
+      await page.getByTestId('release-commit-confirm').click()
     }
     const sim = page.getByTestId('sim-to-event')
     await expect(sim).toBeEnabled()

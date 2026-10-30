@@ -4,7 +4,7 @@
 // active productions (stored forecast + remaining weeks), recent releases, and the
 // primary actions (Assemble a film, Advance one week) plus Talent creator / Saves.
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type {
   ActionOutcome,
   GameState,
@@ -31,6 +31,7 @@ import {
   productionBoard,
   studioDecision,
   scriptProjectsBoard,
+  releaseCommitReview,
 } from '../engine/adapter.ts'
 import { money, score } from '../format.ts'
 import { Metric, StandingBar } from '../components/common.tsx'
@@ -155,6 +156,15 @@ export function Dashboard({
   // is a choice, so it renders its OWN control (never a production command).
   const pendingReleaseDecision =
     pendingDecision?.kind === 'releaseReview' ? pendingDecision.decision : null
+  // ASTRA Sprint 22 (decision A): the commit is irreversible, so it takes two gestures. The first shows the review the
+  // core already holds for this exact picture (the frozen Greenlight outlook, the money already paid, who the hold keeps
+  // busy, the finality); the second commits. The arming is bound to the exact production id: if the pending picture
+  // changes, the review disappears and nothing commits. Keep holding disarms and transacts nothing.
+  const [armedReleaseId, setArmedReleaseId] = useState<string | null>(null)
+  const armedRelease =
+    pendingReleaseDecision !== null && armedReleaseId === pendingReleaseDecision.productionId
+      ? releaseCommitReview(state, pendingReleaseDecision.productionId)
+      : null
   const managedScripts = scripts.mode === 'managed'
   const capacityHold = board.cards.find((card) => card.blocker?.kind === 'facility-capacity') ?? null
   const runRefs = useRef(new Map<string, HTMLElement>())
@@ -276,10 +286,10 @@ export function Dashboard({
             <button className="primary" onClick={onAdvance} data-testid="advance-week">
               Advance one week
             </button>
-            {pendingReleaseDecision !== null && onCommitPictureToRelease && (
+            {pendingReleaseDecision !== null && onCommitPictureToRelease && armedRelease === null && (
               <button
                 className="accent"
-                onClick={() => onCommitPictureToRelease(pendingReleaseDecision.productionId)}
+                onClick={() => setArmedReleaseId(pendingReleaseDecision.productionId)}
                 data-testid="release-commit"
               >
                 Commit {pendingReleaseDecision.title} to release
@@ -299,6 +309,48 @@ export function Dashboard({
               Sim to next event
             </button>
           </div>
+          {pendingReleaseDecision !== null && onCommitPictureToRelease && armedRelease !== null && (
+            <section className="panel" aria-label="Review the release commitment" data-testid="release-commit-review">
+              <p>
+                <strong>Irreversible.</strong> Advances no time; {armedRelease.title} releases on the next studio week and
+                cannot be held again.
+              </p>
+              <dl>
+                <dt>Greenlight outlook (frozen at greenlight)</dt>
+                <dd data-testid="release-commit-outlook">
+                  opening {money(armedRelease.outlook.expectedOpening)}, total {money(armedRelease.outlook.expectedTotal)}, critics{' '}
+                  {score(armedRelease.outlook.expectedCriticScore)}
+                </dd>
+                <dt>Already paid</dt>
+                <dd data-testid="release-commit-paid">
+                  production {money(armedRelease.paid.production)}, marketing {money(armedRelease.paid.marketing)}
+                </dd>
+                <dt>Held by the release until it commits</dt>
+                <dd data-testid="release-commit-hold">
+                  {armedRelease.holdBusyNames.length === 0 ? 'nobody' : armedRelease.holdBusyNames.join(', ')}
+                </dd>
+              </dl>
+              <div className="btn-row">
+                <button
+                  className="ghost"
+                  onClick={() => setArmedReleaseId(null)}
+                  data-testid="release-commit-keep"
+                >
+                  Keep holding
+                </button>
+                <button
+                  className="accent"
+                  onClick={() => {
+                    setArmedReleaseId(null)
+                    onCommitPictureToRelease(armedRelease.productionId)
+                  }}
+                  data-testid="release-commit-confirm"
+                >
+                  Confirm: commit {armedRelease.title} to release
+                </button>
+              </div>
+            </section>
+          )}
           <p className="hint">
             {/* PF1-M3 VOICE PASS (charter §3): the screenplay branch said "unattended
                 simulation", which is what the codebase calls Sim to next event, not what a

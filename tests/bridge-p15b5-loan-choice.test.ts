@@ -118,6 +118,9 @@ describe('Bridge C17: explicit lawful loan choice', () => {
     const maximum = availableIntents(session.gameState).filter(o => o.kind === 'takeLoan')
     expect(maximum).toHaveLength(1)
     expect(maximum[0]!.label).toContain('$390,000')
+    // ASTRA Sprint 22 (decision A): the one-click maximum shortcut needs a second gesture; the quoted commit below is
+    // accepted on its digest-bound id with no further confirmation, because the quote was the review.
+    expect(maximum[0]!.confirmation).toBe('required')
     expect(truth(session)).toEqual(before)
     const committed = submit(session, other.intentId, 'select-other')
     expect(committed.accepted).toBe(true)

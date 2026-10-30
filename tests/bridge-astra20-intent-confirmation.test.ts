@@ -25,9 +25,19 @@ describe('intent confirmation (projection 70)', () => {
     expect(intentConfirmation('physicalPlanAction', { kind: 'cancelPhysicalPlan', planId: 'p' })).toBe('required')
     expect(intentConfirmation('physicalPlanAction', { kind: 'queuePhysicalPlan' })).toBe('none')
     expect(intentConfirmation('physicalPlanAction', { kind: 'reorderPhysicalPlans' })).toBe('none')
-    // Recorded Owner question (sprint20/RESULTS.md): cancelResearch keeps every verified result and stays one gesture.
+    // Sprints 22 to 26 decision A: cancelResearch keeps every verified result and stays one gesture.
     expect(intentConfirmation('researchAction', { kind: 'cancelResearch' })).toBe('none')
     expect(intentConfirmation('advanceWeek', null)).toBe('none')
+  })
+
+  it('ASTRA Sprint 22 (decision A): the one-click loan shortcut and the release commit are confirmed by their verb; the quoted loan commit is not confirmed twice', () => {
+    // The published shortcut and the release option carry the engine verb beneath them.
+    expect(intentConfirmation('takeLoan', { kind: 'takeLoan', principal: 390_000 })).toBe('required')
+    expect(intentConfirmation('commitPictureToRelease', { kind: 'commitPictureToRelease', productionId: 'prod-1' })).toBe('required')
+    // The quoted commit (quoteLoan, then the digest-bound commit) is derived from the kind alone by quotedIntentFor: the
+    // quote is the review, so no second confirmation stands behind it.
+    expect(intentConfirmation('takeLoan')).toBe('none')
+    expect(intentConfirmation('commitPictureToRelease')).toBe('none')
   })
 
   it('every published option on the founding world carries the derived value; a quote-minted commit is none', () => {
@@ -38,7 +48,9 @@ describe('intent confirmation (projection 70)', () => {
       expect(INTENT_CONFIRMATION_KINDS).toContain(intent.confirmation)
       if ((REQUIRED_KINDS as readonly string[]).includes(intent.kind)) expect(intent.confirmation, intent.kind).toBe('required')
       if (intent.kind === 'physicalPlanAction' && intent.label.startsWith('Cancel plan:')) expect(intent.confirmation).toBe('required')
-      if (intent.kind !== 'physicalPlanAction' && !(REQUIRED_KINDS as readonly string[]).includes(intent.kind)) expect(intent.confirmation, intent.kind).toBe('none')
+      // Sprint 22: the loan shortcut and the release commit are required by their verb (neither exists on the founding world).
+      if (intent.kind === 'takeLoan' || intent.kind === 'commitPictureToRelease') expect(intent.confirmation, intent.kind).toBe('required')
+      else if (intent.kind !== 'physicalPlanAction' && !(REQUIRED_KINDS as readonly string[]).includes(intent.kind)) expect(intent.confirmation, intent.kind).toBe('none')
     }
   })
 })

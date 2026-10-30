@@ -393,9 +393,14 @@ function opaqueIntentId(stateDigest: string, descriptor: unknown): string {
  * (`confirmation`), so no client can treat them as ordinary memo clicks. */
 const CONFIRMATION_REQUIRED_KINDS: ReadonlySet<AvailableIntent['kind']> = new Set(['cancellationAction', 'cancelFeaturedBooking', 'cancelTvSeason', 'settleTvObligations'])
 /** Engine verbs published under a broader kind that are cancellations all the same (review FIX-1): the plan cancel rides
- * `physicalPlanAction`. `cancelResearch` (under `researchAction`) keeps every verified result and is NOT marked; the Owner
- * question is recorded in the sprint record. */
-const CONFIRMATION_REQUIRED_ACTIONS: ReadonlySet<string> = new Set(['cancelPhysicalPlan'])
+ * `physicalPlanAction`. `cancelResearch` (under `researchAction`) keeps every verified result and is NOT marked (Sprints 22
+ * to 26 decision A keeps it one gesture).
+ *
+ * ASTRA Sprint 22 (decision A): the two one-click financial commitments are confirmed by the verb beneath the option, not
+ * by the kind: the maximum-loan shortcut (`takeLoan` beside the quoted loan; money moves at once) and the release commit
+ * (`commitPictureToRelease`; irreversible). The quoted loan commit (`quoteLoan`, then the digest-bound commit) is already
+ * the review, so `quotedIntentFor` derives from the kind alone and stays `none`: no second confirmation behind a quote. */
+const CONFIRMATION_REQUIRED_ACTIONS: ReadonlySet<string> = new Set(['cancelPhysicalPlan', 'takeLoan', 'commitPictureToRelease'])
 export const intentConfirmation = (kind: AvailableIntent['kind'], hiddenAction: unknown = null): AvailableIntent['confirmation'] => {
   if (CONFIRMATION_REQUIRED_KINDS.has(kind)) return 'required'
   const verb = typeof hiddenAction === 'object' && hiddenAction !== null ? (hiddenAction as { kind?: unknown }).kind : undefined
@@ -1007,8 +1012,11 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
       const fields: IntentFields = {
         kind: 'commitPictureToRelease',
         label: `Commit ${title} to release`,
+        // ASTRA Sprint 22 (decision A): the option is confirmed with a second gesture, and its detail is the review the
+        // client shows while armed: the frozen Greenlight outlook and the money already paid, read from the production
+        // itself (the same figures the Release projection publishes), then the finality. No new arithmetic.
         detail:
-          'Irreversible. Advances no time; the picture releases on the next studio week.',
+          `Irreversible. Advances no time; the picture releases on the next studio week. Greenlight outlook: opening ${exactDollars(production.forecastSnapshot.expectedOpening)}, total ${exactDollars(production.forecastSnapshot.expectedTotal)}, critics ${production.forecastSnapshot.expectedCriticScore.toFixed(1)}. Already paid: production ${exactDollars(production.budget.negative)}, marketing ${exactDollars(production.budget.marketing)}.`,
         projectId: null,
         castingSessionId: null,
         productionId: production.id,

@@ -64,7 +64,7 @@ async function advanceWeek(page: Page): Promise<string | null> {
   expect(Number.isSafeInteger(before), 'premise: the Dashboard shows a whole week').toBe(true)
   const continuedWeek = String(before + 1)
   const commit = page.getByTestId('release-commit')
-  if ((await commit.count()) > 0) await commit.click()
+  if ((await commit.count()) > 0) { await commit.click(); await page.getByTestId('release-commit-confirm').click() } // Sprint 22: review, then confirm
   await expect(page.getByTestId('advance-week')).toBeEnabled()
   await page.getByTestId('advance-week').click()
   for (let transition = 0; transition < 4; transition++) {

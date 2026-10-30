@@ -265,6 +265,7 @@ import type { ReceptionBand, CriticTier } from '../../../src/core/index.ts'
 // Re-export for existing external consumers that imported filmCommittedCost from the adapter.
 export { filmCommittedCost } from '../../../src/core/index.ts'
 import { canAfford as coreCanAfford, legacyAnnexOffered as coreLegacyAnnexOffered } from '../../../src/core/index.ts'
+import { releaseHoldBusyTalentIds as coreReleaseHoldBusyTalentIds } from '../../../src/core/index.ts'
 import { SET_BLUEPRINTS } from '../../../src/core/tuning.ts'
 import type { ContinuationRequest } from '../../../src/core/index.ts'
 // P17 cameo request type: not exported from index.ts yet (see engine/continuation.ts).
@@ -4007,6 +4008,35 @@ export function releaseTalentAction(state: GameState, talentId: string): ActionO
     return { ok: true, next: applyActions(state, [{ kind: 'releaseTalent', talentId }]) }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
+  }
+}
+
+// ASTRA Sprint 22 (decision A): the review a player reads before the irreversible commit, read off the production the
+// core already holds (the same figures the Bridge's Release projection publishes): the Greenlight outlook frozen at
+// greenlight, the money already paid, and who the release hold keeps busy. No new arithmetic; null when the picture is
+// not the player's or is not at Release Ready, so a stale screen shows nothing to confirm.
+export type ReleaseCommitReview = {
+  productionId: string
+  title: string
+  outlook: { expectedOpening: number; expectedTotal: number; expectedCriticScore: number }
+  paid: { production: number; marketing: number }
+  holdBusyNames: string[]
+}
+export function releaseCommitReview(state: GameState, productionId: string): ReleaseCommitReview | null {
+  const production = state.studio.activeProductions.find((p) => p.id === productionId)
+  if (production === undefined || production.remainingTicks !== 1) return null
+  const concept = findConcept(state, production.conceptId)
+  const names = coreReleaseHoldBusyTalentIds(state, productionId).map((id) => state.talent.find((t) => t.id === id)?.name ?? id)
+  return {
+    productionId,
+    title: concept?.title ?? productionId,
+    outlook: {
+      expectedOpening: production.forecastSnapshot.expectedOpening,
+      expectedTotal: production.forecastSnapshot.expectedTotal,
+      expectedCriticScore: production.forecastSnapshot.expectedCriticScore,
+    },
+    paid: { production: production.budget.negative, marketing: production.budget.marketing },
+    holdBusyNames: names,
   }
 }
 

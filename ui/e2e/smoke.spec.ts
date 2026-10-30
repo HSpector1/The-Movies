@@ -173,7 +173,10 @@ test('full playable loop: assemble → greenlight → release → autopsy → sa
     // advancing alone never releases it. Commit when the dashboard offers it, then advance.
     const commit = page.getByTestId('release-commit')
     if (await commit.isVisible().catch(() => false)) {
+      // ASTRA Sprint 22 (decision A): the first click reviews the frozen outlook, the money already paid and the
+      // finality; the second confirms. Nothing commits on the first.
       await commit.click()
+      await page.getByTestId('release-commit-confirm').click()
     }
     const advance = page.getByTestId('advance-week')
     if (await advance.isVisible().catch(() => false)) {
