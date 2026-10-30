@@ -1,0 +1,357 @@
+PROJECT: STUDIO — ASTRA SPRINTS 22–26
+Final assignment prepared from the published Sprint 21 closeout.
+Activation: only when Howard sends this file to the builder as his next order.
+Supersedes PROJECT-STUDIO-ASTRA-SPRINTS-22-26-DRAFT.txt.
+
+AUTHORIZATION AND PURPOSE
+
+When Howard sends this assignment for execution, the existing coordinator is
+authorized to complete Sprints 22–26, including bounded implementation, necessary
+verification, focused independent review and candidate publication. Continue
+between eligible sprints without requesting routine approval. This supersedes
+the stop-after-Sprint-21 instruction. It does NOT approve promotion to main,
+claim Owner playtest acceptance, waive failures or authorize software purchases.
+
+Deliver usable improvements: safe financial commitments, correctly ranked TV
+estate claims, proven browser acquisition/estate journeys, real native workflows
+where the host permits them, and one reproducible combined playtest candidate.
+Do not turn this into five more general audits or performance campaigns.
+
+1. RECOVER THE COMPLETED CHECKPOINT ONCE
+
+Repository: https://github.com/HSpector1/The-Movies
+Gameplay branch: p18-season-20261028
+Verified candidate: 6c82214f91968ccd999152b5b5db8b4c5d85e7b2
+Tag: p18-sprint21-candidate-20261029
+Records branch: wip/headless-program-20260916-ts
+Verified records: f78670ce329365cbdfb26c2b94ffdda224715c83
+Reported handoff mirror: eb4afbc8; identify its actual branch before using it.
+PR #20: https://github.com/HSpector1/The-Movies/pull/20
+At verification: OPEN, DRAFT, mergeable, unmerged, auto-merge off.
+Main at the reviewed PR base: ab65eb20c73c35ac3530f59181332cc9a313b604
+Unity repository: HSpector1/project-studio-unity-visual-spike
+Unity branch: sprint15-consumer-20261028
+Last recorded counterpart: 08e335fc, STATIC-UNRUN; resolve its full current ref.
+
+Refresh explicit remote refs and current local ownership. These are recovery
+references, never reset targets. Preserve newer authorized work, tags and local
+changes. A branch-limited fetch may leave origin/main stale. Work from the actual
+integrated candidate or its authorized descendant, not the old P16 candidate.
+
+Read selectively:
+- Current AGENTS.md, applicable Claude/Codex entry, newest HANDOFF, task route,
+  relevant skills and lesson entries.
+- docs/engineering/audits/2026-10-22-codebase-review/astra-sprints-17-21/
+  INTEGRATED-REPORT.md and sprint21/RESULTS.md, comparison/audit and OWNER-INVITATION.md.
+- The specific sprint17, sprint18 and sprint20 residual sections needed below.
+- The affected current P15/P16/P18 contracts and native acceptance instructions.
+
+Do not repeat full onboarding, reread all archives or re-research the original game.
+Do not replace the coordinator or start an extra terminal merely for this order.
+Record this assignment in the existing authority/ledger structure at an idle point.
+
+2. WHAT SPRINT 21 ALREADY ESTABLISHED — REUSE IT
+
+Sprint 21 is CLOSED. full-tree-s21-r2 ran on 9f6103f3; the final candidate 6c82214f
+changes one test pin/comment afterward. The repaired complete file passed 29/29,
+and root typecheck passed. No further full run was performed on 6c82214f.
+
+Retain the exact published gate accounting:
+- Static stages, build and integrity: exit 0.
+- Core: 6,130/6,248 passed; 95 inherited failures (same/by-value), six missing-input
+  cases, one new stale test-pin failure subsequently repaired, two new timing rows.
+- UI: 2,755/2,763 passed; two inherited failures and one new timing row.
+- No new behavior defect was identified within that executed coverage.
+- Six Chrome journeys passed on 9f6103f3. This is not Howard's personal verdict.
+- The timing rows retain their original budgets. Solo passes do not turn the broad
+  timing outcomes into qualified passes; the p15c1 load result includes 5,010 ms
+  against 5,000 ms alongside faster observations.
+- Three unavailable untracked fixtures account for six unverified cases. Keep that
+  gap visible; do not generate substitutes from an incompatible source.
+- Native compilation/runtime is not established by the CF09 pairing seal.
+
+CONDITIONAL GO is an engineering recommendation, not an acceptance or merge order.
+Accept the retained failures as the COMPARISON BASELINE for this work, not as green,
+fixed, harmless or automatically acceptable for release. Missing coverage can hide
+problems. Zero NEW is not a claim that all product behavior is correct.
+
+Do not rerun Sprint 21's gate simply to start Sprint 22, change a report, or update
+an unrelated record. Reuse its source/input-bound evidence where still valid.
+
+Be precise about unchanged source: Sprint 21 contributed main merges and a test-pin
+repair relative to Sprint 20. Sprints 17–20 DID change rival policy, rights UI, save
+arithmetic and confirmation behavior. Do not repeat a broader claim that all game
+code is unchanged since the earlier playtest-response slice.
+
+The old r1 attempt stopped for missing sparse inputs. It is not qualification.
+After a merge, checkout or sparse-pattern change, verify named required input paths
+and identities before binding a gate. Do not rely on an old file count such as 2,280.
+Restore only the necessary unchanged tracked files without overwriting local work.
+Use the existing preflight; do not build another input-management framework.
+
+3. OWNER CHOICES ADOPTED BY SENDING THIS ASSIGNMENT
+
+These choices apply prospectively to this program. They do not imply approval of
+the prior draft while it was merely being discussed. Newer explicit Owner rulings
+win; preserve already-settled P16 rounding/provenance and P17/P18 decisions.
+
+A — FINANCIAL COMMITMENT CONFIRMATION
+Require review and confirmation for otherwise unreviewed takeLoan and
+commitPictureToRelease shortcuts. Use the existing confirmation option, quotes,
+intent authority and submission path. Do not put a second confirmation behind a
+sufficient existing review/quote confirmation. Keep cancelResearch under its
+current one-gesture rule where verified results are preserved. This does not
+remove confirmation from other cancellation/destructive actions.
+
+B — TV OBLIGATIONS AT ESTATE CLOSURE
+Adopt explicitly typed P15 claims for genuine outstanding TV advance refunds and
+cancellation charges. All employment claims rank before these TV claims; preserve
+the existing employment order. Among TV claims, pay refunds before charges. Within
+each tier use deterministic agreement-id then claim-id order under the existing
+identifier comparator. This chooses tiered ordering, not pro-rata distribution.
+
+Only the actual outstanding obligation becomes a claim. Preserve prior partial
+payments, earned milestones and incurred costs. P15 owns the estate distribution;
+P18 must not pay the same debt through a parallel path. No claim for paid amounts,
+no fabricated creditor, no retroactive cash movement or rewritten historical receipt.
+Version the prospective law through the existing migration architecture. Do not
+silently invent claims in previously closed historical estates. If historical
+backfill or compatibility requires another product choice, isolate that precise
+choice and continue independent authorized work rather than redesign all claims.
+
+C — RIVAL RECOVERY LIMIT
+Keep Sprint 17's restart law unchanged for this block. Explicitly defer changes to
+team release/shelving and rival economics. The constructed recovery remains valid
+within its scope; measured natural routes still showed no restart. This resolves
+scope for Sprints 22–26, NOT final-release acceptance of that limitation. No subsidy,
+new credit, forced survival, population floor or repeated seed hunt for a green case.
+
+D — TEST/PERFORMANCE POLICY
+No timeout or budget increases, including the proposed p12 exception. No new general
+performance, history-compaction or portability campaign without a demonstrated
+regression in authorized work. Do not turn every inherited failure into a new sprint.
+Consequential defects in a changed/shared path still require investigation.
+
+E — ACCEPTANCE, PLATFORM AND PROMOTION
+No Owner KEEP verdict is supplied by this order. Missing feedback does not stop
+independent implementation, but acceptance stays pending. Do not accept STATIC-UNRUN
+native preparation as a substitute for executed evidence. Do not promote gameplay
+to main, enable auto-merge, issue a public release or modify branch protections.
+Keep PR #20 draft until a separate explicit Owner order changes that.
+
+Runtime/toolchain installation, paid access or licensing beyond prior approval
+requires one specific authorization. Do not assume the new laptop is present or
+configured. Record the actual host once; no repetitive absence checks.
+
+4. SPRINT 22 — SAFE COMMITMENTS AND ACTUAL PLAYTEST REPAIRS
+
+Outcome: players cannot accidentally take a loan or irreversibly commit a release
+through an unreviewed shortcut. Address any supplied reproducible playtest blocker.
+
+- Implement A through existing confirmation derivation and handlers, including
+  hidden underlying verbs where the option kind is broader. Inspect both reviewed
+  quote flows and shortcuts; no duplicate review step or bypass.
+- Display current authoritative terms, costs and finality before commitment. No
+  parallel calculator or invented charge estimate. Back/Keep does not transact.
+- Preserve stale-authority rejection, correct entity identity and exactly-once
+  dispatch. Apply the shared contract consistently; native runtime proof belongs
+  in Sprint 25 if unavailable now.
+- Use actual Howard feedback if supplied. Prioritize save loss, progression blocks,
+  wrong-entity actions and misleading commitments over cosmetic preference.
+- Without feedback, complete the known confirmation work. Do not invent a verdict
+  or find work through another general audit.
+
+Verification: reuse the existing option derivation tests and relevant client route.
+Extend only meaningful gaps in review/confirm, cancellation and stale-state behavior.
+Use the real control-to-command path. Finish with source, focused evidence and the
+exact platform limits; a small sprint does not need filler.
+
+5. SPRINT 23 — TV ESTATE CLAIMS AND SETTLEMENT
+
+Outcome: real unpaid TV refunds/charges enter the established estate queue with
+visible priority, paid/unpaid status and safe replay.
+
+- Implement B against current studioClosure, TV settlement/cancellation and estate
+  owners. Reuse actual obligations, agreement/closure IDs and receipt producers.
+- On the lawful closure boundary create each eligible claim once. Distinguish
+  cancellation, refund principal, earned revenue and charge; transfer only the
+  actual unpaid obligation into estate responsibility.
+- Distribute only real estate cash/proceeds under employment-first and TV tier
+  ordering. Preserve partial balances, insufficient-proceeds outcomes and archival.
+- Current validators/readers and versioning must agree. Genuine old saves retain
+  their historical laws and cash. No loose admission, fabricated historical payment,
+  duplicate debt, extra financing or broad creditor-system redesign.
+- Surface the state through existing finance/season/estate views. Cancellation is
+  not licence revocation and does not create revenue.
+
+Verification: reuse authentic closure and TV settlement cases. A compact set should
+reach claim creation, priority, partial payment, no duplicate debit and save/reload.
+Add only genuinely missing distinctions. Focus independent review on money, dates,
+claims ownership and migration. Do not run a combinatorial test campaign.
+
+Finish with an implemented settlement path and recorded outcomes, or a precise
+compatibility blocker and preserved independent work. A policy note alone is not
+an implementation.
+
+6. SPRINT 24 — REAL BROWSER ACQUISITION AND ESTATE JOURNEYS
+
+Outcome: the existing Rights desk is exercised through an actual supported healthy
+acquisition and an estate bid/settlement, including visible results after reload.
+
+Sprint 18 already built the desk, offers, disclosure, acquisition commands and bids.
+Do not rebuild those systems or repeat its already-proven title-sale route.
+
+- Reuse admitted captures and supported affordable targets. If needed, restore only
+  named archived inputs by verified identity, not the entire scratch archive.
+- Exercise diligence -> current quote -> retention/capacity review -> explicit close
+  -> receipt/current ownership/permanent creator history. Keep actual cash, employment,
+  reserve and consent-ask laws unchanged.
+- Exercise estate inspection -> permitted sealed bid -> real deadline/disposition
+  -> visible receipt and claims. Use the implemented Sprint 23 status where relevant.
+- Show causes of refusal, encumbrance, waiting and lost bids from real engine facts;
+  do not disclose hidden competitor bids or invent an easier transaction.
+- Save/reload through the client and compare relevant identities and outcomes.
+  Scenario setup may use existing fixtures; final user actions must go through UI.
+- Fix demonstrated missing wiring, incorrect feedback, focus/navigation or actual
+  law violations. Existing functionality needing only evidence is not a new feature.
+
+Verification: one coherent route per distinct lifecycle using existing test tools.
+Do not replay unrelated core negative matrices in every browser case. Label lawful
+constructed scenarios; do not claim natural C-08 or add unsupported/inbound offers
+solely to manufacture a demonstration.
+
+7. SPRINT 25 — RUN THE MINIMUM NATIVE CLIENT
+
+Outcome: a tested Unity counterpart, not just source identity matching.
+
+- Check the actual authorized host/toolchain once. Use the pinned editor/packages
+  and current owned counterpart. Do not change an unrelated Owner checkout.
+- On a capable host run existing compile, EditMode, PlayMode and build steps under
+  the applicable execution rules. Fix actual compile/runtime failures and stale
+  fixture expectations against genuine producer output; do not copy failure hashes.
+- Reconcile the engine/native source pair, protocol, projection, schema and current
+  attestation law. Emit native attestation only from executed required evidence.
+- Complete the adopted minimum routes still missing: rights inspection and supported
+  transaction interactions; P17 continuation/featured inputs; bounded TV commission,
+  cancellation/settlement; and confirmation. Reuse components and shared authority.
+- Verify real input, two-gesture binding, quote freshness, stale/wrong-entity refusal,
+  focus and Back/Keep paths. No second simulation or new native save importer.
+- Preserve Sprint 19 portability only for its actually tested runtime pair. Do not
+  infer all-browser/native save equivalence from that result.
+
+If the host still lacks Unity, report the exact prerequisite once and do not spin
+on setup. Useful disjoint static preparation may continue; repeated static review
+is not native progress. Advance independent browser work, with Sprint 25 explicitly
+BLOCKED/PARTIAL rather than forcing DONE. Do not install unapproved software or
+change budgets to claim readiness on another machine.
+
+8. SPRINT 26 — COMBINED PLAYTEST CANDIDATE
+
+Outcome: one reproducible candidate, tested on its stated platforms, with an honest
+promotion recommendation and a short playable route for Howard.
+
+- Reconcile Sprints 22–25 and any actual playtest feedback. Repair consequential
+  regressions; do not expand into a general polish or feature campaign.
+- Exercise the existing new-studio -> production/release -> finances -> save/reopen
+  loop and the changed rights/estate/TV interactions. Use actual input and useful
+  screenshots. Reuse unaffected P17/portability evidence at its real identities.
+- Run the existing required combined milestone on the coherent final candidate;
+  account for Bridge coverage already included in core. Ordinarily one final full
+  core/UI gate closes this block. Run earlier broad gates only when governing
+  contracts or material source changes require them, not at every sprint number.
+- Classify failures by full identity, cause, reached assertion, available input and
+  timing. Baseline failures, missing fixtures and native limitations remain open.
+  Report original and corrective runs separately; never synthesize an all-green
+  gate by subtracting later focused passes from an old report.
+- Provide tested launch/build instructions, exact engine/counterpart refs, fixture
+  provenance and remaining platform limitations. Do not package private saves.
+- Refresh PR #20 to match reality. Correct stale prose about gameplay last changing
+  in the earlier playtest-response slice, or completed portability work still being
+  pending. Resolve only understood integration conflicts with preserved history;
+  recheck sparse input closure after a merge before a new gate.
+- Publish an immutable candidate/checkpoint, concise integrated results and the
+  existing ledger/handoff updates. Give GO / CONDITIONAL GO / NO-GO for a named
+  milestone and platform. A serious inherited defect, missing required coverage,
+  broken execution qualification or unaccepted product condition can justify a
+  hold even when NEW behavior failures equal zero.
+
+No automatic merge, public release, Owner KEEP verdict or Sprint 27. If native or
+Owner acceptance is unavailable, the browser candidate can still be delivered with
+that explicit limitation, not falsely accepted.
+
+9. EFFICIENT EXECUTION AND PRESERVATION
+
+One coordinator integration writer, explicit disjoint assignments for any workers,
+one intensive execution tree. Use installed workflow/debugging/review skills only
+as relevant; no new setup, framework, model migration or reviewer swarm.
+
+Every new test or run must inform a real repair, invariant, regression classification
+or required acceptance decision. Reuse first. Use focused tests during editing,
+complete affected files for coherent repairs, and broad gates at actual milestones.
+Keep all meaningful assertions and authentic premises. Constructed witnesses are
+allowed under their real contracts and must be labelled, not presented as natural
+campaigns. Preserve downstream assertions previously masked by an earlier failure.
+
+Performance: keep budgets unchanged; distinguish assertion success from timing and
+solo from broad execution. No moving timed setup to hooks, reducing scenarios,
+validation bypass, mutable-truth caching or repeated retries to find a passing run.
+A new machine's speed is not evidence that source was optimized. Do not chase small
+host variation with another open-ended profiling sprint.
+
+Follow CURRENT preflight/resource/AC/Godot/exclusivity policy, not old handoff values.
+Prior claims that foreign work was paused are historical. Do not kill another job,
+assume different repositories have independent compute, or run competing compilers.
+Use fresh run directories; freeze the required source/index/inputs until postflight.
+Stay idle during timing stages where required. Source review and new records must
+not mutate a frozen tree. A missing resource prerequisite is a real blocker; do
+safe independent work rather than repeated failed launches.
+
+Every Git command uses:
+  git -c gc.auto=0 -c maintenance.auto=0 --no-optional-locks ...
+Preserve genuine authorship and current commit metadata requirements. No reset,
+stash, blanket clean, force push, squash, rewritten tags/history or bypassed checks.
+Reuse the existing candidate branches/worktrees unless a real disjoint need exists.
+
+The cleanup/archive order is complete. No further deletion campaign. Restore only
+named required inputs with lawful access and verified archive/member identities.
+Do not expose private release contents, credentials, private saves or restricted
+assets in public receipts. Publish records only through the existing limited path;
+this order creates no additional permission to push main.
+
+If a shared caller changes, identify its actual affected consumers. Do not assume
+that a small diff has a small effect. Equally, an unrelated documentation change
+is not a reason to rerun the game. Reuse valid evidence without editing old receipts.
+
+10. CHECKPOINTS AND AUTONOMY
+
+At a coherent boundary, update the existing handoff/ledger/results with:
+- What the player can actually do now and which source changed.
+- Exact candidate/pair, commit/push and explicit remote verification.
+- Actual checks, reused evidence, failures, missing inputs and not-run work.
+- Applied decisions, precise remaining blockers and the next executable task.
+
+Continue without routine reapproval. Already-completed work in newer source should
+be credited and skipped. Adjacent slices can be combined for a coherent change;
+do not create filler, extra trackers or paperwork to fill five sprint numbers.
+
+Escalate only a real new product/migration choice, unsafe destructive action,
+unapproved install/payment/licensing, unavailable required input or ownership/
+resource conflict. Preserve the affected branch and continue independent authorized
+work. Do not treat a missing Owner playtest verdict as a block on all development;
+do not treat continuing development as evidence of that verdict either.
+
+At a session limit leave a recoverable checkpoint and exact continuation. No claims
+of asynchronous/background execution. End the program after Sprint 26 with its
+candidate and integrated report, not another automatic optimization block.
+
+SOURCE BASIS / SCOPE OF THIS ASSIGNMENT
+
+Starting-state facts come from published records f78670ce329365cbdfb26c2b94ffdda224715c83:
+HANDOFF.md; astra-sprints-17-21/INTEGRATED-REPORT.md; sprint21/RESULTS.md and
+OWNER-INVITATION.md. Existing residuals come from that program's Sprint 17, 18 and
+20 reports. PR #20 was checked at head 6c82214f91968ccd999152b5b5db8b4c5d85e7b2.
+
+Sections 3–8 are the proposed forward assignment and decisions adopted when Howard
+sends this file as his order. These records do not prove that Sprints 22–26 ran or
+that this new authorization was issued before sending. No code, PR or branch was
+modified by preparation of this prompt.
