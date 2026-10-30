@@ -1,0 +1,16 @@
+{'numTotalTestSuites': 407, 'numPassedTestSuites': 386, 'numFailedTestSuites': 21, 'numPendingTestSuites': 0, 'numTotalTests': 1175, 'numPassedTests': 1137, 'numFailedTests': 36, 'numPendingTests': 0, 'numTodoTests': 2}
+{'NEW': 2, 'INHERITED-SAME': 33, 'INHERITED-CHANGED': 1, 'MISSING-INPUT': 0, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 0, 'OVER-BUDGET-PASS': 287} report tests 1175 baseline tests 1161 in both 1160
+
+## NEW (2)
+  - tests/bridge-p14b2-trust.test.ts :: P14B.2 group1 — projection46, unchanged Save29/intents, closed wire shapes pins the exact version, old-five-pl
+      AssertionError: expected [ 'signFoundingContract', …(37) ] to deeply equal [ 'signFoundingContract', …(32) ]
+  - tests/bridge-p14p4p5-opportunities.test.ts :: P4/P5 closed Bridge material and outgoing runtime authority B55-3 independently migrates genuine54 slots and r
+      AssertionError: expected [ [ …(2) ], [ …(2) ], [ …(2) ], …(55) ] to have a length of 57 but got 58
+
+## INHERITED-CHANGED (1)
+  - tests/bridge-owner-ux-projection20-migration.test.ts :: Owner UX outgoing projection20 migration pins genuine prior bytes, source identity, actual journal, and constr
+      AssertionError: expected 71 to be 53 // Object.is equality
+      baseline: AssertionError: expected 70 to be 53 // Object.is equality
+
+## OVER-BUDGET-PASS (287) max 215176.7
+## BASELINE-NOT-REPRODUCED (0)

@@ -1,0 +1,32 @@
+{
+  "head": "b2b4bdd9b05a01910d051ac128d40b0db918031f",
+  "sourceManifestEntries": 2287,
+  "purpose": "ASTRA Sprint 27 r2 on the FIX-1 engine commit (review fixes 1 to 3, 6, 7, 9, 10; the 68 projection-70 pins and the registry-count pins moved to 71/outgoing70): root, ui and bridge typecheck, the contract and fixture checks, every tests/bridge*.test.ts file (116), integrity; classified by identity against sprint27-r1, sprint20-r3 and full-tree-s26-r1",
+  "limits": "the Bridge dependency scope only (the core and ui outside the Bridge did not change); budgets unchanged; the native client cannot be compiled on this host (stated once in astra-sprints-22-26/ENTRY.md)",
+  "children": [
+    {
+      "label": "root-ui-types"
+    },
+    {
+      "label": "bridge-types"
+    },
+    {
+      "label": "bridge-contract"
+    },
+    {
+      "label": "bridge-fixture-contract"
+    },
+    {
+      "label": "bridge-tests",
+      "project": "core"
+    },
+    {
+      "label": "final-source-integrity"
+    }
+  ],
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "uiMilliseconds": 30000,
+    "timeoutOverride": false
+  }
+}
