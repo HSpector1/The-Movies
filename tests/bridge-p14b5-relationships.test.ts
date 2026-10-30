@@ -120,6 +120,7 @@ const OUTGOING_66 = 'sha256:589380869e1329a8027b8339b88646761ce6d791376df5fd793e
 const OUTGOING_67 = 'sha256:8bd45eec049c6105ed2efee3899cfbb2a440c1b40f536a899b332ffbde3003f0' // P18 Sprint 13 slice B: outgoing67 (the Sprint 12 checkpoint's identity) registered beneath current68
 const OUTGOING_68 = 'sha256:b91efc9c632b2503a0f5ca0f33a243164e97775b2c13f566746ba004d7835851' // Projection69 (playtest-response slice): outgoing68 (the b3c179b0 snapshot's identity) registered beneath current69
 const OUTGOING_69 = 'sha256:6cdb8065eedbfe81d794f6e0a17db71570729ac5701f688ea033b2175bfe4a5a' // ASTRA Sprint 20 (projection 70): outgoing69 (the edb1cee4 snapshot's identity, tag p18-sprint19-checkpoint-20261029) registered beneath current70
+const OUTGOING_70 = 'sha256:aaafd0bdf597d3538acc5cb77568dd38de43dd50c7f052767ee40bb8e16ea448' // ASTRA Sprint 27 (projection 71): outgoing70 (the 6ddeeb00 snapshot's identity, tag p18-sprint26-candidate-20261030) registered beneath current71
 const OUTGOING_PROJECTION = 47
 // The 35 accepted prior literals (tests/bridge-p14b4-runtime47-compatibility.test.ts :41-83); never derived from the registry.
 const EXPECTED_35_PRIOR_IDS = [
@@ -410,7 +411,7 @@ const wireEnum = (): string[] => {
 describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, re-expressed by 700-T2 after P14B.8 landed projection 50 / Save V32 unchanged)', () => {
   it('live projection52/Save37 and literal current hash retain all40 independent prior identities (875)', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(70)
+    expect(PROJECTION_VERSION).toBe(71)
     expect(OUTGOING_PROJECTION).toBe(47)
     // 1309-X3 ruling 5: SCHEMA_ID tracks the LIVE (projection56) schema now,
     // not projection53's identity (OUTGOING_53) -- states the received value.
@@ -429,13 +430,16 @@ describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, 
     // Current69 (playtest-response slice): the checked-in manifest's schemaId after the generator regenerated it on the slice commit.
     // Current70 (ASTRA Sprint 20): the intent option's `confirmation` field; the checked-in manifest's schemaId after the
     // generator regenerated it on the slice commit aa4c335f; outgoing69 is prior (its genuine capture, bridge-runtime-checkpoint.test.ts).
-    expect(SCHEMA_ID).toBe('sha256:aaafd0bdf597d3538acc5cb77568dd38de43dd50c7f052767ee40bb8e16ea448')
+    // Current71 (ASTRA Sprint 27): the Rights desk and the estates on the wire; the checked-in manifest's schemaId after the
+    // generator regenerated it on the slice tree; outgoing70 is prior (its genuine capture, bridge-runtime-checkpoint.test.ts).
+    expect(SCHEMA_ID).toBe('sha256:e0d854348098e4f9a8fbd65453adbf3bf146675c49b8efba0001e9b9df56f5c5')
+    expect(SCHEMA_ID).not.toBe(OUTGOING_70)
     expect(SCHEMA_ID).not.toBe(OUTGOING_69)
     expect(SCHEMA_ID).not.toBe(OUTGOING_67)
     expect(SCHEMA_ID).not.toBe(OUTGOING_68)
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61, OUTGOING_62, OUTGOING_63, OUTGOING_64, OUTGOING_65, OUTGOING_66, OUTGOING_67, OUTGOING_68, OUTGOING_69].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61, OUTGOING_62, OUTGOING_63, OUTGOING_64, OUTGOING_65, OUTGOING_66, OUTGOING_67, OUTGOING_68, OUTGOING_69, OUTGOING_70].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_57)).toBe('projection-v57')
@@ -485,7 +489,7 @@ describe('family 11 — projection 48 THIN (RED by value): the enum, the registr
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61, OUTGOING_62, OUTGOING_63, OUTGOING_64, OUTGOING_65, OUTGOING_66, OUTGOING_67, OUTGOING_68, OUTGOING_69].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61, OUTGOING_62, OUTGOING_63, OUTGOING_64, OUTGOING_65, OUTGOING_66, OUTGOING_67, OUTGOING_68, OUTGOING_69, OUTGOING_70].sort())
     expect(LIVE_SAVE_VERSION).toBeGreaterThan(30) // the governed inner-save step rides the same wave (R22 :610)
   })
 

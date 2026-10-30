@@ -16,7 +16,7 @@ import {
 } from './dsl.ts'
 import {StudioBridgeIntentOption} from './intent-schema.ts'
 export {AVAILABLE_INTENT_KINDS} from './intent-schema.ts'
-import {industryDefinitions,StudioIndustryProjection} from './industry-schema.ts'
+import {industryDefinitions,StudioIndustryProjection,StudioRightSubject,StudioRightsSubjectLicence,StudioTelevisionCancellation,StudioTelevisionSettlement} from './industry-schema.ts'
 
 export const PROTOCOL_VERSION = 4 as const
 // P05A W2: the closed Production projection (fourteen operational states,
@@ -310,7 +310,17 @@ export const PROTOCOL_VERSION = 4 as const
 // Projection69 (playtest-response slice, Owner decision 7c): the television cancellation cause gains the tick's automatic
 // `rights` and `participant` cancellations on authority loss (contract §4, §7). The outgoing68 identity is registered
 // prior from its genuine capture (b3c179b0). Protocol4 and Save51 are unchanged, so the prior lift is identity.
-export const PROJECTION_VERSION = 70 as const
+// Projection70 (ASTRA Sprint 20, Owner decision E): StudioBridgeIntentOption gains `confirmation` (none | required). The
+// outgoing69 identity is registered prior from its genuine capture (edb1cee4). Protocol4 and Save51 are unchanged.
+// Projection71 (ASTRA Sprint 27): the Rights desk and the estates on the wire. The `quoteEstateBid` family returns the
+// core's bid law (refusal by name, or the reservation the sealed bid takes) and mints the `submitEstateBid` commit; the
+// `quoteRightsOffer` family returns the core's offer or close law, the rival's willingness and the decision B season
+// consequence (src/core/rightsDesk.ts titleSaleOutcome, digest-bound to the commit) and mints `makeRightsOffer` or the
+// disclosed `acceptRightsOffer`; the `rejectRightsOffer`, `withdrawRightsOffer` and one-gesture purchase `acceptRightsOffer`
+// intents map to the core actions; the read-only `rights` and `estates` Industry views list the player's desk. The
+// outgoing70 identity (6ddeeb00, tag p18-sprint26-candidate-20261030) is registered prior. Protocol4 and Save51 are
+// unchanged, so a projection-70 checkpoint's slots are already live and its prior lift is identity.
+export const PROJECTION_VERSION = 71 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -2043,8 +2053,33 @@ const StudioQuoteTvCommissionRequest = object('StudioQuoteTvCommissionRequest', 
   draft: reference('StudioTvCommissionDraftPayload', StudioTvCommissionDraftPayload),
 })
 
+// ASTRA Sprint 27 (projection 71): the sealed estate bid and the title offer, each the core's own request closed field by
+// field. A sell offer names the counterparty, the held title and the price (the adopted Rights desk behaviour: the player
+// sells a title it holds; buy and licence offers are not published); an acceptance names the rival's open offer.
+const StudioEstateBidDraftPayload = object('StudioEstateBidDraftPayload', { estateId: nonEmptyText(), lotId: nonEmptyText(), amount: number() })
+const StudioQuoteEstateBidRequest = object('StudioQuoteEstateBidRequest', {
+  protocolVersion: literal(PROTOCOL_VERSION), schemaId: nonEmptyText(), sessionId: nonEmptyText(),
+  commandId: nonEmptyText(), expectedStateRevision: nonNegativeInteger(), type: literal('quoteEstateBid'),
+  draft: reference('StudioEstateBidDraftPayload', StudioEstateBidDraftPayload),
+})
+const StudioRightsSellOfferDraft = object('StudioRightsSellOfferDraft', {
+  plan: literal('offer'), counterpartyId: nonEmptyText(), subject: reference('StudioRightSubject', StudioRightSubject), price: number(),
+})
+const StudioRightsAcceptOfferDraft = object('StudioRightsAcceptOfferDraft', { plan: literal('accept'), offerId: nonEmptyText() })
+const StudioRightsOfferDraftPayload = union('StudioRightsOfferDraftPayload', [
+  reference('StudioRightsSellOfferDraft', StudioRightsSellOfferDraft),
+  reference('StudioRightsAcceptOfferDraft', StudioRightsAcceptOfferDraft),
+] as const)
+const StudioQuoteRightsOfferRequest = object('StudioQuoteRightsOfferRequest', {
+  protocolVersion: literal(PROTOCOL_VERSION), schemaId: nonEmptyText(), sessionId: nonEmptyText(),
+  commandId: nonEmptyText(), expectedStateRevision: nonNegativeInteger(), type: literal('quoteRightsOffer'),
+  draft: reference('StudioRightsOfferDraftPayload', StudioRightsOfferDraftPayload),
+})
+
 const StudioBridgeQuoteRequest = union('StudioBridgeQuoteRequest', [
   reference('StudioQuoteTvCommissionRequest', StudioQuoteTvCommissionRequest),
+  reference('StudioQuoteEstateBidRequest', StudioQuoteEstateBidRequest),
+  reference('StudioQuoteRightsOfferRequest', StudioQuoteRightsOfferRequest),
   reference('StudioQuoteDiligenceRequest',StudioQuoteDiligenceRequest),
   reference('StudioQuoteAbsorptionRequest',StudioQuoteAbsorptionRequest),
   reference('StudioQuoteLoanRequest', StudioQuoteLoanRequest),
@@ -2455,8 +2490,61 @@ const StudioTvCommissionQuoteSnapshot = object('StudioTvCommissionQuoteSnapshot'
   distributionLicenceEndWeekExclusive: nonNegativeInteger(),
 })
 
+// ASTRA Sprint 27 (projection 71): the estate bid quote. `refusalReason` is the core's bid law token (estate.ts
+// estateBidRefusal) or the action's own sentence; the reservation figures are read from the core's private successor
+// (spendable cash after the sealed bid, until the ceremony at `closesWeek`), never computed here.
+const StudioEstateBidQuoteSnapshot = object('StudioEstateBidQuoteSnapshot', {
+  intentId: nonEmptyText(), kind: literal('submitEstateBid'), commitLabel: nonEmptyText(),
+  startsNow: bool(), queues: bool(), queueNote: nullable(text()), ok: bool(), refusalReason: nullable(text()),
+  estateId: nonEmptyText(), lotId: nonEmptyText(), amount: number(), quotedAtWeek: nonNegativeInteger(),
+  minimumBid: nullable(number()), closesWeek: nullable(nonNegativeInteger()), encumbrances: array(nonEmptyText()),
+  spendableBefore: number(), reserve: number(), spendableAfter: nullable(number()),
+})
+// The decision B disclosure on the wire: src/core/rightsDesk.ts titleSaleOutcome verbatim (the engine run forward on a
+// private copy: the answer at the boundary and each live season before and after), with the digest the commit is bound to.
+const StudioTitleSaleSeasonBefore = object('StudioTitleSaleSeasonBefore', {
+  creditedUnits: nonNegativeInteger(), totalUnits: nonNegativeInteger(), earned: number(), received: number(),
+})
+const StudioTitleSaleSeasonAfter = object('StudioTitleSaleSeasonAfter', {
+  status: enumeration(['live', 'delivered', 'cancelled']), cancellation: nullable(reference('StudioTelevisionCancellation', StudioTelevisionCancellation)),
+  deliveredWeek: nullable(nonNegativeInteger()), creditedUnits: nonNegativeInteger(), earned: number(),
+  settlement: nullable(reference('StudioTelevisionSettlement', StudioTelevisionSettlement)), outstanding: number(),
+})
+const StudioTitleSaleSeasonOutcome = object('StudioTitleSaleSeasonOutcome', {
+  seasonId: nonEmptyText(), seriesTitle: text(),
+  before: reference('StudioTitleSaleSeasonBefore', StudioTitleSaleSeasonBefore), after: reference('StudioTitleSaleSeasonAfter', StudioTitleSaleSeasonAfter),
+})
+const StudioTitleSaleAnswer = object('StudioTitleSaleAnswer', {
+  kind: enumeration(['closed', 'rejected', 'open']), week: nullable(nonNegativeInteger()), price: nullable(number()), reason: nullable(text()), expiresWeek: nullable(nonNegativeInteger()),
+})
+const StudioTitleSaleOutcome = object('StudioTitleSaleOutcome', {
+  kind: enumeration(['refused', 'outcome']), week: nonNegativeInteger(), refusal: nullable(text()),
+  answer: nullable(reference('StudioTitleSaleAnswer', StudioTitleSaleAnswer)), reachesWeek: nullable(nonNegativeInteger()),
+  seasons: array(reference('StudioTitleSaleSeasonOutcome', StudioTitleSaleSeasonOutcome)), digest: nonEmptyText(),
+})
+// The core's willingness answer for a sell offer (assetSale.ts rivalWillingness); `limit` is the most the rival would pay
+// now, read from the core's own token, else null.
+const StudioRightsWillingness = object('StudioRightsWillingness', { willing: bool(), reason: text(), value: nullable(number()), limit: nullable(number()) })
+// The title offer quote: the subject, the parties, the sale law or close law refusal by name, the title's valuation,
+// encumbrance, holdback and the licences in force over it, the rival's willingness (a sell offer), the expiry the made offer
+// will carry, and the season consequence when the plan sells a title the player holds. The members an unknown offer
+// cannot name are null.
+const StudioRightsOfferQuoteSnapshot = object('StudioRightsOfferQuoteSnapshot', {
+  intentId: nonEmptyText(), kind: enumeration(['makeRightsOffer', 'acceptRightsOffer']), commitLabel: nonEmptyText(),
+  startsNow: bool(), queues: bool(), queueNote: nullable(text()), ok: bool(), refusalReason: nullable(text()),
+  plan: enumeration(['offer', 'accept']), offerId: nullable(nonEmptyText()), quotedAtWeek: nonNegativeInteger(),
+  subject: nullable(reference('StudioRightSubject', StudioRightSubject)), subjectTitle: nullable(text()),
+  counterpartyId: nullable(nonEmptyText()), counterpartyName: nullable(nonEmptyText()), direction: nullable(enumeration(['buy', 'sell'])),
+  playerSells: bool(), price: number(), value: nullable(number()), encumbrance: nullable(enumeration(['activeProduction', 'activeRun'])),
+  resaleHoldback: bool(), licences: array(reference('StudioRightsSubjectLicence', StudioRightsSubjectLicence)),
+  willingness: nullable(reference('StudioRightsWillingness', StudioRightsWillingness)), expiresWeek: nullable(nonNegativeInteger()),
+  consequence: nullable(reference('StudioTitleSaleOutcome', StudioTitleSaleOutcome)),
+})
+
 const StudioQuoteSnapshot = union('StudioQuoteSnapshot', [
   reference('StudioTvCommissionQuoteSnapshot', StudioTvCommissionQuoteSnapshot),
+  reference('StudioEstateBidQuoteSnapshot', StudioEstateBidQuoteSnapshot),
+  reference('StudioRightsOfferQuoteSnapshot', StudioRightsOfferQuoteSnapshot),
   reference('StudioDiligenceQuoteSnapshot',StudioDiligenceQuoteSnapshot),
   reference('StudioAbsorptionQuoteSnapshot',StudioAbsorptionQuoteSnapshot),
   reference('StudioLoanQuoteSnapshot', StudioLoanQuoteSnapshot),
@@ -3865,6 +3953,9 @@ const definitions = {
   StudioLoanQuoteSnapshot,
   StudioTvCastPayload, StudioTvRosterPayload, StudioTvCommissionDraftPayload, StudioQuoteTvCommissionRequest,
   StudioTvAdmissionQuote, StudioTvMilestoneTerms, StudioTvAgreementTerms, StudioTvCommissionQuoteSnapshot,
+  StudioEstateBidDraftPayload, StudioQuoteEstateBidRequest, StudioRightsSellOfferDraft, StudioRightsAcceptOfferDraft, StudioRightsOfferDraftPayload, StudioQuoteRightsOfferRequest,
+  StudioEstateBidQuoteSnapshot, StudioTitleSaleSeasonBefore, StudioTitleSaleSeasonAfter, StudioTitleSaleSeasonOutcome, StudioTitleSaleAnswer, StudioTitleSaleOutcome,
+  StudioRightsWillingness, StudioRightsOfferQuoteSnapshot,
   StudioMarketProposalCastClassPromiseDraftPayload,
   StudioMarketProposalDirectorPromiseDraftPayload,
   StudioMarketProposalGenrePromiseDraftPayload,
@@ -4162,6 +4253,13 @@ export type BridgeLoanQuoteSnapshot = InferSchema<typeof StudioLoanQuoteSnapshot
 export type BridgeTvCommissionDraftPayload = InferSchema<typeof StudioTvCommissionDraftPayload>
 export type BridgeQuoteTvCommissionRequest = InferSchema<typeof StudioQuoteTvCommissionRequest>
 export type BridgeTvCommissionQuoteSnapshot = InferSchema<typeof StudioTvCommissionQuoteSnapshot>
+export type BridgeEstateBidDraftPayload = InferSchema<typeof StudioEstateBidDraftPayload>
+export type BridgeQuoteEstateBidRequest = InferSchema<typeof StudioQuoteEstateBidRequest>
+export type BridgeEstateBidQuoteSnapshot = InferSchema<typeof StudioEstateBidQuoteSnapshot>
+export type BridgeRightsOfferDraftPayload = InferSchema<typeof StudioRightsOfferDraftPayload>
+export type BridgeQuoteRightsOfferRequest = InferSchema<typeof StudioQuoteRightsOfferRequest>
+export type BridgeRightsOfferQuoteSnapshot = InferSchema<typeof StudioRightsOfferQuoteSnapshot>
+export type BridgeTitleSaleOutcome = InferSchema<typeof StudioTitleSaleOutcome>
 
 export type BridgeDiligenceDraftPayload = InferSchema<typeof StudioDiligenceDraftPayload>
 

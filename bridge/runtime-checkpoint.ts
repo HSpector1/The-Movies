@@ -58,6 +58,13 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
 // that window would carry the earlier hash, and this map is keyed on the
 // hash, not the label.
 export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+  // Projection71 (ASTRA Sprint 27): the outgoing70 identity (projection 70, the immutable snapshot 6ddeeb00, tag
+  // p18-sprint26-candidate-20261030), prior beneath current71. The Rights desk and the estates join the wire (two quote
+  // families, two Industry views, five intent kinds); protocol 4 and Save51 are unchanged, so each slot is already live and
+  // takes the governed prior path as identity; the opaque journal resets. Its genuine capture ran on a detached sparse
+  // snapshot of 6ddeeb00 (producer docs/engineering/audits/2026-10-22-codebase-review/astra-sprints-22-26/sprint27/
+  // bridge-step/tools/capture70.ts in the records repository; tests/fixtures/bridge/genuine-projection70-runtime).
+  ['sha256:aaafd0bdf597d3538acc5cb77568dd38de43dd50c7f052767ee40bb8e16ea448', 'projection-v70'],
   // Projection70 (ASTRA Sprint 20, Owner decision E): the outgoing69 identity (projection 69, the immutable snapshot edb1cee4,
   // tag p18-sprint19-checkpoint-20261029), prior beneath current70. The intent option gains `confirmation` (none | required);
   // protocol 4 and Save51 are unchanged, so each slot is already live and takes the governed prior path as identity; the

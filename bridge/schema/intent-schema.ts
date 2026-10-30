@@ -71,6 +71,16 @@ export const AVAILABLE_INTENT_KINDS = [
   'commissionTvSeason',
   'cancelTvSeason',
   'settleTvObligations',
+  // ASTRA Sprint 27 (projection 71): the Rights desk and estate verbs the native client could not reach (Sprint 25 route
+  // matrix). `makeRightsOffer` and the disclosed `acceptRightsOffer` are minted only by the quoteRightsOffer family (the
+  // decision B season consequence is the review); `rejectRightsOffer`, `withdrawRightsOffer` and the one-gesture
+  // `acceptRightsOffer` of a purchase map to the core actions of the same names; `submitEstateBid` is minted only by the
+  // quoteEstateBid family. The core actions revalidate every subject, party, permission, reservation and duplicate rule.
+  'makeRightsOffer',
+  'acceptRightsOffer',
+  'rejectRightsOffer',
+  'withdrawRightsOffer',
+  'submitEstateBid',
 ] as const
 
 /**
