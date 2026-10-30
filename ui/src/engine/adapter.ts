@@ -265,7 +265,7 @@ import type { ReceptionBand, CriticTier } from '../../../src/core/index.ts'
 // Re-export for existing external consumers that imported filmCommittedCost from the adapter.
 export { filmCommittedCost } from '../../../src/core/index.ts'
 import { canAfford as coreCanAfford, legacyAnnexOffered as coreLegacyAnnexOffered } from '../../../src/core/index.ts'
-import { releaseHoldBusyTalentIds as coreReleaseHoldBusyTalentIds } from '../../../src/core/index.ts'
+import { buyerOperatedProductions as coreBuyerOperatedProductions, releaseHoldBusyTalentIds as coreReleaseHoldBusyTalentIds } from '../../../src/core/index.ts'
 import { SET_BLUEPRINTS } from '../../../src/core/tuning.ts'
 import type { ContinuationRequest } from '../../../src/core/index.ts'
 // P17 cameo request type: not exported from index.ts yet (see engine/continuation.ts).
@@ -4014,7 +4014,9 @@ export function releaseTalentAction(state: GameState, talentId: string): ActionO
 // ASTRA Sprint 22 (decision A): the review a player reads before the irreversible commit, read off the production the
 // core already holds (the same figures the Bridge's Release projection publishes): the Greenlight outlook frozen at
 // greenlight, the money already paid, and who the release hold keeps busy. No new arithmetic; null when the picture is
-// not the player's or is not at Release Ready, so a stale screen shows nothing to confirm.
+// not operated by the player or is not at Release Ready, so a stale screen shows nothing to confirm. The lookup is the
+// same `buyerOperatedProductions` the release decision and the Bridge option use (the player's own pictures and the
+// continued ones acquired with a studio), never `studio.activeProductions` alone (review finding 1).
 export type ReleaseCommitReview = {
   productionId: string
   title: string
@@ -4023,7 +4025,7 @@ export type ReleaseCommitReview = {
   holdBusyNames: string[]
 }
 export function releaseCommitReview(state: GameState, productionId: string): ReleaseCommitReview | null {
-  const production = state.studio.activeProductions.find((p) => p.id === productionId)
+  const production = coreBuyerOperatedProductions(state).find((p) => p.id === productionId)
   if (production === undefined || production.remainingTicks !== 1) return null
   const concept = findConcept(state, production.conceptId)
   const names = coreReleaseHoldBusyTalentIds(state, productionId).map((id) => state.talent.find((t) => t.id === id)?.name ?? id)

@@ -161,10 +161,8 @@ export function Dashboard({
   // busy, the finality); the second commits. The arming is bound to the exact production id: if the pending picture
   // changes, the review disappears and nothing commits. Keep holding disarms and transacts nothing.
   const [armedReleaseId, setArmedReleaseId] = useState<string | null>(null)
-  const armedRelease =
-    pendingReleaseDecision !== null && armedReleaseId === pendingReleaseDecision.productionId
-      ? releaseCommitReview(state, pendingReleaseDecision.productionId)
-      : null
+  const releaseArmed = pendingReleaseDecision !== null && armedReleaseId === pendingReleaseDecision.productionId
+  const armedRelease = releaseArmed ? releaseCommitReview(state, pendingReleaseDecision!.productionId) : null
   const managedScripts = scripts.mode === 'managed'
   const capacityHold = board.cards.find((card) => card.blocker?.kind === 'facility-capacity') ?? null
   const runRefs = useRef(new Map<string, HTMLElement>())
@@ -286,7 +284,7 @@ export function Dashboard({
             <button className="primary" onClick={onAdvance} data-testid="advance-week">
               Advance one week
             </button>
-            {pendingReleaseDecision !== null && onCommitPictureToRelease && armedRelease === null && (
+            {pendingReleaseDecision !== null && onCommitPictureToRelease && !releaseArmed && (
               <button
                 className="accent"
                 onClick={() => setArmedReleaseId(pendingReleaseDecision.productionId)}
@@ -309,6 +307,17 @@ export function Dashboard({
               Sim to next event
             </button>
           </div>
+          {pendingReleaseDecision !== null && onCommitPictureToRelease && releaseArmed && armedRelease === null && (
+            <section className="panel" role="alert" data-testid="release-commit-review-missing">
+              <p>
+                The release review for {pendingReleaseDecision.title} could not be read from the studio state, so nothing was
+                committed. Advance a week and try again; if it persists, report it with your save.
+              </p>
+              <button className="ghost" onClick={() => setArmedReleaseId(null)} data-testid="release-commit-keep">
+                Keep holding
+              </button>
+            </section>
+          )}
           {pendingReleaseDecision !== null && onCommitPictureToRelease && armedRelease !== null && (
             <section className="panel" aria-label="Review the release commitment" data-testid="release-commit-review">
               <p>
@@ -321,7 +330,7 @@ export function Dashboard({
                   opening {money(armedRelease.outlook.expectedOpening)}, total {money(armedRelease.outlook.expectedTotal)}, critics{' '}
                   {score(armedRelease.outlook.expectedCriticScore)}
                 </dd>
-                <dt>Already paid</dt>
+                <dt>Budget already paid (the production and marketing budget; greenlight salaries are not counted here)</dt>
                 <dd data-testid="release-commit-paid">
                   production {money(armedRelease.paid.production)}, marketing {money(armedRelease.paid.marketing)}
                 </dd>

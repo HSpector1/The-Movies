@@ -1857,3 +1857,5 @@ export type { RightsDeskView, RightsDeskTitle, RightsDeskOffer, RightsDeskCounte
 export type { CommissionTvSeasonRequest } from './tvTypes.js'
 export type { ContinuationType, LineageEdge, LineageEdgeType, PropertyMeter, FranchiseBranch, FranchiseBranchKind, FranchiseMilestone, FranchiseMilestoneId,
   FranchiseProperty, FranchiseRoot, SubProperty, SubPropertyKind, P17StepRoots, GameStateP17, GameStateV50 } from './types.js'
+// ASTRA Sprint 22 (review finding 1): the browser's release-commit review must see continued (absorbed) pictures too.
+export { buyerOperatedProductions } from './continuedWork.js'

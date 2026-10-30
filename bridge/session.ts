@@ -1016,7 +1016,7 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
         // client shows while armed: the frozen Greenlight outlook and the money already paid, read from the production
         // itself (the same figures the Release projection publishes), then the finality. No new arithmetic.
         detail:
-          `Irreversible. Advances no time; the picture releases on the next studio week. Greenlight outlook: opening ${exactDollars(production.forecastSnapshot.expectedOpening)}, total ${exactDollars(production.forecastSnapshot.expectedTotal)}, critics ${production.forecastSnapshot.expectedCriticScore.toFixed(1)}. Already paid: production ${exactDollars(production.budget.negative)}, marketing ${exactDollars(production.budget.marketing)}.`,
+          `Irreversible. Advances no time; the picture releases on the next studio week. Greenlight outlook: opening ${exactDollars(production.forecastSnapshot.expectedOpening)}, total ${exactDollars(production.forecastSnapshot.expectedTotal)}, critics ${production.forecastSnapshot.expectedCriticScore.toFixed(1)}. Budget already paid: production ${exactDollars(production.budget.negative)}, marketing ${exactDollars(production.budget.marketing)}.`,
         projectId: null,
         castingSessionId: null,
         productionId: production.id,
