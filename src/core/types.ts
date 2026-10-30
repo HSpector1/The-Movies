@@ -2728,11 +2728,15 @@ export type CorporateConditionRoot = {
   events: ConditionEvent[]
   loans: StudioLoanRecord[]
 }
+/** The closure laws by name (studioClosure.ts CLOSURE_LAWS). closure/v2 (ASTRA Sprint 23, Owner decision B) adds the
+ * typed television claims of a closing producer; every record, claim and disposition names the law it was made under. */
+export type ClosureLawVersion = 'closure/v1' | 'closure/v2'
 /** One typed terminal disposition (Wave-4 contract §4). `status` 'pending' is an explicit, honest
  * non-execution (P16 contract §4 (b)); it never means "forgotten". */
 export type ClosureDisposition = {
   subjectKind: 'employment' | 'screenplay' | 'production' | 'theatricalRun' | 'research' | 'adoption' | 'physicalPlan'
     | 'facility' | 'construction' | 'set' | 'castingSession' | 'queuedIntent' | 'proposal' | 'marketCase' | 'loan' | 'cash' | 'title'
+    | 'tvAgreement'
   subjectId: string
   /** Prior-state proof fields the validator can check against retained history (§5). */
   prior: string
@@ -2740,17 +2744,22 @@ export type ClosureDisposition = {
   status: 'applied' | 'pending'
   claimId: string | null
   lotId: string | null
-  lawVersion: 'closure/v1'
+  lawVersion: ClosureLawVersion
 }
 export type ClosureClaimPayment = { week: number; amount: number; reference: string }
+/** A creditor claim of a closed studio. `employment`: one per live interval ended by the closure (sourceContractId the
+ * contract, claimant the person). closure/v2 adds the television obligations of a closing producer (decision B):
+ * `tvRefund` (the frozen advance refund U0 still outstanding) and `tvCharge` (the frozen cancellation charge K still
+ * outstanding), sourceContractId the agreement id and claimant the commissioner id. Priority: every employment claim,
+ * then refunds, then charges; within a tier ascending source id then claim id. */
 export type ClosureClaim = {
   claimId: string
   closureId: string
   studioId: string
-  kind: 'employment'
+  kind: 'employment' | 'tvRefund' | 'tvCharge'
   sourceContractId: string
   claimantTalentId: string
-  lawVersion: 'closure/v1'
+  lawVersion: ClosureLawVersion
   original: number
   paid: number
   unpaid: number
@@ -2788,7 +2797,7 @@ export type ClosureRecord = {
   studioId: string
   closureWeek: number
   causeEventId: string
-  lawVersion: 'closure/v1'
+  lawVersion: ClosureLawVersion
   p15DomainSequence: number; phaseId: string; phaseOrdinal: number; phaseOrderVersion: number
   cash: { closing: number; distributable: number }
   loan: { loanId: string; stopWeek: number; paidInstallments: number; paidAmount: number; remainder: number } | null

@@ -39,7 +39,7 @@ import { closureDue, conditionRecord, outstandingLoan, requireCorporateCondition
 import { openTheatricalRun } from './economy.js'
 import { terminationCost } from './employment.js'
 import { settleCameoCancellation } from './cameoBooking.js'
-import { cancelTvSeasonsAtClosure } from './tvSettlement.js'
+import { cancelTvSeasonsAtClosure, payTvObligationFromEstate } from './tvSettlement.js'
 import { moveRivalMoney } from './hollywood.js'
 import { closedWeekOf } from './operatingState.js'
 import { buildLegacyManifest, legacyFactsFromState, ENDED_LEGACY_DEFINITION, MODERN_LEGACY_DEFINITION, LEGACY_BOUNDARY_WEEK, type EndedLegacy, type OfficialLegacy } from './campaignLegacy.js'
@@ -52,17 +52,21 @@ import { CLOSURE_CASE_REASON, CLOSURE_PROPOSAL_REASON, invalidateCasesAtClosure,
 import { researchAfterEmploymentRelease } from './technology.js'
 import { CLAIM_PAYMENT_LEDGER_NOTE, TUNING } from './tuning.js'
 import type { HollywoodState, IndustryReceipt, LiveIndustryFilm, RivalBusiness } from './hollywoodTypes.js'
-import type { ClosureClaim, ClosureDisposition, ClosureEstate, ClosureRecord, EstateEvent, EstateLot, GameState, LedgerEntry, StudioClosureRoot, StudioLoanRecord } from './types.js'
+import type { ClosureClaim, ClosureDisposition, ClosureEstate, ClosureLawVersion, ClosureRecord, EstateEvent, EstateLot, GameState, LedgerEntry, StudioClosureRoot, StudioLoanRecord } from './types.js'
 
 export { closedWeekOf, isOperatingStudio } from './operatingState.js'
 
-export const CLOSURE_LAW_VERSION = 'closure/v1'
+/** The live closure law. closure/v2 (ASTRA Sprint 23, Owner decision B) adds the closing producer's television
+ * obligations as typed claims behind every employment claim (refunds before charges); its estate figures are v1's. */
+export const CLOSURE_LAW_VERSION: ClosureLawVersion = 'closure/v2'
 export const CLOSURE_PHASE_ID = 'p15b.closure'
 
 /** The frozen law table (as the condition's): a validator judges a record by its own version's figures.
- * tests/p15b4-studio-closure.test.ts pins it equal to TUNING while both are v1. */
-export const CLOSURE_LAWS = Object.freeze({
-  'closure/v1': Object.freeze({ CLOSURE_ESTATE_WINDOW_WEEKS: 13 }),
+ * tests/p15b4-studio-closure.test.ts pins the v1 entry equal to TUNING. `TV_CLAIMS` says whether the law publishes a
+ * closing producer's television refund and charge as claims (v2) or leaves them recorded and unpaid (v1). */
+export const CLOSURE_LAWS: Readonly<Record<ClosureLawVersion, Readonly<{ CLOSURE_ESTATE_WINDOW_WEEKS: number; TV_CLAIMS: boolean }>>> = Object.freeze({
+  'closure/v1': Object.freeze({ CLOSURE_ESTATE_WINDOW_WEEKS: 13, TV_CLAIMS: false }),
+  'closure/v2': Object.freeze({ CLOSURE_ESTATE_WINDOW_WEEKS: 13, TV_CLAIMS: true }),
 })
 
 /** 1353-A §7: the typed end-of-run hook point. Null until the prospective Legacy actual-closure adapter is
@@ -142,8 +146,12 @@ export function closureDigest(closureId: string, dispositions: readonly ClosureD
   return hash.toString(16).padStart(8, '0')
 }
 
-const byContractThenClaim = (a: ClosureClaim, b: ClosureClaim): number =>
-  a.sourceContractId < b.sourceContractId ? -1 : a.sourceContractId > b.sourceContractId ? 1 : a.claimId < b.claimId ? -1 : a.claimId > b.claimId ? 1 : 0
+/** closure/v2 priority tiers (decision B): every employment claim first, then advance refunds, then cancellation
+ * charges. An all-employment set (every rival estate, every v1 record) sorts exactly as before. */
+export const CLAIM_TIERS: Readonly<Record<ClosureClaim['kind'], number>> = Object.freeze({ employment: 0, tvRefund: 1, tvCharge: 2 })
+const byTierThenSourceThenClaim = (a: ClosureClaim, b: ClosureClaim): number =>
+  CLAIM_TIERS[a.kind] !== CLAIM_TIERS[b.kind] ? CLAIM_TIERS[a.kind] - CLAIM_TIERS[b.kind]
+    : a.sourceContractId < b.sourceContractId ? -1 : a.sourceContractId > b.sourceContractId ? 1 : a.claimId < b.claimId ? -1 : a.claimId > b.claimId ? 1 : 0
 
 /** The status the amounts and the estate dictate (§3): they can never contradict each other. */
 export function claimStatus(claim: Pick<ClosureClaim, 'original' | 'paid'>, archived: boolean): ClosureClaim['status'] {
@@ -153,28 +161,29 @@ export function claimStatus(claim: Pick<ClosureClaim, 'original' | 'paid'>, arch
 }
 
 /**
- * Contract §3: pay in ascending source contract id, then claim id, min(available, unpaid) each, in whole
- * currency units; a fractional residue stays in the account. Returns the claims in that canonical order
- * and the positive payments made, each to be booked by the caller as exactly one debit.
+ * Contract §3: pay in tier order (closure/v2: employment, then refunds, then charges), then ascending source id, then
+ * claim id, min(available, unpaid) each, in whole currency units; a fractional residue stays in the account. Returns the
+ * claims in that canonical order and the positive payments made, each to be booked by the caller as exactly one debit
+ * (`talentId` is the claimant: the person, or the commissioner for a television claim).
  */
-export function distributeClaims(claims: readonly ClosureClaim[], available: number, week: number, reference: string, archived = false): { claims: ClosureClaim[]; payments: { claimId: string; talentId: string; amount: number }[] } {
+export function distributeClaims(claims: readonly ClosureClaim[], available: number, week: number, reference: string, archived = false): { claims: ClosureClaim[]; payments: { claimId: string; kind: ClosureClaim['kind']; sourceId: string; talentId: string; amount: number }[] } {
   for (const claim of claims) {
     if (!(Number.isSafeInteger(claim.original) && Number.isSafeInteger(claim.paid) && claim.paid >= 0 && claim.paid <= claim.original && claim.original - claim.paid === claim.unpaid)) {
-      throw new Error(`closure/v1: claim ${claim.claimId} does not satisfy original = paid + unpaid with whole non-negative amounts`)
+      throw new Error(`closure: claim ${claim.claimId} does not satisfy original = paid + unpaid with whole non-negative amounts`)
     }
   }
   let remaining = Number.isFinite(available) ? Math.floor(Math.max(0, available)) : 0
-  const payments: { claimId: string; talentId: string; amount: number }[] = []
+  const payments: { claimId: string; kind: ClosureClaim['kind']; sourceId: string; talentId: string; amount: number }[] = []
   const paid = new Map<string, ClosureClaim>()
-  for (const claim of [...claims].sort(byContractThenClaim)) {
+  for (const claim of [...claims].sort(byTierThenSourceThenClaim)) {
     const amount = Math.min(remaining, claim.unpaid)
     if (amount <= 0) continue
     remaining -= amount
-    payments.push({ claimId: claim.claimId, talentId: claim.claimantTalentId, amount })
+    payments.push({ claimId: claim.claimId, kind: claim.kind, sourceId: claim.sourceContractId, talentId: claim.claimantTalentId, amount })
     const next = { ...claim, paid: claim.paid + amount, unpaid: claim.unpaid - amount, payments: [...claim.payments, { week, amount, reference }] }
     paid.set(claim.claimId, { ...next, status: claimStatus(next, archived) })
   }
-  return { claims: [...claims].sort(byContractThenClaim).map((c) => paid.get(c.claimId) ?? c), payments }
+  return { claims: [...claims].sort(byTierThenSourceThenClaim).map((c) => paid.get(c.claimId) ?? c), payments }
 }
 
 /** The canonical locked run of a live film (the hollywood validator's own derivation). */
@@ -397,6 +406,33 @@ function prepareStudioClosure(state: GameState, studioId: string, causeEventId: 
   // P18 (contract §7; P18-06): the live season is cancelled at C under the v1 settlement and pays nothing here: U0 and
   // K are published with this closure id, so P18 never jumps the creditor queue. Its people were released in step 1.
   if (player) next = cancelTvSeasonsAtClosure(next, closureId, week)
+  // closure/v2 (ASTRA Sprint 23, decision B): the obligations the cancellation just published with this closure id
+  // become typed claims behind every employment claim: the outstanding advance refund (U0 − paid) and the outstanding
+  // cancellation charge (K − paid), one claim each per agreement, zero amounts omitted; the commissioner is the claimant
+  // and the agreement id the source. Nothing is paid here; the money step below distributes in tier order.
+  if (player && CLOSURE_LAWS[law].TV_CLAIMS) {
+    // Every cancelled agreement of this producer with something still outstanding: the ones this closure just published
+    // and the ones cancelled earlier while operating (an operating cancellation pays what it can and leaves the rest due;
+    // nothing can pay it after the closure but the estate). Each claim is the outstanding part, never a paid amount.
+    const published = (next.television?.agreements ?? []).filter((a) => a.studioId === studioId && a.settlement !== undefined && (a.settlement.closureId === closureId || a.settlement.closureId === null))
+      .sort((a, b) => byId(a.agreementId, b.agreementId))
+    for (const a of published) {
+      const settlement = a.settlement!
+      const parts: { kind: 'tvRefund' | 'tvCharge'; label: string; original: number }[] = [
+        { kind: 'tvRefund', label: 'refund', original: settlement.refundDue - settlement.refundPaid },
+        { kind: 'tvCharge', label: 'charge', original: settlement.chargeDue - settlement.chargePaid },
+      ]
+      for (const part of parts) {
+        if (part.original <= 0) continue
+        const claimId = `closure-claim-${nextClaim}`
+        nextClaim += 1
+        claims.push({ claimId, closureId, studioId, kind: part.kind, sourceContractId: a.agreementId, claimantTalentId: a.commissionerId, lawVersion: law, original: part.original, paid: 0, unpaid: part.original,
+          status: claimStatus({ original: part.original, paid: 0 }, false), payments: [] })
+        row('tvAgreement', `${a.agreementId}:${part.label}`, `season ${a.seasonId}; ${part.label === 'refund' ? `advance refund U0 ${settlement.refundDue}` : `cancellation charge K ${settlement.chargeDue}`} frozen at week ${settlement.week}`,
+          `claim ${claimId} for ${part.original}; paid after every employment claim${part.kind === 'tvCharge' ? ' and every refund' : ''}`, 'applied', claimId)
+      }
+    }
+  }
   // 4. Money: the loan stops at C; the closing cash is preserved as it is; claims are paid from floor(max(0, cash)).
   const loan = outstandingLoan(state, studioId, week)
   let loanRecord: ClosureRecord['loan'] = null
@@ -411,20 +447,29 @@ function prepareStudioClosure(state: GameState, studioId: string, causeEventId: 
   const distribution = distributeClaims(claims, distributable, week, closureId)
   let ledger = next.ledger
   let cash = next.studio.cash
+  let television = next.television
   for (const payment of distribution.payments) {
     if (player) {
       cash -= payment.amount
-      ledger = [...ledger, { week, kind: 'claimPayment', amount: -payment.amount, talentId: payment.talentId, note: CLAIM_PAYMENT_LEDGER_NOTE } as LedgerEntry]
+      if (payment.kind === 'employment') {
+        ledger = [...ledger, { week, kind: 'claimPayment', amount: -payment.amount, talentId: payment.talentId, note: CLAIM_PAYMENT_LEDGER_NOTE } as LedgerEntry]
+      } else {
+        // closure/v2: the television payment is the TV receipt (source estate) and its ledger row; the agreement's paid
+        // figure rises, so the debt is paid once, here, and never again through settleTvObligations.
+        const paid = payTvObligationFromEstate(television!, payment.sourceId, payment.kind, payment.amount, week, closureId)
+        television = paid.television
+        ledger = [...ledger, ...paid.ledger]
+      }
     } else {
       moveRivalMoney(business!.account, 'claimPayment', -payment.amount, week)
     }
   }
   const paidTotal = distribution.payments.reduce((sum, p) => sum + p.amount, 0)
   row('cash', studioId, `closing ${closing}`, `distributable ${distributable}; ${paidTotal} paid to claims at closure; balance preserved`, 'applied')
-  if (player) next = { ...next, studio: { ...next.studio, cash }, ledger }
+  if (player) next = { ...next, studio: { ...next.studio, cash }, ledger, ...(television === next.television ? {} : { television }) }
 
   // 5. Titles: one R2 lot per owned title, pending through the window; P16 reads estateView (§4).
-  const estateLaw = CLOSURE_LAWS['closure/v1']
+  const estateLaw = CLOSURE_LAWS[law]
   const lots: EstateLot[] = ownedFilmIds(state, h, studioId).map((filmId, i) => ({ lotId: `${closureId}:lot:${i + 1}`, right: 'R2', subjectId: filmId }))
   for (const lot of lots) row('title', lot.subjectId, 'owned', `R2 lot ${lot.lotId}; sale route pending until the estate closes`, 'pending', null, lot.lotId)
   const estate: ClosureEstate = { opensWeek: week, closesWeek: week + estateLaw.CLOSURE_ESTATE_WINDOW_WEEKS, lots }
@@ -631,7 +676,7 @@ const DISPOSITION_KEYS = ['claimId', 'lawVersion', 'lotId', 'prior', 'result', '
 const CLAIM_KEYS = ['claimId', 'claimantTalentId', 'closureId', 'kind', 'lawVersion', 'original', 'paid', 'payments', 'sourceContractId', 'status', 'studioId', 'unpaid']
 const ESTATE_KEYS = ['closesWeek', 'lots', 'opensWeek']
 const EVENT_KEYS = ['amount', 'closureId', 'eventId', 'kind', 'p15DomainSequence', 'phaseId', 'phaseOrderVersion', 'phaseOrdinal', 'reference', 'studioId', 'week']
-const KINDS: readonly Kind[] = ['employment', 'screenplay', 'production', 'theatricalRun', 'research', 'adoption', 'physicalPlan', 'facility', 'construction', 'set', 'castingSession', 'queuedIntent', 'proposal', 'marketCase', 'loan', 'cash', 'title']
+const KINDS: readonly Kind[] = ['employment', 'screenplay', 'production', 'theatricalRun', 'research', 'adoption', 'physicalPlan', 'facility', 'construction', 'set', 'castingSession', 'queuedIntent', 'proposal', 'marketCase', 'loan', 'cash', 'title', 'tvAgreement']
 const isRecord = (value: unknown): value is Record<string, unknown> => value !== null && typeof value === 'object' && !Array.isArray(value)
 const sameKeys = (value: Record<string, unknown>, keys: readonly string[]): boolean => {
   const own = Object.keys(value).sort()
@@ -642,7 +687,7 @@ const isWeek = (value: unknown): value is number => Number.isSafeInteger(value) 
 const close = (a: number, b: number): boolean => Math.abs(a - b) <= 1e-6
 
 /** Validates `studioClosure` against the whole state (the frozen chain and the condition root already proven). */
-export function validateStudioClosureRoot(raw: Record<string, unknown>, label: string, policy: { rightsEstate: boolean; titleState?: GameState; absorptionWithdrawals?: AbsorptionWithdrawalAuthority } = { rightsEstate: false }): void {
+export function validateStudioClosureRoot(raw: Record<string, unknown>, label: string, policy: { rightsEstate: boolean; titleState?: GameState; absorptionWithdrawals?: AbsorptionWithdrawalAuthority; television?: boolean } = { rightsEstate: false }): void {
   const fail = (message: string): never => { throw new Error(`${label}: studioClosure ${message}`) }
   const root = raw.studioClosure
   if (!isRecord(root)) return fail('root must be an object')
@@ -826,13 +871,46 @@ export function validateStudioClosureRoot(raw: Record<string, unknown>, label: s
     }
 
 
-    // Claims of this closure: one per interval ended at C by closure, in (contract, claim) order.
+    // Claims of this closure: one per interval ended at C by closure and, under a law with TV_CLAIMS, one per
+    // outstanding television refund and charge the closure published (the player only), in tier, source, claim order.
     const own = (claimsByClosure.get(c.closureId) ?? [])
     const endedByClosure = h.employment.filter((e) => e.studioId === c.studioId && e.endedWeek === C && closureEnds.has(e.contractId))
-    if (own.length !== endedByClosure.length) fail(`closure ${c.closureId} has ${own.length} claims for ${endedByClosure.length} intervals ended by closure`)
+    // The television join: this validator also runs on the predecessor-era views of the save, which carry no television
+    // root; there the television claims are proven by shape and by their ledger rows, and the join to the agreements'
+    // frozen and paid figures is proven where both roots exist (tvSave.ts validateSettlement, and here when present).
+    type TvRootView = { agreements: { agreementId: string; studioId: string; commissionerId: string; settlement?: { closureId: string | null; refundDue: number; refundPaid: number; chargeDue: number; chargePaid: number } }[];
+      receipts: { kind: string; agreementId: string; amount?: number; source?: string }[] }
+    const tvRoot = Object.hasOwn(raw, 'television') && isRecord(raw.television) ? (raw.television as unknown as TvRootView) : null
+    const tvExpected = new Map<string, { agreementId: string; commissionerId: string; original: number; paid: number }>()
+    const tvClaimsHere = own.filter((cl) => cl.kind !== 'employment')
+    // A file of an era before television (policy.television false, no root) can hold no television claim at all.
+    if (tvClaimsHere.length > 0 && policy.television !== true && tvRoot === null) fail(`closure ${c.closureId} carries television claims below the television era`)
+    if (player && law.TV_CLAIMS) {
+      if (tvRoot !== null) {
+        for (const a of tvRoot.agreements.filter((row) => row.studioId === c.studioId && row.settlement !== undefined && (row.settlement.closureId === c.closureId || row.settlement.closureId === null))) {
+          const st = a.settlement!
+          const paidBy = (kind: string, estate: boolean): number => tvRoot.receipts.filter((r) => r.agreementId === a.agreementId && r.kind === kind && (r.source === 'estate') === estate).reduce((sum, r) => sum + (r.amount ?? 0), 0)
+          // The claim is the part still outstanding at the closure (the frozen figure less what the operating studio paid);
+          // the estate's payments are the claim's.
+          const refund = st.refundDue - paidBy('advanceRefundPaid', false)
+          const charge = st.chargeDue - paidBy('cancellationChargePaid', false)
+          if (refund > 0) tvExpected.set(`tvRefund:${a.agreementId}`, { agreementId: a.agreementId, commissionerId: a.commissionerId, original: refund, paid: paidBy('advanceRefundPaid', true) })
+          if (charge > 0) tvExpected.set(`tvCharge:${a.agreementId}`, { agreementId: a.agreementId, commissionerId: a.commissionerId, original: charge, paid: paidBy('cancellationChargePaid', true) })
+        }
+      } else {
+        // The predecessor-era view of a television-era file: the join is proven by tvSave.ts (both directions); here the
+        // claims are proven by shape, order, amounts and ledger rows.
+        for (const cl of tvClaimsHere) if (!tvExpected.has(`${cl.kind}:${cl.sourceContractId}`)) tvExpected.set(`${cl.kind}:${cl.sourceContractId}`, { agreementId: cl.sourceContractId, commissionerId: cl.claimantTalentId, original: cl.original, paid: cl.paid })
+      }
+    }
+    const employmentClaims = own.filter((cl) => cl.kind === 'employment')
+    if (employmentClaims.length !== endedByClosure.length) fail(`closure ${c.closureId} has ${employmentClaims.length} employment claims for ${endedByClosure.length} intervals ended by closure`)
+    if (own.length - employmentClaims.length !== tvExpected.size) fail(`closure ${c.closureId} has ${own.length - employmentClaims.length} television claims for ${tvExpected.size} published obligations`)
     const sources = new Set<string>()
     const playerRows = player ? state.ledger.filter((r) => r.kind === 'claimPayment') : []
+    const playerTvRows = player ? state.ledger.filter((r) => r.kind === 'tvAdvanceRefund' || r.kind === 'tvCancellationCharge') : []
     const matchedRows = new Set<number>()
+    const matchedTvRows = new Set<number>()
     const rivalPayments = new Map<number, number>()
     const paymentsByWeek = new Map<number, Map<string, number>>()
     const distributionEvents = events.filter(e => e.kind === 'distribution')
@@ -844,13 +922,26 @@ export function validateStudioClosureRoot(raw: Record<string, unknown>, label: s
       if (m === null || Number(m[1]) >= (root.nextClaim as number) || seenClaims.has(claim.claimId)) fail(`claim ${String(claim.claimId)} has a malformed, duplicate or above-allocator id`)
       seenClaims.add(claim.claimId)
       largestClaim = Math.max(largestClaim, Number(m![1]))
-      if (k > 0 && byContractThenClaim(own[k - 1]!, claim) >= 0) fail(`claim ${claim.claimId} is out of (sourceContractId, claimId) order`)
-      if (claim.studioId !== c.studioId || claim.kind !== 'employment' || claim.lawVersion !== c.lawVersion) fail(`claim ${claim.claimId} studio, kind or law differs from its closure`)
-      const interval = endedByClosure.find((e) => e.contractId === claim.sourceContractId)
-      if (interval === undefined || sources.has(claim.sourceContractId)) fail(`claim ${claim.claimId} source ${String(claim.sourceContractId)} is not a distinct interval ended by this closure`)
-      sources.add(claim.sourceContractId)
-      if (claim.claimantTalentId !== interval!.terms.talentId) fail(`claim ${claim.claimId} claimant differs from its interval`)
-      if (claim.original !== terminationCost(interval!.terms, C)) fail(`claim ${claim.claimId} original differs from terminationCost(contract, C)`)
+      if (k > 0 && byTierThenSourceThenClaim(own[k - 1]!, claim) >= 0) fail(`claim ${claim.claimId} is out of (tier, sourceContractId, claimId) order`)
+      if (!Object.hasOwn(CLAIM_TIERS, claim.kind) || (claim.kind !== 'employment' && !law.TV_CLAIMS)) fail(`claim ${claim.claimId} kind ${String(claim.kind)} is not a claim kind of ${c.lawVersion}`)
+      if (claim.studioId !== c.studioId || claim.lawVersion !== c.lawVersion) fail(`claim ${claim.claimId} studio or law differs from its closure`)
+      let expectedPaid: number | null = null
+      if (claim.kind === 'employment') {
+        const interval = endedByClosure.find((e) => e.contractId === claim.sourceContractId)
+        if (interval === undefined || sources.has(claim.sourceContractId)) fail(`claim ${claim.claimId} source ${String(claim.sourceContractId)} is not a distinct interval ended by this closure`)
+        sources.add(claim.sourceContractId)
+        if (claim.claimantTalentId !== interval!.terms.talentId) fail(`claim ${claim.claimId} claimant differs from its interval`)
+        if (claim.original !== terminationCost(interval!.terms, C)) fail(`claim ${claim.claimId} original differs from terminationCost(contract, C)`)
+      } else {
+        // closure/v2: the television claim is exactly the published, outstanding obligation; its paid figure is the agreement's.
+        const key = `${claim.kind}:${claim.sourceContractId}`
+        const want = tvExpected.get(key)
+        if (want === undefined || sources.has(key)) fail(`claim ${claim.claimId} is not a distinct television obligation this closure published`)
+        sources.add(key)
+        if (claim.claimantTalentId !== want!.commissionerId) fail(`claim ${claim.claimId} claimant is not the agreement's commissioner`)
+        if (claim.original !== want!.original) fail(`claim ${claim.claimId} original differs from the frozen ${claim.kind === 'tvRefund' ? 'advance refund U0' : 'cancellation charge K'}`)
+        expectedPaid = want!.paid
+      }
       if (!(Number.isSafeInteger(claim.paid) && Number.isSafeInteger(claim.unpaid) && claim.paid >= 0 && claim.unpaid >= 0 && claim.paid + claim.unpaid === claim.original)) fail(`claim ${claim.claimId} breaks original = paid + unpaid`)
       if (!Array.isArray(claim.payments)) return fail(`claim ${claim.claimId} payments must be an array`)
       let sum = 0
@@ -867,7 +958,13 @@ export function validateStudioClosureRoot(raw: Record<string, unknown>, label: s
         if (batch.has(claim.claimId)) fail(`claim ${claim.claimId} is paid twice in week ${week}`)
         batch.set(claim.claimId, payment.amount as number)
         paymentsByWeek.set(week, batch)
-        if (player) {
+        if (player && claim.kind !== 'employment') {
+          // The television payment's row is the TV receipt's row (tvSave ties them one to one); here it must exist at the amount and week.
+          const kind = claim.kind === 'tvRefund' ? 'tvAdvanceRefund' : 'tvCancellationCharge'
+          const index = playerTvRows.findIndex((r, j) => !matchedTvRows.has(j) && r.kind === kind && r.week === week && r.amount === -(payment.amount as number))
+          if (index < 0) fail(`claim ${claim.claimId} payment at week ${week} has no ${kind} ledger row`)
+          matchedTvRows.add(index)
+        } else if (player) {
           const index = playerRows.findIndex((r, j) => !matchedRows.has(j) && r.week === week && r.amount === -(payment.amount as number) && r.talentId === claim.claimantTalentId)
           if (index < 0) fail(`claim ${claim.claimId} payment at week ${week} has no claimPayment ledger row`)
           matchedRows.add(index)
@@ -876,6 +973,7 @@ export function validateStudioClosureRoot(raw: Record<string, unknown>, label: s
         }
       }
       if (sum !== claim.paid) fail(`claim ${claim.claimId} paid differs from its payments`)
+      if (expectedPaid !== null && claim.paid !== expectedPaid) fail(`claim ${claim.claimId} paid ${claim.paid} differs from the agreement's paid figure ${expectedPaid}`)
       if (claim.status !== claimStatus(claim, archived)) fail(`claim ${claim.claimId} status ${String(claim.status)} contradicts its amounts and the estate`)
       paidTotal += claim.paid
     }
@@ -936,7 +1034,11 @@ export function validateStudioClosureRoot(raw: Record<string, unknown>, label: s
     // Dispositions (§5): exact-once, canonical order, bidirectional completeness against retained history.
     const expected = new Map<string, { status: ClosureDisposition['status']; claimId?: string; lotId?: string }>()
     const expect = (kind: Kind, id: string, status: ClosureDisposition['status'], extra: { claimId?: string; lotId?: string } = {}): void => { expected.set(`${kind}:${id}`, { status, ...extra }) }
-    for (const e of endedByClosure) expect('employment', e.contractId, 'applied', { claimId: own.find((cl) => cl.sourceContractId === e.contractId)?.claimId ?? '' })
+    for (const e of endedByClosure) expect('employment', e.contractId, 'applied', { claimId: own.find((cl) => cl.kind === 'employment' && cl.sourceContractId === e.contractId)?.claimId ?? '' })
+    for (const [key, want] of tvExpected) {
+      const kind = key.startsWith('tvRefund:') ? 'tvRefund' : 'tvCharge'
+      expect('tvAgreement', `${want.agreementId}:${kind === 'tvRefund' ? 'refund' : 'charge'}`, 'applied', { claimId: own.find((cl) => cl.kind === kind && cl.sourceContractId === want.agreementId)?.claimId ?? '' })
+    }
     const ownScripts = player ? state.scriptDevelopment.projects : business!.activeScriptOrdinals.map((k) => business!.development.projects[k]!)
     const scripts = [...ownScripts.map(project=>({project,subjectId:project.id})),...(policy.rightsEstate?continuedBuyerScripts(titleState!,c.studioId):[])]
     for (const {project,subjectId} of scripts) if (project.status !== 'produced') expect('screenplay', subjectId, 'applied')
@@ -979,6 +1081,7 @@ export function validateStudioClosureRoot(raw: Record<string, unknown>, label: s
     for (const [k, d] of c.dispositions.entries()) {
       if (!isRecord(d) || !sameKeys(d, DISPOSITION_KEYS)) return fail(`closure ${c.closureId} disposition ${k} must have exactly the keys ${DISPOSITION_KEYS.join(', ')}`)
       if (!KINDS.includes(d.subjectKind) || typeof d.subjectId !== 'string' || typeof d.prior !== 'string' || typeof d.result !== 'string' || d.lawVersion !== c.lawVersion) fail(`closure ${c.closureId} disposition ${k} is malformed`)
+      if (d.subjectKind === 'tvAgreement' && !law.TV_CLAIMS) fail(`closure ${c.closureId} disposition ${k} names a television agreement under ${c.lawVersion}`)
       const key = `${d.subjectKind}:${d.subjectId}`
       if (seen.has(key)) fail(`closure ${c.closureId} disposes of ${key} twice`)
       if (k > 0 && byKindThenId(c.dispositions[k - 1]!, d) >= 0) fail(`closure ${c.closureId} dispositions are not in canonical (kind, id) order`)

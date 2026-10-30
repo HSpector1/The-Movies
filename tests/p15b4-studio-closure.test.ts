@@ -94,7 +94,7 @@ describe('p15b4 closure: the boundary, the terminal state and the loan stop (con
     const s = route.get(C)!
     const record = requireClosure(s, R04)
     const closedEvent = eventsOf(s, R04).find((e) => e.to === 'closed')!
-    expect(record).toMatchObject({ closureId: 'studio-closure-1', studioId: R04, closureWeek: C, causeEventId: closedEvent.eventId, lawVersion: 'closure/v1',
+    expect(record).toMatchObject({ closureId: 'studio-closure-1', studioId: R04, closureWeek: C, causeEventId: closedEvent.eventId, lawVersion: 'closure/v2', // ASTRA Sprint 23: the live law
       phaseId: 'p15b.closure', phaseOrderVersion: P15_PHASE_ORDER_VERSION, phaseOrdinal: P15_PHASE_TABLES[P15_PHASE_ORDER_VERSION]!.find((e) => e.phaseId === 'p15b.closure')!.phaseOrdinal })
     // The closure follows the condition event in the one P15 sequence, and the allocator moved past it.
     expect(record.p15DomainSequence).toBeGreaterThan(closedEvent.p15DomainSequence)
@@ -203,7 +203,7 @@ describe('p15b4 closure: claims, dispositions, titles and the estate window (con
     claims.forEach((claim, i) => {
       const e = expectedOrder[i]!
       expect(claim).toMatchObject({ claimId: `closure-claim-${i + 1}`, closureId: record.closureId, studioId: R04, kind: 'employment', sourceContractId: e.contractId,
-        claimantTalentId: e.terms.talentId, lawVersion: 'closure/v1', original: terminationCost(e.terms, C), paid: 0, unpaid: terminationCost(e.terms, C), status: 'unpaid', payments: [] })
+        claimantTalentId: e.terms.talentId, lawVersion: 'closure/v2', original: terminationCost(e.terms, C), paid: 0, unpaid: terminationCost(e.terms, C), status: 'unpaid', payments: [] })
       expect(claim.original).toBeGreaterThan(0)
     })
     expect(closureRoot(s).nextClaim).toBe(live.length + 1)
@@ -243,7 +243,7 @@ describe('p15b4 closure: claims, dispositions, titles and the estate window (con
     // Every live subject exactly once, in canonical (kind, id) order, each with its prior-state proof and law version.
     const live = activeRows(before, R04).filter((e) => e.terms.endWeekExclusive > C)
     expect(byKind(record, 'employment').map((d) => d.subjectId).sort()).toEqual(live.map((e) => e.contractId).sort())
-    for (const d of byKind(record, 'employment')) expect(d).toMatchObject({ status: 'applied', lawVersion: 'closure/v1' })
+    for (const d of byKind(record, 'employment')) expect(d).toMatchObject({ status: 'applied', lawVersion: 'closure/v2' })
     expect(byKind(record, 'employment').every((d) => typeof d.claimId === 'string')).toBe(true)
     expect(byKind(record, 'facility').map((d) => d.subjectId).sort()).toEqual(b.operations.facilities.map((f) => f.id).sort())
     expect(byKind(record, 'facility').length).toBeGreaterThan(0)
@@ -296,23 +296,50 @@ describe('p15b4 closure: claims, dispositions, titles and the estate window (con
 
   it('closure-distribution-law', async () => {
     const mod = await closure()
-    type Distribute = (claims: readonly ClosureClaim[], available: number, week: number, reference: string) => { claims: ClosureClaim[]; payments: { claimId: string; talentId: string; amount: number }[] }
+    type Payment = { claimId: string; kind: ClosureClaim['kind']; sourceId: string; talentId: string; amount: number }
+    type Distribute = (claims: readonly ClosureClaim[], available: number, week: number, reference: string) => { claims: ClosureClaim[]; payments: Payment[] }
     const distributeClaims = fn<Distribute>(mod, 'distributeClaims')
-    const claim = (claimId: string, sourceContractId: string, original: number, paid = 0): ClosureClaim => ({ claimId, closureId: 'studio-closure-9', studioId: R04, kind: 'employment', sourceContractId,
+    const claim = (claimId: string, sourceContractId: string, original: number, paid = 0, kind: ClosureClaim['kind'] = 'employment'): ClosureClaim => ({ claimId, closureId: 'studio-closure-9', studioId: R04, kind, sourceContractId,
       claimantTalentId: `person-${claimId}`, lawVersion: 'closure/v1', original, paid, unpaid: original - paid, status: paid === 0 ? 'unpaid' : paid === original ? 'paid' : 'partiallyPaid', payments: [] })
     const claims = [claim('closure-claim-2', 'b:contract', 100), claim('closure-claim-1', 'a:contract', 50), claim('closure-claim-3', 'b:contract', 40)]
     // Ascending source contract id, then claim id; min(available, unpaid) each; partial payment allowed.
     const paid = distributeClaims(claims, 120, 170, 'estate')
-    expect(paid.payments).toEqual([{ claimId: 'closure-claim-1', talentId: 'person-closure-claim-1', amount: 50 }, { claimId: 'closure-claim-2', talentId: 'person-closure-claim-2', amount: 70 }])
+    expect(paid.payments).toEqual([{ claimId: 'closure-claim-1', kind: 'employment', sourceId: 'a:contract', talentId: 'person-closure-claim-1', amount: 50 }, { claimId: 'closure-claim-2', kind: 'employment', sourceId: 'b:contract', talentId: 'person-closure-claim-2', amount: 70 }])
     expect(paid.claims.map((c) => [c.claimId, c.paid, c.unpaid, c.status])).toEqual([
       ['closure-claim-1', 50, 0, 'paid'], ['closure-claim-2', 70, 30, 'partiallyPaid'], ['closure-claim-3', 0, 40, 'unpaid']])
     expect(paid.claims[0]!.payments).toEqual([{ week: 170, amount: 50, reference: 'estate' }])
     // Nothing available: no payment, no row, no change. A fractional available pays whole units only.
     expect(distributeClaims(claims, 0, 170, 'estate').payments).toEqual([])
     expect(distributeClaims(claims, -5, 170, 'estate').payments).toEqual([])
-    expect(distributeClaims(claims, 49.9, 170, 'estate').payments).toEqual([{ claimId: 'closure-claim-1', talentId: 'person-closure-claim-1', amount: 49 }])
+    expect(distributeClaims(claims, 49.9, 170, 'estate').payments).toEqual([{ claimId: 'closure-claim-1', kind: 'employment', sourceId: 'a:contract', talentId: 'person-closure-claim-1', amount: 49 }])
     // original = paid + unpaid always; a payment above the remainder refuses.
     refuses(() => distributeClaims([claim('closure-claim-1', 'a', 10, 11)], 5, 170, 'estate'), 'claim')
+  })
+
+  it('closure-distribution-tiers (ASTRA Sprint 23, closure/v2, Owner decision B)', async () => {
+    const mod = await closure()
+    type Payment = { claimId: string; kind: ClosureClaim['kind']; sourceId: string; talentId: string; amount: number }
+    type Distribute = (claims: readonly ClosureClaim[], available: number, week: number, reference: string) => { claims: ClosureClaim[]; payments: Payment[] }
+    const distributeClaims = fn<Distribute>(mod, 'distributeClaims')
+    const tiers = mod.CLAIM_TIERS as Record<string, number>
+    expect(tiers).toEqual({ employment: 0, tvRefund: 1, tvCharge: 2 })
+    const claim = (claimId: string, kind: ClosureClaim['kind'], sourceContractId: string, original: number): ClosureClaim => ({ claimId, closureId: 'studio-closure-9', studioId: PLAYER, kind, sourceContractId,
+      claimantTalentId: kind === 'employment' ? `person-${claimId}` : 'commissioner', lawVersion: 'closure/v2', original, paid: 0, unpaid: original, status: 'unpaid', payments: [] })
+    // Listed out of order on purpose: a charge of agreement a, a refund of agreement b, a refund of agreement a, two employment claims.
+    const claims = [claim('closure-claim-5', 'tvCharge', 'tv-agreement-a', 120), claim('closure-claim-4', 'tvRefund', 'tv-agreement-b', 30), claim('closure-claim-3', 'tvRefund', 'tv-agreement-a', 90),
+      claim('closure-claim-2', 'employment', 'b:contract', 100), claim('closure-claim-1', 'employment', 'a:contract', 50)]
+    // Every employment claim first, then refunds (by agreement id), then charges; a partial refund leaves the charges unpaid.
+    const paid = distributeClaims(claims, 200, 170, 'estate')
+    expect(paid.payments.map((p) => [p.claimId, p.kind, p.sourceId, p.amount])).toEqual([
+      ['closure-claim-1', 'employment', 'a:contract', 50], ['closure-claim-2', 'employment', 'b:contract', 100], ['closure-claim-3', 'tvRefund', 'tv-agreement-a', 50]])
+    expect(paid.claims.map((c) => [c.claimId, c.paid, c.unpaid, c.status])).toEqual([
+      ['closure-claim-1', 50, 0, 'paid'], ['closure-claim-2', 100, 0, 'paid'], ['closure-claim-3', 50, 40, 'partiallyPaid'], ['closure-claim-4', 0, 30, 'unpaid'], ['closure-claim-5', 0, 120, 'unpaid']])
+    // Enough for everything but the charge: both refunds paid in full, the charge partially, in that order.
+    const more = distributeClaims(claims, 300, 170, 'estate')
+    expect(more.payments.map((p) => [p.claimId, p.amount])).toEqual([['closure-claim-1', 50], ['closure-claim-2', 100], ['closure-claim-3', 90], ['closure-claim-4', 30], ['closure-claim-5', 30]])
+    // An all-employment set sorts exactly as the v1 law did (source id, then claim id).
+    const v1 = [claim('closure-claim-2', 'employment', 'b:contract', 100), claim('closure-claim-1', 'employment', 'a:contract', 50)]
+    expect(distributeClaims(v1, 1000, 170, 'estate').payments.map((p) => p.claimId)).toEqual(['closure-claim-1', 'closure-claim-2'])
   })
 
   it('closure-pagination', async () => {
@@ -493,7 +520,7 @@ describe('p15b4 closure: the player, the market, the families and the transactio
     const s = route.get(C)!
     const before = route.get(C - 1)!
     const record = requireClosure(s, PLAYER)
-    expect(record).toMatchObject({ closureId: 'studio-closure-1', studioId: PLAYER, closureWeek: C, lawVersion: 'closure/v1', endOfRun: s.campaignLegacy.endOfRun!.legacySnapshotId })
+    expect(record).toMatchObject({ closureId: 'studio-closure-1', studioId: PLAYER, closureWeek: C, lawVersion: 'closure/v2', endOfRun: s.campaignLegacy.endOfRun!.legacySnapshotId })
     expect(isOperatingStudio(s, PLAYER)).toBe(false)
     // One signed contract becomes one claim at the capped exit law; the person is a free agent at C; unpaid at negative cash.
     const contract = before.contracts[0]!
@@ -679,8 +706,11 @@ describe('p15b4 closure: the player, the market, the families and the transactio
     expect(Number.isInteger(TUNING.CLOSURE_ESTATE_WINDOW_WEEKS) && TUNING.CLOSURE_ESTATE_WINDOW_WEEKS > TUNING.THEATRICAL_WEEKS).toBe(true)
     expect(Number.isInteger(TUNING.CLOSURE_QUERY_PAGE_ROWS) && TUNING.CLOSURE_QUERY_PAGE_ROWS >= 1 && TUNING.CLOSURE_QUERY_PAGE_ROWS <= 100).toBe(true)
     // The frozen law table equals TUNING while both are closure/v1; the unused notice page constant is gone.
-    const laws = (await closure()).CLOSURE_LAWS as Record<string, Record<string, number>>
-    expect(laws['closure/v1']).toEqual({ CLOSURE_ESTATE_WINDOW_WEEKS: TUNING.CLOSURE_ESTATE_WINDOW_WEEKS })
+    const laws = (await closure()).CLOSURE_LAWS as Record<string, Record<string, number | boolean>>
+    expect(laws['closure/v1']).toEqual({ CLOSURE_ESTATE_WINDOW_WEEKS: TUNING.CLOSURE_ESTATE_WINDOW_WEEKS, TV_CLAIMS: false })
+    // ASTRA Sprint 23: closure/v2 is the live law; its estate figure is v1's, and it publishes television claims.
+    expect(laws['closure/v2']).toEqual({ CLOSURE_ESTATE_WINDOW_WEEKS: TUNING.CLOSURE_ESTATE_WINDOW_WEEKS, TV_CLAIMS: true })
+    expect((await closure()).CLOSURE_LAW_VERSION).toBe('closure/v2')
     expect(Object.isFrozen(laws['closure/v1'])).toBe(true)
     expect(Object.hasOwn(TUNING, 'CORPORATE_NOTICE_PAGE_ROWS')).toBe(false)
   })

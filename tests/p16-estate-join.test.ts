@@ -71,7 +71,7 @@ describe('P16 joined estate actual-source boundaries',()=>{
     expect(estate.origin).toEqual({kind:'closure49',closureId:closure.closureId})
     expect(estate).toMatchObject({studioId:R04,closureWeek:163,opensWeek:163,closesWeek:176,closedWeek:null})
     expect(estate.cashReconciliation).toEqual({terminalCash:closure.cash.closing,loanRemainder:closure.loan?.remainder??0})
-    expect(closure.lawVersion).toBe('closure/v1')
+    expect(closure.lawVersion).toBe('closure/v2') // ASTRA Sprint 23: new closures carry the live law; the estate figures are v1's
     const expectedClaims=[...claimsOf(closed,closure.closureId)].sort((a,b)=>
       a.sourceContractId<b.sourceContractId?-1:a.sourceContractId>b.sourceContractId?1:a.claimId<b.claimId?-1:a.claimId>b.claimId?1:0)
     expect(expectedClaims).toHaveLength(6)

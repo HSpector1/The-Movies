@@ -95,6 +95,34 @@ export function cancelTvSeasonsAtClosure(state: GameState, closureId: string, we
   return next
 }
 
+/**
+ * closure/v2 (ASTRA Sprint 23, decision B): one estate payment on a closure-published agreement, written by the closure
+ * transaction's claims distribution at the closure week. The receipt names the source `estate`, the ledger row carries
+ * it, and the agreement's paid figure rises, so P18's readers show the paid state and `settleTvObligations` keeps
+ * refusing (the estate owns the debt). Refund before charge: a charge payment needs the refund paid in full. Throws on
+ * anything but a whole positive amount within the outstanding part; the caller passes only what the law distributed.
+ */
+export function payTvObligationFromEstate(root: TelevisionRoot, agreementId: string, part: 'tvRefund' | 'tvCharge', amount: number, week: number, closureId: string): { television: TelevisionRoot; ledger: LedgerEntry[] } {
+  const fail = (why: string): never => { throw new Error(`closure/v2: television estate payment rejected — ${why}`) }
+  const agreement = root.agreements.find((row) => row.agreementId === agreementId) ?? fail(`unknown agreement ${agreementId}`)
+  const season = root.seasons.find((row) => row.seasonId === agreement.seasonId) ?? fail(`agreement ${agreementId} names no season`)
+  const s = agreement.settlement ?? fail(`agreement ${agreementId} carries no settlement`)
+  // Published to this closure, or cancelled earlier while the studio still operated and left outstanding: both are the
+  // closing producer's genuine debts (decision B); the validator ties either to the producer's closure at this week.
+  if (s.closureId !== null && s.closureId !== closureId) fail(`agreement ${agreementId} was published to another closure (${s.closureId})`)
+  if (!Number.isSafeInteger(amount) || amount <= 0) fail(`amount ${String(amount)} is not a whole positive number`)
+  const outstanding = part === 'tvRefund' ? s.refundDue - s.refundPaid : s.chargeDue - s.chargePaid
+  if (amount > outstanding) fail(`amount ${amount} exceeds the outstanding ${part} (${outstanding}) of ${agreementId}`)
+  if (part === 'tvCharge' && s.refundPaid !== s.refundDue) fail(`the charge of ${agreementId} cannot be paid before its refund`)
+  const base = { week, seasonId: season.seasonId, agreementId }
+  const paid = appendTvReceipt(root, part === 'tvRefund'
+    ? { ...base, kind: 'advanceRefundPaid', amount, source: 'estate' }
+    : { ...base, kind: 'cancellationChargePaid', amount, source: 'estate' })
+  const ledger: LedgerEntry[] = [{ week, kind: part === 'tvRefund' ? 'tvAdvanceRefund' : 'tvCancellationCharge', amount: -amount, note: paid.receiptId } as LedgerEntry]
+  const settlement = part === 'tvRefund' ? { ...s, refundPaid: s.refundPaid + amount } : { ...s, chargePaid: s.chargePaid + amount }
+  return { television: { ...paid.root, agreements: paid.root.agreements.map((row) => (row.agreementId === agreementId ? { ...agreement, settlement } : row)) }, ledger }
+}
+
 export type SettleTvObligationsInput = { agreementId: string; expectedRemaining: number; amount: number }
 
 /** The public `settleTvObligations` action (contract §7): refund first, then charge, exact receipts and rows. */

@@ -159,7 +159,9 @@ export function validateP18Roots(raw: Record<string, unknown>, label: string): v
       if (engagedElsewhere.has(person)) fail(`season ${s.seasonId} engages ${person}, who also holds a production, writing or research assignment or a reserved guest week`)
     }
   }
-  // agreements and receipts
+  // agreements and receipts. The reverse television-claims join first: a claim naming no agreement is refused as the
+  // fabricated creditor it is, before the forward join measures the agreements' own claims.
+  validateTelevisionClaimsName(root, rest, fail)
   for (const a of root.agreements) {
     const agreementKeys = [...AGREEMENT_KEYS, ...(Object.hasOwn(a, 'settlement') ? ['settlement'] : [])]
     if (!sameKeys(a, agreementKeys)) fail(`agreement must carry exactly ${agreementKeys.join(', ')}`)
@@ -338,6 +340,20 @@ function validateAgreement(a: TvAgreement, s: TvSeason, root: TelevisionRoot, re
   validateSettlement(a, s, mine, rest, fail)
 }
 
+/** closure/v2 (ASTRA Sprint 23): the reverse join. Every television claim of every closure names a cancelled agreement of
+ * that closure's producer; the forward join (validateSettlement) proves its figures. A claim naming no such agreement
+ * is a fabricated creditor and is refused by name. */
+function validateTelevisionClaimsName(root: TelevisionRoot, rest: GameState, fail: (rule: string) => never): void {
+  for (const claim of rest.studioClosure.claims) {
+    if (claim.kind === 'employment') continue
+    const closure = rest.studioClosure.closures.find((x) => x.closureId === claim.closureId)
+    const agreement = root.agreements.find((a) => a.agreementId === claim.sourceContractId)
+    if (closure === undefined || agreement === undefined || agreement.studioId !== closure.studioId || agreement.settlement === undefined || closure.lawVersion === 'closure/v1') {
+      fail(`claim ${claim.claimId} (${claim.kind}) names no cancelled television agreement of its closure's producer under a law that publishes television claims`)
+    }
+  }
+}
+
 /** The delivered receipt, the late reduction's own noncash receipt, and the distribution expiry at delivered + 52. */
 function validateDeliveryReceipts(a: TvAgreement, s: TvSeason, mine: TvReceipt[], lateWeeks: number, reduction: number, week: number, fail: (rule: string) => never): void {
   const delivered = mine.filter((r): r is Extract<TvReceipt, { kind: 'delivered' }> => r.kind === 'delivered')
@@ -377,6 +393,18 @@ function validateSettlement(a: TvAgreement, s: TvSeason, mine: TvReceipt[], rest
   if (st!.closureId !== null && !rest.studioClosure.closures.some((x) => x.closureId === st!.closureId && x.studioId === s.producerStudioId && x.closureWeek === c.week)) {
     fail(`agreement ${a.agreementId} names closure ${st!.closureId}, which is not ${s.producerStudioId}'s closure at week ${c.week}`)
   }
+  // closure/v2 (ASTRA Sprint 23, decision B): once the producer has closed under a law that publishes television
+  // claims, each still-outstanding part of this cancelled agreement (published at the closure, or cancelled earlier
+  // while operating) is exactly one claim: original = the frozen figure less what was paid before the closure, paid =
+  // what the estate paid at the closure week. Under closure/v1 (or an operating producer) there is no television claim
+  // and no estate payment. The closure root's own validator runs on predecessor-era views without this root, so the
+  // join is proven here, in both directions (the reverse direction below the agreements loop). The law table lives in
+  // studioClosure.ts, which this leaf must not import: closure/v1 is the one law without television claims.
+  const producerClosure = rest.studioClosure.closures.find((x) => x.studioId === s.producerStudioId)
+  const estateLaw = producerClosure !== undefined && producerClosure.lawVersion !== 'closure/v1'
+  if (st!.closureId !== null && producerClosure?.closureId !== st!.closureId) fail(`agreement ${a.agreementId} names closure ${st!.closureId}, which is not its producer's closure`)
+  const estatePaid = (kind: string): number => payments.filter((p) => p.kind === kind && p.source === 'estate').reduce((sum, p) => sum + p.amount, 0)
+  const beforeClosure = (kind: string): number => payments.filter((p) => p.kind === kind && p.source !== 'estate').reduce((sum, p) => sum + p.amount, 0)
   const cancelled = cancelledReceipts[0]
   if (cancelledReceipts.length !== 1 || cancelled!.week !== c.week || cancelled!.cause !== c.cause || cancelled!.refundDue !== st!.refundDue || cancelled!.chargeDue !== st!.chargeDue) {
     fail(`agreement ${a.agreementId} cancellation receipt`)
@@ -386,9 +414,15 @@ function validateSettlement(a: TvAgreement, s: TvSeason, mine: TvReceipt[], rest
   let settlementSeen = false
   const atCancellation = new Set<string>()
   for (const p of payments) {
-    const sourceOk = p.source === 'cancellation' ? !settlementSeen && p.week === c.week : p.source === 'settlement' && p.week >= c.week
+    // closure/v2 (ASTRA Sprint 23): an estate payment exists only under a closure/v2 closure of the producer, at its
+    // closure week, on an agreement published to it or cancelled earlier while operating; a closure-published agreement
+    // takes no other payment (closure/v1 publishes none at all).
+    const estateOk = estateLaw && p.source === 'estate' && p.week === producerClosure!.closureWeek && p.week >= c.week
+    const sourceOk = st!.closureId !== null ? estateOk
+      : p.source === 'estate' ? estateOk
+        : p.source === 'cancellation' ? !settlementSeen && p.week === c.week : p.source === 'settlement' && p.week >= c.week && (producerClosure === undefined || p.week <= producerClosure.closureWeek)
     if (p.source === 'settlement') settlementSeen = true
-    if (!whole(p.amount) || p.amount <= 0 || !sourceOk || st!.closureId !== null) fail(`agreement ${a.agreementId} payment ${p.receiptId} amount, source or week`)
+    if (!whole(p.amount) || p.amount <= 0 || !sourceOk) fail(`agreement ${a.agreementId} payment ${p.receiptId} amount, source or week`)
     // FIX-S13A-1 item 10: the cancellation transaction writes at most one refund and one charge payment.
     if (p.source === 'cancellation') {
       if (atCancellation.has(p.kind)) fail(`agreement ${a.agreementId} records a second cancellation-time ${p.kind} payment (${p.receiptId})`)
@@ -405,5 +439,20 @@ function validateSettlement(a: TvAgreement, s: TvSeason, mine: TvReceipt[], rest
   }
   if (refund !== st!.refundPaid || charge !== st!.chargePaid || refund > st!.refundDue || charge > st!.chargeDue) {
     fail(`agreement ${a.agreementId} settlement paid ${st!.refundPaid}/${st!.chargePaid} does not replay its receipts (${refund}/${charge})`)
+  }
+  // The claims join, after the payments are proven (so a bad payment is refused as a payment first).
+  const tvClaims = producerClosure === undefined ? [] : rest.studioClosure.claims.filter((cl) => cl.closureId === producerClosure.closureId && cl.kind !== 'employment' && cl.sourceContractId === a.agreementId)
+  if (!estateLaw) {
+    if (tvClaims.length > 0) fail(`agreement ${a.agreementId} has television claims although its producer's closure law publishes none`)
+    if (estatePaid('advanceRefundPaid') + estatePaid('cancellationChargePaid') > 0) fail(`agreement ${a.agreementId} carries an estate payment without a closure/v2 closure of its producer`)
+  } else {
+    for (const [kind, receipt, due] of [['tvRefund', 'advanceRefundPaid', st!.refundDue], ['tvCharge', 'cancellationChargePaid', st!.chargeDue]] as const) {
+      const outstandingAtClosure = due - beforeClosure(receipt)
+      const claim = tvClaims.filter((cl) => cl.kind === kind)
+      if (claim.length !== (outstandingAtClosure > 0 ? 1 : 0)) fail(`agreement ${a.agreementId} has ${claim.length} ${kind} claims for an outstanding ${outstandingAtClosure} at its producer's closure`)
+      if (claim.length === 1 && (claim[0]!.original !== outstandingAtClosure || claim[0]!.paid !== estatePaid(receipt) || claim[0]!.claimantTalentId !== a.commissionerId)) {
+        fail(`agreement ${a.agreementId} ${kind} claim ${claim[0]!.claimId} does not carry the outstanding ${outstandingAtClosure} and the estate's ${estatePaid(receipt)} to the commissioner`)
+      }
+    }
   }
 }

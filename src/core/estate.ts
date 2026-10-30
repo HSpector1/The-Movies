@@ -102,6 +102,9 @@ export function buildEstateHandoff(state: GameState, closure: ClosureRecord, cla
         minimumBid: value.value, encumbrances: lotEncumbranceRefs(state, [subject], classificationWeek) })
     }
   }
+  // The claims context is an identity list (which claims the estate inherited), compared as a list by the join; it is
+  // not the payment order, which `priorityVersion` names and studioClosure.ts applies (closure/v2 adds tiers; the list
+  // keeps its stable source-then-claim order so the handoff bytes of every recorded estate stay as they are).
   const claims = state.studioClosure.claims.filter(c => c.closureId === closure.closureId).sort((a, b) =>
     a.sourceContractId < b.sourceContractId ? -1 : a.sourceContractId > b.sourceContractId ? 1 : a.claimId < b.claimId ? -1 : a.claimId > b.claimId ? 1 : 0)
   return { version: 2, estateId: `estate:${closure.closureId}`, closureId: closure.closureId, studioId: closure.studioId,

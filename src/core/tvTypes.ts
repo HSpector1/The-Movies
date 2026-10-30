@@ -172,8 +172,9 @@ export type TvAgreement = {
   settlement?: TvSettlement
 }
 
-/** Who wrote a settlement payment: the cancellation transaction itself, or a later `settleTvObligations` action. */
-export type TvPaymentSource = 'cancellation' | 'settlement'
+/** Who wrote a settlement payment: the cancellation transaction itself, a later `settleTvObligations` action, or
+ * (closure/v2, ASTRA Sprint 23) the closed producer's estate distribution at its closure week. */
+export type TvPaymentSource = 'cancellation' | 'settlement' | 'estate'
 
 type TvReceiptBase = { receiptId: string; week: number; seasonId: string; agreementId: string }
 export type TvReceipt = TvReceiptBase & (

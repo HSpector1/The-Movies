@@ -11929,7 +11929,7 @@ function validateSaveP15BEra(save: unknown, rights: boolean, titleState?: GameSt
   // watermark, so it must see the P15B roots; the frozen chain below it strips them (`stripP15Roots`).
   validateP15BPredecessorEra({ ...save, saveVersion: P15B_PREDECESSOR_VERSION, state: raw }, era, false, onValidatedWriting);
   validateCorporateConditionRoot(raw, 'validateSaveP15B', era.closure ?? new Map(), era.rights, new Map([...(era.absorptions?.values() ?? [])].map(a => [a.targetId, a.week])));
-  validateStudioClosureRoot(raw, 'validateSaveP15B', { rightsEstate: era.rights, ...(titleState === undefined ? {} : { titleState }), ...(era.absorbedPromises === undefined ? {} : { absorptionWithdrawals: era.absorbedPromises.withdrawalEvents }) });
+  validateStudioClosureRoot(raw, 'validateSaveP15B', { rightsEstate: era.rights, television, ...(titleState === undefined ? {} : { titleState }), ...(era.absorbedPromises === undefined ? {} : { absorptionWithdrawals: era.absorbedPromises.withdrawalEvents }) });
   validateP15Allocator(raw, 'validateSaveP15B', P15B_SEQUENCED_ROOTS);
   return save as SaveFileP15B;
 }

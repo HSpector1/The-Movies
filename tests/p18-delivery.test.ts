@@ -601,6 +601,118 @@ describe('P18 FIX-S13A-1 — the natural closure route', () => {
     expect(() => settleTvObligations(closed!, { agreementId: agreement(closed!).agreementId, expectedRemaining: FIGURES.advance + CHARGE, amount: 1 }))
       .toThrow(`obligations were published to closure ${closure!.closureId}; the estate owns them`)
   })
+
+  // ── ASTRA Sprint 23 (closure/v2, Owner decision B): the published obligations become typed estate claims ─────────────
+  it('publishes the outstanding refund and charge as closure/v2 claims behind every employment claim; nothing is distributable at negative closing cash; the record replays', () => {
+    expect(closed, 'premise: the route closes').not.toBeNull()
+    const player = closed!.hollywood!.playerStudioId
+    const root = (closed as unknown as { studioClosure: { closures: { closureId: string; studioId: string; lawVersion: string; cash: { closing: number; distributable: number }; dispositions: { subjectKind: string; subjectId: string; claimId: string | null; status: string }[] }[]; claims: { claimId: string; closureId: string; kind: string; sourceContractId: string; claimantTalentId: string; lawVersion: string; original: number; paid: number; unpaid: number; status: string; payments: unknown[] }[] } }).studioClosure
+    const closure = root.closures.find((x) => x.studioId === player)!
+    expect(closure.lawVersion).toBe('closure/v2')
+    const a = agreement(closed!)
+    const own = root.claims.filter((c) => c.closureId === closure.closureId)
+    const employment = own.filter((c) => c.kind === 'employment')
+    const tv = own.filter((c) => c.kind !== 'employment')
+    // Two television claims, the refund then the charge, after every employment claim, each the frozen outstanding figure.
+    expect(tv.map((c) => c.kind)).toEqual(['tvRefund', 'tvCharge'])
+    expect(own.slice(0, employment.length).every((c) => c.kind === 'employment')).toBe(true)
+    expect(tv[0]).toMatchObject({ sourceContractId: a.agreementId, claimantTalentId: a.commissionerId, lawVersion: 'closure/v2', original: FIGURES.advance, paid: 0, unpaid: FIGURES.advance, status: 'unpaid', payments: [] })
+    expect(tv[1]).toMatchObject({ sourceContractId: a.agreementId, claimantTalentId: a.commissionerId, lawVersion: 'closure/v2', original: CHARGE, paid: 0, unpaid: CHARGE, status: 'unpaid', payments: [] })
+    // Claim ids continue the one global allocator (rival closures came first on this route): consecutive, after every
+    // employment claim of this closure.
+    const n = (c: { claimId: string }) => Number(c.claimId.replace('closure-claim-', ''))
+    expect(n(tv[1]!)).toBe(n(tv[0]!) + 1)
+    expect(n(tv[0]!)).toBeGreaterThan(Math.max(...employment.map(n)))
+    // Negative closing cash on the natural route: nothing distributable, nothing paid, the agreement's paid figures unchanged.
+    expect(closure.cash.closing).toBeLessThan(0)
+    expect(closure.cash.distributable).toBe(0)
+    expect(a.settlement).toMatchObject({ refundPaid: 0, chargePaid: 0, closureId: closure.closureId })
+    // One disposition row per television claim, applied, linked to its claim.
+    const rows = closure.dispositions.filter((d) => d.subjectKind === 'tvAgreement')
+    expect(rows.map((d) => [d.subjectId, d.claimId, d.status])).toEqual([[`${a.agreementId}:charge`, tv[1]!.claimId, 'applied'], [`${a.agreementId}:refund`, tv[0]!.claimId, 'applied']])
+    // The live reader accepts the record (makeSave validates every era) and replays it byte for byte.
+    expect(() => saves.makeSave(closed!)).not.toThrow()
+    roundTrips(closed!)
+  })
+
+  it('refuses a forged television claim payment and a settlement-source payment on a closure-published agreement', async () => {
+    expect(closed, 'premise: the route closes').not.toBeNull()
+    const a = agreement(closed!)
+    // (i) a claim paid without the agreement paying: the closure validator ties the claim to the agreement's paid figure.
+    const forged = detached(saves.makeSave(closed!)) as unknown as { state: GameState & { studioClosure: { claims: { kind: string; paid: number; unpaid: number; original: number; status: string; payments: { week: number; amount: number; reference: string }[] }[] } } }
+    const refund = forged.state.studioClosure.claims.find((c) => c.kind === 'tvRefund')!
+    const closureId = forged.state.studioClosure.closures.find((x) => x.studioId === closed!.hollywood!.playerStudioId)!.closureId
+    refund.paid = 1; refund.unpaid = refund.original - 1; refund.status = 'partiallyPaid'
+    // Linked to the closure's own distribution, so the only thing wrong is the missing television ledger row.
+    refund.payments.push({ week: closed!.market.tick, amount: 1, reference: closureId })
+    expect(() => saves.makeSave(forged.state)).toThrow(/claim closure-claim-\d+ payment at week \d+ has no tvAdvanceRefund ledger row/)
+    // (ii) an estate-owned agreement never takes a settlement-source payment.
+    refuses(closed!, (f) => { addReceipt(f.state.television, { kind: 'advanceRefundPaid', week: closed!.market.tick, seasonId: season(closed!).seasonId, agreementId: a.agreementId, amount: 1, source: 'settlement' }) },
+      /amount, source or week/)
+    // (iii) a television claim naming no cancelled agreement of the producer is a fabricated creditor. The forgery is
+    // complete on the closure root's own terms (its disposition and digest follow), so the P18 reader's reverse join is
+    // the law that refuses it.
+    const closureModule = await import('../src/core/studioClosure.js')
+    refuses(closed!, (f) => {
+      const root = (f.state as unknown as { studioClosure: { closures: { closureId: string; digest: string; dispositions: { subjectKind: string; subjectId: string; claimId: string | null }[] }[]; claims: { claimId: string; closureId: string; kind: string; sourceContractId: string }[] } }).studioClosure
+      const forgedClaim = root.claims.find((c) => c.kind === 'tvCharge')!
+      forgedClaim.sourceContractId = 'tv-agreement-999'
+      const owner = root.closures.find((x) => x.closureId === forgedClaim.closureId)!
+      owner.dispositions.find((d) => d.subjectKind === 'tvAgreement' && d.claimId === forgedClaim.claimId)!.subjectId = 'tv-agreement-999:charge'
+      owner.dispositions.sort((x, y) => (`${x.subjectKind}:${x.subjectId}` < `${y.subjectKind}:${y.subjectId}` ? -1 : 1))
+      owner.digest = closureModule.closureDigest(owner.closureId, owner.dispositions as never)
+    }, /names no cancelled television agreement of its closure's producer/)
+  })
+
+  it('pays the television claims behind every employment claim from a positive closing cash, once, through the estate (closure/v2 witness)', async () => {
+    // No natural route closes the player with positive cash (closureDue needs a run of negative weeks), so the witness is
+    // the browser's own deferral: the condition step records the closure due (tick option deferPlayerClosure), the
+    // disclosed cash device sets a positive closing cash, and the public direct closure runs the real transaction.
+    expect(lastOpen, 'premise: the route closes').not.toBeNull()
+    const mod = (await import('../src/core/studioClosure.js')) as unknown as { closeStudio: (s: GameState, studioId: string, causeEventId: string) => GameState }
+    const player = lastOpen!.hollywood!.playerStudioId
+    const deferred = tick(lastOpen!, { deferPlayerClosure: true })
+    const condition = (deferred as unknown as { corporateCondition: { events: { eventId: string; studioId: string; to: string }[] } }).corporateCondition
+    const cause = condition.events.filter((e) => e.studioId === player && e.to === 'closed').at(-1)
+    expect(cause, 'premise: the deferred tick records the closure due').toBeDefined()
+    expect(closuresOf(deferred).some((x) => x.studioId === player)).toBe(false)
+    const a0 = agreement(deferred)
+    // Enough for every employment claim plus half the refund: the refund is partially paid and the charge waits.
+    const employmentTotal = deferred.contracts.length === 0 ? 0 : (() => {
+      const probe = mod.closeStudio(withCash(deferred, 0), player, cause!.eventId) as unknown as { studioClosure: { closures: { closureId: string; studioId: string }[]; claims: { closureId: string; kind: string; original: number }[] } }
+      const id = probe.studioClosure.closures.find((x) => x.studioId === player)!.closureId
+      return probe.studioClosure.claims.filter((c) => c.closureId === id && c.kind === 'employment').reduce((sum, c) => sum + c.original, 0)
+    })()
+    // The refund due at this closure is the agreement's own frozen figure (the deferred week may have credited work).
+    const due = (() => { const probe = mod.closeStudio(withCash(deferred, 0), player, cause!.eventId); return agreement(probe).settlement!.refundDue })()
+    expect(due).toBeGreaterThan(0)
+    const half = Math.floor(due / 2)
+    const funded = withCash(deferred, employmentTotal + half)
+    const closedNow = mod.closeStudio(funded, player, cause!.eventId)
+    const root = (closedNow as unknown as { studioClosure: { closures: { closureId: string; studioId: string; cash: { closing: number; distributable: number }; receipts: { amount: number }[] }[]; claims: { kind: string; original: number; paid: number; unpaid: number; status: string; payments: { week: number; amount: number; reference: string }[] }[] } }).studioClosure
+    const closure = root.closures.find((x) => x.studioId === player)!
+    expect(closure.cash.distributable).toBe(employmentTotal + half)
+    const own = root.claims.filter((c) => (c as unknown as { closureId: string }).closureId === closure.closureId)
+    for (const c of own.filter((x) => x.kind === 'employment')) expect(c.status).toBe('paid')
+    const refund = own.find((c) => c.kind === 'tvRefund')!
+    const charge = own.find((c) => c.kind === 'tvCharge')!
+    expect(refund).toMatchObject({ original: due, paid: half, unpaid: due - half, status: 'partiallyPaid' })
+    expect(refund.payments).toEqual([{ week: closedNow.market.tick, amount: half, reference: closure.closureId }])
+    expect(charge).toMatchObject({ original: CHARGE, paid: 0, unpaid: CHARGE, status: 'unpaid', payments: [] })
+    expect(closure.receipts.map((r) => r.amount)).toEqual([employmentTotal + half])
+    // Paid once, by the estate: the TV receipt, its ledger row, the agreement's paid figure and the cash all agree.
+    const a1 = agreement(closedNow)
+    expect(a1.settlement).toMatchObject({ refundDue: due, refundPaid: half, chargeDue: CHARGE, chargePaid: 0, closureId: closure.closureId })
+    const estateReceipts = television(closedNow)!.receipts.filter((r) => r.kind === 'advanceRefundPaid' || r.kind === 'cancellationChargePaid')
+    expect(estateReceipts.map((r) => ({ kind: r.kind, amount: (r as unknown as { amount: number }).amount, source: (r as unknown as { source: string }).source, week: r.week }))).toEqual([{ kind: 'advanceRefundPaid', amount: half, source: 'estate', week: closedNow.market.tick }])
+    expect(tvRows(closedNow).filter((row) => row.kind === 'tvAdvanceRefund').map((row) => row.amount)).toEqual([-half])
+    expect(closedNow.studio.cash).toBeCloseTo(funded.studio.cash - employmentTotal - half, 6)
+    expect(a0.settlement?.refundPaid ?? 0).toBe(0)
+    // The estate owns the rest: the settlement action still refuses, and the record validates and replays.
+    expect(() => settleTvObligations(closedNow, { agreementId: a1.agreementId, expectedRemaining: due - half + CHARGE, amount: 1 })).toThrow(/the estate owns them|closed/)
+    expect(() => saves.makeSave(closedNow)).not.toThrow()
+    roundTrips(closedNow)
+  })
 })
 
 // ── automatic cancellation on unrecoverable required-person loss (contract §4, §7; Owner decision 7c) ──────────────
