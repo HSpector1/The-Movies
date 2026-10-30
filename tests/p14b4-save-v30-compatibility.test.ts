@@ -1,3 +1,5 @@
+import type { GameState } from '../src/core/types.js'
+import { cutoverRightsRoot } from '../src/core/rights.js'
 import { withEmptyRecovery } from './helpers/recovery-migration-expectation.js'
 // Installed after T0 KEEP and exact remote preservation a76242f2f4bdfda98e38ec706e3110ad6a9bb957.
 // Original inert-draft commentary below is retained as provenance; actual RED recorded separately.
@@ -166,7 +168,7 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
   const h = (state as { hollywood?: { businesses?: Business[] } | null }).hollywood
   const withLoans = h === undefined || h === null || !Array.isArray(h.businesses) ? state : { ...state, hollywood: { ...h,
     businesses: h.businesses.map((b) => ({ ...b, account: { ...b.account, periods: b.account.periods.map((p) => ({
-      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) } })) } }
+      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0, estateSaleProceeds: 0 } })) } })) } }
   return { ...withLoans,
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
@@ -174,8 +176,13 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
     campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
     // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
     foundingFunding: { version: 1, recordedFromWeek: week, fund: null },
-    ...initialP15BRoots(week) }
+    ...initialP15BRoots(week), rights: cutoverRightsRoot(withLoans as unknown as GameState) }
 }
+
+// Save49 (P16): convertV48ToV49 adds the empty rights root at the save's own week and a zero movement of
+// each of the four rights kinds (estateSaleProceeds included) to every rival period; the OLD (V30-vintage) state never carried them, so the
+// expected migrated-to-live state below must carry them at the input's own week. The literals are this file's
+// own expectation, as for the P15 roots above.
 
 function preservesExactly(admitted: OldSave) {
   const before = JSON.stringify(admitted)

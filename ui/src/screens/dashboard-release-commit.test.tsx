@@ -16,8 +16,10 @@ import {
   FOUNDING_MINIMUMS,
   generateWorld,
   nextStudioDecision,
+  releaseHoldBusyTalentIds,
   tick,
 } from '../../../src/core/index.ts'
+import { money } from '../format.ts'
 import type { CastSlot, GameState, SegmentId } from '../../../src/core/index.ts'
 
 function foundedManaged(seed: string): GameState {
@@ -97,7 +99,32 @@ describe('P06A — the browser release-commit affordance', () => {
     // Sim-to-next-event is held at the decision.
     expect(screen.getByTestId('sim-to-event')).toBeDisabled()
 
+    // ASTRA Sprint 22 (decision A): the first gesture commits nothing; it shows the review the core holds for this
+    // exact picture: the frozen Greenlight outlook, the money already paid, the hold, the finality.
     fireEvent.click(commit)
+    expect(onCommit).not.toHaveBeenCalled()
+    const production = state.studio.activeProductions[0]!
+    const review = screen.getByTestId('release-commit-review')
+    expect(review.textContent).toContain('Irreversible')
+    expect(screen.getByTestId('release-commit-outlook').textContent).toContain(money(production.forecastSnapshot.expectedOpening))
+    expect(screen.getByTestId('release-commit-outlook').textContent).toContain(money(production.forecastSnapshot.expectedTotal))
+    expect(screen.getByTestId('release-commit-paid').textContent).toContain(money(production.budget.negative))
+    expect(screen.getByTestId('release-commit-paid').textContent).toContain(money(production.budget.marketing))
+    const busy = releaseHoldBusyTalentIds(state, id)
+    for (const talentId of busy) expect(screen.getByTestId('release-commit-hold').textContent).toContain(state.talent.find((t) => t.id === talentId)!.name)
+    // The arming button is gone while the review shows; Advance one week (hold) stays legal beside it.
+    expect(screen.queryByTestId('release-commit')).not.toBeInTheDocument()
+    expect(screen.getByTestId('advance-week')).toBeInTheDocument()
+
+    // Keep holding disarms and transacts nothing.
+    fireEvent.click(screen.getByTestId('release-commit-keep'))
+    expect(onCommit).not.toHaveBeenCalled()
+    expect(screen.queryByTestId('release-commit-review')).not.toBeInTheDocument()
+    expect(screen.getByTestId('release-commit')).toBeInTheDocument()
+
+    // The second gesture dispatches the exact id, exactly once.
+    fireEvent.click(screen.getByTestId('release-commit'))
+    fireEvent.click(screen.getByTestId('release-commit-confirm'))
     expect(onCommit).toHaveBeenCalledTimes(1)
     expect(onCommit).toHaveBeenCalledWith(id)
   })

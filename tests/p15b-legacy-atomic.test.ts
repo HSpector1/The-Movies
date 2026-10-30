@@ -10,6 +10,7 @@ import type { GameState } from '../src/core/types.js'
 import { PLAYER, playerClosure, closureOf, eventsOf, canon } from './helpers/p15b-live.js'
 import { captureAt, budgeted, ROUTE_MS } from './helpers/p15c2-legacy.js'
 import { p15Rows } from './helpers/p15-roots.js'
+import { validateLiveSave } from './helpers/live-era.js'
 
 // Capture the real produced state AFTER condition, BEFORE closure; do not rewrite its clock/history.
 function earlyInput(): GameState {
@@ -65,8 +66,10 @@ describe('p15b early complete aggregate transaction controls', () => {
   })
   it('early-aggregate-final-full-reader-failure-preserves-whole-input', () => {
     const input = earlyInput(); const bytes = canon(input)
-    // Proposed inter-module seam: aggregate finishes through the real exported full reader.
-    const spy = vi.spyOn(save, 'validateSaveP15B').mockImplementation(() => { throw new Error('fault: final joined reader') })
+    // Proposed inter-module seam: aggregate finishes through the real exported full reader. A rights-era input finishes
+    // through the live reader (studioClosure.ts picks validateSaveV49 when the state carries `rights`), named by the helper.
+    expect(Object.hasOwn(input, 'rights'), 'premise: a live-era input').toBe(true)
+    const spy = vi.spyOn(save, validateLiveSave.name as 'validateSaveV51').mockImplementation(() => { throw new Error('fault: final joined reader') })
     try {
       expect(() => closure.advanceStudioClosureWeek(input)).toThrow('fault: final joined reader')
       expect(spy).toHaveBeenCalled(); expect(canon(input)).toBe(bytes)

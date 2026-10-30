@@ -1,3 +1,4 @@
+import { absorbedWeekOf } from './operatingState.js'
 // ── P15A.2 Wave 2 slice 2a: the quarterly Power Ranking archive ─────────────────
 // Authority (docs/engineering/playability-launch-review/evidence/p14b4-20260919/): 1356-A §3-§5 as
 // adopted in 1356-F (Amendment 2; Amendment 1 as replaced by 1355-F2 item 5), 1355-F2 items 1-6,
@@ -34,6 +35,7 @@ const RANKING_PHASE = 'p15a2.rankingRecord'
  * cross-definition "unavailable" rule is a declared gap (1370-ar REPORT r3, review C12).
  */
 export const POWER_RANKING_CLOSURE_DEFINITION = 'power-ranking/v2'
+export const POWER_RANKING_ABSORPTION_DEFINITION = 'power-ranking/v3'
 type Closed = ReadonlyMap<string, number> | null
 const closedBefore = (closed: Closed, week: number): boolean => closed !== null && [...closed.values()].some((c) => c < week)
 const excluded = (closed: Closed, studioId: string, week: number): boolean => { const c = closed?.get(studioId); return c !== undefined && c < week }
@@ -139,7 +141,8 @@ export function powerRankingInput(state: GameState): RankingInput {
 /** The actual closures (closure/v1): read from the sibling root, never from the condition stage. */
 function closedStudios(state: GameState): Closed {
   const root = (state as Partial<GameState>).studioClosure
-  return root === undefined || root.closures.length === 0 ? null : new Map(root.closures.map((c) => [c.studioId, c.closureWeek]))
+  const rows: [string, number][] = [...(root?.closures ?? []).map((c): [string,number] => [c.studioId, c.closureWeek]), ...absorbedWeekOf(state)]
+  return rows.length === 0 ? null : new Map(rows)
 }
 
 function recordRow(row: PowerRankingRow): PowerRankingRecordRow {
@@ -174,9 +177,9 @@ export function recordPowerRankingQuarter(state: GameState): GameState {
   const record: PowerRankingRecord = {
     id: `power-ranking-${n}`,
     p15DomainSequence: n,
-    ...p15PhaseTriple(RANKING_PHASE),
+    ...p15PhaseTriple(RANKING_PHASE, Object.hasOwn(state, 'rights') ? 3 : 2),
     week,
-    definitionVersion: closedBefore(closedStudios(state), week) ? POWER_RANKING_CLOSURE_DEFINITION : snapshot.definitionVersion,
+    definitionVersion: closedBefore(absorbedWeekOf(state), week) ? POWER_RANKING_ABSORPTION_DEFINITION : closedBefore(closedStudios(state), week) ? POWER_RANKING_CLOSURE_DEFINITION : snapshot.definitionVersion,
     available: snapshot.available,
     windowStartWeek: snapshot.windowStartWeek,
     rows: snapshot.rows.map(recordRow),
@@ -210,7 +213,7 @@ const rowFacts = (row: Pick<PowerRankingRecordRow, 'studioId' | 'ranked' | 'rank
  * cohort; the recompute by era. The allocator across every P15 root is save.ts's
  * `validateP15Allocator`, which the step runs once (1361-F ruling 5). Refuses by name; never repairs.
  */
-export function validatePowerRankingArchive(raw: Record<string, unknown>, closed: ReadonlyMap<string, number> | null = null): void {
+export function validatePowerRankingArchive(raw: Record<string, unknown>, closed: ReadonlyMap<string, number> | null = null, rightsEstate = false, absorbed: ReadonlyMap<string, number> = new Map()): void {
   const archive = raw.powerRanking
   if (!isObject(archive) || !hasExactKeys(archive, ROOT_KEYS)) refuse('root must be exactly {version, recordedFromWeek, snapshots}')
   if (archive.version !== 1) refuse('version must be 1')
@@ -245,8 +248,10 @@ export function validatePowerRankingArchive(raw: Record<string, unknown>, closed
     if (record.week !== expected[index]) refuse(`cadence: record ${index} is not the quarter ${expected[index]}`)
     // P15B Wave 4: v2 exactly when an actual closure precedes the boundary; a v2 stamp with no earlier
     // closure, or v1 with one, names a definition the law did not write at that week.
-    const closureCohort = closedBefore(closed, record.week)
-    if (record.definitionVersion !== (closureCohort ? POWER_RANKING_CLOSURE_DEFINITION : POWER_RANKING_DEFINITION)) refuse(`record ${record.week} names an unknown definition`)
+    const terminal = new Map([...(closed ?? []), ...absorbed])
+    const absorptionCohort = rightsEstate && closedBefore(absorbed, record.week)
+    const closureCohort = closedBefore(terminal, record.week)
+    if (record.definitionVersion !== (absorptionCohort ? POWER_RANKING_ABSORPTION_DEFINITION : closureCohort ? POWER_RANKING_CLOSURE_DEFINITION : POWER_RANKING_DEFINITION)) refuse(`record ${record.week} names an unknown definition`)
     // This root's own rule (1355-F2 item 4): whole sequences that ascend with weeks, and the id
     // that cites them (annex D.7). Distinct across roots and below `next` is the allocator's rule.
     const n = record.p15DomainSequence
@@ -255,6 +260,7 @@ export function validatePowerRankingArchive(raw: Record<string, unknown>, closed
     if (record.id !== `power-ranking-${n}`) refuse(`record ${record.week} id is not power-ranking-<p15DomainSequence>`)
     // 1355-F5 ruling 1: the record's own version's entry, read through the exported table. A version
     // with no table, or a table with no entry for this phase, refuses (1361-F3 R2).
+    if (!rightsEstate && record.phaseOrderVersion > 2) refuse('estate phase table is not admitted in this predecessor era')
     const entry = Number.isSafeInteger(record.phaseOrderVersion)
       ? P15_PHASE_TABLES[record.phaseOrderVersion]?.find((candidate) => candidate.phaseId === RANKING_PHASE) : undefined
     if (record.phaseId !== RANKING_PHASE || entry === undefined || entry.phaseOrdinal !== record.phaseOrdinal) {
@@ -267,13 +273,13 @@ export function validatePowerRankingArchive(raw: Record<string, unknown>, closed
       if (!isObject(row) || !hasExactKeys(row, ROW_KEYS)) refuse(`record ${record.week} has a row with the wrong keys`)
       if (!BANDS.includes(row.band as FinancialStrengthBand)) refuse(`record ${record.week} has an unknown band`)
     }
-    const cohort = h.identities.filter((s) => s.enteredWeek !== null && s.enteredWeek <= record.week && !(closureCohort && excluded(closed, s.studioId, record.week))).map((s) => s.studioId).sort()
+    const cohort = h.identities.filter((s) => s.enteredWeek !== null && s.enteredWeek <= record.week && !(closureCohort && excluded(terminal, s.studioId, record.week))).map((s) => s.studioId).sort()
     const rowIds = record.rows.map((row) => row.studioId).sort()
     if (JSON.stringify(rowIds) !== JSON.stringify(cohort)) refuse(`cohort: record ${record.week} rows are not exactly the studios entered by its week`)
 
     // Recompute by era: v1 is computePowerRanking with today's pinned TUNING. Cash and cost read 0,
     // because cash at W is not recoverable, so every field but the band must match, row order included.
-    const law = computePowerRanking(rankingInputAt(state, record.week, false, closureCohort ? closed : null))
+    const law = computePowerRanking(rankingInputAt(state, record.week, false, closureCohort ? terminal : null))
     if (record.available !== law.available || record.windowStartWeek !== law.windowStartWeek) {
       refuse(`record ${record.week} availability or window differs from the recomputed law`)
     }

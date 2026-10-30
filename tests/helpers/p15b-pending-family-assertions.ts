@@ -12,7 +12,10 @@ function roundTrip(s:GameState) {
 }
 function refusePure(s:GameState,message:string) {
  const before=stableStringify(s)
- expect(()=>validateStudioClosureRoot(s,'unit')).toThrow(message)
+ // P16 rebase round 6: the root validator takes the world's era, as the live reader does (save.ts validateSaveP15B era
+ // call). With the default predecessor policy a Save49 closure's phase table 3 refused first ("closure … uses current
+ // estate phase table below its era", studioClosure.ts), before the disposition law this helper pins.
+ expect(()=>validateStudioClosureRoot(s,'unit',{rightsEstate:Object.hasOwn(s,'rights')})).toThrow(message)
  expect(stableStringify(s)).toBe(before)
  expect(()=>makeSave(s)).toThrow()
  expect(stableStringify(s)).toBe(before)

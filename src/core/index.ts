@@ -1782,3 +1782,80 @@ export type { StudioConditionRecord, ConditionEvent, StudioLoanRecord, Corporate
 // Wave5 browser quotation: expose existing pure owners without duplicating loan arithmetic.
 export { loanMaxPrincipal, contractLoan } from './studioLoan.js'
 export { studioWeeklyFixedCost } from './powerRankingArchive.js'
+// ── P16 (Save46): story properties, four rights, title history, cashless valuation ──
+// P17 consumes `permissionFor`/`currentHolder`/`branchAuthority` for continuations and cameos, and calls
+// `linkContinuationAtGreenlight` for a continuation with its own concept; P18 consumes `permissionFor(…, 'R4', …)`.
+export {
+  RIGHTS_ROOT_VERSION, STORY_PROPERTY_ID_PREFIX, ESTATE_HOLDER_PREFIX, R4_CONSUMER_LIVE, SAME_CONCEPT_GREENLIGHT_USE, RIGHTS_TRANSACTION_KINDS, ESTATE_PENDING_REASONS,
+  storyPropertyId, parseStoryPropertyId, subjectKey, initialRightsRoot, cutoverRightsRoot, cutoverDowngradeRefusal, validateRightsRoot,
+  resolveTitles, authenticTitles, isLegacyDate, currentHolder, holderAt, subjectsHeldBy, rightsAuthority, branchAuthority, licenceInForce,
+  materializeLegacyTitles, appendTitleEvent, greenlightRightsRefusal, mintStoryPropertyAtGreenlight, linkContinuationAtGreenlight, mintFilmTitleAtRelease, compareRightsDate,
+} from './rights.js'
+export type {
+  RightsRoot, RightsDate, RightSubject, TitleEvent, TitleCause, TitleSource, StoryProperty, FilmTitle, Licence, LicenceScope,
+  RightsOffer, RightsInstrument, RightsTransaction, DiligenceRecord, DisclosureBody, EstateRecord, EstateLot as RightsEstateLot, EstateBid,
+  HolderResult, AuthorityResult, BranchAuthority, TitleResolution, ResolvedProperty, ResolvedFilmTitle, TitleEvidence, EstatePending, EstatePendingReason,
+} from './rights.js'
+export { libraryValuationV1, subjectValueV1, r2CatalogueValue, r1OptionValue } from './propertyValuation.js'
+export type { ValuationResult, ValuationItem } from './propertyValuation.js'
+export type { GameStateV49, P16LedgerKind } from './types.js'
+export type { P16RivalMoneyKind } from './hollywoodTypes.js'
+export { P16_RIVAL_MONEY_KINDS } from './hollywoodTypes.js'
+export { P16_SAVE_VERSION, P16_PREDECESSOR_SAVE_VERSION, P16_LEDGER_KINDS, validateSaveV49, convertV48ToV49, convertV49ToV48, migrateToV49 } from './save.js'
+export type { SaveFileV49 } from './save.js'
+// P16B: bilateral sales, licences, diligence, finance law (symmetric: the same functions serve player and rivals).
+// Permitted-bidder facts come from P15B's readers through ONE adapter point, `corporateConditionReaders`
+// (UNBOUND and fail-closed at base 6510c971 — rightsFinance.ts names the binding the integrator makes).
+export { corporateConditionReaders, UNBOUND_CORPORATE_CONDITION_READERS, conditionFactsFor, permittedBidderRefusal, weeklyFixedCost, studioCash, reservedCash, spendableCash, postPurchaseReserve, affordabilityRefusal, moveStudioCash } from './rightsFinance.js'
+export type { CorporateConditionReaders, ConditionStageRecord, ConditionFacts } from './rightsFinance.js'
+// licence.ts is the ONE licence producer; P17/P18 call `permissionFor` at every boundary they consume a right.
+export { licenceGrantRefusal, mintLicence, permissionFor, licenceStatus, licencesHeldBy, activeProductionOn, activeRunOn, blockingEncumbrance, R3_USES, R4_USES, P16_LICENCE_LAW } from './licence.js'
+export type { LicenceGrant, LicenceLaw, Permission } from './licence.js'
+export { advanceRightsWeek } from './rightsTick.js'
+export { offerRefusal, makeOffer, acceptOffer, rejectOffer, withdrawOffer, closingRefusal, instrumentRefusal, resaleHoldbackRefusal, offerCooldownRefusal,
+  rivalWillingness, answerRivalOffers, expireOffers, offerParties, instrumentSubject } from './assetSale.js'
+export type { OfferInput, PlayerOfferInput } from './assetSale.js'
+export { diligenceRefusal, requestDiligence, disclosureFor, disclosureBody, publicDiligenceReceipts } from './dueDiligence.js'
+export type { DiligenceInput } from './dueDiligence.js'
+export type { DiligenceTarget, DiligenceScopeItem } from './rights.js'
+// P16C: estates (typed P15 handoff adapter point) and healthy absorption law/preview.
+export { estateHandoffRefusal, openEstate, estateBidRefusal, submitEstateBid, resolveEstate, closeDueEstates, estateWindow, lotEncumbranceRefs } from './estate.js'
+export type { EstateHandoff, EstateBidInput } from './estate.js'
+export { absorptionRefusal, absorptionDisclosureRefusal, absorptionAsk, rivalAbsorptionWillingness, quoteAbsorption, closeAbsorption, ABSORPTION_CLOSING_PREREQUISITES, ABSORPTION_DISCLOSURE_SCOPE } from './acquisition.js'
+export type { AbsorptionInput, AbsorptionQuote, AbsorptionRefusal, AbsorptionContractQuote, AbsorptionProductionQuote, RetentionChoice, ContractRetentionReason, ProductionDisposition, ProductionDispositionReason } from './acquisition.js'
+
+export { buyerScriptConcepts } from './continuedScripts.js'
+
+// ── P17 (Save50): continuations — five typed lineages, Recognition/Momentum/Fatigue, the franchise root ──
+// Rights are P16's live readers (`permissionFor` for a main/reboot continuity, `branchAuthority` for a spin-off one).
+export { P17_CONTINUATION_TYPES, qualityOf, reach01, surpriseOf, similarityOf, recognitionAt, recognitionReported, fatigueAt, momentumAt,
+  awarenessInput, composeInheritedAwareness, continuationAwareness, branchBand } from './continuationSignals.js'
+export type { BranchMomentum, ContinuationBand, ReleaseFacts } from './continuationSignals.js'
+export { continuationUseOf, continuationRightsRefusal, continuationQuote, franchisesOf, installmentEdgeFor, openContinuityCount, promotionEligible,
+  talentAssociations, continuityCredit } from './continuation.js'
+export type { ContinuationRequest, ContinuationQuote, ContinuationUse, ContinuationWorld, ProposedPrincipals, PromotionDecision, TalentAssociation, AssociationBand } from './continuation.js'
+export { continuationWorldOf, p17RightsHolds } from './continuationGreenlight.js'
+export { P17_ROOT_KEYS } from './continuationSave.js'
+export { P17_SAVE_VERSION, P17_PREDECESSOR_SAVE_VERSION, validateSaveP17, convertPredecessorToP17, convertP17ToPredecessor, migrateToP17,
+  validateSaveV50, convertV49ToV50, convertV50ToV49, migrateToV50 } from './save.js'
+export type { SaveFileP17, SaveFileV50 } from './save.js'
+// P18 (Save51): the lazy television root over P17's Save50 (tvSave.ts).
+export { P18_SAVE_VERSION, P18_PREDECESSOR_SAVE_VERSION, validateSaveP18, convertPredecessorToP18, convertP18ToPredecessor, migrateToP18,
+  validateSaveV51, convertV50ToV51, convertV51ToV50, migrateToV51 } from './save.js'
+export type { SaveFileP18, SaveFileV51 } from './save.js'
+// P18: the commission preview and admission quote (the same admission the action runs).
+export { tvCommissionPreview, tvAdmissionQuote, tvDistributionAvailable, type TvCommissionPreview, type TvAdmissionQuote } from './tvCommission.js'
+// P18 Sprint 13: cancellation, settlement and the distribution window readers.
+// FIX-S13A-1 item 13: the closure handoff stays internal to the P15B closure transaction (studioClosure.ts); no public export.
+export { cancelTvSeason, settleTvObligations, type SettleTvObligationsInput } from './tvSettlement.js'
+export { tvOutstanding } from './tvReaders.js'
+// P18 Sprint 13 slice B: the client read model (Bridge television view and the browser season surfaces).
+export { tvView, tvCommissionChoices, tvStallText, P16_REASON_TEXT, TV_BLOCK_LABEL, TV_MILESTONE_LABEL, TV_CANCELLATION_LABEL, type TvView, type TvSeasonView, type TvCommissionChoices, type TvRosterRole } from './tvView.js'
+// ASTRA Sprint 18 (Owner decisions B and C): the player's rights desk read model and the title-sale consequence disclosure.
+export { rightsDeskView, titleSaleOutcome, titleSaleOutcomeDigest, saleOfferRefusal, playerHolds } from './rightsDesk.js'
+export type { RightsDeskView, RightsDeskTitle, RightsDeskOffer, RightsDeskCounterparty, RightsDeskEstate, RightsDeskLot, RightsDeskClosedEstate, RightsDeskClosedLot, TitleSalePlan, TitleSaleOutcome, TitleSaleSeasonOutcome } from './rightsDesk.js'
+export type { CommissionTvSeasonRequest } from './tvTypes.js'
+export type { ContinuationType, LineageEdge, LineageEdgeType, PropertyMeter, FranchiseBranch, FranchiseBranchKind, FranchiseMilestone, FranchiseMilestoneId,
+  FranchiseProperty, FranchiseRoot, SubProperty, SubPropertyKind, P17StepRoots, GameStateP17, GameStateV50 } from './types.js'
+// ASTRA Sprint 22 (review finding 1): the browser's release-commit review must see continued (absorbed) pictures too.
+export { buyerOperatedProductions } from './continuedWork.js'

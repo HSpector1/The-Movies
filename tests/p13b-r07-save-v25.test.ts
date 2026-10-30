@@ -172,6 +172,10 @@ function asV25Envelope(state: GameState): { saveVersion: 25; seed: string; state
   expect(stripped.promises).toEqual([])
   delete (stripped as unknown as { firstTakes?: unknown }).firstTakes
   delete (stripped as unknown as { promises?: unknown }).promises
+  // P16 (Save49): a frozen V25 envelope carries no `rights` root (V46-only). This rehearsing world holds no
+  // industry, so the root is empty and nothing is discarded.
+  expect([stripped.rights.properties, stripped.rights.filmTitles, stripped.rights.titleEvents, stripped.rights.licences, stripped.rights.offers, stripped.rights.transactions, stripped.rights.diligence, stripped.rights.estates].flat()).toEqual([])
+  delete (stripped as unknown as { rights?: unknown }).rights
   // P14B.5 sweep: a frozen V25 envelope carries no `relationships` root either —
   // the frozen chain's exact-key law refuses a root V25 never had. Same honest
   // reconstruction as the two lines above: this rehearsing world completes no

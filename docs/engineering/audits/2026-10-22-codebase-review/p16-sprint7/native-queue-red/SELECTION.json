@@ -1,0 +1,10 @@
+{
+  "head": "e0d4c23939bcb4caf35957896959c32afef82c6b",
+  "purpose": "Authentic same-week queue grant/carried release failing witness; original lifecycle assertions preserved",
+  "file": "tests/p16-carried-script-accept.test.ts",
+  "name": "public173 Review",
+  "sourceManifestEntries": 1645,
+  "budgetMs": 5000,
+  "testPatchSha256": "a5a5669a021ebd5c7f16640bf442c8066f5705c76acc1f8030d98abdf8b4c063",
+  "premiseLimit": "Hiring, money, own drafting and gate facts must actually reach; failed setup is not reproduced queue bug"
+}

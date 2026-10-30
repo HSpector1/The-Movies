@@ -85,6 +85,7 @@ import {
 import { ageRunwayMult, roleOVR } from './talentSummary.js'
 import { emptyPublicityState, initialP15BRoots, initialP15Roots } from './save.js'
 import { initialFoundingFunding } from './foundingFunding.js'
+import { initialRightsRoot } from './rights.js'
 import type {
   CastSlot,
   Ceilings,
@@ -824,5 +825,8 @@ export function generateWorld(seed: string, options?: GenerateWorldOptions): Gam
     foundingFunding: initialFoundingFunding(0),
     // P15B Waves 2-4 (1357-A §4.2; closure/v1): a fresh world evaluates from week 0 and has closed nothing.
     ...initialP15BRoots(0),
+    // P16 (Save49): a fresh world records rights from week 0 with an empty root; properties and
+    // titles mint only at accepted greenlights and actual releases (rights.ts).
+    rights: initialRightsRoot(0),
   }
 }

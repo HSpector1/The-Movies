@@ -4,8 +4,9 @@
 // active productions (stored forecast + remaining weeks), recent releases, and the
 // primary actions (Assemble a film, Advance one week) plus Talent creator / Saves.
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type {
+  ActionOutcome,
   GameState,
   FilmResult,
   RunView,
@@ -30,11 +31,14 @@ import {
   productionBoard,
   studioDecision,
   scriptProjectsBoard,
+  releaseCommitReview,
 } from '../engine/adapter.ts'
 import { money, score } from '../format.ts'
 import { Metric, StandingBar } from '../components/common.tsx'
 import { AffordabilityScopesCard } from '../components/AffordabilityScopes.tsx'
 import { ProductionBoard } from '../components/ProductionBoard.tsx'
+import { FeaturedBookingsCard } from '../components/P17Continuation.tsx'
+import { SeasonCard } from '../components/P18Season.tsx'
 import { StudioCalendarPreview } from './StudioCalendar.tsx'
 import { StudioDevelopmentPreview } from './StudioDevelopment.tsx'
 
@@ -53,6 +57,7 @@ export function Dashboard({
   onOpenLot,
   onReturnToLot,
   onOpenRecap,
+  onOpenRightsDesk,
   onOpenCalendar,
   onOpenDevelopment,
   onSaves,
@@ -64,6 +69,9 @@ export function Dashboard({
   onPublicize,
   onProductionCommand,
   onCommitPictureToRelease,
+  onCancelCameoBooking,
+  onCancelTvSeason,
+  onSettleTvObligations,
   focusProductionId,
   focusRunId,
   focusSection,
@@ -86,6 +94,8 @@ export function Dashboard({
   onReturnToLot?: (() => void) | undefined
   // D-15: open the read-only Studio Run Recap.
   onOpenRecap?: () => void
+  /** ASTRA Sprint 18: open the Rights desk (P16 transactions). */
+  onOpenRightsDesk?: () => void
   onOpenCalendar?: () => void
   onOpenDevelopment?: () => void
   onSaves: () => void
@@ -106,6 +116,11 @@ export function Dashboard({
   onPublicize?: (tier: PublicityTier) => void
   onProductionCommand?: (command: ProductionCommandView) => void
   onCommitPictureToRelease?: (productionId: string) => void
+  /** P17: explicitly cancel one reserved featured appearance; the outcome lets the card show a refusal. */
+  onCancelCameoBooking?: (bookingId: string) => ActionOutcome | undefined
+  /** P18: cancel a live season (the settlement shows before the confirm) and settle what a cancelled agreement owes. */
+  onCancelTvSeason?: (seasonId: string) => ActionOutcome | undefined
+  onSettleTvObligations?: (agreementId: string, expectedRemaining: number, amount: number) => ActionOutcome | undefined
   /** Navigation-only handoffs from the Studio Calendar. */
   focusProductionId?: string
   focusRunId?: string
@@ -141,6 +156,13 @@ export function Dashboard({
   // is a choice, so it renders its OWN control (never a production command).
   const pendingReleaseDecision =
     pendingDecision?.kind === 'releaseReview' ? pendingDecision.decision : null
+  // ASTRA Sprint 22 (decision A): the commit is irreversible, so it takes two gestures. The first shows the review the
+  // core already holds for this exact picture (the frozen Greenlight outlook, the money already paid, who the hold keeps
+  // busy, the finality); the second commits. The arming is bound to the exact production id: if the pending picture
+  // changes, the review disappears and nothing commits. Keep holding disarms and transacts nothing.
+  const [armedReleaseId, setArmedReleaseId] = useState<string | null>(null)
+  const releaseArmed = pendingReleaseDecision !== null && armedReleaseId === pendingReleaseDecision.productionId
+  const armedRelease = releaseArmed ? releaseCommitReview(state, pendingReleaseDecision!.productionId) : null
   const managedScripts = scripts.mode === 'managed'
   const capacityHold = board.cards.find((card) => card.blocker?.kind === 'facility-capacity') ?? null
   const runRefs = useRef(new Map<string, HTMLElement>())
@@ -262,10 +284,10 @@ export function Dashboard({
             <button className="primary" onClick={onAdvance} data-testid="advance-week">
               Advance one week
             </button>
-            {pendingReleaseDecision !== null && onCommitPictureToRelease && (
+            {pendingReleaseDecision !== null && onCommitPictureToRelease && !releaseArmed && (
               <button
                 className="accent"
-                onClick={() => onCommitPictureToRelease(pendingReleaseDecision.productionId)}
+                onClick={() => setArmedReleaseId(pendingReleaseDecision.productionId)}
                 data-testid="release-commit"
               >
                 Commit {pendingReleaseDecision.title} to release
@@ -285,6 +307,59 @@ export function Dashboard({
               Sim to next event
             </button>
           </div>
+          {pendingReleaseDecision !== null && onCommitPictureToRelease && releaseArmed && armedRelease === null && (
+            <section className="panel" role="alert" data-testid="release-commit-review-missing">
+              <p>
+                The release review for {pendingReleaseDecision.title} could not be read from the studio state, so nothing was
+                committed. Advance a week and try again; if it persists, report it with your save.
+              </p>
+              <button className="ghost" onClick={() => setArmedReleaseId(null)} data-testid="release-commit-keep">
+                Keep holding
+              </button>
+            </section>
+          )}
+          {pendingReleaseDecision !== null && onCommitPictureToRelease && armedRelease !== null && (
+            <section className="panel" aria-label="Review the release commitment" data-testid="release-commit-review">
+              <p>
+                <strong>Irreversible.</strong> Advances no time; {armedRelease.title} releases on the next studio week and
+                cannot be held again.
+              </p>
+              <dl>
+                <dt>Greenlight outlook (frozen at greenlight)</dt>
+                <dd data-testid="release-commit-outlook">
+                  opening {money(armedRelease.outlook.expectedOpening)}, total {money(armedRelease.outlook.expectedTotal)}, critics{' '}
+                  {score(armedRelease.outlook.expectedCriticScore)}
+                </dd>
+                <dt>Budget already paid (the production and marketing budget; greenlight salaries are not counted here)</dt>
+                <dd data-testid="release-commit-paid">
+                  production {money(armedRelease.paid.production)}, marketing {money(armedRelease.paid.marketing)}
+                </dd>
+                <dt>Held by the release until it commits</dt>
+                <dd data-testid="release-commit-hold">
+                  {armedRelease.holdBusyNames.length === 0 ? 'nobody' : armedRelease.holdBusyNames.join(', ')}
+                </dd>
+              </dl>
+              <div className="btn-row">
+                <button
+                  className="ghost"
+                  onClick={() => setArmedReleaseId(null)}
+                  data-testid="release-commit-keep"
+                >
+                  Keep holding
+                </button>
+                <button
+                  className="accent"
+                  onClick={() => {
+                    setArmedReleaseId(null)
+                    onCommitPictureToRelease(armedRelease.productionId)
+                  }}
+                  data-testid="release-commit-confirm"
+                >
+                  Confirm: commit {armedRelease.title} to release
+                </button>
+              </div>
+            </section>
+          )}
           <p className="hint">
             {/* PF1-M3 VOICE PASS (charter §3): the screenplay branch said "unattended
                 simulation", which is what the codebase calls Sim to next event, not what a
@@ -366,6 +441,14 @@ export function Dashboard({
               data-testid="open-recap"
             >
               Studio Run Recap
+            </button>
+            <button
+              className="ghost"
+              onClick={onOpenRightsDesk}
+              disabled={!onOpenRightsDesk}
+              data-testid="open-rights-desk"
+            >
+              Rights Desk
             </button>
             {onReturnToLot ? (
               <button
@@ -527,6 +610,18 @@ export function Dashboard({
           <Metric label="Studio construction" small testid="fin-construction">
             {money(Math.abs(fin.totals.construction))}
           </Metric>
+          <Metric label="Rights trades and licences" small testid="fin-rights">
+            {money(fin.totals.rights)}
+          </Metric>
+          <Metric label="Estate asset purchases" small testid="fin-estatePurchases">
+            {money(fin.totals.estatePurchases)}
+          </Metric>
+          <Metric label="Acquisition net cash" small testid="fin-acquisition">
+            {money(fin.totals.acquisition)}
+          </Metric>
+          <Metric label="Due diligence fees" small testid="fin-diligence">
+            {money(fin.totals.diligence)}
+          </Metric>
         </div>
         <p className="hint" style={{ marginTop: 8 }}>
           Runway answers “how long can the studio last under its current commitments” — it never
@@ -580,6 +675,10 @@ export function Dashboard({
       />
 
       <div style={{ height: 16 }} />
+
+      <FeaturedBookingsCard state={state} onCancel={onCancelCameoBooking} />
+
+      <SeasonCard state={state} onCancel={onCancelTvSeason} onSettle={onSettleTvObligations} />
 
       <div className="card">
         <h2 ref={releasesHeadingRef} tabIndex={-1} data-testid="dashboard-releases-heading">

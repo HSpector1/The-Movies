@@ -1,3 +1,6 @@
+import { closedWeekOf } from './operatingState.js'
+import { buyerScriptDevelopment, buyerScriptConcepts, continuedScriptOwner, carriedRewriteHistorySupported } from './continuedScripts.js'
+import { buyerOperatedProductions, buyerOperationsForAllWork, continuedCommittedReleaseIds } from './continuedWork.js'
 // ── Script Projects V1 player read boundary ─────────────────────────────────
 // Pure projection over GameState. This module deliberately returns fresh, narrow
 // values: no Talent, FilmConcept, ScriptProject, GameState, RNG, actual skill,
@@ -70,6 +73,7 @@ export type ScriptPlayerBlockerKind =
   | 'greenlight-queued'
   | 'no-concepts'
   | 'no-writers'
+  | 'carried-action'
 
 export type ScriptPlayerBlocker = {
   kind: ScriptPlayerBlockerKind
@@ -119,9 +123,10 @@ export type ScriptProjectCardView = {
 }
 
 export type ScriptCapacityOccupantView = {
-  owner: 'production' | 'script' | 'casting'
+  /** P18: `television` is a live season's scripts or preparation hold (`state.television`), activity `television`. */
+  owner: 'production' | 'script' | 'casting' | 'television'
   ownerId: string
-  activity: DevelopmentCastingOccupancy['activity']
+  activity: DevelopmentCastingOccupancy['activity'] | 'television'
   title: string
   label: string
 }
@@ -331,7 +336,7 @@ function clonePromise(promise: FilmPromise): FilmPromise {
 }
 
 function requireConcept(state: GameState, conceptId: string) {
-  const concept = state.concepts.find((candidate) => candidate.id === conceptId)
+  const concept = buyerScriptConcepts(state).find((candidate) => candidate.id === conceptId) ?? state.hollywood?.concepts.find(candidate=>candidate.id===conceptId)
   if (concept === undefined) {
     throw new Error(`scriptReadModel: unknown concept "${conceptId}"`)
   }
@@ -396,7 +401,7 @@ export function estimatedScriptAssessment(
 // credited writer of a picture is not work and must never produce a "Working
 // on …" label, because that label is what the availability blockers quote.
 function activeProductionAssignment(state: GameState, talentId: string): string | null {
-  const productions = [...state.studio.activeProductions].sort((a, b) => compareId(a.id, b.id))
+  const productions = [...buyerOperatedProductions(state)].sort((a, b) => compareId(a.id, b.id))
   const production = productions.find((candidate) =>
     candidate.directorId === talentId ||
     candidate.cast.lead === talentId ||
@@ -410,8 +415,8 @@ function activeProductionAssignment(state: GameState, talentId: string): string 
 
 function writerAssignmentLabel(state: GameState, writerId: string): string | null {
   const scriptAssignment = activeScriptWriterAssignments(
-    state.scriptDevelopment,
-    state.concepts,
+    buyerScriptDevelopment(state),
+    buyerScriptConcepts(state),
   ).find((assignment) => assignment.talentId === writerId)
   if (scriptAssignment !== undefined) return scriptAssignment.label
   return activeProductionAssignment(state, writerId)
@@ -493,7 +498,7 @@ function writerBlockers(
 /** Exact, slot-by-slot shared Development & Casting usage. */
 export function scriptCapacityView(state: GameState): ScriptCapacityView {
   const occupancy = [
-    ...developmentCastingOccupancy(state.operations, state.scriptDevelopment),
+    ...developmentCastingOccupancy(state.operations, buyerScriptDevelopment(state)),
     ...castingDevelopmentCastingOccupancy(state.operations, state.castingSessions),
   ]
   const occupancyBySlot = new Map<string, DevelopmentCastingOccupancy>()
@@ -503,6 +508,22 @@ export function scriptCapacityView(state: GameState): ScriptCapacityView {
       throw new Error(`scriptReadModel: shared capacity slot "${key}" is occupied twice`)
     }
     occupancyBySlot.set(key, entry)
+  }
+  // P18: a live television season's Development & Casting hold is real capacity use. Without it a held slot would read
+  // as free here while every allocator refuses it.
+  const televisionBySlot = new Map<string, { seasonId: string; title: string }>()
+  for (const season of state.television?.seasons ?? []) {
+    if (season.status !== 'live') continue
+    for (const reservation of season.reservations) {
+      if (reservation.capability !== 'development-casting') continue
+      const key = facilitySlotKey(reservation.facilityId, reservation.slot)
+      if (occupancyBySlot.has(key) || televisionBySlot.has(key)) {
+        throw new Error(`scriptReadModel: shared capacity slot "${key}" is occupied twice`)
+      }
+      const series = state.television!.series.find((candidate) => candidate.seriesId === season.seriesId)
+      if (series === undefined) throw new Error(`scriptReadModel: television season "${season.seasonId}" names unknown series "${season.seriesId}"`)
+      televisionBySlot.set(key, { seasonId: season.seasonId, title: series.title })
+    }
   }
 
   const facilities = state.operations.facilities
@@ -514,8 +535,17 @@ export function scriptCapacityView(state: GameState): ScriptCapacityView {
       for (let slot = 0; slot < facility.capacity; slot++) {
         const entry = occupancyBySlot.get(facilitySlotKey(facility.id, slot))
         let occupant: ScriptCapacityOccupantView | null = null
-        if (entry !== undefined && entry.owner === 'script') {
-          const project = state.scriptDevelopment.projects.find(
+        const television = televisionBySlot.get(facilitySlotKey(facility.id, slot))
+        if (television !== undefined) {
+          occupant = {
+            owner: 'television',
+            ownerId: television.seasonId,
+            activity: 'television',
+            title: television.title,
+            label: `Television season — ${television.title}`,
+          }
+        } else if (entry !== undefined && entry.owner === 'script') {
+          const project = buyerScriptDevelopment(state).projects.find(
             (candidate) => candidate.id === entry.ownerId,
           )
           if (project === undefined) {
@@ -531,7 +561,7 @@ export function scriptCapacityView(state: GameState): ScriptCapacityView {
             label: `${project.status === 'drafting' ? 'Drafting' : 'Rewriting'} ${title} — ${writer.name}`,
           }
         } else if (entry !== undefined && entry.owner === 'production') {
-          const production = state.studio.activeProductions.find(
+          const production = buyerOperatedProductions(state).find(
             (candidate) => candidate.id === entry.ownerId,
           )
           if (production === undefined) {
@@ -552,7 +582,7 @@ export function scriptCapacityView(state: GameState): ScriptCapacityView {
           if (session === undefined) {
             throw new Error(`scriptReadModel: occupancy references unknown casting session "${entry.ownerId}"`)
           }
-          const project = state.scriptDevelopment.projects.find(
+          const project = buyerScriptDevelopment(state).projects.find(
             (candidate) => candidate.id === session.projectId,
           )
           if (project === undefined) {
@@ -616,14 +646,14 @@ function commissionAvailability(
   capacity: ScriptCapacityView,
 ): ScriptCommissionAvailabilityView {
   const claimedConcepts = new Set(
-    state.scriptDevelopment.projects.map((project) => project.conceptId),
+    buyerScriptDevelopment(state).projects.map((project) => project.conceptId),
   )
   const queuedPoolConceptIds = new Set(
     state.productionQueue.flatMap((entry) =>
       entry.kind === 'commissionScript' ? [entry.payload.conceptId] : [],
     ),
   )
-  const concepts = state.concepts
+  const concepts = buyerScriptConcepts(state)
     .filter(
       (concept) =>
         !claimedConcepts.has(concept.id) &&
@@ -661,7 +691,7 @@ function commissionAvailability(
     )
 
   const blockers: ScriptPlayerBlocker[] = []
-  if (state.scriptDevelopment.mode !== 'managed') {
+  if (buyerScriptDevelopment(state).mode !== 'managed') {
     blockers.push({
       kind: 'script-mode',
       headline: 'Managed screenplay development is not active',
@@ -686,7 +716,7 @@ function commissionAvailability(
     })
   }
   if (
-    state.scriptDevelopment.mode === 'managed' &&
+    buyerScriptDevelopment(state).mode === 'managed' &&
     state.operations.mode === 'managed' &&
     capacity.available === 0
   ) {
@@ -906,6 +936,7 @@ function canPlanAuditions(
   state: GameState,
   project: ScriptProject,
 ): boolean {
+  if(continuedScriptOwner(state,project.id))return false
   if (hasQueuedCastingSession(state.productionQueue, project.id)) return false
   const busy = busyTalentIds(state)
   const freelancerMarket = new Set(freelancerMarketIds(state))
@@ -927,13 +958,17 @@ function projectCard(
   const concept = requireConcept(state, project.conceptId)
   const blockers: ScriptPlayerBlocker[] = []
   const legalActions: ScriptProjectActionView[] = []
+  const carried=continuedScriptOwner(state,project.id)
+  const buyerClosed=carried!==null&&closedWeekOf(state).has(carried.a.buyerId)
   if (project.status === 'review') {
-    legalActions.push({
+    if(!buyerClosed)legalActions.push({
       kind: 'acceptScript',
       projectId: project.id,
       label: project.rewriteCount === 0 ? 'Accept first draft' : 'Accept final draft',
     })
-    if (project.rewriteCount === 0) {
+    if(buyerClosed)blockers.push({kind:'carried-action',headline:'Buyer studio is closed',detail:'This screenplay is read-only history.',remedy:'Read the retained screenplay history.'})
+    if(carried&&!buyerClosed&&!carriedRewriteHistorySupported(state))blockers.push({kind:'carried-action',headline:'Buyer rewrite unavailable',detail:'Another screenplay history requires a separate buyer work owner.',remedy:'Accept this draft or keep it in Review.'})
+    if (project.rewriteCount === 0 && !buyerClosed && (!carried||carriedRewriteHistorySupported(state))) {
       blockers.push(...writerBlockers(state, project, 'rewrite'))
       if (capacity.available === 0) {
         blockers.push({
@@ -964,7 +999,7 @@ function projectCard(
     if (
       state.castingSessions.mode === 'managed' &&
       castingSession === undefined &&
-      canPlanAuditions(state, project)
+      !carried&&canPlanAuditions(state, project)
     ) {
       legalActions.push({
         kind: 'planAuditions',
@@ -1088,7 +1123,7 @@ function lotAttention(
     return {
       kind: 'review-required',
       headline: 'Screenplay review required',
-      detail: `${review.title} needs an Accept or Rewrite decision.`,
+      detail: review.legalActions.some(a=>a.kind==='requestScriptRewrite')?`${review.title} needs an Accept or Rewrite decision.`:`${review.title} is waiting for an Accept decision.`,
     }
   }
   if (capacity.capacity === 0 || capacity.available === 0) {
@@ -1155,7 +1190,7 @@ function lotAttention(
  */
 export function scriptProjectsReadModel(state: GameState): ScriptProjectsReadModel {
   const capacity = scriptCapacityView(state)
-  const projects = [...state.scriptDevelopment.projects].sort((a, b) => compareId(a.id, b.id))
+  const projects = [...buyerScriptDevelopment(state).projects].sort((a, b) => compareId(a.id, b.id))
   const sections: ScriptProjectsReadModel['sections'] = {
     needsReview: [],
     inDevelopment: [],
@@ -1186,7 +1221,7 @@ export function scriptProjectsReadModel(state: GameState): ScriptProjectsReadMod
         }
 
   return {
-    mode: state.scriptDevelopment.mode,
+    mode: buyerScriptDevelopment(state).mode,
     capacity,
     sections,
     commission: commissionAvailability(state, capacity),
@@ -1211,11 +1246,11 @@ function nextProductionOperationsDecision(
   // Active-production identity is authoritative. Sorting that collection, rather
   // than trusting workflow insertion order, gives the cross-system selector one
   // stable production ordering even when a caller supplies freshly cloned arrays.
-  const productions = [...state.studio.activeProductions].sort((a, b) =>
+  const productions = [...buyerOperatedProductions(state)].sort((a, b) =>
     compareId(a.id, b.id),
   )
   for (const production of productions) {
-    const workflow = state.operations.workflows.find(
+    const workflow = buyerOperationsForAllWork(state).workflows.find(
       (candidate) => candidate.productionId === production.id,
     )
     if (
@@ -1282,7 +1317,7 @@ export function nextStudioDecision(state: GameState): StudioDecisionView | null 
   if (scriptDecision !== null) return scriptDecision
   const castingReview = nextCastingSessionNeedingReview(state.castingSessions)
   if (castingReview !== undefined) {
-    const project = state.scriptDevelopment.projects.find(
+    const project = buyerScriptDevelopment(state).projects.find(
       (candidate) => candidate.id === castingReview.projectId,
     )
     if (project === undefined) {
@@ -1309,8 +1344,8 @@ export function nextStudioDecision(state: GameState): StudioDecisionView | null 
  * this law (remainingTicks === 1 is the phase truth in both).
  */
 export function nextReleaseReviewDecision(state: GameState): ReleaseReviewDecisionView | null {
-  const committed = new Set(state.releaseAuthority.commitments.map((row) => row.productionId))
-  const ready = state.studio.activeProductions
+  const committed = new Set([...state.releaseAuthority.commitments.map((row) => row.productionId),...continuedCommittedReleaseIds(state)])
+  const ready = buyerOperatedProductions(state)
     .filter((production) => production.remainingTicks === 1 && !committed.has(production.id))
     .sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))
   const first = ready[0]
@@ -1359,7 +1394,7 @@ export function scriptAssessmentExplanation(
   state: GameState,
   projectId: string,
 ): ScriptAssessmentExplanationView[] | null {
-  const project = state.scriptDevelopment.projects.find(
+  const project = buyerScriptDevelopment(state).projects.find(
     (candidate) => candidate.id === projectId,
   )
   if (project === undefined || project.assessment === null) return null
@@ -1459,8 +1494,8 @@ export function rewriteDecisionPreview(
   state: GameState,
   projectId: string,
 ): RewriteDecisionPreviewView | null {
-  if (state.scriptDevelopment.mode !== 'managed') return null
-  const project = state.scriptDevelopment.projects.find(
+  if (buyerScriptDevelopment(state).mode !== 'managed') return null
+  const project = buyerScriptDevelopment(state).projects.find(
     (candidate) => candidate.id === projectId,
   )
   if (project === undefined) return null

@@ -129,7 +129,8 @@ export type FacilitiesWeeklyFacility = FacilitiesManifestEntry & {
   occupied: number
   idle: number
   full: boolean
-  ownerSlots: Record<'production' | 'script' | 'casting', number>
+  // P18: `television` counts a live season's holds; zero in every world without one.
+  ownerSlots: Record<'production' | 'script' | 'casting' | 'television', number>
 }
 
 export type FacilitiesWeeklyRow = EvidenceBase & {
@@ -284,7 +285,7 @@ export type FacilitiesStaffingRow = EvidenceBase & {
     occupied: number
     idle: number
     full: boolean
-    ownerSlots: Record<'production' | 'script' | 'casting', number>
+    ownerSlots: Record<'production' | 'script' | 'casting' | 'television', number>
   }
   transitionLedgerEntries: LedgerEntry[]
 }
@@ -306,7 +307,7 @@ export type FacilitiesCapabilitySummary = {
   idleSlotWeeks: number
   fullWeeks: number
   longestFullStreak: number
-  ownerSlotWeeks: Record<'production' | 'script' | 'casting', number>
+  ownerSlotWeeks: Record<'production' | 'script' | 'casting' | 'television', number>
 }
 
 export type FacilitiesStaffingSnapshot = {
@@ -1700,7 +1701,7 @@ function captureStaffingBoundary(
   )
   const capacity = developmentCasting.reduce((sum, facility) => sum + facility.capacity, 0)
   const occupied = developmentCasting.reduce((sum, facility) => sum + facility.occupied, 0)
-  const ownerSlots = { production: 0, script: 0, casting: 0 }
+  const ownerSlots = { production: 0, script: 0, casting: 0, television: 0 }
   for (const facility of developmentCasting) {
     for (const slot of facility.slots) {
       if (slot.occupant !== null) ownerSlots[slot.occupant.owner]++
@@ -1778,7 +1779,7 @@ function observeWeek(
     )
   }
   const facilities: FacilitiesWeeklyFacility[] = calendar.facilities.map((facility) => {
-    const ownerSlots = { production: 0, script: 0, casting: 0 }
+    const ownerSlots = { production: 0, script: 0, casting: 0, television: 0 }
     for (const slot of facility.slots) {
       if (slot.occupant !== null) ownerSlots[slot.occupant.owner]++
     }
@@ -1957,7 +1958,7 @@ function emptyCapabilitySummary(): Record<FacilityCapability, FacilitiesCapabili
     idleSlotWeeks: 0,
     fullWeeks: 0,
     longestFullStreak: 0,
-    ownerSlotWeeks: { production: 0, script: 0, casting: 0 },
+    ownerSlotWeeks: { production: 0, script: 0, casting: 0, television: 0 },
   })
   return {
     'development-casting': make(),
@@ -1990,6 +1991,7 @@ function summarizeCapabilities(rows: readonly FacilitiesWeeklyRow[]) {
       target.ownerSlotWeeks.production += facility.ownerSlots.production
       target.ownerSlotWeeks.script += facility.ownerSlots.script
       target.ownerSlotWeeks.casting += facility.ownerSlots.casting
+      target.ownerSlotWeeks.television += facility.ownerSlots.television
     }
     for (const capability of Object.keys(summary) as FacilityCapability[]) {
       const facilities = byCapability.get(capability) ?? []

@@ -1,3 +1,5 @@
+import { buyerScriptDevelopment, buyerScriptConcepts } from './continuedScripts.js'
+import { absorbedWeekOf } from './operatingState.js'
 // ── P15B Wave 2 and Wave 3 (record 1370-ar): the condition in the live game ───────────────────────
 // Authority (docs/engineering/playability-launch-review/evidence/p14b4-20260919/): 1357-A §3 (the fact
 // adapter), §4 (the root and its validator), §5 (the weekly step), §6 (loans) as adopted by 1357-F
@@ -14,16 +16,16 @@
 import { CORPORATE_CONDITION_VERSION, remedies, stepCondition,
   type Condition, type ConditionFacts, type RemedyCapability, type RemedyFamily } from './corporateCondition.js'
 import { seatingProduction } from './employment.js'
+import { tvSeasonEngaging } from './tvReaders.js'
 import { moveRivalMoney } from './hollywood.js'
 import { P15_PHASE_TABLES, p15PhaseTriple } from './p15Phases.js'
 import { studioWeeklyFixedCost } from './powerRankingArchive.js'
-import { productionCompanyTalentIds } from './productionPeople.js'
 import { activeScriptWriterAssignments } from './scriptDevelopment.js'
 import { contractLoan, loanEligible, loanInstallmentDue, loanMaxPrincipal, STUDIO_LOAN_VERSION } from './studioLoan.js'
 import { closedWeekOf } from './operatingState.js'
 import { LOAN_PRINCIPAL_LEDGER_NOTE, TUNING } from './tuning.js'
 import type { HollywoodState, RivalBusiness } from './hollywoodTypes.js'
-import type { ConditionEvent, CorporateConditionRoot, GameState, LedgerEntry, ScriptDevelopment, StudioConditionRecord, StudioLoanRecord } from './types.js'
+import type { ConditionEvent, CorporateConditionRoot, GameState, LedgerEntry, StudioConditionRecord, StudioLoanRecord } from './types.js'
 
 export const CONDITION_PHASE_ID = 'p15b.condition'
 
@@ -128,7 +130,7 @@ export function advanceCorporateConditionWeek(state: GameState): GameState {
   // action stamps `originWeek` at the current week, so the first boundary this step can evaluate is strictly
   // above both recordedFromWeek and originWeek.
   if (week <= Math.max(root.recordedFromWeek, h.originWeek)) return state
-  const triple = p15PhaseTriple(CONDITION_PHASE_ID)
+  const triple = p15PhaseTriple(CONDITION_PHASE_ID, Object.hasOwn(state, 'rights') ? 3 : 2)
   const studios = [...root.studios]
   const events = [...root.events]
   let nextEvent = root.nextEvent
@@ -137,7 +139,7 @@ export function advanceCorporateConditionWeek(state: GameState): GameState {
   for (const studioId of evaluatedStudios(state, h, week)) {
     const index = studios.findIndex((r) => r.studioId === studioId)
     const prev = index >= 0 ? studios[index]! : undefined
-    if (prev?.condition.stage === 'closed') continue // 1352-F3 item 1: never evaluated again
+    if (prev?.condition.stage === 'closed' || absorbedWeekOf(state).has(studioId)) continue // 1352-F3 item 1: never evaluated again
     const facts = conditionFacts(state, studioId)
     const { next, transition } = stepCondition(prev?.condition ?? null, facts)
     const record: StudioConditionRecord = { studioId, firstEvaluatedWeek: prev?.firstEvaluatedWeek ?? week, definitionVersion: CORPORATE_CONDITION_VERSION, condition: next }
@@ -210,7 +212,7 @@ export function applyTakeLoan(state: GameState, principal: number): GameState {
   const root = requireCorporateCondition(state)
   const sequence = state.p15Sequence.next
   const loan: StudioLoanRecord = { loanId: `corporate-loan-${root.nextLoan}`, studioId: h.playerStudioId, lawVersion: STUDIO_LOAN_VERSION, contractedWeek: week,
-    weeklyFixedCostAtContract: weeklyFixedCost, principal, total: contracted.total, installments: [...contracted.installments], p15DomainSequence: sequence, ...p15PhaseTriple(CONDITION_PHASE_ID) }
+    weeklyFixedCostAtContract: weeklyFixedCost, principal, total: contracted.total, installments: [...contracted.installments], p15DomainSequence: sequence, ...p15PhaseTriple(CONDITION_PHASE_ID, Object.hasOwn(state, 'rights') ? 3 : 2) }
   const entry: LedgerEntry = { week, kind: 'loanPrincipal', amount: principal, note: LOAN_PRINCIPAL_LEDGER_NOTE }
   return {
     ...state,
@@ -228,10 +230,6 @@ export function applyTakeLoan(state: GameState, principal: number): GameState {
 // hollywoodTick.ts; the player's own choice) decides among legal releases; the law decides legality.
 // A research seat is not in the law: tests/p13a-research-employment.test.ts pins that the player's
 // release of a seated Scientist pauses the project (employment.ts:340).
-function hotDevelopment(business: RivalBusiness): ScriptDevelopment {
-  return { mode: 'managed', projects: business.activeScriptOrdinals.map((i) => business.development.projects[i]!) }
-}
-
 /** The refusal of releasing `talentId` from `studioId` now, or null when the release is legal. The
  * sentences are the player's own (actions.ts applyReleaseTalent), so refusals read identically. */
 export function releaseRefusal(state: GameState, studioId: string, talentId: string): string | null {
@@ -243,12 +241,15 @@ export function releaseRefusal(state: GameState, studioId: string, talentId: str
     if (seated !== undefined) return `talent "${talentId}" is seated on active production "${seated.id}" until it is released (R2)`
     const writing = activeScriptWriterAssignments(state.scriptDevelopment, state.concepts).find((a) => a.talentId === talentId)
     if (writing !== undefined) return `talent "${talentId}" is ${writing.label} and must finish that screenplay task first`
+    // P18 (contract §4 "company holds are commitments"; review P18-07): a live season's engagement is held as a seat is.
+    const season = tvSeasonEngaging(state.television, talentId)
+    if (season !== null) return `talent "${talentId}" is engaged on live television season "${season.seasonId}" until it is delivered or cancelled`
     return null
   }
-  const business = businessOf(h, studioId)
-  const seated = business.productions.find((p) => productionCompanyTalentIds([p]).has(talentId))
+  businessOf(h, studioId)
+  const seated = seatingProduction(state,talentId,studioId)
   if (seated !== undefined) return `talent "${talentId}" is seated on active production "${seated.id}" until it is released (R2)`
-  const writing = activeScriptWriterAssignments(hotDevelopment(business), h.concepts).find((a) => a.talentId === talentId)
+  const writing = activeScriptWriterAssignments(buyerScriptDevelopment(state,studioId), buyerScriptConcepts(state,studioId)).find((a) => a.talentId === talentId)
   if (writing !== undefined) return `talent "${talentId}" is ${writing.label} and must finish that screenplay task first`
   return null
 }
@@ -316,7 +317,7 @@ export type LoanStops = ReadonlyMap<string, number>
  * chain has proved the rest of the state. `stops` carries each actually closed studio's closure week
  * (Wave 4): an installment is charged iff its due week is below it.
  */
-export function validateCorporateConditionRoot(raw: Record<string, unknown>, label: string, stops: LoanStops = new Map()): void {
+export function validateCorporateConditionRoot(raw: Record<string, unknown>, label: string, stops: LoanStops = new Map(), rightsEstate = false, absorbed: ReadonlyMap<string, number> = new Map()): void {
   const fail = (message: string): never => { throw new Error(`${label}: corporateCondition ${message}`) }
   const root = raw.corporateCondition
   if (!isRecord(root)) return fail('root must be an object')
@@ -377,7 +378,7 @@ export function validateCorporateConditionRoot(raw: Record<string, unknown>, lab
     }
     if (condition.stage === 'closed') {
       if (condition.negativeRun === 0) fail(`record ${record.studioId} is closed without negative cash`)
-    } else if (condition.week !== tick) fail(`record ${record.studioId} is open but its week is not market.tick`)
+    } else if (condition.week !== (absorbed.get(record.studioId) ?? tick)) fail(`record ${record.studioId} is open but its week is not market.tick`)
     if (condition.stage === 'distress' && condition.distressWeeks >= law.CORPORATE_CLOSURE_DISTRESS_WEEKS && condition.negativeRun > 0) {
       fail(`record ${record.studioId} stands in distress past the closure duration with negative cash`)
     }
@@ -418,6 +419,7 @@ export function validateCorporateConditionRoot(raw: Record<string, unknown>, lab
     if (previous !== null && event.p15DomainSequence <= previous.p15DomainSequence) fail(`event ${event.eventId} p15DomainSequence does not ascend`)
     previous = event
     if (!Object.hasOwn(CONDITION_LAWS, event.definitionVersion)) fail(`event ${event.eventId} definitionVersion ${String(event.definitionVersion)} is unknown`)
+    if (!rightsEstate && event.phaseOrderVersion > 2) fail('estate phase table is not admitted in this predecessor era')
     const entry = Number.isSafeInteger(event.phaseOrderVersion) ? P15_PHASE_TABLES[event.phaseOrderVersion]?.find((row) => row.phaseId === CONDITION_PHASE_ID) : undefined
     if (event.phaseId !== CONDITION_PHASE_ID || entry === undefined || entry.phaseOrdinal !== event.phaseOrdinal) fail(`event ${event.eventId} phase triple does not match its phase-order version's table`)
     const record = records.get(event.studioId)
@@ -513,6 +515,7 @@ export function validateCorporateConditionRoot(raw: Record<string, unknown>, lab
     if (!Number.isSafeInteger(loan.p15DomainSequence) || loan.p15DomainSequence < 1) fail(`loan ${loan.loanId} has no whole p15DomainSequence`)
     if (previousLoan !== null && loan.p15DomainSequence <= previousLoan.p15DomainSequence) fail(`loan ${loan.loanId} p15DomainSequence does not ascend`)
     previousLoan = loan
+    if (!rightsEstate && loan.phaseOrderVersion > 2) fail('estate phase table is not admitted in this predecessor era')
     const entry = Number.isSafeInteger(loan.phaseOrderVersion) ? P15_PHASE_TABLES[loan.phaseOrderVersion]?.find((row) => row.phaseId === CONDITION_PHASE_ID) : undefined
     if (loan.phaseId !== CONDITION_PHASE_ID || entry === undefined || entry.phaseOrdinal !== loan.phaseOrdinal) fail(`loan ${loan.loanId} phase triple does not match its phase-order version's table`)
     const record = records.get(loan.studioId)

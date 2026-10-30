@@ -1,0 +1,9 @@
+{
+  "head": "5a730f42d5a66d22cba4808b5c642510c2f068bb",
+  "purpose": "Final root typecheck only to preserve a completed compiler outcome within intermittent resource windows; sourceunchanged",
+  "types": [
+    "root"
+  ],
+  "sourceManifestEntries": 1643,
+  "remaining": "Bridge/UI types,7existingaffectedfiles,broadconsumer gate; no waiver"
+}

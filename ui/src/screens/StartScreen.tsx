@@ -42,7 +42,8 @@ export function StartScreen({
     setError(null)
     const result = importSaveJson(importText)
     if (!result.ok) {
-      setError(`Could not load that save: ${result.error}`)
+      // ASTRA Sprint 19: the refusal names its cause; nothing was loaded, and the file is worth keeping.
+      setError(`Could not load that save: ${result.error.replace(/\.?\s*$/, '.')} Nothing was loaded. Keep the file; it may be a newer or differently written print than this build accepts.`)
       return
     }
     onStart(result.state, { converted: result.converted })

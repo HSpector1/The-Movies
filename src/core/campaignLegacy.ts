@@ -1,3 +1,4 @@
+import { carriedProductionAuthority, type CarriedProductionAuthority } from './continuedScripts.js'
 // ── P15C Wave 1: the pure Legacy law `campaign-legacy/v2` ─────────────────────
 // Authority (docs/engineering/playability-launch-review/evidence/p14b4-20260919/):
 // Owner rulings 2, 3, 5 and 6 of 1342-O; charter 1353-A §5 as amended by 1353-F (the
@@ -65,7 +66,7 @@
 // Lenses follow 1353-A §5.4 with the count keys of 1353-F2 §2; a notRecorded lens
 // carries no count and no ref. A ranking ref cites the archive record's own recordId.
 
-import { validateSaveP15B, P15B_SAVE_VERSION } from './save.js'
+import { validateSaveP15B, validateSaveP18, P15B_SAVE_VERSION, P18_SAVE_VERSION } from './save.js'
 import { campaignDate } from './calendar.js'
 import { P15_PHASE_TABLES, p15PhaseTriple } from './p15Phases.js'
 import type { FinancialStrengthBand } from './powerRanking.js'
@@ -1036,7 +1037,7 @@ function largestSequence(rows: readonly Row[], below = Number.POSITIVE_INFINITY)
  * makes every cut. It reads no cash, cost, revenue, loan amount, in-run payment or career money or skill field. A
  * player film's genre is its concept's; a missing concept refuses by name.
  */
-export function legacyFactsFromState(state: GameState, boundaryWeek: number, definition: LegacyDefinitionId = CAMPAIGN_LEGACY_DEFINITION): LegacyFacts {
+export function legacyFactsFromState(state: GameState, boundaryWeek: number, definition: LegacyDefinitionId = CAMPAIGN_LEGACY_DEFINITION, carriedProduction:CarriedProductionAuthority|null = carriedProductionAuthority(state)??null): LegacyFacts {
   if (state.hollywood === null) fail('state.hollywood', 'must hold the living industry the Legacy reads')
   const h = state.hollywood
   const genreOf = new Map(state.concepts.map((concept) => [concept.id, concept.genre]))
@@ -1048,7 +1049,10 @@ export function legacyFactsFromState(state: GameState, boundaryWeek: number, def
 
   const films: LegacyFilmFact[] = []
   for (const film of state.studio.releasedFilms) {
-    const genre = genreOf.get(film.conceptId)
+    const project=carriedProduction?.productionScripts.get(film.productionId)
+    const acquired=project?.conceptId===film.conceptId&&project.status==='produced'
+      ?carriedProduction?.concepts.find(c=>c.id===film.conceptId):undefined
+    const genre = genreOf.get(film.conceptId)??acquired?.genre
     if (genre === undefined) {
       fail('state.concepts', `must hold concept ${film.conceptId}, the genre of player film ${film.productionId}`)
     }
@@ -1228,10 +1232,12 @@ export function freezeCampaignLegacyWeek(state: GameState): GameState {
     ...manifest,
     legacySnapshotId: `campaign-legacy-${sequence}`,
     p15DomainSequence: sequence,
-    ...p15PhaseTriple(FINALE_PHASE),
+    ...p15PhaseTriple(FINALE_PHASE, Object.hasOwn(state, 'rights') ? 3 : 2),
   }
   const result = { ...state, campaignLegacy: { ...root, official }, p15Sequence: { ...state.p15Sequence, next: sequence + 1 } }
-  validateSaveP15B({ saveVersion: P15B_SAVE_VERSION, seed: result.seed, state: result, broadcastCache: result.broadcastItems })
+  // the rights era's live reader (P18 Save51 over P17's Save50 over P16's Save49)
+  if (Object.hasOwn(result, 'rights')) validateSaveP18({ saveVersion: P18_SAVE_VERSION, seed: result.seed, state: result, broadcastCache: result.broadcastItems })
+  else validateSaveP15B({ saveVersion: P15B_SAVE_VERSION, seed: result.seed, state: result, broadcastCache: result.broadcastItems })
   return result
 }
 
@@ -1243,12 +1249,12 @@ export function freezeCampaignLegacyWeek(state: GameState): GameState {
  * the frozen entry its definition names, then replays with the catalogue and archetype evaluators
  * frozen by 1361-F6 ruling 2. It never reads TUNING and refuses malformed state by name.
  */
-export function validateCampaignLegacy(raw: Record<string, unknown>, label: string, modern = false): void {
-  validateLegacyManifest(raw, label, modern, false)
-  if (modern) validateLegacyManifest(raw, label, true, true)
+export function validateCampaignLegacy(raw: Record<string, unknown>, label: string, modern = false, rightsEstate = false, carriedProduction?:CarriedProductionAuthority): void {
+  validateLegacyManifest(raw, label, modern, false, rightsEstate, carriedProduction)
+  if (modern) validateLegacyManifest(raw, label, true, true, rightsEstate, carriedProduction)
 }
 
-function validateLegacyManifest(raw: Record<string, unknown>, label: string, modern: boolean, ended: boolean): void {
+function validateLegacyManifest(raw: Record<string, unknown>, label: string, modern: boolean, ended: boolean, rightsEstate: boolean, carriedProduction?:CarriedProductionAuthority): void {
   // An explicit type on the binding makes every call a never-returning call for narrowing.
   const refuse: (path: string, rule: string) => never = (path, rule) => {
     throw new Error(`${label}: campaignLegacy${path === '' ? '' : `.${ended ? path.replace(/^official/, 'endOfRun') : path}`} ${rule}`)
@@ -1309,7 +1315,10 @@ function validateLegacyManifest(raw: Record<string, unknown>, label: string, mod
   if (typeof sequence !== 'number' || !Number.isSafeInteger(sequence) || sequence < 1) {
     refuse('official.p15DomainSequence', 'must be a whole number of at least 1')
   }
-  if (isModernDefinition(official.definition) && official.phaseOrderVersion !== 2) refuse('official.phaseOrderVersion', 'must use the actual-closure finale phase table 2')
+  // P16 rebase: 12A's v4 is a modern definition too (`isModernDefinition`), so the Save49 estate table 3
+  // is admitted for v3 and v4 alike, and only under the rights era.
+  if (!rightsEstate && official.phaseOrderVersion > 2) refuse('official.phaseOrderVersion', 'estate phase table is not admitted in this predecessor era')
+  if (isModernDefinition(official.definition) && !(official.phaseOrderVersion === 2 || rightsEstate && official.phaseOrderVersion === 3)) refuse('official.phaseOrderVersion', 'must use an admitted actual-closure finale phase table')
   if (!ended && official.definition === MODERN_LEGACY_DEFINITION
     && state.studioClosure.closures.some(c => c.closureWeek <= B && c.p15DomainSequence >= sequence)) {
     refuse('official.p15DomainSequence', 'must follow every actual closure dated at or before the official boundary')
@@ -1416,7 +1425,7 @@ function validateLegacyManifest(raw: Record<string, unknown>, label: string, mod
   // recorded from B or later; notRecorded exactly when the domain records nothing before B. A P15 watermark is
   // the largest sequence in its root below the official's, exact because the allocator is append order; an
   // array watermark lies within its root's length, which grows after the freeze.
-  const facts = legacyFactsFromState(state, cutoff, official.definition)
+  const facts = legacyFactsFromState(state, cutoff, official.definition, carriedProduction??null)
   const derived = new Map(facts.domains.map((domain) => [domain.domainId, domain]))
   const lengthOf: Readonly<Record<string, number>> = {
     playerFilms: state.studio.releasedFilms.length, industryFilms: h.films.length, playerRuns: state.theatricalRuns.length,

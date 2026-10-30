@@ -42,6 +42,7 @@ function retainedSubject(state: GameState, kind: string, id: string): string {
   }
   if (kind === 'cash') return 'Studio cash'
   if (kind === 'loan') return 'Studio loan'
+  if (kind === 'tvAgreement') return `Television agreement ${id.replace(/:(refund|charge)$/, ' ($1)')}`
   return `Retained ${words(kind)} (name unavailable)`
 }
 
@@ -53,7 +54,16 @@ export function ClosedStudioHistory({ state, fromLot, onSaves, onHistory }: {
   const terminal = view.terminal
   if (terminal === null) return null
   const closure = state.studioClosure.closures.find(c => c.closureId === terminal.closureId)!
-  const claims = state.studioClosure.claims.filter(c => c.closureId === closure.closureId)
+  const allClaims = state.studioClosure.claims.filter(c => c.closureId === closure.closureId)
+  const claims = allClaims.filter(c => c.kind === 'employment')
+  // closure/v2 (ASTRA Sprint 23, decision B): the closing producer's television refund and charge, published as claims
+  // behind every employment claim (refunds before charges). A v1 closure has none and shows none.
+  const tvClaims = allClaims.filter(c => c.kind !== 'employment')
+  const tvClaimLabel = (c: { kind: string; sourceContractId: string }) => {
+    const season = state.television?.seasons.find(s => s.agreementId === c.sourceContractId)
+    const title = season === undefined ? undefined : state.television?.series.find(x => x.seriesId === season.seriesId)?.title
+    return `${c.kind === 'tvRefund' ? 'Advance refund' : 'Cancellation charge'} — ${title ?? c.sourceContractId}`
+  }
   const ended = state.campaignLegacy.endOfRun!
   return <main className="app-shell">
     <h1>Closed studio — read-only history</h1>
@@ -67,6 +77,12 @@ export function ClosedStudioHistory({ state, fromLot, onSaves, onHistory }: {
         {claims.map(c => <tr key={c.claimId}><td>{state.talent.find(t => t.id === c.claimantTalentId)?.name ?? 'Former employee (name unavailable)'}</td><td>{moneyExact(c.original)}</td><td>{moneyExact(c.paid)}</td><td>{moneyExact(c.unpaid)}</td><td>{paymentLabels[c.status]}{state.talent.some(t => t.id === c.claimantTalentId) ? null : <details><summary>Saved claimant reference</summary>{c.claimantTalentId}</details>}</td></tr>)}
       </tbody></table>}
     </section>
+    {tvClaims.length > 0 && <section aria-label="Television obligations" data-testid="tv-claims"><h2>Television obligations</h2>
+      <p>Owed to the season's commissioner at closure; paid after every employment claim, refunds before charges, only from the closing cash.</p>
+      <table><thead><tr><th>Obligation</th><th>Original</th><th>Paid</th><th>Unpaid</th><th>Status</th></tr></thead><tbody>
+        {tvClaims.map(c => <tr key={c.claimId} data-testid={`tv-claim-${c.claimId}`}><td>{tvClaimLabel(c)}</td><td>{moneyExact(c.original)}</td><td>{moneyExact(c.paid)}</td><td>{moneyExact(c.unpaid)}</td><td>{paymentLabels[c.status]}</td></tr>)}
+      </tbody></table>
+    </section>}
     <section aria-label="Terminal obligations"><h2>Retained obligations</h2>
       <ul>{closure.dispositions.map((d, i) => <li key={i}>
         {retainedSubject(state, d.subjectKind, d.subjectId)} — {d.status === 'pending' ? 'Unresolved obligation retained in this saved world' : 'Disposition recorded at closure'}

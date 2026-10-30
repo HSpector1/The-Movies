@@ -385,6 +385,22 @@ export function projectToV13State(state: GameState): Record<string, unknown> {
     throw new Error('V13 twin cannot discard P15 authority')
   }
   const raw = stripP15(clone(state))
+  // P16 (Save49): the rights root is V46-only, so a genuine V13 file never carried it. Its properties,
+  // titles and title events are derived identity (they mirror the greenlights and releases the twin
+  // keeps); a licence, offer, transaction, diligence record, estate or non-zero rights money movement
+  // is authority of its own and refuses, as with the guarded roots below.
+  const rights = (state as { rights?: { licences: unknown[]; offers: unknown[]; transactions: unknown[]; diligence: unknown[]; estates: unknown[] } }).rights
+  if (rights !== undefined && rights.licences.length + rights.offers.length + rights.transactions.length + rights.diligence.length + rights.estates.length > 0) {
+    throw new Error('V13 twin cannot discard rights authority')
+  }
+  for (const business of state.hollywood?.businesses ?? []) {
+    for (const period of business.account.periods) {
+      if (period.movements.rightsConsideration !== 0 || period.movements.dueDiligenceFee !== 0 || period.movements.acquisitionOutlay !== 0) {
+        throw new Error('V13 twin cannot discard a rights money movement')
+      }
+    }
+  }
+  delete raw.rights
   for (const root of V14_STATE_ROOTS) delete raw[root]
   // P06A (charter W1): the V16 root is version-younger than everything this
   // twin models — a genuine V13 file never carried it, so the twin must not.

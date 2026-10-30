@@ -1,3 +1,5 @@
+import { continuedScriptOwner, buyerScriptDevelopment, buyerScriptConcepts, acceptContinuedScript, rewriteContinuedScript, linkCarriedScriptToProduction, returnCarriedScriptToReady, carriedScriptForProduction, carriedProductionAuthority, type QueuedCarriedValidation } from './continuedScripts.js'
+import { continuedReleaseOwner, cancelContinuedProduction, buyerOperatedProductions, buyerOperationsForAllWork, withBuyerOperations, publishBuyerOperationsAction } from './continuedWork.js'
 import { buildFilmParticipants } from './filmParticipants.js'
 import { liveRetirementWritingAuthority, prepareLiveWritingContext, type LiveWritingContext } from './liveRetirementWriting.js'
 import { applyTechnologyAction, researchAfterEmploymentRelease, researchCandidates, RESEARCH_SCIENTISTS_PER_STUDIO, spelled } from './technology.js'
@@ -45,6 +47,7 @@ import { professionAtWeekIfKnown } from './professionTransitions.js'
 
 import {
   activeContract,
+  assignmentBlockedTalentIds,
   busyTalentIds,
   canAfford,
   economyEngaged,
@@ -61,6 +64,19 @@ import { computeForecast, type ForecastContext } from './forecast.js'
 import { forecastHistoryForOwner } from './industryCareer.js'
 import { allocateFoundingSignature, closeFoundingFund } from './foundingFunding.js'
 import { recordPlayerEmployment } from './industryEmployment.js'
+import { greenlightRightsRefusal, linkContinuationAtGreenlight, mintStoryPropertyAtGreenlight } from './rights.js'
+import { continuationReleaseAuthority } from './continuation.js'
+import { applyMintSubProperty, commitContinuation, prepareContinuation } from './continuationGreenlight.js'
+import { reservedCameoTalentIds, reservedGuestWeeks } from './cameo.js'
+import { applyCancelCameoBooking, cameoFeeRows, cancelExitedEmployeeBookings, commitCameoBookings, prepareCameoBookings, settleCameoCancellation } from './cameoBooking.js'
+import { acceptOffer, makeOffer, rejectOffer, withdrawOffer } from './assetSale.js'
+import { requestDiligence } from './dueDiligence.js'
+import { closeAbsorption } from './acquisition.js'
+import { submitEstateBid } from './estate.js'
+// ── P18 bounded first season: the commission verb and the season's slot holds ──
+import { commissionTvSeason } from './tvCommission.js'
+import { cancelTvSeason, settleTvObligations } from './tvSettlement.js'
+import { televisionOccupiedFacilitySlots } from './tvReaders.js'
 import { breakPromisesOnCancel, breakPromisesOnGreenlight, breakPromisesOnTermination, waivePromise } from './promises.js'
 import { applyTakeLoan, releaseRefusal } from './corporateConditionLive.js'
 import { assertOperatingPlayer } from './studioClosure.js'
@@ -299,14 +315,15 @@ function applyGreenlight(
   // own sink would stamp its rows into the log before the advance that freed the
   // slot had recorded a thing.
   injectedEvents?: StudioEventSink,
+  queuedCarriedValidation?:QueuedCarriedValidation,
 ): GameState {
   const p = prod.production
   const currentTick = state.market.tick
 
   const { concept, scriptProject } = requireGreenlightHeader({
     foundingOpen: state.founding !== null,
-    concepts: state.concepts,
-    development: state.scriptDevelopment,
+    concepts: buyerScriptConcepts(state),
+    development: buyerScriptDevelopment(state),
     casting: state.castingSessions,
   }, p, scriptProjectId)
 
@@ -346,6 +363,14 @@ function applyGreenlight(
   // writer reaches `engagedIds` only through a seat, and `requireCommissionableWriter`
   // applies the same one set on the writing side.
   assertGreenlightStaffingIdle(staffing.engagedIds, busyTalentIds(state))
+  // P17 Shape A (cameo contract §4): a seat holds from greenlight through release, so it may not consume any reserved
+  // guest week; a long assignment never silently swallows a previously reserved appearance.
+  const reservedGuests = reservedCameoTalentIds(state.cameos, currentTick)
+  for (const talentId of staffing.engagedIds) {
+    if (reservedGuests.has(talentId)) {
+      throw new Error(`applyActions: greenlight rejected — talent "${talentId}" holds a reserved guest appearance in week ${reservedGuestWeeks(state.cameos, talentId).join(', ')}, which a production seat would consume`)
+    }
+  }
   // P14C.2a (773 D9, obligations first): no seat is assigned that cannot release before
   // its holder's effective retirement week, and a finishing or retired person takes no
   // seat at all. The ONE commit both `greenlight` and `greenlightScriptProject` (front
@@ -369,6 +394,32 @@ function applyGreenlight(
   const id = predictProductionId(state)
   const startTick = currentTick
   const remainingTicks = TUNING.PRODUCTION_TICKS
+  // P16 r2 (review F23/F62): the rights law of this greenlight is read BEFORE anything is written — before the
+  // operations allocator appends a `phaseEntered` row to an injected tick sink — so a refusal leaves no trace.
+  if (state.hollywood) {
+    const rightsRefusal = greenlightRightsRefusal(state, state.hollywood.playerStudioId, p.conceptId, currentTick, id)
+    if (rightsRefusal !== null) throw new Error(`applyActions: greenlight rejected — ${rightsRefusal}`)
+  }
+  // P17: the continuation quote (legality, the live P16 rights read, the locked read) and the P16 link law run here,
+  // BEFORE any write, beside the greenlight's own rights law; a refusal throws and leaves state untouched. Absent ⇒ the
+  // predecessor path, byte for byte.
+  const continuation = prod.continuation === undefined ? null : prepareContinuation(state, prod.continuation, {
+    productionId: id,
+    conceptId: p.conceptId,
+    proposed: { writerId: p.writerId, directorId: p.directorId, cast: { ...p.cast } },
+  })
+  // P17 Shape A: the featured bookings' law (capability, the per-person matrix on the real employment, availability and
+  // lifecycle owners, the accepted fee) runs here too, before any write. Absent ⇒ the predecessor path, byte for byte.
+  const cameoPrep = prepareCameoBookings(state, prod.cameos, {
+    productionId: id,
+    creditedIds: new Set([p.writerId, p.directorId, ...CAST_SLOTS.map((slot) => p.cast[slot]), ...p.craftIds]),
+    cast,
+    concept,
+    shapeEffects: resolveShape(p.shape),
+    promise: p.promise,
+    shape: p.shape,
+    carriedScreenplay: scriptProject !== undefined && Boolean(continuedScriptOwner(state, scriptProject.id)),
+  })
 
   // Assemble the §5 ReceptionInputs the forecast reads at greenlight (M1/B16).
   const inp: ReceptionInputs = {
@@ -393,6 +444,10 @@ function applyGreenlight(
           },
         }
       : {}),
+    // P17 (rev02 §5.3): the one continuation input, read once here and locked with the forecast snapshot.
+    ...(continuation === null ? {} : { inheritedAwareness01: continuation.quote.inheritedAwareness01 }),
+    // P17 Shape A: the committed guests' publicity and PERCEIVED execution, locked with the snapshot (absent ⇒ none).
+    ...cameoPrep.inputs,
   }
 
   // forecastSnapshot — computed at greenlight (M1). computeForecast draws its ONE
@@ -463,13 +518,17 @@ function applyGreenlight(
         note: 'freelancer one-film fee',
       })
     }
+    // P17 Shape A: each booking's fee is charged ONCE here as a direct production cost (cameo contract §4).
+    ledgerAdds.push(...cameoFeeRows(cameoPrep, currentTick))
     // D-12 solvency gate — a voluntary greenlight (production + marketing + freelancer fees)
     // may not leave cash below zero. Unavoidable weekly costs may still go negative later.
-    const aff = canAfford(state, productionCost + freelancerFees)
+    const aff = canAfford(state, productionCost + freelancerFees + cameoPrep.fees)
     if (!aff.ok) {
       throw new Error(`applyActions: greenlight rejected — ${aff.reason} (D-12 solvency gate)`)
     }
     cash = state.studio.cash - productionCost - freelancerFees
+    // the fee rows fold after the freelancer rows, one subtraction each (L-03)
+    for (const fact of cameoPrep.facts) cash -= fact.fee
     ledgerAdds.unshift({
       week: currentTick,
       kind: 'production',
@@ -524,7 +583,7 @@ function applyGreenlight(
     ...(participants ? { participants } : {}),
   }
 
-  const next: GameState = {
+  const withProduction: GameState = {
     ...state,
     studio: {
       ...state.studio,
@@ -533,6 +592,8 @@ function applyGreenlight(
     },
     ledger: [...state.ledger, ...ledgerAdds],
   }
+  // P17: the lineage edge and the featured bookings commit atomically with the production.
+  const next = commitCameoBookings(continuation === null ? withProduction : commitContinuation(withProduction, continuation, id), cameoPrep)
   const greenlightEvents = injectedEvents ?? studioEventSinkFor(state)
   const withOperations =
     state.operations.mode === 'managed'
@@ -542,8 +603,10 @@ function applyGreenlight(
             state.operations,
             production,
             new Set([
-              ...scriptOccupiedFacilitySlots(state.scriptDevelopment),
+              ...scriptOccupiedFacilitySlots(buyerScriptDevelopment(state)),
               ...castingOccupiedFacilitySlots(state.castingSessions),
+              // P18: the slots a live television season holds.
+              ...televisionOccupiedFacilitySlots(state.television),
               // C2a-M2: the scenery crews the sets root is holding. A greenlight
               // opens in Development and takes no scenery slot, so this changes
               // nothing today — it is passed because the allocator's occupancy
@@ -554,6 +617,7 @@ function applyGreenlight(
                 state.operations,
                 state.scriptDevelopment,
                 state.castingSessions,
+                state.television,
               ),
             ]),
             greenlightEvents,
@@ -588,6 +652,8 @@ function applyGreenlight(
       : next
   const linked = scriptProject === undefined
     ? withOperations
+    : continuedScriptOwner(state,scriptProject.id)
+      ? linkCarriedScriptToProduction(withOperations,scriptProject.id,production)
     : {
         ...withOperations,
         scriptDevelopment: linkScriptProjectToProduction(
@@ -601,9 +667,21 @@ function applyGreenlight(
   // production (direct and queue-admitted alike, 1312-F note 3). Only a script-project
   // greenlight can carry a casting session; the studio guard is `applyCancel`'s.
   const playerStudioId = settled.hollywood?.playerStudioId
-  return scriptProject === undefined || playerStudioId === undefined
+  const competed = scriptProject === undefined || playerStudioId === undefined
     ? settled
     : recordCastingCompetition(settled, playerStudioId, production, scriptProject.id)
+  // P16A (Save46): the accepted original greenlight is the story-property mint boundary, atomic
+  // with the action — one property and one R1 genesis, or a work link onto the concept's existing
+  // property when its remake authority greenlights it again (refused above, before any write, otherwise).
+  if (playerStudioId === undefined) return competed
+  // P17 (review P17-01; P16 contract §3 "a licensed continuation links to the existing parent and does not mint an
+  // unencumbered R1"): a continuation under its own concept is LINKED to the parent property for the use it exercises,
+  // so its release is titled under that parent and its producer gains no clean title. P16's own writer, pre-checked above.
+  if (continuation !== null && continuation.link) {
+    return linkContinuationAtGreenlight(competed, { studioId: playerStudioId, production, parentPropertyId: continuation.quote.storyPropertyId, use: continuation.quote.use, week: state.market.tick })
+  }
+  return mintStoryPropertyAtGreenlight(competed, { studioId: playerStudioId, production, week: state.market.tick },
+    scriptProject!==undefined&&continuedScriptOwner(competed,scriptProject.id)?queuedCarriedValidation?.(competed):undefined)
 }
 
 // ── cancel (M15) ─────────────────────────────────────────────────────────────
@@ -611,6 +689,7 @@ function applyGreenlight(
 // refund (cash unchanged), no standing effect.
 function applyCancel(state: GameState, action: Action & { kind: 'cancel' }): GameState {
   const idx = state.studio.activeProductions.findIndex((pr) => pr.id === action.productionId)
+  if (idx === -1 && continuedReleaseOwner(state,action.productionId)) return cancelContinuedProduction(state,action.productionId)
   if (idx === -1) {
     throw new Error(
       `applyActions: cancel references productionId "${action.productionId}" not in activeProductions`,
@@ -628,7 +707,7 @@ function applyCancel(state: GameState, action: Action & { kind: 'cancel' }): Gam
   }
   const scriptDevelopment =
     state.scriptDevelopment.mode === 'managed'
-      ? returnScriptProjectToReady(state.scriptDevelopment, action.productionId)
+      ? (carriedScriptForProduction(state,action.productionId)?state.scriptDevelopment:returnScriptProjectToReady(state.scriptDevelopment, action.productionId))
       : state.scriptDevelopment
   const withoutProduction: GameState = {
     ...state,
@@ -642,6 +721,9 @@ function applyCancel(state: GameState, action: Action & { kind: 'cancel' }): Gam
     technology: discardUnfilmedProductionTechnology(state,action.productionId),
     scriptDevelopment,
   }
+  // P17 Shape A (cameo contract §4): every UNPERFORMED booking on the picture closes once with its linked refund of
+  // fee − retained; completed work and its earned fee are preserved.
+  const settledCameos = settleCameoCancellation(withoutProduction, (b) => b.productionId === action.productionId, state.market.tick, 'productionCancelled')
   // P14B.1 (6) / companion §4.4 / plan :243-252 / record 26 §2: BROKEN is recorded
   // IMMEDIATELY iff the SEPARATE target-specific physical proof finds no path for the
   // REMAINING count on the post-cancel state, in the promise's class mask. A joint
@@ -650,10 +732,11 @@ function applyCancel(state: GameState, action: Action & { kind: 'cancel' }): Gam
   // P14B.5 (2c): the relationship driver fires on exactly the COMPLEMENTARY
   // condition — a first take EXISTS for the picture — beside the promise seam,
   // which is untouched; a picture without a take mints nothing here.
+  const returned = returnCarriedScriptToReady(settledCameos,cancelled)
   const playerStudioId = state.hollywood?.playerStudioId
   return playerStudioId === undefined
-    ? withoutProduction
-    : recordCancelledAfterFirstTake(breakPromisesOnCancel(withoutProduction, playerStudioId, cancelled), playerStudioId, cancelled)
+    ? returned
+    : recordCancelledAfterFirstTake(breakPromisesOnCancel(returned, playerStudioId, cancelled), playerStudioId, cancelled)
 }
 
 // ── createTalent (§10 / D-9.14 creation budget) ──────────────────────────────
@@ -1635,7 +1718,7 @@ function requireActiveProductionForOperations(
   productionId: string,
   actionName: string,
 ): Production {
-  const production = state.studio.activeProductions.find((candidate) => candidate.id === productionId)
+  const production = buyerOperatedProductions(state).find((candidate) => candidate.id === productionId)
   if (production === undefined) {
     throw new Error(
       `applyActions: ${actionName} references productionId "${productionId}" not in activeProductions`,
@@ -1787,6 +1870,7 @@ export function commitQueuedIntent(
   week: number,
   events: StudioEventSink,
   writingContext: LiveWritingContext = prepareLiveWritingContext(state),
+  queuedCarriedValidation?:QueuedCarriedValidation,
 ): QueuedIntentOutcome {
   try {
     switch (entry.kind) {
@@ -1798,6 +1882,7 @@ export function commitQueuedIntent(
             { kind: 'commissionScript', project: entry.payload }, writingContext,
             week,
             false,
+            queuedCarriedValidation,
           ),
         }
       case 'commissionOriginalScreenplay':
@@ -1808,6 +1893,7 @@ export function commitQueuedIntent(
             { kind: 'commissionOriginalScreenplay', screenplay: entry.payload }, writingContext,
             week,
             false,
+            queuedCarriedValidation,
           ),
         }
       case 'startCastingSession':
@@ -1818,6 +1904,7 @@ export function commitQueuedIntent(
             { kind: 'startCastingSession', session: entry.payload }, writingContext,
             week,
             false,
+            queuedCarriedValidation,
           ),
         }
       case 'greenlightScriptProject':
@@ -1829,6 +1916,7 @@ export function commitQueuedIntent(
             week,
             false,
             events,
+            queuedCarriedValidation,
           ),
         }
     }
@@ -1850,7 +1938,7 @@ function applyAssignShootingDirector(
     action.productionId,
     'assignShootingDirector',
   )
-  const operations = assignShootingDirector(state.operations, production, action.directorId)
+  const operations = assignShootingDirector(buyerOperationsForAllWork(state), production, action.directorId)
   // P05A W1 — DUE-AT-CALL SETTLEMENT. `calledWeek` is the stage-acquisition week,
   // and the Director call can happen after this week's arrival step has already
   // run, so the derived trip may be due the instant the blocker is created. That
@@ -1859,7 +1947,7 @@ function applyAssignShootingDirector(
   // `sceneryArrived` row — instead of exposing a one-week acknowledgment click.
   // Only this action's own production is examined; every other workflow belongs
   // to the tick's next-boundary step.
-  const intermediate: GameState = { ...state, operations }
+  const intermediate = withBuyerOperations(state, operations)
   const events = studioEventSinkFor(state)
   const settled = arriveDueScenery(
     operations,
@@ -1868,12 +1956,11 @@ function applyAssignShootingDirector(
       sceneryLoadInDecision(intermediate, workflow, state.market.tick).kind === 'arrived-pending',
     events,
   )
-  if (settled === operations) return intermediate
-  return {
-    ...state,
-    operations: settled,
+  if (settled === operations) return publishBuyerOperationsAction(state,intermediate)
+  return publishBuyerOperationsAction(state,{
+    ...withBuyerOperations(state,settled),
     studioEvents: commitStudioEvents(state.studioEvents, events, state.market.tick),
-  }
+  })
 }
 
 function applyClearSceneryLoadIn(
@@ -1892,7 +1979,7 @@ function applyClearSceneryLoadIn(
   // fail closed, never guessed. Only the explicitly grandfathered picture
   // (`requiresSetBinding === false`, minted by the V14 migration) keeps the
   // click it has always had.
-  const inFlight = state.operations.workflows.find(
+  const inFlight = buyerOperationsForAllWork(state).workflows.find(
     (workflow) => workflow.productionId === action.productionId,
   )
   if (inFlight !== undefined) {
@@ -1914,11 +2001,10 @@ function applyClearSceneryLoadIn(
     }
   }
   const events = studioEventSinkFor(state)
-  return {
-    ...state,
-    operations: clearSceneryLoadIn(state.operations, action.productionId, events),
+  return publishBuyerOperationsAction(state,{
+    ...withBuyerOperations(state,clearSceneryLoadIn(buyerOperationsForAllWork(state), action.productionId, events)),
     studioEvents: commitStudioEvents(state.studioEvents, events, state.market.tick),
-  }
+  })
 }
 
 function applyScheduleShootingTake(
@@ -1926,19 +2012,18 @@ function applyScheduleShootingTake(
   action: Action & { kind: 'scheduleShootingTake' },
 ): GameState {
   requireActiveProductionForOperations(state, action.productionId, 'scheduleShootingTake')
-  return {
-    ...state,
-    operations: scheduleShootingTake(state.operations, action.productionId),
-  }
+  return publishBuyerOperationsAction(state,withBuyerOperations(state,scheduleShootingTake(buyerOperationsForAllWork(state), action.productionId)))
 }
 
 // ── Script Projects V1 actions ───────────────────────────────────────────────
-function assertCurrentScriptState(state: GameState, writingContext: LiveWritingContext): GameState {
+function assertCurrentScriptState(state: GameState, writingContext: LiveWritingContext, queuedCarriedValidation?:QueuedCarriedValidation): GameState {
+  const carried=queuedCarriedValidation?queuedCarriedValidation(state):carriedProductionAuthority(state)
   assertScriptDevelopmentInvariants(state.scriptDevelopment, {
     studioId: state.hollywood?.playerStudioId,
     retirementWriting: liveRetirementWritingAuthority(state, writingContext),
     currentWeek: state.market.tick,
-    concepts: state.concepts,
+    concepts: [...state.concepts,...(carried?.concepts??[])],
+    ...(carried===undefined?{}:{current49ProductionScripts:carried.productionScripts}),
     talent: state.talent,
     contracts: state.contracts,
     operations: state.operations,
@@ -2030,6 +2115,11 @@ function requireWriterTermCoversDraft(
   dueWeek: number,
   verb: string,
 ): void {
+  // P17 Shape A (cameo contract §4): every writing interval [week, dueWeek) passes here, so this is the one place a
+  // draft may not consume the writer's reserved guest week; an unrelated reserved week stays usable.
+  if (reservedCameoTalentIds(state.cameos, week, dueWeek).has(writerId)) {
+    throw new Error(`applyActions: ${verb} rejected — writer "${writerId}" holds a reserved guest appearance inside weeks ${week}–${dueWeek - 1}, which this writing would cover`)
+  }
   const contract = activeContract(state, writerId, week)
   if (contract === undefined || dueWeek <= contract.endWeekExclusive) return
   const retirement = retirementRecordFor(state, writerId)
@@ -2081,6 +2171,7 @@ function applyCommissionScript(
   writingContext: LiveWritingContext,
   week: number = state.market.tick,
   allowQueue = true,
+  queuedCarriedValidation?:QueuedCarriedValidation,
 ): GameState {
   requireCommissionableWriter(state, action.project.writerId, 'commissionScript')
   // Adapting a premise the market already owns is the fast path, and it is the
@@ -2115,7 +2206,7 @@ function applyCommissionScript(
         state.operations,
         action.project,
         week,
-        castingOccupiedFacilitySlots(state.castingSessions),
+        new Set([...castingOccupiedFacilitySlots(state.castingSessions),...scriptOccupiedFacilitySlots({...state.scriptDevelopment,projects:buyerScriptDevelopment(state).projects.filter(p=>!state.scriptDevelopment.projects.some(own=>own.id===p.id))}),...televisionOccupiedFacilitySlots(state.television)]),
         poolDraftWeeks,
       )
       return assertCurrentScreenplayState(
@@ -2136,7 +2227,7 @@ function applyCommissionScript(
             }),
             state.originalScreenplays.nextOrdinal,
           ),
-        }, writingContext),
+        }, writingContext, queuedCarriedValidation),
       )
     },
     (queue) => queueCommissionScript(queue, action.project, week),
@@ -2166,6 +2257,7 @@ function applyCommissionOriginalScreenplay(
   writingContext: LiveWritingContext,
   week: number = state.market.tick,
   allowQueue = true,
+  queuedCarriedValidation?:QueuedCarriedValidation,
 ): GameState {
   const payload = action.screenplay
   requireCommissionableWriter(state, payload.writerId, 'commissionOriginalScreenplay')
@@ -2230,7 +2322,7 @@ function applyCommissionOriginalScreenplay(
       promise: payload.promise,
     },
     week,
-    castingOccupiedFacilitySlots(state.castingSessions),
+    new Set([...castingOccupiedFacilitySlots(state.castingSessions),...scriptOccupiedFacilitySlots({...state.scriptDevelopment,projects:buyerScriptDevelopment(state).projects.filter(p=>!state.scriptDevelopment.projects.some(own=>own.id===p.id))}),...televisionOccupiedFacilitySlots(state.television)]),
     draftWeeks,
   )
 
@@ -2255,7 +2347,7 @@ function applyCommissionOriginalScreenplay(
         }),
         ordinal + 1,
       ),
-    }, writingContext),
+    }, writingContext, queuedCarriedValidation),
   )
 }
 
@@ -2364,6 +2456,7 @@ function applyRequestScriptRewrite(
   action: Action & { kind: 'requestScriptRewrite' },
   writingContext: LiveWritingContext,
 ): GameState {
+  if(continuedScriptOwner(state,action.projectId))return rewriteContinuedScript(state,action.projectId,writingContext)
   const project = state.scriptDevelopment.projects.find(
     (candidate) => candidate.id === action.projectId,
   )
@@ -2377,7 +2470,8 @@ function applyRequestScriptRewrite(
       `applyActions: requestScriptRewrite rejected — writer "${project.writerId}" is not currently studio-contracted`,
     )
   }
-  if (busyTalentIds(state).has(project.writerId)) {
+  // P17 Shape A: a rewrite is due next week, so only a reserved guest week inside [week, week + 1) overlaps it.
+  if (assignmentBlockedTalentIds(state, state.market.tick, state.market.tick + 1).has(project.writerId)) {
     throw new Error(
       `applyActions: requestScriptRewrite rejected — writer "${project.writerId}" already has an active assignment`,
     )
@@ -2389,7 +2483,7 @@ function applyRequestScriptRewrite(
       state.operations,
       action.projectId,
       state.market.tick,
-      castingOccupiedFacilitySlots(state.castingSessions),
+      new Set([...castingOccupiedFacilitySlots(state.castingSessions),...scriptOccupiedFacilitySlots({...state.scriptDevelopment,projects:buyerScriptDevelopment(state).projects.filter(p=>!state.scriptDevelopment.projects.some(own=>own.id===p.id))}),...televisionOccupiedFacilitySlots(state.television)]),
     ),
   }, writingContext)
 }
@@ -2399,6 +2493,7 @@ function applyAcceptScript(
   action: Action & { kind: 'acceptScript' },
   writingContext: LiveWritingContext,
 ): GameState {
+  if(continuedScriptOwner(state,action.projectId))return acceptContinuedScript(state,action.projectId,writingContext)
   return assertCurrentScriptState({
     ...state,
     scriptDevelopment: acceptScriptProject(
@@ -2415,8 +2510,9 @@ function applyGreenlightScriptProject(
   week: number = state.market.tick,
   allowQueue = true,
   injectedEvents?: StudioEventSink,
+  queuedCarriedValidation?:QueuedCarriedValidation,
 ): GameState {
-  const project = state.scriptDevelopment.projects.find(
+  const project = buyerScriptDevelopment(state).projects.find(
     (candidate) => candidate.id === action.production.projectId,
   )
   if (project === undefined) {
@@ -2452,13 +2548,25 @@ function applyGreenlightScriptProject(
       `applyActions: greenlightScriptProject rejected — screenplay project "${action.production.projectId}" already has a greenlight waiting in the production queue`,
     )
   }
-  return admitOrQueue(
-    state,
-    () => applyGreenlightScriptProjectNow(state, action, writingContext, project, injectedEvents),
-    (queue) =>
-      queueGreenlightScriptProject(queue, action.production.projectId, action.production, week),
-    allowQueue,
-  )
+  // P17: a continuation request is quoted against THIS week's grant, and a featured booking against this week's quote,
+  // so either starts now or refuses; it never waits in the queue, whose frozen payload leaf carries no P17 field.
+  const continuationBearing = action.continuation !== undefined || (action.cameos?.length ?? 0) > 0
+  try {
+    return admitOrQueue(
+      state,
+      () => applyGreenlightScriptProjectNow(state, action, writingContext, project, injectedEvents, queuedCarriedValidation),
+      (queue) =>
+        queueGreenlightScriptProject(queue, action.production.projectId, action.production, week),
+      allowQueue && !continuationBearing,
+    )
+  } catch (error) {
+    if (continuationBearing && allowQueue && error instanceof QueueableCapacityRefusal && queueingActive(state.operations)) {
+      throw new Error(
+        `applyActions: greenlightScriptProject rejected — ${error.message}; a continuation or featured-guest greenlight cannot wait in the queue (its quote is bound to week ${week}): greenlight it when capacity is free`,
+      )
+    }
+    throw error
+  }
 }
 
 /**
@@ -2473,6 +2581,7 @@ function applyGreenlightScriptProjectNow(
   writingContext: LiveWritingContext,
   project: ScriptProject,
   injectedEvents?: StudioEventSink,
+  queuedCarriedValidation?:QueuedCarriedValidation,
 ): GameState {
   const next = applyGreenlight(
     state,
@@ -2498,11 +2607,15 @@ function applyGreenlightScriptProjectNow(
         cast: action.production.cast,
         budget: action.production.budget,
       },
+      // P17: the request rides the action into the one greenlight verb (absent ⇒ the predecessor path, byte for byte)
+      ...(action.continuation === undefined ? {} : { continuation: action.continuation }),
+      ...(action.cameos === undefined ? {} : { cameos: action.cameos }),
     },
     project.id,
     injectedEvents,
+    queuedCarriedValidation,
   )
-  return assertCurrentScriptState(next, writingContext)
+  return assertCurrentScriptState(next, writingContext, queuedCarriedValidation)
 }
 
 // ── Casting Sessions V1 actions ─────────────────────────────────────────────
@@ -2543,6 +2656,7 @@ function applyStartCastingSession(
   writingContext: LiveWritingContext,
   week: number = state.market.tick,
   allowQueue = true,
+  queuedCarriedValidation?:QueuedCarriedValidation,
 ): GameState {
   if (state.founding !== null) {
     throw new Error(
@@ -2576,9 +2690,11 @@ function applyStartCastingSession(
             talent: state.talent,
             assignableTalentIds,
             busyTalentIds: busyTalentIds(state),
+            // P18: the slots a live television season holds.
+            externallyOccupiedSlots: televisionOccupiedFacilitySlots(state.television),
           },
         ),
-      }, writingContext),
+      }, writingContext, queuedCarriedValidation),
     (queue) => queueStartCastingSession(queue, action.session, week),
     allowQueue,
   )
@@ -2942,14 +3058,30 @@ function applyCommitPictureToRelease(
   if (refusal !== null) {
     throw new Error(`applyActions: commitPictureToRelease rejected — ${refusal}`)
   }
+  // P17 (charter r2 "at ... release ... request P16's live rights"): committing a continuation to release exercises its
+  // R3 use, so the live grant is read again here for the producing studio.
+  const producer = state.hollywood?.playerStudioId
+  const rights = producer === undefined ? null : continuationReleaseAuthority(state, action.productionId, producer)
+  if (rights !== null && rights.refusal !== null) {
+    throw new Error(`applyActions: commitPictureToRelease rejected — ${rights.refusal}`)
+  }
   const week = state.market.tick
   const commitEvents = studioEventSinkFor(state)
   commitEvents.append({ kind: 'releaseCommitted', productionId: action.productionId }, week)
+  const continued=continuedReleaseOwner(state,action.productionId)
+  if(continued){const h=state.hollywood!;return {...state,hollywood:{...h,businesses:h.businesses.map(b=>b.studioId===continued.business.studioId?{...b,releaseAuthority:withReleaseCommitment(b.releaseAuthority,action.productionId,week)}:b)},studioEvents:commitStudioEvents(state.studioEvents,commitEvents,week)}}
   return {
     ...state,
     releaseAuthority: withReleaseCommitment(state.releaseAuthority, action.productionId, week),
     studioEvents: commitStudioEvents(state.studioEvents, commitEvents, week),
   }
+}
+
+/** P16: a rights verb needs the player's studio identity; a world without an industry has none. */
+function requirePlayerStudioId(state: GameState): string {
+  const id = state.hollywood?.playerStudioId
+  if (id === undefined) throw new Error('applyActions: rights verbs need an industry (hollywood is null)')
+  return id
 }
 
 export function applyActions(state: GameState, actions: Action[]): GameState {
@@ -3139,6 +3271,14 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
       case 'commitPictureToRelease':
         next = applyCommitPictureToRelease(next, action)
         break
+      // P17: the authored SubProperty hook under the parent's live spin-off authority.
+      case 'mintSubProperty':
+        next = applyMintSubProperty(next, action)
+        break
+      // P17 Shape A: the explicit cancellation of one unperformed featured booking.
+      case 'cancelCameoBooking':
+        next = applyCancelCameoBooking(next, action)
+        break
       // P14B.7: the waiver is the engine's own verb; the dispatch adds no rule
       // of its own, so the action and the direct call agree exactly.
       case 'waivePromise':
@@ -3153,6 +3293,40 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
       case 'setPhysicalPlanAdmission':
         next = applyPhysicalPlanAction(next, action)
         break
+      // P16 (Save46): the player's rights verbs. Each is the engine's own symmetric function with the
+      // player as the acting studio; a refusal throws before anything is written.
+      case 'makeRightsOffer':
+        next = makeOffer(next, { offerorId: requirePlayerStudioId(next), ...action.offer }, next.market.tick).state
+        break
+      case 'withdrawRightsOffer':
+        next = withdrawOffer(next, action.offerId, requirePlayerStudioId(next), next.market.tick)
+        break
+      case 'acceptRightsOffer':
+        next = acceptOffer(next, action.offerId, requirePlayerStudioId(next), next.market.tick)
+        break
+      case 'rejectRightsOffer':
+        next = rejectOffer(next, action.offerId, requirePlayerStudioId(next), next.market.tick)
+        break
+      case 'requestDueDiligence':
+        next = requestDiligence(next, { recipientId: requirePlayerStudioId(next), target: action.target, scope: action.scope }, next.market.tick).state
+        break
+      case 'absorbStudio':
+        next = closeAbsorption(next, { ...action.absorption, buyerId: requirePlayerStudioId(next) }, next.market.tick)
+        break
+      case 'submitEstateBid':
+        next = submitEstateBid(next, { estateId: action.estateId, lotId: action.lotId, bidderId: requirePlayerStudioId(next), amount: action.amount }, next.market.tick).state
+        break
+      // P18 (contract §3): the engine's own commitment; the dispatch adds no rule of its own.
+      case 'commissionTvSeason':
+        next = commissionTvSeason(next, action.commission)
+        break
+      // Sprint 13 (contract §7): the engine's own settlement law; the dispatch adds no rule of its own.
+      case 'cancelTvSeason':
+        next = cancelTvSeason(next, action.seasonId)
+        break
+      case 'settleTvObligations':
+        next = settleTvObligations(next, { agreementId: action.agreementId, expectedRemaining: action.expectedRemaining, amount: action.amount })
+        break
       default: {
         // Exhaustiveness guard: an unknown action kind is a loud abort (M16).
         const _exhaustive: never = action
@@ -3161,6 +3335,9 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
     }
     next = recordPlayerEmployment(next)
   }
+  // P17 Shape A (cameo contract §4 employment exit): an own-employee appearance whose employment this batch ended or
+  // transferred is cancelled once with the standard refund. No booking, no work.
+  next = cancelExitedEmployeeBookings(next, next.market.tick)
 
   // FAIL-CLOSED at the action boundary (charter §3.2), the twin of the tick
   // boundary's check. Greenlight, commission, and startCastingSession each

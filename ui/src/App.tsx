@@ -102,9 +102,12 @@ import { StudioCalendar } from './screens/StudioCalendar.tsx'
 import type { StudioCalendarRoute } from './screens/StudioCalendar.tsx'
 import { StudioDevelopment } from './screens/StudioDevelopment.tsx'
 import { ReleaseResult } from './screens/ReleaseResult.tsx'
+import { cancelCameoBookingAction } from './engine/continuation.ts'
+import { cancelTvSeasonAction, commissionTvSeasonAction, settleTvObligationsAction, type CommissionTvSeasonRequest } from './engine/television.ts'
 import { Autopsy } from './screens/Autopsy.tsx'
 import { TalentCreator } from './screens/TalentCreator.tsx'
 import { TalentHub } from './screens/TalentHub.tsx'
+import { RightsDesk } from './screens/RightsDesk.tsx'
 import { Saves } from './screens/Saves.tsx'
 import { FoundingScreen } from './screens/FoundingScreen.tsx'
 import { StudioRoster } from './screens/StudioRoster.tsx'
@@ -362,6 +365,8 @@ type Screen =
   | {
       kind: 'release'
       preTick: GameState
+      /** P17: the state this release tick produced, paired with preTick (never the live state). */
+      postTick: GameState
       postTickStanding: Standing
       released: FilmResult[]
       development: ReleaseDevelopment[]
@@ -383,6 +388,7 @@ type Screen =
       returnContext: StudioReturnContext
       release?: {
         preTick: GameState
+        postTick: GameState
         postTickStanding: Standing
         released: FilmResult[]
         development: ReleaseDevelopment[]
@@ -415,6 +421,7 @@ type Screen =
       returnContext: StudioReturnContext
     }
   | { kind: 'hub'; returnContext: StudioReturnContext }
+  | { kind: 'rightsDesk'; returnContext: StudioReturnContext } // ASTRA Sprint 18: P16 transactions
   | { kind: 'saves'; returnContext: StudioReturnContext }
   | { kind: 'recap'; returnContext: StudioReturnContext } // D-15: read-only Studio Run Recap
   | { kind: 'lot'; entryFocus: OrdinaryLotEntryFocus }
@@ -3022,6 +3029,7 @@ export function App() {
     }
     const release = {
       preTick,
+      postTick: next,
       postTickStanding: next.studio.standing,
       released,
       development,
@@ -3166,6 +3174,35 @@ export function App() {
     return result
   }
 
+  // P17: the one explicit cancellation of a reserved featured appearance. A refusal returns to the bookings card,
+  // which voices it through the same RefusalNotice seam Assembly uses (never a raw engine notice).
+  function handleCancelCameoBooking(bookingId: string) {
+    if (!state) return undefined
+    if (latestStateRef.current !== state) return undefined
+    const result = cancelCameoBookingAction(state, bookingId)
+    if (result.ok) replaceAuthoritativeState(result.next)
+    else punctuateRefusal(state.market.tick)
+    return result
+  }
+
+  // P18: the season verbs. Each refusal returns to the surface that asked (the Assembly panel or the Dashboard season
+  // card), which shows the core's sentence; an accepted commission returns to the studio, where the season row lives.
+  function runSeasonAction(run: (current: GameState) => ActionOutcome, after?: () => void) {
+    if (!state) return undefined
+    if (latestStateRef.current !== state) return undefined
+    const result = run(state)
+    if (result.ok) {
+      replaceAuthoritativeState(result.next)
+      after?.()
+    } else punctuateRefusal(state.market.tick)
+    return result
+  }
+  const handleCommissionTvSeason = (request: CommissionTvSeasonRequest, done: () => void) =>
+    runSeasonAction((current) => commissionTvSeasonAction(current, request), done)
+  const handleCancelTvSeason = (seasonId: string) => runSeasonAction((current) => cancelTvSeasonAction(current, seasonId))
+  const handleSettleTvObligations = (agreementId: string, expectedRemaining: number, amount: number) =>
+    runSeasonAction((current) => settleTvObligationsAction(current, agreementId, expectedRemaining, amount))
+
   function handleProductionCommand(
     command: ProductionCommandView,
     source: StudioActionSource = 'supporting-dashboard',
@@ -3228,6 +3265,7 @@ export function App() {
       const development = buildReleaseDevelopment(result.preTick, result.next, result.released)
       const release = {
         preTick: result.preTick,
+        postTick: result.next,
         postTickStanding: result.next.studio.standing,
         released: result.released,
         development,
@@ -3375,6 +3413,7 @@ export function App() {
       )
       const release = {
         preTick: result.preTick,
+        postTick: result.next,
         postTickStanding: result.next.studio.standing,
         released: result.released,
         development,
@@ -4679,6 +4718,7 @@ export function App() {
             })
           }
           onOpenHub={() => setScreen({ kind: 'hub', returnContext: dashboardDeepReturnContext })}
+          {...(state.hollywood !== null ? { onOpenRightsDesk: () => setScreen({ kind: 'rightsDesk', returnContext: dashboardDeepReturnContext }) } : {})}
           onOpenRoster={() =>
             setScreen({ kind: 'roster', returnContext: dashboardDeepReturnContext })
           }
@@ -4718,6 +4758,9 @@ export function App() {
           onPublicize={handleDashboardPublicity}
           onProductionCommand={handleProductionCommand}
           onCommitPictureToRelease={handleCommitPictureToRelease}
+          onCancelCameoBooking={handleCancelCameoBooking}
+          onCancelTvSeason={handleCancelTvSeason}
+          onSettleTvObligations={handleSettleTvObligations}
           {...(screen.focusProductionId ? { focusProductionId: screen.focusProductionId } : {})}
           {...(screen.focusRunId ? { focusRunId: screen.focusRunId } : {})}
           {...(screen.focusSection ? { focusSection: screen.focusSection } : {})}
@@ -4838,12 +4881,15 @@ export function App() {
             replaceAuthoritativeState(next)
           }}
           onOpenProfile={openTalentProfile}
+          onCommissionTvSeason={(request) =>
+            handleCommissionTvSeason(request, () => returnToStudioContext(screen.returnContext))}
         />
       )}
 
       {screen.kind === 'release' && (
         <ReleaseResult
           preTick={screen.preTick}
+          postTick={screen.postTick}
           postTickStanding={screen.postTickStanding}
           released={screen.released}
           constructionCompletion={screen.constructionCompletion}
@@ -4941,6 +4987,16 @@ export function App() {
         <TalentHub
           state={state}
           onBack={() => returnToStudioContext(screen.returnContext)}
+        />
+      )}
+
+      {screen.kind === 'rightsDesk' && (
+        // ASTRA Sprint 18: every verb runs through the same guarded path as the season verbs (an accepted action
+        // replaces the authoritative state; a refusal punctuates and returns to the desk, which shows the sentence).
+        <RightsDesk
+          state={state}
+          onBack={() => returnToStudioContext(screen.returnContext)}
+          act={runSeasonAction}
         />
       )}
 

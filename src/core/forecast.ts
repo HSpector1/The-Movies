@@ -75,7 +75,9 @@ export type DeterministicCore = {
   budgetAdequacy: number
 }
 
-function computeDeterministicCore(inp: ForecastInputs, engaged = false): DeterministicCore {
+/** Fresh budget-independent scalar reads for this exact concept, talent, shape and final promise.
+ * Internal reuse may vary only budget; no value is retained across search packages or calls. */
+export function forecastSkills(inp: ForecastInputs) {
   // §5.1 craft — D-9.5: the identical FOUR reads, but use = 'perceived' (forecast
   // reads perceived; reception reads actual). Structure downstream unchanged.
   // RULING C (2026-07-26): the shape being greenlit (`inp.shape`, the raw FilmShape)
@@ -128,8 +130,16 @@ function computeDeterministicCore(inp: ForecastInputs, engaged = false): Determi
     castDen += CAST_WEIGHT[slot]
     fitNum += CAST_WEIGHT[slot] * fit
   }
-  const castExecution = castNum / castDen
+  // Principal-only role fit (cameo contract §3 "do not modify the weights of the three principals"): read before
+  // any guest term, so the persisted `roleFit` causal factor stays the principals' alone.
   const castWeightedRoleFit = fitNum / castDen
+  // P17 Shape A: each committed guest's PERCEIVED support-fit execution at the cameo weight, the same term reception
+  // applies to the frozen actual at release (absent ⇒ no term, no FP change).
+  for (const execution of inp.cameoExecutions ?? []) {
+    castNum += TUNING.P17_CAMEO_CAST_WEIGHT * execution
+    castDen += TUNING.P17_CAMEO_CAST_WEIGHT
+  }
+  const castExecution = castNum / castDen
 
   const technical =
     inp.craftHires.length > 0
@@ -139,6 +149,12 @@ function computeDeterministicCore(inp: ForecastInputs, engaged = false): Determi
           ),
         )
       : 40
+
+  return { scriptStrength, directorExecution, castExecution, castWeightedRoleFit, technical }
+}
+
+function computeDeterministicCore(inp: ForecastInputs, engaged = false, preparedSkills?: ReturnType<typeof forecastSkills>): DeterministicCore {
+  const { scriptStrength, directorExecution, castExecution, castWeightedRoleFit, technical } = preparedSkills ?? forecastSkills(inp)
 
   const requiredNegative =
     inp.concept.baseNegativeCost * inp.shapeEffects.budgetDemandMultiplier * inp.era.costScale
@@ -266,8 +282,8 @@ export type ForecastCenters = {
   starDraw: number
 }
 
-export function forecastCenters(inp: ForecastInputs, saturateFame = false, engaged = false): ForecastCenters {
-  const core = computeDeterministicCore(inp, engaged)
+export function forecastCenters(inp: ForecastInputs, saturateFame = false, engaged = false, preparedSkills?: ReturnType<typeof forecastSkills>): ForecastCenters {
+  const core = computeDeterministicCore(inp, engaged, preparedSkills)
   const appeal = computeSegmentAppeal(inp, core.delivered, core.craft, core.timelinessContribution, saturateFame)
   return {
     centers: appeal.segmentAppeal,
@@ -389,8 +405,9 @@ export type ForecastContext = {
 // `saturateFame` = §7 fame Hill on opening reach; `engaged` = D-12 economy calibration (P2 gross
 // scale + awareness marketing). Distinct concerns, both true together in engaged play; separated so
 // fame-isolation tests can vary fame without the economy scale. Both default false (M0A byte-identical).
-export function computeForecast(inp: ForecastInputs, ctx: ForecastContext, saturateFame = false, engaged = false): Forecast {
-  const centers = forecastCenters(inp, saturateFame, engaged)
+// Internal reuse requires fresh centers for the same inputs and flags; only budget.marketing may differ.
+export function computeForecast(inp: ForecastInputs, ctx: ForecastContext, saturateFame = false, engaged = false, preparedCenters?: ForecastCenters): Forecast {
+  const centers = preparedCenters ?? forecastCenters(inp, saturateFame, engaged)
 
   // Confidence (film-level) — computed BEFORE the offset because sigma depends on it.
   const predicates = computeConfidencePredicates(
@@ -474,6 +491,13 @@ export function computeForecast(inp: ForecastInputs, ctx: ForecastContext, satur
     inp.shapeEffects,
     noisyOpening,
     engaged, // D-12 P2: forecast applies the economy scale + awareness marketing when engaged (matches realized)
+    0, // discoverabilityZ: the forecast center (the existing default, passed explicitly)
+    0, // openingStarDraw: the existing default
+    1, // setNoveltyFactor: the existing default
+    1, // competitionFactor: the existing default
+    // P17 (rev02 §5.3): the SAME optional field reception reads live at release, read here at greenlight
+    // and then locked with the snapshot. Absent on every non-continuation forecast ⇒ byte-identical.
+    inp.inheritedAwareness01,
   )
 
   return {

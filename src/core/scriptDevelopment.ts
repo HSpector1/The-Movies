@@ -796,6 +796,9 @@ export function scriptWriterAssignment(
 }
 
 export type ScriptDevelopmentInvariantContext = {
+  /** Current49 joined owner supplies the exact registry-bound ordered IDs; frozen callers omit it. */
+  current49ProjectIds?: readonly string[]
+  current49ProductionScripts?: ReadonlyMap<string, ScriptProject>
   studioId?: string | undefined
   retirementWriting?: RetirementWritingAuthority | undefined
   currentWeek: number
@@ -971,10 +974,11 @@ export function assertScriptDevelopmentInvariants(
     occupiedResourceSlots({ operations: context.operations }, { owners: ['production'] }).keys(),
   )
 
+  invariant(context.current49ProjectIds===undefined || context.current49ProjectIds.length===development.projects.length, 'current script identity context length differs')
   for (let index = 0; index < development.projects.length; index++) {
     const project = development.projects[index]!
     invariant(
-      project.id === canonicalScriptProjectId(index),
+      project.id === (context.current49ProjectIds?.[index] ?? canonicalScriptProjectId(index)),
       `project at index ${String(index)} must be ${canonicalScriptProjectId(index)}`,
     )
     invariant(!conceptIds.has(project.conceptId), `duplicate concept link "${project.conceptId}"`)
@@ -1137,7 +1141,7 @@ export function assertScriptDevelopmentInvariants(
     const project = development.projects.find(
       (candidate) =>
         candidate.status === 'inProduction' && candidate.productionId === production.id,
-    )
+    ) ?? context.current49ProductionScripts?.get(production.id)
     invariant(project !== undefined, `active production "${production.id}" has no screenplay project`)
   }
 }

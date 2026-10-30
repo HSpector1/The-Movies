@@ -12,4 +12,11 @@ export function closedWeekOf(state: GameState): ReadonlyMap<string, number> {
   return new Map((root?.closures ?? []).map((c) => [c.studioId, c.closureWeek]))
 }
 
-export const isOperatingStudio = (state: GameState, studioId: string): boolean => !closedWeekOf(state).has(studioId)
+/** Current49 absorption is a distinct terminal transaction, never a distress closure. */
+export function absorbedWeekOf(state: GameState): ReadonlyMap<string, number> {
+  return new Map(((state as Partial<GameState>).rights?.absorptions ?? []).map(a => [a.targetId, a.week]))
+}
+export function terminalWeekOf(state: GameState): ReadonlyMap<string, number> {
+  return new Map([...closedWeekOf(state), ...absorbedWeekOf(state)])
+}
+export const isOperatingStudio = (state: GameState, studioId: string): boolean => !terminalWeekOf(state).has(studioId)

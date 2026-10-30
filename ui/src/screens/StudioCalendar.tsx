@@ -8,6 +8,7 @@ import type {
   GameState,
   StudioCalendarCommitmentView,
   StudioCalendarDecisionView,
+  StudioCalendarOccupantView,
   StudioCalendarView,
 } from '../engine/adapter.ts'
 import { campaignDate, studioCalendarBoard, studioQueueBoard, studioQueueHolderPlaces } from '../engine/adapter.ts'
@@ -191,6 +192,10 @@ function activityLabel(activity: string): string {
     drafting: 'Drafting',
     rewriting: 'Rewriting',
     auditioning: 'Auditioning',
+    // P18: a television season's blocks (rehearsal and shooting share the film words above).
+    scripts: 'Scripts',
+    preparation: 'Preparation',
+    post: 'Post',
   }
   return labels[activity] ?? activity
 }
@@ -205,8 +210,16 @@ function capabilityLabel(capability: string): string {
   return labels[capability] ?? capability
 }
 
-function ownerLabel(owner: string): string {
-  return owner === 'script' ? 'screenplay' : owner === 'casting' ? 'casting session' : 'production'
+// Closed over Core's owner union (P18 FIX-4): a fifth owner fails tsc here, never a render-time throw or a 'production' default.
+const OWNER_LABELS: Record<StudioCalendarOccupantView['owner'], string> = {
+  production: 'production',
+  script: 'screenplay',
+  casting: 'casting session',
+  television: 'television season',
+}
+
+function ownerLabel(owner: StudioCalendarOccupantView['owner']): string {
+  return OWNER_LABELS[owner]
 }
 
 export function StudioCalendarPreview({

@@ -8,6 +8,7 @@ import { buildTalentProvenance } from '../../core/aging.js'
 import { initialCareerLifecycle } from '../../core/careerLifecycle.js'
 import { initialP15BRoots, initialP15Roots, stableStringify, validateTalentProvenanceRoot } from '../../core/save.js'
 import { initialFoundingFunding } from '../../core/foundingFunding.js'
+import { initialRightsRoot } from '../../core/rights.js'
 import { validateFirstTakeSubjects } from '../../core/firstTakeSubjects.js'
 import { SKILL_ORDER, GENRE_ORDER } from '../../core/tuning.js'
 import type { GameState, GameStateV18 } from '../../core/types.js'
@@ -60,12 +61,12 @@ export function liftV18Control(state:GameStateV18):GameState { const cloned=stru
   // 1364 (Save V47): a control records no recruitment fund; the null root at the lift week.
   foundingFunding:initialFoundingFunding(state.market.tick),
   // P15B (1370-ar): a historical control has evaluated no condition and closed nothing.
-  ...initialP15BRoots(state.market.tick)} }
+  ...initialP15BRoots(state.market.tick), rights: initialRightsRoot(state.market.tick)} }
 export function historicalHashState<T extends object>(state:T):object {
   if(!('technology' in state) && !('hollywood' in state) && !('physicalPlans' in state) && !('talentMarket' in state)
     && !('firstTakes' in state) && !('promises' in state) && !('relationships' in state) && !('talentProvenance' in state)
     && !('careerLifecycle' in state) && !('firstTakeSubjects' in state) && !('powerRanking' in state) && !('p15Sequence' in state)
-    && !('sharedMarket' in state) && !('campaignLegacy' in state) && !('foundingFunding' in state) && !('corporateCondition' in state) && !('studioClosure' in state))return state
+    && !('sharedMarket' in state) && !('campaignLegacy' in state) && !('foundingFunding' in state) && !('corporateCondition' in state) && !('studioClosure' in state) && !('rights' in state))return state
   if('hollywood' in state && state.hollywood!==null)throw new Error('Historical hash cannot discard a living industry')
   // P14B.1: the control records no qualifying event and no commitment; an empty
   // pair of roots is the only lawful shape to discard. P14B.5: nor any edge.
@@ -144,10 +145,16 @@ export function historicalHashState<T extends object>(state:T):object {
       throw new Error(`Historical hash cannot discard ${authority} authority`)
     }
   }
+  if ('rights' in state) {
+    // P16 (Save49). A control has no industry, so it records no title, licence, offer or estate: only the
+    // empty rights root at its own recording week is lawful to discard (review F25).
+    const root = (state as Partial<GameState>).rights
+    if (root === undefined || stableStringify(root) !== stableStringify(initialRightsRoot(root.recordedFromWeek))) throw new Error('Historical hash cannot discard rights authority')
+  }
   const {hollywood: _control, technology: _research, physicalPlans: _plans, talentMarket: _market,
     firstTakes: _takes, firstTakeSubjects: _subjects, promises: _promises, relationships: _relationships, talentProvenance: _provenance,
     careerLifecycle: _lifecycle, powerRanking: _ranking, p15Sequence: _sequence, sharedMarket: _sharedMarket,
-    campaignLegacy: _legacy, foundingFunding: _funding, corporateCondition: _condition, studioClosure: _closure, ...frozen}=state as Partial<GameState>
+    campaignLegacy: _legacy, foundingFunding: _funding, corporateCondition: _condition, studioClosure: _closure, rights: _rights, ...frozen}=state as Partial<GameState>
   if (frozen.operations) {
     // P13B S5-R07: the live workflow carries `setup`/`planRevision`; a historical control never selected a recipe, so the only lawful
     // shape to discard is the null record at revision 0.

@@ -1,9 +1,12 @@
+import type { GameState } from '../src/core/types.js'
+import { convertV49ToV48, convertV50ToV49, convertV51ToV50 } from '../src/core/save.js'
+import { cutoverRightsRoot } from '../src/core/rights.js'
 // Genuine 1363-A8 Save45 bytes. Pins recomputed from the named new mint only.
 import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { expect } from 'vitest'
-import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV45, validateSaveV48, convertV46ToV45, convertV47ToV46, convertV48ToV47, initialP15BRoots } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV45, validateSaveV51, convertV46ToV45, convertV47ToV46, convertV48ToV47, initialP15BRoots } from '../src/core/save.js'
 import { initialFoundingFunding } from '../src/core/foundingFunding.js'
 import type { RivalBusiness } from '../src/core/hollywoodTypes.js'
 type HistoricalAccount = NonNullable<ReturnType<typeof validateSaveV45>['state']['hollywood']>['businesses'][number]['account']
@@ -73,16 +76,17 @@ export function loadA8() {
   const expectedState = structuredClone(historical.state)
   for (const owner of expectedState.hollywood!.businesses) {
     Object.assign(owner, { costCutting: { version: 1, since: null } })
-    for (const period of owner.account.periods) Object.assign(period.movements, { facilityDemolitionRefund: 0, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 }) // Save48 (1370-ar): the three loan money kinds at zero
+    for (const period of owner.account.periods) Object.assign(period.movements, { facilityDemolitionRefund: 0, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0, estateSaleProceeds: 0 }) // Save48 (1370-ar): the three loan money kinds at zero
   }
   Object.assign(expectedState, { foundingFunding: initialFoundingFunding(expectedState.market.tick) }) // Save47: the null fund at the input's week
   Object.assign(expectedState, initialP15BRoots(expectedState.market.tick)) // Save48 (1370-ar): the two empty P15B roots at the input's week
+  Object.assign(expectedState, { rights: cutoverRightsRoot(expectedState as unknown as GameState) }) // Actual Save49 frontier, no backfilled title events.
   expect(live.state).toEqual(expectedState) // Comparison oracle only; never a producer/reader input.
   const stateBytes = stableStringify(live.state)
   const current = makeSave(live.state)
   expect(current.saveVersion).toBe(LIVE_SAVE_VERSION)
-  validateSaveV48(current)
-  const actualOld = convertV46ToV45(convertV47ToV46(convertV48ToV47(current))) // Save48 (1370-ar): down through the live step first (nothing evaluated: lossless)
+  validateSaveV51(current)
+  const actualOld = convertV46ToV45(convertV47ToV46(convertV48ToV47(convertV49ToV48(convertV50ToV49(convertV51ToV50(current)))))) // Save48 (1370-ar): down through the live step first (nothing evaluated: lossless)
   validateSaveV45(actualOld)
   expect(exportSave(actualOld)).toBe(raw)
   expect(exportSave(importSave(exportSave(current)))).toBe(exportSave(current))
@@ -95,6 +99,6 @@ export function loadA8() {
  * P15B money kinds at zero the same way: this rival never borrowed or closed. */
 export function a8AccountInRecovery(account: HistoricalAccount): RivalBusiness['account'] {
   return { ...structuredClone(account), periods: account.periods.map(period => ({ ...structuredClone(period),
-    movements: { ...period.movements, facilityDemolitionRefund: 0, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 },
+    movements: { ...period.movements, facilityDemolitionRefund: 0, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0, estateSaleProceeds: 0 },
   })) }
 }

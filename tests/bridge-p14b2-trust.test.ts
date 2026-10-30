@@ -138,10 +138,10 @@ describe('P14B.2 group1 — projection46, unchanged Save29/intents, closed wire 
   it('pins the exact version, old-five-plus-two attention enum and unchanged intent vocabulary', () => {
     const state = p13aGeneratedStudio()
     readModels(state, state.talent[0]!.id)
-    expect(PROJECTION_VERSION).toBe(58)
+    expect(PROJECTION_VERSION).toBe(71)
     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-58`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(58)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-71`)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(71)
     const attentionSchema = schemaDefinition('StudioMarketAttentionRowSnapshot') as unknown as { properties: { cause: { enum: string[] } } }
     // Schema enum order is not gameplay row order; copies retain exact membership/count without mutating the schema.
     expect([...attentionSchema.properties.cause.enum].sort()).toEqual(['decisionWeekNear', 'newCompetingProposal', 'termsRevised',
@@ -153,7 +153,17 @@ describe('P14B.2 group1 — projection46, unchanged Save29/intents, closed wire 
       'startConstruction', 'commissionOriginalScreenplay', 'signContract', 'commitPictureToRelease', 'placeFacility', 'commissionSet',
       'renewContract', 'releaseTalent', 'researchAction', 'physicalPlanAction', 'installationAction', 'adoptTechnology',
       'productionSetupAction', 'cancellationAction', 'marketProposalAction', 'waivePromise',
-      'takeLoan']) // P15B Wave 5 (1370-ar): the one loan verb (1357-A §7)
+      'takeLoan', // P15B Wave 5 (1370-ar): the one loan verb (1357-A §7)
+      // P16 rebase round 6: the candidate's two rights verbs, minted by the quotePaidDueDiligence and
+      // quoteHealthyAbsorption families (bridge/rights.ts); read from bridge/schema/intent-schema.ts, whose enumeration
+      // is inside the projection-62 schema identity measured at 839bb7c5 (lane wave3c).
+      'requestDueDiligence', 'absorbStudio',
+      // P17 Sprint 11 slice B (projection 66): the featured-booking cancellation verb (bridge/schema/intent-schema.ts).
+      'cancelFeaturedBooking',
+      // P18 Sprint 13 slice B (projection 68): the season verbs; commissionTvSeason is minted only by quoteTvCommission.
+      'commissionTvSeason', 'cancelTvSeason', 'settleTvObligations',
+      // ASTRA Sprint 27 (projection 71): the Rights desk and estate verbs (bridge/schema/intent-schema.ts).
+      'makeRightsOffer', 'acceptRightsOffer', 'rejectRightsOffer', 'withdrawRightsOffer', 'submitEstateBid'])
   })
   it('validates actual session profile, Market, Pulse and studio DTOs without stripping the new members', () => {
     const f = retentionFixture()

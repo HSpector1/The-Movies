@@ -5,7 +5,7 @@ import { expect } from 'vitest'
 import { applyActions } from '../../src/core/actions.js'
 import { retirementRecordFor } from '../../src/core/careerLifecycle.js'
 import { attachPromise } from '../../src/core/promises.js'
-import { makeSave, validateSaveV48 } from '../../src/core/save.js'
+import { makeSave, validateSaveV51 } from '../../src/core/save.js'
 import { currentProposals, submitProposal } from '../../src/core/talentMarket.js'
 import { tick } from '../../src/core/tick.js'
 import { TUNING } from '../../src/core/tuning.js'
@@ -26,7 +26,7 @@ export function promiseById(state: GameState, id: string): ProfessionalPromise {
 
 export function savedState(state: GameState): GameState {
   const written = makeSave(state)
-  return validateSaveV48(JSON.parse(JSON.stringify(written))).state
+  return validateSaveV51(JSON.parse(JSON.stringify(written))).state
 }
 
 export type C2cFixture = {

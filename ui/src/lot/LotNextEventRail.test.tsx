@@ -918,3 +918,43 @@ describe("C2a-M4 · the rail names the stage the picture is actually on", () => 
     expect(screen.getByTestId("lot-next-event-rail")).toHaveTextContent("Soundstage 7");
   });
 });
+
+// F40 isolated receipt presentation fixture, not a serialized campaign or cash producer.
+it("F40 mounted accounting renders signed rights estate acquisition and diligence labels while old receipts omit unrecorded categories", () => {
+ const receipt=validExactReceipt()
+ receipt.summary={...receipt.summary,rights:120.25,estatePurchases:-13_000_000,acquisition:10.25,diligence:-7}
+ const feedback={kind:"next-event-exact" as const,receipt}
+ const props={feedback,worldAction:{label:"Open studio",onActivate:vi.fn()},deepAction:{label:"Open details",onActivate:vi.fn()},onDismiss:vi.fn()}
+ const view=render(<LotNextEventRail {...props} />)
+ fireEvent.click(screen.getByText("Period accounting"))
+ const expected=[
+  ["lot-next-event-rights-trades-and-licences","Rights trades and licences","$120.25"],
+  ["lot-next-event-estate-asset-purchases","Estate asset purchases","-$13,000,000.00"],
+  ["lot-next-event-acquisition-net-cash","Acquisition net cash","$10.25"],
+  ["lot-next-event-due-diligence-fees","Due diligence fees","-$7.00"],
+ ] as const
+ for(const [id,label,value] of expected) {
+  const row=screen.getByTestId(id);expect(row).toHaveTextContent(label);expect(row).toHaveTextContent(value)
+ }
+ expect(receipt.summary.rights).toBe(120.25);expect(receipt.summary.estatePurchases).toBe(-13_000_000)
+ view.rerender(<LotNextEventRail {...props} feedback={{kind:"next-event-exact",receipt:validExactReceipt()}} />)
+ for(const [id] of expected)expect(screen.queryByTestId(id)).not.toBeInTheDocument()
+ expect(screen.getByTestId("lot-next-event-accounting")).toBeInTheDocument()
+})
+
+// P18 FIX-3 isolated receipt presentation fixture (review finding 3), not a serialized campaign or cash producer.
+// RED at c1ee6e11: the rail listed no television row, so a season week's rows did not add up to the net.
+it("lists the television commissioning bucket when Core records one and omits it for receipts without a season", () => {
+  const receipt = validExactReceipt();
+  receipt.summary = { ...receipt.summary, rights: 0, estatePurchases: 0, acquisition: 0, diligence: 0, television: 95_000.5 };
+  const feedback = { kind: "next-event-exact" as const, receipt };
+  const props = { feedback, worldAction: { label: "Open studio", onActivate: vi.fn() }, deepAction: { label: "Open details", onActivate: vi.fn() }, onDismiss: vi.fn() };
+  const view = render(<LotNextEventRail {...props} />);
+  fireEvent.click(screen.getByText("Period accounting"));
+  const row = screen.getByTestId("lot-next-event-television-commissioning");
+  expect(row).toHaveTextContent("Television commissioning");
+  expect(row).toHaveTextContent("$95,000.50");
+  expect(row).toHaveTextContent("Season advance and milestone payments received less unit production spend.");
+  view.rerender(<LotNextEventRail {...props} feedback={{ kind: "next-event-exact", receipt: validExactReceipt() }} />);
+  expect(screen.queryByTestId("lot-next-event-television-commissioning")).not.toBeInTheDocument();
+});

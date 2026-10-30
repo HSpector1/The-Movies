@@ -1,3 +1,4 @@
+import { buyerScriptConcepts } from '../../../src/core/index.ts'
 // ── Engine adapter — the ONE boundary crossing ───────────────────────────────
 // This is the ONLY module in the UI that imports the simulation core, and it does
 // so ONLY through the public surface `src/core/index.ts`. No UI component imports
@@ -264,7 +265,11 @@ import type { ReceptionBand, CriticTier } from '../../../src/core/index.ts'
 // Re-export for existing external consumers that imported filmCommittedCost from the adapter.
 export { filmCommittedCost } from '../../../src/core/index.ts'
 import { canAfford as coreCanAfford, legacyAnnexOffered as coreLegacyAnnexOffered } from '../../../src/core/index.ts'
+import { buyerOperatedProductions as coreBuyerOperatedProductions, releaseHoldBusyTalentIds as coreReleaseHoldBusyTalentIds } from '../../../src/core/index.ts'
 import { SET_BLUEPRINTS } from '../../../src/core/tuning.ts'
+import type { ContinuationRequest } from '../../../src/core/index.ts'
+// P17 cameo request type: not exported from index.ts yet (see engine/continuation.ts).
+import type { CameoBookingRequest } from '../../../src/core/cameo.ts'
 import { money } from '../format.ts'
 // Gate D1: presentation-only snapshot types for the Studio Lot. This is a pure leaf
 // type module (imports nothing, no Phaser); the value import (ALL_BUILDING_IDS) adds
@@ -1562,7 +1567,8 @@ export function findTalent(state: GameState, id: string): Talent | undefined {
   return state.talent.find((t) => t.id === id)
 }
 export function findConcept(state: GameState, id: string): FilmConcept | undefined {
-  return state.concepts.find((c) => c.id === id)
+  // ASTRA Sprint 24: a continued picture's concept is its original studio's, in the shared pool (read by id, never copied).
+  return buyerScriptConcepts(state).find((c) => c.id === id) ?? state.hollywood?.concepts.find((c) => c.id === id)
 }
 
 // ── Eligibility helpers — mirror applyActions legality (M16 / B3) ─────────────
@@ -1893,6 +1899,12 @@ export type DraftPackage = DraftPackageIds & {
   shape: FilmShape
   promise: FilmPromise
   budget: Budget
+  /**
+   * P17: the forecast inputs the greenlight will lock for a chosen continuation and featured guests, composed by the core
+   * (`engine/continuation.ts` greenlightForecastExtras). Every preview built from this package reads them, so the Review
+   * forecast equals the snapshot the greenlight stores. Never part of the greenlight action itself.
+   */
+  p17?: Pick<ReceptionInputs, 'inheritedAwareness01' | 'cameoPublicityDelta' | 'cameoExecutions'>
 }
 
 // Assemble the §5 ReceptionInputs a forecast/reception reads, resolving all ids to
@@ -1948,6 +1960,8 @@ function assembleReceptionInputs(
     standing: state.studio.standing,
     era: state.era,
     ...(scriptStrengthOverride ? { scriptStrengthOverride } : {}),
+    // P17: the same continuation and guest inputs the greenlight locks (absent ⇒ the predecessor preview).
+    ...(pkg.p17 ?? {}),
   }
 }
 
@@ -1993,7 +2007,17 @@ export type ActionOutcome =
   | { ok: true; next: GameState }
   | { ok: false; error: string }
 
-export function greenlight(state: GameState, pkg: DraftPackage): ActionOutcome {
+// P17: the optional continuation request and featured bookings a greenlight carries. Absent (or no guests) ⇒ the
+// predecessor action byte for byte; the core quotes both again and refuses atomically (engine/continuation.ts reads).
+export type GreenlightExtras = { continuation?: ContinuationRequest | undefined; cameos?: CameoBookingRequest[] | undefined }
+function greenlightExtras(extras: GreenlightExtras | undefined) {
+  return {
+    ...(extras?.continuation ? { continuation: extras.continuation } : {}),
+    ...(extras?.cameos && extras.cameos.length > 0 ? { cameos: extras.cameos } : {}),
+  }
+}
+
+export function greenlight(state: GameState, pkg: DraftPackage, extras?: GreenlightExtras): ActionOutcome {
   try {
     const next = applyActions(state, [
       {
@@ -2008,6 +2032,7 @@ export function greenlight(state: GameState, pkg: DraftPackage): ActionOutcome {
           cast: pkg.cast,
           budget: pkg.budget,
         },
+        ...greenlightExtras(extras),
       },
     ])
     return { ok: true, next }
@@ -2021,6 +2046,7 @@ export function greenlightScriptProject(
   state: GameState,
   projectId: string,
   pkg: DraftPackage,
+  extras?: GreenlightExtras,
 ): ActionOutcome {
   try {
     const next = applyActions(state, [
@@ -2033,6 +2059,7 @@ export function greenlightScriptProject(
           cast: { ...pkg.cast },
           budget: { ...pkg.budget },
         },
+        ...greenlightExtras(extras),
       },
     ])
     return { ok: true, next }
@@ -3982,6 +4009,37 @@ export function releaseTalentAction(state: GameState, talentId: string): ActionO
     return { ok: true, next: applyActions(state, [{ kind: 'releaseTalent', talentId }]) }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
+  }
+}
+
+// ASTRA Sprint 22 (decision A): the review a player reads before the irreversible commit, read off the production the
+// core already holds (the same figures the Bridge's Release projection publishes): the Greenlight outlook frozen at
+// greenlight, the money already paid, and who the release hold keeps busy. No new arithmetic; null when the picture is
+// not operated by the player or is not at Release Ready, so a stale screen shows nothing to confirm. The lookup is the
+// same `buyerOperatedProductions` the release decision and the Bridge option use (the player's own pictures and the
+// continued ones acquired with a studio), never `studio.activeProductions` alone (review finding 1).
+export type ReleaseCommitReview = {
+  productionId: string
+  title: string
+  outlook: { expectedOpening: number; expectedTotal: number; expectedCriticScore: number }
+  paid: { production: number; marketing: number }
+  holdBusyNames: string[]
+}
+export function releaseCommitReview(state: GameState, productionId: string): ReleaseCommitReview | null {
+  const production = coreBuyerOperatedProductions(state).find((p) => p.id === productionId)
+  if (production === undefined || production.remainingTicks !== 1) return null
+  const concept = findConcept(state, production.conceptId)
+  const names = coreReleaseHoldBusyTalentIds(state, productionId).map((id) => state.talent.find((t) => t.id === id)?.name ?? id)
+  return {
+    productionId,
+    title: concept?.title ?? productionId,
+    outlook: {
+      expectedOpening: production.forecastSnapshot.expectedOpening,
+      expectedTotal: production.forecastSnapshot.expectedTotal,
+      expectedCriticScore: production.forecastSnapshot.expectedCriticScore,
+    },
+    paid: { production: production.budget.negative, marketing: production.budget.marketing },
+    holdBusyNames: names,
   }
 }
 
@@ -6207,6 +6265,22 @@ function operationalAnnexOccupant(
         statusLabel: null,
         blocker: null,
       }
+    // P18: a live season's own occupant, never a film shape. Only its two Development & Casting blocks can hold here.
+    case 'television':
+      if (occupant.activity !== 'scripts' && occupant.activity !== 'preparation') {
+        return annexProjectionError(
+          `operational Annex television season "${occupant.ownerId}" has incompatible activity "${occupant.activity}"`,
+        )
+      }
+      return {
+        owner: 'television',
+        ownerId: occupant.ownerId,
+        title: occupant.title,
+        activity: occupant.activity,
+        workState: 'working',
+        statusLabel: null,
+        blocker: null,
+      }
     case 'production': {
       if (occupant.activity !== 'development' && occupant.activity !== 'preProduction') {
         return annexProjectionError(
@@ -7869,6 +7943,9 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
             } else if (annexWork.occupant === null) {
               attention = 'empty'
               reason = 'Available · 0 of 1 slot occupied'
+            } else if (annexWork.occupant.owner === 'television') {
+              attention = 'active'
+              reason = `Television season · ${annexWork.occupant.title}`
             } else if (annexWork.occupant.workState === 'held') {
               attention = 'warning'
               reason = `Production held · ${annexWork.occupant.title}`

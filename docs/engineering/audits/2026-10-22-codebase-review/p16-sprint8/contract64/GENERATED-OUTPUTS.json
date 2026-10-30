@@ -1,0 +1,23 @@
+{
+  "status": "ACTUAL-SCRATCH-GENERATION",
+  "schemaId": "sha256:57f12ee28d21aa47c7514afa1c058105a10f10a9e76d400d664e97c23dc90272",
+  "files": {
+    "bridge/schema/project-studio-bridge.schema.json": {
+      "sha256": "a72ede58bbb0ea0bac4cae4d650f331153af10578c709e7e4cff2c022bf6dc13",
+      "bytes": 440139
+    },
+    "generated/unity/StudioBridgeDtos.Generated.cs": {
+      "sha256": "d80acca15d87c65429860263eeb9f5a59b65b41c30f1bdbfcc084883a43c6943",
+      "bytes": 987757
+    },
+    "generated/unity/project-studio-bridge.contract-manifest.json": {
+      "sha256": "8a757d6aa72096a7188ea4b72c511c47a0642ceb299167b5a4b5b4f1c1a41110",
+      "bytes": 820
+    },
+    "generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs": {
+      "sha256": "be4b1dd1da2e7dc28906b9bad1ab0fa73e32d4dbe69eef344d9aeaf0a697bdb6",
+      "bytes": 44592
+    }
+  },
+  "committedSourceDeclarationMeasurement": "PENDING coordinator installation/commit then measure.sh"
+}

@@ -482,7 +482,10 @@ export function recordCancelledAfterFirstTake(state: GameState, studioId: string
   const take = state.firstTakes.find((t) => t.productionId === cancelled.id)
   if (take === undefined) return state
   requireRelationshipsRoot(state)
-  if (take.studioId !== studioId) {
+  const actualContinuedCancellation = state.rights?.absorptions.some(a => a.buyerId === studioId && a.targetId === take.studioId
+    && a.continuedProductions.some(p => p.productionId === cancelled.id)
+    && a.workCancellations.some(c => c.productionId === cancelled.id && c.week === state.market.tick && c.remainingTicks === cancelled.remainingTicks)) === true
+  if (take.studioId !== studioId && !actualContinuedCancellation) {
     throw new Error(`relationships: the first take of "${cancelled.id}" belongs to ${take.studioId}, not the cancelling studio ${studioId}`)
   }
   const ledger = openLedger(state)

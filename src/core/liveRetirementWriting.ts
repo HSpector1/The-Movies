@@ -13,16 +13,17 @@ import {
 export type LiveWritingContext = Readonly<
   | { kind: 'legacy' }
   | { kind: 'proved'; profession: ProfessionValidationContext }
-  | { kind: 'rejected' }
+  | { kind: 'rejected'; reason: string }
 >
 
 export function prepareLiveWritingContext(state: GameState): LiveWritingContext {
   if (!retirementWritingNeedsProfessionProof(state)) return { kind: 'legacy' }
   try {
     return { kind: 'proved', profession: validatedLiveProfessionContext(state) }
-  } catch {
-    // Required proof failed: never recover a context-free, single-row grant.
-    return { kind: 'rejected' }
+  } catch (error) {
+    // Required proof failed: never recover a context-free, single-row grant. The kind still denies authority; the
+    // reason keeps the proof's own message so a refusal is visible to callers and tests (P18 FIX-3, review note 9).
+    return { kind: 'rejected', reason: error instanceof Error ? error.message : String(error) }
   }
 }
 

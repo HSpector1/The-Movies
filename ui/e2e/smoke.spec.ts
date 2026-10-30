@@ -2,7 +2,8 @@
 // Deterministic seed. Drives the app through: start → assemble a legal film
 // (concept, shape, promise, writer, director, 3 distinct cast, budgets) → greenlight
 // → advance weeks until release → open the autopsy → export the save → start a new
-// game and import it → assert the visible state matches. Captures 7 screenshots.
+// game and import it → assert the visible state matches → advance the restored studio.
+// Screenshots include the restored studio after its next real week.
 //
 // Selectors are stable roles/labels/testids, never fragile CSS.
 
@@ -19,6 +20,39 @@ const STUDIO_LOT_OVERVIEW_FLAG = 'project-studio.flags.studio-lot-overview'
 const MAX_MANAGED_RELEASE_WEEKS = 24
 const shotsDir = join(dirname(fileURLToPath(import.meta.url)), '..', 'screenshots')
 mkdirSync(shotsDir, { recursive: true })
+
+/**
+ * Sprint 16 known issue: the headline quotes the title (`“TITLE” OPENS …`), and when the title's last word
+ * filled the column the closing quote wrapped alone onto the next line. The witness reads the rendered line
+ * boxes: the closing quote must sit on the same line as the character before it. The smoke seed's first
+ * release is “PORTRAIT OF A CONSTELLATION”, whose 13-letter word fills the column at 1280×900.
+ */
+async function expectClosingQuoteOnItsWordLine(page: Page) {
+  const result = await page.evaluate(() => {
+    const headline = document.querySelector('[data-testid="newspaper-headline"]')
+    if (!headline) return { error: 'no headline' }
+    const walker = document.createTreeWalker(headline, NodeFilter.SHOW_TEXT)
+    let node: Node | null
+    while ((node = walker.nextNode())) {
+      const text = (node as Text).data
+      const at = text.indexOf('”')
+      if (at < 1) continue
+      const rect = (offset: number) => {
+        const range = document.createRange()
+        range.setStart(node!, offset)
+        range.setEnd(node!, offset + 1)
+        return range.getClientRects()[0]
+      }
+      const quote = rect(at)
+      const before = rect(at - 1)
+      if (!quote || !before) return { error: 'closing quote has no line box' }
+      return { text, sameLine: Math.round(quote.top) === Math.round(before.top), quoteTop: quote.top, beforeTop: before.top }
+    }
+    return { error: `no closing quote after a character in the headline: ${headline.textContent}` }
+  })
+  expect(result, 'premise: the headline quotes the title').not.toHaveProperty('error')
+  expect(result, `the closing quote stays on its word's line: ${JSON.stringify(result)}`).toMatchObject({ sameLine: true })
+}
 
 test.beforeEach(async ({ page }) => {
   await page.addInitScript((key) => localStorage.setItem(key, '0'), STUDIO_LOT_OVERVIEW_FLAG)
@@ -135,6 +169,15 @@ test('full playable loop: assemble → greenlight → release → autopsy → sa
     // A managed production cannot progress through a visible phase decision by repeatedly
     // advancing time. Exercise the authoritative command before advancing the next week.
     await resolveProductionCommands(page)
+    // P06A release-commit affordance: a Release Ready picture holds until the player commits it;
+    // advancing alone never releases it. Commit when the dashboard offers it, then advance.
+    const commit = page.getByTestId('release-commit')
+    if (await commit.isVisible().catch(() => false)) {
+      // ASTRA Sprint 22 (decision A): the first click reviews the frozen outlook, the money already paid and the
+      // finality; the second confirms. Nothing commits on the first.
+      await commit.click()
+      await page.getByTestId('release-commit-confirm').click()
+    }
     const advance = page.getByTestId('advance-week')
     if (await advance.isVisible().catch(() => false)) {
       await advance.click()
@@ -145,6 +188,7 @@ test('full playable loop: assemble → greenlight → release → autopsy → sa
     if (await newspaper.isVisible().catch(() => false)) {
       if (!capturedNewspaper) {
         await shot(page, '9-newspaper-reveal')
+        await expectClosingQuoteOnItsWordLine(page)
         capturedNewspaper = true
       }
       await page.getByTestId('newspaper-continue').click()
@@ -243,4 +287,31 @@ test('full playable loop: assemble → greenlight → release → autopsy → sa
   )
   // The seed label reflects the RESTORED studio seed, not the throwaway seed typed.
   await expect(page.getByTestId('seed-label')).toContainText(SEED)
+
+  // Continue the restored studio through its real weekly UI transition.
+  expect(weekBefore).toMatch(/^\d+$/)
+  const restoredWeek = Number(weekBefore)
+  expect(Number.isSafeInteger(restoredWeek) && restoredWeek >= 0).toBe(true)
+  const continuedWeek = String(restoredWeek + 1)
+  await resolveProductionCommands(page)
+  await expect(page.getByTestId('advance-week')).toBeEnabled()
+  await page.getByTestId('advance-week').click()
+  // Wait for each destination before deciding which continuation is required;
+  // the old dashboard can remain visible while the advance is being processed.
+  for (let transition = 0; transition < 3; transition++) {
+    let destination = 'pending'
+    await expect.poll(async () => {
+      if (await page.getByTestId('newspaper-reveal').isVisible()) destination = 'newspaper'
+      else if (await page.getByTestId('release-list').isVisible()) destination = 'release'
+      else if (await page.getByTestId('dash-week').isVisible()
+        && (await page.getByTestId('dash-week').textContent()) === continuedWeek) destination = 'dashboard'
+      else destination = 'pending'
+      return destination
+    }).not.toBe('pending')
+    if (destination === 'dashboard') break
+    await page.getByTestId(destination === 'newspaper' ? 'newspaper-continue' : 'release-continue').click()
+  }
+  await expect(page.getByTestId('dash-week')).toHaveText(continuedWeek)
+  await expect(page.getByTestId('seed-label')).toContainText(SEED)
+  await shot(page, '11-restored-studio-continued')
 })

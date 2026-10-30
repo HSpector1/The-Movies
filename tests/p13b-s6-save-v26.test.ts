@@ -218,7 +218,7 @@ describe('P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator
     expect(() => save.migrateToV20(v26 as never)).toThrow(/cannot downgrade/i)
   })
 
-  it('an unknown saveVersion 46 is refused, naming the handled range "1 through 45 only" (B4 additive reader boundary; stale numbers corrected post-C.2b, then post-1344-N)', () => {
+  it('an unknown saveVersion 47 is refused, naming the handled range "1 through 46 only" (B4 additive reader boundary; stale numbers corrected post-C.2b, then post-1344-N)', () => {
     const json = load(V25_FIXTURES.soundMidDeployment.file)
     const v26 = withV26.migrateToV26(JSON.parse(json))
     const forged = { ...v26, saveVersion: save.LIVE_SAVE_VERSION + 1 }

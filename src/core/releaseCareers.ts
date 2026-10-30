@@ -1,18 +1,24 @@
 import { developTalent, type DevelopmentContext } from './development.js'
 import { stream } from './rng.js'
 import { clamp } from './math.js'
-import { buildTalentCareerEvent, computeStarPowerDelta, flattenParticipants, roleDiscipline } from './starPower.js'
-import type { FilmResult, Talent, TalentCareerEvent, Discipline } from './types.js'
+import { buildCameoCareerEvent, buildTalentCareerEvent, computeStarPowerDelta, flattenParticipants, roleDiscipline } from './starPower.js'
+import { TUNING } from './tuning.js'
+import type { CameoCareerEvent, FilmResult, Talent, TalentCareerEvent, Discipline } from './types.js'
 export type ReleaseGrowthRecord = {
   filmResult: FilmResult
   develop: {productionId:string; performers:{talentId:string;discipline:Discipline}[];ctx:DevelopmentContext}
   broadcast: {weightedAudienceScore:number}
+  // P17 Shape A (cameo contract §3): the picture's COMPLETED guests. Each earns, through this same step, one pass of
+  // the ordinary fame law at the cameo visibility weight and ONE permanent `cameo` record; no development, no second
+  // award, no work-history counter. Returned separately and stored on its booking. Absent ⇒ the predecessor path.
+  cameoGuests?: readonly {talentId:string}[]
 }
 /** Same growth/credit producer for every owner. Caller supplies canonical film-ID order. */
 export function applyReleaseCareers(seed:string, source:Talent[], records:readonly ReleaseGrowthRecord[]):
-  {talent:Talent[];careerEvents:TalentCareerEvent[]} {
+  {talent:Talent[];careerEvents:TalentCareerEvent[];cameoCareerEvents:CameoCareerEvent[]} {
   let talent=source
   const newCareerEvents:TalentCareerEvent[]=[]
+  const cameoCareerEvents:CameoCareerEvent[]=[]
     // Index into the current talent list for O(1) resolution as it evolves.
     const byId = new Map<string, Talent>()
     for (const t of talent) byId.set(t.id, t)
@@ -77,11 +83,40 @@ export function applyReleaseCareers(seed:string, source:Talent[], records:readon
             }),
           )
         }
+        // 3. P17 cameo release credit, after the principals and on the post-development talent, in committed order:
+        //    the same deterministic law at the cameo visibility weight, one record each. Engaged-only like step 2.
+        for (const guest of rec.cameoGuests ?? []) {
+          const current = byId.get(guest.talentId)
+          if (current === undefined) throw new Error(`release careers: completed cameo guest "${guest.talentId}" is not a known person`)
+          const sp = computeStarPowerDelta({
+            fameBefore: current.fame,
+            role: 'support',
+            roleWeight: TUNING.P17_CAMEO_VISIBILITY_WEIGHT,
+            realizedTotal: rec.filmResult.boxOffice.total,
+            audienceScore: rec.broadcast.weightedAudienceScore,
+            expectedTotal: rec.filmResult.forecast ? rec.filmResult.forecast.expectedTotal : null,
+          })
+          const withFame: Talent = { ...current, fame: clamp(current.fame + sp.delta, 0, 100) }
+          byId.set(guest.talentId, withFame)
+          cameoCareerEvents.push(buildCameoCareerEvent({
+            talentBefore: current,
+            talentAfter: withFame,
+            filmId: rec.develop.productionId,
+            filmTitle: concept.title,
+            releaseWeek: rec.filmResult.releaseTick,
+            genre: concept.genre,
+            realizedOpening: rec.filmResult.boxOffice.opening,
+            realizedTotal: rec.filmResult.boxOffice.total,
+            audienceScore: rec.broadcast.weightedAudienceScore,
+            criticScore: rec.filmResult.criticScore,
+            sp,
+          }))
+        }
       }
     }
 
     // Rebuild the array in the ORIGINAL talent order (stable serialization),
     // substituting developed objects; untouched talent shared by reference.
     talent = talent.map((t) => byId.get(t.id) ?? t)
-  return {talent,careerEvents:newCareerEvents}
+  return {talent,careerEvents:newCareerEvents,cameoCareerEvents}
 }

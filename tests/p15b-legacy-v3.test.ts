@@ -5,7 +5,21 @@ import * as legacy from '../src/core/campaignLegacy.js'
 import * as saves from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { PLAYER, PLAYER_CLOSURE_DEFERRED, playerClosure, closureOf, canon } from './helpers/p15b-live.js'
-import { genuineFrozen, budgeted, FIXTURE_MS } from './helpers/p15c2-legacy.js'
+import { genuine6240, genuineFrozen, budgeted, FIXTURE_MS } from './helpers/p15c2-legacy.js'
+import { validateLiveSave } from './helpers/live-era.js'
+import { rightsStripped } from './helpers/p16-era.js'
+import type { GameState } from '../src/core/types.js'
+
+/** G6240F in the predecessor era: the live Legacy writer stamps the Save49 finale table 3 on a rights-era state, and no
+ * Save48 envelope carries table 3, so the frozen readers' law runs on the same genuine world's Save48 projection
+ * (taken before the step, while it holds no table-3 row), frozen by the same writer, which keeps table 2 and admits
+ * through validateSaveP15B when the state has no rights root (campaignLegacy.ts `freezeCampaignLegacyWeek`). */
+function genuineFrozen48(): saves.SaveFileV48 {
+  const base = rightsStripped(saves.makeSave(genuine6240())).state as unknown as GameState
+  const frozen = legacy.freezeCampaignLegacyWeek({ ...base, campaignLegacy: { ...base.campaignLegacy, recordedFromWeek: 0 } })
+  expect(frozen.campaignLegacy.official?.phaseOrderVersion, 'premise: the predecessor-era writer keeps table 2').toBe(2)
+  return saves.validateSaveP15B({ saveVersion: saves.P15B_SAVE_VERSION, seed: frozen.seed, state: frozen, broadcastCache: frozen.broadcastItems })
+}
 
 type Ref = { domainId: string; id: string }
 type Manifest = { definition: string; sources: { domainId: string; highWatermark: number; status: string }[]; studios: { studioId: string; archetypes: { archetypeId: string; outcome: string; limitedBy: string[]; contrary: Ref[] }[]; lenses: { lensId: string; status: string; counts: Record<string, number>; refs: Ref[] }[] }[] }
@@ -94,14 +108,21 @@ describe('p15b modern Legacy constructed transaction controls', () => {
   })
   it('ended-save-reload-links-and-downward-refusal', () => {
     const state = closedControl(); const e = ended(state); const save = saves.makeSave(state)
-    expect(() => saves.validateSaveP15B(save), 'complete transaction admits before mutation').not.toThrow()
+    expect(() => validateLiveSave(save), 'complete transaction admits before mutation').not.toThrow()
     expect(state.campaignLegacy.official).toBeNull()
     expect(canon(saves.importSave(saves.exportSave(save)))).toBe(canon(save))
     const copy = JSON.parse(JSON.stringify(save))
     copy.state.campaignLegacy.endOfRun.closureId = 'not-a-closure'
-    expect(() => saves.validateSaveP15B(copy)).toThrow(/closure/i)
+    expect(() => validateLiveSave(copy)).toThrow(/closure/i)
+    // P16: every Save49 closure opens its estate in the closure week, so every older reader refuses at the live step
+    // first, naming that estate. ACCEPTANCE OPEN (P16 rebase rounds 4-5): the P15B step's 'cannot downgrade or discard
+    // the ended Legacy manifest'. Only an actual player closure publishes it (studioClosure.ts). The obstacle:
+    // tick.ts:1254 calls advanceRightsWeek on every tick and rightsTick.ts:23 throws for an industry with no rights
+    // root, so no Save48 state can be advanced to a closure, and a rights-era closure opens a closure49 estate no Save48
+    // envelope carries. The modern Legacy v3 reason has its Save48 control (constructed, admitted by validateSaveP15B)
+    // in the next case.
     for (const convert of [saves.migrateToV45, saves.migrateToV46, saves.migrateToV47]) {
-      expect(() => convert(save)).toThrow(/Legacy|end.of.run/i)
+      expect(() => convert(save)).toThrow(/^migrateToV48: cannot discard unique estate observation or current closure provenance$/)
     }
     expect(ended(saves.importSave(saves.exportSave(save)).state).legacySnapshotId).toBe(e.legacySnapshotId)
   })
@@ -110,14 +131,23 @@ describe('p15b modern Legacy constructed transaction controls', () => {
     const state = genuineFrozen(); const save = saves.makeSave(state)
     expect(state.campaignLegacy.official!.definition, 'SEMANTIC RED: future official writer selects v3').toBe('campaign-legacy/v3')
     expect(state.campaignLegacy.endOfRun).toBeNull()
-    expect(() => saves.validateSaveP15B(save)).not.toThrow()
+    expect(() => validateLiveSave(save)).not.toThrow()
     // Direct frozen Legacy gate prevents unrelated outer-era refusals from masking the requirement.
     expect(() => legacy.validateCampaignLegacy(save.state as unknown as Record<string, unknown>, 'frozen-v45-v47')).toThrow(/definition/i)
     // Build an admitted historical official from its own frozen evaluator, retaining stamps.
     // Conversion uses real public builders: no retagging Save48 or foreign-root masking.
-    const oldLive = JSON.parse(JSON.stringify(save))
+    // P16: the frozen readers' law runs on the predecessor-era official (`genuineFrozen48`); its historical payload
+    // replays under validateSaveP15B, the Save48 reader.
+    const save48 = genuineFrozen48(), state48 = save48.state as unknown as GameState
+    // The P15B step's own refusal on the Save48 control: this step's modern Legacy v3 reason first, the shared P15 step's
+    // frozen-2040 reason appended rather than masked, at the step and through every older migrator.
+    for (const convert of [saves.convertFromP15BSave, saves.migrateToV47, saves.migrateToV46, saves.migrateToV45]) {
+      expect(() => convert(save48 as never)).toThrow(new RegExp(`^migrateToV${saves.P15B_SAVE_VERSION - 1}: cannot downgrade or discard modern Legacy v3 official authority; cannot downgrade or discard the frozen 2040 Legacy$`))
+    }
+    expect(state48.campaignLegacy.official!.definition, 'the predecessor writer selects the same definition').toBe(state.campaignLegacy.official!.definition)
+    const oldLive = JSON.parse(JSON.stringify(save48))
     const oldTable = legacy.LEGACY_DEFINITIONS['campaign-legacy/v2']
-    const adapter = legacy.legacyFactsFromState(state, 6240)
+    const adapter = legacy.legacyFactsFromState(state48, 6240)
     const historicalFacts = { ...adapter, domains: adapter.domains.filter(d => oldTable.domainIds.includes(d.domainId)) }
     delete (historicalFacts as unknown as { studioClosures?: unknown }).studioClosures
     oldLive.state.campaignLegacy.official = { ...oldLive.state.campaignLegacy.official, ...oldTable.evaluate(historicalFacts, 'official2040') }

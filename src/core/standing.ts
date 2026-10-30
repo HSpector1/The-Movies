@@ -70,12 +70,16 @@ export type StandingContext = {
   // EPHEMERAL context (B12): built in tick.ts and dropped at tick end; GameState and the save
   // are untouched. It selects the awareness reach pivot (see the delta below) and NOTHING else.
   engaged: boolean
+  // P17 Shape A (cameo contract §3): the share-weighted publicity delta of the picture's COMPLETED guests, added once
+  // to the existing principal-only star attention and clamped once. No new Standing award. Absent ⇒ unchanged.
+  cameoAttentionDelta?: number
 }
 
 // starAttention = clamp(mean(cast fame)/100, 0, 1) — unweighted mean of the three
 // cast members' fame. Secondary awareness contributor (D-6).
 function starAttention(ctx: StandingContext): number {
-  return clamp(mean([ctx.castFames.lead, ctx.castFames.antagonist, ctx.castFames.support]) / 100, 0, 1)
+  const principals = mean([ctx.castFames.lead, ctx.castFames.antagonist, ctx.castFames.support]) / 100
+  return clamp(ctx.cameoAttentionDelta === undefined ? principals : principals + ctx.cameoAttentionDelta, 0, 1)
 }
 
 // budgetOverrun = clamp((actualNegative − requiredNegative)/max(requiredNegative,1), 0, 1)

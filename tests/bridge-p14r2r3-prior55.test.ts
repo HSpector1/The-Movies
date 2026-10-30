@@ -1,3 +1,5 @@
+import type { GameState } from '../src/core/types.js'
+import { cutoverRightsRoot } from '../src/core/rights.js'
 import { withEmptyRecovery } from './helpers/recovery-migration-expectation.js'
 // ── P14 task 1308-C (new file): the outgoing projection55 runtime-checkpoint consumer for the
 // combined R2+R3 increment (projection 55->56, Save 40->41) ──
@@ -65,7 +67,7 @@ import {
   encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint,
   SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS,
 } from '../bridge/runtime-checkpoint.ts'
-import { LIVE_SAVE_VERSION, exportSave, migrateToLive, validateSaveV40, validateSaveV48, initialP15BRoots } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, exportSave, migrateToLive, validateSaveV40, validateSaveV51, initialP15BRoots } from '../src/core/save.js'
 
 const FIXTURES = new URL('./fixtures/p14/genuine-runtime55-pre-r3/', import.meta.url)
 const OLD_SCHEMA = 'sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158'
@@ -162,7 +164,7 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
   const h = (state as { hollywood?: { businesses?: Business[] } | null }).hollywood
   const withLoans = h === undefined || h === null || !Array.isArray(h.businesses) ? state : { ...state, hollywood: { ...h,
     businesses: h.businesses.map((b) => ({ ...b, account: { ...b.account, periods: b.account.periods.map((p) => ({
-      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) } })) } }
+      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0, estateSaleProceeds: 0 } })) } })) } }
   return { ...withLoans,
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
@@ -170,7 +172,7 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
     campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
     // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
     foundingFunding: { version: 1, recordedFromWeek: week, fund: null },
-    ...initialP15BRoots(week) }
+    ...initialP15BRoots(week), rights: cutoverRightsRoot(withLoans as unknown as GameState) }
 }
 
 describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to current56, and each Save40 slot migrates to Save41 independently', () => {
@@ -181,8 +183,8 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
 
     // The schema/projection literals the migration target must already carry.
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(58)
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-58')
+    expect(PROJECTION_VERSION).toBe(71)
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-71')
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OLD_SCHEMA)).toEqual([[OLD_SCHEMA, 'projection-v55']])
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     // 1308-D required change 1 / 1308-F item 1 (B55-3-style older-roster pin, mirrored from
@@ -201,9 +203,20 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
     // (tests/bridge-p14p4p5-opportunities.test.ts).
     const older = [...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id !== OLD_SCHEMA)
       .sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0)
-    // Actual shipped outgoing57 adds one prior identity; exclude only genuine55 here.
-    expect(older).toHaveLength(45)
-    expect(sha(canonicalJson(older))).toBe('fc2e8804eb1c4729cc21403d7722114deb49cb1c234421e7629fa12430f316b9')
+    // Projection 62 registers outgoing58–61 as well; exclude only genuine55.
+    // Recomputed by the same sorted canonical-pair method; the predecessor retains its 45/fc2e8804 pin.
+    // Projection63 adds only authentic outgoing62; same independently reproduced sorted-pair method.
+    // Projection64 adds only authenticated outgoing63; independently reproduced sorted-pair method.
+    // Projection65 (Sprint 11) adds only the P16 build's outgoing64; same method, which reproduces 51/9270841e on the parent map.
+    // Projection66 (Sprint 11 slice B) adds only outgoing65; same method, which reproduces 52/fa11f1c3 on the parent map.
+    // Projection67 (P18 Sprint 12) adds only outgoing66; same method, which reproduces 53/9d2a641f on the parent map.
+    // Projection68 (P18 Sprint 13 slice B) adds only outgoing67; same method, which reproduces 54/13adc010 on the parent map.
+    // Projection69 (playtest-response slice) adds only outgoing68; same method, which reproduces 55/6be7e2a9 on the parent map.
+    // Projection70 (ASTRA Sprint 20) adds only outgoing69; same method, which reproduces 56/4cd2f948 on the parent map.
+    // Projection71 (ASTRA Sprint 27) adds only outgoing70; same method, run standalone over the registry before this pin was
+    // written (sprint27/local/s27-fix1-older-roster-measure.txt), which reproduces 57/47e4ec5e on the parent map.
+    expect(older).toHaveLength(58)
+    expect(sha(canonicalJson(older))).toBe('37f425ff69d48bb90a27116f9b2e770dc89e9f153ace50217c4faa79a299630f')
 
     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
     expect(loaded.migratedFromProtocolVersion).toBe(4)
@@ -216,7 +229,7 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
       const nextRaw = current[slot]
       expect(nextRaw, `${slot} must be present on the migrated checkpoint`).toBeTruthy()
       const previous = validateSaveV40(JSON.parse(old.value[slot]))
-      const now = validateSaveV48(JSON.parse(nextRaw!))
+      const now = validateSaveV51(JSON.parse(nextRaw!))
       expect(now.saveVersion).toBe(LIVE_SAVE_VERSION)
       // new.state equals old.state with termination:0 added to every rival finance period's
       // movements, and nothing else — the same fact p14r3-save-v41.test.ts asserts directly

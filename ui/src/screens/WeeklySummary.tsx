@@ -70,6 +70,26 @@ export function WeeklySummary({
           <Metric label="Studio construction" small testid="sum-construction">
             <span className="money neg">{money(summary.construction)}</span>
           </Metric>
+          {summary.rights !== undefined && <>
+          <Metric label="Rights trades and licences" small testid="sum-rights">
+            {money((summary.rights ?? 0))}
+          </Metric>
+          <Metric label="Estate asset purchases" small testid="sum-estatePurchases">
+            {money((summary.estatePurchases ?? 0))}
+          </Metric>
+          <Metric label="Acquisition net cash" small testid="sum-acquisition">
+            {money((summary.acquisition ?? 0))}
+          </Metric>
+          <Metric label="Due diligence fees" small testid="sum-diligence">
+            {money((summary.diligence ?? 0))}
+          </Metric>
+          </>}
+          {/* P18 FIX-3: Core emits the television bucket only once a season exists; it is summed into the net. */}
+          {summary.television !== undefined && (
+            <Metric label="Television commissioning" small testid="sum-television">
+              {money(summary.television)}
+            </Metric>
+          )}
           <Metric label="Net this period" small testid="sum-net">
             <span className={summary.netCash < 0 ? 'money neg' : 'money pos'}>
               {summary.netCash >= 0 ? '+' : ''}

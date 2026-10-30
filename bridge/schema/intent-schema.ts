@@ -61,8 +61,36 @@ export const AVAILABLE_INTENT_KINDS = [
   // P15B Wave 5 (1357-A §6.1, §7): the ONE loan verb, offered only while the loan law allows it (warning or
   // distress, no loan outstanding) and always at the lawful maximum; commit revalidates through the action.
   'takeLoan',
+  'requestDueDiligence',
+  'absorbStudio',
+  // P17 slice B (projection 66): cancelling ONE unperformed featured-guest booking of the player's own, the core
+  // `cancelCameoBooking` action (one linked refund of fee less the retained charge; completed work keeps its fee).
+  'cancelFeaturedBooking',
+  // P18 Sprint 13 slice B (projection 68): the season verbs. `commissionTvSeason` is minted only by the
+  // quoteTvCommission family; `cancelTvSeason` and `settleTvObligations` map to the core actions of the same names.
+  'commissionTvSeason',
+  'cancelTvSeason',
+  'settleTvObligations',
+  // ASTRA Sprint 27 (projection 71): the Rights desk and estate verbs the native client could not reach (Sprint 25 route
+  // matrix). `makeRightsOffer` and the disclosed `acceptRightsOffer` are minted only by the quoteRightsOffer family (the
+  // decision B season consequence is the review); `rejectRightsOffer`, `withdrawRightsOffer` and the one-gesture
+  // `acceptRightsOffer` of a purchase map to the core actions of the same names; `submitEstateBid` is minted only by the
+  // quoteEstateBid family. The core actions revalidate every subject, party, permission, reservation and duplicate rule.
+  'makeRightsOffer',
+  'acceptRightsOffer',
+  'rejectRightsOffer',
+  'withdrawRightsOffer',
+  'submitEstateBid',
 ] as const
 
+/**
+ * ASTRA Sprint 20 (Owner decision E, projection 70): the contract names which published one-click intents a client must
+ * not dispatch from a single gesture. `required` means the client shows the option's `detail` (the core's own consequence
+ * sentence) and takes a second, distinct gesture before submitting; `none` is the ordinary memo button. The Bridge sets
+ * it from the intent kind (session.ts CONFIRMATION_REQUIRED_KINDS): the cancellations and the obligation settlement. A
+ * quote-minted commit (`commitLabel` intents) is `none`: its quote was the review step.
+ */
+export const INTENT_CONFIRMATION_KINDS = ['none', 'required'] as const
 export const StudioBridgeIntentOption = object('StudioBridgeIntentOption', {
   intentId: nonEmptyText(),
   kind: enumeration(AVAILABLE_INTENT_KINDS),
@@ -71,5 +99,6 @@ export const StudioBridgeIntentOption = object('StudioBridgeIntentOption', {
   projectId: nullable(text()),
   castingSessionId: nullable(text()),
   productionId: nullable(text()),
+  confirmation: enumeration(INTENT_CONFIRMATION_KINDS),
 })
 

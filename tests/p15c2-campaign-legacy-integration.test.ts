@@ -104,6 +104,8 @@ import { TUNING } from '../src/core/tuning.js'
 import type { GameState, TalentCareerEvent } from '../src/core/types.js'
 import { generateWorld } from '../src/core/worldgen.js'
 import { P15_ROOTS, p15Rows, predecessorSave, stripP15 } from './helpers/p15-roots.js'
+import { rightsStripped } from './helpers/p16-era.js'
+import { P15_PHASE_ORDER_VERSION } from '../src/core/p15Phases.js'
 import {
   asSaveFile,
   B,
@@ -681,7 +683,10 @@ describe('p15c2 boundary: the freeze as the tick\'s last step (1359-A §4, RED B
     expect(official.p15DomainSequence).toBe(next - 1)
     expect(official.legacySnapshotId).toBe(`campaign-legacy-${official.p15DomainSequence}`)
     expect(official.phaseId).toBe('p15c.finale')
-    expect(official.phaseOrderVersion).toBe(2) // P15B Wave 4 (1370-ar): written under phase-order version 2
+    // P15B Wave 4 (1370-ar): written under phase-order version 2. P16 rebase round 6: the writer stamps the table by the
+    // state's era (campaignLegacy.ts finale triple, `Object.hasOwn(state, 'rights') ? 3 : 2`); this route is rights-era.
+    expect(Object.hasOwn(s6240, 'rights'), 'premise: a rights-era route').toBe(true)
+    expect(official.phaseOrderVersion).toBe(P15_PHASE_ORDER_VERSION)
     expect(Number.isSafeInteger(official.phaseOrdinal)).toBe(true)
     expect([official.kind, official.definition, official.boundaryWeek, official.postFinaleMode])
       .toEqual(['official2040', 'campaign-legacy/v3', B, LEGACY_POST_FINALE_MODE])
@@ -923,19 +928,28 @@ describe('p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5)', 
 
 // Separate explicitly constructed historical producer control on the existing labelled
 // G6240F input. This is NOT a downgrade or relabel of the modern manifest.
+// P16 rebase round 6: built in the predecessor era, as p15b-legacy-v3's genuineFrozen48 is. The live freeze stamps
+// table 3 on a rights-era state, and the test helper refuses to relabel table-3 history (table 3 inserts
+// p16.estateSale at ordinal 2, so the finale's ordinal is 6, not 5: a relabel would rewrite the stamp). The same
+// genuine 6240 world's Save48 envelope, taken before the freeze while it holds no table-3 row, is frozen by the same
+// writer, which keeps table 2 without a rights root; the live step then lifts it (convertV48ToV49 keeps the stamp).
 function historicalV2FrozenControl(): GameState {
-  const state = genuineFrozen()
-  makeSave(state)
+  const base48 = rightsStripped(makeSave(genuine6240())).state as unknown as GameState
+  const state = stepFn()(withRoot(base48, 'campaignLegacy', { ...legacyOf(base48), recordedFromWeek: 0 }))
   const old = officialOf(state)
+  expect(old.phaseOrderVersion, 'premise: the predecessor-era writer keeps table 2').toBe(2)
   const built = LEGACY_DEFINITIONS['campaign-legacy/v2'].evaluate(
     legacyFactsFromState(state, B, 'campaign-legacy/v2'), 'official2040')
-  const historical = withRoot(state, 'campaignLegacy', { ...legacyOf(state), official: {
+  const historical48 = withRoot(state, 'campaignLegacy', { ...legacyOf(state), official: {
     ...built, legacySnapshotId: old.legacySnapshotId, p15DomainSequence: old.p15DomainSequence,
     phaseId: old.phaseId, phaseOrdinal: old.phaseOrdinal, phaseOrderVersion: old.phaseOrderVersion,
   } })
-  makeSave(historical) // Whole48 admission, not only Legacy/root validation.
-  predecessorSave(historical) // Own frozen47 admission before testing any later guard.
-  return historical
+  const save48 = { saveVersion: saveModule.P15B_SAVE_VERSION, seed: historical48.seed, state: historical48, broadcastCache: historical48.broadcastItems }
+  predecessorSave(historical48) // Own frozen47 admission before testing any later guard.
+  // Whole48 admission, not only Legacy/root validation, then Whole49 admission of the lifted control: convertV48ToV49
+  // opens with validateSaveV48 (= validateSaveP15B, which returns its input) and returns through validateSaveV51, the
+  // validator makeSave runs, so neither is repeated here (P16 rebase round 7).
+  return saveModule.convertV48ToV49(save48 as never).state as unknown as GameState
 }
 
 // ── the frozen definition table as literals (1359-F2 item 1; 1353-F6 ruling 2; 1353-F7 ruling 3) ──
@@ -1032,7 +1046,13 @@ describe('p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359
     refuses(tamper(frozen, (o) => { o.legacySnapshotId = `power-ranking-${o.p15DomainSequence}` }), 'campaignLegacy.official.legacySnapshotId')
     refuses(tamper(frozen, (o) => { o.phaseId = 'p15b.condition' }), 'campaignLegacy.official.phase')
     refuses(tamper(frozen, (o) => { o.phaseOrdinal += 1 }), 'campaignLegacy.official.phase')
-    refuses(tamper(frozen, (o) => { o.phaseOrderVersion = 3 }), 'campaignLegacy.official.phase') // P15B Wave 4 (1370-ar): 2 has a table now
+    // P15B Wave 4 (1370-ar): 2 has a table now. P16 rebase round 6: so has 3, the live table this rights-era freeze
+    // stamps (campaignLegacy.ts finale writer, `Object.hasOwn(state, 'rights') ? 3 : 2`), so the forgery moves to the
+    // first version with no table; the modern-definition rule refuses it (campaignLegacy.ts:1316). ACCEPTANCE OPEN:
+    // a stamp-versus-era rule (a table-3 official only in a world that recorded under table 3) is not provable from
+    // the root, which admits 2 and 3 alike under the rights era (a Save48 freeze lifted by convertV48ToV49 keeps 2).
+    expect(officialOf(frozen).phaseOrderVersion, 'premise: the rights-era freeze stamps the live table').toBe(P15_PHASE_ORDER_VERSION)
+    refuses(tamper(frozen, (o) => { o.phaseOrderVersion = P15_PHASE_ORDER_VERSION + 1 }), 'campaignLegacy.official.phase')
   }), FIXTURE_MS)
 
   it('legacy-validate-bounds', budgeted(FIXTURE_MS, () => {

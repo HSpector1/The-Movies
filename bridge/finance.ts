@@ -1,6 +1,7 @@
+import { buyerScriptConcepts } from '../src/core/continuedScripts.ts'
 /** P11 composes existing owners into a player-safe Finance read model. */
 import type { GameState } from '../src/core/types.ts'
-import { financeHistory, financeOverview } from '../src/core/financeReport.ts'
+import { financeHistory, financeOverview, ownedEstateFinance } from '../src/core/financeReport.ts'
 import { blueprintById } from '../src/core/placement.ts'
 import { filmCommittedCost } from '../src/core/receptionVerdict.ts'
 import { filmResultView } from '../ui/src/engine/adapter.ts'
@@ -54,7 +55,7 @@ export function financeProjection(state: GameState, people: BridgePeopleProjecti
     const costRecorded = rows.some(e => e.kind === 'production')
     const run = state.theatricalRuns.find(r => r.productionId === f.productionId)
     const title = state.studioHistory.rows.find(e => e.kind === 'filmReleased' && e.productionId === f.productionId)
-    return { productionId: f.productionId, title: state.concepts.find(c => c.id === f.conceptId)?.title ?? (title?.kind === 'filmReleased' ? title.title : f.productionId),
+    return { productionId: f.productionId, title: buyerScriptConcepts(state).find(c => c.id === f.conceptId)?.title ?? (title?.kind === 'filmReleased' ? title.title : f.productionId),
       status: business.projected ? 'releasing' : business.runStatus === 'legacyCompleted' || business.runStatus === 'none' ? 'legacy' : 'settled',
       releaseWeek: f.releaseTick, resultAvailable: true,
       theatricalGross: business.boxOfficeGrossTotal, studioRevenueReceived: business.studioRevenuePaidToDate,
@@ -73,7 +74,7 @@ export function financeProjection(state: GameState, people: BridgePeopleProjecti
   for (const p of state.studio.activeProductions) {
     const rows = state.ledger.filter(e => e.productionId === p.id && (e.kind==='production'||e.kind==='freelancerFee'))
     const recorded = rows.some(e => e.kind === 'production')
-    films.push({ productionId:p.id, title:state.concepts.find(c=>c.id===p.conceptId)?.title ?? p.id,
+    films.push({ productionId:p.id, title:buyerScriptConcepts(state).find(c=>c.id===p.conceptId)?.title ?? p.id,
       status:'inProduction', releaseWeek:null, resultAvailable:false,
       theatricalGross:null, studioRevenueReceived:0, studioRevenueTotal:null, studioRevenueRemaining:null, remainingWeeks:0,
       directCommitment:recorded?filmCommittedCost(state,p.id):null,
@@ -87,7 +88,7 @@ export function financeProjection(state: GameState, people: BridgePeopleProjecti
     if (film.freelancerFees === 0) film.freelancerFees = 0
     if (film.productionAndMarketing === 0) film.productionAndMarketing = 0
   }
-  return { ...overview, employees, facilities, films, upcoming: financeUpcoming(state),
+  return { ...overview, estateAccounting: ownedEstateFinance(state), employees, facilities, films, upcoming: financeUpcoming(state),
     portfolio: financePortfolio(state, films), history: financeHistory(state),
     guaranteedPayrollRemaining: employees.reduce((sum,e)=>sum+e.guaranteedRemaining,0),
     obligationsBasis:'Contract guarantees describe future payroll under existing terms. They are not an additional charge and are not subtracted from Cash. Signing bonuses already paid are excluded.',

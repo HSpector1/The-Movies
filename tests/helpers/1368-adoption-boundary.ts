@@ -8,12 +8,12 @@ import { commercialAccessRefusal } from '../../src/core/technology.js'
 import { equipmentPlan, installationCatalogueCost } from '../../src/core/technologyAdoption.js'
 import { technologyEntry } from '../../src/core/technologyCatalogue.js'
 import { ageAt } from '../../src/core/aging.js'
-import { makeSave, validateSaveV48, stableStringify } from '../../src/core/save.js'
+import { makeSave, validateSaveV51, stableStringify } from '../../src/core/save.js'
 import type { GameState } from '../../src/core/types.js'
 const bytes = stableStringify
 function admitted(s: GameState): void {
   const before = bytes(s), envelope = makeSave(s)
-  expect(validateSaveV48(envelope)).toBe(envelope); expect(bytes(s)).toBe(before)
+  expect(validateSaveV51(envelope)).toBe(envelope); expect(bytes(s)).toBe(before)
 }
 // Exact measured public-migration fixture; original B restriction assertions stay in their leaf.
 export function adoptionBoundary416() {

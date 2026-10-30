@@ -404,6 +404,12 @@ export type LedgerKindV13 = LedgerKindV12 | 'facilityDemolitionRefund'
 // job (committed, part-worked, refunded) is one auditable trail correlated by
 // `constructionProjectId`, and an unworked component's money is never laundered
 // through generic revenue or a negative capex.
+// P16 (Save46): the three rights money kinds. `rightsConsideration` is SIGNED (sale proceeds
+// in, purchases and licence fees out), `dueDiligenceFee` is a charge, `acquisitionOutlay` is
+// signed (consideration net of the target's at-par cash). Admitted only under the Save46
+// ledger policy and reconciled against the rights transactions root (rights.ts), so none can
+// masquerade as revenue, production spend or a termination.
+export type P16LedgerKind = 'rightsConsideration' | 'dueDiligenceFee' | 'acquisitionOutlay'
 export type LedgerKind =
   | LedgerKindV13
   | 'constructionRefund'
@@ -418,6 +424,11 @@ export type LedgerKind =
   | 'loanInstallment'
   // P15B Wave 4 (closure/v1 §3): one employment claim payment (−), correlated by talentId.
   | 'claimPayment'
+  | P16LedgerKind
+  | 'absorbedRunRevenue'
+  // P18 (Save51; contract §5): the advance and milestone receipts (+) and the per-unit production spend (−).
+  // Admitted only under the "tv-p18" ledger policy and reconciled one-to-one with their television receipts.
+  | import('./tvTypes.js').TvLedgerKind
 
 // Frozen V11 rows discriminate the one capital event and its exact correlation.
 // Construction capex cannot masquerade as film/talent spend, while historical
@@ -524,6 +535,28 @@ export type LedgerEntry =
   | {
       week: number
       kind: 'setCapex' | 'setMaintenance' | 'setDemolitionRefund'
+      amount: number
+      talentId?: never
+      productionId?: never
+      constructionProjectId?: never
+      note: string
+    }
+  // P16 (Save46): a rights money row carries no talent/production/construction correlation;
+  // its `note` names the rights transaction id, which the rights root reconciles.
+  | {
+      week: number
+      kind: P16LedgerKind | 'absorbedRunRevenue'
+      amount: number
+      talentId?: never
+      productionId?: never
+      constructionProjectId?: never
+      note: string
+    }
+  // P18 (Save51): a television money row carries no talent/production/construction correlation; its `note` is the id
+  // of the one television receipt that records the same movement, which the Save51 validator reconciles.
+  | {
+      week: number
+      kind: import('./tvTypes.js').TvLedgerKind
       amount: number
       talentId?: never
       productionId?: never
@@ -1273,6 +1306,8 @@ export type FacilityEngagementKind =
    *     a stage with a set on it cannot be demolished until the set is struck.
    */
   | 'set'
+  /** P18 (contract §4): a live television season's work-block slot, or the set it stands on with its stage. */
+  | 'tvSeason'
 
 /**
  * One live claim on a facility, named precisely enough for a refusal to be
@@ -1985,6 +2020,8 @@ export type PhysicalPlan = {
   startedPlacementId: number | null
   /** Written EXACTLY ONCE, at the admission that committed the work. */
   commitReceipt: { week: number; fingerprint: string; cost: number } | null
+  /** Current49 actual absorbed-terminal disposition; frozen P09 readers reject this field. */
+  absorptionDisposition?: { absorptionId: string; week: number; kind: 'retainedCompleted' | 'stoppedPaid' | 'cancelledUnstarted'; priorStatus: PhysicalPlanStatus }
 }
 
 export type StudioPhysicalPlans = {
@@ -2351,7 +2388,10 @@ export type GameStateV31 = GameStateV30 & {
 // V44 adds the edge's `competitions` log and `romance` track.
 // V45 is the shared P15 step: slice 2a adds the Power Ranking archive and the one P15 allocator,
 // P15A.1 Wave 2 adds the shared-market root, and P15C Wave 2 adds the Campaign Legacy root.
-export type GameState = GameStateP15B
+// V46 is the P16 rights step: the `rights` root (rights.ts) and the three rights money kinds.
+// P17 (save.ts P17_SAVE_VERSION) adds the `franchises` root, present once a continuation exists.
+// P18 (save.ts P18_SAVE_VERSION) adds the `television` root, present once a season has been commissioned.
+export type GameState = GameStateP18
 
 // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
 
@@ -2607,7 +2647,7 @@ export type PowerRankingRecordRow = {
 }
 export type PowerRankingRecord = {
   id: string; p15DomainSequence: number; phaseId: string; phaseOrdinal: number; phaseOrderVersion: number
-  week: number; definitionVersion: 'power-ranking/v1' | 'power-ranking/v2'; available: boolean; windowStartWeek: number
+  week: number; definitionVersion: 'power-ranking/v1' | 'power-ranking/v2' | 'power-ranking/v3'; available: boolean; windowStartWeek: number
   rows: PowerRankingRecordRow[]
 }
 export type PowerRankingArchive = { version: 1; recordedFromWeek: number; snapshots: PowerRankingRecord[] }
@@ -2688,11 +2728,15 @@ export type CorporateConditionRoot = {
   events: ConditionEvent[]
   loans: StudioLoanRecord[]
 }
+/** The closure laws by name (studioClosure.ts CLOSURE_LAWS). closure/v2 (ASTRA Sprint 23, Owner decision B) adds the
+ * typed television claims of a closing producer; every record, claim and disposition names the law it was made under. */
+export type ClosureLawVersion = 'closure/v1' | 'closure/v2'
 /** One typed terminal disposition (Wave-4 contract §4). `status` 'pending' is an explicit, honest
  * non-execution (P16 contract §4 (b)); it never means "forgotten". */
 export type ClosureDisposition = {
   subjectKind: 'employment' | 'screenplay' | 'production' | 'theatricalRun' | 'research' | 'adoption' | 'physicalPlan'
     | 'facility' | 'construction' | 'set' | 'castingSession' | 'queuedIntent' | 'proposal' | 'marketCase' | 'loan' | 'cash' | 'title'
+    | 'tvAgreement'
   subjectId: string
   /** Prior-state proof fields the validator can check against retained history (§5). */
   prior: string
@@ -2700,17 +2744,22 @@ export type ClosureDisposition = {
   status: 'applied' | 'pending'
   claimId: string | null
   lotId: string | null
-  lawVersion: 'closure/v1'
+  lawVersion: ClosureLawVersion
 }
 export type ClosureClaimPayment = { week: number; amount: number; reference: string }
+/** A creditor claim of a closed studio. `employment`: one per live interval ended by the closure (sourceContractId the
+ * contract, claimant the person). closure/v2 adds the television obligations of a closing producer (decision B):
+ * `tvRefund` (the frozen advance refund U0 still outstanding) and `tvCharge` (the frozen cancellation charge K still
+ * outstanding), sourceContractId the agreement id and claimant the commissioner id. Priority: every employment claim,
+ * then refunds, then charges; within a tier ascending source id then claim id. */
 export type ClosureClaim = {
   claimId: string
   closureId: string
   studioId: string
-  kind: 'employment'
+  kind: 'employment' | 'tvRefund' | 'tvCharge'
   sourceContractId: string
   claimantTalentId: string
-  lawVersion: 'closure/v1'
+  lawVersion: ClosureLawVersion
   original: number
   paid: number
   unpaid: number
@@ -2731,13 +2780,14 @@ export type ClosureReceipt = { week: number; kind: 'distribution'; amount: numbe
 /** r3 (Wave-4 contract §2, §5): one later estate transaction, a separate dated record linked to its closure,
  * carrying its own stable id, the one global P15 sequence and the phase triple. `runReceipt` names the run
  * installment the estate collected (`<filmId>:due:<T−1>`), `distribution` one claims batch (its payments
- * reference this event id), `archival` the one close boundary D of a rival estate. */
+ * reference this event id), `archival` the one close boundary D of a rival estate. Current49 alone admits
+ * `saleReceipt`, whose reference is the actual estateSale transaction; frozen48 reader rejects it. */
 export type EstateEvent = {
   eventId: string
   closureId: string
   studioId: string
   week: number
-  kind: 'runReceipt' | 'distribution' | 'archival'
+  kind: 'runReceipt' | 'distribution' | 'archival' | 'saleReceipt'
   amount: number
   reference: string
   p15DomainSequence: number; phaseId: string; phaseOrdinal: number; phaseOrderVersion: number
@@ -2747,7 +2797,7 @@ export type ClosureRecord = {
   studioId: string
   closureWeek: number
   causeEventId: string
-  lawVersion: 'closure/v1'
+  lawVersion: ClosureLawVersion
   p15DomainSequence: number; phaseId: string; phaseOrdinal: number; phaseOrderVersion: number
   cash: { closing: number; distributable: number }
   loan: { loanId: string; stopWeek: number; paidInstallments: number; paidAmount: number; remainder: number } | null
@@ -2779,6 +2829,134 @@ type P15BPredecessorState = GameStateV47
 export type GameStateP15B = Omit<P15BPredecessorState, 'campaignLegacy'> & P15BStepRoots & { campaignLegacy: import('./campaignLegacy.js').ModernCampaignLegacyRoot }
 /** The conventional name, renumbered with save.ts's header. */
 export type GameStateV48 = GameStateP15B
+/**
+ * P16 (Save49; P16A r3 charter; 1367-stage P16 contract §3): the one P16-owned versioned root
+ * `rights`, whose type, validator and migration live in rights.ts / save.ts. The era also admits the
+ * three P16 ledger kinds and rival money kinds, each reconciled against the root's transactions.
+ */
+export type GameStateV49 = GameStateP15B & { rights: import('./rights.js').RightsRoot }
+
+// ── P17 continuations (save step P17_SAVE_VERSION in save.ts; src/core/continuationSave.ts) ──────────────────────
+// Canonical rev02 f2eff635 §5.2/§9/§10; charter r2 (1370-ae). The franchise root carries NO owner/studio field
+// and NO status switch: rights are a live P16 read (rights.ts permissionFor / branchAuthority), bands and "open"
+// derive from release weeks and meters. The root is absent until the first accepted continuation greenlight or
+// SubProperty hook writes a property, and never empties again (append-only), so absence is the one encoding of
+// "no franchise": a predecessor-era state reads unchanged and a save never carries an empty root.
+/** The five continuation types (rev02 Direction A); a dormant return is a DirectSequel, never a sixth. */
+export type ContinuationType = 'directSequel' | 'prequel' | 'remake' | 'reboot' | 'spinOff'
+/** A lineage edge's type: a continuation, or the property's founding installment. */
+export type LineageEdgeType = ContinuationType | 'origin'
+/** The §5.2 running scalars of one StoryProperty (or one SubProperty): Recognition and Fatigue. */
+export type PropertyMeter = {
+  bestScore: number
+  residualScoreSum: number
+  peakInstallmentId: string | null
+  rPeak: number
+  fatigue: number
+  fatigueUpdateWeek: number
+  fatigueLastQuality: number | null
+  releaseCount: number
+  /** True only for a property meter that may still exempt its first-ever film from Fatigue (C5). */
+  firstFilmExempt: boolean
+}
+export type FranchiseBranchKind = 'main' | 'reboot' | 'spinoff'
+/** One continuity: its Momentum scalars and release gaps. A spin-off branch points at its SubProperty. */
+export type FranchiseBranch = {
+  branchId: string
+  kind: FranchiseBranchKind
+  subPropertyId: string | null
+  openedAtWeek: number
+  momentum: number
+  momentumUpdateWeek: number
+  lastReleaseWeek: number | null
+  priorGapWeeks: number | null
+}
+/** Append-only lineage: child → parent, typed, on a branch, with its similarity bucket. `studioId` and `greenlitWeek`
+ * are the greenlighting studio and week of a continuation; the founding (origin) film's are existing history, so both
+ * are null there (no fabricated provenance). */
+export type LineageEdge = {
+  childProductionId: string
+  parentProductionId: string | null
+  type: LineageEdgeType
+  branchId: string
+  similarity: number
+  greenlitWeek: number | null
+  studioId: string | null
+  releasedWeek: number | null
+}
+/** rev02 §10 closed, versioned milestone enum, v1: `activeAgain` (a continuity whose prior gap was ≥ DORMANT_WEEKS lands
+ * a release with non-negative Momentum). `legacyCameo` is an optional display feature outside this slice. */
+export type FranchiseMilestoneId = 'activeAgain'
+export type FranchiseMilestone = { milestoneId: FranchiseMilestoneId; productionId: string; week: number }
+export type SubPropertyKind = 'character' | 'organization' | 'location' | 'concept'
+export type SubProperty = {
+  subPropertyId: string
+  kind: SubPropertyKind
+  mintedAtProductionId: string
+  citedTalentIds: string[]
+  hookWeight: number
+  mintedWeek: number
+  meter: PropertyMeter
+  /** The P16-minted StoryProperty this hook was promoted into; always null while P16 has no promotion producer. */
+  promotedToStoryPropertyId: string | null
+}
+export type FranchiseProperty = {
+  storyPropertyId: string
+  franchiseId: string
+  mintedWeek: number
+  meter: PropertyMeter
+  branches: FranchiseBranch[]
+  installments: LineageEdge[]
+  subProperties: SubProperty[]
+  /** Append-only, at most one per installment release. */
+  milestones: FranchiseMilestone[]
+}
+export type FranchiseRoot = { version: 1; nextOrdinal: number; properties: FranchiseProperty[] }
+// ── P17 Shape A cameo / featured appearances (src/core/cameo.ts; the same Save50 step, additive) ──────────────────
+// 1367-stage P17-CAMEO-CONTRACT §5: a booking authority keyed by exact studio/production/person/booking ids, with
+// the frozen quote, the named work week, the paid amount, the status, the actual completed week and the linked
+// refund. Like `franchises`, the root is absent until its first booking and never empties (bookings are never
+// deleted), so absence is the one encoding of "no booking" and a predecessor-era state reads unchanged.
+export type CameoBookingStatus = 'reserved' | 'completed' | 'cancelled'
+export type CameoCancelReason = 'explicit' | 'missedWork' | 'productionCancelled' | 'employmentExit' | 'rightsLoss'
+/** A completed appearance's one permanent career record: the TalentCareerEvent shape from the same builder, with
+ * the cameo role and its provisional visibility weight. Stored on its booking; the frozen V8 list is never widened. */
+export type CameoCareerEvent = Omit<TalentCareerEvent, 'role'> & { role: 'cameo' }
+export type CameoBooking = {
+  bookingId: string
+  studioId: string
+  productionId: string
+  talentId: string
+  workWeek: number
+  bookedWeek: number
+  basis: 'employee' | 'freelance'
+  /** The person's actual profession at booking: the publicity profile row the quote used. */
+  profession: CreativeRole
+  fee: number
+  retained: number
+  /** The frozen fee inputs and the rule/capability/profile versions the quote was evaluated under. */
+  quote: { perceivedActingOVR: number; fame: number; ruleVersion: 'p17-cameo/v1'; capabilityVersion: 'p17-cameo-capability/v1'; profileVersion: 'p17-cameo-profile/v1' }
+  status: CameoBookingStatus
+  completedWeek: number | null
+  /** The guest's actual support-fit execution, frozen when the one week of work completed. */
+  completedExecution: number | null
+  cancelledWeek: number | null
+  cancelReason: CameoCancelReason | null
+  refund: number | null
+  /** The release that earned the permanent credit; null until then, and forever for unperformed work. */
+  releasedWeek: number | null
+  careerEvent: CameoCareerEvent | null
+}
+export type CameoRoot = { version: 1; nextOrdinal: number; bookings: CameoBooking[] }
+export type P17StepRoots = { franchises?: FranchiseRoot; cameos?: CameoRoot }
+export type GameStateP17 = GameStateV49 & P17StepRoots
+/** The conventional name (save.ts's alias rule). */
+export type GameStateV50 = GameStateP17
+// P18 (Save51; tvSave.ts): the `television` root is absent until the first commission and never empties (no row is
+// deleted), so absence is the one encoding of "no season" and a Save50 world migrates by version alone.
+export type P18StepRoots = { television?: import('./tvTypes.js').TelevisionRoot }
+export type GameStateP18 = GameStateP17 & P18StepRoots
+export type GameStateV51 = GameStateP18
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.
@@ -2832,6 +3010,11 @@ export type Action =
   | {
       kind: 'greenlight'
       production: Omit<Production, 'id' | 'startTick' | 'remainingTicks' | 'forecastSnapshot'>
+      // P17: an optional continuation request, read against the live P16 rights and committed atomically with the
+      // production. Absent ⇒ the predecessor path, byte for byte.
+      continuation?: import('./continuation.js').ContinuationRequest
+      // P17 Shape A: zero to two featured bookings, quoted this week and committed atomically with the production.
+      cameos?: import('./cameo.js').CameoBookingRequest[]
     }
   | { kind: 'cancel'; productionId: string }
   | { kind: 'createTalent'; talent: AuthoredTalentInput } // §10 (legacy budget creator)
@@ -2871,7 +3054,9 @@ export type Action =
   | { kind: 'renameScreenplay'; conceptId: string; title: string }
   | { kind: 'requestScriptRewrite'; projectId: string }
   | { kind: 'acceptScript'; projectId: string }
-  | { kind: 'greenlightScriptProject'; production: GreenlightScriptProjectPayload }
+  // P17: the same optional continuation request. It rides the ACTION, never the queued payload: a continuation is
+  // quoted against this week's grant, so it starts now or refuses; the frozen queue leaf is never widened.
+  | { kind: 'greenlightScriptProject'; production: GreenlightScriptProjectPayload; continuation?: import('./continuation.js').ContinuationRequest; cameos?: import('./cameo.js').CameoBookingRequest[] }
   // ── Casting Sessions V1 ──
   | { kind: 'activateCastingSessions' }
   | { kind: 'startCastingSession'; session: StartCastingSessionPayload }
@@ -2897,6 +3082,10 @@ export type Action =
   | { kind: 'strikeSet'; setId: string }
   // ── P06A release authority (charter W1) — the ONE explicit release commitment ──
   | { kind: 'commitPictureToRelease'; productionId: string }
+  // ── P17: mint an authored SubProperty hook on an exact film of a property the studio may spin off (rev02 §9.1-2) ──
+  | { kind: 'mintSubProperty'; productionId: string; hookKind: SubPropertyKind; citedTalentIds: string[] }
+  // ── P17 Shape A: explicitly cancel one unperformed featured booking (its one linked refund of fee − retained) ──
+  | { kind: 'cancelCameoBooking'; bookingId: string }
   // ── P13B-S5-R07 — the reviewed setup-plan verb ──
   // It names a production, a catalogue recipe and the plan revision it was
   // reviewed against, and nothing else: a setup plan cannot reach a stage, a
@@ -2944,6 +3133,20 @@ export type Action =
   // P15B Wave 2 (1357-A §6.1): the player's one loan verb. It names a principal and nothing else; the
   // stage, the maximum and the schedule come from the law at the action's own week.
   | { kind: 'takeLoan'; principal: number }
+  // ── P16 (Save46) rights verbs: the player's side of the symmetric law (assetSale.ts, dueDiligence.ts, estate.ts) ──
+  | { kind: 'makeRightsOffer'; offer: import('./assetSale.js').PlayerOfferInput }
+  | { kind: 'withdrawRightsOffer'; offerId: string }
+  | { kind: 'acceptRightsOffer'; offerId: string }
+  | { kind: 'rejectRightsOffer'; offerId: string }
+  | { kind: 'requestDueDiligence'; target: import('./rights.js').DiligenceTarget; scope: import('./rights.js').DiligenceScopeItem[] }
+  // Real held paid disclosure and original dated preview are revalidated by the transaction owner.
+  | { kind: 'absorbStudio'; absorption: Omit<import('./acquisition.js').AbsorptionInput, 'buyerId'> & { quotedAtWeek: number; quoteAgePolicyVersion: import('./quoteAge.js').QuoteAgePolicyVersion } }
+  | { kind: 'submitEstateBid'; estateId: string; lotId: string; amount: number }
+  // P18 (contract §3): the commission. Sprint 13 (contract §7): the producer's pre-delivery cancellation and the
+  // explicit settlement of a cancelled agreement's outstanding refund and charge.
+  | { kind: 'commissionTvSeason'; commission: import('./tvTypes.js').CommissionTvSeasonRequest }
+  | { kind: 'cancelTvSeason'; seasonId: string }
+  | { kind: 'settleTvObligations'; agreementId: string; expectedRemaining: number; amount: number }
 
 // §10 Authored talent — extended per D-9.14 (creation budget). `actual` persona
 // stays fully player-chosen; potential/workEthic/skillBias/secondary share a

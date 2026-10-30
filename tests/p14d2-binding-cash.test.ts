@@ -5,6 +5,7 @@ import { beforeAll, describe, expect, it, vi } from 'vitest'
 import { tick, TUNING } from '../src/core/index.js'
 import * as policyModule from '../src/core/hollywoodPolicy.js'
 import * as forecasts from '../src/core/forecast.js'
+import * as marketing from '../src/core/marketingMenu.js'
 import { resolveShape } from '../src/core/shape.js'
 import { marketingCapacityForInputs, marketingMenuFromCapacity } from '../src/core/marketingMenu.js'
 import { makeSave } from '../src/core/save.js'
@@ -132,6 +133,31 @@ describe('1363 Part A — binding cash', () => {
       expect(policyModule.chooseIndustryPackage(viable[0], viable[1], options)).toEqual(base.choice)
       expect(spy).toHaveBeenCalledTimes(base.affordable)
     } finally { spy.mockRestore() }
+
+    // Same captured reception inputs; unlocked is an explicit search-policy variant.
+    // Compare the complete optimized result to fresh helper evaluation, including promise and counters.
+    const before = JSON.stringify(viable)
+    const freshForecast = forecasts.computeForecast, freshCapacity = marketing.marketingCapacityForInputs
+    for (const lockScreenplay of [true, false]) {
+      const comparisonOptions = { ...viable[2], lockScreenplay, cashAvailable: Number.MAX_SAFE_INTEGER,
+        diagnoseUnaffordableViability: true }
+      const reused = search(viable[0], viable[1], comparisonOptions)
+      expect(reused.choice).not.toBeNull()
+      const forecastSpy = vi.spyOn(forecasts, 'computeForecast').mockImplementation((input, context, saturateFame, engaged, preparedCenters) => {
+        const fresh = freshForecast(input, context, saturateFame, engaged)
+        // Compare every negative/marketing candidate, including candidates that do not win the search.
+        expect(freshForecast(input, context, saturateFame, engaged, preparedCenters)).toEqual(fresh)
+        return fresh
+      })
+      const capacitySpy = vi.spyOn(marketing, 'marketingCapacityForInputs').mockImplementation((input, engaged) =>
+        freshCapacity(input, engaged))
+      try {
+        expect(search(viable[0], viable[1], comparisonOptions)).toEqual(reused)
+        expect(forecastSpy).toHaveBeenCalledTimes(reused.affordable)
+        expect(capacitySpy).toHaveBeenCalled()
+      } finally { capacitySpy.mockRestore(); forecastSpy.mockRestore() }
+    }
+    expect(JSON.stringify(viable)).toBe(before)
   })
 
   it('A2: viable membership is cash-free across no, partial and full affordability', () => {

@@ -1,0 +1,16 @@
+{
+  "head": "5a730f42d5a66d22cba4808b5c642510c2f068bb",
+  "purpose": "Complete seven affected files without final-source completed results; exact restored Legacy input",
+  "files": [
+    "tests/p14b1-first-take.test.ts",
+    "tests/p14c2rm-writer-continuation.test.ts",
+    "tests/p14c3-save-v38.test.ts",
+    "tests/stabilization-l02-casting-profession.test.ts",
+    "tests/casting-package-read-model.test.ts",
+    "tests/p14p4p5-opportunities.test.ts",
+    "tests/p15c2-campaign-legacy-integration.test.ts"
+  ],
+  "sourceManifestEntries": 1643,
+  "reused": "Complete screenplay10,shared-market33,soloLegacyimport; final compilers separate",
+  "budget": "Original defaults and explicit per-test budgets unchanged"
+}

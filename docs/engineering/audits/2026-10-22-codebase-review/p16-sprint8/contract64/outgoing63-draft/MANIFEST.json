@@ -1,0 +1,43 @@
+{
+  "status": "FROZEN-CONDITIONAL-DO-NOT-INSTALL-BEFORE-ACTUAL63-CAPTURE-VERIFICATION",
+  "sourceHead": "9c91232dd980cbe05399b6fd77ed55454e671f86",
+  "patch": {
+    "path": "OUTGOING63.patch",
+    "sha256": "f7ad33f6885425e1e06cf0216471b0445b4424b4fb31ef7b4c65c92cae2cbd21",
+    "bytes": 8276
+  },
+  "files": [
+    {
+      "path": "bridge/runtime-checkpoint.ts",
+      "preimageSHA256": "fde85439016f639e3b20f4949fe4194bfd1ddcc510b432561d6ca592bc90dc41",
+      "postimageSHA256": "a04d628775665c4f8db14cc27bbf46daa7e782865763a93b875a88e3ad3110b7"
+    },
+    {
+      "path": "tests/bridge-p14p4p5-opportunities.test.ts",
+      "preimageSHA256": "ccc965fcc1751cd852a34a497f2f638395d3f141cfb0a8e0ea91ce9a92d0ddb0",
+      "postimageSHA256": "64a4ff83384959da96a93d2f2323d4c7c9e271bec5cfda4592388975a92f1290"
+    },
+    {
+      "path": "tests/bridge-p14r2r3-prior55.test.ts",
+      "preimageSHA256": "f509c76107c828502964cdedb8034add9a5157728337a8bf8e3fbea43867346a",
+      "postimageSHA256": "53e942ca1eb51b126a731c5ac329b2f91986453b89a2c5f7c5a4743bfdb94de4"
+    },
+    {
+      "path": "tests/bridge-p14b8-waiver-surface.test.ts",
+      "preimageSHA256": "a5acc0e7ffcb2675d014f613ff60fe28e18cd2a2b410f5d10a69623de17fc6dd",
+      "postimageSHA256": "9a4bd2207a95a4aab57802b81e00013589a2eb649345d2dd82fe6723529aafb0"
+    },
+    {
+      "path": "tests/bridge-p14b5-relationships.test.ts",
+      "preimageSHA256": "0df5cec04e4ea7e98e9547f7f247ff15eb3ee055ecf60640883ce8bc0f2f7abc",
+      "postimageSHA256": "6a6236313ae1bd3fcd5071f3b5ff796976cd0f4d74396271b82d16bf9845bd38"
+    },
+    {
+      "path": "tests/bridge-runtime-checkpoint.test.ts",
+      "preimageSHA256": "72e7c023414a2687f743eff47afee17cddfd3fd1a6e27758db29187f237e9602",
+      "postimageSHA256": "8939d229f7011c6178536b94b1dfa4afd7b5ad1ef8aad18637bdcf44ec007914"
+    }
+  ],
+  "captureRequired": "../outgoing63/OUTGOING63-RECEIPT.json (not yet produced)",
+  "current64Pins": "Unchanged; actual generation/independent declaration measurement required"
+}

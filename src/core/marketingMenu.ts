@@ -38,7 +38,7 @@
 // unreachable and the top rung sits at full overexposure by construction).
 
 import { economyEngaged } from './employment.js'
-import { forecastCenters } from './forecast.js'
+import { forecastCenters, type ForecastCenters } from './forecast.js'
 import { MARKETING_BUDGET_LEVELS } from './grid.js'
 import {
   appealReachSum,
@@ -84,8 +84,9 @@ export function marketingCapacityFor(state: GameState, pkgInputs: MarketingMenuI
 }
 
 /** Explicit owner-input adapter; the same capacity law serves player and rival packages. */
-export function marketingCapacityForInputs(pkgInputs:ReceptionInputs,engaged:boolean):number {
-  const centers = forecastCenters(pkgInputs, engaged, engaged)
+// Internal reuse requires fresh centers for this package and both flags equal to engaged; marketing may differ.
+export function marketingCapacityForInputs(pkgInputs:ReceptionInputs,engaged:boolean,preparedCenters?:ForecastCenters):number {
+  const centers = preparedCenters ?? forecastCenters(pkgInputs, engaged, engaged)
   return efficientMarketingCapacity(
     preMarketingAwarenessOf(
       pkgInputs.standing.audienceAwareness,

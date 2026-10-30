@@ -17,6 +17,8 @@ import { TECHNOLOGY_CATALOGUE } from './technologyCatalogue.js'
 import type { GameState, GameStateV18, Genre, Talent } from './types.js'
 import type { HollywoodState, IndustryReceipt, RivalAccount, RivalBusiness, RivalFinancePeriod,
   RivalLoanMoneyKind, RivalMoneyKind, RivalResearchMoneyKind, StudioIdentity } from './hollywoodTypes.js'
+import { P16_RIVAL_MONEY_KINDS } from './hollywoodTypes.js'
+import { cutoverRightsRoot, rightsRootIsEmpty } from './rights.js'
 
 /** P13B-S8: the four research kinds, as one roster the save boundary and the projection share. */
 export const RIVAL_RESEARCH_MONEY_KINDS: readonly RivalResearchMoneyKind[] =
@@ -25,7 +27,7 @@ export const RIVAL_RESEARCH_MONEY_KINDS: readonly RivalResearchMoneyKind[] =
 export const RIVAL_LOAN_MONEY_KINDS: readonly RivalLoanMoneyKind[] = ['loanPrincipal','loanInstallment','claimPayment']
 export const RIVAL_MONEY_KINDS: readonly RivalMoneyKind[] = ['capacity','signing','payroll','overhead',
   'facilityOpex','development','production','marketing','studioRevenue','technologyAdoption',
-  ...RIVAL_RESEARCH_MONEY_KINDS,'termination','facilityDemolitionRefund',...RIVAL_LOAN_MONEY_KINDS]
+  ...RIVAL_RESEARCH_MONEY_KINDS,'termination','facilityDemolitionRefund',...RIVAL_LOAN_MONEY_KINDS,...P16_RIVAL_MONEY_KINDS]
 
 export function uniqueIdentity(base: string, taken: Set<string>): string {
   let id = base
@@ -40,7 +42,9 @@ export type RivalFinanceEra = 'live' | 'research-v27'
 export function newFinancePeriod(week: number, opening: number, era: RivalFinanceEra = 'live'): RivalFinancePeriod {
   const kinds = era === 'live' ? RIVAL_MONEY_KINDS
     // P15B (1370-ar): the three loan kinds are the live era's too; a frozen-era period keeps the V27 roster.
-    : RIVAL_MONEY_KINDS.filter(kind => kind !== 'termination' && kind !== 'facilityDemolitionRefund' && !(RIVAL_LOAN_MONEY_KINDS as readonly string[]).includes(kind))
+    // P16 rebase round 6: so are the four P16 rights kinds, which the candidate appended to RIVAL_MONEY_KINDS only.
+    : RIVAL_MONEY_KINDS.filter(kind => kind !== 'termination' && kind !== 'facilityDemolitionRefund' && !(RIVAL_LOAN_MONEY_KINDS as readonly string[]).includes(kind)
+      && !(P16_RIVAL_MONEY_KINDS as readonly string[]).includes(kind))
   return { fromWeek: week, throughWeek: week, opening, closing: opening,
     movements: Object.fromEntries(kinds.map(kind => [kind,0])) as RivalFinancePeriod['movements'] }
 }
@@ -51,11 +55,11 @@ export function moveRivalMoney(account: RivalAccount, kind: RivalMoneyKind, amou
     throw new Error('V27 rival finance does not admit later movement kinds')
   }
   if (!Number.isFinite(amount) || !Number.isFinite(account.cash + amount)) throw new Error('Nonfinite rival money')
-  let period = account.periods[account.periods.length-1]!
-  if (Math.floor(week/52) !== Math.floor(period.fromWeek/52)) {
-    period = newFinancePeriod(week,account.cash,era)
-    account.periods.push(period)
-  }
+  const previous = account.periods[account.periods.length-1]!
+  const period = Math.floor(week/52) !== Math.floor(previous.fromWeek/52)
+    ? newFinancePeriod(week,account.cash,era) : previous
+  if (!Object.hasOwn(period.movements, kind)) throw new Error(`Rival finance period from week ${period.fromWeek} has no ${kind} movement`)
+  if (period !== previous) account.periods.push(period)
   account.cash += amount
   period.movements[kind] += amount
   period.closing = account.cash
@@ -191,7 +195,12 @@ export function initializeHollywood(state: GameStateV18 & { hollywood?: Hollywoo
   // P13B-S3: the physical-plan root TRAVELS WITH THE STATE and is never minted
   // here — the one caller that passes a pre-V23 state is the frozen V18→V19
   // conversion, whose output must carry no root V19 never had.
-  let next = {...state, hollywood, technology:state.technology ?? initialTechnology(state.market.tick)} as GameState
+  // P16 (Save46): rights are recorded from the week the industry opens. A live state arrives with a
+  // (necessarily empty) root whose recordedFromWeek may be 0 from worldgen; work greenlit before this
+  // week has no identity to record a title against, so it is legacy from here on (derived, never
+  // persisted). A frozen pre-V46 projection carries no root and gets none.
+  const openedRights = 'rights' in state && rightsRootIsEmpty((state as GameState).rights) ? { rights: cutoverRightsRoot({ ...state, hollywood } as GameState) } : {}
+  let next = {...state, hollywood, technology:state.technology ?? initialTechnology(state.market.tick), ...openedRights} as GameState
   // A due migration entry is at this state's own week, never its scheduled past.
   for (const identity of identities.slice(1)) if (identity.eligibleWeek <= state.market.tick) {
     next = enterRival(next,identity.studioId,origin)

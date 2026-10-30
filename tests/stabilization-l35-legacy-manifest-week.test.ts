@@ -18,12 +18,13 @@ import {
   MODERN_LEGACY_DEFINITION, type EndedLegacy, type LegacyFacts, type LegacyManifest,
 } from '../src/core/campaignLegacy.js'
 import { P15_PHASE_ORDER_VERSION, P15_PHASE_TABLES } from '../src/core/p15Phases.js'
-import { exportSave, importSave, makeSave, migrateToLive, validateSaveP15B } from '../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToLive } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import type { GameState } from '../src/core/types.js'
 import { migrated } from './helpers/p14c3-fixtures.js'
 import { canon, drainPlayer, raw } from './helpers/p15b-live.js'
 import { budgeted, captureAt, FIXTURE_MS, ROUTE_MS } from './helpers/p15c2-legacy.js'
+import { validateLiveSave } from './helpers/live-era.js'
 
 const CAPTURE = 'genuine-v37-c3-three-real-releases.json.gz'
 const V3 = MODERN_LEGACY_DEFINITION
@@ -113,7 +114,7 @@ describe('12A: the end-of-run Legacy reports the paid input week (L-35)', () => 
 
     // The closed world saves, validates and reloads unchanged.
     const save = makeSave(final)
-    expect(() => validateSaveP15B(save)).not.toThrow()
+    expect(() => validateLiveSave(save)).not.toThrow() // the live reader (Save49 since P16; tests/helpers/live-era.ts)
     expect(canon(importSave(exportSave(save)).state)).toBe(canon(final))
   }), FIXTURE_MS)
 

@@ -35,8 +35,9 @@ import type { FoundingRegime, GameState, LedgerEntry } from '../src/core/types.j
 // R8's genuine Save45 predecessor (1363, landed as Save46): the step below this one.
 import { recoveryPredecessor45 } from './helpers/1367-recovery-predecessors.js'
 import { historicalHashState } from '../src/harness/roster-wall/historical-control.js'
-import { validateLiveSave } from './helpers/live-era.js'
+import { EXPECTED_LIVE_SAVE_VERSION, validateLiveSave } from './helpers/live-era.js'
 import { predecessorSave } from './helpers/p15-roots.js'
+import { LIVE_DOWNGRADE_REFUSAL, NONDEFAULT_MARKET_PROJECTION } from './helpers/p16-era.js'
 
 // ── the supported entry surfaces, as the adapter wraps them (ui/src/engine/adapter.ts) ─────
 // The browser's `newGame`, `importSaveJson`, `foundManagedStudioAction` and `advanceWeek` are thin
@@ -777,29 +778,39 @@ describe('1364 R-B: a founded campaign never opens a second founding draft or re
       expect(canon(parsed), `${title}: the parsed input is not mutated`).toBe(canon(JSON.parse(text)))
     }
     // The fund is the only thing that exempted the signature from cash: Save46 refuses it as the old law does.
-    // Admit the valid pre-forgery own-era baseline first. Never send the forged grant through
-    // predecessorSave: its strict V47 guard would mask the V46 cash-payment assertion.
-    const baseline = saveFn(`convertV${FOUNDING_STEP}ToV${FOUNDING_STEP - 1}`)(predecessorSave(week30))
-    expect(() => saveFn(`validateSaveV${FOUNDING_STEP - 1}`)(baseline)).not.toThrow()
-    const predecessorState = detached(baseline.state)
-    // Transfer only the injected cash-free signature and second landmark; retain V46 account schema.
-    predecessorState.contracts = detached(closed.contracts)
-    predecessorState.freeAgents = detached(closed.freeAgents)
-    predecessorState.studioHistory = detached(closed.studioHistory)
-    predecessorState.hollywood = { ...predecessorState.hollywood!,
-      employment: detached(closed.hollywood!.employment),
-      activeEmploymentOrdinals: detached(closed.hollywood!.activeEmploymentOrdinals),
-      receipts: detached(closed.hollywood!.receipts), nextReceipt: closed.hollywood!.nextReceipt }
-    expect(predecessorState.hollywood.nextReceipt).toBe(predecessorState.hollywood.receipts.length)
-    expect(new Set(predecessorState.hollywood.receipts.map(r => r.eventId)).size).toBe(predecessorState.hollywood.receipts.length)
-    expect(predecessorState.studioHistory.nextEventId).toBe(closed.studioHistory.nextEventId)
-    expect(canon(predecessorState.ledger)).toBe(canon(baseline.state.ledger))
-    expect(predecessorState.studio.cash).toBe(baseline.state.studio.cash)
-    const hostile = { ...baseline, state: predecessorState }
-    const hostileBytes = canon(hostile)
-    expect(() => saveFn(`validateSaveV${FOUNDING_STEP - 1}`)(hostile))
-      .toThrow(/employment start lacks its actual player signing payment/)
-    expect(canon(hostile)).toBe(hostileBytes)
+    // P16 rebase round 7: the week-30 world has no predecessor envelope (its market history holds nondefault Save49
+    // table-3 assessments, which `rightsStripped` refuses to relabel), so the same second grant is injected two weeks
+    // after the week-0 founding. No assessment exists before week 8 (fresh rivals start with no productions, and a
+    // production runs TUNING.PRODUCTION_TICKS = 8), and founding-downgrade-null-fund-lossless projects the same
+    // construction (another seed) after two ticks.
+    expect(() => predecessorSave(week30)).toThrow(NONDEFAULT_MARKET_PROJECTION)
+    const early = ticksTo(founded, 2)
+    {
+      const { closed } = injectSecondGrant(early) // the same injection, two weeks after the founding
+      // Admit the valid pre-forgery own-era baseline first. Never send the forged grant through
+      // predecessorSave: its strict V47 guard would mask the V46 cash-payment assertion.
+      const baseline = saveFn(`convertV${FOUNDING_STEP}ToV${FOUNDING_STEP - 1}`)(predecessorSave(early))
+      expect(() => saveFn(`validateSaveV${FOUNDING_STEP - 1}`)(baseline)).not.toThrow()
+      const predecessorState = detached(baseline.state)
+      // Transfer only the injected cash-free signature and second landmark; retain V46 account schema.
+      predecessorState.contracts = detached(closed.contracts)
+      predecessorState.freeAgents = detached(closed.freeAgents)
+      predecessorState.studioHistory = detached(closed.studioHistory)
+      predecessorState.hollywood = { ...predecessorState.hollywood!,
+        employment: detached(closed.hollywood!.employment),
+        activeEmploymentOrdinals: detached(closed.hollywood!.activeEmploymentOrdinals),
+        receipts: detached(closed.hollywood!.receipts), nextReceipt: closed.hollywood!.nextReceipt }
+      expect(predecessorState.hollywood.nextReceipt).toBe(predecessorState.hollywood.receipts.length)
+      expect(new Set(predecessorState.hollywood.receipts.map(r => r.eventId)).size).toBe(predecessorState.hollywood.receipts.length)
+      expect(predecessorState.studioHistory.nextEventId).toBe(closed.studioHistory.nextEventId)
+      expect(canon(predecessorState.ledger)).toBe(canon(baseline.state.ledger))
+      expect(predecessorState.studio.cash).toBe(baseline.state.studio.cash)
+      const hostile = { ...baseline, state: predecessorState }
+      const hostileBytes = canon(hostile)
+      expect(() => saveFn(`validateSaveV${FOUNDING_STEP - 1}`)(hostile))
+        .toThrow(/employment start lacks its actual player signing payment/)
+      expect(canon(hostile)).toBe(hostileBytes)
+    }
   }, HEAVY)
 
   it('founding-fund-lifetime: R-E I1, a fund closes in its recording week and an open fund stays in it; the r6 verification\'s forms refuse by name: the week-40 refill of a closed fund (probe-c, opened and observed), an ordinary week-30 cash signing relabelled as funded (D1) and a legacy founding re-opened a week later (D2)', () => {
@@ -1048,7 +1059,9 @@ describe('1364 mutants: each funding invariant refuses by name and the unmutated
 // ═══════════════════════════════════════════════════════════════════════════════
 describe('1364 persistence: the step, its downgrade and the frozen reader', () => {
   it('founding-step-live: the live writer stamps the founding step and the step functions exist by name', () => {
-    expect(saveModule.LIVE_SAVE_VERSION).toBe(FOUNDING_STEP + 1) // 1370-ar r2: the P15B step (Save48) stacks above the founding step
+    // 1370-ar r2: the P15B step (Save48) stacks above the founding step; P16 rebase: the P16 step (Save49) is live above it.
+    expect(saveModule.P15B_SAVE_VERSION).toBe(FOUNDING_STEP + 1)
+    expect(saveModule.LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
     expect(makeSave(newGame('p1364-step-01')).saveVersion).toBe(saveModule.LIVE_SAVE_VERSION)
     for (const name of [`validateSaveV${FOUNDING_STEP}`, `convertV${FOUNDING_STEP - 1}ToV${FOUNDING_STEP}`, `convertV${FOUNDING_STEP}ToV${FOUNDING_STEP - 1}`, `migrateToV${FOUNDING_STEP}`]) saveFn(name)
   })
@@ -1071,7 +1084,10 @@ describe('1364 persistence: the step, its downgrade and the frozen reader', () =
     const cutting = makeSave(state) as unknown as Envelope // the live writer admits R8's valid recovery fact
     expect(cutting.saveVersion).toBe(saveModule.LIVE_SAVE_VERSION)
     // 1370-ar r2: nothing is evaluated at week 0, so the P15B step's empty roots strip losslessly down to the founding step.
-    const atStep = saveFn(`convertV${saveModule.LIVE_SAVE_VERSION}ToV${FOUNDING_STEP}`)(cutting)
+    // P16 rebase round 6: the chain runs through the live P16 step first, which converts this world losslessly: at week 0
+    // no greenlight or release minted a title, no rights instrument, rights money or rights ledger row exists, the
+    // cutover anchors are unchanged, and no P15 or P15B row carries phase table 3.
+    const atStep = saveFn(`convertV${saveModule.P15B_SAVE_VERSION}ToV${FOUNDING_STEP}`)(saveModule.convertV49ToV48(saveModule.convertV50ToV49(saveModule.convertV51ToV50(cutting as never))) as unknown as Envelope)
     expect(atStep.saveVersion).toBe(FOUNDING_STEP)
     const r8 = /^migrateToV45: cannot downgrade or discard recovery authority: costCutting\.since$/
     const down46 = saveFn(`convertV${FOUNDING_STEP}ToV${FOUNDING_STEP - 1}`)(atStep) // 47 -> 46 keeps the fact
@@ -1120,7 +1136,12 @@ describe('1364 persistence: the step, its downgrade and the frozen reader', () =
     for (let i = 0; i < 14; i++) ticked = tick(ticked)
     const snapshots = (ticked as unknown as { powerRanking: { snapshots: unknown[] } }).powerRanking.snapshots.length
     expect(snapshots, 'premise: a quarter was recorded').toBeGreaterThan(0)
-    expect(() => down(predecessorSave(ticked))).toThrow(/cannot downgrade or discard the recorded founding fund[^;]*; .*cannot downgrade or discard a recorded Power Ranking quarter/)
+    // ACCEPTANCE OPEN (P16 rebase round 6): convertV47ToV46's fund refusal with the shared P15 step's 'cannot downgrade
+    // or discard a recorded Power Ranking quarter' appended. A quarter recorded by a live tick carries table 3, and
+    // the 14 ticks also wrote nondefault table-3 market assessments, which `rightsStripped` refuses to relabel; no
+    // Save48-era world holds a fund and a recorded quarter. The fund refusal itself is asserted above (founded, draft).
+    expect(() => saveModule.migrateToV44(makeSave(ticked) as never)).toThrow(LIVE_DOWNGRADE_REFUSAL)
+    expect(() => down(predecessorSave(ticked))).toThrow(NONDEFAULT_MARKET_PROJECTION)
   }, HEAVY)
 
 })

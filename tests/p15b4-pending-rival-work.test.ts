@@ -2,7 +2,7 @@
 import {expect,it} from 'vitest'
 import {accepted45} from './helpers/1368-recovery-witnesses.js'
 import {drainRival} from './helpers/p15b-live.js'
-import {makeSave,validateSaveV48,exportSave,importSave,stableStringify} from '../src/core/save.js'
+import {makeSave,validateSaveV51,exportSave,importSave,stableStringify} from '../src/core/save.js'
 import {tick} from '../src/core/tick.js'
 import {blueprintById,facilityDemolitionRefund} from '../src/core/index.js'
 import {validateRivalFacilityDisposal} from '../src/core/rivalResearch.js'
@@ -12,7 +12,7 @@ import {closureDigest,validateStudioClosureRoot} from '../src/core/studioClosure
 import type {GameState} from '../src/core/types.js'
 const R='studio-aca408ec-r01',LAB=R+':laboratory:1',PLAN=R+':plan:3',ADOPTION=R+':sound-adoption:0'
 const text=(x:unknown)=>stableStringify(x)
-function admitted(s:GameState){const before=text(s),saved=makeSave(s);validateSaveV48(saved);expect(text(s)).toBe(before);return s}
+function admitted(s:GameState){const before=text(s),saved=makeSave(s);validateSaveV51(saved);expect(text(s)).toBe(before);return s}
 function conditionPremise(s:GameState):GameState{
  // Only newly empty migrated condition root changes. Existing Ranking/shared history and sequences stay exact.
  expect(s.corporateCondition.studios).toEqual([]);expect(s.corporateCondition.events).toEqual([]);expect(s.corporateCondition.loans).toEqual([])
@@ -73,7 +73,9 @@ function terminal(s:GameState,kind:'physicalPlan'|'adoption',id:string){
  for(const d of bc.dispositions)bc.counts[d.subjectKind]=(bc.counts[d.subjectKind]??0)+1
  bc.digest=closureDigest(bc.closureId,bc.dispositions)
  const mutantBefore=text(bad),missing=`no disposition for live subject ${kind}:${id}`
- expect(()=>validateStudioClosureRoot(bad as unknown as Record<string,unknown>,'pending-rival completeness')).toThrow(missing)
+ // P16 rebase: the root validator applies the era it is handed; a Save49 closure is stamped with the estate phase
+ // table 3, which only the rights era admits (the live reader passes `rightsEstate: true`), so the era comes from the state.
+ expect(()=>validateStudioClosureRoot(bad as unknown as Record<string,unknown>,'pending-rival completeness',{rightsEstate:Object.hasOwn(bad,'rights')})).toThrow(missing)
  expect(text(bad)).toBe(mutantBefore)
  expect(()=>makeSave(bad)).toThrow(missing)
  expect(text(bad)).toBe(mutantBefore)

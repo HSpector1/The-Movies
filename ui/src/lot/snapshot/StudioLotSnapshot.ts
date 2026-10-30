@@ -95,10 +95,12 @@ export type LotAnnexWorkBlocker = {
 
 /** One exact current occupant of the Development & Casting Annex slot. */
 export type LotAnnexWorkOccupant = {
-  owner: 'production' | 'script' | 'casting'
+  /** P18: `television` is a live season's scripts or preparation hold. It has no owner destination on the lot, so
+   * `operationalAnnexWorkContext` withholds it (fail closed) and the Annex reads its occupancy as unavailable. */
+  owner: 'production' | 'script' | 'casting' | 'television'
   ownerId: string
   title: string
-  activity: 'development' | 'preProduction' | 'drafting' | 'rewriting' | 'auditioning'
+  activity: 'development' | 'preProduction' | 'drafting' | 'rewriting' | 'auditioning' | 'scripts' | 'preparation'
   workState: 'working' | 'held'
   statusLabel: string | null
   blocker: LotAnnexWorkBlocker | null
@@ -741,7 +743,9 @@ export type LotFacilityEngagement = {
     | 'castingSession'
     | 'legacyConstructionProject'
     | 'set'
-  /** The production, screenplay, session, or SET id holding it. */
+    // P18: a live television season's work-block hold (src/core/placement.ts facilityEngagements).
+    | 'tvSeason'
+  /** The production, screenplay, session, SET or television season id holding it. */
   holderId: string
   /** The engine's own activity word, verbatim. */
   activity: string

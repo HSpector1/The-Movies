@@ -4,7 +4,7 @@ import { gunzipSync } from 'node:zlib'
 import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import {
-  LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToV20, migrateToV21, migrateToV22, migrateToV23, migrateToV24,
+  LIVE_SAVE_VERSION, exportSave, exportCurrentState, importSave, makeSave, migrateToV20, migrateToV21, migrateToV22, migrateToV23, migrateToV24,
   validateSave, validateSaveV23,
 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
@@ -229,12 +229,12 @@ describe('P13B-S5 Save V24 (test 4)', () => {
     state = applyActions(state, [{ kind: 'adoptTechnology', technologyId: 'lighting-control-01', stageFacilityId } as never])
     expect(state.technology.adoptions.find(a => a.stageFacilityId === stageFacilityId)!.operationalWeek).toBeNull() // still mid-deployment
 
-    const json = exportSave(makeSave(state))
+    const json = exportCurrentState(state)
     expect(exportSave(importSave(json))).toBe(json) // round-trip is itself byte-identical
 
     const uninterrupted = tick(tick(state))
     const reloadedState = (importSave(json) as unknown as { state: GameState }).state
     const resumed = tick(tick(reloadedState))
-    expect(exportSave(makeSave(resumed))).toBe(exportSave(makeSave(uninterrupted)))
+    expect(exportCurrentState(resumed)).toBe(exportCurrentState(uninterrupted))
   })
 })

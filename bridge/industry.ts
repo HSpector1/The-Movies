@@ -1,3 +1,9 @@
+import { buyerScriptConcepts } from '../src/core/continuedScripts.ts'
+import {paidReportsPage} from './paidReports.ts'
+import {franchisesPage} from './franchises.ts'
+import {featuredAppearancesPage,type CameoIntent} from './appearances.ts'
+import {televisionPage,type TvIntent} from './television.ts'
+import {estatesPage,rightsPage,type RightsIntent} from './rightsDesk.ts'
 import {filmScoreTenths} from '../src/core/powerRanking.js'
 /** Public, bounded Industry reads. Authoritative IDs and facts only; no private business inputs. */
 import {campaignDate} from '../src/core/calendar.js'
@@ -69,7 +75,7 @@ function indexFor(state:GameState):Index {
       runStatus:authored||f.settledWeek!==null?'settled':'inRun',
       businessNotice:authored?'Authored starting record; its run and historical effects were already settled before 1920.':f.settledWeek!==null?'Completed theatrical run. Public gross is distinct from studio revenue.':'The theatrical run is active. Total shows gross earned so far; future receipts, costs and studio revenue remain private.'}
   })
-  const concepts=new Map(state.concepts.map(c=>[c.id,c]))
+  const concepts=new Map(buyerScriptConcepts(state).map(c=>[c.id,c]))
   for(const f of state.studio.releasedFilms) {
     const concept=concepts.get(f.conceptId),run=state.theatricalRuns.find(r=>r.productionId===f.productionId)
     credits.set(f.productionId,f.participants?flattenParticipants(f.participants).map(toCredit):[])
@@ -290,14 +296,38 @@ function rankingPage(state:GameState,index:Index,record:PowerRankingRecord):Powe
 }
 
 /** Query results own their output objects; the immutable per-state index never escapes. */
-export function industryPage(state:GameState,sessionId:string,stateRevision:number,q:IndustryQuery,laboratoryIntents:readonly LaboratoryIntent[]=[],planIntents:readonly PlanIntent[]=[],officeIntents:readonly OfficeIntent[]=[]):IndustryPage {
+export function industryPage(state:GameState,sessionId:string,stateRevision:number,q:IndustryQuery,laboratoryIntents:readonly LaboratoryIntent[]=[],planIntents:readonly PlanIntent[]=[],officeIntents:readonly OfficeIntent[]=[],cameoIntents:readonly CameoIntent[]=[],tvIntents:readonly TvIntent[]=[],rightsIntents:readonly RightsIntent[]=[]):IndustryPage {
   if(!Number.isInteger(q.page)||q.page<0||!Number.isInteger(q.pageSize)||q.pageSize<1||q.pageSize>50) {
     throw new Error('Industry pages require a non-negative integer page and a pageSize from 1 to 50.')
   }
   const index=indexFor(state),h=state.hollywood!,calendar=campaignDate(state.market.tick)
-  const result:IndustryPage={protocolVersion:PROTOCOL_VERSION,schemaId:SCHEMA_ID,snapshotVersion:SNAPSHOT_VERSION,type:'industryPage',requestId:q.requestId,sessionId,stateRevision,stateDigest:snapshotBuildContextFor(state).stateDigest(),calendar,view:q.view,targetId:q.targetId,page:q.page,pageSize:q.pageSize,totalRows:0,pageCount:0,lane:q.lane,period:q.period,title:'Industry',notice:'Public facts only. Standing channels and film measures have separate meanings. The quarterly Power Ranking is a separate comparison.',studios:[],films:[],people:[],credits:[],activities:[],projects:[],tendencies:[],laboratory:null,plans:null,office:null,market:null,powerRanking:null}
+  const result:IndustryPage={protocolVersion:PROTOCOL_VERSION,schemaId:SCHEMA_ID,snapshotVersion:SNAPSHOT_VERSION,type:'industryPage',requestId:q.requestId,sessionId,stateRevision,stateDigest:snapshotBuildContextFor(state).stateDigest(),calendar,view:q.view,targetId:q.targetId,page:q.page,pageSize:q.pageSize,totalRows:0,pageCount:0,lane:q.lane,period:q.period,title:'Industry',notice:'Public facts only. Standing channels and film measures have separate meanings. The quarterly Power Ranking is a separate comparison.',studios:[],films:[],people:[],credits:[],activities:[],projects:[],tendencies:[],laboratory:null,plans:null,office:null,market:null,powerRanking:null,diligence:null,franchises:null,featuredAppearances:null,television:null,rights:null,estates:null}
   const page=<T>(rows:T[]):T[]=>{result.totalRows=rows.length;result.pageCount=Math.ceil(rows.length/q.pageSize);if(q.page>0&&q.page>=result.pageCount)throw new Error('That page is outside this snapshot. Return to the first page.');return rows.slice(q.page*q.pageSize,(q.page+1)*q.pageSize)}
-  if(q.view==='powerRanking') {
+  if(q.view==='rights') {
+    const read=rightsPage(state,q.targetId,q.page,q.pageSize,rightsIntents)
+    result.rights=read.rights;result.totalRows=read.totalRows;result.pageCount=read.pageCount
+    result.title=read.rights.title;result.notice=read.rights.notice
+  } else if(q.view==='estates') {
+    const read=estatesPage(state,q.targetId,q.page,q.pageSize)
+    result.estates=read.estates;result.totalRows=read.totalRows;result.pageCount=read.pageCount
+    result.title=read.estates.title;result.notice=read.estates.notice
+  } else if(q.view==='television') {
+    const read=televisionPage(state,q.targetId,q.page,q.pageSize,tvIntents)
+    result.television=read.television;result.totalRows=read.totalRows;result.pageCount=read.pageCount
+    result.title=read.television.title;result.notice=read.television.notice
+  } else if(q.view==='featuredAppearances') {
+    const read=featuredAppearancesPage(state,q.targetId,q.page,q.pageSize,cameoIntents)
+    result.featuredAppearances=read.featuredAppearances;result.totalRows=read.totalRows;result.pageCount=read.pageCount
+    result.title=read.featuredAppearances.title;result.notice=read.featuredAppearances.notice
+  } else if(q.view==='franchises') {
+    const read=franchisesPage(state,q.targetId,q.page,q.pageSize,filmId=>index.filmById.get(filmId))
+    result.franchises=read.franchises;result.totalRows=read.totalRows;result.pageCount=read.pageCount
+    result.title=read.franchises.title;result.notice=read.franchises.notice
+  } else if(q.view==='diligence') {
+    const reports=paidReportsPage(state,q.targetId,q.page,q.pageSize)
+    result.diligence=reports.diligence;result.totalRows=reports.totalRows;result.pageCount=reports.pageCount
+    result.title=reports.diligence.title;result.notice=reports.diligence.notice
+  } else if(q.view==='powerRanking') {
     const records=state.powerRanking.snapshots
     const selected=q.targetId===null?records.at(-1):records.find(r=>q.targetId===`power-ranking-${r.week}`)
     if(selected===undefined&&q.targetId!==null)throw new Error('That Power Ranking quarter is not in this record.')

@@ -1,3 +1,5 @@
+import { convertV49ToV48, convertV50ToV49, convertV51ToV50 } from '../src/core/save.js'
+import { cutoverRightsRoot } from '../src/core/rights.js'
 // 1225-A/B/C, 1226-A initial four leaves; 1232-A/B adds two named cast-work routes.
 // This staged postimage is installed at tests/ before parent-owned execution.
 import assert from 'node:assert/strict'
@@ -32,12 +34,14 @@ type CurrentView = { saveVersion: number; state: Record<string, unknown> & {
   firstTakeSubjects: Sidecar; promises: Record<string, unknown>[]
 } }
 type FutureAPI = {
-  validateSaveV48(input: unknown): unknown
+  validateSaveV51(input: unknown): unknown
   // 1361-N S4: an extra live-to-one-below hop now precedes the
   // V44->V43 hop the 1358 sweep added.
   convertV47ToV46(input: unknown): unknown
   convertV46ToV45(input: unknown): unknown
   convertV45ToV44(input: unknown): unknown
+  // P16 (Save49): the live-to-one-below hop is now V46->V45; V45->V44 follows it.
+  convertV49ToV48(input: unknown): unknown
   // 1358-N S4: an extra live-to-one-below hop now precedes the
   // V43->V42 hop the 1344 sweep added.
   convertV44ToV43(input: unknown): unknown
@@ -96,7 +100,7 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
   const h = (state as { hollywood?: { businesses?: Business[] } | null }).hollywood
   const withLoans = h === undefined || h === null || !Array.isArray(h.businesses) ? state : { ...state, hollywood: { ...h,
     businesses: h.businesses.map((b) => ({ ...b, account: { ...b.account, periods: b.account.periods.map((p) => ({
-      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) } })) } }
+      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0, estateSaleProceeds: 0 } })) } })) } }
   return { ...withLoans,
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
@@ -104,7 +108,7 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
     campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
     // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
     foundingFunding: { version: 1, recordedFromWeek: week, fund: null },
-    ...saves.initialP15BRoots(week) }
+    ...saves.initialP15BRoots(week), rights: cutoverRightsRoot(withLoans as unknown as GameState) }
 }
 // P15B (1370-ar): the P15B step gives every rival finance period the three loan money kinds at zero; a genuine
 // V45-or-older old.state never carried them.
@@ -112,7 +116,7 @@ function withZeroLoanMovements<T extends WithRivalBusinesses>(state: T): T {
   if (state.hollywood === null) return state
   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
     ...business, account: { ...business.account, periods: business.account.periods.map((period) => ({
-      ...period, movements: { ...period.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) },
+      ...period, movements: { ...period.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0, estateSaleProceeds: 0 } })) },
   })) } }
 }
 const issuer = (state: GameState): string => { assert.ok(state.hollywood); return state.hollywood.playerStudioId }
@@ -124,7 +128,7 @@ function admitted(state: GameState): void {
 }
 function futureAPI(): FutureAPI {
   const api = core as unknown as Partial<FutureAPI>
-  assert.equal(typeof api.validateSaveV48, 'function', 'new public strict43 reader after actual version assertion')
+  assert.equal(typeof api.validateSaveV51, 'function', 'new public strict43 reader after actual version assertion')
   assert.equal(typeof api.convertV46ToV45, 'function', 'public guarded recovery 46 to 45 conversion')
   assert.equal(typeof api.convertV45ToV44, 'function', 'new public guarded live->44 conversion')
   assert.equal(typeof api.convertV44ToV43, 'function', 'new public guarded live→43 conversion')
@@ -366,7 +370,7 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
     // A generic entrant-loss failure cannot stand in for this new semantic guard.
     const valid: unknown = JSON.parse(bytes(admittedGenre))
     expect((valid as { saveVersion: number }).saveVersion).toBe(saves.LIVE_SAVE_VERSION)
-    const api = futureAPI(); expect(api.validateSaveV48(valid)).toBe(valid)
+    const api = futureAPI(); expect(api.validateSaveV51(valid)).toBe(valid)
     // 1309-X3 ruling 7: the live-to-one-below conversion now reaches V40, which
     // holds opportunity material, so it no longer refuses; the FIRST downgrade
     // that cannot hold the material is convertV40ToV39.
@@ -381,7 +385,7 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
     ]) {
       const bad = clone(valid) as CurrentView, row = bad.state.promises.find(p => p.promiseId === real.promiseId); assert.ok(row)
       mutate(row)
-      expect(() => api.validateSaveV48(bad)).toThrow(/predicate|family|genre|project|class|count|opportunit/i)
+      expect(() => api.validateSaveV51(bad)).toThrow(/predicate|family|genre|project|class|count|opportunit/i)
     }
   }, LEAF_TIMEOUT_MS)
 
@@ -408,7 +412,7 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
     for (const [filename, gzipHash, rawHash] of pins) {
       const { raw, save: old } = pinned39(filename, gzipHash, rawHash), before = stable(old)
       const current = saves.migrateToLive(old), valid = current as unknown as CurrentView
-      expect(current.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(api.validateSaveV48(current)).toBe(current)
+      expect(current.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(api.validateSaveV51(current)).toBe(current)
       expect(valid.state.firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: old.state.firstTakes.length, facts: [] })
       expect(Object.keys(valid.state.firstTakeSubjects).sort()).toEqual(['cutoverOrdinal', 'facts', 'version'])
       // Comparison-only exclusion of the sole additive root, never an admission path.
@@ -430,7 +434,7 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
       admitted(current.state)
     }
     const positive = JSON.parse(bytes(input45())) as CurrentView
-    expect(api.validateSaveV48(positive)).toBe(positive)
+    expect(api.validateSaveV51(positive)).toBe(positive)
     expect(positive.state.firstTakeSubjects.cutoverOrdinal).toBe(19)
     const mutations: ((s: CurrentView) => void)[] = [
       s => { delete (s.state as Partial<CurrentView['state']>).firstTakeSubjects },
@@ -444,7 +448,7 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
     ]
     for (const mutate of mutations) {
       const bad = clone(positive); mutate(bad)
-      expect(() => api.validateSaveV48(bad)).toThrow(/first.?take|subject|suffix|cutover/i)
+      expect(() => api.validateSaveV51(bad)).toThrow(/first.?take|subject|suffix|cutover/i)
       expect(() => api.convertV41ToV40(api.convertV42ToV41(api.convertV43ToV42(api.convertV44ToV43(api.convertV45ToV44(api.convertV46ToV45(api.convertV47ToV46(predecessorSave(bad.state as unknown as GameState))))))))).toThrow(/first.?take|subject|suffix|cutover/i)
     }
   }, LEAF_TIMEOUT_MS)
@@ -771,6 +775,7 @@ describe('P4/P5 actual public binding and cast work', () => {
 import * as opportunityOwner from '../src/core/opportunityPromises.js'
 import { EXPECTED_LIVE_SAVE_VERSION, validateLiveSave } from './helpers/live-era.js'
 import { predecessorSave } from './helpers/p15-roots.js'
+import { NONDEFAULT_MARKET_PROJECTION } from './helpers/p16-era.js'
 type ControlSave = ReturnType<typeof saves.makeSave>
 function controlsStart() {
   return { q06: clone(routeCounts.Q06), outside: outsideRouteAttempts }
@@ -874,7 +879,12 @@ describe('P4/P5 retained subject and waiver authority controls', () => {
     // non-empty P15 root, in the ruled order sharedMarket, powerRanking, campaignLegacy) now names the
     // assessments first and the quarter second. The pre-1365 pin was
     // /^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/.
-    expect(() => saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(saves.convertV46ToV45(saves.convertV47ToV46(predecessorSave(released.state)))))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded shared-market assessment \(9 recorded\); cannot downgrade or discard a recorded Power Ranking quarter$/)
+    expect(() => convertV49ToV48(convertV50ToV49(convertV51ToV50(released as never)))).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
+    // MOVED (P16 rebase): the live step's refusal above is the first guard. This chain starts from the route's Save48
+    // projection, which does not exist: its shared-market history is table 3 and nondefault, and `rightsStripped`
+    // refuses to relabel it, so the V45 market guard pinned here before is unreachable from this route.
+    // p15a2-power-ranking-archive keeps the V45 ranking guard on genuine input; the market guard has none.
+    expect(() => saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(saves.convertV46ToV45(saves.convertV47ToV46(predecessorSave(released.state)))))))))).toThrow(NONDEFAULT_MARKET_PROJECTION)
     expect(stable(released)).toBe(before) // Combined tag+fact refusal; not isolated fact-only proof.
     controlsEnd(counters)
   }, LEAF_TIMEOUT_MS)

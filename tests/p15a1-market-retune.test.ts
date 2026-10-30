@@ -27,6 +27,7 @@ import { canon, MARKET_PHASE_ID, marketRoot, rivalRouteAt, routeAt, ROUTE_CAP_WE
 type Law = {
   definition: string; windowWeights: readonly number[]; stockStart: number; stockHalfLifeWeeks: number
   retireAfterWeeks: number; factorMaxPenalty: number; pressureScale: number; studioWindowCap: number
+  transcendentals: 'engine' | 'portable'
 }
 type Member = { releaseId: string; studioId: string; genre: PersistedAssessment['genre'] }
 type Exposure = Member & { releaseWeek: number }
@@ -43,8 +44,10 @@ function requireExport<T>(mod: Record<string, unknown>, name: string): T {
 
 // The two eras as literals, never the live exports (the campaignLegacy.ts precedent).
 const V1: Law = { definition: 'p15a1-market-v1', windowWeights: [1, 0.55, 0.55, 0.2], stockStart: 0.2, stockHalfLifeWeeks: 13,
-  retireAfterWeeks: 26, factorMaxPenalty: 0.25, pressureScale: 2, studioWindowCap: 1 }
+  retireAfterWeeks: 26, factorMaxPenalty: 0.25, pressureScale: 2, studioWindowCap: 1, transcendentals: 'engine' }
 const V2: Law = { ...V1, definition: 'p15a1-market-v2', factorMaxPenalty: 0.15 }
+// ASTRA Sprint 19 (Owner decision D): v3 keeps v2's seven numbers and prices through engine-independent arithmetic.
+const V3: Law = { ...V2, definition: 'p15a1-market-v3', transcendentals: 'portable' }
 const formula = (law: Law, P: number): number => 1 - law.factorMaxPenalty * (1 - Math.exp(-P / law.pressureScale))
 const HEAVY = 240_000
 
@@ -78,31 +81,35 @@ function weekWithReleases(from: number): number {
 }
 
 describe('1365 retune: the definition and the frozen eras (1355-A §3.4 item 5)', () => {
-  it('market-retune-definition-v2: the live definition is p15a1-market-v2 and TUNING holds v2\'s seven numbers', async () => {
+  it('market-retune-definition-v2: the live definition is p15a1-market-v3 (v2\'s seven numbers, portable arithmetic) and TUNING holds those seven', async () => {
     const market = await loadMarket()
-    expect(requireExport<string>(market, 'SHARED_MARKET_DEFINITION')).toBe('p15a1-market-v2')
+    expect(requireExport<string>(market, 'SHARED_MARKET_DEFINITION')).toBe('p15a1-market-v3')
     const seven = {
       windowWeights: TUNING.SHARED_MARKET_WINDOW_WEIGHTS, stockStart: TUNING.SHARED_MARKET_STOCK_START,
       stockHalfLifeWeeks: TUNING.SHARED_MARKET_STOCK_HALF_LIFE_WEEKS, retireAfterWeeks: TUNING.SHARED_MARKET_RETIRE_AFTER_WEEKS,
       factorMaxPenalty: TUNING.SHARED_MARKET_FACTOR_MAX_PENALTY, pressureScale: TUNING.SHARED_MARKET_PRESSURE_SCALE,
       studioWindowCap: TUNING.SHARED_MARKET_STUDIO_WINDOW_CAP,
     }
-    const { definition: _d, ...v2Numbers } = V2
+    const { definition: _d, transcendentals: _t, ...v2Numbers } = V2
     expect(canon(seven)).toBe(canon(v2Numbers))
     // The live law reads exactly those numbers under the live definition.
     const live = requireExport<() => Law>(market, 'liveMarketLaw')()
-    expect(canon(live)).toBe(canon(V2))
+    expect(canon(live)).toBe(canon(V3))
   })
 
-  it('market-retune-v1-frozen: v1\'s seven numbers are a frozen, reachable law, and the era table holds exactly v1 and v2', async () => {
+  it('market-retune-v1-frozen: v1\'s and v2\'s seven numbers are frozen, reachable laws, and the era table holds exactly v1, v2 and v3', async () => {
     const market = await loadMarket()
     const v1 = requireExport<Law>(market, 'SHARED_MARKET_LAW_V1')
     expect(canon(v1)).toBe(canon(V1))
     expect(Object.isFrozen(v1), 'v1 is frozen').toBe(true)
     const laws = requireExport<Record<string, () => Law>>(market, 'MARKET_LAWS')
-    expect(Object.keys(laws).sort()).toEqual(['p15a1-market-v1', 'p15a1-market-v2'])
+    const v2 = requireExport<Law>(market, 'SHARED_MARKET_LAW_V2')
+    expect(canon(v2)).toBe(canon(V2))
+    expect(Object.isFrozen(v2), 'v2 is frozen').toBe(true)
+    expect(Object.keys(laws).sort()).toEqual(['p15a1-market-v1', 'p15a1-market-v2', 'p15a1-market-v3'])
     expect(canon(laws['p15a1-market-v1']!())).toBe(canon(V1))
     expect(canon(laws['p15a1-market-v2']!())).toBe(canon(V2))
+    expect(canon(laws['p15a1-market-v3']!())).toBe(canon(V3))
   })
 
   it('market-retune-factor-range: the live factor is 1 − 0.15·(1 − e^(−P/2)) in [0.85, 1]; the v1 law still prices 0.25', async () => {
@@ -128,7 +135,7 @@ describe('1365 retune: the definition and the frozen eras (1355-A §3.4 item 5)'
 })
 
 describe('1365 retune: the old-law fixture and the version boundary', () => {
-  it('market-retune-old-law-fixture: v1 rows reconcile under v1 only; v2 rows under v2 only', async () => {
+  it('market-retune-old-law-fixture: v1 rows reconcile under v1 only; live v3 rows under v3 only', async () => {
     const market = await loadMarket()
     const assess = requireExport<AssessBatch>(market, 'assessBatch')
     const v1 = requireExport<Law>(market, 'SHARED_MARKET_LAW_V1')
@@ -136,25 +143,25 @@ describe('1365 retune: the old-law fixture and the version boundary', () => {
     const live = rivalRouteAt(week)
     const liveRows = marketRoot(live).assessments
     expect(liveRows.length, 'premise: recorded assessments').toBeGreaterThan(0)
-    expect(new Set(liveRows.map((row) => row.definitionVersion))).toEqual(new Set(['p15a1-market-v2']))
+    expect(new Set(liveRows.map((row) => row.definitionVersion))).toEqual(new Set(['p15a1-market-v3']))
     expect(() => makeSave(live)).not.toThrow()
     // The old-law fixture: the same releases priced by the frozen v1 law, labelled v1. It validates.
     const v1Rows = repriced(liveRows, v1, assess)
     expect(v1Rows.some((row, i) => row.factor !== liveRows[i]!.factor), 'premise: the retune moved a factor').toBe(true)
     const oldLaw = withRows(live, v1Rows)
     expect(() => makeSave(oldLaw)).not.toThrow()
-    // v1 numbers under a v2 label refuse by name, and v2 numbers under a v1 label refuse by name.
+    // v1 numbers under the live label refuse by name, and live numbers under a v1 label refuse by name.
     const moved = v1Rows.findIndex((row, i) => row.factor !== liveRows[i]!.factor)
-    const relabelled = v1Rows.map((row, i) => (i === moved ? { ...row, definitionVersion: 'p15a1-market-v2' as never } : row))
-    expect(() => makeSave(withRows(live, relabelled))).toThrow(/does not reconcile with p15a1-market-v2/)
+    const relabelled = v1Rows.map((row, i) => (i === moved ? { ...row, definitionVersion: 'p15a1-market-v3' as never } : row))
+    expect(() => makeSave(withRows(live, relabelled))).toThrow(/does not reconcile with p15a1-market-v3/)
     const forged = liveRows.map((row, i) => (i === moved ? { ...row, definitionVersion: 'p15a1-market-v1' as never } : row))
     expect(() => makeSave(withRows(live, forged))).toThrow(/does not reconcile with p15a1-market-v1/)
     // An unknown definition refuses by name.
-    const unknown = liveRows.map((row, i) => (i === moved ? { ...row, definitionVersion: 'p15a1-market-v3' as never } : row))
-    expect(() => makeSave(withRows(live, unknown))).toThrow(/definitionVersion p15a1-market-v3 is unknown/)
+    const unknown = liveRows.map((row, i) => (i === moved ? { ...row, definitionVersion: 'p15a1-market-v9' as never } : row))
+    expect(() => makeSave(withRows(live, unknown))).toThrow(/definitionVersion p15a1-market-v9 is unknown/)
   }, HEAVY)
 
-  it('market-retune-mixed-eras: v1 rows are exposures to a live v2 batch; the mixed root validates and ticks on', async () => {
+  it('market-retune-mixed-eras: v1 rows are exposures to a live v3 batch; the mixed root validates and ticks on', async () => {
     const market = await loadMarket()
     const assess = requireExport<AssessBatch>(market, 'assessBatch')
     const v1 = requireExport<Law>(market, 'SHARED_MARKET_LAW_V1')
@@ -167,7 +174,7 @@ describe('1365 retune: the old-law fixture and the version boundary', () => {
     expect(rows.length).toBeGreaterThan(before.length)
     expect(rows.slice(0, before.length).every((row) => row.definitionVersion === 'p15a1-market-v1')).toBe(true)
     const appended = rows.slice(before.length)
-    expect(appended.every((row) => row.definitionVersion === 'p15a1-market-v2' && row.week === week)).toBe(true)
+    expect(appended.every((row) => row.definitionVersion === 'p15a1-market-v3' && row.week === week)).toBe(true)
     // The appended rows equal the live route's own rows for that week: the old rows priced the
     // batch exactly as exposures, whatever law they were stored under.
     const liveAppended = marketRoot(rivalRouteAt(week + 1)).assessments.slice(before.length)

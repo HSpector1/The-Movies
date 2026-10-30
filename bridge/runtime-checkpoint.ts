@@ -58,6 +58,66 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
 // that window would carry the earlier hash, and this map is keyed on the
 // hash, not the label.
 export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+  // Projection71 (ASTRA Sprint 27): the outgoing70 identity (projection 70, the immutable snapshot 6ddeeb00, tag
+  // p18-sprint26-candidate-20261030), prior beneath current71. The Rights desk and the estates join the wire (two quote
+  // families, two Industry views, five intent kinds); protocol 4 and Save51 are unchanged, so each slot is already live and
+  // takes the governed prior path as identity; the opaque journal resets. Its genuine capture ran on a detached sparse
+  // snapshot of 6ddeeb00 (producer docs/engineering/audits/2026-10-22-codebase-review/astra-sprints-22-26/sprint27/
+  // bridge-step/tools/capture70.ts in the records repository; tests/fixtures/bridge/genuine-projection70-runtime).
+  ['sha256:aaafd0bdf597d3538acc5cb77568dd38de43dd50c7f052767ee40bb8e16ea448', 'projection-v70'],
+  // Projection70 (ASTRA Sprint 20, Owner decision E): the outgoing69 identity (projection 69, the immutable snapshot edb1cee4,
+  // tag p18-sprint19-checkpoint-20261029), prior beneath current70. The intent option gains `confirmation` (none | required);
+  // protocol 4 and Save51 are unchanged, so each slot is already live and takes the governed prior path as identity; the
+  // opaque journal resets. Its genuine capture ran on a detached sparse snapshot of edb1cee4 (producer
+  // docs/engineering/audits/2026-10-22-codebase-review/astra-sprints-17-21/sprint20/bridge-step/tools/capture69.ts in the
+  // records repository; tests/fixtures/bridge/genuine-projection69-runtime).
+  ['sha256:6cdb8065eedbfe81d794f6e0a17db71570729ac5701f688ea033b2175bfe4a5a', 'projection-v69'],
+  // Projection69 (playtest-response slice, Owner decision 7c): the outgoing68 identity (projection 68, the immutable
+  // snapshot b3c179b0, tag p18-sprint16-playtest-candidate-r2-20261028), prior beneath current69. The television
+  // cancellation cause gains the tick's automatic `rights` and `participant` cancellations on authority loss (contract
+  // §4, §7). Protocol 4 and Save51 are unchanged, so each slot is already live and takes the governed prior path as
+  // identity; the opaque journal resets. Its genuine capture ran on an immutable snapshot of b3c179b0 (producer
+  // docs/engineering/audits/2026-10-22-codebase-review/playtest-response/bridge-step/tools/capture68.ts in the records
+  // repository; tests/fixtures/bridge/genuine-projection68-runtime).
+  ['sha256:b91efc9c632b2503a0f5ca0f33a243164e97775b2c13f566746ba004d7835851', 'projection-v68'],
+  // P18 Sprint 13 slice B: the outgoing67 identity (projection 67, the P18 Sprint 12 checkpoint 31fdb366 and the slice A
+  // candidate alike), prior beneath current68. Protocol 4 and Save51 are unchanged, so each slot is already live and takes
+  // the governed prior path as identity; the opaque journal resets. Its genuine capture ran on an immutable snapshot of
+  // 31fdb366 (producer docs/engineering/audits/2026-10-22-codebase-review/p18-sprint13/bridge-step/tools/capture67.ts;
+  // tests/fixtures/bridge/genuine-projection67-runtime).
+  ['sha256:8bd45eec049c6105ed2efee3899cfbb2a440c1b40f536a899b332ffbde3003f0', 'projection-v67'],
+  // P18 Sprint 12: the outgoing66 identity (projection 66, the P17 technical checkpoint ecbc42c9 and the P18 candidate
+  // 5710f748 alike: the bridge schema folds no save version), prior beneath current67. P18 moved the live save to Save51,
+  // so a checkpoint written under 66 carries Save50 slots, which the current-schema path refuses as non-live. Each slot
+  // lifts Save50 -> Save51 independently through migrateToLive (version only while no television season exists) and the
+  // opaque journal resets. Its genuine capture ran on an immutable snapshot of ecbc42c9 (producer:
+  // docs/engineering/audits/2026-10-22-codebase-review/p18-sprint12/bridge-step/tools/capture66.ts;
+  // tests/fixtures/bridge/genuine-projection66-runtime).
+  ['sha256:589380869e1329a8027b8339b88646761ce6d791376df5fd793e77ae9dd3b96a', 'projection-v66'],
+  // Sprint 11 slice B: the outgoing65 identity (projection 65, generated at f8aa097a, landed through 2b1a5b4b), prior
+  // beneath current66. Protocol 4 and Save50 are unchanged, so each slot is already live and takes the governed prior
+  // path as identity; the opaque journal resets. Its genuine capture ran on 2b1a5b4b (producer:
+  // docs/engineering/audits/2026-10-22-codebase-review/p16-sprint11/bridge-slice-b/tools/capture65.ts).
+  ['sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8', 'projection-v65'],
+  // Sprint 11 (review S1): the P16 build's current64 identity (p16-technical-checkpoint-20261027, a5a66c27). P17 moved
+  // the live save to Save50 under this same schema, so a checkpoint the P16 build wrote carries it with Save49 slots,
+  // which the current-schema path refuses as non-live. Projection 65 makes it prior: each slot lifts Save49 -> Save50
+  // independently through migrateToLive and the opaque journal resets. A 64 checkpoint the P17 build already wrote
+  // (Save50 slots) takes the same path, where migrateToLive changes nothing.
+  // Install only with its original-runtime capture verified (tests/fixtures/p16/genuine-projection64-runtime).
+  ['sha256:57f12ee28d21aa47c7514afa1c058105a10f10a9e76d400d664e97c23dc90272', 'projection-v64'],
+  // Authentic outgoing63: install only after its original-runtime capture is verified.
+  ['sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1', 'projection-v63'],
+  // Authentic generated outgoing62, before retained-writing projection63.
+  ['sha256:2b94e6df66cd5b45e398861c8130085434d4bb9c4d0cf9bdcb97607699799604', 'projection-v62'],
+  // Exact earned outgoing61, before disclosed terminal script write-off quote terms.
+  ['sha256:7d23fdb9a710175afb88208170cfe5692510febe06fb898a3ccd95edc9c53306', 'projection-v61'],
+  // Exact earned outgoing60 before paid-report and absorption quote wire families.
+  ['sha256:8bf350135c7a8b69b4fc2258d1082f452047d37964d0d58b6cc8ceefc87153e4', 'projection-v60'],
+  // Exact earned outgoing59 canonical identity before absorption snapshot enum extension.
+  ['sha256:6347433150a8ed3988573840bfa22621d5f5aa35b3d053b25ff5e6700ad02dcd', 'projection-v59'],
+  // Actual shipped P15B projection58, before the F40 presentation boundary.
+  ['sha256:13b7933fdd1e3dc9851dd08630e46efd43e70227f5e0c6f6cf130d885752ab74', 'projection-v58'],
   // Actual shipped outgoing57; preserve independent prior slot migration and discard its opaque journal.
   ['sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253', 'projection-v57'],
   // Relationship slice B: the outgoing56 identity (the contract manifest's schemaId before the

@@ -1,3 +1,5 @@
+import type { GameState } from '../src/core/types.js'
+import { cutoverRightsRoot } from '../src/core/rights.js'
 import { withEmptyRecovery } from './helpers/recovery-migration-expectation.js'
 import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
@@ -31,7 +33,7 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
   const h = (state as { hollywood?: { businesses?: Business[] } | null }).hollywood
   const withLoans = h === undefined || h === null || !Array.isArray(h.businesses) ? state : { ...state, hollywood: { ...h,
     businesses: h.businesses.map((b) => ({ ...b, account: { ...b.account, periods: b.account.periods.map((p) => ({
-      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) } })) } }
+      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0, estateSaleProceeds: 0 } })) } })) } }
   return { ...withLoans,
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
@@ -39,7 +41,7 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
     campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
     // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
     foundingFunding: { version: 1, recordedFromWeek: week, fund: null },
-    ...initialP15BRoots(week) }
+    ...initialP15BRoots(week), rights: cutoverRightsRoot(withLoans as unknown as GameState) }
 }
 describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)', () => {
   it('pins actual historical source bytes and the literal outgoing schema registry entry', () => {
@@ -108,7 +110,7 @@ describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)'
         account: { ...(business.account as Record<string, unknown>),
           periods: ((business.account as { periods: Record<string, unknown>[] }).periods).map((period) => ({
             // P15B (1370-ar): the P15B step adds the three loan money kinds at zero to every rival finance period.
-            ...period, movements: { ...(period.movements as Record<string, unknown>), termination: 0, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) } }))
+            ...period, movements: { ...(period.movements as Record<string, unknown>), termination: 0, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0, estateSaleProceeds: 0 } })) } }))
       // 1344-N S2+S5 (x2 at a318722, :81 measured `"saveVersion": 42` -> 43 and `+ "screenplayShelving"`
       // {version 1, rejections [], shelved [], commissionHoldUntilWeek 0} on each of the four rival
       // businesses, nothing else): the live writer stamps 43, and the lift adds the empty shelving root.

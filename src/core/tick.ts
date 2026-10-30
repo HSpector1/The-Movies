@@ -1,3 +1,6 @@
+import { advanceBuyerScriptWork, buyerScriptDevelopment, carriedScriptForProduction, carriedConceptForProduction, carriedProductionAuthority, markCarriedScriptProduced, prepareQueuedCarriedValidation } from './continuedScripts.js'
+import { prepareContinuedReleases } from './hollywoodTick.js'
+import { buyerOperationsForAllWork, buyerOperatedProductions, buyerContinuedProductions, publishOperatedAdvance, recordContinuedWorkSteps, continuedCommittedReleaseIds } from './continuedWork.js'
 import { prepareLiveWritingContext } from './liveRetirementWriting.js'
 import { advanceHollywoodWeek, finishHollywoodWeek } from './hollywoodTick.js'
 import { appendMarketBatch, frozenFactor, runMarketBatch } from './marketIntegration.js'
@@ -8,6 +11,8 @@ import { freezeCampaignLegacyWeek } from './campaignLegacy.js'
 import { recordPowerRankingQuarter } from './powerRankingArchive.js'
 import { advanceCorporateConditionWeek, loanInstallmentDueFor } from './corporateConditionLive.js'
 import { advanceStudioClosureWeek, assertOperatingPlayer } from './studioClosure.js'
+import { advanceRightsWeek } from './rightsTick.js'
+import { prepareEstateSalesForTick } from './estate.js'
 import { advancePromisesWeek, appendFirstTakes, breakPromisesOnGreenlight } from './promises.js'
 import { advanceRelationshipsWeek } from './relationships.js'
 import { advanceTalentMarketWeek } from './talentMarket.js'
@@ -84,6 +89,8 @@ import {
 } from './placement.js'
 import { type DevelopmentContext } from './development.js'
 import { economyEngaged, weeklyPayroll } from './employment.js'
+// ── P18 bounded first season ──
+import { advanceTelevisionWeek, applyTvSweep, tvSweepRequest, type TvSweepOutcome } from './tvSeason.js'
 import { openTheatricalRun } from './economy.js'
 import { clamp } from './math.js'
 import { assertNoDoubleBookedResourceSlots, setOccupiedFacilitySlots } from './occupancy.js'
@@ -104,13 +111,16 @@ import {
 } from './studioEvents.js'
 import { developmentOfficeEstUplift } from './facilityEffects.js'
 import {
-  completeDueScriptWork,
   markScriptProjectProduced,
   scriptOccupiedFacilitySlots,
   scriptProjectForProduction,
 } from './scriptDevelopment.js'
 import { FACILITY_OPEX_LEDGER_NOTE, LOAN_INSTALLMENT_LEDGER_NOTE, TUNING } from './tuning.js'
 import { buildFilmResult, resolveReception, type ReceptionInputs } from './reception.js'
+import { applyContinuationRelease, withFranchises } from './continuation.js'
+import { continuationReleaseInput, p17RightsHolds } from './continuationGreenlight.js'
+import { attachCameoCareerEvents, releaseCameoBookings } from './cameo.js'
+import { cameoReleaseInputs, resolveCameoWeek } from './cameoBooking.js'
 import { RngStream, stream } from './rng.js'
 import { resolveShape } from './shape.js'
 import {
@@ -188,6 +198,8 @@ type ReleaseRecord = {
   ctx: StandingContext
   broadcast: ReleaseBroadcastCapture
   develop: DevelopCapture
+  /** P17 Shape A: the picture's COMPLETED guests (one release credit and one fame pass each in the careers step). */
+  cameoGuests?: readonly { talentId: string }[]
 }
 
 // Run/harness options for a tick. `develop` GATES the D-9.8 DEVELOPMENT step and
@@ -279,19 +291,9 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // A commission/rewrite made in week t is due at t+1 and completes during the
   // single visible advance from t to t+1. Completed work releases its shared
   // Development & Casting slot before productions allocate their next phase.
-  let scriptDevelopment = completeDueScriptWork(
-    state.scriptDevelopment,
-    currentTick + 1,
-    {
-      concepts: state.concepts,
-      talent: state.talent,
-      // C1-M4: read from the estate STANDING NOW. Step 1.6 completes construction
-      // later in this same advance, so an office finishing this week does not
-      // uplift a draft finishing this week — the same "contributes nothing until
-      // it flips" law capacity has followed since V11.
-      estUplift: developmentOfficeEstUplift(state),
-    },
-  )
+  const writingAdvance=advanceBuyerScriptWork(state,currentTick+1,developmentOfficeEstUplift(state))
+  state=writingAdvance.state // private aggregate: actual continued work, not a published intermediate save
+  let scriptDevelopment=writingAdvance.development
 
   // ── 0.6 CASTING SESSIONS ─────────────────────────────────────────────────
   // Due camera tests resolve after screenplay work and before production
@@ -364,14 +366,24 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // lookup is a closure over `state.concepts` rather than a copy, so there is one
   // authority for what a production is about.
   const technologyProduction = createProductionTechnologyPolicy(stateAfterLoadIn)
-  const productionAdvance = advanceManagedProductions(
-    stateAfterLoadIn.operations,
-    state.studio.activeProductions,
+  const workInput = stateAfterLoadIn
+  // P17 (charter r2 "rights loss stops unauthorized new work"): ONE live P16 read per in-flight continuation per week,
+  // for the producing studio. A picture whose grant is absent this week is HELD: it does no work and does not release;
+  // its commitment, seats and stage stay. The tick never throws on rights; the returning grant resumes the picture and
+  // disposition stays with the cancellation owner (`cancel`). No continuation, no read: the predecessor path.
+  const rightsHolds = p17RightsHolds(workInput, state.studio.activeProductions.map((p) => p.id))
+  // P18 (contract §4): the live television season requests THIS week's capacity inside the one sweep below, at its own
+  // place in the admitted-work order, retaining what it already holds. No season, no participant: the predecessor path.
+  const tvRequest = tvSweepRequest(workInput, currentTick)
+  const operatedProductions = buyerOperatedProductions(workInput)
+  const managedAdvance = advanceManagedProductions(
+    buyerOperationsForAllWork(workInput),
+    rightsHolds.size === 0 ? operatedProductions : operatedProductions.filter((p) => !rightsHolds.has(p.id)),
     currentTick,
-    committedReleaseIds,
+    new Set([...committedReleaseIds,...continuedCommittedReleaseIds(workInput)]),
     new Set([
       ...resourceClaims(state).filter(c => c.owner === 'installation' && c.facilitySlotKey !== null).map(c => c.facilitySlotKey!),
-      ...scriptOccupiedFacilitySlots(scriptDevelopment),
+      ...scriptOccupiedFacilitySlots({...scriptDevelopment,projects:[...scriptDevelopment.projects,...buyerScriptDevelopment(state).projects.filter(p=>!state.scriptDevelopment.projects.some(own=>own.id===p.id))]}),
       ...castingOccupiedFacilitySlots(castingSessions),
       ...setOccupiedFacilitySlots(
         state.sets,
@@ -383,24 +395,36 @@ export function tick(state: GameState, options?: TickOptions): GameState {
         stateAfterLoadIn.operations,
         scriptDevelopment,
         castingSessions,
+        // P18: the season's start-of-week slots, so no set crew is derived onto one.
+        state.television,
       ),
     ]),
     events,
     {
       sets: state.sets,
       genreOf: (productionId) => {
-        const production = state.studio.activeProductions.find(
+        const production = buyerOperatedProductions(workInput).find(
           (candidate) => candidate.id === productionId,
         )
         if (production === undefined) return null
-        return state.concepts.find((concept) => concept.id === production.conceptId)?.genre ?? null
+        return state.concepts.find((concept) => concept.id === production.conceptId)?.genre ?? workInput.hollywood?.concepts.find(concept=>concept.id===production.conceptId)?.genre ?? null
       },
     },
     technologyProduction.policy,
     // P13B-S5-R07: the setup route is derived from the technology root as this
     // advance found it — one authority, read once, at the admission visit.
     createProductionSetupRouteResolver(stateAfterLoadIn),
+    tvRequest === null ? [] : [tvRequest.participant],
   )
+  // P18: what the sweep granted the season, or why it waits, written onto the root this advance finalizes.
+  const televisionAfterSweep = tvRequest === null || state.television === undefined
+    ? state.television
+    : applyTvSweep(state.television, tvRequest, managedAdvance.participantResults.get(tvRequest.seasonId) as TvSweepOutcome | undefined, currentTick)
+  // P17: a held picture rejoins the slate in its own place, untouched (no work this week, no release).
+  const productionAdvance = rightsHolds.size === 0 ? managedAdvance : (() => {
+    const moved = new Map(managedAdvance.productions.map((p) => [p.id, p]))
+    return { ...managedAdvance, productions: operatedProductions.map((p) => moved.get(p.id) ?? p) }
+  })()
   // ── 1.05 QUEUE ADMISSION (C2a-M4, charter §3.3) ─────────────────────────
   // INSERTION, NOT A REORDERING (D-12 §9, the rule steps 1.5/1.6/1.7 already
   // stand on). The front doors no longer refuse a picture because a room was
@@ -416,17 +440,20 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   //
   // The verbs it commits are the player's own verbs, called with the tick's own
   // event sink, so a queued picture and a played picture are the same picture.
+  const operatedAdvance = recordContinuedWorkSteps(workInput,publishOperatedAdvance(workInput,productionAdvance.productions,productionAdvance.operations),currentTick)
   // The sink is viewed at the arrived week (L-18, 2026-10-23): an admission is an
   // act of week t + 1 in every row it writes, its ledger rows and `startTick`
   // included, so its studio-event rows carry t + 1 too.
   const admission = admitQueuedIntents(
     {
-      ...state,
-      operations: productionAdvance.operations,
+      ...operatedAdvance,
+      operations: operatedAdvance.operations,
       sets: productionAdvance.sets,
+      // P18: the post-sweep television root, so admission sees the season's slots as they now stand.
+      ...(televisionAfterSweep === undefined ? {} : { television: televisionAfterSweep }),
       scriptDevelopment,
       castingSessions,
-      studio: { ...state.studio, activeProductions: productionAdvance.productions },
+      studio: operatedAdvance.studio,
       // THE WEEK THAT HAS ARRIVED, and the reason the clock reads it here.
       //
       // Steps 0.5, 0.6, 1.5, 1.6 and 1.7 all resolve THIS advance's completions
@@ -446,6 +473,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     currentTick + 1,
     events.at(currentTick + 1),
     writingContext,
+    workInput.productionQueue.length===0?undefined:prepareQueuedCarriedValidation(workInput,productionAdvance.admittedReleaseIds),
   )
   const queueAdmitted: GameState = { ...admission.state, technology: technologyProduction.technology(), market: state.market }
 
@@ -536,9 +564,10 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // RNG/economy/result work. The zero-tick collection and the pre-advance
   // commitment-derived witness must be the SAME exact id set; any mismatch is
   // an uncommitted release or a lost admission, and the week fails closed.
+  const continuedReleasing = buyerContinuedProductions(admitted).filter(p=>p.remainingTicks===0).sort((a,b)=>a.id<b.id?-1:a.id>b.id?1:0)
   {
     const witness = new Set(productionAdvance.admittedReleaseIds)
-    const collected = new Set(releasing.map((p) => p.id))
+    const collected = new Set([...releasing,...continuedReleasing].map((p) => p.id))
     if (witness.size !== collected.size || [...collected].some((id) => !witness.has(id))) {
       throw new Error(
         `tick: release batch disagrees with the commitment admission witness — ` +
@@ -553,7 +582,12 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // player's releasing pictures and every rival picture at remainingTicks 1, assessed once
   // against the root's active exposures. It writes nothing; the root appends at finalize.
   // No industry, no batch: the M0A corpus keeps today's path.
-  const marketBatch = runMarketBatch(admitted, releasing, currentTick)
+  // `admitted` temporarily contains the witnessed 1→0 release rows. Prove
+  // carried ownership against the same tick's immutable pre-advance state;
+  // zero is a pipeline result, never an admissible live production to validate.
+  const carriedReleaseAuthority=releasing.some(p=>!workInput.concepts.some(c=>c.id===p.conceptId))
+    ?carriedProductionAuthority(workInput):undefined
+  const marketBatch = runMarketBatch(admitted, releasing, currentTick, continuedReleasing, carriedReleaseAuthority)
 
   // ── 3. RECEPTION ───────────────────────────────────────────────────────────
   // For each releasing production IN ascending-id order: resolve reception (the
@@ -580,13 +614,40 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     cash += entry.amount
     ledger.push(entry)
   }
+  // ── 1.8 CAMEO WORK (P17 Shape A; cameo contract §4) ─────────────────────────
+  // INSERTION, NOT A REORDERING. A booked week resolves against THIS advance's real production work: a shooting-phase
+  // advance in exactly the booked week completes the appearance and freezes the guest's actual execution; anything
+  // else (no shooting work, a stalled or held picture, a picture no longer on the slate) cancels with the retained
+  // charge and one linked refund, booked row by row. No booking, no root, no step.
+  let cameos = admitted.cameos
+  if (cameos !== undefined) {
+    const work = resolveCameoWeek(cameos, {
+      week: currentTick,
+      before: state.studio.activeProductions,
+      after: advanced,
+      held: rightsHolds,
+      talent: state.talent,
+      conceptOf: (production) => {
+        const concept = state.concepts.find((c) => c.id === production.conceptId) ?? carriedConceptForProduction(state, production.id)
+        if (concept === undefined) throw new Error(`tick: cameo work references unknown conceptId "${production.conceptId}"`)
+        return concept
+      },
+    })
+    cameos = work.root
+    for (const row of work.rows) {
+      cash += row.amount
+      ledger.push(row)
+    }
+  }
   // ── D-12 economy (gated) — a shallow copy of the run history so weekly progress can be
   // recorded without mutating the input. Empty (and untouched) for the M0A corpus.
   const engaged = economyEngaged(state)
   const theatricalRuns: TheatricalRun[] = state.theatricalRuns.map((r) => ({ ...r }))
+  // P17: the franchise root, threaded through this week's player, continued and rival releases (one update each).
+  let franchises = state.franchises
 
   for (const prod of releasing) {
-    const concept = state.concepts.find((c) => c.id === prod.conceptId)
+    const concept = state.concepts.find((c) => c.id === prod.conceptId) ?? carriedConceptForProduction(state,prod.id)
     if (concept === undefined) {
       throw new Error(`tick: release references unknown conceptId "${prod.conceptId}"`)
     }
@@ -614,6 +675,11 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       (workflow) => workflow.productionId === prod.id,
     )?.bindings
     const boundSetId = releasedBindings?.setId ?? null
+    // P17 (rev02 §5.3): the live continuation read, from then-current state BEFORE this film's own result.
+    // Review B1: `releasedFilms` carries this tick's earlier releases, which `franchises` already marks released.
+    const inheritedAwareness01 = continuationReleaseInput(withFranchises(state, franchises), prod.id, { writerId: prod.writerId, directorId: prod.directorId, cast: { ...prod.cast } }, releasedFilms)
+    // P17 Shape A: the COMPLETED guests' publicity at contemporaneous fame and their frozen actual execution (null ⇒ none).
+    const guestRelease = cameoReleaseInputs(cameos, prod.id, cast, state.talent, state.market.segments)
 
     const inp: ReceptionInputs = {
       concept,
@@ -655,6 +721,9 @@ export function tick(state: GameState, options?: TickOptions): GameState {
         : { setNovelty: releasedBindings.lockedNovelty }),
       // P15A.1 Wave 2 (1355-A §3.2): the player release site of the seam, the batch's frozen factor.
       ...(marketBatch === null ? {} : { competitionFactor: frozenFactor(marketBatch, prod.id) }),
+      // P17: absent on every non-continuation release.
+      ...(inheritedAwareness01 === undefined ? {} : { inheritedAwareness01 }),
+      ...(guestRelease === null ? {} : guestRelease.inputs),
     }
 
     // The single §5.3 critic draw for this release — the ONLY sim-stream advance. `engaged` drives
@@ -689,6 +758,10 @@ export function tick(state: GameState, options?: TickOptions): GameState {
           },
         }
       : baseFilmResult
+    // P17: exactly ONE R/M/F update per release, after the live read above. A film with no edge leaves the root as it is.
+    if (franchises !== undefined) franchises = applyContinuationRelease(franchises, { productionId: prod.id, week: currentTick, result: filmResult, audience01: result.weightedAudienceScore / 100 })
+    // P17 Shape A: the release marks each completed appearance once; unperformed work earns nothing.
+    if (cameos !== undefined) cameos = releaseCameoBookings(cameos, prod.id, currentTick)
 
     releasedFilms.push(filmResult)
     // P08A: the release fact, frozen with its display title AT RELEASE (identity is
@@ -753,6 +826,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       // and theatrical branches above already consume (`economyEngaged(state)`, the persisted
       // R2 fact). Ephemeral like the rest of this context (B12): nothing is persisted.
       engaged,
+      // P17 Shape A: the completed guests' share-weighted publicity delta, into the existing star attention once.
+      ...(guestRelease === null ? {} : { cameoAttentionDelta: guestRelease.attentionDelta }),
     }
 
     // §8 broadcast inputs (B23/B24), captured now from the ReceptionResult + the
@@ -809,13 +884,14 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     // double release on one set depletes it twice, deterministically.
     sets = depleteSetNoveltyForRelease(sets, boundSetId)
 
-    records.push({ filmResult, benchmarks, ctx, broadcast, develop })
+    records.push({ filmResult, benchmarks, ctx, broadcast, develop, ...(guestRelease === null ? {} : { cameoGuests: guestRelease.guests }) })
   }
 
   // The film result now exists and the production has left the active slate; keep
   // the screenplay's exact production link as append-only Produced history.
   if (scriptDevelopment.mode === 'managed') {
     for (const production of releasing) {
+      if(carriedScriptForProduction(admitted,production.id))continue
       scriptDevelopment = markScriptProjectProduced(
         scriptDevelopment,
         production.id,
@@ -864,10 +940,16 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // ── 4. STANDING ────────────────────────────────────────────────────────────
   // Accumulate the three channels sequentially, IN ascending-id order (records is
   // already in release order). Start from start-of-tick standing.
+  const continuedReception=prepareContinuedReleases(withFranchises({...admitted,technology:researchAdvance.technology},franchises),continuedReleasing,startOfTickStanding,marketBatch?.factorById,releasedFilms)
+  franchises=continuedReception.franchises
+  let continuedRights=continuedReception.rights
+  const continuedStandingRecords: Pick<ReleaseRecord,'filmResult'|'benchmarks'|'ctx'>[] = continuedReception.records
+  const standingRecords: Pick<ReleaseRecord,'filmResult'|'benchmarks'|'ctx'>[] = [...records,...continuedStandingRecords].sort((a,b)=>a.filmResult.productionId<b.filmResult.productionId?-1:a.filmResult.productionId>b.filmResult.productionId?1:0)
   let standing: Standing = startOfTickStanding
-  for (const rec of records) {
+  for (const rec of standingRecords) {
     const before = standing
     standing = updateStanding(standing, rec.filmResult, rec.benchmarks, rec.ctx)
+    if(continuedStandingRecords.includes(rec))continuedRights={...continuedRights,absorptions:continuedRights.absorptions.map(a=>({...a,workReleases:a.workReleases.map(r=>r.productionId===rec.filmResult.productionId && r.week===currentTick?{...r,standingBefore:cloneStanding(before),standingAfter:cloneStanding(standing)}:r)}))}
     // P08A receipt (mutation site 1 of 3): the exact before/after/deltas of THIS
     // film's update, the source id, the formula identity, and the public driver
     // facts — frozen here, never recomputed by a consumer. A no-op update (every
@@ -978,16 +1060,21 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // validated M0A/D-6 baseline. A single talent working on two same-tick releases
   // develops once per release, in release order, over the evolving talent list.
   // P15A.1 Wave 2 (1355-A §3.1 item 5, §3.2): the rival release site, witnessed against the batch.
-  const industry = advanceHollywoodWeek({...admitted,technology:researchAdvance.technology}, marketBatch?.rivalFactorById)
+  // P17 (review P17-05): the rival releases read and update the same root; the market factor argument is unchanged.
+  const industry = advanceHollywoodWeek(withFranchises({...admitted,hollywood:continuedReception.hollywood,rights:continuedRights,technology:researchAdvance.technology},franchises), marketBatch?.rivalFactorById, releasedFilms)
+  franchises = industry.franchises
+  for(const receipt of industry.absorbedRunRevenue) {cash+=receipt.amount;ledger.push(receipt)}
   // The develop switch belongs to the frozen player corpus. A living industry's
   // real releases always write their shared career consequences.
-  const allGrowthRecords = [...(develop?records:[]),...industry.growth].sort((a,b)=>
+  const allGrowthRecords = [...(develop?records:[]),...continuedReception.growth,...industry.growth].sort((a,b)=>
     a.filmResult.productionId<b.filmResult.productionId?-1:a.filmResult.productionId>b.filmResult.productionId?1:0)
   const growth = allGrowthRecords.length > 0
     ? applyReleaseCareers(state.seed,industry.talent,allGrowthRecords)
-    : {talent:industry.talent,careerEvents:[]}
+    : {talent:industry.talent,careerEvents:[],cameoCareerEvents:[]}
+  // P17 Shape A: the careers step's one cameo record per completed, released guest lands on its booking.
+  if (cameos !== undefined) cameos = attachCameoCareerEvents(cameos, growth.cameoCareerEvents)
   const talent = growth.talent
-  const industryFilmIds = new Set(industry.growth.map(r=>r.filmResult.productionId))
+  const industryFilmIds = new Set([...continuedReception.growth,...industry.growth].map(r=>r.filmResult.productionId))
   const newCareerEvents = growth.careerEvents.filter(e=>!industryFilmIds.has(e.filmId))
   const industryCareerEvents = growth.careerEvents.filter(e=>industryFilmIds.has(e.filmId))
   const hollywood = industry.hollywood && industryCareerEvents.length>0
@@ -1062,6 +1149,16 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     }
   }
 
+  // ── 7.8 TELEVISION WORK (P18, contract §4-§5) ──────────────────────────────
+  // INSERTION, NOT A REORDERING, after every mandatory charge of the week (payroll, overhead, facility opex and the
+  // loan installment, review P18-05), so "available cash" is literal. The season's capacity was granted inside step 1's
+  // one sweep; this pays one unit on it, completes its block and earns its milestone. Byte-identical with no season.
+  const televisionAdvance = advanceTelevisionWeek(admitted, { cash, sets }, currentTick)
+  cash = televisionAdvance.cash
+  ledger.push(...televisionAdvance.ledger)
+  sets = televisionAdvance.sets
+  const television = televisionAdvance.television
+
   // ── 8. CONTRACT EXPIRATION (D-11.8) ────────────────────────────────────────
   // Contracts whose term ends at or before the NEW week expire; their talent
   // become free agents (deterministic order: existing free agents, then expiring
@@ -1098,6 +1195,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     castingSessions,
     construction,
     sets,
+    // P18: the season's slots after this advance's sweep and work step.
+    television,
   })
 
   // P13 dated facts are captured on the reached boundary before either history
@@ -1136,7 +1235,14 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     // (rows granted or expired are gone from it), the concepts an admitted
     // original commission minted, and the blueprint root that recorded them.
     ...admitted,
+    // P17: the root after this week's player, continued and rival releases (absent while no franchise exists).
+    ...(franchises === undefined ? {} : { franchises }),
+    // P17 Shape A: the bookings after this week's work and releases (absent while no booking exists).
+    ...(cameos === undefined ? {} : { cameos }),
+    // P18: the season after this week's sweep and paid work (absent while no season was ever commissioned).
+    ...(television === undefined ? {} : { television }),
     technology: industry.technology,
+    rights: industry.rights,
     // P13B-S8: a rival's own admitted plans live on the shared plan root; the
     // player's admission at step 1.06 already wrote its rows into `admitted`.
     physicalPlans: industry.physicalPlans,
@@ -1186,6 +1292,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     // assessments. The batch takes the tick's first P15 numbers, before the ranking record.
     ...(marketBatch === null ? {} : appendMarketBatch(admitted, marketBatch)),
   }
+  for(const production of releasing)finalized=markCarriedScriptProduced(finalized,production.id,currentTick)
   for(const identity of finalized.hollywood?.identities ?? []) {
     if(identity.role==='rival' && identity.enteredWeek===null && identity.eligibleWeek<=finalized.market.tick) {
       finalized=enterRival(finalized,identity.studioId,'scheduled')
@@ -1234,12 +1341,16 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // between the two (1355-F2 item 2; 1361-F ruling 9). No RNG.
   // P15C Wave 2 (1359-A §4.2): the 2040 freeze reads the week's final state, the 6240 ranking record
   // included, and writes only `campaignLegacy` and `p15Sequence`, in the tick producing week 6240 alone.
+  // P16: preserve the rights phase before lifecycle/market/ranking while retaining
+  // P15B condition -> actual closure -> final Legacy publication. Estate handoff
+  // sales/intake prepare before ranking; closure service distributes and archives before final publication.
+  const withRights = prepareEstateSalesForTick(advanceRightsWeek(withBonds, currentTick))
   // P15B Waves 2 and 4 (1357-A §5; the Wave-4 closure contract §2; phase-order version 2): the condition
   // step follows the ranking record (the quarter's band and the condition read the same settled cash, and
   // a studio closing at W stays in that snapshot), the closure phase follows the condition step (closure
   // due declared at W is closed at W, before Legacy freeze), and the freeze stays last. No RNG.
   return freezeCampaignLegacyWeek(advanceStudioClosureWeek(advanceCorporateConditionWeek(recordPowerRankingQuarter(
-    advanceLifecycleSettlement(advanceTalentMarketWeek(advancePromisesWeek(advanceLifecycleIntent(withBonds, birthdays)))))),
+    advanceLifecycleSettlement(advanceTalentMarketWeek(advancePromisesWeek(advanceLifecycleIntent(withRights, birthdays)))))),
     { deferPlayerClosure: options?.deferPlayerClosure === true }))
 }
 

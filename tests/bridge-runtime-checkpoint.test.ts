@@ -768,6 +768,49 @@ describe('P04A REOPEN — enumerated prior protocol-4 checkpoint import', () => 
   it.each(Array.from(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.entries()))(
     'accepts and migrates the enumerated %s (%s) identity',
     (schemaId, era) => {
+      if (era === 'projection-v63') {
+        // Actual source9c public save command; no edited header/journal or save slots.
+        const compressed = readFileSync(new URL('./fixtures/p16/genuine-projection63-runtime/outgoing63.checkpoint.json.gz', import.meta.url))
+        expect(createHash('sha256').update(compressed).digest('hex')).toBe('f24ac06cc84661015383792be732551e1647543106cd91483a3efac2fb892c26')
+        const raw = gunzipSync(compressed).toString('utf8')
+        expect(sha256(raw)).toBe('e699c9b066da20ca4c46498215bca841afa5ddc9e9e571d6c3586520d0e0df65')
+        const original = JSON.parse(raw) as BridgeRuntimeCheckpointV1, before = canonicalJson(original)
+        expect(schemaId).toBe('sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1')
+        expect(original).toMatchObject({ schemaId, protocolVersion: 4, stateRevision: 0,
+          sessionId: 'p16-authentic-outgoing63-session' })
+        expect(original.journal).toHaveLength(1)
+        expect(original.journal[0]).toMatchObject({ route: 'save', commandId: 'outgoing63-real-save' })
+        expect(JSON.parse(original.journal[0]!.responseJson)).toMatchObject({ accepted: true, schemaId })
+        expect(original.savedSaveJson).not.toBeNull()
+        for (const slot of [original.currentSaveJson, original.savedSaveJson!]) {
+          expect(sha256(slot)).toBe('e62846b41b09e95fe1e6d139a0d8e7af3b1f3179606dbf61446746dbdd0f64ba')
+          // The genuine fixture's own bytes: P16 Save49 (it predates P17). Its pin is the fixture's and does not move.
+          expect(JSON.parse(slot)).toMatchObject({ saveVersion: 49, state: { market: { tick: 0 } } })
+        }
+        let sessions = 0
+        const loaded = loadBridgeRuntimeCheckpoint(raw, undefined, () => { sessions += 1; return 'fresh-session-projection-v63' })
+        expect(sessions).toBe(1)
+        expect(loaded.migratedFromProtocolVersion).toBe(PROTOCOL_VERSION)
+        expect(loaded.hydrated.checkpoint).toMatchObject({ schemaId: SCHEMA_ID, protocolVersion: PROTOCOL_VERSION,
+          sessionId: 'fresh-session-projection-v63', stateRevision: 0, journal: [], journalDigest: sha256('[]') })
+        expect(loaded.hydrated.journal).toEqual([])
+        // P17 (Save50): the actual Save49 slots are no longer live. The canonical chain lifts each through the P17 step,
+        // which changes the version alone (no franchise exists), so the state is the fixture's and the digests are new.
+        const lifted = (slot: string) => exportSaveJson(shipped47Save.migrateToLive(shipped47Save.importSave(slot)).state)
+        expect(loaded.hydrated.checkpoint.currentSaveJson).toBe(lifted(original.currentSaveJson))
+        expect(loaded.hydrated.checkpoint.savedSaveJson).toBe(lifted(original.savedSaveJson!))
+        expect(loaded.hydrated.currentSave).toEqual({ ...JSON.parse(original.currentSaveJson), saveVersion: LIVE_SAVE_VERSION })
+        expect(loaded.hydrated.savedSave).toEqual({ ...JSON.parse(original.savedSaveJson!), saveVersion: LIVE_SAVE_VERSION })
+        expect(loaded.hydrated.checkpoint.currentStateDigest).toBe(sha256(loaded.hydrated.checkpoint.currentSaveJson))
+        expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(sha256(loaded.hydrated.checkpoint.savedSaveJson ?? ''))
+        expect(loaded.hydrated.checkpoint.currentStateDigest).not.toBe(original.currentStateDigest)
+        const encoded = encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint)
+        const reopened = loadBridgeRuntimeCheckpoint(encoded, undefined, () => { throw new Error('current69 must not migrate again') })
+        expect(reopened.migratedFromProtocolVersion).toBeNull()
+        expect(encodeBridgeRuntimeCheckpoint(reopened.hydrated.checkpoint)).toBe(encoded)
+        expect(canonicalJson(original)).toBe(before)
+        return
+      }
       const seedState = createManagedBridgeState(`prior-p4-each-${era}`)
       const currentSaveJson = exportSave(makeSaveV14(seedState))
       const priorBytes = priorProtocol4Bytes({
@@ -987,22 +1030,31 @@ describe('prior protocol-4 acceptance boundary pins', () => {
       'sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e',
       'sha256:0285e92f32c27cd2960df802b3f7ea156a15372f05001ad1f4964c2f25db55b5',
       'sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f',
+      // Actual published outgoing58 remains supported beneath current62.
+      'sha256:13b7933fdd1e3dc9851dd08630e46efd43e70227f5e0c6f6cf130d885752ab74',
       'sha256:15033cf9ca43be65abcb25fc6f910f9487ac23056090126ec7d3e2353f6ce587',
       'sha256:18de162d1a9da3034378f71cec3d3b3f109ea91df8c1a8d40469924108b36e78',
       'sha256:1bad05a95c284e64ceaef54c276f2dd0ccad8ca3ef1b12198068bb61b85198c9',
       // Authentic P11 projection24, also retained byte-for-byte in p11-core-v1 fixtures.
       'sha256:204a71924bd8c2e8ae9af47591226894b3e42f62457da3cc20ed6b106ede611a',
       // Authentic outgoing ready26: d906's generated header and unchanged v3 corpus.
+      'sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1', // actual original-runtime outgoing63
       'sha256:2b339a6a8b3e5add0726b7eaac9ce8746e235d8b6111a6816f890ff56afdffd1',
+      // Projection63 retains authentic generated outgoing62.
+      'sha256:2b94e6df66cd5b45e398861c8130085434d4bb9c4d0cf9bdcb97607699799604',
       // R2/R3: genuine1307 outgoing55 current111/saved110 checkpoint.
       'sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158',
       // Relationship slice B: outgoing56, 349b2d3e… (OUTGOING_56 above).
       OUTGOING_56,
       'sha256:510f08e4a551827a30e0f3d93bbe09fa5ddadbd39366b4dcfa93530500c7979c',
+      // Sprint 11 (review S1): the P16 build's current64, prior beneath current65 (its genuine capture below).
+      'sha256:57f12ee28d21aa47c7514afa1c058105a10f10a9e76d400d664e97c23dc90272',
       // P14B.4 (record 600): the outgoing projection-46 identity — the checked-in
       // contract-manifest schemaId before the projection-47 bump (47b2bbf4^), also
       // pinned independently by bridge-p14b4-runtime47-compatibility.test.ts.
       'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c',
+      // P18 Sprint 12: outgoing66 (the P17 checkpoint's identity), prior beneath current67 (its genuine capture below).
+      'sha256:589380869e1329a8027b8339b88646761ce6d791376df5fd793e77ae9dd3b96a',
       // Genuine outgoing projection45: e37cd23 generated header and preserved runtime checkpoint.
       'sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d',
       // P14B.8: the outgoing projection-49 identity — the checked-in contract-manifest
@@ -1010,7 +1062,11 @@ describe('prior protocol-4 acceptance boundary pins', () => {
       // bridge-p14b4-runtime47-compatibility.test.ts.
       'sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b',
       'sha256:625377a2804a681da3be209da02850e221ae33ac5f58b727f6395736ad607ad1',
+      // P16 (candidate current200): outgoing59, the F40 manifest identity bridge-contract-generator.test.ts pins.
+      'sha256:6347433150a8ed3988573840bfa22621d5f5aa35b3d053b25ff5e6700ad02dcd',
       'sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9',
+      // Projection70 (ASTRA Sprint 20): outgoing69 (the edb1cee4 snapshot's identity), prior beneath current70 (its genuine capture below).
+      'sha256:6cdb8065eedbfe81d794f6e0a17db71570729ac5701f688ea033b2175bfe4a5a',
       // P14B.5 (662-T2): the outgoing projection-47 identity — the checked-in
       // contract-manifest schemaId before the projection-48 bump (040651b4^), also
       // pinned independently by bridge-p14b4-runtime47-compatibility.test.ts.
@@ -1018,10 +1074,16 @@ describe('prior protocol-4 acceptance boundary pins', () => {
       'sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b',
       // Actual shipped projection57, independent of unlanded candidate57 identity.
       C17_SHIPPED_OUTGOING_57,
+      // P16: outgoing61, the candidate's generated C# header (PATCH.diff d59d331b).
+      'sha256:7d23fdb9a710175afb88208170cfe5692510febe06fb898a3ccd95edc9c53306',
       'sha256:7e3af4db0d3d18cdeaab00082e0034f304a9141f46ea87e9e64e5a99d985483c',
       'sha256:80f2f0fcd14d1b25e713c2624286a6c05a98c53ea5cfcb2b47612f8c030f5e47',
       'sha256:85a6d125960dce49b4775f842d7b56d7360c81cef3638cd819057c79c99f0236',
       'sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85',
+      // P18 Sprint 13 slice B: outgoing67 (the Sprint 12 checkpoint's identity), prior beneath current68 (its genuine capture below).
+      'sha256:8bd45eec049c6105ed2efee3899cfbb2a440c1b40f536a899b332ffbde3003f0',
+      // P16: outgoing60; the candidate's registry is its only record in this repository.
+      'sha256:8bf350135c7a8b69b4fc2258d1082f452047d37964d0d58b6cc8ceefc87153e4',
       'sha256:92317ec179456cdc5bd5cc7c4ca47dd066b768a9e2e45519f1263ef921a211a4',
       'sha256:97940e51e0566bed80231b223e5b7303a45d62db8d698f693e525eb244775211',
       // P4/P5: genuine1221 outgoing54 current-waived/saved-earned slots.
@@ -1030,7 +1092,11 @@ describe('prior protocol-4 acceptance boundary pins', () => {
       // 875: genuine outgoing projection51, preserved in the pre-bump C.2-RM runtime corpus.
       'sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f',
       'sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b',
+      // Projection71 (ASTRA Sprint 27): outgoing70 (the 6ddeeb00 snapshot's identity, tag p18-sprint26-candidate-20261030), prior beneath current71 (its genuine capture below).
+      'sha256:aaafd0bdf597d3538acc5cb77568dd38de43dd50c7f052767ee40bb8e16ea448',
       'sha256:b779faa92227bd1f2e623ad04d0899c87e7ddc60ce43f9ae9c39a7626c20a83d',
+      // Projection69 (playtest-response slice): outgoing68 (the b3c179b0 snapshot's identity), prior beneath current69 (its genuine capture below).
+      'sha256:b91efc9c632b2503a0f5ca0f33a243164e97775b2c13f566746ba004d7835851',
       'sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f',
       'sha256:be7ed660d04ed9b1056f48e946f86f26c10cab42b950a273d57ad9cba372f5bb',
       // Native R05 preview12 manifest/DTO, before the Profile date-label addition.
@@ -1040,6 +1106,8 @@ describe('prior protocol-4 acceptance boundary pins', () => {
       'sha256:c9c07d6febe4afee7f7c27c991acdfa1c86b6c3a7f5dff8528d7fa5ad72e43a1',
       'sha256:c9dad9f3d8bb94445db1a5425d90db3f9894da9354f47a07992ff96261cfc399',
       'sha256:d3338cb713385cc23414e6a17293a5900871764f0eeaed19698e17634e74740b',
+      // Sprint 11 slice B: outgoing65, prior beneath current66 (its genuine capture below).
+      'sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8',
       // P3: genuine1117 outgoing53 natural and waiver checkpoints.
       'sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d',
       'sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99',
@@ -1062,6 +1130,429 @@ describe('prior protocol-4 acceptance boundary pins', () => {
 // Constructed in-memory checkpoint control using admitted historical capture slots.
 // This is NOT a captured production57 checkpoint or a new genuine restart record.
 const C17_SHIPPED_OUTGOING_57 = 'sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253'
+
+// Sprint 11, review S1: the bridge schema id does not depend on the save version. The P16 build (a5a66c27) and the P17
+// build share the current64 identity, so a checkpoint the P16 build wrote carries Save49 slots under it, and the
+// current-schema path refuses them as non-live. Projection 65 registers 64 prior: those slots lift to Save50 through the
+// canonical chain, and a current-schema checkpoint carrying a non-live save is still refused by name.
+const P16_BUILD_OUTGOING_64 = 'sha256:57f12ee28d21aa47c7514afa1c058105a10f10a9e76d400d664e97c23dc90272'
+function loadOutcome(bytes: string, sessionId: string): { loaded: ReturnType<typeof loadBridgeRuntimeCheckpoint> } | { refused: string } {
+  try {
+    return { loaded: loadBridgeRuntimeCheckpoint(bytes, undefined, () => sessionId) }
+  } catch (error) {
+    return { refused: (error as Error).message }
+  }
+}
+// The bytes the P16 build writes for a franchise-free state: the real P17 downgrade step is version-only until a franchise exists.
+const p16BuildSaveJson = (state: Parameters<typeof shipped47Save.makeSave>[0]): string =>
+  exportSave(shipped47Save.convertV50ToV49(shipped47Save.convertV51ToV50(shipped47Save.makeSave(state))))
+const liftedSaveJson = (slot: string): string => exportSaveJson(shipped47Save.migrateToLive(shipped47Save.importSave(slot)).state)
+
+describe('Sprint 11 S1 — P16-build current64 checkpoints with Save49 slots take the governed prior path', () => {
+  it('accepts a current64 checkpoint with real Save49 slots and lifts each to the live save with fresh digests (refused as V49 at the parent)', () => {
+    const current = createManagedBridgeState('s1-p16-current64-current')
+    const saved = createManagedBridgeState('s1-p16-current64-saved')
+    const currentSaveJson = p16BuildSaveJson(current)
+    const savedSaveJson = p16BuildSaveJson(saved)
+    for (const slot of [currentSaveJson, savedSaveJson]) expect(JSON.parse(slot)).toMatchObject({ saveVersion: 49 })
+    const bytes = priorProtocol4Bytes({
+      schemaId: P16_BUILD_OUTGOING_64,
+      sessionId: 'p16-build-current64-session',
+      stateRevision: 2,
+      currentSaveJson,
+      savedSaveJson,
+      journal: [opaqueJournalEntry('p16-build-command', 'one'), opaqueJournalEntry('p16-build-save', 'two')],
+    })
+    const outcome = loadOutcome(bytes, 'fresh-after-p16-current64')
+    expect(outcome).not.toHaveProperty('refused')
+    if (!('loaded' in outcome)) return
+    const { loaded } = outcome
+    expect(SCHEMA_ID).not.toBe(P16_BUILD_OUTGOING_64)
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(P16_BUILD_OUTGOING_64)).toBe('projection-v64')
+    expect(loaded.migratedFromProtocolVersion).toBe(PROTOCOL_VERSION)
+    expect(loaded.hydrated.checkpoint).toMatchObject({ schemaId: SCHEMA_ID, protocolVersion: PROTOCOL_VERSION,
+      sessionId: 'fresh-after-p16-current64', stateRevision: 0, journal: [], journalDigest: sha256('[]') })
+    expect(loaded.hydrated.journal).toEqual([])
+    // Version-only lift: the state is the P16 bytes' own, the version is live and both digests are recomputed.
+    expect(loaded.hydrated.currentSave).toEqual({ ...JSON.parse(currentSaveJson), saveVersion: LIVE_SAVE_VERSION })
+    expect(loaded.hydrated.savedSave).toEqual({ ...JSON.parse(savedSaveJson), saveVersion: LIVE_SAVE_VERSION })
+    expect(loaded.hydrated.checkpoint.currentSaveJson).toBe(liftedSaveJson(currentSaveJson))
+    expect(loaded.hydrated.checkpoint.savedSaveJson).toBe(liftedSaveJson(savedSaveJson))
+    expect(loaded.hydrated.checkpoint.currentStateDigest).toBe(sha256(loaded.hydrated.checkpoint.currentSaveJson))
+    expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(sha256(loaded.hydrated.checkpoint.savedSaveJson ?? ''))
+    expect(loaded.hydrated.checkpoint.currentStateDigest).not.toBe(sha256(currentSaveJson))
+    expect(loaded.hydrated.checkpoint.savedStateDigest).not.toBe(sha256(savedSaveJson))
+    // The migrated checkpoint is current: it reopens without a second migration and re-encodes byte for byte.
+    const encoded = encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint)
+    const reopened = loadBridgeRuntimeCheckpoint(encoded, undefined, () => { throw new Error('current69 must not migrate again') })
+    expect(reopened.migratedFromProtocolVersion).toBeNull()
+    expect(encodeBridgeRuntimeCheckpoint(reopened.hydrated.checkpoint)).toBe(encoded)
+  })
+
+  it('accepts the genuine P16-build capture (a5a66c27 public save route) and lifts both Save49 slots to the live save', () => {
+    // Pins measured from the actual capture at a5a66c27 (tools/capture64.ts; OUTGOING64-RECEIPT.json beside the fixture).
+    const compressed = readFileSync(new URL('./fixtures/p16/genuine-projection64-runtime/outgoing64.checkpoint.json.gz', import.meta.url))
+    expect(createHash('sha256').update(compressed).digest('hex')).toBe('495174bd6c33748948375b3fd3a800dce9f876e42a194fc8d8047a6ca0d4e440')
+    const raw = gunzipSync(compressed).toString('utf8')
+    expect(sha256(raw)).toBe('927b4d01caf5b186b6cdc7b3429dc5900d10aaf4888779ca4d57674b46039a5d')
+    const original = JSON.parse(raw) as BridgeRuntimeCheckpointV1, before = canonicalJson(original)
+    expect(original).toMatchObject({ schemaId: P16_BUILD_OUTGOING_64, protocolVersion: 4, stateRevision: 0,
+      sessionId: 'p16-authentic-outgoing64-session' })
+    expect(original.journal).toHaveLength(1)
+    expect(original.journal[0]).toMatchObject({ route: 'save', commandId: 'outgoing64-real-save' })
+    expect(JSON.parse(original.journal[0]!.responseJson)).toMatchObject({ accepted: true, schemaId: P16_BUILD_OUTGOING_64 })
+    expect(original.savedSaveJson).not.toBeNull()
+    for (const slot of [original.currentSaveJson, original.savedSaveJson!]) {
+      expect(sha256(slot)).toBe('1965758c2f253842c348956bb95074479c99a7b3ae5077bdbb965ff5e4d56d75')
+      expect(JSON.parse(slot)).toMatchObject({ saveVersion: 49, state: { market: { tick: 0 } } })
+    }
+    const outcome = loadOutcome(raw, 'fresh-session-projection-v64')
+    expect(outcome).not.toHaveProperty('refused')
+    if (!('loaded' in outcome)) return
+    const { loaded } = outcome
+    expect(loaded.migratedFromProtocolVersion).toBe(PROTOCOL_VERSION)
+    expect(loaded.hydrated.checkpoint).toMatchObject({ schemaId: SCHEMA_ID, protocolVersion: PROTOCOL_VERSION,
+      sessionId: 'fresh-session-projection-v64', stateRevision: 0, journal: [], journalDigest: sha256('[]') })
+    expect(loaded.hydrated.checkpoint.currentSaveJson).toBe(liftedSaveJson(original.currentSaveJson))
+    expect(loaded.hydrated.checkpoint.savedSaveJson).toBe(liftedSaveJson(original.savedSaveJson!))
+    expect(loaded.hydrated.currentSave).toEqual({ ...JSON.parse(original.currentSaveJson), saveVersion: LIVE_SAVE_VERSION })
+    expect(loaded.hydrated.savedSave).toEqual({ ...JSON.parse(original.savedSaveJson!), saveVersion: LIVE_SAVE_VERSION })
+    expect(loaded.hydrated.checkpoint.currentStateDigest).toBe(sha256(loaded.hydrated.checkpoint.currentSaveJson))
+    expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(sha256(loaded.hydrated.checkpoint.savedSaveJson ?? ''))
+    expect(loaded.hydrated.checkpoint.currentStateDigest).not.toBe(original.currentStateDigest)
+    expect(canonicalJson(original)).toBe(before)
+  })
+
+  // Inherited limit, recorded rather than widened (review should-fix 3): the prior path refuses any migrated slot with an
+  // open founding draft unless it is the R05/P12 native draft (runtime-checkpoint.ts nativeR05Draft). A P16-build checkpoint
+  // saved mid-founding is therefore refused with the historical "cannot contain" message, and a P17-build 64 checkpoint
+  // saved mid-founding, which loaded on the current path before projection 65, is refused the same way. The same bytes
+  // under the running schema still load. Widening nativeR05Draft is out of this slice.
+  it('refuses a mid-founding P16-build (Save49) or P17-build (Save50) current64 checkpoint on the prior path; the running schema still loads it', () => {
+    const founding = BridgeSession.createRuntime().exportRuntimeCheckpoint()
+    expect((JSON.parse(founding.currentSaveJson) as { state: { founding: unknown } }).state.founding).not.toBeNull()
+    const p16SaveJson = exportSave(shipped47Save.convertV50ToV49(shipped47Save.convertV51ToV50(shipped47Save.migrateToLive(shipped47Save.importSave(founding.currentSaveJson)))))
+    expect(JSON.parse(p16SaveJson)).toMatchObject({ saveVersion: 49 })
+    // P18 (review should-fix 8): the P17 build wrote Save50; derive its slot through the live step as the P16 slot is.
+    const p17SaveJson = exportSave(shipped47Save.convertV51ToV50(shipped47Save.migrateToLive(shipped47Save.importSave(founding.currentSaveJson))))
+    expect(JSON.parse(p17SaveJson)).toMatchObject({ saveVersion: 50 })
+    for (const [build, currentSaveJson] of [['p16', p16SaveJson], ['p17', p17SaveJson]] as const) {
+      const bytes = priorProtocol4Bytes({ schemaId: P16_BUILD_OUTGOING_64, sessionId: `${build}-mid-founding-64`, stateRevision: 0,
+        currentSaveJson, savedSaveJson: null, journal: [] })
+      expect(() => loadBridgeRuntimeCheckpoint(bytes, undefined, () => `${build}-mid-founding-fresh`))
+        .toThrow('checkpoint.currentSaveJson: previous protocol-4 production authority cannot contain an open founding draft')
+    }
+    const current = loadBridgeRuntimeCheckpoint(encodeBridgeRuntimeCheckpoint(founding), undefined, () => { throw new Error('a current checkpoint must not migrate') })
+    expect(current.migratedFromProtocolVersion).toBeNull()
+    expect(current.hydrated.checkpoint.currentSaveJson).toBe(founding.currentSaveJson)
+  })
+
+  it('still refuses a current-schema checkpoint that carries a non-live Save49 slot, by name, without the prior path', () => {
+    const bytes = priorProtocol4Bytes({
+      schemaId: SCHEMA_ID,
+      sessionId: 'forged-current-save49-session',
+      stateRevision: 0,
+      currentSaveJson: p16BuildSaveJson(createManagedBridgeState('s1-forged-current-save49')),
+      savedSaveJson: null,
+      journal: [],
+    })
+    expect(() => loadBridgeRuntimeCheckpoint(bytes, undefined, () => { throw new Error('a current-schema checkpoint must not take the prior path') }))
+      .toThrow(`checkpoint.currentSaveJson: must be a current V${String(LIVE_SAVE_VERSION)} save, received V49`)
+  })
+})
+
+// Sprint 11 slice B: projection 66 registered the outgoing65 identity while Save50 was live, so its slots were live then.
+// P18 Sprint 12: Save51 is live, so the same Save50 slots now lift version-only through migrateToLive on the governed
+// prior path; the capture's own bytes and pins do not move.
+const OUTGOING_65 = 'sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8'
+describe('Sprint 11 slice B — the outgoing65 capture takes the governed prior path', () => {
+  it('accepts the genuine projection-65 capture (2b1a5b4b public save route) and lifts both Save50 slots to Save51, version only', () => {
+    // Pins measured from the actual capture at 2b1a5b4b (producer docs/engineering/audits/2026-10-22-codebase-review/
+    // p16-sprint11/bridge-slice-b/tools/capture65.ts; OUTGOING65-RECEIPT.json beside the fixture).
+    const compressed = readFileSync(new URL('./fixtures/bridge/genuine-projection65-runtime/outgoing65.checkpoint.json.gz', import.meta.url))
+    expect(createHash('sha256').update(compressed).digest('hex')).toBe('71769a1eb690fd21d8294cc62569d730e6b549e54270edce4bc8405513207a84')
+    const raw = gunzipSync(compressed).toString('utf8')
+    expect(sha256(raw)).toBe('fcc07f9d61376abae825f79dadd5f12d4e38166a9d5490336a2a83d8eb2df382')
+    const original = JSON.parse(raw) as BridgeRuntimeCheckpointV1, before = canonicalJson(original)
+    expect(original).toMatchObject({ schemaId: OUTGOING_65, protocolVersion: 4, stateRevision: 0, sessionId: 'p17-authentic-outgoing65-session' })
+    expect(original.journal).toHaveLength(1)
+    expect(original.journal[0]).toMatchObject({ route: 'save', commandId: 'outgoing65-real-save' })
+    expect(JSON.parse(original.journal[0]!.responseJson)).toMatchObject({ accepted: true, schemaId: OUTGOING_65 })
+    expect(original.savedSaveJson).not.toBeNull()
+    for (const slot of [original.currentSaveJson, original.savedSaveJson!]) {
+      expect(sha256(slot)).toBe('d8510590b44432ea5e481ee955536604f61f8b837ae8c2ad60adb2395df222f4')
+      // The genuine fixture's own bytes: P17 Save50 (it predates P18). Its pin is the fixture's and does not move.
+      expect(JSON.parse(slot)).toMatchObject({ saveVersion: 50, state: { market: { tick: 0 } } })
+    }
+    const outcome = loadOutcome(raw, 'fresh-session-projection-v65')
+    expect(outcome).not.toHaveProperty('refused')
+    if (!('loaded' in outcome)) return
+    const { loaded } = outcome
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_65)).toBe('projection-v65')
+    expect(loaded.migratedFromProtocolVersion).toBe(PROTOCOL_VERSION)
+    expect(loaded.hydrated.checkpoint).toMatchObject({ schemaId: SCHEMA_ID, protocolVersion: PROTOCOL_VERSION,
+      sessionId: 'fresh-session-projection-v65', stateRevision: 0, journal: [], journalDigest: sha256('[]') })
+    // Version-only lift: the state is the capture's own, the version is 51 and both digests are recomputed.
+    expect(loaded.hydrated.currentSave).toEqual({ ...JSON.parse(original.currentSaveJson), saveVersion: 51 })
+    expect(loaded.hydrated.savedSave).toEqual({ ...JSON.parse(original.savedSaveJson!), saveVersion: 51 })
+    expect(loaded.hydrated.checkpoint.currentSaveJson).toBe(liftedSaveJson(original.currentSaveJson))
+    expect(loaded.hydrated.checkpoint.savedSaveJson).toBe(liftedSaveJson(original.savedSaveJson!))
+    expect(loaded.hydrated.checkpoint.currentStateDigest).toBe(sha256(loaded.hydrated.checkpoint.currentSaveJson))
+    expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(sha256(loaded.hydrated.checkpoint.savedSaveJson ?? ''))
+    expect(loaded.hydrated.checkpoint.currentStateDigest).not.toBe(original.currentStateDigest)
+    const encoded = encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint)
+    const reopened = loadBridgeRuntimeCheckpoint(encoded, undefined, () => { throw new Error('current69 must not migrate again') })
+    expect(reopened.migratedFromProtocolVersion).toBeNull()
+    expect(canonicalJson(original)).toBe(before)
+  })
+})
+
+// P18 Sprint 12: projection 67 registers the outgoing66 identity, the P17 technical checkpoint's (ecbc42c9) and the P18
+// candidate's alike, because the bridge schema folds no save version. A checkpoint written under 66 carries Save50 slots;
+// with Save51 live the current-schema path refuses them by name, and the governed prior path lifts each version-only.
+const OUTGOING_66 = 'sha256:589380869e1329a8027b8339b88646761ce6d791376df5fd793e77ae9dd3b96a'
+describe('P18 Sprint 12 — the outgoing66 capture takes the governed prior path', () => {
+  it('accepts the genuine projection-66 capture (ecbc42c9 public save route) and lifts both Save50 slots to Save51, version only', () => {
+    // Pins measured from the actual capture in an immutable snapshot of ecbc42c9 (producer docs/engineering/audits/
+    // 2026-10-22-codebase-review/p18-sprint12/bridge-step/tools/capture66.ts; OUTGOING66-RECEIPT.json beside the fixture).
+    const compressed = readFileSync(new URL('./fixtures/bridge/genuine-projection66-runtime/outgoing66.checkpoint.json.gz', import.meta.url))
+    expect(createHash('sha256').update(compressed).digest('hex')).toBe('1249f8d58f8aa784b4540bcb1e6a4cbf58421054cb0858c7ee7d5d4affabb659')
+    const raw = gunzipSync(compressed).toString('utf8')
+    expect(sha256(raw)).toBe('19cb33dd891302ec0f8dcbe6515306c4ec163f441fc98e5fc2c46188592c1028')
+    const original = JSON.parse(raw) as BridgeRuntimeCheckpointV1, before = canonicalJson(original)
+    expect(original).toMatchObject({ schemaId: OUTGOING_66, protocolVersion: 4, stateRevision: 0, sessionId: 'p17-authentic-outgoing66-session' }) // the fixture's own value (the receipt brief said p18-…)
+    expect(original.journal).toHaveLength(1)
+    expect(original.journal[0]).toMatchObject({ route: 'save', commandId: 'outgoing66-real-save' })
+    expect(JSON.parse(original.journal[0]!.responseJson)).toMatchObject({ accepted: true, schemaId: OUTGOING_66 })
+    expect(original.savedSaveJson).not.toBeNull()
+    for (const slot of [original.currentSaveJson, original.savedSaveJson!]) {
+      expect(sha256(slot)).toBe('12daac5bf0277515773166e3ab42f7e2c8bbf34fff558afc02f5f15f4b7a69f9')
+      expect(JSON.parse(slot)).toMatchObject({ saveVersion: 50, state: { market: { tick: 0 } } })
+    }
+    expect(SCHEMA_ID).not.toBe(OUTGOING_66)
+    const outcome = loadOutcome(raw, 'fresh-session-projection-v66')
+    expect(outcome).not.toHaveProperty('refused')
+    if (!('loaded' in outcome)) return
+    const { loaded } = outcome
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_66)).toBe('projection-v66')
+    expect(loaded.migratedFromProtocolVersion).toBe(PROTOCOL_VERSION)
+    expect(loaded.hydrated.checkpoint).toMatchObject({ schemaId: SCHEMA_ID, protocolVersion: PROTOCOL_VERSION,
+      sessionId: 'fresh-session-projection-v66', stateRevision: 0, journal: [], journalDigest: sha256('[]') })
+    expect(loaded.hydrated.journal).toEqual([])
+    expect(loaded.hydrated.currentSave).toEqual({ ...JSON.parse(original.currentSaveJson), saveVersion: 51 })
+    expect(loaded.hydrated.savedSave).toEqual({ ...JSON.parse(original.savedSaveJson!), saveVersion: 51 })
+    expect(loaded.hydrated.checkpoint.currentSaveJson).toBe(liftedSaveJson(original.currentSaveJson))
+    expect(loaded.hydrated.checkpoint.savedSaveJson).toBe(liftedSaveJson(original.savedSaveJson!))
+    expect(loaded.hydrated.checkpoint.currentStateDigest).toBe(sha256(loaded.hydrated.checkpoint.currentSaveJson))
+    expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(sha256(loaded.hydrated.checkpoint.savedSaveJson ?? ''))
+    expect(loaded.hydrated.checkpoint.currentStateDigest).not.toBe(original.currentStateDigest)
+    const encoded = encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint)
+    const reopened = loadBridgeRuntimeCheckpoint(encoded, undefined, () => { throw new Error('current69 must not migrate again') })
+    expect(reopened.migratedFromProtocolVersion).toBeNull()
+    expect(encodeBridgeRuntimeCheckpoint(reopened.hydrated.checkpoint)).toBe(encoded)
+    expect(canonicalJson(original)).toBe(before)
+  })
+
+  it('still refuses a current-schema checkpoint that carries a non-live Save50 slot, by name, without the prior path', () => {
+    const save50Json = exportSave(shipped47Save.convertV51ToV50(shipped47Save.makeSave(createManagedBridgeState('p18-forged-current-save50'))))
+    expect(JSON.parse(save50Json)).toMatchObject({ saveVersion: 50 })
+    const bytes = priorProtocol4Bytes({ schemaId: SCHEMA_ID, sessionId: 'forged-current-save50-session', stateRevision: 0,
+      currentSaveJson: save50Json, savedSaveJson: null, journal: [] })
+    expect(() => loadBridgeRuntimeCheckpoint(bytes, undefined, () => { throw new Error('a current-schema checkpoint must not take the prior path') }))
+      .toThrow(`checkpoint.currentSaveJson: must be a current V${String(LIVE_SAVE_VERSION)} save, received V50`)
+  })
+})
+
+// P18 Sprint 13 slice B: projection 68 registers the outgoing67 identity, the Sprint 12 checkpoint's (31fdb366) and the
+// slice A candidate's (d174d667) alike. Save51 stays live, so the governed prior path is identity on both slots.
+const OUTGOING_67 = 'sha256:8bd45eec049c6105ed2efee3899cfbb2a440c1b40f536a899b332ffbde3003f0'
+describe('P18 Sprint 13 slice B — the outgoing67 capture takes the governed prior path', () => {
+  it('accepts the genuine projection-67 capture (31fdb366 public save route) and keeps both live Save51 slots byte for byte', () => {
+    // Pins measured from the actual capture in an immutable snapshot of 31fdb366 (producer docs/engineering/audits/
+    // 2026-10-22-codebase-review/p18-sprint13/bridge-step/tools/capture67.ts; OUTGOING67-RECEIPT.json beside the fixture).
+    const compressed = readFileSync(new URL('./fixtures/bridge/genuine-projection67-runtime/outgoing67.checkpoint.json.gz', import.meta.url))
+    expect(compressed).toHaveLength(164463)
+    expect(createHash('sha256').update(compressed).digest('hex')).toBe('b8b013d1ec5918477546e9df70bffed99bc964da9867e12534af63f7c5a6bc34')
+    const raw = gunzipSync(compressed).toString('utf8')
+    expect(sha256(raw)).toBe('f96bd3c96101fad5eaceba2741e5076683eb49aafec54e1f080458ebbe63e565')
+    const original = JSON.parse(raw) as BridgeRuntimeCheckpointV1, before = canonicalJson(original)
+    expect(original).toMatchObject({ schemaId: OUTGOING_67, protocolVersion: 4, stateRevision: 0, sessionId: 'p17-authentic-outgoing67-session' }) // the fixture's own value
+    expect(original.journal).toHaveLength(1)
+    expect(original.journal[0]).toMatchObject({ route: 'save', commandId: 'outgoing67-real-save' })
+    expect(JSON.parse(original.journal[0]!.responseJson)).toMatchObject({ accepted: true, schemaId: OUTGOING_67 })
+    expect(original.savedSaveJson).not.toBeNull()
+    for (const slot of [original.currentSaveJson, original.savedSaveJson!]) {
+      expect(sha256(slot)).toBe('dddb4f8d1bba53e3839412450bbb509442fc006fcbb3b7869775fd0a3e321d87')
+      expect(JSON.parse(slot)).toMatchObject({ saveVersion: LIVE_SAVE_VERSION, state: { market: { tick: 0 } } })
+    }
+    expect(LIVE_SAVE_VERSION).toBe(51)
+    expect(SCHEMA_ID).not.toBe(OUTGOING_67)
+    const outcome = loadOutcome(raw, 'fresh-session-projection-v67')
+    expect(outcome).not.toHaveProperty('refused')
+    if (!('loaded' in outcome)) return
+    const { loaded } = outcome
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_67)).toBe('projection-v67')
+    expect(loaded.migratedFromProtocolVersion).toBe(PROTOCOL_VERSION)
+    expect(loaded.hydrated.checkpoint).toMatchObject({ schemaId: SCHEMA_ID, protocolVersion: PROTOCOL_VERSION,
+      sessionId: 'fresh-session-projection-v67', stateRevision: 0, journal: [], journalDigest: sha256('[]') })
+    expect(loaded.hydrated.journal).toEqual([])
+    // Already live: the canonical chain is identity, so both slots and both digests are the capture's own.
+    expect(loaded.hydrated.checkpoint.currentSaveJson).toBe(original.currentSaveJson)
+    expect(loaded.hydrated.checkpoint.savedSaveJson).toBe(original.savedSaveJson)
+    expect(loaded.hydrated.checkpoint.currentStateDigest).toBe(original.currentStateDigest)
+    expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(original.savedStateDigest)
+    const encoded = encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint)
+    const reopened = loadBridgeRuntimeCheckpoint(encoded, undefined, () => { throw new Error('current69 must not migrate again') })
+    expect(reopened.migratedFromProtocolVersion).toBeNull()
+    expect(encodeBridgeRuntimeCheckpoint(reopened.hydrated.checkpoint)).toBe(encoded)
+    expect(canonicalJson(original)).toBe(before)
+  })
+})
+
+// Projection69 (playtest-response slice, Owner decision 7c): the television cancellation cause gains the tick's automatic
+// `rights` and `participant` cancellations on authority loss (contract §4, §7). Protocol 4 and Save51 unchanged, so the
+// prior lift is identity. Projection 69 registers the outgoing68 identity, the immutable snapshot b3c179b0's
+// (tag p18-sprint16-playtest-candidate-r2-20261028).
+const OUTGOING_68 = 'sha256:b91efc9c632b2503a0f5ca0f33a243164e97775b2c13f566746ba004d7835851'
+describe('Projection69 playtest-response slice — the outgoing68 capture takes the governed prior path', () => {
+  it('accepts the genuine projection-68 capture (b3c179b0 public save route) and keeps both live Save51 slots byte for byte', () => {
+    // Pins measured from the actual capture in an immutable snapshot of b3c179b0 (producer docs/engineering/audits/
+    // 2026-10-22-codebase-review/playtest-response/bridge-step/tools/capture68.ts in the records repository;
+    // OUTGOING68-RECEIPT.json beside the fixture).
+    const compressed = readFileSync(new URL('./fixtures/bridge/genuine-projection68-runtime/outgoing68.checkpoint.json.gz', import.meta.url))
+    expect(compressed).toHaveLength(164277)
+    expect(createHash('sha256').update(compressed).digest('hex')).toBe('401e54b96c85e15e16f70d5b3e45c82812c0dd40b98f763632ce265316b55fae')
+    const raw = gunzipSync(compressed).toString('utf8')
+    expect(sha256(raw)).toBe('df0ada1aba7c726cfeb6a48632b5bb4f4696c97042116cb642ea93641078c172')
+    const original = JSON.parse(raw) as BridgeRuntimeCheckpointV1, before = canonicalJson(original)
+    expect(original).toMatchObject({ schemaId: OUTGOING_68, protocolVersion: 4, stateRevision: 0, sessionId: 'p18-authentic-outgoing68-session' }) // the fixture's own value
+    expect(original.journal).toHaveLength(1)
+    expect(original.journal[0]).toMatchObject({ route: 'save', commandId: 'outgoing68-real-save' })
+    expect(JSON.parse(original.journal[0]!.responseJson)).toMatchObject({ accepted: true, schemaId: OUTGOING_68 })
+    expect(original.savedSaveJson).not.toBeNull()
+    for (const slot of [original.currentSaveJson, original.savedSaveJson!]) {
+      expect(sha256(slot)).toBe('eba432b4a7e98d512bd24c104e6c2ef7ed1e4db9f2433828b90dd9dbc115476b')
+      expect(JSON.parse(slot)).toMatchObject({ saveVersion: LIVE_SAVE_VERSION, state: { market: { tick: 0 } } })
+    }
+    expect(LIVE_SAVE_VERSION).toBe(51)
+    expect(SCHEMA_ID).not.toBe(OUTGOING_68)
+    const outcome = loadOutcome(raw, 'fresh-session-projection-v68')
+    expect(outcome).not.toHaveProperty('refused')
+    if (!('loaded' in outcome)) return
+    const { loaded } = outcome
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_68)).toBe('projection-v68')
+    expect(loaded.migratedFromProtocolVersion).toBe(PROTOCOL_VERSION)
+    expect(loaded.hydrated.checkpoint).toMatchObject({ schemaId: SCHEMA_ID, protocolVersion: PROTOCOL_VERSION,
+      sessionId: 'fresh-session-projection-v68', stateRevision: 0, journal: [], journalDigest: sha256('[]') })
+    expect(loaded.hydrated.journal).toEqual([])
+    // Already live: the canonical chain is identity, so both slots and both digests are the capture's own.
+    expect(loaded.hydrated.checkpoint.currentSaveJson).toBe(original.currentSaveJson)
+    expect(loaded.hydrated.checkpoint.savedSaveJson).toBe(original.savedSaveJson)
+    expect(loaded.hydrated.checkpoint.currentStateDigest).toBe(original.currentStateDigest)
+    expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(original.savedStateDigest)
+    const encoded = encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint)
+    const reopened = loadBridgeRuntimeCheckpoint(encoded, undefined, () => { throw new Error('current69 must not migrate again') })
+    expect(reopened.migratedFromProtocolVersion).toBeNull()
+    expect(encodeBridgeRuntimeCheckpoint(reopened.hydrated.checkpoint)).toBe(encoded)
+    expect(canonicalJson(original)).toBe(before)
+  })
+})
+
+// Projection70 (ASTRA Sprint 20, Owner decision E): the intent option gains `confirmation` (none | required) so a client can
+// ask twice before a destructive command. Protocol 4 and Save51 unchanged, so the prior lift is identity. Projection 70
+// registers the outgoing69 identity, the immutable snapshot edb1cee4's (tag p18-sprint19-checkpoint-20261029).
+const OUTGOING_69 = 'sha256:6cdb8065eedbfe81d794f6e0a17db71570729ac5701f688ea033b2175bfe4a5a'
+describe('Projection70 ASTRA Sprint 20 — the outgoing69 capture takes the governed prior path', () => {
+  it('accepts the genuine projection-69 capture (edb1cee4 public save route) and keeps both live Save51 slots byte for byte', () => {
+    // Pins measured from the actual capture in an immutable snapshot of edb1cee4 (producer docs/engineering/audits/
+    // 2026-10-22-codebase-review/astra-sprints-17-21/sprint20/bridge-step/tools/capture69.ts in the records repository;
+    // OUTGOING69-RECEIPT.json beside the fixture).
+    const compressed = readFileSync(new URL('./fixtures/bridge/genuine-projection69-runtime/outgoing69.checkpoint.json.gz', import.meta.url))
+    expect(compressed).toHaveLength(164481)
+    expect(createHash('sha256').update(compressed).digest('hex')).toBe('7ab5393e9c05930be7c035ae68837239fb24d37853402f3ff6bc3af87d3fa737')
+    const raw = gunzipSync(compressed).toString('utf8')
+    expect(sha256(raw)).toBe('1f0db0b14bc79415738ac31a73777e24965cfe7dbae9fed74f57ad421f1fee2e')
+    const original = JSON.parse(raw) as BridgeRuntimeCheckpointV1, before = canonicalJson(original)
+    expect(original).toMatchObject({ schemaId: OUTGOING_69, protocolVersion: 4, stateRevision: 0, sessionId: 'p18-authentic-outgoing69-session' }) // the fixture's own value
+    expect(original.journal).toHaveLength(1)
+    expect(original.journal[0]).toMatchObject({ route: 'save', commandId: 'outgoing69-real-save' })
+    expect(JSON.parse(original.journal[0]!.responseJson)).toMatchObject({ accepted: true, schemaId: OUTGOING_69 })
+    expect(original.savedSaveJson).not.toBeNull()
+    for (const slot of [original.currentSaveJson, original.savedSaveJson!]) {
+      expect(sha256(slot)).toBe('efa3bdf75e3bb1fb64a05c090e0ca064767eff4d44778ae41e8abb4935cef1b9')
+      expect(JSON.parse(slot)).toMatchObject({ saveVersion: LIVE_SAVE_VERSION, state: { market: { tick: 0 } } })
+    }
+    expect(LIVE_SAVE_VERSION).toBe(51)
+    expect(SCHEMA_ID).not.toBe(OUTGOING_69)
+    const outcome = loadOutcome(raw, 'fresh-session-projection-v69')
+    expect(outcome).not.toHaveProperty('refused')
+    if (!('loaded' in outcome)) return
+    const { loaded } = outcome
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_69)).toBe('projection-v69')
+    expect(loaded.migratedFromProtocolVersion).toBe(PROTOCOL_VERSION)
+    expect(loaded.hydrated.checkpoint).toMatchObject({ schemaId: SCHEMA_ID, protocolVersion: PROTOCOL_VERSION,
+      sessionId: 'fresh-session-projection-v69', stateRevision: 0, journal: [], journalDigest: sha256('[]') })
+    expect(loaded.hydrated.journal).toEqual([])
+    // Already live: the canonical chain is identity, so both slots and both digests are the capture's own.
+    expect(loaded.hydrated.checkpoint.currentSaveJson).toBe(original.currentSaveJson)
+    expect(loaded.hydrated.checkpoint.savedSaveJson).toBe(original.savedSaveJson)
+    expect(loaded.hydrated.checkpoint.currentStateDigest).toBe(original.currentStateDigest)
+    expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(original.savedStateDigest)
+    const encoded = encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint)
+    const reopened = loadBridgeRuntimeCheckpoint(encoded, undefined, () => { throw new Error('current70 must not migrate again') })
+    expect(reopened.migratedFromProtocolVersion).toBeNull()
+    expect(encodeBridgeRuntimeCheckpoint(reopened.hydrated.checkpoint)).toBe(encoded)
+    expect(canonicalJson(original)).toBe(before)
+  })
+})
+
+// Projection71 (ASTRA Sprint 27): the Rights desk and the estates join the wire (the quoteEstateBid and quoteRightsOffer
+// families, the rights and estates Industry views, five intent kinds). Protocol 4 and Save51 unchanged, so the prior lift is
+// identity. Projection 71 registers the outgoing70 identity, the immutable snapshot 6ddeeb00's (tag p18-sprint26-candidate-20261030).
+const OUTGOING_70 = 'sha256:aaafd0bdf597d3538acc5cb77568dd38de43dd50c7f052767ee40bb8e16ea448'
+describe('Projection71 ASTRA Sprint 27 — the outgoing70 capture takes the governed prior path', () => {
+  it('accepts the genuine projection-70 capture (6ddeeb00 public save route) and keeps both live Save51 slots byte for byte', () => {
+    // Pins read from OUTGOING70-RECEIPT.json, written by the actual capture on a detached sparse snapshot of 6ddeeb00 (producer
+    // docs/engineering/audits/2026-10-22-codebase-review/astra-sprints-22-26/sprint27/bridge-step/tools/capture70.ts in the
+    // records repository; the receipt sits beside the fixture).
+    const compressed = readFileSync(new URL('./fixtures/bridge/genuine-projection70-runtime/outgoing70.checkpoint.json.gz', import.meta.url))
+    expect(compressed).toHaveLength(164280)
+    expect(createHash('sha256').update(compressed).digest('hex')).toBe('9c9515810d64345c9ff686cd44d6c3252cb7a81371187e11c8ba17cbcdeb23cc')
+    const raw = gunzipSync(compressed).toString('utf8')
+    expect(sha256(raw)).toBe('02d30698b0c99f2a3f28750d062c53615bbae937d4eaa6d966aba9da61601dc2')
+    const original = JSON.parse(raw) as BridgeRuntimeCheckpointV1, before = canonicalJson(original)
+    expect(original).toMatchObject({ schemaId: OUTGOING_70, protocolVersion: 4, stateRevision: 0, sessionId: 'p18-authentic-outgoing70-session' }) // the fixture's own value
+    expect(original.journal).toHaveLength(1)
+    expect(original.journal[0]).toMatchObject({ route: 'save', commandId: 'outgoing70-real-save' })
+    expect(JSON.parse(original.journal[0]!.responseJson)).toMatchObject({ accepted: true, schemaId: OUTGOING_70 })
+    expect(original.savedSaveJson).not.toBeNull()
+    for (const slot of [original.currentSaveJson, original.savedSaveJson!]) {
+      expect(sha256(slot)).toBe('f000ae000ccaf011e917906a242d6693f2c7da854344ebb26b3bd86692dfe2f3')
+      expect(JSON.parse(slot)).toMatchObject({ saveVersion: LIVE_SAVE_VERSION, state: { market: { tick: 0 } } })
+    }
+    expect(LIVE_SAVE_VERSION).toBe(51)
+    expect(SCHEMA_ID).not.toBe(OUTGOING_70)
+    const outcome = loadOutcome(raw, 'fresh-session-projection-v70')
+    expect(outcome).not.toHaveProperty('refused')
+    if (!('loaded' in outcome)) return
+    const { loaded } = outcome
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_70)).toBe('projection-v70')
+    expect(loaded.migratedFromProtocolVersion).toBe(PROTOCOL_VERSION)
+    expect(loaded.hydrated.checkpoint).toMatchObject({ schemaId: SCHEMA_ID, protocolVersion: PROTOCOL_VERSION,
+      sessionId: 'fresh-session-projection-v70', stateRevision: 0, journal: [], journalDigest: sha256('[]') })
+    expect(loaded.hydrated.journal).toEqual([])
+    // Already live: the canonical chain is identity, so both slots and both digests are the capture's own.
+    expect(loaded.hydrated.checkpoint.currentSaveJson).toBe(original.currentSaveJson)
+    expect(loaded.hydrated.checkpoint.savedSaveJson).toBe(original.savedSaveJson)
+    expect(loaded.hydrated.checkpoint.currentStateDigest).toBe(original.currentStateDigest)
+    expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(original.savedStateDigest)
+    const encoded = encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint)
+    const reopened = loadBridgeRuntimeCheckpoint(encoded, undefined, () => { throw new Error('current71 must not migrate again') })
+    expect(reopened.migratedFromProtocolVersion).toBeNull()
+    expect(encodeBridgeRuntimeCheckpoint(reopened.hydrated.checkpoint)).toBe(encoded)
+    expect(canonicalJson(original)).toBe(before)
+  })
+})
 
 describe('C17 shipped projection57 carry-forward', () => {
   it('registers the actual shipped projection57 identity, independently of map iteration', () => {

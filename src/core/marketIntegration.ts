@@ -1,3 +1,5 @@
+import { buyerOperatedProductions } from './continuedWork.js'
+import { carriedProductionAuthority, type CarriedProductionAuthority } from './continuedScripts.js'
 // ── P15A.1 Wave 2: the shared market in the live release pipeline ─────────────
 // Authority (docs/engineering/playability-launch-review/evidence/p14b4-20260919/): 1355-A §3 as
 // adopted by 1355-F, 1355-F2, 1355-F3 and 1355-F5; 1361-F rulings 3 to 6. The law is Wave 1's
@@ -9,9 +11,9 @@
 // once in save.ts (1361-F ruling 5), so no copy of it lives here.
 
 import { P15_PHASE_TABLES, p15PhaseTriple } from './p15Phases.js'
-import { closedWeekOf } from './operatingState.js'
+import { terminalWeekOf } from './operatingState.js'
 import {
-  assessBatch, SHARED_MARKET_DEFINITION, SHARED_MARKET_LAW_V1, type MarketAssessment, type MarketBatchMember, type MarketExposure,
+  assessBatch, MARKET_LAWS, SHARED_MARKET_DEFINITION, type MarketAssessment, type MarketBatchMember, type MarketExposure,
 } from './sharedMarket.js'
 import { GENRE_ORDER, TUNING } from './tuning.js'
 import type { HollywoodState } from './hollywoodTypes.js'
@@ -58,7 +60,11 @@ function activeExposures(root: SharedMarketRoot, week: number): MarketExposure[]
  * once against the root's active exposures. It writes nothing; the root appends at finalize. With
  * no industry there is no batch, so the M0A corpus keeps today's path.
  */
-export function runMarketBatch(state: GameState, playerReleasing: readonly Production[], week: number): MarketBatchResult | null {
+export function runMarketBatch(state: GameState, playerReleasing: readonly Production[], week: number, continuedReleasing: readonly Production[] = [],
+  // Tick may forward only fresh authority from its same-operation pre-advance
+  // state, before witnessed releases temporarily reach zero. Other callers
+  // retain the ordinary live-state derivation below.
+  carriedReleaseAuthority?:CarriedProductionAuthority): MarketBatchResult | null {
   const hollywood = state.hollywood
   if (hollywood === null) return null
   const root = requireSharedMarket(state)
@@ -67,14 +73,19 @@ export function runMarketBatch(state: GameState, playerReleasing: readonly Produ
     if (concept === undefined) throw new Error(`shared market: release ${production.id} has no concept`)
     return concept.genre
   }
-  const player: MarketBatchMember[] = playerReleasing.map((production) =>
-    ({ releaseId: production.id, studioId: hollywood.playerStudioId, genre: genreOf(state.concepts, production) }))
+  const carried=playerReleasing.some(p=>!state.concepts.some(c=>c.id===p.conceptId))?(carriedReleaseAuthority??carriedProductionAuthority(state)):undefined
+  const player: MarketBatchMember[] = playerReleasing.map((production) => {
+    const project=carried?.productionScripts.get(production.id)
+    const acquired=project?.conceptId===production.conceptId&&project.status==='inProduction'
+      ?carried?.concepts.find(c=>c.id===production.conceptId):undefined
+    return { releaseId: production.id, studioId: hollywood.playerStudioId, genre: genreOf(acquired?[...state.concepts,acquired]:state.concepts, production) }
+  })
   // P15B closure/v1 (r3; Wave-4 contract §4): an actually closed business's retained production never releases.
-  const closed = closedWeekOf(state)
-  const rivals: MarketBatchMember[] = hollywood.businesses.filter((business) => !closed.has(business.studioId)).flatMap((business) => business.productions
+  const closed = terminalWeekOf(state)
+  const rivals: MarketBatchMember[] = hollywood.businesses.filter((business) => !closed.has(business.studioId)).flatMap((business) => buyerOperatedProductions(state,business.studioId)
     .filter((production) => production.remainingTicks === 1)
     .map((production) => ({ releaseId: production.id, studioId: business.studioId, genre: genreOf(hollywood.concepts, production) })))
-  const assessments = assessBatch(activeExposures(root, week), { week, members: [...player, ...rivals] })
+  const assessments = assessBatch(activeExposures(root, week), { week, members: [...player,...continuedReleasing.map(production=>({releaseId:production.id,studioId:hollywood.playerStudioId,genre:genreOf(hollywood.concepts,production)})), ...rivals] })
   const rivalIds = new Set(rivals.map((member) => member.releaseId))
   return {
     assessments,
@@ -103,7 +114,7 @@ export function appendMarketBatch(state: GameState, batch: MarketBatchResult): P
   const root = requireSharedMarket(state)
   if (batch.assessments.length === 0) return { sharedMarket: root, p15Sequence: state.p15Sequence }
   let next = state.p15Sequence.next
-  const triple = p15PhaseTriple(MARKET_PHASE_ID)
+  const triple = p15PhaseTriple(MARKET_PHASE_ID, Object.hasOwn(state, 'rights') ? 3 : 2)
   const rows = batch.assessments.map((row): PersistedMarketAssessment => ({ ...row, p15DomainSequence: next++, ...triple }))
   return { sharedMarket: { ...root, assessments: [...root.assessments, ...rows] }, p15Sequence: { ...state.p15Sequence, next } }
 }
@@ -113,14 +124,32 @@ const ROOT_KEYS = ['assessments', 'recordedFromWeek', 'version']
 const ROW_KEYS = ['definitionVersion', 'factor', 'genre', 'inputDigest', 'p15DomainSequence', 'phaseId', 'phaseOrderVersion',
   'phaseOrdinal', 'pressure', 'reasons', 'releaseId', 'stockTerm', 'studioId', 'week', 'windowTerm']
 const REASON_KEYS = ['code', 'sourceReleaseIds', 'value']
-/** The era map (1355-A §3.4 item 5): each definition version to its law. v1 is frozen in
- * sharedMarket.ts (SHARED_MARKET_LAW_V1); v2, the live TUNING, is the 1365 retune. A later retune
- * adds a definition and its law here, so old rows keep reconciling under their own. */
-const LAWS: Readonly<Record<string, typeof assessBatch>> = {
-  'p15a1-market-v1': (exposures, batch) => assessBatch(exposures, batch, { law: SHARED_MARKET_LAW_V1 }),
-  [SHARED_MARKET_DEFINITION]: assessBatch,
-}
-const LAW_FIELDS = ['pressure', 'factor', 'windowTerm', 'stockTerm', 'inputDigest'] as const
+/** The era map (1355-A §3.4 item 5): each definition version to its law, read from sharedMarket.ts's one era table
+ * (v1 and v2 frozen, v3 the live TUNING through portable arithmetic). A later retune adds an entry there, so old rows
+ * keep reconciling under their own law. */
+const LAWS: Readonly<Record<string, typeof assessBatch>> = Object.fromEntries(
+  Object.entries(MARKET_LAWS).map(([definition, law]) => [definition,
+    definition === SHARED_MARKET_DEFINITION ? assessBatch : ((exposures, batch) => assessBatch(exposures, batch, { law: law() })) as typeof assessBatch]),
+)
+/** One law per week batch (the first member's); every member must name it, so a row relabelled inside a batch priced
+ * under another era is refused by name rather than slipping through the batch's digest (ASTRA Sprint 19 review). */
+const LAW_FIELDS = ['definitionVersion', 'pressure', 'factor', 'windowTerm', 'stockTerm', 'inputDigest'] as const
+/**
+ * ASTRA Sprint 19 (Owner decision D, 5c; review FIX-1): the sealed engine-arithmetic eras. Their `factor` was computed
+ * with the writing engine's Math.exp, which IEEE 754 does not pin to the bit: on the Owner's Chrome-written P18 save one
+ * row of 72 differs from Node 20's recomputation by one ULP (Chrome's exp was correctly rounded there, Node's was not;
+ * an exp one, two or four ULPs off moves the factor by one). A sealed row's `factor` therefore reconciles when the
+ * stored value is within EPSILON × |expected| of the recomputation: exactly one ULP for a factor in [0.5, 1), documented
+ * here and nowhere else, and only when the law found pressure (a factor of exactly 1 is exact on every engine and
+ * stays exact). Every other field stays exact: `pressure` and `windowTerm` are sums and products; `stockTerm` and the
+ * GENRE_SATURATION reason value come from `**`, which has reconciled exactly on every save measured, and `pressure`
+ * contains the stock term, so an allowance there could never rescue a save the pressure check refuses. The live era
+ * (v3) prices through portableMath.ts and stays exact on every engine. Not a global epsilon: no other field, era or
+ * validator reads it.
+ */
+const SEALED_ENGINE_ERAS: ReadonlySet<string> = new Set(['p15a1-market-v1', 'p15a1-market-v2'])
+const SEALED_ROUNDING_ALLOWANCE = Number.EPSILON
+const withinSealedAllowance = (stored: number, expected: number): boolean => expected !== 1 && Math.abs(stored - expected) <= SEALED_ROUNDING_ALLOWANCE * Math.abs(expected)
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   value !== null && typeof value === 'object' && !Array.isArray(value)
@@ -138,7 +167,7 @@ const isWeek = (value: unknown): value is number => Number.isSafeInteger(value) 
  * own `phaseOrderVersion`; `recordedFromWeek <= week < market.tick`; strict (week, releaseId) and
  * p15DomainSequence ascent; no row without an industry; the film bijection; the law reconciled.
  */
-export function validateSharedMarketRoot(raw: Record<string, unknown>, label: string): void {
+export function validateSharedMarketRoot(raw: Record<string, unknown>, label: string, rightsEstate = false, absorptions?:ReadonlyMap<string,import('./rights.js').AbsorptionRecord>, carriedProduction?:CarriedProductionAuthority): void {
   const fail = (message: string): never => { throw new Error(`${label}: sharedMarket ${message}`) }
   const root = raw.sharedMarket
   if (!isRecord(root)) return fail('root must be an object')
@@ -178,6 +207,7 @@ export function validateSharedMarketRoot(raw: Record<string, unknown>, label: st
     }
     if (!Object.hasOwn(LAWS, row.definitionVersion)) fail(`assessment ${row.releaseId} definitionVersion ${row.definitionVersion} is unknown`)
     // 1355-F5 ruling 1: the entry of the row's own version, read through the module's exported binding.
+    if (!rightsEstate && row.phaseOrderVersion > 2) fail('estate phase table is not admitted in this predecessor era')
     const entry = P15_PHASE_TABLES[row.phaseOrderVersion]?.find((candidate) => candidate.phaseId === MARKET_PHASE_ID)
     if (row.phaseId !== MARKET_PHASE_ID || entry === undefined || entry.phaseOrdinal !== row.phaseOrdinal) {
       fail(`assessment ${row.releaseId} phase triple (${row.phaseId}, ${row.phaseOrdinal}, ${row.phaseOrderVersion}) does not match its phaseOrderVersion's table entry`)
@@ -196,23 +226,26 @@ export function validateSharedMarketRoot(raw: Record<string, unknown>, label: st
     }
     rows.push(row)
   }
-  if (state.hollywood !== null) validateFilmBijection(state, state.hollywood, rows, recordedFromWeek, fail)
+  if (state.hollywood !== null) validateFilmBijection(state, state.hollywood, rows, recordedFromWeek, fail, rightsEstate?absorptions:undefined, carriedProduction)
   reconcileLaw(rows, fail)
 }
 
 /** 1355-A §3.4 item 3: from max(recordedFromWeek, originWeek), every simulated release has exactly
  * one assessment with its id, week, studio and genre, and every assessment has its film. */
 function validateFilmBijection(state: GameState, hollywood: HollywoodState, rows: readonly PersistedMarketAssessment[],
-  recordedFromWeek: number, fail: (message: string) => never): void {
+  recordedFromWeek: number, fail: (message: string) => never, absorptions?:ReadonlyMap<string,import('./rights.js').AbsorptionRecord>, carriedProduction?:CarriedProductionAuthority): void {
   const from = Math.max(recordedFromWeek, hollywood.originWeek)
   const genres = new Map(state.concepts.map((concept) => [concept.id, concept.genre]))
   const films = new Map<string, { week: number; studioId: string; genre: Genre | undefined }>()
   for (const film of state.studio.releasedFilms) {
-    if (film.releaseTick >= from) films.set(film.productionId, { week: film.releaseTick, studioId: hollywood.playerStudioId, genre: genres.get(film.conceptId) })
+    const project=carriedProduction?.productionScripts.get(film.productionId)
+    const acquired=project?.conceptId===film.conceptId&&project.status==='produced'
+      ?carriedProduction?.concepts.find(c=>c.id===film.conceptId):undefined
+    if (film.releaseTick >= from) films.set(film.productionId, { week: film.releaseTick, studioId: hollywood.playerStudioId, genre: genres.get(film.conceptId)??acquired?.genre })
   }
   for (const film of hollywood.films) {
     if (film.provenance === 'simulation/v1' && film.result.releaseTick >= from) {
-      films.set(film.filmId, { week: film.result.releaseTick, studioId: film.studioId, genre: film.genre })
+      films.set(film.filmId, { week: film.result.releaseTick, studioId: [...(absorptions?.values()??[])].find(a=>a.workReleases.some(r=>r.productionId===film.filmId && r.week===film.result.releaseTick))?.buyerId??film.studioId, genre: film.genre })
     }
   }
   for (const row of rows) {
@@ -229,7 +262,8 @@ function validateFilmBijection(state: GameState, hollywood: HollywoodState, rows
 
 /** 1355-A §3.4 item 4: week by week, rebuild the exposures and members from the stored rows alone
  * and re-run the law of the week's definition; every law field and every reason must be exactly
- * equal (the law is order-free, sharedMarket.ts:16-19). One pass, O(sum of active + members). */
+ * equal (the law is order-free, sharedMarket.ts:16-19), except a sealed era's `factor`, which may sit
+ * one ULP from the recomputation (SEALED_ROUNDING_ALLOWANCE above). One pass, O(sum of active + members). */
 function reconcileLaw(rows: readonly PersistedMarketAssessment[], fail: (message: string) => never): void {
   let windowStart = 0
   for (let start = 0; start < rows.length;) {
@@ -242,10 +276,13 @@ function reconcileLaw(rows: readonly PersistedMarketAssessment[], fail: (message
     const members = rows.slice(start, end)
     const law = LAWS[members[0]!.definitionVersion]!
     const expected = law(exposures, { week, members: members.map((row) => ({ releaseId: row.releaseId, studioId: row.studioId, genre: row.genre })) })
+    const sealed = SEALED_ENGINE_ERAS.has(members[0]!.definitionVersion)
     members.forEach((row, k) => {
       const lawRow = expected[k]!
       for (const field of LAW_FIELDS) {
-        if (row[field] !== lawRow[field]) fail(`assessment ${row.releaseId} ${field} does not reconcile with ${row.definitionVersion}`)
+        const same = row[field] === lawRow[field]
+          || (sealed && field === 'factor' && withinSealedAllowance(row.factor, lawRow.factor))
+        if (!same) fail(`assessment ${row.releaseId} ${field} does not reconcile with ${row.definitionVersion}`)
       }
       const reasonsMatch = row.reasons.length === lawRow.reasons.length && row.reasons.every((reason, r) => {
         const other = lawRow.reasons[r]!

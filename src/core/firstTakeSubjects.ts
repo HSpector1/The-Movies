@@ -1,22 +1,41 @@
+import { carriedProductionAuthority, type CarriedProductionAuthority } from './continuedScripts.js'
+import type { AbsorptionRecord } from './rights.js'
 import { GENRE_ORDER } from './tuning.js'
 import type { FilmConcept, FirstTakeReceipt, FirstTakeSubject, GameState, Production, ScriptDevelopment } from './types.js'
 
-type SubjectState = Pick<GameState, 'hollywood' | 'studio' | 'concepts' | 'scriptDevelopment' | 'firstTakes' | 'firstTakeSubjects'>
+const CAST_SLOTS = ['lead', 'antagonist', 'support'] as const
+
+type SubjectState = Pick<GameState, 'hollywood' | 'studio' | 'concepts' | 'scriptDevelopment' | 'firstTakes' | 'firstTakeSubjects'> & Partial<Pick<GameState,'rights'>>
 
 /** Project IDs are local to their issuer. Never resolve one across businesses. */
 export function takeSubjectOwner(state: Pick<SubjectState, 'hollywood' | 'studio' | 'concepts' | 'scriptDevelopment'>,
-  studioId: string): { concepts: readonly FilmConcept[]; development: ScriptDevelopment; productions: readonly Production[] } | undefined {
+  studioId: string, productionId?: string, absorptions?: ReadonlyMap<string,AbsorptionRecord>, carriedProduction?:CarriedProductionAuthority): { concepts: readonly FilmConcept[]; development: ScriptDevelopment; productions: readonly Production[]; creatorStudioId:string } | undefined {
+  // A new buyer production is distinct from a seller production continued at
+  // close. Its exact paid greenlight history supplies source screenplay/concept
+  // visibility while the buyer remains the film's issuing/creator studio.
+  const native=productionId===undefined?undefined:carriedProduction?.productionScriptHistory.get(productionId)
+  if(native){
+    if(native.studioId!==studioId)return undefined
+    const concept=carriedProduction?.concepts.find(row=>row.id===native.project.conceptId)
+    const original=carriedProduction?.originalProductions.find(row=>row.id===productionId)
+    if(!concept||!original||original.conceptId!==concept.id)return undefined
+    return {concepts:[concept],development:{mode:'managed',projects:[native.project]},productions:[original],creatorStudioId:studioId}
+  }
+  const acquired=productionId===undefined?undefined:[...(absorptions?.values()??[])].find(a=>a.buyerId===studioId && a.continuedProductions.some(p=>p.productionId===productionId))
+  if(acquired){const source=state.hollywood?.businesses.find(b=>b.studioId===acquired.targetId);return source===undefined?undefined:{concepts:state.hollywood!.concepts,development:source.development,productions:source.productions,creatorStudioId:source.studioId}}
   if (state.hollywood?.playerStudioId === studioId) {
-    return { concepts: state.concepts, development: state.scriptDevelopment, productions: state.studio.activeProductions }
+    return { concepts: state.concepts, development: state.scriptDevelopment, productions: state.studio.activeProductions, creatorStudioId:studioId }
   }
   const business = state.hollywood?.businesses.find(row => row.studioId === studioId)
   return business === undefined ? undefined
-    : { concepts: state.hollywood!.concepts, development: business.development, productions: business.productions }
+    : { concepts: state.hollywood!.concepts, development: business.development, productions: business.productions, creatorStudioId:studioId }
 }
 
 /** Called in the same transaction that appends the unchanged six-field receipt. */
-export function subjectForNewTake(state: SubjectState, studioId: string, production: Production, eventId: string): FirstTakeSubject {
-  const owner = takeSubjectOwner(state, studioId)
+export function subjectForNewTake(state: GameState, studioId: string, production: Production, eventId: string): FirstTakeSubject {
+  const carried=!state.concepts.some(c=>c.id===production.conceptId)
+    ?carriedProductionAuthority(state):undefined
+  const owner = takeSubjectOwner(state, studioId,production.id,new Map((state.rights?.absorptions??[]).map(a=>[a.targetId,a])),carried)
   const concept = owner?.concepts.find(row => row.id === production.conceptId)
   if (owner === undefined || concept === undefined) throw new Error('first take subject: missing issuing owner or concept')
   const projects = owner.development.projects.filter(row => row.productionId === production.id)
@@ -33,7 +52,7 @@ const record = (value: unknown): value is Record<string, unknown> =>
 
 /** Validate retained owner joins, including canceled projects whose live link was cleared.
  * No inferred pre-cutover facts, cutover movement, or historical receipt rewriting. */
-export function validateFirstTakeSubjects(raw: Record<string, unknown>): void {
+export function validateFirstTakeSubjects(raw: Record<string, unknown>, absorptions?:ReadonlyMap<string,AbsorptionRecord>, carriedProduction?:CarriedProductionAuthority): void {
   const fail = (reason: string): never => { throw new Error(`validateSaveV40: firstTakeSubjects ${reason}`) }
   const exact = (value: unknown, keys: readonly string[], at: string): Record<string, unknown> => {
     if (!record(value)) return fail(`${at} must be an object`)
@@ -58,9 +77,18 @@ export function validateFirstTakeSubjects(raw: Record<string, unknown>): void {
     if (fact.eventId !== take.eventId) fail(`facts[${i}] must name its ordered first take`)
     if (typeof fact.conceptId !== 'string' || fact.conceptId.trim() === '') fail(`facts[${i}] needs a concept`)
     if (!(GENRE_ORDER as readonly unknown[]).includes(fact.genre)) fail(`facts[${i}] needs a catalogue genre`)
-    const owner = takeSubjectOwner(state, take.studioId)
+    const native=carriedProduction?.productionScriptHistory.get(take.productionId)
+    if(native&&native.studioId!==take.studioId)return fail(`facts[${i}] does not name its native issuing buyer`)
+    const owner = takeSubjectOwner(state, take.studioId,take.productionId,absorptions,carriedProduction)
     const concept = owner?.concepts.find(row => row.id === fact.conceptId)
     if (owner === undefined || concept === undefined || concept.genre !== fact.genre) return fail(`facts[${i}] disagrees with its owner's concept`)
+    if(native){
+      if(native.firstTakeLatestWeek===null||take.week<native.firstTakeEarliestWeek||take.week>native.firstTakeLatestWeek)
+        return fail(`facts[${i}] is outside its native production first-take interval`)
+      const original=carriedProduction?.originalProductions.find(row=>row.id===take.productionId)
+      if(!original||fact.scriptProjectId!==native.project.id||take.directorId!==original.directorId
+        ||CAST_SLOTS.some(slot=>take.cast[slot]!==original.cast[slot]))return fail(`facts[${i}] disagrees with its native paid screenplay or crew`)
+    }
     if (fact.scriptProjectId !== null) {
       if (typeof fact.scriptProjectId !== 'string' || fact.scriptProjectId.trim() === '') fail(`facts[${i}] needs a project ID or null`)
       const project = owner.development.projects.find(row => row.id === fact.scriptProjectId)
@@ -74,12 +102,12 @@ export function validateFirstTakeSubjects(raw: Record<string, unknown>): void {
     if (linkedProject !== undefined && (linkedProject.id !== fact.scriptProjectId || linkedProject.conceptId !== fact.conceptId)) {
       fail(`facts[${i}] disagrees with the surviving screenplay link`)
     }
-    if (take.studioId === state.hollywood?.playerStudioId) {
+    if (take.studioId === state.hollywood?.playerStudioId && owner.creatorStudioId === take.studioId) {
       const film = state.studio.releasedFilms.find(row => row.productionId === take.productionId)
       if (film !== undefined && film.conceptId !== fact.conceptId) fail(`facts[${i}] disagrees with the released film`)
     } else {
       const film = state.hollywood?.films.find(row => row.provenance === 'simulation/v1'
-        && row.studioId === take.studioId && row.result.productionId === take.productionId)
+        && row.studioId === owner.creatorStudioId && row.result.productionId === take.productionId)
       if (film !== undefined && film.provenance === 'simulation/v1'
         && (film.conceptId !== fact.conceptId || film.genre !== fact.genre || film.scriptProjectId !== fact.scriptProjectId)) {
         fail(`facts[${i}] disagrees with the released industry film`)

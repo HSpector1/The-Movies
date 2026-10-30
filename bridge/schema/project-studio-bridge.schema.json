@@ -1,5 +1,404 @@
 {
   "$defs": {
+    "StudioAbsorptionDefaultRetention": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "default",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioAbsorptionDefaultRetention"
+    },
+    "StudioAbsorptionDraftPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "consideration": {
+          "type": "number"
+        },
+        "disclosureId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "retention": {
+          "$ref": "#/$defs/StudioAbsorptionRetention"
+        },
+        "targetId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "consideration",
+        "disclosureId",
+        "retention",
+        "targetId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioAbsorptionDraftPayload"
+    },
+    "StudioAbsorptionExplicitRetention": {
+      "additionalProperties": false,
+      "properties": {
+        "contractIds": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "kind": {
+          "const": "explicit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "contractIds",
+        "kind"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioAbsorptionExplicitRetention"
+    },
+    "StudioAbsorptionMarketVerdict": {
+      "additionalProperties": false,
+      "properties": {
+        "caseCount": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "proposalCount": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "caseCount",
+        "proposalCount"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioAbsorptionMarketVerdict"
+    },
+    "StudioAbsorptionProductionVerdict": {
+      "additionalProperties": false,
+      "properties": {
+        "disposition": {
+          "enum": [
+            "continues",
+            "cancelRequired"
+          ],
+          "type": "string"
+        },
+        "productionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "disposition",
+        "productionId",
+        "reason"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioAbsorptionProductionVerdict"
+    },
+    "StudioAbsorptionPromiseVerdict": {
+      "additionalProperties": false,
+      "properties": {
+        "disposition": {
+          "enum": [
+            "unboundHistory",
+            "continued",
+            "exit"
+          ],
+          "type": "string"
+        },
+        "promiseId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sourceContractId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "disposition",
+        "promiseId",
+        "sourceContractId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioAbsorptionPromiseVerdict"
+    },
+    "StudioAbsorptionQuoteSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "commitLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "disclosureId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "intentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "const": "absorbStudio",
+          "type": "string"
+        },
+        "ok": {
+          "type": "boolean"
+        },
+        "queueNote": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "queues": {
+          "type": "boolean"
+        },
+        "quoteAgePolicyVersion": {
+          "const": 1,
+          "type": "integer"
+        },
+        "quotedAtWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "refusalReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "startsNow": {
+          "type": "boolean"
+        },
+        "targetId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "terms": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioAbsorptionQuoteTerms"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "commitLabel",
+        "disclosureId",
+        "intentId",
+        "kind",
+        "ok",
+        "queueNote",
+        "queues",
+        "quoteAgePolicyVersion",
+        "quotedAtWeek",
+        "refusalReason",
+        "startsNow",
+        "targetId",
+        "terms"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioAbsorptionQuoteSnapshot"
+    },
+    "StudioAbsorptionQuoteTerms": {
+      "additionalProperties": false,
+      "properties": {
+        "affordable": {
+          "type": "boolean"
+        },
+        "ask": {
+          "type": "number"
+        },
+        "consideration": {
+          "type": "number"
+        },
+        "exitCharges": {
+          "type": "number"
+        },
+        "exitedContracts": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "guarantees": {
+          "type": "number"
+        },
+        "marketObligations": {
+          "$ref": "#/$defs/StudioAbsorptionMarketVerdict"
+        },
+        "outlay": {
+          "type": "number"
+        },
+        "postExitCash": {
+          "type": "number"
+        },
+        "productions": {
+          "items": {
+            "$ref": "#/$defs/StudioAbsorptionProductionVerdict"
+          },
+          "type": "array"
+        },
+        "promiseObligations": {
+          "items": {
+            "$ref": "#/$defs/StudioAbsorptionPromiseVerdict"
+          },
+          "type": "array"
+        },
+        "reserveAfter": {
+          "type": "number"
+        },
+        "resultingWeeklyFixedCost": {
+          "type": "number"
+        },
+        "retainedContracts": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "rightsCount": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "scripts": {
+          "items": {
+            "$ref": "#/$defs/StudioAbsorptionScriptVerdict"
+          },
+          "type": "array"
+        },
+        "targetCashBeforeExits": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "affordable",
+        "ask",
+        "consideration",
+        "exitCharges",
+        "exitedContracts",
+        "guarantees",
+        "marketObligations",
+        "outlay",
+        "postExitCash",
+        "productions",
+        "promiseObligations",
+        "reserveAfter",
+        "resultingWeeklyFixedCost",
+        "retainedContracts",
+        "rightsCount",
+        "scripts",
+        "targetCashBeforeExits"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioAbsorptionQuoteTerms"
+    },
+    "StudioAbsorptionRetention": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/StudioAbsorptionDefaultRetention"
+        },
+        {
+          "$ref": "#/$defs/StudioAbsorptionExplicitRetention"
+        }
+      ],
+      "x-csharp-name": "StudioAbsorptionRetention"
+    },
+    "StudioAbsorptionScriptVerdict": {
+      "additionalProperties": false,
+      "properties": {
+        "disposition": {
+          "enum": [
+            "writeOff",
+            "continues",
+            "continuationRequired"
+          ],
+          "type": "string"
+        },
+        "reason": {
+          "enum": [
+            "writersNotRetained",
+            "writerTeamRetained",
+            "writerContinuationProducerRequired",
+            "partialWriterTeamProducerRequired",
+            "writerCapacityUnavailable"
+          ],
+          "type": "string"
+        },
+        "scriptProjectId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "drafting",
+            "rewriting"
+          ],
+          "type": "string"
+        },
+        "writerIds": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "disposition",
+        "reason",
+        "scriptProjectId",
+        "status",
+        "writerIds"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioAbsorptionScriptVerdict"
+    },
     "StudioActionQuote": {
       "additionalProperties": false,
       "properties": {
@@ -329,7 +728,8 @@
         "route": {
           "enum": [
             "research",
-            "purchase"
+            "purchase",
+            "acquired"
           ],
           "type": "string"
         },
@@ -561,7 +961,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 58,
+          "const": 71,
           "type": "integer"
         },
         "stateDigest": {
@@ -678,7 +1078,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 58,
+          "const": 71,
           "type": "integer"
         },
         "stateDigest": {
@@ -722,6 +1122,13 @@
             }
           ]
         },
+        "confirmation": {
+          "enum": [
+            "none",
+            "required"
+          ],
+          "type": "string"
+        },
         "detail": {
           "type": "string"
         },
@@ -757,7 +1164,18 @@
             "cancellationAction",
             "marketProposalAction",
             "waivePromise",
-            "takeLoan"
+            "takeLoan",
+            "requestDueDiligence",
+            "absorbStudio",
+            "cancelFeaturedBooking",
+            "commissionTvSeason",
+            "cancelTvSeason",
+            "settleTvObligations",
+            "makeRightsOffer",
+            "acceptRightsOffer",
+            "rejectRightsOffer",
+            "withdrawRightsOffer",
+            "submitEstateBid"
           ],
           "type": "string"
         },
@@ -788,6 +1206,7 @@
       },
       "required": [
         "castingSessionId",
+        "confirmation",
         "detail",
         "intentId",
         "kind",
@@ -878,6 +1297,21 @@
     },
     "StudioBridgeQuoteRequest": {
       "anyOf": [
+        {
+          "$ref": "#/$defs/StudioQuoteTvCommissionRequest"
+        },
+        {
+          "$ref": "#/$defs/StudioQuoteEstateBidRequest"
+        },
+        {
+          "$ref": "#/$defs/StudioQuoteRightsOfferRequest"
+        },
+        {
+          "$ref": "#/$defs/StudioQuoteDiligenceRequest"
+        },
+        {
+          "$ref": "#/$defs/StudioQuoteAbsorptionRequest"
+        },
         {
           "$ref": "#/$defs/StudioQuoteLoanRequest"
         },
@@ -1205,7 +1639,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 58,
+          "const": 71,
           "type": "integer"
         },
         "stateDigest": {
@@ -1284,7 +1718,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 58,
+          "const": 71,
           "type": "integer"
         },
         "stateDigest": {
@@ -1388,6 +1822,39 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioBuildingSnapshot"
+    },
+    "StudioCameoBookingRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "enum": [
+            "employee",
+            "freelance"
+          ],
+          "type": "string"
+        },
+        "fee": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "workWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "basis",
+        "fee",
+        "talentId",
+        "workWeek"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioCameoBookingRequest"
     },
     "StudioCampaignAcceptedResponse": {
       "additionalProperties": false,
@@ -1576,7 +2043,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 58,
+          "const": 71,
           "type": "integer"
         },
         "stateDigest": {
@@ -2191,6 +2658,12 @@
             }
           ]
         },
+        "cameos": {
+          "items": {
+            "$ref": "#/$defs/StudioCameoBookingRequest"
+          },
+          "type": "array"
+        },
         "castAntagonist": {
           "anyOf": [
             {
@@ -2220,6 +2693,9 @@
               "type": "null"
             }
           ]
+        },
+        "continuation": {
+          "$ref": "#/$defs/StudioContinuationRequest"
         },
         "craftLeadId": {
           "anyOf": [
@@ -2662,9 +3138,7 @@
         "cashAfter": {
           "anyOf": [
             {
-              "maximum": 2147483647,
-              "minimum": -2147483648,
-              "type": "integer"
+              "type": "number"
             },
             {
               "type": "null"
@@ -2674,9 +3148,7 @@
         "cashBefore": {
           "anyOf": [
             {
-              "maximum": 2147483647,
-              "minimum": -2147483648,
-              "type": "integer"
+              "type": "number"
             },
             {
               "type": "null"
@@ -2709,6 +3181,29 @@
         "commitLabel": {
           "minLength": 1,
           "type": "string"
+        },
+        "continuation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioContinuationQuoteTerms"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "featuredGuests": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/StudioFeaturedGuestTerms"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "financial": {
           "anyOf": [
@@ -2957,6 +3452,8 @@
         "chemistry",
         "chemistryWarning",
         "commitLabel",
+        "continuation",
+        "featuredGuests",
         "financial",
         "forecastLine",
         "freelancerFees",
@@ -3740,6 +4237,228 @@
       "type": "object",
       "x-csharp-name": "StudioConstructionProjection"
     },
+    "StudioContinuationQuoteTerms": {
+      "additionalProperties": false,
+      "properties": {
+        "band": {
+          "enum": [
+            "new",
+            "active",
+            "activeAgain",
+            "cooling",
+            "dormant",
+            "revivalCandidate"
+          ],
+          "type": "string"
+        },
+        "branchId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "branchKind": {
+          "enum": [
+            "main",
+            "reboot",
+            "spinoff"
+          ],
+          "type": "string"
+        },
+        "comparison01": {
+          "type": "number"
+        },
+        "continuityCredit": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fatigue": {
+          "type": "number"
+        },
+        "inheritedAwareness01": {
+          "type": "number"
+        },
+        "link": {
+          "type": "boolean"
+        },
+        "momentum": {
+          "type": "number"
+        },
+        "predecessorProductionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "recognition": {
+          "type": "number"
+        },
+        "rights": {
+          "$ref": "#/$defs/StudioContinuationRightsBasis"
+        },
+        "storyPropertyId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "subPropertyId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "type": {
+          "enum": [
+            "directSequel",
+            "prequel",
+            "remake",
+            "reboot",
+            "spinOff"
+          ],
+          "type": "string"
+        },
+        "use": {
+          "enum": [
+            "sequel",
+            "remake",
+            "spinoff"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "band",
+        "branchId",
+        "branchKind",
+        "comparison01",
+        "continuityCredit",
+        "fatigue",
+        "inheritedAwareness01",
+        "link",
+        "momentum",
+        "predecessorProductionId",
+        "recognition",
+        "rights",
+        "storyPropertyId",
+        "subPropertyId",
+        "type",
+        "use"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioContinuationQuoteTerms"
+    },
+    "StudioContinuationRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "branchId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "predecessorProductionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "subPropertyId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "directSequel",
+            "prequel",
+            "remake",
+            "reboot",
+            "spinOff"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "predecessorProductionId",
+        "type"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioContinuationRequest"
+    },
+    "StudioContinuationRightsBasis": {
+      "additionalProperties": false,
+      "properties": {
+        "coverWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "grantorStudioId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "holderStudioId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "licenceEndWeekExclusive": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "licenceId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "via": {
+          "enum": [
+            "title",
+            "licence",
+            "parent"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "coverWeek",
+        "grantorStudioId",
+        "holderStudioId",
+        "licenceEndWeekExclusive",
+        "licenceId",
+        "via"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioContinuationRightsBasis"
+    },
     "StudioContractDraftPayload": {
       "additionalProperties": false,
       "properties": {
@@ -3858,14 +4577,10 @@
           ]
         },
         "cashAfter": {
-          "maximum": 2147483647,
-          "minimum": -2147483648,
-          "type": "integer"
+          "type": "number"
         },
         "cashBefore": {
-          "maximum": 2147483647,
-          "minimum": -2147483648,
-          "type": "integer"
+          "type": "number"
         },
         "commitLabel": {
           "minLength": 1,
@@ -4168,6 +4883,7 @@
             "package-staffing",
             "casting-session",
             "greenlight-queued",
+            "carried-action",
             "no-concepts",
             "no-writers"
           ],
@@ -4339,7 +5055,8 @@
             "production-development",
             "drafting",
             "rewriting",
-            "auditioning"
+            "auditioning",
+            "television"
           ],
           "type": "string"
         },
@@ -4351,7 +5068,8 @@
           "enum": [
             "production",
             "script",
-            "casting"
+            "casting",
+            "television"
           ],
           "type": "string"
         },
@@ -4593,6 +5311,203 @@
       "type": "object",
       "x-csharp-name": "StudioDevelopmentSnapshot"
     },
+    "StudioDiligenceDraftPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "scope": {
+          "items": {
+            "enum": [
+              "rights",
+              "employment",
+              "liabilities"
+            ],
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "target": {
+          "$ref": "#/$defs/StudioDiligenceTarget"
+        }
+      },
+      "required": [
+        "scope",
+        "target"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioDiligenceDraftPayload"
+    },
+    "StudioDiligenceLotTarget": {
+      "additionalProperties": false,
+      "properties": {
+        "estateId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "const": "estateLot",
+          "type": "string"
+        },
+        "lotId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "estateId",
+        "kind",
+        "lotId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioDiligenceLotTarget"
+    },
+    "StudioDiligenceQuoteSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "commitLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "disclosureId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "disclosureWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fee": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "intentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "const": "requestDueDiligence",
+          "type": "string"
+        },
+        "ok": {
+          "type": "boolean"
+        },
+        "queueNote": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "queues": {
+          "type": "boolean"
+        },
+        "refusalReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "scope": {
+          "items": {
+            "enum": [
+              "rights",
+              "employment",
+              "liabilities"
+            ],
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "staleFromWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "startsNow": {
+          "type": "boolean"
+        },
+        "target": {
+          "$ref": "#/$defs/StudioDiligenceTarget"
+        }
+      },
+      "required": [
+        "commitLabel",
+        "disclosureId",
+        "disclosureWeek",
+        "fee",
+        "intentId",
+        "kind",
+        "ok",
+        "queueNote",
+        "queues",
+        "refusalReason",
+        "scope",
+        "staleFromWeek",
+        "startsNow",
+        "target"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioDiligenceQuoteSnapshot"
+    },
+    "StudioDiligenceStudioTarget": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "studio",
+          "type": "string"
+        },
+        "studioId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "studioId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioDiligenceStudioTarget"
+    },
+    "StudioDiligenceTarget": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/StudioDiligenceStudioTarget"
+        },
+        {
+          "$ref": "#/$defs/StudioDiligenceLotTarget"
+        }
+      ],
+      "x-csharp-name": "StudioDiligenceTarget"
+    },
     "StudioEquipmentAsset": {
       "additionalProperties": false,
       "properties": {
@@ -4647,6 +5562,923 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioEquipmentAsset"
+    },
+    "StudioEstateBidDraftPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "type": "number"
+        },
+        "estateId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "lotId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount",
+        "estateId",
+        "lotId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioEstateBidDraftPayload"
+    },
+    "StudioEstateBidQuoteSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "type": "number"
+        },
+        "closesWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "commitLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "encumbrances": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "estateId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "intentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "const": "submitEstateBid",
+          "type": "string"
+        },
+        "lotId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "minimumBid": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ok": {
+          "type": "boolean"
+        },
+        "queueNote": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "queues": {
+          "type": "boolean"
+        },
+        "quotedAtWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "refusalReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reserve": {
+          "type": "number"
+        },
+        "spendableAfter": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "spendableBefore": {
+          "type": "number"
+        },
+        "startsNow": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "amount",
+        "closesWeek",
+        "commitLabel",
+        "encumbrances",
+        "estateId",
+        "intentId",
+        "kind",
+        "lotId",
+        "minimumBid",
+        "ok",
+        "queueNote",
+        "queues",
+        "quotedAtWeek",
+        "refusalReason",
+        "reserve",
+        "spendableAfter",
+        "spendableBefore",
+        "startsNow"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioEstateBidQuoteSnapshot"
+    },
+    "StudioEstateClaimRow": {
+      "additionalProperties": false,
+      "properties": {
+        "count": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "kind": {
+          "enum": [
+            "employment",
+            "tvRefund",
+            "tvCharge"
+          ],
+          "type": "string"
+        },
+        "paid": {
+          "type": "number"
+        },
+        "unpaid": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "count",
+        "kind",
+        "paid",
+        "unpaid"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioEstateClaimRow"
+    },
+    "StudioEstateLotRow": {
+      "additionalProperties": false,
+      "properties": {
+        "bidRefusal": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "encumbrances": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "lotId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "minimumBid": {
+          "type": "number"
+        },
+        "myBid": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioEstateMyBid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sale": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioEstateSale"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "open",
+            "sold",
+            "archived"
+          ],
+          "type": "string"
+        },
+        "subjects": {
+          "items": {
+            "$ref": "#/$defs/StudioEstateLotSubject"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "bidRefusal",
+        "encumbrances",
+        "lotId",
+        "minimumBid",
+        "myBid",
+        "sale",
+        "status",
+        "subjects"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioEstateLotRow"
+    },
+    "StudioEstateLotSubject": {
+      "additionalProperties": false,
+      "properties": {
+        "subject": {
+          "$ref": "#/$defs/StudioRightSubject"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "subject",
+        "title"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioEstateLotSubject"
+    },
+    "StudioEstateMyBid": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "type": "number"
+        },
+        "bidId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "disqualification": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "sealed",
+            "won",
+            "lost",
+            "disqualified"
+          ],
+          "type": "string"
+        },
+        "week": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "amount",
+        "bidId",
+        "disqualification",
+        "status",
+        "week"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioEstateMyBid"
+    },
+    "StudioEstateRow": {
+      "additionalProperties": false,
+      "properties": {
+        "claims": {
+          "items": {
+            "$ref": "#/$defs/StudioEstateClaimRow"
+          },
+          "type": "array"
+        },
+        "closedWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "closesWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "closureWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "estateId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "lots": {
+          "items": {
+            "$ref": "#/$defs/StudioEstateLotRow"
+          },
+          "type": "array"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "opensWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "studioId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "claims",
+        "closedWeek",
+        "closesWeek",
+        "closureWeek",
+        "estateId",
+        "lots",
+        "name",
+        "opensWeek",
+        "studioId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioEstateRow"
+    },
+    "StudioEstateSale": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "type": "number"
+        },
+        "buyerId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "buyerName": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount",
+        "buyerId",
+        "buyerName"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioEstateSale"
+    },
+    "StudioEstatesPage": {
+      "additionalProperties": false,
+      "properties": {
+        "estates": {
+          "items": {
+            "$ref": "#/$defs/StudioEstateRow"
+          },
+          "type": "array"
+        },
+        "notice": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "permitted": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reserve": {
+          "type": "number"
+        },
+        "spendable": {
+          "type": "number"
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "week": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "estates",
+        "notice",
+        "permitted",
+        "reserve",
+        "spendable",
+        "title",
+        "week"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioEstatesPage"
+    },
+    "StudioFeaturedAppearancesPage": {
+      "additionalProperties": false,
+      "properties": {
+        "bookings": {
+          "items": {
+            "$ref": "#/$defs/StudioFeaturedBookingRow"
+          },
+          "type": "array"
+        },
+        "capacity": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "greenlightWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "guests": {
+          "items": {
+            "$ref": "#/$defs/StudioFeaturedGuestRow"
+          },
+          "type": "array"
+        },
+        "nominalShootingWeeks": {
+          "items": {
+            "maximum": 2147483647,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "notice": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "bookings",
+        "capacity",
+        "greenlightWeek",
+        "guests",
+        "nominalShootingWeeks",
+        "notice",
+        "title"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFeaturedAppearancesPage"
+    },
+    "StudioFeaturedBookingRow": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "enum": [
+            "employee",
+            "freelance"
+          ],
+          "type": "string"
+        },
+        "bookedWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "bookingId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "cancelIntent": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioBridgeIntentOption"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cancelReason": {
+          "anyOf": [
+            {
+              "enum": [
+                "explicit",
+                "missedWork",
+                "productionCancelled",
+                "employmentExit",
+                "rightsLoss"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cancelledWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "completedWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fee": {
+          "type": "number"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "productionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "productionTitle": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "profession": {
+          "enum": [
+            "writer",
+            "director",
+            "actor",
+            "craft",
+            "scientist"
+          ],
+          "type": "string"
+        },
+        "refund": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "releasedWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retained": {
+          "type": "number"
+        },
+        "starPowerDelta": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "reserved",
+            "completed",
+            "cancelled"
+          ],
+          "type": "string"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "workWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "basis",
+        "bookedWeek",
+        "bookingId",
+        "cancelIntent",
+        "cancelReason",
+        "cancelledWeek",
+        "completedWeek",
+        "fee",
+        "name",
+        "productionId",
+        "productionTitle",
+        "profession",
+        "refund",
+        "releasedWeek",
+        "retained",
+        "starPowerDelta",
+        "status",
+        "talentId",
+        "workWeek"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFeaturedBookingRow"
+    },
+    "StudioFeaturedGuestRow": {
+      "additionalProperties": false,
+      "properties": {
+        "fame": {
+          "type": "number"
+        },
+        "fee": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "profession": {
+          "enum": [
+            "writer",
+            "director",
+            "actor",
+            "craft",
+            "scientist"
+          ],
+          "type": "string"
+        },
+        "refundable": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retained": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "weeks": {
+          "items": {
+            "$ref": "#/$defs/StudioFeaturedGuestWeek"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "fame",
+        "fee",
+        "name",
+        "profession",
+        "refundable",
+        "retained",
+        "talentId",
+        "weeks"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFeaturedGuestRow"
+    },
+    "StudioFeaturedGuestTerms": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "enum": [
+            "employee",
+            "freelance"
+          ],
+          "type": "string"
+        },
+        "disclosures": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "fee": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "profession": {
+          "enum": [
+            "writer",
+            "director",
+            "actor",
+            "craft",
+            "scientist"
+          ],
+          "type": "string"
+        },
+        "readinessRisk": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "refundable": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "retained": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "standardShootingWeek": {
+          "type": "boolean"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "workWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "basis",
+        "disclosures",
+        "fee",
+        "name",
+        "profession",
+        "readinessRisk",
+        "refundable",
+        "retained",
+        "standardShootingWeek",
+        "talentId",
+        "workWeek"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFeaturedGuestTerms"
+    },
+    "StudioFeaturedGuestWeek": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "anyOf": [
+            {
+              "enum": [
+                "employee",
+                "freelance"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "disclosures": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "ok": {
+          "type": "boolean"
+        },
+        "readinessRisk": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "refusal": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "standardShooting": {
+          "type": "boolean"
+        },
+        "workWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "basis",
+        "disclosures",
+        "ok",
+        "readinessRisk",
+        "refusal",
+        "standardShooting",
+        "workWeek"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFeaturedGuestWeek"
     },
     "StudioFilmResultSnapshot": {
       "additionalProperties": false,
@@ -5164,6 +6996,60 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioFinanceEmployee"
+    },
+    "StudioFinanceEstateAccounting": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "claimPayments": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "closingCash": {
+          "type": "number"
+        },
+        "closureId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "closureWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "runReceipts": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "saleProceeds": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "stoppedLoanRemainder": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "unpaidClaims": {
+          "minimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "basis",
+        "claimPayments",
+        "closingCash",
+        "closureId",
+        "closureWeek",
+        "runReceipts",
+        "saleProceeds",
+        "stoppedLoanRemainder",
+        "unpaidClaims"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFinanceEstateAccounting"
     },
     "StudioFinanceFacility": {
       "additionalProperties": false,
@@ -5851,6 +7737,16 @@
           },
           "type": "array"
         },
+        "estateAccounting": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioFinanceEstateAccounting"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "facilities": {
           "items": {
             "$ref": "#/$defs/StudioFinanceFacility"
@@ -5978,6 +7874,7 @@
         "coverageNotice",
         "currentPeriod",
         "employees",
+        "estateAccounting",
         "facilities",
         "films",
         "firstCompleteWeek",
@@ -6825,6 +8722,520 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioFoundingSnapshot"
+    },
+    "StudioFranchiseBranch": {
+      "additionalProperties": false,
+      "properties": {
+        "band": {
+          "enum": [
+            "new",
+            "active",
+            "activeAgain",
+            "cooling",
+            "dormant",
+            "revivalCandidate"
+          ],
+          "type": "string"
+        },
+        "branchId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "main",
+            "reboot",
+            "spinoff"
+          ],
+          "type": "string"
+        },
+        "lastReleaseWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "momentum": {
+          "type": "number"
+        },
+        "openedAtWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "subPropertyId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "band",
+        "branchId",
+        "kind",
+        "lastReleaseWeek",
+        "momentum",
+        "openedAtWeek",
+        "subPropertyId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFranchiseBranch"
+    },
+    "StudioFranchiseChoice": {
+      "additionalProperties": false,
+      "properties": {
+        "band": {
+          "enum": [
+            "new",
+            "active",
+            "activeAgain",
+            "cooling",
+            "dormant",
+            "revivalCandidate"
+          ],
+          "type": "string"
+        },
+        "branchId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "branchKind": {
+          "enum": [
+            "main",
+            "reboot",
+            "spinoff"
+          ],
+          "type": "string"
+        },
+        "fatigue": {
+          "type": "number"
+        },
+        "inheritedAwareness01": {
+          "type": "number"
+        },
+        "momentum": {
+          "type": "number"
+        },
+        "predecessorProductionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "recognition": {
+          "type": "number"
+        },
+        "subPropertyId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "type": {
+          "enum": [
+            "directSequel",
+            "prequel",
+            "remake",
+            "reboot",
+            "spinOff"
+          ],
+          "type": "string"
+        },
+        "use": {
+          "enum": [
+            "sequel",
+            "remake",
+            "spinoff"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "band",
+        "branchId",
+        "branchKind",
+        "fatigue",
+        "inheritedAwareness01",
+        "momentum",
+        "predecessorProductionId",
+        "recognition",
+        "subPropertyId",
+        "type",
+        "use"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFranchiseChoice"
+    },
+    "StudioFranchiseCreditedGuest": {
+      "additionalProperties": false,
+      "properties": {
+        "bookingId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "fee": {
+          "type": "number"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "starPowerAfter": {
+          "type": "number"
+        },
+        "starPowerBefore": {
+          "type": "number"
+        },
+        "starPowerDelta": {
+          "type": "number"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "workWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "bookingId",
+        "fee",
+        "name",
+        "starPowerAfter",
+        "starPowerBefore",
+        "starPowerDelta",
+        "talentId",
+        "workWeek"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFranchiseCreditedGuest"
+    },
+    "StudioFranchiseInstallment": {
+      "additionalProperties": false,
+      "properties": {
+        "branchId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "greenlitWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "guests": {
+          "items": {
+            "$ref": "#/$defs/StudioFranchiseCreditedGuest"
+          },
+          "type": "array"
+        },
+        "outcome": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioFranchiseReleaseOutcome"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "parentProductionId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "productionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "releasedWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "studioId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "type": {
+          "enum": [
+            "directSequel",
+            "prequel",
+            "remake",
+            "reboot",
+            "spinOff",
+            "origin"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "branchId",
+        "greenlitWeek",
+        "guests",
+        "outcome",
+        "parentProductionId",
+        "productionId",
+        "releasedWeek",
+        "studioId",
+        "type"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFranchiseInstallment"
+    },
+    "StudioFranchiseProperty": {
+      "additionalProperties": false,
+      "properties": {
+        "branches": {
+          "items": {
+            "$ref": "#/$defs/StudioFranchiseBranch"
+          },
+          "type": "array"
+        },
+        "choices": {
+          "items": {
+            "$ref": "#/$defs/StudioFranchiseChoice"
+          },
+          "type": "array"
+        },
+        "fatigue": {
+          "type": "number"
+        },
+        "franchiseId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "installments": {
+          "items": {
+            "$ref": "#/$defs/StudioFranchiseInstallment"
+          },
+          "type": "array"
+        },
+        "mintedWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "rebootLegal": {
+          "type": "boolean"
+        },
+        "rebootRefusal": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "recognition": {
+          "type": "number"
+        },
+        "storyPropertyId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "subProperties": {
+          "items": {
+            "$ref": "#/$defs/StudioFranchiseSubProperty"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "branches",
+        "choices",
+        "fatigue",
+        "franchiseId",
+        "installments",
+        "mintedWeek",
+        "rebootLegal",
+        "rebootRefusal",
+        "recognition",
+        "storyPropertyId",
+        "subProperties"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFranchiseProperty"
+    },
+    "StudioFranchiseReleaseOutcome": {
+      "additionalProperties": false,
+      "properties": {
+        "activeAgain": {
+          "type": "boolean"
+        },
+        "criticScore": {
+          "type": "number"
+        },
+        "expectedTotal": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "openingGross": {
+          "type": "number"
+        },
+        "propertyPeak": {
+          "type": "boolean"
+        },
+        "releasedWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "totalGross": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "activeAgain",
+        "criticScore",
+        "expectedTotal",
+        "openingGross",
+        "propertyPeak",
+        "releasedWeek",
+        "totalGross"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFranchiseReleaseOutcome"
+    },
+    "StudioFranchiseSubProperty": {
+      "additionalProperties": false,
+      "properties": {
+        "fatigue": {
+          "type": "number"
+        },
+        "kind": {
+          "enum": [
+            "character",
+            "organization",
+            "location",
+            "concept"
+          ],
+          "type": "string"
+        },
+        "mintedAtProductionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "mintedWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "promotedToStoryPropertyId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "recognition": {
+          "type": "number"
+        },
+        "subPropertyId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "fatigue",
+        "kind",
+        "mintedAtProductionId",
+        "mintedWeek",
+        "promotedToStoryPropertyId",
+        "recognition",
+        "subPropertyId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFranchiseSubProperty"
+    },
+    "StudioFranchisesPage": {
+      "additionalProperties": false,
+      "properties": {
+        "notice": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "properties": {
+          "items": {
+            "$ref": "#/$defs/StudioFranchiseProperty"
+          },
+          "type": "array"
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "notice",
+        "properties",
+        "title"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFranchisesPage"
     },
     "StudioGridCellSnapshot": {
       "additionalProperties": false,
@@ -7948,7 +10359,13 @@
             "office",
             "market",
             "alumni",
-            "powerRanking"
+            "powerRanking",
+            "diligence",
+            "franchises",
+            "featuredAppearances",
+            "television",
+            "rights",
+            "estates"
           ],
           "type": "string"
         }
@@ -7988,11 +10405,51 @@
           },
           "type": "array"
         },
+        "diligence": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioPaidReportsPage"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "estates": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioEstatesPage"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "featuredAppearances": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioFeaturedAppearancesPage"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "films": {
           "items": {
             "$ref": "#/$defs/StudioIndustryFilm"
           },
           "type": "array"
+        },
+        "franchises": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioFranchisesPage"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "laboratory": {
           "anyOf": [
@@ -8091,6 +10548,16 @@
           "minLength": 1,
           "type": "string"
         },
+        "rights": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioRightsPage"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "schemaId": {
           "minLength": 1,
           "type": "string"
@@ -8124,6 +10591,16 @@
             {
               "minLength": 1,
               "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "television": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioTelevisionPage"
             },
             {
               "type": "null"
@@ -8166,7 +10643,13 @@
             "office",
             "market",
             "alumni",
-            "powerRanking"
+            "powerRanking",
+            "diligence",
+            "franchises",
+            "featuredAppearances",
+            "television",
+            "rights",
+            "estates"
           ],
           "type": "string"
         }
@@ -8175,7 +10658,11 @@
         "activities",
         "calendar",
         "credits",
+        "diligence",
+        "estates",
+        "featuredAppearances",
         "films",
+        "franchises",
         "laboratory",
         "lane",
         "market",
@@ -8191,6 +10678,7 @@
         "projects",
         "protocolVersion",
         "requestId",
+        "rights",
         "schemaId",
         "sessionId",
         "snapshotVersion",
@@ -8198,6 +10686,7 @@
         "stateRevision",
         "studios",
         "targetId",
+        "television",
         "tendencies",
         "title",
         "totalRows",
@@ -9489,7 +11978,8 @@
             "renewal",
             "replacement",
             "player-contract",
-            "existing-player-contract"
+            "existing-player-contract",
+            "absorptionContinuation"
           ],
           "type": "string"
         }
@@ -11086,6 +13576,386 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioOperationsEventsTotals"
+    },
+    "StudioPaidReportBody": {
+      "additionalProperties": false,
+      "properties": {
+        "employment": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/StudioPaidReportEmployment"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "liabilities": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioPaidReportLiabilities"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rights": {
+          "items": {
+            "$ref": "#/$defs/StudioPaidReportRight"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "employment",
+        "liabilities",
+        "rights"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPaidReportBody"
+    },
+    "StudioPaidReportDetail": {
+      "additionalProperties": false,
+      "properties": {
+        "body": {
+          "$ref": "#/$defs/StudioPaidReportBody"
+        },
+        "receipt": {
+          "$ref": "#/$defs/StudioPaidReportReceipt"
+        }
+      },
+      "required": [
+        "body",
+        "receipt"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPaidReportDetail"
+    },
+    "StudioPaidReportEmployment": {
+      "additionalProperties": false,
+      "properties": {
+        "annualSalary": {
+          "type": "number"
+        },
+        "contractId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "endWeekExclusive": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "exitCost": {
+          "type": "number"
+        },
+        "startWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "annualSalary",
+        "contractId",
+        "endWeekExclusive",
+        "exitCost",
+        "startWeek",
+        "talentId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPaidReportEmployment"
+    },
+    "StudioPaidReportFilm": {
+      "additionalProperties": false,
+      "properties": {
+        "filmId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "right": {
+          "const": "R2",
+          "type": "string"
+        }
+      },
+      "required": [
+        "filmId",
+        "right"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPaidReportFilm"
+    },
+    "StudioPaidReportLiabilities": {
+      "additionalProperties": false,
+      "properties": {
+        "cash": {
+          "type": "number"
+        },
+        "hasOutstandingLoan": {
+          "type": "boolean"
+        },
+        "stage": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "weeklyFixedCost": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "cash",
+        "hasOutstandingLoan",
+        "stage",
+        "weeklyFixedCost"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPaidReportLiabilities"
+    },
+    "StudioPaidReportLotTarget": {
+      "additionalProperties": false,
+      "properties": {
+        "estateId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "const": "estateLot",
+          "type": "string"
+        },
+        "lotId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "estateId",
+        "kind",
+        "lotId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPaidReportLotTarget"
+    },
+    "StudioPaidReportProperty": {
+      "additionalProperties": false,
+      "properties": {
+        "propertyId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "right": {
+          "const": "R1",
+          "type": "string"
+        }
+      },
+      "required": [
+        "propertyId",
+        "right"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPaidReportProperty"
+    },
+    "StudioPaidReportReceipt": {
+      "additionalProperties": false,
+      "properties": {
+        "fee": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "fresh": {
+          "type": "boolean"
+        },
+        "freshnessLine": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "quoteAgePolicyVersion": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "recipientId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "scope": {
+          "items": {
+            "enum": [
+              "rights",
+              "employment",
+              "liabilities"
+            ],
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "staleFromWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "target": {
+          "$ref": "#/$defs/StudioPaidReportTarget"
+        },
+        "targetLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "transactionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "week": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "fee",
+        "fresh",
+        "freshnessLine",
+        "id",
+        "quoteAgePolicyVersion",
+        "recipientId",
+        "scope",
+        "staleFromWeek",
+        "target",
+        "targetLabel",
+        "transactionId",
+        "week"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPaidReportReceipt"
+    },
+    "StudioPaidReportRight": {
+      "additionalProperties": false,
+      "properties": {
+        "encumbrances": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "subject": {
+          "$ref": "#/$defs/StudioPaidReportSubject"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "encumbrances",
+        "subject",
+        "value"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPaidReportRight"
+    },
+    "StudioPaidReportStudioTarget": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "studio",
+          "type": "string"
+        },
+        "studioId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "studioId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPaidReportStudioTarget"
+    },
+    "StudioPaidReportSubject": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/StudioPaidReportProperty"
+        },
+        {
+          "$ref": "#/$defs/StudioPaidReportFilm"
+        }
+      ],
+      "x-csharp-name": "StudioPaidReportSubject"
+    },
+    "StudioPaidReportTarget": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/StudioPaidReportStudioTarget"
+        },
+        {
+          "$ref": "#/$defs/StudioPaidReportLotTarget"
+        }
+      ],
+      "x-csharp-name": "StudioPaidReportTarget"
+    },
+    "StudioPaidReportsPage": {
+      "additionalProperties": false,
+      "properties": {
+        "notice": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "receipts": {
+          "items": {
+            "$ref": "#/$defs/StudioPaidReportReceipt"
+          },
+          "type": "array"
+        },
+        "selectedReport": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioPaidReportDetail"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "notice",
+        "receipts",
+        "selectedReport",
+        "title"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPaidReportsPage"
     },
     "StudioParcelSnapshot": {
       "additionalProperties": false,
@@ -12888,14 +15758,10 @@
           "type": "integer"
         },
         "cashAfter": {
-          "maximum": 2147483647,
-          "minimum": -2147483648,
-          "type": "integer"
+          "type": "number"
         },
         "cashBefore": {
-          "maximum": 2147483647,
-          "minimum": -2147483648,
-          "type": "integer"
+          "type": "number"
         },
         "cellLegality": {
           "items": {
@@ -13589,7 +16455,8 @@
         "definitionVersion": {
           "enum": [
             "power-ranking/v1",
-            "power-ranking/v2"
+            "power-ranking/v2",
+            "power-ranking/v3"
           ],
           "type": "string"
         },
@@ -15463,6 +18330,50 @@
       "type": "object",
       "x-csharp-name": "StudioPropertySnapshot"
     },
+    "StudioQuoteAbsorptionRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "commandId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "draft": {
+          "$ref": "#/$defs/StudioAbsorptionDraftPayload"
+        },
+        "expectedStateRevision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "protocolVersion": {
+          "const": 4,
+          "type": "integer"
+        },
+        "schemaId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sessionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "type": {
+          "const": "quoteHealthyAbsorption",
+          "type": "string"
+        }
+      },
+      "required": [
+        "commandId",
+        "draft",
+        "expectedStateRevision",
+        "protocolVersion",
+        "schemaId",
+        "sessionId",
+        "type"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioQuoteAbsorptionRequest"
+    },
     "StudioQuoteCastingRequest": {
       "additionalProperties": false,
       "properties": {
@@ -15594,6 +18505,94 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioQuoteContractRequest"
+    },
+    "StudioQuoteDiligenceRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "commandId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "draft": {
+          "$ref": "#/$defs/StudioDiligenceDraftPayload"
+        },
+        "expectedStateRevision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "protocolVersion": {
+          "const": 4,
+          "type": "integer"
+        },
+        "schemaId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sessionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "type": {
+          "const": "quotePaidDueDiligence",
+          "type": "string"
+        }
+      },
+      "required": [
+        "commandId",
+        "draft",
+        "expectedStateRevision",
+        "protocolVersion",
+        "schemaId",
+        "sessionId",
+        "type"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioQuoteDiligenceRequest"
+    },
+    "StudioQuoteEstateBidRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "commandId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "draft": {
+          "$ref": "#/$defs/StudioEstateBidDraftPayload"
+        },
+        "expectedStateRevision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "protocolVersion": {
+          "const": 4,
+          "type": "integer"
+        },
+        "schemaId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sessionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "type": {
+          "const": "quoteEstateBid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "commandId",
+        "draft",
+        "expectedStateRevision",
+        "protocolVersion",
+        "schemaId",
+        "sessionId",
+        "type"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioQuoteEstateBidRequest"
     },
     "StudioQuoteLoanRequest": {
       "additionalProperties": false,
@@ -15727,6 +18726,50 @@
       "type": "object",
       "x-csharp-name": "StudioQuotePlacementRequest"
     },
+    "StudioQuoteRightsOfferRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "commandId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "draft": {
+          "$ref": "#/$defs/StudioRightsOfferDraftPayload"
+        },
+        "expectedStateRevision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "protocolVersion": {
+          "const": 4,
+          "type": "integer"
+        },
+        "schemaId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sessionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "type": {
+          "const": "quoteRightsOffer",
+          "type": "string"
+        }
+      },
+      "required": [
+        "commandId",
+        "draft",
+        "expectedStateRevision",
+        "protocolVersion",
+        "schemaId",
+        "sessionId",
+        "type"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioQuoteRightsOfferRequest"
+    },
     "StudioQuoteSetCommissionRequest": {
       "additionalProperties": false,
       "properties": {
@@ -15774,6 +18817,21 @@
     "StudioQuoteSnapshot": {
       "anyOf": [
         {
+          "$ref": "#/$defs/StudioTvCommissionQuoteSnapshot"
+        },
+        {
+          "$ref": "#/$defs/StudioEstateBidQuoteSnapshot"
+        },
+        {
+          "$ref": "#/$defs/StudioRightsOfferQuoteSnapshot"
+        },
+        {
+          "$ref": "#/$defs/StudioDiligenceQuoteSnapshot"
+        },
+        {
+          "$ref": "#/$defs/StudioAbsorptionQuoteSnapshot"
+        },
+        {
           "$ref": "#/$defs/StudioLoanQuoteSnapshot"
         },
         {
@@ -15799,6 +18857,50 @@
         }
       ],
       "x-csharp-name": "StudioQuoteSnapshot"
+    },
+    "StudioQuoteTvCommissionRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "commandId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "draft": {
+          "$ref": "#/$defs/StudioTvCommissionDraftPayload"
+        },
+        "expectedStateRevision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "protocolVersion": {
+          "const": 4,
+          "type": "integer"
+        },
+        "schemaId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sessionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "type": {
+          "const": "quoteTvCommission",
+          "type": "string"
+        }
+      },
+      "required": [
+        "commandId",
+        "draft",
+        "expectedStateRevision",
+        "protocolVersion",
+        "schemaId",
+        "sessionId",
+        "type"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioQuoteTvCommissionRequest"
     },
     "StudioQuoteWaivePromiseRequest": {
       "additionalProperties": false,
@@ -16542,6 +19644,895 @@
       "type": "object",
       "x-csharp-name": "StudioRewritePreviewSnapshot"
     },
+    "StudioRightSubject": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/StudioRightSubjectProperty"
+        },
+        {
+          "$ref": "#/$defs/StudioRightSubjectFilm"
+        }
+      ],
+      "x-csharp-name": "StudioRightSubject"
+    },
+    "StudioRightSubjectFilm": {
+      "additionalProperties": false,
+      "properties": {
+        "filmId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "right": {
+          "const": "R2",
+          "type": "string"
+        }
+      },
+      "required": [
+        "filmId",
+        "right"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioRightSubjectFilm"
+    },
+    "StudioRightSubjectProperty": {
+      "additionalProperties": false,
+      "properties": {
+        "propertyId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "right": {
+          "const": "R1",
+          "type": "string"
+        }
+      },
+      "required": [
+        "propertyId",
+        "right"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioRightSubjectProperty"
+    },
+    "StudioRightsAcceptOfferDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "offerId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "plan": {
+          "const": "accept",
+          "type": "string"
+        }
+      },
+      "required": [
+        "offerId",
+        "plan"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioRightsAcceptOfferDraft"
+    },
+    "StudioRightsCounterparty": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "studioId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "studioId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioRightsCounterparty"
+    },
+    "StudioRightsInstrument": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/StudioRightsTitleInstrument"
+        },
+        {
+          "$ref": "#/$defs/StudioRightsLicenceInstrument"
+        }
+      ],
+      "x-csharp-name": "StudioRightsInstrument"
+    },
+    "StudioRightsLicenceInstrument": {
+      "additionalProperties": false,
+      "properties": {
+        "endWeekExclusive": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "exclusive": {
+          "type": "boolean"
+        },
+        "kind": {
+          "const": "licence",
+          "type": "string"
+        },
+        "right": {
+          "enum": [
+            "R3",
+            "R4"
+          ],
+          "type": "string"
+        },
+        "startWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "subject": {
+          "$ref": "#/$defs/StudioRightSubject"
+        },
+        "use": {
+          "enum": [
+            "sequel",
+            "remake",
+            "spinoff",
+            "televisionProduction",
+            "televisionDistribution",
+            "merchandise"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "endWeekExclusive",
+        "exclusive",
+        "kind",
+        "right",
+        "startWeek",
+        "subject",
+        "use"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioRightsLicenceInstrument"
+    },
+    "StudioRightsOfferDraftPayload": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/StudioRightsSellOfferDraft"
+        },
+        {
+          "$ref": "#/$defs/StudioRightsAcceptOfferDraft"
+        }
+      ],
+      "x-csharp-name": "StudioRightsOfferDraftPayload"
+    },
+    "StudioRightsOfferQuoteSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "commitLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "consequence": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioTitleSaleOutcome"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "counterpartyId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "counterpartyName": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "direction": {
+          "anyOf": [
+            {
+              "enum": [
+                "buy",
+                "sell"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "encumbrance": {
+          "anyOf": [
+            {
+              "enum": [
+                "activeProduction",
+                "activeRun"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "expiresWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "instrument": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioRightsInstrument"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "intentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "makeRightsOffer",
+            "acceptRightsOffer"
+          ],
+          "type": "string"
+        },
+        "licences": {
+          "items": {
+            "$ref": "#/$defs/StudioRightsSubjectLicence"
+          },
+          "type": "array"
+        },
+        "offerId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ok": {
+          "type": "boolean"
+        },
+        "plan": {
+          "enum": [
+            "offer",
+            "accept"
+          ],
+          "type": "string"
+        },
+        "playerSells": {
+          "type": "boolean"
+        },
+        "price": {
+          "type": "number"
+        },
+        "queueNote": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "queues": {
+          "type": "boolean"
+        },
+        "quotedAtWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "refusalReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "resaleHoldback": {
+          "type": "boolean"
+        },
+        "startsNow": {
+          "type": "boolean"
+        },
+        "subject": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioRightSubject"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "subjectTitle": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "willingness": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioRightsWillingness"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "commitLabel",
+        "consequence",
+        "counterpartyId",
+        "counterpartyName",
+        "direction",
+        "encumbrance",
+        "expiresWeek",
+        "instrument",
+        "intentId",
+        "kind",
+        "licences",
+        "offerId",
+        "ok",
+        "plan",
+        "playerSells",
+        "price",
+        "queueNote",
+        "queues",
+        "quotedAtWeek",
+        "refusalReason",
+        "resaleHoldback",
+        "startsNow",
+        "subject",
+        "subjectTitle",
+        "value",
+        "willingness"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioRightsOfferQuoteSnapshot"
+    },
+    "StudioRightsOfferRow": {
+      "additionalProperties": false,
+      "properties": {
+        "acceptIntent": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioBridgeIntentOption"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "closing": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "counterpartyId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "counterpartyName": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "direction": {
+          "enum": [
+            "buy",
+            "sell"
+          ],
+          "type": "string"
+        },
+        "expiresWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "instrument": {
+          "$ref": "#/$defs/StudioRightsInstrument"
+        },
+        "offerId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "offerorId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "offerorName": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        },
+        "refusal": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rejectIntent": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioBridgeIntentOption"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "resolvedWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "role": {
+          "enum": [
+            "offeror",
+            "counterparty"
+          ],
+          "type": "string"
+        },
+        "saleReviewRequired": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "open",
+            "accepted",
+            "rejected",
+            "expired",
+            "withdrawn"
+          ],
+          "type": "string"
+        },
+        "subjectTitle": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "transactionId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "week": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "withdrawIntent": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioBridgeIntentOption"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "acceptIntent",
+        "closing",
+        "counterpartyId",
+        "counterpartyName",
+        "direction",
+        "expiresWeek",
+        "instrument",
+        "offerId",
+        "offerorId",
+        "offerorName",
+        "price",
+        "refusal",
+        "rejectIntent",
+        "resolvedWeek",
+        "role",
+        "saleReviewRequired",
+        "status",
+        "subjectTitle",
+        "transactionId",
+        "week",
+        "withdrawIntent"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioRightsOfferRow"
+    },
+    "StudioRightsPage": {
+      "additionalProperties": false,
+      "properties": {
+        "counterparties": {
+          "items": {
+            "$ref": "#/$defs/StudioRightsCounterparty"
+          },
+          "type": "array"
+        },
+        "licencesIn": {
+          "items": {
+            "$ref": "#/$defs/StudioRightsSubjectLicence"
+          },
+          "type": "array"
+        },
+        "notice": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "offers": {
+          "items": {
+            "$ref": "#/$defs/StudioRightsOfferRow"
+          },
+          "type": "array"
+        },
+        "permitted": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reserve": {
+          "type": "number"
+        },
+        "spendable": {
+          "type": "number"
+        },
+        "studioId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "titles": {
+          "items": {
+            "$ref": "#/$defs/StudioRightsTitleRow"
+          },
+          "type": "array"
+        },
+        "week": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "counterparties",
+        "licencesIn",
+        "notice",
+        "offers",
+        "permitted",
+        "reserve",
+        "spendable",
+        "studioId",
+        "title",
+        "titles",
+        "week"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioRightsPage"
+    },
+    "StudioRightsSellOfferDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "counterpartyId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "plan": {
+          "const": "offer",
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        },
+        "subject": {
+          "$ref": "#/$defs/StudioRightSubject"
+        }
+      },
+      "required": [
+        "counterpartyId",
+        "plan",
+        "price",
+        "subject"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioRightsSellOfferDraft"
+    },
+    "StudioRightsSubjectLicence": {
+      "additionalProperties": false,
+      "properties": {
+        "endWeekExclusive": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "exclusive": {
+          "type": "boolean"
+        },
+        "granteeId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "granteeName": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "grantorId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "grantorName": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "licenceId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "right": {
+          "enum": [
+            "R3",
+            "R4"
+          ],
+          "type": "string"
+        },
+        "startWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "use": {
+          "enum": [
+            "sequel",
+            "remake",
+            "spinoff",
+            "televisionProduction",
+            "televisionDistribution",
+            "merchandise"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "endWeekExclusive",
+        "exclusive",
+        "granteeId",
+        "granteeName",
+        "grantorId",
+        "grantorName",
+        "licenceId",
+        "right",
+        "startWeek",
+        "use"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioRightsSubjectLicence"
+    },
+    "StudioRightsTitleInstrument": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "title",
+          "type": "string"
+        },
+        "subject": {
+          "$ref": "#/$defs/StudioRightSubject"
+        }
+      },
+      "required": [
+        "kind",
+        "subject"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioRightsTitleInstrument"
+    },
+    "StudioRightsTitleRow": {
+      "additionalProperties": false,
+      "properties": {
+        "encumbrance": {
+          "anyOf": [
+            {
+              "enum": [
+                "activeProduction",
+                "activeRun"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "licencesOut": {
+          "items": {
+            "$ref": "#/$defs/StudioRightsSubjectLicence"
+          },
+          "type": "array"
+        },
+        "liveSeasonIds": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "resaleHoldback": {
+          "type": "boolean"
+        },
+        "saleRefusal": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "subject": {
+          "$ref": "#/$defs/StudioRightSubject"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "encumbrance",
+        "licencesOut",
+        "liveSeasonIds",
+        "resaleHoldback",
+        "saleRefusal",
+        "subject",
+        "title",
+        "value"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioRightsTitleRow"
+    },
+    "StudioRightsWillingness": {
+      "additionalProperties": false,
+      "properties": {
+        "limit": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reason": {
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "willing": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "limit",
+        "reason",
+        "value",
+        "willing"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioRightsWillingness"
+    },
     "StudioRosterCountsSnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -17247,14 +21238,10 @@
           "type": "integer"
         },
         "cashAfter": {
-          "maximum": 2147483647,
-          "minimum": -2147483648,
-          "type": "integer"
+          "type": "number"
         },
         "cashBefore": {
-          "maximum": 2147483647,
-          "minimum": -2147483648,
-          "type": "integer"
+          "type": "number"
         },
         "commitLabel": {
           "minLength": 1,
@@ -18129,6 +22116,762 @@
       "type": "object",
       "x-csharp-name": "StudioTechnologyForecast"
     },
+    "StudioTelevisionAgreement": {
+      "additionalProperties": false,
+      "properties": {
+        "advance": {
+          "type": "number"
+        },
+        "agreementId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "earned": {
+          "type": "number"
+        },
+        "fee": {
+          "type": "number"
+        },
+        "outstanding": {
+          "type": "number"
+        },
+        "received": {
+          "type": "number"
+        },
+        "settlement": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioTelevisionSettlement"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "unearnedAdvance": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "advance",
+        "agreementId",
+        "earned",
+        "fee",
+        "outstanding",
+        "received",
+        "settlement",
+        "unearnedAdvance"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTelevisionAgreement"
+    },
+    "StudioTelevisionCancelPreview": {
+      "additionalProperties": false,
+      "properties": {
+        "chargeDue": {
+          "type": "number"
+        },
+        "chargePaidNow": {
+          "type": "number"
+        },
+        "owedAfter": {
+          "type": "number"
+        },
+        "refundDue": {
+          "type": "number"
+        },
+        "refundPaidNow": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "chargeDue",
+        "chargePaidNow",
+        "owedAfter",
+        "refundDue",
+        "refundPaidNow"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTelevisionCancelPreview"
+    },
+    "StudioTelevisionCancellation": {
+      "additionalProperties": false,
+      "properties": {
+        "cause": {
+          "enum": [
+            "producer",
+            "deadline",
+            "closure",
+            "rights",
+            "participant"
+          ],
+          "type": "string"
+        },
+        "week": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "cause",
+        "week"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTelevisionCancellation"
+    },
+    "StudioTelevisionDistribution": {
+      "additionalProperties": false,
+      "properties": {
+        "available": {
+          "type": "boolean"
+        },
+        "availableFromWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "availableUntilWeekExclusive": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "expired": {
+          "type": "boolean"
+        },
+        "licenceId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "available",
+        "availableFromWeek",
+        "availableUntilWeekExclusive",
+        "expired",
+        "licenceId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTelevisionDistribution"
+    },
+    "StudioTelevisionMilestone": {
+      "additionalProperties": false,
+      "properties": {
+        "afterUnit": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "amount": {
+          "type": "number"
+        },
+        "kind": {
+          "enum": [
+            "scripts",
+            "pictureLock",
+            "delivery"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "afterUnit",
+        "amount",
+        "kind"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTelevisionMilestone"
+    },
+    "StudioTelevisionPage": {
+      "additionalProperties": false,
+      "properties": {
+        "notice": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "seasons": {
+          "items": {
+            "$ref": "#/$defs/StudioTelevisionSeasonRow"
+          },
+          "type": "array"
+        },
+        "series": {
+          "items": {
+            "$ref": "#/$defs/StudioTelevisionSeries"
+          },
+          "type": "array"
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "week": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "notice",
+        "seasons",
+        "series",
+        "title",
+        "week"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTelevisionPage"
+    },
+    "StudioTelevisionSeasonRow": {
+      "additionalProperties": false,
+      "properties": {
+        "agreement": {
+          "$ref": "#/$defs/StudioTelevisionAgreement"
+        },
+        "block": {
+          "enum": [
+            "scripts",
+            "preparation",
+            "rehearsal",
+            "shooting",
+            "post"
+          ],
+          "type": "string"
+        },
+        "blockLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "cancelIntent": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioBridgeIntentOption"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cancelPreview": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioTelevisionCancelPreview"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cancellation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioTelevisionCancellation"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "commitWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "creditedUnits": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "deliveredWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "distribution": {
+          "$ref": "#/$defs/StudioTelevisionDistribution"
+        },
+        "dueWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "finalWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "nextMilestone": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioTelevisionMilestone"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "propertyId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "seasonId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "seriesId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "seriesTitle": {
+          "type": "string"
+        },
+        "settleIntent": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioBridgeIntentOption"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "settlePreview": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioTelevisionSettlePreview"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "stall": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "live",
+            "delivered",
+            "cancelled"
+          ],
+          "type": "string"
+        },
+        "totalUnits": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "agreement",
+        "block",
+        "blockLabel",
+        "cancelIntent",
+        "cancelPreview",
+        "cancellation",
+        "commitWeek",
+        "creditedUnits",
+        "deliveredWeek",
+        "distribution",
+        "dueWeek",
+        "finalWeek",
+        "nextMilestone",
+        "propertyId",
+        "seasonId",
+        "seriesId",
+        "seriesTitle",
+        "settleIntent",
+        "settlePreview",
+        "stall",
+        "status",
+        "totalUnits"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTelevisionSeasonRow"
+    },
+    "StudioTelevisionSeries": {
+      "additionalProperties": false,
+      "properties": {
+        "createdWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "propertyId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "seasonIds": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "seriesId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "createdWeek",
+        "propertyId",
+        "seasonIds",
+        "seriesId",
+        "title"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTelevisionSeries"
+    },
+    "StudioTelevisionSettlePreview": {
+      "additionalProperties": false,
+      "properties": {
+        "outstanding": {
+          "type": "number"
+        },
+        "payableNow": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "outstanding",
+        "payableNow"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTelevisionSettlePreview"
+    },
+    "StudioTelevisionSettlement": {
+      "additionalProperties": false,
+      "properties": {
+        "chargeDue": {
+          "type": "number"
+        },
+        "chargePaid": {
+          "type": "number"
+        },
+        "closureId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "refundDue": {
+          "type": "number"
+        },
+        "refundPaid": {
+          "type": "number"
+        },
+        "week": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "chargeDue",
+        "chargePaid",
+        "closureId",
+        "refundDue",
+        "refundPaid",
+        "week"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTelevisionSettlement"
+    },
+    "StudioTitleSaleAnswer": {
+      "additionalProperties": false,
+      "properties": {
+        "expiresWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "kind": {
+          "enum": [
+            "closed",
+            "rejected",
+            "open"
+          ],
+          "type": "string"
+        },
+        "price": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "week": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "expiresWeek",
+        "kind",
+        "price",
+        "reason",
+        "week"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTitleSaleAnswer"
+    },
+    "StudioTitleSaleOutcome": {
+      "additionalProperties": false,
+      "properties": {
+        "answer": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioTitleSaleAnswer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "digest": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "refused",
+            "outcome"
+          ],
+          "type": "string"
+        },
+        "reachesWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "refusal": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "seasons": {
+          "items": {
+            "$ref": "#/$defs/StudioTitleSaleSeasonOutcome"
+          },
+          "type": "array"
+        },
+        "week": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "answer",
+        "digest",
+        "kind",
+        "reachesWeek",
+        "refusal",
+        "seasons",
+        "week"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTitleSaleOutcome"
+    },
+    "StudioTitleSaleSeasonAfter": {
+      "additionalProperties": false,
+      "properties": {
+        "cancellation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioTelevisionCancellation"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "creditedUnits": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "deliveredWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "earned": {
+          "type": "number"
+        },
+        "outstanding": {
+          "type": "number"
+        },
+        "settlement": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioTelevisionSettlement"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "live",
+            "delivered",
+            "cancelled"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "cancellation",
+        "creditedUnits",
+        "deliveredWeek",
+        "earned",
+        "outstanding",
+        "settlement",
+        "status"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTitleSaleSeasonAfter"
+    },
+    "StudioTitleSaleSeasonBefore": {
+      "additionalProperties": false,
+      "properties": {
+        "creditedUnits": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "earned": {
+          "type": "number"
+        },
+        "received": {
+          "type": "number"
+        },
+        "totalUnits": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "creditedUnits",
+        "earned",
+        "received",
+        "totalUnits"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTitleSaleSeasonBefore"
+    },
+    "StudioTitleSaleSeasonOutcome": {
+      "additionalProperties": false,
+      "properties": {
+        "after": {
+          "$ref": "#/$defs/StudioTitleSaleSeasonAfter"
+        },
+        "before": {
+          "$ref": "#/$defs/StudioTitleSaleSeasonBefore"
+        },
+        "seasonId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "seriesTitle": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "after",
+        "before",
+        "seasonId",
+        "seriesTitle"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTitleSaleSeasonOutcome"
+    },
     "StudioTreasurySnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -18250,6 +22993,294 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioTrustDriverRow"
+    },
+    "StudioTvAdmissionQuote": {
+      "additionalProperties": false,
+      "properties": {
+        "cash": {
+          "type": "number"
+        },
+        "facilityOpex": {
+          "type": "number"
+        },
+        "floor": {
+          "type": "number"
+        },
+        "loanInstallments": {
+          "type": "number"
+        },
+        "ok": {
+          "type": "boolean"
+        },
+        "overhead": {
+          "type": "number"
+        },
+        "payroll": {
+          "type": "number"
+        },
+        "provision": {
+          "type": "number"
+        },
+        "required": {
+          "type": "number"
+        },
+        "weeks": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "cash",
+        "facilityOpex",
+        "floor",
+        "loanInstallments",
+        "ok",
+        "overhead",
+        "payroll",
+        "provision",
+        "required",
+        "weeks"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTvAdmissionQuote"
+    },
+    "StudioTvAgreementTerms": {
+      "additionalProperties": false,
+      "properties": {
+        "advance": {
+          "type": "number"
+        },
+        "cancellationCharge": {
+          "type": "number"
+        },
+        "distributionWeeks": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "dueWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "fee": {
+          "type": "number"
+        },
+        "finalWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "lateDeductionMax": {
+          "type": "number"
+        },
+        "lateDeductionPerWeek": {
+          "type": "number"
+        },
+        "milestones": {
+          "$ref": "#/$defs/StudioTvMilestoneTerms"
+        },
+        "unitSpend": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "advance",
+        "cancellationCharge",
+        "distributionWeeks",
+        "dueWeek",
+        "fee",
+        "finalWeek",
+        "lateDeductionMax",
+        "lateDeductionPerWeek",
+        "milestones",
+        "unitSpend"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTvAgreementTerms"
+    },
+    "StudioTvCastPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "antagonist": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "lead": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "support": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "antagonist",
+        "lead",
+        "support"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTvCastPayload"
+    },
+    "StudioTvCommissionDraftPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "adoptionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "propertyId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "roster": {
+          "$ref": "#/$defs/StudioTvRosterPayload"
+        },
+        "seriesTitle": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "adoptionId",
+        "propertyId",
+        "roster",
+        "seriesTitle"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTvCommissionDraftPayload"
+    },
+    "StudioTvCommissionQuoteSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "commissionerLicenceConsideration": {
+          "type": "number"
+        },
+        "commitLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "commitWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "distributionLicenceEndWeekExclusive": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "intentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "const": "commissionTvSeason",
+          "type": "string"
+        },
+        "ok": {
+          "type": "boolean"
+        },
+        "queueNote": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "queues": {
+          "type": "boolean"
+        },
+        "quote": {
+          "$ref": "#/$defs/StudioTvAdmissionQuote"
+        },
+        "refusalReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "startsNow": {
+          "type": "boolean"
+        },
+        "terms": {
+          "$ref": "#/$defs/StudioTvAgreementTerms"
+        }
+      },
+      "required": [
+        "commissionerLicenceConsideration",
+        "commitLabel",
+        "commitWeek",
+        "distributionLicenceEndWeekExclusive",
+        "intentId",
+        "kind",
+        "ok",
+        "queueNote",
+        "queues",
+        "quote",
+        "refusalReason",
+        "startsNow",
+        "terms"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTvCommissionQuoteSnapshot"
+    },
+    "StudioTvMilestoneTerms": {
+      "additionalProperties": false,
+      "properties": {
+        "delivery": {
+          "type": "number"
+        },
+        "pictureLock": {
+          "type": "number"
+        },
+        "scripts": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "delivery",
+        "pictureLock",
+        "scripts"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTvMilestoneTerms"
+    },
+    "StudioTvRosterPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "cast": {
+          "$ref": "#/$defs/StudioTvCastPayload"
+        },
+        "craftId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "directorId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "writerId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "cast",
+        "craftId",
+        "directorId",
+        "writerId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTvRosterPayload"
     },
     "StudioWeekTheaterSnapshot": {
       "additionalProperties": false,
@@ -18525,7 +23556,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-58",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-71",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -18581,7 +23612,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 58,
+    "projectionVersion": 71,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

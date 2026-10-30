@@ -8,7 +8,7 @@ import { describe, expect, it } from 'vitest'
 import * as core from '../src/core/index.js'
 import { ageAt, nextBirthdayWeek } from '../src/core/aging.js'
 import { retirementRecordFor } from '../src/core/careerLifecycle.js'
-import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, convertV47ToV46, exportSave, importSave, migrateToLive, stableStringify, validateSaveV38 } from '../src/core/save.js'
+import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, convertV47ToV46, convertV49ToV48, convertV50ToV49, convertV51ToV50, exportSave, importSave, migrateToLive, stableStringify, validateSaveV38 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { CreativeRole, GameState } from '../src/core/types.js'
@@ -18,6 +18,7 @@ import { CONTINUOUS208, DEFERRED_ACTOR, FOCUS, PRE207, RUNTIME208, SCIENTIST,
   syntheticInputs } from './helpers/p14c3-fixtures.js'
 import type { Choice, Inputs, Root38, TargetInput } from './helpers/p14c3-fixtures.js'
 import { predecessorSave } from './helpers/p15-roots.js'
+import { LIVE_DOWNGRADE_REFUSAL, PHASE_HISTORY_PROJECTION } from './helpers/p16-era.js'
 
 const chosenDirector: Choice = { outcome: 'chosen', selected: 'director', reason: 'onlyEligibleTarget' }
 const chosenWriter: Choice = { outcome: 'chosen', selected: 'writer', reason: 'onlyEligibleTarget' }
@@ -179,10 +180,15 @@ describe('C.3 A05/A06 public profession history, current evidence and repeat saf
     // P15B (1370-ar): every ticked industry state carries evaluated condition records, which the P15B step's own
     // downgrade refuses first; the chain below takes the predecessor envelope the test helper builds from the live
     // state (tests/helpers/p15-roots.ts), so the guard under test stays observable.
+    // P16 rebase round 6: the live step refuses first, by name. ACCEPTANCE OPEN on this world: convertV45ToV44's
+    // 'cannot downgrade or discard a recorded Power Ranking quarter'. Its week-208 quarter (and every row the route
+    // stamped since migration) carries the Save49 phase table 3, which `rightsStripped` refuses to relabel (table 3
+    // shifts every ordinal after p16.estateSale), so this world has no Save45 envelope. The same V45 ranking guard
+    // keeps its genuine Save45 witness in p15a2-power-ranking-archive.
     const currentSave = envelope38(reopened), currentSaveBytes = stableStringify(currentSave)
-    const historical45 = convertV46ToV45(convertV47ToV46(predecessorSave(reopened)))
-    expect(stableStringify(currentSave), 'Save46 admission does not mutate the current input').toBe(currentSaveBytes)
-    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(historical45))))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
+    expect(() => convertV49ToV48(convertV50ToV49(convertV51ToV50(currentSave as never)))).toThrow(LIVE_DOWNGRADE_REFUSAL)
+    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(convertV47ToV46(predecessorSave(reopened)))))))))))).toThrow(PHASE_HISTORY_PROJECTION)
+    expect(stableStringify(currentSave), 'the refused downgrades do not mutate the current input').toBe(currentSaveBytes)
   })
 })
 

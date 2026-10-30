@@ -1,3 +1,5 @@
+import { buyerScriptConcepts } from './continuedScripts.js'
+import { buyerOperatedProductions, buyerOperationsForAllWork, continuedReleaseOwner } from './continuedWork.js'
 // ── Studio Calendar & Capacity Board V1 ────────────────────────────────────
 // One deterministic, read-only projection over authoritative studio state.
 // This module creates no schedule, reservation, command, or second clock.
@@ -31,10 +33,11 @@ export type StudioCalendarDecisionView =
   | { kind: 'releaseReview'; productionId: string; title: string }
 
 export type StudioCalendarOccupantView = {
-  owner: 'production' | 'script' | 'casting'
+  /** P18 adds `television`: a live season's work-block hold, named like every other occupant. */
+  owner: 'production' | 'script' | 'casting' | 'television'
   ownerId: string
   title: string
-  activity: ProductionPhase | 'drafting' | 'rewriting' | 'auditioning'
+  activity: ProductionPhase | 'drafting' | 'rewriting' | 'auditioning' | import('./tvTypes.js').TvWorkBlock
 }
 
 export type StudioCalendarSlotView = {
@@ -277,7 +280,9 @@ function compareId(a: string, b: string): number {
 }
 
 function requireConceptTitle(state: GameState, conceptId: string, owner: string): string {
-  const concept = state.concepts.find((candidate) => candidate.id === conceptId)
+  // ASTRA Sprint 24: a continued picture's concept stays in the shared industry pool (its original studio's), read by id.
+  const concept = buyerScriptConcepts(state).find((candidate) => candidate.id === conceptId)
+    ?? state.hollywood?.concepts.find((candidate) => candidate.id === conceptId)
   if (concept === undefined) {
     throw new Error(`studioCalendar: ${owner} references unknown concept "${conceptId}"`)
   }
@@ -352,10 +357,12 @@ function facilityViews(state: GameState): StudioCalendarFacilityView[] {
   // workflow (Release Ready) contributes no claim, so these have to be asked of
   // the owners, not of the occupancy list.
   const productionTitles = new Map<string, string>()
-  for (const workflow of state.operations.workflows) {
-    const production = state.studio.activeProductions.find(
-      (candidate) => candidate.id === workflow.productionId,
-    )
+  // ASTRA Sprint 24: the occupancy union below also holds the pictures continued from an absorbed studio (their
+  // workflows ride the absorption record, their production records stay in that studio's book: continuedWork.ts), so
+  // the owner pass reads the same union, or the continued picture's reservation names an "unknown production".
+  const operated = buyerOperatedProductions(state)
+  for (const workflow of buyerOperationsForAllWork(state).workflows) {
+    const production = operated.find((candidate) => candidate.id === workflow.productionId)
     if (production === undefined) {
       throw new Error(`studioCalendar: workflow references unknown production "${workflow.productionId}"`)
     }
@@ -447,6 +454,20 @@ function facilityViews(state: GameState): StudioCalendarFacilityView[] {
           ownerId: held.ownerId,
           title: requireConceptTitle(state, project.conceptId, `casting session "${held.ownerId}"`),
           activity: 'auditioning',
+        })
+        break
+      }
+      // P18: a live television season's work-block hold reads as its series title and block.
+      case 'tvSeason': {
+        const season = state.television?.seasons.find((candidate) => candidate.seasonId === held.ownerId)
+        if (season === undefined) throw new Error(`studioCalendar: television reservation names unknown season "${held.ownerId}"`)
+        const series = state.television?.series.find((candidate) => candidate.seriesId === season.seriesId)
+        if (series === undefined) throw new Error(`studioCalendar: season "${held.ownerId}" names unknown series "${season.seriesId}"`)
+        claim(held.facilityId, held.slot, held.capability, {
+          owner: 'television',
+          ownerId: held.ownerId,
+          title: series.title,
+          activity: held.block,
         })
         break
       }
@@ -637,9 +658,7 @@ function productionBlocker(
   statusLabel: string
   blocker: StudioCalendarProductionBlockerView | null
 } {
-  const workflow = state.operations.workflows.find(
-    (candidate) => candidate.productionId === productionId,
-  )
+  const workflow = buyerOperationsForAllWork(state).workflows.find((candidate) => candidate.productionId === productionId)
   if (workflow === undefined) {
     throw new Error(`studioCalendar: managed production "${productionId}" has no workflow`)
   }
@@ -767,16 +786,20 @@ function productionBlocker(
 
 function productionViews(state: GameState): StudioCalendarProductionView[] {
   const currentWeek = state.market.tick
-  return [...state.studio.activeProductions]
+  // ASTRA Sprint 24: the outlook lists every picture the player operates, continued ones included.
+  const workflows = buyerOperationsForAllWork(state).workflows
+  return [...buyerOperatedProductions(state)]
     .sort((a, b) => compareId(a.id, b.id))
     .map((production): StudioCalendarProductionView => {
       const title = requireConceptTitle(state, production.conceptId, `production "${production.id}"`)
       // P06A (charter W1): an UNCOMMITTED Release Ready picture holds — the
       // calendar publishes NO week rather than a false one. A committed one
       // releases next week (the unchanged formula already says so).
+      // A continued picture's commitment is recorded in its original studio's release authority (continuedWork.ts).
+      const authority = continuedReleaseOwner(state, production.id)?.owner.releaseAuthority ?? state.releaseAuthority
       const heldUncommitted =
         production.remainingTicks === 1 &&
-        releaseCommitmentFor(state.releaseAuthority, production.id) === null
+        releaseCommitmentFor(authority, production.id) === null
       const conditionalReleaseWeek = heldUncommitted
         ? null
         : currentWeek + production.remainingTicks + (production.startTick >= currentWeek ? 1 : 0)
@@ -797,9 +820,7 @@ function productionViews(state: GameState): StudioCalendarProductionView[] {
             'Conditional on the original production countdown advancing without a hold.',
         }
       }
-      const workflow = state.operations.workflows.find(
-        (candidate) => candidate.productionId === production.id,
-      )
+      const workflow = workflows.find((candidate) => candidate.productionId === production.id)
       if (workflow === undefined) {
         throw new Error(`studioCalendar: managed production "${production.id}" has no workflow`)
       }

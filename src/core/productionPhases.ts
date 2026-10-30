@@ -44,6 +44,13 @@ const PHASE_BY_REMAINING_TICKS: Readonly<Partial<Record<number, ProductionPhase>
   1: 'releaseReady',
 })
 
+/** Current continued-work slice before the native first-take/technology-lock boundary.
+ * This is phase classification only: both producer and reader separately retain the
+ * actual no-Set/no-setup/silent-source gates and the same native workflow allocator. */
+export function isUnshotContinuationPhase(phase: ProductionPhase): boolean {
+  return phase === 'development' || phase === 'preProduction' || phase === 'rehearsal'
+}
+
 /**
  * What each phase must hold to be IN that phase. The exact-multiset law
  * (`operations.ts`) reads this as an equality, not a floor: a workflow holds

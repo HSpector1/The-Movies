@@ -654,7 +654,9 @@ function strictFirstFreeSlot(
           !hasExactOwnKeys(slot.occupant, OCCUPANT_KEYS) ||
           (slot.occupant.owner !== 'production' &&
             slot.occupant.owner !== 'script' &&
-            slot.occupant.owner !== 'casting') ||
+            slot.occupant.owner !== 'casting' &&
+            // P18: a live television season's hold (Core scriptCapacityView) is occupied capacity like any other.
+            slot.occupant.owner !== 'television') ||
           !isNonEmptyString(slot.occupant.ownerId) ||
           !isNonEmptyString(slot.occupant.activity) ||
           !isNonEmptyString(slot.occupant.title) ||

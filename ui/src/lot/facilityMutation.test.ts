@@ -567,3 +567,18 @@ describe('C1-M3b — a demolition leaves nothing dangling', () => {
     expect(builtPanel.primaryActions.map((a) => a.kind)).toEqual(['move', 'demolish'])
   })
 })
+
+// P18 Sprint 12: a live television season's hold says what it is, in its own words. The holder below is the exact
+// shape src/core/placement.ts facilityEngagements publishes for a season (kind `tvSeason`, activity `television <block>`);
+// the title is the series title the Studio Calendar resolves for that holder. Words only: no film phase is borrowed.
+describe('P18 — a television season holding a building', () => {
+  it('names the series and the season block, never a film phase', () => {
+    expect(facilityActivityLabel('television scripts')).toBe('writing a television season')
+    expect(facilityActivityLabel('television shooting')).toBe('shooting a television season')
+    expect(facilityActivityLabel('shooting a television season')).toBe('shooting a television season on its set')
+    expect(facilityMutationBlockedReason('Development & Casting Annex', {
+      code: 'facilityEngaged',
+      holders: [{ kind: 'tvSeason', holderId: 'tv-season-2', activity: 'television scripts', title: 'The Long Night' }],
+    })).toBe('Development & Casting Annex is reserved by The Long Night — writing a television season.')
+  })
+})

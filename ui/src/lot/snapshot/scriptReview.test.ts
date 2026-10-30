@@ -200,6 +200,21 @@ describe('current Lot screenplay review context', () => {
         remedy: expect.any(String),
       }),
     ])
+    // Parser-fixture control for the exact blocker the carried Review owner emits.
+    // It supplies presentation data only, not invented acquisition history.
+    const carriedBlocker = {
+      kind: 'carried-action' as const,
+      headline: 'Buyer rewrite unavailable',
+      detail: 'Another screenplay history requires a separate buyer work owner.',
+      remedy: 'Accept this draft or keep it in Review.',
+    }
+    const carriedBoard = boardFor(withoutWriterContract)
+    selectedCard(carriedBoard).blockers = [carriedBlocker]
+    mockBoard(carriedBoard)
+    expect(currentLotScriptReviewContext(withoutWriterContract)).toMatchObject({
+      blockers: [carriedBlocker],
+      legalActions: [expect.objectContaining({ kind: 'acceptScript' })],
+    })
   })
 
   it('requires an optional event target to be a closed exact ID/title pair', () => {
@@ -392,6 +407,10 @@ describe('current Lot screenplay review context', () => {
   it('rejects malformed assessment, optional fields, and blocker records', () => {
     const state = firstReviewState('lot-script-review-malformed')
     const mutations: Array<(board: ScriptProjectsReadModel) => void> = [
+      (board) => { selectedCard(board).blockers = [{
+        kind: 'unknown-carried-action' as never, headline: 'Unavailable',
+        detail: 'Unknown blocker kind', remedy: 'No authority',
+      }] },
       (board) => { selectedCard(board).dueWeek = 1 },
       (board) => { selectedCard(board).weeksUntilDecision = 0 },
       (board) => { selectedCard(board).productionId = '' },
@@ -492,6 +511,46 @@ describe('accepted Lot screenplay review successor proof', () => {
       })
       expect(label).toMatch(/first|final/)
     }
+  })
+
+  it('proves acceptance while a television season holds a Development & Casting slot (P18 FIX-3)', () => {
+    // Shortcut, disclosed: this founding route has no commissioned season, so the case appends Core's exact
+    // television occupant (src/core/scriptReadModel.ts scriptCapacityView: owner and activity 'television') as one
+    // extra slot on every board read. RED at c1ee6e11: the strict projection refused activity 'television' and the
+    // success was null, so StudioLotScreen fell back to the generic "Screenplay action completed".
+    const state = firstReviewState('lot-script-success-television')
+    const context = currentLotScriptReviewContext(state)!
+    const action = context.legalActions.find((candidate) => candidate.kind === 'acceptScript')!
+    const result = runScriptProjectAction(state, action)
+    if (!result.ok) throw new Error(result.error)
+    const real = adapter.scriptProjectsBoard
+    vi.spyOn(adapter, 'scriptProjectsBoard').mockImplementation((value) => {
+      const board = clone(real(value))
+      const facility = board.capacity.facilities[0]!
+      facility.slots.push({
+        slot: facility.capacity,
+        occupant: {
+          owner: 'television',
+          ownerId: 'tv-season-1',
+          activity: 'television',
+          title: 'Harbour Lights',
+          label: 'Television season — Harbour Lights',
+        },
+      })
+      facility.capacity += 1
+      facility.occupied += 1
+      board.capacity.capacity += 1
+      board.capacity.occupied += 1
+      return board
+    })
+
+    expect(acceptedLotScriptReviewSuccess(context, action, state, result.next)).toEqual({
+      kind: 'accepted',
+      projectId: context.projectId,
+      title: context.title,
+      writerName: context.writer.name,
+      statusLabel: 'Ready to package',
+    })
   })
 
   it('proves the exact writer, due week, facility, and slot for a final rewrite', () => {

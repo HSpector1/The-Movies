@@ -52,7 +52,11 @@ export function corporateNotices(state: GameState): CorporateNotice[] {
   const closure = closureRecordOf(state, studioId)
   if (closure !== undefined) {
     // 1362-O 5.2: paid, partially paid, unpaid and pending, each with its amount; nothing claimed settled that is not.
-    const claims = claimsOfClosure(state, closure.closureId)
+    const allClaims = claimsOfClosure(state, closure.closureId)
+    // closure/v2 (ASTRA Sprint 23): television refund and charge claims are counted apart from the employment claims.
+    const claims = allClaims.filter((c) => c.kind === 'employment')
+    const tv = allClaims.filter((c) => c.kind !== 'employment')
+    const tvNote = tv.length === 0 ? '' : ` ${plural(tv.length, 'television obligation')} (advance refund and cancellation charge) ${tv.length === 1 ? 'ranks' : 'rank'} behind them: ${tv.reduce((sum, c) => sum + c.paid, 0)} paid and ${tv.reduce((sum, c) => sum + c.unpaid, 0)} unpaid.`
     const full = claims.filter((c) => c.paid === c.original)
     const partial = claims.filter((c) => c.paid > 0 && c.paid < c.original)
     const unpaid = claims.filter((c) => c.paid === 0 && c.original > 0)
@@ -61,7 +65,7 @@ export function corporateNotices(state: GameState): CorporateNotice[] {
     const pending = closure.dispositions.filter((d) => d.status === 'pending').length
     const loan = closure.loan === null ? '' : ` The studio loan stopped at Week ${closure.loan.stopWeek} with ${closure.loan.paidInstallments} installments paid; its remainder of ${closure.loan.remainder} stays unpaid.`
     out.push({ id: 'corporate-closed', severity: 'critical', week: closure.closureWeek, remedies: [], closureWeek: closure.closureWeek,
-      message: `The studio closed in Week ${closure.closureWeek}. This world is read-only history. ${plural(claims.length, 'employment claim')}: ${full.length} paid in full, ${partial.length} partially paid, ${unpaid.length} unpaid; ${paidAmount} paid and ${unpaidAmount} unpaid. ${plural(pending, 'obligation')} ${pending === 1 ? 'remains' : 'remain'} pending in this saved world.${loan}`,
+      message: `The studio closed in Week ${closure.closureWeek}. This world is read-only history. ${plural(claims.length, 'employment claim')}: ${full.length} paid in full, ${partial.length} partially paid, ${unpaid.length} unpaid; ${paidAmount} paid and ${unpaidAmount} unpaid.${tvNote} ${plural(pending, 'obligation')} ${pending === 1 ? 'remains' : 'remain'} pending in this saved world.${loan}`,
     })
     return out
   }

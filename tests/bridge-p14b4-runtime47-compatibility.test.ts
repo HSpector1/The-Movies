@@ -33,7 +33,7 @@ function withZeroLoanMovements<T extends { hollywood: { businesses: readonly { a
   if (state.hollywood === null) return state
   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
     ...business, account: { ...business.account, periods: business.account.periods.map((period) => ({
-      ...period, movements: { ...period.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) },
+      ...period, movements: { ...period.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0, estateSaleProceeds: 0 } })) },
   })) } }
 }
 function withRivalTermination<T extends OldV29State>(state: T): T {
@@ -63,6 +63,23 @@ const OUTGOING_55 = 'sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb
 const OUTGOING_56 = 'sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1' // relationship slice B: outgoing56, the manifest schemaId before projection 57
 // Actual shipped outgoing57 is preserved alongside the historic identities.
 const OUTGOING_57 = 'sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253'
+// P16 (candidate current200): the outgoing identities 58-61 bridge/runtime-checkpoint.ts registers beneath current62.
+// 58 is main's shipped manifest at 8792de52; 59 the F40 manifest bridge-contract-generator.test.ts pins; 61 the
+// candidate's generated C# header (PATCH.diff d59d331b). 60 has no generated header in this repository: the
+// candidate's registry is its only record (audit: "decide identities 59-61").
+const OUTGOING_58 = 'sha256:13b7933fdd1e3dc9851dd08630e46efd43e70227f5e0c6f6cf130d885752ab74'
+const OUTGOING_59 = 'sha256:6347433150a8ed3988573840bfa22621d5f5aa35b3d053b25ff5e6700ad02dcd'
+const OUTGOING_60 = 'sha256:8bf350135c7a8b69b4fc2258d1082f452047d37964d0d58b6cc8ceefc87153e4'
+const OUTGOING_61 = 'sha256:7d23fdb9a710175afb88208170cfe5692510febe06fb898a3ccd95edc9c53306'
+const OUTGOING_62 = 'sha256:2b94e6df66cd5b45e398861c8130085434d4bb9c4d0cf9bdcb97607699799604' // P16 Sprint 7: outgoing62 registered beneath 63 (bridge/runtime-checkpoint.ts)
+const OUTGOING_63 = 'sha256:23a3092f1aadae0a5796fcfab93af36fe5551260685cdc2df128a93e670e24c1' // P16 Sprint 8: outgoing63 registered beneath current64 (contract64)
+const OUTGOING_64 = 'sha256:57f12ee28d21aa47c7514afa1c058105a10f10a9e76d400d664e97c23dc90272' // Sprint 11: the P16 build's outgoing64 registered beneath current65 (review S1)
+const OUTGOING_65 = 'sha256:d57642ad971a0682ae587c8d9c73fdf8b251f28749dd156e53a5c8487b4e6df8' // Sprint 11 slice B: outgoing65 registered beneath current66
+const OUTGOING_66 = 'sha256:589380869e1329a8027b8339b88646761ce6d791376df5fd793e77ae9dd3b96a' // P18 Sprint 12: outgoing66 (the P17 checkpoint's identity) registered beneath current67
+const OUTGOING_67 = 'sha256:8bd45eec049c6105ed2efee3899cfbb2a440c1b40f536a899b332ffbde3003f0' // P18 Sprint 13 slice B: outgoing67 (the Sprint 12 checkpoint's identity) registered beneath current68
+const OUTGOING_68 = 'sha256:b91efc9c632b2503a0f5ca0f33a243164e97775b2c13f566746ba004d7835851' // Projection69 (playtest-response slice): outgoing68 (the b3c179b0 snapshot's identity) registered beneath current69
+const OUTGOING_69 = 'sha256:6cdb8065eedbfe81d794f6e0a17db71570729ac5701f688ea033b2175bfe4a5a' // Projection70 (ASTRA Sprint 20): outgoing69 (the edb1cee4 snapshot's identity, tag p18-sprint19-checkpoint-20261029) registered beneath current70
+const OUTGOING_70 = 'sha256:aaafd0bdf597d3538acc5cb77568dd38de43dd50c7f052767ee40bb8e16ea448' // Projection71 (ASTRA Sprint 27): outgoing70 (the 6ddeeb00 snapshot's identity, tag p18-sprint26-candidate-20261030) registered beneath current71
 const PINS = {
   gzip: '3db0599c6e183140b79c83880eb967dde37aecc0d178a85d192283893ea0cc34',
   raw: 'e344be06db6794e9d1523c036befb4180595564ef8a3fb6e6062328e477e7699',
@@ -156,7 +173,7 @@ beforeAll(() => {
   expect(canonicalJson(prior) + '\n').toBe(raw)
 })
 
-describe('P14B4 genuine outgoing46 runtime compatibility — current Save39/projection54', () => {
+describe('P14B4 genuine outgoing46 runtime compatibility — current Save51/projection69', () => {
   it('pins genuine original46 artifact, producer authority, and two SAME-week DIFFERENT slots', () => {
     const provenance = JSON.parse(readFileSync(artifact('genuine-projection46-runtime.provenance.json'), 'utf8'))
     const manifest = JSON.parse(readFileSync(artifact('MANIFEST.json'), 'utf8'))
@@ -216,13 +233,13 @@ describe('P14B4 genuine outgoing46 runtime compatibility — current Save39/proj
     expect(current.state.talentMarket.proposals.filter((p) => p.promises.includes('promise-0'))).toEqual([])
   })
 
-  it('requires literal projection54/Save39 and exact 42 prior IDs, excluding the running identity', () => {
+  it('requires literal projection69/Save51 and the exact prior roster through outgoing68, excluding the running identity', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(58)
+    expect(PROJECTION_VERSION).toBe(71)
     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
     expect(SCHEMA_ID).not.toBe(OUTGOING_46)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_PRIOR_IDS, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_PRIOR_IDS, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61, OUTGOING_62, OUTGOING_63, OUTGOING_64, OUTGOING_65, OUTGOING_66, OUTGOING_67, OUTGOING_68, OUTGOING_69, OUTGOING_70].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_53)).toBe('projection-v53')

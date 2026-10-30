@@ -258,14 +258,14 @@ export function compactStudioEvents(log: StudioEventLog, week: number): StudioEv
  * out. Queue rows never carry a production id by construction, so there is
  * nothing to walk on the Tier-W side.
  */
-export function studioEventProductionIds(log: StudioEventLog | undefined): string[] {
+export function studioEventProductionIds(log: StudioEventLog | undefined, operatedReleaseWeeks?: ReadonlyMap<string, number>, operatedWrapWeeks?: ReadonlyMap<string, number>): string[] {
   const ids: string[] = []
   // `undefined` is a legitimate input, not a defect: `persistedProductionIds`
   // runs inside invariants the save validators apply to FROZEN pre-V14
   // fragments, and a state that predates this root reserves no identities.
   for (const row of log?.rows ?? []) {
-    if (row.kind === 'wrapped') ids.push(row.productionId)
-    else if (row.kind === 'premiere') ids.push(row.filmId)
+    if (row.kind === 'wrapped' && !(operatedWrapWeeks?.has(row.productionId) === true && operatedWrapWeeks.get(row.productionId) === row.week)) ids.push(row.productionId)
+    else if (row.kind === 'premiere' && !(operatedReleaseWeeks?.has(row.filmId) === true && operatedReleaseWeeks.get(row.filmId) === row.week)) ids.push(row.filmId)
   }
   return ids
 }

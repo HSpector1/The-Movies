@@ -63,7 +63,9 @@ export type RivalResearchMoneyKind = 'researchSpend' | 'researchCapacity' | 'tec
 export type RivalLoanMoneyKind = 'loanPrincipal' | 'loanInstallment' | 'claimPayment'
 export type RivalMoneyKind = 'capacity' | 'signing' | 'payroll' | 'overhead' | 'facilityOpex'
   | 'development' | 'production' | 'marketing' | 'studioRevenue' | 'technologyAdoption'
-  | RivalResearchMoneyKind | 'termination' | 'facilityDemolitionRefund' | RivalLoanMoneyKind
+  | RivalResearchMoneyKind | 'termination' | 'facilityDemolitionRefund' | RivalLoanMoneyKind | P16RivalMoneyKind
+export type P16RivalMoneyKind = 'rightsConsideration' | 'dueDiligenceFee' | 'acquisitionOutlay' | 'estateSaleProceeds'
+export const P16_RIVAL_MONEY_KINDS: readonly P16RivalMoneyKind[] = ['rightsConsideration', 'dueDiligenceFee', 'acquisitionOutlay', 'estateSaleProceeds']
 export type RivalFinancePeriod = {
   fromWeek: number
   throughWeek: number
@@ -82,7 +84,7 @@ export type IndustryEmployment = {
   studioId: string
   terms: Contract
   endedWeek: number | null
-  reason: 'entry' | 'renewal' | 'replacement' | 'player-contract' | 'existing-player-contract'
+  reason: 'entry' | 'renewal' | 'replacement' | 'player-contract' | 'existing-player-contract' | 'absorptionContinuation'
 }
 export type RivalProjectCosts = {
   scriptProjectId: string
@@ -131,7 +133,7 @@ export type IndustryReceipt = { eventId: string; week: number; studioId: string 
   | { kind: 'employment'; talentId: string; fromStudioId: string | null; toStudioId: string | null;
       contractId: string; reason: 'entry' | 'renewal' | 'replacement' | 'expiry' | 'termination' | 'player-contract' | 'existing-player-contract'
       // P15B Wave 4 (closure/v1 §3): the studio's actual closure ended this interval at its closure week.
-      | 'closure' }
+      | 'closure' | 'absorptionExit' | 'absorptionContinuation' }
   | { kind: 'filmAnnounced'; productionId: string; conceptId: string }
   | { kind: 'filmReleased'; productionId: string; conceptId: string; before: Standing; after: Standing }
   | { kind: 'filmSettled'; productionId: string }

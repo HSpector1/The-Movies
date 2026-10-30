@@ -40,6 +40,7 @@
 // This module is pure data + total functions: no RNG, no clock, no I/O.
 
 import { clamp } from './math.js'
+import { tvSeasonHoldingSet } from './tvReaders.js'
 import {
   facilitySlotKey,
   occupiedResourceSlots,
@@ -258,6 +259,8 @@ export type SetRepairRefusal =
   | { code: 'notStanding'; setId: string }
   | { code: 'alreadyWhole'; setId: string }
   | { code: 'setInUse'; setId: string; productionId: string }
+  /** P18: a live television season stands on the set (it holds the stage the set is mounted on). */
+  | { code: 'setHeldByTelevision'; setId: string; seasonId: string }
   | { code: 'noSceneryCapacity' }
   | { code: 'insufficientFunds'; cost: number; cash: number }
 
@@ -266,6 +269,8 @@ export type SetStrikeRefusal =
   | { code: 'unknownSet'; setId: string }
   | { code: 'alreadyRetired'; setId: string }
   | { code: 'setInUse'; setId: string; productionId: string }
+  /** P18: a live television season stands on the set (it holds the stage the set is mounted on). */
+  | { code: 'setHeldByTelevision'; setId: string; seasonId: string }
 
 /** One refusal, said twice: what happened, and what to do about it. */
 export type SetRefusalCopy = { reason: string; remedy: string }
@@ -345,6 +350,11 @@ export function setRepairRefusalCopy(
         reason: `${name} is being filmed on.`,
         remedy: 'Wait for the picture to wrap, then order the repair.',
       }
+    case 'setHeldByTelevision':
+      return {
+        reason: `${name} is held by television season "${refusal.seasonId}".`,
+        remedy: 'Wait for the season to finish shooting, then order the repair.',
+      }
     case 'noSceneryCapacity':
       return {
         reason: 'Every scenery crew is already working.',
@@ -378,6 +388,11 @@ export function setStrikeRefusalCopy(
       return {
         reason: `${name} is being filmed on.`,
         remedy: 'Wait for the picture to wrap, then strike the set.',
+      }
+    case 'setHeldByTelevision':
+      return {
+        reason: `${name} is held by television season "${refusal.seasonId}".`,
+        remedy: 'Wait for the season to finish shooting, then strike the set.',
       }
   }
 }
@@ -531,6 +546,9 @@ export function repairSetRefusal(
   if (set.condition >= TUNING.SET_CONDITION_INITIAL) return { code: 'alreadyWhole', setId: id }
   const holder = productionBoundToSet(state, id)
   if (holder !== null) return { code: 'setInUse', setId: id, productionId: holder }
+  // P18: a television season standing on the set holds it exactly as a picture does.
+  const season = tvSeasonHoldingSet(state.television, id)
+  if (season !== null) return { code: 'setHeldByTelevision', setId: id, seasonId: season }
   if (!hasFreeSceneryCapacity(state)) return { code: 'noSceneryCapacity' }
   if (!affordable(TUNING.SET_REPAIR_COST)) {
     return { code: 'insufficientFunds', cost: TUNING.SET_REPAIR_COST, cash: state.studio.cash }
@@ -586,6 +604,9 @@ export function strikeSetRefusal(state: GameState, id: string): SetStrikeRefusal
   if (set.status === 'retired') return { code: 'alreadyRetired', setId: id }
   const holder = productionBoundToSet(state, id)
   if (holder !== null) return { code: 'setInUse', setId: id, productionId: holder }
+  // P18: a television season standing on the set holds it exactly as a picture does.
+  const season = tvSeasonHoldingSet(state.television, id)
+  if (season !== null) return { code: 'setHeldByTelevision', setId: id, seasonId: season }
   return null
 }
 

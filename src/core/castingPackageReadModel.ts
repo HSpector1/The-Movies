@@ -1,3 +1,4 @@
+import { buyerScriptConcepts } from './continuedScripts.js'
 // ── Casting Package V1 — the role-first package-assembly projection ─────────
 // Pure projection over GameState for a Ready screenplay's package assembly: one
 // candidate pool per role (director / lead / antagonist / support / craftLead),
@@ -49,6 +50,7 @@ import { requiredNegative } from './filmPackage.js'
 import { NEGATIVE_BUDGET_MULTIPLIERS } from './grid.js'
 import { marketingLevelsFor } from './marketingMenu.js'
 import { castingSessionForProject } from './castingSessions.js'
+import { reservedGuestWeeks } from './cameo.js'
 import { activeScriptWriterAssignments } from './scriptDevelopment.js'
 import { resolveShape } from './shape.js'
 import {
@@ -215,6 +217,7 @@ const SCRIPT_BLOCKER_ROLE: Record<ScriptPlayerBlockerKind, PackageBlockerView['r
   'package-staffing': 'project',
   'casting-session': 'screenTest',
   'greenlight-queued': 'project',
+  'carried-action': 'project',
   'no-concepts': 'project',
   'no-writers': 'project',
 }
@@ -224,7 +227,7 @@ function compareId(a: string, b: string): number {
 }
 
 function requireConcept(state: GameState, conceptId: string): FilmConcept {
-  const concept = state.concepts.find((candidate) => candidate.id === conceptId)
+  const concept = buyerScriptConcepts(state).find((candidate) => candidate.id === conceptId)
   if (concept === undefined) {
     throw new Error(`castingPackageReadModel: unknown concept "${conceptId}"`)
   }
@@ -266,6 +269,11 @@ function poolAvailability(
   if (busyTalentIds(state).has(talentId)) {
     return { available: false, label: 'Currently assigned to another production or screenplay' }
   }
+  // P17 Shape A: a seat holds through release, so a reserved guest week refuses it (the greenlight's own law).
+  const reserved = reservedGuestWeeks(state.cameos, talentId)
+  if (reserved.length > 0) {
+    return { available: false, label: `Reserved for a guest appearance in week ${reserved.join(', ')}` }
+  }
   if (isContracted(state, talentId)) {
     return { available: true, label: 'Studio-contracted and currently available' }
   }
@@ -294,7 +302,7 @@ function currentWorkLabel(state: GameState, talentId: string): string | null {
       p.craftIds.includes(talentId),
   )
   if (production !== undefined) {
-    const concept = state.concepts.find((c) => c.id === production.conceptId)
+    const concept = buyerScriptConcepts(state).find((c) => c.id === production.conceptId)
     return concept === undefined ? 'Working on an active production' : `Working on ${concept.title}`
   }
   const writing = activeScriptWriterAssignments(state.scriptDevelopment, state.concepts).find(
@@ -611,6 +619,9 @@ export function hiringMarketView(state: GameState): HiringCandidateView[] {
   return hiringMarketIds(state).map((talentId) => {
     const talent = requireTalent(state, talentId)
     const discipline = ROLE_TO_DISCIPLINE[talent.role]
+    // P17 Shape A (cameo contract §4 "disclose it to the new employer"): a freelancer's reserved guest weeks.
+    const reserved = reservedGuestWeeks(state.cameos, talentId)
+    const reservedNote = reserved.length === 0 ? '' : ` — reserved for a guest appearance in week ${reserved.join(', ')} (the booking survives a new contract)`
     return {
       talentId,
       name: talent.name,
@@ -620,9 +631,9 @@ export function hiringMarketView(state: GameState): HiringCandidateView[] {
       starPower: talent.fame,
       genreExperienceLabel: `Work history: ${workHistoryCount(talent, discipline)} picture(s)`,
       kind: freeAgents.has(talentId) ? 'free-agent' : 'hiring-market',
-      availabilityLabel: freeAgents.has(talentId)
+      availabilityLabel: (freeAgents.has(talentId)
         ? 'Free agent — immediately signable'
-        : 'In the hiring market — requires a contract before casting',
+        : 'In the hiring market — requires a contract before casting') + reservedNote,
       offers: playerOfferOptions(state, talentId).map(contractOfferView),
     }
   })

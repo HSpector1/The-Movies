@@ -2,7 +2,7 @@
 import { assignmentRefusal } from './careerLifecycle.js'
 import { activeContract } from './employment.js'
 import { occupiedResourceSlots, resourceClaimsOf } from './occupancy.js'
-import { closedWeekOf } from './operatingState.js'
+import { terminalWeekOf } from './operatingState.js'
 import { productionCompanyTalentIds } from './productionPeople.js'
 import { scriptProjectWriterIds } from './scriptDevelopment.js'
 import { takeSubjectOwner } from './firstTakeSubjects.js'
@@ -10,6 +10,8 @@ import { GENRE_ORDER } from './tuning.js'
 import { shelvedScriptIds } from './hollywoodTypes.js'
 import type { PromiseDraft, PromisePredicate } from './promises.js'
 import type { CastSlot, FirstTakeSubject, GameState, OpportunityPredicate, Production, ProfessionalPromise, PromiseClassification, ScriptProject } from './types.js'
+// Last, so the module graph's evaluation order is unchanged (careerLifecycle already reaches continuedWork).
+import { buyerOperatedProductions } from './continuedWork.js'
 
 export const OPPORTUNITY_PROMISE_RULES_VERSION = 7
 export const isOpportunityPredicate = (predicate: PromisePredicate): predicate is OpportunityPredicate =>
@@ -59,8 +61,10 @@ export function opportunityReservations(state: GameState, draft: PromiseDraft, f
 
 function owners(state: GameState) {
   // A closed business's retained work is frozen history and occupies nobody (closure/v1 §3; L-05).
-  const closed = closedWeekOf(state)
-  return [{ studioId: state.hollywood?.playerStudioId ?? '', productions: state.studio.activeProductions, development: state.scriptDevelopment },
+  // P16 rebase (audit C-01, the busy set's live-work rule): so is an absorbed business's work, except the
+  // buyer-continued productions, which occupy their people as the buyer's (`buyerOperatedProductions`).
+  const closed = terminalWeekOf(state)
+  return [{ studioId: state.hollywood?.playerStudioId ?? '', productions: buyerOperatedProductions(state), development: state.scriptDevelopment },
     ...(state.hollywood?.businesses.filter(row => !closed.has(row.studioId)).map(row => ({ studioId: row.studioId, productions: row.productions, development: row.development })) ?? [])]
 }
 const earliestTake = (p: Production, week: number): number => week + Math.max(1, p.remainingTicks - 4) + (p.startTick >= week ? 1 : 0)

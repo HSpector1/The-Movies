@@ -8,7 +8,9 @@
 // closes prospectively at the first closure phase of a surface that presents it (contract §2, review T16).
 import { describe, expect, it } from 'vitest'
 import { genuineV42Week130 } from './p14d1-rival-shelving-fixtures.js'
-import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV45 } from '../src/core/save.js'
+import { convertV49ToV48, convertV50ToV49, convertV51ToV50, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV45 } from '../src/core/save.js'
+import { validateLiveSave } from './helpers/live-era.js'
+import { ESTATE_OBSERVATION_REFUSAL } from './helpers/p16-era.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
 import { tick } from '../src/core/tick.js'
@@ -17,11 +19,6 @@ import { BASE_WEEK, canon, claimsOf, closureOf, closureRoot, eventsOf, PLAYER, P
 type Save = { saveVersion: number; state: Record<string, unknown> }
 type Mod = Record<string, unknown>
 async function saveModule(): Promise<Mod> { return (await import('../src/core/save.js')) as unknown as Mod }
-function step<T>(mod: Mod, name: string): T {
-  const value = mod[name]
-  if (typeof value !== 'function') throw new Error(`RED: src/core/save.ts exports no function '${name}'`)
-  return value as T
-}
 const clone = <T>(value: T): T => JSON.parse(JSON.stringify(value)) as T
 const C = R04_CLOSURE_WEEK
 const D = C + TUNING.CLOSURE_ESTATE_WINDOW_WEEKS
@@ -55,18 +52,24 @@ describe('p15b4 closure save step: migration and downgrade (closure/v1 §5)', ()
 
   it('closure-root-downgrade-refusals', async () => {
     const mod = await saveModule()
-    const convertFromStep = step<(save: unknown) => unknown>(mod, 'convertFromP15BSave')
     const closed = makeSave(closedAt(C))
-    refuses(() => convertFromStep(closed), 'closure')
-    refuses(() => migrateToV45(closed), 'closure')
-    // The frozen builders refuse the same state by name: a closed studio is history no older era can carry.
-    refuses(() => (mod.migrateToV44 as (save: unknown) => unknown)(closed), 'closure')
+    // P16: the live step (migrateToV48) refuses first, at every older reader, naming the estate the closure opened
+    // in its closure week. ACCEPTANCE OPEN (P16 rebase rounds 4-5): the P15B step's own 'cannot downgrade or discard an
+    // actual studio closure' (and its claim and estate-event reasons). The obstacle: tick.ts:1254 calls
+    // advanceRightsWeek on every tick and rightsTick.ts:23 throws for an industry with no rights root, so no Save48
+    // state can be advanced to a closure; a rights-era closure opens a closure49 estate (studioClosure.ts `openEstate`
+    // when the state has `rights`), a rights instrument no Save48 envelope carries. The reason strings themselves are
+    // pinned in p15b2-corporate-condition-save (strings, not the step).
+    expect((raw(closedAt(C)).rights as { estates: { origin: { kind: string } }[] }).estates.map((e) => e.origin.kind), 'premise: the closure opened its estate').toContain('closure49')
+    expect(() => convertV49ToV48(convertV50ToV49(convertV51ToV50(closed)))).toThrow(ESTATE_OBSERVATION_REFUSAL)
+    expect(() => migrateToV45(closed)).toThrow(ESTATE_OBSERVATION_REFUSAL)
+    expect(() => (mod.migrateToV44 as (save: unknown) => unknown)(closed)).toThrow(ESTATE_OBSERVATION_REFUSAL)
   })
 })
 
 describe('p15b4 closure save step: the root validator (closure/v1 §5; contract RED 1, 3, 4, 8)', () => {
   it('closure-validate-record-identity-and-phase', async () => {
-    const validateSaveP15B = step<(save: unknown) => Save>(await saveModule(), 'validateSaveP15B')
+    const validateSaveP15B = validateLiveSave as unknown as (save: unknown) => Save // the live reader (Save49; its predecessor proof runs the closure root)
     expect(() => validateSaveP15B(makeSave(closedAt(C + 3)))).not.toThrow()
     const cases: [string, (s: Record<string, unknown>) => void][] = [
       // A forged closure week moves the era's charge boundary, so the frozen chain refuses first on the
@@ -90,7 +93,7 @@ describe('p15b4 closure save step: the root validator (closure/v1 §5; contract 
   })
 
   it('closure-validate-dispositions-complete-and-digest', async () => {
-    const validateSaveP15B = step<(save: unknown) => Save>(await saveModule(), 'validateSaveP15B')
+    const validateSaveP15B = validateLiveSave as unknown as (save: unknown) => Save // the live reader (Save49; its predecessor proof runs the closure root)
     const closureDigest = (await import('../src/core/studioClosure.js') as unknown as { closureDigest: (id: string, rows: unknown[]) => string }).closureDigest
     const redigest = (s: Record<string, unknown>) => { const r = record(s); r.digest = closureDigest(r.closureId as string, r.dispositions); const counts: Record<string, number> = {}; for (const d of r.dispositions) counts[d.subjectKind as string] = (counts[d.subjectKind as string] ?? 0) + 1; r.counts = counts }
     const cases: [string, (s: Record<string, unknown>) => void][] = [
@@ -111,7 +114,7 @@ describe('p15b4 closure save step: the root validator (closure/v1 §5; contract 
   })
 
   it('closure-validate-claims-loan-and-estate', async () => {
-    const validateSaveP15B = step<(save: unknown) => Save>(await saveModule(), 'validateSaveP15B')
+    const validateSaveP15B = validateLiveSave as unknown as (save: unknown) => Save // the live reader (Save49; its predecessor proof runs the closure root)
     const cases: [string, (s: Record<string, unknown>) => void][] = [
       ['claim', (s) => { (root(s).claims[0]! as { original: number }).original += 1 }],
       ['claim', (s) => { const c = root(s).claims[0]! as { paid: number; unpaid: number }; c.paid += 1; c.unpaid -= 1 }],
@@ -142,7 +145,7 @@ describe('p15b4 closure save step: the root validator (closure/v1 §5; contract 
   })
 
   it('closure-validate-terminal-business', async () => {
-    const validateSaveP15B = step<(save: unknown) => Save>(await saveModule(), 'validateSaveP15B')
+    const validateSaveP15B = validateLiveSave as unknown as (save: unknown) => Save // the live reader (Save49; its predecessor proof runs the closure root)
     // A charge after C, a forged installment after the stop, a `closure` receipt at the wrong week, an interval
     // left open, and a forged payment movement each refuse through the frozen chain or the closure validator.
     const periodAt = (s: Record<string, unknown>, week: number) => business(s).account.periods.find((p) => (p as unknown as { fromWeek: number; throughWeek: number }).fromWeek <= week && week <= (p as unknown as { throughWeek: number }).throughWeek)!

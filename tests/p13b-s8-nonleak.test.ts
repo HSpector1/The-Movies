@@ -7,7 +7,7 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 import { performance } from 'node:perf_hooks'
 import { accepted45 } from './helpers/1368-recovery-witnesses.js'
-import { makeSave, stableStringify, validateSaveV48 } from '../src/core/save.js'
+import { makeSave, stableStringify, validateSaveV51 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { researchWeekQuote, studioContext } from '../src/core/technology.js'
 import { technologyEntry } from '../src/core/technologyCatalogue.js'
@@ -32,7 +32,7 @@ function business(state: GameState) {
 function admit(state: GameState) {
   const before = bytes(state)
   const saved = makeSave(state)
-  expect(validateSaveV48(saved)).toBe(saved)
+  expect(validateSaveV51(saved)).toBe(saved)
   expect(bytes(state)).toBe(before)
 }
 function normalized(state: GameState) {

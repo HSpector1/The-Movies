@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest'
 import { extensionIssuer, retirementRecordFor } from '../src/core/careerLifecycle.js'
 import { activeContract } from '../src/core/employment.js'
 import { professionAtWeek } from '../src/core/index.js'
-import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV44, stableStringify, validateSaveV48 } from '../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToLive, migrateToV44, stableStringify, validateSaveV51 } from '../src/core/save.js'
 import { marketEligibility, openMarketCaseFor, playerOffer, submitProposal } from '../src/core/talentMarket.js'
 import { careerIdentity } from '../src/core/talentSummary.js'
 import { TUNING } from '../src/core/tuning.js'
@@ -14,6 +14,7 @@ import { FOCUS, person } from './helpers/p14c3-fixtures.js'
 import { actorSettlement, actorWindow, changedAndHired, destinationSettlement, destinationWindow, DUAL_TARGETS,
   dualOrigin, dualTerminal, extensionCase, observeWindow, offerExtension, preserveOriginalEvidence } from './helpers/p14c3-dual-extension-fixtures.js'
 import { accepted } from './helpers/p14c3-second-episode-fixtures.js'
+import { RIGHTS_ROOT_REFUSAL } from './helpers/p16-era.js'
 
 
 function windowRefusals(state: GameState, id: string, opened: number, decision: number): void {
@@ -179,17 +180,19 @@ describe.each(DUAL_TARGETS)('C.3 actor→%s two genuine profession extensions', 
     // Own-era romance remains in p14b10-save-v44.test.ts; V39 remains in
     // p13b-s3-save-v23.test.ts; shelving remains in p14d1-rival-shelving-save-v43.test.ts.
     const savedBytes = stableStringify(saved)
-    expect(validateSaveV48(saved)).toBe(saved)
+    expect(validateSaveV51(saved)).toBe(saved)
     expect(stableStringify(saved)).toBe(savedBytes)
     expect(saved.state.hollywood!.businesses.some(b => b.costCutting.since !== null)).toBe(true)
     expect(saved.state.hollywood!.businesses.every(b => b.account.periods.every(p => p.movements.facilityDemolitionRefund === 0))).toBe(true)
     expect(saved.state.hollywood!.receipts.some(r => r.kind === 'facilityDisposed')).toBe(false)
     // P15B (1370-ar, MASKED): this route's rivals borrow under 1357-A §6.2, so no predecessor envelope can carry the
-    // state (the test helper refuses by name); the live save's own P15B refusal is the pin, and it appends R8's
-    // recovery reason rather than masking it.
-    expect(() => migrateToV44(saved as never)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record.*; cannot downgrade or discard recovery authority: costCutting\\.since(; |$)`))
+    // state (the test helper refuses by name). P16 rebase: the live Save49 step now refuses first, naming the recorded
+    // rights root. This world's P15B composed refusal (condition record, then R8's recovery reason) is unasserted: its
+    // rivals' loans carry the Save49 phase table 3, so it has no Save48 envelope. The same composition law is asserted
+    // on the week-133 Save48 control in p15b2-corporate-condition-save and p15a2-power-ranking-archive.
+    expect(() => migrateToV44(saved as never)).toThrow(RIGHTS_ROOT_REFUSAL)
     expect(stableStringify(saved)).toBe(savedBytes)
-    expect(validateSaveV48(saved)).toBe(saved)
+    expect(validateSaveV51(saved)).toBe(saved)
     expect(stableStringify(saved)).toBe(savedBytes)
     accepted(loaded)
   })

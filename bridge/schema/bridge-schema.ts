@@ -16,7 +16,7 @@ import {
 } from './dsl.ts'
 import {StudioBridgeIntentOption} from './intent-schema.ts'
 export {AVAILABLE_INTENT_KINDS} from './intent-schema.ts'
-import {industryDefinitions,StudioIndustryProjection} from './industry-schema.ts'
+import {industryDefinitions,StudioIndustryProjection,StudioRightSubject,StudioRightsInstrument,StudioRightsSubjectLicence,StudioTelevisionCancellation,StudioTelevisionSettlement} from './industry-schema.ts'
 
 export const PROTOCOL_VERSION = 4 as const
 // P05A W2: the closed Production projection (fourteen operational states,
@@ -284,7 +284,43 @@ export const PROTOCOL_VERSION = 4 as const
 // `labels` (HIS-014 Mentor, Professional Rivals) and `romance` (D-1312-2). The outgoing56
 // identity is registered as a prior schema before this Save44 runtime boundary.
 // Projection58: chosen loan quote and archive-owned Power Ranking; protocol4/Save48 unchanged.
-export const PROJECTION_VERSION = 58 as const
+// Projection59: separate F40 finance categories and own retained estate accounting. Protocol4 is unchanged.
+// Projection60: actual absorbed Ranking definition and retained employment continuation reason.
+// Projection62: explicit stopped-drafting/rewriting outcomes in the coupled absorption preview.
+// Projection63: carried-screenplay blocker and retained-writing absorption verdicts.
+// Projection64: truthful retained/exit/unbound promise and market disposition facts in the absorption quote.
+// Projection65 (P17 Save50): the read-only `franchises` Industry view (lineages, Recognition/Momentum/Fatigue, reboot
+// legality, lawful continuation choices) and the outgoing64 identity registered prior, so a checkpoint the P16 build
+// wrote with Save49 slots under the unchanged 64 schema lifts to Save50 on the governed prior path. Protocol4 is unchanged.
+// Projection66 (P17 Sprint 11 slice B): the greenlight package carries the core's optional `continuation` request and
+// featured-guest `cameos` requests (both OPTIONAL draft members, so every earlier draft stays valid); the casting quote
+// publishes the continuation terms (the parent right, its licence and expiry) and each guest's booking terms; the
+// `cancelFeaturedBooking` intent; the `featuredAppearances` Industry view; release outcomes and credited guests on the
+// franchise view. The outgoing65 identity is registered prior. Protocol4 and Save50 are unchanged.
+// Projection67 (P18 Sprint 12): P18 makes Save51 live (the lazy `television` root), so a checkpoint the
+// P17 build wrote under the unchanged 66 schema carries Save50 slots the current-schema path refuses as non-live. The
+// outgoing66 identity is registered prior, and each slot lifts Save50 -> Save51 on the governed prior path. The
+// development capacity occupant gains `television` (owner and activity), so a slot a season holds never reads as free.
+// Protocol4 is unchanged.
+// Projection68 (P18 Sprint 13 slice B): the season on the wire. The `quoteTvCommission` quote family returns the core's
+// commission preview (refusal by name, or the admission quote and the frozen terms) and mints the `commissionTvSeason`
+// commit; the `cancelTvSeason` and `settleTvObligations` intents map to the core actions; the read-only `television`
+// Industry view lists the player's series and seasons. The outgoing67 identity is registered prior. Protocol4 and Save51
+// are unchanged, so a projection-67 checkpoint's slots are already live and its prior lift is identity.
+// Projection69 (playtest-response slice, Owner decision 7c): the television cancellation cause gains the tick's automatic
+// `rights` and `participant` cancellations on authority loss (contract §4, §7). The outgoing68 identity is registered
+// prior from its genuine capture (b3c179b0). Protocol4 and Save51 are unchanged, so the prior lift is identity.
+// Projection70 (ASTRA Sprint 20, Owner decision E): StudioBridgeIntentOption gains `confirmation` (none | required). The
+// outgoing69 identity is registered prior from its genuine capture (edb1cee4). Protocol4 and Save51 are unchanged.
+// Projection71 (ASTRA Sprint 27): the Rights desk and the estates on the wire. The `quoteEstateBid` family returns the
+// core's bid law (refusal by name, or the reservation the sealed bid takes) and mints the `submitEstateBid` commit; the
+// `quoteRightsOffer` family returns the core's offer or close law, the rival's willingness and the decision B season
+// consequence (src/core/rightsDesk.ts titleSaleOutcome, digest-bound to the commit) and mints `makeRightsOffer` or the
+// disclosed `acceptRightsOffer`; the `rejectRightsOffer`, `withdrawRightsOffer` and one-gesture purchase `acceptRightsOffer`
+// intents map to the core actions; the read-only `rights` and `estates` Industry views list the player's desk. The
+// outgoing70 identity (6ddeeb00, tag p18-sprint26-candidate-20261030) is registered prior. Protocol4 and Save51 are
+// unchanged, so a projection-70 checkpoint's slots are already live and its prior lift is identity.
+export const PROJECTION_VERSION = 71 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -1145,6 +1181,7 @@ const developmentBlockerKind = () =>
     'package-staffing',
     'casting-session',
     'greenlight-queued',
+    'carried-action',
     'no-concepts',
     'no-writers',
   ])
@@ -1167,9 +1204,10 @@ const StudioScriptAssessmentSnapshot = object('StudioScriptAssessmentSnapshot', 
 })
 
 const StudioDevelopmentOccupantSnapshot = object('StudioDevelopmentOccupantSnapshot', {
-  owner: enumeration(['production', 'script', 'casting']),
+  // P18 (projection 67): a live television season's Development & Casting hold (Core scriptCapacityView).
+  owner: enumeration(['production', 'script', 'casting', 'television']),
   ownerId: nonEmptyText(),
-  activity: enumeration(['production-development', 'drafting', 'rewriting', 'auditioning']),
+  activity: enumeration(['production-development', 'drafting', 'rewriting', 'auditioning', 'television']),
   title: nonEmptyText(),
   label: nonEmptyText(),
 })
@@ -1654,7 +1692,25 @@ const StudioQuoteCommissionRequest = object('StudioQuoteCommissionRequest', {
 // `StudioCommissionDraftPayload` precedent. Every field is always PRESENT on
 // the wire (never `optional()`); "required exactly when kind=X" is a plain-
 // language refusal enforced by `castingDraftToEngine` against the live read
-// models, not a JSON Schema structural constraint.
+// models, not a JSON Schema structural constraint. The ONE exception is P17
+// slice B's `continuation` and `cameos` (projection 66): OPTIONAL, so every
+// draft minted before projection 66 (and the ui client) stays valid.
+// P17 slice B (projection 66): the core's own request shapes, closed (no second shape). `StudioContinuationRequest` is
+// src/core/continuation.ts ContinuationRequest; `StudioCameoBookingRequest` is src/core/cameo.ts CameoBookingRequest (cameo
+// FIX-1, 465d49a9: the core compares the accepted fee and basis with the live quote at the greenlight, so a stale one refuses).
+const StudioContinuationRequest = object('StudioContinuationRequest', {
+  type: enumeration(['directSequel', 'prequel', 'remake', 'reboot', 'spinOff']),
+  predecessorProductionId: nonEmptyText(),
+  subPropertyId: optional(nonEmptyText()),
+  branchId: optional(nonEmptyText()),
+})
+const StudioCameoBookingRequest = object('StudioCameoBookingRequest', {
+  talentId: nonEmptyText(),
+  workWeek: nonNegativeInteger(),
+  fee: number({ minimum: 0 }),
+  basis: enumeration(['employee', 'freelance']),
+})
+
 const StudioCastingDraftPayload = object('StudioCastingDraftPayload', {
   kind: enumeration(['screenTest', 'greenlightPackage', 'signActor']),
   /** Hiring may have no screenplay; camera tests and greenlight require an exact Ready project. */
@@ -1675,6 +1731,9 @@ const StudioCastingDraftPayload = object('StudioCastingDraftPayload', {
   /** Required exactly when kind is `signActor`: a published hiring candidate + a published term. */
   signTalentId: nullable(text()),
   signTermWeeks: nullable(nonNegativeInteger()),
+  /** P17 (projection 66), greenlightPackage only and OPTIONAL: absent is the predecessor greenlight, byte for byte. */
+  continuation: optional(reference('StudioContinuationRequest', StudioContinuationRequest)),
+  cameos: optional(array(reference('StudioCameoBookingRequest', StudioCameoBookingRequest))),
 })
 
 const StudioQuoteCastingRequest = object('StudioQuoteCastingRequest', {
@@ -1945,6 +2004,33 @@ const StudioQuoteWaivePromiseRequest = object('StudioQuoteWaivePromiseRequest', 
   draft: reference('StudioPromiseWaiverDraftPayload', StudioPromiseWaiverDraftPayload),
 })
 
+const StudioDiligenceStudioTarget = object('StudioDiligenceStudioTarget',{kind:literal('studio'),studioId:nonEmptyText()})
+const StudioDiligenceLotTarget = object('StudioDiligenceLotTarget',{kind:literal('estateLot'),estateId:nonEmptyText(),lotId:nonEmptyText()})
+const StudioDiligenceTarget = union('StudioDiligenceTarget',[
+ reference('StudioDiligenceStudioTarget',StudioDiligenceStudioTarget),
+ reference('StudioDiligenceLotTarget',StudioDiligenceLotTarget),
+] as const)
+const StudioDiligenceDraftPayload = object('StudioDiligenceDraftPayload',{
+ target:reference('StudioDiligenceTarget',StudioDiligenceTarget),scope:array(enumeration(['rights','employment','liabilities'] as const)),
+})
+const StudioAbsorptionDefaultRetention = object('StudioAbsorptionDefaultRetention',{kind:literal('default')})
+const StudioAbsorptionExplicitRetention = object('StudioAbsorptionExplicitRetention',{kind:literal('explicit'),contractIds:array(nonEmptyText())})
+const StudioAbsorptionRetention = union('StudioAbsorptionRetention',[
+ reference('StudioAbsorptionDefaultRetention',StudioAbsorptionDefaultRetention),
+ reference('StudioAbsorptionExplicitRetention',StudioAbsorptionExplicitRetention),
+] as const)
+const StudioAbsorptionDraftPayload = object('StudioAbsorptionDraftPayload',{
+ targetId:nonEmptyText(),consideration:number(),disclosureId:nonEmptyText(),retention:reference('StudioAbsorptionRetention',StudioAbsorptionRetention),
+})
+const StudioQuoteDiligenceRequest = object('StudioQuoteDiligenceRequest',{
+ protocolVersion:literal(PROTOCOL_VERSION),schemaId:nonEmptyText(),sessionId:nonEmptyText(),commandId:nonEmptyText(),
+ expectedStateRevision:nonNegativeInteger(),type:literal('quotePaidDueDiligence'),draft:reference('StudioDiligenceDraftPayload',StudioDiligenceDraftPayload),
+})
+const StudioQuoteAbsorptionRequest = object('StudioQuoteAbsorptionRequest',{
+ protocolVersion:literal(PROTOCOL_VERSION),schemaId:nonEmptyText(),sessionId:nonEmptyText(),commandId:nonEmptyText(),
+ expectedStateRevision:nonNegativeInteger(),type:literal('quoteHealthyAbsorption'),draft:reference('StudioAbsorptionDraftPayload',StudioAbsorptionDraftPayload),
+})
+
 const StudioLoanDraftPayload = object('StudioLoanDraftPayload', { principal: number() })
 const StudioQuoteLoanRequest = object('StudioQuoteLoanRequest', {
   protocolVersion: literal(PROTOCOL_VERSION), schemaId: nonEmptyText(), sessionId: nonEmptyText(),
@@ -1952,7 +2038,50 @@ const StudioQuoteLoanRequest = object('StudioQuoteLoanRequest', {
   draft: reference('StudioLoanDraftPayload', StudioLoanDraftPayload),
 })
 
+// P18 Sprint 13 slice B (projection 68): the commission draft is the core's public request, closed field by field. The
+// series title is plain text so an empty one reaches the core and is refused there by name.
+const StudioTvCastPayload = object('StudioTvCastPayload', { lead: nonEmptyText(), antagonist: nonEmptyText(), support: nonEmptyText() })
+const StudioTvRosterPayload = object('StudioTvRosterPayload', {
+  writerId: nonEmptyText(), directorId: nonEmptyText(), cast: reference('StudioTvCastPayload', StudioTvCastPayload), craftId: nonEmptyText(),
+})
+const StudioTvCommissionDraftPayload = object('StudioTvCommissionDraftPayload', {
+  seriesTitle: text(), propertyId: nonEmptyText(), roster: reference('StudioTvRosterPayload', StudioTvRosterPayload), adoptionId: nonEmptyText(),
+})
+const StudioQuoteTvCommissionRequest = object('StudioQuoteTvCommissionRequest', {
+  protocolVersion: literal(PROTOCOL_VERSION), schemaId: nonEmptyText(), sessionId: nonEmptyText(),
+  commandId: nonEmptyText(), expectedStateRevision: nonNegativeInteger(), type: literal('quoteTvCommission'),
+  draft: reference('StudioTvCommissionDraftPayload', StudioTvCommissionDraftPayload),
+})
+
+// ASTRA Sprint 27 (projection 71): the sealed estate bid and the title offer, each the core's own request closed field by
+// field. A sell offer names the counterparty, the held title and the price (the adopted Rights desk behaviour: the player
+// sells a title it holds; buy and licence offers are not published); an acceptance names the rival's open offer.
+const StudioEstateBidDraftPayload = object('StudioEstateBidDraftPayload', { estateId: nonEmptyText(), lotId: nonEmptyText(), amount: number() })
+const StudioQuoteEstateBidRequest = object('StudioQuoteEstateBidRequest', {
+  protocolVersion: literal(PROTOCOL_VERSION), schemaId: nonEmptyText(), sessionId: nonEmptyText(),
+  commandId: nonEmptyText(), expectedStateRevision: nonNegativeInteger(), type: literal('quoteEstateBid'),
+  draft: reference('StudioEstateBidDraftPayload', StudioEstateBidDraftPayload),
+})
+const StudioRightsSellOfferDraft = object('StudioRightsSellOfferDraft', {
+  plan: literal('offer'), counterpartyId: nonEmptyText(), subject: reference('StudioRightSubject', StudioRightSubject), price: number(),
+})
+const StudioRightsAcceptOfferDraft = object('StudioRightsAcceptOfferDraft', { plan: literal('accept'), offerId: nonEmptyText() })
+const StudioRightsOfferDraftPayload = union('StudioRightsOfferDraftPayload', [
+  reference('StudioRightsSellOfferDraft', StudioRightsSellOfferDraft),
+  reference('StudioRightsAcceptOfferDraft', StudioRightsAcceptOfferDraft),
+] as const)
+const StudioQuoteRightsOfferRequest = object('StudioQuoteRightsOfferRequest', {
+  protocolVersion: literal(PROTOCOL_VERSION), schemaId: nonEmptyText(), sessionId: nonEmptyText(),
+  commandId: nonEmptyText(), expectedStateRevision: nonNegativeInteger(), type: literal('quoteRightsOffer'),
+  draft: reference('StudioRightsOfferDraftPayload', StudioRightsOfferDraftPayload),
+})
+
 const StudioBridgeQuoteRequest = union('StudioBridgeQuoteRequest', [
+  reference('StudioQuoteTvCommissionRequest', StudioQuoteTvCommissionRequest),
+  reference('StudioQuoteEstateBidRequest', StudioQuoteEstateBidRequest),
+  reference('StudioQuoteRightsOfferRequest', StudioQuoteRightsOfferRequest),
+  reference('StudioQuoteDiligenceRequest',StudioQuoteDiligenceRequest),
+  reference('StudioQuoteAbsorptionRequest',StudioQuoteAbsorptionRequest),
   reference('StudioQuoteLoanRequest', StudioQuoteLoanRequest),
   reference('StudioQuoteCommissionRequest', StudioQuoteCommissionRequest),
   reference('StudioQuoteCastingRequest', StudioQuoteCastingRequest),
@@ -1996,6 +2125,52 @@ const StudioCastingChemistryRow = object('StudioCastingChemistryRow', {
   line: nonEmptyText(),
 })
 
+// P17 slice B: the continuation a greenlight quote would commit, read from the core quote (prepareContinuation) and the
+// live P16 readers it consults (permissionFor, or branchAuthority for a spin-off continuity).
+const StudioContinuationRightsBasis = object('StudioContinuationRightsBasis', {
+  via: enumeration(['title', 'licence', 'parent']),
+  holderStudioId: nonEmptyText(),
+  licenceId: nullable(nonEmptyText()),
+  grantorStudioId: nullable(nonEmptyText()),
+  licenceEndWeekExclusive: nullable(nonNegativeInteger()),
+  /** The picture's earliest release week, which a licence term must cover. */
+  coverWeek: nonNegativeInteger(),
+})
+const StudioContinuationQuoteTerms = object('StudioContinuationQuoteTerms', {
+  storyPropertyId: nonEmptyText(),
+  type: enumeration(['directSequel', 'prequel', 'remake', 'reboot', 'spinOff']),
+  use: enumeration(['sequel', 'remake', 'spinoff']),
+  predecessorProductionId: nonEmptyText(),
+  branchId: nullable(nonEmptyText()),
+  branchKind: enumeration(['main', 'reboot', 'spinoff']),
+  subPropertyId: nullable(nonEmptyText()),
+  /** True: the picture joins the parent property's works and mints no title of its own (P16 link). False: a remake of
+   *  the parent's own concept, which P16's same-concept law links. */
+  link: bool(),
+  rights: reference('StudioContinuationRightsBasis', StudioContinuationRightsBasis),
+  recognition: number(),
+  momentum: number(),
+  fatigue: number(),
+  comparison01: number(),
+  continuityCredit: nullable(number()),
+  inheritedAwareness01: number(),
+  band: enumeration(['new', 'active', 'activeAgain', 'cooling', 'dormant', 'revivalCandidate']),
+})
+// One requested guest's booking terms, from the core quote (cameoQuote) the greenlight re-runs at commit.
+const StudioFeaturedGuestTerms = object('StudioFeaturedGuestTerms', {
+  talentId: nonEmptyText(),
+  name: nonEmptyText(),
+  profession: enumeration(['writer', 'director', 'actor', 'craft', 'scientist']),
+  basis: enumeration(['employee', 'freelance']),
+  workWeek: nonNegativeInteger(),
+  standardShootingWeek: bool(),
+  fee: number({ minimum: 0 }),
+  retained: number({ minimum: 0 }),
+  refundable: number({ minimum: 0 }),
+  readinessRisk: nonEmptyText(),
+  disclosures: array(nonEmptyText()),
+})
+
 const StudioCastingQuoteSnapshot = object('StudioCastingQuoteSnapshot', {
   financial: nullable(reference('StudioFinancialConsequence', StudioFinancialConsequence)),
   /** The ONE opaque digest-bound commit intent this quote mints. */
@@ -2018,8 +2193,10 @@ const StudioCastingQuoteSnapshot = object('StudioCastingQuoteSnapshot', {
   marketing: nullable(nonNegativeInteger()),
   freelancerFees: nullable(nonNegativeInteger()),
   totalImmediate: nullable(nonNegativeInteger()),
-  cashBefore: nullable(integer()),
-  cashAfter: nullable(integer()),
+  // 18A (projection 62): studio cash is a double everywhere else on the wire; an int32 here made a studio holding
+  // $2,147,483,648 or more unquotable (audit L-24).
+  cashBefore: nullable(number()),
+  cashAfter: nullable(number()),
   affordable: nullable(bool()),
   strongestAssignmentLine: nullable(text()),
   weakestAssignmentLine: nullable(text()),
@@ -2041,6 +2218,9 @@ const StudioCastingQuoteSnapshot = object('StudioCastingQuoteSnapshot', {
   /** Ruling 3 (iii): ONE sentence when a seated pair reads −1. It never refuses, never
    *  blocks, and never changes a quote, a cost or a forecast. */
   chemistryWarning: nullable(text()),
+  // P17 slice B (projection 66): null unless a greenlight package carries the request.
+  continuation: nullable(reference('StudioContinuationQuoteTerms', StudioContinuationQuoteTerms)),
+  featuredGuests: nullable(array(reference('StudioFeaturedGuestTerms', StudioFeaturedGuestTerms))),
 })
 
 const StudioPlacementCellVerdictSnapshot = object('StudioPlacementCellVerdictSnapshot', {
@@ -2087,8 +2267,8 @@ const StudioPlacementQuoteSnapshot = object('StudioPlacementQuoteSnapshot', {
   unmetRequirements: array(reference('StudioPlacementUnmetRequirementSnapshot', StudioPlacementUnmetRequirementSnapshot)),
   instanceCount: nonNegativeInteger(),
   maxInstances: nullable(nonNegativeInteger()),
-  cashBefore: integer(),
-  cashAfter: integer(),
+  cashBefore: number(), // 18A (projection 62): cash is a double on the wire, as in StudioFinancialConsequence
+  cashAfter: number(),
   affordable: bool(),
   consequence: nonEmptyText(),
 })
@@ -2116,8 +2296,8 @@ const StudioSetCommissionQuoteSnapshot = object('StudioSetCommissionQuoteSnapsho
   refusal: nullable(enumeration(SET_COMMISSION_REFUSAL_KINDS)),
   refusalReason: nullable(text()),
   refusalRemedy: nullable(text()),
-  cashBefore: integer(),
-  cashAfter: integer(),
+  cashBefore: number(), // 18A (projection 62): cash is a double on the wire, as in StudioFinancialConsequence
+  cashAfter: number(),
   affordable: bool(),
   consequence: nonEmptyText(),
 })
@@ -2157,8 +2337,8 @@ const StudioContractQuoteSnapshot = object('StudioContractQuoteSnapshot', {
   refusal: nullable(enumeration(CONTRACT_REFUSAL_KINDS)),
   refusalReason: nullable(text()),
   refusalRemedy: nullable(text()),
-  cashBefore: integer(),
-  cashAfter: integer(),
+  cashBefore: number(), // 18A (projection 62): cash is a double on the wire, as in StudioFinancialConsequence
+  cashAfter: number(),
   affordable: bool(),
   consequence: nonEmptyText(),
 })
@@ -2254,6 +2434,34 @@ const StudioPromiseWaiverQuoteSnapshot = object('StudioPromiseWaiverQuoteSnapsho
   consequence: nonEmptyText(),
 })
 
+const StudioDiligenceQuoteSnapshot = object('StudioDiligenceQuoteSnapshot',{
+ intentId:nonEmptyText(),kind:literal('requestDueDiligence'),commitLabel:nonEmptyText(),startsNow:bool(),queues:bool(),queueNote:nullable(text()),
+ ok:bool(),refusalReason:nullable(text()),fee:nonNegativeInteger(),disclosureId:nullable(nonEmptyText()),
+ disclosureWeek:nullable(nonNegativeInteger()),staleFromWeek:nullable(nonNegativeInteger()),
+ target:reference('StudioDiligenceTarget',StudioDiligenceTarget),scope:array(enumeration(['rights','employment','liabilities'] as const)),
+})
+const StudioAbsorptionProductionVerdict = object('StudioAbsorptionProductionVerdict',{productionId:nonEmptyText(),disposition:enumeration(['continues','cancelRequired'] as const),reason:nullable(text())})
+const StudioAbsorptionScriptVerdict = object('StudioAbsorptionScriptVerdict',{
+ scriptProjectId:nonEmptyText(),status:enumeration(['drafting','rewriting'] as const),writerIds:array(nonEmptyText()),
+ disposition:enumeration(['writeOff','continues','continuationRequired'] as const),reason:enumeration(['writersNotRetained','writerTeamRetained','writerContinuationProducerRequired','partialWriterTeamProducerRequired','writerCapacityUnavailable'] as const),
+})
+const StudioAbsorptionPromiseVerdict = object('StudioAbsorptionPromiseVerdict',{promiseId:nonEmptyText(),disposition:enumeration(['unboundHistory','continued','exit'] as const),sourceContractId:nullable(nonEmptyText())})
+const StudioAbsorptionMarketVerdict = object('StudioAbsorptionMarketVerdict',{proposalCount:nonNegativeInteger(),caseCount:nonNegativeInteger()})
+const StudioAbsorptionQuoteTerms = object('StudioAbsorptionQuoteTerms',{
+ consideration:number(),targetCashBeforeExits:number(),exitCharges:number(),postExitCash:number(),guarantees:number(),outlay:number(),ask:number(),
+ reserveAfter:number(),resultingWeeklyFixedCost:number(),affordable:bool(),rightsCount:nonNegativeInteger(),
+ promiseObligations:array(reference('StudioAbsorptionPromiseVerdict',StudioAbsorptionPromiseVerdict)),
+ marketObligations:reference('StudioAbsorptionMarketVerdict',StudioAbsorptionMarketVerdict),
+ retainedContracts:array(nonEmptyText()),exitedContracts:array(nonEmptyText()),
+ productions:array(reference('StudioAbsorptionProductionVerdict',StudioAbsorptionProductionVerdict)),
+ scripts:array(reference('StudioAbsorptionScriptVerdict',StudioAbsorptionScriptVerdict)),
+})
+const StudioAbsorptionQuoteSnapshot = object('StudioAbsorptionQuoteSnapshot',{
+ intentId:nonEmptyText(),kind:literal('absorbStudio'),commitLabel:nonEmptyText(),startsNow:bool(),queues:bool(),queueNote:nullable(text()),
+ ok:bool(),refusalReason:nullable(text()),quotedAtWeek:nonNegativeInteger(),quoteAgePolicyVersion:literal(1),targetId:nonEmptyText(),disclosureId:nonEmptyText(),
+ terms:nullable(reference('StudioAbsorptionQuoteTerms',StudioAbsorptionQuoteTerms)),
+})
+
 const StudioLoanQuoteSnapshot = object('StudioLoanQuoteSnapshot', {
   intentId: nonEmptyText(), kind: literal('takeLoan'), commitLabel: nonEmptyText(),
   startsNow: bool(), queues: bool(), queueNote: nullable(text()), ok: bool(), refusalReason: nullable(text()),
@@ -2262,7 +2470,86 @@ const StudioLoanQuoteSnapshot = object('StudioLoanQuoteSnapshot', {
   installments: array(nonNegativeInteger()),
 })
 
+// P18 Sprint 13 slice B (projection 68): the core's commission preview (contract §5 admission quote, the frozen v1
+// terms, the commissioner licence's disclosed consideration and term). `ok` is exactly "no refusal".
+const StudioTvAdmissionQuote = object('StudioTvAdmissionQuote', {
+  weeks: nonNegativeInteger(), cash: number(), floor: number(), payroll: number(), overhead: number(), facilityOpex: number(),
+  loanInstallments: number(), provision: number(), required: number(), ok: bool(),
+})
+const StudioTvMilestoneTerms = object('StudioTvMilestoneTerms', { scripts: number(), pictureLock: number(), delivery: number() })
+const StudioTvAgreementTerms = object('StudioTvAgreementTerms', {
+  fee: number(), advance: number(), milestones: reference('StudioTvMilestoneTerms', StudioTvMilestoneTerms), unitSpend: number(),
+  dueWeek: nonNegativeInteger(), finalWeek: nonNegativeInteger(), lateDeductionPerWeek: number(), lateDeductionMax: number(),
+  cancellationCharge: number(), distributionWeeks: nonNegativeInteger(),
+})
+const StudioTvCommissionQuoteSnapshot = object('StudioTvCommissionQuoteSnapshot', {
+  intentId: nonEmptyText(), kind: literal('commissionTvSeason'), commitLabel: nonEmptyText(),
+  startsNow: bool(), queues: bool(), queueNote: nullable(text()), ok: bool(), refusalReason: nullable(text()),
+  commitWeek: nonNegativeInteger(), quote: reference('StudioTvAdmissionQuote', StudioTvAdmissionQuote),
+  terms: reference('StudioTvAgreementTerms', StudioTvAgreementTerms), commissionerLicenceConsideration: number(),
+  distributionLicenceEndWeekExclusive: nonNegativeInteger(),
+})
+
+// ASTRA Sprint 27 (projection 71): the estate bid quote. `refusalReason` is the core's bid law token (estate.ts
+// estateBidRefusal) or the action's own sentence; the reservation figures are read from the core's private successor
+// (spendable cash after the sealed bid, until the ceremony at `closesWeek`), never computed here.
+const StudioEstateBidQuoteSnapshot = object('StudioEstateBidQuoteSnapshot', {
+  intentId: nonEmptyText(), kind: literal('submitEstateBid'), commitLabel: nonEmptyText(),
+  startsNow: bool(), queues: bool(), queueNote: nullable(text()), ok: bool(), refusalReason: nullable(text()),
+  estateId: nonEmptyText(), lotId: nonEmptyText(), amount: number(), quotedAtWeek: nonNegativeInteger(),
+  minimumBid: nullable(number()), closesWeek: nullable(nonNegativeInteger()), encumbrances: array(nonEmptyText()),
+  spendableBefore: number(), reserve: number(), spendableAfter: nullable(number()),
+})
+// The decision B disclosure on the wire: src/core/rightsDesk.ts titleSaleOutcome verbatim (the engine run forward on a
+// private copy: the answer at the boundary and each live season before and after), with the digest the commit is bound to.
+const StudioTitleSaleSeasonBefore = object('StudioTitleSaleSeasonBefore', {
+  creditedUnits: nonNegativeInteger(), totalUnits: nonNegativeInteger(), earned: number(), received: number(),
+})
+const StudioTitleSaleSeasonAfter = object('StudioTitleSaleSeasonAfter', {
+  status: enumeration(['live', 'delivered', 'cancelled']), cancellation: nullable(reference('StudioTelevisionCancellation', StudioTelevisionCancellation)),
+  deliveredWeek: nullable(nonNegativeInteger()), creditedUnits: nonNegativeInteger(), earned: number(),
+  settlement: nullable(reference('StudioTelevisionSettlement', StudioTelevisionSettlement)), outstanding: number(),
+})
+const StudioTitleSaleSeasonOutcome = object('StudioTitleSaleSeasonOutcome', {
+  seasonId: nonEmptyText(), seriesTitle: text(),
+  before: reference('StudioTitleSaleSeasonBefore', StudioTitleSaleSeasonBefore), after: reference('StudioTitleSaleSeasonAfter', StudioTitleSaleSeasonAfter),
+})
+const StudioTitleSaleAnswer = object('StudioTitleSaleAnswer', {
+  kind: enumeration(['closed', 'rejected', 'open']), week: nullable(nonNegativeInteger()), price: nullable(number()), reason: nullable(text()), expiresWeek: nullable(nonNegativeInteger()),
+})
+const StudioTitleSaleOutcome = object('StudioTitleSaleOutcome', {
+  kind: enumeration(['refused', 'outcome']), week: nonNegativeInteger(), refusal: nullable(text()),
+  answer: nullable(reference('StudioTitleSaleAnswer', StudioTitleSaleAnswer)), reachesWeek: nullable(nonNegativeInteger()),
+  seasons: array(reference('StudioTitleSaleSeasonOutcome', StudioTitleSaleSeasonOutcome)), digest: nonEmptyText(),
+})
+// The core's willingness answer for a sell offer (assetSale.ts rivalWillingness); `limit` is the most the rival would pay
+// now, read from the core's own token, else null.
+const StudioRightsWillingness = object('StudioRightsWillingness', { willing: bool(), reason: text(), value: nullable(number()), limit: nullable(number()) })
+// The title offer quote: the subject, the parties, the sale law or close law refusal by name, the title's valuation,
+// encumbrance, holdback and the licences in force over it, the rival's willingness (a sell offer), the expiry the made offer
+// will carry, and the season consequence when the plan sells a title the player holds. `instrument` names what the
+// offer trades (a title, or a licence with its use and term); `playerSells` is true only when a title the player holds
+// would move. The members an unknown offer cannot name are null; `price` 0 and the false flags beside `ok:false` on such a
+// quote are not figures (review FIX-1 item 5).
+const StudioRightsOfferQuoteSnapshot = object('StudioRightsOfferQuoteSnapshot', {
+  intentId: nonEmptyText(), kind: enumeration(['makeRightsOffer', 'acceptRightsOffer']), commitLabel: nonEmptyText(),
+  startsNow: bool(), queues: bool(), queueNote: nullable(text()), ok: bool(), refusalReason: nullable(text()),
+  plan: enumeration(['offer', 'accept']), offerId: nullable(nonEmptyText()), quotedAtWeek: nonNegativeInteger(),
+  instrument: nullable(reference('StudioRightsInstrument', StudioRightsInstrument)),
+  subject: nullable(reference('StudioRightSubject', StudioRightSubject)), subjectTitle: nullable(text()),
+  counterpartyId: nullable(nonEmptyText()), counterpartyName: nullable(nonEmptyText()), direction: nullable(enumeration(['buy', 'sell'])),
+  playerSells: bool(), price: number(), value: nullable(number()), encumbrance: nullable(enumeration(['activeProduction', 'activeRun'])),
+  resaleHoldback: bool(), licences: array(reference('StudioRightsSubjectLicence', StudioRightsSubjectLicence)),
+  willingness: nullable(reference('StudioRightsWillingness', StudioRightsWillingness)), expiresWeek: nullable(nonNegativeInteger()),
+  consequence: nullable(reference('StudioTitleSaleOutcome', StudioTitleSaleOutcome)),
+})
+
 const StudioQuoteSnapshot = union('StudioQuoteSnapshot', [
+  reference('StudioTvCommissionQuoteSnapshot', StudioTvCommissionQuoteSnapshot),
+  reference('StudioEstateBidQuoteSnapshot', StudioEstateBidQuoteSnapshot),
+  reference('StudioRightsOfferQuoteSnapshot', StudioRightsOfferQuoteSnapshot),
+  reference('StudioDiligenceQuoteSnapshot',StudioDiligenceQuoteSnapshot),
+  reference('StudioAbsorptionQuoteSnapshot',StudioAbsorptionQuoteSnapshot),
   reference('StudioLoanQuoteSnapshot', StudioLoanQuoteSnapshot),
   reference('StudioCommissionQuoteSnapshot', StudioCommissionQuoteSnapshot),
   reference('StudioCastingQuoteSnapshot', StudioCastingQuoteSnapshot),
@@ -2703,7 +2990,7 @@ const StudioMarketEmployerRow = object('StudioMarketEmployerRow', {
   toWeek: nonNegativeInteger(),
   toLabel: nonEmptyText(),
   termWeeks: integer({ minimum: 1 }),
-  transition: enumeration(['entry', 'renewal', 'replacement', 'player-contract', 'existing-player-contract']),
+  transition: enumeration(['entry', 'renewal', 'replacement', 'player-contract', 'existing-player-contract', 'absorptionContinuation']),
   own: bool(),
   ended: bool(),
   annualSalary: optional(nonNegativeInteger()),
@@ -3326,7 +3613,14 @@ const StudioFinanceHistoryWindow = object('StudioFinanceHistoryWindow', {
 const StudioFinanceHistory = object('StudioFinanceHistory', {
   defaultWindowWeeks: literal(13), calendarNotice: nonEmptyText(), windows: array(reference('StudioFinanceHistoryWindow', StudioFinanceHistoryWindow)),
 })
+const StudioFinanceEstateAccounting = object('StudioFinanceEstateAccounting', {
+  closureId: nonEmptyText(), closureWeek: nonNegativeInteger(), closingCash: number(),
+  runReceipts: number({ minimum: 0 }), saleProceeds: number({ minimum: 0 }),
+  claimPayments: number({ minimum: 0 }), unpaidClaims: number({ minimum: 0 }),
+  stoppedLoanRemainder: number({ minimum: 0 }), basis: nonEmptyText(),
+})
 const StudioFinanceSnapshot = object('StudioFinanceSnapshot', {
+  estateAccounting: nullable(reference('StudioFinanceEstateAccounting', StudioFinanceEstateAccounting)),
   upcoming: reference('StudioFinanceUpcoming', StudioFinanceUpcoming),
   portfolio: reference('StudioFinancePortfolio', StudioFinancePortfolio),
   history: reference('StudioFinanceHistory', StudioFinanceHistory),
@@ -3644,6 +3938,8 @@ const definitions = {
   StudioCastingSnapshot,
   StudioCommissionDraftPayload,
   StudioCommissionQuoteSnapshot,
+  StudioContinuationRequest,
+  StudioCameoBookingRequest,
   StudioCastingDraftPayload,
   StudioQuoteCommissionRequest,
   StudioQuoteCastingRequest,
@@ -3653,9 +3949,16 @@ const definitions = {
   StudioQuoteSetCommissionRequest,
   StudioContractDraftPayload,
   StudioQuoteContractRequest,
+  StudioDiligenceStudioTarget, StudioDiligenceLotTarget, StudioDiligenceTarget, StudioDiligenceDraftPayload, StudioQuoteDiligenceRequest, StudioDiligenceQuoteSnapshot,
+  StudioAbsorptionDefaultRetention, StudioAbsorptionExplicitRetention, StudioAbsorptionRetention, StudioAbsorptionDraftPayload, StudioQuoteAbsorptionRequest, StudioAbsorptionProductionVerdict, StudioAbsorptionScriptVerdict, StudioAbsorptionPromiseVerdict, StudioAbsorptionMarketVerdict, StudioAbsorptionQuoteTerms, StudioAbsorptionQuoteSnapshot,
   StudioLoanDraftPayload,
   StudioQuoteLoanRequest,
   StudioLoanQuoteSnapshot,
+  StudioTvCastPayload, StudioTvRosterPayload, StudioTvCommissionDraftPayload, StudioQuoteTvCommissionRequest,
+  StudioTvAdmissionQuote, StudioTvMilestoneTerms, StudioTvAgreementTerms, StudioTvCommissionQuoteSnapshot,
+  StudioEstateBidDraftPayload, StudioQuoteEstateBidRequest, StudioRightsSellOfferDraft, StudioRightsAcceptOfferDraft, StudioRightsOfferDraftPayload, StudioQuoteRightsOfferRequest,
+  StudioEstateBidQuoteSnapshot, StudioTitleSaleSeasonBefore, StudioTitleSaleSeasonAfter, StudioTitleSaleSeasonOutcome, StudioTitleSaleAnswer, StudioTitleSaleOutcome,
+  StudioRightsWillingness, StudioRightsOfferQuoteSnapshot,
   StudioMarketProposalCastClassPromiseDraftPayload,
   StudioMarketProposalDirectorPromiseDraftPayload,
   StudioMarketProposalGenrePromiseDraftPayload,
@@ -3677,6 +3980,9 @@ const definitions = {
   StudioPromiseWaiverQuoteSnapshot,
   StudioBridgeQuoteRequest,
   StudioCastingChemistryRow,
+  StudioContinuationRightsBasis,
+  StudioContinuationQuoteTerms,
+  StudioFeaturedGuestTerms,
   StudioCastingQuoteSnapshot,
   StudioPlacementCellVerdictSnapshot,
   StudioPlacementUnmetRequirementSnapshot,
@@ -3779,6 +4085,7 @@ const definitions = {
   StudioFinancePortfolioRow,
   StudioFinanceHistory,
   StudioFinanceHistoryWindow,
+  StudioFinanceEstateAccounting,
   StudioFinanceCostSeries,
   StudioFinanceCostPoint,
   StudioFinancePeriod,
@@ -3877,6 +4184,10 @@ export type BridgeCommissionQuoteSnapshot = InferSchema<typeof StudioCommissionQ
 export type BridgeCastingDraftPayload = InferSchema<typeof StudioCastingDraftPayload>
 export type BridgeCastingChemistryRow = InferSchema<typeof StudioCastingChemistryRow>
 export type BridgeCastingQuoteSnapshot = InferSchema<typeof StudioCastingQuoteSnapshot>
+export type BridgeContinuationRequest = InferSchema<typeof StudioContinuationRequest>
+export type BridgeCameoBookingRequest = InferSchema<typeof StudioCameoBookingRequest>
+export type BridgeContinuationQuoteTerms = InferSchema<typeof StudioContinuationQuoteTerms>
+export type BridgeFeaturedGuestTerms = InferSchema<typeof StudioFeaturedGuestTerms>
 export type BridgeContractOfferSnapshot = InferSchema<typeof StudioContractOfferSnapshot>
 export type BridgeHiringCandidateSnapshot = InferSchema<typeof StudioHiringCandidateSnapshot>
 export type BridgeQuoteCommissionRequest = InferSchema<typeof StudioQuoteCommissionRequest>
@@ -3942,3 +4253,25 @@ export type CampaignAcceptedResponse=InferSchema<typeof StudioCampaignAcceptedRe
 export type BridgeLoanDraftPayload = InferSchema<typeof StudioLoanDraftPayload>
 export type BridgeQuoteLoanRequest = InferSchema<typeof StudioQuoteLoanRequest>
 export type BridgeLoanQuoteSnapshot = InferSchema<typeof StudioLoanQuoteSnapshot>
+export type BridgeTvCommissionDraftPayload = InferSchema<typeof StudioTvCommissionDraftPayload>
+export type BridgeQuoteTvCommissionRequest = InferSchema<typeof StudioQuoteTvCommissionRequest>
+export type BridgeTvCommissionQuoteSnapshot = InferSchema<typeof StudioTvCommissionQuoteSnapshot>
+export type BridgeEstateBidDraftPayload = InferSchema<typeof StudioEstateBidDraftPayload>
+export type BridgeQuoteEstateBidRequest = InferSchema<typeof StudioQuoteEstateBidRequest>
+export type BridgeEstateBidQuoteSnapshot = InferSchema<typeof StudioEstateBidQuoteSnapshot>
+export type BridgeRightsOfferDraftPayload = InferSchema<typeof StudioRightsOfferDraftPayload>
+export type BridgeQuoteRightsOfferRequest = InferSchema<typeof StudioQuoteRightsOfferRequest>
+export type BridgeRightsOfferQuoteSnapshot = InferSchema<typeof StudioRightsOfferQuoteSnapshot>
+export type BridgeTitleSaleOutcome = InferSchema<typeof StudioTitleSaleOutcome>
+
+export type BridgeDiligenceDraftPayload = InferSchema<typeof StudioDiligenceDraftPayload>
+
+export type BridgeQuoteDiligenceRequest = InferSchema<typeof StudioQuoteDiligenceRequest>
+
+export type BridgeDiligenceQuoteSnapshot = InferSchema<typeof StudioDiligenceQuoteSnapshot>
+
+export type BridgeAbsorptionDraftPayload = InferSchema<typeof StudioAbsorptionDraftPayload>
+
+export type BridgeQuoteAbsorptionRequest = InferSchema<typeof StudioQuoteAbsorptionRequest>
+
+export type BridgeAbsorptionQuoteSnapshot = InferSchema<typeof StudioAbsorptionQuoteSnapshot>

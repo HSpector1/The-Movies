@@ -1,0 +1,8 @@
+{
+  "head": "5a730f42d5a66d22cba4808b5c642510c2f068bb",
+  "purpose": "Reach previously fixture-blocked Q04 using exact tracked historic captures; reuse other nine completed cases",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "name": "Q04 migrates genuine39",
+  "budgetMs": 60000,
+  "sourceManifestEntries": 1645
+}

@@ -17,9 +17,11 @@ import { CareerImpact } from '../components/CareerImpact.tsx'
 import { money, moneyExact, score, segmentLabel } from '../format.ts'
 import { Metric, Delta } from '../components/common.tsx'
 import { ConstructionCompletionNotice } from '../components/ConstructionCompletionNotice.tsx'
+import { ReleaseContinuationOutcome } from '../components/P17Continuation.tsx'
 
 export function ReleaseResult({
   preTick,
+  postTick,
   postTickStanding,
   released,
   constructionCompletion,
@@ -29,6 +31,8 @@ export function ReleaseResult({
   onContinue,
 }: {
   preTick: GameState
+  /** P17: the state after this release tick, for the lineage edge, meters and guest credits. Optional for old mounts. */
+  postTick?: GameState
   postTickStanding: GameState['studio']['standing']
   released: FilmResult[]
   constructionCompletion?: ConstructionCompletionSummary | null
@@ -186,6 +190,8 @@ export function ReleaseResult({
                   </span>
                 </div>
               </div>
+
+              {postTick && <ReleaseContinuationOutcome preTick={preTick} postTick={postTick} productionId={f.productionId} coReleased={released.map((r) => r.productionId)} />}
 
               <div className="sep" />
               <CareerImpact impact={careerImpactFor(f.productionId)} />

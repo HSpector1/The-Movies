@@ -7,13 +7,14 @@ import { assignmentRefusal, contractEndRefusal, retirementRecordFor } from '../s
 import { activeContract, busyTalentIds } from '../src/core/employment.js'
 import { professionAtWeek, transitionInputsFor } from '../src/core/index.js'
 import { validateProfessionHistory } from '../src/core/professionHistory.js'
-import { exportSave, LIVE_SAVE_VERSION, makeSave, migrateToV44, stableStringify, validateSaveV35, validateSaveV37, validateSaveV48 } from '../src/core/save.js'
+import { exportSave, makeSave, migrateToV44, stableStringify, validateSaveV35, validateSaveV37, validateSaveV51 } from '../src/core/save.js'
 import { caseForTalent, playerOffer, proposalDraft } from '../src/core/talentMarket.js'
 import { careerIdentity, expectedPotentialTier, roleTier } from '../src/core/talentSummary.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { FilmCreativeRole, GameState, TransitionInputs, TransitionTargetInput } from '../src/core/types.js'
 import { clone, compareText, person } from './helpers/p14c3-fixtures.js'
 import { acceptedEvidence } from './helpers/p14c3-genuine-evidence-fixtures.js'
+import { ESTATE_OBSERVATION_REFUSAL } from './helpers/p16-era.js'
 import { COHORT_SUBJECT, cohortCase, cohortChosen, cohortEmployment, cohortFinalBoundary, cohortLaterWork,
   cohortNoticeGap, cohortRenewalOne, cohortRenewalThree, cohortRenewalTwo, cohortRouteAccounting, cohortSetup,
   cohortThreeFilms, recordCohortRoute } from './helpers/p14c3-cohort-transition-fixtures.js'
@@ -271,14 +272,14 @@ describe('C.3 genuine cohort-born Actor enters a new profession with origin auth
     expect(professionAtWeek(state, id, 3283)).toBe('director')
     preserveOrigin(state)
     const control = makeSave(state), controlBytes = stableStringify(control), malformed = clone(control)
-    expect(validateSaveV48(control)).toBe(control)
+    expect(validateSaveV51(control)).toBe(control)
     const amended = malformed.state.careerLifecycle.cohorts.map(row => row.week !== 832 ? row
       : { ...row, requested: { actor: 0, director: 1, writer: 0, craft: 0 } })
     Object.defineProperty(malformed.state.careerLifecycle, 'cohorts', { value: amended, enumerable: true, configurable: true, writable: true })
     expect(validateProfessionHistory({ ...malformed.state }).originalProfession(id)).toBe('actor')
-    expect(() => validateSaveV48(malformed)).toThrow(/cohort receipt.*week 832.*as a director entrant.*original profession disagrees/)
+    expect(() => validateSaveV51(malformed)).toThrow(/cohort receipt.*week 832.*as a director entrant.*original profession disagrees/)
     expect(stableStringify(control)).toBe(controlBytes)
-    expect(validateSaveV48(control)).toBe(control)
+    expect(validateSaveV51(control)).toBe(control)
     // 1363-N: admitted current recovery authority now refuses at 46->45 first.
     // Preserve the complete history; deeper rank/romance/shelving guards are masked here.
     // Separate rank controls remain in p15a2-power-ranking-archive.test.ts:
@@ -291,12 +292,14 @@ describe('C.3 genuine cohort-born Actor enters a new profession with origin auth
     expect(control.state.hollywood!.businesses.some(b => b.account.periods.some(p => p.movements.facilityDemolitionRefund !== 0))).toBe(true)
     expect(control.state.hollywood!.receipts.some(r => r.kind === 'facilityDisposed')).toBe(true)
     // P15B (1370-ar, MASKED): this route's rivals borrow under 1357-A §6.2, so no predecessor envelope can carry the
-    // state (the test helper refuses by name); the live save's own P15B refusal is the pin, and it appends R8's
-    // recovery reasons rather than masking them. The recorded Power Ranking guard stays covered on its Save45 input in
-    // tests/p15a2-power-ranking-archive.test.ts.
-    expect(() => migrateToV44(control as never)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record.*; cannot downgrade or discard recovery authority: costCutting\\.since, facilityDemolitionRefund, facilityDisposed(; |$)`))
+    // state (the test helper refuses by name). The recorded Power Ranking guard stays covered on its Save45 input in
+    // tests/p15a2-power-ranking-archive.test.ts. P16 rebase: the live Save49 step now refuses first, naming the estate a
+    // closure in this route opened. This world's P15B composed refusal (condition records, then R8's recovery reasons)
+    // is unasserted: an estate is a rights instrument `rightsStripped` refuses to drop. The same composition law is
+    // asserted on the week-133 Save48 control in p15b2-corporate-condition-save and p15a2-power-ranking-archive.
+    expect(() => migrateToV44(control as never)).toThrow(ESTATE_OBSERVATION_REFUSAL)
     expect(stableStringify(control)).toBe(controlBytes)
-    expect(validateSaveV48(control)).toBe(control)
+    expect(validateSaveV51(control)).toBe(control)
     expect(stableStringify(control)).toBe(controlBytes)
     const origin = cohortSetup()
     expect(validateSaveV35(origin.old)).toBe(origin.old); expect(validateSaveV37(origin.old37)).toBe(origin.old37)

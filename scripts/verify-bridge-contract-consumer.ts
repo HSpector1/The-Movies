@@ -6,7 +6,6 @@ import { fileURLToPath } from 'node:url'
 
 import {
   Cf09VerificationError,
-  CURRENT_ACCEPTED_SAVE_VERSION,
   canonicalJson,
   createAttestation,
   verifyAttestation,
@@ -34,7 +33,6 @@ interface CliOptions {
   readonly editModeLog?: string | undefined
   readonly hostileReviewVerdict?: 'ACCEPT' | undefined
   readonly evidenceRoot?: string | undefined
-  readonly saveVersion: number
 }
 
 const VALUE_OPTIONS = new Set([
@@ -53,7 +51,6 @@ const VALUE_OPTIONS = new Set([
   '--editmode-log',
   '--hostile-review-verdict',
   '--evidence-root',
-  '--save-version',
 ])
 
 function usage(): string {
@@ -68,7 +65,7 @@ function usage(): string {
     'Attestation emission (after the authorized Unity pass):',
     '  ...same sealed arguments... --attestation-output <external-path>',
     '    --editmode-result <contract-gate-editmode.xml>',
-    '    --editmode-log <contract-gate-editmode.log> --save-version 15',
+    '    --editmode-log <contract-gate-editmode.log>',
     '    --hostile-review-verdict ACCEPT',
     '',
     'Immutable re-verification:',
@@ -135,15 +132,11 @@ export function parseCliOptions(argv: readonly string[]): CliOptions {
       unityRemote: values.get('--unity-remote'),
       attestationPath: resolve(attestationPath!),
       evidenceRoot: resolve(required(values, '--evidence-root')),
-      saveVersion: CURRENT_ACCEPTED_SAVE_VERSION,
     }
   }
   if (values.has('--evidence-root') || attestationPath !== undefined) {
     throw new Error('--evidence-root is valid only with --verify-attestation')
   }
-  const rawSaveVersion = values.get('--save-version')
-  const saveVersion = rawSaveVersion === undefined ? CURRENT_ACCEPTED_SAVE_VERSION : Number(rawSaveVersion)
-  if (!Number.isSafeInteger(saveVersion) || saveVersion < 1) throw new Error('--save-version must be a positive integer')
   const hostileReviewVerdict = values.get('--hostile-review-verdict')
   if (operation === 'attest' && (values.get('--editmode-result') === undefined || values.get('--editmode-log') === undefined)) {
     throw new Error('--attestation-output requires --editmode-result and --editmode-log')
@@ -156,11 +149,10 @@ export function parseCliOptions(argv: readonly string[]): CliOptions {
     && (
       values.has('--editmode-result')
       || values.has('--editmode-log')
-      || values.has('--save-version')
       || values.has('--hostile-review-verdict')
     )
   ) {
-    throw new Error('EditMode evidence, --save-version, and hostile review are valid only with --attestation-output')
+    throw new Error('EditMode evidence and hostile review are valid only with --attestation-output')
   }
   return {
     operation,
@@ -179,7 +171,6 @@ export function parseCliOptions(argv: readonly string[]): CliOptions {
     editModeResult: values.get('--editmode-result') === undefined ? undefined : resolve(values.get('--editmode-result')!),
     editModeLog: values.get('--editmode-log') === undefined ? undefined : resolve(values.get('--editmode-log')!),
     hostileReviewVerdict: hostileReviewVerdict as 'ACCEPT' | undefined,
-    saveVersion,
   }
 }
 
@@ -226,7 +217,6 @@ export function runCli(argv: readonly string[]): unknown {
   if (options.operation === 'attest') {
     const attestation = createAttestation({
       ...pair,
-      saveVersion: options.saveVersion,
       hostileReviewVerdict: options.hostileReviewVerdict!,
       attestationPath: options.attestationOutput!,
       editModeEvidence: {

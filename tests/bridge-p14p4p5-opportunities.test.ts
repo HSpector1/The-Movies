@@ -1,3 +1,4 @@
+import { cutoverRightsRoot } from '../src/core/rights.js'
 import { withEmptyRecovery } from './helpers/recovery-migration-expectation.js'
 // 1236-A/B: three closed Bridge surfaces; no simulation helper or captured-prefix replay.
 import assert from 'node:assert/strict'
@@ -18,7 +19,7 @@ import { decodeBridgeRuntimeCheckpoint, encodeBridgeRuntimeCheckpoint, loadBridg
 import { caseDisclosure } from '../src/core/talentMarket.js'
 import { activeContract } from '../src/core/employment.js'
 import { trustDescriptor } from '../src/core/promises.js'
-import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV39, validateSaveV48, initialP15BRoots } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV39, validateSaveV51, initialP15BRoots } from '../src/core/save.js'
 import type { GameState, ProfessionalPromise } from '../src/core/types.js'
 
 const TIMEOUT = 60_000
@@ -76,7 +77,7 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
   const h = (state as { hollywood?: { businesses?: Business[] } | null }).hollywood
   const withLoans = h === undefined || h === null || !Array.isArray(h.businesses) ? state : { ...state, hollywood: { ...h,
     businesses: h.businesses.map((b) => ({ ...b, account: { ...b.account, periods: b.account.periods.map((p) => ({
-      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) } })) } }
+      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0, estateSaleProceeds: 0 } })) } })) } }
   return { ...withLoans,
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
@@ -84,14 +85,14 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
     campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
     // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
     foundingFunding: { version: 1, recordedFromWeek: week, fund: null },
-    ...initialP15BRoots(week) }
+    ...initialP15BRoots(week), rights: cutoverRightsRoot(withLoans as unknown as GameState) }
 }
 const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
 const bytes = (state: GameState): string => exportSave(makeSave(state))
 const viewer = (state: GameState): string => { assert.ok(state.hollywood); return state.hollywood.playerStudioId }
 function full(state: GameState): string {
   const before = stableStringify(state), save = makeSave(state)
-  expect(save.saveVersion).toBe(LIVE_SAVE_VERSION); expect(validateSaveV48(save)).toBe(save)
+  expect(save.saveVersion).toBe(LIVE_SAVE_VERSION); expect(validateSaveV51(save)).toBe(save)
   const raw = exportSave(save); expect(exportSave(importSave(raw))).toBe(raw)
   expect(stableStringify(state)).toBe(before); return raw
 }
@@ -512,8 +513,8 @@ describe('P4/P5 closed Bridge material and outgoing runtime authority', () => {
     const old = prior54(), preimage = canonicalJson(old.value), factory = vi.fn(() => '1236-prior54')
     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
     expect(loaded.migratedFromProtocolVersion).toBe(4); expect(factory).toHaveBeenCalledTimes(1)
-    expect(PROTOCOL_VERSION).toBe(4); expect(PROJECTION_VERSION).toBe(58)
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-58')
+    expect(PROTOCOL_VERSION).toBe(4); expect(PROJECTION_VERSION).toBe(71)
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-71')
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OLD_SCHEMA)).toEqual([[OLD_SCHEMA, 'projection-v54']])
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     const older = [...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id !== OLD_SCHEMA)
@@ -531,20 +532,33 @@ describe('P4/P5 closed Bridge material and outgoing runtime authority', () => {
     // 1358-N P2: outgoing56 (projection-v56) is registered too, so the older count
     // grows to 44; the digest is recomputed by the same method.
     // Actual shipped outgoing57 is also prior; literal-map sorted pairs excluding54 now number45.
-    expect(older).toHaveLength(45)
-    expect(sha(canonicalJson(older))).toBe('66ff414a2aec7abe942744415e65e4984181aceb2244c71855639adce902610a')
+    // P16 rebase round 6: the registry gained outgoing58-61 (projection-v58..v61, the P16 rebase's own entries,
+    // 53571456), so the sorted pairs excluding 54 number 49. Recomputed by the same method, never from a run: the
+    // method reproduces the prior pin 66ff414a... from main 8792de52's map, then gives 0ce03cea... for this map.
+    // Projection63 adds only authentic outgoing62; same independently reproduced sorted-pair method.
+    // Projection64 adds only authenticated outgoing63; independently reproduced sorted-pair method.
+    // Projection65 (Sprint 11) adds only the P16 build's outgoing64; same method, which reproduces 51/1a452a62 on the parent map.
+    // Projection66 (Sprint 11 slice B) adds only outgoing65; same method, which reproduces 52/a6666891 on the parent map.
+    // Projection67 (P18 Sprint 12) adds only outgoing66; same method, which reproduces 53/c768ef98 on the parent map.
+    // Projection68 (P18 Sprint 13 slice B) adds only outgoing67; same method, which reproduces 54/e8e0e202 on the parent map.
+    // Projection69 (playtest-response slice) adds only outgoing68; same method, which reproduces 55/e01c748d on the parent map.
+    // Projection70 (ASTRA Sprint 20) adds only outgoing69; same method, which reproduces 56/5e76d229 on the parent map.
+    // Projection71 (ASTRA Sprint 27) adds only outgoing70; same method, run standalone over the registry before this pin was
+    // written (sprint27/local/s27-fix2-older-roster-measure.txt), which reproduces 57/b67cf218 on the parent map.
+    expect(older).toHaveLength(58)
+    expect(sha(canonicalJson(older))).toBe('05958927e901851ee8ac4b88f2841b06695f5b28161e91c4dd30d255ad386bdf')
     const current = loaded.hydrated.checkpoint
     expect(current).toMatchObject({ schemaId: SCHEMA_ID, sessionId: '1236-prior54', stateRevision: 0, journal: [], journalDigest: sha('[]') })
     expect(current.sessionId).not.toBe(old.value.sessionId)
     for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
       assert.ok(current[slot])
-      const previous = validateSaveV39(JSON.parse(old.value[slot])), now = validateSaveV48(JSON.parse(current[slot]!))
+      const previous = validateSaveV39(JSON.parse(old.value[slot])), now = validateSaveV51(JSON.parse(current[slot]!))
       expect(now.state).toEqual(withEmptyRecovery({ ...withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(previous.state)))), previous.state.market.tick), firstTakeSubjects: { version: 1, cutoverOrdinal: 25, facts: [] } }))
       expect(current[slot]).toBe(exportSave(migrateToLive(previous))); full(now.state)
     }
     expect(current.currentSaveJson).not.toBe(current.savedSaveJson)
-    const currentState = validateSaveV48(JSON.parse(current.currentSaveJson)).state
-    const savedState = validateSaveV48(JSON.parse(current.savedSaveJson!)).state
+    const currentState = validateSaveV51(JSON.parse(current.currentSaveJson)).state
+    const savedState = validateSaveV51(JSON.parse(current.savedSaveJson!)).state
     expect(root(currentState, 'promise-0')).toMatchObject({ outcome: 'WAIVED', progress: 1, supersededByPromiseId: 'promise-1' })
     expect(root(savedState, 'promise-0')).toMatchObject({ outcome: null, progress: 1, supersededByPromiseId: null })
     const currentRaw = encodeBridgeRuntimeCheckpoint(current), again = vi.fn(() => { throw new Error('current55 must not migrate again') })

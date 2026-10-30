@@ -867,6 +867,7 @@ function annexOwnerKindLabel(owner: LotAnnexWorkOccupant['owner']): string {
     case 'production': return 'Production'
     case 'script': return 'Screenplay'
     case 'casting': return 'Casting session'
+    case 'television': return 'Television season'
   }
 }
 
@@ -877,6 +878,8 @@ function annexActivityLabel(activity: LotAnnexWorkOccupant['activity']): string 
     case 'drafting': return 'Drafting'
     case 'rewriting': return 'Rewriting'
     case 'auditioning': return 'Auditioning'
+    case 'scripts': return 'Writing scripts'
+    case 'preparation': return 'Preparing the season'
   }
 }
 
@@ -885,6 +888,8 @@ function annexOwnerDestination(owner: LotAnnexWorkOccupant['owner']): string {
     case 'production': return 'Production Board'
     case 'script': return 'Writers Room'
     case 'casting': return 'Casting Room'
+    // No lot surface opens a television season; the Annex context withholds it before this is read.
+    case 'television': return 'Television season'
   }
 }
 
@@ -3695,7 +3700,14 @@ export function StudioLotScreen({
     recordSelection,
   ])
 
-  useEffect(() => {
+  // FIX-S13-4: a layout effect, never a passive one. A commit outside a discrete event (the renderer's
+  // ready, any non-input update) leaves its passive effects queued as a separate Scheduler task. A
+  // command click that lands first sets pendingHollywoodFocusProductionId, and React runs those queued effects
+  // before it renders the click's successor. A passive version of this effect then read the
+  // pre-command operation, "focused" the command button the successor removes, and cleared the
+  // intent: focus fell to <body>. A layout effect runs inside its own commit, so no older render's
+  // copy can outlive the commit and consume a later command's focus.
+  useLayoutEffect(() => {
     const productionId = pendingHollywoodFocusProductionId.current
     if (
       productionId === null ||

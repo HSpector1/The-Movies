@@ -1002,7 +1002,7 @@ export const TUNING = {
   // never make a card, a hoarding or a headline unrenderable.
   SCREENPLAY_TITLE_MAX_LENGTH: 64, // [ICH] characters a player-chosen title may run to
 
-  // P15A.1 shared-market law, the live era `p15a1-market-v2` (src/core/sharedMarket.ts; 1323-A §3
+  // P15A.1 shared-market law, the live era `p15a1-market-v3` (src/core/sharedMarket.ts; 1323-A §3
   // as amended by 1323-F). PROVISIONAL TUNING under Owner decision D-1323-1 (record 1340-O):
   // the Owner approved the formula with these constants as provisional, to be judged
   // KEEP/REVISE/REJECT at the Wave 4 playtest. A revision changes the law: bump
@@ -1010,6 +1010,8 @@ export const TUNING = {
   // 1365 (1361-F5 ruling 3, G2 verdict Retune): the maximum penalty moves 0.25 -> 0.15, the
   // Owner's named weaker alternative (1323-F:61-63); the other six are v1's. v1's seven are
   // frozen as SHARED_MARKET_LAW_V1 so a v1 row reconciles under its own law.
+  // ASTRA Sprint 19 (Owner decision D): v3 keeps these seven numbers and prices through engine-independent
+  // arithmetic (portableMath.ts); v2's seven are frozen as SHARED_MARKET_LAW_V2 with the engine's arithmetic.
   SHARED_MARKET_WINDOW_WEIGHTS: [1, 0.55, 0.55, 0.2] as readonly number[], // weight by week offset in the window [R, R+4)
   SHARED_MARKET_STOCK_START: 0.2, // genre-saturation stock weight at R+4, continuous with the last window week
   SHARED_MARKET_STOCK_HALF_LIFE_WEEKS: 13, // the stock weight halves every 13 weeks
@@ -1061,6 +1063,122 @@ export const TUNING = {
   LEGACY_FOUNDRY_MIN_CREDITS: 10, // positive integer; film credits before B that make a career
   LEGACY_FOUNDRY_SETTLE_WEEKS: 260, // positive integer; five years to earn a second credit before a one-credit discovery is contrary
   LEGACY_GENRE_MIN_FILMS: 8, // positive integer; a majority of eight is five releases
+
+  // ── P16 (rights, sales, diligence, estates): PROVISIONAL tuning, never Owner prices ──
+  // Authority: P16A r3 (coefficients adopted by 1370-AD as cashless provisional tuning);
+  // P16 integration contract §6 (reserve, fee, window, offer age, cooldown, holdback are
+  // producer deliverables; ~26-week reserve and 52-week holdback are candidate tuning);
+  // 1367-G (13-week estate window); 1362-O §5.5 (fee delegated as provisional tuning).
+  RIGHTS_R2_CATALOGUE_VALUE_AT_100: 100_000, // positive whole dollars; one released film at critic score 100 (propertyValuation.ts)
+  RIGHTS_R1_OPTION_VALUE_AT_100: 25_000, // positive whole dollars, below the catalogue coefficient; one property at max linked quality 100
+  RIGHTS_RESERVE_WEEKS: 26, // whole weeks in [1,104]; cash after a purchase must cover this many weeks of the buyer's resulting fixed cost
+  RIGHTS_DUE_DILIGENCE_FEE: 50_000, // positive whole dollars; charged once per disclosure event
+  RIGHTS_DISCLOSURE_STALE_WEEKS: 13, // whole weeks in [1,104]; a disclosure older than this must be refreshed before a binding offer
+  RIGHTS_OFFER_DURATION_WEEKS: 4, // whole weeks in [1,104]; a binding offer is valid while week < week + this
+  RIGHTS_OFFER_COOLDOWN_WEEKS: 4, // whole weeks in [1,104]; after a rejection the same offeror cannot re-offer the same subject sooner
+  RIGHTS_WILLINGNESS_PREMIUM_PERCENT: 20, // whole percent in (0,100); a rival sells at >= value * (100 + p) / 100 and buys at <= value * (100 - p) / 100
+  RIGHTS_RESALE_HOLDBACK_WEEKS: 52, // whole weeks in [1,104], above the offer duration; a bought title cannot be resold sooner
+  ESTATE_WINDOW_WEEKS: 13, // whole weeks; the half-open estate disposal window [opensWeek, closesWeek) adopted by 1367-G
+
+  // ── P17 continuations — canonical rev02 f2eff635 §5.7 symbol index, copied exactly ────────────
+  // PROVISIONAL starting points (rev02 §19.3) under the Owner's bounded P17 approval; the Owner choices
+  // (P17-RECOVERED-SPECIFICATION-STATE.md) are the 0.35 floor, healthy reboots legal, dormant return as
+  // DirectSequel. A change to any value is a tuning amendment with its own record.
+  P17_RECOGNITION_HALF_LIFE_WEEKS: 650, // HL_R (~12.5 years)
+  P17_RECOGNITION_RESIDUAL_WEIGHT: 0.15, // κ_R: every non-peak film's weight
+  P17_RECOGNITION_FLOOR_FRACTION: 0.35, // Owner choice 2026-09-27: durable floor of the quality-qualified peak
+  P17_RECOGNITION_GATE_LO: 0.5, // gateR(q) = clamp((q − 0.50)/0.25, 0, 1) (C1)
+  P17_RECOGNITION_GATE_SPAN: 0.25,
+  P17_MOMENTUM_HALF_LIFE_WEEKS: 24, // HL_M
+  P17_FATIGUE_SATIATION_Q: 0.75, // q ≥ 0.75 accrues nothing
+  P17_FATIGUE_SATIATION_SPAN: 0.1, // gate ramp width
+  P17_FATIGUE_HALF_LIFE_BASE_WEEKS: 104, // paydown half-life after a mediocre film
+  P17_FATIGUE_PAYDOWN_COEF: 1.5, // 104 / (1 + 1.5·clamp((lastQ − 0.5)/0.5)) → ~42 weeks after an excellent film
+  P17_FATIGUE_PAYDOWN_Q_FLOOR: 0.5, // (0, 1]: the last quality at which faster paydown begins (§5.2 "lastQuality − 0.5")
+  P17_FATIGUE_PAYDOWN_Q_SPAN: 0.5, // (0, 1]: the quality span over which paydown reaches its maximum (§5.2 "/0.5")
+  P17_QUALITY_CRITIC_WEIGHT: 0.5, // (0, 1]: quality = w·critic01 + (1 − w)·aud01, the §5.2 "starting blend"
+  P17_SURPRISE_COMPARATOR_WEIGHT: 0.5, // (0, 1]: surprise = clamp(w·(comparator − 1) + (quality − pivot), −1, 1) (§5.2)
+  P17_SURPRISE_QUALITY_PIVOT: 0.5, // (0, 1]: the quality that contributes zero surprise (§5.2 "quality − 0.5")
+  P17_SIMILARITY: { directSequel: 0.9, prequel: 0.9, remake: 0.7, reboot: 0.6, spinOff: 0.5 }, // derived from the type (C6)
+  P17_AWARENESS_RECOGNITION_WEIGHT: 0.8, // AWARE_WR
+  P17_AWARENESS_MOMENTUM_WEIGHT: 0.2, // AWARE_WM (positive Momentum only)
+  P17_FATIGUE_AWARENESS_WEIGHT: 0.5, // × (1 − 0.5·min(F,100)/100) (C2)
+  P17_REMAKE_COMPARISON_WEIGHT: 0.5, // REMAKE_W
+  P17_REMAKE_HALF_LIFE_WEEKS: 260, // HL_REMAKE
+  P17_REBOOT_PARTIAL_WEIGHT: 0.4, // W_PARTIAL (C4′)
+  P17_REBOOT_REF_RECENT_WEEKS: 416,
+  P17_REBOOT_REF_STRONG_Q: 0.65,
+  P17_CONTINUITY_CREDIT_FLOOR: 0.75, // 0.75 + 0.25·credit (§11)
+  P17_RECAST_RETENTION: 0.35,
+  P17_ASSOCIATION_CAP: 4,
+  P17_MIN_APPEARANCES_FOR_MAJOR: 2, // an explicit law: one blockbuster credit never makes anyone iconic
+  P17_ROLE_IMPORTANCE: { lead: 1.0, director: 0.9, antagonist: 0.7, support: 0.45, writer: 0.35 }, // craft excluded
+  P17_ASSOCIATION_ICONIC_LEAD_MIN: 1.6, // (0, CAP]: §11 ICONIC LEAD (lead-dominant, ≥2 appearances, weight ≥ 1.6)
+  P17_ASSOCIATION_SIGNATURE_DIRECTOR_MIN: 1.3, // (0, CAP]: §11 SIGNATURE DIRECTOR (≥ 1.3)
+  P17_ASSOCIATION_RECURRING_MIN: 0.3, // (0, CAP]: §11 RECURRING SUPPORT (≥ 0.3); also the CORE ENSEMBLE floor (contract gap)
+  P17_MAX_OPEN_CONTINUITIES: 3, // N_MAX_OPEN_CONTINUITIES; lifetime unbounded
+  P17_DORMANT_WEEKS: 150,
+  P17_REVIVAL_R_BAR: 25,
+  P17_MOMENTUM_COOL: -5,
+  P17_FATIGUE_HOT: 60,
+  P17_REACT_WINDOW_WEEKS: 26,
+  P17_MAX_LIVE_SUBPROPERTIES: 3,
+  P17_SPINOFF_TRANSFER_BASE: 0.38, // transferFraction = 0.38 + 0.27·hookWeight (§9)
+  P17_SPINOFF_TRANSFER_HOOK_COEF: 0.27,
+  P17_SPINOFF_FATIGUE_INHERIT: 0.5, // SPINOFF_F_INHERIT
+  P17_HOOK_WEIGHT_DEFAULT: 0.5, // location / major-concept hooks
+  // ── P17 Shape A cameo — 1367-stage/p17-prep/P17-CAMEO-CONTRACT.md, adopted as versioned PROVISIONAL rules ──
+  P17_CAMEO_UNLOCK_WEEK: 1872, // 1956 Week 1: no featured slots before; zero to two from here (one unlock, no EraConfig widening)
+  P17_CAMEO_MAX_GUESTS: 2,
+  P17_CAMEO_FEE_FRACTION: 0.35, // fee = round(0.35·(SALARY_BASE + SKILL·(ovr/100)² + FAME·(fame/100)²))
+  P17_CAMEO_CANCEL_RETAINED_FRACTION: 0.25, // round(fee·0.25) retained; the remainder refunds until completed work
+  P17_CAMEO_CAST_WEIGHT: 0.1, // a guest's weight in castExecution; never in the cohesion centroid or ROLE_WEIGHT
+  P17_CAMEO_VISIBILITY_WEIGHT: 0.1, // one completed appearance's role-visibility weight in the fame pipeline
+  P17_CAMEO_RANK_DECAY: 0.5, // publicity pool 0.5^rank
+  P17_CAMEO_POOL_NORMALIZER: 2, // delta = (P_all − P_principals)/2 (the pool's < 2 bound)
+  /** Provisional film-professional publicity affinities by ACTUAL profession (contract §2); actors neutral. */
+  P17_CAMEO_PROFILE: {
+    actor: { youngAdult: 1, family: 1, adult: 1, prestige: 1 },
+    director: { youngAdult: 0.6, family: 0.6, adult: 0.85, prestige: 1 },
+    writer: { youngAdult: 0.5, family: 0.65, adult: 1, prestige: 0.85 },
+    craft: { youngAdult: 0.5, family: 0.6, adult: 0.75, prestige: 0.9 },
+    scientist: { youngAdult: 0.35, family: 0.5, adult: 0.75, prestige: 1 },
+  } satisfies Record<CreativeRole, Record<SegmentId, number>>,
+
+  // ── P18 bounded first season `tv-limited-season/v1` (src/core/tvCommission.ts, tvSeason.ts;
+  // 1367-stage/p18-prep/P18-FIRST-SEASON-CONTRACT.md §4-§5, adopted under 1342-O ruling 10 with one independent
+  // review). PROVISIONAL TUNING: finite reproducible integers, not validated balance. A change is a versioned
+  // contract amendment, never a silent retune. ──
+  TV_SEASON_EPISODES: 6, // delivery metadata, never six production clocks
+  TV_SCRIPT_UNITS: 3, // scripts block: one contracted writer, one development-casting slot
+  TV_PREPARATION_UNITS: 1, // preparation: the five company members, one development-casting slot
+  TV_REHEARSAL_UNITS: 1, // rehearsal: the adoption's sound stage with its bound set
+  TV_SHOOTING_UNITS: 4, // shooting: stage + set + set-scenery on the exact sound chain
+  TV_POST_UNITS: 3, // post and delivery master: the adoption's Post; 3+1+1+4+3 = 12
+  TV_SEASON_FEE: 600_000, // F, the contracted maximum season fee = the three milestones
+  TV_SEASON_ADVANCE: 120_000, // A, paid once at acceptance, fully recoupable from earned fees
+  TV_MILESTONE_SCRIPTS: 120_000, // earned after all three script units
+  TV_MILESTONE_PICTURE_LOCK: 240_000, // earned after all four shooting units
+  TV_MILESTONE_DELIVERY: 240_000, // earned at accepted delivery less the late deduction (Sprint 13)
+  TV_UNIT_SPEND: 25_000, // incremental non-payroll spend per credited unit; 12 x 25,000 = 300,000
+  TV_DUE_WEEKS: 16, // contractual due delivery boundary C + 16
+  TV_FINAL_WEEKS: 20, // final permitted delivery boundary C + 20
+  TV_LATE_DEDUCTION_PER_WEEK: 12_000, // frozen into the terms; applied by the Sprint 13 delivery
+  TV_LATE_DEDUCTION_MAX: 48_000,
+  TV_CANCELLATION_CHARGE: 120_000, // K, frozen into the terms; assessed by the Sprint 13 cancellation
+  TV_DISTRIBUTION_WEEKS: 52, // the exclusive window after delivery; the commissioner's licence covers C + 72
+  TV_ADMISSION_CASH_FLOOR: 300_000, // the admission quote's floor, before the advance
+  TV_ADMISSION_QUOTE_WEEKS: 20, // the next twenty advances of mandatory fixed obligations
+  TV_ADMISSION_CANCELLATION_PROVISION: 120_000, // the cancellation provision in the admission quote
+  /**
+   * UNRESOLVED OWNER ASSUMPTION (decision 19A, Assumptions item 3): the commissioner's exclusive R4
+   * `televisionDistribution` licence is minted at acceptance through P16's licence producer with a zero-amount
+   * `licenceGrant` transaction, and the agreement carries the money. 19A names this "one for the Owner: the Owner may
+   * set another consideration". It is the provisional value this slice runs on, disclosed in the commission preview,
+   * not adopted authority. A non-zero ruling also needs a paying account for the commissioner, which the contract
+   * denies it ("no simulated balance sheet"), so `grantCounterpartyLicence` refuses any other value until then.
+   */
+  TV_COMMISSIONER_LICENCE_CONSIDERATION: 0,
 } as const
 
 // ── Placement Core V12 — the facility blueprint catalog ──────────────────────

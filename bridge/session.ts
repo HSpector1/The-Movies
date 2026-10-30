@@ -1,3 +1,6 @@
+import { buyerOperatedProductions, continuedCommittedReleaseIds } from '../src/core/continuedWork.js'
+import { diligenceDraftCopy, absorptionDraftCopy, diligenceDraftApply, absorptionDraftApply, diligenceQuoteSnapshot, absorptionQuoteSnapshot } from './rights.ts'
+import { QUOTE_AGE_POLICY_VERSION } from '../src/core/quoteAge.js'
 import { loanQuoteSnapshot, loanDraftApply } from './loan.ts'
 import { createHash, randomUUID } from 'node:crypto'
 import { performance } from 'node:perf_hooks'
@@ -73,6 +76,9 @@ import { snapshotBuildContextFor } from './snapshot-build-context.ts'
 import {industryPage} from './industry.ts'
 import {isCancellationAction} from './cancellation.ts'
 import {laboratoryActionSpecs,type LaboratoryIntent} from './laboratory.ts'
+import {cameoCancelSpecs,type CameoIntent} from './appearances.ts'
+import {tvCommissionDraftApply,tvCommissionDraftCopy,tvCommissionQuoteSnapshot,tvIntentSpecs,type TvIntent} from './television.ts'
+import {estateBidDraftApply,estateBidDraftCopy,estateBidQuoteSnapshot,rightsIntentSpecs,rightsOfferDraftApply,rightsOfferDraftCopy,rightsOfferQuoteSnapshot,type RightsIntent} from './rightsDesk.ts'
 import {isPhysicalPlanAction,planActionSpecs,type PlanIntent} from './plans.ts'
 import {applyOfficeAction,officeActionSpecs,type OfficeIntent} from './office.ts'
 import {setupRecipeActionSpecs,withProductionSetupRows,type ProductionSetupIntent} from './productionSetup.ts'
@@ -100,9 +106,16 @@ import type {
   BridgeSetCommissionDraftPayload,
   BridgeQuoteSetCommissionRequest,
   BridgeSetCommissionQuoteSnapshot,
+  BridgeDiligenceDraftPayload, BridgeQuoteDiligenceRequest, BridgeDiligenceQuoteSnapshot,
+  BridgeAbsorptionDraftPayload, BridgeQuoteAbsorptionRequest, BridgeAbsorptionQuoteSnapshot,
   BridgeLoanDraftPayload,
   BridgeQuoteLoanRequest,
   BridgeLoanQuoteSnapshot,
+  BridgeTvCommissionDraftPayload,
+  BridgeQuoteTvCommissionRequest,
+  BridgeTvCommissionQuoteSnapshot,
+  BridgeEstateBidDraftPayload, BridgeQuoteEstateBidRequest, BridgeEstateBidQuoteSnapshot,
+  BridgeRightsOfferDraftPayload, BridgeQuoteRightsOfferRequest, BridgeRightsOfferQuoteSnapshot,
   BridgeContractDraftPayload,
   BridgeQuoteContractRequest,
   BridgeContractQuoteSnapshot,
@@ -188,7 +201,14 @@ export type AcceptedQuoteResponseFor<TQuote> = Omit<BridgeQuoteResponse, 'quote'
  * clear-on-load stay generic over intentId regardless of which family minted it.
  */
 type PendingQuote =
+  | { family:'diligence'; draft:BridgeDiligenceDraftPayload; stateDigest:string; kind:'requestDueDiligence'; commitLabel:string }
+  | { family:'absorption'; draft:BridgeAbsorptionDraftPayload; quotedAtWeek:number; quoteAgePolicyVersion:typeof QUOTE_AGE_POLICY_VERSION; stateDigest:string; kind:'absorbStudio'; commitLabel:string }
   | { family: 'loan'; draft: BridgeLoanDraftPayload; stateDigest: string; kind: 'takeLoan'; commitLabel: string }
+  | { family: 'tvCommission'; draft: BridgeTvCommissionDraftPayload; stateDigest: string; kind: 'commissionTvSeason'; commitLabel: string }
+  // ASTRA Sprint 27 (projection 71): the sealed bid, and the title offer with the digest of the disclosed season consequence
+  // (null when the plan owes none); the commit refuses when the consequence recomputed now differs (the browser's rule).
+  | { family: 'estateBid'; draft: BridgeEstateBidDraftPayload; stateDigest: string; kind: 'submitEstateBid'; commitLabel: string }
+  | { family: 'rightsOffer'; draft: BridgeRightsOfferDraftPayload; acknowledgedDigest: string | null; stateDigest: string; kind: 'makeRightsOffer' | 'acceptRightsOffer'; commitLabel: string }
   | {
       family: 'commission'
       draft: BridgeCommissionDraftPayload
@@ -375,14 +395,41 @@ function opaqueIntentId(stateDigest: string, descriptor: unknown): string {
     .digest('hex')}`
 }
 
+/** ASTRA Sprint 20 (projection 70): the one-click intents a client must confirm with a second gesture: every cancellation
+ * of work or of a booking, and the payment of a cancelled season's obligations. The contract carries the verdict
+ * (`confirmation`), so no client can treat them as ordinary memo clicks. */
+const CONFIRMATION_REQUIRED_KINDS: ReadonlySet<AvailableIntent['kind']> = new Set(['cancellationAction', 'cancelFeaturedBooking', 'cancelTvSeason', 'settleTvObligations'])
+/** Engine verbs published under a broader kind that are cancellations all the same (review FIX-1): the plan cancel rides
+ * `physicalPlanAction`. `cancelResearch` (under `researchAction`) keeps every verified result and is NOT marked (Sprints 22
+ * to 26 decision A keeps it one gesture).
+ *
+ * ASTRA Sprint 22 (decision A): the two one-click financial commitments are confirmed by the verb beneath the option, not
+ * by the kind: the maximum-loan shortcut (`takeLoan` beside the quoted loan; money moves at once) and the release commit
+ * (`commitPictureToRelease`; irreversible). The quoted loan commit (`quoteLoan`, then the digest-bound commit) is already
+ * the review, so `quotedIntentFor` derives from the kind alone and stays `none`: no second confirmation behind a quote.
+ *
+ * ASTRA Sprint 27: the one-gesture acceptance of a rival's offer closes a purchase or a licence grant at once (money
+ * moves; the title or licence passes), the same class as the loan shortcut, so its verb marks it required. The quoted
+ * acceptance of a held title's sale (the decision B disclosure) is a quote-minted commit and stays `none`. */
+const CONFIRMATION_REQUIRED_ACTIONS: ReadonlySet<string> = new Set(['cancelPhysicalPlan', 'takeLoan', 'commitPictureToRelease', 'acceptRightsOffer'])
+export const intentConfirmation = (kind: AvailableIntent['kind'], hiddenAction: unknown = null): AvailableIntent['confirmation'] => {
+  if (CONFIRMATION_REQUIRED_KINDS.has(kind)) return 'required'
+  const verb = typeof hiddenAction === 'object' && hiddenAction !== null ? (hiddenAction as { kind?: unknown }).kind : undefined
+  return typeof verb === 'string' && CONFIRMATION_REQUIRED_ACTIONS.has(verb) ? 'required' : 'none'
+}
+
+/** An option's authored fields; `confirmation` is derived from the kind by `option()` (never authored per site). */
+type IntentFields = Omit<AvailableIntent, 'intentId' | 'confirmation'>
+
 function option(
   stateDigest: string,
-  fields: Omit<AvailableIntent, 'intentId'>,
+  fields: IntentFields,
   hiddenAction: unknown,
 ): AvailableIntent {
+  const confirmed = { ...fields, confirmation: intentConfirmation(fields.kind, hiddenAction) }
   return {
-    intentId: opaqueIntentId(stateDigest, { fields, hiddenAction }),
-    ...fields,
+    intentId: opaqueIntentId(stateDigest, { fields: confirmed, hiddenAction }),
+    ...confirmed,
   }
 }
 
@@ -579,7 +626,7 @@ function resolveFounding(
       if (offer === undefined) continue
       const preview = signContractAction(state, row.id, FOUNDING_OFFER_TERM_WEEKS)
       if (!preview.ok) continue
-      const fields: Omit<AvailableIntent, 'intentId'> = {
+      const fields: IntentFields = {
         kind: 'signFoundingContract',
         label: `Offer ${row.name} a 2-year ${foundingRoleLabel(row.role)} contract`,
         detail:
@@ -649,7 +696,7 @@ function resolveFounding(
     const rosterSentence = actorProgress.extra > 0
       ? 'The roster includes a reserve Actor for two-picture continuity. '
       : ''
-    const fields: Omit<AvailableIntent, 'intentId'> = {
+    const fields: IntentFields = {
       kind: 'foundStudio',
       label: 'START A STUDIO',
       detail:
@@ -748,7 +795,7 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
 
   const construction = studioDevelopment(state)
   if (construction.canStart) {
-    const fields: Omit<AvailableIntent, 'intentId'> = {
+    const fields: IntentFields = {
       kind: 'startConstruction',
       label: `Start ${construction.name}`,
       detail: construction.consequence,
@@ -799,7 +846,7 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
     const capacityDetail = commissionCapacityOnly
       ? board.commission.blockers[0]?.detail ?? ''
       : ''
-    const fields: Omit<AvailableIntent, 'intentId'> = {
+    const fields: IntentFields = {
       kind: 'commissionScreenplay',
       label:
         journey.next?.kind === 'commission'
@@ -848,7 +895,7 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
         support: [candidates[1]!.id, candidates[2]!.id] as [string, string],
       },
     }
-    const fields: Omit<AvailableIntent, 'intentId'> = {
+    const fields: IntentFields = {
       kind: 'startAuditions',
       label:
         journey.next?.kind === 'plan-auditions' && journey.scriptProjectId === project.projectId
@@ -900,7 +947,7 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
           marketing: 0,
         },
       }
-      const fields: Omit<AvailableIntent, 'intentId'> = {
+      const fields: IntentFields = {
         kind: 'greenlightPicture',
         label:
           `Lead ${cast.lead.name} / Antagonist ${cast.antagonist.name} / ` +
@@ -937,7 +984,7 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
       )
     for (const card of commandCards) {
       const command = card.command!
-      const fields: Omit<AvailableIntent, 'intentId'> = {
+      const fields: IntentFields = {
         kind: 'resolveProductionBlocker',
         label: command.label,
         detail: card.blocker?.detail ?? card.statusLabel,
@@ -961,9 +1008,9 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
   // the decision this intent resolves.
   {
     const committedIds = new Set(
-      state.releaseAuthority.commitments.map((row) => row.productionId),
+      [...state.releaseAuthority.commitments.map((row) => row.productionId),...continuedCommittedReleaseIds(state)],
     )
-    const readyUncommitted = state.studio.activeProductions
+    const readyUncommitted = buyerOperatedProductions(state)
       .filter(
         (production) => production.remainingTicks === 1 && !committedIds.has(production.id),
       )
@@ -972,12 +1019,15 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
       const concept = state.concepts.find(
         (candidate) => candidate.id === production.conceptId,
       )
-      const title = concept?.title ?? production.id
-      const fields: Omit<AvailableIntent, 'intentId'> = {
+      const title = concept?.title ?? state.hollywood?.concepts.find(candidate=>candidate.id===production.conceptId)?.title ?? production.id
+      const fields: IntentFields = {
         kind: 'commitPictureToRelease',
         label: `Commit ${title} to release`,
+        // ASTRA Sprint 22 (decision A): the option is confirmed with a second gesture, and its detail is the review the
+        // client shows while armed: the frozen Greenlight outlook and the money already paid, read from the production
+        // itself (the same figures the Release projection publishes), then the finality. No new arithmetic.
         detail:
-          'Irreversible. Advances no time; the picture releases on the next studio week.',
+          `Irreversible. Advances no time; the picture releases on the next studio week. Greenlight outlook: opening ${exactDollars(production.forecastSnapshot.expectedOpening)}, total ${exactDollars(production.forecastSnapshot.expectedTotal)}, critics ${production.forecastSnapshot.expectedCriticScore.toFixed(1)}. Budget already paid: production ${exactDollars(production.budget.negative)}, marketing ${exactDollars(production.budget.marketing)}.`,
         projectId: null,
         castingSessionId: null,
         productionId: production.id,
@@ -1021,7 +1071,7 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
     next.kind === 'review-casting-blocker'
   ) {
     if (studioDecision(state) === null) {
-      const fields: Omit<AvailableIntent, 'intentId'> = {
+      const fields: IntentFields = {
         kind: 'advanceWeek',
         label: 'No action is required this week — advance the week',
         detail: journey.waiting?.reason ?? journey.detail ?? 'Advance the authoritative studio week.',
@@ -1038,7 +1088,7 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
   }
 
   if (next.kind === 'advance-week') {
-    const fields: Omit<AvailableIntent, 'intentId'> = {
+    const fields: IntentFields = {
       kind: 'advanceWeek',
       label: next.label,
       detail: journey.waiting?.reason ?? journey.detail ?? 'Advance the authoritative studio week.',
@@ -1062,7 +1112,7 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
   // The commit intent itself arrives with W2's schema — until then the direct
   // core action and this hold path are the interface.
   if (next.kind === 'release-review') {
-    const fields: Omit<AvailableIntent, 'intentId'> = {
+    const fields: IntentFields = {
       kind: 'advanceWeek',
       label: `Hold ${journey.pictureTitle ?? 'the picture'} at Release Ready — advance the week`,
       detail:
@@ -1083,7 +1133,7 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
     if (decision?.projectId === journey.scriptProjectId) {
       for (const action of decision.legalActions) {
         const kind = action.kind === 'acceptScript' ? 'acceptScreenplay' : 'requestRewrite'
-        const fields: Omit<AvailableIntent, 'intentId'> = {
+        const fields: IntentFields = {
           kind,
           label: action.label,
           detail: `${decision.title} · ${journey.whyItMatters}`,
@@ -1111,7 +1161,7 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
       const reads = project.results === null
         ? 0
         : Object.values(project.results).reduce((sum, entries) => sum + entries.length, 0)
-      const fields: Omit<AvailableIntent, 'intentId'> = {
+      const fields: IntentFields = {
         kind: 'acknowledgeAuditions',
         label: action.label,
         detail: `${String(reads)} authoritative camera-test reads reviewed for ${project.title}.`,
@@ -1147,6 +1197,39 @@ function resolveLaboratoryIntents(state: GameState): Array<IntentApplication & L
     option: option(stateDigest, {kind:isCancellationAction(spec.action)?'cancellationAction':isPhysicalPlanAction(spec.action)?'physicalPlanAction':spec.action.kind==='adoptTechnology'||spec.action.kind==='adoptSynchronizedSound'?'adoptTechnology':'researchAction',label:spec.label,detail:spec.detail,
       projectId:'projectId' in spec.action?spec.action.projectId:null,castingSessionId:null,
       productionId:'productionId' in spec.action?spec.action.productionId:null}, spec.action),
+    apply: current => caught(() => ({ok:true,next:applyActions(current,[spec.action])})),
+  }))
+}
+
+/** P17 Shape A (projection 66): one cancel verb per unperformed featured booking of the player's own. */
+function resolveCameoIntents(state: GameState): Array<IntentApplication & CameoIntent> {
+  const stateDigest = authoritativeDigest(state)
+  return cameoCancelSpecs(state).map(spec => ({
+    spec,
+    option: option(stateDigest, {kind:'cancelFeaturedBooking',label:spec.label,detail:spec.detail,projectId:null,castingSessionId:null,productionId:spec.productionId}, spec.action),
+    apply: current => caught(() => ({ok:true,next:applyActions(current,[spec.action])})),
+  }))
+}
+
+/** P18 Sprint 13 slice B (projection 68): cancel each live season, settle each owed agreement; the core actions decide. */
+function resolveTelevisionIntents(state: GameState): Array<IntentApplication & TvIntent> {
+  // FIX-S13B-1 item 5: the Industry page asks here directly, so the closed-player rule of resolveAvailableIntents holds here too.
+  if (state.hollywood !== null && !isOperatingStudio(state, state.hollywood.playerStudioId)) return []
+  const stateDigest = authoritativeDigest(state)
+  return tvIntentSpecs(state).map(spec => ({
+    spec,
+    option: option(stateDigest, {kind:spec.kind,label:spec.label,detail:spec.detail,projectId:null,castingSessionId:null,productionId:null}, spec.action),
+    apply: current => caught(() => ({ok:true,next:applyActions(current,[spec.action])})),
+  }))
+}
+
+/** ASTRA Sprint 27 (projection 71): reject, withdraw or (a purchase) accept each open offer of the player's desk; the core actions decide. */
+function resolveRightsIntents(state: GameState): Array<IntentApplication & RightsIntent> {
+  if (state.hollywood !== null && !isOperatingStudio(state, state.hollywood.playerStudioId)) return []
+  const stateDigest = authoritativeDigest(state)
+  return rightsIntentSpecs(state).map(spec => ({
+    spec,
+    option: option(stateDigest, {kind:spec.kind,label:spec.label,detail:spec.detail,projectId:null,castingSessionId:null,productionId:null}, spec.action),
     apply: current => caught(() => ({ok:true,next:applyActions(current,[spec.action])})),
   }))
 }
@@ -1206,7 +1289,7 @@ function resolveLoanIntents(state: GameState): IntentApplication[] {
   if (state.founding !== null) return []
   const principal = loanMaxPrincipal(studioWeeklyFixedCost(state, h.playerStudioId))
   const terms = contractLoan(principal, studioWeeklyFixedCost(state, h.playerStudioId), state.market.tick)
-  const fields: Omit<AvailableIntent, 'intentId'> = {
+  const fields: IntentFields = {
     kind: 'takeLoan',
     label: `Take a studio loan of ${exactDollars(principal)}`,
     detail: `Flat interest brings the total to ${exactDollars(terms.total)}, repaid over ${terms.installments.length} weeks at ${exactDollars(terms.installments[0]!)}/week from Week ${state.market.tick + 1}, charged with payroll whatever the cash. One loan at a time; no early repayment.`,
@@ -1221,7 +1304,7 @@ function resolveLoanIntents(state: GameState): IntentApplication[] {
 function resolveAvailableIntents(state: GameState): IntentApplication[] {
   // P15B Wave 4 (closure/v1; 1362-O §5.2): a closed player studio is read-only history and offers nothing.
   if (state.hollywood !== null && !isOperatingStudio(state, state.hollywood.playerStudioId)) return []
-  return [...resolveStudioIntents(state), ...resolveLoanIntents(state), ...resolveLaboratoryIntents(state), ...resolvePlanIntents(state), ...resolveOfficeIntents(state), ...resolveProductionSetupIntents(state)]
+  return [...resolveStudioIntents(state), ...resolveLoanIntents(state), ...resolveLaboratoryIntents(state), ...resolvePlanIntents(state), ...resolveOfficeIntents(state), ...resolveProductionSetupIntents(state), ...resolveCameoIntents(state), ...resolveTelevisionIntents(state), ...resolveRightsIntents(state)]
 }
 
 export function availableIntents(state: GameState): AvailableIntent[] {
@@ -1454,7 +1537,7 @@ export class BridgeSession {
   industry(request:IndustryQuery) {
     if(request.sessionId!==this.sessionId)return this.protocolReject(request.requestId,'SESSION_MISMATCH','The active campaign changed. Refresh Industry.')
     if(request.expectedStateRevision!==this.stateRevision)return this.protocolReject(request.requestId,'STALE_REVISION','The studio advanced. Refresh this Industry page before continuing.')
-    try{return industryPage(this.state,this.sessionId,this.stateRevision,request,request.view==='laboratory'?resolveLaboratoryIntents(this.state):[],request.view==='plans'?resolvePlanIntents(this.state):[],request.view==='office'?resolveOfficeIntents(this.state):[])}
+    try{return industryPage(this.state,this.sessionId,this.stateRevision,request,request.view==='laboratory'?resolveLaboratoryIntents(this.state):[],request.view==='plans'?resolvePlanIntents(this.state):[],request.view==='office'?resolveOfficeIntents(this.state):[],request.view==='featuredAppearances'?resolveCameoIntents(this.state):[],request.view==='television'?resolveTelevisionIntents(this.state):[],request.view==='rights'?resolveRightsIntents(this.state):[])}
     catch(error){return this.protocolReject(request.requestId,'INVALID_CONTROL',(error as Error).message)}
   }
 
@@ -1680,10 +1763,33 @@ export class BridgeSession {
     const pending = this.pendingQuotes.get(intentId)
     if (pending === undefined) return undefined
     if (pending.stateDigest !== authoritativeDigest(this.state)) return undefined
+    if (pending.family === 'diligence' || pending.family === 'absorption') {
+      return {option:{intentId,kind:pending.kind,label:pending.commitLabel,detail:'',projectId:null,castingSessionId:null,productionId:null,confirmation:intentConfirmation(pending.kind)},
+        apply:current=>authoritativeDigest(current)!==pending.stateDigest
+          ? {ok:false,error:'Quoted rights intent no longer matches the authoritative state.'}
+          : pending.family==='diligence'?diligenceDraftApply(current,pending.draft)
+            : absorptionDraftApply(current,pending.draft,pending.quotedAtWeek,pending.quoteAgePolicyVersion)}
+    }
+    if (pending.family === 'tvCommission') {
+      return { option: { intentId, kind: pending.kind, label: pending.commitLabel, detail: '',
+        projectId: null, castingSessionId: null, productionId: null, confirmation: intentConfirmation(pending.kind) },
+        apply: current => tvCommissionDraftApply(current, pending.draft) }
+    }
+    if (pending.family === 'estateBid') {
+      return { option: { intentId, kind: pending.kind, label: pending.commitLabel, detail: '',
+        projectId: null, castingSessionId: null, productionId: null, confirmation: intentConfirmation(pending.kind) },
+        apply: current => estateBidDraftApply(current, pending.draft) }
+    }
+    if (pending.family === 'rightsOffer') {
+      // The quote was the review: the disclosed consequence's digest rides to the commit, which recomputes it on the live state.
+      return { option: { intentId, kind: pending.kind, label: pending.commitLabel, detail: '',
+        projectId: null, castingSessionId: null, productionId: null, confirmation: intentConfirmation(pending.kind) },
+        apply: current => rightsOfferDraftApply(current, pending.draft, pending.acknowledgedDigest) }
+    }
     if (pending.family === 'loan') {
       // Resolve to a live action, never to the preflight successor captured at quote time.
       return { option: { intentId, kind: pending.kind, label: pending.commitLabel, detail: '',
-        projectId: null, castingSessionId: null, productionId: null },
+        projectId: null, castingSessionId: null, productionId: null, confirmation: intentConfirmation(pending.kind) },
         apply: current => loanDraftApply(current, pending.draft) }
     }
     const fields = {
@@ -1693,6 +1799,7 @@ export class BridgeSession {
       projectId: pending.family === 'casting' ? pending.draft.projectId : null,
       castingSessionId: null,
       productionId: null,
+      confirmation: intentConfirmation(pending.kind),
     } as const
     const conversion = pending.family === 'commission'
       ? draftToEngine(this.state, pending.draft)
@@ -1825,9 +1932,9 @@ export class BridgeSession {
       processingMs: performance.now() - started,
     }
     // Every quote leaves through the published contract, exactly as every request enters
-    // through it. Quote snapshots are built by hand (cashBefore/cashAfter are `integer()`
-    // on the wire while cash is a double elsewhere), so an out-of-contract value failed
-    // only in the Unity consumer; refuse it here instead, as a NAMED rejection (a throw
+    // through it. Quote snapshots are built by hand (cashBefore/cashAfter were `integer()`
+    // on the wire until 18A widened them to `number()` at projection 62), so an out-of-contract
+    // value failed only in the Unity consumer; refuse it here instead, as a NAMED rejection (a throw
     // would fail the runtime coordinator and every later call), and register the quote's
     // intent only once the answer is lawful (stabilization 2026-10-22, L-24).
     try {
@@ -1855,7 +1962,12 @@ export class BridgeSession {
    * which family it asked for gets that family's quote type back narrowed,
    * with no cast.
    */
+  quote(request: BridgeQuoteDiligenceRequest): AcceptedQuoteResponseFor<BridgeDiligenceQuoteSnapshot> | RejectedResponse
+  quote(request: BridgeQuoteAbsorptionRequest): AcceptedQuoteResponseFor<BridgeAbsorptionQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuoteLoanRequest): AcceptedQuoteResponseFor<BridgeLoanQuoteSnapshot> | RejectedResponse
+  quote(request: BridgeQuoteTvCommissionRequest): AcceptedQuoteResponseFor<BridgeTvCommissionQuoteSnapshot> | RejectedResponse
+  quote(request: BridgeQuoteEstateBidRequest): AcceptedQuoteResponseFor<BridgeEstateBidQuoteSnapshot> | RejectedResponse
+  quote(request: BridgeQuoteRightsOfferRequest): AcceptedQuoteResponseFor<BridgeRightsOfferQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuoteCommissionRequest): AcceptedQuoteResponseFor<BridgeCommissionQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuoteCastingRequest): AcceptedQuoteResponseFor<BridgeCastingQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuotePlacementRequest): AcceptedQuoteResponseFor<BridgePlacementQuoteSnapshot> | RejectedResponse
@@ -1869,6 +1981,51 @@ export class BridgeSession {
     const { commandId } = request
     const guarded = this.quoteGuard(request, started)
     if (guarded !== null) return guarded
+    if(request.type==='quotePaidDueDiligence') {
+      const draft=diligenceDraftCopy(request.draft),stateDigest=authoritativeDigest(this.state)
+      const intentId=opaqueIntentId(stateDigest,{diligenceDraft:draft}),quote=diligenceQuoteSnapshot(this.state,draft,intentId)
+      if(quote.ok){this.pendingQuotes.set(intentId,{family:'diligence',draft,stateDigest,kind:'requestDueDiligence',commitLabel:quote.commitLabel});this.capPendingQuotes()}
+      return this.mintQuoteResponse(request,started,stateDigest,quote)
+    }
+    if(request.type==='quoteHealthyAbsorption') {
+      const draft=absorptionDraftCopy(request.draft),stateDigest=authoritativeDigest(this.state)
+      const intentId=opaqueIntentId(stateDigest,{absorptionDraft:draft}),quote=absorptionQuoteSnapshot(this.state,draft,intentId)
+      if(quote.ok){this.pendingQuotes.set(intentId,{family:'absorption',draft,quotedAtWeek:quote.quotedAtWeek,quoteAgePolicyVersion:quote.quoteAgePolicyVersion,
+        stateDigest,kind:'absorbStudio',commitLabel:quote.commitLabel});this.capPendingQuotes()}
+      return this.mintQuoteResponse(request,started,stateDigest,quote)
+    }
+    if (request.type === 'quoteTvCommission') {
+      // P18 (projection 68): the core preview is the whole answer. A refusal is an accepted quote with `ok:false` and the
+      // core's reason; only a lawful one registers the digest-bound commit, which re-runs the action at commit.
+      const draft = { ...request.draft, roster: { ...request.draft.roster, cast: { ...request.draft.roster.cast } } }
+      const stateDigest = authoritativeDigest(this.state)
+      const intentId = opaqueIntentId(stateDigest, { tvCommissionDraft: tvCommissionDraftCopy(draft) })
+      const quote = tvCommissionQuoteSnapshot(this.state, draft, intentId)
+      return this.mintQuoteResponse(request, started, stateDigest, quote, quote.ok
+        ? { intentId, entry: { family: 'tvCommission', draft, stateDigest, kind: 'commissionTvSeason', commitLabel: quote.commitLabel } }
+        : undefined)
+    }
+    if (request.type === 'quoteEstateBid') {
+      // ASTRA Sprint 27 (projection 71): the core's bid law is the whole answer; only a lawful quote registers the digest-bound commit.
+      const draft = estateBidDraftCopy(request.draft)
+      const stateDigest = authoritativeDigest(this.state)
+      const intentId = opaqueIntentId(stateDigest, { estateBidDraft: draft })
+      const quote = estateBidQuoteSnapshot(this.state, draft, intentId)
+      return this.mintQuoteResponse(request, started, stateDigest, quote, quote.ok
+        ? { intentId, entry: { family: 'estateBid', draft, stateDigest, kind: 'submitEstateBid', commitLabel: quote.commitLabel } }
+        : undefined)
+    }
+    if (request.type === 'quoteRightsOffer') {
+      // ASTRA Sprint 27 (projection 71): the sale or close law, the willingness and the decision B consequence are the core's;
+      // a lawful quote registers the commit with the disclosed consequence's digest (null when none is owed).
+      const draft = rightsOfferDraftCopy(request.draft)
+      const stateDigest = authoritativeDigest(this.state)
+      const intentId = opaqueIntentId(stateDigest, { rightsOfferDraft: draft })
+      const quote = rightsOfferQuoteSnapshot(this.state, draft, intentId)
+      return this.mintQuoteResponse(request, started, stateDigest, quote, quote.ok
+        ? { intentId, entry: { family: 'rightsOffer', draft, acknowledgedDigest: quote.consequence?.digest ?? null, stateDigest, kind: quote.kind, commitLabel: quote.commitLabel } }
+        : undefined)
+    }
     if (request.type === 'quoteLoan') {
       const stateDigest = authoritativeDigest(this.state)
       const intentId = opaqueIntentId(stateDigest, { loanDraft: request.draft })

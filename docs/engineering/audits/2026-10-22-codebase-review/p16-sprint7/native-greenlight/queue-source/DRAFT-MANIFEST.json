@@ -1,0 +1,71 @@
+{
+  "status": "STATIC-UNRUN-QUEUED-RELEASE-SOURCE-CORRECTION",
+  "baseHead": "e0d4c23939bcb4caf35957896959c32afef82c6b",
+  "baseDescription": "Current production source e0 plus independent queue test a5a5669a; source preimage hashes govern installation",
+  "files": [
+    {
+      "path": "src/core/actions.ts",
+      "preimageSha256": "b84257f7b35aac67676a1724482df23966f98776a08b402dd0411bdc869561cc",
+      "postimageSha256": "1a928cfe72e97a124fa3274bf05c632a6d309d018382342e804c41d482721305",
+      "postimage": "working/src/core/actions.ts"
+    },
+    {
+      "path": "src/core/continuedScripts.ts",
+      "preimageSha256": "8217b43843bdb1f077a164ea468e5287d76bcc06dc53d4125bea0fe38991cbd7",
+      "postimageSha256": "8d0524115d81458fafc37e50e2a8f1d2446035ee73b1f18a32afb2be896f1926",
+      "postimage": "working/src/core/continuedScripts.ts"
+    },
+    {
+      "path": "src/core/queueAdmission.ts",
+      "preimageSha256": "ad74544f539f1d383839cbbe8b19d6324b5c5fffd3e7249ae6a2cc1b330b1047",
+      "postimageSha256": "5d95de641cb2398148d1be825848026155d98f145798608e54cbbbbc105efd5c",
+      "postimage": "working/src/core/queueAdmission.ts"
+    },
+    {
+      "path": "src/core/rights.ts",
+      "preimageSha256": "ed7bb51aa5d5f5ce191e761a7250a72a909c332a378df6010450e1ddb24ebd96",
+      "postimageSha256": "f5c2ea531d65f743c56915e1fe66a160ed0da06d134a083eb0ba1ed5e7a5bf43",
+      "postimage": "working/src/core/rights.ts"
+    },
+    {
+      "path": "src/core/tick.ts",
+      "preimageSha256": "7ad9c4e0831d679c45e8cb088294f819a947e3e96aeae5d035580d3b2486b7da",
+      "postimageSha256": "f21a55dcae3e4d6a49b0385fc54d63c527d5a90c565aef1c568fe46929ca7e21",
+      "postimage": "working/src/core/tick.ts"
+    }
+  ],
+  "patch": {
+    "path": "QUEUED-RELEASE-AUTHORITY.patch",
+    "sha256": "c1e79adf3fba0f69fb54502ef073f3717f7d9bcdcb7e340eecceaebfb389e542",
+    "bytes": 15237
+  },
+  "preservedRegression": {
+    "test": "tests/p16-carried-script-accept.test.ts",
+    "sha256": "7b1d156dcc3f1f653926bca76ce33a6571b7583713a11dfe5386ea0b53ace4c0",
+    "modifiedByThisDraft": false,
+    "originalBudgetMs": 5000
+  },
+  "redEvidence": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint7-verification-20261026/native-queue-red/run.log",
+      "sha256": "ad487a48046b55f6cfa8f023753056ccd4549f9023315a3eaef34ba4fb2f5554"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/p16-sprint7-verification-20261026/native-queue-red/queue.json",
+      "sha256": "d3555da2c6a1e53a6d7eec11e54c3d2ec83cb2b150219e80da40960415bd5d0c"
+    }
+  ],
+  "redResult": {
+    "positiveMs": 7028,
+    "normalExit": 1,
+    "reached": "genuine queued own script-0000 expires on arrival184 during carried release",
+    "reason": "continued script: native active production differs from paid greenlight",
+    "unreached": "successful dequeue grant, arrived save and final money assertions"
+  },
+  "verification": {
+    "runtime": false,
+    "compiler": false,
+    "tests": false,
+    "repositoryEdits": false
+  }
+}

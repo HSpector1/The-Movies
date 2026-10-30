@@ -16,13 +16,40 @@ export function allocateProductionId(startTick: number, taken: ReadonlySet<strin
 // Any allocator or cross-domain reservation gate must therefore collide against
 // every persisted consumer, not merely the active/released production arrays.
 export function persistedProductionIds(state: GameState): Set<string> {
+  return collectProductionIds(state)
+}
+
+/** Current reader collision view: a buyer's exact observed release receipts name the creator's
+ * SAME film, not a second created film. Never use this view for minting: the default allocator
+ * above continues reserving every persisted identity without exception. */
+export function playerProductionIdsForHollywood(state: GameState, operatedReleaseWeeks: ReadonlyMap<string, number>, operatedWrapWeeks?: ReadonlyMap<string, number>, operatedSilentLockWeeks?: ReadonlyMap<string, number>): Set<string> {
+  return collectProductionIds(state, operatedReleaseWeeks, operatedWrapWeeks, operatedSilentLockWeeks)
+}
+
+function collectProductionIds(state: GameState, operatedReleaseWeeks?: ReadonlyMap<string, number>, operatedWrapWeeks?: ReadonlyMap<string, number>, operatedSilentLockWeeks?: ReadonlyMap<string, number>): Set<string> {
   const taken = new Set<string>()
   const add = (id: string | null | undefined): void => {
     if (id !== null && id !== undefined) taken.add(id)
   }
 
   for (const active of state.studio.activeProductions) add(active.id)
-  for (const loadout of (state as Partial<GameState>).technology?.productions ?? []) add(loadout.productionId)
+  for(const a of (state as Partial<GameState>).rights?.absorptions??[])if(a.producerVersion==='absorption-scripts/v6'||a.producerVersion==='absorption-obligations/v7'||(a.producerVersion==='absorption-rival-scripts/v8'||a.producerVersion==='absorption-rival-obligations/v9'))for(const d of a.scriptDecisions){
+    if(d.kind==='greenlight'||d.kind==='cancelProduction')add(d.production.id)
+    if(d.kind==='productionReleased')add(d.productionId)
+  }
+  for (const loadout of (state as Partial<GameState>).technology?.productions ?? []) {
+    const operatedSilent = loadout.method === 'silent' && operatedSilentLockWeeks?.has(loadout.productionId) === true
+      && operatedSilentLockWeeks.get(loadout.productionId) === loadout.lockedWeek
+    if (!operatedSilent) add(loadout.productionId)
+  }
+  // P17: a lineage edge names its production and parent for good, so an allocator never reuses either id. (The save
+  // validator joins the root against the walk of the state WITHOUT it, so this reservation cannot vouch for itself.)
+  for (const property of (state as Partial<GameState>).franchises?.properties ?? []) {
+    for (const edge of property.installments) {
+      add(edge.childProductionId)
+      add(edge.parentProductionId)
+    }
+  }
   for (const film of state.studio.releasedFilms) add(film.productionId)
   for (const run of state.theatricalRuns) add(run.productionId)
   for (const entry of state.ledger) add(entry.productionId)
@@ -69,14 +96,17 @@ export function persistedProductionIds(state: GameState): Set<string> {
   // call over FROZEN V11/V12/V13 fragments — states that genuinely predate these
   // roots and cannot be expected to carry them. A fragment with no history
   // reserves no identities, which is exactly right.
-  for (const id of studioEventProductionIds(state.studioEvents)) add(id)
+  for (const id of studioEventProductionIds(state.studioEvents, operatedReleaseWeeks, operatedWrapWeeks)) add(id)
   for (const entry of state.productionQueue ?? []) add(queueEntryProductionId(entry))
   for (const row of state.studioHistory?.rows ?? []) {
-    for (const subject of row.subjects) if (subject.kind === 'film') add(subject.productionId)
+    const operatedStanding = row.kind === 'standingChanged' && row.source.kind === 'releaseResult'
+      && operatedReleaseWeeks?.has(row.source.productionId) === true && operatedReleaseWeeks.get(row.source.productionId) === row.week
+    for (const subject of row.subjects) if (subject.kind === 'film'
+      && !(operatedStanding && row.kind === 'standingChanged' && row.source.kind === 'releaseResult' && subject.productionId === row.source.productionId)) add(subject.productionId)
     switch (row.kind) {
       case 'filmReleased': case 'theatricalRunCompleted': add(row.productionId); break
       case 'careerMilestone': add(row.filmId); break
-      case 'standingChanged': if (row.source.kind === 'releaseResult') add(row.source.productionId); break
+      case 'standingChanged': if (row.source.kind === 'releaseResult' && !operatedStanding) add(row.source.productionId); break
       case 'studioFounded': case 'standingDriftFolded': case 'facilityCommitted': case 'facilityCompleted':
       case 'facilityDemolished': case 'facilityMoved': case 'technologyMilestone': break
       // P13B-S3 plan rows name a plan, never a production: they reserve no film id.

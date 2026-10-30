@@ -48,6 +48,8 @@ export type CastingStartSources = {
   assignableTalentIds: ReadonlySet<string>
   // Ordinary active-production + active-screenplay availability at start.
   busyTalentIds: ReadonlySet<string>
+  /** P18: slots other roots hold that this allocator cannot see (a live television season's). */
+  externallyOccupiedSlots?: ReadonlySet<string>
 }
 
 export type CastingCompletionSources = {
@@ -309,7 +311,7 @@ export function startCastingSession(
   assertCastingSlateEligibility(payload.slate, project, sources)
 
   const id = nextCastingSessionId(casting)
-  const reservation = allocateCastingReservation(casting, operations, scriptDevelopment, id)
+  const reservation = allocateCastingReservation(casting, operations, scriptDevelopment, id, sources.externallyOccupiedSlots)
   if (reservation === null) {
     // C2a-M4 (§3.3): the SAME sentence, now a NAMED refusal — the one an audition
     // front door converts into a queued intent. Every refusal above it (unknown

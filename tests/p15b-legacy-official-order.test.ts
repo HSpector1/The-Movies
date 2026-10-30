@@ -6,6 +6,7 @@ import { tick } from '../src/core/tick.js'
 import { routeL } from './helpers/p15c2-route-l.js'
 import { closureOf, drainPlayer, canon } from './helpers/p15b-live.js'
 import { budgeted, ROUTE_MS } from './helpers/p15c2-legacy.js'
+import { validateLiveSave } from './helpers/live-era.js'
 
 it('actual6240-official-reader-refuses-closure-after-finale-sequence', budgeted(ROUTE_MS, () => {
   let input = structuredClone(routeL().foundedAtFounding)
@@ -20,7 +21,7 @@ it('actual6240-official-reader-refuses-closure-after-finale-sequence', budgeted(
   const player = closureOf(input, input.hollywood!.playerStudioId)!
   expect(player?.closureWeek, 'actual measured route premise, never reset clock').toBe(6240)
   const admitted = save.makeSave(input)
-  expect(() => save.validateSaveP15B(admitted)).not.toThrow()
+  expect(() => validateLiveSave(admitted)).not.toThrow() // the live reader; its predecessor proof runs the Legacy order law
   const official = input.campaignLegacy.official!
   const ended = input.campaignLegacy.endOfRun!
   expect(official.definition).toBe('campaign-legacy/v3')
@@ -41,6 +42,6 @@ it('actual6240-official-reader-refuses-closure-after-finale-sequence', budgeted(
     source.highWatermark = Math.max(0, ...hostile.state.studioClosure.closures.filter(c => c.p15DomainSequence < manifest.p15DomainSequence).map(c => c.p15DomainSequence))
   }
   const bytes = canon(hostile)
-  expect(() => save.validateSaveP15B(hostile)).toThrow(/campaignLegacy\.official\.p15DomainSequence.*closure/)
+  expect(() => validateLiveSave(hostile)).toThrow(/campaignLegacy\.official\.p15DomainSequence.*closure/)
   expect(canon(hostile)).toBe(bytes)
 }), ROUTE_MS)

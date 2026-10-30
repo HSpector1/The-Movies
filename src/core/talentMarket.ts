@@ -43,7 +43,7 @@ import { relationshipsReasonSentence, rosterTies, tiersOnRoster } from './relati
 import type { PromiseAttachment } from './promises.js'
 import { careerIdentity } from './talentSummary.js'
 import { TUNING } from './tuning.js'
-import { closedWeekOf } from './operatingState.js'
+import { terminalWeekOf } from './operatingState.js'
 import type { Contract, GameState, Genre, LedgerEntry, LegacyTermination, MarketCaseStatus, MarketEligibilityStatus, OpportunitySeatClass,
   ProfessionalPromise, PromiseClassification, PromiseFamily, PromiseFeasibilityReceipt,
   Standing, TalentMarketCase, TalentMarketCaseV36, TalentMarketProposal, TalentMarketReceipt,
@@ -513,6 +513,25 @@ export function invalidateCasesAtClosure(state: GameState, subjectStudioId: stri
       ['the employing studio closed; the person is a free agent now'])
   }
   return next
+}
+
+/** The absorbing close ends the original issuing/subject employer, but retained
+ * people have a real buyer contract. Keep the native removal/receipt owners and
+ * avoid the closure-only claim that every affected person is a free agent. */
+export const ABSORPTION_PROPOSAL_REASON = 'the issuing studio was absorbed'
+export const ABSORPTION_CASE_REASON = 'the subject studio was absorbed'
+export const ABSORPTION_CASE_DROP_REASON = 'the original employment interval ended in an absorption'
+export function withdrawProposalAtAbsorption(state: GameState, talentId: string, issuerStudioId: string): GameState {
+  const next = withdrawProposal(state, talentId, issuerStudioId)
+  return { ...next, talentMarket: appendReceipt(next.talentMarket, { kind: 'proposalWithdrawn', week: state.market.tick, talentId,
+    studioId: issuerStudioId, reasons: [ABSORPTION_PROPOSAL_REASON] }) }
+}
+export function invalidateCaseAtAbsorption(state: GameState, kase: TalentMarketCaseV36): GameState {
+  if (!state.talentMarket.cases.includes(kase) || kase.outcome !== null) {
+    throw new Error('talentMarket: absorption requires the actual open case')
+  }
+  return closeCase(state, kase, 'invalidated', state.market.tick, ABSORPTION_CASE_REASON, null,
+    [ABSORPTION_CASE_DROP_REASON])
 }
 
 export function currentProposals(state: GameState, talentId: string): readonly TalentMarketProposal[] {
@@ -1205,6 +1224,17 @@ function seatsHeldAfter(state: GameState, hollywood: HollywoodState, studioId: s
   return held
 }
 
+/**
+ * The person's own reservation against an employer at `week` (P14B.1 (8), P14B.5 (6)): they refuse a Distrusted
+ * employer outright, and refuse to work beside a Nemesis on its roster. One law for every employer that seeks them —
+ * the talent market's freeze and P16's absorption retention (r2, review F13) alike.
+ */
+export function personReservationRefusal(state: GameState, talentId: string, employerStudioId: string, week: number): 'issuerDistrusted' | 'nemesisOnRoster' | null {
+  if (trustDescriptor(state, talentId, employerStudioId, week).label === 'Distrusted') return 'issuerDistrusted'
+  if (tiersOnRoster(state, talentId, rosterAt(state.hollywood!, employerStudioId, talentId, week), week).includes('Nemeses')) return 'nemesisOnRoster'
+  return null
+}
+
 /** A proposal is DROPPED at freeze when it fails P10 legality (interval algebra
  * at W), P12 (the issuer has entered; the person is not committed elsewhere),
  * reservation, or affordability. A dropped proposal never cancels a valid one. */
@@ -1223,10 +1253,10 @@ function survivesFreeze(
   // this predicate needs neither a price nor a seat to decide. It is checked
   // ahead of the rival seat budget for exactly that reason: "I will not work for
   // them" is not a fact about whether they had a chair free.
-  if (trustDescriptor(state, proposal.talentId, proposal.issuerStudioId, week).label === 'Distrusted') return 'issuerDistrusted'
   // Reservation, P14B.5 (6): "I will not work beside them" — the SAME roster
   // helper and predicate the D5 band reads. Unreachable in B.5 (no conflict record).
-  if (tiersOnRoster(state, proposal.talentId, rosterAt(hollywood, proposal.issuerStudioId, proposal.talentId, week), week).includes('Nemeses')) return 'nemesisOnRoster'
+  const reservation = personReservationRefusal(state, proposal.talentId, proposal.issuerStudioId, week)
+  if (reservation !== null) return reservation
   if (subjectTerms(state, proposal.talentId, week) !== undefined) return 'subjectCommittedElsewhere'
   if (proposal.startWeek !== week) return 'startWeekMoved'
   // The seat budget binds a RIVAL only. The player's roster law is P10's and has no
@@ -1421,7 +1451,7 @@ export function advanceTalentMarketWeek(state: GameState): GameState {
       decisionWeek: decisionWeekOf(next, kase),
     }
     const extension = isExtensionCase(kase)
-    const closed = closedWeekOf(next)
+    const closed = terminalWeekOf(next)
     for (const business of next.hollywood!.businesses) {
       // P15B closure/v1 (r3; Wave-4 contract §4): an actually closed studio never proposes.
       if (business.costCutting.since !== null || closed.has(business.studioId)) continue

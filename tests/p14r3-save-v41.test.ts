@@ -119,7 +119,7 @@ import { describe, expect, it } from 'vitest'
 // src/core/save.ts at HEAD 3c6a7732 (see header, INTERPRETATION 1). Each is called below.
 import {
   LIVE_SAVE_VERSION, exportSave, makeSave, migrateToV40, validateSaveV40,
-  validateSaveV41, convertV40ToV41, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, migrateToV41,
+  validateSaveV41, convertV40ToV41, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV49ToV48, convertV50ToV49, convertV51ToV50, migrateToV41,
 } from '../src/core/save.js'
 import { terminationCost } from '../src/core/employment.js'
 import { industryBusyTalentIds, moveRivalMoney } from '../src/core/hollywood.js'
@@ -127,6 +127,7 @@ import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import { p13aGeneratedStudio, advanceTo } from '../src/harness/p13a/fixtures.js'
 import { EXPECTED_LIVE_SAVE_VERSION, validateLiveSave, downgradeLiveTo45 } from './helpers/live-era.js'
+import { LIVE_DOWNGRADE_REFUSAL, NONDEFAULT_MARKET_PROJECTION } from './helpers/p16-era.js'
 
 const FIXTURES = new URL('./fixtures/p14/genuine-v40-pre-r3/', import.meta.url)
 const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
@@ -386,7 +387,13 @@ describe('P14 1305-C Save41: 41->40 downgrade', () => {
     // (src/core/save.ts P15_DOWNGRADE_REFUSALS), so the market reason now leads the Power Ranking reason this leaf
     // pinned. Pre-1365 pin: /^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/.
     // Measured: evidence/r3/sweep-b8.json.
-    expect(() => convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(downgradeLiveTo45(save as never))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded shared-market assessment \(\d+ recorded\); cannot downgrade or discard a recorded Power Ranking quarter$/)
+    // P16 rebase round 6: the live step refuses first, by name. ACCEPTANCE OPEN: the P15 step's composed 'cannot
+    // downgrade or discard a recorded shared-market assessment (N recorded); cannot downgrade or discard a recorded
+    // Power Ranking quarter' on this world. Its assessments are nondefault Save49 table-3 rows, which `rightsStripped`
+    // refuses to relabel, and no committed Save45 capture holds an assessment (the V45 market guard's recorded gap).
+    // The ranking reason alone keeps its genuine Save45 witness in p15a2-power-ranking-archive.
+    expect(() => convertV49ToV48(convertV50ToV49(convertV51ToV50(save as never)))).toThrow(LIVE_DOWNGRADE_REFUSAL) // P18: down through the live step first
+    expect(() => convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(downgradeLiveTo45(save as never))))))).toThrow(NONDEFAULT_MARKET_PROJECTION)
     // 1358-F10 ruling 4: no Save41 engine remains to write a rival release, so one is staged on a V41 copy
     // of the genuine week110 input. It writes what the release law writes (src/core/hollywoodTick.ts:180-197)
     // for the first rival employee that passes the law's seat, cap, Scientist and open-promise tests (it

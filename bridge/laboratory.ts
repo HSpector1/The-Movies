@@ -516,7 +516,9 @@ export function laboratoryPage(state: GameState, buildingId: string | null, inte
     provenanceLabel: project?.completedWeek !== null && project?.completedWeek !== undefined
       ? `${(project.weeks.at(-1)?.seatTalentIds ?? [project.legacy?.scientistId ?? '']).map(id => state.talent.find(t => t.id === id)?.name ?? id).filter(Boolean).join(', ') || 'The seated Scientists'} completed synchronized sound for your studio at ${campaignDate(project.completedWeek).label}. This research record belongs to this campaign.` : 'No completed synchronized-sound invention is recorded for this Laboratory.',
     commercialLabel: access?.acquiredWeek !== null && access?.acquiredWeek !== undefined
-      ? `Access acquired by ${access.route} at ${campaignDate(access.acquiredWeek).label}. Access alone does not provide physical sound capability.`
+      ? access.route === 'acquired'
+        ? `Knowledge acquired through studio absorption at ${campaignDate(access.acquiredWeek).label}. Access alone does not provide physical sound capability.`
+        : `Access acquired by ${access.route} at ${campaignDate(access.acquiredWeek).label}. Access alone does not provide physical sound capability.`
       : `Commercial access ${state.market.tick >= SYNCHRONIZED_SOUND.commercialWeek ? 'is available' : 'opens'} ${campaignDate(SYNCHRONIZED_SOUND.commercialWeek).label} for ${money(SYNCHRONIZED_SOUND.accessCost)}. ${access?.route === 'wait' ? 'Your studio has chosen to wait. ' : ''}Silent films remain lawful.`,
     installationLabel: committedInstallationLabel(state, lab.facilityId, 'acoustic-instruments') + '\n' +
       (physical.length ? physical.map(a => `${name(a.stageFacilityId)} + ${name(a.postFacilityId)} · ${a.operationalWeek === null ? 'chain installation underway' : 'chain operational since ' + campaignDate(a.operationalWeek).label}. ` +

@@ -213,6 +213,7 @@ const BLOCKER_KINDS = new Set([
   // a room, not a counter.
   'package-staffing',
   'casting-session',
+  'carried-action',
   'no-concepts',
   'no-writers',
 ])
@@ -374,13 +375,19 @@ function strictCapacityProjection(value: unknown): LotScriptReviewCapacity | nul
         !hasExactOwnKeys(occupant, CAPACITY_OCCUPANT_KEYS) ||
         (occupant.owner !== 'production' &&
           occupant.owner !== 'script' &&
-          occupant.owner !== 'casting') ||
+          occupant.owner !== 'casting' &&
+          // P18: a live television season's hold, with its own block words.
+          occupant.owner !== 'television') ||
         !isNonEmptyString(occupant.ownerId) ||
-        (occupant.activity !== 'development' &&
-          occupant.activity !== 'preProduction' &&
-          occupant.activity !== 'drafting' &&
-          occupant.activity !== 'rewriting' &&
-          occupant.activity !== 'auditioning') ||
+        // P18 FIX-3 (review finding 2): Core's scriptCapacityView labels a season's hold activity 'television'
+        // (src/core/scriptReadModel.ts), never its block words, and only for the television owner.
+        (occupant.owner === 'television'
+          ? occupant.activity !== 'television'
+          : occupant.activity !== 'development' &&
+            occupant.activity !== 'preProduction' &&
+            occupant.activity !== 'drafting' &&
+            occupant.activity !== 'rewriting' &&
+            occupant.activity !== 'auditioning') ||
         !isNonEmptyString(occupant.title) ||
         !isNonEmptyString(occupant.label)
       ) return null

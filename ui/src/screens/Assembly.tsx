@@ -8,6 +8,7 @@
 
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import type {
+  ActionOutcome,
   GameState,
   FilmConcept,
   FilmShape,
@@ -65,6 +66,8 @@ import {
   SEGMENT_ORDER,
   selectCash,
 } from '../engine/adapter.ts'
+import { SeasonCommissionPanel } from '../components/P18Season.tsx'
+import type { CommissionTvSeasonRequest } from '../engine/television.ts'
 import type {
   CreativeCohesion,
   PackageFit,
@@ -109,6 +112,16 @@ import {
   acceptedGreenlightFormationReceipt,
   type GreenlightFormationReceipt,
 } from '../lot/snapshot/productionFormation.ts'
+// P17: the continuation choice and featured appearances the greenlight may carry (core reads only).
+import {
+  carriedScreenplay,
+  continuationPanel,
+  featuredGuestPanel,
+  greenlightForecastExtras,
+  guestDropReason,
+  type CameoBookingRequest,
+} from '../engine/continuation.ts'
+import { ContinuationChoicePanel, FeaturedGuestPanel } from '../components/P17Continuation.tsx'
 
 type Step = 'concept' | 'shape' | 'promise' | 'talent' | 'budget' | 'review'
 export type AssemblySurface = 'standalone' | 'lot-workspace'
@@ -270,6 +283,7 @@ export function Assembly({
   onStateChange,
   onOpenProfile,
   onJourneyChange,
+  onCommissionTvSeason,
   surface = 'standalone',
 }: {
   state: GameState
@@ -285,6 +299,8 @@ export function Assembly({
   onOpenProfile?: ((id: string) => void) | undefined
   /** Mirror the current uncommitted Package form into the persistent Lot card. */
   onJourneyChange?: ((progress: PackageJourneyProgress) => void) | undefined
+  /** P18: commission a limited-series season (core `commissionTvSeason`); the outcome lets the panel show a refusal. */
+  onCommissionTvSeason?: ((request: CommissionTvSeasonRequest) => ActionOutcome | undefined) | undefined
   // The Lot workspace is a presentation adapter over this same canonical wizard. It removes
   // page-level chrome and owns scroll locally so the still-mounted world never drifts behind it.
   surface?: AssemblySurface
@@ -315,6 +331,8 @@ export function Assembly({
   // A1: when true, the embedded Talent Creator is shown IN PLACE of the wizard. Assembly stays
   // mounted the whole time, so `draft` (concept/shape/promise/talent picks) survives the round-trip.
   const [creating, setCreating] = useState(false)
+  // P18: the "Commission a season" panel opens on request, so the quote is computed only when asked for.
+  const [seasonOpen, setSeasonOpen] = useState(false)
   const [creatorReturnFocusEpoch, setCreatorReturnFocusEpoch] = useState(0)
   // World-first production formation: the native button click remains the sole action owner.
   // A synchronous ref (rather than render-time disabled state) closes double-click, key-repeat,
@@ -426,7 +444,66 @@ export function Assembly({
     return m
   }, [state, engaged])
 
-  const pkg = useMemo(() => buildPackage(state, draft, lockedScript), [state, draft, lockedScript])
+  // The package as drafted; `pkg` below adds the P17 forecast inputs the greenlight will lock.
+  const basePkg = useMemo(() => buildPackage(state, draft, lockedScript), [state, draft, lockedScript])
+  // P17: read on the Budget and Review steps, for the complete package (the proposed principals feed the core's quote).
+  const [continuationKey, setContinuationKey] = useState<string | null>(null)
+  const [guestWeek, setGuestWeek] = useState<number | null>(null)
+  const [guests, setGuests] = useState<CameoBookingRequest[]>([])
+  const continuation = useMemo(
+    () => ((step === 'review' || step === 'budget') && basePkg
+      ? continuationPanel(state, { writerId: basePkg.writerId, directorId: basePkg.directorId, cast: basePkg.cast })
+      : null),
+    [state, basePkg, step],
+  )
+  // Quoted on the Budget step too, so both steps' committed totals include the fees; keyed by the credited people so a
+  // budget change does not re-quote.
+  const creditedKey = basePkg ? [basePkg.writerId, basePkg.directorId, ...Object.values(basePkg.cast), ...(basePkg.craftIds ?? [])].join('|') : null
+  const guestPanel = useMemo(
+    () => ((step === 'review' || step === 'budget') && creditedKey !== null
+      ? featuredGuestPanel(state, guestWeek, new Set(creditedKey.split('|')))
+      : null),
+    [state, creditedKey, step, guestWeek],
+  )
+  // The core refuses a continuation or a guest on a greenlight that would wait in the queue (its quote is bound to this
+  // week), and refuses guests on a carried screenplay: say so instead of offering a choice it will refuse.
+  const willQueue = lockedScript?.availability.willQueueGreenlightIntent ?? false
+  const continuationBlocked = willQueue
+    ? 'This greenlight would wait in the Development & Casting queue. A continuation is quoted for this week only, so it cannot wait: greenlight it when a slot is free.'
+    : null
+  const guestsBlocked = willQueue
+    ? 'This greenlight would wait in the Development & Casting queue. A featured booking is quoted for this week only, so it cannot wait: greenlight it when a slot is free.'
+    : lockedScript !== undefined && carriedScreenplay(state, lockedScript.projectId)
+      ? 'This screenplay came over with an acquired studio, and its greenlight cannot carry featured guests yet.'
+      : null
+  const selectedContinuation = continuationBlocked !== null ? null
+    : continuation?.properties.flatMap((p) => p.choices).find((c) => c.key === continuationKey && c.quote.ok) ?? null
+  // Only guests still eligible at their accepted fee, basis and week count or travel; a stale pick drops out visibly.
+  const liveGuests = guestsBlocked !== null || guestPanel === null ? [] : guests.filter((g) =>
+    guestPanel.eligible.some((r) => r.quote.ok && r.talentId === g.talentId && r.quote.fee === g.fee && r.quote.basis === g.basis && r.quote.workWeek === g.workWeek))
+  const guestFees = liveGuests.reduce((sum, g) => sum + g.fee, 0)
+  // A chosen guest who stops counting (now a principal, refused, re-quoted) is announced with the reason.
+  const droppedGuests = guestsBlocked !== null || guestPanel === null || creditedKey === null ? [] : guests
+    .filter((g) => !liveGuests.includes(g))
+    .map((g) => ({
+      talentId: g.talentId,
+      name: state.talent.find((t) => t.id === g.talentId)?.name ?? '— (no recorded name)',
+      reason: guestDropReason(state, g, new Set(creditedKey.split('|')), guestPanel) ?? 'no longer counts',
+    }))
+  // The forecast inputs the greenlight will lock, composed by the core (S-B1): every preview of `pkg` reads them, so
+  // the Review forecast equals the stored snapshot. A refusal is disclosed and the preview shows the package without them.
+  const forecastExtras = basePkg && (selectedContinuation !== null || liveGuests.length > 0)
+    ? greenlightForecastExtras(state, basePkg, {
+        inheritedAwareness01: selectedContinuation?.quote.ok ? selectedContinuation.quote.inheritedAwareness01 : null,
+        cameos: liveGuests,
+        carriedScreenplay: lockedScript !== undefined && carriedScreenplay(state, lockedScript.projectId),
+      })
+    : null
+  const pkg = useMemo(
+    () => (basePkg && forecastExtras?.ok ? { ...basePkg, p17: forecastExtras.extras } : basePkg),
+    // the extras are value-compared through their JSON so an unchanged choice keeps one package identity
+    [basePkg, forecastExtras?.ok ? JSON.stringify(forecastExtras.extras) : null],
+  )
   const partialPkg = useMemo(
     () => buildPartialPackage(state, draft, lockedScript),
     [state, draft, lockedScript],
@@ -454,7 +531,8 @@ export function Assembly({
   // commitment (negative + marketing + salaries), the solvency gate, and post-greenlight cash
   // and runway. `null` until the package is complete. The greenlight is BLOCKED when the gate
   // fails (D-12.11) — a voluntary commitment may not overdraw.
-  const commitment = pkg ? totalCommittedCost(state, pkg) : null
+  // P17: a featured fee is charged at greenlight, so the solvency gate reads it too.
+  const commitment = pkg ? totalCommittedCost(state, pkg) + guestFees : null
   const preview: CommitmentPreview | null = commitment !== null ? commitmentPreview(state, commitment) : null
   const blockedByGate = preview !== null && !preview.affordable
   const scriptAvailabilityBlockers = lockedScript?.availability.blockers ?? []
@@ -549,7 +627,8 @@ export function Assembly({
       setError(null)
       return
     }
-    const packageSignature = JSON.stringify(pkg)
+    const extras = { continuation: selectedContinuation?.request, cameos: liveGuests }
+    const packageSignature = JSON.stringify({ pkg, extras })
     const rejected = greenlightRejectedAttempt.current
     if (
       rejected !== null &&
@@ -562,8 +641,8 @@ export function Assembly({
     greenlightRejectedAttempt.current = null
     greenlightAcceptedGesture.current = true
     const result = lockedScript
-      ? greenlightScriptProject(state, lockedScript.projectId, pkg)
-      : greenlight(state, pkg)
+      ? greenlightScriptProject(state, lockedScript.projectId, pkg, extras)
+      : greenlight(state, pkg, extras)
     if (!result.ok) {
       greenlightAcceptedGesture.current = false
       greenlightRejectedAttempt.current = { state, packageSignature }
@@ -574,6 +653,16 @@ export function Assembly({
     const receipt = acceptedGreenlightFormationReceipt(state, result.next)
     onGreenlit(result.next, receipt)
   }
+
+  // P18: a season needs no screenplay, so the panel sits outside the package wizard and its managed gate.
+  const seasonPanel = onCommissionTvSeason && !isLotWorkspace ? (
+    <div className="stack" data-testid="season-entry" style={{ marginBottom: 16 }}>
+      <button type="button" className="ghost" aria-expanded={seasonOpen} onClick={() => setSeasonOpen((open) => !open)} data-testid="season-open">
+        Commission a season
+      </button>
+      {seasonOpen && <SeasonCommissionPanel state={state} onCommission={onCommissionTvSeason} />}
+    </div>
+  ) : null
 
   if (managedRequiresScript && lockedScript === undefined) {
     return (
@@ -597,6 +686,7 @@ export function Assembly({
           className={isLotWorkspace ? 'assembly-workspace-scroll' : undefined}
           data-testid={isLotWorkspace ? 'assembly-workspace-scroll' : undefined}
         >
+          {seasonPanel}
           <div className="errbox" role="alert" data-testid="managed-assembly-gate">
             Managed studios must open package assembly from a Ready screenplay in the Writers’ Room.
           </div>
@@ -664,6 +754,7 @@ export function Assembly({
         className={isLotWorkspace ? 'assembly-workspace-scroll' : undefined}
         data-testid={isLotWorkspace ? 'assembly-workspace-scroll' : undefined}
       >
+      {seasonPanel}
       <div
         className={`steps${isLotWorkspace ? ' assembly-workspace-progress' : ''}`}
         data-testid="assembly-steps"
@@ -715,6 +806,7 @@ export function Assembly({
             pkg={pkg}
             patch={patch}
             discovery={discovery}
+            featuredFees={guestFees}
             {...(lockedScript ? { scriptProjectId: lockedScript.projectId } : {})}
           />
         )}
@@ -730,9 +822,41 @@ export function Assembly({
             profit={profit}
             cycleFixedCost={cycleFixedCost}
             discovery={discovery}
+            featuredFees={guestFees}
             conceptId={concept.id}
             {...(lockedScript ? { scriptProjectId: lockedScript.projectId } : {})}
           />
+        )}
+        {step === 'review' && continuation && (
+          <div style={{ marginTop: 16 }}>
+            <ContinuationChoicePanel
+              panel={continuation}
+              blocked={continuationBlocked}
+              selectedKey={selectedContinuation?.key ?? null}
+              onSelect={setContinuationKey}
+            />
+          </div>
+        )}
+        {(step === 'review' || step === 'budget') && forecastExtras !== null && !forecastExtras.ok && (
+          <div className="notice" style={{ marginTop: 16 }} data-testid="p17-forecast-unavailable">
+            The forecast shown leaves out the chosen continuation and guests: {forecastExtras.reason}. The greenlight will
+            refuse for the same reason.
+          </div>
+        )}
+        {step === 'review' && guestPanel && (
+          <div style={{ marginTop: 16 }}>
+            <FeaturedGuestPanel
+              panel={guestPanel}
+              blocked={guestsBlocked}
+              dropped={droppedGuests}
+              onWorkWeek={(w) => {
+                setGuestWeek(w)
+                setGuests([])
+              }}
+              selected={liveGuests}
+              onChange={setGuests}
+            />
+          </div>
         )}
       </div>
 
@@ -1518,6 +1642,7 @@ function BudgetStep({
   pkg,
   patch,
   discovery,
+  featuredFees,
   scriptProjectId,
 }: {
   state: GameState
@@ -1526,6 +1651,8 @@ function BudgetStep({
   pkg: DraftPackage | null
   patch: (p: Partial<Draft>) => void
   discovery: DiscoveryExposureView | null
+  /** P17: the chosen featured guests' fees, charged at greenlight with the rest of the commitment. */
+  featuredFees: number
   scriptProjectId?: string
 }) {
   const req = requiredNegative(concept, draft.shape, state)
@@ -1539,7 +1666,7 @@ function BudgetStep({
     cast: draft.cast as Record<CastSlot, string>,
     craftIds: draft.craftIds, // include the Crew/Craft hire in the committed salary sum
   })
-  const committed = negative + marketing + salaries
+  const committed = negative + marketing + salaries + featuredFees
   const cash = selectCash(state)
   const goesNegative = cash - committed < 0
 
@@ -1722,8 +1849,16 @@ function BudgetStep({
               {moneyExact(salaries)}
             </span>
           </div>
+          {featuredFees > 0 && (
+            <div className="spread">
+              <span>Featured appearance fees</span>
+              <span className="mono" data-testid="featured-fees">
+                {moneyExact(featuredFees)}
+              </span>
+            </div>
+          )}
           <div className="spread">
-            <strong>Total Immediate Commitment</strong>
+            <strong>Total Immediate Commitment{featuredFees > 0 ? ' (incl. featured fees)' : ''}</strong>
             <strong className="mono" data-testid="committed-cost">
               {moneyExact(committed)}
             </strong>
@@ -1833,6 +1968,7 @@ function ReviewStep({
   profit,
   cycleFixedCost,
   discovery,
+  featuredFees,
   scriptProjectId,
   conceptId,
 }: {
@@ -1846,11 +1982,13 @@ function ReviewStep({
   profit: ForecastProfitRange | null
   cycleFixedCost: CycleFixedCost
   discovery: DiscoveryExposureView | null
+  /** P17: the chosen featured guests' fees, charged at greenlight with the rest of the commitment. */
+  featuredFees: number
   scriptProjectId?: string
   /** C2a-M3: the picture's own premise id, so the package can say who wrote it. */
   conceptId: string
 }) {
-  const committed = totalCommittedCost(state, pkg)
+  const committed = totalCommittedCost(state, pkg) + featuredFees
   const exposure = capitalExposure(state, committed) // C1: solvency and exposure are separate
   // D-17A/T2: the same cycle-inclusive headline the Budget step shows, for the closing hint.
   const be = cycleInclusiveBreakEvenGross(state, committed)
@@ -1881,7 +2019,10 @@ function ReviewStep({
             <strong>{conceptTitle}</strong>
           </div>
           <div className="spread">
-            <span>Total immediate commitment (Production Budget + Marketing + Freelancer Fees)</span>
+            <span>
+              Total immediate commitment (Production Budget + Marketing + Freelancer Fees
+              {featuredFees > 0 ? ', incl. featured fees' : ''})
+            </span>
             <strong className="mono" data-testid="release-commitment">
               {moneyExact(committed)}
             </strong>

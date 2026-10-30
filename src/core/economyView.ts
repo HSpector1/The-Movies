@@ -6,7 +6,7 @@
 // NEVER reinvents a formula. Unit = whole dollars (the engine's unit). The sim never
 // reads any of these; they are display-only, exactly like talentSummary / filmPackage.
 
-import type { Contract, GameState, GameStateV3, TheatricalRun, LedgerKind } from './types.js'
+import type { Contract, GameState, GameStateV3, TheatricalRun, LedgerKind, LedgerEntry } from './types.js'
 import { loanInstallmentDue } from './studioLoan.js'
 import { closedWeekOf } from './operatingState.js'
 import { TUNING } from './tuning.js'
@@ -116,13 +116,18 @@ export function runRemainingRevenue(run: TheatricalRun): number {
 }
 
 // Σ next-week Studio Revenue across ALL already-active runs (feeds runway, D-12.16).
+function buyerServicedRuns(state:GameState):TheatricalRun[] {
+  const buyer=state.hollywood?.playerStudioId
+  return (state.rights?.absorptions ?? []).filter(a=>a.buyerId===buyer).flatMap(a=>state.hollywood?.businesses.find(b=>b.studioId===a.targetId)?.runs.filter(r=>a.runs.some(row=>row.productionId===r.productionId)) ?? [])
+}
+
 export function expectedWeeklyRunRevenue(state: GameState): number {
-  return state.theatricalRuns.reduce((s, r) => s + runNextWeekRevenue(r), 0)
+  return [...state.theatricalRuns,...buyerServicedRuns(state)].reduce((s, r) => s + runNextWeekRevenue(r), 0)
 }
 
 // Σ remaining Studio Revenue across ALL active runs (future cash already "in the pipe").
 export function pipelineRunRevenue(state: GameState): number {
-  return state.theatricalRuns.reduce((s, r) => s + runRemainingRevenue(r), 0)
+  return [...state.theatricalRuns,...buyerServicedRuns(state)].reduce((s, r) => s + runRemainingRevenue(r), 0)
 }
 
 // ── runway (D-12.16 — CURRENT COMMITMENTS ONLY) ────────────────────────────────
@@ -450,7 +455,12 @@ export type FinanceTotals = {
   termination: number
   publicity: number // D-17B §5: Σ publicity campaign purchases, stored negative
   construction: number // Annex V1: Σ studio construction capex, stored negative
+  rights: number // Signed ordinary rights sales, purchases and licence fees
+  estatePurchases: number // Buyer ledger debits only; proceeds remain in the P15 estate account
+  acquisition: number // Signed acquisition outlay, including actual target cash at par
+  diligence: number // Actual due diligence fees, separate from ordinary overhead
   financing: number // P15B (1357-A §6.3): Σ loan principal received less installments paid, signed
+  television: number // P18: signed commissioning cash (advance, milestone payments) and per-unit production spend
   net: number // Σ all retained ledger amounts; migrated pre-ledger cash may use a V11 checkpoint
 }
 
@@ -465,7 +475,12 @@ const ZERO_TOTALS = (): FinanceTotals => ({
   termination: 0,
   publicity: 0,
   construction: 0,
+  rights: 0,
+  estatePurchases: 0,
+  acquisition: 0,
+  diligence: 0,
   financing: 0,
+  television: 0,
   net: 0,
 })
 
@@ -515,13 +530,40 @@ const KIND_FIELD: Record<LedgerKind, keyof FinanceTotals> = {
   loanPrincipal: 'financing',
   loanInstallment: 'financing',
   claimPayment: 'termination',
+  // F40: retained cash owners have separate reporting homes, not building capex/overhead.
+  rightsConsideration: 'rights',
+  acquisitionOutlay: 'acquisition',
+  absorbedRunRevenue: 'studioRevenue',
+  dueDiligenceFee: 'diligence',
+  // P18 (contract §5): the advance is cash with an unearned obligation, never Studio Revenue; the milestone receipts
+  // and the unit spend sit beside it in their own home, so no film read model counts commissioning cash.
+  tvAdvance: 'television',
+  tvMilestonePayment: 'television',
+  tvProductionSpend: 'television',
+  // Sprint 13: the advance refund and the cancellation charge are commissioning settlement outflows, same home.
+  tvAdvanceRefund: 'television',
+  tvCancellationCharge: 'television',
+}
+
+/** Classify buyer consideration from the actual keyed estateSale receipt, never its description. */
+export function estatePurchaseClassifier(state: GameState): (entry: LedgerEntry) => boolean {
+  const player = state.hollywood?.playerStudioId
+  const transactions = new Map((state.rights?.transactions ?? [])
+    .filter(t => t.kind === 'estateSale' && t.payerId === player)
+    .map(t => [t.id, t] as const))
+  return entry => {
+    if (entry.kind !== 'rightsConsideration') return false
+    const transaction = transactions.get(entry.note)
+    return transaction !== undefined && transaction.week === entry.week && -transaction.amount === entry.amount
+  }
 }
 
 // Aggregate the whole signed ledger by kind. `net` is the reconciliation total.
 export function financeTotals(state: GameState): FinanceTotals {
   const t = ZERO_TOTALS()
+  const estatePurchase = estatePurchaseClassifier(state)
   for (const e of state.ledger) {
-    t[KIND_FIELD[e.kind]] += e.amount
+    t[estatePurchase(e) ? 'estatePurchases' : KIND_FIELD[e.kind]] += e.amount
     t.net += e.amount
   }
   return t
@@ -540,7 +582,13 @@ export type PeriodSummary = {
   production: number
   publicity: number // D-17B §5: publicity campaign purchases in the window (negative)
   construction: number // Annex V1: studio construction capex in the window (negative)
+  // Optional only for retained pre-F40 UI receipts. New engine summaries always supply all four.
+  rights?: number
+  estatePurchases?: number
+  acquisition?: number
+  diligence?: number
   financing: number // P15B: loan principal received less installments charged in the window
+  television?: number // P18: commissioning cash and unit spend in the window (optional only for retained receipts)
   otherCash: number // signingBonus + freelancerFee + termination + claimPayment
   netCash: number // signed Σ over the window
   releases: number // runs opened in the window
@@ -561,12 +609,19 @@ export function periodSummary(state: GameState, fromWeek: number, toWeekInclusiv
     production: 0,
     publicity: 0,
     construction: 0,
+    rights: 0,
+    estatePurchases: 0,
+    acquisition: 0,
+    diligence: 0,
     financing: 0,
+    // P18: present only once a season has been commissioned, so a world without one summarizes byte for byte as before.
+    ...(state.television === undefined ? {} : { television: 0 }),
     otherCash: 0,
     netCash: 0,
     releases: 0,
     completedRuns: 0,
   }
+  const estatePurchase = estatePurchaseClassifier(state)
   for (const e of state.ledger) {
     if (e.week < fromWeek || e.week > toWeekInclusive) continue
     s.netCash += e.amount
@@ -584,6 +639,7 @@ export function periodSummary(state: GameState, fromWeek: number, toWeekInclusiv
       case 'facilityOpex':
         s.overhead += e.amount
         break
+      case 'absorbedRunRevenue':
       case 'studioRevenue':
         s.studioRevenue += e.amount
         break
@@ -631,6 +687,24 @@ export function periodSummary(state: GameState, fromWeek: number, toWeekInclusiv
       case 'loanPrincipal':
       case 'loanInstallment':
         s.financing += e.amount
+        break
+      case 'rightsConsideration':
+        if (estatePurchase(e)) s.estatePurchases = (s.estatePurchases ?? 0) + e.amount
+        else s.rights = (s.rights ?? 0) + e.amount
+        break
+      case 'acquisitionOutlay':
+        s.acquisition = (s.acquisition ?? 0) + e.amount
+        break
+      case 'dueDiligenceFee':
+        s.diligence = (s.diligence ?? 0) + e.amount
+        break
+      // P18: explicit, as KIND_FIELD files them; never Studio Revenue, production or otherCash.
+      case 'tvAdvance':
+      case 'tvMilestonePayment':
+      case 'tvProductionSpend':
+      case 'tvAdvanceRefund':
+      case 'tvCancellationCharge':
+        s.television = (s.television ?? 0) + e.amount
         break
       default: {
         // Exhaustiveness guard (the actions.ts:1288 idiom): a new LedgerKind must be given a

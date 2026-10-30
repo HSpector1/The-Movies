@@ -931,6 +931,79 @@ describe('StudioLotScreen — authoritative Hollywood operations host', () => {
     expect(status).toHaveFocus()
   })
 
+  it('keeps the take successor focus when the renderer-ready commit has not flushed its passive effects', async () => {
+    // FIX-S13-4 witness. The real dynamic import resolves outside act, so the ready commit is not a discrete
+    // render: React queues its passive effects as a separate Scheduler task (React 19.2, commitRoot). A take
+    // click that lands before that task runs must still move focus to the successor status.
+    setOperationHollywoodOverride(true)
+    spy.controls.deferReady = true
+    const initial = advance(greenlightFilm(foundManagedStudio('hollywood-command-focus')), 4)
+    const productionId = initial.studio.activeProductions[0]!.id
+
+    function Harness() {
+      const [state, setState] = useState(initial)
+      return (
+        <StudioLotScreen
+          state={state}
+          onNavigate={() => {}}
+          onExit={() => {}}
+          onProductionCommand={(command) => {
+            const result = runProductionCommand(state, command)
+            if (!result.ok) throw new Error(result.error)
+            setState(result.next)
+          }}
+        />
+      )
+    }
+
+    const { getByTestId, findByTestId, queryByTestId } = render(<Harness />)
+    const assign = getByTestId('hollywood-production-command-assignShootingDirector')
+    assign.focus()
+    fireEvent.click(assign)
+    const schedule = await findByTestId('hollywood-production-command-scheduleShootingTake')
+    await waitFor(() => expect(schedule).toHaveFocus())
+    await waitFor(() => expect(spy.instances).toHaveLength(1))
+    expect(getByTestId('lot-canvas-loading')).toBeInTheDocument()
+
+    // Resolve as soon as the ready commit is in the DOM. MutationObserver delivery is a microtask, so this
+    // continuation runs before the Scheduler task that would flush the commit's passive effects. A host where
+    // the loading note never leaves fails here by name instead of at the test timeout.
+    let observer: MutationObserver | undefined
+    let timer: ReturnType<typeof setTimeout> | undefined
+    const readyCommitted = new Promise<void>((resolve, reject) => {
+      observer = new MutationObserver(() => {
+        if (document.querySelector('[data-testid="lot-canvas-loading"]') !== null) return
+        resolve()
+      })
+      observer.observe(document.body, { childList: true, subtree: true })
+      timer = setTimeout(() => {
+        reject(new Error('FIX-S13-5: the renderer-ready commit did not remove lot-canvas-loading within 2000 ms'))
+      }, 2000)
+    }).finally(() => {
+      observer?.disconnect()
+      clearTimeout(timer)
+    })
+    latest().opts.onReady?.()
+    await readyCommitted
+    expect(queryByTestId('lot-canvas-loading')).toBeNull()
+    expect(schedule).toHaveFocus()
+    // Precondition: the window is open. Only the canvasReady passive effect calls setIdentityMode, so an empty
+    // record proves the ready commit's passive effects are still queued. A host that flushed them inside the
+    // ready task cannot tell the passive code from the layout fix, and fails here instead of passing silently.
+    expect(
+      latest().identityModes,
+      'the ready commit already flushed its passive effects; this run cannot witness FIX-S13-4',
+    ).toEqual([])
+
+    fireEvent.click(schedule)
+    // React ran the queued ready-commit effects inside the click, before the successor render.
+    expect(latest().identityModes).toHaveLength(1)
+    const status = getByTestId(`hollywood-task-status-${productionId}`)
+    expect(status).toHaveTextContent('scheduled')
+    expect(queryByTestId('hollywood-production-command-scheduleShootingTake')).toBeNull()
+    expect(status).toHaveFocus()
+  })
+
   it('keeps renderer telemetry out of the ordinary-player Hollywood surface', async () => {
     setOperationHollywoodOverride(true)
     const intervalSpy = vi.spyOn(window, 'setInterval')

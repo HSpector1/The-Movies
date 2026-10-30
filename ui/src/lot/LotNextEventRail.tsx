@@ -406,6 +406,17 @@ function PeriodAccounting({ receipt }: { receipt: LotNextEventReceipt }) {
     { label: "Production spend", value: summary.production },
     { label: "Publicity", value: summary.publicity },
     { label: "Studio construction", value: summary.construction },
+    ...(summary.rights === undefined ? [] : [{ label: "Rights trades and licences", value: summary.rights },
+    { label: "Estate asset purchases", value: summary.estatePurchases ?? 0 },
+    { label: "Acquisition net cash", value: summary.acquisition ?? 0 },
+    { label: "Due diligence fees", value: summary.diligence ?? 0 }]),
+    // P18 FIX-3 (review finding 3): the television bucket is summed into "Net this period", so a season week must
+    // list it or the rows stop adding up (the L-36 Financing defect again). Core emits it only once a season exists.
+    ...(summary.television === undefined ? [] : [{
+      label: "Television commissioning",
+      value: summary.television,
+      explanation: "Season advance and milestone payments received less unit production spend.",
+    }]),
     {
       // P15B's own bucket; it was summed into "Net this period" but never listed, so a
       // loan week's net did not add up from the rows shown (stabilization 2026-10-22, L-36).

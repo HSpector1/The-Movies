@@ -1,3 +1,5 @@
+import { makeSave } from '../../src/core/save.js'
+import { rightsStripped } from './p16-era.js'
 import { FOUNDING_FUNDING_SAVE_VERSION, validateSaveV47, type SaveFileV47 } from '../../src/core/save.js'
 import type { GameState } from '../../src/core/types.js'
 // ── P15 roots: one list for every P15 Wave 2 RED (records 1356-C2 and 1356-F2 item 3) ──
@@ -45,6 +47,8 @@ export function p15Rows(state: object, roots: readonly string[] = P15_ROOTS): P1
 // carry (a non-zero loan or claim movement, a loan or claim ledger row) refuses by name rather than being
 // silently flattened. r2 (1370-ar): the predecessor is Save47; its number is read from save.ts, never spelled here.
 export function predecessorSave(state: GameState): SaveFileV47 {
+  // Test-only guarded rights projection first; actual Save48 admission preserves all P15B laws.
+  if ('rights' in state) state = rightsStripped(makeSave(state)).state as GameState
   const raw = Object.fromEntries(Object.entries(state).filter(([key]) => key !== 'corporateCondition' && key !== 'studioClosure')) as Record<string, unknown>
   if ((state.ledger as { kind: string }[]).some((row) => row.kind === 'loanPrincipal' || row.kind === 'loanInstallment' || row.kind === 'claimPayment')) {
     throw new Error('predecessorSave: the ledger holds a loan or claim row no predecessor era can carry')

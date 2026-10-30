@@ -1,3 +1,4 @@
+import { convertV49ToV48, convertV50ToV49, convertV51ToV50 } from '../src/core/save.js'
 // Task 1315-C3, mode STAGE RED (test source only). Repo HEAD e65012e5, branch
 // wip/headless-program-20260916-ts.
 //
@@ -219,6 +220,10 @@ describe('1313-A §3 — the acknowledged input, migrated then greenlit, mints r
     const newSave = makeSave(greenlit)
     expect(newSave.saveVersion).toBe(saveModule.LIVE_SAVE_VERSION) // LIVE_SAVE_VERSION 45 (was 44 under Save44, 42 at 1313-A §3)
     expect(() => validateLiveSave(newSave)).not.toThrow()
+    // P16 rebase (TDZ fix): the candidate placed this before `newSave` existed. The greenlight minted a story property,
+    // so the live step refuses first, by name; the chain below still reaches the original Save44 guard because this
+    // state never ticked, and its Save48 projection (`downgradeLiveTo45` -> `rightsStripped`) exists.
+    expect(() => convertV49ToV48(convertV50ToV49(convertV51ToV50(newSave)))).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
     // 1358-N S9 (MASKED): the live chain now crosses convertV44ToV43 first, and the greenlight
     // appended a competitions-log row on each slate pair (src/core/relationships.ts:537), so
     // the Save44 log guard (src/core/save.ts:10789) refuses before convertV42ToV41's casting-

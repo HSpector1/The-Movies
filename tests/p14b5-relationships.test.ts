@@ -1,3 +1,5 @@
+import { rightsStripped } from './helpers/p16-era.js'
+import { convertV49ToV48, convertV50ToV49, convertV51ToV50 } from '../src/core/save.js'
 // 654-T (record 653 NEXT653; plan T1 "independent test-author RED against accepted predecessor").
 // P14B.5 First Shared-Work Bond Core — the SYNTHETIC/ENGINE RED: families 1–8 and 10 of the inserted
 // expansion (docs/engineering/playability-launch-review/plans/P14-HEADLESS-PLAN.md, "## P14B.5 — First
@@ -348,14 +350,25 @@ const bytes = (state: GameState | GameStateV45): string => {
   if (!lawfulZeroPressureBatch) {
     throw new Error('bytes: a P15 row with effect (pressure, a factor below 1, a Power Ranking or Legacy row) or an unaccounted allocation exists, so the P15 strip would hide real authority')
   }
-  if (marketRows.length > 0) validateSharedMarketRoot(state as unknown as Record<string, unknown>, 'bytes')
+  if ('rights' in state && state.rights.licences.length + state.rights.offers.length + state.rights.transactions.length + state.rights.diligence.length + state.rights.estates.length + state.rights.absorptions.length > 0) {
+    throw new Error('bytes: a rights instrument exists, so the P16 strip would hide real authority')
+  }
+  if (state.ledger.some(row => ['rightsConsideration', 'dueDiligenceFee', 'acquisitionOutlay', 'estateSaleProceeds'].includes(row.kind))) {
+    throw new Error('bytes: a rights ledger row cannot be projected away')
+  }
+  for (const business of state.hollywood?.businesses ?? []) for (const period of business.account.periods) {
+    for (const kind of ['rightsConsideration', 'dueDiligenceFee', 'acquisitionOutlay', 'estateSaleProceeds'] as const) {
+      if ((period.movements[kind] ?? 0) !== 0) throw new Error('bytes: a real rights money movement cannot be projected away')
+    }
+  }
+  if (marketRows.length > 0) validateSharedMarketRoot(state as unknown as Record<string, unknown>, 'bytes', 'rights' in state)
   const strippedHollywood = state.hollywood === null ? null : { ...state.hollywood,
     businesses: state.hollywood.businesses.map(({ screenplayShelving: _shelving, ...business }) => ({ ...business,
       account: { ...business.account, periods: business.account.periods.map((period) => {
-        const { termination: _t, loanPrincipal: _lp, loanInstallment: _li, claimPayment: _cp, ...movements } = period.movements
+        const { termination: _t, loanPrincipal: _lp, loanInstallment: _li, claimPayment: _cp, rightsConsideration: _rc, dueDiligenceFee: _dd, acquisitionOutlay: _ao, estateSaleProceeds: _esp, ...movements } = period.movements
         return { ...period, movements }
       }) } })) }
-  const { relationships: _r, careerLifecycle: _cl, firstTakeSubjects: _fts, ...rest } = stripP15(state) as Record<string, unknown> & {
+  const { relationships: _r, careerLifecycle: _cl, firstTakeSubjects: _fts, rights: _rights, ...rest } = stripP15(state) as Record<string, unknown> & {
     promises: Record<string, unknown>[]
     talentMarket: { cases: Record<string, unknown>[] } & Record<string, unknown>
   }
@@ -1458,7 +1471,8 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // P15B (1370-ar, MASKED): the live chain now crosses the P15B step's converter FIRST, and every ticked industry
     // state carries evaluated condition records, so the P15B guard (naming the predecessor version) is the one that
     // actually refuses; the guard pinned before stays covered on its own-era input elsewhere.
-    expect(() => migrateToV30(admitted)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))
+    expect(() => convertV49ToV48(convertV50ToV49(convertV51ToV50(admitted as never)))).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
+    expect(() => migrateToV30(rightsStripped(admitted as never))).toThrow(new RegExp(`^migrateToV47: cannot downgrade or discard a corporateCondition record`))
     // Every older migrateToVn refuses too, but MEASURED (not assumed) to be for
     // two DIFFERENT reasons depending on vintage, so the loop's regex only claims
     // what both share: migrateToV29/28/27/26 chain through the same convertV33ToV32
@@ -1475,7 +1489,8 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // same rejection-count guard refuses. Derived from source, not measured: x2
     // stopped at the migrateToV30(admitted) assertion.
     for (const older of [migrateToV29, migrateToV28, migrateToV27, migrateToV26]) {
-      expect(() => older(admitted as never)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))
+      expect(() => convertV49ToV48(convertV50ToV49(convertV51ToV50(admitted as never)))).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
+      expect(() => older(rightsStripped(admitted as never))).toThrow(new RegExp(`^migrateToV47: cannot downgrade or discard a corporateCondition record`))
     }
     // P14C.4: migrateToV25 (and every migrator older than V26) now meets the
     // NEWER unconditional V35 guard FIRST — added directly beside the
@@ -1490,7 +1505,8 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // retirement-extension guard behind the same recorded first-take subject.
     // 1344-N S9: migrateToV25 crosses convertV43ToV42 first too (save.ts:8591);
     // derived from source, as above.
-    expect(() => migrateToV25(admitted as never)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))
+    expect(() => convertV49ToV48(convertV50ToV49(convertV51ToV50(admitted as never)))).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
+    expect(() => migrateToV25(rightsStripped(admitted as never))).toThrow(new RegExp(`^migrateToV47: cannot downgrade or discard a corporateCondition record`))
     expect(JSON.stringify(admitted)).toBe(before)
 
     // RE-EXPRESSED (was: "empty is lossless" — `migrateToV30(empty)` succeeded and
@@ -1511,7 +1527,8 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // 1344-N S9: `empty` differs from `admitted` only in `relationships`, so it
     // holds the same rival rejection count and convertV43ToV42 (save.ts:9210,
     // :10698) refuses it first too; derived from source, as above.
-    expect(() => migrateToV30(empty)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))
+    expect(() => convertV49ToV48(convertV50ToV49(convertV51ToV50(empty as never)))).toThrow(/^migrateToV48: cannot downgrade or discard a recorded rights root$/)
+    expect(() => migrateToV30(rightsStripped(empty as never))).toThrow(new RegExp(`^migrateToV47: cannot downgrade or discard a corporateCondition record`))
     // GAP, disclosed rather than hidden: the ORIGINAL claim under test here — that an
     // EMPTY relationship root downgrades losslessly — is a real, still-implemented
     // behavior of `convertV32ToV31`/`convertV31ToV30`, but it is not observable from

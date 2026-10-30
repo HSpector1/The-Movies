@@ -66,7 +66,7 @@ export function historyRecordedAt(history: StudioHistoryState, week: number): bo
 }
 
 /** A DISTRIBUTIVE Omit: applied to each union member, so the discriminant survives. */
-type DistributiveOmit<T, K extends keyof T> = T extends unknown ? Omit<T, K> : never
+export type DistributiveOmit<T, K extends keyof T> = T extends unknown ? Omit<T, K> : never
 
 /** One draft: a row WITHOUT its `eventId` (the commit stamps identity). */
 export type StudioHistoryDraft = DistributiveOmit<StudioHistoryEvent, 'eventId'>

@@ -1,5 +1,347 @@
 # HANDOFF
 
+## Claude: current resume — 2026-10-27, 13:35 CDT
+
+Last writer: Claude Fable 5.1 coordinator. Sprint 9 gates have run on gameplay 63a63abe with the foreign session paused; nine new test pins were repaired under review. The P16 technical checkpoint is not yet published: browser transactions are pending. Program continues.
+
+### Branches and ownership
+- Experimental p16-retained-writing-20261026 at /Users/zacheryspector/studio-scratch/p16-retained-writing-20261026-wt: gameplay 63a63abe63e62825916f3a69b4b4589ae3a7baed unchanged; HEAD before this checkpoint 71ddea72be58036f3a4741738dd71baf0c2f731d = 63a63abe + handoff-only commits + four test-only repair commits (129c3343, ac9e0cf0, 1f39bd89, 71ddea72), pushed and remote-verified. Records wip/headless-program-20260916-ts HEAD before this checkpoint 75211e921ebc56238ea6390fb4740626ece69965. Primary 013c4edc and main ab65eb20 unchanged.
+- One coordinator writer, one execution tree. No owned job, lane lock or freeze remains. The worktree now has 374 formerly sparse-excluded tracked files materialized from HEAD (ui/ incl. index.html, public, e2e; art/hollywood; named docs evidence inputs); tree is clean. The Owner's Codex/Godot session is paused; ask before assuming it stays paused.
+
+### Verified this session (p16-sprint9/)
+- full-tree-r3: static gates/contracts/build/integrity 0; core 5,859/5,991; UI 2,727/2,734; classified (9 NEW, 94 inherited-same, 2 inherited-changed, 13 missing-input of which 6 unrecoverable r3n1, 20 baseline-not-reproduced, 613 over-budget passes). Independent postflight PASS, sampled exclusivity. Retired attempts preserved.
+- Repair (test-only, reviewed): Bridge pins to projection 64/63/52; drafting171 witnesses converted (one now proves the close-time writer-capacity refusal). focused-r4, witness-r6/r7 pass; five recovered-input files pass.
+- Sprint 8: Owner ruling closed the rival Set/setup row (OWNER-RULING-20261027.md); natural C-08 stays OPEN.
+
+### Exact next action
+1. DONE 13:55: real browser smoke passes in installed Chrome (channel 'chrome', commits 78ba3ce0/e13399b4, p16-sprint9/browser-r9). The existing browser client has no P16 transaction surface; Sprint 9 transaction proof is the Bridge/core fixtures, labelled (RESULTS.md).
+2. Decide the immutable non-main P16 technical checkpoint (annotated tag on the experimental HEAD) with an explicit limits record: inherited baseline failures, 613 over-budget passes, six unrecoverable r3n1 rows, natural C-08 OPEN, no browser P16 surface, native unrun. If tagged, Sprint 10 (P17 continuation) becomes eligible on that predecessor; branch a clearly owned descendant integration branch from the tag.
+3. Do not relaunch the full gate for test-only changes; rerun only invalidated files. Keep the foreign session paused during lane runs; scan for Godot before every launch.
+
+
+## Historical handoff — 2026-10-27, 10:40 CDT
+
+Last writer: Claude Fable 5.1 coordinator. The Owner paused the foreign Godot session at about 10:15 CDT and the consumer remainder ran. Sprint 8's consumer checkpoint is now functionally complete on gameplay 63a63abe; Sprint 8 itself stays incomplete on the rival Set/setup policy and natural C-08. Gameplay source is unchanged.
+
+### Branches and ownership
+- Experimental p16-retained-writing-20261026 at /Users/zacheryspector/studio-scratch/p16-retained-writing-20261026-wt: gameplay 63a63abe63e62825916f3a69b4b4589ae3a7baed; HEAD before this checkpoint 16aa35da7286c55cedbc52a83ddb605dc58b30ec (handoff-only above gameplay). Records wip/headless-program-20260916-ts HEAD before this checkpoint 38798cb49b72264df6891b1ce381e8e6eec684ef. Primary 013c4edc and main ab65eb20 unchanged. Resolve new HEADs from Git; verify explicit remote refs.
+- One coordinator writer, one execution tree. No owned job, lane lock or freeze remains (independent postflight released it). No specialist is live.
+
+### Verified this session
+- consumers-remainder (five files then Bridge types) ran through bind, fresh preflight, explicit no-Godot scan and the lane, 10:16:31–10:18:41 CDT. 26 tests: 23 passed, 3 failed. Bridge types exit 0. The three failures are p14c2c-rival-promises R1–R3, byte-identical first line to the recorded Oct 25 baseline: inherited, not v9. Twelve leaves exceed the unchanged 5,000 ms budget (nine pass). Record: p16-sprint8/rival-obligations/consumers-remainder/AUDIT.md.
+- Exclusivity is sampled (launch scan, post scan, no foreign launch directory in the window, 10-second poll with no sighting), not proven continuous. With coherent-consumers' eight complete summaries this is functional coverage of all thirteen selected files, not an exclusive gate for the earlier eight and not timing qualification.
+- Static source disposition added to p16-sprint8/REMAINING-PRODUCERS.md: due physical and due adoption completion at close already have native producers (completeRivalPlans; finishTechnologyWeek); the acquisition refusals are consistency guards. No runtime was run for that reading.
+
+### Exact next action
+1. Owner ruling 11:05 CDT (p16-sprint8/rival-obligations/OWNER-RULING-20261027.md): no rival Set/setup policy in this candidate; acquired rival productions finish on their abstract stage and the buyer owns the film. Sprint 8 producer rows are closed except natural C-08 (OPEN, no premise). Sprint 9 is eligible.
+2. Sprint 9: read the P16 checkpoint contract and the remaining-requirements table, select the required checkpoint gates on the coherent 63a63abe source, run them through fresh preflight, no-Godot scan and the lane (Owner keeps the Codex session paused during runs), then publish an immutable non-main technical checkpoint only if its prerequisites qualify. Browser transactions need the pending Playwright Chrome 1234/FFmpeg 1011 install approval; the three original full-gate captures remain missing.
+4. Inherited p14c2c R1–R3 (rival retirement promise cutoff: outcome SATISFIED/progress 1 where null/0 expected) keep their baseline disposition; a repair is a separate bounded slice only if the adopted retirement law requires it.
+
+
+## Historical handoff — 2026-10-27, 08:10 CDT
+
+Last writer: Claude Fable 5.1 coordinator. Sprint 8 remains unfinished and the Sprints 5–16 program remains BLOCKED on the same two prerequisites. This checkpoint adds a measured description of the execution blocker and a prepared, unbound remainder runner. No source, test, runtime or compiler work ran; nothing was signalled.
+
+### Branches and ownership
+- Gameplay source stays 63a63abe63e62825916f3a69b4b4589ae3a7baed on experimental branch p16-retained-writing-20261026 at /Users/zacheryspector/studio-scratch/p16-retained-writing-20261026-wt. HEAD before this checkpoint was 0803dbd36bc280da9e949421413c36a90983ee07; a git diff confirmed only HANDOFF.md differs from the gameplay source. Resolve the new HEAD from Git.
+- Records checkout /Users/zacheryspector/The-Movies-headless-program on wip/headless-program-20260916-ts; HEAD before this checkpoint was 83efdeef41cc3db83ebdee4d610e77ea9c9f3ad0, equal to the explicit remote ref. Primary P16 013c4edc and main ab65eb20 are unchanged (ls-remote verified 08:00 CDT). Both owned trees were clean.
+- One coordinator writer and one execution tree. No owned job, lane lock or freeze exists. All prior specialists are terminal. Governing order, required reading and the audit records are unchanged from the 07:50 section below.
+
+### Measured blocker
+- The foreign Godot work belongs to a Codex session (PID 73762, 12 days old, cwd the home directory) that runs headless Godot test batches from /Users/zacheryspector/the-movies-rea-research-20261014. Its evidence directories record twelve launches between 07:26 and 07:59 CDT, one every two to five minutes. A bounded watch then saw a nine-minute gap end with a new Godot batch at 08:08 CDT; over the prior 37 hours (419 launches) gaps of 15 minutes or more occurred 13 times, unpredictably. No launch was made. The interrupted coherent gate needed about 15 minutes of exclusive time for eight files; the remainder plus Bridge types needs several more. No gap of that length exists while that session runs. These PIDs are observations only; never signal them.
+- The equipment preflight classifies only node vitest/tsc and native compilers as heavy; it does not see Godot. The explicit separate host scan for Godot remains mandatory before any launch.
+- Host at 08:00 CDT: free disk 8,603,900 KiB, above the 3,670,016 KiB launch floor; swap 8,676 of 9,216 MB used; load average 9.2 while a batch ran, 2.8 between batches.
+
+### Prepared, not launched
+- /Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-obligations/consumers-remainder/ holds SELECTION.json, bind.py and run.sh: the five incomplete files, then Bridge types, with original budgets and p16-env. bind.py in check mode confirmed the same 1,658-entry manifest as coherent-consumers with only HANDOFF.md changed. Bind with `python3 -I bind.py --bind` only inside the window, then fresh preflight, explicit no-Godot scan and lane-run-r8.sh. Never rerun a USED runner.
+
+### Exact next action
+1. Owner action required once: pause or finish the Codex REA session's Godot batches, or name a window. Then bind, preflight, no-Godot scan, lane launch of consumers-remainder; freeze source/index/HANDOFF through independent postflight; record results beside coherent-consumers. A completed remainder plus the eight earlier summaries is functional coverage of the thirteen files; timing and exclusive qualification for the earlier eight is not established by it.
+2. Owner decision pending: rival Set acquisition/payment and optional recipe-selection policy (rival-obligations/NEXT-DEPENDENCY.md). Do not invent it; the precursor stays blocked.
+3. Unchanged separate prerequisites: three original full-gate captures, pinned Playwright Chrome 1234/FFmpeg 1011 install approval, Unity toolchain. No P16 technical predecessor is qualified; P17/P18 remain ineligible. Historical failures and Owner playtesting stay separate.
+
+
+## Historical handoff — 2026-10-27, 07:50 CDT
+
+Last writer: Codex coordinator. Owner requested this handoff for Claude. Goal “finish through Sprint 16” is BLOCKED and incomplete after three consecutive resumed checks confirmed the same execution blocker. Sprint 8 is unfinished; do not restart earlier sprints or treat handoff as gameplay acceptance.
+
+### Branches and ownership
+- Gameplay source: 63a63abe63e62825916f3a69b4b4589ae3a7baed. Experimental checkout: /Users/zacheryspector/studio-scratch/p16-retained-writing-20261026-wt, branch p16-retained-writing-20261026. Pre-handoff remote HEAD: 6cda9fe5c94ebd0119715751cf9285ff6b6bf311; this checkpoint adds only HANDOFF.md. Resolve its resulting HEAD from Git.
+- Records checkout: /Users/zacheryspector/The-Movies-headless-program, branch wip/headless-program-20260916-ts. Pre-handoff remote HEAD: f4436a11ff88327a35fbb3ea558063c91abfc052. Primary P16 remains 013c4edc90c0ce063fea00ebb187161ad6eb3414; main remains ab65eb20c73c35ac3530f59181332cc9a313b604. Both owned trees were clean before this handoff.
+- One coordinator/integration writer and one intensive execution tree. Use Sol as implementation workhorse when available; independent test/review ownership remains disjoint. Previous specialists are terminal. No owned runtime, source freeze or lane lock remains. Never signal a foreign process or clear a foreign lock.
+
+### Read only what is needed
+- Start with AGENTS.md and the relevant WORKFLOW/LESSON_MAP route. Governing order: docs/engineering/audits/2026-10-22-codebase-review/p16-sprint5/OWNER-ASSIGNMENT.txt. It authorizes continuous Sprints 5–16, but no gameplay merge to main and no downstream work before its technical predecessors qualify.
+- In that audit directory, read LEDGER.md, STABILIZATION-REPORT.md and p16-sprint8/rival-obligations/{next-consumers.md,NEXT-DEPENDENCY.md,reviewed-green/AUDIT.md,coherent-consumers/AUDIT.md,bridge-types/AUDIT.md}. Review findings and correction patches are preserved beside them. Detailed lessons and older chronology remain below this section.
+- Local runnable/evidence packages: /Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-obligations. Preserve private inventories locally. Never rerun a USED runner; create a freshly bound attempt only when execution is actually permitted.
+
+### Verified result and limits
+- Native rival obligation v9 producer is committed and reviewed. Root typecheck exited 0; genuine C312 close, accounting/receipt/history dispositions, completion/Accept, save/replay and unrelated-film credit refusal passed. Exact 9,275.610403 ms exceeds the unchanged 5,000 ms budget. Prior v7/v8 history and Bridge projection 64 remain supported by the source design, not a broad acceptance claim.
+- Consumer gate ended 143 after foreign Godot appeared: eight complete file summaries reported 124 passing tests; five files incomplete, 39 printed budget overruns, no final JSON. Separate Bridge compilation also ended 143 without a result. Both interruptions were independently audited; only verified owned process trees were terminated. No completed or exclusive gate qualification follows.
+- No new game tests or source changes were made during the final handoff checks. At 07:50, foreign Godot PID 46264 under parent 45192 was live. This is an observation, not a future signal target. It belongs to the other Godot terminal, NOT Claude. Recheck live ownership; a momentary idle sample previously failed to provide a sustained window.
+
+### Exact next action
+1. Establish a sustained exclusive window. Use the existing equipment preflight and sole lane, preserving launch floor 3,670,016 KiB and runtime floor 3,145,728 KiB. Finish the missing consumers and Bridge types without repeating unchanged completed work unnecessarily or weakening the mandatory milestone. Freeze source/index/HANDOFF through independent postflight.
+2. Incomplete files: tests/p16-retained-drafting-continuation.test.ts; tests/p16-continued-work-cancel.test.ts; tests/p14c2c-rival-promises.test.ts; tests/p14c3-promise-digest-continuity.test.ts; tests/p15b4-studio-closure-save.test.ts. Exact coherent scope is in next-consumers.md. Reuse the unchanged-source root typecheck and focused result only within their recorded scope.
+3. Owner question pending: is there an approved rival Set acquisition/payment and optional setup-recipe selection policy? P13B plan lines 979/998 require shared mechanics, but the inspected rules supply no autonomous precursor policy. Current rivals have no Set inventory/emitter; public Set/setup actions are player-only and the player is not for sale. Do not fabricate a target, invent spending/strategy or remove guards. Preserve NEXT-DEPENDENCY.md's exact distinction.
+4. Separate prerequisites remain: original full-gate captures dense-02, dense-02p31 and dense-02p32 are unavailable; pinned Playwright Headless Chrome 1234/FFmpeg 1011 installation approval is pending; authorized Unity counterpart/toolchain is unqualified. Existing preparation is preserved; no repeated archive search or unapproved install.
+5. No qualified P16 technical predecessor yet: P17/P18 remain ineligible. Delegated-only retention is masked by own promise 12; acquired first take/termination/later closure and prior v8 production branches remain unproved. Keep historical failures and Owner playtesting separate. Continue independent authorized work when possible; otherwise report the precise blockers without a background-execution promise.
+
+
+## Historical handoff — 2026-10-27, 07:27 CDT
+
+Last writer: Codex coordinator. Weekly-usage HANDOFF TRIGGER reached100%; stopped at an idle safe boundary. Owner resumed goal “finish through sprint16”; it remains active/incomplete. This is the first blocker check after resume, not grounds to immediately mark it blocked again. No game checks, source edits or foreign signals this turn.
+
+### Where the work is
+- Experimental checkout: /Users/zacheryspector/studio-scratch/p16-retained-writing-20261026-wt, branch p16-retained-writing-20261026. Published gameplay63a63abe63e62825916f3a69b4b4589ae3a7baed; last verified records-only HEAD463f05ea637093d8d035d187e328f814d3c969fd. Resolve the newer handoff-only commit from Git after this checkpoint.
+- Records checkout: /Users/zacheryspector/The-Movies-headless-program, branch wip/headless-program-20260916-ts; last explicit remote bbeee7eb714f4d83792250aceb67b2a463e48066. Primary P16 remains013c4edc90c0ce063fea00ebb187161ad6eb3414; main remainsab65eb20c73c35ac3530f59181332cc9a313b604. No gameplay promotion.
+- Governing order: docs/engineering/audits/2026-10-22-codebase-review/p16-sprint5/OWNER-ASSIGNMENT.txt. Read AGENTS/current workflow route; do not restart previous sprints or setup. Audit records are under the same directory's p16-sprint8/rival-obligations; local execution packages are /Users/zacheryspector/studio-scratch/p16-sprint8-obligations-20261026/rival-obligations.
+
+### Actual state and evidence
+- Sprint8 native rival obligations v9 source is published, independently reviewed, with root types0 and genuine close/completion/Accept/save-replay functional pass. Exact9275.610403 ms exceeds original5000 ms. Prior v7/v8 history and Bridge64 shape retained. reviewed-green/AUDIT.md supplies exact pins and claims.
+- coherent-consumers was interrupted143 for foreign Godot:8 complete summaries124 passing assertions,5 incomplete files,39 printed budget overruns, no finalJSON. Separate bridge-types was also interrupted143 before any compiler result. Both independently audited; all source/input pins matched, freezes released. Do not combine partial summaries into a qualified gate or retry unchanged batches on brief idle samples.
+- No owned job or lane lock is active. At07:26–07:27, foreign GodotPID22259 under Python21993 was confirmed live; these are observations, never future signal targets. Free space9823912KiB exceeds launch floor3670016KiB, but host exclusivity is unavailable. Foreign work belongs to the separate Godot terminal, not Claude. No supported peer communication channel was established; do not interrupt it.
+- All specialists were terminal at the prior boundary. Root alone owns integration/lane; Sol is source workhorse, independent test author and one reviewer have disjoint roles. Resume only a specific necessary task, not a swarm. No source freeze now; preserve every candidate, patch, failed attempt and private inventory.
+
+### Exact next actions and blockers
+1. Establish a sustained exclusive execution window, then fresh preflight/sole lane for unfinished consumers and Bridge types. Five incomplete files: tests/p16-retained-drafting-continuation.test.ts, tests/p16-continued-work-cancel.test.ts, tests/p14c2c-rival-promises.test.ts, tests/p14c3-promise-digest-continuity.test.ts, tests/p15b4-studio-closure-save.test.ts. next-consumers.md holds the coherent selection; preserve mandatory full-gate scope and prior interruptions. Do not relaunch USED runners. Keep original budgets and freeze source/index/HANDOFF through independent postflight.
+2. NEXT-DEPENDENCY.md proves current rivals cannot produce an authentic setup/selected-Set target. Adopted P13B plan979/998 requires shared setup mechanics, but inspected rules do not specify autonomous rival Set acquisition/payment or optional recipe choice. Owner question pending for any existing approved policy. Do not invent spending/strategy, actor-swap player fixtures or remove guards. This is an unfinished required precursor, not an acceptance waiver.
+3. Other prerequisites remain: three original full-gate r3n1 captures dense-02/dense-02p31/dense-02p32 unavailable; pinned Playwright HeadlessChrome1234/FFmpeg1011 installation approval pending; authorized Unity counterpart/toolchain not qualified. Existing browser/native preparation is preserved. Do not repeat archive searches or install without authority.
+4. No P16 technical checkpoint is qualified, so dependent P17/P18 work remains ineligible. Owner playtesting is separate. Own unbound promise12 masks delegated-only retention; acquired first take/termination/later closure, nonempty market and prior v8 native production branches remain unproved. Preserve historical failures and source-bound scope; no new research campaign.
+
+### Handoff continuation
+All source and previous evidence are already pushed. This checkpoint changes HANDOFF only in both owned checkouts. Verify explicit remote refs after publication. No background execution is promised. Continue the authorized program only when actual prerequisites permit; otherwise report precise remaining blockers. Existing detailed lessons and chronological evidence follow below; AUTO remains untouched.
+
+
+## Rival setup authority clarified — 2026-10-26
+
+No source or runtime changes. Published gameplay63a63abe and the interrupted consumer evidence remain authoritative. Bounded adopted-contract reading confirms rival setup symmetry is mandatory (P13B plan979/998), while native Set acquisition/payment and optional recipe-selection policy is not supplied by the inspected R07/S8 rules. NEXT-DEPENDENCY.md now distinguishes the authorized shared mechanics from the missing policy.
+
+Owner question pending: identify any existing approved rival Set acquisition/recipe-selection policy. Recommendation is to retain the precursor as blocked pending a bounded decision, without inventing spending/strategy or waiving required continuation. Sustained exclusive execution window is still required for the five incomplete consumer files and unfinished Bridge types. A clear momentary host sample is not such a window; no retry was launched. Browser installation approval, original full-gate inputs, native toolchain and Owner acceptance remain separate. No downstream technical predecessor is qualified.
+
+Next: apply any supplied adopted policy within its actual scope, or retain this exact dependency; resume the named runtime checks only after a sustained qualified window. Preserve all existing source and failed/interrupted evidence. Execution is blocked and the program is incomplete. Three consecutive goal turns retained the sustained execution-window blocker; the final check found no running engine but no established exclusive window. All specialists are terminal and all reviewed work is preserved. Rival policy, browser approval and original-input/platform prerequisites remain unresolved. Resume from the exact next actions above when an external prerequisite changes; no background execution is promised.
+
+
+## Rival obligation consumer interruption and exact next dependency — 2026-10-26
+
+Published gameplay remains63a63abe63e62825916f3a69b4b4589ae3a7baed on experimental p16-retained-writing-20261026; primary013c4edc and mainab65eb20 are unchanged. Root types0 and focused genuine v9 lifecycle functional pass9275.610403 ms remain the scoped result, with original5000 ms timing failure. No new source repair in this checkpoint.
+
+The coherent13-file consumer attempt ended143 after foreign Godot appeared. Eight complete file summaries report124 passing tests, no observed assertion failure; five files lack complete results and no final JSON exists. Thirty-nine printed passing leaves exceed5000 ms. Native v9 broad leaf33784 ms is not a controlled speed comparison. Independent postflight verified1658 source/input and six preflight pins, exact owned-tree-only termination, absent jobs/lock and released freeze. Foreign overlap start is unknown, so no exclusive or completed-gate qualification.
+
+A separate previously unrun Bridge typecheck also ended143 after another foreign Godot job appeared. It produced no compiler result. Its pins and safe interruption were independently audited. No foreign job was interrupted. Repeated foreign launches establish a sustained execution-window blocker; do not retry either unchanged batch or compiler on another brief idle sample. Private process inventories stay local; public audit/interruption/log evidence is in rival-obligations/{coherent-consumers,bridge-types}.
+
+Next runtime requires an actual exclusive window. Five incomplete files are retained-drafting-continuation, continued-work-cancel, p14c2c-rival-promises, p14c3-promise-digest-continuity and p15b4-studio-closure-save; Bridge types remain unfinished. Preserve complete partial observations without combining them into a fully qualified gate. The remaining full-game original inputs, browser installation approval, native tooling and Owner acceptance are separate blockers.
+
+Read-only source reconciliation found no current lawful rival setup/selected-Set premise. Native greenlight uses requiresSetBinding:false and setup:null; native advance supplies no Set context; public setup/Set producers use player inventory/cash; RivalBusiness has no Set inventory and player targets are not for sale. NEXT-DEPENDENCY.md pins exact source locations and limits. Native rival ownership/payment/binding/setup admission is a real precursor, not something guard removal or actor-swapped fixtures can create. No new rival strategy/finance rules were invented. Existing historical archives were not searched again.
+
+Exact next action: obtain a sustained qualified execution window before finishing the named consumers/compiler; reconcile adopted authority for the native rival Set/setup precursor before implementing it. Reuse existing focused/root evidence on unchanged source. No P16 technical predecessor or downstream P17/P18 eligibility is claimed; Sprint8 and the authorized program remain incomplete.
+
+
+## Rival obligations coherent consumer checkpoint — 2026-10-26
+
+Published experimental source63a63abe63e62825916f3a69b4b4589ae3a7baed; records ecf103b8d14af20aa208b229b3725eb9caa96f17, both explicitly remote verified. Source tree clean before this HANDOFF update. Root types0 and genuine lifecycle9275.610403 ms reused with timing failure retained.
+
+Next: rival-obligations/coherent-consumers runs thirteen complete affected files and Bridge types through fresh preflight/sole lane. Exact selection/rationale in next-consumers.md. No changed budgets, separate focused rerun, duplicate unchanged market suites or full-core claim. Freeze source/index/HANDOFF through independent postflight. If foreign intensive work appears, follow controlled owned-tree interruption; never touch foreign jobs. Existing delegated-only retention/termination/production and broader/platform acceptance gaps remain open.
+
+
+## Rival obligations functional checkpoint — 2026-10-26, 22:31 CDT
+
+Eleven reviewed source owners and the independent same-leaf lifecycle are ready for a recoverable experimental commit. Resolve exact HEAD from Git. Root types exit 0; genuine R01 C312 native obligation close, financial/receipt/source-history dispositions, writing completion/Accept313, replay, unrelated film33 first take314 with no false promise13 credit, and final314 save all pass. Exact 9275.610403 ms exceeds unchanged5000 ms. One pass,64 skipped; affected complete files and broader consumers are NOT qualified.
+
+Independent audit verifies all1658 source/input and six preflight pins, terminal child/wrapper0 and absent owned jobs/lock; freeze released. Launch/mid/post samples found no Godot, without a continuous-exclusivity claim. Earlier first-green was not launched when foreign Godot appeared; preserve that evidence. Source, two reviewed corrections, independent test and actual results are under rival-obligations. Main and primary P16 stay unchanged.
+
+Next: complete coherent affected-file/consumer qualification through the sole lane only with a fresh valid window; retain timing failure, original RED and all historical failures. Reuse this exact root compiler/focused result where source remains unchanged. Own unbound promise12 masks delegated-only retention; acquired first take, termination, nonempty market and prior v8 production branches remain unproved. Missing full-gate originals, browser installation, native tooling and Owner acceptance remain open. Sprint8/program are incomplete; no downstream predecessor qualification.
+
+
+## Rival obligations reviewed source installed — 2026-10-26
+
+Eleven source owners plus the independent same-leaf lifecycle test are installed, uncommitted and STATIC-UNRUN on experimental HEAD 53f821499b838bb701dedb74f5f49ef06f3796bf. Original source remains published at cf8def37. Restore rival-obligations/source/RIVAL-OBLIGATIONS.patch, review-fix/OWNER-CHECK.patch, review-fix-same-week/SAME-WEEK.patch and lifecycle-test/LIFECYCLE.patch after the preserved premise patch. Primary P16 and main remain unchanged.
+
+Independent review found and statically closed two blockers: malformed native owner check and same-week delegated-duty reassignment bypass. Original patches and findings remain preserved. Historical v7/v8 formats and Bridge projection 64 are retained; proposed v9 combines native writing and obligation facts. No compilation or runtime claim yet.
+
+First-green was NOT LAUNCHED: equipment preflight allowed 8146212 KiB, but explicit host scan found foreign Godot PID19565. No USED, compiler, runtime or lane was created; no foreign process was signaled. Preserve first-green/LAUNCH-BLOCKED.json and private host evidence. Next: verify foreign completion and a qualified window, bind a fresh compiler-first attempt after all HANDOFF edits, then one genuine C312 lifecycle only if compilation succeeds. Freeze source/index/HANDOFF through independent postflight. Original 5000 ms budget, all 64 prior leaves and premise assertions remain. Original RED 5387.399 ms overrun stays open. Own unbound promise12 prevents delegated-only retention proof; unrelated native film33 first take must not credit acquired promise13. All broader, platform, missing-input and Owner acceptance limitations remain.
+
+
+## Genuine rival bound-obligation RED — 2026-10-26, 21:54 CDT
+
+Published experimental gameplay remains cf8def37a931b0e2bf01b3340e9b42586b187fe8. One independent test-only premise is installed but uncommitted in tests/p14c2rm-writer-continuation.test.ts; original 64 leaves, original Bridge witness and 5000 ms budget remain unchanged. Exact patch/source/capture pins are under p16-sprint8/rival-obligations. The preserved historical311 capture advances once to current312; no buyer/date/seed substitution, invented funding or rewritten history.
+
+Actual R01 buying R02 proves stable/no-loan conditions, writer consent, spare native writing slot beside its running film, paid diligence and whole-transaction affordability. Buyer cash223195905.1827533, ask86955202, exits1717352, outlay2607470.8833495975, reserve4363866. Promise13 continues,15/23 exit,19 unbound rows remain history, settled17/19/21 are untouched. Six historical closed cases and zero current target market matters remain explicit. All premises and finally-purity reach before exact absorbedPromiseDispositionProducerRequired at acquisition.ts460.
+
+One failed/64 skipped; body5387.399 ms exceeds5000. Child/wrapper1; no successful close or downstream lifecycle claim. Independent audit verifies1658 source/input and six preflight pins and releases freeze; no owned job/lock remains. NoGodot observed launch/post samples, not continuous exclusivity. The failed selection retains a stale descriptive expectedSourceCheckpoint field; actual checked HEAD/source pins are cf8def37, as the audit records. Do not rewrite original evidence.
+
+Next: Sol prepares the cohesive combined native-script/obligation source externally at p16-sprint8-obligations-20261026/rival-obligations/source; independent author extends this same leaf under lifecycle-test. Proposed v9 retains actual native v8 facts plus obligations without reinterpreting older versions. Neither author writes the checkout or runs tests; root alone integrates after focused review. Existing own R01 unbound promise12 may retain the writer after Ready, so do not force termination or claim delegated-only retention coverage. Source draft remains in progress/uninstalled; no new runtime or source qualification yet. All previous P16/full/platform/timing limitations remain; main unchanged.
+
+
+## Rival bound-obligation premise installed — 2026-10-26
+
+Published experimental gameplay is cf8def37a931b0e2bf01b3340e9b42586b187fe8; records a86a567b23e665d551c0680cb58346d3371e0389. One independent test-only premise is installed, uncommitted, in tests/p14c2rm-writer-continuation.test.ts. All original leaves/Bridge test and 5000 ms budget are preserved. Patch/manifest: p16-sprint8-obligations-20261026/rival-obligations/premise-test. No obligation source repair yet.
+
+The fixed existing historical311 input advances once to actual312. R01 buyer must prove current stable/no-loan status, person consent, writing capacity beside its own real production, paid diligence and whole-quote affordability for R02 writer/script0035. All target promise classes and historical market cases remain intact. Expected missing producer is absorbedPromiseDispositionProducerRequired only after every actual premise admits; setup failure is not acceptance evidence.
+
+Next: original-red exact one-leaf runner through fresh preflight/sole lane, then independent postflight before edits. Freeze source/index/HANDOFF during execution/audit. Preserve original fixture funding provenance and all failed attempts; no alternate buyer/date/seed or fabricated finances. Prior candidate, timing, resource and untested native production limitations remain open. Main and primary P16 unchanged.
+
+
+## Rival screenplay candidate publication — 2026-10-26, 21:40 CDT
+
+The reviewed eleven-owner implementation and independent lifecycle test are being committed on experimental p16-retained-writing-20261026. Resolve exact commit from Git; primary p16-rebase-20261024 and main remain unchanged. This is a recoverable candidate, not the P16 qualified technical checkpoint.
+
+The previously unrun Bridge typecheck now exits 0. Complete Bridge parity passes 9/9; retained obligations remains over its original 5000 ms at 10909.782 ms (exact prior 11480.027 ms), other eight pass budgets. Both checks are independently audited with exact pins and no remaining jobs/lock. No Godot was observed in launch/post samples; continuous exclusivity is not inferred. Root types and focused rival completion/Accept/save replay 3198.445 ms are reused on identical source.
+
+The interrupted ten-file observations, nineteen timing overruns and foreign-overlap uncertainty remain open. Native policy rejected the acquired script, so its greenlight/take/release/chart/shelving threshold are untested. Source review fixes are static where those paths were unreached. No broad, platform, Owner or downstream-predecessor qualification follows from publication.
+
+Next: close remaining required rival producer evidence and obligations using existing actual routes; NEXT-DEPENDENCY.md identifies the versioned native-obligation boundary. Do not copy v8 records into v7 or assume a genuine rival buyer at C312. Finish resource-qualified consumer/full milestones when an actual exclusive window is available. No unchanged interrupted full-gate retry on a brief idle scan; no P17/P18 activation or main gameplay promotion.
+
+
+## Rival screenplay implementation and interrupted consumer checkpoint — 2026-10-26, 21:31 CDT
+
+Records and complete recovery patch chain are published and explicitly remote verified at wip 7460475742ab2687db670597a49b6ba2c71b3a21. Published gameplay remains 0108d51cc71943ac47bd7257ca2ff3c371fa1d31. Eleven reviewed source owners and the independent lifecycle test are installed but uncommitted on experimental p16-retained-writing-20261026. Exact source, review correction, literal type correction, premise/lifecycle and expectation patches are preserved under p16-sprint8/rival-script; apply them in the recorded order. Primary candidate 013c4edc and main ab65eb20 are unchanged. This records checkpoint does not promote unqualified source.
+
+The native v8 producer implements rival remaining writing, automatic acceptance, scheduling, cost/receipt/history joins and release. Independent review found three defects: shelved Ready work refused on advancement, produced acquired history consumed hot slots, and chart output omitted acquired-screenplay films. A two-owner correction resolves those findings statically. Original v1–v7 laws and Bridge projection64 remain unchanged.
+
+Root types pass. Genuine R02 C171 close, retained writing/payroll, completion/automatic Accept173 and save172/replay173/save174 pass in 3198.445 ms within the original 5000 ms. Native policy rejects production once; acquired greenlight/take/release/chart/shelving threshold remain untested. No forced scheduling or nonzero original-development claim. Preserve the initial compiler TS2322, prelaunch manifest-alias refusal and independently corrected quote-reason expectation failure as distinct implementation/harness/test results.
+
+The 11-file consumer gate was interrupted at 21:31:40 after foreign Godot appeared. Only the immediately verified owned runner tree received TERM. Ten completed file summaries show 89 passing assertions, but no final JSON exists; Bridge parity is incomplete and Bridge types never ran. Nineteen printed passing bodies exceed their original 5000 ms budgets, including the new rival leaf at 5413 ms; the market-phase exception remains within 600000 ms. Exact overlap and timing causation are unknown. Do not turn partial output into a complete or exclusive qualification. All runs independently audited; source freeze released, no owned job/lane lock remains.
+
+Next: retain the installed source and evidence; finish the affected consumer/Bridge milestone only in an established exclusive window, without immediately repeating the unchanged interrupted gate. Continue bounded read-only preparation for the existing rival bound-promise dependency meanwhile. Source publication/primary integration remains pending qualification. Original full-game inputs, browser-install approval, native tooling and Owner acceptance remain open; Sprint 8 and the authorized program are incomplete.
+
+Lesson: separate durable acquired history from native hot inventory. Shelved Ready and produced scripts must remain provable without being advanced or counted as active capacity. Published film output must come from actual film history, including acquired screenplay productions. Keep resource interruption, assertion success and timing qualification separate.
+
+
+## Rival screenplay focused result — 2026-10-26, 21:27 CDT
+
+Quote-green passes one lifecycle leaf in 3198.445 ms within the original 5000 ms. Genuine close, retained writing/payroll, completion and automatic Accept173, save172/replay173 and save174 are reached. Native policy rejects production once; Ready remains and writer exits lawfully at173. Greenlight, first take, release, chart and shelving threshold remain untested. Root types pass on unchanged source. Prior compiler, binding and mistaken test-expectation failures are preserved; all runs independently audited and freezes released.
+
+Next: coherent-affected complete writing/retention/first-take/starting-world/market/Bridge-parity consumers and Bridge types through fresh preflight/sole lane. Original budgets unchanged; reused root types only. Source/index/HANDOFF freeze through independent postflight. No publication or full qualification yet; original source/review-fix/type-fix and independent test patches are recoverable externally. Main and primary candidate unchanged.
+
+
+## Rival screenplay reviewed source installed — 2026-10-26
+
+Eleven source owners and the independent same-leaf lifecycle test are installed, uncommitted and STATIC-UNRUN on experimental cf0e1cd47ba9974d540d3690f322c7192cc0037a. Restore original rival-script/source/RIVAL-SCRIPTS.patch, then review-fix/REVIEW-FIX.patch; test restores premise then lifecycle patch. Primary candidate and main remain unchanged.
+
+Independent review found and statically closed three defects: shelved Ready work caused writing refusal, produced acquired scripts occupied hot inventory forever, and chart output omitted acquired-script films. Exact original and corrective patches/reviews are preserved externally under p16-sprint8-obligations-20261026/rival-script. The reviewer approves compiler/focused execution, not runtime qualification. Bridge DTO remains projection64 unchanged.
+
+First-green root types exited 2 on widened automatic-accept discriminant; runtime was unrun. Independent postflight released the freeze. The literal-only type-fix is installed, unrun. Typed-green refused a stale relative HANDOFF manifest alias before compiler/runtime; audit released freeze, failed manifest preserved. Typed-ready root types passed; genuine close succeeded, then new test expected null instead of existing writerTeamRetained. Audit released freeze; independent one-line expectation correction installed. Next: quote-green lifecycle only, reusing unchanged-source root types, fresh preflight and sole lane; preserve source/index/HANDOFF through independent postflight. Same genuine R02 C171 lifecycle retains every original premise and 5000 ms budget. Actual native choice alone enables production/release/chart assertions; a not-selected result leaves those branches open. No forced scheduling or nonzero source-development claim. Original RED and prior failed evidence remain preserved. Root alone integrates/schedules; all external drafts are frozen.
+
+
+Last writer: Codex, 2026-10-26, sole coordinator for the authorized Sprints 5–16 program.
+
+
+
+
+
+
+## Genuine rival carried-screenplay RED — 2026-10-26, 20:47 CDT
+
+Published gameplay source remains 0108d51cc71943ac47bd7257ca2ff3c371fa1d31. One independent premise leaf is installed but uncommitted in tests/p16-carried-script-accept.test.ts; exact patch and original failed evidence are preserved in p16-sprint8/rival-script. All three original cases and original5000 ms budget remain unchanged.
+
+The existing actual163→171 route proves real R02 stability/no loan, idle operations, native development slot0, retained original writer, paid diligence, coupled film12 cancellation quote, empty target obligations and whole-transaction affordability. Consideration8563422, exits1107548, outlay949538.5155096687, reserve2621814, guarantees281459. No player activation or diligence is imported into the rival fork; the existing helper's prior unactivated state is preserved.
+
+Quote nonetheless reports continuationRequired/writerCapacityUnavailable because its code excludes every rival. Actual close reaches retainedScriptCapacityProducerRequired at acquisition.ts457 before the later rival-script guard. One failed/three skipped,1828.496 ms within5000; caller purity reaches. This is a genuine missing quote/operation owner, not a demonstrated capacity shortage. Downstream lifecycle remains unreached.
+
+Independent postflight verifies1658 source/input and six preflight pins, terminal child/wrapper1 and absence of owned jobs/lock; freeze released. NoGodot observed launch/post samples, without continuous-exclusivity guarantee. Root retains integration/lane ownership. Sol prepares one cohesive source package externally under rival-script/source; independent author prepares the same-leaf lifecycle extension under lifecycle-test. Neither writes X or runs runtime. No new source draft installed yet.
+
+Next: finish native rival capacity, remaining writing, automatic acceptance, actual native ready/greenlight/release and truthful versioned rival cost/history proof. Existing player ledger/placement receipts cannot attest rival native costs. Review coherent source before install; retain native policy and all original tests/budgets. Do not stop at Ready-only behavior, fabricate a greenlight or copy creator history. Preserve actual policy refusal/unreached branches. Earlier player timing failures, full-game missing originals, browser approval, native tooling/Owner acceptance and the overall program remain open; main unchanged.
+
+
+## Earlier silent rival work checkpoint — 2026-10-26, 20:38 CDT
+
+- Four reviewed source owners now admit native earlier silent rival operation and recognize its exact acquired-production technology membership. Existing capacity, phase/setup/sound, company, creator-history and frozen-reader laws remain. Resolve exact new source HEAD from Git; primary candidate and main are unchanged.
+- Genuine R03 C163 original RED reaches the missing producer in 671.883 ms. Corrected same-leaf journey passes in 2668.810 ms solo and 3558.018 ms across complete files: buyer silent lock164, buyer first take166 with original screenplay subject, save165/replay166, native release169, title and installments0/1, final171 reload and wrong-owner refusal/purity.
+- Root types0; four complete affected files23/23. Seven existing player bodies exceed original5000 ms; nearest predecessor timing unavailable in this checkpoint, so neither inherited nor source-caused is established. Independent review/audits verify1658 source/six preflight pins; freezes released, no owned lane remains. Sampled noGodot is not continuous exclusivity.
+- Scope: genuine rival phase7 only. Newly admitted phases8/6/initial5 have static owner analysis, not independent rival runtime witnesses. Reuse earlier completed market67 and later-stage19 only within unchanged source scope. No broader P16/platform qualification or completed-program claim.
+- Next: publish and explicitly verify this source/evidence, then the next required producer from Sol's bounded residual disposition. Remaining rival screenplay/bound obligations, setup/selected Set/sound and historical compositions remain open. Full-game original inputs, browser approval, native tooling and Owner acceptance still block their own milestones. Evidence: audit p16-sprint8/rival-earlier.
+
+### Lesson: acquired operation membership keeps creator ownership
+
+The native earlier-phase engine already produces the buyer's silent lock and first take. Its technology reader recognized acquired production only for the player, despite computing an exact buyer/source membership join. Apply that existing join to the rival reader while retaining the complete current work proof; do not move the original paid production or invent a source take. The genuine failing admission and corrected lock/replay witness preserve this distinction.
+
+
+## Genuine earlier rival admission RED — 2026-10-26, 20:27 CDT
+
+After the observed foreign Godot job ended, a fresh allowed preflight and clear launch/post host samples supported the short sole-lane witness. Source HEAD 58ea5d7146f36b287b98b656339f2eea1b6dece5 plus the preserved independent test patch reaches all actual R03 C163 paid diligence, person-choice, capacity, quote and reserve premises. Six original people retained; consideration 11097774, outlay 862165.7370649315, reserve 4125342, guarantees 2259225. No cash/history/timing fixture change.
+
+Close then refuses exactly absorption: rivalBuyerEarlierWorkProducerRequired at acquisition.ts465. One failed, six deliberately skipped; 671.883 ms within original 5000 ms. Caller purity finally reaches. This is the meaningful original-source RED, not completed lifecycle acceptance. Child/wrapper 1; original report is retained under p16-sprint8/rival-earlier/original-red.
+
+Independent audit verifies all 1658 source/input and six preflight pins, confirms no remaining owned process/lock, and releases freeze. No continuous host-exclusivity claim. Sol now prepares the minimal earlier-silent native producer externally in rival-earlier/source; the independent test author extends the same leaf under lifecycle-test. No draft is installed yet. Root alone integrates and schedules. Next: inspect and independently review the cohesive source/lifecycle patches, install exact reviewed bytes, then fresh focused compiler/lifecycle checks through the sole lane. Preserve original failed evidence and budgets; broader checkpoint remains required.
+
+
+## Earlier rival production admission prepared — 2026-10-26
+
+Current experimental checkpoint is 3f672a24fe9a2ac59a3b58cb854211763a2f0204, gameplay bef0a40c; records checkpoint 33f191e388c551e35d1bbdf8c1cefcc10771846b. One independent premise leaf is installed but uncommitted in tests/p16-continued-work-silent-phases76.test.ts. Exact patch, manifest and notes are preserved in p16-sprint8/rival-earlier/premise-test. Original six cases and 5000 ms budget remain unchanged.
+
+The fixed original163 input has idle stable R03 with no loan; R01 has genuine unshot phase7 work. The test must establish actual paid diligence, six-person retention, willingness/capacity and whole-transaction reserve before close. Static evidence is not admitted runtime proof. R02 remains occupied until R01 has already taken its first shot, so no concurrency or altered history is used. Expected original error is rivalBuyerEarlierWorkProducerRequired; it has NOT yet been reached by this witness.
+
+Foreign Godot was authoritatively observed during readiness inspection. No preflight or lane was launched; no foreign process was signaled. The exact original-red runner is prepared with selector/postimage pins but HEAD/source manifest remains pending. No source implementation yet. Next: when the host is actually available, bind actual source/HANDOFF, fresh preflight and sole-lane single leaf, then independent postflight before any source change. Preserve a failed admission as unreached later behavior. Browser approval and other existing program blockers remain; main unchanged.
+
+
+## Complete market consumers — 2026-10-26, 20:17 CDT
+
+Published experimental source bef0a40c7aae1721db5cee75eb1ffa81b03471e5 passes all four existing market integration, atomicity, phases and retune files: 67/67 assertions, child/wrapper 0. All original budgets pass; maximum body 4836.593 ms. Phases retains its original explicit 600000 ms exception; other files use 5000 ms. No test, timeout or source edit was made.
+
+Independent postflight verifies 1658 source/input and six preflight pins, confirms no remaining owned job/lane lock and releases the freeze. Launch/post samples observed no Godot; continuous exclusivity is not inferred. Evidence: p16-sprint8/rival-continuation/market-consumers/AUDIT.md and publication manifest. Prior seven continuation timing overruns remain open; this does not qualify the whole P16 composition.
+
+Reused the prior six complete continuation/estate files and root/Bridge types without rerunning them. Next: current-source disposition of remaining adopted rival early-work/script producers using existing authentic inputs, then the necessary coherent broader gate. Full-game original inputs, browser installation approval, native tooling and Owner acceptance remain open. Program remains active; main and primary candidate unchanged.
+
+
+## Current rival continuation source checkpoint — 2026-10-26, 20:07 CDT
+
+- This checkpoint lands the independently reviewed eleven-owner rival completed-take continuation and same-leaf lifecycle witness on p16-retained-writing-20261026. Resolve exact source HEAD from Git/publication receipt. Primary013c4edc and main remain unchanged; no qualified P16/P17 predecessor or completed-program claim.
+- Genuine C166 acquisition now retains actual buyer workflow/capacity and crew payroll, preserves original creator/take/paid history, releases natively, assigns title and pays source-run installments0/1 exactly once. Save169/replay170/final171 reload pass. Original missing-producer RED0.932s and first implementation's credit-writer save failure1.348s remain preserved.
+- Credit-only writer admission fix permits lawful same-C native termination while preserving exact retained terms and active crew coverage. Final lifecycle2.862s solo/3.398s complete-file, both within original5s. Complete affected six files19/19; root/Bridge types0. Seven other passing bodies exceed5s; exact prior comparisons and unknowns in coherent-affected/AUDIT.md. No budget waiver.
+- Source and correction have focused independent review; all runs independently audited, no owned job/lock remains. First-green overlapped foreign Godot; NO SIGNAL sent because compiler had already ended. Final scoped runs observed no Godot in samples, not continuous exclusivity. Preserve source-bound reports under audit p16-sprint8/rival-continuation.
+- Next: publish/verify this source and records checkpoint, then complete the affected market/remaining consumer checks on this coherent source through fresh preflight/sole lane. Do not repeat original REDs or unchanged successful files. Broader checkpoint still requires remaining adopted producer/composition dispositions; do not infer full qualification from these six files.
+- Remaining: rival early/setup/sound/active writing and bound promise/market paths, natural buyer closure before release and historical compositions, broad/full-game evidence with three original captures missing, browser approval, native tooling and Owner acceptance. No P17/P18 predecessor waiver or gameplay main promotion. Preserve all candidates/failed attempts; use existing ledger program rows.
+
+## Current rival continuation repair — 2026-10-26
+
+- Sole coordinator continues Sprints 5–16; primary013c4edc/main remain unchanged. Experimental published source is9b4bd81a, records HEAD resolves from Git. Eleven reviewed source owners plus independent same-leaf test are installed but uncommitted and not yet runtime-qualified. Restore source/SOURCE.patch then writer-admission-fix patch; restore premise then lifecycle test patches. Exact evidence is audit p16-sprint8/rival-continuation.
+- Original C166 RED reaches actual first take, six contracts, legal quote and reserve, then missing producer in0.932s. First implementation passes root types and actual close/three native operating ticks; fails save export at169 because credit-only writer admission was treated as continued employment. Release/replay/income remain unreached. One-line reviewed correction is installed, UNRUN; actual company coverage unchanged.
+- First-green child types0/lifecycle1/wrapper1; body1.348s. Foreign Godot overlapped; attempted own-compiler stop found it absent, NO SIGNAL sent. Independent audit released1658pins; no owned job/lock remains. Subsequent foreign execution blocks competing launch; preserve sampling limits and no unchanged long retry.
+- Next: bind fresh rival-continuation/writer-green selection/manifest to actual source and HANDOFF, then preflight and explicit host scan when resources are clear; sole-lane same lifecycle leaf only. Runner is prepared but unbound/unrun. Reuse root types for numeric-only investigation, then final types/complete affected files at coherent checkpoint. Review/audit before publication; no invented receipts or budget changes.
+- Source/rival lifecycle reviewers are complete; no source writer is active. Remaining producer compositions, complete consumers/full gate, three missing original captures, browser approval, native tooling and Owner acceptance remain open. No P17/P18 predecessor or main gameplay promotion. Unused comparison650files/15,500,983bytes retired with verified restoration receipt at records73459c64.
+
+## Current consumer evidence checkpoint — 2026-10-26
+
+- Sole coordinator continues authorized Sprints 5–16. Latest gameplay source is 9b4bd81ac0a3cc57142f59a1ea62562d72ee0841 on experimental p16-retained-writing-20261026; this checkpoint changes records only. Primary 013c4edc and main ab65eb20 remain unchanged. Resolve exact records HEAD from Git.
+- Complete runtime checkpoint: 81/81 assertions; 14 exceed original 5s budgets, maximum 15.713s. Six complete promise consumers: 69/77, eight trust failures; 14 actual budget overruns, including B55-2 at 454.682s versus 60s. All runs independently audited; source freeze released, no owned job or lane lock remains.
+- Retained full Wave3j recovery independently matches all eight trust identities and first errors, plus B55-2 historical 584.250s overrun. Later assertions remain unreached. The prepared immutable9c comparison was not launched because its question is answered. See p16-sprint8/promise-consumers-complete/WAVE3J-BASELINE.md and BASELINE-AUDIT.md.
+- A delayed postscan saw transient foreign Godot; start time and overlap are unknown. No signal, continuous exclusivity claim or environmental timing waiver. Do not restart interrupted long gates on a brief idle snapshot. About 7 GiB free; no current cleanup need.
+- Next: implement the smallest native rival continuation producer after the focused external owner map. The independent premise plus same-leaf lifecycle patches are installed but uncommitted in tests/p16-absorption-active-run.test.ts (postimage bacc7df3). The lifecycle extension is static and unrun; the reviewed eleven-owner source draft is now installed, uncommitted and runtime-unqualified. The fresh compiler-first first-green runner is prepared for preflight/sole-lane execution; preserve source/index/HANDOFF through its independent audit. Actual original-red reaches every C166 premise, then rivalBuyerContinuedWorkProducerRequired in 931.518ms; purity passes. One failed/four skipped, independent audit released1658pins; no job/lock remains. Preserve this RED and original5s budget. Patch/results are in p16-sprint8/rival-continuation; no downstream qualification yet.
+- Remaining: rival continued work/scripts and bound promises, setup/sound continuity, active acquired-recipient closure, historical compositions, affected consumers and broad qualification. Three original full-game captures remain missing; browser installation approval, native toolchain and Owner playtesting remain pending. No qualified P17/P18 predecessor, main gameplay promotion or completed-program claim.
+
+## Current verification boundary — 2026-10-26, 18:51 CDT
+
+- Last published gameplay source is 9b4bd81ac0a3cc57142f59a1ea62562d72ee0841 on p16-retained-writing-20261026, explicitly remote verified. This checkpoint adds records only. Primary 013c4edc and main ab65eb20 remain unchanged. No qualified P16/P17 predecessor or completed-program claim.
+- Rival runs now pay actual rival accounts through original settlement and save174/replay175 (2.988s). Native rival retention preserves the exact remaining bargain and original signing facts without a second charge or player-root pollution. Genuine old-source RED 1.337s becomes a 3.021s pass through native surplus termination, payroll exclusion and save/replay. This route does not prove continued retained salary.
+- Final retention checkpoint: complete active/acquisition files 12/12 assertions, root/Bridge types exit 0. Four original 5s budgets exceeded: player run 5.517s, clean-target positive 9.616s/hostile 8.017s, rival163 positive 8.854s. Exact predecessor matches and unknowns are retained in rival-retention/first-green/TIMING-COMPARISON.md; no load waiver.
+- Complete Bridge parity subsequently passes 9/9; retained-obligations 11.480s exceeds 5s, other eight below budget. Earlier genuine estate/history 8/8 and generator 31/31 are reused only within recorded source scope. All runs independently audited; no runtime or lane lock remains. No foreign Godot observed in sampled checks; continuous exclusivity is not inferred.
+- Next: qualify the remaining complete affected runtime-checkpoint and other consumer files on this source through fresh preflight and the sole lane. Existing long consumer runners are USED/interrupted; do not retry them on brief idle observations. Reuse the finished parity, compiler and generator evidence where source scope permits. Then continue remaining adopted P16 producers from the existing map, without reopening closed searches or inventing premises.
+- Remaining producer/evidence gaps include rival continued work/scripts and bound promises, setup/sound continuity, active acquired-recipient closure and historical overlap/later absorption. Due physical/adoption already have native producers; a due-but-unproduced guard alone is not a demonstrated source defect. Fixed stable170/six-week run cannot prove active recipient closure before settlement175.
+- Three original full-game captures remain missing. Pinned browser installation approval remains pending; native Unity toolchain and Owner playtest remain unavailable/unperformed. No P17/P18 predecessor waiver or gameplay main promotion. About 7.9 GiB free at the last preflight; no further cleanup is necessary. Evidence: audit p16-sprint8/RESULTS.md and named run audits.
+
+## Active Sprint 8 obligation and Bridge checkpoint — 2026-10-26
+
+- Sole coordinator continues authorized Sprints 5–16. Experimental branch is p16-retained-writing-20261026; primary candidate remains 013c4edc. Resolve exact checkpoint HEAD from Git. No main gameplay promotion or qualified downstream predecessor.
+- Reviewed v7 obligation source preserves original promise history, retained duties, native exit outcomes and exact market dispositions. Historical closure validation now accepts only freshly attested matching absorption withdrawal receipts. Original failures and focused review are preserved on records branch at 6a12b0d6, audit p16-sprint8.
+- Root types pass. Genuine R02 close/work/Accept/save-replay/later termination reaches assertions in 8.135 seconds, over the original 5-second budget. Complete public-action file passes 6/6 under budget, including actual market withdrawal and malformed-row refusals. Foreign overlap limits the earlier qualification; full affected writer/history/consumer checks remain pending.
+- Canonical projection 64 artifacts were generated and checked through the lane; authentic outgoing 63 was captured by its committed public runtime, then registered. Independent postflight released the freeze. Union fixture output is byte-identical. Current consumer literals follow the generated identity; committed-source declaration measurement and its two golden hashes remain pending.
+- Next: finish independent nonempty Bridge assertions and authentic prior-checkpoint control; create the local recoverable source checkpoint required by measurement, measure committed declarations, then run affected checks through fresh preflight/sole lane. Do not rerun original REDs or retry used runners. A short quiet observation does not establish a reliable long-gate window.
+- Program remains incomplete: remaining Sprint 8 producers, required broader gates, three missing original full-game captures, browser installation approval, native toolchain and Owner acceptance. No fabricated premises, budget changes, P17/P18 predecessor waiver or foreign process interruption.
+
+## Immediate continuation — 2026-10-26, queued-release focused checkpoint
+
+- Sole coordinator/one intensive tree; Owner Sprints5–16 authorization continues. Primary p16-rebase-20261024 stays013c4edc. Experimental p16-retained-writing-20261026 carries reviewed queued-release correction c1e79adf and genuine witness/control; resolve exact current HEAD from Git. No main gameplay promotion.
+- Genuine RED expired queued script-0000 at184 during carried release. Corrected complete Accept3/3 reaches grant/money/final save and hostile persisted-zero refusal. Root types0; complete queue admission13/13 and release authority14/14, maxima0.162s/2.439s. Independent focused review/audits complete, all1,645pins unchanged through each run.
+- Accept positive8.960s/hostile5.078s exceed5s. Foreign Godot overlapped Accept and final dependent tests; no exclusive qualification. Earlier dependent attempt143 has no results. All jobs/lock gone; source changes are only the reviewed correction/test. Original RED, failed attempts, unchanged assertions and budgets preserved.
+- Next: fresh source-bound remaining35 Bridge consumer milestone only when the shared machine is available; old runners are USED. Reuse source-scoped prior evidence where unaffected, do not repeat completed Accept/queue/release checks solely for counts. No current-tree broad qualification; no automatic P17/P18 predecessor waiver.
+- Retirement/acquired conjunction remains OPEN. Bounded historicalWriterPair route is blocked by22 unresolved R02 promises,19 permanently unbound; exact evidence in native-greenlight/retirement-route/FEASIBILITY.md. No fabricated fixture or new test. A different genuine admitted conjunction is still needed.
+- Preserve Save38 mismatch, five inherited D5 causes, Legacy downgrade142.193s/120s (predecessor timing unknown) and other overruns. Full-game needs three original r3n1 captures. Concurrent queued-carried-work, browser/native/Owner acceptance remain open. Sprint7/program incomplete.
+- Owner declined pausing foreign work; Godot belongs to another Codex terminal, not Claude. No ETA/foreign interruption authority. Check about every5min while blocked; avoid repeated long attempts on brief idle gaps. About8–9GiB free; no further deletion needed. Preserve active inputs and unique failures. Records lessons cover scoped queue authority and original resource limits.
+
+## Consumer gate checkpoint — 2026-10-26 (current side tree)
+
+- Experimental branch p16-retained-writing-20261026 descends from source 0e0cdfde; primary candidate 013c4edc is unchanged. Projection 63 measurement succeeded. Final contract identity/roster expectation corrections are static and unrun; no gameplay promotion.
 Last writer: Codex, 2026-10-26, sole coordinator for the authorized Sprints 5–16 program.
 
 ## Immediate continuation — 2026-10-26, first-take repair
@@ -18,6 +360,27 @@ Last writer: Codex, 2026-10-26, sole coordinator for the authorized Sprints 5–
 - Next: confirm exclusive window, then fresh preflight/source binding for remaining consumer verification. Reuse qualified unchanged evidence. Do not restart the stopped runner. Full-game gate separately needs three original r3n1 fixtures. See p16-sprint7/RESULTS.md, consumer-gate/AUDIT.md and declaration-measurement.
 - Continue safe cleanup only after exact remote preservation; keep active inputs, dependencies, candidates and private host evidence. Prior receipts record about 125 MiB plus 3.3 MiB reclaimed. Program and platform/player qualification remain incomplete.
 
+## Experimental retained-writing slice — 2026-10-26 (previous checkpoint)
+
+- Coordinator-owned p16-retained-writing-20261026 descends from6fdbe966; primary candidate013c4edc unchanged. This checkpoint repairs the carried-action casting mapping and exact hostile first-owner expectation. No feature-complete/P16 technical/main promotion claim.
+- Root/Bridge types0; retained complete4/4 within5s (max4.142s). Prior unchanged Accept3/3 and Rewrite3/3 functional results reused, four over5s. Affected history/consumer128/129: sole failure exactly matches332a742a live49-versus-strict38 expectation; final purity assertion remains unreached. Four historical passed bodies exceed5s.
+- Independent audit confirms source/preflight pins and no remaining runner/lock. Original failed assertions, timing evidence, resource-limited RED and interrupted preflight-binding attempt preserved in p16-sprint7. Owner cleanup/session offload restored over10GiB observed headroom; no automatic waiver of fresh preflight or host exclusivity.
+- Next: qualify canonical schema generation/checks and actual Bridge/UI consumers on this experimental composition. Genuine combined retirement/acquired-history witness, carried greenlight/cancellation/release and broader screenplay-history support remain open. Do not infer them from ordinary writer controls.
+- Sprint5 full gate still needs three original r3n1 checkpoints; no fabricated substitute or P17/P18 predecessor waiver. Program remains incomplete. Existing records-worktree LEDGER holds program view. One writer/sole lane; safe cleanup only of verified archived/reproducible session files at idle boundaries.
+
+## Sprints 5–16 authorized program — 2026-10-25 (historical entry)
+
+- Owner authorization: `docs/engineering/audits/2026-10-22-codebase-review/p16-sprint5/OWNER-ASSIGNMENT.txt`. Continue eligible bounded packages without routine approvals; P17/P18 require qualified technical predecessors. No gameplay promotion to main. This supersedes historical stop-after-sprint and no-P17/P18 notes only within the new scope.
+- Entry candidate `p16-rebase-20261024` at `b3be2b78f821ca356158b63083eced051d20f3f7`; main/wip `0bf84f9252f34671849a3d3c4dc638b945f38c8e`, explicit remote refs verified. No gameplay source changed. Sole coordinator/integration writer; Sol external preparation only.
+- Sprint 5 BLOCKED: actual equipment preflight at 22:31 CDT refused with 2,261,252 KiB free versus launch 3,670,016 / runtime 3,145,728 KiB. Zero detected heavy jobs at that observation; no Studio lane/job started. This is not an exclusive-window guarantee. No repeated failed preflight, cleanup or foreign termination.
+- One tracked full-gate input restored exactly: authority-failure.json blob `762fdec7330a1f24a126b6ed0e763e7e79ccfc94`. Three ignored r3n1 checkpoints remain absent; known manifests lack them and historical records locate them on the old laptop. Original package/reports and sufficient headroom/exclusive window requested from Owner. Evidence: `p16-sprint5/INPUT-RECOVERY.md` and `ENTRY.json`; raw host receipt stays private in scratch.
+- Independent preparation: 13-path retained-writing/Accept/Rewrite draft and unchanged ten tests preserved outside candidate. Final independent review found omitted retirement-writing authority; installation BLOCKED pending proper live/save authority integration and runtime witness (p16-sprint5/DRAFT-REVIEW.md). Runtime, integration and Sprint 7 completion remain unclaimed. Existing browser smoke already covers new studio → film release → save/reload; no replacement harness. See program rows in LEDGER and preserved Sprint 4 lessons/process limit.
+- Next: recover original three-fixture package/provenance; once actual resources/exclusivity change, bind the prepared full-tree runner/selection to this candidate, pass current equipment preflight and execute full core (includes Bridge) plus UI once through sole lane. Freeze source/index/HANDOFF through postflight and independent audit. Do not substitute a P16-only run or manufacture historical inputs.
+- No new gameplay policy decision requested. Sprints 10–14 and combined platform qualification remain dependent; native/browser/Owner acceptance stays separate. Original current200, prior failures and candidates preserved. Program not complete; do not promise background execution.
+
+## Astra engineering Sprint 4 — complete, 2026-10-25 (historical)
+
+- Candidate branch `p16-rebase-20261024`; reviewed source/test checkpoint `3364567ccfa2f29d240b8a73f30e91fcb1816bd5` descends from `b5566fc12acdfb61b18138dc7fa288ea59c24780`. Final candidate publication includes only evidence/handoff changes afterward; exact remote receipt is on the records branch. Main/wip entry `632dc4587ee16b7ae62d6fd6c604652171adaf0d`; records only, no gameplay promotion.
 ## Previous program checkpoint
 
 ## Sprints 5–16 authorized program — active, 2026-10-26 (current)

@@ -1,6 +1,9 @@
+import { buyerScriptDevelopment, buyerScriptConcepts } from './continuedScripts.js'
 import { productionCompanyTalentIds } from './productionPeople.js'
+import { reservedCameoTalentIds } from './cameo.js'
 import { initializeHollywood, industryBusyTalentIds, rivalEmployment } from './hollywood.js'
-import { closedWeekOf } from './operatingState.js'
+import { buyerContinuedProductions, buyerOperatedProductions } from './continuedWork.js'
+import { terminalWeekOf } from './operatingState.js'
 import { campaignHasFounded, campaignRecordsFounding, ENGAGED_FOUNDING_REFUSAL, recordFoundingFund, recordsFoundingFund, SECOND_FOUNDING_REFUSAL } from './foundingFunding.js'
 // ── D-11 Studio Employment, Contracts, Roster, Freelancer Market ──────────────
 // A PURE module (like talentSummary/filmPackage): no React/DOM/async/IO, no time,
@@ -19,6 +22,7 @@ import { activeScriptWriterAssignments } from './scriptDevelopment.js'
 import { SCIENTIST_ANNUAL_SALARY, TUNING } from './tuning.js'
 import { freelancerFeeMultiplier } from './facilityEffects.js'
 import { contractEndRefusal, lifecycleStatus, withdrawnPersonIds } from './careerLifecycle.js'
+import { tvEngagedTalentIds } from './tvReaders.js'
 import type {
   GameStateV3,
   Contract,
@@ -127,7 +131,7 @@ export function isContracted(state: GameState, talentId: string, week?: number):
  * merely because they wrote the screenplay").
  */
 export function activeProductionCompanyTalentIds(state: GameState): Set<string> {
-  return productionCompanyTalentIds(state.studio.activeProductions)
+  return productionCompanyTalentIds(buyerOperatedProductions(state))
 }
 
 /**
@@ -135,8 +139,8 @@ export function activeProductionCompanyTalentIds(state: GameState): Set<string> 
  * seat holds from greenlight through release; research seats and writer credits
  * are not production seats. Engine release and the Bridge ask this one question.
  */
-export function seatingProduction(state: GameState, talentId: string): Production | undefined {
-  return state.studio.activeProductions.find((p) => productionCompanyTalentIds([p]).has(talentId))
+export function seatingProduction(state: GameState, talentId: string,studioId=state.hollywood?.playerStudioId): Production | undefined {
+  return buyerOperatedProductions(state,studioId).find((p) => productionCompanyTalentIds([p]).has(talentId))
 }
 
 /**
@@ -147,11 +151,13 @@ export function seatingProduction(state: GameState, talentId: string): Productio
 export function activeWritingAssignmentIds(state: GameState): Set<string> {
   const ids = new Set<string>()
   for (const assignment of activeScriptWriterAssignments(
-    state.scriptDevelopment,
-    state.concepts,
+    buyerScriptDevelopment(state),
+    buyerScriptConcepts(state),
   )) {
     ids.add(assignment.talentId)
   }
+  for(const buyer of new Set((state.rights?.absorptions??[]).filter(a=>(a.producerVersion==='absorption-rival-scripts/v8'||a.producerVersion==='absorption-rival-obligations/v9')).map(a=>a.buyerId)))
+    if(!terminalWeekOf(state).has(buyer))for(const assignment of activeScriptWriterAssignments(buyerScriptDevelopment(state,buyer),buyerScriptConcepts(state,buyer)))ids.add(assignment.talentId)
   return ids
 }
 
@@ -163,7 +169,7 @@ export function activeWritingAssignmentIds(state: GameState): Set<string> {
  */
 export function creditedWriterIds(state: GameState): Set<string> {
   const ids = new Set<string>()
-  for (const p of state.studio.activeProductions) ids.add(p.writerId)
+  for (const p of buyerOperatedProductions(state)) ids.add(p.writerId)
   return ids
 }
 
@@ -173,14 +179,34 @@ export function creditedWriterIds(state: GameState): Set<string> {
 export function busyTalentIds(state: GameState): Set<string> {
   const busy = activeProductionCompanyTalentIds(state)
   for (const id of activeWritingAssignmentIds(state)) busy.add(id)
-  for (const id of industryBusyTalentIds(state.hollywood, closedWeekOf(state))) busy.add(id)
+  for (const id of industryBusyTalentIds(state.hollywood, terminalWeekOf(state))) busy.add(id)
+  for(const buyer of new Set((state.rights?.absorptions??[]).map(a=>a.buyerId))) {
+    if(terminalWeekOf(state).has(buyer))continue
+    for(const id of productionCompanyTalentIds(buyerContinuedProductions(state,buyer)))busy.add(id)
+  }
   for (const project of state.technology?.projects ?? []) {
     if (project.status !== 'active') continue
     for (const seat of project.seats) {
       if (seat.releasedWeek === null && activeContract(state, seat.talentId) !== undefined) busy.add(seat.talentId)
     }
   }
+  // P18 (contract §4): a live season's five company members, and its writer until the scripts complete. One union,
+  // so greenlights, commissions, casting, research seats, markets and cameo quotes all see the season (review P17-06).
+  for (const id of tvEngagedTalentIds(state.television)) busy.add(id)
   return busy
+}
+
+/**
+ * P17 Shape A (cameo contract §4): the ids a NEW assignment occupying `[week, untilWeekExclusive)` may not take —
+ * everyone in actual work plus every guest holding a reserved one-week appearance inside that interval. A production
+ * or research seat is open-ended (the default bound); writing passes its own due week, so an unrelated reserved week
+ * stays usable. Hiring, markets and `employmentStatus` keep `busyTalentIds`: a booking accepted while freelance
+ * survives later employment and the person stays signable.
+ */
+export function assignmentBlockedTalentIds(state: GameState, week: number = state.market.tick, untilWeekExclusive = Number.POSITIVE_INFINITY): Set<string> {
+  const blocked = busyTalentIds(state)
+  for (const id of reservedCameoTalentIds(state.cameos, week, untilWeekExclusive)) blocked.add(id)
+  return blocked
 }
 
 // ── salary / payroll / termination math (D-11.4 / D-11.5 / D-11.9) ───────────

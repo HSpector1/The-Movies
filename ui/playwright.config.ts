@@ -42,7 +42,11 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      // macOS 12 has no supported Playwright browser download; run in the installed Google Chrome
+      // (channel 'chrome'). Same project name and commands. The renderer tuples pinned above were
+      // measured on the Playwright-bundled Chromium and are unverified on Chrome; the smoke has no
+      // pixel baselines. Fails loudly on a machine without Google Chrome (no silent fallback).
+      use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     },
   ],
   webServer: [{

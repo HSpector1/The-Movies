@@ -13,12 +13,14 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { FOUNDING_MINIMUMS, beginFounding } from '../src/core/index.js'
-import { exportSave, importSave, makeSave, validateSave } from '../src/core/save.js'
+import { exportSave, importSave, makeSave, validateSave, validateSaveP15B } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import { generateWorld } from '../src/core/worldgen.js'
 import type { CastSlot, GameState, SegmentId } from '../src/core/types.js'
 import { advance, operationsStudio, productionPayload, withCash } from './contracts/_contractFixtures.js'
+import { validateLiveSave } from './helpers/live-era.js'
+import { rightsStripped } from './helpers/p16-era.js'
 
 type LiveSave = ReturnType<typeof makeSave>
 
@@ -89,7 +91,8 @@ function forgeRow(save: LiveSave, index: number, change: (row: Record<string, un
   const rows = save.state.studioEvents.rows.map((row, i) => (i === index ? change({ ...row }) : row))
   return JSON.parse(JSON.stringify({ ...save, state: { ...save.state, studioEvents: { ...save.state.studioEvents, rows } } }))
 }
-const label = (index: number) => `^validateSaveP15B: state\\.studioEvents\\.rows\\[${String(index)}\\]`
+// The live reader names its refusals by its own name (tests/bridge-p1364-founding-no-advance.test.ts).
+const label = (index: number, reader: string = validateLiveSave.name) => `^${reader}: state\\.studioEvents\\.rows\\[${String(index)}\\]`
 
 describe('L-19: the sequence laws cover every studio-event row, stripped kinds included', () => {
   describe('a Tier D row the V16 era strips (releaseCommitted)', () => {
@@ -172,6 +175,31 @@ describe('SAVE-07: the live validator refuses a non-finite number anywhere in th
     const key = parts[parts.length - 1]!
     expect(Number.isFinite(holder[key])).toBe(true)
     holder[key] = Number.NaN
-    expect(() => validateSave(forged)).toThrow(/^validateSaveP15B: state\.studioHistory\.rows\[1\]\.facts\.anchor contains a non-finite number \(NaN\)$/)
+    expect(() => validateSave(forged)).toThrow(new RegExp(`^${validateLiveSave.name}: state\\.studioHistory\\.rows\\[1\\]\\.facts\\.anchor contains a non-finite number \\(NaN\\)$`))
+  }, 120_000)
+})
+
+describe('L-19 in the frozen Save48 validator: the predecessor era keeps the law the live one runs first', () => {
+  // The live Save49 validator runs the sequence law over its own state and its predecessor proof skips
+  // it (save.ts, `validateSaveP15BEra`); the frozen `validateSaveP15B` must still run it on a genuine
+  // Save48 envelope. The same committed world, as the Save48 copy `rightsStripped` makes.
+  it('refuses a stripped-kind row whose seq is at nextSeq in the Save48 copy of the committed world', () => {
+    const save = committedSaveOnce()
+    const index = save.state.studioEvents.rows.findIndex((row) => row.kind === 'releaseCommitted')
+    expect(index).toBeGreaterThan(0)
+    const frozen = rightsStripped(save)
+    expect(() => validateSaveP15B(frozen), 'premise: the Save48 copy admits').not.toThrow()
+    const rows = frozen.state.studioEvents.rows.map((row, i) => (i === index ? { ...row, seq: frozen.state.studioEvents.nextSeq } : row))
+    const forged = JSON.parse(JSON.stringify({ ...frozen, state: { ...frozen.state, studioEvents: { ...frozen.state.studioEvents, rows } } })) as unknown
+    expect(() => validateSaveP15B(forged)).toThrow(new RegExp(`${label(index, validateSaveP15B.name)}\\.seq is at or above nextSeq`))
+  }, 120_000)
+  // SAVE-07 mirror (P16 rebase round 4, review O4): the frozen reader's own non-finite walk, on the same Save48 copy,
+  // at the leaf the live case above uses.
+  it('refuses a NaN at .studioHistory.rows[1].facts.anchor in the Save48 copy of the committed world', () => {
+    const forged = JSON.parse(JSON.stringify(rightsStripped(committedSaveOnce()))) as { state: { studioHistory: { rows: { facts: Record<string, unknown> }[] } } }
+    const facts = forged.state.studioHistory.rows[1]!.facts
+    expect(Number.isFinite(facts.anchor), 'premise: a finite anchor').toBe(true)
+    facts.anchor = Number.NaN
+    expect(() => validateSaveP15B(forged)).toThrow(new RegExp(`^${validateSaveP15B.name}: state\\.studioHistory\\.rows\\[1\\]\\.facts\\.anchor contains a non-finite number \\(NaN\\)$`))
   }, 120_000)
 })
