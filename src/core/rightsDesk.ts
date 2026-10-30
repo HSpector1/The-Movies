@@ -15,11 +15,12 @@ import { isOperatingStudio } from './operatingState.js'
 import { subjectValueV1 } from './propertyValuation.js'
 import { permittedBidderRefusal, postPurchaseReserve, spendableCash } from './rightsFinance.js'
 import { currentHolder, resolveTitles, sameSubject, subjectsHeldBy, type DiligenceRecord, type DiligenceScopeItem, type EstateBid, type Licence, type RightSubject, type RightsOffer } from './rights.js'
+import { CLAIM_TIERS, claimsOfClosure } from './studioClosure.js'
 import { TUNING } from './tuning.js'
 import { tick } from './tick.js'
 import type { TvCancellationCause, TvSettlement } from './tvTypes.js'
 import { tvView, type TvSeasonView } from './tvView.js'
-import type { GameState } from './types.js'
+import type { ClosureClaim, GameState } from './types.js'
 
 export type RightsDeskTitle = {
   subject: RightSubject
@@ -58,6 +59,19 @@ export type RightsDeskLot = {
   bidRefusal: string | null
 }
 export type RightsDeskEstate = { estateId: string; studioId: string; name: string; closureWeek: number; opensWeek: number; closesWeek: number; lots: RightsDeskLot[] }
+/** ASTRA Sprint 24: a closed estate the player can still read about (closed within the estate window, or holding a bid of
+ * the player's): each lot's disposition, the player's bid and its outcome with the engine's reason, the sale amounts, and
+ * the P15 claims summary of that closure (employment, and the television claims closure/v2 publishes). */
+export type RightsDeskClosedLot = {
+  lotId: string; titles: (string | null)[]
+  /** Sold at D to the winning bidder for its bid, or archived unsold. */
+  sale: { amount: number; buyerName: string } | null
+  myBid: { amount: number; week: number; status: 'won' | 'lost' | 'disqualified'; disqualification: string | null } | null
+}
+export type RightsDeskClosedEstate = {
+  estateId: string; studioId: string; name: string; closureWeek: number; closedWeek: number; lots: RightsDeskClosedLot[]
+  claims: { kind: ClosureClaim['kind']; count: number; paid: number; unpaid: number }[]
+}
 export type RightsDeskView = {
   week: number
   studioId: string
@@ -71,6 +85,7 @@ export type RightsDeskView = {
   licencesIn: Licence[]
   counterparties: RightsDeskCounterparty[]
   estates: RightsDeskEstate[]
+  closedEstates: RightsDeskClosedEstate[]
 }
 
 const DILIGENCE_FULL_SCOPE: DiligenceScopeItem[] = ['rights', 'employment', 'liabilities']
@@ -134,10 +149,39 @@ export function rightsDeskView(state: GameState): RightsDeskView {
       bidRefusal: estateBidRefusal(state, { estateId: e.estateId, lotId: lot.lotId, bidderId: me, amount: lot.minimumBid }, week),
     })),
   }))
+  // ASTRA Sprint 24: the estates that closed within one estate window, or that hold a bid of the player's, with every
+  // outcome read from the engine's own records (lots, bids, transactions, P15 claims). A rival's sealed bid is never shown.
+  const closedEstates = state.rights.estates
+    .filter((e) => e.closedWeek !== null && (week - e.closedWeek < TUNING.ESTATE_WINDOW_WEEKS || e.bids.some((b) => b.bidderId === me)))
+    .sort((a, b) => (b.closedWeek! - a.closedWeek!) || (a.estateId < b.estateId ? -1 : 1))
+    .map((e): RightsDeskClosedEstate => {
+      // A closed estate leaves no open lot and no sealed bid, and a sold lot names its sale (the save validator's law);
+      // anything else is a corrupt record and is refused by name, never shown as a default.
+      const own = claimsOfClosure(state, e.closureId)
+      return {
+        estateId: e.estateId, studioId: e.studioId, name: nameOf(e.studioId), closureWeek: e.closureWeek, closedWeek: e.closedWeek!,
+        lots: e.lots.map((lot): RightsDeskClosedLot => {
+          if (lot.status === 'open') throw new Error(`rights desk: closed estate ${e.estateId} lot ${lot.lotId} is still open`)
+          const transaction = lot.transactionId === null ? null : state.rights.transactions.find((t) => t.id === lot.transactionId) ?? null
+          if ((lot.status === 'sold') !== (transaction !== null)) throw new Error(`rights desk: closed estate ${e.estateId} lot ${lot.lotId} is ${lot.status} without its sale record`)
+          const mine = e.bids.find((b) => b.lotId === lot.lotId && b.bidderId === me)
+          if (mine !== undefined && mine.status === 'sealed') throw new Error(`rights desk: closed estate ${e.estateId} lot ${lot.lotId} holds a sealed bid`)
+          return {
+            lotId: lot.lotId, titles: lot.subjects.map((s) => titleOf(resolved, s)),
+            sale: transaction === null ? null : { amount: transaction.amount, buyerName: nameOf(transaction.payerId) },
+            myBid: mine === undefined || mine.status === 'sealed' ? null : { amount: mine.amount, week: mine.week, status: mine.status, disqualification: mine.disqualification },
+          }
+        }),
+        claims: (Object.keys(CLAIM_TIERS) as ClosureClaim['kind'][]).filter((kind) => own.some((c) => c.kind === kind)).map((kind) => {
+          const rows = own.filter((c) => c.kind === kind)
+          return { kind, count: rows.length, paid: rows.reduce((s, c) => s + c.paid, 0), unpaid: rows.reduce((s, c) => s + c.unpaid, 0) }
+        }),
+      }
+    })
   return {
     week, studioId: me, permitted: permittedBidderRefusal(state, me, week),
     spendable: spendableCash(state, me), reserve: postPurchaseReserve(state, me), diligenceFee: TUNING.RIGHTS_DUE_DILIGENCE_FEE,
-    titles, offers, licencesIn: state.rights.licences.filter((l) => l.granteeId === me && week < l.endWeekExclusive), counterparties, estates,
+    titles, offers, licencesIn: state.rights.licences.filter((l) => l.granteeId === me && week < l.endWeekExclusive), counterparties, estates, closedEstates,
   }
 }
 

@@ -1567,7 +1567,8 @@ export function findTalent(state: GameState, id: string): Talent | undefined {
   return state.talent.find((t) => t.id === id)
 }
 export function findConcept(state: GameState, id: string): FilmConcept | undefined {
-  return buyerScriptConcepts(state).find((c) => c.id === id)
+  // ASTRA Sprint 24: a continued picture's concept is its original studio's, in the shared pool (read by id, never copied).
+  return buyerScriptConcepts(state).find((c) => c.id === id) ?? state.hollywood?.concepts.find((c) => c.id === id)
 }
 
 // ── Eligibility helpers — mirror applyActions legality (M16 / B3) ─────────────

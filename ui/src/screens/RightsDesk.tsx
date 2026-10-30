@@ -362,6 +362,33 @@ export function RightsDesk({ state, onBack, act }: { state: GameState; onBack: (
             {e.lots.map((lot) => <LotRow key={lot.lotId} estateId={e.estateId} lot={lot} act={act} onRefusal={setRefusal} voice={voice} />)}
           </div>
         ))}
+        {desk.closedEstates.length > 0 && (
+          <div className="stack" data-testid="rights-closed-estates" style={{ gap: 6 }}>
+            <h3 style={{ margin: 0 }}>Closed estates</h3>
+            {desk.closedEstates.map((e) => (
+              <div key={e.estateId} className="stack" data-testid={`rights-closed-estate-${e.estateId}`} style={{ gap: 4 }}>
+                <span><strong>{e.name}</strong>: closed at week {e.closureWeek}; the estate resolved at week {e.closedWeek}</span>
+                {e.lots.map((lot) => (
+                  <div key={lot.lotId} className="inset stack" data-testid={`rights-closed-lot-${lot.lotId}`} style={{ gap: 2 }}>
+                    <span>
+                      Lot {lot.lotId}: {lot.titles.map(untitled).join(', ')} · {lot.sale !== null ? `sold for ${moneyExact(lot.sale.amount)} to ${lot.sale.buyerName}` : 'archived unsold'}
+                    </span>
+                    {lot.myBid !== null && (
+                      <span data-testid={`rights-closed-lot-mybid-${lot.lotId}`}>
+                        Your sealed bid {moneyExact(lot.myBid.amount)} (week {lot.myBid.week}): {lot.myBid.status === 'won' ? 'won' : lot.myBid.status === 'lost' ? 'lost: the lot sold to another bidder' : lot.myBid.disqualification === null ? 'disqualified' : `disqualified: ${voice(lot.myBid.disqualification)}`}
+                      </span>
+                    )}
+                  </div>
+                ))}
+                {e.claims.length > 0 && (
+                  <span className="hint" data-testid={`rights-closed-estate-claims-${e.estateId}`}>
+                    Creditor claims of the closure: {e.claims.map((c) => `${c.count} ${c.kind === 'employment' ? 'employment' : c.kind === 'tvRefund' ? 'television refund' : 'television charge'} (${moneyExact(c.paid)} paid, ${moneyExact(c.unpaid)} unpaid)`).join('; ')}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   )

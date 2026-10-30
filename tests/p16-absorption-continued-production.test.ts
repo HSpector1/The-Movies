@@ -18,6 +18,7 @@ import type { GameState } from '../src/core/types.js'
 import { standingChanged } from '../src/core/studioHistory.js'
 import { persistedProductionIds } from '../src/core/productionIdentity.js'
 import { updateStanding } from '../src/core/standing.js'
+import { studioCalendar } from '../src/core/studioCalendar.js'
 const TARGET='studio-aca408ec-r02',FILM=TARGET+':film:14'
 const PIN='c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad'
 
@@ -97,6 +98,8 @@ function journey(p:ReturnType<typeof prepared>) {
  expect(p.state.operations.facilities.some(f=>f.id===link.buyerPostFacilityId&&f.capability==='post')).toBe(true)
  expect(result.operations.facilities).toEqual(p.state.operations.facilities)
  expect(result.hollywood!.businesses.find(b=>b.studioId===TARGET)!.operations.workflows.some(w=>w.productionId===FILM)).toBe(false)
+ // ASTRA Sprint 24: the browser's calendar reads the continued picture's workflow against the operated productions (it threw "unknown production" before).
+ expect(()=>studioCalendar(result)).not.toThrow()
  expect(result.hollywood!.businesses.find(b=>b.studioId===TARGET)!.projects).toEqual(p.source.projects)
  const originalTake=p.state.firstTakes.find(e=>e.productionId===FILM)!
  expect(originalTake).toMatchObject({week:162,studioId:TARGET})

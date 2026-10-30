@@ -33,7 +33,7 @@ import type { ActionOutcome } from './adapter.ts'
 import { refusalHumaniser } from './continuation.ts'
 
 export type { AbsorptionQuote, AbsorptionRefusal, DiligenceScopeItem, DiligenceTarget, PlayerOfferInput, RetentionChoice, RightSubject, RightsDeskView, TitleSaleOutcome, TitleSalePlan }
-export type { RightsDeskCounterparty, RightsDeskEstate, RightsDeskLot, RightsDeskOffer, RightsDeskTitle, TitleSaleSeasonOutcome } from '../../../src/core/index.ts'
+export type { RightsDeskClosedEstate, RightsDeskClosedLot, RightsDeskCounterparty, RightsDeskEstate, RightsDeskLot, RightsDeskOffer, RightsDeskTitle, TitleSaleSeasonOutcome } from '../../../src/core/index.ts'
 
 /** The developer prefixes the core's verbs and laws put before a refusal code (actions.ts, assetSale.ts, dueDiligence.ts, acquisition.ts, estate.ts). */
 const PREFIXES = /^(applyActions: \w+ rejected — |rights offer refused at acceptance: |rights offer refused: |due diligence refused: |estate bid refused: |absorption closing refused: |absorption: |rights: )+/
@@ -74,10 +74,12 @@ const PREFIX_TEXT: Readonly<Record<string, string>> = {
   buyerNotPermitted: 'the buyer may not deal now', recipientNotPermitted: 'your studio may not request a disclosure now', bidderNotPermitted: 'your studio may not bid now',
   stageNotStable: 'the studio\'s condition is', targetNotStable: 'the target\'s condition is', holderUnavailable: 'the title cannot be read', noAuthority: 'the right is held by',
   notWilling: 'the other studio is not willing', valueUnavailable: 'the title has no valuation', priceAboveBid: 'the most it would pay is', priceBelowAsk: 'the least it would take is',
+  // ASTRA Sprint 24: the acquisition quote's consent refusal names the target's ask, the one figure a buyer must know.
+  targetNotWilling: 'the target would not consent', considerationBelowAsk: 'its ask is',
 }
 
 /** Prefixes whose detail completes the sentence (a stage, a holder, an amount); the others introduce a clause after a colon. */
-const JOIN_SPACE = new Set(['stageNotStable', 'targetNotStable', 'noAuthority', 'priceAboveBid', 'priceBelowAsk'])
+const JOIN_SPACE = new Set(['stageNotStable', 'targetNotStable', 'noAuthority', 'priceAboveBid', 'priceBelowAsk', 'considerationBelowAsk'])
 
 /** One refusal token (`code`, `code:detail`, `code:detail:more`) in the player's words; a code without a sentence stays as written. */
 export function voiceRightsReason(token: string): string {
