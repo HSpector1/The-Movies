@@ -13,7 +13,7 @@ BLOCKED on this host for everything §7 calls native progress (compile, EditMode
 | Bridge typecheck on engine 6ddeeb00 | 0 (local/s25-typecheck-bridge.log) |
 | Bridge contract check (the generator's schema, DTOs and manifest match the engine's committed generated/unity copies) | 0, three files verified (local/s25-check-bridge-contract.log) |
 | Bridge contract fixtures check (generated union fixtures) | 0, verified (local/s25-check-bridge-contract-fixtures.log) |
-| The engine's generated Unity files compared byte for byte with the Unity worktree's copies at e7dcfc3 | StudioBridgeDtos.Generated.cs: identical project-studio-bridge.contract-manifest.json: DIFFER () StudioBridgeUnionFixtures.Generated.cs: identical (local/s25-pair-cmp.log) |
+| The engine's generated Unity files compared byte for byte with the Unity worktree's copies at e7dcfc3 | StudioBridgeDtos.Generated.cs identical; tests/StudioBridgeUnionFixtures.Generated.cs identical; the contract manifest (project-studio-bridge.contract-manifest.json) is engine-side only with no Unity counterpart, so it was not compared (local/s25-pair-cmp.log records that first probe's empty path as DIFFER; this row is the reading) |
 | CF09 pair seal | not rerun: no contract change since 901b9b55 × e7dcfc3 PASS (Sprint 22); the two checks above are the executed statement that 6ddeeb00 still fits e7dcfc3 |
 
 ## The minimum-route matrix at e7dcfc3 (read from bridge/session.ts and Assets/Studio/Runtime; a work list, not progress)
