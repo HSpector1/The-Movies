@@ -432,7 +432,7 @@ describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, 
     // generator regenerated it on the slice commit aa4c335f; outgoing69 is prior (its genuine capture, bridge-runtime-checkpoint.test.ts).
     // Current71 (ASTRA Sprint 27): the Rights desk and the estates on the wire; the checked-in manifest's schemaId after the
     // generator regenerated it on the slice tree; outgoing70 is prior (its genuine capture, bridge-runtime-checkpoint.test.ts).
-    expect(SCHEMA_ID).toBe('sha256:e0d854348098e4f9a8fbd65453adbf3bf146675c49b8efba0001e9b9df56f5c5')
+    expect(SCHEMA_ID).toBe('sha256:3ce933d743ecbcdd15f4eec9c6d243599957393ce3e8aab90875303923a14441')
     expect(SCHEMA_ID).not.toBe(OUTGOING_70)
     expect(SCHEMA_ID).not.toBe(OUTGOING_69)
     expect(SCHEMA_ID).not.toBe(OUTGOING_67)

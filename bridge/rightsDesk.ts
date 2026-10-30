@@ -93,11 +93,12 @@ export function rightsPage(state: GameState, targetId: string | null, page: numb
   if (targetId !== null) throw new Error('The rights view requires a null targetId.')
   if (state.hollywood === null) throw new Error('The rights view requires an established player studio.')
   const view = rightsDeskView(state)
-  const titles = titleRows(state, view)
-  const pageCount = Math.ceil(titles.length / pageSize)
+  // The offers are the list that grows over a campaign (every offer made or received, newest first as the desk orders
+  // them), so they are the paged rows; the held titles are bounded by the studio's holdings and ride whole (review FIX-1).
+  const pageCount = Math.ceil(view.offers.length / pageSize)
   if (page > 0 && page >= pageCount) throw new Error('That rights page is outside this record.')
   const option = (offerId: string, kind: RightsIntentKind): AvailableIntent | null => intents.find((i) => i.spec.offerId === offerId && i.spec.kind === kind)?.option ?? null
-  const offers: RightsPage['offers'] = view.offers.map((row) => {
+  const offers: RightsPage['offers'] = view.offers.slice(page * pageSize, (page + 1) * pageSize).map((row) => {
     const o = row.offer
     return {
       offerId: o.id, week: o.week, offerorId: o.offerorId, offerorName: nameOf(state, o.offerorId), counterpartyId: o.counterpartyId, counterpartyName: nameOf(state, o.counterpartyId),
@@ -109,12 +110,13 @@ export function rightsPage(state: GameState, targetId: string | null, page: numb
       acceptIntent: option(o.id, 'acceptRightsOffer'), rejectIntent: option(o.id, 'rejectRightsOffer'), withdrawIntent: option(o.id, 'withdrawRightsOffer'),
     }
   })
-  return { totalRows: titles.length, pageCount, rights: {
+  return { totalRows: view.offers.length, pageCount, rights: {
     title: 'Rights desk',
     notice: 'What the studio holds, what is offered to and by it, the licences it holds and the studios it may deal with: each figure and refusal is the engine\'s '
-      + 'own at this week. A sale offer is quoted before it is made; selling a title with a live season discloses the season\'s consequence first.',
+      + 'own at this week. The offers are paged (newest first); the held titles, licences and counterparties ride whole. A sale offer is quoted before it is made; '
+      + 'selling a title with a live season discloses the season\'s consequence first.',
     week: view.week, studioId: view.studioId, permitted: view.permitted, spendable: view.spendable, reserve: view.reserve,
-    titles: titles.slice(page * pageSize, (page + 1) * pageSize), offers,
+    titles: titleRows(state, view), offers,
     licencesIn: view.licencesIn.map((l) => ({ licenceId: l.id, right: l.right, grantorId: l.grantorId, grantorName: nameOf(state, l.grantorId), granteeId: l.granteeId, granteeName: nameOf(state, l.granteeId),
       use: l.scope.use, exclusive: l.exclusive, startWeek: l.startWeek, endWeekExclusive: l.endWeekExclusive })),
     counterparties: view.counterparties.map((c) => ({ studioId: c.studioId, name: c.name })),
@@ -195,6 +197,7 @@ export function estateBidQuoteSnapshot(state: GameState, draft: BridgeEstateBidD
     refusalReason: refusal ?? (applied !== null && !applied.ok ? applied.error : null),
     estateId: draft.estateId, lotId: draft.lotId, amount: draft.amount, quotedAtWeek: week,
     minimumBid: lot?.minimumBid ?? null, closesWeek: estate?.closesWeek ?? null, encumbrances: lot === undefined ? [] : [...lot.encumbrances],
+    // Without an industry the quote is refused above ('noIndustry'); the zeros beside it are not figures (review FIX-1 item 5).
     spendableBefore: me === undefined ? 0 : spendableCash(state, me), reserve: me === undefined ? 0 : postPurchaseReserve(state, me),
     spendableAfter: ok && me !== undefined ? spendableCash(applied!.next, me) : null,
   }
@@ -226,11 +229,15 @@ export function rightsOfferDisclosure(state: GameState, draft: BridgeRightsOffer
   const outcome = titleSaleOutcome(state, rightsOfferPlan(draft))
   return { outcome, digest: titleSaleOutcomeDigest(outcome) }
 }
-/** The commit: the outcome shown must still be the outcome now (the browser's rule), then the core action decides. */
-export function rightsOfferDraftApply(current: GameState, draft: BridgeRightsOfferDraftPayload, acknowledgedDigest: string | null) {
-  const disclosure = rightsOfferDisclosure(current, draft)
+/** The commit: the outcome shown must still be the outcome now (the browser's rule and the browser's sentences,
+ * ui/src/engine/rights.ts), then the core action decides. A caller that has just computed the disclosure passes it. */
+export function rightsOfferDraftApply(current: GameState, draft: BridgeRightsOfferDraftPayload, acknowledgedDigest: string | null,
+  disclosure: { outcome: TitleSaleOutcome; digest: string } | null = rightsOfferDisclosure(current, draft)) {
+  if (disclosure !== null && acknowledgedDigest === null) {
+    return { ok: false as const, error: draft.plan === 'offer' ? 'rights: a title sale needs its season consequences acknowledged first' : 'rights: selling this title needs its season consequences acknowledged first' }
+  }
   if (disclosure !== null && disclosure.digest !== acknowledgedDigest) {
-    return { ok: false as const, error: 'rights: the season consequences of this sale changed since they were shown; quote it again before committing' }
+    return { ok: false as const, error: 'rights: the season consequences of this sale changed since they were shown; review them again before confirming' }
   }
   try { return { ok: true as const, next: applyActions(current, [rightsOfferAction(draft)]) } }
   catch (error) { return { ok: false as const, error: strip((error as Error).message) } }
@@ -262,17 +269,20 @@ export function rightsOfferQuoteSnapshot(state: GameState, draft: BridgeRightsOf
     commitLabel: draft.plan === 'offer' ? 'Make the sale offer as quoted' : 'Accept the offer as quoted', queues: false, queueNote: null,
     plan: draft.plan, offerId: draft.plan === 'accept' ? draft.offerId : null, quotedAtWeek: week,
   }
+  // A refused quote that cannot name its offer: the null members and the zero price are not figures (review FIX-1 item 5).
   const empty = (refusalReason: string): BridgeRightsOfferQuoteSnapshot => ({
-    ...base, startsNow: false, ok: false, refusalReason, subject: null, subjectTitle: null, counterpartyId: null, counterpartyName: null, direction: null,
-    playerSells: draft.plan === 'offer', price: draft.plan === 'offer' ? draft.price : 0, value: null, encumbrance: null, resaleHoldback: false, licences: [], willingness: null, expiresWeek: null, consequence: null,
+    ...base, startsNow: false, ok: false, refusalReason, instrument: null, subject: null, subjectTitle: null, counterpartyId: null, counterpartyName: null, direction: null,
+    playerSells: false, price: draft.plan === 'offer' ? draft.price : 0, value: null, encumbrance: null, resaleHoldback: false, licences: [], willingness: null, expiresWeek: null, consequence: null,
   })
   if (h === null) return empty('noIndustry')
   const me = h.playerStudioId
   let subject: RightSubject, counterpartyId: string, direction: 'buy' | 'sell', price: number, playerSells: boolean
+  let instrument: BridgeRightsOfferQuoteSnapshot['instrument']
   let lawRefusal: string | null
   let willingness: BridgeRightsOfferQuoteSnapshot['willingness'] = null
   if (draft.plan === 'offer') {
     subject = coreSubject(draft.subject); counterpartyId = draft.counterpartyId; direction = 'sell'; price = draft.price; playerSells = true
+    instrument = { kind: 'title', subject: subjectCopy(subject) }
     lawRefusal = saleOfferRefusal(state, counterpartyId, subject, price)
     if (lawRefusal === null) {
       const answer = rivalWillingness(state, { direction: 'sell', instrument: { kind: 'title', subject }, price, offerorId: me, counterpartyId }, week)
@@ -281,14 +291,19 @@ export function rightsOfferQuoteSnapshot(state: GameState, draft: BridgeRightsOf
     }
   } else {
     const offer = state.rights.offers.find((o) => o.id === draft.offerId)
-    if (offer === undefined) return empty(`unknownOffer:${draft.offerId}`)
-    subject = offer.instrument.subject; counterpartyId = offer.offerorId; direction = offer.direction; price = offer.price; playerSells = offer.direction === 'buy'
+    // The core's own sentence for an offer not on record (assetSale.ts requireOpenOffer).
+    if (offer === undefined) return empty(`rights: unknown offer ${draft.offerId}`)
+    subject = offer.instrument.subject; counterpartyId = offer.offerorId; direction = offer.direction; price = offer.price
+    instrument = offer.instrument.kind === 'title' ? { kind: 'title', subject: subjectCopy(subject) }
+      : { kind: 'licence', right: offer.instrument.right, subject: subjectCopy(subject), use: offer.instrument.scope.use, exclusive: offer.instrument.exclusive, startWeek: offer.instrument.startWeek, endWeekExclusive: offer.instrument.endWeekExclusive }
+    // A held title moves away only when the rival buys a title; a licence buy offer grants a licence and sells nothing.
+    playerSells = offer.direction === 'buy' && offer.instrument.kind === 'title'
     // The desk's close law for an open offer made to the player; any other case is refused by the action's own sentence below.
     const row = rightsDeskView(state).offers.find((r) => r.offer.id === offer.id)
     lawRefusal = row !== undefined && row.role === 'counterparty' ? row.closing : null
   }
   const disclosure = lawRefusal === null ? rightsOfferDisclosure(state, draft) : null
-  const applied = lawRefusal === null ? rightsOfferDraftApply(state, draft, disclosure?.digest ?? null) : null
+  const applied = lawRefusal === null ? rightsOfferDraftApply(state, draft, disclosure?.digest ?? null, disclosure) : null
   const ok = applied?.ok === true && (disclosure === null || disclosure.outcome.kind === 'outcome')
   const refusalReason = lawRefusal ?? (applied !== null && !applied.ok ? applied.error : disclosure !== null && disclosure.outcome.kind === 'refused' ? disclosure.outcome.refusal : null)
   const held = rightsDeskView(state).titles.find((t) => sameSubject(t.subject, subject))
@@ -297,7 +312,7 @@ export function rightsOfferQuoteSnapshot(state: GameState, draft: BridgeRightsOf
   const before = new Set(state.rights.offers.map((o) => o.id))
   const made = ok && draft.plan === 'offer' ? applied!.next.rights.offers.find((o) => !before.has(o.id)) ?? null : null
   return {
-    ...base, startsNow: ok, ok, refusalReason,
+    ...base, startsNow: ok, ok, refusalReason, instrument,
     subject: subjectCopy(subject), subjectTitle: titleOf(state, subject), counterpartyId, counterpartyName: nameOf(state, counterpartyId), direction, playerSells, price,
     value: held !== undefined ? held.value : valued !== null && valued.kind === 'available' ? valued.value : null,
     encumbrance: held !== undefined ? held.encumbrance : blockingEncumbrance(state, subject), resaleHoldback: held?.resaleHoldback ?? false,

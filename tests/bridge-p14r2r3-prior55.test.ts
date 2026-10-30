@@ -183,8 +183,8 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
 
     // The schema/projection literals the migration target must already carry.
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(70)
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-70')
+    expect(PROJECTION_VERSION).toBe(71)
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-71')
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OLD_SCHEMA)).toEqual([[OLD_SCHEMA, 'projection-v55']])
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     // 1308-D required change 1 / 1308-F item 1 (B55-3-style older-roster pin, mirrored from
@@ -213,8 +213,10 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
     // Projection68 (P18 Sprint 13 slice B) adds only outgoing67; same method, which reproduces 54/13adc010 on the parent map.
     // Projection69 (playtest-response slice) adds only outgoing68; same method, which reproduces 55/6be7e2a9 on the parent map.
     // Projection70 (ASTRA Sprint 20) adds only outgoing69; same method, which reproduces 56/4cd2f948 on the parent map.
-    expect(older).toHaveLength(57)
-    expect(sha(canonicalJson(older))).toBe('47e4ec5e91c7e2c910748e7515b906f939acddb9ac69c08b1253a99f32f1076a')
+    // Projection71 (ASTRA Sprint 27) adds only outgoing70; same method, run standalone over the registry before this pin was
+    // written (sprint27/local/s27-fix1-older-roster-measure.txt), which reproduces 57/47e4ec5e on the parent map.
+    expect(older).toHaveLength(58)
+    expect(sha(canonicalJson(older))).toBe('37f425ff69d48bb90a27116f9b2e770dc89e9f153ace50217c4faa79a299630f')
 
     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
     expect(loaded.migratedFromProtocolVersion).toBe(4)

@@ -34,6 +34,9 @@ describe('intent confirmation (projection 70)', () => {
     // The published shortcut and the release option carry the engine verb beneath them.
     expect(intentConfirmation('takeLoan', { kind: 'takeLoan', principal: 390_000 })).toBe('required')
     expect(intentConfirmation('commitPictureToRelease', { kind: 'commitPictureToRelease', productionId: 'prod-1' })).toBe('required')
+    // Sprint 27: the one-gesture purchase accept is required by its verb; the quote-minted acceptance (kind alone) stays none.
+    expect(intentConfirmation('acceptRightsOffer', { kind: 'acceptRightsOffer', offerId: 'rights-offer-1' })).toBe('required')
+    expect(intentConfirmation('acceptRightsOffer')).toBe('none')
     // The quoted commit (quoteLoan, then the digest-bound commit) is derived from the kind alone by quotedIntentFor: the
     // quote is the review, so no second confirmation stands behind it.
     expect(intentConfirmation('takeLoan')).toBe('none')
@@ -50,6 +53,8 @@ describe('intent confirmation (projection 70)', () => {
       if (intent.kind === 'physicalPlanAction' && intent.label.startsWith('Cancel plan:')) expect(intent.confirmation).toBe('required')
       // Sprint 22: the loan shortcut and the release commit are required by their verb (neither exists on the founding world).
       if (intent.kind === 'takeLoan' || intent.kind === 'commitPictureToRelease') expect(intent.confirmation, intent.kind).toBe('required')
+      // Sprint 27: a listed acceptRightsOffer option is always the one-gesture purchase or grant (the quoted sale is never listed).
+      if (intent.kind === 'acceptRightsOffer') expect(intent.confirmation, intent.kind).toBe('required')
       else if (intent.kind !== 'physicalPlanAction' && !(REQUIRED_KINDS as readonly string[]).includes(intent.kind)) expect(intent.confirmation, intent.kind).toBe('none')
     }
   })

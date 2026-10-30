@@ -19773,7 +19773,14 @@
           "$ref": "#/$defs/StudioRightSubject"
         },
         "use": {
-          "minLength": 1,
+          "enum": [
+            "sequel",
+            "remake",
+            "spinoff",
+            "televisionProduction",
+            "televisionDistribution",
+            "merchandise"
+          ],
           "type": "string"
         }
       },
@@ -19873,6 +19880,16 @@
               "maximum": 2147483647,
               "minimum": 0,
               "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "instrument": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioRightsInstrument"
             },
             {
               "type": "null"
@@ -20006,6 +20023,7 @@
         "direction",
         "encumbrance",
         "expiresWeek",
+        "instrument",
         "intentId",
         "kind",
         "licences",
@@ -20352,7 +20370,14 @@
           "type": "integer"
         },
         "use": {
-          "minLength": 1,
+          "enum": [
+            "sequel",
+            "remake",
+            "spinoff",
+            "televisionProduction",
+            "televisionDistribution",
+            "merchandise"
+          ],
           "type": "string"
         }
       },

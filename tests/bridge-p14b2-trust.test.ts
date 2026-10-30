@@ -138,10 +138,10 @@ describe('P14B.2 group1 — projection46, unchanged Save29/intents, closed wire 
   it('pins the exact version, old-five-plus-two attention enum and unchanged intent vocabulary', () => {
     const state = p13aGeneratedStudio()
     readModels(state, state.talent[0]!.id)
-    expect(PROJECTION_VERSION).toBe(70)
+    expect(PROJECTION_VERSION).toBe(71)
     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-70`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(70)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-71`)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(71)
     const attentionSchema = schemaDefinition('StudioMarketAttentionRowSnapshot') as unknown as { properties: { cause: { enum: string[] } } }
     // Schema enum order is not gameplay row order; copies retain exact membership/count without mutating the schema.
     expect([...attentionSchema.properties.cause.enum].sort()).toEqual(['decisionWeekNear', 'newCompetingProposal', 'termsRevised',

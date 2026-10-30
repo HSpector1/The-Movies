@@ -596,10 +596,10 @@ describe('CF-08 sound union-to-C# generation', () => {
       // read independently of this test.
       const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 59 })
       expect(generated).toContain(
-        '// Schema identity: sha256:e0d854348098e4f9a8fbd65453adbf3bf146675c49b8efba0001e9b9df56f5c5',
+        '// Schema identity: sha256:3ce933d743ecbcdd15f4eec9c6d243599957393ce3e8aab90875303923a14441',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:e0d854348098e4f9a8fbd65453adbf3bf146675c49b8efba0001e9b9df56f5c5',
+        'sha256:3ce933d743ecbcdd15f4eec9c6d243599957393ce3e8aab90875303923a14441',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -783,11 +783,12 @@ describe('CF-08 sound union-to-C# generation', () => {
         // Projection70 (ASTRA Sprint 20): the intent option's `confirmation` field moves both bodies; measured locally on the
         // slice commit through the same pure function (F10 and F11 the same body by construction); F12 unchanged.
         // Projection71 (ASTRA Sprint 27): the estate bid and rights offer quote request/snapshot $defs, the rights and estates
-        // page $defs and the five rights/estate intent kinds grow both bodies (569,887 bytes); measured on the slice tree by a
-        // standalone vite-node run of the same pure function over the same fixture schema before this pin was written (F10 and
-        // F11 the same body by construction); F12 unchanged.
-        F10_CURRENT_QUOTE_UNIONS: '416b5660823cb0b10f920b05df6fa42f37e71a9d97fa4f7e9172bdd6b03af549', // was 1ff8b772… (projection70)
-        F11_CURRENT_COMMAND_UNION: '416b5660823cb0b10f920b05df6fa42f37e71a9d97fa4f7e9172bdd6b03af549', // was 1ff8b772… (projection70), same body as F10 by construction
+        // page $defs and the five rights/estate intent kinds grow both bodies (570,910 bytes after review FIX-1 added the offer
+        // quote's `instrument` and closed the licence `use` enumeration); measured on the FIX-1 tree by a standalone vite-node run
+        // of the same pure function over the same fixture schema before this pin was written (F10 and F11 the same body by
+        // construction); F12 unchanged.
+        F10_CURRENT_QUOTE_UNIONS: '1a24b8cd0b63543b0554b7dd655fd69e12e3461e544cd0f614bffc2a2abf0966', // was 1ff8b772… (projection70)
+        F11_CURRENT_COMMAND_UNION: '1a24b8cd0b63543b0554b7dd655fd69e12e3461e544cd0f614bffc2a2abf0966', // was 1ff8b772… (projection70), same body as F10 by construction
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {

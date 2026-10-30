@@ -16,7 +16,7 @@ import {
 } from './dsl.ts'
 import {StudioBridgeIntentOption} from './intent-schema.ts'
 export {AVAILABLE_INTENT_KINDS} from './intent-schema.ts'
-import {industryDefinitions,StudioIndustryProjection,StudioRightSubject,StudioRightsSubjectLicence,StudioTelevisionCancellation,StudioTelevisionSettlement} from './industry-schema.ts'
+import {industryDefinitions,StudioIndustryProjection,StudioRightSubject,StudioRightsInstrument,StudioRightsSubjectLicence,StudioTelevisionCancellation,StudioTelevisionSettlement} from './industry-schema.ts'
 
 export const PROTOCOL_VERSION = 4 as const
 // P05A W2: the closed Production projection (fourteen operational states,
@@ -2527,12 +2527,15 @@ const StudioTitleSaleOutcome = object('StudioTitleSaleOutcome', {
 const StudioRightsWillingness = object('StudioRightsWillingness', { willing: bool(), reason: text(), value: nullable(number()), limit: nullable(number()) })
 // The title offer quote: the subject, the parties, the sale law or close law refusal by name, the title's valuation,
 // encumbrance, holdback and the licences in force over it, the rival's willingness (a sell offer), the expiry the made offer
-// will carry, and the season consequence when the plan sells a title the player holds. The members an unknown offer
-// cannot name are null.
+// will carry, and the season consequence when the plan sells a title the player holds. `instrument` names what the
+// offer trades (a title, or a licence with its use and term); `playerSells` is true only when a title the player holds
+// would move. The members an unknown offer cannot name are null; `price` 0 and the false flags beside `ok:false` on such a
+// quote are not figures (review FIX-1 item 5).
 const StudioRightsOfferQuoteSnapshot = object('StudioRightsOfferQuoteSnapshot', {
   intentId: nonEmptyText(), kind: enumeration(['makeRightsOffer', 'acceptRightsOffer']), commitLabel: nonEmptyText(),
   startsNow: bool(), queues: bool(), queueNote: nullable(text()), ok: bool(), refusalReason: nullable(text()),
   plan: enumeration(['offer', 'accept']), offerId: nullable(nonEmptyText()), quotedAtWeek: nonNegativeInteger(),
+  instrument: nullable(reference('StudioRightsInstrument', StudioRightsInstrument)),
   subject: nullable(reference('StudioRightSubject', StudioRightSubject)), subjectTitle: nullable(text()),
   counterpartyId: nullable(nonEmptyText()), counterpartyName: nullable(nonEmptyText()), direction: nullable(enumeration(['buy', 'sell'])),
   playerSells: bool(), price: number(), value: nullable(number()), encumbrance: nullable(enumeration(['activeProduction', 'activeRun'])),

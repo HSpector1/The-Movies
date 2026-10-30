@@ -11,7 +11,8 @@
 // offers in play), the same device tests/astra18-rights-desk.test.ts uses for the acceptance path.
 import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
-import { makeOffer, type PlayerOfferInput } from '../src/core/assetSale.js'
+import { closingRefusal, makeOffer, type PlayerOfferInput } from '../src/core/assetSale.js'
+import { isOperatingStudio } from '../src/core/studioClosure.js'
 import { estateBidRefusal } from '../src/core/estate.js'
 import { permittedBidderRefusal, spendableCash } from '../src/core/rightsFinance.js'
 import { playerHolds, rightsDeskView, saleOfferRefusal, titleSaleOutcome, titleSaleOutcomeDigest, type TitleSalePlan } from '../src/core/rightsDesk.js'
@@ -27,7 +28,7 @@ import { parseWireValue } from '../bridge/schema/runtime.ts'
 import { BridgeSession } from '../bridge/session.ts'
 import { actualEstateClosure } from './helpers/p16-actual-estate.js'
 import { STABLE } from './helpers/p16-fixtures.js'
-import { commissioned, player, season } from './helpers/p18-route.js'
+import { commissioned, player, season, withCash } from './helpers/p18-route.js'
 import { buildSeasonWorld, type SeasonRoute } from './helpers/p18-season-world.js'
 
 const envelope = (session: BridgeSession, commandId: string) => ({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: session.sessionId, commandId, expectedStateRevision: session.stateRevision })
@@ -109,9 +110,10 @@ describe('ASTRA Sprint 27 — the estates on the Bridge (the actual R04 closure,
     const low = quoteBid(session, 's27-bid-low', { estateId, lotId, amount: minimumBid - 1 })
     expect(low).toMatchObject({ ok: false, startsNow: false, refusalReason: 'belowMinimumBid', minimumBid, closesWeek: 176, spendableAfter: null, quotedAtWeek: 163 })
     expect(low.refusalReason).toBe(estateBidRefusal(opened, { estateId, lotId, bidderId: me, amount: minimumBid - 1 }, 163))
-    expect(quoteBid(session, 's27-bid-lot', { estateId, lotId: 'no-such-lot', amount: minimumBid })).toMatchObject({ ok: false, refusalReason: 'unknownLot', minimumBid: null })
-    expect(quoteBid(session, 's27-bid-estate', { estateId: 'no-such-estate', lotId, amount: minimumBid })).toMatchObject({ ok: false, refusalReason: 'unknownEstate', closesWeek: null })
-    expect(command(session, 's27-bid-refused-commit', low.intentId)).toMatchObject({ accepted: false })
+    expect(quoteBid(session, 's27-bid-lot', { estateId, lotId: 'no-such-lot', amount: minimumBid })).toMatchObject({ ok: false, refusalReason: estateBidRefusal(opened, { estateId, lotId: 'no-such-lot', bidderId: me, amount: minimumBid }, 163), minimumBid: null })
+    expect(quoteBid(session, 's27-bid-estate', { estateId: 'no-such-estate', lotId, amount: minimumBid })).toMatchObject({ ok: false, refusalReason: estateBidRefusal(opened, { estateId: 'no-such-estate', lotId, bidderId: me, amount: minimumBid }, 163), closesWeek: null })
+    expect(estateBidRefusal(opened, { estateId, lotId: 'no-such-lot', bidderId: me, amount: minimumBid }, 163)).toBe('unknownLot')
+    expect(command(session, 's27-bid-refused-commit', low.intentId)).toMatchObject({ accepted: false, reasonCode: 'INTENT_NOT_AVAILABLE' })
     expect(session.gameState).toBe(opened)
   })
 
@@ -129,8 +131,9 @@ describe('ASTRA Sprint 27 — the estates on the Bridge (the actual R04 closure,
     const page = view(session, 'estates', 's27-estates-bid-page')
     expect(page.estates[0]!.lots[0]!.myBid).toMatchObject({ amount: minimumBid, week: 163, status: 'sealed', disqualification: null })
     expect(page.estates[0]!.lots[0]!.bidRefusal, 'the desk reads the bid law for a lot the player already bid on').toBe(rightsDeskView(core).estates[0]!.lots[0]!.bidRefusal)
-    expect(quoteBid(session, 's27-bid-again', { estateId, lotId, amount: minimumBid })).toMatchObject({ ok: false, refusalReason: 'duplicateBid' })
-    expect(command(session, 's27-bid-commit-stale', quote.intentId), 'the quote was digest-bound to the state the commit replaced').toMatchObject({ accepted: false })
+    expect(quoteBid(session, 's27-bid-again', { estateId, lotId, amount: minimumBid })).toMatchObject({ ok: false, refusalReason: estateBidRefusal(core, { estateId, lotId, bidderId: me, amount: minimumBid }, 163) })
+    expect(estateBidRefusal(core, { estateId, lotId, bidderId: me, amount: minimumBid }, 163)).toBe('duplicateBid')
+    expect(command(session, 's27-bid-commit-stale', quote.intentId), 'the quote was digest-bound to the state the commit replaced').toMatchObject({ accepted: false, reasonCode: 'INTENT_NOT_AVAILABLE' })
   })
 
   it('after the ceremony at D the estates view shows the closed estate\'s disposition: the player\'s lot sold to the player, the rest archived, the bid won, and the closure\'s claims', () => {
@@ -152,7 +155,8 @@ describe('ASTRA Sprint 27 — the estates on the Bridge (the actual R04 closure,
     expect(estate.claims.map((c) => c.kind)).toEqual(['employment'])
     expect(estate.claims[0]).toMatchObject({ count: 6 })
     expect(playerHolds(state, state.rights.estates[0]!.lots.find((l) => l.lotId === lotId)!.subjects[0]!)).toBe(true)
-    expect(quoteBid(session, 's27-bid-closed', { estateId, lotId, amount: minimumBid })).toMatchObject({ ok: false, refusalReason: 'estateClosed' })
+    expect(quoteBid(session, 's27-bid-closed', { estateId, lotId, amount: minimumBid })).toMatchObject({ ok: false, refusalReason: estateBidRefusal(state, { estateId, lotId, bidderId: me, amount: minimumBid }, 176) })
+    expect(estateBidRefusal(state, { estateId, lotId, bidderId: me, amount: minimumBid }, 176)).toBe('estateClosed')
   })
 })
 
@@ -233,7 +237,8 @@ describe('ASTRA Sprint 27 — the Rights desk on the Bridge (the natural P18 sea
     expect(page.offers).toHaveLength(1)
     expect(page.offers[0]).toMatchObject({ offerId: made.id, role: 'offeror', direction: 'sell', status: 'open', expiresWeek: made.expiresWeek, saleReviewRequired: false, acceptIntent: null, rejectIntent: null })
     expect(page.offers[0]!.withdrawIntent).toMatchObject({ kind: 'withdrawRightsOffer', confirmation: 'none' })
-    expect(quoteOffer(session, 's27-sell-dup', sellDraft(value))).toMatchObject({ ok: false, refusalReason: 'duplicateOpenOffer' })
+    expect(quoteOffer(session, 's27-sell-dup', sellDraft(value))).toMatchObject({ ok: false, refusalReason: saleOfferRefusal(session.gameState, rival, subject, value) })
+    expect(saleOfferRefusal(session.gameState, rival, subject, value)).toBe('duplicateOpenOffer')
     expect(command(session, 's27-sell-withdraw', page.offers[0]!.withdrawIntent!.intentId)).toMatchObject({ accepted: true })
     expect(session.gameState.rights.offers.find((o) => o.id === made.id)).toMatchObject({ status: 'withdrawn' })
     expect(session.gameState.rights.offers).toEqual(applyActions(core, [{ kind: 'withdrawRightsOffer', offerId: made.id }]).rights.offers)
@@ -247,12 +252,14 @@ describe('ASTRA Sprint 27 — the Rights desk on the Bridge (the natural P18 sea
     const unknown = quoteOffer(session, 's27-sell-unknown', { plan: 'offer', counterpartyId: 'studio-nobody', subject: { right: 'R1', propertyId: route.propertyId }, price: value })
     expect(unknown).toMatchObject({ ok: false, startsNow: false, refusalReason: saleOfferRefusal(live, 'studio-nobody', subject, value), consequence: null, willingness: null })
     expect(unknown.refusalReason).toBe('unknownStudio')
-    expect(command(session, 's27-sell-unknown-commit', unknown.intentId)).toMatchObject({ accepted: false })
+    expect(command(session, 's27-sell-unknown-commit', unknown.intentId)).toMatchObject({ accepted: false, reasonCode: 'INTENT_NOT_AVAILABLE' })
     expect(session.gameState).toBe(live)
-    // The disclosed consequence must still be the consequence now: the digest of this week's outcome is refused next week.
+    expect(quoteOffer(session, 's27-accept-unknown', { plan: 'accept', offerId: 'rights-offer-none' })).toMatchObject({ ok: false, refusalReason: 'rights: unknown offer rights-offer-none', instrument: null, subject: null, consequence: null })
+    // The disclosed consequence must still be the consequence now (the browser's sentences): the digest of this week's
+    // outcome is refused next week, and no digest at all is refused for a sell offer.
     const stale = titleSaleOutcomeDigest(titleSaleOutcome(live, sellPlan(value)))
-    expect(rightsOfferDraftApply(tick(live), sellDraft(value), stale)).toMatchObject({ ok: false, error: expect.stringMatching(/season consequences of this sale changed/) })
-    expect(rightsOfferDraftApply(live, sellDraft(value), null)).toMatchObject({ ok: false })
+    expect(rightsOfferDraftApply(tick(live), sellDraft(value), stale)).toMatchObject({ ok: false, error: 'rights: the season consequences of this sale changed since they were shown; review them again before confirming' })
+    expect(rightsOfferDraftApply(live, sellDraft(value), null)).toMatchObject({ ok: false, error: 'rights: a title sale needs its season consequences acknowledged first' })
     expect(rightsOfferDraftApply(live, sellDraft(value), stale)).toMatchObject({ ok: true })
   })
 
@@ -269,6 +276,11 @@ describe('ASTRA Sprint 27 — the Rights desk on the Bridge (the natural P18 sea
     expect(quote).toMatchObject({ ok: true, kind: 'acceptRightsOffer', plan: 'accept', offerId: offer.id, counterpartyId: rival, direction: 'buy', playerSells: true, price: value, value, expiresWeek: null, willingness: null,
       consequence: { kind: 'outcome', answer: { kind: 'closed', week: C, price: value }, reachesWeek: C + 1, digest: titleSaleOutcomeDigest(disclosed) } })
     expect(quote.consequence!.seasons[0]).toMatchObject({ seasonId, after: { status: 'cancelled', cancellation: { week: C + 1, cause: 'rights' } } })
+    expect(quote.instrument).toEqual({ kind: 'title', subject: { right: 'R1', propertyId: route.propertyId } })
+    // The acceptance guard is the browser's: no digest, or a digest from another week, refuses before the core action runs.
+    expect(rightsOfferDraftApply(offeredState, { plan: 'accept', offerId: offer.id }, null)).toMatchObject({ ok: false, error: 'rights: selling this title needs its season consequences acknowledged first' })
+    expect(rightsOfferDraftApply(tick(offeredState), { plan: 'accept', offerId: offer.id }, quote.consequence!.digest)).toMatchObject({ ok: false, error: 'rights: the season consequences of this sale changed since they were shown; review them again before confirming' })
+    expect(rightsOfferDraftApply(offeredState, { plan: 'accept', offerId: offer.id }, quote.consequence!.digest)).toMatchObject({ ok: true })
     const core = applyActions(offeredState, [{ kind: 'acceptRightsOffer', offerId: offer.id }])
     expect(command(session, 's27-accept-commit', quote.intentId)).toMatchObject({ accepted: true })
     expect(session.gameState.rights.offers).toEqual(core.rights.offers)
@@ -296,11 +308,45 @@ describe('ASTRA Sprint 27 — the Rights desk on the Bridge (the natural P18 sea
     expect(row.rejectIntent).toMatchObject({ kind: 'rejectRightsOffer', confirmation: 'none' })
     expect(offered(session, 'acceptRightsOffer').map((i) => i.intentId)).toContain(row.acceptIntent!.intentId)
     // The quoted path answers the same acceptance without a consequence (the player buys; no held title moves).
-    expect(quoteOffer(session, 's27-purchase-quote', { plan: 'accept', offerId: offer.id })).toMatchObject({ ok: true, playerSells: false, consequence: null, direction: 'sell', price: 100_000 })
+    expect(quoteOffer(session, 's27-purchase-quote', { plan: 'accept', offerId: offer.id })).toMatchObject({ ok: true, playerSells: false, consequence: null, direction: 'sell', price: 100_000,
+      instrument: { kind: 'title', subject: { right: 'R2', filmId: film.filmId } } })
     const core = applyActions(offeredState, [{ kind: 'acceptRightsOffer', offerId: offer.id }])
     expect(command(session, 's27-purchase-commit', row.acceptIntent!.intentId)).toMatchObject({ accepted: true })
     expect(session.gameState.rights).toEqual(core.rights)
-    expect(session.gameState.studio.cash).toBe(offeredState.studio.cash - 100_000)
+    expect(session.gameState.studio.cash).toBe(core.studio.cash)
+    expect(core.studio.cash).toBeLessThan(offeredState.studio.cash)
     expect(playerHolds(session.gameState, bought)).toBe(true)
   })
+
+  it('an acceptance the close law refuses (a purchase beyond the reserve): the row carries the core\'s closing token and no accept intent, the quote reports the same token, and nothing commits', () => {
+    const film = live.hollywood!.films.find((f) => f.studioId === rival && f.provenance === 'simulation/v1' && f.settledWeek !== null)
+    if (film === undefined) throw new Error(`premise: the rival ${rival} holds a settled film title at week ${C}`)
+    const beyond = spendableCash(live, me) + 1
+    const { state: offeredState, offer } = makeOffer(live, { offerorId: rival, counterpartyId: me, direction: 'sell', instrument: { kind: 'title', subject: { right: 'R2', filmId: film.filmId } }, price: beyond }, C, STABLE)
+    const closing = closingRefusal(offeredState, offer, C)
+    expect(closing).toBe('insufficientCashAfterReserve')
+    const session = new BridgeSession(offeredState, 's27-closing')
+    const row = view(session, 'rights', 's27-closing-page').offers.find((o) => o.offerId === offer.id)!
+    expect(row).toMatchObject({ closing, acceptIntent: null, saleReviewRequired: false })
+    expect(row.rejectIntent).not.toBeNull()
+    expect(offered(session, 'acceptRightsOffer')).toEqual([])
+    const quote = quoteOffer(session, 's27-closing-quote', { plan: 'accept', offerId: offer.id })
+    expect(quote).toMatchObject({ ok: false, startsNow: false, refusalReason: closing, consequence: null, playerSells: false })
+    expect(command(session, 's27-closing-commit', quote.intentId)).toMatchObject({ accepted: false, reasonCode: 'INTENT_NOT_AVAILABLE' })
+    expect(session.gameState).toBe(offeredState)
+  })
+
+  it('a closed player studio: the rights and estates views still read, and no rights intent is offered', () => {
+    // The disclosed cash device (p18-route withCash) and ordinary ticks until the condition law closes the studio.
+    let state = withCash(live, -1)
+    for (let guard = 0; guard < 80 && isOperatingStudio(state, me); guard++) state = tick(state)
+    if (isOperatingStudio(state, me)) throw new Error('premise: the player studio closes within 80 ticks of negative cash')
+    const session = new BridgeSession(state, 's27-closed-player')
+    const rights = view(session, 'rights', 's27-closed-rights')
+    expect(rights.week).toBe(state.market.tick)
+    for (const o of rights.offers) expect([o.acceptIntent, o.rejectIntent, o.withdrawIntent]).toEqual([null, null, null])
+    const estates = view(session, 'estates', 's27-closed-estates')
+    expect(estates.estates.map((e) => e.studioId)).toContain(me)
+    expect(session.snapshot().availableIntents.filter((i) => ['acceptRightsOffer', 'rejectRightsOffer', 'withdrawRightsOffer'].includes(i.kind))).toEqual([])
+  }, 120_000)
 })

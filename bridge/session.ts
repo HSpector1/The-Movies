@@ -406,8 +406,9 @@ const CONFIRMATION_REQUIRED_KINDS: ReadonlySet<AvailableIntent['kind']> = new Se
  * ASTRA Sprint 22 (decision A): the two one-click financial commitments are confirmed by the verb beneath the option, not
  * by the kind: the maximum-loan shortcut (`takeLoan` beside the quoted loan; money moves at once) and the release commit
  * (`commitPictureToRelease`; irreversible). The quoted loan commit (`quoteLoan`, then the digest-bound commit) is already
- * the review, so `quotedIntentFor` derives from the kind alone and stays `none`: no second confirmation behind a quote. */
-/** ASTRA Sprint 27: the one-gesture acceptance of a rival's offer closes a purchase or a licence grant at once (money
+ * the review, so `quotedIntentFor` derives from the kind alone and stays `none`: no second confirmation behind a quote.
+ *
+ * ASTRA Sprint 27: the one-gesture acceptance of a rival's offer closes a purchase or a licence grant at once (money
  * moves; the title or licence passes), the same class as the loan shortcut, so its verb marks it required. The quoted
  * acceptance of a held title's sale (the decision B disclosure) is a quote-minted commit and stays `none`. */
 const CONFIRMATION_REQUIRED_ACTIONS: ReadonlySet<string> = new Set(['cancelPhysicalPlan', 'takeLoan', 'commitPictureToRelease', 'acceptRightsOffer'])
