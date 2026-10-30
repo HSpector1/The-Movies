@@ -686,7 +686,9 @@ describe('shelving-viable-control (1344-F Amendment 2)', () => {
         expect(saveModule.exportSave(saveModule.makeSave(loaded))).toBe(wire)
         expect(saveModule.stableStringify(state)).toBe(bytes)
         expect(state.sharedMarket.assessments.length, 'nonvacuous actual v2 batches').toBeGreaterThan(0)
-        expect(state.sharedMarket.assessments.every(r => r.definitionVersion === 'p15a1-market-v2')).toBe(true)
+        // Every fresh row names the live era (Sprint 19, decision D: `p15a1-market-v3` keeps the v2 penalty asserted
+        // above; the title's "v2" names that penalty era and stays for baseline name stability).
+        expect(state.sharedMarket.assessments.every(r => r.definitionVersion === 'p15a1-market-v3')).toBe(true)
         expect(state.sharedMarket.assessments.some(r => r.factor < 1), 'actual pressure changes reception').toBe(true)
         if (state.market.tick === 77) {
           shelvesThrough77 = shelvedReceiptsOf(state.hollywood!.receipts).length
