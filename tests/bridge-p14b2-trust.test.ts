@@ -161,7 +161,9 @@ describe('P14B.2 group1 — projection46, unchanged Save29/intents, closed wire 
       // P17 Sprint 11 slice B (projection 66): the featured-booking cancellation verb (bridge/schema/intent-schema.ts).
       'cancelFeaturedBooking',
       // P18 Sprint 13 slice B (projection 68): the season verbs; commissionTvSeason is minted only by quoteTvCommission.
-      'commissionTvSeason', 'cancelTvSeason', 'settleTvObligations'])
+      'commissionTvSeason', 'cancelTvSeason', 'settleTvObligations',
+      // ASTRA Sprint 27 (projection 71): the Rights desk and estate verbs (bridge/schema/intent-schema.ts).
+      'makeRightsOffer', 'acceptRightsOffer', 'rejectRightsOffer', 'withdrawRightsOffer', 'submitEstateBid'])
   })
   it('validates actual session profile, Market, Pulse and studio DTOs without stripping the new members', () => {
     const f = retentionFixture()
