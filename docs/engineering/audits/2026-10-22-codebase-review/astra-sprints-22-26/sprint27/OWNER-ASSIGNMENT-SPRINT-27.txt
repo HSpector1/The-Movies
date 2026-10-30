@@ -1,0 +1,116 @@
+PROJECT: STUDIO — OWNER DECISIONS AND BOUNDED SPRINT 27
+
+I do not have my new laptop yet.
+
+Keep Unity compilation, EditMode/PlayMode, native builds and hands-on
+native verification BLOCKED/UNRUN until a capable host is actually
+available. This is a deferral, not acceptance of STATIC-UNRUN as native
+qualification.
+
+Do not repeat the same host/toolchain check every sprint or install
+another toolchain merely to work around this known limitation.
+
+Continue as the existing coordinator. I authorize one bounded Sprint 27:
+implement the missing Bridge routes for the already-adopted rights and
+estate workflows.
+
+1. RECOVER ONCE
+
+Refresh the actual candidate and records. Current recovery references:
+
+- Engine: p18-season-20261028 at 6ddeeb00
+- Records: wip/headless-program-20260916-ts at d407374a
+- Unity counterpart: sprint15-consumer-20261028 at e7dcfc3
+
+Read the latest HANDOFF, Sprints 22–26 integrated report and Sprint 25
+minimum-route matrix. Preserve anything newer.
+
+Reuse the completed Sprint 26 gate. Do not rerun it merely to begin.
+
+2. OWNER DECISION B — CONFIRMED
+
+Genuine TV refund and cancellation-charge balances still outstanding
+when a studio closes become estate claims, including agreements
+cancelled earlier while the studio operated.
+
+Claim only the remaining unpaid balance. Count prior payments, preserve
+settled obligations, prevent duplicate claims/payment paths and retain
+the approved priority: employment first, TV refunds second, TV charges
+third, using the established deterministic ordering.
+
+Preserve historical closure/v1 records and transaction history.
+If the current implementation already satisfies this decision, record
+its ratification and reuse the relevant evidence. Do not rewrite it.
+
+3. IMPLEMENT THE MISSING BRIDGE CAPABILITIES
+
+Using the existing core actions and Rights desk behavior, implement:
+
+A. Estate inspection, bid preparation/submission and bid/lot outcome
+   projections, including the closed estate's disposition.
+
+B. Title-sale and offer workflows: prepare/review, make, accept, reject
+   and withdraw, with the relevant ownership, encumbrance and existing
+   licence information.
+
+Expose only already-supported, authorized behavior. Do not invent new
+licensing products, financial policy or rights authority.
+
+Use the established Bridge command, quote, displayed-intent and
+confirmation architecture. Keep the core authoritative.
+
+Preserve exact subject/party identity, quote freshness, permission,
+affordability/reservation rules, refusal purity and duplicate protection.
+
+A sale with a TV consequence must disclose the existing engine-derived
+consequence before commitment. Never bypass the disclosure or implement
+a separate financial calculation in the client.
+
+Follow the current schema/version, outgoing-checkpoint and generator
+contracts when changes require them. Do not hand-edit generated DTOs or
+copy expected hashes from failures.
+
+4. VERIFY WHAT THIS HOST CAN ACTUALLY VERIFY
+
+Reuse existing estate, offer, acquisition, confirmation and historical
+fixtures first.
+
+Add or extend only the tests needed to prove the new Bridge paths
+match their core counterparts and preserve meaningful rejection cases.
+
+Run focused checks during development, complete affected files at a
+coherent checkpoint, and the broader gates actually required by the
+changed dependency scope. Do not repeatedly run unchanged full suites.
+
+Use the existing lane, resource requirements and source-freeze rules.
+Preserve all inherited failures, missing inputs and original budgets.
+
+Use one focused independent review for consequential changes.
+
+Generated Unity contract updates and any necessary counterpart
+adaptation remain STATIC-UNRUN until executed on a capable host.
+A TypeScript pass or matching DTO is not native acceptance.
+
+5. BROWSER PLAYTEST AND PUBLICATION
+
+Keep the Sprint 26 tag immutable and available for my browser playtest.
+Provide or reuse its simple local launch instructions; do not require
+another full test suite just for me to play the existing build.
+
+Publish coherent Sprint 27 changes to the authorized candidate lineage,
+verify the remote ref and update the existing handoff/results/ledger.
+
+Keep PR #20 draft, auto-merge off and unmerged.
+
+My playtest verdict remains pending. This order does not accept the
+inherited failure baseline for release, waive timing failures or
+authorize promotion to main.
+
+6. FINISH LINE
+
+Report which previously missing Bridge routes now work, their actual
+verification, what still needs native client implementation, and the
+exact work that must wait for the new laptop.
+
+Finish Sprint 27 and return control. Do not automatically start
+Sprint 28, another cleanup campaign or a new broad optimization program.

@@ -1,0 +1,19 @@
+{
+  "status": "ACTUAL-PUBLIC-RUNTIME-CAPTURE",
+  "sourceHead": "6ddeeb00c5636c13429637694b5e60d98a8bc190",
+  "producerSha256": "a6bce0dd52909917a14f7db352a2190ab481461d32f588504006cf2bcb731904",
+  "schemaId": "sha256:aaafd0bdf597d3538acc5cb77568dd38de43dd50c7f052767ee40bb8e16ea448",
+  "protocolVersion": 4,
+  "projectionVersion": 70,
+  "saveVersion": 51,
+  "generatedDtoSha256": "2e6cae58ccca518805d25549edee023f03dc1e2a0777e21c5994204599265061",
+  "decodedSha256": "02d30698b0c99f2a3f28750d062c53615bbae937d4eaa6d966aba9da61601dc2",
+  "compressedSha256": "9c9515810d64345c9ff686cd44d6c3252cb7a81371187e11c8ba17cbcdeb23cc",
+  "compressedBytes": 164280,
+  "currentSaveSha256": "f000ae000ccaf011e917906a242d6693f2c7da854344ebb26b3bd86692dfe2f3",
+  "savedSaveSha256": "f000ae000ccaf011e917906a242d6693f2c7da854344ebb26b3bd86692dfe2f3",
+  "journalEntries": 1,
+  "publicRoute": "BridgeSession.dispatchWithRuntimeCheckpoint(save)",
+  "actualTicks": 0,
+  "node": "v20.20.2"
+}
