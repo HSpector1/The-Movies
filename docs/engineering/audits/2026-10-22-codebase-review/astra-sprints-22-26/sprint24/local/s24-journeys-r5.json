@@ -1,0 +1,194 @@
+{
+  "config": {
+    "argv": [
+      "/usr/local/bin/node",
+      "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/node_modules/@playwright/test/cli.js",
+      "test",
+      "--config",
+      "ui/playwright.config.ts",
+      "ui/e2e/astra24-acquisition.spec.ts",
+      "ui/e2e/astra24-estate.spec.ts",
+      "--reporter=list,json"
+    ],
+    "configFile": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/playwright.config.ts",
+    "rootDir": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/e2e",
+        "testIgnore": [
+          "/.*current-break-audit\\.spec\\.ts$/"
+        ],
+        "testMatch": [
+          "/.*\\.spec\\.ts$/"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "astra24-acquisition.spec.ts",
+      "file": "astra24-acquisition.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "ASTRA 24 journey A: disclosure, a refused low quote naming the ask, the quote at the ask, the close, and a save and reload",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 29238,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T14:26:15.687Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "95e19c8d1d5e47080b80-ee9d60c8ca021a2ebbd3",
+          "file": "astra24-acquisition.spec.ts",
+          "line": 20,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "astra24-estate.spec.ts",
+      "file": "astra24-estate.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "ASTRA 24 journey B: the estate opens at the closure, a sealed bid, the disposition at D, and a save and reload",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 11375,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeDefined\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mundefined\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeDefined\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mundefined\u001b[39m\n    at /Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/e2e/astra24-estate.spec.ts:85:33",
+                    "location": {
+                      "file": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/e2e/astra24-estate.spec.ts",
+                      "column": 33,
+                      "line": 85
+                    },
+                    "snippet": "  83 |   // The outcome the engine recorded, read back from Node's own D state, and the lot's text agreeing with it.\n  84 |   const nodeLot = closedView!.lots.find((l) => l.lotId === lot.lotId)!\n> 85 |   expect(nodeLot.myBid?.status).toBeDefined()\n     |                                 ^\n  86 |   expect(mineText.endsWith(nodeLot.myBid!.status === 'won' ? ': won' : nodeLot.myBid!.status === 'lost' ? 'another bidder' : '') || nodeLot.myBid!.status === 'disqualified').toBe(true)\n  87 |   if (nodeLot.myBid!.status === 'won') expect(lotText).toContain(`sold for $${lot.minimumBid.toLocaleString('en-US')} to ${myName}`)\n  88 |   else if (nodeLot.myBid!.status === 'lost') expect(lotText).toMatch(/sold for \\$[\\d,]+ to /)"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/e2e/astra24-estate.spec.ts",
+                        "column": 33,
+                        "line": 85
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeDefined\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mundefined\u001b[39m\n\n  83 |   // The outcome the engine recorded, read back from Node's own D state, and the lot's text agreeing with it.\n  84 |   const nodeLot = closedView!.lots.find((l) => l.lotId === lot.lotId)!\n> 85 |   expect(nodeLot.myBid?.status).toBeDefined()\n     |                                 ^\n  86 |   expect(mineText.endsWith(nodeLot.myBid!.status === 'won' ? ': won' : nodeLot.myBid!.status === 'lost' ? 'another bidder' : '') || nodeLot.myBid!.status === 'disqualified').toBe(true)\n  87 |   if (nodeLot.myBid!.status === 'won') expect(lotText).toContain(`sold for $${lot.minimumBid.toLocaleString('en-US')} to ${myName}`)\n  88 |   else if (nodeLot.myBid!.status === 'lost') expect(lotText).toMatch(/sold for \\$[\\d,]+ to /)\n    at /Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/e2e/astra24-estate.spec.ts:85:33"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T14:26:46.527Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/test-results/astra24-estate-ASTRA-24-jo-849d6--at-D-and-a-save-and-reload-chromium/error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/e2e/astra24-estate.spec.ts",
+                    "column": 33,
+                    "line": 85
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "697031095910ba65987a-456907d8fb673c39ab2d",
+          "file": "astra24-estate.spec.ts",
+          "line": 22,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-30T14:25:50.948Z",
+    "duration": 67831.866,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

@@ -1,0 +1,194 @@
+{
+  "config": {
+    "argv": [
+      "/usr/local/bin/node",
+      "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/node_modules/@playwright/test/cli.js",
+      "test",
+      "--config",
+      "ui/playwright.config.ts",
+      "ui/e2e/astra24-acquisition.spec.ts",
+      "ui/e2e/astra24-estate.spec.ts",
+      "--reporter=list,json"
+    ],
+    "configFile": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/playwright.config.ts",
+    "rootDir": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/e2e",
+        "testIgnore": [
+          "/.*current-break-audit\\.spec\\.ts$/"
+        ],
+        "testMatch": [
+          "/.*\\.spec\\.ts$/"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "astra24-acquisition.spec.ts",
+      "file": "astra24-acquisition.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "ASTRA 24 journey A: disclosure, a refused low quote naming the ask, the quote at the ask, the close, and a save and reload",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 18032,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('dash-week')\nExpected: \u001b[32m\"163\"\u001b[39m\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toHaveText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('dash-week')\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('dash-week')\nExpected: \u001b[32m\"163\"\u001b[39m\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toHaveText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('dash-week')\u001b[22m\n\n    at /Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/e2e/astra24-acquisition.spec.ts:80:47",
+                    "location": {
+                      "file": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/e2e/astra24-acquisition.spec.ts",
+                      "column": 47,
+                      "line": 80
+                    },
+                    "snippet": "  78 |   // (5) Save through the client, reload, and the desk reads the same.\n  79 |   await page.getByTestId('rights-back').click()\n> 80 |   await expect(page.getByTestId('dash-week')).toHaveText(String(C))\n     |                                               ^\n  81 |   await saveReloadWeek(page, C)\n  82 |   await page.getByTestId('open-rights-desk').click()\n  83 |   await expect(page.locator('[data-testid^=\"rights-title-row-\"]')).toHaveCount(titlesBefore + rightsCount)"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/e2e/astra24-acquisition.spec.ts",
+                        "column": 47,
+                        "line": 80
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('dash-week')\nExpected: \u001b[32m\"163\"\u001b[39m\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toHaveText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('dash-week')\u001b[22m\n\n\n  78 |   // (5) Save through the client, reload, and the desk reads the same.\n  79 |   await page.getByTestId('rights-back').click()\n> 80 |   await expect(page.getByTestId('dash-week')).toHaveText(String(C))\n     |                                               ^\n  81 |   await saveReloadWeek(page, C)\n  82 |   await page.getByTestId('open-rights-desk').click()\n  83 |   await expect(page.locator('[data-testid^=\"rights-title-row-\"]')).toHaveCount(titlesBefore + rightsCount)\n    at /Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/e2e/astra24-acquisition.spec.ts:80:47"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T14:08:46.049Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/test-results/astra24-acquisition-ASTRA--e9683-close-and-a-save-and-reload-chromium/error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt/ui/e2e/astra24-acquisition.spec.ts",
+                    "column": 47,
+                    "line": 80
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "95e19c8d1d5e47080b80-ee9d60c8ca021a2ebbd3",
+          "file": "astra24-acquisition.spec.ts",
+          "line": 20,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "astra24-estate.spec.ts",
+      "file": "astra24-estate.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "ASTRA 24 journey B: the estate opens at the closure, a sealed bid, the disposition at D, and a save and reload",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 36010,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T14:09:09.684Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "697031095910ba65987a-456907d8fb673c39ab2d",
+          "file": "astra24-estate.spec.ts",
+          "line": 21,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-30T14:08:24.998Z",
+    "duration": 83737.184,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}
