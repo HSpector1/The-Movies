@@ -1,6 +1,6 @@
-# Sprint 22 — safe commitments and actual playtest repairs (2026-10-30, 07:21 CDT to 07:42 CDT, IN PROGRESS)
+# Sprint 22 — safe commitments and actual playtest repairs (2026-10-30, 07:21 CDT to 07:57 CDT, CLOSED; tag p18-sprint22-checkpoint-20261030 at 901b9b55)
 
-Entry: ENTRY.md. Decision A. Engine p18-season-20261028 at af6ad177 (= 6c82214f + af6ad177), pushed. Unity sprint15-consumer-20261028 at cd2a913 (= 08e335fc + cd2a913, STATIC-UNRUN), pushed. REVIEW_LINE SEAL_LINE TAG_LINE
+Entry: ENTRY.md. Decision A. Engine p18-season-20261028 at 901b9b55 (= 6c82214f + af6ad177 + 901b9b55 FIX-1), pushed. Unity sprint15-consumer-20261028 at e7dcfc3 (= 08e335fc + cd2a913 + e7dcfc3 FIX-1, STATIC-UNRUN), pushed. Independent review: one BLOCKING and three SHOULD FIX, all fixed in FIX-1 (REVIEW.md). CF09 seal PASS 901b9b55 × e7dcfc3 (projection 70, protocol 4, schema sha256:aaafd0bd…, both generated-contract blobs 7539b8e1; PAIR-VERIFICATION-20261030-sprint22.json, run from the full records checkout with the branch freed from the sparse worktree by ref and re-attached). Tag p18-sprint22-checkpoint-20261030 at 901b9b55 pushed and remote-verified.
 
 ## What the player can do now (and which source changed)
 
@@ -20,10 +20,13 @@ Entry: ENTRY.md. Decision A. Engine p18-season-20261028 at af6ad177 (= 6c82214f 
 | Core focused: bridge-astra20-intent-confirmation (one case added: verb-confirmed kinds, quoted commit none), bridge-p15b5-loan-choice (shortcut required, quoted commit accepted without one), bridge-p11-ready | 30 of 30 (local/s22-core-r1.json) |
 | UI focused: dashboard-release-commit (two gestures, review figures equal the production's own, Keep transacts nothing, exact id once), App loop | 5 of 5 (local/s22-ui-r1.json) |
 | Installed Chrome journeys: smoke, d12-economy-journey, p17-continuation, with the second gesture | 3 of 3, 1.7 min (local/s22-e2e-r1.json) |
+| FIX-1 (901b9b55 × e7dcfc3): typecheck root + ui 0, Bridge 0; contract and fixture checks 0; p11 fixtures regenerated for the "Budget already paid" detail; the same three core files 30 of 30; the same two ui files 5 of 5; the three journeys 3 of 3 | local/s22-fix1-*.{log,json} |
 | Unity compile, EditMode (StudioConfirmedIntentTests + 1), PlayMode | NOT RUN: no Unity editor, dotnet, mono or msbuild on this host (program ENTRY.md); the native proof belongs to Sprint 25 or a capable host |
 | Full gate | not run (Sprint 26 carries the milestone; the Sprint 21 gate is the comparison baseline) |
 
-REVIEW_SECTION
+## Review
+
+REVIEW.md: finding 1 (BLOCKING) the browser review missed continued pictures acquired with a studio, fixed through the shared `buyerOperatedProductions` lookup plus a visible missing-review alert; findings 2 to 4 (Unity, STATIC-UNRUN) the test helper's reflection flags, the side-by-side band height and the release path's geometry record plus a Sprint 20 withhold line that broke an existing EditMode source test, all fixed; the loan-panel rationale corrected; no projection bump (the pair ships together). Claims limit: no browser test exercises a continued picture at Release Ready (no browser fixture yields one); the core's absorption test and the shared lookup are the evidence.
 
 ## Not claimed
 
