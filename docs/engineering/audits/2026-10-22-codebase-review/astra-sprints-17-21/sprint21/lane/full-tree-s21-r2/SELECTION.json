@@ -1,0 +1,21 @@
+{
+  "head": "9f6103f36b14718def5f2adae18258c3531867ce",
+  "sourceManifestEntries": 2280,
+  "predecessor": "e115be4b (tag p18-sprint14-checkpoint-20261028, full gate full-tree-r4 audited CLEAN WITH NOTES) and the slice gate full-tree-r1 at 6a846c99 (CLEAN WITH NOTES, zero NEW); expected drift from r1: the 28 sparse-checkout MISSING-INPUT rows now measured, the projection20 pin message unchanged at 69, FIX-1's new differential test file added",
+  "purpose": "ASTRA Sprint 21 integration milestone on the final candidate (main ab65eb20 merged, Sprint 20 contract): root, ui and bridge typecheck, contract and fixture checks, build, full core including bridge, full ui, integrity; compared with full-tree-s17-r1 by compare-full.py (r2: r1 stopped two minutes in after the merge had de-materialized 142 gate inputs; recovered from HEAD by name)",
+  "children": [
+    {
+      "label": "full-core-including-bridge",
+      "project": "core"
+    },
+    {
+      "label": "full-ui",
+      "project": "ui"
+    }
+  ],
+  "budgets": {
+    "coreDefaultMilliseconds": 5000,
+    "timeoutOverride": false
+  },
+  "limits": "budgets unchanged; inherited failures named against full-tree-r4; timing rows are measurements"
+}

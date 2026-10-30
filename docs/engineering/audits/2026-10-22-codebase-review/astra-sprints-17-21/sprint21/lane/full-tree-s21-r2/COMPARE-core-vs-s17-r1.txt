@@ -1,0 +1,41 @@
+{'numTotalTestSuites': 2153, 'numPassedTestSuites': 2090, 'numFailedTestSuites': 63, 'numPendingTestSuites': 0, 'numTotalTests': 6248, 'numPassedTests': 6130, 'numFailedTests': 104, 'numPendingTests': 3, 'numTodoTests': 11}
+{'NEW': 3, 'INHERITED-SAME': 93, 'INHERITED-CHANGED': 2, 'MISSING-INPUT': 6, 'LOAD-FAILURE': 0, 'BASELINE-NOT-REPRODUCED': 0, 'OVER-BUDGET-PASS': 777} report tests 6246 baseline tests 6225 in both 6220
+
+## NEW (3)
+  - tests/bridge-p13b-s7-disclosure.test.ts :: P13B-S7-T3 item 5: Industry announcement row — derived, nullable studioId, excluded from per-studio History, a
+      Error: Test timed out in 30000ms.
+  - tests/p14d1-rival-shelving.test.ts :: shelving-viable-control (1344-F Amendment 2) actual v2 genesis through weeks77 and93: natural shelving obeys t
+      AssertionError: expected false to be true // Object.is equality
+  - tests/p15c1-campaign-legacy.test.ts :: p15c1 campaign legacy: module surface (1353-A §5.1/§5.2, PARENT API DECISIONS) campaign-legacy-definition-vers
+      Error: Test timed out in 5000ms.
+
+## INHERITED-CHANGED (2)
+  - tests/bridge-owner-ux-projection20-migration.test.ts :: Owner UX outgoing projection20 migration pins genuine prior bytes, source identity, actual journal, and constr
+      AssertionError: expected 70 to be 53 // Object.is equality
+      baseline: AssertionError: expected 69 to be 53 // Object.is equality
+  - tests/p15c2-campaign-legacy-integration.test.ts :: p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) legacy-root-downgrade
+      AssertionError: elapsed 204107 ms against the 120000 ms budget: expected 204107.39385400002 to be less than or equal to 120000
+      baseline: AssertionError: elapsed 226227 ms against the 120000 ms budget: expected 226226.97902899998 to be less than or equal to 120000
+
+## MISSING-INPUT (6)
+  - tests/r3n1-stale-schedule-take-02.test.ts :: R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge SERVER REFUSAL
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02.test.ts :: R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge SERVER REFUSAL
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p31.test.ts :: R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p31.test.ts :: R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p32.test.ts :: R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'
+      UNTRACKED (not recoverable here)
+  - tests/r3n1-stale-schedule-take-02p32.test.ts :: R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge SERVER REFU
+      Error: ENOENT: no such file or directory, open '<WT>/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'
+      UNTRACKED (not recoverable here)
+
+## OVER-BUDGET-PASS (777) max 359431.92
+## BASELINE-NOT-REPRODUCED (0)

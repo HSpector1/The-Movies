@@ -1,10 +1,10 @@
-# Owner playtest invitation — integrated candidate 9f6103f3 (2026-10-29, 17:44 CDT; refreshes the Sprint 16 invitation once)
+# Owner playtest invitation — integrated candidate 6c82214f (2026-10-29, 20:21 CDT; refreshes the Sprint 16 invitation once; first issued for 9f6103f3 at 17:44 CDT)
 
 Howard: the Sprint 16 route still holds (sprint16-playtest/OWNER-INVITATION.md, sections 1 to 5), now on the candidate that carries Sprints 17 to 21. Your verdict is yours; nothing here is accepted on your behalf. The coordinator's evidence says the routes below work in your installed Chrome; it does not say the game is good.
 
 ## 1. Launch
 
-From a checkout of HSpector1/The-Movies at branch p18-season-20261028, commit 9f6103f3 (tag p18-sprint20-checkpoint-20261029 marks 2e51d30c one step earlier; the two commits after it only merge main's records and one comment), with node v20.20.2 on the PATH and dependencies installed:
+From a checkout of HSpector1/The-Movies at branch p18-season-20261028, commit 6c82214f, tag p18-sprint21-candidate-20261029 (after the Sprint 20 checkpoint 2e51d30c the branch only merges main's records and one comment, then fixes one test pin; the game is the same), with node v20.20.2 on the PATH and dependencies installed:
 
 ```
 npm run build
@@ -25,7 +25,7 @@ Open the printed localhost address in Google Chrome. The studio autosaves to thi
 
 - The items listed in the Sprint 16 invitation, section 3, still hold except where section 2 above says otherwise.
 - The native Unity client is paired at source level only (CF09 seal PASS) and has never been compiled or run here; its two-step confirm is unrun.
-- Inherited test failures remain in the full gate (named classes in sprint21/RESULTS.md); none is new on this candidate.
+- The full gate on this candidate shows 104 core and 3 ui failing cases: 95 and 2 are the inherited pre-program baseline, 6 are untracked fixtures, 3 are timing rows that pass alone or sit at a budget, and the one new assertion was a stale test pin, fixed (sprint21/RESULTS.md, slice 3). No new behaviour defect.
 - Firefox and WebKit are not available on this machine; only installed Chrome was exercised.
 
 ## 4. What we need from you
