@@ -56,8 +56,10 @@ untracked fixtures) and the Sprint 26 baseline preserved.
 ## What still needs native client implementation (§6 report, part 3)
 
 The wire now carries every §7 minimum route. The native client has: the generated DTOs (projection 71), the generic
-displayed-intent list with the confirmation verdict, the quote drivers for the loan and the season, and the two new
-read-only view queries. It does not have: a presentation surface for the `rights` or `estates` page; a quote driver for
+displayed-intent list with the confirmation verdict, and the two new read-only view queries. ERRATUM (2026-10-31, 09:28 CDT):
+this section first said it also had "the quote drivers for the loan and the season"; it does not. Its five working quote
+families are commission, casting, placement, set-commission and contract (StudioBridgeProtocol.cs validator switch); the
+loan and television quotes exist as DTOs only (read-only inspection, new-host-plan/NEW-LAPTOP-IMPLEMENTATION-PLAN.md §2). It does not have: a presentation surface for the `rights` or `estates` page; a quote driver for
 `quoteRightsOffer` (including the disclosure review before the minted commit) or `quoteEstateBid`; bespoke surfaces for
 the acquisition, disclosure and television quotes (generic rendering only, as the Sprint 25 matrix recorded). That is
 presentation work for a Unity-capable host and a presentation owner; none of it is started here.
