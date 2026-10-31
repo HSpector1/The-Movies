@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "projects": [
+    {
+      "roots": [
+        "/Users/zacheryspector/The-Movies-headless-program",
+        "/Users/zacheryspector/studio-specialists/founding",
+        "/Users/zacheryspector/studio-specialists/p15b",
+        "/Users/zacheryspector/studio-specialists/p16",
+        "/Users/zacheryspector/studio-specialists/p17",
+        "/Users/zacheryspector/studio-specialists/p18",
+        "/Users/zacheryspector/studio-scratch/p17-continuation-20261027-wt"
+      ],
+      "writeBlockers": [
+        "/Users/zacheryspector/studio-scratch/HEAVY-LANE-LOCK"
+      ]
+    }
+  ]
+}
