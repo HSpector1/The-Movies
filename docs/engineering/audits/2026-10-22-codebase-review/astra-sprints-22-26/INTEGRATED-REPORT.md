@@ -71,7 +71,7 @@ Technically the candidate is integrable now: typecheck, contracts, build and int
 
 ## Outstanding Owner decisions
 
-1. Playtest verdict on the candidate (the Sprint 21 invitation stands; the route now also includes the Rights desk acquisition and estate flows and the two-gesture release commit): KEEP, REVISE or REJECT.
+1. Playtest verdict on the candidate: **KEEP** received 2026-10-31, 14:25 CDT for the browser experience played ("game is good."; playtest-20261030/OWNER-VERDICT.md; the browser sources at 18c3e8cf are byte-identical to 6ddeeb00). Scope-limited: no inference about advanced routes, no acceptance of the inherited baseline (item 6), no timing waiver, no native qualification (item 5), no PR #20 merge (item 2).
 2. Promotion of p18-season-20261028 to main: not authorized by this program; PR #20 stays draft.
 3. Sprint 23 reading of decision B: a season cancelled earlier while the studio still operated, with a balance outstanding at closure, becomes claims too (the coordinator's reading of "genuine outstanding refunds and charges"; one line overrules it).
 4. Sprint 24: the Bridge has no estate-bid or title-sale intent, so the native client cannot reach two of §7's minimum routes; a rights projection for the Bridge is design work not yet assigned.

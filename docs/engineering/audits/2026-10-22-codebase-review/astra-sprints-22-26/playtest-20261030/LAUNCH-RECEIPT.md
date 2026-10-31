@@ -60,3 +60,7 @@ No repair was needed; no engine commit was made.
 ## Not claimed
 
 Owner acceptance; that the game is good; a Firefox or Safari run; the native client.
+
+## Owner verdict (2026-10-31, 14:25 CDT)
+
+KEEP for the browser experience played; exact feedback "game is good." (OWNER-VERDICT.md). Scope and exclusions there. The candidate identity above is the one the verdict applies to.
